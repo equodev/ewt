@@ -15,9 +15,52 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/ewt.api">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ewt" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ewt" type="f1a62948:ProjectNode" />
+                <item name="ewt.api" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ewt" type="f1a62948:ProjectNode" />
+                <item name="ewt.api" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ewt" type="f1a62948:ProjectNode" />
+                <item name="ewt.api" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="Class" />
         <option value="Dart File" />
       </list>
     </option>
@@ -25,9 +68,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2tW6D4DvGoIJwHTTpd6dp12D2M9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -37,42 +80,143 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "Dart Command Line App.generator.dart.executor": "Run",
+    "Dart Command Line App.generator.dart.executor": "Debug",
+    "Flutter Test.tests in analyzer_test.dart.executor": "Debug",
+    "Flutter.hello.dart.executor": "Run",
+    "Flutter.main.dart.executor": "Debug",
+    "Gradle.Build ewt.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.TextBuilderTest.executor": "Run",
+    "Gradle.TextBuilderTest.widget_class_is_public.executor": "Run",
     "Gradle.ewt:ewt.api [:ewt.api:dev.equo.Main.main()].executor": "Run",
+    "Gradle.ewt:ewt.api [buildDependents].executor": "Run",
+    "Gradle.ewt:ewt.api [build].executor": "Run",
+    "Gradle.ewt:ewt.api [clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
+    "io.flutter.reload.alreadyRun": "true",
     "jdk.selected.JAVA_MODULE": "homebrew-23",
     "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "/Users/guillez/ws/ewt/ewt.api/src/main/java/dev/equo/Main.java",
-    "settings.editor.selected.configurable": "flutter.settings",
+    "last_directory_selection": "/Users/guillez/ws/ewt/ewt.api/src/test/java/dev/equo/ewt",
+    "last_opened_file_path": "/Users/guillez/ws/ewt/widgets/tool",
+    "onboarding.tips.debug.path": "/Users/guillez/ws/ewt/examples/src/main/java/dev/equo/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
     "show.migrate.to.gradle.popup": "false"
+  },
+  "keyToStringList": {
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
+    ]
   }
 }]]></component>
-  <component name="RunManager" selected="Dart Command Line App.generator.dart">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dev.equo.Main" />
-      <module name="ewt.ewt.api.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dev.equo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="dev.equo.ewt" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/widgets/tool" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ewt.api/src/main/java/dev/equo/ewt" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Flutter Test.tests in analyzer_test.dart">
     <configuration name="generator.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/widgets/tool/generator.dart" />
       <option name="workingDirectory" value="$PROJECT_DIR$/widgets" />
       <method v="2" />
     </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/widgets/example/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in analyzer_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/widgets/test/analyzer_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TextBuilderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":ewt.api:test" />
+            <option value="--tests" />
+            <option value="&quot;dev.equo.ewt.test.TextBuilderTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ewt:ewt.api [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ewt.api" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ewt:ewt.api [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ewt.api" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in analyzer_test.dart" />
         <item itemvalue="Dart Command Line App.generator.dart" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.TextBuilderTest" />
+        <item itemvalue="Gradle.ewt:ewt.api [build]" />
+        <item itemvalue="Gradle.ewt:ewt.api [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -85,7 +229,46 @@
       <option name="presentableId" value="Default" />
       <updated>1740455362865</updated>
     </task>
+    <task id="LOCAL-00001" summary="int: api, examples and widgets project">
+      <option name="closed" value="true" />
+      <created>1740756958476</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740756958476</updated>
+    </task>
+    <task id="LOCAL-00002" summary="test: flutter sample app">
+      <option name="closed" value="true" />
+      <created>1740757074329</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1740757074329</updated>
+    </task>
+    <task id="LOCAL-00003" summary="int: text widget generation">
+      <option name="closed" value="true" />
+      <created>1740757225866</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740757225866</updated>
+    </task>
+    <task id="LOCAL-00004" summary="int: text widget generation">
+      <option name="closed" value="true" />
+      <created>1740757237848</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740757237848</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="int: api, examples and widgets project" />
+    <MESSAGE value="test: flutter sample app" />
+    <MESSAGE value="int: text widget generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="int: text widget generation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -99,6 +282,96 @@
           <url>file://$PROJECT_DIR$/ewt.api/src/main/java/dev/equo/Main.java</url>
           <line>13</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/examples/src/main/java/dev/equo/HelloWorld.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/file_system/physical_file_system.dart</url>
+          <line>60</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/file_system/physical_file_system.dart</url>
+          <line>66</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/file_system/physical_file_system.dart</url>
+          <line>76</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/context_locator.dart</url>
+          <line>535</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/context_locator.dart</url>
+          <line>620</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/widgets/tool/generator.dart</url>
+          <line>287</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/library_analyzer.dart</url>
+          <line>715</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/library_analyzer.dart</url>
+          <line>724</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/library_analyzer.dart</url>
+          <line>935</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/library_analyzer.dart</url>
+          <line>1021</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/library_analyzer.dart</url>
+          <line>1038</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/file_state.dart</url>
+          <line>2063</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/context/source.dart</url>
+          <line>38</line>
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/source/package_map_resolver.dart</url>
+          <line>30</line>
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/file_state.dart</url>
+          <line>808</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint type="Dart">
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/workspace/simple.dart</url>
+          <line>26</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/widgets/test/analyzer_test.dart</url>
+          <line>30</line>
+          <option name="timeStamp" value="99" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
