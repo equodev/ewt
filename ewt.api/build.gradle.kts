@@ -18,6 +18,7 @@ dependencies {
     compileOnly("org.immutables:builder:2.10.1")
     annotationProcessor("org.immutables:value:2.10.1")
     annotationProcessor("org.immutables:builder:2.10.1")
+    implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
 }
 
 tasks.test {

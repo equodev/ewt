@@ -77,68 +77,74 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Dart Command Line App.generator.dart.executor": "Debug",
-    "Flutter Test.tests in analyzer_test.dart.executor": "Debug",
-    "Flutter.hello.dart.executor": "Run",
-    "Flutter.main.dart.executor": "Debug",
-    "Gradle.Build ewt.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.TextBuilderTest.executor": "Run",
-    "Gradle.TextBuilderTest.widget_class_is_public.executor": "Run",
-    "Gradle.ewt:ewt.api [:ewt.api:dev.equo.Main.main()].executor": "Run",
-    "Gradle.ewt:ewt.api [buildDependents].executor": "Run",
-    "Gradle.ewt:ewt.api [build].executor": "Run",
-    "Gradle.ewt:ewt.api [clean].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "io.flutter.reload.alreadyRun": "true",
-    "jdk.selected.JAVA_MODULE": "homebrew-23",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "/Users/guillez/ws/ewt/ewt.api/src/test/java/dev/equo/ewt",
-    "last_opened_file_path": "/Users/guillez/ws/ewt/widgets/tool",
-    "onboarding.tips.debug.path": "/Users/guillez/ws/ewt/examples/src/main/java/dev/equo/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Dart Command Line App.generator.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter Test.Java Text widget generated.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter Test.Text constructor parameters have types.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter Test.Text constructor parameters only supported types.executor&quot;: &quot;Debug&quot;,
+    &quot;Flutter Test.Text type dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter Test.tests in analyzer_test.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter Test.tests in generation_test.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter.generator.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter.hello.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter.main.dart.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.Build ewt.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TextBuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TextBuilderTest.widget_class_is_public.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ewt:ewt.api [:ewt.api:dev.equo.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ewt:ewt.api [buildDependents].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ewt:ewt.api [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ewt:ewt.api [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;homebrew-23&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/Users/guillez/ws/ewt/ewt.api/src/test/java/dev/equo/ewt&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/guillez/ws/ewt/widgets/test&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/guillez/ws/ewt/examples/src/main/java/dev/equo/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dev.equo.ewt" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/widgets/test" />
       <recent name="$PROJECT_DIR$/widgets/tool" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ewt.api/src/main/java/dev/equo/ewt" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dev.equo.ewt.test" />
+    </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in analyzer_test.dart">
-    <configuration name="generator.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/widgets/tool/generator.dart" />
-      <option name="workingDirectory" value="$PROJECT_DIR$/widgets" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.TextBuilderTest">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/widgets/example/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in analyzer_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/widgets/test/analyzer_test.dart" />
+    <configuration name="tests in generation_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/widgets/test/generation_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
@@ -210,12 +216,20 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Dart Command Line App.generator.dart" />
+      <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter Test.tests in generation_test.dart" />
+      <item itemvalue="Gradle.TextBuilderTest" />
+      <item itemvalue="Gradle.ewt:ewt.api [build]" />
+      <item itemvalue="Gradle.ewt:ewt.api [clean]" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.tests in analyzer_test.dart" />
-        <item itemvalue="Dart Command Line App.generator.dart" />
         <item itemvalue="Gradle.TextBuilderTest" />
         <item itemvalue="Gradle.ewt:ewt.api [build]" />
+        <item itemvalue="Flutter Test.tests in generation_test.dart" />
+        <item itemvalue="Dart Command Line App.generator.dart" />
         <item itemvalue="Gradle.ewt:ewt.api [clean]" />
       </list>
     </recent_temporary>
@@ -261,14 +275,49 @@
       <option name="project" value="LOCAL" />
       <updated>1740757237848</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="int: 1st attempt to generate Text 4j">
+      <option name="closed" value="true" />
+      <created>1741028804566</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741028804566</updated>
+    </task>
+    <task id="LOCAL-00006" summary="int: 1st attempt to generate Text 4j">
+      <option name="closed" value="true" />
+      <created>1741029051170</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1741029051170</updated>
+    </task>
+    <task id="LOCAL-00007" summary="int: generation based on element model&#10;&#10;all types are resolved now">
+      <option name="closed" value="true" />
+      <created>1741061977918</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1741061977918</updated>
+    </task>
+    <task id="LOCAL-00008" summary="int: generation based on element model&#10;&#10;all types are resolved now">
+      <option name="closed" value="true" />
+      <created>1741073417843</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1741073417843</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="int: api, examples and widgets project" />
     <MESSAGE value="test: flutter sample app" />
     <MESSAGE value="int: text widget generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="int: text widget generation" />
+    <MESSAGE value="int: 1st attempt to generate Text 4j&#10;&#10;the dart parsers fails to resolve all types not being able to resolve package:* imports." />
+    <MESSAGE value="int: 1st attempt to generate Text 4j" />
+    <MESSAGE value="int: generation based on element model&#10;&#10;all types are resolved now" />
+    <option name="LAST_COMMIT_MESSAGE" value="int: generation based on element model&#10;&#10;all types are resolved now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -312,11 +361,6 @@
           <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/context_locator.dart</url>
           <line>620</line>
           <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/widgets/tool/generator.dart</url>
-          <line>287</line>
-          <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint type="Dart">
           <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/dart/analysis/library_analyzer.dart</url>
@@ -367,11 +411,6 @@
           <url>file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-7.3.0/lib/src/workspace/simple.dart</url>
           <line>26</line>
           <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/widgets/test/analyzer_test.dart</url>
-          <line>30</line>
-          <option name="timeStamp" value="99" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
