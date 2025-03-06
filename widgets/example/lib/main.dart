@@ -1,11 +1,23 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:widgets/widgets.dart' as widgets;
+import 'package:widgets/widgets_bindings_generated.dart';
 
 void main() {
-  runApp(const MyApp());
+  print('dart main before runApp');
+  // setupFactories();
+  final factories = widgets.factories();
+  final widget = widgets.callToBuildWidgetTree(factories);
+
+  runApp(widgets.widgetsMap[widget]!);
+  // sum
+  // runApp(const MyApp());
+  print('dart main after runApp');
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

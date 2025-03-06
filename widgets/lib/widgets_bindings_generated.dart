@@ -66,4 +66,44 @@ class WidgetsBindings {
           'sum_long_running');
   late final _sum_long_running =
       _sum_long_runningPtr.asFunction<int Function(int, int)>();
+
+  void setBuildWidgetTree(
+    buildWidgetTreeFn fn,
+  ) {
+    return _setBuildWidgetTree(
+      fn,
+    );
+  }
+
+  late final _setBuildWidgetTreePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(buildWidgetTreeFn)>>(
+          'setBuildWidgetTree');
+  late final _setBuildWidgetTree =
+      _setBuildWidgetTreePtr.asFunction<void Function(buildWidgetTreeFn)>();
+
+  int callToBuildWidgetTree(
+    WidgetFactories factories,
+  ) {
+    return _callToBuildWidgetTree(
+      factories,
+    );
+  }
+
+  late final _callToBuildWidgetTreePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(WidgetFactories)>>(
+          'callToBuildWidgetTree');
+  late final _callToBuildWidgetTree =
+      _callToBuildWidgetTreePtr.asFunction<int Function(WidgetFactories)>();
+}
+
+typedef buildWidgetTreeFn
+    = ffi.Pointer<ffi.NativeFunction<buildWidgetTreeFnFunction>>;
+typedef buildWidgetTreeFnFunction = ffi.Int Function(WidgetFactories);
+typedef DartbuildWidgetTreeFnFunction = int Function(WidgetFactories);
+
+final class WidgetFactories extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char> data, ffi.Int textDirection)>> text;
 }

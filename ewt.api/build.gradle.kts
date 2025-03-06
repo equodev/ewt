@@ -23,4 +23,21 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+
+    systemProperty("os.name", System.getProperty("os.name"))
+
+    if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+        jvmArgs("-XstartOnFirstThread")
+    }
+}
+
+tasks.register<Exec>("jextract") {
+    group = "native"
+    description = "Generate Starter lib FFM bindiings"
+    executable = "${System.getenv("HOME")}/bin/jextract-22/bin/jextract"
+    val header = "../widgets/example/native/Starter.h"
+    val output = "./src/main/java"
+    args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
+    inputs.file(header)
+    outputs.dir("$output/dev/equo/ewt/ffm")
 }

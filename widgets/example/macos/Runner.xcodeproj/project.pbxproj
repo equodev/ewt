@@ -29,6 +29,10 @@
 		33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
 		33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
 		5B79B4D89DDF1F68545D342A /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C2D1B45C5B5667942FF9DEB /* Pods_Runner.framework */; };
+		DF7D14BF2D77C33200F61197 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7D14BE2D77C33200F61197 /* Cocoa.framework */; };
+		DF7D14C72D77C6A200F61197 /* Starter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D14C52D77C6A200F61197 /* Starter.swift */; };
+		DF7D14CC2D788AF200F61197 /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
+		DF7D14CD2D78AB4200F61197 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = FLX;
+		};
+		DF7D14C02D77C53B00F61197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF7D14CA2D77C92800F61197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF7D14B82D77C26700F61197;
+			remoteInfo = Starter;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -88,6 +106,10 @@
 		81054443901E292A813F1673 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		B949FD5DF50E5FA862B4E9B5 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7D14B92D77C26700F61197 /* libStarter.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libStarter.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7D14BE2D77C33200F61197 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		DF7D14C42D77C6A200F61197 /* Starter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Starter-Bridging-Header.h"; sourceTree = "<group>"; };
+		DF7D14C52D77C6A200F61197 /* Starter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +126,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B79B4D89DDF1F68545D342A /* Pods_Runner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF7D14B72D77C26700F61197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF7D14BF2D77C33200F61197 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +176,7 @@
 			children = (
 				33CC10ED2044A3C60003C045 /* widgets_example.app */,
 				331C80D5294CF71000263BE5 /* RunnerTests.xctest */,
+				DF7D14B92D77C26700F61197 /* libStarter.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -181,6 +212,8 @@
 				33E51914231749380026EE4D /* Release.entitlements */,
 				33CC11242044D66E0003C045 /* Resources */,
 				33BA886A226E78AF003329D5 /* Configs */,
+				DF7D14C52D77C6A200F61197 /* Starter.swift */,
+				DF7D14C42D77C6A200F61197 /* Starter-Bridging-Header.h */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -188,6 +221,7 @@
 		D73912EC22F37F3D000D13A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF7D14BE2D77C33200F61197 /* Cocoa.framework */,
 				3C2D1B45C5B5667942FF9DEB /* Pods_Runner.framework */,
 				B949FD5DF50E5FA862B4E9B5 /* Pods_RunnerTests.framework */,
 			);
@@ -204,11 +238,20 @@
 				5D7A0BADEA538FCD52B48E97 /* Pods-RunnerTests.release.xcconfig */,
 				7B12028625BB6E5262616882 /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DF7D14B52D77C26700F61197 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		331C80D4294CF70F00263BE5 /* RunnerTests */ = {
@@ -245,12 +288,33 @@
 			buildRules = (
 			);
 			dependencies = (
+				DF7D14CB2D77C92800F61197 /* PBXTargetDependency */,
 				33CC11202044C79F0003C045 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
 			productReference = 33CC10ED2044A3C60003C045 /* widgets_example.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DF7D14B82D77C26700F61197 /* Starter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF7D14BD2D77C26700F61197 /* Build configuration list for PBXNativeTarget "Starter" */;
+			buildPhases = (
+				DF7D14B52D77C26700F61197 /* Headers */,
+				DF7D14B62D77C26700F61197 /* Sources */,
+				DF7D14B72D77C26700F61197 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF7D14C12D77C53B00F61197 /* PBXTargetDependency */,
+			);
+			name = Starter;
+			packageProductDependencies = (
+			);
+			productName = Starter;
+			productReference = DF7D14B92D77C26700F61197 /* libStarter.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -281,6 +345,10 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
 					};
+					DF7D14B82D77C26700F61197 = {
+						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
+					};
 				};
 			};
 			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "Runner" */;
@@ -299,6 +367,7 @@
 				33CC10EC2044A3C60003C045 /* Runner */,
 				331C80D4294CF70F00263BE5 /* RunnerTests */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
+				DF7D14B82D77C26700F61197 /* Starter */,
 			);
 		};
 /* End PBXProject section */
@@ -443,6 +512,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF7D14B62D77C26700F61197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF7D14CD2D78AB4200F61197 /* AppDelegate.swift in Sources */,
+				DF7D14CC2D788AF200F61197 /* GeneratedPluginRegistrant.swift in Sources */,
+				DF7D14C72D77C6A200F61197 /* Starter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -455,6 +534,16 @@
 			isa = PBXTargetDependency;
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = 33CC111F2044C79F0003C045 /* PBXContainerItemProxy */;
+		};
+		DF7D14C12D77C53B00F61197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF7D14C02D77C53B00F61197 /* PBXContainerItemProxy */;
+		};
+		DF7D14CB2D77C92800F61197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF7D14B82D77C26700F61197 /* Starter */;
+			targetProxy = DF7D14CA2D77C92800F61197 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -752,6 +841,119 @@
 			};
 			name = Release;
 		};
+		DF7D14BA2D77C26700F61197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/widgets\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "'@loader_path/Frameworks'";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.equo.ewt.Starter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Starter-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		DF7D14BB2D77C26700F61197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/widgets\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "'@loader_path/Frameworks'";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.equo.ewt.Starter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Starter-Bridging-Header.h";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		DF7D14BC2D77C26700F61197 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/widgets\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "'@loader_path/Frameworks'";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.equo.ewt.Starter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Starter-Bridging-Header.h";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Profile;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -791,6 +993,16 @@
 				33CC111C2044C6BA0003C045 /* Debug */,
 				33CC111D2044C6BA0003C045 /* Release */,
 				338D0CEB231458BD00FA5F75 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF7D14BD2D77C26700F61197 /* Build configuration list for PBXNativeTarget "Starter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF7D14BA2D77C26700F61197 /* Debug */,
+				DF7D14BB2D77C26700F61197 /* Release */,
+				DF7D14BC2D77C26700F61197 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

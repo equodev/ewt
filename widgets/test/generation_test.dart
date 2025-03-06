@@ -22,7 +22,7 @@ Future<void> main() async {
   });
 
   test('Java Text widget generated', () async {
-    var textClass = testWidget(widgets);
+    var textClass = _testWidget(widgets);
     expect(textClass.constructors, hasLength(2));
     
     var widgetGen = WidgetGen(Generation(), textClass);
@@ -30,7 +30,7 @@ Future<void> main() async {
     
     expect(content, contains('package dev.equo.ewt;'));
     expect(content, contains('import org.immutables.builder.Builder;'));
-    expect(content, contains('public class Text {'));
+    expect(content, contains('public class Text implements Widget {'));
     expect(content, contains('@Builder.Constructor'));
     expect(content, contains('Text(@Builder.Parameter String data,'));
     expect(content, contains('public static TextBuilder of(String data) {'));
@@ -44,30 +44,30 @@ Future<void> main() async {
   });
 
   test('Text constructor parameters have types', () async {
-    var textClass = testWidget(widgets);
+    var textClass = _testWidget(widgets);
     expect(textClass.constructors, hasLength(2));
 
     var params = JavaParams(Generation(), textClass, textClass.constructors[0].parameters, allTypes: true);
 
-    var allParams = 'String data, Key key, TextStyle style, StrutStyle strutStyle, TextAlign textAlign, TextDirection textDirection, Locale locale, boolean softWrap, TextOverflow overflow, double textScaleFactor, TextScaler textScaler, int maxLines, String semanticsLabel, TextWidthBasis textWidthBasis, TextHeightBehavior textHeightBehavior, Color selectionColor';
+    var allParams = 'String data, java.util.Optional<Key> key, java.util.Optional<TextStyle> style, java.util.Optional<StrutStyle> strutStyle, java.util.Optional<TextAlign> textAlign, java.util.Optional<TextDirection> textDirection, java.util.Optional<Locale> locale, java.util.Optional<Boolean> softWrap, java.util.Optional<TextOverflow> overflow, java.util.OptionalDouble textScaleFactor, java.util.Optional<TextScaler> textScaler, java.util.OptionalInt maxLines, java.util.Optional<String> semanticsLabel, java.util.Optional<TextWidthBasis> textWidthBasis, java.util.Optional<TextHeightBehavior> textHeightBehavior, java.util.Optional<Color> selectionColor';
     expect(params.names, equals(allParams.split(', ').map((p) => p.split(' ')[1]).join(', ')));
     expect(params.decl, equals(allParams));
     expect(params.builderDecl, equals('@Builder.Parameter $allParams'));
   });
 
   test('Text constructor parameters only supported types', () async {
-    var textClass = testWidget(widgets);
+    var textClass = _testWidget(widgets);
 
     var params = JavaParams(Generation(), textClass, textClass.constructors[0].parameters, allTypes: false);
 
-    var allParams = 'String data, TextAlign textAlign, TextDirection textDirection, boolean softWrap, TextOverflow overflow, double textScaleFactor, int maxLines, String semanticsLabel, TextWidthBasis textWidthBasis';
+    var allParams = 'String data, java.util.Optional<TextAlign> textAlign, java.util.Optional<TextDirection> textDirection, java.util.Optional<Boolean> softWrap, java.util.Optional<TextOverflow> overflow, java.util.OptionalDouble textScaleFactor, java.util.OptionalInt maxLines, java.util.Optional<String> semanticsLabel, java.util.Optional<TextWidthBasis> textWidthBasis';
     expect(params.names, equals(allParams.split(', ').map((p) => p.split(' ')[1]).join(', ')));
     expect(params.decl, equals(allParams));
     expect(params.builderDecl, equals('@Builder.Parameter $allParams'));
   });
 
   test('Text type dependencies', () async {
-    var textClass = testWidget(widgets);
+    var textClass = _testWidget(widgets);
 
     var generation = Generation();
     JavaParams(generation, textClass, textClass.constructors[1].parameters, allTypes: false);
@@ -75,7 +75,7 @@ Future<void> main() async {
   });
 
   test('Java Enum generated', () async {
-    var textClass = testWidget(widgets);
+    var textClass = _testWidget(widgets);
     var enumType = textClass.getField('textWidthBasis')!.type.element as EnumElement;
 
     var enumGen = EnumGen(Generation(), enumType);
@@ -88,4 +88,4 @@ Future<void> main() async {
   });
 }
 
-ClassElement testWidget(Iterable<ClassElement> widgets) => widgets.firstWhere((w) => w.name == 'Text');
+ClassElement _testWidget(Iterable<ClassElement> widgets) => widgets.firstWhere((w) => w.name == 'Text');

@@ -1,10 +1,30 @@
 
 import 'dart:async';
-import 'dart:ffi';
+import 'dart:ffi' as ffi;
+import 'package:ffi/ffi.dart';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:flutter/widgets.dart';
+
 import 'widgets_bindings_generated.dart';
+
+Map<int, Widget> widgetsMap = {};
+
+WidgetFactories factories() {
+  final WidgetFactories f = ffi.Struct.create();
+  f.text = ffi.Pointer.fromFunction(textFactory, 1);
+  return f;
+}
+
+int textFactory(ffi.Pointer<ffi.Char> data, int text_direction) {
+  var w = Text(data.cast<Utf8>().toDartString(), textDirection: TextDirection.values.firstWhere((v) => v.index == text_direction));
+  var hashCode = w.hashCode;
+  widgetsMap[hashCode] = w;
+  return hashCode;
+}
+
+int callToBuildWidgetTree(WidgetFactories factories) => _bindings.callToBuildWidgetTree(factories);
 
 /// A very short-lived native function.
 ///
@@ -36,15 +56,15 @@ Future<int> sumAsync(int a, int b) async {
 const String _libName = 'widgets';
 
 /// The dynamic library in which the symbols for [WidgetsBindings] can be found.
-final DynamicLibrary _dylib = () {
+final ffi.DynamicLibrary _dylib = () {
   if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
+    return ffi.DynamicLibrary.open('$_libName.framework/$_libName');
   }
   if (Platform.isAndroid || Platform.isLinux) {
-    return DynamicLibrary.open('lib$_libName.so');
+    return ffi.DynamicLibrary.open('lib$_libName.so');
   }
   if (Platform.isWindows) {
-    return DynamicLibrary.open('$_libName.dll');
+    return ffi.DynamicLibrary.open('$_libName.dll');
   }
   throw UnsupportedError('Unknown platform: ${Platform.operatingSystem}');
 }();

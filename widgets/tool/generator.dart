@@ -67,7 +67,7 @@ class WidgetGen {
     javaFile
       ..writeln('package dev.equo.ewt;')
       ..writeln('import org.immutables.builder.Builder;')
-      ..writeln('public class $widgetClass {');
+      ..writeln('public class $widgetClass implements Widget {');
   }
 
   void writeFooter() {

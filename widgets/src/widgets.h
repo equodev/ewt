@@ -15,6 +15,8 @@
 #define FFI_PLUGIN_EXPORT
 #endif
 
+#include "./common.h"
+
 // A very short-lived native function.
 //
 // For very short-lived functions, it is fine to call them on the main isolate.
@@ -28,3 +30,7 @@ FFI_PLUGIN_EXPORT int sum(int a, int b);
 // block Dart execution. This will cause dropped frames in Flutter applications.
 // Instead, call these native functions on a separate isolate.
 FFI_PLUGIN_EXPORT int sum_long_running(int a, int b);
+
+FFI_PLUGIN_EXPORT void setBuildWidgetTree(buildWidgetTreeFn fn);
+
+FFI_PLUGIN_EXPORT int callToBuildWidgetTree(struct WidgetFactories factories);
