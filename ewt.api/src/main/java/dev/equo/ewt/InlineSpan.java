@@ -1,4 +1,4 @@
 package dev.equo.ewt;
 
-public class InlineSpan {
+public class InlineSpan extends NativeObj {
 }

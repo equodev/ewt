@@ -14,9 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef int (*buildWidgetTreeFn)(struct WidgetFactories {
- *     int (*text)(char *, int);
- * })
+ * typedef int (*buildWidgetTreeFn)(WidgetFactories)
  * }
  */
 public class buildWidgetTreeFn {

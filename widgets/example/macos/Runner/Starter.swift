@@ -22,7 +22,7 @@ class FlutterBridgeController {
     
     private var flutterViewController: FlutterViewController?
     private var window: NSWindow? // Keep for standalone window case if needed
-    private var delegate: NSApplicationDelegate?
+    private var delegate: AppDelegate?
     
     private init() {
         print("FlutterBridgeController.init")
@@ -42,7 +42,9 @@ class FlutterBridgeController {
         self.delegate = AppDelegate()
         let app = NSApplication.shared
         app.setActivationPolicy(.regular)
-        let project = FlutterDartProject.init(precompiledDartBundle: Bundle(path: "../widgets/example/build/macos/Build/Products/Release/widgets_example.app/Contents/Frameworks/App.framework"))
+        app.delegate = self.delegate
+        app.activate(ignoringOtherApps: true)
+        let project = FlutterDartProject.init(precompiledDartBundle: Bundle(path: "/Users/guillez/ws/ewt/widgets/example/build/macos/Build/Products/Release/widgets_example.app/Contents/Frameworks/App.framework"))
         // Create Flutter view controller
         flutterViewController = FlutterViewController.init(project: project)
         print("FlutterBridgeController.initialize 2")
@@ -56,6 +58,8 @@ class FlutterBridgeController {
         let windowDelegate = WindowDelegate()
         window.delegate = windowDelegate // Set the delegate
 
+        self.delegate!.mainFlutterWindow = window;
+
         let windowFrame = window.frame
         window.contentViewController = flutterViewController
 //        flutterViewController!.engine.run(withEntrypoint: "main")
@@ -65,10 +69,8 @@ class FlutterBridgeController {
         self.window = window
         RegisterGeneratedPlugins(registry: flutterViewController!)
 //        window.awakeFromNib()
-        
+
         print("FlutterBridgeController.initialize 3")
-        app.delegate = delegate
-        app.activate(ignoringOtherApps: true)
         app.run() // This starts the event loop and blocks until app terminates
         print("FlutterBridgeController.initialize 4")
     }

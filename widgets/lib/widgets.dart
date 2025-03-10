@@ -9,21 +9,6 @@ import 'package:flutter/widgets.dart';
 
 import 'widgets_bindings_generated.dart';
 
-Map<int, Widget> widgetsMap = {};
-
-WidgetFactories factories() {
-  final WidgetFactories f = ffi.Struct.create();
-  f.text = ffi.Pointer.fromFunction(textFactory, 1);
-  return f;
-}
-
-int textFactory(ffi.Pointer<ffi.Char> data, int text_direction) {
-  var w = Text(data.cast<Utf8>().toDartString(), textDirection: TextDirection.values.firstWhere((v) => v.index == text_direction));
-  var hashCode = w.hashCode;
-  widgetsMap[hashCode] = w;
-  return hashCode;
-}
-
 int callToBuildWidgetTree(WidgetFactories factories) => _bindings.callToBuildWidgetTree(factories);
 
 /// A very short-lived native function.

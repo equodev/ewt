@@ -68,6 +68,12 @@ public class StarterBridge {
     public static final AddressLayout C_POINTER = ValueLayout.ADDRESS
             .withTargetLayout(MemoryLayout.sequenceLayout(java.lang.Long.MAX_VALUE, JAVA_BYTE));
     public static final ValueLayout.OfLong C_LONG = ValueLayout.JAVA_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef int DartObj
+     * }
+     */
+    public static final OfInt DartObj = StarterBridge.C_INT;
 
     private static class startApp {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(

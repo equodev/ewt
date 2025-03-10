@@ -12,9 +12,9 @@ public class HelloWorld {
     public static void main(String[] args) {
             App.runApp(() -> Text.of("hello from Java")
                     .textDirection(TextDirection.ltr).build());
-//        App.runApp(
+//        App.runApp(() ->
 //                Text.of()
-//            new Center(new Text("Hello, world!", new Key("title"), TextDirection.LTR))
+//            Center.of(new Text("Hello, world!", new Key("title"), TextDirection.LTR))
 //        );
     }
 }

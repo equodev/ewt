@@ -11,9 +11,11 @@ import java.util.concurrent.Callable;
 
 public class App {
     static {
-        System.load(Path.of("../widgets/example/build/macos/Build/Products/Release/widgets_example.app/Contents/Frameworks/FlutterMacOS.framework/FlutterMacOS").toAbsolutePath().toString());
-        System.load(Path.of("../widgets/example/build/macos/Build/Products/Release/widgets_example.app/Contents/Frameworks/widgets.framework/widgets").toAbsolutePath().toString());
-        System.load(Path.of("../widgets/example/build/macos/Build/Products/Release/libStarter.dylib").toAbsolutePath().toString());
+        var mode = "Release";
+        String p = "/Users/guillez/ws/ewt";
+        System.load(Path.of(p+"/widgets/example/build/macos/Build/Products/"+mode+"/widgets_example.app/Contents/Frameworks/FlutterMacOS.framework/FlutterMacOS").toAbsolutePath().toString());
+        System.load(Path.of(p+"/widgets/example/build/macos/Build/Products/"+mode+"/widgets_example.app/Contents/Frameworks/widgets.framework/widgets").toAbsolutePath().toString());
+        System.load(Path.of(p+"/widgets/example/build/macos/Build/Products/"+mode+"/libStarter.dylib").toAbsolutePath().toString());
     }
 
     private final Callable<Widget> builderFn;
@@ -32,9 +34,9 @@ public class App {
             try {
                 System.out.println("In startApp$buildWidgetTree "+widgetFactories);
 //                WidgetConstructors.set(WidgetFactories.reinterpret(widgetFactories, Arena.global(), null));
-                WidgetConstructors.set(widgetFactories);
+                WidgetConstructors.instance.set(widgetFactories);
                 Widget w = builderFn.call();
-                return w.hashCode();
+                return ((NativeObj) w).getId();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

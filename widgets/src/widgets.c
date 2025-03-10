@@ -1,6 +1,6 @@
 #include "widgets.h"
 
-int (*buildWidgetTree)(struct WidgetFactories);
+int (*buildWidgetTree)(WidgetFactories);
 
 // A very short-lived native function.
 //
@@ -28,6 +28,6 @@ FFI_PLUGIN_EXPORT void setBuildWidgetTree(buildWidgetTreeFn fn) {
     buildWidgetTree = fn;
 }
 
-FFI_PLUGIN_EXPORT int callToBuildWidgetTree(struct WidgetFactories factories) {
+FFI_PLUGIN_EXPORT int callToBuildWidgetTree(WidgetFactories factories) {
     return buildWidgetTree(factories);
 }

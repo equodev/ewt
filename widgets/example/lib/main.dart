@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:widgets/widgets.dart' as widgets;
-import 'package:widgets/widgets_bindings_generated.dart';
+import 'package:widgets/factories.dart' as widgetFactories;
 
 void main() {
   print('dart main before runApp');
   // setupFactories();
-  final factories = widgets.factories();
-  final widget = widgets.callToBuildWidgetTree(factories);
+  final widget = widgets.callToBuildWidgetTree(widgetFactories.factories);
 
-  runApp(widgets.widgetsMap[widget]!);
+  runApp(widgetFactories.getWidget(widget));
   // sum
   // runApp(const MyApp());
   print('dart main after runApp');

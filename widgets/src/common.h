@@ -2,10 +2,8 @@
 #ifndef Common_h
 #define Common_h
 
-struct WidgetFactories {
-    int (*text)(char* data, int textDirection);
-};
+#include "factories.h"
 
-typedef int (*buildWidgetTreeFn)(struct WidgetFactories);
+typedef int (*buildWidgetTreeFn)(WidgetFactories);
 
 #endif /* Common_h */
