@@ -38,6 +38,6 @@ tasks.register<Exec>("jextract") {
     val header = "../widgets/example/native/Starter.h"
     val output = "./src/main/java"
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
-    inputs.file(header)
+    inputs.files(header, "../widgets/src/common.h", "../widgets/src/factories.h")
     outputs.dir("$output/dev/equo/ewt/ffm")
 }
