@@ -22,6 +22,12 @@ class WidgetConstructors {
     return WidgetFactories.text.rich.invoke(fn, textSpan.getId(), ptrEnum(textAlign), ptrEnum(textDirection), ptrBool(softWrap), ptrEnum(overflow), ptr(textScaleFactor), ptr(maxLines), ptrStr(semanticsLabel), ptrEnum(textWidthBasis));
   }
 
+  int centerOf(java.util.OptionalDouble widthFactor, java.util.OptionalDouble heightFactor, java.util.Optional<Widget> child) {
+    var st = WidgetFactories.center(factories);
+    var fn = WidgetFactories.center.of(st);
+    return WidgetFactories.center.of.invoke(fn, ptr(widthFactor), ptr(heightFactor), ptrObj(child));
+  }
+
   MemorySegment ptr(OptionalInt opt) {
     return opt.isPresent() ? arena.allocateFrom(StarterBridge.C_INT, opt.getAsInt()) : MemorySegment.NULL;
   }

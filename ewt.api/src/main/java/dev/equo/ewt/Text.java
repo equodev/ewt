@@ -1,6 +1,6 @@
 package dev.equo.ewt;
 import org.immutables.builder.Builder;
-public class Text extends NativeObj implements Widget {
+public class Text extends Widget {
   static final WidgetConstructors factories = WidgetConstructors.instance;
   @Builder.Constructor
   Text(@Builder.Parameter String data, java.util.Optional<TextAlign> textAlign, java.util.Optional<TextDirection> textDirection, java.util.Optional<Boolean> softWrap, java.util.Optional<TextOverflow> overflow, java.util.OptionalDouble textScaleFactor, java.util.OptionalInt maxLines, java.util.Optional<String> semanticsLabel, java.util.Optional<TextWidthBasis> textWidthBasis) {

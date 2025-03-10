@@ -7,7 +7,7 @@ import 'package:analyzer/dart/element/type.dart';
 
 Future<void> main() async {
   var widgets = await widgetsToGenerate();
-  var generation = Generation(widgets)
+  Generation(widgets)
     ..gen()
     ..write();
 }
@@ -83,7 +83,7 @@ class WidgetGen {
     javaFile
       ..writeln('package dev.equo.ewt;')
       ..writeln('import org.immutables.builder.Builder;')
-      ..writeln('public class $widgetClass extends NativeObj implements Widget {')
+      ..writeln('public class $widgetClass extends Widget {')
       ..writeln('  static final WidgetConstructors factories = WidgetConstructors.instance;');
     headerFile
       .writeln('  struct {');
@@ -120,7 +120,7 @@ class WidgetGen {
           ..writeln('  return _addWidget(w);')
           ..writeln('}');
       javaFactories
-        ..writeln('  int textOf(${jParams.decl}) {')
+        ..writeln('  int ${widgetField}Of(${jParams.decl}) {')
         ..writeln('    var st = WidgetFactories.$widgetField(factories);')
         ..writeln('    var fn = WidgetFactories.$widgetField.of(st);')
         ..writeln('    return WidgetFactories.$widgetField.of.invoke(fn, ${jParamsFFM.names});')
@@ -137,7 +137,7 @@ class WidgetGen {
         ..writeln('  static $widgetClass $factoryName(${jParams.builderDecl}) {')
         ..writeln('    return new $widgetClass(${jParams.names});')
         ..writeln('  }')
-        ..writeln('  public static $builderClass ${factory}(${jParams.required}) {')
+        ..writeln('  public static $builderClass $factory(${jParams.required}) {')
         ..writeln('    return $builderClass.$factoryName(${jParams.requiredNames});')
         ..writeln('  }');
       headerFile
@@ -290,7 +290,8 @@ class Generation {
     dartFactories.writeln(widGen.genDartFactories());
     javaFactories.writeln(widGen.genJavaFactories());
 
-    for (DartType requiredType in this.requiredTypes.toSet()) {
+    for (DartType requiredType in requiredTypes.toSet()) {
+      requiredTypes.remove(requiredType);
       processDependency(this, requiredType);
     }
   }
@@ -353,7 +354,10 @@ class Generation {
       else if (namedType.element is EnumElement) {
         return 'ffi.Int';
       }
-      return 'int';
+      else if (!isPrimitive(namedType)) {
+        return 'DartObj';
+      }
+      throw UnsupportedError('Unsupported type $namedType');
     }
     return namedType.toString();
   }
@@ -435,6 +439,10 @@ class Params {
     var t ='${annotated ? '' : ''}${generation.type4D(param.type)}';
     if (wrap) {
       t = 'ffi.Pointer<$t>';
+    } else {
+      if (t == 'DartObj') {
+        t = 'DartDartObj';
+      }
     }
     return t;
   }
@@ -528,7 +536,7 @@ bool supportedType(DartType t) {
   if (t.element is EnumElement) {
     return true;
   }
-  if (t.getDisplayString() == 'InlineSpan') {
+  if (t.getDisplayString() == 'InlineSpan' || t.element!.name == 'Widget') {
     return true;
   }
   return false;

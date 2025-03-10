@@ -1,5 +1,5 @@
 package dev.equo.ewt;
 
-public interface Widget {
+public class Widget extends NativeObj {
 
 }

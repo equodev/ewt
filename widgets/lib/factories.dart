@@ -8,6 +8,7 @@ Map<int, Widget> _widgetsMap = {};
 WidgetFactories _setupFactories() {
   final WidgetFactories f = ffi.Struct.create();
   _setupText(f);
+  _setupCenter(f);
   return f;
 }
 void _setupText(WidgetFactories f) {
@@ -19,8 +20,18 @@ int textOf(ffi.Pointer<ffi.Char> data, ffi.Pointer<ffi.Int> textAlign, ffi.Point
   final w = Text(data.cast<Utf8>().toDartString(), textAlign: textAlign.enumOrNul(TextAlign.values), textDirection: textDirection.enumOrNul(TextDirection.values), softWrap: softWrap.boolOrNul(), overflow: overflow.enumOrNul(TextOverflow.values), textScaleFactor: textScaleFactor.doubleOrNul(), maxLines: maxLines.intOrNul(), semanticsLabel: semanticsLabel.strOrNul(), textWidthBasis: textWidthBasis.enumOrNul(TextWidthBasis.values));
   return _addWidget(w);
 }
-int textRich(int textSpan, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Pointer<ffi.Char>> semanticsLabel, ffi.Pointer<ffi.Int> textWidthBasis) {
+int textRich(DartDartObj textSpan, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Pointer<ffi.Char>> semanticsLabel, ffi.Pointer<ffi.Int> textWidthBasis) {
   final w = Text.rich(_widgetsMap[textSpan]! as InlineSpan, textAlign: textAlign.enumOrNul(TextAlign.values), textDirection: textDirection.enumOrNul(TextDirection.values), softWrap: softWrap.boolOrNul(), overflow: overflow.enumOrNul(TextOverflow.values), textScaleFactor: textScaleFactor.doubleOrNul(), maxLines: maxLines.intOrNul(), semanticsLabel: semanticsLabel.strOrNul(), textWidthBasis: textWidthBasis.enumOrNul(TextWidthBasis.values));
+  return _addWidget(w);
+}
+
+  
+void _setupCenter(WidgetFactories f) {
+  f.center.of = ffi.Pointer.fromFunction(centerOf, exception);
+}
+
+int centerOf(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
+  final w = Center(widthFactor: widthFactor.doubleOrNul(), heightFactor: heightFactor.doubleOrNul(), child: child.objOrNul());
   return _addWidget(w);
 }
 

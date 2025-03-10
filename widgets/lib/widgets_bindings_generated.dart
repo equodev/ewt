@@ -103,6 +103,8 @@ typedef DartbuildWidgetTreeFnFunction = int Function(WidgetFactories);
 
 final class WidgetFactories extends ffi.Struct {
   external UnnamedStruct1 text;
+
+  external UnnamedStruct2 center;
 }
 
 final class UnnamedStruct1 extends ffi.Struct {
@@ -122,7 +124,7 @@ final class UnnamedStruct1 extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Int Function(
-              ffi.Int textSpan,
+              DartObj textSpan,
               ffi.Pointer<ffi.Int> textAlign,
               ffi.Pointer<ffi.Int> textDirection,
               ffi.Pointer<ffi.Int> softWrap,
@@ -131,4 +133,16 @@ final class UnnamedStruct1 extends ffi.Struct {
               ffi.Pointer<ffi.Int> maxLines,
               ffi.Pointer<ffi.Pointer<ffi.Char>> semanticsLabel,
               ffi.Pointer<ffi.Int> textWidthBasis)>> rich;
+}
+
+typedef DartObj = ffi.Int;
+typedef DartDartObj = int;
+
+final class UnnamedStruct2 extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Double> widthFactor,
+              ffi.Pointer<ffi.Double> heightFactor,
+              ffi.Pointer<DartObj> child)>> of;
 }
