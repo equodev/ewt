@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
 import 'package:path/path.dart' as path;
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
@@ -82,6 +83,7 @@ class WidgetGen {
   void writeHeaders() {
     javaFile
       ..writeln('package dev.equo.ewt;')
+      ..writeln('import java.util.*;')
       ..writeln('import org.immutables.builder.Builder;')
       ..writeln('public class $widgetClass extends Widget {')
       ..writeln('  static final WidgetConstructors factories = WidgetConstructors.instance;');
@@ -106,6 +108,8 @@ class WidgetGen {
         ..writeln('  @Builder.Constructor')
         ..writeln('  $widgetClass(${jParams.builderDecl}) {')
         ..writeln('    id = factories.${widgetField}Of(${jParams.names});')
+        ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget "+this);')
+        ..writeln('    System.out.println("New "+this+" id:"+id);')
         ..writeln('  }')
         ..writeln('  public static $builderClass of(${jParams.required}) {')
         ..writeln('    return $builderClass.$widgetClass(${jParams.requiredNames});')
@@ -132,6 +136,8 @@ class WidgetGen {
       javaFile
         ..writeln('  $widgetClass(${jParams.decl}) {')
         ..writeln('    id = factories.$factoryName(${jParams.names});')
+        ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget "+this);')
+        ..writeln('    System.out.println("New "+this+" id:"+id);')
         ..writeln('  }')
         ..writeln('  @Builder.Factory')
         ..writeln('  static $widgetClass $factoryName(${jParams.builderDecl}) {')
@@ -199,7 +205,7 @@ class Generation {
   Generation(this.widgets);
 
   void gen() {
-    headerFile.writeln('typedef int DartObj;');
+    // headerFile.writeln('typedef int DartObj;');
     headerFile.writeln('typedef struct {');
     dartFactories
       ..writeln("import 'package:flutter/widgets.dart';")
@@ -225,6 +231,7 @@ class Generation {
     javaFactories
       ..writeln('package dev.equo.ewt;')
       ..writeln('import dev.equo.ewt.ffm.*;')
+      ..writeln('import java.util.List;')
       ..writeln('import java.util.Optional;')
       ..writeln('import java.util.OptionalInt;')
       ..writeln('import java.util.OptionalDouble;')
@@ -246,19 +253,40 @@ class Generation {
     dartFactories.writeln('int _addWidget(Widget w) {\n'
                           '  final id = w.hashCode;\n'
                           '  _widgetsMap[id] = w;\n'
-                          '  print(\'Added widget id: \$id\');\n'
+                          '  print(\'Added widget \$w id: \$id\');\n'
                           '  return id;\n'
                           '}');
     // dartFactories.writeln('T? enumVal<T>(List<T> values, ffi.Pointer<ffi.Int> ptr) => ptr.address == ffi.nullptr.address ? null : values[ptr.value];');
     // dartFactories.writeln('bool? boolVal(ffi.Pointer<ffi.Int> ptr) => ptr.address == ffi.nullptr.address ? null : ptr.value == 1 ? true : false;');
     // dartFactories.writeln('int? intVal(ffi.Pointer<ffi.Int> ptr) => ptr.address == ffi.nullptr.address ? null : ptr.value;');
     // dartFactories.writeln('double? doubVal(ffi.Pointer<ffi.Double> ptr) => ptr.address == ffi.nullptr.address ? null : ptr.value;');
-    dartFactories.writeln('extension on ffi.Pointer<ffi.Int> { int? intOrNul() => this == ffi.nullptr ? null : value; }');
-    dartFactories.writeln('extension on ffi.Pointer<ffi.Double> { double? doubleOrNul() => this == ffi.nullptr ? null : value; }');
-    dartFactories.writeln('extension on ffi.Pointer<ffi.Int> { bool? boolOrNul() => this == ffi.nullptr ? null : value == 1 ? true : false; }');
+    dartFactories.writeln('extension on ffi.Pointer<ffi.Int> {\n'
+        '  int? intOrNul() => this == ffi.nullptr ? null : value;\n'
+        '  bool? boolOrNul() => this == ffi.nullptr ? null : value == 1 ? true : false;\n'
+        '  E? enumOrNul<E extends Enum>(List<E> values) => this == ffi.nullptr ? null : values[value];\n'
+        '  E enumOr<E extends Enum>(List<E> values, E def) => this == ffi.nullptr ? def : values[value];\n'
+        '}');
+    dartFactories.writeln('extension on ffi.Pointer<ffi.Double> {\n'
+        '  double? doubleOrNul() => this == ffi.nullptr ? null : value;\n'
+        '  double doubleOr(double def) => this == ffi.nullptr ? def : value;\n'
+        '}');
     dartFactories.writeln('extension on ffi.Pointer<ffi.Pointer<ffi.Char>> { String? strOrNul() => this == ffi.nullptr ? null : value.cast<Utf8>().toDartString(); }');
-    dartFactories.writeln('extension EnumPtr<T> on ffi.Pointer<ffi.Int> { T? enumOrNul(List<T> values) => this == ffi.nullptr ? null : values[value]; }');
+    // dartFactories.writeln('extension EnumPtr<T> on ffi.Pointer<ffi.Int> { T? enumOrNul(List<T> values) => this == ffi.nullptr ? null : values[value]; }');
     dartFactories.writeln('extension ObjPtr<T> on ffi.Pointer<ffi.Int> { T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T; }');
+    dartFactories.writeln('extension on ffi.Pointer<ArrayC> {\n'
+        '  List<Widget> orEmpty() {\n'
+        '    final list = <Widget>[];\n'
+        '    if (this != ffi.nullptr) {\n'
+        '      final st = ref;\n'
+        '      for (var i=0; i<st.size; i++) {\n'
+        '        var wId = st.list[i];\n'
+        '        print(\'Find widget at \$i id: \$wId\');\n'
+        '        list[i] = getWidget(wId);\n'
+        '      }\n'
+        '    }\n'
+        '    return list;\n'
+        '  }\n'
+        '}');
 
     headerFile.writeln('} WidgetFactories;');
 
@@ -279,6 +307,16 @@ class Generation {
                           '  }');
     javaFactories.writeln('  <T extends NativeObj> MemorySegment ptrObj(Optional<T> opt) {\n'
                           '    return opt.isPresent() ? arena.allocateFrom(StarterBridge.C_INT, opt.get().getId()) : MemorySegment.NULL;\n'
+                          '  }');
+    javaFactories.writeln('  <T extends NativeObj> MemorySegment ptrList(Optional<List<T>> opt) {\n'
+                          '    if (opt.isPresent()) {\n'
+                          '      MemorySegment struct = ArrayC.allocate(arena);\n'
+                          '      ArrayC.size(struct, opt.get().size());\n'
+                          '      MemorySegment array = arena.allocateFrom(StarterBridge.C_INT, opt.get().stream().mapToInt(NativeObj::getId).toArray());\n'
+                          '      ArrayC.list(struct, array);\n'
+                          '      return struct;\n'
+                          '    }\n'
+                          '    return MemorySegment.NULL\n;'
                           '  }');
     javaFactories.writeln('}');
   }
@@ -304,31 +342,39 @@ class Generation {
       if (namedType.isDartCoreBool) {
         return 'boolean';
       }
+      else if (namedType.isDartCoreList) {
+        final arrayType = (namedType).typeArguments[0];
+        return 'List<$arrayType>';
+      }
       return namedType.element.name;
     }
     return namedType.toString();
   }
 
   String type4C(DartType namedType) {
-    if (namedType is InterfaceType) {
-      if (namedType.isDartCoreString) {
-        return 'char*';
-      }
-      else if (namedType.isDartCoreBool) {
-        return 'int';
-      }
-      else if (namedType.isDartCoreInt) {
-        return 'int';
-      }
-      else if (namedType.isDartCoreDouble) {
-        return 'double';
-      }
-      else if (namedType.isDartCoreNum) {
-        return 'num';
-      }
-      else if (namedType.element is EnumElement) {
-        return 'int';
-      }
+    if (namedType.isDartCoreString) {
+      return 'char*';
+    }
+    else if (namedType.isDartCoreBool) {
+      return 'int';
+    }
+    else if (namedType.isDartCoreInt) {
+      return 'int';
+    }
+    else if (namedType.isDartCoreDouble) {
+      return 'double';
+    }
+    else if (namedType.isDartCoreNum) {
+      return 'num';
+    }
+    else if (namedType.element is EnumElement) {
+      return 'int';
+    }
+    else if (namedType.isDartCoreList) {
+      // final arrayType = (namedType as InterfaceType).typeArguments[0];
+      return 'ArrayC';
+    }
+    else if (!isPrimitive(namedType)) {
       return 'DartObj'; // object are passes as ids
     }
     return namedType.toString();
@@ -353,6 +399,9 @@ class Generation {
       }
       else if (namedType.element is EnumElement) {
         return 'ffi.Int';
+      }
+      else if (namedType.isDartCoreList) {
+        return 'ArrayC';
       }
       else if (!isPrimitive(namedType)) {
         return 'DartObj';
@@ -412,16 +461,16 @@ class Params {
     var t ='${annotated ? '@Builder.Parameter ' : ''}${generation.type4J(param.type)}';
     if (wrap) {
       if (param.type.isDartCoreDouble) {
-        t = 'java.util.OptionalDouble';
+        t = 'OptionalDouble';
       }
       else if (param.type.isDartCoreInt) {
-        t = 'java.util.OptionalInt';
+        t = 'OptionalInt';
       }
       else if (param.type.isDartCoreBool) {
-        t = 'java.util.Optional<Boolean>';
+        t = 'Optional<Boolean>';
       }
       else {
-        t = 'java.util.Optional<$t>';
+        t = 'Optional<$t>';
       }
     }
     return t;
@@ -464,10 +513,21 @@ class Params {
           value = '${param.name}.intOrNul()';
         }
         else if (t.isDartCoreDouble) {
-          value = '${param.name}.doubleOrNul()';
+          if (t.nullabilitySuffix == NullabilitySuffix.none) {
+            value = '${param.name}.doubleOr(${param.defaultValueCode})';
+          } else {
+            value = '${param.name}.doubleOrNul()';
+          }
+        }
+        else if (t.isDartCoreList) {
+          value = '${param.name}.orEmpty()';
         }
         else if (t.element is EnumElement) {
-          value = '${param.name}.enumOrNul(${t.element.name}.values)';
+          if (t.nullabilitySuffix == NullabilitySuffix.none) {
+            value = '${param.name}.enumOr(${t.element.name}.values, ${param.defaultValueCode})';
+          } else {
+            value = '${param.name}.enumOrNul(${t.element.name}.values)';
+          }
         }
         else if (!isPrimitive(t)) {
           value = '${param.name}.objOrNul()';
@@ -508,6 +568,9 @@ class Params {
       // else if (t.isDartCoreDouble) {
       //   value = 'ptr($value)';
       // }
+      else if (t.isDartCoreList) {
+        return 'ptrList($value)';
+      }
       else if (t.element is EnumElement) {
         value = 'ptrEnum($value)';
       }
@@ -537,6 +600,9 @@ bool supportedType(DartType t) {
     return true;
   }
   if (t.getDisplayString() == 'InlineSpan' || t.element!.name == 'Widget') {
+    return true;
+  }
+  if (t.isDartCoreList) {
     return true;
   }
   return false;

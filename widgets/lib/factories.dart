@@ -9,6 +9,7 @@ WidgetFactories _setupFactories() {
   final WidgetFactories f = ffi.Struct.create();
   _setupText(f);
   _setupCenter(f);
+  _setupColumn(f);
   return f;
 }
 void _setupText(WidgetFactories f) {
@@ -36,16 +37,50 @@ int centerOf(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> height
 }
 
   
+void _setupColumn(WidgetFactories f) {
+  f.column.of = ffi.Pointer.fromFunction(columnOf, exception);
+}
+
+int columnOf(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ArrayC> children) {
+  final w = Column(mainAxisAlignment: mainAxisAlignment.enumOr(MainAxisAlignment.values, MainAxisAlignment.start), mainAxisSize: mainAxisSize.enumOr(MainAxisSize.values, MainAxisSize.max), crossAxisAlignment: crossAxisAlignment.enumOr(CrossAxisAlignment.values, CrossAxisAlignment.center), textDirection: textDirection.enumOrNul(TextDirection.values), verticalDirection: verticalDirection.enumOr(VerticalDirection.values, VerticalDirection.down), textBaseline: textBaseline.enumOrNul(TextBaseline.values), spacing: spacing.doubleOr(0.0), children: children.orEmpty());
+  return _addWidget(w);
+}
+
+  
 Widget getWidget(int id) => _widgetsMap[id]!;
 int _addWidget(Widget w) {
   final id = w.hashCode;
   _widgetsMap[id] = w;
-  print('Added widget id: $id');
+  print('Added widget $w id: $id');
   return id;
 }
-extension on ffi.Pointer<ffi.Int> { int? intOrNul() => this == ffi.nullptr ? null : value; }
-extension on ffi.Pointer<ffi.Double> { double? doubleOrNul() => this == ffi.nullptr ? null : value; }
-extension on ffi.Pointer<ffi.Int> { bool? boolOrNul() => this == ffi.nullptr ? null : value == 1 ? true : false; }
+extension on ffi.Pointer<ffi.Int> {
+  int? intOrNul() => this == ffi.nullptr ? null : value;
+  bool? boolOrNul() => this == ffi.nullptr ? null : value == 1 ? true : false;
+  E? enumOrNul<E extends Enum>(List<E> values) => this == ffi.nullptr ? null : values[value];
+  E enumOr<E extends Enum>(List<E> values, E def) => this == ffi.nullptr ? def : values[value];
+}
+extension on ffi.Pointer<ffi.Double> {
+  double? doubleOrNul() => this == ffi.nullptr ? null : value;
+  double doubleOr(double def) => this == ffi.nullptr ? def : value;
+}
 extension on ffi.Pointer<ffi.Pointer<ffi.Char>> { String? strOrNul() => this == ffi.nullptr ? null : value.cast<Utf8>().toDartString(); }
-extension EnumPtr<T> on ffi.Pointer<ffi.Int> { T? enumOrNul(List<T> values) => this == ffi.nullptr ? null : values[value]; }
 extension ObjPtr<T> on ffi.Pointer<ffi.Int> { T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T; }
+extension on ffi.Pointer<ArrayC> {
+  List<Widget> orEmpty() {
+    final List<Widget> list = List.empty(growable: true);
+    if (this != ffi.nullptr) {
+      final st = ref;
+      for (var i=0; i<st.size; i++) {
+        final wId = st.list[i];
+        print('Find widget at $i id: $wId');
+        final w = getWidget(wId);
+        print('Got widget $w');
+        list.add(w);
+        // list[i] = w;
+        print('assign widget');
+      }
+    }
+    return list;
+  }
+}

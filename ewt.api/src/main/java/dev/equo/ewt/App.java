@@ -1,7 +1,6 @@
 package dev.equo.ewt;
 
 import dev.equo.ewt.ffm.StarterBridge;
-import dev.equo.ewt.ffm.WidgetFactories;
 import dev.equo.ewt.ffm.buildWidgetTreeFn;
 
 import java.lang.foreign.Arena;
@@ -22,6 +21,11 @@ public class App {
 
     App(Callable<Widget> widget) {
         this.builderFn = widget;
+    }
+
+    static boolean isMac() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        return osName.contains("mac");
     }
 
     public static void runApp(Callable<Widget> widgetBuilder) {

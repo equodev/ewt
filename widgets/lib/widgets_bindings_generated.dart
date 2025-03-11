@@ -105,6 +105,8 @@ final class WidgetFactories extends ffi.Struct {
   external UnnamedStruct1 text;
 
   external UnnamedStruct2 center;
+
+  external UnnamedStruct3 column;
 }
 
 final class UnnamedStruct1 extends ffi.Struct {
@@ -145,4 +147,25 @@ final class UnnamedStruct2 extends ffi.Struct {
               ffi.Pointer<ffi.Double> widthFactor,
               ffi.Pointer<ffi.Double> heightFactor,
               ffi.Pointer<DartObj> child)>> of;
+}
+
+final class UnnamedStruct3 extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Int> mainAxisAlignment,
+              ffi.Pointer<ffi.Int> mainAxisSize,
+              ffi.Pointer<ffi.Int> crossAxisAlignment,
+              ffi.Pointer<ffi.Int> textDirection,
+              ffi.Pointer<ffi.Int> verticalDirection,
+              ffi.Pointer<ffi.Int> textBaseline,
+              ffi.Pointer<ffi.Double> spacing,
+              ffi.Pointer<ArrayC> children)>> of;
+}
+
+final class ArrayC extends ffi.Struct {
+  @ffi.Int()
+  external int size;
+
+  external ffi.Pointer<DartObj> list;
 }

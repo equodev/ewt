@@ -1,4 +1,3 @@
-typedef int DartObj;
 typedef struct {
   struct {
     int (*of)(char* data, int* textAlign, int* textDirection, int* softWrap, int* overflow, double* textScaleFactor, int* maxLines, char** semanticsLabel, int* textWidthBasis);
@@ -8,5 +7,9 @@ typedef struct {
   struct {
     int (*of)(double* widthFactor, double* heightFactor, DartObj* child);
   } center;
+
+  struct {
+    int (*of)(int* mainAxisAlignment, int* mainAxisSize, int* crossAxisAlignment, int* textDirection, int* verticalDirection, int* textBaseline, double* spacing, ArrayC* children);
+  } column;
 
 } WidgetFactories;
