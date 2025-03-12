@@ -1,4 +1,3 @@
 package dev.equo.ewt;
-
-public class InlineSpan extends NativeObj {
+public abstract class InlineSpan extends DiagnosticableTree {
 }

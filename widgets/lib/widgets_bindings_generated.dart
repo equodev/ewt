@@ -102,14 +102,24 @@ typedef buildWidgetTreeFnFunction = ffi.Int Function(WidgetFactories);
 typedef DartbuildWidgetTreeFnFunction = int Function(WidgetFactories);
 
 final class WidgetFactories extends ffi.Struct {
-  external UnnamedStruct1 text;
+  external TextSt text;
 
-  external UnnamedStruct2 center;
+  external CenterSt center;
 
-  external UnnamedStruct3 column;
+  external AlignSt align;
+
+  external ColumnSt column;
+
+  external FlexSt flex;
+
+  external AppBarSt appBar;
+
+  external ScaffoldSt scaffold;
+
+  external MaterialAppSt materialApp;
 }
 
-final class UnnamedStruct1 extends ffi.Struct {
+final class TextSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Int Function(
@@ -120,8 +130,8 @@ final class UnnamedStruct1 extends ffi.Struct {
               ffi.Pointer<ffi.Int> overflow,
               ffi.Pointer<ffi.Double> textScaleFactor,
               ffi.Pointer<ffi.Int> maxLines,
-              ffi.Pointer<ffi.Pointer<ffi.Char>> semanticsLabel,
-              ffi.Pointer<ffi.Int> textWidthBasis)>> of;
+              ffi.Pointer<ffi.Char> semanticsLabel,
+              ffi.Pointer<ffi.Int> textWidthBasis)>> text;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -133,23 +143,32 @@ final class UnnamedStruct1 extends ffi.Struct {
               ffi.Pointer<ffi.Int> overflow,
               ffi.Pointer<ffi.Double> textScaleFactor,
               ffi.Pointer<ffi.Int> maxLines,
-              ffi.Pointer<ffi.Pointer<ffi.Char>> semanticsLabel,
+              ffi.Pointer<ffi.Char> semanticsLabel,
               ffi.Pointer<ffi.Int> textWidthBasis)>> rich;
 }
 
 typedef DartObj = ffi.Int;
 typedef DartDartObj = int;
 
-final class UnnamedStruct2 extends ffi.Struct {
+final class CenterSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Int Function(
               ffi.Pointer<ffi.Double> widthFactor,
               ffi.Pointer<ffi.Double> heightFactor,
-              ffi.Pointer<DartObj> child)>> of;
+              ffi.Pointer<DartObj> child)>> center;
 }
 
-final class UnnamedStruct3 extends ffi.Struct {
+final class AlignSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Double> widthFactor,
+              ffi.Pointer<ffi.Double> heightFactor,
+              ffi.Pointer<DartObj> child)>> align;
+}
+
+final class ColumnSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Int Function(
@@ -160,7 +179,7 @@ final class UnnamedStruct3 extends ffi.Struct {
               ffi.Pointer<ffi.Int> verticalDirection,
               ffi.Pointer<ffi.Int> textBaseline,
               ffi.Pointer<ffi.Double> spacing,
-              ffi.Pointer<ArrayC> children)>> of;
+              ffi.Pointer<ArrayC> children)>> column;
 }
 
 final class ArrayC extends ffi.Struct {
@@ -168,4 +187,99 @@ final class ArrayC extends ffi.Struct {
   external int size;
 
   external ffi.Pointer<DartObj> list;
+}
+
+final class FlexSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Int direction,
+              ffi.Pointer<ffi.Int> mainAxisAlignment,
+              ffi.Pointer<ffi.Int> mainAxisSize,
+              ffi.Pointer<ffi.Int> crossAxisAlignment,
+              ffi.Pointer<ffi.Int> textDirection,
+              ffi.Pointer<ffi.Int> verticalDirection,
+              ffi.Pointer<ffi.Int> textBaseline,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Double> spacing,
+              ffi.Pointer<ArrayC> children)>> flex;
+}
+
+final class AppBarSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> leading,
+              ffi.Pointer<ffi.Int> automaticallyImplyLeading,
+              ffi.Pointer<DartObj> title,
+              ffi.Pointer<ArrayC> actions,
+              ffi.Pointer<DartObj> flexibleSpace,
+              ffi.Pointer<DartObj> bottom,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<ffi.Double> scrolledUnderElevation,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> centerTitle,
+              ffi.Pointer<ffi.Int> excludeHeaderSemantics,
+              ffi.Pointer<ffi.Double> titleSpacing,
+              ffi.Pointer<ffi.Double> toolbarOpacity,
+              ffi.Pointer<ffi.Double> bottomOpacity,
+              ffi.Pointer<ffi.Double> toolbarHeight,
+              ffi.Pointer<ffi.Double> leadingWidth,
+              ffi.Pointer<ffi.Int> forceMaterialTransparency,
+              ffi.Pointer<ffi.Int> clipBehavior)>> appBar;
+}
+
+final class ScaffoldSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> appBar,
+              ffi.Pointer<DartObj> body,
+              ffi.Pointer<DartObj> floatingActionButton,
+              ffi.Pointer<ArrayC> persistentFooterButtons,
+              ffi.Pointer<DartObj> drawer,
+              ffi.Pointer<DartObj> endDrawer,
+              ffi.Pointer<DartObj> bottomNavigationBar,
+              ffi.Pointer<DartObj> bottomSheet,
+              ffi.Pointer<ffi.Int> resizeToAvoidBottomInset,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> drawerDragStartBehavior,
+              ffi.Pointer<ffi.Int> extendBody,
+              ffi.Pointer<ffi.Int> extendBodyBehindAppBar,
+              ffi.Pointer<ffi.Double> drawerEdgeDragWidth,
+              ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture,
+              ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture,
+              ffi.Pointer<ffi.Char> restorationId)>> scaffold;
+}
+
+final class MaterialAppSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> home,
+              ffi.Pointer<ffi.Char> initialRoute,
+              ffi.Pointer<ffi.Char> title,
+              ffi.Pointer<ffi.Int> themeMode,
+              ffi.Pointer<ffi.Int> debugShowMaterialGrid,
+              ffi.Pointer<ffi.Int> showPerformanceOverlay,
+              ffi.Pointer<ffi.Int> checkerboardRasterCacheImages,
+              ffi.Pointer<ffi.Int> checkerboardOffscreenLayers,
+              ffi.Pointer<ffi.Int> showSemanticsDebugger,
+              ffi.Pointer<ffi.Int> debugShowCheckedModeBanner,
+              ffi.Pointer<ffi.Char> restorationScopeId,
+              ffi.Pointer<ffi.Int> useInheritedMediaQuery)>> materialApp;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char> title,
+              ffi.Pointer<ffi.Int> themeMode,
+              ffi.Pointer<ffi.Int> debugShowMaterialGrid,
+              ffi.Pointer<ffi.Int> showPerformanceOverlay,
+              ffi.Pointer<ffi.Int> checkerboardRasterCacheImages,
+              ffi.Pointer<ffi.Int> checkerboardOffscreenLayers,
+              ffi.Pointer<ffi.Int> showSemanticsDebugger,
+              ffi.Pointer<ffi.Int> debugShowCheckedModeBanner,
+              ffi.Pointer<ffi.Char> restorationScopeId,
+              ffi.Pointer<ffi.Int> useInheritedMediaQuery)>> router;
 }

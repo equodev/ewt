@@ -1,5 +1,3 @@
 package dev.equo.ewt;
-
-public class Widget extends NativeObj {
-
+public abstract class Widget extends DiagnosticableTree {
 }

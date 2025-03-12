@@ -1,16 +1,16 @@
 package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
-public class Center extends Align {
+public class Align extends SingleChildRenderObjectWidget {
   static final WidgetConstructors factories = WidgetConstructors.instance;
-  Center() {}
+  Align() {}
   @Builder.Constructor
-  Center(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
-    id = factories.centerCenter(widthFactor, heightFactor, child);
+  Align(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
+    id = factories.alignAlign(widthFactor, heightFactor, child);
     if (id == -1) throw new RuntimeException("Failed to created widget "+this);
     System.out.println("New "+this+" id:"+id);
   }
-  public static CenterBuilder center() {
-    return CenterBuilder.Center();
+  public static AlignBuilder align() {
+    return AlignBuilder.Align();
   }
 }

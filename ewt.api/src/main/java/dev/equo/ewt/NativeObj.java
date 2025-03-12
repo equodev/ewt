@@ -1,10 +1,14 @@
 package dev.equo.ewt;
 
-public class NativeObj {
+public interface NativeObj {
 
-    int id;
+    int getId();
 
-    int getId() {
-        return id;
+    abstract class Base implements NativeObj {
+        int id;
+
+        public int getId() {
+            return id;
+        }
     }
 }
