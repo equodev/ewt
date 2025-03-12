@@ -11,7 +11,7 @@ void main() {
   // setupFactories();
   final widget = widgets.callToBuildWidgetTree(widgetFactories.factories);
 
-  runApp(widgetFactories.getWidget(widget));
+  runApp(widgetFactories.getWidget(widget) as Widget);
   // sum
   // runApp(const MyApp());
   print('dart main after runApp');

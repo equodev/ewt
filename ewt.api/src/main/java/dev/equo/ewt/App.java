@@ -38,7 +38,7 @@ public class App {
             try {
                 System.out.println("In startApp$buildWidgetTree "+widgetFactories);
 //                WidgetConstructors.set(WidgetFactories.reinterpret(widgetFactories, Arena.global(), null));
-                WidgetConstructors.instance.set(widgetFactories);
+                WidgetConstructorsBase.instance.set(widgetFactories);
                 Widget w = builderFn.call();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {

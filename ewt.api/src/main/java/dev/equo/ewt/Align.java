@@ -4,13 +4,17 @@ import org.immutables.builder.Builder;
 public class Align extends SingleChildRenderObjectWidget {
   static final WidgetConstructors factories = WidgetConstructors.instance;
   Align() {}
-  @Builder.Constructor
-  Align(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
-    id = factories.alignAlign(widthFactor, heightFactor, child);
-    if (id == -1) throw new RuntimeException("Failed to created widget "+this);
-    System.out.println("New "+this+" id:"+id);
+  Align(int id) {
+    this.id = id;
   }
-  public static AlignBuilder align() {
-    return AlignBuilder.Align();
+  @Builder.Factory
+  static Align alignAlign(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
+    int id = factories.alignAlign(widthFactor, heightFactor, child);
+    if (id == -1) throw new RuntimeException("Failed to created widget Align");
+    System.out.println("New Align id:"+id);
+    return new Align(id);
+  }
+  public static AlignAlignBuilder align() {
+    return AlignAlignBuilder.alignAlign();
   }
 }

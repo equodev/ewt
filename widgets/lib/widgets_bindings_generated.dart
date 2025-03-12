@@ -104,6 +104,8 @@ typedef DartbuildWidgetTreeFnFunction = int Function(WidgetFactories);
 final class WidgetFactories extends ffi.Struct {
   external TextSt text;
 
+  external ColorSt color;
+
   external CenterSt center;
 
   external AlignSt align;
@@ -117,6 +119,10 @@ final class WidgetFactories extends ffi.Struct {
   external ScaffoldSt scaffold;
 
   external MaterialAppSt materialApp;
+
+  external ThemeDataSt themeData;
+
+  external ColorSchemeSt colorScheme;
 }
 
 final class TextSt extends ffi.Struct {
@@ -131,7 +137,8 @@ final class TextSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> textScaleFactor,
               ffi.Pointer<ffi.Int> maxLines,
               ffi.Pointer<ffi.Char> semanticsLabel,
-              ffi.Pointer<ffi.Int> textWidthBasis)>> text;
+              ffi.Pointer<ffi.Int> textWidthBasis,
+              ffi.Pointer<DartObj> selectionColor)>> text;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -144,11 +151,32 @@ final class TextSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> textScaleFactor,
               ffi.Pointer<ffi.Int> maxLines,
               ffi.Pointer<ffi.Char> semanticsLabel,
-              ffi.Pointer<ffi.Int> textWidthBasis)>> rich;
+              ffi.Pointer<ffi.Int> textWidthBasis,
+              ffi.Pointer<DartObj> selectionColor)>> rich;
 }
 
 typedef DartObj = ffi.Int;
 typedef DartDartObj = int;
+
+final class ColorSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Int value)>>
+      color;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Double alpha, ffi.Double red, ffi.Double green,
+              ffi.Double blue, ffi.Pointer<ffi.Int> colorSpace)>> from;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              ffi.Int Function(ffi.Int a, ffi.Int r, ffi.Int g, ffi.Int b)>>
+      fromARGB;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Int r, ffi.Int g, ffi.Int b, ffi.Double opacity)>> fromRGBO;
+}
 
 final class CenterSt extends ffi.Struct {
   external ffi.Pointer<
@@ -217,6 +245,10 @@ final class AppBarSt extends ffi.Struct {
               ffi.Pointer<DartObj> bottom,
               ffi.Pointer<ffi.Double> elevation,
               ffi.Pointer<ffi.Double> scrolledUnderElevation,
+              ffi.Pointer<DartObj> shadowColor,
+              ffi.Pointer<DartObj> surfaceTintColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> foregroundColor,
               ffi.Pointer<ffi.Int> primary,
               ffi.Pointer<ffi.Int> centerTitle,
               ffi.Pointer<ffi.Int> excludeHeaderSemantics,
@@ -241,11 +273,13 @@ final class ScaffoldSt extends ffi.Struct {
               ffi.Pointer<DartObj> endDrawer,
               ffi.Pointer<DartObj> bottomNavigationBar,
               ffi.Pointer<DartObj> bottomSheet,
+              ffi.Pointer<DartObj> backgroundColor,
               ffi.Pointer<ffi.Int> resizeToAvoidBottomInset,
               ffi.Pointer<ffi.Int> primary,
               ffi.Pointer<ffi.Int> drawerDragStartBehavior,
               ffi.Pointer<ffi.Int> extendBody,
               ffi.Pointer<ffi.Int> extendBodyBehindAppBar,
+              ffi.Pointer<DartObj> drawerScrimColor,
               ffi.Pointer<ffi.Double> drawerEdgeDragWidth,
               ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture,
               ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture,
@@ -259,6 +293,11 @@ final class MaterialAppSt extends ffi.Struct {
               ffi.Pointer<DartObj> home,
               ffi.Pointer<ffi.Char> initialRoute,
               ffi.Pointer<ffi.Char> title,
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<DartObj> theme,
+              ffi.Pointer<DartObj> darkTheme,
+              ffi.Pointer<DartObj> highContrastTheme,
+              ffi.Pointer<DartObj> highContrastDarkTheme,
               ffi.Pointer<ffi.Int> themeMode,
               ffi.Pointer<ffi.Int> debugShowMaterialGrid,
               ffi.Pointer<ffi.Int> showPerformanceOverlay,
@@ -273,6 +312,11 @@ final class MaterialAppSt extends ffi.Struct {
       ffi.NativeFunction<
           ffi.Int Function(
               ffi.Pointer<ffi.Char> title,
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<DartObj> theme,
+              ffi.Pointer<DartObj> darkTheme,
+              ffi.Pointer<DartObj> highContrastTheme,
+              ffi.Pointer<DartObj> highContrastDarkTheme,
               ffi.Pointer<ffi.Int> themeMode,
               ffi.Pointer<ffi.Int> debugShowMaterialGrid,
               ffi.Pointer<ffi.Int> showPerformanceOverlay,
@@ -282,4 +326,397 @@ final class MaterialAppSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> debugShowCheckedModeBanner,
               ffi.Pointer<ffi.Char> restorationScopeId,
               ffi.Pointer<ffi.Int> useInheritedMediaQuery)>> router;
+}
+
+final class ThemeDataSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Int> applyElevationOverlayColor,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> platform,
+              ffi.Pointer<ffi.Int> useMaterial3,
+              ffi.Pointer<DartObj> colorScheme,
+              ffi.Pointer<ffi.Int> brightness,
+              ffi.Pointer<DartObj> colorSchemeSeed,
+              ffi.Pointer<DartObj> canvasColor,
+              ffi.Pointer<DartObj> cardColor,
+              ffi.Pointer<DartObj> dialogBackgroundColor,
+              ffi.Pointer<DartObj> disabledColor,
+              ffi.Pointer<DartObj> dividerColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> highlightColor,
+              ffi.Pointer<DartObj> hintColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> indicatorColor,
+              ffi.Pointer<DartObj> primaryColor,
+              ffi.Pointer<DartObj> primaryColorDark,
+              ffi.Pointer<DartObj> primaryColorLight,
+              ffi.Pointer<DartObj> scaffoldBackgroundColor,
+              ffi.Pointer<DartObj> secondaryHeaderColor,
+              ffi.Pointer<DartObj> shadowColor,
+              ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<DartObj> unselectedWidgetColor,
+              ffi.Pointer<ffi.Char> fontFamily,
+              ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
+                  fontFamilyFallback,
+              ffi.Pointer<ffi.Char> package)>> themeData;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              DartObj colorScheme, ffi.Pointer<ffi.Int> useMaterial3)>> from;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int> useMaterial3)>>
+      light;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int> useMaterial3)>>
+      dark;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int> useMaterial3)>>
+      fallback;
+}
+
+final class ColorSchemeSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Int brightness,
+              DartObj primary,
+              DartObj onPrimary,
+              ffi.Pointer<DartObj> primaryContainer,
+              ffi.Pointer<DartObj> onPrimaryContainer,
+              ffi.Pointer<DartObj> primaryFixed,
+              ffi.Pointer<DartObj> primaryFixedDim,
+              ffi.Pointer<DartObj> onPrimaryFixed,
+              ffi.Pointer<DartObj> onPrimaryFixedVariant,
+              DartObj secondary,
+              DartObj onSecondary,
+              ffi.Pointer<DartObj> secondaryContainer,
+              ffi.Pointer<DartObj> onSecondaryContainer,
+              ffi.Pointer<DartObj> secondaryFixed,
+              ffi.Pointer<DartObj> secondaryFixedDim,
+              ffi.Pointer<DartObj> onSecondaryFixed,
+              ffi.Pointer<DartObj> onSecondaryFixedVariant,
+              ffi.Pointer<DartObj> tertiary,
+              ffi.Pointer<DartObj> onTertiary,
+              ffi.Pointer<DartObj> tertiaryContainer,
+              ffi.Pointer<DartObj> onTertiaryContainer,
+              ffi.Pointer<DartObj> tertiaryFixed,
+              ffi.Pointer<DartObj> tertiaryFixedDim,
+              ffi.Pointer<DartObj> onTertiaryFixed,
+              ffi.Pointer<DartObj> onTertiaryFixedVariant,
+              DartObj error,
+              DartObj onError,
+              ffi.Pointer<DartObj> errorContainer,
+              ffi.Pointer<DartObj> onErrorContainer,
+              DartObj surface,
+              DartObj onSurface,
+              ffi.Pointer<DartObj> surfaceDim,
+              ffi.Pointer<DartObj> surfaceBright,
+              ffi.Pointer<DartObj> surfaceContainerLowest,
+              ffi.Pointer<DartObj> surfaceContainerLow,
+              ffi.Pointer<DartObj> surfaceContainer,
+              ffi.Pointer<DartObj> surfaceContainerHigh,
+              ffi.Pointer<DartObj> surfaceContainerHighest,
+              ffi.Pointer<DartObj> onSurfaceVariant,
+              ffi.Pointer<DartObj> outline,
+              ffi.Pointer<DartObj> outlineVariant,
+              ffi.Pointer<DartObj> shadow,
+              ffi.Pointer<DartObj> scrim,
+              ffi.Pointer<DartObj> inverseSurface,
+              ffi.Pointer<DartObj> onInverseSurface,
+              ffi.Pointer<DartObj> inversePrimary,
+              ffi.Pointer<DartObj> surfaceTint,
+              ffi.Pointer<DartObj> background,
+              ffi.Pointer<DartObj> onBackground,
+              ffi.Pointer<DartObj> surfaceVariant)>> colorScheme;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              DartObj seedColor,
+              ffi.Pointer<ffi.Int> brightness,
+              ffi.Pointer<ffi.Int> dynamicSchemeVariant,
+              ffi.Pointer<ffi.Double> contrastLevel,
+              ffi.Pointer<DartObj> primary,
+              ffi.Pointer<DartObj> onPrimary,
+              ffi.Pointer<DartObj> primaryContainer,
+              ffi.Pointer<DartObj> onPrimaryContainer,
+              ffi.Pointer<DartObj> primaryFixed,
+              ffi.Pointer<DartObj> primaryFixedDim,
+              ffi.Pointer<DartObj> onPrimaryFixed,
+              ffi.Pointer<DartObj> onPrimaryFixedVariant,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<DartObj> onSecondary,
+              ffi.Pointer<DartObj> secondaryContainer,
+              ffi.Pointer<DartObj> onSecondaryContainer,
+              ffi.Pointer<DartObj> secondaryFixed,
+              ffi.Pointer<DartObj> secondaryFixedDim,
+              ffi.Pointer<DartObj> onSecondaryFixed,
+              ffi.Pointer<DartObj> onSecondaryFixedVariant,
+              ffi.Pointer<DartObj> tertiary,
+              ffi.Pointer<DartObj> onTertiary,
+              ffi.Pointer<DartObj> tertiaryContainer,
+              ffi.Pointer<DartObj> onTertiaryContainer,
+              ffi.Pointer<DartObj> tertiaryFixed,
+              ffi.Pointer<DartObj> tertiaryFixedDim,
+              ffi.Pointer<DartObj> onTertiaryFixed,
+              ffi.Pointer<DartObj> onTertiaryFixedVariant,
+              ffi.Pointer<DartObj> error,
+              ffi.Pointer<DartObj> onError,
+              ffi.Pointer<DartObj> errorContainer,
+              ffi.Pointer<DartObj> onErrorContainer,
+              ffi.Pointer<DartObj> outline,
+              ffi.Pointer<DartObj> outlineVariant,
+              ffi.Pointer<DartObj> surface,
+              ffi.Pointer<DartObj> onSurface,
+              ffi.Pointer<DartObj> surfaceDim,
+              ffi.Pointer<DartObj> surfaceBright,
+              ffi.Pointer<DartObj> surfaceContainerLowest,
+              ffi.Pointer<DartObj> surfaceContainerLow,
+              ffi.Pointer<DartObj> surfaceContainer,
+              ffi.Pointer<DartObj> surfaceContainerHigh,
+              ffi.Pointer<DartObj> surfaceContainerHighest,
+              ffi.Pointer<DartObj> onSurfaceVariant,
+              ffi.Pointer<DartObj> inverseSurface,
+              ffi.Pointer<DartObj> onInverseSurface,
+              ffi.Pointer<DartObj> inversePrimary,
+              ffi.Pointer<DartObj> shadow,
+              ffi.Pointer<DartObj> scrim,
+              ffi.Pointer<DartObj> surfaceTint,
+              ffi.Pointer<DartObj> background,
+              ffi.Pointer<DartObj> onBackground,
+              ffi.Pointer<DartObj> surfaceVariant)>> fromSeed;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Int> brightness,
+              ffi.Pointer<DartObj> primary,
+              ffi.Pointer<DartObj> onPrimary,
+              ffi.Pointer<DartObj> primaryContainer,
+              ffi.Pointer<DartObj> onPrimaryContainer,
+              ffi.Pointer<DartObj> primaryFixed,
+              ffi.Pointer<DartObj> primaryFixedDim,
+              ffi.Pointer<DartObj> onPrimaryFixed,
+              ffi.Pointer<DartObj> onPrimaryFixedVariant,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<DartObj> onSecondary,
+              ffi.Pointer<DartObj> secondaryContainer,
+              ffi.Pointer<DartObj> onSecondaryContainer,
+              ffi.Pointer<DartObj> secondaryFixed,
+              ffi.Pointer<DartObj> secondaryFixedDim,
+              ffi.Pointer<DartObj> onSecondaryFixed,
+              ffi.Pointer<DartObj> onSecondaryFixedVariant,
+              ffi.Pointer<DartObj> tertiary,
+              ffi.Pointer<DartObj> onTertiary,
+              ffi.Pointer<DartObj> tertiaryContainer,
+              ffi.Pointer<DartObj> onTertiaryContainer,
+              ffi.Pointer<DartObj> tertiaryFixed,
+              ffi.Pointer<DartObj> tertiaryFixedDim,
+              ffi.Pointer<DartObj> onTertiaryFixed,
+              ffi.Pointer<DartObj> onTertiaryFixedVariant,
+              ffi.Pointer<DartObj> error,
+              ffi.Pointer<DartObj> onError,
+              ffi.Pointer<DartObj> errorContainer,
+              ffi.Pointer<DartObj> onErrorContainer,
+              ffi.Pointer<DartObj> surface,
+              ffi.Pointer<DartObj> onSurface,
+              ffi.Pointer<DartObj> surfaceDim,
+              ffi.Pointer<DartObj> surfaceBright,
+              ffi.Pointer<DartObj> surfaceContainerLowest,
+              ffi.Pointer<DartObj> surfaceContainerLow,
+              ffi.Pointer<DartObj> surfaceContainer,
+              ffi.Pointer<DartObj> surfaceContainerHigh,
+              ffi.Pointer<DartObj> surfaceContainerHighest,
+              ffi.Pointer<DartObj> onSurfaceVariant,
+              ffi.Pointer<DartObj> outline,
+              ffi.Pointer<DartObj> outlineVariant,
+              ffi.Pointer<DartObj> shadow,
+              ffi.Pointer<DartObj> scrim,
+              ffi.Pointer<DartObj> inverseSurface,
+              ffi.Pointer<DartObj> onInverseSurface,
+              ffi.Pointer<DartObj> inversePrimary,
+              ffi.Pointer<DartObj> surfaceTint,
+              ffi.Pointer<DartObj> background,
+              ffi.Pointer<DartObj> onBackground,
+              ffi.Pointer<DartObj> surfaceVariant)>> light;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Int> brightness,
+              ffi.Pointer<DartObj> primary,
+              ffi.Pointer<DartObj> onPrimary,
+              ffi.Pointer<DartObj> primaryContainer,
+              ffi.Pointer<DartObj> onPrimaryContainer,
+              ffi.Pointer<DartObj> primaryFixed,
+              ffi.Pointer<DartObj> primaryFixedDim,
+              ffi.Pointer<DartObj> onPrimaryFixed,
+              ffi.Pointer<DartObj> onPrimaryFixedVariant,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<DartObj> onSecondary,
+              ffi.Pointer<DartObj> secondaryContainer,
+              ffi.Pointer<DartObj> onSecondaryContainer,
+              ffi.Pointer<DartObj> secondaryFixed,
+              ffi.Pointer<DartObj> secondaryFixedDim,
+              ffi.Pointer<DartObj> onSecondaryFixed,
+              ffi.Pointer<DartObj> onSecondaryFixedVariant,
+              ffi.Pointer<DartObj> tertiary,
+              ffi.Pointer<DartObj> onTertiary,
+              ffi.Pointer<DartObj> tertiaryContainer,
+              ffi.Pointer<DartObj> onTertiaryContainer,
+              ffi.Pointer<DartObj> tertiaryFixed,
+              ffi.Pointer<DartObj> tertiaryFixedDim,
+              ffi.Pointer<DartObj> onTertiaryFixed,
+              ffi.Pointer<DartObj> onTertiaryFixedVariant,
+              ffi.Pointer<DartObj> error,
+              ffi.Pointer<DartObj> onError,
+              ffi.Pointer<DartObj> errorContainer,
+              ffi.Pointer<DartObj> onErrorContainer,
+              ffi.Pointer<DartObj> surface,
+              ffi.Pointer<DartObj> onSurface,
+              ffi.Pointer<DartObj> surfaceDim,
+              ffi.Pointer<DartObj> surfaceBright,
+              ffi.Pointer<DartObj> surfaceContainerLowest,
+              ffi.Pointer<DartObj> surfaceContainerLow,
+              ffi.Pointer<DartObj> surfaceContainer,
+              ffi.Pointer<DartObj> surfaceContainerHigh,
+              ffi.Pointer<DartObj> surfaceContainerHighest,
+              ffi.Pointer<DartObj> onSurfaceVariant,
+              ffi.Pointer<DartObj> outline,
+              ffi.Pointer<DartObj> outlineVariant,
+              ffi.Pointer<DartObj> shadow,
+              ffi.Pointer<DartObj> scrim,
+              ffi.Pointer<DartObj> inverseSurface,
+              ffi.Pointer<DartObj> onInverseSurface,
+              ffi.Pointer<DartObj> inversePrimary,
+              ffi.Pointer<DartObj> surfaceTint,
+              ffi.Pointer<DartObj> background,
+              ffi.Pointer<DartObj> onBackground,
+              ffi.Pointer<DartObj> surfaceVariant)>> dark;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Int> brightness,
+              ffi.Pointer<DartObj> primary,
+              ffi.Pointer<DartObj> onPrimary,
+              ffi.Pointer<DartObj> primaryContainer,
+              ffi.Pointer<DartObj> onPrimaryContainer,
+              ffi.Pointer<DartObj> primaryFixed,
+              ffi.Pointer<DartObj> primaryFixedDim,
+              ffi.Pointer<DartObj> onPrimaryFixed,
+              ffi.Pointer<DartObj> onPrimaryFixedVariant,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<DartObj> onSecondary,
+              ffi.Pointer<DartObj> secondaryContainer,
+              ffi.Pointer<DartObj> onSecondaryContainer,
+              ffi.Pointer<DartObj> secondaryFixed,
+              ffi.Pointer<DartObj> secondaryFixedDim,
+              ffi.Pointer<DartObj> onSecondaryFixed,
+              ffi.Pointer<DartObj> onSecondaryFixedVariant,
+              ffi.Pointer<DartObj> tertiary,
+              ffi.Pointer<DartObj> onTertiary,
+              ffi.Pointer<DartObj> tertiaryContainer,
+              ffi.Pointer<DartObj> onTertiaryContainer,
+              ffi.Pointer<DartObj> tertiaryFixed,
+              ffi.Pointer<DartObj> tertiaryFixedDim,
+              ffi.Pointer<DartObj> onTertiaryFixed,
+              ffi.Pointer<DartObj> onTertiaryFixedVariant,
+              ffi.Pointer<DartObj> error,
+              ffi.Pointer<DartObj> onError,
+              ffi.Pointer<DartObj> errorContainer,
+              ffi.Pointer<DartObj> onErrorContainer,
+              ffi.Pointer<DartObj> surface,
+              ffi.Pointer<DartObj> onSurface,
+              ffi.Pointer<DartObj> surfaceDim,
+              ffi.Pointer<DartObj> surfaceBright,
+              ffi.Pointer<DartObj> surfaceContainerLowest,
+              ffi.Pointer<DartObj> surfaceContainerLow,
+              ffi.Pointer<DartObj> surfaceContainer,
+              ffi.Pointer<DartObj> surfaceContainerHigh,
+              ffi.Pointer<DartObj> surfaceContainerHighest,
+              ffi.Pointer<DartObj> onSurfaceVariant,
+              ffi.Pointer<DartObj> outline,
+              ffi.Pointer<DartObj> outlineVariant,
+              ffi.Pointer<DartObj> shadow,
+              ffi.Pointer<DartObj> scrim,
+              ffi.Pointer<DartObj> inverseSurface,
+              ffi.Pointer<DartObj> onInverseSurface,
+              ffi.Pointer<DartObj> inversePrimary,
+              ffi.Pointer<DartObj> surfaceTint,
+              ffi.Pointer<DartObj> background,
+              ffi.Pointer<DartObj> onBackground,
+              ffi.Pointer<DartObj> surfaceVariant)>> highContrastLight;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Int> brightness,
+              ffi.Pointer<DartObj> primary,
+              ffi.Pointer<DartObj> onPrimary,
+              ffi.Pointer<DartObj> primaryContainer,
+              ffi.Pointer<DartObj> onPrimaryContainer,
+              ffi.Pointer<DartObj> primaryFixed,
+              ffi.Pointer<DartObj> primaryFixedDim,
+              ffi.Pointer<DartObj> onPrimaryFixed,
+              ffi.Pointer<DartObj> onPrimaryFixedVariant,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<DartObj> onSecondary,
+              ffi.Pointer<DartObj> secondaryContainer,
+              ffi.Pointer<DartObj> onSecondaryContainer,
+              ffi.Pointer<DartObj> secondaryFixed,
+              ffi.Pointer<DartObj> secondaryFixedDim,
+              ffi.Pointer<DartObj> onSecondaryFixed,
+              ffi.Pointer<DartObj> onSecondaryFixedVariant,
+              ffi.Pointer<DartObj> tertiary,
+              ffi.Pointer<DartObj> onTertiary,
+              ffi.Pointer<DartObj> tertiaryContainer,
+              ffi.Pointer<DartObj> onTertiaryContainer,
+              ffi.Pointer<DartObj> tertiaryFixed,
+              ffi.Pointer<DartObj> tertiaryFixedDim,
+              ffi.Pointer<DartObj> onTertiaryFixed,
+              ffi.Pointer<DartObj> onTertiaryFixedVariant,
+              ffi.Pointer<DartObj> error,
+              ffi.Pointer<DartObj> onError,
+              ffi.Pointer<DartObj> errorContainer,
+              ffi.Pointer<DartObj> onErrorContainer,
+              ffi.Pointer<DartObj> surface,
+              ffi.Pointer<DartObj> onSurface,
+              ffi.Pointer<DartObj> surfaceDim,
+              ffi.Pointer<DartObj> surfaceBright,
+              ffi.Pointer<DartObj> surfaceContainerLowest,
+              ffi.Pointer<DartObj> surfaceContainerLow,
+              ffi.Pointer<DartObj> surfaceContainer,
+              ffi.Pointer<DartObj> surfaceContainerHigh,
+              ffi.Pointer<DartObj> surfaceContainerHighest,
+              ffi.Pointer<DartObj> onSurfaceVariant,
+              ffi.Pointer<DartObj> outline,
+              ffi.Pointer<DartObj> outlineVariant,
+              ffi.Pointer<DartObj> shadow,
+              ffi.Pointer<DartObj> scrim,
+              ffi.Pointer<DartObj> inverseSurface,
+              ffi.Pointer<DartObj> onInverseSurface,
+              ffi.Pointer<DartObj> inversePrimary,
+              ffi.Pointer<DartObj> surfaceTint,
+              ffi.Pointer<DartObj> background,
+              ffi.Pointer<DartObj> onBackground,
+              ffi.Pointer<DartObj> surfaceVariant)>> highContrastDark;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> accentColor,
+              ffi.Pointer<DartObj> cardColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> errorColor,
+              ffi.Pointer<ffi.Int> brightness)>> fromSwatch;
 }

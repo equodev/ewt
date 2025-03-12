@@ -17,6 +17,10 @@ public class Counter {
     public Widget build() {
       return MaterialApp.materialApp()
           .title("EWT Demo")
+          .theme(ThemeData.themeData()
+              .colorScheme(ColorScheme.fromSeed(Color.color(0xFF311B92).build()).build())
+              .useMaterial3(true)
+              .build())
 //          .showPerformanceOverlay(true)
           .home(new MyHomePage("Flutter Demo Home Page").build())
           .build();
@@ -34,6 +38,7 @@ public class Counter {
         return Scaffold.scaffold()
             .appBar(
                 AppBar.appBar()
+                    .backgroundColor(Color.color(0xFFB39DDB).build())
                     .title(Text.text(title).textDirection(TextDirection.ltr).build())
                     .build()
             )
