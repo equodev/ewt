@@ -334,6 +334,9 @@ class Generation {
     if (t.isDartCoreList && supportedType((t as InterfaceType).typeArguments[0])) {
       return true;
     }
+    if (t is FunctionType) {
+      return (t.parameters.isEmpty);
+    }
     return false;
   }
 
@@ -389,6 +392,9 @@ class Generation {
       }
       return namedType.element.name;
     }
+    else if (namedType is FunctionType) {
+      return 'java.lang.Runnable';
+    }
     return namedType.toString();
   }
 
@@ -419,6 +425,9 @@ class Generation {
         return 'ArrayC';
       }
     }
+    else if (namedType is FunctionType) {
+      return 'VoidCallback';
+    }
     else if (!isPrimitive(namedType)) {
       return 'DartObj'; // object are passes as ids
     }
@@ -426,7 +435,7 @@ class Generation {
   }
 
   String type4D(DartType namedType) {
-    if (namedType is InterfaceType) {
+    // if (namedType is InterfaceType) {
       if (namedType.isDartCoreString) {
         return 'ffi.Pointer<ffi.Char>';
       }
@@ -446,18 +455,21 @@ class Generation {
         return 'ffi.Int';
       }
       else if (namedType.isDartCoreList) {
-        final arrayType = namedType.typeArguments[0];
+        final arrayType = (namedType as InterfaceType).typeArguments[0];
         if (isPrimitive(arrayType)) {
           return 'ffi.Pointer<${type4D(arrayType)}>';
         } else {
           return 'ArrayC';
         }
       }
+      else if (namedType is FunctionType) {
+        return 'VoidCallback';
+      }
       else if (!isPrimitive(namedType)) {
         return 'DartObj';
       }
       throw UnsupportedError('Unsupported type $namedType');
-    }
+    // }
     return namedType.toString();
   }
 
@@ -483,7 +495,7 @@ class Generation {
     if (requiredType.isDartCoreObject || requiredType.isDartCoreList || isPrimitive(requiredType)) {
       return;
     }
-    if (processed.contains(requiredType.element!)) {
+    if (processed.contains(requiredType.element)) {
       return;
     }
     // if (requiredType.element is EnumElement) {
@@ -513,7 +525,7 @@ class Params {
       String Function(Generation, ParameterElement, {bool annotated, bool wrap}) paramDef,
       {this.allTypes = false, String Function(ParameterElement) paramValue = _paramName, String Function(ParameterElement) escape = _paramName}) {
     var filtered = allTypes ? parameters : parameters.where((p) => generation.supportedType(p.type));
-    names = filtered.map(paramValue).join(', ');
+    names = filtered.map(paramValue).join(',\n      ');
     builderDecl = filtered.map((p) => '${paramDef(generation, p, annotated: p.isRequired, wrap: p.isOptional)} ${escape(p)}').join(', ');
     decl = filtered.map((p) => '${paramDef(generation, p, wrap: p.isOptional)} ${escape(p)}').join(', ');
     var mandatory = filtered.where((p) => p.isRequired);
@@ -622,6 +634,9 @@ class Params {
         }
       }
     }
+    else if (t is FunctionType) {
+      value = '$value.asFunction()';
+    }
     if (param.isNamed) {
       value = '${param.name}: $value';
     }
@@ -672,6 +687,9 @@ class Params {
       }
       else if (t.element is EnumElement) {
         value = '$value.ordinal()';
+      }
+      else if (t is FunctionType) {
+        return 'ptrFn($value)';
       }
       else if (!isPrimitive(t)) {
         value = '$value.getId()';

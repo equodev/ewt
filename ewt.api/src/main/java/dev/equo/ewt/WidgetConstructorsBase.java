@@ -54,4 +54,7 @@ class WidgetConstructorsBase {
     }
     return MemorySegment.NULL;
   }
+  MemorySegment ptrFn(Runnable runnable) {
+    return VoidCallback.allocate(runnable::run, arena);
+  }
 }

@@ -3,7 +3,7 @@
 #define Common_h
 
 typedef int DartObj;
-
+typedef void (*VoidCallback)(void);
 typedef struct {
     int size;
     DartObj* list;

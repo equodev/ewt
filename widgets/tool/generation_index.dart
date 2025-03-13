@@ -8,6 +8,7 @@ w.Column? column;
 m.AppBar? appBar;
 m.Scaffold? scaffold;
 m.MaterialApp? materialApp;
+m.FloatingActionButton? floatingActionButton;
 
 void main() {
   //print('I am an index with the widgets to generate');

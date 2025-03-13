@@ -19,7 +19,11 @@ public class Color extends NativeObj.Base {
   }
   @Builder.Factory
   static Color colorFrom(@Builder.Parameter double alpha, @Builder.Parameter double red, @Builder.Parameter double green, @Builder.Parameter double blue, Optional<ColorSpace> colorSpace) {
-    int id = factories.colorFrom(alpha, red, green, blue, colorSpace);
+    int id = factories.colorFrom(alpha,
+      red,
+      green,
+      blue,
+      colorSpace);
     if (id == -1) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
@@ -29,7 +33,10 @@ public class Color extends NativeObj.Base {
   }
   @Builder.Factory
   static Color colorFromARGB(@Builder.Parameter int a, @Builder.Parameter int r, @Builder.Parameter int g, @Builder.Parameter int b) {
-    int id = factories.colorFromARGB(a, r, g, b);
+    int id = factories.colorFromARGB(a,
+      r,
+      g,
+      b);
     if (id == -1) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
@@ -39,7 +46,10 @@ public class Color extends NativeObj.Base {
   }
   @Builder.Factory
   static Color colorFromRGBO(@Builder.Parameter int r, @Builder.Parameter int g, @Builder.Parameter int b, @Builder.Parameter double opacity) {
-    int id = factories.colorFromRGBO(r, g, b, opacity);
+    int id = factories.colorFromRGBO(r,
+      g,
+      b,
+      opacity);
     if (id == -1) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);

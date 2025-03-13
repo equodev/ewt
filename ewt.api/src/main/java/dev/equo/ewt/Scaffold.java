@@ -9,7 +9,25 @@ public class Scaffold extends StatefulWidget {
   }
   @Builder.Factory
   static Scaffold scaffoldScaffold(Optional<PreferredSizeWidget> appBar, Optional<Widget> body, Optional<Widget> floatingActionButton, Optional<List<Widget>> persistentFooterButtons, Optional<Widget> drawer, Optional<Widget> endDrawer, Optional<Widget> bottomNavigationBar, Optional<Widget> bottomSheet, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> extendBodyBehindAppBar, Optional<Color> drawerScrimColor, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
-    int id = factories.scaffoldScaffold(appBar, body, floatingActionButton, persistentFooterButtons, drawer, endDrawer, bottomNavigationBar, bottomSheet, backgroundColor, resizeToAvoidBottomInset, primary, drawerDragStartBehavior, extendBody, extendBodyBehindAppBar, drawerScrimColor, drawerEdgeDragWidth, drawerEnableOpenDragGesture, endDrawerEnableOpenDragGesture, restorationId);
+    int id = factories.scaffoldScaffold(appBar,
+      body,
+      floatingActionButton,
+      persistentFooterButtons,
+      drawer,
+      endDrawer,
+      bottomNavigationBar,
+      bottomSheet,
+      backgroundColor,
+      resizeToAvoidBottomInset,
+      primary,
+      drawerDragStartBehavior,
+      extendBody,
+      extendBodyBehindAppBar,
+      drawerScrimColor,
+      drawerEdgeDragWidth,
+      drawerEnableOpenDragGesture,
+      endDrawerEnableOpenDragGesture,
+      restorationId);
     if (id == -1) throw new RuntimeException("Failed to created widget Scaffold");
     System.out.println("New Scaffold id:"+id);
     return new Scaffold(id);

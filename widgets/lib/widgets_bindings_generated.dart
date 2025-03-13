@@ -123,6 +123,8 @@ final class WidgetFactories extends ffi.Struct {
   external ThemeDataSt themeData;
 
   external ColorSchemeSt colorScheme;
+
+  external FloatingActionButtonSt floatingActionButton;
 }
 
 final class TextSt extends ffi.Struct {
@@ -720,3 +722,98 @@ final class ColorSchemeSt extends ffi.Struct {
               ffi.Pointer<DartObj> errorColor,
               ffi.Pointer<ffi.Int> brightness)>> fromSwatch;
 }
+
+final class FloatingActionButtonSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<ffi.Char> tooltip,
+              ffi.Pointer<DartObj> foregroundColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<ffi.Double> focusElevation,
+              ffi.Pointer<ffi.Double> hoverElevation,
+              ffi.Pointer<ffi.Double> highlightElevation,
+              ffi.Pointer<ffi.Double> disabledElevation,
+              VoidCallback onPressed,
+              ffi.Pointer<ffi.Int> mini,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> isExtended,
+              ffi.Pointer<ffi.Int> enableFeedback)>> floatingActionButton;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<ffi.Char> tooltip,
+              ffi.Pointer<DartObj> foregroundColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<ffi.Double> focusElevation,
+              ffi.Pointer<ffi.Double> hoverElevation,
+              ffi.Pointer<ffi.Double> highlightElevation,
+              ffi.Pointer<ffi.Double> disabledElevation,
+              VoidCallback onPressed,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> enableFeedback)>> small;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<ffi.Char> tooltip,
+              ffi.Pointer<DartObj> foregroundColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<ffi.Double> focusElevation,
+              ffi.Pointer<ffi.Double> hoverElevation,
+              ffi.Pointer<ffi.Double> highlightElevation,
+              ffi.Pointer<ffi.Double> disabledElevation,
+              VoidCallback onPressed,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> enableFeedback)>> large;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char> tooltip,
+              ffi.Pointer<DartObj> foregroundColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<ffi.Double> focusElevation,
+              ffi.Pointer<ffi.Double> hoverElevation,
+              ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<ffi.Double> highlightElevation,
+              ffi.Pointer<ffi.Double> disabledElevation,
+              VoidCallback onPressed,
+              ffi.Pointer<ffi.Int> isExtended,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Double> extendedIconLabelSpacing,
+              ffi.Pointer<DartObj> icon,
+              DartObj label,
+              ffi.Pointer<ffi.Int> enableFeedback)>> extended;
+}
+
+typedef VoidCallback = ffi.Pointer<ffi.NativeFunction<VoidCallbackFunction>>;
+typedef VoidCallbackFunction = ffi.Void Function();
+typedef DartVoidCallbackFunction = void Function();
