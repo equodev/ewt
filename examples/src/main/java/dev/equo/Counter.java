@@ -63,9 +63,11 @@ public class Counter {
                     .build()
             )
             .floatingActionButton(
-                FloatingActionButton.floatingActionButton(() -> {
-                  System.out.println("on pressed in java");
-                }).tooltip("Increment").build()
+                FloatingActionButton.floatingActionButton()
+                    .onPressed(() -> {
+                      System.out.println("on pressed in java");
+                    })
+                    .tooltip("Increment").build()
             )
             .build();
       }

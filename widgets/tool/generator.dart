@@ -526,9 +526,10 @@ class Params {
       {this.allTypes = false, String Function(ParameterElement) paramValue = _paramName, String Function(ParameterElement) escape = _paramName}) {
     var filtered = allTypes ? parameters : parameters.where((p) => generation.supportedType(p.type));
     names = filtered.map(paramValue).join(',\n      ');
-    builderDecl = filtered.map((p) => '${paramDef(generation, p, annotated: p.isRequired, wrap: p.isOptional)} ${escape(p)}').join(', ');
+    var mandatory = filtered.takeWhile((p) => p.isRequired);
+    builderDecl = filtered.map((p) => '${paramDef(generation, p, annotated: mandatory.contains(p), wrap: p.isOptional)} ${escape(p)}').join(', ');
     decl = filtered.map((p) => '${paramDef(generation, p, wrap: p.isOptional)} ${escape(p)}').join(', ');
-    var mandatory = filtered.where((p) => p.isRequired);
+    // var mandatory = filtered.where((p) => p.isRequired);
     required = mandatory.map((p) => '${paramDef(generation, p)} ${paramValue(p)}').join(', ');
     requiredNames = mandatory.map(paramValue).join(', ');
   }

@@ -8,7 +8,7 @@ public class FloatingActionButton extends StatelessWidget {
     this.id = id;
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, @Builder.Parameter java.lang.Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, java.lang.Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonFloatingActionButton(child,
       tooltip,
       foregroundColor,
@@ -32,11 +32,11 @@ public class FloatingActionButton extends StatelessWidget {
     System.out.println("New FloatingActionButton id:"+id);
     return new FloatingActionButton(id);
   }
-  public static FloatingActionButtonFloatingActionButtonBuilder floatingActionButton(java.lang.Runnable onPressed) {
-    return FloatingActionButtonFloatingActionButtonBuilder.floatingActionButtonFloatingActionButton(onPressed);
+  public static FloatingActionButtonFloatingActionButtonBuilder floatingActionButton() {
+    return FloatingActionButtonFloatingActionButtonBuilder.floatingActionButtonFloatingActionButton();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, @Builder.Parameter java.lang.Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, java.lang.Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonSmall(child,
       tooltip,
       foregroundColor,
@@ -58,11 +58,11 @@ public class FloatingActionButton extends StatelessWidget {
     System.out.println("New FloatingActionButton id:"+id);
     return new FloatingActionButton(id);
   }
-  public static FloatingActionButtonSmallBuilder small(java.lang.Runnable onPressed) {
-    return FloatingActionButtonSmallBuilder.floatingActionButtonSmall(onPressed);
+  public static FloatingActionButtonSmallBuilder small() {
+    return FloatingActionButtonSmallBuilder.floatingActionButtonSmall();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, @Builder.Parameter java.lang.Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, java.lang.Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonLarge(child,
       tooltip,
       foregroundColor,
@@ -84,11 +84,11 @@ public class FloatingActionButton extends StatelessWidget {
     System.out.println("New FloatingActionButton id:"+id);
     return new FloatingActionButton(id);
   }
-  public static FloatingActionButtonLargeBuilder large(java.lang.Runnable onPressed) {
-    return FloatingActionButtonLargeBuilder.floatingActionButtonLarge(onPressed);
+  public static FloatingActionButtonLargeBuilder large() {
+    return FloatingActionButtonLargeBuilder.floatingActionButtonLarge();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, @Builder.Parameter java.lang.Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, @Builder.Parameter Widget label, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, java.lang.Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonExtended(tooltip,
       foregroundColor,
       backgroundColor,
@@ -113,7 +113,7 @@ public class FloatingActionButton extends StatelessWidget {
     System.out.println("New FloatingActionButton id:"+id);
     return new FloatingActionButton(id);
   }
-  public static FloatingActionButtonExtendedBuilder extended(java.lang.Runnable onPressed, Widget label) {
-    return FloatingActionButtonExtendedBuilder.floatingActionButtonExtended(onPressed, label);
+  public static FloatingActionButtonExtendedBuilder extended() {
+    return FloatingActionButtonExtendedBuilder.floatingActionButtonExtended();
   }
 }
