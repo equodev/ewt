@@ -1,6 +1,11 @@
 package dev.equo;
 
-import dev.equo.ewt.*;
+import static dev.equo.ewt.EWT.*;
+import dev.equo.ewt.App;
+import dev.equo.ewt.Icons;
+import dev.equo.ewt.MainAxisAlignment;
+import dev.equo.ewt.TextDirection;
+import dev.equo.ewt.Widget;
 
 import java.util.List;
 
@@ -15,10 +20,10 @@ public class Counter {
     private final int counter = 1;
 
     public Widget build() {
-      return MaterialApp.materialApp()
+      return MaterialApp()
           .title("EWT Demo")
-          .theme(ThemeData.themeData()
-              .colorScheme(ColorScheme.fromSeed(Color.color(0xFF311B92).build()).build())
+          .theme(ThemeData()
+              .colorScheme(ColorScheme_fromSeed(Color(0xFF311B92).build()).build())
               .useMaterial3(true)
               .build())
 //          .showPerformanceOverlay(true)
@@ -35,24 +40,24 @@ public class Counter {
       }
 
       public Widget build() {
-        return Scaffold.scaffold()
+        return Scaffold()
             .appBar(
-                AppBar.appBar()
-                    .backgroundColor(Color.color(0xFFB39DDB).build())
-                    .title(Text.text(title).textDirection(TextDirection.ltr).build())
+                AppBar()
+                    .backgroundColor(Color(0xFFB39DDB).build())
+                    .title(Text(title).textDirection(TextDirection.ltr).build())
                     .build()
             )
             .body(
-                Center.center()
+                Center()
                     .child(
-                        Column.column()
+                        Column()
                             .mainAxisAlignment(MainAxisAlignment.center)
                             .children(
                                 List.of(
-                                    Text.text("You have pushed the button this many times:")
+                                    Text("You have pushed the button this many times:")
                                         .textDirection(TextDirection.ltr)
                                         .build(),
-                                    Text.text("" + counter)
+                                    Text("" + counter)
                                         .textDirection(TextDirection.ltr)
 //                                            .style(Theme.of(context).textTheme.headlineMedium)
                                         .build()
@@ -63,12 +68,12 @@ public class Counter {
                     .build()
             )
             .floatingActionButton(
-                FloatingActionButton.floatingActionButton()
+                FloatingActionButton()
                     .onPressed(() -> {
                       System.out.println("on pressed in java");
                     })
                     .tooltip("Increment")
-                    .child(Icon.icon(Icons.add()).build())
+                    .child(Icon(Icons.add()).build())
                     .build()
             )
             .build();

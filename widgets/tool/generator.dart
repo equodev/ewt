@@ -45,6 +45,7 @@ class WidgetGen {
   StringBuffer dartAssigns = StringBuffer();
   StringBuffer dartFns = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaStatics = StringBuffer();
 
   WidgetGen(this.generation, this.dartClass):
         widgetClass = dartClass.name,
@@ -121,6 +122,10 @@ class WidgetGen {
 
   String genJavaFactories() {
     return javaFactories.toString();
+  }
+
+  String genJavaStatics() {
+    return javaStatics.toString();
   }
 
   void write() {
@@ -206,6 +211,10 @@ class WidgetGen {
       ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
       ..writeln('    return WidgetFactories.${widgetClass}St.$factory.invoke(fn, ${jParamsFFM.names});')
       ..writeln('  }');
+    javaStatics
+      ..writeln('  public static $builderClass $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParams.required}) {')
+      ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
+      ..writeln('  }');
   }
 
   void writeConst(ConstFieldElementImpl fld, int constId) {
@@ -284,6 +293,7 @@ class Generation {
   StringBuffer headerFile = StringBuffer();
   StringBuffer dartFactories = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaStatics = StringBuffer();
 
   Iterable<ClassElement> widgets;
 
@@ -323,6 +333,13 @@ class Generation {
       // ..writeln('  public void set(MemorySegment factories) {')
       // ..writeln('    this.factories = factories;')
       // ..writeln('  }');
+    javaStatics
+      ..writeln('package dev.equo.ewt;')
+      ..writeln('import java.util.List;')
+      ..writeln('import java.util.Optional;')
+      ..writeln('import java.util.OptionalInt;')
+      ..writeln('import java.util.OptionalDouble;')
+      ..writeln('public class EWT {');
 
     for (var dartClass in widgets) {
       processWidget(dartClass);
@@ -375,6 +392,7 @@ class Generation {
     //                       '    return MemorySegment.NULL\n;'
     //                       '  }');
     javaFactories.writeln('}');
+    javaStatics.writeln('}');
   }
 
   bool supportedType(DartType t) {
@@ -419,6 +437,9 @@ class Generation {
     }
     if (widGen.genJavaFactories().isNotEmpty) {
       javaFactories.writeln(widGen.genJavaFactories());
+    }
+    if (widGen.genJavaFactories().isNotEmpty) {
+      javaStatics.writeln(widGen.genJavaStatics());
     }
 
     for (DartType requiredType in requiredTypes.toSet()) {
@@ -534,6 +555,7 @@ class Generation {
     _writeC('factories.h', headerFile.toString());
     _writeD('factories_gen.dart', dartFactories.toString());
     _writeJ('WidgetConstructors', javaFactories.toString());
+    _writeJ('EWT', javaStatics.toString());
   }
 
   String genCFactories() {
@@ -546,6 +568,10 @@ class Generation {
 
   String genJavaFactories() {
     return javaFactories.toString();
+  }
+
+  String genJavaStatics() {
+    return javaStatics.toString();
   }
 
   void addRequiredType(DartType requiredType) {
