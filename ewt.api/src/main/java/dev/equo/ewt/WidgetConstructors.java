@@ -202,7 +202,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(useInheritedMediaQuery));
   }
 
-  int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> dialogBackgroundColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package) {
+  int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<Color> dialogBackgroundColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
     return WidgetFactories.ThemeDataSt.themeData.invoke(fn, ptrBool(applyElevationOverlayColor),
@@ -214,7 +214,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(colorSchemeSeed),
       ptrObj(canvasColor),
       ptrObj(cardColor),
-      ptrObj(dialogBackgroundColor),
       ptrObj(disabledColor),
       ptrObj(dividerColor),
       ptrObj(focusColor),
@@ -232,7 +231,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(unselectedWidgetColor),
       ptrStr(fontFamily),
       ptrStrList(fontFamilyFallback),
-      ptrStr(_package));
+      ptrStr(_package),
+      ptrObj(dialogBackgroundColor));
   }
   int themeDataFrom(ColorScheme colorScheme, Optional<Boolean> useMaterial3) {
     var st = WidgetFactories.themeData(factories);
@@ -681,6 +681,32 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(icon),
       label.getId(),
       ptrBool(enableFeedback));
+  }
+
+  int iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
+    var st = WidgetFactories.iconData(factories);
+    var fn = WidgetFactories.IconDataSt.iconData(st);
+    return WidgetFactories.IconDataSt.iconData.invoke(fn, codePoint,
+      ptrStr(fontFamily),
+      ptrStr(fontPackage),
+      ptrBool(matchTextDirection),
+      ptrStrList(fontFamilyFallback));
+  }
+
+  int iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+    var st = WidgetFactories.icon(factories);
+    var fn = WidgetFactories.IconSt.icon(st);
+    return WidgetFactories.IconSt.icon.invoke(fn, icon.getId(),
+      ptr(size),
+      ptr(fill),
+      ptr(weight),
+      ptr(grade),
+      ptr(opticalSize),
+      ptrObj(color),
+      ptrStr(semanticLabel),
+      ptrEnum(textDirection),
+      ptrBool(applyTextScaling),
+      ptrEnum(blendMode));
   }
 
 }

@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class Text extends StatelessWidget {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   Text() {}
   Text(int id) {
     this.id = id;

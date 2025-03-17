@@ -2,13 +2,12 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class ThemeData extends NativeObj.Base {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   ThemeData() {}
   ThemeData(int id) {
     this.id = id;
   }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> dialogBackgroundColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<Color> dialogBackgroundColor) {
     int id = factories.themeDataThemeData(applyElevationOverlayColor,
       materialTapTargetSize,
       platform,
@@ -18,7 +17,6 @@ public class ThemeData extends NativeObj.Base {
       colorSchemeSeed,
       canvasColor,
       cardColor,
-      dialogBackgroundColor,
       disabledColor,
       dividerColor,
       focusColor,
@@ -36,7 +34,8 @@ public class ThemeData extends NativeObj.Base {
       unselectedWidgetColor,
       fontFamily,
       fontFamilyFallback,
-      _package);
+      _package,
+      dialogBackgroundColor);
     if (id == -1) throw new RuntimeException("Failed to created widget ThemeData");
     System.out.println("New ThemeData id:"+id);
     return new ThemeData(id);

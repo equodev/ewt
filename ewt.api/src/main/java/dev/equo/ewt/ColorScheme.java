@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class ColorScheme extends NativeObj.Base {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   ColorScheme() {}
   ColorScheme(int id) {
     this.id = id;

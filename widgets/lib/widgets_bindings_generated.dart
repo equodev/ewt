@@ -125,6 +125,10 @@ final class WidgetFactories extends ffi.Struct {
   external ColorSchemeSt colorScheme;
 
   external FloatingActionButtonSt floatingActionButton;
+
+  external IconDataSt iconData;
+
+  external IconSt icon;
 }
 
 final class TextSt extends ffi.Struct {
@@ -343,7 +347,6 @@ final class ThemeDataSt extends ffi.Struct {
               ffi.Pointer<DartObj> colorSchemeSeed,
               ffi.Pointer<DartObj> canvasColor,
               ffi.Pointer<DartObj> cardColor,
-              ffi.Pointer<DartObj> dialogBackgroundColor,
               ffi.Pointer<DartObj> disabledColor,
               ffi.Pointer<DartObj> dividerColor,
               ffi.Pointer<DartObj> focusColor,
@@ -362,7 +365,8 @@ final class ThemeDataSt extends ffi.Struct {
               ffi.Pointer<ffi.Char> fontFamily,
               ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
                   fontFamilyFallback,
-              ffi.Pointer<ffi.Char> package)>> themeData;
+              ffi.Pointer<ffi.Char> package,
+              ffi.Pointer<DartObj> dialogBackgroundColor)>> themeData;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -817,3 +821,32 @@ final class FloatingActionButtonSt extends ffi.Struct {
 typedef VoidCallback = ffi.Pointer<ffi.NativeFunction<VoidCallbackFunction>>;
 typedef VoidCallbackFunction = ffi.Void Function();
 typedef DartVoidCallbackFunction = void Function();
+
+final class IconDataSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Int codePoint,
+              ffi.Pointer<ffi.Char> fontFamily,
+              ffi.Pointer<ffi.Char> fontPackage,
+              ffi.Pointer<ffi.Int> matchTextDirection,
+              ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
+                  fontFamilyFallback)>> iconData;
+}
+
+final class IconSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              DartObj icon,
+              ffi.Pointer<ffi.Double> size,
+              ffi.Pointer<ffi.Double> fill,
+              ffi.Pointer<ffi.Double> weight,
+              ffi.Pointer<ffi.Double> grade,
+              ffi.Pointer<ffi.Double> opticalSize,
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<ffi.Char> semanticLabel,
+              ffi.Pointer<ffi.Int> textDirection,
+              ffi.Pointer<ffi.Int> applyTextScaling,
+              ffi.Pointer<ffi.Int> blendMode)>> icon;
+}

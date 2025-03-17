@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/src/dart/element/element.dart';
 import 'package:path/path.dart' as path;
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
@@ -51,21 +53,55 @@ class WidgetGen {
   }
 
   void gen() {
-    writeHeaders();
-    if (!dartClass.isAbstract) {
+    var constructors = dartClass.constructors.where((f) => f.isPublic);
+    var consts = dartClass.fields.where((f) => f.isStatic && f.isConst && f.isPublic);
+    var hasMembers = (!dartClass.isAbstract && constructors.isNotEmpty) /*|| (dartClass.isAbstract && consts.isNotEmpty)*/;
+    writeHeaders(hasMembers);
+    if (hasMembers) {
       dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
+    }
+    if (!dartClass.isAbstract) {
       javaFile
           .writeln('  $widgetClass() {}');
       javaFile
         ..writeln('  $widgetClass(int id) {')
         ..writeln('    this.id = id;')
         ..writeln('  }');
-      for (var constr in dartClass.constructors) {
+      for (var constr in constructors) {
         writeFactory(constr);
       }
+    }
+    if (consts.isNotEmpty) {
+      // final constFn = '${widgetField}Consts';
+      // headerFile
+      //     .writeln("    int (*$constFn)(int constId);");
+      // dartAssigns
+      //     .writeln('  f.$widgetField.$constFn = ffi.Pointer.fromFunction($constFn, exception);');
+      // dartFns
+        // ..writeln('int $constFn(int constId) {')
+        // ..writeln('  var c;');
+        // ..writeln('  switch (constId) {');
+      var c=1;
+      for (var constr in consts.whereType<ConstFieldElementImpl>()) {
+        writeConst(constr, c++);
+      }
+      // dartFns
+      //   ..writeln('  else {throw \'Unsupported const \$constId\';}')
+        // ..writeln('  }')
+        // ..writeln('  return _addWidget(c);')
+        // ..writeln('}');
+      // javaFactories
+      //   ..writeln('  int $constFn(int constId) {')
+      //   ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+      //   ..writeln('    var fn = WidgetFactories.${widgetClass}St.$constFn(st);')
+      //   ..writeln('    return WidgetFactories.${widgetClass}St.$constFn.invoke(fn, constId);')
+      //   ..writeln('  }');
+
+    }
+    if (hasMembers) {
       dartAssigns.writeln('}');
     }
-    writeFooter();
+    writeFooter(hasMembers);
     if (dartClass.supertype != null) {
       generation.addRequiredType(dartClass.supertype as DartType);
     }
@@ -80,7 +116,7 @@ class WidgetGen {
   }
 
   String genDartFactories() {
-    return '$dartAssigns\n$dartFns';
+    return '$dartAssigns$dartFns';
   }
 
   String genJavaFactories() {
@@ -91,7 +127,7 @@ class WidgetGen {
     _writeJ(widgetClass, javaFile.toString());
   }
 
-  void writeHeaders() {
+  void writeHeaders(bool hasMembers) {
     javaFile
       .writeln('package dev.equo.ewt;');
     var isInterface = dartClass.isInterface || dartClass.isMixinClass || dartClass.interfaces.any((i) => i.element is ClassElement);
@@ -111,27 +147,27 @@ class WidgetGen {
       javaFile
         ..writeln('import java.util.*;')
         ..writeln('import org.immutables.builder.Builder;')
-        ..writeln('public class $widgetClass$extend {')
-        ..writeln('  static final WidgetConstructors factories = WidgetConstructors.instance;');
-      headerFile
-          // .writeln('  struct {');
-        .writeln('  struct ${widgetClass}St {');
+        ..writeln('public class $widgetClass$extend {');
+        // ..writeln('  static final WidgetConstructors factories = WidgetConstructors.instance;');
     } else {
       javaFile
         .writeln('public ${isInterface ? 'interface' : 'abstract class'} $widgetClass$extend {');
     }
+    if (hasMembers) {
+      headerFile
+        .writeln('  struct ${widgetClass}St {');
+    }
   }
 
-  void writeFooter() {
+  void writeFooter(bool hasMembers) {
     javaFile.writeln('}');
-    if (!dartClass.isAbstract) {
+    if (hasMembers) {
       headerFile.writeln('  } $widgetField;');
     }
   }
 
   void writeFactory(ConstructorElement node) {
-    if (!node.isPublic
-      || (node.parameters.any((p) => !generation.supportedType(p.type) && p.isRequired))) {
+    if (node.parameters.any((p) => !generation.supportedType(p.type) && p.isRequired)) {
       return;
     }
     final jParams = Params(generation, dartClass, node.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
@@ -142,29 +178,15 @@ class WidgetGen {
     String factoryName = '$widgetField${factory.firstUpper()}';
     String builderFactory;
     String builderClass = '$widgetClass${factory.firstUpper()}Builder';
-    // if (node.name.isEmpty) { // unnamed constructors
-    //   builderFactory = widgetClass;
-      // javaFile
-      //   ..writeln('  @Builder.Constructor')
-      //   ..writeln('  $widgetClass(${jParams.builderDecl}) {');
-    // } else {
-      builderFactory = factoryName;
-    // }
-      javaFile
-        ..writeln('  @Builder.Factory')
-        ..writeln('  static $widgetClass $factoryName(${jParams.builderDecl}) {')
-        ..writeln('    int id = factories.$factoryName(${jParams.names});')
-        ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget $widgetClass");')
-        ..writeln('    System.out.println("New $widgetClass id:"+id);')
-        ..writeln('    return new $widgetClass(id);')
-        ..writeln('  }');
-        // ..writeln('  $widgetClass(${jParams.decl}) {');
-    // }
-    // javaFile
-    //   ..writeln('    id = factories.$factoryName(${jParams.names});')
-    //   ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget "+this);')
-    //   ..writeln('    System.out.println("New "+this+" id:"+id);')
-    //   ..writeln('  }');
+    builderFactory = factoryName;
+    javaFile
+      ..writeln('  @Builder.Factory')
+      ..writeln('  static $widgetClass $factoryName(${jParams.builderDecl}) {')
+      ..writeln('    int id = factories.$factoryName(${jParams.names});')
+      ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget $widgetClass");')
+      ..writeln('    System.out.println("New $widgetClass id:"+id);')
+      ..writeln('    return new $widgetClass(id);')
+      ..writeln('  }');
     javaFile
       ..writeln('  public static $builderClass $factory(${jParams.required}) {')
       ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
@@ -186,10 +208,44 @@ class WidgetGen {
       ..writeln('  }');
   }
 
+  void writeConst(ConstFieldElementImpl fld, int constId) {
+    final constFn = '${widgetField}Consts';
+    String factory = _escape4D(fld.name);
+    // String factoryName = '$widgetField${factory.firstUpper()}';
+    var nodeList = (fld.constantInitializer as InstanceCreationExpression).argumentList.arguments;
+    var requiredArgs = nodeList.where((a) => a.correspondingParameter!.isRequiredPositional).map((a) => a.unParenthesized).join(', ');
+    var otherArgs = nodeList
+        .whereType<NamedExpression>()
+        .map((a) => '.${a.name.label}(${a.expression.toString().replaceAll('\'', '"')})')
+        .join('');
+    javaFile
+      ..writeln('  public static ${fld.type} $factory() {')
+      ..writeln('    return ${fld.type}.${fld.type.toString().firstLower()}($requiredArgs)$otherArgs.build();')
+      ..writeln('  }');
+    // dartFns
+    //   .writeln('  if (constId == $constId) {c = $widgetClass.${fld.displayName};}');
+    // headerFile
+    //     .writeln("    int (*$factory)(void);");
+    // dartAssigns
+    //     .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName, exception);');
+    // dartFns
+    //   ..writeln('int $factoryName() {')
+    //   ..writeln('  final w = $widgetClass.${fld.displayName};')
+    //   ..writeln('  return _addWidget(w);')
+    //   ..writeln('}');
+    // javaFactories
+    //   ..writeln('  int $factoryName() {')
+    //   ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+    //   ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
+    //   ..writeln('    return WidgetFactories.${widgetClass}St.$factory.invoke(fn);')
+    //   ..writeln('  }');
+  }
+
 }
 
 extension on String {
   firstUpper() => isEmpty ? "" : this[0].toUpperCase() + substring(1);
+  firstLower() => isEmpty ? "" : this[0].toLowerCase() + substring(1);
 }
 
 Future<void> processDependency(Generation generation, DartType requiredType) async {
@@ -231,12 +287,12 @@ class Generation {
 
   Iterable<ClassElement> widgets;
 
-  ClassElement widgetElement;
+  ClassElement? widgetElement;
 
 
   Generation(Iterable<ClassElement> widgets):
-    widgetElement = widgets.first,
-    widgets = widgets.where((w) => !w.isAbstract);
+    widgetElement = widgets.firstOrNull,
+    widgets = widgets.skip(1);
 
   void gen() {
     // headerFile.writeln('typedef int DartObj;');
@@ -277,7 +333,7 @@ class Generation {
       ..writeln('WidgetFactories _setupFactories() {')
       ..writeln('  final WidgetFactories f = ffi.Struct.create();');
 
-    for (var dartClass in widgets) {
+    for (var dartClass in widgets.where((t) => !t.isAbstract)) {
       dartFactories.writeln('  _setup${dartClass.name}(f);');
     }
     for (var dartClass in requiredTypes.map((t) => t.element).whereType<ClassElement>().where((t) => !t.isAbstract)) {
@@ -328,7 +384,8 @@ class Generation {
     if (t.element is EnumElement) {
       return true;
     }
-    if (['InlineSpan', 'ThemeData', 'Color', 'ColorScheme'].contains(t.getDisplayString(withNullability: false)) || isWidget(t.element)) {
+    if (['InlineSpan', 'ThemeData', 'Color', 'ColorScheme'].contains(t.getDisplayString(withNullability: false))
+        || isWidget(t.element) || widgets.contains(t.element) ) {
       return true;
     }
     if (t.isDartCoreList && supportedType((t as InterfaceType).typeArguments[0])) {
@@ -345,7 +402,7 @@ class Generation {
       return true;
     }
     if (element is InterfaceElement) {
-      return element.allSupertypes.contains(widgetElement.thisType);
+      return element.allSupertypes.contains(widgetElement?.thisType);
     }
     return false;
   }
@@ -701,6 +758,21 @@ class Params {
 }
 
 bool isPrimitive(DartType t) => t.isDartCoreString || t.isDartCoreBool || t.isDartCoreDouble || t.isDartCoreInt;
+
+String _escape4J(String id) => switch (id) {
+  'package' => 'package_',
+  'public' => 'public_',
+  _ => id
+};
+
+String _escape4D(String id) => switch (id) {
+  'extension' => 'extension_',
+  'factory' => 'factory_',
+  'sync' => 'sync_',
+  'package' => 'package_',
+  'public' => 'public_',
+  _ => id
+};
 
 void _writeJ(String clazz, String javaContent) {
   print('Generating $clazz');

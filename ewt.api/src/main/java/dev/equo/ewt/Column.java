@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class Column extends Flex {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   Column() {}
   Column(int id) {
     this.id = id;

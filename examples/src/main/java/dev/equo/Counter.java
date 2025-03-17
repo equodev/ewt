@@ -67,7 +67,9 @@ public class Counter {
                     .onPressed(() -> {
                       System.out.println("on pressed in java");
                     })
-                    .tooltip("Increment").build()
+                    .tooltip("Increment")
+                    .child(Icon.icon(Icons.add()).build())
+                    .build()
             )
             .build();
       }

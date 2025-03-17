@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class Scaffold extends StatefulWidget {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   Scaffold() {}
   Scaffold(int id) {
     this.id = id;

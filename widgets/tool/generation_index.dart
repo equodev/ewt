@@ -9,6 +9,9 @@ m.AppBar? appBar;
 m.Scaffold? scaffold;
 m.MaterialApp? materialApp;
 m.FloatingActionButton? floatingActionButton;
+m.IconData? iconData;
+m.Icon? icon;
+m.Icons? icons;
 
 void main() {
   //print('I am an index with the widgets to generate');

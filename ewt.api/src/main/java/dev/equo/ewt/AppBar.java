@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class AppBar extends StatefulWidget implements PreferredSizeWidget {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   AppBar() {}
   AppBar(int id) {
     this.id = id;

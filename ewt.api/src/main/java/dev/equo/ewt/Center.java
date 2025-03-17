@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class Center extends Align {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   Center() {}
   Center(int id) {
     this.id = id;

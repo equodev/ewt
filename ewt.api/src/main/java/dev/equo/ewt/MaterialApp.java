@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class MaterialApp extends StatefulWidget {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   MaterialApp() {}
   MaterialApp(int id) {
     this.id = id;

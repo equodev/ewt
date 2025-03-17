@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class Flex extends MultiChildRenderObjectWidget {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   Flex() {}
   Flex(int id) {
     this.id = id;

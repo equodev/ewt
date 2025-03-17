@@ -2,7 +2,6 @@ package dev.equo.ewt;
 import java.util.*;
 import org.immutables.builder.Builder;
 public class Align extends SingleChildRenderObjectWidget {
-  static final WidgetConstructors factories = WidgetConstructors.instance;
   Align() {}
   Align(int id) {
     this.id = id;
