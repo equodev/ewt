@@ -30,7 +30,7 @@ public class ArrayC {
         StarterBridge.C_INT.withName("size"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("list")
-    ).withName("$anon$7:9");
+    ).withName("$anon$8:9");
 
     /**
      * The layout of this struct

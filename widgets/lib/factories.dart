@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:widgets/subwidgets.dart';
 import 'package:widgets/widgets_bindings_generated.dart';
 import 'package:ffi/ffi.dart';
 import 'dart:ffi' as ffi;
@@ -71,3 +72,17 @@ extension on ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> {
     return null;
   }
 }
+extension on VoidCallback {
+  DartVoidCallbackFunction toFn() {
+    return asFunction();
+  }
+}
+// extension on DartObjCallback {
+//   T Function() toFn<T>() {
+//     return () {
+//       DartDartObjCallbackFunction jCb = asFunction();
+//       final wId = jCb();
+//       return getWidget(wId) as T;
+//     };
+//   }
+// }

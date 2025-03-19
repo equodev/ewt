@@ -5,6 +5,10 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.lang.foreign.*;
+import java.util.function.IntFunction;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
+
 class WidgetConstructors extends WidgetConstructorsBase {
   int textText(String data, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     var st = WidgetFactories.text(factories);
@@ -707,6 +711,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(textDirection),
       ptrBool(applyTextScaling),
       ptrEnum(blendMode));
+  }
+
+  int subStateSubState(Runnable buildFn) {
+    var st = WidgetFactories.subState(factories);
+    var fn = WidgetFactories.SubStateSt.subState(st);
+    return WidgetFactories.SubStateSt.subState.invoke(fn, ptrFn(buildFn));
+  }
+
+  int subStatefulWidgetSubStatefulWidget(Runnable createStateFn) {
+    var st = WidgetFactories.subStatefulWidget(factories);
+    var fn = WidgetFactories.SubStatefulWidgetSt.subStatefulWidget(st);
+    return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, ptrFn(createStateFn));
   }
 
 }

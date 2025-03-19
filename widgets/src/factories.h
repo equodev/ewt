@@ -73,4 +73,12 @@ typedef struct {
     int (*icon)(DartObj icon, double* size, double* fill, double* weight, double* grade, double* opticalSize, DartObj* color, char* semanticLabel, int* textDirection, int* applyTextScaling, int* blendMode);
   } icon;
 
+  struct SubStateSt {
+    int (*subState)(VoidCallback buildFn);
+  } subState;
+
+  struct SubStatefulWidgetSt {
+    int (*subStatefulWidget)(VoidCallback createStateFn);
+  } subStatefulWidget;
+
 } WidgetFactories;

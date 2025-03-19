@@ -627,7 +627,7 @@ int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Poi
       hoverElevation: hoverElevation.doubleOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.asFunction(),
+      onPressed: onPressed.toFn(),
       mini: mini.boolOr(false),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       autofocus: autofocus.boolOr(false),
@@ -649,7 +649,7 @@ int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       hoverElevation: hoverElevation.doubleOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.asFunction(),
+      onPressed: onPressed.toFn(),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       autofocus: autofocus.boolOr(false),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
@@ -669,7 +669,7 @@ int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       hoverElevation: hoverElevation.doubleOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.asFunction(),
+      onPressed: onPressed.toFn(),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       autofocus: autofocus.boolOr(false),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
@@ -688,7 +688,7 @@ int floatingActionButtonExtended(ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<Dart
       splashColor: splashColor.objOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.asFunction(),
+      onPressed: onPressed.toFn(),
       isExtended: isExtended.boolOr(true),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
@@ -730,6 +730,30 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
   return _addWidget(w);
 }
 
+void _setupSubState(WidgetFactories f) {
+  f.subState.subState = ffi.Pointer.fromFunction(subStateSubState, exception);
+  // f.subState.subState = ffi.NativeCallable.isolateLocal(subStateSubState);
+}
+int subStateSubState(VoidCallback buildFn) {
+  print("in subStateSubState 1");
+  final w = SubState(buildFn: () {
+    buildFn.toFn();
+    return Text("popopop");
+  });
+  print("in subStateSubState 2");
+  return _addWidget(w);
+}
+
+void _setupSubStatefulWidget(WidgetFactories f) {
+  f.subStatefulWidget.subStatefulWidget = ffi.Pointer.fromFunction(subStatefulWidgetSubStatefulWidget, exception);
+}
+int subStatefulWidgetSubStatefulWidget(VoidCallback createStateFn) {
+  print("in subStatefulWidgetSubStatefulWidget 1");
+  final w = SubStatefulWidget(createStateFn: createStateFn.asFunction(isLeaf: false));
+  print("in subStatefulWidgetSubStatefulWidget 2");
+  return _addWidget(w);
+}
+
 WidgetFactories _setupFactories() {
   final WidgetFactories f = ffi.Struct.create();
   _setupText(f);
@@ -741,6 +765,8 @@ WidgetFactories _setupFactories() {
   _setupFloatingActionButton(f);
   _setupIconData(f);
   _setupIcon(f);
+  _setupSubState(f);
+  _setupSubStatefulWidget(f);
   _setupColor(f);
   _setupAlign(f);
   _setupFlex(f);

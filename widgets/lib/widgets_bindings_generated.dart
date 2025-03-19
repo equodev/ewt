@@ -129,6 +129,10 @@ final class WidgetFactories extends ffi.Struct {
   external IconDataSt iconData;
 
   external IconSt icon;
+
+  external SubStateSt subState;
+
+  external SubStatefulWidgetSt subStatefulWidget;
 }
 
 final class TextSt extends ffi.Struct {
@@ -849,4 +853,16 @@ final class IconSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> textDirection,
               ffi.Pointer<ffi.Int> applyTextScaling,
               ffi.Pointer<ffi.Int> blendMode)>> icon;
+}
+
+final class SubStateSt extends ffi.Struct {
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Int Function(VoidCallback buildFn)>>
+      subState;
+}
+
+final class SubStatefulWidgetSt extends ffi.Struct {
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Int Function(VoidCallback createStateFn)>>
+      subStatefulWidget;
 }

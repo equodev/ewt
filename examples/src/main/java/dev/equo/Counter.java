@@ -1,11 +1,10 @@
 package dev.equo;
 
+import dev.equo.ewt.*;
+
 import static dev.equo.ewt.EWT.*;
-import dev.equo.ewt.App;
-import dev.equo.ewt.Icons;
-import dev.equo.ewt.MainAxisAlignment;
-import dev.equo.ewt.TextDirection;
-import dev.equo.ewt.Widget;
+
+//import dev.equo.ewt.*;
 
 import java.util.List;
 
@@ -17,8 +16,6 @@ public class Counter {
 
   static class MyApp {
 
-    private final int counter = 1;
-
     public Widget build() {
       return MaterialApp()
           .title("EWT Demo")
@@ -27,16 +24,45 @@ public class Counter {
               .useMaterial3(true)
               .build())
 //          .showPerformanceOverlay(true)
-          .home(new MyHomePage("Flutter Demo Home Page").build())
+          .home(new MyHomePage("Flutter Demo Home Page"))
           .build();
     }
 
-    private class MyHomePage extends Widget {
+    private class MyHomePage extends SubStatefulWidget {
       private final String title;
 
       public MyHomePage(String title) {
-        super();
         this.title = title;
+      }
+
+      @Override
+      protected State<MyHomePage> createState() {
+        System.out.println("MyHomePage createState 1");
+//        MyHomePageState myHomePageState = new MyHomePageState(this);
+        Text("sd").build();
+        System.out.println("MyHomePage createState 2");
+        return null;
+      }
+    }
+
+    private class MyHomePageState extends SubState<MyHomePage> {
+      private final MyHomePage widget;
+      int _counter = 0;
+
+      public MyHomePageState(MyHomePage myHomePage) {
+        this.widget = myHomePage;
+      }
+
+      void _incrementCounter() {
+//        setState(() -> {
+          System.out.println("on pressed in java");
+          // This call to setState tells the Flutter framework that something has
+          // changed in this State, which causes it to rerun the build method below
+          // so that the display can reflect the updated values. If we changed
+          // _counter without calling setState(), then the build method would not be
+          // called again, and so nothing would appear to happen.
+          _counter++;
+//        });
       }
 
       public Widget build() {
@@ -44,7 +70,7 @@ public class Counter {
             .appBar(
                 AppBar()
                     .backgroundColor(Color(0xFFB39DDB).build())
-                    .title(Text(title).textDirection(TextDirection.ltr).build())
+                    .title(Text(widget.title).textDirection(TextDirection.ltr).build())
                     .build()
             )
             .body(
@@ -57,7 +83,7 @@ public class Counter {
                                     Text("You have pushed the button this many times:")
                                         .textDirection(TextDirection.ltr)
                                         .build(),
-                                    Text("" + counter)
+                                    Text("" + _counter)
                                         .textDirection(TextDirection.ltr)
 //                                            .style(Theme.of(context).textTheme.headlineMedium)
                                         .build()
@@ -69,9 +95,7 @@ public class Counter {
             )
             .floatingActionButton(
                 FloatingActionButton()
-                    .onPressed(() -> {
-                      System.out.println("on pressed in java");
-                    })
+                    .onPressed(this::_incrementCounter)
                     .tooltip("Increment")
                     .child(Icon(Icons.add()).build())
                     .build()
