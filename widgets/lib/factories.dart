@@ -1,5 +1,5 @@
 import 'dart:isolate';
-import 'dart:ui';
+import 'dart:ui' hide VoidCallback;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';

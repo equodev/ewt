@@ -710,10 +710,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(blendMode));
   }
 
-  int subStateSubState(Supplier<NativeObj> buildFn) {
+  MemorySegment subStateSubState(Supplier<NativeObj> buildFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
-    return WidgetFactories.SubStateSt.subState.invoke(fn, ptrFn(buildFn));
+    return WidgetFactories.SubStateSt.subState.invoke(fn, arena, ptrFn(buildFn));
   }
 
   int subStatefulWidgetSubStatefulWidget(Supplier<NativeObj> createStateFn) {

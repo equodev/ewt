@@ -731,11 +731,18 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
 }
 
 void _setupSubState(WidgetFactories f) {
-  f.subState.subState = ffi.Pointer.fromFunction(subStateSubState, exception);
+  f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
-int subStateSubState(DartObjCallback buildFn) {
+Finalizer<ffi.NativeCallable> _finalizer = Finalizer((callable) { print('FINALIZER') ;callable.close(); });
+SubStateObjSt subStateSubState(DartObjCallback buildFn) {
   final w = SubState(buildFn: buildFn.toFn());
-  return _addWidget(w);
+  final setSateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal(w.ffiSetState);
+  _finalizer.attach(w, setSateFn);
+  final id = _addWidget(w);
+  final SubStateObjSt stObj = ffi.Struct.create();
+  stObj.id = id;
+  stObj.setState = setSateFn.nativeFunction;
+  return stObj;
 }
 
 void _setupSubStatefulWidget(WidgetFactories f) {

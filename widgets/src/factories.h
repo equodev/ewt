@@ -1,3 +1,10 @@
+typedef void (*SetStatePtr)(VoidCallback);
+
+typedef struct {
+  int id;
+  SetStatePtr setState;
+} SubStateObjSt;
+
 typedef struct {
   struct TextSt {
     int (*text)(char* data, int* textAlign, int* textDirection, int* softWrap, int* overflow, double* textScaleFactor, int* maxLines, char* semanticsLabel, int* textWidthBasis, DartObj* selectionColor);
@@ -74,7 +81,7 @@ typedef struct {
   } icon;
 
   struct SubStateSt {
-    int (*subState)(DartObjCallback buildFn);
+    SubStateObjSt (*subState)(DartObjCallback buildFn);
   } subState;
 
   struct SubStatefulWidgetSt {

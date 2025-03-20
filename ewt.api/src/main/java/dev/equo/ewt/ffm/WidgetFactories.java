@@ -76,7 +76,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *         int (*icon)(DartObj, double *, double *, double *, double *, double *, DartObj *, char *, int *, int *, int *);
  *     } icon;
  *     struct SubStateSt {
- *         int (*subState)(DartObjCallback);
+ *         SubStateObjSt (*subState)(DartObjCallback);
  *     } subState;
  *     struct SubStatefulWidgetSt {
  *         int (*subStatefulWidget)(DartObjCallback);
@@ -107,7 +107,7 @@ public class WidgetFactories {
         WidgetFactories.IconSt.layout().withName("icon"),
         WidgetFactories.SubStateSt.layout().withName("subState"),
         WidgetFactories.SubStatefulWidgetSt.layout().withName("subStatefulWidget")
-    ).withName("$anon$1:9");
+    ).withName("$anon$8:9");
 
     /**
      * The layout of this struct
@@ -5402,7 +5402,7 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct SubStateSt {
-     *     int (*subState)(DartObjCallback);
+     *     SubStateObjSt (*subState)(DartObjCallback);
      * }
      * }
      */
@@ -5425,7 +5425,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*subState)(DartObjCallback)
+         * SubStateObjSt (*subState)(DartObjCallback)
          * }
          */
         public static class subState {
@@ -5438,11 +5438,11 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0);
+                MemorySegment apply(MemorySegment _x0);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
-                StarterBridge.C_INT,
+                SubStateObjSt.layout(),
                 StarterBridge.C_POINTER
             );
 
@@ -5468,9 +5468,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5482,7 +5482,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*subState)(DartObjCallback)
+         * SubStateObjSt (*subState)(DartObjCallback)
          * }
          */
         public static final AddressLayout subState$layout() {
@@ -5494,7 +5494,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*subState)(DartObjCallback)
+         * SubStateObjSt (*subState)(DartObjCallback)
          * }
          */
         public static final long subState$offset() {
@@ -5504,7 +5504,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*subState)(DartObjCallback)
+         * SubStateObjSt (*subState)(DartObjCallback)
          * }
          */
         public static MemorySegment subState(MemorySegment struct) {
@@ -5514,7 +5514,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*subState)(DartObjCallback)
+         * SubStateObjSt (*subState)(DartObjCallback)
          * }
          */
         public static void subState(MemorySegment struct, MemorySegment fieldValue) {

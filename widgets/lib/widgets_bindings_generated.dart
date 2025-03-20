@@ -858,11 +858,21 @@ final class IconSt extends ffi.Struct {
 }
 
 final class SubStateSt extends ffi.Struct {
-  external ffi
-      .Pointer<ffi.NativeFunction<ffi.Int Function(DartObjCallback buildFn)>>
+  external ffi.Pointer<
+          ffi.NativeFunction<SubStateObjSt Function(DartObjCallback buildFn)>>
       subState;
 }
 
+final class SubStateObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external SetStatePtr setState;
+}
+
+typedef SetStatePtr = ffi.Pointer<ffi.NativeFunction<SetStatePtrFunction>>;
+typedef SetStatePtrFunction = ffi.Void Function(VoidCallback);
+typedef DartSetStatePtrFunction = void Function(VoidCallback);
 typedef DartObjCallback
     = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFunction>>;
 typedef DartObjCallbackFunction = DartObj Function();
