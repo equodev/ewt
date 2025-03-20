@@ -78,12 +78,12 @@ extension on VoidCallback {
     return asFunction();
   }
 }
-// extension on DartObjCallback {
-//   T Function() toFn<T>() {
-//     return () {
-//       DartDartObjCallbackFunction jCb = asFunction();
-//       final wId = jCb();
-//       return getWidget(wId) as T;
-//     };
-//   }
-// }
+extension on DartObjCallback {
+  T Function() toFn<T>() {
+    return () {
+      DartDartObjCallbackFunction jCb = asFunction();
+      final wId = jCb();
+      return getWidget(wId) as T;
+    };
+  }
+}

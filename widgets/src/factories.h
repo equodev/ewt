@@ -74,11 +74,11 @@ typedef struct {
   } icon;
 
   struct SubStateSt {
-    int (*subState)(VoidCallback buildFn);
+    int (*subState)(DartObjCallback buildFn);
   } subState;
 
   struct SubStatefulWidgetSt {
-    int (*subStatefulWidget)(VoidCallback createStateFn);
+    int (*subStatefulWidget)(DartObjCallback createStateFn);
   } subStatefulWidget;
 
 } WidgetFactories;

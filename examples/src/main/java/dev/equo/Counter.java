@@ -37,11 +37,7 @@ public class Counter {
 
       @Override
       protected State<MyHomePage> createState() {
-        System.out.println("MyHomePage createState 1");
-//        MyHomePageState myHomePageState = new MyHomePageState(this);
-        Text("sd").build();
-        System.out.println("MyHomePage createState 2");
-        return null;
+        return new MyHomePageState(this);
       }
     }
 

@@ -732,30 +732,20 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
 
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState, exception);
-  // f.subState.subState = ffi.NativeCallable.isolateLocal(subStateSubState);
 }
-int subStateSubState(VoidCallback buildFn) {
-  print("in subStateSubState 1");
-  final w = SubState(buildFn: () {
-    buildFn.toFn();
-    return Text("popopop");
-  });
-  print("in subStateSubState 2");
+int subStateSubState(DartObjCallback buildFn) {
+  final w = SubState(buildFn: buildFn.toFn());
   return _addWidget(w);
 }
 
 void _setupSubStatefulWidget(WidgetFactories f) {
   f.subStatefulWidget.subStatefulWidget = ffi.Pointer.fromFunction(subStatefulWidgetSubStatefulWidget, exception);
 }
-int subStatefulWidgetSubStatefulWidget(VoidCallback createStateFn) {
-  print("in subStatefulWidgetSubStatefulWidget 1");
-  final w = SubStatefulWidget(createStateFn: createStateFn.asFunction(isLeaf: false));
-  print("in subStatefulWidgetSubStatefulWidget 2");
+int subStatefulWidgetSubStatefulWidget(DartObjCallback createStateFn) {
+  final w = SubStatefulWidget(createStateFn: createStateFn.toFn());
   return _addWidget(w);
 }
 
-WidgetFactories _setupFactories() {
-  final WidgetFactories f = ffi.Struct.create();
 ffi.Pointer<WidgetFactories> _setupFactories() {
   final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
   final f = fp.ref;

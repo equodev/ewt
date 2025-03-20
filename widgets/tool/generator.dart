@@ -150,7 +150,7 @@ class WidgetGen {
     var isInterface = dartClass.isInterface || dartClass.isMixinClass || dartClass.interfaces.any((i) => i.element is ClassElement);
     var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
     if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
-      extend += ' extends ${dartClass.supertype!.getDisplayString()}';
+      extend += ' extends ${dartClass.supertype!.element.name}${dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map((p) => p.name).join(', ')}>' : ''}';
     }
     else {
       extend += ' extends ${!isInterface ? 'NativeObj.Base' : 'NativeObj'}';
@@ -278,7 +278,12 @@ class SubclassGen extends WidgetGen {
   void writeMembers() {
     for (final method in dartClass.supertype!.element.methods.where((m) => m.isAbstract)) {
       // javaFile.writeln('  protected abstract $method;');
-      javaFile.writeln('  protected abstract ${method.returnType} ${method.name}();');
+      var returnType = method.returnType;
+      var ret = '${method.returnType}';
+      if (returnType is InterfaceType && returnType.typeArguments.isNotEmpty) {
+        ret = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
+      }
+      javaFile.writeln('  protected abstract ${ret} ${method.name}();');
     }
   }
 
@@ -451,6 +456,7 @@ class Generation {
       ..writeln('import java.util.OptionalInt;')
       ..writeln('import java.util.OptionalDouble;')
       ..writeln('import java.lang.foreign.*;')
+      ..writeln('import java.util.function.Supplier;')
       ..writeln('class WidgetConstructors extends WidgetConstructorsBase {');
       // ..writeln('  static WidgetConstructorsGen instance = new WidgetConstructors();')
       // ..writeln('  private MemorySegment factories;')
@@ -599,8 +605,11 @@ class Generation {
       return namedType.element.name;
     }
     else if (namedType is FunctionType) {
-      final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-      return 'java.lang.Runnable';
+      if (namedType.returnType is VoidType) {
+        return 'Runnable';
+      } else {
+        return 'Supplier<NativeObj>';
+      }
     }
     return namedType.toString();
   }
