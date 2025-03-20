@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef int (*buildWidgetTreeFn)(WidgetFactories)
+ * typedef int (*buildWidgetTreeFn)(WidgetFactories *)
  * }
  */
 public class buildWidgetTreeFn {
@@ -32,7 +32,7 @@ public class buildWidgetTreeFn {
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
         StarterBridge.C_INT,
-        WidgetFactories.layout()
+        StarterBridge.C_POINTER
     );
 
     /**

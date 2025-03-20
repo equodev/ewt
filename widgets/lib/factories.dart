@@ -1,3 +1,4 @@
+import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -11,7 +12,7 @@ import 'dart:ffi' as ffi;
 
 part 'factories_gen.dart';
 
-final WidgetFactories factories = _setupFactories();
+final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
 Map<int, Object> _widgetsMap = {};
 

@@ -472,8 +472,10 @@ class Generation {
 
     dartFactories
       // ..writeln("part of 'factories.dart';")
-      ..writeln('WidgetFactories _setupFactories() {')
-      ..writeln('  final WidgetFactories f = ffi.Struct.create();');
+      ..writeln('ffi.Pointer<WidgetFactories> _setupFactories() {')
+      // ..writeln('  final WidgetFactories f = ffi.Struct.create();');
+      ..writeln('  final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();')
+      ..writeln('  final f = fp.ref;');
 
     for (var dartClass in widgets.where((t) => !t.isAbstract)) {
       dartFactories.writeln('  _setup${dartClass.name}(f);');
@@ -483,7 +485,7 @@ class Generation {
     }
     requiredTypes.clear();
 
-    dartFactories.writeln('  return f;');
+    dartFactories.writeln('  return fp;');
     dartFactories.writeln('}');
 
     headerFile.writeln('} WidgetFactories;');

@@ -38,7 +38,9 @@ public class App {
         MemorySegment ffmFn = buildWidgetTreeFn.allocate((MemorySegment widgetFactories)  -> {
             try {
                 System.out.println("In startApp$buildWidgetTree "+widgetFactories);
-                WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), null));
+                WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {
+                    System.out.println("CLEANUP");
+                }));
 //                WidgetConstructorsBase.instance.set(widgetFactories);
                 Widget w = builderFn.call();
                 return ((NativeObj) w).getId();
