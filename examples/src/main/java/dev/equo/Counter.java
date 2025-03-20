@@ -70,7 +70,11 @@ public class Counter {
             .floatingActionButton(
                 FloatingActionButton()
                     .onPressed(() -> {
-                      System.out.println("on pressed in java");
+                      System.out.println(Thread.currentThread()+" on pressed in java");
+                      Text("You have pushed t")
+                          .textDirection(TextDirection.ltr)
+                          .build();
+                      System.out.println("on pressed in java2");
                     })
                     .tooltip("Increment")
                     .child(Icon(Icons.add()).build())

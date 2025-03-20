@@ -730,8 +730,9 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
   return _addWidget(w);
 }
 
-WidgetFactories _setupFactories() {
-  final WidgetFactories f = ffi.Struct.create();
+ffi.Pointer<WidgetFactories> _setupFactories() {
+  final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
+  final f = fp.ref;
   _setupText(f);
   _setupCenter(f);
   _setupColumn(f);
@@ -747,5 +748,5 @@ WidgetFactories _setupFactories() {
   _setupThemeData(f);
   _setupColorScheme(f);
   _setupColorScheme(f);
-  return f;
+  return fp;
 }

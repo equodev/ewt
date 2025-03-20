@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 
 import dev.equo.ewt.ffm.StarterBridge;
+import dev.equo.ewt.ffm.WidgetFactories;
 import dev.equo.ewt.ffm.buildWidgetTreeFn;
 
 import java.lang.foreign.Arena;
@@ -37,8 +38,10 @@ public class App {
         MemorySegment ffmFn = buildWidgetTreeFn.allocate((MemorySegment widgetFactories)  -> {
             try {
                 System.out.println("In startApp$buildWidgetTree "+widgetFactories);
-//                WidgetConstructors.set(WidgetFactories.reinterpret(widgetFactories, Arena.global(), null));
-                WidgetConstructorsBase.instance.set(widgetFactories);
+                WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {
+                    System.out.println("CLEANUP");
+                }));
+//                WidgetConstructorsBase.instance.set(widgetFactories);
                 Widget w = builderFn.call();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {

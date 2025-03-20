@@ -82,24 +82,26 @@ class WidgetsBindings {
       _setBuildWidgetTreePtr.asFunction<void Function(buildWidgetTreeFn)>();
 
   int callToBuildWidgetTree(
-    WidgetFactories factories,
+    ffi.Pointer<WidgetFactories> factories,
   ) {
     return _callToBuildWidgetTree(
       factories,
     );
   }
 
-  late final _callToBuildWidgetTreePtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(WidgetFactories)>>(
-          'callToBuildWidgetTree');
-  late final _callToBuildWidgetTree =
-      _callToBuildWidgetTreePtr.asFunction<int Function(WidgetFactories)>();
+  late final _callToBuildWidgetTreePtr = _lookup<
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<WidgetFactories>)>>(
+      'callToBuildWidgetTree');
+  late final _callToBuildWidgetTree = _callToBuildWidgetTreePtr
+      .asFunction<int Function(ffi.Pointer<WidgetFactories>)>();
 }
 
 typedef buildWidgetTreeFn
     = ffi.Pointer<ffi.NativeFunction<buildWidgetTreeFnFunction>>;
-typedef buildWidgetTreeFnFunction = ffi.Int Function(WidgetFactories);
-typedef DartbuildWidgetTreeFnFunction = int Function(WidgetFactories);
+typedef buildWidgetTreeFnFunction = ffi.Int Function(
+    ffi.Pointer<WidgetFactories>);
+typedef DartbuildWidgetTreeFnFunction = int Function(
+    ffi.Pointer<WidgetFactories>);
 
 final class WidgetFactories extends ffi.Struct {
   external TextSt text;

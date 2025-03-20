@@ -9,7 +9,7 @@ import java.lang.foreign.*;
 class WidgetConstructorsBase {
   static WidgetConstructors instance = new WidgetConstructors();
   MemorySegment factories;
-  Arena arena = Arena.ofAuto();
+  Arena arena = Arena.ofShared();
 
   public void set(MemorySegment factories) {
     this.factories = factories;

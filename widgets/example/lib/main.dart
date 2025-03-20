@@ -5,11 +5,15 @@ import 'dart:async';
 
 import 'package:widgets/widgets.dart' as widgets;
 import 'package:widgets/factories.dart' as widgetFactories;
+import 'package:widgets/widgets_bindings_generated.dart';
+
+Pointer<WidgetFactories> factories = widgetFactories.factories;
 
 void main() {
   print('dart main before runApp');
   // setupFactories();
-  final widget = widgets.callToBuildWidgetTree(widgetFactories.factories);
+  // factories = widgetFactories.factories;
+  final widget = widgets.callToBuildWidgetTree(factories);
 
   runApp(widgetFactories.getWidget(widget) as Widget);
   // sum

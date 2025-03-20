@@ -11,6 +11,6 @@ typedef struct {
 
 #include "factories.h"
 
-typedef int (*buildWidgetTreeFn)(WidgetFactories);
+typedef int (*buildWidgetTreeFn)(WidgetFactories*);
 
 #endif /* Common_h */
