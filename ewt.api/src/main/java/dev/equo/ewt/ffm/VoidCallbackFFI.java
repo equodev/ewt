@@ -14,12 +14,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef int (*buildWidgetTreeFn)(WidgetFactories *)
+ * typedef void (*VoidCallbackFFI)(void)
  * }
  */
-public class buildWidgetTreeFn {
+public class VoidCallbackFFI {
 
-    buildWidgetTreeFn() {
+    VoidCallbackFFI() {
         // Should not be called directly
     }
 
@@ -27,13 +27,10 @@ public class buildWidgetTreeFn {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        int apply(MemorySegment _x0);
+        void apply();
     }
 
-    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
-        StarterBridge.C_INT,
-        StarterBridge.C_POINTER
-    );
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid();
 
     /**
      * The descriptor of this function pointer
@@ -42,13 +39,13 @@ public class buildWidgetTreeFn {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(buildWidgetTreeFn.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(VoidCallbackFFI.Function.class, "apply", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
      * The lifetime of the returned segment is managed by {@code arena}
      */
-    public static MemorySegment allocate(buildWidgetTreeFn.Function fi, Arena arena) {
+    public static MemorySegment allocate(VoidCallbackFFI.Function fi, Arena arena) {
         return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
     }
 
@@ -57,9 +54,9 @@ public class buildWidgetTreeFn {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+    public static void invoke(MemorySegment funcPtr) {
         try {
-            return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+             DOWN$MH.invokeExact(funcPtr);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

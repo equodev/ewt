@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 
 import 'widgets_bindings_generated.dart';
 
-int callToBuildWidgetTree(WidgetFactories factories) => _bindings.callToBuildWidgetTree(factories);
+int callToBuildWidgetTree(ffi.Pointer<WidgetFactories> factories) => _bindings.callToBuildWidgetTree(factories);
 
 /// A very short-lived native function.
 ///

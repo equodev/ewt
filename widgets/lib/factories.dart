@@ -1,16 +1,18 @@
-import 'dart:ui';
+import 'dart:isolate';
+import 'dart:ui' hide VoidCallback;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:widgets/subwidgets.dart';
 import 'package:widgets/widgets_bindings_generated.dart';
 import 'package:ffi/ffi.dart';
 import 'dart:ffi' as ffi;
 
 part 'factories_gen.dart';
 
-final WidgetFactories factories = _setupFactories();
+final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
 Map<int, Object> _widgetsMap = {};
 
@@ -24,6 +26,9 @@ int _addWidget(Object w) {
 extension on int {
   bool toBool() => this == 1 ? true : false;
   E toEnum<E extends Enum>(List<E> values) => values[this];
+}
+extension on bool {
+  int toInt() => this == true ? 1 : 0;
 }
 extension on ffi.Pointer<ffi.Int> {
   int? intOrNul() => this == ffi.nullptr ? null : value;
@@ -69,5 +74,44 @@ extension on ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> {
       }
     }
     return null;
+  }
+}
+extension on DrawerCallbackFFI {
+  DrawerCallback toFn() {
+    return (bool b) {
+      DartDrawerCallbackFFIFunction f = asFunction();
+      f(b.toInt());
+    };
+  }
+}
+extension on ffi.Pointer<DrawerCallbackFFI> {
+  DrawerCallback? toFn() {
+    if (this != ffi.nullptr) {
+      return this.value.toFn();
+    }
+    return null;
+  }
+}
+
+// extension on VoidCallback {
+//   DartVoidCallbackFunction toFn() {
+//     return asFunction();
+//   }
+// }
+// extension on ffi.Pointer<VoidCallback> {
+//   DartVoidCallbackFunction? toFn() {
+//     if (this != ffi.nullptr) {
+//       return this.value.asFunction();
+//     }
+//     return null;
+//   }
+// }
+extension on DartObjCallback {
+  T Function() toFn<T>() {
+    return () {
+      DartDartObjCallbackFunction jCb = asFunction();
+      final wId = jCb();
+      return getWidget(wId) as T;
+    };
   }
 }

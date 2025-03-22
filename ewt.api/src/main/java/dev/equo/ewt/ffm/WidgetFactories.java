@@ -41,14 +41,14 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *         int (*appBar)(DartObj *, int *, DartObj *, ArrayC *, DartObj *, DartObj *, double *, double *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, double *, double *, double *, double *, double *, int *, int *);
  *     } appBar;
  *     struct ScaffoldSt {
- *         int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *);
+ *         int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *);
  *     } scaffold;
  *     struct MaterialAppSt {
  *         int (*materialApp)(DartObj *, char *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, int *, int *, char *, int *);
  *         int (*router)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, int *, int *, char *, int *);
  *     } materialApp;
  *     struct ThemeDataSt {
- *         int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *);
+ *         int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *);
  *         int (*from)(DartObj, int *);
  *         int (*light)(int *);
  *         int (*dark)(int *);
@@ -64,10 +64,10 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *         int (*fromSwatch)(DartObj *, DartObj *, DartObj *, DartObj *, int *);
  *     } colorScheme;
  *     struct FloatingActionButtonSt {
- *         int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *);
- *         int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *);
- *         int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *);
- *         int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *);
+ *         int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *);
+ *         int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *);
+ *         int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *);
+ *         int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *);
  *     } floatingActionButton;
  *     struct IconDataSt {
  *         int (*iconData)(int, char *, char *, int *, char ***);
@@ -75,6 +75,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     struct IconSt {
  *         int (*icon)(DartObj, double *, double *, double *, double *, double *, DartObj *, char *, int *, int *, int *);
  *     } icon;
+ *     struct SubStateSt {
+ *         SubStateObjSt (*subState)(DartObjCallback);
+ *     } subState;
+ *     struct SubStatefulWidgetSt {
+ *         SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback);
+ *     } subStatefulWidget;
  * }
  * }
  */
@@ -98,7 +104,9 @@ public class WidgetFactories {
         WidgetFactories.ColorSchemeSt.layout().withName("colorScheme"),
         WidgetFactories.FloatingActionButtonSt.layout().withName("floatingActionButton"),
         WidgetFactories.IconDataSt.layout().withName("iconData"),
-        WidgetFactories.IconSt.layout().withName("icon")
+        WidgetFactories.IconSt.layout().withName("icon"),
+        WidgetFactories.SubStateSt.layout().withName("subState"),
+        WidgetFactories.SubStatefulWidgetSt.layout().withName("subStatefulWidget")
     ).withName("$anon$1:9");
 
     /**
@@ -2057,7 +2065,7 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct ScaffoldSt {
-     *     int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *);
+     *     int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *);
      * }
      * }
      */
@@ -2080,7 +2088,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
+         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
          * }
          */
         public static class scaffold {
@@ -2093,11 +2101,13 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18);
+                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
@@ -2141,9 +2151,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2155,7 +2165,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
+         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
          * }
          */
         public static final AddressLayout scaffold$layout() {
@@ -2167,7 +2177,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
+         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
          * }
          */
         public static final long scaffold$offset() {
@@ -2177,7 +2187,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
+         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
          * }
          */
         public static MemorySegment scaffold(MemorySegment struct) {
@@ -2187,7 +2197,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
+         * int (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, DartObj *, double *, int *, int *, char *)
          * }
          */
         public static void scaffold(MemorySegment struct, MemorySegment fieldValue) {
@@ -2627,7 +2637,7 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct ThemeDataSt {
-     *     int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *);
+     *     int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *);
      *     int (*from)(DartObj, int *);
      *     int (*light)(int *);
      *     int (*dark)(int *);
@@ -2658,7 +2668,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *)
+         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
         public static class themeData {
@@ -2671,11 +2681,14 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27);
+                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
@@ -2728,9 +2741,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27) {
+            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27);
+                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2742,7 +2755,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *)
+         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
         public static final AddressLayout themeData$layout() {
@@ -2754,7 +2767,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *)
+         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
         public static final long themeData$offset() {
@@ -2764,7 +2777,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *)
+         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
         public static MemorySegment themeData(MemorySegment struct) {
@@ -2774,7 +2787,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *)
+         * int (*themeData)(int *, int *, int *, int *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
         public static void themeData(MemorySegment struct, MemorySegment fieldValue) {
@@ -4378,10 +4391,10 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct FloatingActionButtonSt {
-     *     int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *);
-     *     int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *);
-     *     int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *);
-     *     int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *);
+     *     int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *);
+     *     int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *);
+     *     int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *);
+     *     int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *);
      * }
      * }
      */
@@ -4407,7 +4420,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *)
+         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *)
          * }
          */
         public static class floatingActionButton {
@@ -4420,11 +4433,12 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18);
+                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
@@ -4468,9 +4482,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4482,7 +4496,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *)
+         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *)
          * }
          */
         public static final AddressLayout floatingActionButton$layout() {
@@ -4494,7 +4508,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *)
+         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *)
          * }
          */
         public static final long floatingActionButton$offset() {
@@ -4504,7 +4518,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *)
+         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *)
          * }
          */
         public static MemorySegment floatingActionButton(MemorySegment struct) {
@@ -4514,7 +4528,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *, int *, int *)
+         * int (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, int *, int *)
          * }
          */
         public static void floatingActionButton(MemorySegment struct, MemorySegment fieldValue) {
@@ -4523,7 +4537,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static class small {
@@ -4536,11 +4550,12 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16);
+                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
@@ -4582,9 +4597,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16) {
+            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16);
+                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4596,7 +4611,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static final AddressLayout small$layout() {
@@ -4608,7 +4623,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static final long small$offset() {
@@ -4618,7 +4633,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static MemorySegment small(MemorySegment struct) {
@@ -4628,7 +4643,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static void small(MemorySegment struct, MemorySegment fieldValue) {
@@ -4637,7 +4652,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static class large {
@@ -4650,11 +4665,12 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16);
+                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
@@ -4696,9 +4712,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16) {
+            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16);
+                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4710,7 +4726,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static final AddressLayout large$layout() {
@@ -4722,7 +4738,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static final long large$offset() {
@@ -4732,7 +4748,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static MemorySegment large(MemorySegment struct) {
@@ -4742,7 +4758,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallback, int *, int *, int *, int *)
+         * int (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *)
          * }
          */
         public static void large(MemorySegment struct, MemorySegment fieldValue) {
@@ -4751,7 +4767,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
+         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
          * }
          */
         public static class extended {
@@ -4764,11 +4780,12 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, int _x18, MemorySegment _x19);
+                int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, int _x19, MemorySegment _x20);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER,
@@ -4813,9 +4830,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, int _x18, MemorySegment _x19) {
+            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, int _x19, MemorySegment _x20) {
                 try {
-                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19);
+                    return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4827,7 +4844,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
+         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
          * }
          */
         public static final AddressLayout extended$layout() {
@@ -4839,7 +4856,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
+         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
          * }
          */
         public static final long extended$offset() {
@@ -4849,7 +4866,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
+         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
          * }
          */
         public static MemorySegment extended(MemorySegment struct) {
@@ -4859,7 +4876,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallback, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
+         * int (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, int *, int *, int *, int *, double *, DartObj *, DartObj, int *)
          * }
          */
         public static void extended(MemorySegment struct, MemorySegment fieldValue) {
@@ -5389,6 +5406,428 @@ public class WidgetFactories {
      */
     public static void icon(MemorySegment struct, MemorySegment fieldValue) {
         MemorySegment.copy(fieldValue, 0L, struct, icon$OFFSET, icon$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct SubStateSt {
+     *     SubStateObjSt (*subState)(DartObjCallback);
+     * }
+     * }
+     */
+    public static class SubStateSt {
+
+        SubStateSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("subState")
+        ).withName("SubStateSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * SubStateObjSt (*subState)(DartObjCallback)
+         * }
+         */
+        public static class subState {
+
+            subState() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                SubStateObjSt.layout(),
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(subState.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(subState.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout subState$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("subState"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * SubStateObjSt (*subState)(DartObjCallback)
+         * }
+         */
+        public static final AddressLayout subState$layout() {
+            return subState$LAYOUT;
+        }
+
+        private static final long subState$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * SubStateObjSt (*subState)(DartObjCallback)
+         * }
+         */
+        public static final long subState$offset() {
+            return subState$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * SubStateObjSt (*subState)(DartObjCallback)
+         * }
+         */
+        public static MemorySegment subState(MemorySegment struct) {
+            return struct.get(subState$LAYOUT, subState$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * SubStateObjSt (*subState)(DartObjCallback)
+         * }
+         */
+        public static void subState(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(subState$LAYOUT, subState$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout subState$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("subState"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct SubStateSt subState
+     * }
+     */
+    public static final GroupLayout subState$layout() {
+        return subState$LAYOUT;
+    }
+
+    private static final long subState$OFFSET = 256;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct SubStateSt subState
+     * }
+     */
+    public static final long subState$offset() {
+        return subState$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct SubStateSt subState
+     * }
+     */
+    public static MemorySegment subState(MemorySegment struct) {
+        return struct.asSlice(subState$OFFSET, subState$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct SubStateSt subState
+     * }
+     */
+    public static void subState(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, subState$OFFSET, subState$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct SubStatefulWidgetSt {
+     *     SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback);
+     * }
+     * }
+     */
+    public static class SubStatefulWidgetSt {
+
+        SubStatefulWidgetSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("subStatefulWidget")
+        ).withName("SubStatefulWidgetSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * }
+         */
+        public static class subStatefulWidget {
+
+            subStatefulWidget() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                SubStatefulWidgetObjSt.layout(),
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(subStatefulWidget.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(subStatefulWidget.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout subStatefulWidget$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("subStatefulWidget"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * }
+         */
+        public static final AddressLayout subStatefulWidget$layout() {
+            return subStatefulWidget$LAYOUT;
+        }
+
+        private static final long subStatefulWidget$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * }
+         */
+        public static final long subStatefulWidget$offset() {
+            return subStatefulWidget$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * }
+         */
+        public static MemorySegment subStatefulWidget(MemorySegment struct) {
+            return struct.get(subStatefulWidget$LAYOUT, subStatefulWidget$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * }
+         */
+        public static void subStatefulWidget(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(subStatefulWidget$LAYOUT, subStatefulWidget$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout subStatefulWidget$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("subStatefulWidget"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct SubStatefulWidgetSt subStatefulWidget
+     * }
+     */
+    public static final GroupLayout subStatefulWidget$layout() {
+        return subStatefulWidget$LAYOUT;
+    }
+
+    private static final long subStatefulWidget$OFFSET = 264;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct SubStatefulWidgetSt subStatefulWidget
+     * }
+     */
+    public static final long subStatefulWidget$offset() {
+        return subStatefulWidget$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct SubStatefulWidgetSt subStatefulWidget
+     * }
+     */
+    public static MemorySegment subStatefulWidget(MemorySegment struct) {
+        return struct.asSlice(subStatefulWidget$OFFSET, subStatefulWidget$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct SubStatefulWidgetSt subStatefulWidget
+     * }
+     */
+    public static void subStatefulWidget(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, subStatefulWidget$OFFSET, subStatefulWidget$LAYOUT.byteSize());
     }
 
     /**

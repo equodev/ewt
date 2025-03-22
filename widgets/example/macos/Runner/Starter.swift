@@ -78,11 +78,36 @@ class FlutterBridgeController {
 }
 
 //func setBuildWidgetTree(_ fn: @convention(c) () -> Int)
+// Define the Swift type that matches buildWidgetTreeFn
+// typealias BuildWidgetTreeFn = @convention(c) (UnsafePointer<WidgetFactories>?) -> Int32
+//
+// @MainActor @_cdecl("startApp")
+// public func StartApp(buildWidgetTree: @convention(c) (UnsafePointer<WidgetFactories>?) -> Int32) -> Int32 {
+//     print("swift StartApp")
+// //     setBuildWidgetTree(buildWidgetTree)
+//     // Cast the function to the expected C type
+// //     let buildWidgetTreeFn: (@convention(c) (UnsafePointer<WidgetFactories>?) -> Int32) = buildWidgetTree
+// //     setBuildWidgetTree(buildWidgetTreeFn)
+//
+//   // Cast using the typealias
+//     let fn: BuildWidgetTreeFn = buildWidgetTree
+//     setBuildWidgetTree(fn)
+//
+//     FlutterBridgeController.shared.initialize()
+//     return 0
+// }
+
+// Import the C function with its correct type
+@_silgen_name("setBuildWidgetTree")
+func c_setBuildWidgetTree(_ fn: @convention(c) (UnsafePointer<WidgetFactories>?) -> Int32) -> Void
 
 @MainActor @_cdecl("startApp")
-public func StartApp(buildWidgetTree: @convention(c) (WidgetFactories) -> Int32) -> Int32 {
+public func StartApp(buildWidgetTree: @convention(c) (UnsafePointer<WidgetFactories>?) -> Int32) -> Int32 {
     print("swift StartApp")
-    setBuildWidgetTree(buildWidgetTree)
+
+    // Now call the imported function
+    c_setBuildWidgetTree(buildWidgetTree)
+
     FlutterBridgeController.shared.initialize()
     return 0
 }

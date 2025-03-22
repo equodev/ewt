@@ -14,12 +14,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef void (*VoidCallback)(void)
+ * typedef void (*DrawerCallbackFFI)(int)
  * }
  */
-public class VoidCallback {
+public class DrawerCallbackFFI {
 
-    VoidCallback() {
+    DrawerCallbackFFI() {
         // Should not be called directly
     }
 
@@ -27,10 +27,12 @@ public class VoidCallback {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        void apply();
+        void apply(int isOpened);
     }
 
-    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid();
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        StarterBridge.C_INT
+    );
 
     /**
      * The descriptor of this function pointer
@@ -39,13 +41,13 @@ public class VoidCallback {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(VoidCallback.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DrawerCallbackFFI.Function.class, "apply", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
      * The lifetime of the returned segment is managed by {@code arena}
      */
-    public static MemorySegment allocate(VoidCallback.Function fi, Arena arena) {
+    public static MemorySegment allocate(DrawerCallbackFFI.Function fi, Arena arena) {
         return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
     }
 
@@ -54,9 +56,9 @@ public class VoidCallback {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static void invoke(MemorySegment funcPtr) {
+    public static void invoke(MemorySegment funcPtr,int isOpened) {
         try {
-             DOWN$MH.invokeExact(funcPtr);
+             DOWN$MH.invokeExact(funcPtr, isOpened);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

@@ -15,22 +15,19 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 /**
  * {@snippet lang=c :
  * struct {
- *     int size;
- *     DartObj *list;
+ *     int id;
  * }
  * }
  */
-public class ArrayC {
+public class SubStatefulWidgetObjSt {
 
-    ArrayC() {
+    SubStatefulWidgetObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("size"),
-        MemoryLayout.paddingLayout(4),
-        StarterBridge.C_POINTER.withName("list")
-    ).withName("$anon$8:9");
+        StarterBridge.C_INT.withName("id")
+    ).withName("$anon$6:9");
 
     /**
      * The layout of this struct
@@ -39,92 +36,48 @@ public class ArrayC {
         return $LAYOUT;
     }
 
-    private static final OfInt size$LAYOUT = (OfInt)$LAYOUT.select(groupElement("size"));
+    private static final OfInt id$LAYOUT = (OfInt)$LAYOUT.select(groupElement("id"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * int size
+     * int id
      * }
      */
-    public static final OfInt size$layout() {
-        return size$LAYOUT;
+    public static final OfInt id$layout() {
+        return id$LAYOUT;
     }
 
-    private static final long size$OFFSET = 0;
+    private static final long id$OFFSET = 0;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * int size
+     * int id
      * }
      */
-    public static final long size$offset() {
-        return size$OFFSET;
+    public static final long id$offset() {
+        return id$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * int size
+     * int id
      * }
      */
-    public static int size(MemorySegment struct) {
-        return struct.get(size$LAYOUT, size$OFFSET);
+    public static int id(MemorySegment struct) {
+        return struct.get(id$LAYOUT, id$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * int size
+     * int id
      * }
      */
-    public static void size(MemorySegment struct, int fieldValue) {
-        struct.set(size$LAYOUT, size$OFFSET, fieldValue);
-    }
-
-    private static final AddressLayout list$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("list"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj *list
-     * }
-     */
-    public static final AddressLayout list$layout() {
-        return list$LAYOUT;
-    }
-
-    private static final long list$OFFSET = 8;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj *list
-     * }
-     */
-    public static final long list$offset() {
-        return list$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj *list
-     * }
-     */
-    public static MemorySegment list(MemorySegment struct) {
-        return struct.get(list$LAYOUT, list$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj *list
-     * }
-     */
-    public static void list(MemorySegment struct, MemorySegment fieldValue) {
-        struct.set(list$LAYOUT, list$OFFSET, fieldValue);
+    public static void id(MemorySegment struct, int fieldValue) {
+        struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
     /**
