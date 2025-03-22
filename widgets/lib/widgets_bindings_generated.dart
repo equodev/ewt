@@ -282,7 +282,9 @@ final class ScaffoldSt extends ffi.Struct {
               ffi.Pointer<DartObj> floatingActionButton,
               ffi.Pointer<ArrayC> persistentFooterButtons,
               ffi.Pointer<DartObj> drawer,
+              ffi.Pointer<DrawerCallbackFFI> onDrawerChanged,
               ffi.Pointer<DartObj> endDrawer,
+              ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged,
               ffi.Pointer<DartObj> bottomNavigationBar,
               ffi.Pointer<DartObj> bottomSheet,
               ffi.Pointer<DartObj> backgroundColor,
@@ -297,6 +299,11 @@ final class ScaffoldSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture,
               ffi.Pointer<ffi.Char> restorationId)>> scaffold;
 }
+
+typedef DrawerCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<DrawerCallbackFFIFunction>>;
+typedef DrawerCallbackFFIFunction = ffi.Void Function(ffi.Int isOpened);
+typedef DartDrawerCallbackFFIFunction = void Function(int isOpened);
 
 final class MaterialAppSt extends ffi.Struct {
   external ffi.Pointer<
@@ -372,6 +379,9 @@ final class ThemeDataSt extends ffi.Struct {
               ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
                   fontFamilyFallback,
               ffi.Pointer<ffi.Char> package,
+              ffi.Pointer<DartObj> cardTheme,
+              ffi.Pointer<DartObj> dialogTheme,
+              ffi.Pointer<DartObj> tabBarTheme,
               ffi.Pointer<DartObj> dialogBackgroundColor)>> themeData;
 
   external ffi.Pointer<
@@ -744,12 +754,13 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<DartObj> focusColor,
               ffi.Pointer<DartObj> hoverColor,
               ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<DartObj> heroTag,
               ffi.Pointer<ffi.Double> elevation,
               ffi.Pointer<ffi.Double> focusElevation,
               ffi.Pointer<ffi.Double> hoverElevation,
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
-              VoidCallback onPressed,
+              VoidCallbackFFI onPressed,
               ffi.Pointer<ffi.Int> mini,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
@@ -767,12 +778,13 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<DartObj> focusColor,
               ffi.Pointer<DartObj> hoverColor,
               ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<DartObj> heroTag,
               ffi.Pointer<ffi.Double> elevation,
               ffi.Pointer<ffi.Double> focusElevation,
               ffi.Pointer<ffi.Double> hoverElevation,
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
-              VoidCallback onPressed,
+              VoidCallbackFFI onPressed,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
@@ -788,12 +800,13 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<DartObj> focusColor,
               ffi.Pointer<DartObj> hoverColor,
               ffi.Pointer<DartObj> splashColor,
+              ffi.Pointer<DartObj> heroTag,
               ffi.Pointer<ffi.Double> elevation,
               ffi.Pointer<ffi.Double> focusElevation,
               ffi.Pointer<ffi.Double> hoverElevation,
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
-              VoidCallback onPressed,
+              VoidCallbackFFI onPressed,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
@@ -807,13 +820,14 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<DartObj> backgroundColor,
               ffi.Pointer<DartObj> focusColor,
               ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> heroTag,
               ffi.Pointer<ffi.Double> elevation,
               ffi.Pointer<ffi.Double> focusElevation,
               ffi.Pointer<ffi.Double> hoverElevation,
               ffi.Pointer<DartObj> splashColor,
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
-              VoidCallback onPressed,
+              VoidCallbackFFI onPressed,
               ffi.Pointer<ffi.Int> isExtended,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
               ffi.Pointer<ffi.Int> clipBehavior,
@@ -824,9 +838,10 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> enableFeedback)>> extended;
 }
 
-typedef VoidCallback = ffi.Pointer<ffi.NativeFunction<VoidCallbackFunction>>;
-typedef VoidCallbackFunction = ffi.Void Function();
-typedef DartVoidCallbackFunction = void Function();
+typedef VoidCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<VoidCallbackFFIFunction>>;
+typedef VoidCallbackFFIFunction = ffi.Void Function();
+typedef DartVoidCallbackFFIFunction = void Function();
 
 final class IconDataSt extends ffi.Struct {
   external ffi.Pointer<
@@ -867,12 +882,12 @@ final class SubStateObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
 
-  external SetStatePtr setState;
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(VoidCallbackFFI fn)>>
+      setState;
 }
 
-typedef SetStatePtr = ffi.Pointer<ffi.NativeFunction<SetStatePtrFunction>>;
-typedef SetStatePtrFunction = ffi.Void Function(VoidCallback);
-typedef DartSetStatePtrFunction = void Function(VoidCallback);
+/// typedef void (*VoidCallback)(void);
 typedef DartObjCallback
     = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFunction>>;
 typedef DartObjCallbackFunction = DartObj Function();
@@ -880,6 +895,12 @@ typedef DartDartObjCallbackFunction = DartDartObj Function();
 
 final class SubStatefulWidgetSt extends ffi.Struct {
   external ffi.Pointer<
-          ffi.NativeFunction<ffi.Int Function(DartObjCallback createStateFn)>>
+          ffi.NativeFunction<
+              SubStatefulWidgetObjSt Function(DartObjCallback createStateFn)>>
       subStatefulWidget;
+}
+
+final class SubStatefulWidgetObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
 }

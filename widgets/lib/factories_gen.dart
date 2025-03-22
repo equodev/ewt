@@ -147,13 +147,15 @@ int appBarAppBar(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticall
 void _setupScaffold(WidgetFactories f) {
   f.scaffold.scaffold = ffi.Pointer.fromFunction(scaffoldScaffold, exception);
 }
-int scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
+int scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DrawerCallbackFFI> onDrawerChanged, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
   final w = Scaffold(appBar: appBar.objOrNul(),
       body: body.objOrNul(),
       floatingActionButton: floatingActionButton.objOrNul(),
       persistentFooterButtons: persistentFooterButtons.orEmpty(),
       drawer: drawer.objOrNul(),
+      onDrawerChanged: onDrawerChanged.toFn(),
       endDrawer: endDrawer.objOrNul(),
+      onEndDrawerChanged: onEndDrawerChanged.toFn(),
       bottomNavigationBar: bottomNavigationBar.objOrNul(),
       bottomSheet: bottomSheet.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
@@ -220,7 +222,7 @@ void _setupThemeData(WidgetFactories f) {
   f.themeData.dark = ffi.Pointer.fromFunction(themeDataDark, exception);
   f.themeData.fallback = ffi.Pointer.fromFunction(themeDataFallback, exception);
 }
-int themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> dialogBackgroundColor) {
+int themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor) {
   final w = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor.boolOrNul(),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       platform: platform.enumOrNul(TargetPlatform.values),
@@ -248,6 +250,9 @@ int themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Poin
       fontFamily: fontFamily.strOrNul(),
       fontFamilyFallback: fontFamilyFallback.orEmpty(),
       package: package.strOrNul(),
+      cardTheme: cardTheme.objOrNul(),
+      dialogTheme: dialogTheme.objOrNul(),
+      tabBarTheme: tabBarTheme.objOrNul(),
       dialogBackgroundColor: dialogBackgroundColor.objOrNul());
   return _addWidget(w);
 }
@@ -614,7 +619,7 @@ void _setupFloatingActionButton(WidgetFactories f) {
   f.floatingActionButton.large = ffi.Pointer.fromFunction(floatingActionButtonLarge, exception);
   f.floatingActionButton.extended = ffi.Pointer.fromFunction(floatingActionButtonExtended, exception);
 }
-int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallback onPressed, ffi.Pointer<ffi.Int> mini, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> enableFeedback) {
+int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> mini, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton(child: child.objOrNul(),
       tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -622,6 +627,7 @@ int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Poi
       focusColor: focusColor.objOrNul(),
       hoverColor: hoverColor.objOrNul(),
       splashColor: splashColor.objOrNul(),
+      heroTag: heroTag.objOrNul(),
       elevation: elevation.doubleOrNul(),
       focusElevation: focusElevation.doubleOrNul(),
       hoverElevation: hoverElevation.doubleOrNul(),
@@ -636,7 +642,7 @@ int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Poi
       enableFeedback: enableFeedback.boolOrNul());
   return _addWidget(w);
 }
-int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallback onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
+int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton.small(child: child.objOrNul(),
       tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -644,6 +650,7 @@ int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       focusColor: focusColor.objOrNul(),
       hoverColor: hoverColor.objOrNul(),
       splashColor: splashColor.objOrNul(),
+      heroTag: heroTag.objOrNul(),
       elevation: elevation.doubleOrNul(),
       focusElevation: focusElevation.doubleOrNul(),
       hoverElevation: hoverElevation.doubleOrNul(),
@@ -656,7 +663,7 @@ int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       enableFeedback: enableFeedback.boolOrNul());
   return _addWidget(w);
 }
-int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallback onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
+int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton.large(child: child.objOrNul(),
       tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -664,6 +671,7 @@ int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       focusColor: focusColor.objOrNul(),
       hoverColor: hoverColor.objOrNul(),
       splashColor: splashColor.objOrNul(),
+      heroTag: heroTag.objOrNul(),
       elevation: elevation.doubleOrNul(),
       focusElevation: focusElevation.doubleOrNul(),
       hoverElevation: hoverElevation.doubleOrNul(),
@@ -676,12 +684,13 @@ int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       enableFeedback: enableFeedback.boolOrNul());
   return _addWidget(w);
 }
-int floatingActionButtonExtended(ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallback onPressed, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Double> extendedIconLabelSpacing, ffi.Pointer<DartObj> icon, DartDartObj label, ffi.Pointer<ffi.Int> enableFeedback) {
+int floatingActionButtonExtended(ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Double> extendedIconLabelSpacing, ffi.Pointer<DartObj> icon, DartDartObj label, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton.extended(tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
       focusColor: focusColor.objOrNul(),
       hoverColor: hoverColor.objOrNul(),
+      heroTag: heroTag.objOrNul(),
       elevation: elevation.doubleOrNul(),
       focusElevation: focusElevation.doubleOrNul(),
       hoverElevation: hoverElevation.doubleOrNul(),
@@ -733,24 +742,23 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
-Finalizer<ffi.NativeCallable> _finalizer = Finalizer((callable) { print('FINALIZER') ;callable.close(); });
 SubStateObjSt subStateSubState(DartObjCallback buildFn) {
   final w = SubState(buildFn: buildFn.toFn());
-  final setSateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal(w.ffiSetState);
-  _finalizer.attach(w, setSateFn);
-  final id = _addWidget(w);
   final SubStateObjSt stObj = ffi.Struct.create();
-  stObj.id = id;
-  stObj.setState = setSateFn.nativeFunction;
+  stObj.id = _addWidget(w);
+  final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
+  stObj.setState = setStateFn.nativeFunction;
   return stObj;
 }
 
 void _setupSubStatefulWidget(WidgetFactories f) {
-  f.subStatefulWidget.subStatefulWidget = ffi.Pointer.fromFunction(subStatefulWidgetSubStatefulWidget, exception);
+  f.subStatefulWidget.subStatefulWidget = ffi.Pointer.fromFunction(subStatefulWidgetSubStatefulWidget);
 }
-int subStatefulWidgetSubStatefulWidget(DartObjCallback createStateFn) {
+SubStatefulWidgetObjSt subStatefulWidgetSubStatefulWidget(DartObjCallback createStateFn) {
   final w = SubStatefulWidget(createStateFn: createStateFn.toFn());
-  return _addWidget(w);
+  final SubStatefulWidgetObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  return stObj;
 }
 
 ffi.Pointer<WidgetFactories> _setupFactories() {
@@ -775,3 +783,17 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupColorScheme(f);
   return fp;
 }
+extension on VoidCallbackFFI {
+  VoidCallback toFn() {
+    return asFunction();
+  }
+}
+extension on ffi.Pointer<VoidCallbackFFI> {
+  VoidCallback? toFn() {
+    if (this != ffi.nullptr) {
+      return this.value.toFn();
+    }
+    return null;
+  }
+}
+

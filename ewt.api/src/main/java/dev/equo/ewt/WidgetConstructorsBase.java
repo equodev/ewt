@@ -1,10 +1,13 @@
 package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
+
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.lang.foreign.*;
+import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
@@ -57,9 +60,15 @@ class WidgetConstructorsBase {
     return MemorySegment.NULL;
   }
   MemorySegment ptrFn(Runnable runnable) {
-    return VoidCallback.allocate(runnable::run, arena);
+    return VoidCallbackFFI.allocate(runnable::run, arena);
   }
   <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
     return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
+  }
+  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
+    if (opt.isPresent()) {
+      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);
+    }
+    return MemorySegment.NULL;
   }
 }

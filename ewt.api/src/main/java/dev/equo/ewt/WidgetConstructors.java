@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.lang.foreign.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
   int textText(String data, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     var st = WidgetFactories.text(factories);
@@ -138,7 +138,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(clipBehavior));
   }
 
-  int scaffoldScaffold(Optional<PreferredSizeWidget> appBar, Optional<Widget> body, Optional<Widget> floatingActionButton, Optional<List<Widget>> persistentFooterButtons, Optional<Widget> drawer, Optional<Widget> endDrawer, Optional<Widget> bottomNavigationBar, Optional<Widget> bottomSheet, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> extendBodyBehindAppBar, Optional<Color> drawerScrimColor, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
+  int scaffoldScaffold(Optional<PreferredSizeWidget> appBar, Optional<Widget> body, Optional<Widget> floatingActionButton, Optional<List<Widget>> persistentFooterButtons, Optional<Widget> drawer, Optional<Consumer<Boolean>> onDrawerChanged, Optional<Widget> endDrawer, Optional<Consumer<Boolean>> onEndDrawerChanged, Optional<Widget> bottomNavigationBar, Optional<Widget> bottomSheet, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> extendBodyBehindAppBar, Optional<Color> drawerScrimColor, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
     var st = WidgetFactories.scaffold(factories);
     var fn = WidgetFactories.ScaffoldSt.scaffold(st);
     return WidgetFactories.ScaffoldSt.scaffold.invoke(fn, ptrObj(appBar),
@@ -146,7 +146,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(floatingActionButton),
       ptrList(persistentFooterButtons),
       ptrObj(drawer),
+      ptrFn(onDrawerChanged),
       ptrObj(endDrawer),
+      ptrFn(onEndDrawerChanged),
       ptrObj(bottomNavigationBar),
       ptrObj(bottomSheet),
       ptrObj(backgroundColor),
@@ -203,7 +205,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(useInheritedMediaQuery));
   }
 
-  int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<Color> dialogBackgroundColor) {
+  int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
     return WidgetFactories.ThemeDataSt.themeData.invoke(fn, ptrBool(applyElevationOverlayColor),
@@ -233,6 +235,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(fontFamily),
       ptrStrList(fontFamilyFallback),
       ptrStr(_package),
+      ptrObj(cardTheme),
+      ptrObj(dialogTheme),
+      ptrObj(tabBarTheme),
       ptrObj(dialogBackgroundColor));
   }
   int themeDataFrom(ColorScheme colorScheme, Optional<Boolean> useMaterial3) {
@@ -594,7 +599,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(brightness));
   }
 
-  int floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  int floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.floatingActionButton(st);
     return WidgetFactories.FloatingActionButtonSt.floatingActionButton.invoke(fn, ptrObj(child),
@@ -604,6 +609,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(focusColor),
       ptrObj(hoverColor),
       ptrObj(splashColor),
+      ptrObj(heroTag),
       ptr(elevation),
       ptr(focusElevation),
       ptr(hoverElevation),
@@ -617,7 +623,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(isExtended),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  int floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.small(st);
     return WidgetFactories.FloatingActionButtonSt.small.invoke(fn, ptrObj(child),
@@ -627,6 +633,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(focusColor),
       ptrObj(hoverColor),
       ptrObj(splashColor),
+      ptrObj(heroTag),
       ptr(elevation),
       ptr(focusElevation),
       ptr(hoverElevation),
@@ -638,7 +645,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  int floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.large(st);
     return WidgetFactories.FloatingActionButtonSt.large.invoke(fn, ptrObj(child),
@@ -648,6 +655,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(focusColor),
       ptrObj(hoverColor),
       ptrObj(splashColor),
+      ptrObj(heroTag),
       ptr(elevation),
       ptr(focusElevation),
       ptr(hoverElevation),
@@ -659,7 +667,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
+  int floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.extended(st);
     return WidgetFactories.FloatingActionButtonSt.extended.invoke(fn, ptrStr(tooltip),
@@ -667,6 +675,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(backgroundColor),
       ptrObj(focusColor),
       ptrObj(hoverColor),
+      ptrObj(heroTag),
       ptr(elevation),
       ptr(focusElevation),
       ptr(hoverElevation),
@@ -716,10 +725,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubStateSt.subState.invoke(fn, arena, ptrFn(buildFn));
   }
 
-  int subStatefulWidgetSubStatefulWidget(Supplier<NativeObj> createStateFn) {
+  MemorySegment subStatefulWidgetSubStatefulWidget(Supplier<NativeObj> createStateFn) {
     var st = WidgetFactories.subStatefulWidget(factories);
     var fn = WidgetFactories.SubStatefulWidgetSt.subStatefulWidget(st);
-    return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, ptrFn(createStateFn));
+    return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, arena, ptrFn(createStateFn));
   }
 
 }

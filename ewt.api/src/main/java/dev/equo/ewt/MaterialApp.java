@@ -1,5 +1,6 @@
 package dev.equo.ewt;
 import java.util.*;
+import java.util.function.*;
 import org.immutables.builder.Builder;
 public class MaterialApp extends StatefulWidget {
   MaterialApp() {}

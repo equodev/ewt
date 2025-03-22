@@ -16,21 +16,18 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     void (*setState)(VoidCallbackFFI);
  * }
  * }
  */
-public class SubStateObjSt {
+public class SubStatefulWidgetObjSt {
 
-    SubStateObjSt() {
+    SubStatefulWidgetObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id"),
-        MemoryLayout.paddingLayout(4),
-        StarterBridge.C_POINTER.withName("setState")
-    ).withName("$anon$1:9");
+        StarterBridge.C_INT.withName("id")
+    ).withName("$anon$6:9");
 
     /**
      * The layout of this struct
@@ -81,103 +78,6 @@ public class SubStateObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
-    }
-
-    /**
-     * {@snippet lang=c :
-     * void (*setState)(VoidCallbackFFI)
-     * }
-     */
-    public static class setState {
-
-        setState() {
-            // Should not be called directly
-        }
-
-        /**
-         * The function pointer signature, expressed as a functional interface
-         */
-        public interface Function {
-            void apply(MemorySegment _x0);
-        }
-
-        private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
-            StarterBridge.C_POINTER
-        );
-
-        /**
-         * The descriptor of this function pointer
-         */
-        public static FunctionDescriptor descriptor() {
-            return $DESC;
-        }
-
-        private static final MethodHandle UP$MH = StarterBridge.upcallHandle(setState.Function.class, "apply", $DESC);
-
-        /**
-         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
-         * The lifetime of the returned segment is managed by {@code arena}
-         */
-        public static MemorySegment allocate(setState.Function fi, Arena arena) {
-            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
-        }
-
-        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
-
-        /**
-         * Invoke the upcall stub {@code funcPtr}, with given parameters
-         */
-        public static void invoke(MemorySegment funcPtr,MemorySegment _x0) {
-            try {
-                 DOWN$MH.invokeExact(funcPtr, _x0);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        }
-    }
-
-    private static final AddressLayout setState$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("setState"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * void (*setState)(VoidCallbackFFI)
-     * }
-     */
-    public static final AddressLayout setState$layout() {
-        return setState$LAYOUT;
-    }
-
-    private static final long setState$OFFSET = 8;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * void (*setState)(VoidCallbackFFI)
-     * }
-     */
-    public static final long setState$offset() {
-        return setState$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * void (*setState)(VoidCallbackFFI)
-     * }
-     */
-    public static MemorySegment setState(MemorySegment struct) {
-        return struct.get(setState$LAYOUT, setState$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * void (*setState)(VoidCallbackFFI)
-     * }
-     */
-    public static void setState(MemorySegment struct, MemorySegment fieldValue) {
-        struct.set(setState$LAYOUT, setState$OFFSET, fieldValue);
     }
 
     /**

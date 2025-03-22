@@ -1,5 +1,6 @@
 package dev.equo.ewt;
 import java.util.*;
+import java.util.function.*;
 import org.immutables.builder.Builder;
 public class FloatingActionButton extends StatelessWidget {
   FloatingActionButton() {}
@@ -7,7 +8,7 @@ public class FloatingActionButton extends StatelessWidget {
     this.id = id;
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonFloatingActionButton(child,
       tooltip,
       foregroundColor,
@@ -15,6 +16,7 @@ public class FloatingActionButton extends StatelessWidget {
       focusColor,
       hoverColor,
       splashColor,
+      heroTag,
       elevation,
       focusElevation,
       hoverElevation,
@@ -35,7 +37,7 @@ public class FloatingActionButton extends StatelessWidget {
     return FloatingActionButtonFloatingActionButtonBuilder.floatingActionButtonFloatingActionButton();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonSmall(child,
       tooltip,
       foregroundColor,
@@ -43,6 +45,7 @@ public class FloatingActionButton extends StatelessWidget {
       focusColor,
       hoverColor,
       splashColor,
+      heroTag,
       elevation,
       focusElevation,
       hoverElevation,
@@ -61,7 +64,7 @@ public class FloatingActionButton extends StatelessWidget {
     return FloatingActionButtonSmallBuilder.floatingActionButtonSmall();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonLarge(child,
       tooltip,
       foregroundColor,
@@ -69,6 +72,7 @@ public class FloatingActionButton extends StatelessWidget {
       focusColor,
       hoverColor,
       splashColor,
+      heroTag,
       elevation,
       focusElevation,
       hoverElevation,
@@ -87,12 +91,13 @@ public class FloatingActionButton extends StatelessWidget {
     return FloatingActionButtonLargeBuilder.floatingActionButtonLarge();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     int id = factories.floatingActionButtonExtended(tooltip,
       foregroundColor,
       backgroundColor,
       focusColor,
       hoverColor,
+      heroTag,
       elevation,
       focusElevation,
       hoverElevation,

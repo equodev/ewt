@@ -27,6 +27,9 @@ extension on int {
   bool toBool() => this == 1 ? true : false;
   E toEnum<E extends Enum>(List<E> values) => values[this];
 }
+extension on bool {
+  int toInt() => this == true ? 1 : 0;
+}
 extension on ffi.Pointer<ffi.Int> {
   int? intOrNul() => this == ffi.nullptr ? null : value;
   bool? boolOrNul() => this == ffi.nullptr ? null : value == 1 ? true : false;
@@ -73,11 +76,36 @@ extension on ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> {
     return null;
   }
 }
-extension on VoidCallback {
-  DartVoidCallbackFunction toFn() {
-    return asFunction();
+extension on DrawerCallbackFFI {
+  DrawerCallback toFn() {
+    return (bool b) {
+      DartDrawerCallbackFFIFunction f = asFunction();
+      f(b.toInt());
+    };
   }
 }
+extension on ffi.Pointer<DrawerCallbackFFI> {
+  DrawerCallback? toFn() {
+    if (this != ffi.nullptr) {
+      return this.value.toFn();
+    }
+    return null;
+  }
+}
+
+// extension on VoidCallback {
+//   DartVoidCallbackFunction toFn() {
+//     return asFunction();
+//   }
+// }
+// extension on ffi.Pointer<VoidCallback> {
+//   DartVoidCallbackFunction? toFn() {
+//     if (this != ffi.nullptr) {
+//       return this.value.asFunction();
+//     }
+//     return null;
+//   }
+// }
 extension on DartObjCallback {
   T Function() toFn<T>() {
     return () {
