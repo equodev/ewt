@@ -8,6 +8,7 @@ import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
@@ -18,6 +19,10 @@ class WidgetConstructorsBase {
 
   public void set(MemorySegment factories) {
     this.factories = factories;
+  }
+
+  boolean intToBool(int i) {
+    return i == 0;
   }
 
   MemorySegment ptr(OptionalInt opt) {
@@ -65,10 +70,13 @@ class WidgetConstructorsBase {
   <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
     return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
   }
-  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
-    if (opt.isPresent()) {
-      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);
-    }
-    return MemorySegment.NULL;
+  <T extends NativeObj, R extends NativeObj> MemorySegment ptrFn(Function<T, R> f) {
+    return DartObjCallbackDartObj.allocate((ctx) -> f.apply((T) new BuildContext(ctx){}).getId(), arena);
   }
+//  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
+//    if (opt.isPresent()) {
+//      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);
+//    }
+//    return MemorySegment.NULL;
+//  }
 }

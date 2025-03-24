@@ -88,4 +88,26 @@ public class ThemeData extends NativeObj.Base {
   public static ThemeDataFallbackBuilder fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
   }
+  @Builder.Factory
+  static ThemeData themeDataEstimateBrightnessForColor(@Builder.Parameter Color color) {
+    int id = factories.themeDataEstimateBrightnessForColor(color);
+    if (id == -1) throw new RuntimeException("Failed to created widget ThemeData");
+    System.out.println("New ThemeData id:"+id);
+    return new ThemeData(id);
+  }
+  public static ThemeDataEstimateBrightnessForColorBuilder estimateBrightnessForColor(Color color) {
+    return ThemeDataEstimateBrightnessForColorBuilder.themeDataEstimateBrightnessForColor(color);
+  }
+  @Builder.Factory
+  static ThemeData themeDataLerp(@Builder.Parameter ThemeData a, @Builder.Parameter ThemeData b, @Builder.Parameter double t) {
+    int id = factories.themeDataLerp(a,
+      b,
+      t);
+    if (id == -1) throw new RuntimeException("Failed to created widget ThemeData");
+    System.out.println("New ThemeData id:"+id);
+    return new ThemeData(id);
+  }
+  public static ThemeDataLerpBuilder lerp(ThemeData a, ThemeData b, double t) {
+    return ThemeDataLerpBuilder.themeDataLerp(a, b, t);
+  }
 }

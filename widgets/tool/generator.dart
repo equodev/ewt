@@ -3,6 +3,7 @@ import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/src/dart/element/element.dart';
 import 'package:analyzer/src/dart/element/type.dart';
+import 'package:analyzer/src/generated/utilities_dart.dart';
 import 'package:analyzer/src/utilities/extensions/string.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as path;
@@ -58,6 +59,8 @@ class WidgetGen {
   StringBuffer javaFactories = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
 
+  bool isInterface = false;
+
   WidgetGen(this.generation, this.dartClass):
         widgetClass = dartClass.name,
         widgetField = '${dartClass.name[0].toLowerCase()}${dartClass.name.substring(1)}' {
@@ -72,9 +75,12 @@ class WidgetGen {
     if (hasMembers) {
       dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
     }
+    writeJavaConstructors();
     if (!dartClass.isAbstract) {
-      writeJavaConstructors();
       for (var constr in constructors) {
+        writeFactory(constr);
+      }
+      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic)) {
         writeFactory(constr);
       }
     }
@@ -116,12 +122,12 @@ class WidgetGen {
   }
 
   void writeJavaConstructors() {
-    javaFile
-        .writeln('  $widgetClass() {}');
-    javaFile
-      ..writeln('  $widgetClass(int id) {')
-      ..writeln('    this.id = id;')
-      ..writeln('  }');
+    if (!isInterface) {
+      javaFile
+          .writeln('  $widgetClass() {}');
+      javaFile..writeln('  $widgetClass(int id) {')..writeln(
+          '    this.id = id;')..writeln('  }');
+    }
   }
 
   String genJavaClass() {
@@ -155,7 +161,7 @@ class WidgetGen {
   void writeHeaders(bool hasMembers) {
     javaFile
       .writeln('package dev.equo.ewt;');
-    var isInterface = dartClass.isInterface || dartClass.isMixinClass || dartClass.interfaces.any((i) => i.element is ClassElement);
+    isInterface = dartClass.isInterface || dartClass.isMixinClass || (dartClass.isAbstract && dartClass.interfaces.any((i) => i.element is ClassElement));
     var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
     if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
       extend += ' extends ${dartClass.supertype!.element.name}${dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map((p) => p.name).join(', ')}>' : ''}';
@@ -199,11 +205,11 @@ class WidgetGen {
     }
   }
 
-  void writeFactory(ConstructorElement node) {
+  void writeFactory(FunctionTypedElement node) {
     if (node.parameters.any((p) => p.isRequired && !generation.supportedType(p.type))) {
       return;
     }
-    String factory = (node.name.isEmpty) ? widgetField : node.name;
+    String factory = (node.name!.isEmpty) ? widgetField : node.name!;
     String factoryName = '$widgetField${factory.firstUpper()}';
     String builderClass = '$widgetClass${factory.firstUpper()}Builder';
     writeJavaFactory(node, factoryName, builderClass, factory);
@@ -214,22 +220,37 @@ class WidgetGen {
     writeDFactory(factory, factoryName, node);
   }
 
-  void writeDFactory(String factory, String factoryName, ConstructorElement node) {
+  void writeStaticFactory(MethodElement node) {
+    if (node.parameters.any((p) => p.isRequired && !generation.supportedType(p.type))) {
+      return;
+    }
+    String factory = (node.name.isEmpty) ? widgetField : node.name;
+    String factoryName = '$widgetField${factory.firstUpper()}';
+    String builderClass = '$widgetClass${factory.firstUpper()}Builder';
+    writeJavaFactory(node, factoryName, builderClass, factory);
+    // headerFile
+    // .writeln("    int (*$factory)(${cParams.decl});");
+    // CLang(generation).writeField(headerFile, factory, 'int', params: node.parameters);
+    writeCFactory(factory, node, 'int');
+    writeDFactory(factory, factoryName, node);
+  }
+
+  void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
     final dartParams = Params(generation, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName, exception);');
     dartFns
       ..writeln('int $factoryName(${dartParams.decl}) {')
-      ..writeln('  final w = ${node.displayName}(${dartParams.names});')
+      ..writeln('  final w = $widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});')
       ..writeln('  return _addWidget(w);')
       ..writeln('}');
   }
 
-  void writeCFactory(String factory, ConstructorElement node, String retType) {
+  void writeCFactory(String factory, FunctionTypedElement node, String retType) {
     headerFile.writeln('    ${CLang(generation).field(factory, retType, params: node.parameters)}');
   }
 
-  void writeJavaFactory(ConstructorElement node, String factoryName, String builderClass, String factory) {
+  void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
     String builderFactory = factoryName;
     final jParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
     final jParamsFFM = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4FFM, escape: Params._escape4J);
@@ -249,10 +270,10 @@ class WidgetGen {
       ..writeln('  int $factoryName(${jParams.decl}) {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
       ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
-      ..writeln('    return WidgetFactories.${widgetClass}St.$factory.invoke(fn, ${jParamsFFM.names});')
+      ..writeln('    return WidgetFactories.${widgetClass}St.$factory.invoke(${['fn', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
       ..writeln('  }');
     javaStatics
-      ..writeln('  public static $builderClass $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParams.required}) {')
+      ..writeln('  public static $builderClass $widgetClass${node.name!.isEmpty ? '' : '_$factory'}(${jParams.required}) {')
       ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
       ..writeln('  }');
   }
@@ -305,7 +326,8 @@ class SubclassGen extends WidgetGen {
       if (returnType is InterfaceType && returnType.typeArguments.isNotEmpty) {
         ret = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
       }
-      javaFile.writeln('  protected abstract ${ret} ${method.name}();');
+      final jParams = Params(generation, method.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
+      javaFile.writeln('  protected abstract ${ret} ${method.name}(${jParams.decl});');
     }
     objectsHFile.writeln('typedef struct {');
     // objectsHFile.writeln('  int id;');
@@ -328,7 +350,7 @@ class SubclassGen extends WidgetGen {
   Iterable<MethodElement> callableMethods() => dartClass.supertype!.element.methods.where((m) => !m.isAbstract && m.hasProtected && !m.hasMustCallSuper);
 
   @override
-  void writeJavaFactory(ConstructorElement node, String factoryName, String builderClass, String factory) {
+  void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
     final fnParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4JCallback, escape: Params._escape4J);
     final jParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
     final jParamsFFM = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4FFM, escape: Params._escape4J);
@@ -349,12 +371,12 @@ class SubclassGen extends WidgetGen {
   }
 
   @override
-  void writeCFactory(String factory, ConstructorElement node, String retType) {
+  void writeCFactory(String factory, FunctionTypedElement node, String retType) {
     super.writeCFactory(factory, node, widgetSt);
   }
 
   @override
-  void writeDFactory(String factory, String factoryName, ConstructorElement node) {
+  void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
     final dartParams = Params(generation, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName);');
@@ -464,7 +486,7 @@ class DartSubclassGen {
       .writeln('class $widgetClass$typeParam extends ${dartClass.name} {');
     final methods = dartClass.methods.where((m) => m.isAbstract);
     for (final method in methods) {
-      dartSubclass.writeln('  final ${method.returnType} Function() ${method.name}Fn;');
+      dartSubclass.writeln('  final ${method.type} ${method.name}Fn;');
     }
     var params = dartClass.constructors.first.parameters.map((p) => '${p is SuperFormalParameterElement ? 'super.' : 'this.'}${p.name}').toList();
     var overrideable = methods.map((m) => 'required this.${m.name}Fn').toList();
@@ -472,7 +494,7 @@ class DartSubclassGen {
       .writeln('  $widgetClass({${(params+overrideable).join(', ')}});');
     for (final method in methods) {
       dartSubclass.writeln('  @override');
-      dartSubclass.writeln('  $method => ${method.name}Fn();');
+      dartSubclass.writeln('  $method => ${method.name}Fn(${method.parameters.map((p) => p.name).join(', ')});');
     }
     dartSubclass
       .writeln('}');
@@ -600,8 +622,8 @@ class Generation {
       var aliasedType = td.aliasedType;
       var name = '${td.name}FFI';
       if (aliasedType is FunctionType) {
-        typedefFile.writeln('typedef ${CLang(this).field(name, aliasedType.returnType.toString(), params: aliasedType.parameters)}');
-        if (!aliasedType.parameters.any((p) => p.type.isDartCoreBool)) { // we need to wrap from int to bool
+        typedefFile.writeln('typedef ${CLang(this).field(name, type4C(aliasedType.returnType), params: aliasedType.parameters)}');
+        if (!aliasedType.parameters.any((p) => p.type.isDartCoreBool || !isPrimitive(p.type))) { // we need to wrap from int to bool
           dartFactories.writeln(
                   'extension on ${name} {\n'
                   '  ${td.name} toFn() {\n'
@@ -719,19 +741,32 @@ class Generation {
       return namedType.element.name;
     }
     else if (namedType is FunctionType) {
+      var params = namedType.parameters.map((p) => type4J(p.type).firstUpper()).join(', ');
       if (namedType.returnType is VoidType) {
         if (namedType.parameters.isEmpty) {
           return 'Runnable';
         }
-        return 'Consumer<${namedType.parameters.map((p) => type4J(p.type).firstUpper()).join(', ')}>';
+        return 'Consumer<${params}>';
       } else {
-        return 'Supplier<NativeObj>';
+        var retType4j = type4J(namedType.returnType);
+        if (namedType.parameters.isEmpty) {
+          return 'Supplier<${retType4j}>';
+        }
+        final arity = switch(namedType.parameters.length) {
+          1 => '',
+          2 => 'Bi',
+          var i => throw 'Unsupported $i args function',
+        };
+        return '${arity}Function<$params, $retType4j>';
       }
     }
     return namedType.toString();
   }
 
   String type4C(DartType namedType) {
+    if (namedType is VoidType) {
+      return 'void';
+    }
     if (namedType.isDartCoreString) {
       return 'char*';
     }
@@ -764,7 +799,7 @@ class Generation {
         return '${namedType.alias!.element.name}FFI';
       }
       final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-      return '${cbRet}Callback';
+      return '${cbRet}Callback${namedType.parameters.map((p) => type4C(p.type)).join(', ')}';
     }
     else if (!isPrimitive(namedType)) {
       return 'DartObj'; // object are passes as ids
@@ -805,7 +840,7 @@ class Generation {
           return '${namedType.alias!.element.name}FFI';
         }
         final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-        return '${cbRet}Callback';
+        return '${cbRet}Callback${namedType.parameters.map((p) => type4C(p.type)).join(', ')}';
       }
       else if (!isPrimitive(namedType)) {
         return 'DartObj';
@@ -1033,6 +1068,31 @@ class Params {
       }
       else if (t is FunctionType) {
         // final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
+        if (t.alias != null) {
+          String functional;
+          if (t.returnType is VoidType) {
+            // if (t.parameters.isEmpty) {
+            //   return '${t.alias!.element.name}.allocate(ptrRun($value)';
+            // }
+            functional = t.parameters.isEmpty ? 'run' : 'accept';
+            // return 'ptrConsumer($value)';
+          } else {
+            functional = t.parameters.isEmpty ? 'get' : 'apply';
+            // return 'ptrSupplier($value)';
+          }
+          final parameters = t.parameters;
+          final names = parameters.map(_escape4J).join(', ');
+          final values = parameters.map((p) => paramValueFFMtoJ(p)).join(', ');
+          // final decl = filtered.map((p) => '${paramDef(generation, p, wrap: p.isOptional)} ${escape(p)}').join(', ');
+          var lambda = '$value.get().$functional($values)';
+          if (t.returnType is! VoidType) {
+            lambda = paramValue4FFM(ParameterElementImpl.synthetic(lambda, t.returnType, ParameterKind.REQUIRED));
+          }
+          final allocateCB = '${t.alias!.element.name}FFI.allocate(($names) -> $lambda, arena)';
+          value = '$value.isPresent() ? $allocateCB : MemorySegment.NULL';
+          return value;
+          // return '$value.isPresent() ? ${t.alias!.element.name}.allocate(() -> $value.get()) : MemorySegment.NULL';
+        }
         return 'ptrFn($value)';
       }
       else if (!isPrimitive(t)) {
@@ -1062,9 +1122,21 @@ class Params {
   static String paramValue4JCallback(ParameterElement param) {
     final t = param.type;
     var value = _escape4J(param);
-      if (t is FunctionType) {
-        return 'this::${value.removeSuffix('Fn')}';
-      }
+    if (t is FunctionType) {
+      return 'this::${value.removeSuffix('Fn')}';
+    }
+    return value;
+  }
+
+  static String paramValueFFMtoJ(ParameterElement param) {
+    final t = param.type;
+    var value = _escape4J(param);
+    if (t.isDartCoreBool) {
+      return 'intToBool($value)';
+    }
+    else if (!isPrimitive(t) && t.element is! EnumElement && t is! FunctionType && !t.isDartCoreList) {
+      return 'new ${t.element!.name}($value) {}';
+    }
     return value;
   }
 

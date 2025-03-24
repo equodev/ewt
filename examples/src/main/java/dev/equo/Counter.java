@@ -62,12 +62,13 @@ public class Counter {
         });
       }
 
-      public Widget build() {
+      @Override
+      public Widget build(BuildContext context) {
         return Scaffold()
-            .appBar(
-                AppBar()
+            .appBar(AppBar()
                     .backgroundColor(Color(0xFFB39DDB).build())
-                    .title(Text(widget.title).textDirection(TextDirection.ltr).build())
+//                    .backgroundColor(Theme_of(context).build())
+                    .title(Text(widget.title).build())
                     .build()
             )
             .body(
@@ -78,10 +79,8 @@ public class Counter {
                             .children(
                                 List.of(
                                     Text("You have pushed the button this many times:")
-                                        .textDirection(TextDirection.ltr)
                                         .build(),
                                     Text("" + _counter)
-                                        .textDirection(TextDirection.ltr)
 //                                            .style(Theme.of(context).textTheme.headlineMedium)
                                         .build()
                                 )

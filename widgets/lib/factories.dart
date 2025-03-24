@@ -17,7 +17,9 @@ const exception = -1;
 Map<int, Object> _widgetsMap = {};
 
 Object getWidget(int id) => _widgetsMap[id]!;
-int _addWidget(Object w) {
+int _addWidget(Object? w) {
+  if (w == null)
+    return 0;
   final id = w.hashCode;
   _widgetsMap[id] = w;
   print('Added widget $w id: $id');
@@ -92,7 +94,39 @@ extension on ffi.Pointer<DrawerCallbackFFI> {
     return null;
   }
 }
+extension on TransitionBuilderFFI {
+  TransitionBuilder toFn() {
+    return (BuildContext context, Widget? w) {
+      DartTransitionBuilderFFIFunction f = asFunction();
+      return getWidget(f(context.hashCode, w.hashCode)) as Widget;
+    };
+  }
+}
+extension on ffi.Pointer<TransitionBuilderFFI> {
+  TransitionBuilder? toFn() {
+    if (this != ffi.nullptr) {
+      return this.value.toFn();
+    }
+    return null;
+  }
+}
 
+extension on GenerateAppTitleFFI {
+  GenerateAppTitle toFn() {
+    return (BuildContext context) {
+      DartGenerateAppTitleFFIFunction f = asFunction();
+      return f(context.hashCode).strOrNul()!;
+    };
+  }
+}
+extension on ffi.Pointer<GenerateAppTitleFFI> {
+  GenerateAppTitle? toFn() {
+    if (this != ffi.nullptr) {
+      return this.value.toFn();
+    }
+    return null;
+  }
+}
 // extension on VoidCallback {
 //   DartVoidCallbackFunction toFn() {
 //     return asFunction();
@@ -111,6 +145,15 @@ extension on DartObjCallback {
     return () {
       DartDartObjCallbackFunction jCb = asFunction();
       final wId = jCb();
+      return getWidget(wId) as T;
+    };
+  }
+}
+extension on DartObjCallbackDartObj {
+  T Function(BuildContext) toFn<T>() {
+    return (ctx) {
+      DartDartObjCallbackDartObjFunction jCb = asFunction();
+      final wId = jCb(ctx.hashCode);
       return getWidget(wId) as T;
     };
   }

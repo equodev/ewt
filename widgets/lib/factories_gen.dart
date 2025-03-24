@@ -35,6 +35,9 @@ void _setupColor(WidgetFactories f) {
   f.color.from = ffi.Pointer.fromFunction(colorFrom, exception);
   f.color.fromARGB = ffi.Pointer.fromFunction(colorFromARGB, exception);
   f.color.fromRGBO = ffi.Pointer.fromFunction(colorFromRGBO, exception);
+  f.color.lerp = ffi.Pointer.fromFunction(colorLerp, exception);
+  f.color.alphaBlend = ffi.Pointer.fromFunction(colorAlphaBlend, exception);
+  f.color.getAlphaFromOpacity = ffi.Pointer.fromFunction(colorGetAlphaFromOpacity, exception);
 }
 int colorColor(int value) {
   final w = Color(value);
@@ -60,6 +63,21 @@ int colorFromRGBO(int r, int g, int b, double opacity) {
       g,
       b,
       opacity);
+  return _addWidget(w);
+}
+int colorLerp(DartDartObj x, DartDartObj y, double t) {
+  final w = Color.lerp(_widgetsMap[x]! as Color?,
+      _widgetsMap[y]! as Color?,
+      t);
+  return _addWidget(w);
+}
+int colorAlphaBlend(DartDartObj foreground, DartDartObj background) {
+  final w = Color.alphaBlend(_widgetsMap[foreground]! as Color,
+      _widgetsMap[background]! as Color);
+  return _addWidget(w);
+}
+int colorGetAlphaFromOpacity(double opacity) {
+  final w = Color.getAlphaFromOpacity(opacity);
   return _addWidget(w);
 }
 
@@ -146,6 +164,10 @@ int appBarAppBar(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticall
 
 void _setupScaffold(WidgetFactories f) {
   f.scaffold.scaffold = ffi.Pointer.fromFunction(scaffoldScaffold, exception);
+  f.scaffold.of = ffi.Pointer.fromFunction(scaffoldOf, exception);
+  f.scaffold.maybeOf = ffi.Pointer.fromFunction(scaffoldMaybeOf, exception);
+  f.scaffold.geometryOf = ffi.Pointer.fromFunction(scaffoldGeometryOf, exception);
+  f.scaffold.hasDrawer = ffi.Pointer.fromFunction(scaffoldHasDrawer, exception);
 }
 int scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DrawerCallbackFFI> onDrawerChanged, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
   final w = Scaffold(appBar: appBar.objOrNul(),
@@ -171,15 +193,35 @@ int scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi
       restorationId: restorationId.strOrNul());
   return _addWidget(w);
 }
+int scaffoldOf(DartDartObj context) {
+  final w = Scaffold.of(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int scaffoldMaybeOf(DartDartObj context) {
+  final w = Scaffold.maybeOf(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int scaffoldGeometryOf(DartDartObj context) {
+  final w = Scaffold.geometryOf(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int scaffoldHasDrawer(DartDartObj context, ffi.Pointer<ffi.Int> registerForUpdates) {
+  final w = Scaffold.hasDrawer(_widgetsMap[context]! as BuildContext,
+      registerForUpdates: registerForUpdates.boolOr(true));
+  return _addWidget(w);
+}
 
 void _setupMaterialApp(WidgetFactories f) {
   f.materialApp.materialApp = ffi.Pointer.fromFunction(materialAppMaterialApp, exception);
   f.materialApp.router = ffi.Pointer.fromFunction(materialAppRouter, exception);
+  f.materialApp.createMaterialHeroController = ffi.Pointer.fromFunction(materialAppCreateMaterialHeroController, exception);
 }
-int materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<ffi.Char> title, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
+int materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
   final w = MaterialApp(home: home.objOrNul(),
       initialRoute: initialRoute.strOrNul(),
+      builder: builder.toFn(),
       title: title.strOrNul(),
+      onGenerateTitle: onGenerateTitle.toFn(),
       color: color.objOrNul(),
       theme: theme.objOrNul(),
       darkTheme: darkTheme.objOrNul(),
@@ -196,8 +238,10 @@ int materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> init
       useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
   return _addWidget(w);
 }
-int materialAppRouter(ffi.Pointer<ffi.Char> title, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
-  final w = MaterialApp.router(title: title.strOrNul(),
+int materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
+  final w = MaterialApp.router(builder: builder.toFn(),
+      title: title.strOrNul(),
+      onGenerateTitle: onGenerateTitle.toFn(),
       color: color.objOrNul(),
       theme: theme.objOrNul(),
       darkTheme: darkTheme.objOrNul(),
@@ -212,6 +256,10 @@ int materialAppRouter(ffi.Pointer<ffi.Char> title, ffi.Pointer<DartObj> color, f
       debugShowCheckedModeBanner: debugShowCheckedModeBanner.boolOr(true),
       restorationScopeId: restorationScopeId.strOrNul(),
       useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
+  return _addWidget(w);
+}
+int materialAppCreateMaterialHeroController() {
+  final w = MaterialApp.createMaterialHeroController();
   return _addWidget(w);
 }
 
@@ -221,6 +269,8 @@ void _setupThemeData(WidgetFactories f) {
   f.themeData.light = ffi.Pointer.fromFunction(themeDataLight, exception);
   f.themeData.dark = ffi.Pointer.fromFunction(themeDataDark, exception);
   f.themeData.fallback = ffi.Pointer.fromFunction(themeDataFallback, exception);
+  f.themeData.estimateBrightnessForColor = ffi.Pointer.fromFunction(themeDataEstimateBrightnessForColor, exception);
+  f.themeData.lerp = ffi.Pointer.fromFunction(themeDataLerp, exception);
 }
 int themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor) {
   final w = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor.boolOrNul(),
@@ -273,6 +323,16 @@ int themeDataFallback(ffi.Pointer<ffi.Int> useMaterial3) {
   final w = ThemeData.fallback(useMaterial3: useMaterial3.boolOrNul());
   return _addWidget(w);
 }
+int themeDataEstimateBrightnessForColor(DartDartObj color) {
+  final w = ThemeData.estimateBrightnessForColor(_widgetsMap[color]! as Color);
+  return _addWidget(w);
+}
+int themeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ThemeData.lerp(_widgetsMap[a]! as ThemeData,
+      _widgetsMap[b]! as ThemeData,
+      t);
+  return _addWidget(w);
+}
 
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme, exception);
@@ -282,6 +342,8 @@ void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.highContrastLight = ffi.Pointer.fromFunction(colorSchemeHighContrastLight, exception);
   f.colorScheme.highContrastDark = ffi.Pointer.fromFunction(colorSchemeHighContrastDark, exception);
   f.colorScheme.fromSwatch = ffi.Pointer.fromFunction(colorSchemeFromSwatch, exception);
+  f.colorScheme.lerp = ffi.Pointer.fromFunction(colorSchemeLerp, exception);
+  f.colorScheme.of = ffi.Pointer.fromFunction(colorSchemeOf, exception);
 }
 int colorSchemeColorScheme(int brightness, DartDartObj primary, DartDartObj onPrimary, ffi.Pointer<DartObj> primaryContainer, ffi.Pointer<DartObj> onPrimaryContainer, ffi.Pointer<DartObj> primaryFixed, ffi.Pointer<DartObj> primaryFixedDim, ffi.Pointer<DartObj> onPrimaryFixed, ffi.Pointer<DartObj> onPrimaryFixedVariant, DartDartObj secondary, DartDartObj onSecondary, ffi.Pointer<DartObj> secondaryContainer, ffi.Pointer<DartObj> onSecondaryContainer, ffi.Pointer<DartObj> secondaryFixed, ffi.Pointer<DartObj> secondaryFixedDim, ffi.Pointer<DartObj> onSecondaryFixed, ffi.Pointer<DartObj> onSecondaryFixedVariant, ffi.Pointer<DartObj> tertiary, ffi.Pointer<DartObj> onTertiary, ffi.Pointer<DartObj> tertiaryContainer, ffi.Pointer<DartObj> onTertiaryContainer, ffi.Pointer<DartObj> tertiaryFixed, ffi.Pointer<DartObj> tertiaryFixedDim, ffi.Pointer<DartObj> onTertiaryFixed, ffi.Pointer<DartObj> onTertiaryFixedVariant, DartDartObj error, DartDartObj onError, ffi.Pointer<DartObj> errorContainer, ffi.Pointer<DartObj> onErrorContainer, DartDartObj surface, DartDartObj onSurface, ffi.Pointer<DartObj> surfaceDim, ffi.Pointer<DartObj> surfaceBright, ffi.Pointer<DartObj> surfaceContainerLowest, ffi.Pointer<DartObj> surfaceContainerLow, ffi.Pointer<DartObj> surfaceContainer, ffi.Pointer<DartObj> surfaceContainerHigh, ffi.Pointer<DartObj> surfaceContainerHighest, ffi.Pointer<DartObj> onSurfaceVariant, ffi.Pointer<DartObj> outline, ffi.Pointer<DartObj> outlineVariant, ffi.Pointer<DartObj> shadow, ffi.Pointer<DartObj> scrim, ffi.Pointer<DartObj> inverseSurface, ffi.Pointer<DartObj> onInverseSurface, ffi.Pointer<DartObj> inversePrimary, ffi.Pointer<DartObj> surfaceTint, ffi.Pointer<DartObj> background, ffi.Pointer<DartObj> onBackground, ffi.Pointer<DartObj> surfaceVariant) {
   final w = ColorScheme(brightness: _widgetsMap[brightness]! as Brightness,
@@ -612,6 +674,16 @@ int colorSchemeFromSwatch(ffi.Pointer<DartObj> accentColor, ffi.Pointer<DartObj>
       brightness: brightness.enumOr(Brightness.values, Brightness.light));
   return _addWidget(w);
 }
+int colorSchemeLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ColorScheme.lerp(_widgetsMap[a]! as ColorScheme,
+      _widgetsMap[b]! as ColorScheme,
+      t);
+  return _addWidget(w);
+}
+int colorSchemeOf(DartDartObj context) {
+  final w = ColorScheme.of(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
 
 void _setupFloatingActionButton(WidgetFactories f) {
   f.floatingActionButton.floatingActionButton = ffi.Pointer.fromFunction(floatingActionButtonFloatingActionButton, exception);
@@ -739,10 +811,24 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
   return _addWidget(w);
 }
 
+void _setupTheme(WidgetFactories f) {
+  f.theme.theme = ffi.Pointer.fromFunction(themeTheme, exception);
+  f.theme.of = ffi.Pointer.fromFunction(themeOf, exception);
+}
+int themeTheme(DartDartObj data, DartDartObj child) {
+  final w = Theme(data: _widgetsMap[data]! as ThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _addWidget(w);
+}
+int themeOf(DartDartObj context) {
+  final w = Theme.of(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
-SubStateObjSt subStateSubState(DartObjCallback buildFn) {
+SubStateObjSt subStateSubState(DartObjCallbackDartObj buildFn) {
   final w = SubState(buildFn: buildFn.toFn());
   final SubStateObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
@@ -773,6 +859,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupFloatingActionButton(f);
   _setupIconData(f);
   _setupIcon(f);
+  _setupTheme(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupColor(f);

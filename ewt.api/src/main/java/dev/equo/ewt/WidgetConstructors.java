@@ -66,6 +66,24 @@ class WidgetConstructors extends WidgetConstructorsBase {
       b,
       opacity);
   }
+  int colorLerp(Color x, Color y, double t) {
+    var st = WidgetFactories.color(factories);
+    var fn = WidgetFactories.ColorSt.lerp(st);
+    return WidgetFactories.ColorSt.lerp.invoke(fn, x.getId(),
+      y.getId(),
+      t);
+  }
+  int colorAlphaBlend(Color foreground, Color background) {
+    var st = WidgetFactories.color(factories);
+    var fn = WidgetFactories.ColorSt.alphaBlend(st);
+    return WidgetFactories.ColorSt.alphaBlend.invoke(fn, foreground.getId(),
+      background.getId());
+  }
+  int colorGetAlphaFromOpacity(double opacity) {
+    var st = WidgetFactories.color(factories);
+    var fn = WidgetFactories.ColorSt.getAlphaFromOpacity(st);
+    return WidgetFactories.ColorSt.getAlphaFromOpacity.invoke(fn, opacity);
+  }
 
   int centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
     var st = WidgetFactories.center(factories);
@@ -146,9 +164,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(floatingActionButton),
       ptrList(persistentFooterButtons),
       ptrObj(drawer),
-      ptrFn(onDrawerChanged),
+      onDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
       ptrObj(endDrawer),
-      ptrFn(onEndDrawerChanged),
+      onEndDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onEndDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
       ptrObj(bottomNavigationBar),
       ptrObj(bottomSheet),
       ptrObj(backgroundColor),
@@ -163,13 +181,36 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(endDrawerEnableOpenDragGesture),
       ptrStr(restorationId));
   }
+  int scaffoldOf(BuildContext context) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.of(st);
+    return WidgetFactories.ScaffoldSt.of.invoke(fn, context.getId());
+  }
+  int scaffoldMaybeOf(BuildContext context) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.maybeOf(st);
+    return WidgetFactories.ScaffoldSt.maybeOf.invoke(fn, context.getId());
+  }
+  int scaffoldGeometryOf(BuildContext context) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.geometryOf(st);
+    return WidgetFactories.ScaffoldSt.geometryOf.invoke(fn, context.getId());
+  }
+  int scaffoldHasDrawer(BuildContext context, Optional<Boolean> registerForUpdates) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.hasDrawer(st);
+    return WidgetFactories.ScaffoldSt.hasDrawer.invoke(fn, context.getId(),
+      ptrBool(registerForUpdates));
+  }
 
-  int materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<String> title, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  int materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
     var fn = WidgetFactories.MaterialAppSt.materialApp(st);
     return WidgetFactories.MaterialAppSt.materialApp.invoke(fn, ptrObj(home),
       ptrStr(initialRoute),
+      builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
       ptrStr(title),
+      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
       ptrObj(color),
       ptrObj(theme),
       ptrObj(darkTheme),
@@ -185,10 +226,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(restorationScopeId),
       ptrBool(useInheritedMediaQuery));
   }
-  int materialAppRouter(Optional<String> title, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  int materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
     var fn = WidgetFactories.MaterialAppSt.router(st);
-    return WidgetFactories.MaterialAppSt.router.invoke(fn, ptrStr(title),
+    return WidgetFactories.MaterialAppSt.router.invoke(fn, builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
+      ptrStr(title),
+      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
       ptrObj(color),
       ptrObj(theme),
       ptrObj(darkTheme),
@@ -203,6 +246,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(debugShowCheckedModeBanner),
       ptrStr(restorationScopeId),
       ptrBool(useInheritedMediaQuery));
+  }
+  int materialAppCreateMaterialHeroController() {
+    var st = WidgetFactories.materialApp(factories);
+    var fn = WidgetFactories.MaterialAppSt.createMaterialHeroController(st);
+    return WidgetFactories.MaterialAppSt.createMaterialHeroController.invoke(fn);
   }
 
   int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
@@ -260,6 +308,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.fallback(st);
     return WidgetFactories.ThemeDataSt.fallback.invoke(fn, ptrBool(useMaterial3));
+  }
+  int themeDataEstimateBrightnessForColor(Color color) {
+    var st = WidgetFactories.themeData(factories);
+    var fn = WidgetFactories.ThemeDataSt.estimateBrightnessForColor(st);
+    return WidgetFactories.ThemeDataSt.estimateBrightnessForColor.invoke(fn, color.getId());
+  }
+  int themeDataLerp(ThemeData a, ThemeData b, double t) {
+    var st = WidgetFactories.themeData(factories);
+    var fn = WidgetFactories.ThemeDataSt.lerp(st);
+    return WidgetFactories.ThemeDataSt.lerp.invoke(fn, a.getId(),
+      b.getId(),
+      t);
   }
 
   int colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
@@ -598,6 +658,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(errorColor),
       ptrEnum(brightness));
   }
+  int colorSchemeLerp(ColorScheme a, ColorScheme b, double t) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.lerp(st);
+    return WidgetFactories.ColorSchemeSt.lerp.invoke(fn, a.getId(),
+      b.getId(),
+      t);
+  }
+  int colorSchemeOf(BuildContext context) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.of(st);
+    return WidgetFactories.ColorSchemeSt.of.invoke(fn, context.getId());
+  }
 
   int floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
@@ -719,13 +791,25 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(blendMode));
   }
 
-  MemorySegment subStateSubState(Supplier<NativeObj> buildFn) {
+  int themeTheme(ThemeData data, Widget child) {
+    var st = WidgetFactories.theme(factories);
+    var fn = WidgetFactories.ThemeSt.theme(st);
+    return WidgetFactories.ThemeSt.theme.invoke(fn, data.getId(),
+      child.getId());
+  }
+  int themeOf(BuildContext context) {
+    var st = WidgetFactories.theme(factories);
+    var fn = WidgetFactories.ThemeSt.of(st);
+    return WidgetFactories.ThemeSt.of.invoke(fn, context.getId());
+  }
+
+  MemorySegment subStateSubState(Function<BuildContext, Widget> buildFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
     return WidgetFactories.SubStateSt.subState.invoke(fn, arena, ptrFn(buildFn));
   }
 
-  MemorySegment subStatefulWidgetSubStatefulWidget(Supplier<NativeObj> createStateFn) {
+  MemorySegment subStatefulWidgetSubStatefulWidget(Supplier<State> createStateFn) {
     var st = WidgetFactories.subStatefulWidget(factories);
     var fn = WidgetFactories.SubStatefulWidgetSt.subStatefulWidget(st);
     return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, arena, ptrFn(createStateFn));

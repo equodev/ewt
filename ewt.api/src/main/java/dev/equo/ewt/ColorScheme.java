@@ -378,4 +378,26 @@ public class ColorScheme extends NativeObj.Base {
   public static ColorSchemeFromSwatchBuilder fromSwatch() {
     return ColorSchemeFromSwatchBuilder.colorSchemeFromSwatch();
   }
+  @Builder.Factory
+  static ColorScheme colorSchemeLerp(@Builder.Parameter ColorScheme a, @Builder.Parameter ColorScheme b, @Builder.Parameter double t) {
+    int id = factories.colorSchemeLerp(a,
+      b,
+      t);
+    if (id == -1) throw new RuntimeException("Failed to created widget ColorScheme");
+    System.out.println("New ColorScheme id:"+id);
+    return new ColorScheme(id);
+  }
+  public static ColorSchemeLerpBuilder lerp(ColorScheme a, ColorScheme b, double t) {
+    return ColorSchemeLerpBuilder.colorSchemeLerp(a, b, t);
+  }
+  @Builder.Factory
+  static ColorScheme colorSchemeOf(@Builder.Parameter BuildContext context) {
+    int id = factories.colorSchemeOf(context);
+    if (id == -1) throw new RuntimeException("Failed to created widget ColorScheme");
+    System.out.println("New ColorScheme id:"+id);
+    return new ColorScheme(id);
+  }
+  public static ColorSchemeOfBuilder of(BuildContext context) {
+    return ColorSchemeOfBuilder.colorSchemeOf(context);
+  }
 }

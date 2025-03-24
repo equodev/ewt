@@ -12,7 +12,7 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> {
     id = SubStateObjSt.id(st);
     System.out.println("New SubState id:"+id);
   }
-  protected abstract Widget build();
+  protected abstract Widget build(BuildContext context);
   protected void setState(Runnable fn) {
     MemorySegment funcPtr = SubStateObjSt.setState(st);
     SubStateObjSt.setState.invoke(funcPtr, factories.ptrFn(fn));

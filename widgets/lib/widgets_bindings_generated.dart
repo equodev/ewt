@@ -132,6 +132,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external IconSt icon;
 
+  external ThemeSt theme;
+
   external SubStateSt subState;
 
   external SubStatefulWidgetSt subStatefulWidget;
@@ -188,6 +190,18 @@ final class ColorSt extends ffi.Struct {
       ffi.NativeFunction<
           ffi.Int Function(
               ffi.Int r, ffi.Int g, ffi.Int b, ffi.Double opacity)>> fromRGBO;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Int Function(DartObj x, DartObj y, ffi.Double t)>>
+      lerp;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Int Function(DartObj foreground, DartObj background)>> alphaBlend;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Double opacity)>>
+      getAlphaFromOpacity;
 }
 
 final class CenterSt extends ffi.Struct {
@@ -298,6 +312,21 @@ final class ScaffoldSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture,
               ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture,
               ffi.Pointer<ffi.Char> restorationId)>> scaffold;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      of;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      maybeOf;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      geometryOf;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              ffi.Int Function(
+                  DartObj context, ffi.Pointer<ffi.Int> registerForUpdates)>>
+      hasDrawer;
 }
 
 typedef DrawerCallbackFFI
@@ -311,7 +340,9 @@ final class MaterialAppSt extends ffi.Struct {
           ffi.Int Function(
               ffi.Pointer<DartObj> home,
               ffi.Pointer<ffi.Char> initialRoute,
+              ffi.Pointer<TransitionBuilderFFI> builder,
               ffi.Pointer<ffi.Char> title,
+              ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> theme,
               ffi.Pointer<DartObj> darkTheme,
@@ -330,7 +361,9 @@ final class MaterialAppSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Int Function(
+              ffi.Pointer<TransitionBuilderFFI> builder,
               ffi.Pointer<ffi.Char> title,
+              ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> theme,
               ffi.Pointer<DartObj> darkTheme,
@@ -345,7 +378,23 @@ final class MaterialAppSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> debugShowCheckedModeBanner,
               ffi.Pointer<ffi.Char> restorationScopeId,
               ffi.Pointer<ffi.Int> useInheritedMediaQuery)>> router;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>>
+      createMaterialHeroController;
 }
+
+typedef TransitionBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<TransitionBuilderFFIFunction>>;
+typedef TransitionBuilderFFIFunction = DartObj Function(
+    DartObj context, DartObj child);
+typedef DartTransitionBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context, DartDartObj child);
+typedef GenerateAppTitleFFI
+    = ffi.Pointer<ffi.NativeFunction<GenerateAppTitleFFIFunction>>;
+typedef GenerateAppTitleFFIFunction = ffi.Pointer<ffi.Char> Function(
+    DartObj context);
+typedef DartGenerateAppTitleFFIFunction = ffi.Pointer<ffi.Char> Function(
+    DartDartObj context);
 
 final class ThemeDataSt extends ffi.Struct {
   external ffi.Pointer<
@@ -403,6 +452,14 @@ final class ThemeDataSt extends ffi.Struct {
           ffi
           .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int> useMaterial3)>>
       fallback;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj color)>>
+      estimateBrightnessForColor;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Int Function(DartObj a, DartObj b, ffi.Double t)>>
+      lerp;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -741,6 +798,14 @@ final class ColorSchemeSt extends ffi.Struct {
               ffi.Pointer<DartObj> backgroundColor,
               ffi.Pointer<DartObj> errorColor,
               ffi.Pointer<ffi.Int> brightness)>> fromSwatch;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Int Function(DartObj a, DartObj b, ffi.Double t)>>
+      lerp;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      of;
 }
 
 final class FloatingActionButtonSt extends ffi.Struct {
@@ -872,10 +937,18 @@ final class IconSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> blendMode)>> icon;
 }
 
+final class ThemeSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<ffi.Int Function(DartObj data, DartObj child)>> theme;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      of;
+}
+
 final class SubStateSt extends ffi.Struct {
   external ffi.Pointer<
-          ffi.NativeFunction<SubStateObjSt Function(DartObjCallback buildFn)>>
-      subState;
+      ffi.NativeFunction<
+          SubStateObjSt Function(DartObjCallbackDartObj buildFn)>> subState;
 }
 
 final class SubStateObjSt extends ffi.Struct {
@@ -887,11 +960,10 @@ final class SubStateObjSt extends ffi.Struct {
       setState;
 }
 
-/// typedef void (*VoidCallback)(void);
-typedef DartObjCallback
-    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFunction>>;
-typedef DartObjCallbackFunction = DartObj Function();
-typedef DartDartObjCallbackFunction = DartDartObj Function();
+typedef DartObjCallbackDartObj
+    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackDartObjFunction>>;
+typedef DartObjCallbackDartObjFunction = DartObj Function(DartObj);
+typedef DartDartObjCallbackDartObjFunction = DartDartObj Function(DartDartObj);
 
 final class SubStatefulWidgetSt extends ffi.Struct {
   external ffi.Pointer<
@@ -904,3 +976,9 @@ final class SubStatefulWidgetObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
 }
+
+/// typedef void (*VoidCallback)(void);
+typedef DartObjCallback
+    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFunction>>;
+typedef DartObjCallbackFunction = DartObj Function();
+typedef DartDartObjCallbackFunction = DartDartObj Function();

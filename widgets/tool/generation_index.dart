@@ -14,6 +14,8 @@ m.FloatingActionButton? floatingActionButton;
 w.IconData? iconData;
 w.Icon? icon;
 m.Icons? icons;
+w.BuildContext? buildContext;
+m.Theme? theme;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
