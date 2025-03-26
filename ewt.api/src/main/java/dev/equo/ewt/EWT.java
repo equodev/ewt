@@ -23,15 +23,6 @@ public class EWT {
   public static ColorFromRGBOBuilder Color_fromRGBO(int r, int g, int b, double opacity) {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
-  public static ColorLerpBuilder Color_lerp(Color x, Color y, double t) {
-    return ColorLerpBuilder.colorLerp(x, y, t);
-  }
-  public static ColorAlphaBlendBuilder Color_alphaBlend(Color foreground, Color background) {
-    return ColorAlphaBlendBuilder.colorAlphaBlend(foreground, background);
-  }
-  public static ColorGetAlphaFromOpacityBuilder Color_getAlphaFromOpacity(double opacity) {
-    return ColorGetAlphaFromOpacityBuilder.colorGetAlphaFromOpacity(opacity);
-  }
 
   public static CenterCenterBuilder Center() {
     return CenterCenterBuilder.centerCenter();
@@ -49,6 +40,14 @@ public class EWT {
     return FlexFlexBuilder.flexFlex(direction);
   }
 
+  public static IconDataIconDataBuilder IconData(int codePoint) {
+    return IconDataIconDataBuilder.iconDataIconData(codePoint);
+  }
+
+  public static IconIconBuilder Icon(IconData icon) {
+    return IconIconBuilder.iconIcon(icon);
+  }
+
   public static AppBarAppBarBuilder AppBar() {
     return AppBarAppBarBuilder.appBarAppBar();
   }
@@ -56,27 +55,12 @@ public class EWT {
   public static ScaffoldScaffoldBuilder Scaffold() {
     return ScaffoldScaffoldBuilder.scaffoldScaffold();
   }
-  public static ScaffoldOfBuilder Scaffold_of(BuildContext context) {
-    return ScaffoldOfBuilder.scaffoldOf(context);
-  }
-  public static ScaffoldMaybeOfBuilder Scaffold_maybeOf(BuildContext context) {
-    return ScaffoldMaybeOfBuilder.scaffoldMaybeOf(context);
-  }
-  public static ScaffoldGeometryOfBuilder Scaffold_geometryOf(BuildContext context) {
-    return ScaffoldGeometryOfBuilder.scaffoldGeometryOf(context);
-  }
-  public static ScaffoldHasDrawerBuilder Scaffold_hasDrawer(BuildContext context) {
-    return ScaffoldHasDrawerBuilder.scaffoldHasDrawer(context);
-  }
 
   public static MaterialAppMaterialAppBuilder MaterialApp() {
     return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
   }
   public static MaterialAppRouterBuilder MaterialApp_router() {
     return MaterialAppRouterBuilder.materialAppRouter();
-  }
-  public static MaterialAppCreateMaterialHeroControllerBuilder MaterialApp_createMaterialHeroController() {
-    return MaterialAppCreateMaterialHeroControllerBuilder.materialAppCreateMaterialHeroController();
   }
 
   public static ThemeDataThemeDataBuilder ThemeData() {
@@ -93,12 +77,6 @@ public class EWT {
   }
   public static ThemeDataFallbackBuilder ThemeData_fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
-  }
-  public static ThemeDataEstimateBrightnessForColorBuilder ThemeData_estimateBrightnessForColor(Color color) {
-    return ThemeDataEstimateBrightnessForColorBuilder.themeDataEstimateBrightnessForColor(color);
-  }
-  public static ThemeDataLerpBuilder ThemeData_lerp(ThemeData a, ThemeData b, double t) {
-    return ThemeDataLerpBuilder.themeDataLerp(a, b, t);
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, Color primary, Color onPrimary) {
@@ -122,12 +100,6 @@ public class EWT {
   public static ColorSchemeFromSwatchBuilder ColorScheme_fromSwatch() {
     return ColorSchemeFromSwatchBuilder.colorSchemeFromSwatch();
   }
-  public static ColorSchemeLerpBuilder ColorScheme_lerp(ColorScheme a, ColorScheme b, double t) {
-    return ColorSchemeLerpBuilder.colorSchemeLerp(a, b, t);
-  }
-  public static ColorSchemeOfBuilder ColorScheme_of(BuildContext context) {
-    return ColorSchemeOfBuilder.colorSchemeOf(context);
-  }
 
   public static FloatingActionButtonFloatingActionButtonBuilder FloatingActionButton() {
     return FloatingActionButtonFloatingActionButtonBuilder.floatingActionButtonFloatingActionButton();
@@ -142,19 +114,8 @@ public class EWT {
     return FloatingActionButtonExtendedBuilder.floatingActionButtonExtended();
   }
 
-  public static IconDataIconDataBuilder IconData(int codePoint) {
-    return IconDataIconDataBuilder.iconDataIconData(codePoint);
-  }
-
-  public static IconIconBuilder Icon(IconData icon) {
-    return IconIconBuilder.iconIcon(icon);
-  }
-
   public static ThemeThemeBuilder Theme(ThemeData data, Widget child) {
     return ThemeThemeBuilder.themeTheme(data, child);
-  }
-  public static ThemeOfBuilder Theme_of(BuildContext context) {
-    return ThemeOfBuilder.themeOf(context);
   }
 
 

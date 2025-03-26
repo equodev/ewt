@@ -15,15 +15,28 @@ import 'package:analyzer/dart/element/type.dart';
 import 'gen/lang_writers.dart';
 
 Future<void> main() async {
+  var sw = Stopwatch()..start();
   var subclasses_widgets = await widgetsToGenerate('pregeneration_index.dart');
+  print('-- Parse pregeneration_index.dart ${sw.elapsedReset}');
   PreGeneration(subclasses_widgets)
     ..gen()
     ..write();
+  print('-- PreGeneration ${sw.elapsedReset}');
 
   var widgets = await widgetsToGenerate('generation_index.dart');
+  print('-- Parse generation_index.dart ${sw.elapsedReset}');
   Generation(widgets)
     ..gen()
     ..write();
+  print('-- Generation ${sw.elapsedReset}');
+}
+
+extension on Stopwatch {
+  get elapsedReset {
+    final e = elapsed;
+    reset();
+    return e;
+  }
 }
 
 Future<Iterable<ClassElement>> widgetsToGenerate(String index_file) async {
@@ -80,7 +93,7 @@ class WidgetGen {
       for (var constr in constructors) {
         writeFactory(constr);
       }
-      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic)) {
+      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !isPrimitive(m.returnType))) {
         writeFactory(constr);
       }
     }
@@ -206,7 +219,7 @@ class WidgetGen {
   }
 
   void writeFactory(FunctionTypedElement node) {
-    if (node.parameters.any((p) => p.isRequired && !generation.supportedType(p.type))) {
+    if (node.parameters.any((p) => p.isRequired && !generation.supportedType(p.type)) || !generation.supportedType(node.returnType)) {
       return;
     }
     String factory = (node.name!.isEmpty) ? widgetField : node.name!;
@@ -220,21 +233,6 @@ class WidgetGen {
     writeDFactory(factory, factoryName, node);
   }
 
-  void writeStaticFactory(MethodElement node) {
-    if (node.parameters.any((p) => p.isRequired && !generation.supportedType(p.type))) {
-      return;
-    }
-    String factory = (node.name.isEmpty) ? widgetField : node.name;
-    String factoryName = '$widgetField${factory.firstUpper()}';
-    String builderClass = '$widgetClass${factory.firstUpper()}Builder';
-    writeJavaFactory(node, factoryName, builderClass, factory);
-    // headerFile
-    // .writeln("    int (*$factory)(${cParams.decl});");
-    // CLang(generation).writeField(headerFile, factory, 'int', params: node.parameters);
-    writeCFactory(factory, node, 'int');
-    writeDFactory(factory, factoryName, node);
-  }
-
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
     final dartParams = Params(generation, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
@@ -242,7 +240,7 @@ class WidgetGen {
     dartFns
       ..writeln('int $factoryName(${dartParams.decl}) {')
       ..writeln('  final w = $widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});')
-      ..writeln('  return _addWidget(w);')
+      ..writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};')
       ..writeln('}');
   }
 
@@ -254,28 +252,38 @@ class WidgetGen {
     String builderFactory = factoryName;
     final jParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
     final jParamsFFM = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4FFM, escape: Params._escape4J);
+    if (node is ConstructorElement) {
+      javaFile
+        ..writeln('  @Builder.Factory')
+        ..writeln('  static $widgetClass $factoryName(${jParams.builderDecl}) {');
+    } else {
+      javaFile
+        .writeln('  public static ${generation.type4J(node.returnType)} $factory(${jParams.decl}) {');
+    }
     javaFile
-      ..writeln('  @Builder.Factory')
-      ..writeln('  static $widgetClass $factoryName(${jParams.builderDecl}) {')
       ..writeln('    int id = factories.$factoryName(${jParams.names});')
-      ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget $widgetClass");')
-      ..writeln('    System.out.println("New $widgetClass id:"+id);')
-      ..writeln('    return new $widgetClass(id);')
+      ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget ${node.returnType}");')
+      ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
+      ..writeln('    return ${node.returnType.element is EnumElement ? '${generation.type4J(node.returnType)}.values()[id]' : 'new ${generation.type4J(node.returnType)}(id)'};')
       ..writeln('  }');
-    javaFile
+    if (node is ConstructorElement) {
+      javaFile
       ..writeln('  public static $builderClass $factory(${jParams.required}) {')
       ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
       ..writeln('  }');
+    }
     javaFactories
       ..writeln('  int $factoryName(${jParams.decl}) {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
       ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
       ..writeln('    return WidgetFactories.${widgetClass}St.$factory.invoke(${['fn', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
       ..writeln('  }');
-    javaStatics
+    if (node is ConstructorElement) {
+      javaStatics
       ..writeln('  public static $builderClass $widgetClass${node.name!.isEmpty ? '' : '_$factory'}(${jParams.required}) {')
       ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
       ..writeln('  }');
+    }
   }
 
   void writeConst(ConstFieldElementImpl fld, int constId) {
@@ -660,8 +668,8 @@ class Generation {
     if (t is FunctionType) {
       return (t.parameters.isEmpty || t.parameters.every((p) => supportedType(p.type))) && (t.returnType is VoidType || supportedType(t.returnType));
     }
-    if (['InlineSpan', 'ThemeData', 'Color', 'ColorScheme'].contains(t.getDisplayString(withNullability: false))
-        || isWidget(t.element) || widgets.contains(t.element) || widgets.any((w) => isSubtype(w, t.element))) {
+    if (/*['InlineSpan', 'ThemeData', 'Color', 'ColorScheme'].contains(t.getDisplayString(withNullability: false))
+        ||*/ isWidget(t.element) || widgets.contains(t.element) || widgets.any((w) => isSubtype(w, t.element))) {
       return true;
     }
     unsupportedTypes.add(t);
@@ -689,6 +697,9 @@ class Generation {
   }
 
   void processWidget(ClassElement dartClass) {
+    if (processed.contains(dartClass)) {
+      return;
+    }
     processed.add(dartClass.thisType.element);
     var widGen = dartClass.name.startsWith('Sub') ? SubclassGen(this, dartClass) : WidgetGen(this, dartClass)
     // var widGen = WidgetGen(this, dartClass)

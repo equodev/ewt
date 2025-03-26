@@ -66,8 +66,8 @@ public class Counter {
       public Widget build(BuildContext context) {
         return Scaffold()
             .appBar(AppBar()
-                    .backgroundColor(Color(0xFFB39DDB).build())
-//                    .backgroundColor(Theme_of(context).build())
+//                    .backgroundColor(Color(0xFFB39DDB).build())
+                    .backgroundColor(Theme.of(context).colorScheme.inversePrimary)
                     .title(Text(widget.title).build())
                     .build()
             )

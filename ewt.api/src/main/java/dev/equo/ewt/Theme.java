@@ -18,14 +18,10 @@ public class Theme extends StatelessWidget {
   public static ThemeThemeBuilder theme(ThemeData data, Widget child) {
     return ThemeThemeBuilder.themeTheme(data, child);
   }
-  @Builder.Factory
-  static Theme themeOf(@Builder.Parameter BuildContext context) {
+  public static ThemeData of(BuildContext context) {
     int id = factories.themeOf(context);
-    if (id == -1) throw new RuntimeException("Failed to created widget Theme");
-    System.out.println("New Theme id:"+id);
-    return new Theme(id);
-  }
-  public static ThemeOfBuilder of(BuildContext context) {
-    return ThemeOfBuilder.themeOf(context);
+    if (id == -1) throw new RuntimeException("Failed to created widget ThemeData");
+    System.out.println("New ThemeData id:"+id);
+    return new ThemeData(id);
   }
 }

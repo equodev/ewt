@@ -79,11 +79,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ColorSt.alphaBlend.invoke(fn, foreground.getId(),
       background.getId());
   }
-  int colorGetAlphaFromOpacity(double opacity) {
-    var st = WidgetFactories.color(factories);
-    var fn = WidgetFactories.ColorSt.getAlphaFromOpacity(st);
-    return WidgetFactories.ColorSt.getAlphaFromOpacity.invoke(fn, opacity);
-  }
 
   int centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
     var st = WidgetFactories.center(factories);
@@ -127,6 +122,32 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(clipBehavior),
       ptr(spacing),
       ptrList(children));
+  }
+
+  int iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
+    var st = WidgetFactories.iconData(factories);
+    var fn = WidgetFactories.IconDataSt.iconData(st);
+    return WidgetFactories.IconDataSt.iconData.invoke(fn, codePoint,
+      ptrStr(fontFamily),
+      ptrStr(fontPackage),
+      ptrBool(matchTextDirection),
+      ptrStrList(fontFamilyFallback));
+  }
+
+  int iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+    var st = WidgetFactories.icon(factories);
+    var fn = WidgetFactories.IconSt.icon(st);
+    return WidgetFactories.IconSt.icon.invoke(fn, icon.getId(),
+      ptr(size),
+      ptr(fill),
+      ptr(weight),
+      ptr(grade),
+      ptr(opticalSize),
+      ptrObj(color),
+      ptrStr(semanticLabel),
+      ptrEnum(textDirection),
+      ptrBool(applyTextScaling),
+      ptrEnum(blendMode));
   }
 
   int appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
@@ -181,27 +202,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(endDrawerEnableOpenDragGesture),
       ptrStr(restorationId));
   }
-  int scaffoldOf(BuildContext context) {
-    var st = WidgetFactories.scaffold(factories);
-    var fn = WidgetFactories.ScaffoldSt.of(st);
-    return WidgetFactories.ScaffoldSt.of.invoke(fn, context.getId());
-  }
-  int scaffoldMaybeOf(BuildContext context) {
-    var st = WidgetFactories.scaffold(factories);
-    var fn = WidgetFactories.ScaffoldSt.maybeOf(st);
-    return WidgetFactories.ScaffoldSt.maybeOf.invoke(fn, context.getId());
-  }
-  int scaffoldGeometryOf(BuildContext context) {
-    var st = WidgetFactories.scaffold(factories);
-    var fn = WidgetFactories.ScaffoldSt.geometryOf(st);
-    return WidgetFactories.ScaffoldSt.geometryOf.invoke(fn, context.getId());
-  }
-  int scaffoldHasDrawer(BuildContext context, Optional<Boolean> registerForUpdates) {
-    var st = WidgetFactories.scaffold(factories);
-    var fn = WidgetFactories.ScaffoldSt.hasDrawer(st);
-    return WidgetFactories.ScaffoldSt.hasDrawer.invoke(fn, context.getId(),
-      ptrBool(registerForUpdates));
-  }
 
   int materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
@@ -246,11 +246,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(debugShowCheckedModeBanner),
       ptrStr(restorationScopeId),
       ptrBool(useInheritedMediaQuery));
-  }
-  int materialAppCreateMaterialHeroController() {
-    var st = WidgetFactories.materialApp(factories);
-    var fn = WidgetFactories.MaterialAppSt.createMaterialHeroController(st);
-    return WidgetFactories.MaterialAppSt.createMaterialHeroController.invoke(fn);
   }
 
   int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
@@ -763,32 +758,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(icon),
       label.getId(),
       ptrBool(enableFeedback));
-  }
-
-  int iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
-    var st = WidgetFactories.iconData(factories);
-    var fn = WidgetFactories.IconDataSt.iconData(st);
-    return WidgetFactories.IconDataSt.iconData.invoke(fn, codePoint,
-      ptrStr(fontFamily),
-      ptrStr(fontPackage),
-      ptrBool(matchTextDirection),
-      ptrStrList(fontFamilyFallback));
-  }
-
-  int iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
-    var st = WidgetFactories.icon(factories);
-    var fn = WidgetFactories.IconSt.icon(st);
-    return WidgetFactories.IconSt.icon.invoke(fn, icon.getId(),
-      ptr(size),
-      ptr(fill),
-      ptr(weight),
-      ptr(grade),
-      ptr(opticalSize),
-      ptrObj(color),
-      ptrStr(semanticLabel),
-      ptrEnum(textDirection),
-      ptrBool(applyTextScaling),
-      ptrEnum(blendMode));
   }
 
   int themeTheme(ThemeData data, Widget child) {

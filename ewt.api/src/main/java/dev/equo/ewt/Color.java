@@ -57,37 +57,19 @@ public class Color extends NativeObj.Base {
   public static ColorFromRGBOBuilder fromRGBO(int r, int g, int b, double opacity) {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
-  @Builder.Factory
-  static Color colorLerp(@Builder.Parameter Color x, @Builder.Parameter Color y, @Builder.Parameter double t) {
+  public static Color lerp(Color x, Color y, double t) {
     int id = factories.colorLerp(x,
       y,
       t);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
+    if (id == -1) throw new RuntimeException("Failed to created widget Color?");
+    System.out.println("New Color? id:"+id);
     return new Color(id);
   }
-  public static ColorLerpBuilder lerp(Color x, Color y, double t) {
-    return ColorLerpBuilder.colorLerp(x, y, t);
-  }
-  @Builder.Factory
-  static Color colorAlphaBlend(@Builder.Parameter Color foreground, @Builder.Parameter Color background) {
+  public static Color alphaBlend(Color foreground, Color background) {
     int id = factories.colorAlphaBlend(foreground,
       background);
     if (id == -1) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
-  }
-  public static ColorAlphaBlendBuilder alphaBlend(Color foreground, Color background) {
-    return ColorAlphaBlendBuilder.colorAlphaBlend(foreground, background);
-  }
-  @Builder.Factory
-  static Color colorGetAlphaFromOpacity(@Builder.Parameter double opacity) {
-    int id = factories.colorGetAlphaFromOpacity(opacity);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
-    return new Color(id);
-  }
-  public static ColorGetAlphaFromOpacityBuilder getAlphaFromOpacity(double opacity) {
-    return ColorGetAlphaFromOpacityBuilder.colorGetAlphaFromOpacity(opacity);
   }
 }

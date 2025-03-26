@@ -61,14 +61,4 @@ public class MaterialApp extends StatefulWidget {
   public static MaterialAppRouterBuilder router() {
     return MaterialAppRouterBuilder.materialAppRouter();
   }
-  @Builder.Factory
-  static MaterialApp materialAppCreateMaterialHeroController() {
-    int id = factories.materialAppCreateMaterialHeroController();
-    if (id == -1) throw new RuntimeException("Failed to created widget MaterialApp");
-    System.out.println("New MaterialApp id:"+id);
-    return new MaterialApp(id);
-  }
-  public static MaterialAppCreateMaterialHeroControllerBuilder createMaterialHeroController() {
-    return MaterialAppCreateMaterialHeroControllerBuilder.materialAppCreateMaterialHeroController();
-  }
 }
