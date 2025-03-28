@@ -81,7 +81,7 @@ public class Counter {
                                     Text("You have pushed the button this many times:")
                                         .build(),
                                     Text("" + _counter)
-//                                            .style(Theme.of(context).textTheme.headlineMedium)
+                                            .style(Theme.of(context).textTheme().headlineMedium())
                                         .build()
                                 )
                             )

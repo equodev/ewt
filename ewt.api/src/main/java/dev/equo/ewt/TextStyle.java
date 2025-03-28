@@ -1,0 +1,99 @@
+package dev.equo.ewt;
+import java.util.*;
+import java.util.function.*;
+import org.immutables.builder.Builder;
+import java.lang.foreign.MemorySegment;
+import dev.equo.ewt.ffm.TextStyleObjSt;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
+public class TextStyle extends NativeObj.Base {
+  private MemorySegment st;
+  TextStyle(MemorySegment st) {
+    this.id = TextStyleObjSt.id(st);
+    this.st = st;
+    System.out.println("New TextStyle id:"+id);
+  }
+  @Builder.Factory
+  static TextStyle textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
+    var st = factories.textStyleTextStyle(inherit,
+      color,
+      backgroundColor,
+      fontSize,
+      fontStyle,
+      letterSpacing,
+      wordSpacing,
+      textBaseline,
+      height,
+      leadingDistribution,
+      decorationColor,
+      decorationStyle,
+      decorationThickness,
+      debugLabel,
+      fontFamily,
+      fontFamilyFallback,
+      _package,
+      overflow);
+    if (st == null) throw new RuntimeException("Failed to created widget TextStyle");
+    return new TextStyle(st);
+  }
+  public static TextStyleTextStyleBuilder textStyle() {
+    return TextStyleTextStyleBuilder.textStyleTextStyle();
+  }
+  public static TextStyle lerp(TextStyle a, TextStyle b, double t) {
+    var st = factories.textStyleLerp(a,
+      b,
+      t);
+    if (st == null) throw new RuntimeException("Failed to created widget TextStyle");
+    return new TextStyle(st);
+  }
+  public boolean inherit() {
+    return intToBool(TextStyleObjSt.inherit(st));
+  }
+  public Color color() {
+    return new Color(TextStyleObjSt.color(st)) {};
+  }
+  public Color backgroundColor() {
+    return new Color(TextStyleObjSt.backgroundColor(st)) {};
+  }
+  public String fontFamily() {
+    return TextStyleObjSt.fontFamily(st).getString(0);
+  }
+  public double fontSize() {
+    return TextStyleObjSt.fontSize(st);
+  }
+  public FontStyle fontStyle() {
+    return FontStyle.values()[TextStyleObjSt.fontStyle(st)];
+  }
+  public double letterSpacing() {
+    return TextStyleObjSt.letterSpacing(st);
+  }
+  public double wordSpacing() {
+    return TextStyleObjSt.wordSpacing(st);
+  }
+  public TextBaseline textBaseline() {
+    return TextBaseline.values()[TextStyleObjSt.textBaseline(st)];
+  }
+  public double height() {
+    return TextStyleObjSt.height(st);
+  }
+  public TextLeadingDistribution leadingDistribution() {
+    return TextLeadingDistribution.values()[TextStyleObjSt.leadingDistribution(st)];
+  }
+  public Color decorationColor() {
+    return new Color(TextStyleObjSt.decorationColor(st)) {};
+  }
+  public TextDecorationStyle decorationStyle() {
+    return TextDecorationStyle.values()[TextStyleObjSt.decorationStyle(st)];
+  }
+  public double decorationThickness() {
+    return TextStyleObjSt.decorationThickness(st);
+  }
+  public String debugLabel() {
+    return TextStyleObjSt.debugLabel(st).getString(0);
+  }
+  public TextOverflow overflow() {
+    return TextOverflow.values()[TextStyleObjSt.overflow(st)];
+  }
+  public List<String> fontFamilyFallback() {
+    return memToStrList(TextStyleObjSt.fontFamilyFallback(st));
+  }
+}

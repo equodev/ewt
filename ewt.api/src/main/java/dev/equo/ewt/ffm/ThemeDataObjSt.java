@@ -38,6 +38,8 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj shadowColor;
  *     DartObj splashColor;
  *     DartObj unselectedWidgetColor;
+ *     TextThemeObjSt primaryTextTheme;
+ *     TextThemeObjSt textTheme;
  *     DartObj dialogBackgroundColor;
  *     int brightness;
  * }
@@ -73,9 +75,12 @@ public class ThemeDataObjSt {
         StarterBridge.C_INT.withName("shadowColor"),
         StarterBridge.C_INT.withName("splashColor"),
         StarterBridge.C_INT.withName("unselectedWidgetColor"),
+        MemoryLayout.paddingLayout(4),
+        TextThemeObjSt.layout().withName("primaryTextTheme"),
+        TextThemeObjSt.layout().withName("textTheme"),
         StarterBridge.C_INT.withName("dialogBackgroundColor"),
         StarterBridge.C_INT.withName("brightness")
-    ).withName("$anon$64:9");
+    ).withName("$anon$104:9");
 
     /**
      * The layout of this struct
@@ -1096,6 +1101,94 @@ public class ThemeDataObjSt {
         struct.set(unselectedWidgetColor$LAYOUT, unselectedWidgetColor$OFFSET, fieldValue);
     }
 
+    private static final GroupLayout primaryTextTheme$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("primaryTextTheme"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt primaryTextTheme
+     * }
+     */
+    public static final GroupLayout primaryTextTheme$layout() {
+        return primaryTextTheme$LAYOUT;
+    }
+
+    private static final long primaryTextTheme$OFFSET = 296;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt primaryTextTheme
+     * }
+     */
+    public static final long primaryTextTheme$offset() {
+        return primaryTextTheme$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt primaryTextTheme
+     * }
+     */
+    public static MemorySegment primaryTextTheme(MemorySegment struct) {
+        return struct.asSlice(primaryTextTheme$OFFSET, primaryTextTheme$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt primaryTextTheme
+     * }
+     */
+    public static void primaryTextTheme(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, primaryTextTheme$OFFSET, primaryTextTheme$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout textTheme$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("textTheme"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt textTheme
+     * }
+     */
+    public static final GroupLayout textTheme$layout() {
+        return textTheme$LAYOUT;
+    }
+
+    private static final long textTheme$OFFSET = 2104;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt textTheme
+     * }
+     */
+    public static final long textTheme$offset() {
+        return textTheme$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt textTheme
+     * }
+     */
+    public static MemorySegment textTheme(MemorySegment struct) {
+        return struct.asSlice(textTheme$OFFSET, textTheme$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * TextThemeObjSt textTheme
+     * }
+     */
+    public static void textTheme(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, textTheme$OFFSET, textTheme$LAYOUT.byteSize());
+    }
+
     private static final OfInt dialogBackgroundColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dialogBackgroundColor"));
 
     /**
@@ -1108,7 +1201,7 @@ public class ThemeDataObjSt {
         return dialogBackgroundColor$LAYOUT;
     }
 
-    private static final long dialogBackgroundColor$OFFSET = 292;
+    private static final long dialogBackgroundColor$OFFSET = 3912;
 
     /**
      * Offset for field:
@@ -1152,7 +1245,7 @@ public class ThemeDataObjSt {
         return brightness$LAYOUT;
     }
 
-    private static final long brightness$OFFSET = 296;
+    private static final long brightness$OFFSET = 3916;
 
     /**
      * Offset for field:

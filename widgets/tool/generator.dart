@@ -255,11 +255,16 @@ class WidgetGen implements AGen {
     //   ..writeln('  final w = $widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});')
     //   ..writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};')
     //   ..writeln('}');
+    var nullabilitySuffix = node.returnType.nullabilitySuffix == NullabilitySuffix.question ? '?' : '' ;
     dartFns
-      ..writeln('${gen.objType() == 'DartObj' ? 'int' : gen.objType()} $factoryName(${dartParams.decl}) {')
+      ..writeln('${gen.objType() == 'DartObj' ? 'int' : '${gen.objType()}$nullabilitySuffix'} $factoryName(${dartParams.decl}) {')
       ..writeln('  final w = $widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
     if (gen.objType().endsWith('ObjSt')) {
-      dartFns.writeln('  return _create${gen.objType()}(w);');
+      if (node.returnType.nullabilitySuffix == NullabilitySuffix.question) {
+        dartFns.writeln('  return w != null ? _create${gen.objType()}(w) : null;');
+      } else {
+        dartFns.writeln('  return _create${gen.objType()}(w);');
+      }
     }
     else {
       dartFns.writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};');
@@ -440,16 +445,16 @@ class ImmutableGen extends WidgetGen {
       objectsHFile.writeln('  ${CLang(generation).field(field.name, generation.type4C(field.type))}');
       javaFile
         ..writeln('  public ${generation.type4J(field.type)} ${field.name}() {')
-        ..writeln('    ${generation.type4J(field.type)} fld = ${Params.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}(st)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
-        ..writeln('    return fld;')
+        ..writeln('    return ${Params.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}(st)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
         ..writeln('  }');
     }
     objectsHFile.writeln('} $widgetSt;');
 
     dartFns
-      ..writeln('$widgetSt _create$widgetSt($widgetClass w) {')
+      ..writeln('$widgetSt _create$widgetSt($widgetClass? w) {')
       ..writeln('  final $widgetSt stObj = ffi.Struct.create();')
-      ..writeln('  stObj.id = _addWidget(w);');
+      ..writeln('  stObj.id = _addWidget(w);')
+      ..writeln('  if (w == null) return stObj;');
     for (var m in callableFields()) {
       dartFns
           .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(generation, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))};');
@@ -602,7 +607,7 @@ class EnumGen implements AGen {
     javaFile
       ..writeln('package dev.equo.ewt;')
       ..writeln('public enum ${enumType.name} {');
-    javaFile.writeln(enumType.fields.map((en) => en.name).where((en) => "values" != en).join(', '));
+    javaFile.writeln(enumType.fields.map((en) => _escape4D(en.name)).where((en) => "values" != en).join(', '));
     javaFile.writeln('}');
     return javaFile.toString();
   }
@@ -1252,6 +1257,8 @@ class Params {
   static String paramValueDtoC(Generation ctx, ParameterElement param) {
     final t = param.type;
     var value = param.name;
+    var nul = '0';
+    var exclam = '';
     if (t is InterfaceType) {
       // if (param.isOptional) {
       //   value = '$value?';
@@ -1296,34 +1303,39 @@ class Params {
         // }
       // } else {
         if (param.isOptional) {
-          value = '$value!';
+          exclam = '!';
         }
 
         if (t.isDartCoreBool) {
-          value = '$value.toInt()';
+          value = '$value$exclam.toInt()';
+        }
+        if (t.isDartCoreDouble) {
+          value = '$value$exclam';
         }
         else if (t.isDartCoreString) {
         //   value = '${param.name}.cast<Utf8>().toDartString()';
-          value = '$value.toNativeUtf8().cast<ffi.Char>()';
+          value = '$value$exclam.toNativeUtf8().cast<ffi.Char>()';
+          nul = 'ffi.nullptr';
         }
         else if (t.isDartCoreList) {
           final arrayType = t.typeArguments[0];
           if (isPrimitive(arrayType)) {
-            value = '$value.strListToC()';
+            value = '$value$exclam.strListToC()';
           } else {
-            value = '$value.toArrayC()';
+            value = '$value$exclam.toArrayC()';
           }
+          nul = 'ffi.nullptr';
         }
         else if (t.element is EnumElement) {
-          value = '$value.index';
+          value = '$value$exclam.index';
         }
         else if (!isPrimitive(t)) {
-          value = ctx.getGen(t.element).dartToC(value);
+          return ctx.getGen(t.element).dartToC(value);
           // value = '${param.name}.hashCode';
         }
 
         if (param.isOptional) {
-          value = '(${param.name} != null) ? $value : ffi.nullptr';
+          value = '(${param.name} != null) ? $value : $nul';
         }
       // }
     }
@@ -1457,11 +1469,11 @@ class Params {
 
 bool isPrimitive(DartType t) => t.isDartCoreString || t.isDartCoreBool || t.isDartCoreDouble || t.isDartCoreInt;
 
-String _escape4J(String id) => switch (id) {
-  'package' => 'package_',
-  'public' => 'public_',
-  _ => id
-};
+// String _escape4J(String id) => switch (id) {
+//   'package' => 'package_',
+//   'public' => 'public_',
+//   _ => id
+// };
 
 String _escape4D(String id) => switch (id) {
   'extension' => 'extension_',
@@ -1469,6 +1481,7 @@ String _escape4D(String id) => switch (id) {
   'sync' => 'sync_',
   'package' => 'package_',
   'public' => 'public_',
+  'double' => 'double_',
   _ => id
 };
 

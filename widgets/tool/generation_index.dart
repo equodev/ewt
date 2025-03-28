@@ -7,6 +7,7 @@ w.Widget? widget;
 // w.StatefulWidget? statefulWidget;
 w.Text? text;
 w.InlineSpan? inlineSpan;
+w.TextStyle? textStyle;
 w.Center? center;
 w.Column? column;
 w.IconData? iconData;
@@ -15,6 +16,7 @@ w.BuildContext? buildContext;
 w.Color? color;
 
 m.ColorScheme? colorScheme;
+m.TextTheme? textTheme;
 m.AppBar? appBar;
 m.Scaffold? scaffold;
 m.MaterialApp? materialApp;

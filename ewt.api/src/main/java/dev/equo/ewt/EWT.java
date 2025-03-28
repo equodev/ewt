@@ -11,6 +11,10 @@ public class EWT {
     return TextRichBuilder.textRich(textSpan);
   }
 
+  public static TextStyleTextStyleBuilder TextStyle() {
+    return TextStyleTextStyleBuilder.textStyleTextStyle();
+  }
+
   public static ColorColorBuilder Color(int value) {
     return ColorColorBuilder.colorColor(value);
   }
@@ -68,6 +72,10 @@ public class EWT {
   }
   public static ColorSchemeFromSwatchBuilder ColorScheme_fromSwatch() {
     return ColorSchemeFromSwatchBuilder.colorSchemeFromSwatch();
+  }
+
+  public static TextThemeTextThemeBuilder TextTheme() {
+    return TextThemeTextThemeBuilder.textThemeTextTheme();
   }
 
   public static AppBarAppBarBuilder AppBar() {
