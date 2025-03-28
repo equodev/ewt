@@ -19,9 +19,8 @@ public class Theme extends StatelessWidget {
     return ThemeThemeBuilder.themeTheme(data, child);
   }
   public static ThemeData of(BuildContext context) {
-    int id = factories.themeOf(context);
-    if (id == -1) throw new RuntimeException("Failed to created widget ThemeData");
-    System.out.println("New ThemeData id:"+id);
-    return new ThemeData(id);
+    var st = factories.themeOf(context);
+    if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
+    return new ThemeData(st);
   }
 }

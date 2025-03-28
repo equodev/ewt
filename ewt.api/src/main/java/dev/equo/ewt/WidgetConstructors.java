@@ -124,10 +124,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
-  int iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
+  MemorySegment iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
     var st = WidgetFactories.iconData(factories);
     var fn = WidgetFactories.IconDataSt.iconData(st);
-    return WidgetFactories.IconDataSt.iconData.invoke(fn, codePoint,
+    return WidgetFactories.IconDataSt.iconData.invoke(fn, arena, codePoint,
       ptrStr(fontFamily),
       ptrStr(fontPackage),
       ptrBool(matchTextDirection),
@@ -148,6 +148,355 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(textDirection),
       ptrBool(applyTextScaling),
       ptrEnum(blendMode));
+  }
+
+  MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
+    return WidgetFactories.ColorSchemeSt.colorScheme.invoke(fn, arena, brightness.ordinal(),
+      primary.getId(),
+      onPrimary.getId(),
+      ptrObj(primaryContainer),
+      ptrObj(onPrimaryContainer),
+      ptrObj(primaryFixed),
+      ptrObj(primaryFixedDim),
+      ptrObj(onPrimaryFixed),
+      ptrObj(onPrimaryFixedVariant),
+      secondary.getId(),
+      onSecondary.getId(),
+      ptrObj(secondaryContainer),
+      ptrObj(onSecondaryContainer),
+      ptrObj(secondaryFixed),
+      ptrObj(secondaryFixedDim),
+      ptrObj(onSecondaryFixed),
+      ptrObj(onSecondaryFixedVariant),
+      ptrObj(tertiary),
+      ptrObj(onTertiary),
+      ptrObj(tertiaryContainer),
+      ptrObj(onTertiaryContainer),
+      ptrObj(tertiaryFixed),
+      ptrObj(tertiaryFixedDim),
+      ptrObj(onTertiaryFixed),
+      ptrObj(onTertiaryFixedVariant),
+      error.getId(),
+      onError.getId(),
+      ptrObj(errorContainer),
+      ptrObj(onErrorContainer),
+      surface.getId(),
+      onSurface.getId(),
+      ptrObj(surfaceDim),
+      ptrObj(surfaceBright),
+      ptrObj(surfaceContainerLowest),
+      ptrObj(surfaceContainerLow),
+      ptrObj(surfaceContainer),
+      ptrObj(surfaceContainerHigh),
+      ptrObj(surfaceContainerHighest),
+      ptrObj(onSurfaceVariant),
+      ptrObj(outline),
+      ptrObj(outlineVariant),
+      ptrObj(shadow),
+      ptrObj(scrim),
+      ptrObj(inverseSurface),
+      ptrObj(onInverseSurface),
+      ptrObj(inversePrimary),
+      ptrObj(surfaceTint),
+      ptrObj(background),
+      ptrObj(onBackground),
+      ptrObj(surfaceVariant));
+  }
+  MemorySegment colorSchemeFromSeed(Color seedColor, Optional<Brightness> brightness, Optional<DynamicSchemeVariant> dynamicSchemeVariant, OptionalDouble contrastLevel, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.fromSeed(st);
+    return WidgetFactories.ColorSchemeSt.fromSeed.invoke(fn, arena, seedColor.getId(),
+      ptrEnum(brightness),
+      ptrEnum(dynamicSchemeVariant),
+      ptr(contrastLevel),
+      ptrObj(primary),
+      ptrObj(onPrimary),
+      ptrObj(primaryContainer),
+      ptrObj(onPrimaryContainer),
+      ptrObj(primaryFixed),
+      ptrObj(primaryFixedDim),
+      ptrObj(onPrimaryFixed),
+      ptrObj(onPrimaryFixedVariant),
+      ptrObj(secondary),
+      ptrObj(onSecondary),
+      ptrObj(secondaryContainer),
+      ptrObj(onSecondaryContainer),
+      ptrObj(secondaryFixed),
+      ptrObj(secondaryFixedDim),
+      ptrObj(onSecondaryFixed),
+      ptrObj(onSecondaryFixedVariant),
+      ptrObj(tertiary),
+      ptrObj(onTertiary),
+      ptrObj(tertiaryContainer),
+      ptrObj(onTertiaryContainer),
+      ptrObj(tertiaryFixed),
+      ptrObj(tertiaryFixedDim),
+      ptrObj(onTertiaryFixed),
+      ptrObj(onTertiaryFixedVariant),
+      ptrObj(error),
+      ptrObj(onError),
+      ptrObj(errorContainer),
+      ptrObj(onErrorContainer),
+      ptrObj(outline),
+      ptrObj(outlineVariant),
+      ptrObj(surface),
+      ptrObj(onSurface),
+      ptrObj(surfaceDim),
+      ptrObj(surfaceBright),
+      ptrObj(surfaceContainerLowest),
+      ptrObj(surfaceContainerLow),
+      ptrObj(surfaceContainer),
+      ptrObj(surfaceContainerHigh),
+      ptrObj(surfaceContainerHighest),
+      ptrObj(onSurfaceVariant),
+      ptrObj(inverseSurface),
+      ptrObj(onInverseSurface),
+      ptrObj(inversePrimary),
+      ptrObj(shadow),
+      ptrObj(scrim),
+      ptrObj(surfaceTint),
+      ptrObj(background),
+      ptrObj(onBackground),
+      ptrObj(surfaceVariant));
+  }
+  MemorySegment colorSchemeLight(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.light(st);
+    return WidgetFactories.ColorSchemeSt.light.invoke(fn, arena, ptrEnum(brightness),
+      ptrObj(primary),
+      ptrObj(onPrimary),
+      ptrObj(primaryContainer),
+      ptrObj(onPrimaryContainer),
+      ptrObj(primaryFixed),
+      ptrObj(primaryFixedDim),
+      ptrObj(onPrimaryFixed),
+      ptrObj(onPrimaryFixedVariant),
+      ptrObj(secondary),
+      ptrObj(onSecondary),
+      ptrObj(secondaryContainer),
+      ptrObj(onSecondaryContainer),
+      ptrObj(secondaryFixed),
+      ptrObj(secondaryFixedDim),
+      ptrObj(onSecondaryFixed),
+      ptrObj(onSecondaryFixedVariant),
+      ptrObj(tertiary),
+      ptrObj(onTertiary),
+      ptrObj(tertiaryContainer),
+      ptrObj(onTertiaryContainer),
+      ptrObj(tertiaryFixed),
+      ptrObj(tertiaryFixedDim),
+      ptrObj(onTertiaryFixed),
+      ptrObj(onTertiaryFixedVariant),
+      ptrObj(error),
+      ptrObj(onError),
+      ptrObj(errorContainer),
+      ptrObj(onErrorContainer),
+      ptrObj(surface),
+      ptrObj(onSurface),
+      ptrObj(surfaceDim),
+      ptrObj(surfaceBright),
+      ptrObj(surfaceContainerLowest),
+      ptrObj(surfaceContainerLow),
+      ptrObj(surfaceContainer),
+      ptrObj(surfaceContainerHigh),
+      ptrObj(surfaceContainerHighest),
+      ptrObj(onSurfaceVariant),
+      ptrObj(outline),
+      ptrObj(outlineVariant),
+      ptrObj(shadow),
+      ptrObj(scrim),
+      ptrObj(inverseSurface),
+      ptrObj(onInverseSurface),
+      ptrObj(inversePrimary),
+      ptrObj(surfaceTint),
+      ptrObj(background),
+      ptrObj(onBackground),
+      ptrObj(surfaceVariant));
+  }
+  MemorySegment colorSchemeDark(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.dark(st);
+    return WidgetFactories.ColorSchemeSt.dark.invoke(fn, arena, ptrEnum(brightness),
+      ptrObj(primary),
+      ptrObj(onPrimary),
+      ptrObj(primaryContainer),
+      ptrObj(onPrimaryContainer),
+      ptrObj(primaryFixed),
+      ptrObj(primaryFixedDim),
+      ptrObj(onPrimaryFixed),
+      ptrObj(onPrimaryFixedVariant),
+      ptrObj(secondary),
+      ptrObj(onSecondary),
+      ptrObj(secondaryContainer),
+      ptrObj(onSecondaryContainer),
+      ptrObj(secondaryFixed),
+      ptrObj(secondaryFixedDim),
+      ptrObj(onSecondaryFixed),
+      ptrObj(onSecondaryFixedVariant),
+      ptrObj(tertiary),
+      ptrObj(onTertiary),
+      ptrObj(tertiaryContainer),
+      ptrObj(onTertiaryContainer),
+      ptrObj(tertiaryFixed),
+      ptrObj(tertiaryFixedDim),
+      ptrObj(onTertiaryFixed),
+      ptrObj(onTertiaryFixedVariant),
+      ptrObj(error),
+      ptrObj(onError),
+      ptrObj(errorContainer),
+      ptrObj(onErrorContainer),
+      ptrObj(surface),
+      ptrObj(onSurface),
+      ptrObj(surfaceDim),
+      ptrObj(surfaceBright),
+      ptrObj(surfaceContainerLowest),
+      ptrObj(surfaceContainerLow),
+      ptrObj(surfaceContainer),
+      ptrObj(surfaceContainerHigh),
+      ptrObj(surfaceContainerHighest),
+      ptrObj(onSurfaceVariant),
+      ptrObj(outline),
+      ptrObj(outlineVariant),
+      ptrObj(shadow),
+      ptrObj(scrim),
+      ptrObj(inverseSurface),
+      ptrObj(onInverseSurface),
+      ptrObj(inversePrimary),
+      ptrObj(surfaceTint),
+      ptrObj(background),
+      ptrObj(onBackground),
+      ptrObj(surfaceVariant));
+  }
+  MemorySegment colorSchemeHighContrastLight(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.highContrastLight(st);
+    return WidgetFactories.ColorSchemeSt.highContrastLight.invoke(fn, arena, ptrEnum(brightness),
+      ptrObj(primary),
+      ptrObj(onPrimary),
+      ptrObj(primaryContainer),
+      ptrObj(onPrimaryContainer),
+      ptrObj(primaryFixed),
+      ptrObj(primaryFixedDim),
+      ptrObj(onPrimaryFixed),
+      ptrObj(onPrimaryFixedVariant),
+      ptrObj(secondary),
+      ptrObj(onSecondary),
+      ptrObj(secondaryContainer),
+      ptrObj(onSecondaryContainer),
+      ptrObj(secondaryFixed),
+      ptrObj(secondaryFixedDim),
+      ptrObj(onSecondaryFixed),
+      ptrObj(onSecondaryFixedVariant),
+      ptrObj(tertiary),
+      ptrObj(onTertiary),
+      ptrObj(tertiaryContainer),
+      ptrObj(onTertiaryContainer),
+      ptrObj(tertiaryFixed),
+      ptrObj(tertiaryFixedDim),
+      ptrObj(onTertiaryFixed),
+      ptrObj(onTertiaryFixedVariant),
+      ptrObj(error),
+      ptrObj(onError),
+      ptrObj(errorContainer),
+      ptrObj(onErrorContainer),
+      ptrObj(surface),
+      ptrObj(onSurface),
+      ptrObj(surfaceDim),
+      ptrObj(surfaceBright),
+      ptrObj(surfaceContainerLowest),
+      ptrObj(surfaceContainerLow),
+      ptrObj(surfaceContainer),
+      ptrObj(surfaceContainerHigh),
+      ptrObj(surfaceContainerHighest),
+      ptrObj(onSurfaceVariant),
+      ptrObj(outline),
+      ptrObj(outlineVariant),
+      ptrObj(shadow),
+      ptrObj(scrim),
+      ptrObj(inverseSurface),
+      ptrObj(onInverseSurface),
+      ptrObj(inversePrimary),
+      ptrObj(surfaceTint),
+      ptrObj(background),
+      ptrObj(onBackground),
+      ptrObj(surfaceVariant));
+  }
+  MemorySegment colorSchemeHighContrastDark(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.highContrastDark(st);
+    return WidgetFactories.ColorSchemeSt.highContrastDark.invoke(fn, arena, ptrEnum(brightness),
+      ptrObj(primary),
+      ptrObj(onPrimary),
+      ptrObj(primaryContainer),
+      ptrObj(onPrimaryContainer),
+      ptrObj(primaryFixed),
+      ptrObj(primaryFixedDim),
+      ptrObj(onPrimaryFixed),
+      ptrObj(onPrimaryFixedVariant),
+      ptrObj(secondary),
+      ptrObj(onSecondary),
+      ptrObj(secondaryContainer),
+      ptrObj(onSecondaryContainer),
+      ptrObj(secondaryFixed),
+      ptrObj(secondaryFixedDim),
+      ptrObj(onSecondaryFixed),
+      ptrObj(onSecondaryFixedVariant),
+      ptrObj(tertiary),
+      ptrObj(onTertiary),
+      ptrObj(tertiaryContainer),
+      ptrObj(onTertiaryContainer),
+      ptrObj(tertiaryFixed),
+      ptrObj(tertiaryFixedDim),
+      ptrObj(onTertiaryFixed),
+      ptrObj(onTertiaryFixedVariant),
+      ptrObj(error),
+      ptrObj(onError),
+      ptrObj(errorContainer),
+      ptrObj(onErrorContainer),
+      ptrObj(surface),
+      ptrObj(onSurface),
+      ptrObj(surfaceDim),
+      ptrObj(surfaceBright),
+      ptrObj(surfaceContainerLowest),
+      ptrObj(surfaceContainerLow),
+      ptrObj(surfaceContainer),
+      ptrObj(surfaceContainerHigh),
+      ptrObj(surfaceContainerHighest),
+      ptrObj(onSurfaceVariant),
+      ptrObj(outline),
+      ptrObj(outlineVariant),
+      ptrObj(shadow),
+      ptrObj(scrim),
+      ptrObj(inverseSurface),
+      ptrObj(onInverseSurface),
+      ptrObj(inversePrimary),
+      ptrObj(surfaceTint),
+      ptrObj(background),
+      ptrObj(onBackground),
+      ptrObj(surfaceVariant));
+  }
+  MemorySegment colorSchemeFromSwatch(Optional<Color> accentColor, Optional<Color> cardColor, Optional<Color> backgroundColor, Optional<Color> errorColor, Optional<Brightness> brightness) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.fromSwatch(st);
+    return WidgetFactories.ColorSchemeSt.fromSwatch.invoke(fn, arena, ptrObj(accentColor),
+      ptrObj(cardColor),
+      ptrObj(backgroundColor),
+      ptrObj(errorColor),
+      ptrEnum(brightness));
+  }
+  MemorySegment colorSchemeLerp(ColorScheme a, ColorScheme b, double t) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.lerp(st);
+    return WidgetFactories.ColorSchemeSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
+  }
+  MemorySegment colorSchemeOf(BuildContext context) {
+    var st = WidgetFactories.colorScheme(factories);
+    var fn = WidgetFactories.ColorSchemeSt.of(st);
+    return WidgetFactories.ColorSchemeSt.of.invoke(fn, arena, context.getId());
   }
 
   int appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
@@ -248,10 +597,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(useInheritedMediaQuery));
   }
 
-  int themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
-    return WidgetFactories.ThemeDataSt.themeData.invoke(fn, ptrBool(applyElevationOverlayColor),
+    return WidgetFactories.ThemeDataSt.themeData.invoke(fn, arena, ptrBool(applyElevationOverlayColor),
       ptrEnum(materialTapTargetSize),
       ptrEnum(platform),
       ptrBool(useMaterial3),
@@ -283,387 +632,38 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(tabBarTheme),
       ptrObj(dialogBackgroundColor));
   }
-  int themeDataFrom(ColorScheme colorScheme, Optional<Boolean> useMaterial3) {
+  MemorySegment themeDataFrom(ColorScheme colorScheme, Optional<Boolean> useMaterial3) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.from(st);
-    return WidgetFactories.ThemeDataSt.from.invoke(fn, colorScheme.getId(),
+    return WidgetFactories.ThemeDataSt.from.invoke(fn, arena, colorScheme.getId(),
       ptrBool(useMaterial3));
   }
-  int themeDataLight(Optional<Boolean> useMaterial3) {
+  MemorySegment themeDataLight(Optional<Boolean> useMaterial3) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.light(st);
-    return WidgetFactories.ThemeDataSt.light.invoke(fn, ptrBool(useMaterial3));
+    return WidgetFactories.ThemeDataSt.light.invoke(fn, arena, ptrBool(useMaterial3));
   }
-  int themeDataDark(Optional<Boolean> useMaterial3) {
+  MemorySegment themeDataDark(Optional<Boolean> useMaterial3) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.dark(st);
-    return WidgetFactories.ThemeDataSt.dark.invoke(fn, ptrBool(useMaterial3));
+    return WidgetFactories.ThemeDataSt.dark.invoke(fn, arena, ptrBool(useMaterial3));
   }
-  int themeDataFallback(Optional<Boolean> useMaterial3) {
+  MemorySegment themeDataFallback(Optional<Boolean> useMaterial3) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.fallback(st);
-    return WidgetFactories.ThemeDataSt.fallback.invoke(fn, ptrBool(useMaterial3));
+    return WidgetFactories.ThemeDataSt.fallback.invoke(fn, arena, ptrBool(useMaterial3));
   }
   int themeDataEstimateBrightnessForColor(Color color) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.estimateBrightnessForColor(st);
     return WidgetFactories.ThemeDataSt.estimateBrightnessForColor.invoke(fn, color.getId());
   }
-  int themeDataLerp(ThemeData a, ThemeData b, double t) {
+  MemorySegment themeDataLerp(ThemeData a, ThemeData b, double t) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.lerp(st);
-    return WidgetFactories.ThemeDataSt.lerp.invoke(fn, a.getId(),
+    return WidgetFactories.ThemeDataSt.lerp.invoke(fn, arena, a.getId(),
       b.getId(),
       t);
-  }
-
-  int colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
-    return WidgetFactories.ColorSchemeSt.colorScheme.invoke(fn, brightness.ordinal(),
-      primary.getId(),
-      onPrimary.getId(),
-      ptrObj(primaryContainer),
-      ptrObj(onPrimaryContainer),
-      ptrObj(primaryFixed),
-      ptrObj(primaryFixedDim),
-      ptrObj(onPrimaryFixed),
-      ptrObj(onPrimaryFixedVariant),
-      secondary.getId(),
-      onSecondary.getId(),
-      ptrObj(secondaryContainer),
-      ptrObj(onSecondaryContainer),
-      ptrObj(secondaryFixed),
-      ptrObj(secondaryFixedDim),
-      ptrObj(onSecondaryFixed),
-      ptrObj(onSecondaryFixedVariant),
-      ptrObj(tertiary),
-      ptrObj(onTertiary),
-      ptrObj(tertiaryContainer),
-      ptrObj(onTertiaryContainer),
-      ptrObj(tertiaryFixed),
-      ptrObj(tertiaryFixedDim),
-      ptrObj(onTertiaryFixed),
-      ptrObj(onTertiaryFixedVariant),
-      error.getId(),
-      onError.getId(),
-      ptrObj(errorContainer),
-      ptrObj(onErrorContainer),
-      surface.getId(),
-      onSurface.getId(),
-      ptrObj(surfaceDim),
-      ptrObj(surfaceBright),
-      ptrObj(surfaceContainerLowest),
-      ptrObj(surfaceContainerLow),
-      ptrObj(surfaceContainer),
-      ptrObj(surfaceContainerHigh),
-      ptrObj(surfaceContainerHighest),
-      ptrObj(onSurfaceVariant),
-      ptrObj(outline),
-      ptrObj(outlineVariant),
-      ptrObj(shadow),
-      ptrObj(scrim),
-      ptrObj(inverseSurface),
-      ptrObj(onInverseSurface),
-      ptrObj(inversePrimary),
-      ptrObj(surfaceTint),
-      ptrObj(background),
-      ptrObj(onBackground),
-      ptrObj(surfaceVariant));
-  }
-  int colorSchemeFromSeed(Color seedColor, Optional<Brightness> brightness, Optional<DynamicSchemeVariant> dynamicSchemeVariant, OptionalDouble contrastLevel, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.fromSeed(st);
-    return WidgetFactories.ColorSchemeSt.fromSeed.invoke(fn, seedColor.getId(),
-      ptrEnum(brightness),
-      ptrEnum(dynamicSchemeVariant),
-      ptr(contrastLevel),
-      ptrObj(primary),
-      ptrObj(onPrimary),
-      ptrObj(primaryContainer),
-      ptrObj(onPrimaryContainer),
-      ptrObj(primaryFixed),
-      ptrObj(primaryFixedDim),
-      ptrObj(onPrimaryFixed),
-      ptrObj(onPrimaryFixedVariant),
-      ptrObj(secondary),
-      ptrObj(onSecondary),
-      ptrObj(secondaryContainer),
-      ptrObj(onSecondaryContainer),
-      ptrObj(secondaryFixed),
-      ptrObj(secondaryFixedDim),
-      ptrObj(onSecondaryFixed),
-      ptrObj(onSecondaryFixedVariant),
-      ptrObj(tertiary),
-      ptrObj(onTertiary),
-      ptrObj(tertiaryContainer),
-      ptrObj(onTertiaryContainer),
-      ptrObj(tertiaryFixed),
-      ptrObj(tertiaryFixedDim),
-      ptrObj(onTertiaryFixed),
-      ptrObj(onTertiaryFixedVariant),
-      ptrObj(error),
-      ptrObj(onError),
-      ptrObj(errorContainer),
-      ptrObj(onErrorContainer),
-      ptrObj(outline),
-      ptrObj(outlineVariant),
-      ptrObj(surface),
-      ptrObj(onSurface),
-      ptrObj(surfaceDim),
-      ptrObj(surfaceBright),
-      ptrObj(surfaceContainerLowest),
-      ptrObj(surfaceContainerLow),
-      ptrObj(surfaceContainer),
-      ptrObj(surfaceContainerHigh),
-      ptrObj(surfaceContainerHighest),
-      ptrObj(onSurfaceVariant),
-      ptrObj(inverseSurface),
-      ptrObj(onInverseSurface),
-      ptrObj(inversePrimary),
-      ptrObj(shadow),
-      ptrObj(scrim),
-      ptrObj(surfaceTint),
-      ptrObj(background),
-      ptrObj(onBackground),
-      ptrObj(surfaceVariant));
-  }
-  int colorSchemeLight(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.light(st);
-    return WidgetFactories.ColorSchemeSt.light.invoke(fn, ptrEnum(brightness),
-      ptrObj(primary),
-      ptrObj(onPrimary),
-      ptrObj(primaryContainer),
-      ptrObj(onPrimaryContainer),
-      ptrObj(primaryFixed),
-      ptrObj(primaryFixedDim),
-      ptrObj(onPrimaryFixed),
-      ptrObj(onPrimaryFixedVariant),
-      ptrObj(secondary),
-      ptrObj(onSecondary),
-      ptrObj(secondaryContainer),
-      ptrObj(onSecondaryContainer),
-      ptrObj(secondaryFixed),
-      ptrObj(secondaryFixedDim),
-      ptrObj(onSecondaryFixed),
-      ptrObj(onSecondaryFixedVariant),
-      ptrObj(tertiary),
-      ptrObj(onTertiary),
-      ptrObj(tertiaryContainer),
-      ptrObj(onTertiaryContainer),
-      ptrObj(tertiaryFixed),
-      ptrObj(tertiaryFixedDim),
-      ptrObj(onTertiaryFixed),
-      ptrObj(onTertiaryFixedVariant),
-      ptrObj(error),
-      ptrObj(onError),
-      ptrObj(errorContainer),
-      ptrObj(onErrorContainer),
-      ptrObj(surface),
-      ptrObj(onSurface),
-      ptrObj(surfaceDim),
-      ptrObj(surfaceBright),
-      ptrObj(surfaceContainerLowest),
-      ptrObj(surfaceContainerLow),
-      ptrObj(surfaceContainer),
-      ptrObj(surfaceContainerHigh),
-      ptrObj(surfaceContainerHighest),
-      ptrObj(onSurfaceVariant),
-      ptrObj(outline),
-      ptrObj(outlineVariant),
-      ptrObj(shadow),
-      ptrObj(scrim),
-      ptrObj(inverseSurface),
-      ptrObj(onInverseSurface),
-      ptrObj(inversePrimary),
-      ptrObj(surfaceTint),
-      ptrObj(background),
-      ptrObj(onBackground),
-      ptrObj(surfaceVariant));
-  }
-  int colorSchemeDark(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.dark(st);
-    return WidgetFactories.ColorSchemeSt.dark.invoke(fn, ptrEnum(brightness),
-      ptrObj(primary),
-      ptrObj(onPrimary),
-      ptrObj(primaryContainer),
-      ptrObj(onPrimaryContainer),
-      ptrObj(primaryFixed),
-      ptrObj(primaryFixedDim),
-      ptrObj(onPrimaryFixed),
-      ptrObj(onPrimaryFixedVariant),
-      ptrObj(secondary),
-      ptrObj(onSecondary),
-      ptrObj(secondaryContainer),
-      ptrObj(onSecondaryContainer),
-      ptrObj(secondaryFixed),
-      ptrObj(secondaryFixedDim),
-      ptrObj(onSecondaryFixed),
-      ptrObj(onSecondaryFixedVariant),
-      ptrObj(tertiary),
-      ptrObj(onTertiary),
-      ptrObj(tertiaryContainer),
-      ptrObj(onTertiaryContainer),
-      ptrObj(tertiaryFixed),
-      ptrObj(tertiaryFixedDim),
-      ptrObj(onTertiaryFixed),
-      ptrObj(onTertiaryFixedVariant),
-      ptrObj(error),
-      ptrObj(onError),
-      ptrObj(errorContainer),
-      ptrObj(onErrorContainer),
-      ptrObj(surface),
-      ptrObj(onSurface),
-      ptrObj(surfaceDim),
-      ptrObj(surfaceBright),
-      ptrObj(surfaceContainerLowest),
-      ptrObj(surfaceContainerLow),
-      ptrObj(surfaceContainer),
-      ptrObj(surfaceContainerHigh),
-      ptrObj(surfaceContainerHighest),
-      ptrObj(onSurfaceVariant),
-      ptrObj(outline),
-      ptrObj(outlineVariant),
-      ptrObj(shadow),
-      ptrObj(scrim),
-      ptrObj(inverseSurface),
-      ptrObj(onInverseSurface),
-      ptrObj(inversePrimary),
-      ptrObj(surfaceTint),
-      ptrObj(background),
-      ptrObj(onBackground),
-      ptrObj(surfaceVariant));
-  }
-  int colorSchemeHighContrastLight(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.highContrastLight(st);
-    return WidgetFactories.ColorSchemeSt.highContrastLight.invoke(fn, ptrEnum(brightness),
-      ptrObj(primary),
-      ptrObj(onPrimary),
-      ptrObj(primaryContainer),
-      ptrObj(onPrimaryContainer),
-      ptrObj(primaryFixed),
-      ptrObj(primaryFixedDim),
-      ptrObj(onPrimaryFixed),
-      ptrObj(onPrimaryFixedVariant),
-      ptrObj(secondary),
-      ptrObj(onSecondary),
-      ptrObj(secondaryContainer),
-      ptrObj(onSecondaryContainer),
-      ptrObj(secondaryFixed),
-      ptrObj(secondaryFixedDim),
-      ptrObj(onSecondaryFixed),
-      ptrObj(onSecondaryFixedVariant),
-      ptrObj(tertiary),
-      ptrObj(onTertiary),
-      ptrObj(tertiaryContainer),
-      ptrObj(onTertiaryContainer),
-      ptrObj(tertiaryFixed),
-      ptrObj(tertiaryFixedDim),
-      ptrObj(onTertiaryFixed),
-      ptrObj(onTertiaryFixedVariant),
-      ptrObj(error),
-      ptrObj(onError),
-      ptrObj(errorContainer),
-      ptrObj(onErrorContainer),
-      ptrObj(surface),
-      ptrObj(onSurface),
-      ptrObj(surfaceDim),
-      ptrObj(surfaceBright),
-      ptrObj(surfaceContainerLowest),
-      ptrObj(surfaceContainerLow),
-      ptrObj(surfaceContainer),
-      ptrObj(surfaceContainerHigh),
-      ptrObj(surfaceContainerHighest),
-      ptrObj(onSurfaceVariant),
-      ptrObj(outline),
-      ptrObj(outlineVariant),
-      ptrObj(shadow),
-      ptrObj(scrim),
-      ptrObj(inverseSurface),
-      ptrObj(onInverseSurface),
-      ptrObj(inversePrimary),
-      ptrObj(surfaceTint),
-      ptrObj(background),
-      ptrObj(onBackground),
-      ptrObj(surfaceVariant));
-  }
-  int colorSchemeHighContrastDark(Optional<Brightness> brightness, Optional<Color> primary, Optional<Color> onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Optional<Color> secondary, Optional<Color> onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Optional<Color> error, Optional<Color> onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Optional<Color> surface, Optional<Color> onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.highContrastDark(st);
-    return WidgetFactories.ColorSchemeSt.highContrastDark.invoke(fn, ptrEnum(brightness),
-      ptrObj(primary),
-      ptrObj(onPrimary),
-      ptrObj(primaryContainer),
-      ptrObj(onPrimaryContainer),
-      ptrObj(primaryFixed),
-      ptrObj(primaryFixedDim),
-      ptrObj(onPrimaryFixed),
-      ptrObj(onPrimaryFixedVariant),
-      ptrObj(secondary),
-      ptrObj(onSecondary),
-      ptrObj(secondaryContainer),
-      ptrObj(onSecondaryContainer),
-      ptrObj(secondaryFixed),
-      ptrObj(secondaryFixedDim),
-      ptrObj(onSecondaryFixed),
-      ptrObj(onSecondaryFixedVariant),
-      ptrObj(tertiary),
-      ptrObj(onTertiary),
-      ptrObj(tertiaryContainer),
-      ptrObj(onTertiaryContainer),
-      ptrObj(tertiaryFixed),
-      ptrObj(tertiaryFixedDim),
-      ptrObj(onTertiaryFixed),
-      ptrObj(onTertiaryFixedVariant),
-      ptrObj(error),
-      ptrObj(onError),
-      ptrObj(errorContainer),
-      ptrObj(onErrorContainer),
-      ptrObj(surface),
-      ptrObj(onSurface),
-      ptrObj(surfaceDim),
-      ptrObj(surfaceBright),
-      ptrObj(surfaceContainerLowest),
-      ptrObj(surfaceContainerLow),
-      ptrObj(surfaceContainer),
-      ptrObj(surfaceContainerHigh),
-      ptrObj(surfaceContainerHighest),
-      ptrObj(onSurfaceVariant),
-      ptrObj(outline),
-      ptrObj(outlineVariant),
-      ptrObj(shadow),
-      ptrObj(scrim),
-      ptrObj(inverseSurface),
-      ptrObj(onInverseSurface),
-      ptrObj(inversePrimary),
-      ptrObj(surfaceTint),
-      ptrObj(background),
-      ptrObj(onBackground),
-      ptrObj(surfaceVariant));
-  }
-  int colorSchemeFromSwatch(Optional<Color> accentColor, Optional<Color> cardColor, Optional<Color> backgroundColor, Optional<Color> errorColor, Optional<Brightness> brightness) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.fromSwatch(st);
-    return WidgetFactories.ColorSchemeSt.fromSwatch.invoke(fn, ptrObj(accentColor),
-      ptrObj(cardColor),
-      ptrObj(backgroundColor),
-      ptrObj(errorColor),
-      ptrEnum(brightness));
-  }
-  int colorSchemeLerp(ColorScheme a, ColorScheme b, double t) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.lerp(st);
-    return WidgetFactories.ColorSchemeSt.lerp.invoke(fn, a.getId(),
-      b.getId(),
-      t);
-  }
-  int colorSchemeOf(BuildContext context) {
-    var st = WidgetFactories.colorScheme(factories);
-    var fn = WidgetFactories.ColorSchemeSt.of(st);
-    return WidgetFactories.ColorSchemeSt.of.invoke(fn, context.getId());
   }
 
   int floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
@@ -766,10 +766,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ThemeSt.theme.invoke(fn, data.getId(),
       child.getId());
   }
-  int themeOf(BuildContext context) {
+  MemorySegment themeOf(BuildContext context) {
     var st = WidgetFactories.theme(factories);
     var fn = WidgetFactories.ThemeSt.of(st);
-    return WidgetFactories.ThemeSt.of.invoke(fn, context.getId());
+    return WidgetFactories.ThemeSt.of.invoke(fn, arena, context.getId());
   }
 
   MemorySegment subStateSubState(Function<BuildContext, Widget> buildFn) {

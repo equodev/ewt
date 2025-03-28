@@ -78,6 +78,18 @@ extension on ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> {
     return null;
   }
 }
+extension on List<String> {
+  ffi.Pointer<ffi.Pointer<ffi.Char>> strListToC() {
+    if (this != null) {
+      for (var i=0; i<length; i++) {
+        final stri = this[i].toNativeUtf8().cast<ffi.Char>();
+        // ffi.Pointer()
+        // TODO: allocate array of char*
+      }
+    }
+    return ffi.nullptr;
+  }
+}
 extension on DrawerCallbackFFI {
   DrawerCallback toFn() {
     return (bool b) {
@@ -153,7 +165,7 @@ extension on DartObjCallbackDartObj {
   T Function(BuildContext) toFn<T>() {
     return (ctx) {
       DartDartObjCallbackDartObjFunction jCb = asFunction();
-      final wId = jCb(ctx.hashCode);
+      final wId = jCb(_addWidget(ctx));
       return getWidget(wId) as T;
     };
   }

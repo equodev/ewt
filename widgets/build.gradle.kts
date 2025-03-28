@@ -16,6 +16,6 @@ val ffigen = tasks.register<Exec>("ffigen") {
     
     executable = "/Users/guillez/bin/flutter/bin/dart"
     args("run", "ffigen", "--config", "ffigen.yaml")
-    inputs.files("ffigen.yaml", "src/widgets.h", "src/common.h", "src/factories.h")
+    inputs.files("ffigen.yaml", "src/widgets.h", "src/common.h", "src/factories.h", "src/objects.h")
     outputs.file("lib/widgets_bindings_generated.dart")
 }

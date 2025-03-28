@@ -14,6 +14,7 @@ w.Icon? icon;
 w.BuildContext? buildContext;
 w.Color? color;
 
+m.ColorScheme? colorScheme;
 m.AppBar? appBar;
 m.Scaffold? scaffold;
 m.MaterialApp? materialApp;
@@ -21,7 +22,6 @@ m.FloatingActionButton? floatingActionButton;
 m.Icons? icons;
 m.Theme? theme;
 m.ThemeData? themeData;
-m.ColorScheme? colorScheme;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
