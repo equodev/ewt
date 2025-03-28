@@ -13,3 +13,10 @@ class SubStatefulWidget extends StatefulWidget {
   State<StatefulWidget> createState() => createStateFn();
 }
 
+class SubStatelessWidget extends StatelessWidget {
+  final Widget Function(BuildContext) buildFn;
+  SubStatelessWidget({super.key, required this.buildFn});
+  @override
+  Widget build(BuildContext context) => buildFn(context);
+}
+

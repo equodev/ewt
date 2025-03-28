@@ -4,26 +4,24 @@ import dev.equo.ewt.*;
 
 import static dev.equo.ewt.EWT.*;
 
-//import dev.equo.ewt.*;
-
 import java.util.List;
 
 public class Counter {
 
   public static void main(String[] args) {
-    App.runApp(() -> new MyApp().build());
+    App.runApp(MyApp::new);
   }
 
-  static class MyApp {
+  static class MyApp extends SubStatelessWidget {
 
-    public Widget build() {
+    @Override
+    protected Widget build(BuildContext context) {
       return MaterialApp()
           .title("EWT Demo")
           .theme(ThemeData()
               .colorScheme(ColorScheme_fromSeed(Color(0xFF311B92).build()).build())
               .useMaterial3(true)
               .build())
-//          .showPerformanceOverlay(true)
           .home(new MyHomePage("Flutter Demo Home Page"))
           .build();
     }
@@ -50,7 +48,6 @@ public class Counter {
       }
 
       void _incrementCounter() {
-        System.out.println("on pressed in java");
         setState(() -> {
           System.out.println("on pressed in java inside setSate");
           // This call to setState tells the Flutter framework that something has
@@ -66,35 +63,29 @@ public class Counter {
       public Widget build(BuildContext context) {
         return Scaffold()
             .appBar(AppBar()
-//                    .backgroundColor(Color(0xFFB39DDB).build())
-                    .backgroundColor(Theme.of(context).colorScheme().inversePrimary())
-                    .title(Text(widget.title).build())
-                    .build()
+                .backgroundColor(Theme.of(context).colorScheme().inversePrimary())
+                .title(Text(widget.title).build())
+                .build()
             )
-            .body(
-                Center()
-                    .child(
-                        Column()
-                            .mainAxisAlignment(MainAxisAlignment.center)
-                            .children(
-                                List.of(
-                                    Text("You have pushed the button this many times:")
-                                        .build(),
-                                    Text("" + _counter)
-                                            .style(Theme.of(context).textTheme().headlineMedium())
-                                        .build()
-                                )
-                            )
+            .body(Center()
+                .child(Column()
+                    .mainAxisAlignment(MainAxisAlignment.center)
+                    .children(List.of(
+                        Text("You have pushed the button this many times:")
+                            .build(),
+                        Text("" + _counter)
+                            .style(Theme.of(context).textTheme().headlineMedium())
                             .build()
-                    )
+                    ))
                     .build()
+                )
+                .build()
             )
-            .floatingActionButton(
-                FloatingActionButton()
-                    .onPressed(this::_incrementCounter)
-                    .tooltip("Increment")
-                    .child(Icon(Icons.add()).build())
-                    .build()
+            .floatingActionButton(FloatingActionButton()
+                .onPressed(this::_incrementCounter)
+                .tooltip("Increment")
+                .child(Icon(Icons.add()).build())
+                .build()
             )
             .build();
       }

@@ -102,6 +102,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     struct SubStatefulWidgetSt {
  *         SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback);
  *     } subStatefulWidget;
+ *     struct SubStatelessWidgetSt {
+ *         SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj);
+ *     } subStatelessWidget;
  * }
  * }
  */
@@ -130,7 +133,8 @@ public class WidgetFactories {
         WidgetFactories.FloatingActionButtonSt.layout().withName("floatingActionButton"),
         WidgetFactories.ThemeSt.layout().withName("theme"),
         WidgetFactories.SubStateSt.layout().withName("subState"),
-        WidgetFactories.SubStatefulWidgetSt.layout().withName("subStatefulWidget")
+        WidgetFactories.SubStatefulWidgetSt.layout().withName("subStatefulWidget"),
+        WidgetFactories.SubStatelessWidgetSt.layout().withName("subStatelessWidget")
     ).withName("$anon$1:9");
 
     /**
@@ -7741,6 +7745,217 @@ public class WidgetFactories {
      */
     public static void subStatefulWidget(MemorySegment struct, MemorySegment fieldValue) {
         MemorySegment.copy(fieldValue, 0L, struct, subStatefulWidget$OFFSET, subStatefulWidget$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct SubStatelessWidgetSt {
+     *     SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj);
+     * }
+     * }
+     */
+    public static class SubStatelessWidgetSt {
+
+        SubStatelessWidgetSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("subStatelessWidget")
+        ).withName("SubStatelessWidgetSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * }
+         */
+        public static class subStatelessWidget {
+
+            subStatelessWidget() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                SubStatelessWidgetObjSt.layout(),
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(subStatelessWidget.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(subStatelessWidget.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout subStatelessWidget$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("subStatelessWidget"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * }
+         */
+        public static final AddressLayout subStatelessWidget$layout() {
+            return subStatelessWidget$LAYOUT;
+        }
+
+        private static final long subStatelessWidget$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * }
+         */
+        public static final long subStatelessWidget$offset() {
+            return subStatelessWidget$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * }
+         */
+        public static MemorySegment subStatelessWidget(MemorySegment struct) {
+            return struct.get(subStatelessWidget$LAYOUT, subStatelessWidget$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * }
+         */
+        public static void subStatelessWidget(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(subStatelessWidget$LAYOUT, subStatelessWidget$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout subStatelessWidget$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("subStatelessWidget"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct SubStatelessWidgetSt subStatelessWidget
+     * }
+     */
+    public static final GroupLayout subStatelessWidget$layout() {
+        return subStatelessWidget$LAYOUT;
+    }
+
+    private static final long subStatelessWidget$OFFSET = 392;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct SubStatelessWidgetSt subStatelessWidget
+     * }
+     */
+    public static final long subStatelessWidget$offset() {
+        return subStatelessWidget$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct SubStatelessWidgetSt subStatelessWidget
+     * }
+     */
+    public static MemorySegment subStatelessWidget(MemorySegment struct) {
+        return struct.asSlice(subStatelessWidget$OFFSET, subStatelessWidget$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct SubStatelessWidgetSt subStatelessWidget
+     * }
+     */
+    public static void subStatelessWidget(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, subStatelessWidget$OFFSET, subStatelessWidget$LAYOUT.byteSize());
     }
 
     /**

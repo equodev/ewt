@@ -140,3 +140,7 @@ typedef struct {
   int id;
 } SubStatefulWidgetObjSt;
 
+typedef struct {
+  int id;
+} SubStatelessWidgetObjSt;
+

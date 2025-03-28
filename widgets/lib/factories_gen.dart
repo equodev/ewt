@@ -1044,6 +1044,16 @@ SubStatefulWidgetObjSt subStatefulWidgetSubStatefulWidget(DartObjCallback create
   return stObj;
 }
 
+void _setupSubStatelessWidget(WidgetFactories f) {
+  f.subStatelessWidget.subStatelessWidget = ffi.Pointer.fromFunction(subStatelessWidgetSubStatelessWidget);
+}
+SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDartObj buildFn) {
+  final w = SubStatelessWidget(buildFn: buildFn.toFn());
+  final SubStatelessWidgetObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  return stObj;
+}
+
 ffi.Pointer<WidgetFactories> _setupFactories() {
   final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
   final f = fp.ref;
@@ -1064,6 +1074,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupThemeData(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
+  _setupSubStatelessWidget(f);
   _setupTextStyle(f);
   _setupColor(f);
   _setupAlign(f);

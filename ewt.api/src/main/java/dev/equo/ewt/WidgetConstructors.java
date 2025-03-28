@@ -865,4 +865,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, arena, ptrFn(createStateFn));
   }
 
+  MemorySegment subStatelessWidgetSubStatelessWidget(Function<BuildContext, Widget> buildFn) {
+    var st = WidgetFactories.subStatelessWidget(factories);
+    var fn = WidgetFactories.SubStatelessWidgetSt.subStatelessWidget(st);
+    return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrFn(buildFn));
+  }
+
 }

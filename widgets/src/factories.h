@@ -105,4 +105,8 @@ typedef struct {
     SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback createStateFn);
   } subStatefulWidget;
 
+  struct SubStatelessWidgetSt {
+    SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj buildFn);
+  } subStatelessWidget;
+
 } WidgetFactories;

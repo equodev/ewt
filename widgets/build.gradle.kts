@@ -4,7 +4,7 @@ tasks.register<Exec>("generator") {
 
     executable = "/Users/guillez/bin/flutter/bin/dart"
     args("run", "tool/generator.dart")
-    inputs.files("tool/generator.dart", "tool/generation_index.dart")
+    inputs.files("tool/generator.dart", "tool/generation_index.dart", "tool/pregeneration_index.dart")
     outputs.dirs("../ewt.api/src/main/java/dev/equo/ewt")
     outputs.files("src/factories.h", "lib/factories.dart")
     finalizedBy(ffigen, project(":ewt.api").tasks.named("jextract"))

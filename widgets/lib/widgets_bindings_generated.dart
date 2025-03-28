@@ -141,6 +141,8 @@ final class WidgetFactories extends ffi.Struct {
   external SubStateSt subState;
 
   external SubStatefulWidgetSt subStatefulWidget;
+
+  external SubStatelessWidgetSt subStatelessWidget;
 }
 
 final class TextSt extends ffi.Struct {
@@ -1376,3 +1378,15 @@ typedef DartObjCallback
     = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFunction>>;
 typedef DartObjCallbackFunction = DartObj Function();
 typedef DartDartObjCallbackFunction = DartDartObj Function();
+
+final class SubStatelessWidgetSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              SubStatelessWidgetObjSt Function(DartObjCallbackDartObj buildFn)>>
+      subStatelessWidget;
+}
+
+final class SubStatelessWidgetObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}

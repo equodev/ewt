@@ -27,6 +27,7 @@ m.ThemeData? themeData;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
+s.SubStatelessWidget? subStatelessWidget;
 
 void main() {
   //print('I am an index with the widgets to generate');
