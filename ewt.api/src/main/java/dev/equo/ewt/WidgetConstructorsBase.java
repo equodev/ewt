@@ -2,12 +2,10 @@ package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
 
 import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.lang.foreign.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
@@ -18,6 +16,22 @@ class WidgetConstructorsBase {
 
   public void set(MemorySegment factories) {
     this.factories = factories;
+  }
+
+  static boolean intToBool(int i) {
+    return i == 0;
+  }
+
+  static List<String> memToStrList(MemorySegment ptr) {
+    List<String> list = new ArrayList<>();
+    for (int i = 0; ; i++) {
+      MemorySegment atIndex = ptr.getAtIndex(StarterBridge.C_POINTER, i);
+      if (atIndex == MemorySegment.NULL)
+        break;
+      String stri = atIndex.getString(0);
+      list.add(stri);
+    }
+    return list;
   }
 
   MemorySegment ptr(OptionalInt opt) {
@@ -65,10 +79,16 @@ class WidgetConstructorsBase {
   <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
     return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
   }
-  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
-    if (opt.isPresent()) {
-      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);
-    }
-    return MemorySegment.NULL;
+  <T extends NativeObj, R extends NativeObj> MemorySegment ptrFn(Function<T, R> f) {
+    return DartObjCallbackDartObj.allocate((ctx) -> {
+      System.out.println("java buil ctx: "+ctx);
+      return f.apply((T) new BuildContext(ctx){}).getId() ;
+    }, arena);
   }
+//  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
+//    if (opt.isPresent()) {
+//      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);
+//    }
+//    return MemorySegment.NULL;
+//  }
 }

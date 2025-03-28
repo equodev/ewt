@@ -40,6 +40,36 @@ public class EWT {
     return FlexFlexBuilder.flexFlex(direction);
   }
 
+  public static IconDataIconDataBuilder IconData(int codePoint) {
+    return IconDataIconDataBuilder.iconDataIconData(codePoint);
+  }
+
+  public static IconIconBuilder Icon(IconData icon) {
+    return IconIconBuilder.iconIcon(icon);
+  }
+
+  public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, Color primary, Color onPrimary) {
+    return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
+  }
+  public static ColorSchemeFromSeedBuilder ColorScheme_fromSeed(Color seedColor) {
+    return ColorSchemeFromSeedBuilder.colorSchemeFromSeed(seedColor);
+  }
+  public static ColorSchemeLightBuilder ColorScheme_light() {
+    return ColorSchemeLightBuilder.colorSchemeLight();
+  }
+  public static ColorSchemeDarkBuilder ColorScheme_dark() {
+    return ColorSchemeDarkBuilder.colorSchemeDark();
+  }
+  public static ColorSchemeHighContrastLightBuilder ColorScheme_highContrastLight() {
+    return ColorSchemeHighContrastLightBuilder.colorSchemeHighContrastLight();
+  }
+  public static ColorSchemeHighContrastDarkBuilder ColorScheme_highContrastDark() {
+    return ColorSchemeHighContrastDarkBuilder.colorSchemeHighContrastDark();
+  }
+  public static ColorSchemeFromSwatchBuilder ColorScheme_fromSwatch() {
+    return ColorSchemeFromSwatchBuilder.colorSchemeFromSwatch();
+  }
+
   public static AppBarAppBarBuilder AppBar() {
     return AppBarAppBarBuilder.appBarAppBar();
   }
@@ -71,28 +101,6 @@ public class EWT {
     return ThemeDataFallbackBuilder.themeDataFallback();
   }
 
-  public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, Color primary, Color onPrimary) {
-    return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
-  }
-  public static ColorSchemeFromSeedBuilder ColorScheme_fromSeed(Color seedColor) {
-    return ColorSchemeFromSeedBuilder.colorSchemeFromSeed(seedColor);
-  }
-  public static ColorSchemeLightBuilder ColorScheme_light() {
-    return ColorSchemeLightBuilder.colorSchemeLight();
-  }
-  public static ColorSchemeDarkBuilder ColorScheme_dark() {
-    return ColorSchemeDarkBuilder.colorSchemeDark();
-  }
-  public static ColorSchemeHighContrastLightBuilder ColorScheme_highContrastLight() {
-    return ColorSchemeHighContrastLightBuilder.colorSchemeHighContrastLight();
-  }
-  public static ColorSchemeHighContrastDarkBuilder ColorScheme_highContrastDark() {
-    return ColorSchemeHighContrastDarkBuilder.colorSchemeHighContrastDark();
-  }
-  public static ColorSchemeFromSwatchBuilder ColorScheme_fromSwatch() {
-    return ColorSchemeFromSwatchBuilder.colorSchemeFromSwatch();
-  }
-
   public static FloatingActionButtonFloatingActionButtonBuilder FloatingActionButton() {
     return FloatingActionButtonFloatingActionButtonBuilder.floatingActionButtonFloatingActionButton();
   }
@@ -106,12 +114,8 @@ public class EWT {
     return FloatingActionButtonExtendedBuilder.floatingActionButtonExtended();
   }
 
-  public static IconDataIconDataBuilder IconData(int codePoint) {
-    return IconDataIconDataBuilder.iconDataIconData(codePoint);
-  }
-
-  public static IconIconBuilder Icon(IconData icon) {
-    return IconIconBuilder.iconIcon(icon);
+  public static ThemeThemeBuilder Theme(ThemeData data, Widget child) {
+    return ThemeThemeBuilder.themeTheme(data, child);
   }
 
 

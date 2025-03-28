@@ -57,4 +57,19 @@ public class Color extends NativeObj.Base {
   public static ColorFromRGBOBuilder fromRGBO(int r, int g, int b, double opacity) {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
+  public static Color lerp(Color x, Color y, double t) {
+    int id = factories.colorLerp(x,
+      y,
+      t);
+    if (id == -1) throw new RuntimeException("Failed to created widget Color?");
+    System.out.println("New Color? id:"+id);
+    return new Color(id);
+  }
+  public static Color alphaBlend(Color foreground, Color background) {
+    int id = factories.colorAlphaBlend(foreground,
+      background);
+    if (id == -1) throw new RuntimeException("Failed to created widget Color");
+    System.out.println("New Color id:"+id);
+    return new Color(id);
+  }
 }

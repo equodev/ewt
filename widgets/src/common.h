@@ -5,6 +5,7 @@
 typedef int DartObj;
 //typedef void (*VoidCallback)(void);
 typedef DartObj (*DartObjCallback)(void);
+typedef DartObj (*DartObjCallbackDartObj)(DartObj);
 typedef struct {
     int size;
     DartObj* list;
