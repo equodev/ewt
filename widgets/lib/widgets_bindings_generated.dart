@@ -106,6 +106,8 @@ typedef DartbuildWidgetTreeFnFunction = int Function(
 final class WidgetFactories extends ffi.Struct {
   external TextSt text;
 
+  external TextStyleSt textStyle;
+
   external ColorSt color;
 
   external CenterSt center;
@@ -121,6 +123,8 @@ final class WidgetFactories extends ffi.Struct {
   external IconSt icon;
 
   external ColorSchemeSt colorScheme;
+
+  external TextThemeSt textTheme;
 
   external AppBarSt appBar;
 
@@ -144,6 +148,7 @@ final class TextSt extends ffi.Struct {
       ffi.NativeFunction<
           DartObj Function(
               ffi.Pointer<ffi.Char> data,
+              ffi.Pointer<DartObj> style,
               ffi.Pointer<ffi.Int> textAlign,
               ffi.Pointer<ffi.Int> textDirection,
               ffi.Pointer<ffi.Int> softWrap,
@@ -158,6 +163,7 @@ final class TextSt extends ffi.Struct {
       ffi.NativeFunction<
           DartObj Function(
               DartObj textSpan,
+              ffi.Pointer<DartObj> style,
               ffi.Pointer<ffi.Int> textAlign,
               ffi.Pointer<ffi.Int> textDirection,
               ffi.Pointer<ffi.Int> softWrap,
@@ -171,6 +177,88 @@ final class TextSt extends ffi.Struct {
 
 typedef DartObj = ffi.Int;
 typedef DartDartObj = int;
+
+final class TextStyleSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextStyleObjSt Function(
+              ffi.Pointer<ffi.Int> inherit,
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<ffi.Double> fontSize,
+              ffi.Pointer<ffi.Int> fontStyle,
+              ffi.Pointer<ffi.Double> letterSpacing,
+              ffi.Pointer<ffi.Double> wordSpacing,
+              ffi.Pointer<ffi.Int> textBaseline,
+              ffi.Pointer<ffi.Double> height,
+              ffi.Pointer<ffi.Int> leadingDistribution,
+              ffi.Pointer<DartObj> decorationColor,
+              ffi.Pointer<ffi.Int> decorationStyle,
+              ffi.Pointer<ffi.Double> decorationThickness,
+              ffi.Pointer<ffi.Char> debugLabel,
+              ffi.Pointer<ffi.Char> fontFamily,
+              ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
+                  fontFamilyFallback,
+              ffi.Pointer<ffi.Char> package,
+              ffi.Pointer<ffi.Int> overflow)>> textStyle;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextStyleObjSt Function(DartObj a, DartObj b, ffi.Double t)>> lerp;
+}
+
+final class TextStyleObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int inherit;
+
+  @DartObj()
+  external int color;
+
+  @DartObj()
+  external int backgroundColor;
+
+  external ffi.Pointer<ffi.Char> fontFamily;
+
+  @ffi.Double()
+  external double fontSize;
+
+  @ffi.Int()
+  external int fontStyle;
+
+  @ffi.Double()
+  external double letterSpacing;
+
+  @ffi.Double()
+  external double wordSpacing;
+
+  @ffi.Int()
+  external int textBaseline;
+
+  @ffi.Double()
+  external double height;
+
+  @ffi.Int()
+  external int leadingDistribution;
+
+  @DartObj()
+  external int decorationColor;
+
+  @ffi.Int()
+  external int decorationStyle;
+
+  @ffi.Double()
+  external double decorationThickness;
+
+  external ffi.Pointer<ffi.Char> debugLabel;
+
+  @ffi.Int()
+  external int overflow;
+
+  external ffi.Pointer<ffi.Pointer<ffi.Char>> fontFamilyFallback;
+}
 
 final class ColorSt extends ffi.Struct {
   external ffi.Pointer<ffi.NativeFunction<DartObj Function(ffi.Int value)>>
@@ -803,6 +891,73 @@ final class ColorSchemeObjSt extends ffi.Struct {
   external int onBackground;
 }
 
+final class TextThemeSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextThemeObjSt Function(
+              ffi.Pointer<DartObj> displayLarge,
+              ffi.Pointer<DartObj> displayMedium,
+              ffi.Pointer<DartObj> displaySmall,
+              ffi.Pointer<DartObj> headlineLarge,
+              ffi.Pointer<DartObj> headlineMedium,
+              ffi.Pointer<DartObj> headlineSmall,
+              ffi.Pointer<DartObj> titleLarge,
+              ffi.Pointer<DartObj> titleMedium,
+              ffi.Pointer<DartObj> titleSmall,
+              ffi.Pointer<DartObj> bodyLarge,
+              ffi.Pointer<DartObj> bodyMedium,
+              ffi.Pointer<DartObj> bodySmall,
+              ffi.Pointer<DartObj> labelLarge,
+              ffi.Pointer<DartObj> labelMedium,
+              ffi.Pointer<DartObj> labelSmall)>> textTheme;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextThemeObjSt Function(DartObj a, DartObj b, ffi.Double t)>> lerp;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<TextThemeObjSt Function(DartObj context)>> of;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<TextThemeObjSt Function(DartObj context)>>
+      primaryOf;
+}
+
+final class TextThemeObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external TextStyleObjSt displayLarge;
+
+  external TextStyleObjSt displayMedium;
+
+  external TextStyleObjSt displaySmall;
+
+  external TextStyleObjSt headlineLarge;
+
+  external TextStyleObjSt headlineMedium;
+
+  external TextStyleObjSt headlineSmall;
+
+  external TextStyleObjSt titleLarge;
+
+  external TextStyleObjSt titleMedium;
+
+  external TextStyleObjSt titleSmall;
+
+  external TextStyleObjSt bodyLarge;
+
+  external TextStyleObjSt bodyMedium;
+
+  external TextStyleObjSt bodySmall;
+
+  external TextStyleObjSt labelLarge;
+
+  external TextStyleObjSt labelMedium;
+
+  external TextStyleObjSt labelSmall;
+}
+
 final class AppBarSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -827,6 +982,8 @@ final class AppBarSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> bottomOpacity,
               ffi.Pointer<ffi.Double> toolbarHeight,
               ffi.Pointer<ffi.Double> leadingWidth,
+              ffi.Pointer<DartObj> toolbarTextStyle,
+              ffi.Pointer<DartObj> titleTextStyle,
               ffi.Pointer<ffi.Int> forceMaterialTransparency,
               ffi.Pointer<ffi.Int> clipBehavior)>> appBar;
 }
@@ -954,6 +1111,8 @@ final class ThemeDataSt extends ffi.Struct {
               ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
                   fontFamilyFallback,
               ffi.Pointer<ffi.Char> package,
+              ffi.Pointer<DartObj> primaryTextTheme,
+              ffi.Pointer<DartObj> textTheme,
               ffi.Pointer<DartObj> cardTheme,
               ffi.Pointer<DartObj> dialogTheme,
               ffi.Pointer<DartObj> tabBarTheme,
@@ -962,7 +1121,9 @@ final class ThemeDataSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ThemeDataObjSt Function(
-              DartObj colorScheme, ffi.Pointer<ffi.Int> useMaterial3)>> from;
+              DartObj colorScheme,
+              ffi.Pointer<DartObj> textTheme,
+              ffi.Pointer<ffi.Int> useMaterial3)>> from;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -975,6 +1136,11 @@ final class ThemeDataSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ThemeDataObjSt Function(ffi.Pointer<ffi.Int> useMaterial3)>> fallback;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ThemeDataObjSt Function(
+              DartObj baseTheme, DartObj localTextGeometry)>> localize;
 
   external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj color)>>
       estimateBrightnessForColor;
@@ -1052,6 +1218,10 @@ final class ThemeDataObjSt extends ffi.Struct {
 
   @DartObj()
   external int unselectedWidgetColor;
+
+  external TextThemeObjSt primaryTextTheme;
+
+  external TextThemeObjSt textTheme;
 
   @DartObj()
   external int dialogBackgroundColor;
@@ -1150,6 +1320,7 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
               ffi.Pointer<ffi.Double> extendedIconLabelSpacing,
+              ffi.Pointer<DartObj> extendedTextStyle,
               ffi.Pointer<DartObj> icon,
               DartObj label,
               ffi.Pointer<ffi.Int> enableFeedback)>> extended;

@@ -26,23 +26,18 @@ public class IconData extends NativeObj.Base {
     return IconDataIconDataBuilder.iconDataIconData(codePoint);
   }
   public int codePoint() {
-    int fld = IconDataObjSt.codePoint(st);
-    return fld;
+    return IconDataObjSt.codePoint(st);
   }
   public String fontFamily() {
-    String fld = IconDataObjSt.fontFamily(st).getString(0);
-    return fld;
+    return IconDataObjSt.fontFamily(st).getString(0);
   }
   public String fontPackage() {
-    String fld = IconDataObjSt.fontPackage(st).getString(0);
-    return fld;
+    return IconDataObjSt.fontPackage(st).getString(0);
   }
   public boolean matchTextDirection() {
-    boolean fld = intToBool(IconDataObjSt.matchTextDirection(st));
-    return fld;
+    return intToBool(IconDataObjSt.matchTextDirection(st));
   }
   public List<String> fontFamilyFallback() {
-    List<String> fld = memToStrList(IconDataObjSt.fontFamilyFallback(st));
-    return fld;
+    return memToStrList(IconDataObjSt.fontFamilyFallback(st));
   }
 }

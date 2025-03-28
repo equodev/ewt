@@ -8,8 +8,9 @@ public class Text extends StatelessWidget {
     this.id = id;
   }
   @Builder.Factory
-  static Text textText(@Builder.Parameter String data, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+  static Text textText(@Builder.Parameter String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     int id = factories.textText(data,
+      style,
       textAlign,
       textDirection,
       softWrap,
@@ -27,8 +28,9 @@ public class Text extends StatelessWidget {
     return TextTextBuilder.textText(data);
   }
   @Builder.Factory
-  static Text textRich(@Builder.Parameter InlineSpan textSpan, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+  static Text textRich(@Builder.Parameter InlineSpan textSpan, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     int id = factories.textRich(textSpan,
+      style,
       textAlign,
       textDirection,
       softWrap,

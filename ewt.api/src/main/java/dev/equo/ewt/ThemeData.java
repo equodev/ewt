@@ -13,7 +13,7 @@ public class ThemeData extends NativeObj.Base {
     System.out.println("New ThemeData id:"+id);
   }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
     var st = factories.themeDataThemeData(applyElevationOverlayColor,
       materialTapTargetSize,
       platform,
@@ -41,6 +41,8 @@ public class ThemeData extends NativeObj.Base {
       fontFamily,
       fontFamilyFallback,
       _package,
+      primaryTextTheme,
+      textTheme,
       cardTheme,
       dialogTheme,
       tabBarTheme,
@@ -52,8 +54,9 @@ public class ThemeData extends NativeObj.Base {
     return ThemeDataThemeDataBuilder.themeDataThemeData();
   }
   @Builder.Factory
-  static ThemeData themeDataFrom(@Builder.Parameter ColorScheme colorScheme, Optional<Boolean> useMaterial3) {
+  static ThemeData themeDataFrom(@Builder.Parameter ColorScheme colorScheme, Optional<TextTheme> textTheme, Optional<Boolean> useMaterial3) {
     var st = factories.themeDataFrom(colorScheme,
+      textTheme,
       useMaterial3);
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);
@@ -88,6 +91,12 @@ public class ThemeData extends NativeObj.Base {
   public static ThemeDataFallbackBuilder fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
   }
+  public static ThemeData localize(ThemeData baseTheme, TextTheme localTextGeometry) {
+    var st = factories.themeDataLocalize(baseTheme,
+      localTextGeometry);
+    if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
+    return new ThemeData(st);
+  }
   public static Brightness estimateBrightnessForColor(Color color) {
     int id = factories.themeDataEstimateBrightnessForColor(color);
     if (id == -1) throw new RuntimeException("Failed to created widget Brightness");
@@ -102,99 +111,81 @@ public class ThemeData extends NativeObj.Base {
     return new ThemeData(st);
   }
   public boolean applyElevationOverlayColor() {
-    boolean fld = intToBool(ThemeDataObjSt.applyElevationOverlayColor(st));
-    return fld;
+    return intToBool(ThemeDataObjSt.applyElevationOverlayColor(st));
   }
   public MaterialTapTargetSize materialTapTargetSize() {
-    MaterialTapTargetSize fld = MaterialTapTargetSize.values()[ThemeDataObjSt.materialTapTargetSize(st)];
-    return fld;
+    return MaterialTapTargetSize.values()[ThemeDataObjSt.materialTapTargetSize(st)];
   }
   public TargetPlatform platform() {
-    TargetPlatform fld = TargetPlatform.values()[ThemeDataObjSt.platform(st)];
-    return fld;
+    return TargetPlatform.values()[ThemeDataObjSt.platform(st)];
   }
   public boolean useMaterial3() {
-    boolean fld = intToBool(ThemeDataObjSt.useMaterial3(st));
-    return fld;
+    return intToBool(ThemeDataObjSt.useMaterial3(st));
   }
   public Color canvasColor() {
-    Color fld = new Color(ThemeDataObjSt.canvasColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.canvasColor(st)) {};
   }
   public Color cardColor() {
-    Color fld = new Color(ThemeDataObjSt.cardColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.cardColor(st)) {};
   }
   public ColorScheme colorScheme() {
-    ColorScheme fld = new ColorScheme(ThemeDataObjSt.colorScheme(st)) {};
-    return fld;
+    return new ColorScheme(ThemeDataObjSt.colorScheme(st)) {};
   }
   public Color disabledColor() {
-    Color fld = new Color(ThemeDataObjSt.disabledColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.disabledColor(st)) {};
   }
   public Color dividerColor() {
-    Color fld = new Color(ThemeDataObjSt.dividerColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.dividerColor(st)) {};
   }
   public Color focusColor() {
-    Color fld = new Color(ThemeDataObjSt.focusColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.focusColor(st)) {};
   }
   public Color highlightColor() {
-    Color fld = new Color(ThemeDataObjSt.highlightColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.highlightColor(st)) {};
   }
   public Color hintColor() {
-    Color fld = new Color(ThemeDataObjSt.hintColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.hintColor(st)) {};
   }
   public Color hoverColor() {
-    Color fld = new Color(ThemeDataObjSt.hoverColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.hoverColor(st)) {};
   }
   public Color indicatorColor() {
-    Color fld = new Color(ThemeDataObjSt.indicatorColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.indicatorColor(st)) {};
   }
   public Color primaryColor() {
-    Color fld = new Color(ThemeDataObjSt.primaryColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.primaryColor(st)) {};
   }
   public Color primaryColorDark() {
-    Color fld = new Color(ThemeDataObjSt.primaryColorDark(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.primaryColorDark(st)) {};
   }
   public Color primaryColorLight() {
-    Color fld = new Color(ThemeDataObjSt.primaryColorLight(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.primaryColorLight(st)) {};
   }
   public Color scaffoldBackgroundColor() {
-    Color fld = new Color(ThemeDataObjSt.scaffoldBackgroundColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.scaffoldBackgroundColor(st)) {};
   }
   public Color secondaryHeaderColor() {
-    Color fld = new Color(ThemeDataObjSt.secondaryHeaderColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.secondaryHeaderColor(st)) {};
   }
   public Color shadowColor() {
-    Color fld = new Color(ThemeDataObjSt.shadowColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.shadowColor(st)) {};
   }
   public Color splashColor() {
-    Color fld = new Color(ThemeDataObjSt.splashColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.splashColor(st)) {};
   }
   public Color unselectedWidgetColor() {
-    Color fld = new Color(ThemeDataObjSt.unselectedWidgetColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.unselectedWidgetColor(st)) {};
+  }
+  public TextTheme primaryTextTheme() {
+    return new TextTheme(ThemeDataObjSt.primaryTextTheme(st)) {};
+  }
+  public TextTheme textTheme() {
+    return new TextTheme(ThemeDataObjSt.textTheme(st)) {};
   }
   public Color dialogBackgroundColor() {
-    Color fld = new Color(ThemeDataObjSt.dialogBackgroundColor(st)) {};
-    return fld;
+    return new Color(ThemeDataObjSt.dialogBackgroundColor(st)) {};
   }
   public Brightness brightness() {
-    Brightness fld = Brightness.values()[ThemeDataObjSt.brightness(st)];
-    return fld;
+    return Brightness.values()[ThemeDataObjSt.brightness(st)];
   }
 }

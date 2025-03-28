@@ -7,10 +7,11 @@ import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
-  int textText(String data, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+  int textText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     var st = WidgetFactories.text(factories);
     var fn = WidgetFactories.TextSt.text(st);
     return WidgetFactories.TextSt.text.invoke(fn, arena.allocateFrom(data),
+      ptrObj(style),
       ptrEnum(textAlign),
       ptrEnum(textDirection),
       ptrBool(softWrap),
@@ -21,10 +22,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(textWidthBasis),
       ptrObj(selectionColor));
   }
-  int textRich(InlineSpan textSpan, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+  int textRich(InlineSpan textSpan, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     var st = WidgetFactories.text(factories);
     var fn = WidgetFactories.TextSt.rich(st);
     return WidgetFactories.TextSt.rich.invoke(fn, textSpan.getId(),
+      ptrObj(style),
       ptrEnum(textAlign),
       ptrEnum(textDirection),
       ptrBool(softWrap),
@@ -34,6 +36,36 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(semanticsLabel),
       ptrEnum(textWidthBasis),
       ptrObj(selectionColor));
+  }
+
+  MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
+    var st = WidgetFactories.textStyle(factories);
+    var fn = WidgetFactories.TextStyleSt.textStyle(st);
+    return WidgetFactories.TextStyleSt.textStyle.invoke(fn, arena, ptrBool(inherit),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptr(fontSize),
+      ptrEnum(fontStyle),
+      ptr(letterSpacing),
+      ptr(wordSpacing),
+      ptrEnum(textBaseline),
+      ptr(height),
+      ptrEnum(leadingDistribution),
+      ptrObj(decorationColor),
+      ptrEnum(decorationStyle),
+      ptr(decorationThickness),
+      ptrStr(debugLabel),
+      ptrStr(fontFamily),
+      ptrStrList(fontFamilyFallback),
+      ptrStr(_package),
+      ptrEnum(overflow));
+  }
+  MemorySegment textStyleLerp(TextStyle a, TextStyle b, double t) {
+    var st = WidgetFactories.textStyle(factories);
+    var fn = WidgetFactories.TextStyleSt.lerp(st);
+    return WidgetFactories.TextStyleSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
   }
 
   int colorColor(int value) {
@@ -499,7 +531,44 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ColorSchemeSt.of.invoke(fn, arena, context.getId());
   }
 
-  int appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
+  MemorySegment textThemeTextTheme(Optional<TextStyle> displayLarge, Optional<TextStyle> displayMedium, Optional<TextStyle> displaySmall, Optional<TextStyle> headlineLarge, Optional<TextStyle> headlineMedium, Optional<TextStyle> headlineSmall, Optional<TextStyle> titleLarge, Optional<TextStyle> titleMedium, Optional<TextStyle> titleSmall, Optional<TextStyle> bodyLarge, Optional<TextStyle> bodyMedium, Optional<TextStyle> bodySmall, Optional<TextStyle> labelLarge, Optional<TextStyle> labelMedium, Optional<TextStyle> labelSmall) {
+    var st = WidgetFactories.textTheme(factories);
+    var fn = WidgetFactories.TextThemeSt.textTheme(st);
+    return WidgetFactories.TextThemeSt.textTheme.invoke(fn, arena, ptrObj(displayLarge),
+      ptrObj(displayMedium),
+      ptrObj(displaySmall),
+      ptrObj(headlineLarge),
+      ptrObj(headlineMedium),
+      ptrObj(headlineSmall),
+      ptrObj(titleLarge),
+      ptrObj(titleMedium),
+      ptrObj(titleSmall),
+      ptrObj(bodyLarge),
+      ptrObj(bodyMedium),
+      ptrObj(bodySmall),
+      ptrObj(labelLarge),
+      ptrObj(labelMedium),
+      ptrObj(labelSmall));
+  }
+  MemorySegment textThemeLerp(TextTheme a, TextTheme b, double t) {
+    var st = WidgetFactories.textTheme(factories);
+    var fn = WidgetFactories.TextThemeSt.lerp(st);
+    return WidgetFactories.TextThemeSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
+  }
+  MemorySegment textThemeOf(BuildContext context) {
+    var st = WidgetFactories.textTheme(factories);
+    var fn = WidgetFactories.TextThemeSt.of(st);
+    return WidgetFactories.TextThemeSt.of.invoke(fn, arena, context.getId());
+  }
+  MemorySegment textThemePrimaryOf(BuildContext context) {
+    var st = WidgetFactories.textTheme(factories);
+    var fn = WidgetFactories.TextThemeSt.primaryOf(st);
+    return WidgetFactories.TextThemeSt.primaryOf.invoke(fn, arena, context.getId());
+  }
+
+  int appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
     var st = WidgetFactories.appBar(factories);
     var fn = WidgetFactories.AppBarSt.appBar(st);
     return WidgetFactories.AppBarSt.appBar.invoke(fn, ptrObj(leading),
@@ -522,6 +591,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(bottomOpacity),
       ptr(toolbarHeight),
       ptr(leadingWidth),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
       ptrBool(forceMaterialTransparency),
       ptrEnum(clipBehavior));
   }
@@ -597,7 +668,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(useInheritedMediaQuery));
   }
 
-  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
     return WidgetFactories.ThemeDataSt.themeData.invoke(fn, arena, ptrBool(applyElevationOverlayColor),
@@ -627,15 +698,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(fontFamily),
       ptrStrList(fontFamilyFallback),
       ptrStr(_package),
+      ptrObj(primaryTextTheme),
+      ptrObj(textTheme),
       ptrObj(cardTheme),
       ptrObj(dialogTheme),
       ptrObj(tabBarTheme),
       ptrObj(dialogBackgroundColor));
   }
-  MemorySegment themeDataFrom(ColorScheme colorScheme, Optional<Boolean> useMaterial3) {
+  MemorySegment themeDataFrom(ColorScheme colorScheme, Optional<TextTheme> textTheme, Optional<Boolean> useMaterial3) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.from(st);
     return WidgetFactories.ThemeDataSt.from.invoke(fn, arena, colorScheme.getId(),
+      ptrObj(textTheme),
       ptrBool(useMaterial3));
   }
   MemorySegment themeDataLight(Optional<Boolean> useMaterial3) {
@@ -652,6 +726,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.fallback(st);
     return WidgetFactories.ThemeDataSt.fallback.invoke(fn, arena, ptrBool(useMaterial3));
+  }
+  MemorySegment themeDataLocalize(ThemeData baseTheme, TextTheme localTextGeometry) {
+    var st = WidgetFactories.themeData(factories);
+    var fn = WidgetFactories.ThemeDataSt.localize(st);
+    return WidgetFactories.ThemeDataSt.localize.invoke(fn, arena, baseTheme.getId(),
+      localTextGeometry.getId());
   }
   int themeDataEstimateBrightnessForColor(Color color) {
     var st = WidgetFactories.themeData(factories);
@@ -734,7 +814,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
+  int floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.extended(st);
     return WidgetFactories.FloatingActionButtonSt.extended.invoke(fn, ptrStr(tooltip),
@@ -755,6 +835,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptr(extendedIconLabelSpacing),
+      ptrObj(extendedTextStyle),
       ptrObj(icon),
       label.getId(),
       ptrBool(enableFeedback));

@@ -1,5 +1,26 @@
 typedef struct {
   int id;
+  int inherit;
+  DartObj color;
+  DartObj backgroundColor;
+  char* fontFamily;
+  double fontSize;
+  int fontStyle;
+  double letterSpacing;
+  double wordSpacing;
+  int textBaseline;
+  double height;
+  int leadingDistribution;
+  DartObj decorationColor;
+  int decorationStyle;
+  double decorationThickness;
+  char* debugLabel;
+  int overflow;
+  char** fontFamilyFallback;
+} TextStyleObjSt;
+
+typedef struct {
+  int id;
   int codePoint;
   char* fontFamily;
   char* fontPackage;
@@ -63,6 +84,25 @@ typedef struct {
 
 typedef struct {
   int id;
+  TextStyleObjSt displayLarge;
+  TextStyleObjSt displayMedium;
+  TextStyleObjSt displaySmall;
+  TextStyleObjSt headlineLarge;
+  TextStyleObjSt headlineMedium;
+  TextStyleObjSt headlineSmall;
+  TextStyleObjSt titleLarge;
+  TextStyleObjSt titleMedium;
+  TextStyleObjSt titleSmall;
+  TextStyleObjSt bodyLarge;
+  TextStyleObjSt bodyMedium;
+  TextStyleObjSt bodySmall;
+  TextStyleObjSt labelLarge;
+  TextStyleObjSt labelMedium;
+  TextStyleObjSt labelSmall;
+} TextThemeObjSt;
+
+typedef struct {
+  int id;
   int applyElevationOverlayColor;
   int materialTapTargetSize;
   int platform;
@@ -85,6 +125,8 @@ typedef struct {
   DartObj shadowColor;
   DartObj splashColor;
   DartObj unselectedWidgetColor;
+  TextThemeObjSt primaryTextTheme;
+  TextThemeObjSt textTheme;
   DartObj dialogBackgroundColor;
   int brightness;
 } ThemeDataObjSt;
