@@ -5,7 +5,11 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextThemeObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class TextTheme extends NativeObj.Base {
+public class TextTheme extends NativeObj.Base implements TextThemeI {
+  @Override
+  public TextTheme build() {
+    return this;
+  }
   private MemorySegment st;
   TextTheme(MemorySegment st) {
     this.id = TextThemeObjSt.id(st);
@@ -13,42 +17,42 @@ public class TextTheme extends NativeObj.Base {
     System.out.println("New TextTheme id:"+id);
   }
   @Builder.Factory
-  static TextTheme textThemeTextTheme(Optional<TextStyle> displayLarge, Optional<TextStyle> displayMedium, Optional<TextStyle> displaySmall, Optional<TextStyle> headlineLarge, Optional<TextStyle> headlineMedium, Optional<TextStyle> headlineSmall, Optional<TextStyle> titleLarge, Optional<TextStyle> titleMedium, Optional<TextStyle> titleSmall, Optional<TextStyle> bodyLarge, Optional<TextStyle> bodyMedium, Optional<TextStyle> bodySmall, Optional<TextStyle> labelLarge, Optional<TextStyle> labelMedium, Optional<TextStyle> labelSmall) {
-    var st = factories.textThemeTextTheme(displayLarge,
-      displayMedium,
-      displaySmall,
-      headlineLarge,
-      headlineMedium,
-      headlineSmall,
-      titleLarge,
-      titleMedium,
-      titleSmall,
-      bodyLarge,
-      bodyMedium,
-      bodySmall,
-      labelLarge,
-      labelMedium,
-      labelSmall);
+  static TextTheme textThemeTextTheme(Optional<TextStyleI> displayLarge, Optional<TextStyleI> displayMedium, Optional<TextStyleI> displaySmall, Optional<TextStyleI> headlineLarge, Optional<TextStyleI> headlineMedium, Optional<TextStyleI> headlineSmall, Optional<TextStyleI> titleLarge, Optional<TextStyleI> titleMedium, Optional<TextStyleI> titleSmall, Optional<TextStyleI> bodyLarge, Optional<TextStyleI> bodyMedium, Optional<TextStyleI> bodySmall, Optional<TextStyleI> labelLarge, Optional<TextStyleI> labelMedium, Optional<TextStyleI> labelSmall) {
+    var st = factories.textThemeTextTheme(displayLarge.map(TextStyleI::build),
+      displayMedium.map(TextStyleI::build),
+      displaySmall.map(TextStyleI::build),
+      headlineLarge.map(TextStyleI::build),
+      headlineMedium.map(TextStyleI::build),
+      headlineSmall.map(TextStyleI::build),
+      titleLarge.map(TextStyleI::build),
+      titleMedium.map(TextStyleI::build),
+      titleSmall.map(TextStyleI::build),
+      bodyLarge.map(TextStyleI::build),
+      bodyMedium.map(TextStyleI::build),
+      bodySmall.map(TextStyleI::build),
+      labelLarge.map(TextStyleI::build),
+      labelMedium.map(TextStyleI::build),
+      labelSmall.map(TextStyleI::build));
     if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
     return new TextTheme(st);
   }
   public static TextThemeTextThemeBuilder textTheme() {
     return TextThemeTextThemeBuilder.textThemeTextTheme();
   }
-  public static TextTheme lerp(TextTheme a, TextTheme b, double t) {
-    var st = factories.textThemeLerp(a,
-      b,
+  public static TextTheme lerp(TextThemeI a, TextThemeI b, double t) {
+    var st = factories.textThemeLerp(a.build(),
+      b.build(),
       t);
     if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
     return new TextTheme(st);
   }
-  public static TextTheme of(BuildContext context) {
-    var st = factories.textThemeOf(context);
+  public static TextTheme of(BuildContextI context) {
+    var st = factories.textThemeOf(context.build());
     if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
     return new TextTheme(st);
   }
-  public static TextTheme primaryOf(BuildContext context) {
-    var st = factories.textThemePrimaryOf(context);
+  public static TextTheme primaryOf(BuildContextI context) {
+    var st = factories.textThemePrimaryOf(context.build());
     if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
     return new TextTheme(st);
   }

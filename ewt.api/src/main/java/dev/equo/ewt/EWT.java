@@ -7,7 +7,7 @@ public class EWT {
   public static TextTextBuilder Text(String data) {
     return TextTextBuilder.textText(data);
   }
-  public static TextRichBuilder Text_rich(InlineSpan textSpan) {
+  public static TextRichBuilder Text_rich(InlineSpanI textSpan) {
     return TextRichBuilder.textRich(textSpan);
   }
 
@@ -48,14 +48,14 @@ public class EWT {
     return IconDataIconDataBuilder.iconDataIconData(codePoint);
   }
 
-  public static IconIconBuilder Icon(IconData icon) {
+  public static IconIconBuilder Icon(IconDataI icon) {
     return IconIconBuilder.iconIcon(icon);
   }
 
-  public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, Color primary, Color onPrimary) {
+  public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
-  public static ColorSchemeFromSeedBuilder ColorScheme_fromSeed(Color seedColor) {
+  public static ColorSchemeFromSeedBuilder ColorScheme_fromSeed(ColorI seedColor) {
     return ColorSchemeFromSeedBuilder.colorSchemeFromSeed(seedColor);
   }
   public static ColorSchemeLightBuilder ColorScheme_light() {
@@ -96,7 +96,7 @@ public class EWT {
   public static ThemeDataThemeDataBuilder ThemeData() {
     return ThemeDataThemeDataBuilder.themeDataThemeData();
   }
-  public static ThemeDataFromBuilder ThemeData_from(ColorScheme colorScheme) {
+  public static ThemeDataFromBuilder ThemeData_from(ColorSchemeI colorScheme) {
     return ThemeDataFromBuilder.themeDataFrom(colorScheme);
   }
   public static ThemeDataLightBuilder ThemeData_light() {
@@ -122,7 +122,7 @@ public class EWT {
     return FloatingActionButtonExtendedBuilder.floatingActionButtonExtended();
   }
 
-  public static ThemeThemeBuilder Theme(ThemeData data, Widget child) {
+  public static ThemeThemeBuilder Theme(ThemeDataI data, WidgetI child) {
     return ThemeThemeBuilder.themeTheme(data, child);
   }
 

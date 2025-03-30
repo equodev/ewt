@@ -5,7 +5,11 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ThemeDataObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class ThemeData extends NativeObj.Base {
+public class ThemeData extends NativeObj.Base implements ThemeDataI {
+  @Override
+  public ThemeData build() {
+    return this;
+  }
   private MemorySegment st;
   ThemeData(MemorySegment st) {
     this.id = ThemeDataObjSt.id(st);
@@ -13,40 +17,40 @@ public class ThemeData extends NativeObj.Base {
     System.out.println("New ThemeData id:"+id);
   }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> indicatorColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> cardTheme, Optional<NativeObj.I> dialogTheme, Optional<NativeObj.I> tabBarTheme, Optional<ColorI> dialogBackgroundColor) {
     var st = factories.themeDataThemeData(applyElevationOverlayColor,
       materialTapTargetSize,
       platform,
       useMaterial3,
-      colorScheme,
+      colorScheme.map(ColorSchemeI::build),
       brightness,
-      colorSchemeSeed,
-      canvasColor,
-      cardColor,
-      disabledColor,
-      dividerColor,
-      focusColor,
-      highlightColor,
-      hintColor,
-      hoverColor,
-      indicatorColor,
-      primaryColor,
-      primaryColorDark,
-      primaryColorLight,
-      scaffoldBackgroundColor,
-      secondaryHeaderColor,
-      shadowColor,
-      splashColor,
-      unselectedWidgetColor,
+      colorSchemeSeed.map(ColorI::build),
+      canvasColor.map(ColorI::build),
+      cardColor.map(ColorI::build),
+      disabledColor.map(ColorI::build),
+      dividerColor.map(ColorI::build),
+      focusColor.map(ColorI::build),
+      highlightColor.map(ColorI::build),
+      hintColor.map(ColorI::build),
+      hoverColor.map(ColorI::build),
+      indicatorColor.map(ColorI::build),
+      primaryColor.map(ColorI::build),
+      primaryColorDark.map(ColorI::build),
+      primaryColorLight.map(ColorI::build),
+      scaffoldBackgroundColor.map(ColorI::build),
+      secondaryHeaderColor.map(ColorI::build),
+      shadowColor.map(ColorI::build),
+      splashColor.map(ColorI::build),
+      unselectedWidgetColor.map(ColorI::build),
       fontFamily,
       fontFamilyFallback,
       _package,
-      primaryTextTheme,
-      textTheme,
-      cardTheme,
-      dialogTheme,
-      tabBarTheme,
-      dialogBackgroundColor);
+      primaryTextTheme.map(TextThemeI::build),
+      textTheme.map(TextThemeI::build),
+      cardTheme.map(NativeObj.I::build),
+      dialogTheme.map(NativeObj.I::build),
+      tabBarTheme.map(NativeObj.I::build),
+      dialogBackgroundColor.map(ColorI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);
   }
@@ -54,14 +58,14 @@ public class ThemeData extends NativeObj.Base {
     return ThemeDataThemeDataBuilder.themeDataThemeData();
   }
   @Builder.Factory
-  static ThemeData themeDataFrom(@Builder.Parameter ColorScheme colorScheme, Optional<TextTheme> textTheme, Optional<Boolean> useMaterial3) {
-    var st = factories.themeDataFrom(colorScheme,
-      textTheme,
+  static ThemeData themeDataFrom(@Builder.Parameter ColorSchemeI colorScheme, Optional<TextThemeI> textTheme, Optional<Boolean> useMaterial3) {
+    var st = factories.themeDataFrom(colorScheme.build(),
+      textTheme.map(TextThemeI::build),
       useMaterial3);
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);
   }
-  public static ThemeDataFromBuilder from(ColorScheme colorScheme) {
+  public static ThemeDataFromBuilder from(ColorSchemeI colorScheme) {
     return ThemeDataFromBuilder.themeDataFrom(colorScheme);
   }
   @Builder.Factory
@@ -91,21 +95,21 @@ public class ThemeData extends NativeObj.Base {
   public static ThemeDataFallbackBuilder fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
   }
-  public static ThemeData localize(ThemeData baseTheme, TextTheme localTextGeometry) {
-    var st = factories.themeDataLocalize(baseTheme,
-      localTextGeometry);
+  public static ThemeData localize(ThemeDataI baseTheme, TextThemeI localTextGeometry) {
+    var st = factories.themeDataLocalize(baseTheme.build(),
+      localTextGeometry.build());
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);
   }
-  public static Brightness estimateBrightnessForColor(Color color) {
-    int id = factories.themeDataEstimateBrightnessForColor(color);
+  public static Brightness estimateBrightnessForColor(ColorI color) {
+    int id = factories.themeDataEstimateBrightnessForColor(color.build());
     if (id == -1) throw new RuntimeException("Failed to created widget Brightness");
     System.out.println("New Brightness id:"+id);
     return Brightness.values()[id];
   }
-  public static ThemeData lerp(ThemeData a, ThemeData b, double t) {
-    var st = factories.themeDataLerp(a,
-      b,
+  public static ThemeData lerp(ThemeDataI a, ThemeDataI b, double t) {
+    var st = factories.themeDataLerp(a.build(),
+      b.build(),
       t);
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);

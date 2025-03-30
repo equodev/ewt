@@ -2,23 +2,27 @@ package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
 import org.immutables.builder.Builder;
-public class MaterialApp extends StatefulWidget {
+public class MaterialApp extends StatefulWidget implements MaterialAppI {
+  @Override
+  public MaterialApp build() {
+    return this;
+  }
   MaterialApp() {}
   MaterialApp(int id) {
     this.id = id;
   }
   @Builder.Factory
-  static MaterialApp materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    int id = factories.materialAppMaterialApp(home,
+  static MaterialApp materialAppMaterialApp(Optional<WidgetI> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    int id = factories.materialAppMaterialApp(home.map(WidgetI::build),
       initialRoute,
       builder,
       title,
       onGenerateTitle,
-      color,
-      theme,
-      darkTheme,
-      highContrastTheme,
-      highContrastDarkTheme,
+      color.map(ColorI::build),
+      theme.map(ThemeDataI::build),
+      darkTheme.map(ThemeDataI::build),
+      highContrastTheme.map(ThemeDataI::build),
+      highContrastDarkTheme.map(ThemeDataI::build),
       themeMode,
       debugShowMaterialGrid,
       showPerformanceOverlay,
@@ -36,15 +40,15 @@ public class MaterialApp extends StatefulWidget {
     return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
   }
   @Builder.Factory
-  static MaterialApp materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  static MaterialApp materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     int id = factories.materialAppRouter(builder,
       title,
       onGenerateTitle,
-      color,
-      theme,
-      darkTheme,
-      highContrastTheme,
-      highContrastDarkTheme,
+      color.map(ColorI::build),
+      theme.map(ThemeDataI::build),
+      darkTheme.map(ThemeDataI::build),
+      highContrastTheme.map(ThemeDataI::build),
+      highContrastDarkTheme.map(ThemeDataI::build),
       themeMode,
       debugShowMaterialGrid,
       showPerformanceOverlay,
