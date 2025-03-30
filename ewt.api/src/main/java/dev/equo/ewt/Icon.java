@@ -2,20 +2,24 @@ package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
 import org.immutables.builder.Builder;
-public class Icon extends StatelessWidget {
+public class Icon extends StatelessWidget implements IconI {
+  @Override
+  public Icon build() {
+    return this;
+  }
   Icon() {}
   Icon(int id) {
     this.id = id;
   }
   @Builder.Factory
-  static Icon iconIcon(@Builder.Parameter IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
-    int id = factories.iconIcon(icon,
+  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+    int id = factories.iconIcon(icon.build(),
       size,
       fill,
       weight,
       grade,
       opticalSize,
-      color,
+      color.map(ColorI::build),
       semanticLabel,
       textDirection,
       applyTextScaling,
@@ -24,7 +28,7 @@ public class Icon extends StatelessWidget {
     System.out.println("New Icon id:"+id);
     return new Icon(id);
   }
-  public static IconIconBuilder icon(IconData icon) {
+  public static IconIconBuilder icon(IconDataI icon) {
     return IconIconBuilder.iconIcon(icon);
   }
 }

@@ -1,5 +1,9 @@
 package dev.equo.ewt;
-public abstract class Icons extends NativeObj.Base {
+public abstract class Icons extends NativeObj.Base implements IconsI {
+  @Override
+  public Icons build() {
+    return this;
+  }
   Icons() {}
   Icons(int id) {
     this.id = id;
@@ -3835,7 +3839,7 @@ public abstract class Icons extends NativeObj.Base {
   public static IconData bug_report_outlined() {
     return IconData.iconData(0xef04).fontFamily("MaterialIcons").build();
   }
-  public static IconData build() {
+  public static IconData build_() {
     return IconData.iconData(0xe116).fontFamily("MaterialIcons").build();
   }
   public static IconData build_sharp() {

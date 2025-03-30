@@ -18,7 +18,30 @@ dependencies {
     compileOnly("org.immutables:builder:2.10.1")
     annotationProcessor("org.immutables:value:2.10.1")
     annotationProcessor("org.immutables:builder:2.10.1")
+    annotationProcessor(project(":annotation-processor"))
     implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
+}
+
+// Split annotation processors from compile to modify immutable generated classes
+val processCustom = tasks.register<JavaCompile>("processCustom") {
+    source = sourceSets.main.get().java
+    classpath = sourceSets.main.get().compileClasspath
+    destinationDirectory.set(layout.buildDirectory.dir("generated/sources/immutables"))
+    options.compilerArgs.add("-proc:only")
+    options.annotationProcessorPath = configurations.annotationProcessor.get()
+}
+
+tasks.named<JavaCompile>("compileJava") {
+    options.compilerArgs.add("-proc:none")
+    dependsOn(processCustom)
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("${layout.buildDirectory.get()}/generated/sources/immutables")
+        }
+    }
 }
 
 tasks.test {

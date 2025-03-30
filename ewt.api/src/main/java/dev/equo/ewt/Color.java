@@ -2,7 +2,11 @@ package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
 import org.immutables.builder.Builder;
-public class Color extends NativeObj.Base {
+public class Color extends NativeObj.Base implements ColorI {
+  @Override
+  public Color build() {
+    return this;
+  }
   Color() {}
   Color(int id) {
     this.id = id;
@@ -57,17 +61,17 @@ public class Color extends NativeObj.Base {
   public static ColorFromRGBOBuilder fromRGBO(int r, int g, int b, double opacity) {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
-  public static Color lerp(Color x, Color y, double t) {
-    int id = factories.colorLerp(x,
-      y,
+  public static Color lerp(ColorI x, ColorI y, double t) {
+    int id = factories.colorLerp(x.build(),
+      y.build(),
       t);
     if (id == -1) throw new RuntimeException("Failed to created widget Color?");
     System.out.println("New Color? id:"+id);
     return new Color(id);
   }
-  public static Color alphaBlend(Color foreground, Color background) {
-    int id = factories.colorAlphaBlend(foreground,
-      background);
+  public static Color alphaBlend(ColorI foreground, ColorI background) {
+    int id = factories.colorAlphaBlend(foreground.build(),
+      background.build());
     if (id == -1) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);

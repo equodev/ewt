@@ -5,7 +5,11 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextStyleObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class TextStyle extends NativeObj.Base {
+public class TextStyle extends NativeObj.Base implements TextStyleI {
+  @Override
+  public TextStyle build() {
+    return this;
+  }
   private MemorySegment st;
   TextStyle(MemorySegment st) {
     this.id = TextStyleObjSt.id(st);
@@ -13,10 +17,10 @@ public class TextStyle extends NativeObj.Base {
     System.out.println("New TextStyle id:"+id);
   }
   @Builder.Factory
-  static TextStyle textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
+  static TextStyle textStyleTextStyle(Optional<Boolean> inherit, Optional<ColorI> color, Optional<ColorI> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<ColorI> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = factories.textStyleTextStyle(inherit,
-      color,
-      backgroundColor,
+      color.map(ColorI::build),
+      backgroundColor.map(ColorI::build),
       fontSize,
       fontStyle,
       letterSpacing,
@@ -24,7 +28,7 @@ public class TextStyle extends NativeObj.Base {
       textBaseline,
       height,
       leadingDistribution,
-      decorationColor,
+      decorationColor.map(ColorI::build),
       decorationStyle,
       decorationThickness,
       debugLabel,
@@ -38,9 +42,9 @@ public class TextStyle extends NativeObj.Base {
   public static TextStyleTextStyleBuilder textStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();
   }
-  public static TextStyle lerp(TextStyle a, TextStyle b, double t) {
-    var st = factories.textStyleLerp(a,
-      b,
+  public static TextStyle lerp(TextStyleI a, TextStyleI b, double t) {
+    var st = factories.textStyleLerp(a.build(),
+      b.build(),
       t);
     if (st == null) throw new RuntimeException("Failed to created widget TextStyle");
     return new TextStyle(st);

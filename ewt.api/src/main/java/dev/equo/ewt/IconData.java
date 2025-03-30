@@ -5,7 +5,11 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.IconDataObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class IconData extends NativeObj.Base {
+public class IconData extends NativeObj.Base implements IconDataI {
+  @Override
+  public IconData build() {
+    return this;
+  }
   private MemorySegment st;
   IconData(MemorySegment st) {
     this.id = IconDataObjSt.id(st);

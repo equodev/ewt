@@ -1,0 +1,57 @@
+package dev.equo.ewt.processor;
+
+import com.google.auto.service.AutoService;
+
+import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
+import javax.tools.JavaFileObject;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.HashSet;
+import java.util.Set;
+
+
+@AutoService(Processor.class)
+@SupportedAnnotationTypes({/*"org.immutables.builder.Builder.Factory",*/ "org.immutables.value.Generated"})
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
+public class BuilderModifierProcessor extends AbstractProcessor {
+
+  @Override
+  public synchronized void init(ProcessingEnvironment processingEnv) {
+    super.init(processingEnv);
+  }
+
+  @Override
+  public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    TypeElement genAnno = processingEnv.getElementUtils().getTypeElement("org.immutables.value.Generated");
+    for (Element el : roundEnv.getElementsAnnotatedWith(genAnno)) {
+      TypeElement builderTypeEl = (TypeElement) el;
+      if (builderTypeEl.getInterfaces().isEmpty()) {
+        String widgetClass = builderTypeEl.getEnclosedElements().stream()
+            .filter(m -> "build".equals(m.getSimpleName().toString()))
+            .map(ExecutableElement.class::cast)
+            .map(ExecutableElement::getReturnType)
+            .map(TypeMirror::toString).findFirst().get();
+        String widgetIName = widgetClass + "I";
+        try {
+          JavaFileObject fileObj = processingEnv.getElementUtils().getFileObjectOf(builderTypeEl);
+          String content = fileObj.getCharContent(true).toString();
+          String modifiedSource = content.replace("Builder {", "Builder implements " + widgetIName + " {");
+          processingEnv.getMessager().printNote("Modifying " + el.getSimpleName());
+          try (Writer writer = fileObj.openWriter()) {
+            writer.write(modifiedSource);
+          }
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    return annotations.stream().anyMatch(a -> a.getQualifiedName().toString().equals("org.immutables.value.Generated"));
+  }
+
+}

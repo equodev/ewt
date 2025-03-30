@@ -1,6 +1,17 @@
 package dev.equo;
 
-import dev.equo.ewt.*;
+//import dev.equo.ewt.*;
+
+import dev.equo.ewt.App;
+import dev.equo.ewt.BuildContext;
+import dev.equo.ewt.MainAxisAlignment;
+import dev.equo.ewt.SubStatelessWidget;
+import dev.equo.ewt.SubStatefulWidget;
+import dev.equo.ewt.SubState;
+import dev.equo.ewt.State;
+import dev.equo.ewt.Theme;
+import dev.equo.ewt.Icons;
+import dev.equo.ewt.WidgetI;
 
 import static dev.equo.ewt.EWT.*;
 
@@ -15,15 +26,13 @@ public class Counter {
   static class MyApp extends SubStatelessWidget {
 
     @Override
-    protected Widget build(BuildContext context) {
+    protected WidgetI build(BuildContext context) {
       return MaterialApp()
           .title("EWT Demo")
           .theme(ThemeData()
-              .colorScheme(ColorScheme_fromSeed(Color(0xFF311B92).build()).build())
-              .useMaterial3(true)
-              .build())
-          .home(new MyHomePage("Flutter Demo Home Page"))
-          .build();
+              .colorScheme(ColorScheme_fromSeed(Color(0xFF311B92)))
+              .useMaterial3(true))
+          .home(new MyHomePage("Flutter Demo Home Page"));
     }
 
     private class MyHomePage extends SubStatefulWidget {
@@ -60,34 +69,24 @@ public class Counter {
       }
 
       @Override
-      public Widget build(BuildContext context) {
+      public WidgetI build(BuildContext context) {
         return Scaffold()
             .appBar(AppBar()
                 .backgroundColor(Theme.of(context).colorScheme().inversePrimary())
-                .title(Text(widget.title).build())
-                .build()
-            )
+                .title(Text(widget.title)))
             .body(Center()
                 .child(Column()
                     .mainAxisAlignment(MainAxisAlignment.center)
                     .children(List.of(
-                        Text("You have pushed the button this many times:")
-                            .build(),
+                        Text("You have pushed the button this many times:"),
                         Text("" + _counter)
                             .style(Theme.of(context).textTheme().headlineMedium())
-                            .build()
                     ))
-                    .build()
-                )
-                .build()
-            )
+                ))
             .floatingActionButton(FloatingActionButton()
                 .onPressed(this::_incrementCounter)
                 .tooltip("Increment")
-                .child(Icon(Icons.add()).build())
-                .build()
-            )
-            .build();
+                .child(Icon(Icons.add())));
       }
     }
   }
