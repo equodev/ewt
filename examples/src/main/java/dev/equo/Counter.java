@@ -13,18 +13,7 @@ import dev.equo.ewt.Theme;
 import dev.equo.ewt.Icons;
 import dev.equo.ewt.WidgetI;
 
-import static dev.equo.ewt.EWT.MaterialApp;
-import static dev.equo.ewt.EWT.ThemeData;
-import static dev.equo.ewt.EWT.Color;
-import static dev.equo.ewt.EWT.ColorScheme_fromSeed;
-import static dev.equo.ewt.EWT.Text;
-import static dev.equo.ewt.EWT.Scaffold;
-import static dev.equo.ewt.EWT.AppBar;
-import static dev.equo.ewt.EWT.Theme;
-import static dev.equo.ewt.EWT.Center;
-import static dev.equo.ewt.EWT.Column;
-import static dev.equo.ewt.EWT.FloatingActionButton;
-import static dev.equo.ewt.EWT.Icon;
+import static dev.equo.ewt.EWT.*;
 
 import java.util.List;
 
@@ -81,11 +70,10 @@ public class Counter {
 
       @Override
       public WidgetI build(BuildContext context) {
-        WidgetI text = Text(widget.title);
         return Scaffold()
             .appBar(AppBar()
                 .backgroundColor(Theme.of(context).colorScheme().inversePrimary())
-                .title(text))
+                .title(Text(widget.title)))
             .body(Center()
                 .child(Column()
                     .mainAxisAlignment(MainAxisAlignment.center)

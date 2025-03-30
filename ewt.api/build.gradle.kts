@@ -22,71 +22,24 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
 }
 
-//tasks.withType<JavaCompile>().configureEach {
-    // Disable annotation processing in the main compile task
-//    options.compilerArgs.add("-proc:none")
-//}
-
-// Create a task for Immutables processing
-val processImmutables = tasks.register<JavaCompile>("processImmutables") {
+// Split annotation processors from compile to modify immutable generated classes
+val processCustom = tasks.register<JavaCompile>("processCustom") {
     source = sourceSets.main.get().java
     classpath = sourceSets.main.get().compileClasspath
     destinationDirectory.set(layout.buildDirectory.dir("generated/sources/immutables"))
+    options.compilerArgs.add("-proc:only")
     options.annotationProcessorPath = configurations.annotationProcessor.get()
-    options.compilerArgs.removeIf { it.contains("Processor") || it.startsWith("-proc") }
-    options.compilerArgs.add("-processor")
-    options.compilerArgs.add("org.immutables.processor.ProxyProcessor")
-    // Use processor-specific output directory
-    options.compilerArgs.add("-s")
-    options.compilerArgs.add("${layout.buildDirectory.get()}/generated/sources/immutables")
 }
 
-// Create a task for your custom processing that depends on Immutables
-val processCustom = tasks.register<JavaCompile>("processCustom") {
-    // Include both original sources and immutables-generated sources
-    source = sourceSets.main.get().java + fileTree("${layout.buildDirectory.get()}/generated/sources/immutables")
-    classpath = sourceSets.main.get().compileClasspath
-    destinationDirectory.set(layout.buildDirectory.dir("generated/sources/custom"))
-    options.annotationProcessorPath = configurations.annotationProcessor.get()
-    options.compilerArgs.removeIf { it.contains("Processor") || it.startsWith("-proc") }
-    options.compilerArgs.clear()
-    options.compilerArgs.add("-processor")
-    options.compilerArgs.add("dev.equo.ewt.processor.BuilderModifierProcessor")
-    options.compilerArgs.add("-s")
-    options.compilerArgs.add("${layout.buildDirectory.get()}/generated/sources/custom")
-    dependsOn(processImmutables)
-}
-
-// Final compilation that includes everything
 tasks.named<JavaCompile>("compileJava") {
-    // Include both original and all generated sources
     options.compilerArgs.add("-proc:none")
-    source = sourceSets.main.get().java +
-            fileTree("${layout.buildDirectory.get()}/generated/sources/immutables") +
-            fileTree("${layout.buildDirectory.get()}/generated/sources/custom")
     dependsOn(processCustom)
 }
 
-// Make sure other tasks depend on the custom process
-val classes = tasks.named("classes") {
-    dependsOn(processCustom)
-}
-
-//tasks.withType<JavaCompile>().configureEach {
-//    options.compilerArgs.add("-processor")
-//    options.compilerArgs.add("org.immutables.processor.ProxyProcessor,dev.equo.BuilderModifierProcessor")
-//
-//    // Force incremental processing off to ensure full reprocessing
-//    options.isIncremental = false
-//}
-
-
-// 3. Add generated source directories to your source sets
 sourceSets {
     main {
         java {
             srcDir("${layout.buildDirectory.get()}/generated/sources/immutables")
-            srcDir("${layout.buildDirectory.get()}/generated/sources/custom")
         }
     }
 }
