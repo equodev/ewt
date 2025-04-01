@@ -1,11 +1,12 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/src/utilities/extensions/string.dart';
+import 'package:generator/types.dart';
 
-import '../generator.dart';
+import 'gen.dart';
 
 class CLang {
-  Generation generation;
+  Types generation;
 
   CLang(this.generation);
 

@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/annotation-processor" />
             <option value="$PROJECT_DIR$/ewt.api" />
             <option value="$PROJECT_DIR$/examples" />
+            <option value="$PROJECT_DIR$/generator" />
             <option value="$PROJECT_DIR$/widgets" />
           </set>
         </option>
