@@ -5,7 +5,7 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.MaterialColorObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class MaterialColor extends ColorSwatch implements MaterialColorI {
+public class MaterialColor extends ColorSwatch<Integer> implements MaterialColorI {
   @Override
   public MaterialColor build() {
     return this;

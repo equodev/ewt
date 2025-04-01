@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-class SubState<T extends StatefulWidget> extends State {
+class SubState<T extends StatefulWidget> extends State<T> {
   final Widget Function(BuildContext) buildFn;
   SubState({required this.buildFn});
   @override

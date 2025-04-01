@@ -156,10 +156,12 @@ class WidgetGen implements AGen {
     javaFile
         .writeln('package dev.equo.ewt;');
     _isInterface = isInterface(dartClass);
+    // var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
     var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
     var builderExtend = '';
     if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
-      extend += ' extends ${dartClass.supertype!.element.name}${dartClass.supertype is TypeParameterizedElement && (dartClass.supertype as TypeParameterizedElement).typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map((p) => p.name).join(', ')}>' : ''}';
+      extend += ' extends ${dartClass.supertype.toString().replaceFirst('int', 'Integer')}';
+      // extend += ' extends ${dartClass.supertype!.element.name}${dartClass.supertype!.typeArguments.isNotEmpty ? '<${dartClass.typeParameters.map((p) => p.name).join(', ')}>' : ''}';
       builderExtend = ' extends ${dartClass.supertype!.element.name}I';
     }
     else {
@@ -631,8 +633,9 @@ class DartSubclassGen {
 
   void gen() {
     final typeParam = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
+    final superTypeParam = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map((t) => t.name).join(', ')}>' : '';
     dartSubclass
-        .writeln('class $widgetClass$typeParam extends ${dartClass.name} {');
+        .writeln('class $widgetClass$typeParam extends ${dartClass.name}$superTypeParam {');
     final methods = dartClass.methods.where((m) => m.isAbstract);
     for (final method in methods) {
       dartSubclass.writeln('  final ${method.type} ${method.name}Fn;');
