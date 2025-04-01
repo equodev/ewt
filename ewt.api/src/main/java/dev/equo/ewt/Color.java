@@ -7,7 +7,7 @@ public class Color extends NativeObj.Base implements ColorI {
   public Color build() {
     return this;
   }
-  Color() {}
+  protected Color() {}
   Color(int id) {
     this.id = id;
   }

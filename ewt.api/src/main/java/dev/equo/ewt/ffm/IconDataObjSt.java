@@ -17,10 +17,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     int codePoint;
- *     char *fontFamily;
- *     char *fontPackage;
  *     int matchTextDirection;
- *     char **fontFamilyFallback;
  * }
  * }
  */
@@ -33,12 +30,8 @@ public class IconDataObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("codePoint"),
-        StarterBridge.C_POINTER.withName("fontFamily"),
-        StarterBridge.C_POINTER.withName("fontPackage"),
-        StarterBridge.C_INT.withName("matchTextDirection"),
-        MemoryLayout.paddingLayout(4),
-        StarterBridge.C_POINTER.withName("fontFamilyFallback")
-    ).withName("$anon$22:9");
+        StarterBridge.C_INT.withName("matchTextDirection")
+    ).withName("$anon$60:9");
 
     /**
      * The layout of this struct
@@ -135,94 +128,6 @@ public class IconDataObjSt {
         struct.set(codePoint$LAYOUT, codePoint$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout fontFamily$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("fontFamily"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * char *fontFamily
-     * }
-     */
-    public static final AddressLayout fontFamily$layout() {
-        return fontFamily$LAYOUT;
-    }
-
-    private static final long fontFamily$OFFSET = 8;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * char *fontFamily
-     * }
-     */
-    public static final long fontFamily$offset() {
-        return fontFamily$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * char *fontFamily
-     * }
-     */
-    public static MemorySegment fontFamily(MemorySegment struct) {
-        return struct.get(fontFamily$LAYOUT, fontFamily$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * char *fontFamily
-     * }
-     */
-    public static void fontFamily(MemorySegment struct, MemorySegment fieldValue) {
-        struct.set(fontFamily$LAYOUT, fontFamily$OFFSET, fieldValue);
-    }
-
-    private static final AddressLayout fontPackage$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("fontPackage"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * char *fontPackage
-     * }
-     */
-    public static final AddressLayout fontPackage$layout() {
-        return fontPackage$LAYOUT;
-    }
-
-    private static final long fontPackage$OFFSET = 16;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * char *fontPackage
-     * }
-     */
-    public static final long fontPackage$offset() {
-        return fontPackage$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * char *fontPackage
-     * }
-     */
-    public static MemorySegment fontPackage(MemorySegment struct) {
-        return struct.get(fontPackage$LAYOUT, fontPackage$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * char *fontPackage
-     * }
-     */
-    public static void fontPackage(MemorySegment struct, MemorySegment fieldValue) {
-        struct.set(fontPackage$LAYOUT, fontPackage$OFFSET, fieldValue);
-    }
-
     private static final OfInt matchTextDirection$LAYOUT = (OfInt)$LAYOUT.select(groupElement("matchTextDirection"));
 
     /**
@@ -235,7 +140,7 @@ public class IconDataObjSt {
         return matchTextDirection$LAYOUT;
     }
 
-    private static final long matchTextDirection$OFFSET = 24;
+    private static final long matchTextDirection$OFFSET = 8;
 
     /**
      * Offset for field:
@@ -265,50 +170,6 @@ public class IconDataObjSt {
      */
     public static void matchTextDirection(MemorySegment struct, int fieldValue) {
         struct.set(matchTextDirection$LAYOUT, matchTextDirection$OFFSET, fieldValue);
-    }
-
-    private static final AddressLayout fontFamilyFallback$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("fontFamilyFallback"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * char **fontFamilyFallback
-     * }
-     */
-    public static final AddressLayout fontFamilyFallback$layout() {
-        return fontFamilyFallback$LAYOUT;
-    }
-
-    private static final long fontFamilyFallback$OFFSET = 32;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * char **fontFamilyFallback
-     * }
-     */
-    public static final long fontFamilyFallback$offset() {
-        return fontFamilyFallback$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * char **fontFamilyFallback
-     * }
-     */
-    public static MemorySegment fontFamilyFallback(MemorySegment struct) {
-        return struct.get(fontFamilyFallback$LAYOUT, fontFamilyFallback$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * char **fontFamilyFallback
-     * }
-     */
-    public static void fontFamilyFallback(MemorySegment struct, MemorySegment fieldValue) {
-        struct.set(fontFamilyFallback$LAYOUT, fontFamilyFallback$OFFSET, fieldValue);
     }
 
     /**

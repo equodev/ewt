@@ -30,7 +30,7 @@ public class SubStateObjSt {
         StarterBridge.C_INT.withName("id"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("setState")
-    ).withName("$anon$134:9");
+    ).withName("$anon$302:9");
 
     /**
      * The layout of this struct

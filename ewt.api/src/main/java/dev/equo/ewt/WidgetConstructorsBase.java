@@ -73,6 +73,21 @@ class WidgetConstructorsBase {
     }
     return MemorySegment.NULL;
   }
+  <T extends NativeObj> MemorySegment ptrMap(Map<Integer, T> map) {
+    MemorySegment struct = MapC.allocate(arena);
+    MapC.size(struct, map.size());
+
+    MemorySegment entriesC = EntryC.allocateArray(map.size(), arena);
+    Set<Map.Entry<Integer, T>> entries = map.entrySet();
+    int i = 0;
+    for (Map.Entry<Integer, T> entry: entries) {
+      MemorySegment slice = EntryC.asSlice(entriesC, i++);
+      EntryC.key(slice, entry.getKey());
+      EntryC.value(slice, entry.getValue().getId());
+    }
+    MapC.entries(struct, entriesC);
+    return struct;
+  }
   MemorySegment ptrFn(Runnable runnable) {
     return VoidCallbackFFI.allocate(runnable::run, arena);
   }

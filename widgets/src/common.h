@@ -11,6 +11,15 @@ typedef struct {
     DartObj* list;
 } ArrayC;
 
+typedef struct {
+    int key;
+    DartObj value;
+} EntryC;
+typedef struct {
+    int size;
+    EntryC* entries;
+} MapC;
+
 #include "typedefs.h"
 #include "objects.h"
 #include "factories.h"

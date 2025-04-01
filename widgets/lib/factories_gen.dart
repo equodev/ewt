@@ -1,37 +1,4 @@
 part of 'factories.dart';
-void _setupText(WidgetFactories f) {
-  f.text.text = ffi.Pointer.fromFunction(textText, exception);
-  f.text.rich = ffi.Pointer.fromFunction(textRich, exception);
-}
-int textText(ffi.Pointer<ffi.Char> data, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Int> textWidthBasis, ffi.Pointer<DartObj> selectionColor) {
-  final w = Text(data.cast<Utf8>().toDartString(),
-      style: style.objOrNul(),
-      textAlign: textAlign.enumOrNul(TextAlign.values),
-      textDirection: textDirection.enumOrNul(TextDirection.values),
-      softWrap: softWrap.boolOrNul(),
-      overflow: overflow.enumOrNul(TextOverflow.values),
-      textScaleFactor: textScaleFactor.doubleOrNul(),
-      maxLines: maxLines.intOrNul(),
-      semanticsLabel: semanticsLabel.strOrNul(),
-      textWidthBasis: textWidthBasis.enumOrNul(TextWidthBasis.values),
-      selectionColor: selectionColor.objOrNul());
-  return _addWidget(w);
-}
-int textRich(DartDartObj textSpan, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Int> textWidthBasis, ffi.Pointer<DartObj> selectionColor) {
-  final w = Text.rich(_widgetsMap[textSpan]! as InlineSpan,
-      style: style.objOrNul(),
-      textAlign: textAlign.enumOrNul(TextAlign.values),
-      textDirection: textDirection.enumOrNul(TextDirection.values),
-      softWrap: softWrap.boolOrNul(),
-      overflow: overflow.enumOrNul(TextOverflow.values),
-      textScaleFactor: textScaleFactor.doubleOrNul(),
-      maxLines: maxLines.intOrNul(),
-      semanticsLabel: semanticsLabel.strOrNul(),
-      textWidthBasis: textWidthBasis.enumOrNul(TextWidthBasis.values),
-      selectionColor: selectionColor.objOrNul());
-  return _addWidget(w);
-}
-
 void _setupTextStyle(WidgetFactories f) {
   f.textStyle.textStyle = ffi.Pointer.fromFunction(textStyleTextStyle);
   f.textStyle.lerp = ffi.Pointer.fromFunction(textStyleLerp);
@@ -70,7 +37,6 @@ TextStyleObjSt _createTextStyleObjSt(TextStyle? w) {
   stObj.inherit = w.inherit.toInt();
   stObj.color = _addWidget(w.color);
   stObj.backgroundColor = _addWidget(w.backgroundColor);
-  stObj.fontFamily = (w.fontFamily != null) ? w.fontFamily!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.fontSize = (w.fontSize != null) ? w.fontSize! : 0;
   stObj.fontStyle = (w.fontStyle != null) ? w.fontStyle!.index : 0;
   stObj.letterSpacing = (w.letterSpacing != null) ? w.letterSpacing! : 0;
@@ -81,9 +47,7 @@ TextStyleObjSt _createTextStyleObjSt(TextStyle? w) {
   stObj.decorationColor = _addWidget(w.decorationColor);
   stObj.decorationStyle = (w.decorationStyle != null) ? w.decorationStyle!.index : 0;
   stObj.decorationThickness = (w.decorationThickness != null) ? w.decorationThickness! : 0;
-  stObj.debugLabel = (w.debugLabel != null) ? w.debugLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.overflow = (w.overflow != null) ? w.overflow!.index : 0;
-  stObj.fontFamilyFallback = (w.fontFamilyFallback != null) ? w.fontFamilyFallback!.strListToC() : ffi.nullptr;
   return stObj;
 }
 
@@ -133,30 +97,93 @@ int colorAlphaBlend(DartDartObj foreground, DartDartObj background) {
   return _addWidget(w);
 }
 
-void _setupCenter(WidgetFactories f) {
-  f.center.center = ffi.Pointer.fromFunction(centerCenter, exception);
+void _setupText(WidgetFactories f) {
+  f.text.text = ffi.Pointer.fromFunction(textText);
+  f.text.rich = ffi.Pointer.fromFunction(textRich);
 }
-int centerCenter(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
+TextObjSt textText(ffi.Pointer<ffi.Char> data, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Int> textWidthBasis, ffi.Pointer<DartObj> selectionColor) {
+  final w = Text(data.cast<Utf8>().toDartString(),
+      style: style.objOrNul(),
+      textAlign: textAlign.enumOrNul(TextAlign.values),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      softWrap: softWrap.boolOrNul(),
+      overflow: overflow.enumOrNul(TextOverflow.values),
+      textScaleFactor: textScaleFactor.doubleOrNul(),
+      maxLines: maxLines.intOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      textWidthBasis: textWidthBasis.enumOrNul(TextWidthBasis.values),
+      selectionColor: selectionColor.objOrNul());
+  return _createTextObjSt(w);
+}
+TextObjSt textRich(DartDartObj textSpan, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Int> textWidthBasis, ffi.Pointer<DartObj> selectionColor) {
+  final w = Text.rich(_widgetsMap[textSpan]! as InlineSpan,
+      style: style.objOrNul(),
+      textAlign: textAlign.enumOrNul(TextAlign.values),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      softWrap: softWrap.boolOrNul(),
+      overflow: overflow.enumOrNul(TextOverflow.values),
+      textScaleFactor: textScaleFactor.doubleOrNul(),
+      maxLines: maxLines.intOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      textWidthBasis: textWidthBasis.enumOrNul(TextWidthBasis.values),
+      selectionColor: selectionColor.objOrNul());
+  return _createTextObjSt(w);
+}
+TextObjSt _createTextObjSt(Text? w) {
+  final TextObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.textSpan = _addWidget(w.textSpan);
+  stObj.style = _createTextStyleObjSt(w.style);
+  stObj.textAlign = (w.textAlign != null) ? w.textAlign!.index : 0;
+  stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
+  stObj.softWrap = (w.softWrap != null) ? w.softWrap!.toInt() : 0;
+  stObj.overflow = (w.overflow != null) ? w.overflow!.index : 0;
+  stObj.textScaleFactor = (w.textScaleFactor != null) ? w.textScaleFactor! : 0;
+  stObj.maxLines = (w.maxLines != null) ? w.maxLines! : 0;
+  stObj.textWidthBasis = (w.textWidthBasis != null) ? w.textWidthBasis!.index : 0;
+  stObj.selectionColor = _addWidget(w.selectionColor);
+  return stObj;
+}
+
+void _setupCenter(WidgetFactories f) {
+  f.center.center = ffi.Pointer.fromFunction(centerCenter);
+}
+CenterObjSt centerCenter(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
   final w = Center(widthFactor: widthFactor.doubleOrNul(),
       heightFactor: heightFactor.doubleOrNul(),
       child: child.objOrNul());
-  return _addWidget(w);
+  return _createCenterObjSt(w);
+}
+CenterObjSt _createCenterObjSt(Center? w) {
+  final CenterObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
 }
 
 void _setupAlign(WidgetFactories f) {
-  f.align.align = ffi.Pointer.fromFunction(alignAlign, exception);
+  f.align.align = ffi.Pointer.fromFunction(alignAlign);
 }
-int alignAlign(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
+AlignObjSt alignAlign(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
   final w = Align(widthFactor: widthFactor.doubleOrNul(),
       heightFactor: heightFactor.doubleOrNul(),
       child: child.objOrNul());
-  return _addWidget(w);
+  return _createAlignObjSt(w);
+}
+AlignObjSt _createAlignObjSt(Align? w) {
+  final AlignObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.widthFactor = (w.widthFactor != null) ? w.widthFactor! : 0;
+  stObj.heightFactor = (w.heightFactor != null) ? w.heightFactor! : 0;
+  return stObj;
 }
 
 void _setupColumn(WidgetFactories f) {
-  f.column.column = ffi.Pointer.fromFunction(columnColumn, exception);
+  f.column.column = ffi.Pointer.fromFunction(columnColumn);
 }
-int columnColumn(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ArrayC> children) {
+ColumnObjSt columnColumn(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ArrayC> children) {
   final w = Column(mainAxisAlignment: mainAxisAlignment.enumOr(MainAxisAlignment.values, MainAxisAlignment.start),
       mainAxisSize: mainAxisSize.enumOr(MainAxisSize.values, MainAxisSize.max),
       crossAxisAlignment: crossAxisAlignment.enumOr(CrossAxisAlignment.values, CrossAxisAlignment.center),
@@ -165,13 +192,19 @@ int columnColumn(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> ma
       textBaseline: textBaseline.enumOrNul(TextBaseline.values),
       spacing: spacing.doubleOr(0.0),
       children: children.orEmpty());
-  return _addWidget(w);
+  return _createColumnObjSt(w);
+}
+ColumnObjSt _createColumnObjSt(Column? w) {
+  final ColumnObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
 }
 
 void _setupFlex(WidgetFactories f) {
-  f.flex.flex = ffi.Pointer.fromFunction(flexFlex, exception);
+  f.flex.flex = ffi.Pointer.fromFunction(flexFlex);
 }
-int flexFlex(int direction, ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ArrayC> children) {
+FlexObjSt flexFlex(int direction, ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ArrayC> children) {
   final w = Flex(direction: _widgetsMap[direction]! as Axis,
       mainAxisAlignment: mainAxisAlignment.enumOr(MainAxisAlignment.values, MainAxisAlignment.start),
       mainAxisSize: mainAxisSize.enumOr(MainAxisSize.values, MainAxisSize.max),
@@ -182,7 +215,22 @@ int flexFlex(int direction, ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       spacing: spacing.doubleOr(0.0),
       children: children.orEmpty());
-  return _addWidget(w);
+  return _createFlexObjSt(w);
+}
+FlexObjSt _createFlexObjSt(Flex? w) {
+  final FlexObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.direction = w.direction.index;
+  stObj.mainAxisAlignment = w.mainAxisAlignment.index;
+  stObj.mainAxisSize = w.mainAxisSize.index;
+  stObj.crossAxisAlignment = w.crossAxisAlignment.index;
+  stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
+  stObj.verticalDirection = w.verticalDirection.index;
+  stObj.textBaseline = (w.textBaseline != null) ? w.textBaseline!.index : 0;
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.spacing = w.spacing;
+  return stObj;
 }
 
 void _setupIconData(WidgetFactories f) {
@@ -201,17 +249,14 @@ IconDataObjSt _createIconDataObjSt(IconData? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.codePoint = w.codePoint;
-  stObj.fontFamily = (w.fontFamily != null) ? w.fontFamily!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.fontPackage = (w.fontPackage != null) ? w.fontPackage!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.matchTextDirection = w.matchTextDirection.toInt();
-  stObj.fontFamilyFallback = (w.fontFamilyFallback != null) ? w.fontFamilyFallback!.strListToC() : ffi.nullptr;
   return stObj;
 }
 
 void _setupIcon(WidgetFactories f) {
-  f.icon.icon = ffi.Pointer.fromFunction(iconIcon, exception);
+  f.icon.icon = ffi.Pointer.fromFunction(iconIcon);
 }
-int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> fill, ffi.Pointer<ffi.Double> weight, ffi.Pointer<ffi.Double> grade, ffi.Pointer<ffi.Double> opticalSize, ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Char> semanticLabel, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> applyTextScaling, ffi.Pointer<ffi.Int> blendMode) {
+IconObjSt iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> fill, ffi.Pointer<ffi.Double> weight, ffi.Pointer<ffi.Double> grade, ffi.Pointer<ffi.Double> opticalSize, ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Char> semanticLabel, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> applyTextScaling, ffi.Pointer<ffi.Int> blendMode) {
   final w = Icon(_widgetsMap[icon]! as IconData?,
       size: size.doubleOrNul(),
       fill: fill.doubleOrNul(),
@@ -223,7 +268,23 @@ int iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Dou
       textDirection: textDirection.enumOrNul(TextDirection.values),
       applyTextScaling: applyTextScaling.boolOrNul(),
       blendMode: blendMode.enumOrNul(BlendMode.values));
-  return _addWidget(w);
+  return _createIconObjSt(w);
+}
+IconObjSt _createIconObjSt(Icon? w) {
+  final IconObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.icon = _createIconDataObjSt(w.icon);
+  stObj.size = (w.size != null) ? w.size! : 0;
+  stObj.fill = (w.fill != null) ? w.fill! : 0;
+  stObj.weight = (w.weight != null) ? w.weight! : 0;
+  stObj.grade = (w.grade != null) ? w.grade! : 0;
+  stObj.opticalSize = (w.opticalSize != null) ? w.opticalSize! : 0;
+  stObj.color = _addWidget(w.color);
+  stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
+  stObj.applyTextScaling = (w.applyTextScaling != null) ? w.applyTextScaling!.toInt() : 0;
+  stObj.blendMode = (w.blendMode != null) ? w.blendMode!.index : 0;
+  return stObj;
 }
 
 void _setupColorScheme(WidgetFactories f) {
@@ -558,8 +619,9 @@ ColorSchemeObjSt colorSchemeHighContrastDark(ffi.Pointer<ffi.Int> brightness, ff
       surfaceVariant: surfaceVariant.objOrNul());
   return _createColorSchemeObjSt(w);
 }
-ColorSchemeObjSt colorSchemeFromSwatch(ffi.Pointer<DartObj> accentColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> errorColor, ffi.Pointer<ffi.Int> brightness) {
-  final w = ColorScheme.fromSwatch(accentColor: accentColor.objOrNul(),
+ColorSchemeObjSt colorSchemeFromSwatch(ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> accentColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> errorColor, ffi.Pointer<ffi.Int> brightness) {
+  final w = ColorScheme.fromSwatch(primarySwatch: primarySwatch.objOrNul(),
+      accentColor: accentColor.objOrNul(),
       cardColor: cardColor.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
       errorColor: errorColor.objOrNul(),
@@ -633,6 +695,47 @@ ColorSchemeObjSt _createColorSchemeObjSt(ColorScheme? w) {
   return stObj;
 }
 
+void _setupMaterialColor(WidgetFactories f) {
+  f.materialColor.materialColor = ffi.Pointer.fromFunction(materialColorMaterialColor);
+}
+MaterialColorObjSt materialColorMaterialColor(int primary, MapC swatch) {
+  final w = MaterialColor(primary,
+      swatch.toMap());
+  return _createMaterialColorObjSt(w);
+}
+MaterialColorObjSt _createMaterialColorObjSt(MaterialColor? w) {
+  final MaterialColorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.shade50 = _addWidget(w.shade50);
+  stObj.shade100 = _addWidget(w.shade100);
+  stObj.shade200 = _addWidget(w.shade200);
+  stObj.shade300 = _addWidget(w.shade300);
+  stObj.shade400 = _addWidget(w.shade400);
+  stObj.shade500 = _addWidget(w.shade500);
+  stObj.shade600 = _addWidget(w.shade600);
+  stObj.shade700 = _addWidget(w.shade700);
+  stObj.shade800 = _addWidget(w.shade800);
+  stObj.shade900 = _addWidget(w.shade900);
+  return stObj;
+}
+
+void _setupColorSwatch(WidgetFactories f) {
+  f.colorSwatch.lerp = ffi.Pointer.fromFunction(colorSwatchLerp);
+}
+ColorSwatchObjSt? colorSwatchLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ColorSwatch.lerp(_widgetsMap[a]! as ColorSwatch,
+      _widgetsMap[b]! as ColorSwatch,
+      t);
+  return w != null ? _createColorSwatchObjSt(w) : null;
+}
+ColorSwatchObjSt _createColorSwatchObjSt(ColorSwatch? w) {
+  final ColorSwatchObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 void _setupTextTheme(WidgetFactories f) {
   f.textTheme.textTheme = ffi.Pointer.fromFunction(textThemeTextTheme);
   f.textTheme.lerp = ffi.Pointer.fromFunction(textThemeLerp);
@@ -693,112 +796,6 @@ TextThemeObjSt _createTextThemeObjSt(TextTheme? w) {
   return stObj;
 }
 
-void _setupAppBar(WidgetFactories f) {
-  f.appBar.appBar = ffi.Pointer.fromFunction(appBarAppBar, exception);
-}
-int appBarAppBar(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticallyImplyLeading, ffi.Pointer<DartObj> title, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> flexibleSpace, ffi.Pointer<DartObj> bottom, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Int> excludeHeaderSemantics, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> toolbarOpacity, ffi.Pointer<ffi.Double> bottomOpacity, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<ffi.Int> forceMaterialTransparency, ffi.Pointer<ffi.Int> clipBehavior) {
-  final w = AppBar(leading: leading.objOrNul(),
-      automaticallyImplyLeading: automaticallyImplyLeading.boolOr(true),
-      title: title.objOrNul(),
-      actions: actions.orEmpty(),
-      flexibleSpace: flexibleSpace.objOrNul(),
-      bottom: bottom.objOrNul(),
-      elevation: elevation.doubleOrNul(),
-      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
-      shadowColor: shadowColor.objOrNul(),
-      surfaceTintColor: surfaceTintColor.objOrNul(),
-      backgroundColor: backgroundColor.objOrNul(),
-      foregroundColor: foregroundColor.objOrNul(),
-      primary: primary.boolOr(true),
-      centerTitle: centerTitle.boolOrNul(),
-      excludeHeaderSemantics: excludeHeaderSemantics.boolOr(false),
-      titleSpacing: titleSpacing.doubleOrNul(),
-      toolbarOpacity: toolbarOpacity.doubleOr(1.0),
-      bottomOpacity: bottomOpacity.doubleOr(1.0),
-      toolbarHeight: toolbarHeight.doubleOrNul(),
-      leadingWidth: leadingWidth.doubleOrNul(),
-      toolbarTextStyle: toolbarTextStyle.objOrNul(),
-      titleTextStyle: titleTextStyle.objOrNul(),
-      forceMaterialTransparency: forceMaterialTransparency.boolOr(false),
-      clipBehavior: clipBehavior.enumOrNul(Clip.values));
-  return _addWidget(w);
-}
-
-void _setupScaffold(WidgetFactories f) {
-  f.scaffold.scaffold = ffi.Pointer.fromFunction(scaffoldScaffold, exception);
-}
-int scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DrawerCallbackFFI> onDrawerChanged, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
-  final w = Scaffold(appBar: appBar.objOrNul(),
-      body: body.objOrNul(),
-      floatingActionButton: floatingActionButton.objOrNul(),
-      persistentFooterButtons: persistentFooterButtons.orEmpty(),
-      drawer: drawer.objOrNul(),
-      onDrawerChanged: onDrawerChanged.toFn(),
-      endDrawer: endDrawer.objOrNul(),
-      onEndDrawerChanged: onEndDrawerChanged.toFn(),
-      bottomNavigationBar: bottomNavigationBar.objOrNul(),
-      bottomSheet: bottomSheet.objOrNul(),
-      backgroundColor: backgroundColor.objOrNul(),
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset.boolOrNul(),
-      primary: primary.boolOr(true),
-      drawerDragStartBehavior: drawerDragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
-      extendBody: extendBody.boolOr(false),
-      extendBodyBehindAppBar: extendBodyBehindAppBar.boolOr(false),
-      drawerScrimColor: drawerScrimColor.objOrNul(),
-      drawerEdgeDragWidth: drawerEdgeDragWidth.doubleOrNul(),
-      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture.boolOr(true),
-      endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture.boolOr(true),
-      restorationId: restorationId.strOrNul());
-  return _addWidget(w);
-}
-
-void _setupMaterialApp(WidgetFactories f) {
-  f.materialApp.materialApp = ffi.Pointer.fromFunction(materialAppMaterialApp, exception);
-  f.materialApp.router = ffi.Pointer.fromFunction(materialAppRouter, exception);
-}
-int materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
-  final w = MaterialApp(home: home.objOrNul(),
-      initialRoute: initialRoute.strOrNul(),
-      builder: builder.toFn(),
-      title: title.strOrNul(),
-      onGenerateTitle: onGenerateTitle.toFn(),
-      color: color.objOrNul(),
-      theme: theme.objOrNul(),
-      darkTheme: darkTheme.objOrNul(),
-      highContrastTheme: highContrastTheme.objOrNul(),
-      highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
-      themeMode: themeMode.enumOrNul(ThemeMode.values),
-      debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
-      showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
-      checkerboardRasterCacheImages: checkerboardRasterCacheImages.boolOr(false),
-      checkerboardOffscreenLayers: checkerboardOffscreenLayers.boolOr(false),
-      showSemanticsDebugger: showSemanticsDebugger.boolOr(false),
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner.boolOr(true),
-      restorationScopeId: restorationScopeId.strOrNul(),
-      useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
-  return _addWidget(w);
-}
-int materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
-  final w = MaterialApp.router(builder: builder.toFn(),
-      title: title.strOrNul(),
-      onGenerateTitle: onGenerateTitle.toFn(),
-      color: color.objOrNul(),
-      theme: theme.objOrNul(),
-      darkTheme: darkTheme.objOrNul(),
-      highContrastTheme: highContrastTheme.objOrNul(),
-      highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
-      themeMode: themeMode.enumOrNul(ThemeMode.values),
-      debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
-      showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
-      checkerboardRasterCacheImages: checkerboardRasterCacheImages.boolOr(false),
-      checkerboardOffscreenLayers: checkerboardOffscreenLayers.boolOr(false),
-      showSemanticsDebugger: showSemanticsDebugger.boolOr(false),
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner.boolOr(true),
-      restorationScopeId: restorationScopeId.strOrNul(),
-      useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
-  return _addWidget(w);
-}
-
 void _setupThemeData(WidgetFactories f) {
   f.themeData.themeData = ffi.Pointer.fromFunction(themeDataThemeData);
   f.themeData.from = ffi.Pointer.fromFunction(themeDataFrom);
@@ -809,7 +806,7 @@ void _setupThemeData(WidgetFactories f) {
   f.themeData.estimateBrightnessForColor = ffi.Pointer.fromFunction(themeDataEstimateBrightnessForColor, exception);
   f.themeData.lerp = ffi.Pointer.fromFunction(themeDataLerp);
 }
-ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor) {
+ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor) {
   final w = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor.boolOrNul(),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       platform: platform.enumOrNul(TargetPlatform.values),
@@ -829,6 +826,7 @@ ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColo
       primaryColor: primaryColor.objOrNul(),
       primaryColorDark: primaryColorDark.objOrNul(),
       primaryColorLight: primaryColorLight.objOrNul(),
+      primarySwatch: primarySwatch.objOrNul(),
       scaffoldBackgroundColor: scaffoldBackgroundColor.objOrNul(),
       secondaryHeaderColor: secondaryHeaderColor.objOrNul(),
       shadowColor: shadowColor.objOrNul(),
@@ -911,13 +909,208 @@ ThemeDataObjSt _createThemeDataObjSt(ThemeData? w) {
   return stObj;
 }
 
-void _setupFloatingActionButton(WidgetFactories f) {
-  f.floatingActionButton.floatingActionButton = ffi.Pointer.fromFunction(floatingActionButtonFloatingActionButton, exception);
-  f.floatingActionButton.small = ffi.Pointer.fromFunction(floatingActionButtonSmall, exception);
-  f.floatingActionButton.large = ffi.Pointer.fromFunction(floatingActionButtonLarge, exception);
-  f.floatingActionButton.extended = ffi.Pointer.fromFunction(floatingActionButtonExtended, exception);
+void _setupMaterialAccentColor(WidgetFactories f) {
+  f.materialAccentColor.materialAccentColor = ffi.Pointer.fromFunction(materialAccentColorMaterialAccentColor);
 }
-int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> mini, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> enableFeedback) {
+MaterialAccentColorObjSt materialAccentColorMaterialAccentColor(int primary, MapC swatch) {
+  final w = MaterialAccentColor(primary,
+      swatch.toMap());
+  return _createMaterialAccentColorObjSt(w);
+}
+MaterialAccentColorObjSt _createMaterialAccentColorObjSt(MaterialAccentColor? w) {
+  final MaterialAccentColorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.shade100 = _addWidget(w.shade100);
+  stObj.shade200 = _addWidget(w.shade200);
+  stObj.shade400 = _addWidget(w.shade400);
+  stObj.shade700 = _addWidget(w.shade700);
+  return stObj;
+}
+
+void _setupAppBar(WidgetFactories f) {
+  f.appBar.appBar = ffi.Pointer.fromFunction(appBarAppBar);
+}
+AppBarObjSt appBarAppBar(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticallyImplyLeading, ffi.Pointer<DartObj> title, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> flexibleSpace, ffi.Pointer<DartObj> bottom, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Int> excludeHeaderSemantics, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> toolbarOpacity, ffi.Pointer<ffi.Double> bottomOpacity, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<ffi.Int> forceMaterialTransparency, ffi.Pointer<ffi.Int> clipBehavior) {
+  final w = AppBar(leading: leading.objOrNul(),
+      automaticallyImplyLeading: automaticallyImplyLeading.boolOr(true),
+      title: title.objOrNul(),
+      actions: actions.orEmpty(),
+      flexibleSpace: flexibleSpace.objOrNul(),
+      bottom: bottom.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      foregroundColor: foregroundColor.objOrNul(),
+      primary: primary.boolOr(true),
+      centerTitle: centerTitle.boolOrNul(),
+      excludeHeaderSemantics: excludeHeaderSemantics.boolOr(false),
+      titleSpacing: titleSpacing.doubleOrNul(),
+      toolbarOpacity: toolbarOpacity.doubleOr(1.0),
+      bottomOpacity: bottomOpacity.doubleOr(1.0),
+      toolbarHeight: toolbarHeight.doubleOrNul(),
+      leadingWidth: leadingWidth.doubleOrNul(),
+      toolbarTextStyle: toolbarTextStyle.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      forceMaterialTransparency: forceMaterialTransparency.boolOr(false),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values));
+  return _createAppBarObjSt(w);
+}
+AppBarObjSt _createAppBarObjSt(AppBar? w) {
+  final AppBarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.leading = _addWidget(w.leading);
+  stObj.automaticallyImplyLeading = w.automaticallyImplyLeading.toInt();
+  stObj.title = _addWidget(w.title);
+  stObj.flexibleSpace = _addWidget(w.flexibleSpace);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.scrolledUnderElevation = (w.scrolledUnderElevation != null) ? w.scrolledUnderElevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.foregroundColor = _addWidget(w.foregroundColor);
+  stObj.primary = w.primary.toInt();
+  stObj.centerTitle = (w.centerTitle != null) ? w.centerTitle!.toInt() : 0;
+  stObj.excludeHeaderSemantics = w.excludeHeaderSemantics.toInt();
+  stObj.titleSpacing = (w.titleSpacing != null) ? w.titleSpacing! : 0;
+  stObj.toolbarOpacity = w.toolbarOpacity;
+  stObj.bottomOpacity = w.bottomOpacity;
+  stObj.toolbarHeight = (w.toolbarHeight != null) ? w.toolbarHeight! : 0;
+  stObj.leadingWidth = (w.leadingWidth != null) ? w.leadingWidth! : 0;
+  stObj.toolbarTextStyle = _createTextStyleObjSt(w.toolbarTextStyle);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.forceMaterialTransparency = w.forceMaterialTransparency.toInt();
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  return stObj;
+}
+
+void _setupScaffold(WidgetFactories f) {
+  f.scaffold.scaffold = ffi.Pointer.fromFunction(scaffoldScaffold);
+}
+ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DrawerCallbackFFI> onDrawerChanged, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
+  final w = Scaffold(appBar: appBar.objOrNul(),
+      body: body.objOrNul(),
+      floatingActionButton: floatingActionButton.objOrNul(),
+      persistentFooterButtons: persistentFooterButtons.orEmpty(),
+      drawer: drawer.objOrNul(),
+      onDrawerChanged: onDrawerChanged.toFn(),
+      endDrawer: endDrawer.objOrNul(),
+      onEndDrawerChanged: onEndDrawerChanged.toFn(),
+      bottomNavigationBar: bottomNavigationBar.objOrNul(),
+      bottomSheet: bottomSheet.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset.boolOrNul(),
+      primary: primary.boolOr(true),
+      drawerDragStartBehavior: drawerDragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      extendBody: extendBody.boolOr(false),
+      extendBodyBehindAppBar: extendBodyBehindAppBar.boolOr(false),
+      drawerScrimColor: drawerScrimColor.objOrNul(),
+      drawerEdgeDragWidth: drawerEdgeDragWidth.doubleOrNul(),
+      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture.boolOr(true),
+      endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture.boolOr(true),
+      restorationId: restorationId.strOrNul());
+  return _createScaffoldObjSt(w);
+}
+ScaffoldObjSt _createScaffoldObjSt(Scaffold? w) {
+  final ScaffoldObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.extendBody = w.extendBody.toInt();
+  stObj.extendBodyBehindAppBar = w.extendBodyBehindAppBar.toInt();
+  stObj.body = _addWidget(w.body);
+  stObj.floatingActionButton = _addWidget(w.floatingActionButton);
+  stObj.drawer = _addWidget(w.drawer);
+  stObj.endDrawer = _addWidget(w.endDrawer);
+  stObj.drawerScrimColor = _addWidget(w.drawerScrimColor);
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.bottomNavigationBar = _addWidget(w.bottomNavigationBar);
+  stObj.bottomSheet = _addWidget(w.bottomSheet);
+  stObj.resizeToAvoidBottomInset = (w.resizeToAvoidBottomInset != null) ? w.resizeToAvoidBottomInset!.toInt() : 0;
+  stObj.primary = w.primary.toInt();
+  stObj.drawerDragStartBehavior = w.drawerDragStartBehavior.index;
+  stObj.drawerEdgeDragWidth = (w.drawerEdgeDragWidth != null) ? w.drawerEdgeDragWidth! : 0;
+  stObj.drawerEnableOpenDragGesture = w.drawerEnableOpenDragGesture.toInt();
+  stObj.endDrawerEnableOpenDragGesture = w.endDrawerEnableOpenDragGesture.toInt();
+  return stObj;
+}
+
+void _setupMaterialApp(WidgetFactories f) {
+  f.materialApp.materialApp = ffi.Pointer.fromFunction(materialAppMaterialApp);
+  f.materialApp.router = ffi.Pointer.fromFunction(materialAppRouter);
+}
+MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
+  final w = MaterialApp(home: home.objOrNul(),
+      initialRoute: initialRoute.strOrNul(),
+      builder: builder.toFn(),
+      title: title.strOrNul(),
+      onGenerateTitle: onGenerateTitle.toFn(),
+      color: color.objOrNul(),
+      theme: theme.objOrNul(),
+      darkTheme: darkTheme.objOrNul(),
+      highContrastTheme: highContrastTheme.objOrNul(),
+      highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
+      themeMode: themeMode.enumOrNul(ThemeMode.values),
+      debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
+      showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
+      checkerboardRasterCacheImages: checkerboardRasterCacheImages.boolOr(false),
+      checkerboardOffscreenLayers: checkerboardOffscreenLayers.boolOr(false),
+      showSemanticsDebugger: showSemanticsDebugger.boolOr(false),
+      debugShowCheckedModeBanner: debugShowCheckedModeBanner.boolOr(true),
+      restorationScopeId: restorationScopeId.strOrNul(),
+      useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
+  return _createMaterialAppObjSt(w);
+}
+MaterialAppObjSt materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
+  final w = MaterialApp.router(builder: builder.toFn(),
+      title: title.strOrNul(),
+      onGenerateTitle: onGenerateTitle.toFn(),
+      color: color.objOrNul(),
+      theme: theme.objOrNul(),
+      darkTheme: darkTheme.objOrNul(),
+      highContrastTheme: highContrastTheme.objOrNul(),
+      highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
+      themeMode: themeMode.enumOrNul(ThemeMode.values),
+      debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
+      showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
+      checkerboardRasterCacheImages: checkerboardRasterCacheImages.boolOr(false),
+      checkerboardOffscreenLayers: checkerboardOffscreenLayers.boolOr(false),
+      showSemanticsDebugger: showSemanticsDebugger.boolOr(false),
+      debugShowCheckedModeBanner: debugShowCheckedModeBanner.boolOr(true),
+      restorationScopeId: restorationScopeId.strOrNul(),
+      useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
+  return _createMaterialAppObjSt(w);
+}
+MaterialAppObjSt _createMaterialAppObjSt(MaterialApp? w) {
+  final MaterialAppObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.home = _addWidget(w.home);
+  stObj.theme = _createThemeDataObjSt(w.theme);
+  stObj.darkTheme = _createThemeDataObjSt(w.darkTheme);
+  stObj.highContrastTheme = _createThemeDataObjSt(w.highContrastTheme);
+  stObj.highContrastDarkTheme = _createThemeDataObjSt(w.highContrastDarkTheme);
+  stObj.themeMode = (w.themeMode != null) ? w.themeMode!.index : 0;
+  stObj.color = _addWidget(w.color);
+  stObj.showPerformanceOverlay = w.showPerformanceOverlay.toInt();
+  stObj.checkerboardRasterCacheImages = w.checkerboardRasterCacheImages.toInt();
+  stObj.checkerboardOffscreenLayers = w.checkerboardOffscreenLayers.toInt();
+  stObj.showSemanticsDebugger = w.showSemanticsDebugger.toInt();
+  stObj.debugShowCheckedModeBanner = w.debugShowCheckedModeBanner.toInt();
+  stObj.debugShowMaterialGrid = w.debugShowMaterialGrid.toInt();
+  stObj.useInheritedMediaQuery = w.useInheritedMediaQuery.toInt();
+  return stObj;
+}
+
+void _setupFloatingActionButton(WidgetFactories f) {
+  f.floatingActionButton.floatingActionButton = ffi.Pointer.fromFunction(floatingActionButtonFloatingActionButton);
+  f.floatingActionButton.small = ffi.Pointer.fromFunction(floatingActionButtonSmall);
+  f.floatingActionButton.large = ffi.Pointer.fromFunction(floatingActionButtonLarge);
+  f.floatingActionButton.extended = ffi.Pointer.fromFunction(floatingActionButtonExtended);
+}
+FloatingActionButtonObjSt floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> mini, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton(child: child.objOrNul(),
       tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -938,9 +1131,9 @@ int floatingActionButtonFloatingActionButton(ffi.Pointer<DartObj> child, ffi.Poi
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       isExtended: isExtended.boolOr(false),
       enableFeedback: enableFeedback.boolOrNul());
-  return _addWidget(w);
+  return _createFloatingActionButtonObjSt(w);
 }
-int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
+FloatingActionButtonObjSt floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton.small(child: child.objOrNul(),
       tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -959,9 +1152,9 @@ int floatingActionButtonSmall(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       autofocus: autofocus.boolOr(false),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       enableFeedback: enableFeedback.boolOrNul());
-  return _addWidget(w);
+  return _createFloatingActionButtonObjSt(w);
 }
-int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
+FloatingActionButtonObjSt floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton.large(child: child.objOrNul(),
       tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -980,9 +1173,9 @@ int floatingActionButtonLarge(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> 
       autofocus: autofocus.boolOr(false),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       enableFeedback: enableFeedback.boolOrNul());
-  return _addWidget(w);
+  return _createFloatingActionButtonObjSt(w);
 }
-int floatingActionButtonExtended(ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Double> extendedIconLabelSpacing, ffi.Pointer<DartObj> extendedTextStyle, ffi.Pointer<DartObj> icon, DartDartObj label, ffi.Pointer<ffi.Int> enableFeedback) {
+FloatingActionButtonObjSt floatingActionButtonExtended(ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> heroTag, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, VoidCallbackFFI onPressed, ffi.Pointer<ffi.Int> isExtended, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Double> extendedIconLabelSpacing, ffi.Pointer<DartObj> extendedTextStyle, ffi.Pointer<DartObj> icon, DartDartObj label, ffi.Pointer<ffi.Int> enableFeedback) {
   final w = FloatingActionButton.extended(tooltip: tooltip.strOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
@@ -1005,21 +1198,54 @@ int floatingActionButtonExtended(ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<Dart
       icon: icon.objOrNul(),
       label: _widgetsMap[label]! as Widget,
       enableFeedback: enableFeedback.boolOrNul());
-  return _addWidget(w);
+  return _createFloatingActionButtonObjSt(w);
+}
+FloatingActionButtonObjSt _createFloatingActionButtonObjSt(FloatingActionButton? w) {
+  final FloatingActionButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.foregroundColor = _addWidget(w.foregroundColor);
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.hoverColor = _addWidget(w.hoverColor);
+  stObj.splashColor = _addWidget(w.splashColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.focusElevation = (w.focusElevation != null) ? w.focusElevation! : 0;
+  stObj.hoverElevation = (w.hoverElevation != null) ? w.hoverElevation! : 0;
+  stObj.highlightElevation = (w.highlightElevation != null) ? w.highlightElevation! : 0;
+  stObj.disabledElevation = (w.disabledElevation != null) ? w.disabledElevation! : 0;
+  stObj.mini = w.mini.toInt();
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.isExtended = w.isExtended.toInt();
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
+  stObj.extendedIconLabelSpacing = (w.extendedIconLabelSpacing != null) ? w.extendedIconLabelSpacing! : 0;
+  stObj.extendedTextStyle = _createTextStyleObjSt(w.extendedTextStyle);
+  return stObj;
 }
 
 void _setupTheme(WidgetFactories f) {
-  f.theme.theme = ffi.Pointer.fromFunction(themeTheme, exception);
+  f.theme.theme = ffi.Pointer.fromFunction(themeTheme);
   f.theme.of = ffi.Pointer.fromFunction(themeOf);
 }
-int themeTheme(DartDartObj data, DartDartObj child) {
+ThemeObjSt themeTheme(DartDartObj data, DartDartObj child) {
   final w = Theme(data: _widgetsMap[data]! as ThemeData,
       child: _widgetsMap[child]! as Widget);
-  return _addWidget(w);
+  return _createThemeObjSt(w);
 }
 ThemeDataObjSt themeOf(DartDartObj context) {
   final w = Theme.of(_widgetsMap[context]! as BuildContext);
   return _createThemeDataObjSt(w);
+}
+ThemeObjSt _createThemeObjSt(Theme? w) {
+  final ThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createThemeDataObjSt(w.data);
+  stObj.child = _addWidget(w.child);
+  return stObj;
 }
 
 void _setupSubState(WidgetFactories f) {
@@ -1057,8 +1283,8 @@ SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDart
 ffi.Pointer<WidgetFactories> _setupFactories() {
   final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
   final f = fp.ref;
-  _setupText(f);
   _setupTextStyle(f);
+  _setupText(f);
   _setupCenter(f);
   _setupColumn(f);
   _setupIconData(f);
@@ -1066,20 +1292,21 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupColor(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
+  _setupThemeData(f);
+  _setupMaterialAccentColor(f);
+  _setupMaterialColor(f);
   _setupAppBar(f);
   _setupScaffold(f);
   _setupMaterialApp(f);
   _setupFloatingActionButton(f);
   _setupTheme(f);
-  _setupThemeData(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
-  _setupTextStyle(f);
-  _setupColor(f);
   _setupAlign(f);
   _setupFlex(f);
-  _setupThemeData(f);
+  _setupColorSwatch(f);
+  _setupColorSwatch(f);
   return fp;
 }
 extension on VoidCallbackFFI {

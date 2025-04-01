@@ -3,7 +3,6 @@ typedef struct {
   int inherit;
   DartObj color;
   DartObj backgroundColor;
-  char* fontFamily;
   double fontSize;
   int fontStyle;
   double letterSpacing;
@@ -14,19 +13,69 @@ typedef struct {
   DartObj decorationColor;
   int decorationStyle;
   double decorationThickness;
-  char* debugLabel;
   int overflow;
-  char** fontFamilyFallback;
 } TextStyleObjSt;
 
 typedef struct {
   int id;
+  DartObj textSpan;
+  TextStyleObjSt style;
+  int textAlign;
+  int textDirection;
+  int softWrap;
+  int overflow;
+  double textScaleFactor;
+  int maxLines;
+  int textWidthBasis;
+  DartObj selectionColor;
+} TextObjSt;
+
+typedef struct {
+  int id;
+} CenterObjSt;
+
+typedef struct {
+  int id;
+  double widthFactor;
+  double heightFactor;
+} AlignObjSt;
+
+typedef struct {
+  int id;
+} ColumnObjSt;
+
+typedef struct {
+  int id;
+  int direction;
+  int mainAxisAlignment;
+  int mainAxisSize;
+  int crossAxisAlignment;
+  int textDirection;
+  int verticalDirection;
+  int textBaseline;
+  int clipBehavior;
+  double spacing;
+} FlexObjSt;
+
+typedef struct {
+  int id;
   int codePoint;
-  char* fontFamily;
-  char* fontPackage;
   int matchTextDirection;
-  char** fontFamilyFallback;
 } IconDataObjSt;
+
+typedef struct {
+  int id;
+  IconDataObjSt icon;
+  double size;
+  double fill;
+  double weight;
+  double grade;
+  double opticalSize;
+  DartObj color;
+  int textDirection;
+  int applyTextScaling;
+  int blendMode;
+} IconObjSt;
 
 typedef struct {
   int id;
@@ -84,6 +133,24 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj shade50;
+  DartObj shade100;
+  DartObj shade200;
+  DartObj shade300;
+  DartObj shade400;
+  DartObj shade500;
+  DartObj shade600;
+  DartObj shade700;
+  DartObj shade800;
+  DartObj shade900;
+} MaterialColorObjSt;
+
+typedef struct {
+  int id;
+} ColorSwatchObjSt;
+
+typedef struct {
+  int id;
   TextStyleObjSt displayLarge;
   TextStyleObjSt displayMedium;
   TextStyleObjSt displaySmall;
@@ -130,6 +197,107 @@ typedef struct {
   DartObj dialogBackgroundColor;
   int brightness;
 } ThemeDataObjSt;
+
+typedef struct {
+  int id;
+  DartObj shade100;
+  DartObj shade200;
+  DartObj shade400;
+  DartObj shade700;
+} MaterialAccentColorObjSt;
+
+typedef struct {
+  int id;
+  DartObj leading;
+  int automaticallyImplyLeading;
+  DartObj title;
+  DartObj flexibleSpace;
+  double elevation;
+  double scrolledUnderElevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj backgroundColor;
+  DartObj foregroundColor;
+  int primary;
+  int centerTitle;
+  int excludeHeaderSemantics;
+  double titleSpacing;
+  double toolbarOpacity;
+  double bottomOpacity;
+  double toolbarHeight;
+  double leadingWidth;
+  TextStyleObjSt toolbarTextStyle;
+  TextStyleObjSt titleTextStyle;
+  int forceMaterialTransparency;
+  int clipBehavior;
+} AppBarObjSt;
+
+typedef struct {
+  int id;
+  int extendBody;
+  int extendBodyBehindAppBar;
+  DartObj body;
+  DartObj floatingActionButton;
+  DartObj drawer;
+  DartObj endDrawer;
+  DartObj drawerScrimColor;
+  DartObj backgroundColor;
+  DartObj bottomNavigationBar;
+  DartObj bottomSheet;
+  int resizeToAvoidBottomInset;
+  int primary;
+  int drawerDragStartBehavior;
+  double drawerEdgeDragWidth;
+  int drawerEnableOpenDragGesture;
+  int endDrawerEnableOpenDragGesture;
+} ScaffoldObjSt;
+
+typedef struct {
+  int id;
+  DartObj home;
+  ThemeDataObjSt theme;
+  ThemeDataObjSt darkTheme;
+  ThemeDataObjSt highContrastTheme;
+  ThemeDataObjSt highContrastDarkTheme;
+  int themeMode;
+  DartObj color;
+  int showPerformanceOverlay;
+  int checkerboardRasterCacheImages;
+  int checkerboardOffscreenLayers;
+  int showSemanticsDebugger;
+  int debugShowCheckedModeBanner;
+  int debugShowMaterialGrid;
+  int useInheritedMediaQuery;
+} MaterialAppObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj foregroundColor;
+  DartObj backgroundColor;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj splashColor;
+  double elevation;
+  double focusElevation;
+  double hoverElevation;
+  double highlightElevation;
+  double disabledElevation;
+  int mini;
+  int clipBehavior;
+  int isExtended;
+  int autofocus;
+  int materialTapTargetSize;
+  int enableFeedback;
+  double extendedIconLabelSpacing;
+  TextStyleObjSt extendedTextStyle;
+} FloatingActionButtonObjSt;
+
+typedef struct {
+  int id;
+  ThemeDataObjSt data;
+  DartObj child;
+} ThemeObjSt;
 
 typedef struct {
   int id;

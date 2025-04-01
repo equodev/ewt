@@ -11,6 +11,7 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
     return this;
   }
   private MemorySegment st;
+  protected TextTheme() {}
   TextTheme(MemorySegment st) {
     this.id = TextThemeObjSt.id(st);
     this.st = st;

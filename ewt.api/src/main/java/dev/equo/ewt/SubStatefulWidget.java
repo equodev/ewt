@@ -16,7 +16,7 @@ public abstract class SubStatefulWidget extends StatefulWidget implements SubSta
     id = SubStatefulWidgetObjSt.id(st);
     System.out.println("New SubStatefulWidget id:"+id);
   }
-  protected abstract StateI createState();
+  protected abstract <S extends StatefulWidget> State<S> createState();
   <S extends StatefulWidget> State<S> createStateFn() {
     return createState().build();
   }

@@ -61,6 +61,20 @@ extension on ffi.Pointer<ArrayC> {
     return list;
   }
 }
+extension on MapC {
+  Map<int, Color> toMap() {
+    final Map<int, Color> map = Map();
+    for (var i=0; i<size; i++) {
+      final entry = entries[i];
+      final wId = entry.value;
+      print('Find widget at $i id: $wId');
+      final w = getWidget(wId);
+      print('Got widget $w');
+      map[entry.key] = w as Color;
+    }
+    return map;
+  }
+}
 extension on ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> {
   List<String>? orEmpty() {
     if (this != ffi.nullptr) {

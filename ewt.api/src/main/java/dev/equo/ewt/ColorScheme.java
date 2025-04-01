@@ -11,6 +11,7 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
     return this;
   }
   private MemorySegment st;
+  protected ColorScheme() {}
   ColorScheme(MemorySegment st) {
     this.id = ColorSchemeObjSt.id(st);
     this.st = st;
@@ -368,8 +369,9 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
     return ColorSchemeHighContrastDarkBuilder.colorSchemeHighContrastDark();
   }
   @Builder.Factory
-  static ColorScheme colorSchemeFromSwatch(Optional<ColorI> accentColor, Optional<ColorI> cardColor, Optional<ColorI> backgroundColor, Optional<ColorI> errorColor, Optional<Brightness> brightness) {
-    var st = factories.colorSchemeFromSwatch(accentColor.map(ColorI::build),
+  static ColorScheme colorSchemeFromSwatch(Optional<MaterialColorI> primarySwatch, Optional<ColorI> accentColor, Optional<ColorI> cardColor, Optional<ColorI> backgroundColor, Optional<ColorI> errorColor, Optional<Brightness> brightness) {
+    var st = factories.colorSchemeFromSwatch(primarySwatch.map(MaterialColorI::build),
+      accentColor.map(ColorI::build),
       cardColor.map(ColorI::build),
       backgroundColor.map(ColorI::build),
       errorColor.map(ColorI::build),

@@ -11,6 +11,7 @@ public class IconData extends NativeObj.Base implements IconDataI {
     return this;
   }
   private MemorySegment st;
+  protected IconData() {}
   IconData(MemorySegment st) {
     this.id = IconDataObjSt.id(st);
     this.st = st;
@@ -32,16 +33,7 @@ public class IconData extends NativeObj.Base implements IconDataI {
   public int codePoint() {
     return IconDataObjSt.codePoint(st);
   }
-  public String fontFamily() {
-    return IconDataObjSt.fontFamily(st).getString(0);
-  }
-  public String fontPackage() {
-    return IconDataObjSt.fontPackage(st).getString(0);
-  }
   public boolean matchTextDirection() {
     return intToBool(IconDataObjSt.matchTextDirection(st));
-  }
-  public List<String> fontFamilyFallback() {
-    return memToStrList(IconDataObjSt.fontFamilyFallback(st));
   }
 }

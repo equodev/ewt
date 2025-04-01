@@ -2,22 +2,27 @@ package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
 import org.immutables.builder.Builder;
+import java.lang.foreign.MemorySegment;
+import dev.equo.ewt.ffm.ThemeObjSt;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Theme extends StatelessWidget implements ThemeI {
   @Override
   public Theme build() {
     return this;
   }
-  Theme() {}
-  Theme(int id) {
-    this.id = id;
+  private MemorySegment st;
+  protected Theme() {}
+  Theme(MemorySegment st) {
+    this.id = ThemeObjSt.id(st);
+    this.st = st;
+    System.out.println("New Theme id:"+id);
   }
   @Builder.Factory
   static Theme themeTheme(@Builder.Parameter ThemeDataI data, @Builder.Parameter WidgetI child) {
-    int id = factories.themeTheme(data.build(),
+    var st = factories.themeTheme(data.build(),
       child.build());
-    if (id == -1) throw new RuntimeException("Failed to created widget Theme");
-    System.out.println("New Theme id:"+id);
-    return new Theme(id);
+    if (st == null) throw new RuntimeException("Failed to created widget Theme");
+    return new Theme(st);
   }
   public static ThemeThemeBuilder theme(ThemeDataI data, WidgetI child) {
     return ThemeThemeBuilder.themeTheme(data, child);
@@ -26,5 +31,11 @@ public class Theme extends StatelessWidget implements ThemeI {
     var st = factories.themeOf(context.build());
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);
+  }
+  public ThemeData data() {
+    return new ThemeData(ThemeObjSt.data(st)) {};
+  }
+  public Widget child() {
+    return new Widget(ThemeObjSt.child(st)) {};
   }
 }

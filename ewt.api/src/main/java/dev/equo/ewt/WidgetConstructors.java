@@ -1,43 +1,13 @@
 package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
-  int textText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
-    var st = WidgetFactories.text(factories);
-    var fn = WidgetFactories.TextSt.text(st);
-    return WidgetFactories.TextSt.text.invoke(fn, arena.allocateFrom(data),
-      ptrObj(style),
-      ptrEnum(textAlign),
-      ptrEnum(textDirection),
-      ptrBool(softWrap),
-      ptrEnum(overflow),
-      ptr(textScaleFactor),
-      ptr(maxLines),
-      ptrStr(semanticsLabel),
-      ptrEnum(textWidthBasis),
-      ptrObj(selectionColor));
-  }
-  int textRich(InlineSpan textSpan, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
-    var st = WidgetFactories.text(factories);
-    var fn = WidgetFactories.TextSt.rich(st);
-    return WidgetFactories.TextSt.rich.invoke(fn, textSpan.getId(),
-      ptrObj(style),
-      ptrEnum(textAlign),
-      ptrEnum(textDirection),
-      ptrBool(softWrap),
-      ptrEnum(overflow),
-      ptr(textScaleFactor),
-      ptr(maxLines),
-      ptrStr(semanticsLabel),
-      ptrEnum(textWidthBasis),
-      ptrObj(selectionColor));
-  }
-
   MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.textStyle(st);
@@ -112,26 +82,57 @@ class WidgetConstructors extends WidgetConstructorsBase {
       background.getId());
   }
 
-  int centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
+  MemorySegment textText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+    var st = WidgetFactories.text(factories);
+    var fn = WidgetFactories.TextSt.text(st);
+    return WidgetFactories.TextSt.text.invoke(fn, arena, arena.allocateFrom(data),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(textScaleFactor),
+      ptr(maxLines),
+      ptrStr(semanticsLabel),
+      ptrEnum(textWidthBasis),
+      ptrObj(selectionColor));
+  }
+  MemorySegment textRich(InlineSpan textSpan, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+    var st = WidgetFactories.text(factories);
+    var fn = WidgetFactories.TextSt.rich(st);
+    return WidgetFactories.TextSt.rich.invoke(fn, arena, textSpan.getId(),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(textScaleFactor),
+      ptr(maxLines),
+      ptrStr(semanticsLabel),
+      ptrEnum(textWidthBasis),
+      ptrObj(selectionColor));
+  }
+
+  MemorySegment centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
     var st = WidgetFactories.center(factories);
     var fn = WidgetFactories.CenterSt.center(st);
-    return WidgetFactories.CenterSt.center.invoke(fn, ptr(widthFactor),
+    return WidgetFactories.CenterSt.center.invoke(fn, arena, ptr(widthFactor),
       ptr(heightFactor),
       ptrObj(child));
   }
 
-  int alignAlign(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
+  MemorySegment alignAlign(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
     var st = WidgetFactories.align(factories);
     var fn = WidgetFactories.AlignSt.align(st);
-    return WidgetFactories.AlignSt.align.invoke(fn, ptr(widthFactor),
+    return WidgetFactories.AlignSt.align.invoke(fn, arena, ptr(widthFactor),
       ptr(heightFactor),
       ptrObj(child));
   }
 
-  int columnColumn(Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, OptionalDouble spacing, Optional<List<Widget>> children) {
+  MemorySegment columnColumn(Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, OptionalDouble spacing, Optional<List<Widget>> children) {
     var st = WidgetFactories.column(factories);
     var fn = WidgetFactories.ColumnSt.column(st);
-    return WidgetFactories.ColumnSt.column.invoke(fn, ptrEnum(mainAxisAlignment),
+    return WidgetFactories.ColumnSt.column.invoke(fn, arena, ptrEnum(mainAxisAlignment),
       ptrEnum(mainAxisSize),
       ptrEnum(crossAxisAlignment),
       ptrEnum(textDirection),
@@ -141,10 +142,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
-  int flexFlex(Axis direction, Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, Optional<Clip> clipBehavior, OptionalDouble spacing, Optional<List<Widget>> children) {
+  MemorySegment flexFlex(Axis direction, Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, Optional<Clip> clipBehavior, OptionalDouble spacing, Optional<List<Widget>> children) {
     var st = WidgetFactories.flex(factories);
     var fn = WidgetFactories.FlexSt.flex(st);
-    return WidgetFactories.FlexSt.flex.invoke(fn, direction.ordinal(),
+    return WidgetFactories.FlexSt.flex.invoke(fn, arena, direction.ordinal(),
       ptrEnum(mainAxisAlignment),
       ptrEnum(mainAxisSize),
       ptrEnum(crossAxisAlignment),
@@ -166,10 +167,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStrList(fontFamilyFallback));
   }
 
-  int iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+  MemorySegment iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
     var st = WidgetFactories.icon(factories);
     var fn = WidgetFactories.IconSt.icon(st);
-    return WidgetFactories.IconSt.icon.invoke(fn, icon.getId(),
+    return WidgetFactories.IconSt.icon.invoke(fn, arena, icon.getId(),
       ptr(size),
       ptr(fill),
       ptr(weight),
@@ -509,10 +510,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(onBackground),
       ptrObj(surfaceVariant));
   }
-  MemorySegment colorSchemeFromSwatch(Optional<Color> accentColor, Optional<Color> cardColor, Optional<Color> backgroundColor, Optional<Color> errorColor, Optional<Brightness> brightness) {
+  MemorySegment colorSchemeFromSwatch(Optional<MaterialColor> primarySwatch, Optional<Color> accentColor, Optional<Color> cardColor, Optional<Color> backgroundColor, Optional<Color> errorColor, Optional<Brightness> brightness) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.fromSwatch(st);
-    return WidgetFactories.ColorSchemeSt.fromSwatch.invoke(fn, arena, ptrObj(accentColor),
+    return WidgetFactories.ColorSchemeSt.fromSwatch.invoke(fn, arena, ptrObj(primarySwatch),
+      ptrObj(accentColor),
       ptrObj(cardColor),
       ptrObj(backgroundColor),
       ptrObj(errorColor),
@@ -529,6 +531,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.of(st);
     return WidgetFactories.ColorSchemeSt.of.invoke(fn, arena, context.getId());
+  }
+
+  MemorySegment materialColorMaterialColor(int primary, Map<Integer, Color> swatch) {
+    var st = WidgetFactories.materialColor(factories);
+    var fn = WidgetFactories.MaterialColorSt.materialColor(st);
+    return WidgetFactories.MaterialColorSt.materialColor.invoke(fn, arena, primary,
+      ptrMap(swatch));
+  }
+
+  MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
+    var st = WidgetFactories.colorSwatch(factories);
+    var fn = WidgetFactories.ColorSwatchSt.lerp(st);
+    return WidgetFactories.ColorSwatchSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
   }
 
   MemorySegment textThemeTextTheme(Optional<TextStyle> displayLarge, Optional<TextStyle> displayMedium, Optional<TextStyle> displaySmall, Optional<TextStyle> headlineLarge, Optional<TextStyle> headlineMedium, Optional<TextStyle> headlineSmall, Optional<TextStyle> titleLarge, Optional<TextStyle> titleMedium, Optional<TextStyle> titleSmall, Optional<TextStyle> bodyLarge, Optional<TextStyle> bodyMedium, Optional<TextStyle> bodySmall, Optional<TextStyle> labelLarge, Optional<TextStyle> labelMedium, Optional<TextStyle> labelSmall) {
@@ -568,107 +585,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.TextThemeSt.primaryOf.invoke(fn, arena, context.getId());
   }
 
-  int appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
-    var st = WidgetFactories.appBar(factories);
-    var fn = WidgetFactories.AppBarSt.appBar(st);
-    return WidgetFactories.AppBarSt.appBar.invoke(fn, ptrObj(leading),
-      ptrBool(automaticallyImplyLeading),
-      ptrObj(title),
-      ptrList(actions),
-      ptrObj(flexibleSpace),
-      ptrObj(bottom),
-      ptr(elevation),
-      ptr(scrolledUnderElevation),
-      ptrObj(shadowColor),
-      ptrObj(surfaceTintColor),
-      ptrObj(backgroundColor),
-      ptrObj(foregroundColor),
-      ptrBool(primary),
-      ptrBool(centerTitle),
-      ptrBool(excludeHeaderSemantics),
-      ptr(titleSpacing),
-      ptr(toolbarOpacity),
-      ptr(bottomOpacity),
-      ptr(toolbarHeight),
-      ptr(leadingWidth),
-      ptrObj(toolbarTextStyle),
-      ptrObj(titleTextStyle),
-      ptrBool(forceMaterialTransparency),
-      ptrEnum(clipBehavior));
-  }
-
-  int scaffoldScaffold(Optional<PreferredSizeWidget> appBar, Optional<Widget> body, Optional<Widget> floatingActionButton, Optional<List<Widget>> persistentFooterButtons, Optional<Widget> drawer, Optional<Consumer<Boolean>> onDrawerChanged, Optional<Widget> endDrawer, Optional<Consumer<Boolean>> onEndDrawerChanged, Optional<Widget> bottomNavigationBar, Optional<Widget> bottomSheet, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> extendBodyBehindAppBar, Optional<Color> drawerScrimColor, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
-    var st = WidgetFactories.scaffold(factories);
-    var fn = WidgetFactories.ScaffoldSt.scaffold(st);
-    return WidgetFactories.ScaffoldSt.scaffold.invoke(fn, ptrObj(appBar),
-      ptrObj(body),
-      ptrObj(floatingActionButton),
-      ptrList(persistentFooterButtons),
-      ptrObj(drawer),
-      onDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
-      ptrObj(endDrawer),
-      onEndDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onEndDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
-      ptrObj(bottomNavigationBar),
-      ptrObj(bottomSheet),
-      ptrObj(backgroundColor),
-      ptrBool(resizeToAvoidBottomInset),
-      ptrBool(primary),
-      ptrEnum(drawerDragStartBehavior),
-      ptrBool(extendBody),
-      ptrBool(extendBodyBehindAppBar),
-      ptrObj(drawerScrimColor),
-      ptr(drawerEdgeDragWidth),
-      ptrBool(drawerEnableOpenDragGesture),
-      ptrBool(endDrawerEnableOpenDragGesture),
-      ptrStr(restorationId));
-  }
-
-  int materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    var st = WidgetFactories.materialApp(factories);
-    var fn = WidgetFactories.MaterialAppSt.materialApp(st);
-    return WidgetFactories.MaterialAppSt.materialApp.invoke(fn, ptrObj(home),
-      ptrStr(initialRoute),
-      builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
-      ptrStr(title),
-      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
-      ptrObj(color),
-      ptrObj(theme),
-      ptrObj(darkTheme),
-      ptrObj(highContrastTheme),
-      ptrObj(highContrastDarkTheme),
-      ptrEnum(themeMode),
-      ptrBool(debugShowMaterialGrid),
-      ptrBool(showPerformanceOverlay),
-      ptrBool(checkerboardRasterCacheImages),
-      ptrBool(checkerboardOffscreenLayers),
-      ptrBool(showSemanticsDebugger),
-      ptrBool(debugShowCheckedModeBanner),
-      ptrStr(restorationScopeId),
-      ptrBool(useInheritedMediaQuery));
-  }
-  int materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    var st = WidgetFactories.materialApp(factories);
-    var fn = WidgetFactories.MaterialAppSt.router(st);
-    return WidgetFactories.MaterialAppSt.router.invoke(fn, builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
-      ptrStr(title),
-      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
-      ptrObj(color),
-      ptrObj(theme),
-      ptrObj(darkTheme),
-      ptrObj(highContrastTheme),
-      ptrObj(highContrastDarkTheme),
-      ptrEnum(themeMode),
-      ptrBool(debugShowMaterialGrid),
-      ptrBool(showPerformanceOverlay),
-      ptrBool(checkerboardRasterCacheImages),
-      ptrBool(checkerboardOffscreenLayers),
-      ptrBool(showSemanticsDebugger),
-      ptrBool(debugShowCheckedModeBanner),
-      ptrStr(restorationScopeId),
-      ptrBool(useInheritedMediaQuery));
-  }
-
-  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> indicatorColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> cardTheme, Optional<NativeObj> dialogTheme, Optional<NativeObj> tabBarTheme, Optional<Color> dialogBackgroundColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
     return WidgetFactories.ThemeDataSt.themeData.invoke(fn, arena, ptrBool(applyElevationOverlayColor),
@@ -690,6 +607,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(primaryColor),
       ptrObj(primaryColorDark),
       ptrObj(primaryColorLight),
+      ptrObj(primarySwatch),
       ptrObj(scaffoldBackgroundColor),
       ptrObj(secondaryHeaderColor),
       ptrObj(shadowColor),
@@ -746,10 +664,117 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  int floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  MemorySegment materialAccentColorMaterialAccentColor(int primary, Map<Integer, Color> swatch) {
+    var st = WidgetFactories.materialAccentColor(factories);
+    var fn = WidgetFactories.MaterialAccentColorSt.materialAccentColor(st);
+    return WidgetFactories.MaterialAccentColorSt.materialAccentColor.invoke(fn, arena, primary,
+      ptrMap(swatch));
+  }
+
+  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.appBar(factories);
+    var fn = WidgetFactories.AppBarSt.appBar(st);
+    return WidgetFactories.AppBarSt.appBar.invoke(fn, arena, ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrObj(title),
+      ptrList(actions),
+      ptrObj(flexibleSpace),
+      ptrObj(bottom),
+      ptr(elevation),
+      ptr(scrolledUnderElevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptrBool(primary),
+      ptrBool(centerTitle),
+      ptrBool(excludeHeaderSemantics),
+      ptr(titleSpacing),
+      ptr(toolbarOpacity),
+      ptr(bottomOpacity),
+      ptr(toolbarHeight),
+      ptr(leadingWidth),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
+      ptrBool(forceMaterialTransparency),
+      ptrEnum(clipBehavior));
+  }
+
+  MemorySegment scaffoldScaffold(Optional<PreferredSizeWidget> appBar, Optional<Widget> body, Optional<Widget> floatingActionButton, Optional<List<Widget>> persistentFooterButtons, Optional<Widget> drawer, Optional<Consumer<Boolean>> onDrawerChanged, Optional<Widget> endDrawer, Optional<Consumer<Boolean>> onEndDrawerChanged, Optional<Widget> bottomNavigationBar, Optional<Widget> bottomSheet, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> extendBodyBehindAppBar, Optional<Color> drawerScrimColor, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.scaffold(st);
+    return WidgetFactories.ScaffoldSt.scaffold.invoke(fn, arena, ptrObj(appBar),
+      ptrObj(body),
+      ptrObj(floatingActionButton),
+      ptrList(persistentFooterButtons),
+      ptrObj(drawer),
+      onDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
+      ptrObj(endDrawer),
+      onEndDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onEndDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
+      ptrObj(bottomNavigationBar),
+      ptrObj(bottomSheet),
+      ptrObj(backgroundColor),
+      ptrBool(resizeToAvoidBottomInset),
+      ptrBool(primary),
+      ptrEnum(drawerDragStartBehavior),
+      ptrBool(extendBody),
+      ptrBool(extendBodyBehindAppBar),
+      ptrObj(drawerScrimColor),
+      ptr(drawerEdgeDragWidth),
+      ptrBool(drawerEnableOpenDragGesture),
+      ptrBool(endDrawerEnableOpenDragGesture),
+      ptrStr(restorationId));
+  }
+
+  MemorySegment materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    var st = WidgetFactories.materialApp(factories);
+    var fn = WidgetFactories.MaterialAppSt.materialApp(st);
+    return WidgetFactories.MaterialAppSt.materialApp.invoke(fn, arena, ptrObj(home),
+      ptrStr(initialRoute),
+      builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
+      ptrStr(title),
+      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
+      ptrObj(color),
+      ptrObj(theme),
+      ptrObj(darkTheme),
+      ptrObj(highContrastTheme),
+      ptrObj(highContrastDarkTheme),
+      ptrEnum(themeMode),
+      ptrBool(debugShowMaterialGrid),
+      ptrBool(showPerformanceOverlay),
+      ptrBool(checkerboardRasterCacheImages),
+      ptrBool(checkerboardOffscreenLayers),
+      ptrBool(showSemanticsDebugger),
+      ptrBool(debugShowCheckedModeBanner),
+      ptrStr(restorationScopeId),
+      ptrBool(useInheritedMediaQuery));
+  }
+  MemorySegment materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    var st = WidgetFactories.materialApp(factories);
+    var fn = WidgetFactories.MaterialAppSt.router(st);
+    return WidgetFactories.MaterialAppSt.router.invoke(fn, arena, builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
+      ptrStr(title),
+      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
+      ptrObj(color),
+      ptrObj(theme),
+      ptrObj(darkTheme),
+      ptrObj(highContrastTheme),
+      ptrObj(highContrastDarkTheme),
+      ptrEnum(themeMode),
+      ptrBool(debugShowMaterialGrid),
+      ptrBool(showPerformanceOverlay),
+      ptrBool(checkerboardRasterCacheImages),
+      ptrBool(checkerboardOffscreenLayers),
+      ptrBool(showSemanticsDebugger),
+      ptrBool(debugShowCheckedModeBanner),
+      ptrStr(restorationScopeId),
+      ptrBool(useInheritedMediaQuery));
+  }
+
+  MemorySegment floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.floatingActionButton(st);
-    return WidgetFactories.FloatingActionButtonSt.floatingActionButton.invoke(fn, ptrObj(child),
+    return WidgetFactories.FloatingActionButtonSt.floatingActionButton.invoke(fn, arena, ptrObj(child),
       ptrStr(tooltip),
       ptrObj(foregroundColor),
       ptrObj(backgroundColor),
@@ -770,10 +795,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(isExtended),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.small(st);
-    return WidgetFactories.FloatingActionButtonSt.small.invoke(fn, ptrObj(child),
+    return WidgetFactories.FloatingActionButtonSt.small.invoke(fn, arena, ptrObj(child),
       ptrStr(tooltip),
       ptrObj(foregroundColor),
       ptrObj(backgroundColor),
@@ -792,10 +817,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.large(st);
-    return WidgetFactories.FloatingActionButtonSt.large.invoke(fn, ptrObj(child),
+    return WidgetFactories.FloatingActionButtonSt.large.invoke(fn, arena, ptrObj(child),
       ptrStr(tooltip),
       ptrObj(foregroundColor),
       ptrObj(backgroundColor),
@@ -814,10 +839,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  int floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.extended(st);
-    return WidgetFactories.FloatingActionButtonSt.extended.invoke(fn, ptrStr(tooltip),
+    return WidgetFactories.FloatingActionButtonSt.extended.invoke(fn, arena, ptrStr(tooltip),
       ptrObj(foregroundColor),
       ptrObj(backgroundColor),
       ptrObj(focusColor),
@@ -841,10 +866,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enableFeedback));
   }
 
-  int themeTheme(ThemeData data, Widget child) {
+  MemorySegment themeTheme(ThemeData data, Widget child) {
     var st = WidgetFactories.theme(factories);
     var fn = WidgetFactories.ThemeSt.theme(st);
-    return WidgetFactories.ThemeSt.theme.invoke(fn, data.getId(),
+    return WidgetFactories.ThemeSt.theme.invoke(fn, arena, data.getId(),
       child.getId());
   }
   MemorySegment themeOf(BuildContext context) {

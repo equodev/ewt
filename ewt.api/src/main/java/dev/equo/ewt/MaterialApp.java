@@ -2,18 +2,24 @@ package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
 import org.immutables.builder.Builder;
+import java.lang.foreign.MemorySegment;
+import dev.equo.ewt.ffm.MaterialAppObjSt;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialApp extends StatefulWidget implements MaterialAppI {
   @Override
   public MaterialApp build() {
     return this;
   }
-  MaterialApp() {}
-  MaterialApp(int id) {
-    this.id = id;
+  private MemorySegment st;
+  protected MaterialApp() {}
+  MaterialApp(MemorySegment st) {
+    this.id = MaterialAppObjSt.id(st);
+    this.st = st;
+    System.out.println("New MaterialApp id:"+id);
   }
   @Builder.Factory
   static MaterialApp materialAppMaterialApp(Optional<WidgetI> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    int id = factories.materialAppMaterialApp(home.map(WidgetI::build),
+    var st = factories.materialAppMaterialApp(home.map(WidgetI::build),
       initialRoute,
       builder,
       title,
@@ -32,16 +38,15 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
       debugShowCheckedModeBanner,
       restorationScopeId,
       useInheritedMediaQuery);
-    if (id == -1) throw new RuntimeException("Failed to created widget MaterialApp");
-    System.out.println("New MaterialApp id:"+id);
-    return new MaterialApp(id);
+    if (st == null) throw new RuntimeException("Failed to created widget MaterialApp");
+    return new MaterialApp(st);
   }
   public static MaterialAppMaterialAppBuilder materialApp() {
     return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
   }
   @Builder.Factory
   static MaterialApp materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    int id = factories.materialAppRouter(builder,
+    var st = factories.materialAppRouter(builder,
       title,
       onGenerateTitle,
       color.map(ColorI::build),
@@ -58,11 +63,52 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
       debugShowCheckedModeBanner,
       restorationScopeId,
       useInheritedMediaQuery);
-    if (id == -1) throw new RuntimeException("Failed to created widget MaterialApp");
-    System.out.println("New MaterialApp id:"+id);
-    return new MaterialApp(id);
+    if (st == null) throw new RuntimeException("Failed to created widget MaterialApp");
+    return new MaterialApp(st);
   }
   public static MaterialAppRouterBuilder router() {
     return MaterialAppRouterBuilder.materialAppRouter();
+  }
+  public Widget home() {
+    return new Widget(MaterialAppObjSt.home(st)) {};
+  }
+  public ThemeData theme() {
+    return new ThemeData(MaterialAppObjSt.theme(st)) {};
+  }
+  public ThemeData darkTheme() {
+    return new ThemeData(MaterialAppObjSt.darkTheme(st)) {};
+  }
+  public ThemeData highContrastTheme() {
+    return new ThemeData(MaterialAppObjSt.highContrastTheme(st)) {};
+  }
+  public ThemeData highContrastDarkTheme() {
+    return new ThemeData(MaterialAppObjSt.highContrastDarkTheme(st)) {};
+  }
+  public ThemeMode themeMode() {
+    return ThemeMode.values()[MaterialAppObjSt.themeMode(st)];
+  }
+  public Color color() {
+    return new Color(MaterialAppObjSt.color(st)) {};
+  }
+  public boolean showPerformanceOverlay() {
+    return intToBool(MaterialAppObjSt.showPerformanceOverlay(st));
+  }
+  public boolean checkerboardRasterCacheImages() {
+    return intToBool(MaterialAppObjSt.checkerboardRasterCacheImages(st));
+  }
+  public boolean checkerboardOffscreenLayers() {
+    return intToBool(MaterialAppObjSt.checkerboardOffscreenLayers(st));
+  }
+  public boolean showSemanticsDebugger() {
+    return intToBool(MaterialAppObjSt.showSemanticsDebugger(st));
+  }
+  public boolean debugShowCheckedModeBanner() {
+    return intToBool(MaterialAppObjSt.debugShowCheckedModeBanner(st));
+  }
+  public boolean debugShowMaterialGrid() {
+    return intToBool(MaterialAppObjSt.debugShowMaterialGrid(st));
+  }
+  public boolean useInheritedMediaQuery() {
+    return intToBool(MaterialAppObjSt.useInheritedMediaQuery(st));
   }
 }

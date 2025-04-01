@@ -1,16 +1,10 @@
 package dev.equo.ewt;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 public class EWT {
-  public static TextTextBuilder Text(String data) {
-    return TextTextBuilder.textText(data);
-  }
-  public static TextRichBuilder Text_rich(InlineSpanI textSpan) {
-    return TextRichBuilder.textRich(textSpan);
-  }
-
   public static TextStyleTextStyleBuilder TextStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();
   }
@@ -26,6 +20,13 @@ public class EWT {
   }
   public static ColorFromRGBOBuilder Color_fromRGBO(int r, int g, int b, double opacity) {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
+  }
+
+  public static TextTextBuilder Text(String data) {
+    return TextTextBuilder.textText(data);
+  }
+  public static TextRichBuilder Text_rich(InlineSpanI textSpan) {
+    return TextRichBuilder.textRich(textSpan);
   }
 
   public static CenterCenterBuilder Center() {
@@ -74,23 +75,13 @@ public class EWT {
     return ColorSchemeFromSwatchBuilder.colorSchemeFromSwatch();
   }
 
+  public static MaterialColorMaterialColorBuilder MaterialColor(int primary, Map<Integer, Color> swatch) {
+    return MaterialColorMaterialColorBuilder.materialColorMaterialColor(primary, swatch);
+  }
+
+
   public static TextThemeTextThemeBuilder TextTheme() {
     return TextThemeTextThemeBuilder.textThemeTextTheme();
-  }
-
-  public static AppBarAppBarBuilder AppBar() {
-    return AppBarAppBarBuilder.appBarAppBar();
-  }
-
-  public static ScaffoldScaffoldBuilder Scaffold() {
-    return ScaffoldScaffoldBuilder.scaffoldScaffold();
-  }
-
-  public static MaterialAppMaterialAppBuilder MaterialApp() {
-    return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
-  }
-  public static MaterialAppRouterBuilder MaterialApp_router() {
-    return MaterialAppRouterBuilder.materialAppRouter();
   }
 
   public static ThemeDataThemeDataBuilder ThemeData() {
@@ -107,6 +98,25 @@ public class EWT {
   }
   public static ThemeDataFallbackBuilder ThemeData_fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
+  }
+
+  public static MaterialAccentColorMaterialAccentColorBuilder MaterialAccentColor(int primary, Map<Integer, Color> swatch) {
+    return MaterialAccentColorMaterialAccentColorBuilder.materialAccentColorMaterialAccentColor(primary, swatch);
+  }
+
+  public static AppBarAppBarBuilder AppBar() {
+    return AppBarAppBarBuilder.appBarAppBar();
+  }
+
+  public static ScaffoldScaffoldBuilder Scaffold() {
+    return ScaffoldScaffoldBuilder.scaffoldScaffold();
+  }
+
+  public static MaterialAppMaterialAppBuilder MaterialApp() {
+    return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
+  }
+  public static MaterialAppRouterBuilder MaterialApp_router() {
+    return MaterialAppRouterBuilder.materialAppRouter();
   }
 
   public static FloatingActionButtonFloatingActionButtonBuilder FloatingActionButton() {

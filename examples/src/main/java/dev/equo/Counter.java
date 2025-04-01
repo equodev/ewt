@@ -2,16 +2,7 @@ package dev.equo;
 
 //import dev.equo.ewt.*;
 
-import dev.equo.ewt.App;
-import dev.equo.ewt.BuildContext;
-import dev.equo.ewt.MainAxisAlignment;
-import dev.equo.ewt.SubStatelessWidget;
-import dev.equo.ewt.SubStatefulWidget;
-import dev.equo.ewt.SubState;
-import dev.equo.ewt.State;
-import dev.equo.ewt.Theme;
-import dev.equo.ewt.Icons;
-import dev.equo.ewt.WidgetI;
+import dev.equo.ewt.*;
 
 import static dev.equo.ewt.EWT.*;
 
@@ -30,7 +21,7 @@ public class Counter {
       return MaterialApp()
           .title("EWT Demo")
           .theme(ThemeData()
-              .colorScheme(ColorScheme_fromSeed(Color(0xFF311B92)))
+              .colorScheme(ColorScheme_fromSeed(Colors.deepPurple()))
               .useMaterial3(true))
           .home(new MyHomePage("Flutter Demo Home Page"));
     }
