@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ColorSwatchObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ColorSwatch<T> extends Color implements ColorSwatchI {
-  @Override
-  public ColorSwatch build() {
-    return this;
-  }
   private MemorySegment st;
   protected ColorSwatch() {}
   ColorSwatch(MemorySegment st) {
@@ -23,5 +19,9 @@ public class ColorSwatch<T> extends Color implements ColorSwatchI {
       t);
     if (st == null) throw new RuntimeException("Failed to created widget ColorSwatch");
     return new ColorSwatch(st);
+  }
+  @Override
+  public ColorSwatch build() {
+    return this;
   }
 }

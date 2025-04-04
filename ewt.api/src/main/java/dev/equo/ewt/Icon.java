@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.IconObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Icon extends StatelessWidget implements IconI {
-  @Override
-  public Icon build() {
-    return this;
-  }
   private MemorySegment st;
   protected Icon() {}
   Icon(MemorySegment st) {
@@ -65,5 +61,9 @@ public class Icon extends StatelessWidget implements IconI {
   }
   public BlendMode blendMode() {
     return BlendMode.values()[IconObjSt.blendMode(st)];
+  }
+  @Override
+  public Icon build() {
+    return this;
   }
 }

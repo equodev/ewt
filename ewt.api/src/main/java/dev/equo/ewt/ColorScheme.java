@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ColorSchemeObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
-  @Override
-  public ColorScheme build() {
-    return this;
-  }
   private MemorySegment st;
   protected ColorScheme() {}
   ColorScheme(MemorySegment st) {
@@ -543,5 +539,9 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
   }
   public Color onBackground() {
     return new Color(ColorSchemeObjSt.onBackground(st)) {};
+  }
+  @Override
+  public ColorScheme build() {
+    return this;
   }
 }

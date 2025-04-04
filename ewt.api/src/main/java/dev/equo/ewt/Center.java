@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.CenterObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Center extends Align implements CenterI {
-  @Override
-  public Center build() {
-    return this;
-  }
   private MemorySegment st;
   protected Center() {}
   Center(MemorySegment st) {
@@ -27,5 +23,9 @@ public class Center extends Align implements CenterI {
   }
   public static CenterCenterBuilder center() {
     return CenterCenterBuilder.centerCenter();
+  }
+  @Override
+  public Center build() {
+    return this;
   }
 }

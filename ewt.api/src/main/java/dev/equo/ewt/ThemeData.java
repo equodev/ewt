@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ThemeDataObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ThemeData extends NativeObj.Base implements ThemeDataI {
-  @Override
-  public ThemeData build() {
-    return this;
-  }
   private MemorySegment st;
   protected ThemeData() {}
   ThemeData(MemorySegment st) {
@@ -196,5 +192,9 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   }
   private static int _localizedThemeDataCacheSize() {
     return 5;
+  }
+  @Override
+  public ThemeData build() {
+    return this;
   }
 }

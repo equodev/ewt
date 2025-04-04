@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Text extends StatelessWidget implements TextI {
-  @Override
-  public Text build() {
-    return this;
-  }
   private MemorySegment st;
   protected Text() {}
   Text(MemorySegment st) {
@@ -84,5 +80,9 @@ public class Text extends StatelessWidget implements TextI {
   }
   public Color selectionColor() {
     return new Color(TextObjSt.selectionColor(st)) {};
+  }
+  @Override
+  public Text build() {
+    return this;
   }
 }

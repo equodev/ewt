@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.FloatingActionButtonObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FloatingActionButton extends StatelessWidget implements FloatingActionButtonI {
-  @Override
-  public FloatingActionButton build() {
-    return this;
-  }
   private MemorySegment st;
   protected FloatingActionButton() {}
   FloatingActionButton(MemorySegment st) {
@@ -183,5 +179,9 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
   }
   public TextStyle extendedTextStyle() {
     return new TextStyle(FloatingActionButtonObjSt.extendedTextStyle(st)) {};
+  }
+  @Override
+  public FloatingActionButton build() {
+    return this;
   }
 }

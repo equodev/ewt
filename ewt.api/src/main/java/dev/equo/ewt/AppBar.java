@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.AppBarObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBarI {
-  @Override
-  public AppBar build() {
-    return this;
-  }
   private MemorySegment st;
   protected AppBar() {}
   AppBar(MemorySegment st) {
@@ -114,5 +110,9 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   }
   public Clip clipBehavior() {
     return Clip.values()[AppBarObjSt.clipBehavior(st)];
+  }
+  @Override
+  public AppBar build() {
+    return this;
   }
 }

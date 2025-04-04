@@ -17,13 +17,13 @@ public class Counter {
   static class MyApp extends SubStatelessWidget {
 
     @Override
-    protected WidgetI build(BuildContext context) {
+    protected Widget build(BuildContext context) {
       return MaterialApp()
           .title("EWT Demo")
-          .theme(ThemeData()
-              .colorScheme(ColorScheme_fromSeed(Colors.deepPurple()))
+          .theme( ThemeData()
+              .colorScheme( ColorScheme_fromSeed(Colors.deepPurple()) )
               .useMaterial3(true))
-          .home(new MyHomePage("Flutter Demo Home Page"));
+          .home( new MyHomePage("Flutter Demo Home Page") );
     }
 
     private class MyHomePage extends SubStatefulWidget {
@@ -35,17 +35,12 @@ public class Counter {
 
       @Override
       protected State<MyHomePage> createState() {
-        return new MyHomePageState(this);
+        return new MyHomePageState();
       }
     }
 
     private class MyHomePageState extends SubState<MyHomePage> {
-      private final MyHomePage widget;
       int _counter = 0;
-
-      public MyHomePageState(MyHomePage myHomePage) {
-        this.widget = myHomePage;
-      }
 
       void _incrementCounter() {
         setState(() -> {
@@ -60,24 +55,24 @@ public class Counter {
       }
 
       @Override
-      public WidgetI build(BuildContext context) {
+      public Widget build(BuildContext context) {
         return Scaffold()
-            .appBar(AppBar()
-                .backgroundColor(Theme.of(context).colorScheme().inversePrimary())
-                .title(Text(widget.title)))
-            .body(Center()
-                .child(Column()
-                    .mainAxisAlignment(MainAxisAlignment.center)
-                    .children(List.of(
+            .appBar( AppBar()
+                .backgroundColor( Theme.of(context).colorScheme().inversePrimary() )
+                .title( Text(widget().title)) )
+            .body( Center()
+                .child( Column()
+                    .mainAxisAlignment( MainAxisAlignment.center )
+                    .children( List.of(
                         Text("You have pushed the button this many times:"),
                         Text("" + _counter)
-                            .style(Theme.of(context).textTheme().headlineMedium())
+                            .style( Theme.of(context).textTheme().headlineMedium() )
                     ))
                 ))
-            .floatingActionButton(FloatingActionButton()
+            .floatingActionButton( FloatingActionButton()
                 .onPressed(this::_incrementCounter)
                 .tooltip("Increment")
-                .child(Icon(Icons.add())));
+                .child( Icon(Icons.add()) ));
       }
     }
   }

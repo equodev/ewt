@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ThemeObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Theme extends StatelessWidget implements ThemeI {
-  @Override
-  public Theme build() {
-    return this;
-  }
   private MemorySegment st;
   protected Theme() {}
   Theme(MemorySegment st) {
@@ -37,5 +33,9 @@ public class Theme extends StatelessWidget implements ThemeI {
   }
   public Widget child() {
     return new Widget(ThemeObjSt.child(st)) {};
+  }
+  @Override
+  public Theme build() {
+    return this;
   }
 }

@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.MaterialAppObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialApp extends StatefulWidget implements MaterialAppI {
-  @Override
-  public MaterialApp build() {
-    return this;
-  }
   private MemorySegment st;
   protected MaterialApp() {}
   MaterialApp(MemorySegment st) {
@@ -110,5 +106,9 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
   }
   public boolean useInheritedMediaQuery() {
     return intToBool(MaterialAppObjSt.useInheritedMediaQuery(st));
+  }
+  @Override
+  public MaterialApp build() {
+    return this;
   }
 }

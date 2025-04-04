@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextThemeObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextTheme extends NativeObj.Base implements TextThemeI {
-  @Override
-  public TextTheme build() {
-    return this;
-  }
   private MemorySegment st;
   protected TextTheme() {}
   TextTheme(MemorySegment st) {
@@ -101,5 +97,9 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
   }
   public TextStyle labelSmall() {
     return new TextStyle(TextThemeObjSt.labelSmall(st)) {};
+  }
+  @Override
+  public TextTheme build() {
+    return this;
   }
 }

@@ -50,13 +50,13 @@ class PreGeneration {
   }
   void write() {
     _writeD('subwidgets.dart', dartSubclasses.toString());
-    _writeDCopy('subwidgets.dart', dartSubclasses.toString());
+    _writeDCopy('subwidgets.dart', dartSubclasses.toString()); // this is for the parser/generator
   }
 
 }
 
 class WidgetGen implements AGen {
-  Types generation;
+  Types types;
   ClassElement dartClass;
   String widgetClass;
   String widgetField;
@@ -71,7 +71,7 @@ class WidgetGen implements AGen {
 
   bool _isInterface = false;
 
-  WidgetGen(this.generation, this.dartClass):
+  WidgetGen(this.types, this.dartClass):
         widgetClass = dartClass.name,
         widgetField = '${dartClass.name[0].toLowerCase()}${dartClass.name.substring(1)}';
 
@@ -110,7 +110,7 @@ class WidgetGen implements AGen {
     }
     writeFooter(hasMembers);
     if (dartClass.supertype != null) {
-      generation.addRequiredType(dartClass.supertype as DartType);
+      types.addRequiredType(dartClass.supertype as DartType);
     }
   }
 
@@ -196,12 +196,6 @@ class WidgetGen implements AGen {
           '  @Override\n'
           '  $widgetClass build();\n'
           '}');
-    javaFile
-        .writeln('  @Override\n'
-        '  ${_isInterface ? 'default' : 'public'} $widgetClass build() {\n'
-        '    return this;\n'
-        '  }')
-    ;
   }
 
   bool isInterface(Element? dartClass) => dartClass is ClassElement && (dartClass.isInterface || dartClass.isMixinClass || (dartClass.isAbstract && dartClass.interfaces.any((i) => i.element is ClassElement)));
@@ -218,6 +212,10 @@ class WidgetGen implements AGen {
   }
 
   void writeFooter(bool hasMembers) {
+    javaFile.writeln('  @Override\n'
+        '  ${_isInterface ? 'default' : 'public'} $widgetClass build() {\n'
+        '    return this;\n'
+        '  }');
     javaFile.writeln('}');
     if (hasMembers) {
       headerFile.writeln('  } $widgetField;');
@@ -225,7 +223,7 @@ class WidgetGen implements AGen {
   }
 
   void writeFactory(FunctionTypedElement node) {
-    if (node.parameters.any((p) => p.isRequired && !generation.supportedType(p.type)) || !generation.supportedType(node.returnType)) {
+    if (node.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) || !types.supportedType(node.returnType)) {
       return;
     }
     String factory = (node.name!.isEmpty) ? widgetField : node.name!;
@@ -247,16 +245,10 @@ class WidgetGen implements AGen {
   }
 
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
-    var gen = generation.getGen(node.returnType.element!);
-    //if (gen.objType() == 'DartObj')
-    final dartParams = Params(generation, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
+    var gen = types.getGen(node.returnType.element!);
+    final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen.objType().endsWith('ObjSt') ? '' : ', exception'});');
-    // dartFns
-    //   ..writeln('int $factoryName(${dartParams.decl}) {')
-    //   ..writeln('  final w = $widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});')
-    //   ..writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};')
-    //   ..writeln('}');
     var nullabilitySuffix = node.returnType.nullabilitySuffix == NullabilitySuffix.question ? '?' : '' ;
     dartFns
       ..writeln('${gen.objType() == 'DartObj' ? 'int' : '${gen.objType()}$nullabilitySuffix'} $factoryName(${dartParams.decl}) {')
@@ -275,23 +267,23 @@ class WidgetGen implements AGen {
   }
 
   void writeCFactory(String factory, FunctionTypedElement node, String retType) {
-    headerFile.writeln('    ${CLang(generation).field(factory, generation.getGen(node.returnType.element!).objType(), params: node.parameters)}');
+    headerFile.writeln('    ${CLang(types).field(factory, types.getGen(node.returnType.element!).objType(), params: node.parameters)}');
   }
 
   void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
     String builderFactory = factoryName;
-    final jParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
-    final jParamsDecl = Params(generation, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params._escape4J);
-    final jParamsFFM = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4FFM, escape: Params._escape4J);
+    final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+    final jParamsDecl = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
     if (node is ConstructorElement) {
       javaFile
         ..writeln('  @Builder.Factory')
         ..writeln('  static $widgetClass $factoryName(${jParamsDecl.builderDecl}) {');
     } else {
       javaFile
-          .writeln('  public static ${generation.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
+          .writeln('  public static ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
     }
-    var gen = generation.getGen(node.returnType.element!);
+    var gen = types.getGen(node.returnType.element!);
     if (gen is WidgetGen) {
       gen.writeJavaInstanceBody(factoryName, jParamsDecl, node);
       javaFile.write(gen.javaFile);
@@ -320,11 +312,11 @@ class WidgetGen implements AGen {
       ..writeln('    int id = factories.$factoryName(${jParams.names});')
       ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget ${node.returnType}");')
       ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
-      ..writeln('    return ${node.returnType.element is EnumElement ? '${generation.type4J(node.returnType)}.values()[id]' : 'new ${generation.type4J(node.returnType)}(id)'};');
+      ..writeln('    return ${node.returnType.element is EnumElement ? '${types.type4J(node.returnType)}.values()[id]' : 'new ${types.type4J(node.returnType)}(id)'};');
   }
 
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, FunctionTypedElement node) {
-    var gen = generation.getGen(node.returnType.element!);
+    var gen = types.getGen(node.returnType.element!);
     javaFactories
       ..writeln('  ${gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int'} $factoryName(${jParams.decl}) {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
@@ -339,18 +331,6 @@ class WidgetGen implements AGen {
     javaFile
       .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
-      // var nodeList = (initializer as InstanceCreationExpression).argumentList.arguments;
-      // var requiredArgs = nodeList
-      //     .where((a) => a.correspondingParameter!.isRequiredPositional)
-      //     .map((a) => a.unParenthesized)
-      //     .map((e) => dartExptrToJava(e))
-      //     .join(', ');
-      // var otherArgs = nodeList
-      //     .whereType<NamedExpression>()
-      //     .map((a) => '.${a.name.label}(${a.expression.toString().replaceAll('\'', '"')})')
-      //     .join('');
-      // var widgetInstance = '${fld.type}.${fld.type.toString().firstLower()}($requiredArgs)$otherArgs.build();';
-
       javaFile
         .writeln('    return ${dartExptrToJava(initializer as Expression)};');
     }
@@ -397,7 +377,7 @@ class WidgetGen implements AGen {
 class ImmutableGen extends WidgetGen {
   String widgetSt;
 
-  ImmutableGen(super.generation, super.dartClass):
+  ImmutableGen(super.types, super.dartClass):
         widgetSt = '${dartClass.name}ObjSt';
 
   @override
@@ -441,18 +421,18 @@ class ImmutableGen extends WidgetGen {
       ..writeln('    var st = factories.$factoryName(${jParams.names});')
       ..writeln('    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
     // ..writeln('    id = $widgetSt.id(st);')
-      ..writeln('    return new ${generation.type4J(node.returnType)}(st);');
+      ..writeln('    return new ${types.type4J(node.returnType)}(st);');
   }
 
   @override
   void writeMembers() {
     objectsHFile.writeln('typedef struct {');
-    objectsHFile.writeln('  ${CLang(generation).field('id', 'int')}');
+    objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
     for (final field in callableFields()) {
-      objectsHFile.writeln('  ${CLang(generation).field(field.name, generation.type4C(field.type))}');
+      objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type))}');
       javaFile
-        ..writeln('  public ${generation.type4J(field.type)} ${field.name}() {')
-        ..writeln('    return ${Params.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}(st)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
+        ..writeln('  public ${types.type4J(field.type)} ${field.name}() {')
+        ..writeln('    return ${types.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}(st)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
         ..writeln('  }');
     }
     objectsHFile.writeln('} $widgetSt;');
@@ -464,7 +444,7 @@ class ImmutableGen extends WidgetGen {
       ..writeln('  if (w == null) return stObj;');
     for (var m in callableFields()) {
       dartFns
-          .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(generation, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))};');
+          .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))};');
     }
     dartFns
       ..writeln('  return stObj;')
@@ -476,14 +456,14 @@ class ImmutableGen extends WidgetGen {
           .where((f) =>
       !f.getter!.hasOverride && f.isPublic
           && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
-          && !isInterface(f.type.element) && generation.supportedType(f.type));
+          && !isInterface(f.type.element) && types.supportedType(f.type));
 
 }
 
 class SubclassGen extends WidgetGen {
   String widgetSt;
 
-  SubclassGen(super.generation, super.dartClass) :
+  SubclassGen(super.types, super.dartClass) :
   // super.widgetClass = widgetClass.substring(3);
         widgetSt = '${dartClass.name}ObjSt';
 
@@ -498,7 +478,8 @@ class SubclassGen extends WidgetGen {
     javaFile
       ..writeln('import java.lang.foreign.MemorySegment;')
       ..writeln('import dev.equo.ewt.ffm.$widgetSt;')
-      ..writeln('public abstract class $widgetClass$extend {');
+      ..writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;')
+      ..writeln('public abstract class $widgetClass$extend, SubclassedInJava {');
   }
 
   @override
@@ -511,26 +492,33 @@ class SubclassGen extends WidgetGen {
       // javaFile.writeln('  protected abstract $method;');
       var returnType = method.returnType;
       var ret = '${method.returnType}';
-      var retBuilder = generation.widgets.any((w) => w.name  == 'Sub${returnType.element!.name}') ? ret : '${method.returnType}I';
+      var retBuilder = types.widgets.any((w) => w.name  == 'Sub${returnType.element!.name}') ? ret : '${method.returnType}';
       if (returnType is InterfaceType && returnType.typeArguments.isNotEmpty) {
         ret = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
         retBuilder = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
       }
-      final jParams = Params(generation, method.parameters, Params.paramDef4J, paramValue: Params.paramValue4JBuilder, escape: Params._escape4J);
+      final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
       javaFile.writeln('  protected abstract ${retBuilder} ${method.name}(${jParams.decl});');
       javaFile.writeln('  ${ret} ${method.name}Fn(${jParams.decl}) {\n'
           '    return ${method.name}(${jParams.names}).build();\n'
           '  }');
     }
     objectsHFile.writeln('typedef struct {');
-    // objectsHFile.writeln('  int id;');
-    objectsHFile.writeln('  ${CLang(generation).field('id', 'int')}');
+    objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
+    for (final field in callableFields()) {
+      objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
+      javaFile
+        ..writeln('  public ${types.type4J(field.type)} ${field.name}() {')
+        ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
+        ..writeln('    return ${types.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}.invoke(funcPtr)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
+        ..writeln('  }');
+    }
     for (final method in callableMethods()) {
       // final cParams = Params(generation, method.parameters, Params.paramDef4C);
       // objectsHFile.writeln('  ${method.returnType} (*${method.name})(${cParams.decl});');
-      objectsHFile.writeln('  ${CLang(generation).field(method.name, '${method.returnType}', params: method.parameters)}');
+      objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
       // CLang(generation).writeField(objectsHFile, method.name, '${method.returnType}', params: method.parameters);
-      final jParams = Params(generation, method.parameters, Params.paramDef4J, paramValue: Params.paramValue4FFM, escape: Params._escape4J);
+      final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
       javaFile
         ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {')
         ..writeln('    MemorySegment funcPtr = $widgetSt.${method.name}(st);')
@@ -540,19 +528,28 @@ class SubclassGen extends WidgetGen {
     objectsHFile.writeln('} $widgetSt;');
   }
 
-  Iterable<MethodElement> callableMethods() => dartClass.supertype!.element.methods.where((m) => !m.isAbstract && m.hasProtected && !m.hasMustCallSuper);
+  Iterable<FieldElement> callableFields() =>
+      dartClass.supertype!.element.fields
+          .where((f) =>
+      !f.getter!.hasOverride && f.isPublic
+          && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
+          && !isInterface(f.type.element) && types.supportedType(f.type));
+
+  Iterable<MethodElement> callableMethods() => dartClass.supertype!.element.methods
+      .where((m) => !m.isAbstract && m.hasProtected && !m.hasMustCallSuper);
 
   @override
   void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
-    final fnParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4JCallback, escape: Params._escape4J);
-    final jParams = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params._escape4J, escape: Params._escape4J);
-    final jParamsFFM = Params(generation, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4FFM, escape: Params._escape4J);
+    final fnParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4JCallback, escape: Params.escape4J);
+    final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
     javaFile
       ..writeln('  private final MemorySegment st;')
       ..writeln('  protected $widgetClass() {')
       ..writeln('    st = factories.$factoryName(${fnParams.names});')
       ..writeln('    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
       ..writeln('    id = $widgetSt.id(st);')
+      ..writeln('    SubclassedInJava.addSubNatObj(this);')
       ..writeln('    System.out.println("New $widgetClass id:"+id);')
       ..writeln('  }');
     javaFactories
@@ -565,7 +562,7 @@ class SubclassGen extends WidgetGen {
 
   @override
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
-    final dartParams = Params(generation, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
+    final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName);');
     dartFns
@@ -576,6 +573,12 @@ class SubclassGen extends WidgetGen {
     for (var m in callableMethods()) {
       dartFns // todo derive types from method
         ..writeln('  final ${m.name}Fn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.${m.name}(cb.asFunction()));')
+        ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
+    }
+    for (var m in callableFields()) {
+      dartFns
+          // .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))};');
+        ..writeln('  final ${m.name}Fn = ffi.NativeCallable<${types.type4D(m.type)} Function()>.isolateLocal(() => ${Params.paramValueDtoC(types, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))}, exceptionalReturn: exception);')
         ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
     }
     dartFns
@@ -958,7 +961,7 @@ class Params {
 
   static String _paramName(ParameterElement param) => param.name;
 
-  static String _escape4J(ParameterElement param) => (param.name == 'package') ? '_package' : param.name;
+  static String escape4J(ParameterElement param) => (param.name == 'package') ? '_package' : param.name;
 
   static String paramValue4D(ParameterElement param) {
     final t = param.type;
@@ -1033,7 +1036,10 @@ class Params {
   }
 
   static String paramValueDtoC(Types ctx, ParameterElement param) {
-    final t = param.type;
+    var t = param.type;
+    if (t is TypeParameterType) {
+      t = t.bound;
+    }
     var value = param.name;
     var nul = '0';
     var exclam = '';
@@ -1126,97 +1132,9 @@ class Params {
     return value;
   }
 
-  static String paramValue4FFM(ParameterElement param) {
-    final t = param.type;
-    var value = _escape4J(param);
-    if (t is InterfaceType) {
-      // else {
-      //   value = '_widgetsMap[$value]! as $t';
-      // }
-    }
-    if (param.isOptional) {
-      if (t.isDartCoreString) {
-        value = 'ptrStr($value)';
-      }
-      else if (t.isDartCoreBool) {
-        value = 'ptrBool($value)';
-      }
-      // else if (t.isDartCoreInt) {
-      //   value = 'ptr($value)';
-      // }
-      // else if (t.isDartCoreDouble) {
-      //   value = 'ptr($value)';
-      // }
-      else if (t.isDartCoreList) {
-        final arrayType = (t as InterfaceType).typeArguments[0];
-        if (arrayType.isDartCoreString) {
-          value = 'ptrStrList($value)';
-        } else {
-          value = 'ptrList($value)';
-        }
-      }
-      else if (t.element is EnumElement) {
-        value = 'ptrEnum($value)';
-      }
-      else if (t is FunctionType) {
-        // final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-        if (t.alias != null) {
-          String functional;
-          if (t.returnType is VoidType) {
-            // if (t.parameters.isEmpty) {
-            //   return '${t.alias!.element.name}.allocate(ptrRun($value)';
-            // }
-            functional = t.parameters.isEmpty ? 'run' : 'accept';
-            // return 'ptrConsumer($value)';
-          } else {
-            functional = t.parameters.isEmpty ? 'get' : 'apply';
-            // return 'ptrSupplier($value)';
-          }
-          final parameters = t.parameters;
-          final names = parameters.map(_escape4J).join(', ');
-          final values = parameters.map((p) => paramValueFFMtoJ(p)).join(', ');
-          // final decl = filtered.map((p) => '${paramDef(generation, p, wrap: p.isOptional)} ${escape(p)}').join(', ');
-          var lambda = '$value.get().$functional($values)';
-          if (t.returnType is! VoidType) {
-            lambda = paramValue4FFM(ParameterElementImpl.synthetic(lambda, t.returnType, ParameterKind.REQUIRED));
-          }
-          final allocateCB = '${t.alias!.element.name}FFI.allocate(($names) -> $lambda, arena)';
-          value = '$value.isPresent() ? $allocateCB : MemorySegment.NULL';
-          return value;
-          // return '$value.isPresent() ? ${t.alias!.element.name}.allocate(() -> $value.get()) : MemorySegment.NULL';
-        }
-        return 'ptrFn($value)';
-      }
-      else if (!isPrimitive(t)) {
-        value = 'ptrObj($value)';
-      }
-      else {
-        value = 'ptr($value)';
-      }
-    } else {
-      if (t.isDartCoreString) {
-        value = 'arena.allocateFrom($value)';
-      }
-      else if (t.element is EnumElement) {
-        value = '$value.ordinal()';
-      }
-      else if (t.isDartCoreMap) {
-        value = 'ptrMap($value)';
-      }
-      else if (t is FunctionType) {
-        // final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-        return 'ptrFn($value)';
-      }
-      else if (!isPrimitive(t)) {
-        value = '$value.getId()';
-      }
-    }
-    return value;
-  }
-
   static String paramValue4JCallback(ParameterElement param) {
     final t = param.type;
-    var value = _escape4J(param);
+    var value = escape4J(param);
     if (t is FunctionType) {
       return 'this::$value';
     }
@@ -1225,7 +1143,7 @@ class Params {
 
   static String paramValue4JBuilder(ParameterElement param) {
     final t = param.type;
-    var value = _escape4J(param);
+    var value = escape4J(param);
     if (t is InterfaceType) {
       // if (namedType.isDartCoreList) {
       //   final arrayType = (namedType).typeArguments[0];
@@ -1262,32 +1180,6 @@ class Params {
       if (v != null) {
         return v;
       }
-    }
-    return value;
-  }
-
-  static String paramValueFFMtoJ(ParameterElement param) {
-    final t = param.type;
-    var value = _escape4J(param);
-    if (t.isDartCoreBool) {
-      return 'intToBool($value)';
-    }
-    else if (t.isDartCoreString) {
-      return '$value.getString(0)';
-    }
-    else if (t.element is EnumElement) {
-      value = '${t.element!.name}.values()[$value]';
-    }
-    else if (t.isDartCoreList) {
-      final arrayType = (t as InterfaceType).typeArguments[0];
-      if (arrayType.isDartCoreString) {
-        return 'memToStrList($value)';
-      } else {
-        // value = 'ptrList($value)';
-      }
-    }
-    else if (!isPrimitive(t) && t.element is! EnumElement && t is! FunctionType && !t.isDartCoreList) {
-      return 'new ${t.element!.name}($value) {}';
     }
     return value;
   }

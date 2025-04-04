@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.IconDataObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class IconData extends NativeObj.Base implements IconDataI {
-  @Override
-  public IconData build() {
-    return this;
-  }
   private MemorySegment st;
   protected IconData() {}
   IconData(MemorySegment st) {
@@ -35,5 +31,9 @@ public class IconData extends NativeObj.Base implements IconDataI {
   }
   public boolean matchTextDirection() {
     return intToBool(IconDataObjSt.matchTextDirection(st));
+  }
+  @Override
+  public IconData build() {
+    return this;
   }
 }

@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ColumnObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Column extends Flex implements ColumnI {
-  @Override
-  public Column build() {
-    return this;
-  }
   private MemorySegment st;
   protected Column() {}
   Column(MemorySegment st) {
@@ -32,5 +28,9 @@ public class Column extends Flex implements ColumnI {
   }
   public static ColumnColumnBuilder column() {
     return ColumnColumnBuilder.columnColumn();
+  }
+  @Override
+  public Column build() {
+    return this;
   }
 }

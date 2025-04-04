@@ -301,6 +301,9 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj (*widget)(void);
+  DartObj (*context)(void);
+  int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);
 } SubStateObjSt;
 

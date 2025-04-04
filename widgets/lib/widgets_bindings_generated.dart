@@ -1797,6 +1797,12 @@ final class SubStateObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
 
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> widget;
+
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> context;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>> mounted;
+
   external ffi
       .Pointer<ffi.NativeFunction<ffi.Void Function(VoidCallbackFFI fn)>>
       setState;

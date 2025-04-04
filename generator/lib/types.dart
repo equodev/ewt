@@ -1,5 +1,9 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
+import 'package:analyzer/src/dart/element/element.dart';
+import 'package:analyzer/src/generated/utilities_dart.dart';
+import 'package:analyzer/src/utilities/extensions/string.dart';
 
 import 'gen.dart';
 
@@ -30,6 +34,9 @@ class Types {
     }
     else if (dartClass is EnumElement) {
       return EnumGen(this, dartClass);
+    }
+    else if (dartClass is TypeParameterElement) {
+      return getGen(dartClass.bound!.element!);
     }
     throw UnsupportedError('No AGen for $dartClass');
   }
@@ -69,6 +76,9 @@ class Types {
     if (/*['InlineSpan', 'ThemeData', 'Color', 'ColorScheme'].contains(t.getDisplayString(withNullability: false))
         ||*/ isWidget(t.element) || widgets.contains(t.element) || widgets.any((w) => isSubtype(w, t.element))) {
       return true;
+    }
+    if (t is TypeParameterType) {
+      return supportedType(t.bound);
     }
     for (var handler in handlers) {
       if (handler.matches(t)) {
@@ -248,6 +258,131 @@ class Types {
     }
     throw UnsupportedError('Unsupported type $namedType');
     // }
+  }
+
+  String paramValue4FFM(ParameterElement param) {
+    final t = param.type;
+    var value = Params.escape4J(param);
+    if (t is InterfaceType) {
+      // else {
+      //   value = '_widgetsMap[$value]! as $t';
+      // }
+    }
+    if (param.isOptional) {
+      if (t.isDartCoreString) {
+        value = 'ptrStr($value)';
+      }
+      else if (t.isDartCoreBool) {
+        value = 'ptrBool($value)';
+      }
+      // else if (t.isDartCoreInt) {
+      //   value = 'ptr($value)';
+      // }
+      // else if (t.isDartCoreDouble) {
+      //   value = 'ptr($value)';
+      // }
+      else if (t.isDartCoreList) {
+        final arrayType = (t as InterfaceType).typeArguments[0];
+        if (arrayType.isDartCoreString) {
+          value = 'ptrStrList($value)';
+        } else {
+          value = 'ptrList($value)';
+        }
+      }
+      else if (t.element is EnumElement) {
+        value = 'ptrEnum($value)';
+      }
+      else if (t is FunctionType) {
+        // final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
+        if (t.alias != null) {
+          String functional;
+          if (t.returnType is VoidType) {
+            // if (t.parameters.isEmpty) {
+            //   return '${t.alias!.element.name}.allocate(ptrRun($value)';
+            // }
+            functional = t.parameters.isEmpty ? 'run' : 'accept';
+            // return 'ptrConsumer($value)';
+          } else {
+            functional = t.parameters.isEmpty ? 'get' : 'apply';
+            // return 'ptrSupplier($value)';
+          }
+          final parameters = t.parameters;
+          final names = parameters.map(Params.escape4J).join(', ');
+          final values = parameters.map((p) => paramValueFFMtoJ(p)).join(', ');
+          // final decl = filtered.map((p) => '${paramDef(generation, p, wrap: p.isOptional)} ${escape(p)}').join(', ');
+          var lambda = '$value.get().$functional($values)';
+          if (t.returnType is! VoidType) {
+            lambda = paramValue4FFM(ParameterElementImpl.synthetic(lambda, t.returnType, ParameterKind.REQUIRED));
+          }
+          final allocateCB = '${t.alias!.element.name}FFI.allocate(($names) -> $lambda, arena)';
+          value = '$value.isPresent() ? $allocateCB : MemorySegment.NULL';
+          return value;
+          // return '$value.isPresent() ? ${t.alias!.element.name}.allocate(() -> $value.get()) : MemorySegment.NULL';
+        }
+        return 'ptrFn($value)';
+      }
+      else if (!isPrimitive(t)) {
+        value = 'ptrObj($value)';
+      }
+      else {
+        value = 'ptr($value)';
+      }
+    } else {
+      if (t.isDartCoreString) {
+        value = 'arena.allocateFrom($value)';
+      }
+      else if (t.element is EnumElement) {
+        value = '$value.ordinal()';
+      }
+      else if (t.isDartCoreMap) {
+        value = 'ptrMap($value)';
+      }
+      else if (t is FunctionType) {
+        // final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
+        return 'ptrFn($value)';
+      }
+      else if (!isPrimitive(t)) {
+        value = '$value.getId()';
+      }
+    }
+    return value;
+  }
+
+  String paramValueFFMtoJ(ParameterElement param) {
+    var t = param.type;
+    if (t is TypeParameterType) {
+      t = t.bound;
+    }
+    var value = Params.escape4J(param);
+    if (t.isDartCoreBool) {
+      return 'intToBool($value)';
+    }
+    else if (t.isDartCoreString) {
+      return '$value.getString(0)';
+    }
+    else if (t.element is EnumElement) {
+      value = '${t.element!.name}.values()[$value]';
+    }
+    else if (t.isDartCoreList) {
+      final arrayType = (t as InterfaceType).typeArguments[0];
+      if (arrayType.isDartCoreString) {
+        return 'memToStrList($value)';
+      } else {
+        // value = 'ptrList($value)';
+      }
+    }
+    else if (!isPrimitive(t) && t.element is! EnumElement && t is! FunctionType && !t.isDartCoreList) {
+      if (hasSubClassInJava(t)) {
+        return 'SubclassedInJava.getSubNatObj($value)';
+      } else {
+        return 'new ${t.element!.name}($value) {}';
+      }
+    }
+    return value;
+  }
+
+  bool hasSubClassInJava(DartType t) {
+    return widgets.any((w) => w.name == "Sub${t.element!.name}");
   }
 
 }

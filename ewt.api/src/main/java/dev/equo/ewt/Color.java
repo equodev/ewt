@@ -3,10 +3,6 @@ import java.util.*;
 import java.util.function.*;
 import org.immutables.builder.Builder;
 public class Color extends NativeObj.Base implements ColorI {
-  @Override
-  public Color build() {
-    return this;
-  }
   protected Color() {}
   Color(int id) {
     this.id = id;
@@ -75,5 +71,9 @@ public class Color extends NativeObj.Base implements ColorI {
     if (id == -1) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
+  }
+  @Override
+  public Color build() {
+    return this;
   }
 }

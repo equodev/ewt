@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ScaffoldObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Scaffold extends StatefulWidget implements ScaffoldI {
-  @Override
-  public Scaffold build() {
-    return this;
-  }
   private MemorySegment st;
   protected Scaffold() {}
   Scaffold(MemorySegment st) {
@@ -93,5 +89,9 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   }
   public boolean endDrawerEnableOpenDragGesture() {
     return intToBool(ScaffoldObjSt.endDrawerEnableOpenDragGesture(st));
+  }
+  @Override
+  public Scaffold build() {
+    return this;
   }
 }

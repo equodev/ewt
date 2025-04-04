@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.MaterialColorObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialColor extends ColorSwatch<Integer> implements MaterialColorI {
-  @Override
-  public MaterialColor build() {
-    return this;
-  }
   private MemorySegment st;
   protected MaterialColor() {}
   MaterialColor(MemorySegment st) {
@@ -56,5 +52,9 @@ public class MaterialColor extends ColorSwatch<Integer> implements MaterialColor
   }
   public Color shade900() {
     return new Color(MaterialColorObjSt.shade900(st)) {};
+  }
+  @Override
+  public MaterialColor build() {
+    return this;
   }
 }
