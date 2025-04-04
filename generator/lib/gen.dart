@@ -50,7 +50,7 @@ class PreGeneration {
   }
   void write() {
     _writeD('subwidgets.dart', dartSubclasses.toString());
-    _writeDCopy('subwidgets.dart', dartSubclasses.toString());
+    _writeDCopy('subwidgets.dart', dartSubclasses.toString()); // this is for the parser/generator
   }
 
 }
@@ -331,18 +331,6 @@ class WidgetGen implements AGen {
     javaFile
       .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
-      // var nodeList = (initializer as InstanceCreationExpression).argumentList.arguments;
-      // var requiredArgs = nodeList
-      //     .where((a) => a.correspondingParameter!.isRequiredPositional)
-      //     .map((a) => a.unParenthesized)
-      //     .map((e) => dartExptrToJava(e))
-      //     .join(', ');
-      // var otherArgs = nodeList
-      //     .whereType<NamedExpression>()
-      //     .map((a) => '.${a.name.label}(${a.expression.toString().replaceAll('\'', '"')})')
-      //     .join('');
-      // var widgetInstance = '${fld.type}.${fld.type.toString().firstLower()}($requiredArgs)$otherArgs.build();';
-
       javaFile
         .writeln('    return ${dartExptrToJava(initializer as Expression)};');
     }
@@ -504,7 +492,7 @@ class SubclassGen extends WidgetGen {
       // javaFile.writeln('  protected abstract $method;');
       var returnType = method.returnType;
       var ret = '${method.returnType}';
-      var retBuilder = types.widgets.any((w) => w.name  == 'Sub${returnType.element!.name}') ? ret : '${method.returnType}I';
+      var retBuilder = types.widgets.any((w) => w.name  == 'Sub${returnType.element!.name}') ? ret : '${method.returnType}';
       if (returnType is InterfaceType && returnType.typeArguments.isNotEmpty) {
         ret = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
         retBuilder = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';

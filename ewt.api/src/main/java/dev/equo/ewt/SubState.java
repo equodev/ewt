@@ -14,7 +14,7 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
     SubclassedInJava.addSubNatObj(this);
     System.out.println("New SubState id:"+id);
   }
-  protected abstract WidgetI build(BuildContext context);
+  protected abstract Widget build(BuildContext context);
   Widget buildFn(BuildContext context) {
     return build(context.build()).build();
   }

@@ -14,7 +14,7 @@ public abstract class SubStatelessWidget extends StatelessWidget implements SubS
     SubclassedInJava.addSubNatObj(this);
     System.out.println("New SubStatelessWidget id:"+id);
   }
-  protected abstract WidgetI build(BuildContext context);
+  protected abstract Widget build(BuildContext context);
   Widget buildFn(BuildContext context) {
     return build(context.build()).build();
   }
