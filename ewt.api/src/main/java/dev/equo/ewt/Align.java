@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.AlignObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Align extends SingleChildRenderObjectWidget implements AlignI {
-  @Override
-  public Align build() {
-    return this;
-  }
   private MemorySegment st;
   protected Align() {}
   Align(MemorySegment st) {
@@ -33,5 +29,9 @@ public class Align extends SingleChildRenderObjectWidget implements AlignI {
   }
   public double heightFactor() {
     return AlignObjSt.heightFactor(st);
+  }
+  @Override
+  public Align build() {
+    return this;
   }
 }

@@ -1257,6 +1257,12 @@ SubStateObjSt subStateSubState(DartObjCallbackDartObj buildFn) {
   stObj.id = _addWidget(w);
   final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
   stObj.setState = setStateFn.nativeFunction;
+  final widgetFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.widget), exceptionalReturn: exception);
+  stObj.widget = widgetFn.nativeFunction;
+  final contextFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.context), exceptionalReturn: exception);
+  stObj.context = contextFn.nativeFunction;
+  final mountedFn = ffi.NativeCallable<ffi.Int Function()>.isolateLocal(() => w.mounted.toInt(), exceptionalReturn: exception);
+  stObj.mounted = mountedFn.nativeFunction;
   return stObj;
 }
 

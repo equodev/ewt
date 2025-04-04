@@ -35,17 +35,12 @@ public class Counter {
 
       @Override
       protected State<MyHomePage> createState() {
-        return new MyHomePageState(this);
+        return new MyHomePageState();
       }
     }
 
     private class MyHomePageState extends SubState<MyHomePage> {
-      private final MyHomePage widget;
       int _counter = 0;
-
-      public MyHomePageState(MyHomePage myHomePage) {
-        this.widget = myHomePage;
-      }
 
       void _incrementCounter() {
         setState(() -> {
@@ -64,7 +59,7 @@ public class Counter {
         return Scaffold()
             .appBar(AppBar()
                 .backgroundColor(Theme.of(context).colorScheme().inversePrimary())
-                .title(Text(widget.title)))
+                .title(Text(widget().title)))
             .body(Center()
                 .child(Column()
                     .mainAxisAlignment(MainAxisAlignment.center)

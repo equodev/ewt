@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextStyleObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextStyle extends NativeObj.Base implements TextStyleI {
-  @Override
-  public TextStyle build() {
-    return this;
-  }
   private MemorySegment st;
   protected TextStyle() {}
   TextStyle(MemorySegment st) {
@@ -91,5 +87,9 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
   }
   public TextOverflow overflow() {
     return TextOverflow.values()[TextStyleObjSt.overflow(st)];
+  }
+  @Override
+  public TextStyle build() {
+    return this;
   }
 }

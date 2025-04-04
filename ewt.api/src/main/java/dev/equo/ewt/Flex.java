@@ -6,10 +6,6 @@ import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.FlexObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Flex extends MultiChildRenderObjectWidget implements FlexI {
-  @Override
-  public Flex build() {
-    return this;
-  }
   private MemorySegment st;
   protected Flex() {}
   Flex(MemorySegment st) {
@@ -61,5 +57,9 @@ public class Flex extends MultiChildRenderObjectWidget implements FlexI {
   }
   public double spacing() {
     return FlexObjSt.spacing(st);
+  }
+  @Override
+  public Flex build() {
+    return this;
   }
 }
