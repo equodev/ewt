@@ -42,7 +42,7 @@ public class App {
                     System.out.println("CLEANUP");
                 }));
 //                WidgetConstructorsBase.instance.set(widgetFactories);
-                Widget w = builderFn.call();
+                Widget w = builderFn.call().build();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {
                 throw new RuntimeException(e);

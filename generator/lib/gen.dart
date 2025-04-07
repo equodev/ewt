@@ -374,10 +374,10 @@ class WidgetGen implements AGen {
 
 }
 
-class ImmutableGen extends WidgetGen {
+abstract class ObjStGen extends WidgetGen {
   String widgetSt;
 
-  ImmutableGen(super.types, super.dartClass):
+  ObjStGen(super.types, super.dartClass) :
         widgetSt = '${dartClass.name}ObjSt';
 
   @override
@@ -392,7 +392,69 @@ class ImmutableGen extends WidgetGen {
       ..writeln('import java.lang.foreign.MemorySegment;')
       ..writeln('import dev.equo.ewt.ffm.$widgetSt;')
       ..writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;');
+    // Let concrete implementations finish the declaration
+  }
+
+  /// Writes the structure header and id field to objectsHFile
+  void writeStructHeader() {
+    objectsHFile.writeln('typedef struct {');
+    objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
+  }
+
+  /// Writes the structure footer to objectsHFile
+  void writeStructFooter() {
+    objectsHFile.writeln('} $widgetSt;');
+  }
+
+  /// Generates a field accessor for java
+  void writeJavaFieldAccessor(FieldElement field, {bool useInvoke = false}) {
+    javaFile
+      ..writeln('  public ${types.type4J(field.type)} ${field.name}() {');
+    
+    if (useInvoke) {
+      javaFile
+        ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
+        ..writeln('    return ${types.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}.invoke(funcPtr)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};');
+    } else {
+      javaFile
+        ..writeln('    return ${types.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}(st)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};');
+    }
+    
+    javaFile.writeln('  }');
+  }
+
+  /// Generates struct creation code for dart
+  void writeDartStructCreation(String widgetVar) {
+    dartFns
+      ..writeln('  final $widgetSt stObj = ffi.Struct.create();')
+      ..writeln('  stObj.id = _addWidget($widgetVar);');
+  }
+
+  /// Writes the _create function closing
+  void writeDartStructReturn() {
+    dartFns
+      ..writeln('  return stObj;')
+      ..writeln('}');
+  }
+
+  /// Shared callable fields filter logic
+  Iterable<FieldElement> getCallableFields(ClassElement sourceClass) =>
+      sourceClass.fields.where((f) =>
+          !f.getter!.hasOverride && f.isPublic
+          && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
+          && !isInterface(f.type.element) && types.supportedType(f.type));
+}
+
+class ImmutableGen extends ObjStGen {
+  ImmutableGen(super.types, super.dartClass);
+
+  @override
+  void writeJavaDecl(String extend, bool isInterface) {
+    // First call the base ObjStGen implementation for common imports
     super.writeJavaDecl(extend, isInterface);
+    // Then complete with the class declaration that would normally be done in WidgetGen
+    javaFile.writeln(
+        'public ${!dartClass.isAbstract ? 'class' : _isInterface ? 'interface' : 'abstract class'} $widgetClass$extend {');
   }
 
   @override
@@ -420,76 +482,54 @@ class ImmutableGen extends WidgetGen {
     javaFile
       ..writeln('    var st = factories.$factoryName(${jParams.names});')
       ..writeln('    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
-    // ..writeln('    id = $widgetSt.id(st);')
       ..writeln('    return new ${types.type4J(node.returnType)}(st);');
   }
 
   @override
   void writeMembers() {
-    objectsHFile.writeln('typedef struct {');
-    objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
+    writeStructHeader();
+    
     for (final field in callableFields()) {
       objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type))}');
-      javaFile
-        ..writeln('  public ${types.type4J(field.type)} ${field.name}() {')
-        ..writeln('    return ${types.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}(st)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
-        ..writeln('  }');
+      writeJavaFieldAccessor(field);
     }
-    objectsHFile.writeln('} $widgetSt;');
+    
+    writeStructFooter();
 
     dartFns
-      ..writeln('$widgetSt _create$widgetSt($widgetClass? w) {')
-      ..writeln('  final $widgetSt stObj = ffi.Struct.create();')
-      ..writeln('  stObj.id = _addWidget(w);')
-      ..writeln('  if (w == null) return stObj;');
+      ..writeln('$widgetSt _create$widgetSt($widgetClass? w) {');
+      
+    writeDartStructCreation('w');
+    dartFns.writeln('  if (w == null) return stObj;');
+    
     for (var m in callableFields()) {
       dartFns
           .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))};');
     }
-    dartFns
-      ..writeln('  return stObj;')
-      ..writeln('}');
+    
+    writeDartStructReturn();
   }
 
-  Iterable<FieldElement> callableFields() =>
-      dartClass.fields
-          .where((f) =>
-      !f.getter!.hasOverride && f.isPublic
-          && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
-          && !isInterface(f.type.element) && types.supportedType(f.type));
-
+  Iterable<FieldElement> callableFields() => getCallableFields(dartClass);
 }
 
-class SubclassGen extends WidgetGen {
-  String widgetSt;
-
-  SubclassGen(super.types, super.dartClass) :
-  // super.widgetClass = widgetClass.substring(3);
-        widgetSt = '${dartClass.name}ObjSt';
-
-  @override
-  String objType() => widgetSt;
-
-  @override
-  String dartToC(String theVar) => '_create$widgetSt($theVar)';
+class SubclassGen extends ObjStGen {
+  SubclassGen(super.types, super.dartClass);
 
   @override
   void writeJavaDecl(String extend, bool isInterface) {
-    javaFile
-      ..writeln('import java.lang.foreign.MemorySegment;')
-      ..writeln('import dev.equo.ewt.ffm.$widgetSt;')
-      ..writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;')
-      ..writeln('public abstract class $widgetClass$extend, SubclassedInJava {');
+    super.writeJavaDecl(extend, isInterface);
+    javaFile.writeln('public abstract class $widgetClass$extend, SubclassedInJava {');
   }
 
   @override
   void writeJavaConstructors() {
+    // Empty implementation as in the original
   }
 
   @override
   void writeMembers() {
     for (final method in dartClass.supertype!.element.methods.where((m) => m.isAbstract)) {
-      // javaFile.writeln('  protected abstract $method;');
       var returnType = method.returnType;
       var ret = '${method.returnType}';
       var retBuilder = types.widgets.any((w) => w.name  == 'Sub${returnType.element!.name}') ? ret : '${method.returnType}';
@@ -503,21 +543,16 @@ class SubclassGen extends WidgetGen {
           '    return ${method.name}(${jParams.names}).build();\n'
           '  }');
     }
-    objectsHFile.writeln('typedef struct {');
-    objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
+    
+    writeStructHeader();
+    
     for (final field in callableFields()) {
       objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
-      javaFile
-        ..writeln('  public ${types.type4J(field.type)} ${field.name}() {')
-        ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
-        ..writeln('    return ${types.paramValueFFMtoJ(ParameterElementImpl.synthetic('$widgetSt.${field.name}.invoke(funcPtr)', field.type, field.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED))};')
-        ..writeln('  }');
+      writeJavaFieldAccessor(field, useInvoke: true);
     }
+    
     for (final method in callableMethods()) {
-      // final cParams = Params(generation, method.parameters, Params.paramDef4C);
-      // objectsHFile.writeln('  ${method.returnType} (*${method.name})(${cParams.decl});');
       objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
-      // CLang(generation).writeField(objectsHFile, method.name, '${method.returnType}', params: method.parameters);
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
       javaFile
         ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {')
@@ -525,15 +560,14 @@ class SubclassGen extends WidgetGen {
         ..writeln('    $widgetSt.${method.name}.invoke(funcPtr, factories.${jParams.names});')
         ..writeln('  }');
     }
-    objectsHFile.writeln('} $widgetSt;');
+    
+    writeStructFooter();
   }
 
-  Iterable<FieldElement> callableFields() =>
-      dartClass.supertype!.element.fields
-          .where((f) =>
-      !f.getter!.hasOverride && f.isPublic
-          && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
-          && !isInterface(f.type.element) && types.supportedType(f.type));
+  Iterable<FieldElement> callableFields() {
+    final element = dartClass.supertype!.element;
+    return element is ClassElement ? getCallableFields(element) : [];
+  }
 
   Iterable<MethodElement> callableMethods() => dartClass.supertype!.element.methods
       .where((m) => !m.isAbstract && m.hasProtected && !m.hasMustCallSuper);
@@ -567,23 +601,23 @@ class SubclassGen extends WidgetGen {
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName);');
     dartFns
       ..writeln('$widgetSt $factoryName(${dartParams.decl}) {')
-      ..writeln('  final w = ${node.displayName}(${dartParams.names});')
-      ..writeln('  final $widgetSt stObj = ffi.Struct.create();')
-      ..writeln('  stObj.id = _addWidget(w);');
+      ..writeln('  final w = ${node.displayName}(${dartParams.names});');
+    
+    writeDartStructCreation('w');
+    
     for (var m in callableMethods()) {
-      dartFns // todo derive types from method
+      dartFns
         ..writeln('  final ${m.name}Fn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.${m.name}(cb.asFunction()));')
         ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
     }
+    
     for (var m in callableFields()) {
       dartFns
-          // .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))};');
         ..writeln('  final ${m.name}Fn = ffi.NativeCallable<${types.type4D(m.type)} Function()>.isolateLocal(() => ${Params.paramValueDtoC(types, ParameterElementImpl.synthetic('w.${m.name}', m.type, m.type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.NAMED : ParameterKind.REQUIRED))}, exceptionalReturn: exception);')
         ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
     }
-    dartFns
-      ..writeln('  return stObj;')
-      ..writeln('}');
+    
+    writeDartStructReturn();
   }
 }
 
