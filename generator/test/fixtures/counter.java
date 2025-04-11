@@ -10,7 +10,7 @@ public class Counter {
 }
 
 class MyApp extends SubStatelessWidget {
-  public MyApp(Key key) {}
+  public MyApp() {}
 
   @Override
   protected Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class MyApp extends SubStatelessWidget {
 }
 
 class MyHomePage extends SubStatefulWidget {
-  public MyHomePage(Key key, String title) {
+  public MyHomePage(String title) {
     this.title = title;
   }
 

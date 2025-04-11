@@ -79,17 +79,30 @@ void main() {
           .readAsStringSync();
 
       expect(actualOutput, completion(equals(expectedOutput)));
-
-      // // Write files for manual verification
-      // File('input.dart').writeAsStringSync(dartInput);
-      // File('actual_output.java').writeAsStringSync(actualOutput);
-      // File('expected_output.java').writeAsStringSync(expectedOutput);
     });
 
     test('Simple Widget Test', () async {
       final dartInput = 'test/fixtures/hello.dart';
       final actualOutput = transpile(dartInput, 'build/Hello', overridePackage: '');
       final expectedOutput = File('test/fixtures/hello.java')
+          .readAsStringSync();
+
+      expect(actualOutput, completion(equals(expectedOutput)));
+    });
+
+    test('Model Test', () async {
+      final dartInput = 'test/fixtures/model.dart';
+      final actualOutput = transpile(dartInput, '../examples/src/main/java/dev/equo/Model.java');
+      final expectedOutput = File('test/fixtures/model.java')
+          .readAsStringSync();
+
+      expect(actualOutput, completion(equals(expectedOutput)));
+    });
+
+    test('Popup Test', () async {
+      final dartInput = 'test/fixtures/action_popup_v9.dart';
+      final actualOutput = transpile(dartInput, '../examples/src/main/java/dev/equo/KnowledgeFloating.java');
+      final expectedOutput = File('test/fixtures/action_popup_v9.java')
           .readAsStringSync();
 
       expect(actualOutput, completion(equals(expectedOutput)));
@@ -106,7 +119,8 @@ void main() {
         class Action {
           final VoidCallback onNext;
           final bool isLastSubStep;
-          const Action({ required this.onNext, this.isLastSubStep = false});
+          const Action({ required this.onNext, required this.isLastSubStep = false});
+          void callit() => onNext();
         }''');
       final actualOutput = await transpile(dartFile.path, 'VoidCallback', skipFormat: true);
       expect(actualOutput, equalsIgnoringWhitespace('''
@@ -117,13 +131,16 @@ void main() {
             this.onNext = onNext;
             this.isLastSubStep = isLastSubStep;
           }
+          void callit() {
+            onNext.run();
+          }
         }'''));
     });
 
     test('super() should not be called', () async {
       var dartFile = File('build/super.dart')..writeAsStringSync('''
         class Action {
-            const Action({String? key}) : super(key: key);
+            const Action({required String? key}) : super(key: key);
         }''');
       final actualOutput = await transpile(dartFile.path, 'Super', skipFormat: true);
       expect(actualOutput, equalsIgnoringWhitespace('''
@@ -178,20 +195,24 @@ void main() {
     test('getter', () async {
       var dartFile = File('build/getter.dart')..writeAsStringSync('''
         class A { 
+          List<String> actions;
           String get buttonText {
-            if (widget.currentAction >= widget.actions.length - 1) {
-              return widget.isLastSubStep ? 'Finish Step' : 'Next Substep';
+            if (widget.currentAction >= actions.length - 1) {
+              return widget.isLastSubStep ? 'Finish Step' : buttonText;
             }
+            actions = [];
             return 'Next';
           }
         }''');
       final actualOutput = await transpile(dartFile.path, 'Getter', skipFormat: true);
-      expect(actualOutput, equalsIgnoringWhitespace('''
+      expect(actualOutput, equalsIgnoringWhitespace('''import java.util.List;
         class A {
+          List<String> actions;
           String buttonText() {
-            if (widget.currentAction >= widget.actions.length() - 1) {
-              return widget.isLastSubStep ? "Finish Step" : "Next Substep";
+            if (widget.currentAction >= actions.size() - 1) {
+              return widget.isLastSubStep ? "Finish Step" : buttonText();
             }
+            actions = List.of();
             return "Next";
           }
         }'''));
@@ -208,27 +229,48 @@ void main() {
         class B {
           List<String> actions;
           String expr() {
-            return actions.get(widget.currentAction).split(" ").sublist(0, 2).join(" ") + " ";
+            return actions.get(widget.currentAction).split(" ").subList(0, 2).join(" ") + " ";
           }
         }'''));
     });
 
     test('cascades', () async {
       var dartFile = File('build/cascade.dart')..writeAsStringSync('''
+        import 'package:flutter/widgets.dart';
         class TrianglePainter {
           void paint(Canvas canvas, Size size) {
             final paint = Paint()
               ..color = const Color(0xFF3F51B5)
               ..style = PaintingStyle.fill;
+            final path = Path()
+              ..moveTo(size.width, size.height / 2)  // Right middle
+              ..lineTo(0, 0)                        // Top left
+              ..close();                            // Close the path
           }
         }''');
       final actualOutput = await transpile(dartFile.path, 'Cascade', skipFormat: true);
-      expect(actualOutput, equalsIgnoringWhitespace('''
+      expect(actualOutput, equalsIgnoringWhitespace('''$imports
         class TrianglePainter {
           void paint(Canvas canvas, Size size) {
-            final paint = Paint();
-            paint.color = Color(0xFF3F51B5);
-            paint.style = PaintingStyle.fill;
+            final var paint = Paint().color(Color(0xFF3F51B5)).style(PaintingStyle.fill);
+            final var path = Path().moveTo(size.width(), size.height() / 2).lineTo(0, 0).close();
+          }
+        }'''));
+    });
+
+    test('collection if', () async {
+      var dartFile = File('build/collection.dart')..writeAsStringSync('''
+        import 'package:flutter/widgets.dart';
+        List<Widget> paint(bool last) {
+          return [Text('Click'), if (last) const SizedBox(height: 12),];
+        }''');
+      final actualOutput = await transpile(dartFile.path, 'CollectionIf', skipFormat: true);
+      expect(actualOutput, equalsIgnoringWhitespace('''$imports
+        import java.util.stream.Stream;
+        import java.util.Objects;
+        public class CollectionIf {
+          public static List<Widget> paint(boolean last) {
+            return Stream.of(Text("Click"), (last) ? SizedBox() .height(12) : null).filter(Objects::nonNull).toList();
           }
         }'''));
     });
