@@ -158,21 +158,30 @@ class WidgetGen implements AGen {
     _isInterface = isInterface(dartClass);
     // var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
     var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
-    var builderExtend = '';
+    List<String> builderExtend = [];
+    List<InterfaceType> trulyInterfaces = [];
     if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
-      extend += ' extends ${dartClass.supertype.toString().replaceFirst('int', 'Integer')}';
+      if (!_isInterface && isInterface(dartClass.supertype!.element)) {
+        extend += ' extends NativeObj.Base';
+        trulyInterfaces = [dartClass.supertype!];
+        // builderExtend = ' extends ';
+      } else {
+        extend += ' extends ${toJavaClass(dartClass.supertype!)}';
+        // builderExtend = ' extends ${toJavaClassUngeneric(dartClass.supertype!)}I';
+        builderExtend = ['${toJavaClassUngeneric(dartClass.supertype!)}I'];
+      }
       // extend += ' extends ${dartClass.supertype!.element.name}${dartClass.supertype!.typeArguments.isNotEmpty ? '<${dartClass.typeParameters.map((p) => p.name).join(', ')}>' : ''}';
-      builderExtend = ' extends ${dartClass.supertype!.element.name}I';
+      // builderExtend = ' extends ${toJavaClassUngeneric(dartClass.supertype!)}I';
     }
     else {
       extend += ' extends ${!_isInterface ? 'NativeObj.Base' : 'NativeObj, ${widgetClass}I'}';
-      builderExtend = ' extends NativeObj.I';
+      builderExtend = ['NativeObj.I'];
     }
-    var trulyInterfaces = dartClass.interfaces.where((i) =>
+    trulyInterfaces += dartClass.interfaces.where((i) =>
         i.interfaces.any((i) => i.element is ClassElement)).toList();
     if (trulyInterfaces.isNotEmpty) {
-      extend += ' implements ${trulyInterfaces.map((i) => i.getDisplayString()).join(', ')}, ${widgetClass}I';
-      builderExtend += ', ${trulyInterfaces.map((i) => '${i.getDisplayString()}I').join(', ')}';
+      extend += ' implements ${trulyInterfaces.map((i) => toJavaClass(i)).join(', ')}, ${widgetClass}I';
+      builderExtend += trulyInterfaces.map((i) => '${toJavaClassUngeneric(i)}I').toList();
     } else if (!_isInterface) {
       extend += ' implements ${widgetClass}I';
     } if (!dartClass.isAbstract) {
@@ -192,13 +201,18 @@ class WidgetGen implements AGen {
 
     builderFile
       ..writeln('package dev.equo.ewt;')
-      ..writeln('public interface ${widgetClass}I$builderExtend {\n'
+      ..writeln('public interface ${widgetClass}I extends ${builderExtend.join(', ')} {\n'
           '  @Override\n'
           '  $widgetClass build();\n'
           '}');
   }
 
-  bool isInterface(Element? dartClass) => dartClass is ClassElement && (dartClass.isInterface || dartClass.isMixinClass || (dartClass.isAbstract && dartClass.interfaces.any((i) => i.element is ClassElement)));
+  bool isInterface(Element? dartClass) =>
+      dartClass is ClassElement &&
+          (dartClass.isInterface || dartClass.isMixinClass ||
+              (dartClass.isAbstract &&
+                  (dartClass.interfaces.any((i) => i.element is ClassElement) ||
+                   dartClass.methods.every((m) => m.isAbstract))));
 
   void writeJavaDecl(String extend, bool isInterface) {
     if (!dartClass.isAbstract) {
@@ -371,6 +385,33 @@ class WidgetGen implements AGen {
     }
     return e.toString();
   }
+
+  String toJavaClassUngeneric(InterfaceType interfaceType) => interfaceType.element.name;
+  String toJavaClass(DartType dartType) {
+    if (dartType.isDartCoreInt) {
+      return 'Integer';
+    } else if (dartType.isDartCoreDouble) {
+      return 'Double';
+    } else if (dartType.isDartCoreBool) {
+      return 'Boolean';
+    }
+    else if (dartType is InterfaceType) {
+      var s = dartType.element.name;
+      if (dartType.typeArguments.isNotEmpty) {
+        s += '<${dartType.typeArguments.map((t) => toJavaClass(t)).join(', ')}>';
+      }
+      return s;
+    }
+    var s = dartType.element!.name;
+    return s!;
+  }
+
+  String boxedType(String name) => switch (name) {
+    'int' => 'Integer',
+    'double' => 'Double',
+    'bool' => 'Boolean',
+    _ => name
+  };
 
 }
 

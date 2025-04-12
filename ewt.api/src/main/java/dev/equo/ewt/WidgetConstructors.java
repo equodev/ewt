@@ -183,6 +183,25 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(blendMode));
   }
 
+  int animationControllerAnimationController(OptionalDouble value, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProvider vsync) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.animationController(st);
+    return WidgetFactories.AnimationControllerSt.animationController.invoke(fn, ptr(value),
+      ptrStr(debugLabel),
+      ptr(lowerBound),
+      ptr(upperBound),
+      ptrEnum(animationBehavior),
+      vsync.getId());
+  }
+  int animationControllerUnbounded(OptionalDouble value, Optional<String> debugLabel, TickerProvider vsync, Optional<AnimationBehavior> animationBehavior) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.unbounded(st);
+    return WidgetFactories.AnimationControllerSt.unbounded.invoke(fn, ptr(value),
+      ptrStr(debugLabel),
+      vsync.getId(),
+      ptrEnum(animationBehavior));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -724,6 +743,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(drawerEnableOpenDragGesture),
       ptrBool(endDrawerEnableOpenDragGesture),
       ptrStr(restorationId));
+  }
+  int scaffoldGeometryOf(BuildContext context) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.geometryOf(st);
+    return WidgetFactories.ScaffoldSt.geometryOf.invoke(fn, context.getId());
   }
 
   MemorySegment materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {

@@ -15,6 +15,8 @@ w.IconData? iconData;
 w.Icon? icon;
 w.BuildContext? buildContext;
 w.Color? color;
+w.TickerProvider? tickerProvider;
+w.AnimationController? animationController;
 
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

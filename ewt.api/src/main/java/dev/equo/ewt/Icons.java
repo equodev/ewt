@@ -1,10 +1,6 @@
 package dev.equo.ewt;
 import java.util.*;
-public abstract class Icons extends NativeObj.Base implements IconsI {
-  protected Icons() {}
-  Icons(int id) {
-    this.id = id;
-  }
+public interface Icons extends NativeObj, IconsI {
   public static IconData ten_k() {
     return IconData.iconData(0xe000).fontFamily("MaterialIcons").build();
   }
@@ -26481,7 +26477,7 @@ public abstract class Icons extends NativeObj.Base implements IconsI {
     return IconData.iconData(0xf4dd).fontFamily("MaterialIcons").build();
   }
   @Override
-  public Icons build() {
+  default Icons build() {
     return this;
   }
 }

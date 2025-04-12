@@ -122,6 +122,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external IconSt icon;
 
+  external AnimationControllerSt animationController;
+
   external ColorSchemeSt colorScheme;
 
   external MaterialColorSt materialColor;
@@ -505,6 +507,26 @@ final class IconObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int blendMode;
+}
+
+final class AnimationControllerSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              ffi.Pointer<ffi.Double> value,
+              ffi.Pointer<ffi.Char> debugLabel,
+              ffi.Pointer<ffi.Double> lowerBound,
+              ffi.Pointer<ffi.Double> upperBound,
+              ffi.Pointer<ffi.Int> animationBehavior,
+              DartObj vsync)>> animationController;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              ffi.Pointer<ffi.Double> value,
+              ffi.Pointer<ffi.Char> debugLabel,
+              DartObj vsync,
+              ffi.Pointer<ffi.Int> animationBehavior)>> unbounded;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -1444,6 +1466,9 @@ final class ScaffoldSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture,
               ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture,
               ffi.Pointer<ffi.Char> restorationId)>> scaffold;
+
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function(DartObj context)>>
+      geometryOf;
 }
 
 final class ScaffoldObjSt extends ffi.Struct {

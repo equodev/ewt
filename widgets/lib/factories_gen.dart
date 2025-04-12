@@ -287,6 +287,27 @@ IconObjSt _createIconObjSt(Icon? w) {
   return stObj;
 }
 
+void _setupAnimationController(WidgetFactories f) {
+  f.animationController.animationController = ffi.Pointer.fromFunction(animationControllerAnimationController, exception);
+  f.animationController.unbounded = ffi.Pointer.fromFunction(animationControllerUnbounded, exception);
+}
+int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Double> lowerBound, ffi.Pointer<ffi.Double> upperBound, ffi.Pointer<ffi.Int> animationBehavior, DartDartObj vsync) {
+  final w = AnimationController(value: value.doubleOrNul(),
+      debugLabel: debugLabel.strOrNul(),
+      lowerBound: lowerBound.doubleOr(0.0),
+      upperBound: upperBound.doubleOr(1.0),
+      animationBehavior: animationBehavior.enumOr(AnimationBehavior.values, AnimationBehavior.normal),
+      vsync: _widgetsMap[vsync]! as TickerProvider);
+  return _addWidget(w);
+}
+int animationControllerUnbounded(ffi.Pointer<ffi.Double> value, ffi.Pointer<ffi.Char> debugLabel, DartDartObj vsync, ffi.Pointer<ffi.Int> animationBehavior) {
+  final w = AnimationController.unbounded(value: value.doubleOr(0.0),
+      debugLabel: debugLabel.strOrNul(),
+      vsync: _widgetsMap[vsync]! as TickerProvider,
+      animationBehavior: animationBehavior.enumOr(AnimationBehavior.values, AnimationBehavior.preserve));
+  return _addWidget(w);
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -989,6 +1010,7 @@ AppBarObjSt _createAppBarObjSt(AppBar? w) {
 
 void _setupScaffold(WidgetFactories f) {
   f.scaffold.scaffold = ffi.Pointer.fromFunction(scaffoldScaffold);
+  f.scaffold.geometryOf = ffi.Pointer.fromFunction(scaffoldGeometryOf, exception);
 }
 ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DrawerCallbackFFI> onDrawerChanged, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
   final w = Scaffold(appBar: appBar.objOrNul(),
@@ -1013,6 +1035,10 @@ ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj>
       endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture.boolOr(true),
       restorationId: restorationId.strOrNul());
   return _createScaffoldObjSt(w);
+}
+int scaffoldGeometryOf(DartDartObj context) {
+  final w = Scaffold.geometryOf(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
 }
 ScaffoldObjSt _createScaffoldObjSt(Scaffold? w) {
   final ScaffoldObjSt stObj = ffi.Struct.create();
@@ -1296,6 +1322,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupIconData(f);
   _setupIcon(f);
   _setupColor(f);
+  _setupAnimationController(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupThemeData(f);

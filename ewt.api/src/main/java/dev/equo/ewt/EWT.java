@@ -53,6 +53,13 @@ public class EWT {
     return IconIconBuilder.iconIcon(icon);
   }
 
+  public static AnimationControllerAnimationControllerBuilder AnimationController() {
+    return AnimationControllerAnimationControllerBuilder.animationControllerAnimationController();
+  }
+  public static AnimationControllerUnboundedBuilder AnimationController_unbounded() {
+    return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
