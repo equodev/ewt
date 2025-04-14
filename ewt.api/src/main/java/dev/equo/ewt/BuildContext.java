@@ -1,8 +1,12 @@
 package dev.equo.ewt;
 import java.util.*;
-public interface BuildContext extends NativeObj, BuildContextI {
+public abstract class BuildContext extends NativeObj.Base implements BuildContextI {
+  protected BuildContext() {}
+  BuildContext(int id) {
+    this.id = id;
+  }
   @Override
-  default BuildContext build() {
+  public BuildContext build() {
     return this;
   }
 }

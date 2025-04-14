@@ -125,67 +125,67 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
     return intToBool(ThemeDataObjSt.useMaterial3(st));
   }
   public Color canvasColor() {
-    return new Color(ThemeDataObjSt.canvasColor(st)) {};
+    return new Color(ThemeDataObjSt.canvasColor(st));
   }
   public Color cardColor() {
-    return new Color(ThemeDataObjSt.cardColor(st)) {};
+    return new Color(ThemeDataObjSt.cardColor(st));
   }
   public ColorScheme colorScheme() {
-    return new ColorScheme(ThemeDataObjSt.colorScheme(st)) {};
+    return new ColorScheme(ThemeDataObjSt.colorScheme(st));
   }
   public Color disabledColor() {
-    return new Color(ThemeDataObjSt.disabledColor(st)) {};
+    return new Color(ThemeDataObjSt.disabledColor(st));
   }
   public Color dividerColor() {
-    return new Color(ThemeDataObjSt.dividerColor(st)) {};
+    return new Color(ThemeDataObjSt.dividerColor(st));
   }
   public Color focusColor() {
-    return new Color(ThemeDataObjSt.focusColor(st)) {};
+    return new Color(ThemeDataObjSt.focusColor(st));
   }
   public Color highlightColor() {
-    return new Color(ThemeDataObjSt.highlightColor(st)) {};
+    return new Color(ThemeDataObjSt.highlightColor(st));
   }
   public Color hintColor() {
-    return new Color(ThemeDataObjSt.hintColor(st)) {};
+    return new Color(ThemeDataObjSt.hintColor(st));
   }
   public Color hoverColor() {
-    return new Color(ThemeDataObjSt.hoverColor(st)) {};
+    return new Color(ThemeDataObjSt.hoverColor(st));
   }
   public Color indicatorColor() {
-    return new Color(ThemeDataObjSt.indicatorColor(st)) {};
+    return new Color(ThemeDataObjSt.indicatorColor(st));
   }
   public Color primaryColor() {
-    return new Color(ThemeDataObjSt.primaryColor(st)) {};
+    return new Color(ThemeDataObjSt.primaryColor(st));
   }
   public Color primaryColorDark() {
-    return new Color(ThemeDataObjSt.primaryColorDark(st)) {};
+    return new Color(ThemeDataObjSt.primaryColorDark(st));
   }
   public Color primaryColorLight() {
-    return new Color(ThemeDataObjSt.primaryColorLight(st)) {};
+    return new Color(ThemeDataObjSt.primaryColorLight(st));
   }
   public Color scaffoldBackgroundColor() {
-    return new Color(ThemeDataObjSt.scaffoldBackgroundColor(st)) {};
+    return new Color(ThemeDataObjSt.scaffoldBackgroundColor(st));
   }
   public Color secondaryHeaderColor() {
-    return new Color(ThemeDataObjSt.secondaryHeaderColor(st)) {};
+    return new Color(ThemeDataObjSt.secondaryHeaderColor(st));
   }
   public Color shadowColor() {
-    return new Color(ThemeDataObjSt.shadowColor(st)) {};
+    return new Color(ThemeDataObjSt.shadowColor(st));
   }
   public Color splashColor() {
-    return new Color(ThemeDataObjSt.splashColor(st)) {};
+    return new Color(ThemeDataObjSt.splashColor(st));
   }
   public Color unselectedWidgetColor() {
-    return new Color(ThemeDataObjSt.unselectedWidgetColor(st)) {};
+    return new Color(ThemeDataObjSt.unselectedWidgetColor(st));
   }
   public TextTheme primaryTextTheme() {
-    return new TextTheme(ThemeDataObjSt.primaryTextTheme(st)) {};
+    return new TextTheme(ThemeDataObjSt.primaryTextTheme(st));
   }
   public TextTheme textTheme() {
-    return new TextTheme(ThemeDataObjSt.textTheme(st)) {};
+    return new TextTheme(ThemeDataObjSt.textTheme(st));
   }
   public Color dialogBackgroundColor() {
-    return new Color(ThemeDataObjSt.dialogBackgroundColor(st)) {};
+    return new Color(ThemeDataObjSt.dialogBackgroundColor(st));
   }
   public Brightness brightness() {
     return Brightness.values()[ThemeDataObjSt.brightness(st)];

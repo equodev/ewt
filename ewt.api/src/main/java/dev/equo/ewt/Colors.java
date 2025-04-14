@@ -1,6 +1,10 @@
 package dev.equo.ewt;
 import java.util.*;
-public interface Colors extends NativeObj, ColorsI {
+public abstract class Colors extends NativeObj.Base implements ColorsI {
+  protected Colors() {}
+  Colors(int id) {
+    this.id = id;
+  }
   public static Color transparent() {
     return Color.color(0x00000000).build();
   }
@@ -269,7 +273,7 @@ public interface Colors extends NativeObj, ColorsI {
     return List.of(redAccent(), pinkAccent(), purpleAccent(), deepPurpleAccent(), indigoAccent(), blueAccent(), lightBlueAccent(), cyanAccent(), tealAccent(), greenAccent(), lightGreenAccent(), limeAccent(), yellowAccent(), amberAccent(), orangeAccent(), deepOrangeAccent());
   }
   @Override
-  default Colors build() {
+  public Colors build() {
     return this;
   }
 }

@@ -69,22 +69,22 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
     return new Widget(MaterialAppObjSt.home(st)) {};
   }
   public ThemeData theme() {
-    return new ThemeData(MaterialAppObjSt.theme(st)) {};
+    return new ThemeData(MaterialAppObjSt.theme(st));
   }
   public ThemeData darkTheme() {
-    return new ThemeData(MaterialAppObjSt.darkTheme(st)) {};
+    return new ThemeData(MaterialAppObjSt.darkTheme(st));
   }
   public ThemeData highContrastTheme() {
-    return new ThemeData(MaterialAppObjSt.highContrastTheme(st)) {};
+    return new ThemeData(MaterialAppObjSt.highContrastTheme(st));
   }
   public ThemeData highContrastDarkTheme() {
-    return new ThemeData(MaterialAppObjSt.highContrastDarkTheme(st)) {};
+    return new ThemeData(MaterialAppObjSt.highContrastDarkTheme(st));
   }
   public ThemeMode themeMode() {
     return ThemeMode.values()[MaterialAppObjSt.themeMode(st)];
   }
   public Color color() {
-    return new Color(MaterialAppObjSt.color(st)) {};
+    return new Color(MaterialAppObjSt.color(st));
   }
   public boolean showPerformanceOverlay() {
     return intToBool(MaterialAppObjSt.showPerformanceOverlay(st));

@@ -1018,9 +1018,9 @@ ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj>
       floatingActionButton: floatingActionButton.objOrNul(),
       persistentFooterButtons: persistentFooterButtons.orEmpty(),
       drawer: drawer.objOrNul(),
-      onDrawerChanged: onDrawerChanged.toFn(),
+      onDrawerChanged: onDrawerChanged.toDrawerCallbackFn(),
       endDrawer: endDrawer.objOrNul(),
-      onEndDrawerChanged: onEndDrawerChanged.toFn(),
+      onEndDrawerChanged: onEndDrawerChanged.toDrawerCallbackFn(),
       bottomNavigationBar: bottomNavigationBar.objOrNul(),
       bottomSheet: bottomSheet.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
@@ -1070,9 +1070,9 @@ void _setupMaterialApp(WidgetFactories f) {
 MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
   final w = MaterialApp(home: home.objOrNul(),
       initialRoute: initialRoute.strOrNul(),
-      builder: builder.toFn(),
+      builder: builder.toTransitionBuilderFn(),
       title: title.strOrNul(),
-      onGenerateTitle: onGenerateTitle.toFn(),
+      onGenerateTitle: onGenerateTitle.toGenerateAppTitleFn(),
       color: color.objOrNul(),
       theme: theme.objOrNul(),
       darkTheme: darkTheme.objOrNul(),
@@ -1090,9 +1090,9 @@ MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<f
   return _createMaterialAppObjSt(w);
 }
 MaterialAppObjSt materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
-  final w = MaterialApp.router(builder: builder.toFn(),
+  final w = MaterialApp.router(builder: builder.toTransitionBuilderFn(),
       title: title.strOrNul(),
-      onGenerateTitle: onGenerateTitle.toFn(),
+      onGenerateTitle: onGenerateTitle.toGenerateAppTitleFn(),
       color: color.objOrNul(),
       theme: theme.objOrNul(),
       darkTheme: darkTheme.objOrNul(),
@@ -1150,7 +1150,7 @@ FloatingActionButtonObjSt floatingActionButtonFloatingActionButton(ffi.Pointer<D
       hoverElevation: hoverElevation.doubleOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.toFn(),
+      onPressed: onPressed.toVoidCallbackFn(),
       mini: mini.boolOr(false),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       autofocus: autofocus.boolOr(false),
@@ -1173,7 +1173,7 @@ FloatingActionButtonObjSt floatingActionButtonSmall(ffi.Pointer<DartObj> child, 
       hoverElevation: hoverElevation.doubleOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.toFn(),
+      onPressed: onPressed.toVoidCallbackFn(),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       autofocus: autofocus.boolOr(false),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
@@ -1194,7 +1194,7 @@ FloatingActionButtonObjSt floatingActionButtonLarge(ffi.Pointer<DartObj> child, 
       hoverElevation: hoverElevation.doubleOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.toFn(),
+      onPressed: onPressed.toVoidCallbackFn(),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       autofocus: autofocus.boolOr(false),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
@@ -1214,7 +1214,7 @@ FloatingActionButtonObjSt floatingActionButtonExtended(ffi.Pointer<ffi.Char> too
       splashColor: splashColor.objOrNul(),
       highlightElevation: highlightElevation.doubleOrNul(),
       disabledElevation: disabledElevation.doubleOrNul(),
-      onPressed: onPressed.toFn(),
+      onPressed: onPressed.toVoidCallbackFn(),
       isExtended: isExtended.boolOr(true),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
@@ -1277,8 +1277,15 @@ ThemeObjSt _createThemeObjSt(Theme? w) {
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
-SubStateObjSt subStateSubState(DartObjCallbackDartObj buildFn) {
-  final w = SubState(buildFn: buildFn.toFn());
+SubStateObjSt subStateSubState(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn) {
+  final w = SubState(initStateFn: initStateFn.toVoidCallbackFn(),
+      didUpdateWidgetFn: didUpdateWidgetFn.toVoidCallbackDartObjFn(),
+      reassembleFn: reassembleFn.toVoidCallbackFn(),
+      deactivateFn: deactivateFn.toVoidCallbackFn(),
+      activateFn: activateFn.toVoidCallbackFn(),
+      disposeFn: disposeFn.toVoidCallbackFn(),
+      buildFn: buildFn.toDartObjCallbackDartObjFn(),
+      didChangeDependenciesFn: didChangeDependenciesFn.toVoidCallbackFn());
   final SubStateObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
@@ -1295,8 +1302,8 @@ SubStateObjSt subStateSubState(DartObjCallbackDartObj buildFn) {
 void _setupSubStatefulWidget(WidgetFactories f) {
   f.subStatefulWidget.subStatefulWidget = ffi.Pointer.fromFunction(subStatefulWidgetSubStatefulWidget);
 }
-SubStatefulWidgetObjSt subStatefulWidgetSubStatefulWidget(DartObjCallback createStateFn) {
-  final w = SubStatefulWidget(createStateFn: createStateFn.toFn());
+SubStatefulWidgetObjSt subStatefulWidgetSubStatefulWidget(DartObjCallbackFFI createStateFn) {
+  final w = SubStatefulWidget(createStateFn: createStateFn.toDartObjCallbackFn());
   final SubStatefulWidgetObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   return stObj;
@@ -1305,8 +1312,8 @@ SubStatefulWidgetObjSt subStatefulWidgetSubStatefulWidget(DartObjCallback create
 void _setupSubStatelessWidget(WidgetFactories f) {
   f.subStatelessWidget.subStatelessWidget = ffi.Pointer.fromFunction(subStatelessWidgetSubStatelessWidget);
 }
-SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDartObj buildFn) {
-  final w = SubStatelessWidget(buildFn: buildFn.toFn());
+SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDartObjFFI buildFn) {
+  final w = SubStatelessWidget(buildFn: buildFn.toDartObjCallbackDartObjFn());
   final SubStatelessWidgetObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   return stObj;
@@ -1342,17 +1349,91 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupColorSwatch(f);
   return fp;
 }
+extension on DrawerCallbackFFI {
+  DrawerCallback toDrawerCallbackFn() {
+    return (bool isOpened) {
+      DartDrawerCallbackFFIFunction dFn = asFunction();
+      dFn(isOpened.toInt());
+    };
+  }
+}
+extension on ffi.Pointer<DrawerCallbackFFI> {
+  DrawerCallback? toDrawerCallbackFn() => (this != ffi.nullptr) ? this.value.toDrawerCallbackFn() : null;
+}
+
+extension on TransitionBuilderFFI {
+  TransitionBuilder toTransitionBuilderFn() {
+    return (BuildContext context, Widget? child) {
+      DartTransitionBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), _addWidget(child));
+      return _widgetsMap[dFnRet]! as Widget;
+    };
+  }
+}
+extension on ffi.Pointer<TransitionBuilderFFI> {
+  TransitionBuilder? toTransitionBuilderFn() => (this != ffi.nullptr) ? this.value.toTransitionBuilderFn() : null;
+}
+
+extension on GenerateAppTitleFFI {
+  GenerateAppTitle toGenerateAppTitleFn() {
+    return (BuildContext context) {
+      DartGenerateAppTitleFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context));
+      return dFnRet.cast<Utf8>().toDartString();
+    };
+  }
+}
+extension on ffi.Pointer<GenerateAppTitleFFI> {
+  GenerateAppTitle? toGenerateAppTitleFn() => (this != ffi.nullptr) ? this.value.toGenerateAppTitleFn() : null;
+}
+
 extension on VoidCallbackFFI {
-  VoidCallback toFn() {
-    return asFunction();
+  VoidCallback toVoidCallbackFn() {
+    return () {
+      DartVoidCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
   }
 }
 extension on ffi.Pointer<VoidCallbackFFI> {
-  VoidCallback? toFn() {
-    if (this != ffi.nullptr) {
-      return this.value.toFn();
-    }
-    return null;
+  VoidCallback? toVoidCallbackFn() => (this != ffi.nullptr) ? this.value.toVoidCallbackFn() : null;
+}
+
+extension on VoidCallbackDartObjFFI {
+  void Function(T) toVoidCallbackDartObjFn<T>() {
+    return (T t) {
+      DartVoidCallbackDartObjFFIFunction dFn = asFunction();
+      dFn(_addWidget(t));
+    };
   }
+}
+extension on ffi.Pointer<VoidCallbackDartObjFFI> {
+  void Function(T)? toVoidCallbackDartObjFn<T>() => (this != ffi.nullptr) ? this.value.toVoidCallbackDartObjFn() : null;
+}
+
+extension on DartObjCallbackDartObjFFI {
+  Widget Function(BuildContext) toDartObjCallbackDartObjFn() {
+    return (BuildContext b) {
+      DartDartObjCallbackDartObjFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(b));
+      return _widgetsMap[dFnRet]! as Widget;
+    };
+  }
+}
+extension on ffi.Pointer<DartObjCallbackDartObjFFI> {
+  Widget Function(BuildContext)? toDartObjCallbackDartObjFn() => (this != ffi.nullptr) ? this.value.toDartObjCallbackDartObjFn() : null;
+}
+
+extension on DartObjCallbackFFI {
+  State<StatefulWidget> Function() toDartObjCallbackFn() {
+    return () {
+      DartDartObjCallbackFFIFunction dFn = asFunction();
+      final dFnRet = dFn();
+      return _widgetsMap[dFnRet]! as State<StatefulWidget>;
+    };
+  }
+}
+extension on ffi.Pointer<DartObjCallbackFFI> {
+  State<StatefulWidget> Function()? toDartObjCallbackFn() => (this != ffi.nullptr) ? this.value.toDartObjCallbackFn() : null;
 }
 

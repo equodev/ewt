@@ -111,13 +111,13 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *         ThemeDataObjSt (*of)(DartObj);
  *     } theme;
  *     struct SubStateSt {
- *         SubStateObjSt (*subState)(DartObjCallbackDartObj);
+ *         SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI);
  *     } subState;
  *     struct SubStatefulWidgetSt {
- *         SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback);
+ *         SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI);
  *     } subStatefulWidget;
  *     struct SubStatelessWidgetSt {
- *         SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj);
+ *         SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI);
  *     } subStatelessWidget;
  * }
  * }
@@ -8404,7 +8404,7 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct SubStateSt {
-     *     SubStateObjSt (*subState)(DartObjCallbackDartObj);
+     *     SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI);
      * }
      * }
      */
@@ -8427,7 +8427,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * SubStateObjSt (*subState)(DartObjCallbackDartObj)
+         * SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI)
          * }
          */
         public static class subState {
@@ -8440,11 +8440,18 @@ public class WidgetFactories {
              * The function pointer signature, expressed as a functional interface
              */
             public interface Function {
-                MemorySegment apply(MemorySegment _x0);
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7);
             }
 
             private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
                 SubStateObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
                 StarterBridge.C_POINTER
             );
 
@@ -8470,9 +8477,9 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
                 try {
-                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8484,7 +8491,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * SubStateObjSt (*subState)(DartObjCallbackDartObj)
+         * SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI)
          * }
          */
         public static final AddressLayout subState$layout() {
@@ -8496,7 +8503,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * SubStateObjSt (*subState)(DartObjCallbackDartObj)
+         * SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI)
          * }
          */
         public static final long subState$offset() {
@@ -8506,7 +8513,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * SubStateObjSt (*subState)(DartObjCallbackDartObj)
+         * SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI)
          * }
          */
         public static MemorySegment subState(MemorySegment struct) {
@@ -8516,7 +8523,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * SubStateObjSt (*subState)(DartObjCallbackDartObj)
+         * SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI)
          * }
          */
         public static void subState(MemorySegment struct, MemorySegment fieldValue) {
@@ -8580,7 +8587,7 @@ public class WidgetFactories {
         return subState$LAYOUT;
     }
 
-    private static final long subState$OFFSET = 400;
+    private static final long subState$OFFSET = 424;
 
     /**
      * Offset for field:
@@ -8615,7 +8622,7 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct SubStatefulWidgetSt {
-     *     SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback);
+     *     SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI);
      * }
      * }
      */
@@ -8638,7 +8645,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI)
          * }
          */
         public static class subStatefulWidget {
@@ -8695,7 +8702,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI)
          * }
          */
         public static final AddressLayout subStatefulWidget$layout() {
@@ -8707,7 +8714,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI)
          * }
          */
         public static final long subStatefulWidget$offset() {
@@ -8717,7 +8724,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI)
          * }
          */
         public static MemorySegment subStatefulWidget(MemorySegment struct) {
@@ -8727,7 +8734,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback)
+         * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI)
          * }
          */
         public static void subStatefulWidget(MemorySegment struct, MemorySegment fieldValue) {
@@ -8791,7 +8798,7 @@ public class WidgetFactories {
         return subStatefulWidget$LAYOUT;
     }
 
-    private static final long subStatefulWidget$OFFSET = 408;
+    private static final long subStatefulWidget$OFFSET = 432;
 
     /**
      * Offset for field:
@@ -8826,7 +8833,7 @@ public class WidgetFactories {
     /**
      * {@snippet lang=c :
      * struct SubStatelessWidgetSt {
-     *     SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj);
+     *     SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI);
      * }
      * }
      */
@@ -8849,7 +8856,7 @@ public class WidgetFactories {
 
         /**
          * {@snippet lang=c :
-         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI)
          * }
          */
         public static class subStatelessWidget {
@@ -8906,7 +8913,7 @@ public class WidgetFactories {
         /**
          * Layout for field:
          * {@snippet lang=c :
-         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI)
          * }
          */
         public static final AddressLayout subStatelessWidget$layout() {
@@ -8918,7 +8925,7 @@ public class WidgetFactories {
         /**
          * Offset for field:
          * {@snippet lang=c :
-         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI)
          * }
          */
         public static final long subStatelessWidget$offset() {
@@ -8928,7 +8935,7 @@ public class WidgetFactories {
         /**
          * Getter for field:
          * {@snippet lang=c :
-         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI)
          * }
          */
         public static MemorySegment subStatelessWidget(MemorySegment struct) {
@@ -8938,7 +8945,7 @@ public class WidgetFactories {
         /**
          * Setter for field:
          * {@snippet lang=c :
-         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj)
+         * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI)
          * }
          */
         public static void subStatelessWidget(MemorySegment struct, MemorySegment fieldValue) {
@@ -9002,7 +9009,7 @@ public class WidgetFactories {
         return subStatelessWidget$LAYOUT;
     }
 
-    private static final long subStatelessWidget$OFFSET = 416;
+    private static final long subStatelessWidget$OFFSET = 440;
 
     /**
      * Offset for field:

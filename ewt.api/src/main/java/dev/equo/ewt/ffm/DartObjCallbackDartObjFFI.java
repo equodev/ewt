@@ -14,12 +14,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef DartObj (*DartObjCallbackDartObj)(DartObj)
+ * typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj)
  * }
  */
-public class DartObjCallbackDartObj {
+public class DartObjCallbackDartObjFFI {
 
-    DartObjCallbackDartObj() {
+    DartObjCallbackDartObjFFI() {
         // Should not be called directly
     }
 
@@ -42,13 +42,13 @@ public class DartObjCallbackDartObj {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DartObjCallbackDartObj.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DartObjCallbackDartObjFFI.Function.class, "apply", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
      * The lifetime of the returned segment is managed by {@code arena}
      */
-    public static MemorySegment allocate(DartObjCallbackDartObj.Function fi, Arena arena) {
+    public static MemorySegment allocate(DartObjCallbackDartObjFFI.Function fi, Arena arena) {
         return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
     }
 

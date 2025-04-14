@@ -33,7 +33,7 @@ public class Icon extends StatelessWidget implements IconI {
     return IconIconBuilder.iconIcon(icon);
   }
   public IconData icon() {
-    return new IconData(IconObjSt.icon(st)) {};
+    return new IconData(IconObjSt.icon(st));
   }
   public double size() {
     return IconObjSt.size(st);
@@ -51,7 +51,7 @@ public class Icon extends StatelessWidget implements IconI {
     return IconObjSt.opticalSize(st);
   }
   public Color color() {
-    return new Color(IconObjSt.color(st)) {};
+    return new Color(IconObjSt.color(st));
   }
   public TextDirection textDirection() {
     return TextDirection.values()[IconObjSt.textDirection(st)];

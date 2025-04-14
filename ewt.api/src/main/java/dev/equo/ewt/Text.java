@@ -55,7 +55,7 @@ public class Text extends StatelessWidget implements TextI {
     return new InlineSpan(TextObjSt.textSpan(st)) {};
   }
   public TextStyle style() {
-    return new TextStyle(TextObjSt.style(st)) {};
+    return new TextStyle(TextObjSt.style(st));
   }
   public TextAlign textAlign() {
     return TextAlign.values()[TextObjSt.textAlign(st)];
@@ -79,7 +79,7 @@ public class Text extends StatelessWidget implements TextI {
     return TextWidthBasis.values()[TextObjSt.textWidthBasis(st)];
   }
   public Color selectionColor() {
-    return new Color(TextObjSt.selectionColor(st)) {};
+    return new Color(TextObjSt.selectionColor(st));
   }
   @Override
   public Text build() {

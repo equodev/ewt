@@ -29,7 +29,7 @@ public class Theme extends StatelessWidget implements ThemeI {
     return new ThemeData(st);
   }
   public ThemeData data() {
-    return new ThemeData(ThemeObjSt.data(st)) {};
+    return new ThemeData(ThemeObjSt.data(st));
   }
   public Widget child() {
     return new Widget(ThemeObjSt.child(st)) {};

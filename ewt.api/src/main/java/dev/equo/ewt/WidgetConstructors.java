@@ -727,9 +727,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(floatingActionButton),
       ptrList(persistentFooterButtons),
       ptrObj(drawer),
-      onDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
+      onDrawerChanged.isPresent() ? ptrDrawerCallbackFn(onDrawerChanged.get()) : MemorySegment.NULL,
       ptrObj(endDrawer),
-      onEndDrawerChanged.isPresent() ? DrawerCallbackFFI.allocate((isOpened) -> onEndDrawerChanged.get().accept(intToBool(isOpened)), arena) : MemorySegment.NULL,
+      onEndDrawerChanged.isPresent() ? ptrDrawerCallbackFn(onEndDrawerChanged.get()) : MemorySegment.NULL,
       ptrObj(bottomNavigationBar),
       ptrObj(bottomSheet),
       ptrObj(backgroundColor),
@@ -755,9 +755,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.MaterialAppSt.materialApp(st);
     return WidgetFactories.MaterialAppSt.materialApp.invoke(fn, arena, ptrObj(home),
       ptrStr(initialRoute),
-      builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
+      builder.isPresent() ? ptrTransitionBuilderFn(builder.get()) : MemorySegment.NULL,
       ptrStr(title),
-      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
+      onGenerateTitle.isPresent() ? ptrGenerateAppTitleFn(onGenerateTitle.get()) : MemorySegment.NULL,
       ptrObj(color),
       ptrObj(theme),
       ptrObj(darkTheme),
@@ -776,9 +776,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
     var fn = WidgetFactories.MaterialAppSt.router(st);
-    return WidgetFactories.MaterialAppSt.router.invoke(fn, arena, builder.isPresent() ? TransitionBuilderFFI.allocate((context, child) -> builder.get().apply(new BuildContext(context) {}, new Widget(child) {}).getId(), arena) : MemorySegment.NULL,
+    return WidgetFactories.MaterialAppSt.router.invoke(fn, arena, builder.isPresent() ? ptrTransitionBuilderFn(builder.get()) : MemorySegment.NULL,
       ptrStr(title),
-      onGenerateTitle.isPresent() ? GenerateAppTitleFFI.allocate((context) -> arena.allocateFrom(onGenerateTitle.get().apply(new BuildContext(context) {})), arena) : MemorySegment.NULL,
+      onGenerateTitle.isPresent() ? ptrGenerateAppTitleFn(onGenerateTitle.get()) : MemorySegment.NULL,
       ptrObj(color),
       ptrObj(theme),
       ptrObj(darkTheme),
@@ -811,7 +811,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(hoverElevation),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrFn(onPressed),
+      ptrVoidCallbackFn(onPressed),
       ptrBool(mini),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
@@ -835,7 +835,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(hoverElevation),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrFn(onPressed),
+      ptrVoidCallbackFn(onPressed),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
@@ -857,7 +857,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(hoverElevation),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrFn(onPressed),
+      ptrVoidCallbackFn(onPressed),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
@@ -878,7 +878,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(splashColor),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrFn(onPressed),
+      ptrVoidCallbackFn(onPressed),
       ptrBool(isExtended),
       ptrEnum(materialTapTargetSize),
       ptrEnum(clipBehavior),
@@ -902,22 +902,68 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ThemeSt.of.invoke(fn, arena, context.getId());
   }
 
-  MemorySegment subStateSubState(Function<BuildContext, Widget> buildFn) {
+  <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
-    return WidgetFactories.SubStateSt.subState.invoke(fn, arena, ptrFn(buildFn));
+    return WidgetFactories.SubStateSt.subState.invoke(fn, arena, ptrVoidCallbackFn(initStateFn),
+      ptrVoidCallbackDartObjFn(didUpdateWidgetFn),
+      ptrVoidCallbackFn(reassembleFn),
+      ptrVoidCallbackFn(deactivateFn),
+      ptrVoidCallbackFn(activateFn),
+      ptrVoidCallbackFn(disposeFn),
+      ptrDartObjCallbackDartObjFn(buildFn),
+      ptrVoidCallbackFn(didChangeDependenciesFn));
   }
 
   MemorySegment subStatefulWidgetSubStatefulWidget(Supplier<State> createStateFn) {
     var st = WidgetFactories.subStatefulWidget(factories);
     var fn = WidgetFactories.SubStatefulWidgetSt.subStatefulWidget(st);
-    return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, arena, ptrFn(createStateFn));
+    return WidgetFactories.SubStatefulWidgetSt.subStatefulWidget.invoke(fn, arena, ptrDartObjCallbackFn(createStateFn));
   }
 
   MemorySegment subStatelessWidgetSubStatelessWidget(Function<BuildContext, Widget> buildFn) {
     var st = WidgetFactories.subStatelessWidget(factories);
     var fn = WidgetFactories.SubStatelessWidgetSt.subStatelessWidget(st);
-    return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrFn(buildFn));
+    return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrDartObjCallbackDartObjFn(buildFn));
   }
 
+MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {
+  return DrawerCallbackFFI.allocate((isOpened) -> {
+    jFn.accept(intToBool(isOpened));
+  }, arena);
+}
+MemorySegment ptrTransitionBuilderFn(BiFunction<BuildContext, Widget, Widget> jFn) {
+  return TransitionBuilderFFI.allocate((context, child) -> {
+    final var jFnRet = jFn.apply(new BuildContext(context) {}, new Widget(child) {});
+    return jFnRet.getId();
+  }, arena);
+}
+MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
+  return GenerateAppTitleFFI.allocate((context) -> {
+    final var jFnRet = jFn.apply(new BuildContext(context) {});
+    return arena.allocateFrom(jFnRet);
+  }, arena);
+}
+MemorySegment ptrVoidCallbackFn(Runnable jFn) {
+  return VoidCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
+}
+<T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {
+  return VoidCallbackDartObjFFI.allocate((t) -> {
+    jFn.accept(SubclassedInJava.getSubNatObj(t));
+  }, arena);
+}
+MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {
+  return DartObjCallbackDartObjFFI.allocate((b) -> {
+    final var jFnRet = jFn.apply(new BuildContext(b) {});
+    return jFnRet.getId();
+  }, arena);
+}
+MemorySegment ptrDartObjCallbackFn(Supplier<State> jFn) {
+  return DartObjCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.getId();
+  }, arena);
+}
 }

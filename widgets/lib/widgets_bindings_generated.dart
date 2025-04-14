@@ -380,6 +380,9 @@ final class ColumnObjSt extends ffi.Struct {
   external int id;
 }
 
+/// typedef void (*VoidCallback)(void);
+/// typedef DartObj (*DartObjCallback)(void);
+/// typedef DartObj (*DartObjCallbackDartObj)(DartObj);
 final class ArrayC extends ffi.Struct {
   @ffi.Int()
   external int size;
@@ -1815,7 +1818,15 @@ final class ThemeObjSt extends ffi.Struct {
 final class SubStateSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
-          SubStateObjSt Function(DartObjCallbackDartObj buildFn)>> subState;
+          SubStateObjSt Function(
+              VoidCallbackFFI initStateFn,
+              VoidCallbackDartObjFFI didUpdateWidgetFn,
+              VoidCallbackFFI reassembleFn,
+              VoidCallbackFFI deactivateFn,
+              VoidCallbackFFI activateFn,
+              VoidCallbackFFI disposeFn,
+              DartObjCallbackDartObjFFI buildFn,
+              VoidCallbackFFI didChangeDependenciesFn)>> subState;
 }
 
 final class SubStateObjSt extends ffi.Struct {
@@ -1833,16 +1844,21 @@ final class SubStateObjSt extends ffi.Struct {
       setState;
 }
 
-typedef DartObjCallbackDartObj
-    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackDartObjFunction>>;
-typedef DartObjCallbackDartObjFunction = DartObj Function(DartObj);
-typedef DartDartObjCallbackDartObjFunction = DartDartObj Function(DartDartObj);
+typedef VoidCallbackDartObjFFI
+    = ffi.Pointer<ffi.NativeFunction<VoidCallbackDartObjFFIFunction>>;
+typedef VoidCallbackDartObjFFIFunction = ffi.Void Function(DartObj);
+typedef DartVoidCallbackDartObjFFIFunction = void Function(DartDartObj);
+typedef DartObjCallbackDartObjFFI
+    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackDartObjFFIFunction>>;
+typedef DartObjCallbackDartObjFFIFunction = DartObj Function(DartObj);
+typedef DartDartObjCallbackDartObjFFIFunction = DartDartObj Function(
+    DartDartObj);
 
 final class SubStatefulWidgetSt extends ffi.Struct {
   external ffi.Pointer<
-          ffi.NativeFunction<
-              SubStatefulWidgetObjSt Function(DartObjCallback createStateFn)>>
-      subStatefulWidget;
+      ffi.NativeFunction<
+          SubStatefulWidgetObjSt Function(
+              DartObjCallbackFFI createStateFn)>> subStatefulWidget;
 }
 
 final class SubStatefulWidgetObjSt extends ffi.Struct {
@@ -1850,17 +1866,16 @@ final class SubStatefulWidgetObjSt extends ffi.Struct {
   external int id;
 }
 
-/// typedef void (*VoidCallback)(void);
-typedef DartObjCallback
-    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFunction>>;
-typedef DartObjCallbackFunction = DartObj Function();
-typedef DartDartObjCallbackFunction = DartDartObj Function();
+typedef DartObjCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<DartObjCallbackFFIFunction>>;
+typedef DartObjCallbackFFIFunction = DartObj Function();
+typedef DartDartObjCallbackFFIFunction = DartDartObj Function();
 
 final class SubStatelessWidgetSt extends ffi.Struct {
   external ffi.Pointer<
-          ffi.NativeFunction<
-              SubStatelessWidgetObjSt Function(DartObjCallbackDartObj buildFn)>>
-      subStatelessWidget;
+      ffi.NativeFunction<
+          SubStatelessWidgetObjSt Function(
+              DartObjCallbackDartObjFFI buildFn)>> subStatelessWidget;
 }
 
 final class SubStatelessWidgetObjSt extends ffi.Struct {

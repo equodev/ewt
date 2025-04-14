@@ -50,10 +50,10 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
     return intToBool(TextStyleObjSt.inherit(st));
   }
   public Color color() {
-    return new Color(TextStyleObjSt.color(st)) {};
+    return new Color(TextStyleObjSt.color(st));
   }
   public Color backgroundColor() {
-    return new Color(TextStyleObjSt.backgroundColor(st)) {};
+    return new Color(TextStyleObjSt.backgroundColor(st));
   }
   public double fontSize() {
     return TextStyleObjSt.fontSize(st);
@@ -77,7 +77,7 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
     return TextLeadingDistribution.values()[TextStyleObjSt.leadingDistribution(st)];
   }
   public Color decorationColor() {
-    return new Color(TextStyleObjSt.decorationColor(st)) {};
+    return new Color(TextStyleObjSt.decorationColor(st));
   }
   public TextDecorationStyle decorationStyle() {
     return TextDecorationStyle.values()[TextStyleObjSt.decorationStyle(st)];

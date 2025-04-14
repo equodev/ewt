@@ -24,16 +24,16 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
     return MaterialAccentColorMaterialAccentColorBuilder.materialAccentColorMaterialAccentColor(primary, swatch);
   }
   public Color shade100() {
-    return new Color(MaterialAccentColorObjSt.shade100(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade100(st));
   }
   public Color shade200() {
-    return new Color(MaterialAccentColorObjSt.shade200(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade200(st));
   }
   public Color shade400() {
-    return new Color(MaterialAccentColorObjSt.shade400(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade400(st));
   }
   public Color shade700() {
-    return new Color(MaterialAccentColorObjSt.shade700(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade700(st));
   }
   @Override
   public MaterialAccentColor build() {

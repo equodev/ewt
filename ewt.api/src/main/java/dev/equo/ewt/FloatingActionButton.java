@@ -127,19 +127,19 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     return new Widget(FloatingActionButtonObjSt.child(st)) {};
   }
   public Color foregroundColor() {
-    return new Color(FloatingActionButtonObjSt.foregroundColor(st)) {};
+    return new Color(FloatingActionButtonObjSt.foregroundColor(st));
   }
   public Color backgroundColor() {
-    return new Color(FloatingActionButtonObjSt.backgroundColor(st)) {};
+    return new Color(FloatingActionButtonObjSt.backgroundColor(st));
   }
   public Color focusColor() {
-    return new Color(FloatingActionButtonObjSt.focusColor(st)) {};
+    return new Color(FloatingActionButtonObjSt.focusColor(st));
   }
   public Color hoverColor() {
-    return new Color(FloatingActionButtonObjSt.hoverColor(st)) {};
+    return new Color(FloatingActionButtonObjSt.hoverColor(st));
   }
   public Color splashColor() {
-    return new Color(FloatingActionButtonObjSt.splashColor(st)) {};
+    return new Color(FloatingActionButtonObjSt.splashColor(st));
   }
   public double elevation() {
     return FloatingActionButtonObjSt.elevation(st);
@@ -178,7 +178,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     return FloatingActionButtonObjSt.extendedIconLabelSpacing(st);
   }
   public TextStyle extendedTextStyle() {
-    return new TextStyle(FloatingActionButtonObjSt.extendedTextStyle(st)) {};
+    return new TextStyle(FloatingActionButtonObjSt.extendedTextStyle(st));
   }
   @Override
   public FloatingActionButton build() {

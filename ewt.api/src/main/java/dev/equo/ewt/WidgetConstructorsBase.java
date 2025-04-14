@@ -88,18 +88,18 @@ class WidgetConstructorsBase {
     MapC.entries(struct, entriesC);
     return struct;
   }
-  MemorySegment ptrFn(Runnable runnable) {
-    return VoidCallbackFFI.allocate(runnable::run, arena);
-  }
-  <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
-    return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
-  }
-  <T extends NativeObj, R extends NativeObj> MemorySegment ptrFn(Function<T, R> f) {
-    return DartObjCallbackDartObj.allocate((ctx) -> {
-      System.out.println("java buil ctx: "+ctx);
-      return f.apply((T) new BuildContext(ctx){}).getId() ;
-    }, arena);
-  }
+//  MemorySegment ptrFn(Runnable runnable) {
+//    return VoidCallbackFFI.allocate(runnable::run, arena);
+//  }
+//  <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
+//    return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
+//  }
+//  <T extends NativeObj, R extends NativeObj> MemorySegment ptrFn(Function<T, R> f) {
+//    return DartObjCallbackDartObj.allocate((ctx) -> {
+//      System.out.println("java buil ctx: "+ctx);
+//      return f.apply((T) new BuildContext(ctx){}).getId() ;
+//    }, arena);
+//  }
 //  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
 //    if (opt.isPresent()) {
 //      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);

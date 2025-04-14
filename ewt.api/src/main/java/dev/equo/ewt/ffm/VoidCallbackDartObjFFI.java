@@ -14,12 +14,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef DartObj (*DartObjCallback)(void)
+ * typedef void (*VoidCallbackDartObjFFI)(DartObj)
  * }
  */
-public class DartObjCallback {
+public class VoidCallbackDartObjFFI {
 
-    DartObjCallback() {
+    VoidCallbackDartObjFFI() {
         // Should not be called directly
     }
 
@@ -27,11 +27,12 @@ public class DartObjCallback {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        int apply();
+        void apply(int _x0);
     }
 
-    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
-        StarterBridge.C_INT);
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        StarterBridge.C_INT
+    );
 
     /**
      * The descriptor of this function pointer
@@ -40,13 +41,13 @@ public class DartObjCallback {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DartObjCallback.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(VoidCallbackDartObjFFI.Function.class, "apply", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
      * The lifetime of the returned segment is managed by {@code arena}
      */
-    public static MemorySegment allocate(DartObjCallback.Function fi, Arena arena) {
+    public static MemorySegment allocate(VoidCallbackDartObjFFI.Function fi, Arena arena) {
         return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
     }
 
@@ -55,9 +56,9 @@ public class DartObjCallback {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr) {
+    public static void invoke(MemorySegment funcPtr,int _x0) {
         try {
-            return (int) DOWN$MH.invokeExact(funcPtr);
+             DOWN$MH.invokeExact(funcPtr, _x0);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

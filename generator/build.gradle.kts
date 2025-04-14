@@ -2,7 +2,7 @@ tasks.register<Exec>("generator") {
     group = "native"
     description = "Generate source from flutter widgets"
 
-    executable = "/Users/guillez/bin/flutter/bin/dart"
+    executable = "${System.getProperty("user.home")}/bin/flutter/bin/dart"
     args("run", "bin/generator.dart")
     inputs.dir("lib")
     inputs.file("bin/generator.dart")

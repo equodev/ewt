@@ -116,15 +116,15 @@ typedef struct {
   } theme;
 
   struct SubStateSt {
-    SubStateObjSt (*subState)(DartObjCallbackDartObj buildFn);
+    SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;
 
   struct SubStatefulWidgetSt {
-    SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallback createStateFn);
+    SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI createStateFn);
   } subStatefulWidget;
 
   struct SubStatelessWidgetSt {
-    SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObj buildFn);
+    SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI buildFn);
   } subStatelessWidget;
 
 } WidgetFactories;

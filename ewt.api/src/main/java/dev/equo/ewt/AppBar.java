@@ -64,16 +64,16 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
     return AppBarObjSt.scrolledUnderElevation(st);
   }
   public Color shadowColor() {
-    return new Color(AppBarObjSt.shadowColor(st)) {};
+    return new Color(AppBarObjSt.shadowColor(st));
   }
   public Color surfaceTintColor() {
-    return new Color(AppBarObjSt.surfaceTintColor(st)) {};
+    return new Color(AppBarObjSt.surfaceTintColor(st));
   }
   public Color backgroundColor() {
-    return new Color(AppBarObjSt.backgroundColor(st)) {};
+    return new Color(AppBarObjSt.backgroundColor(st));
   }
   public Color foregroundColor() {
-    return new Color(AppBarObjSt.foregroundColor(st)) {};
+    return new Color(AppBarObjSt.foregroundColor(st));
   }
   public boolean primary() {
     return intToBool(AppBarObjSt.primary(st));
@@ -100,10 +100,10 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
     return AppBarObjSt.leadingWidth(st);
   }
   public TextStyle toolbarTextStyle() {
-    return new TextStyle(AppBarObjSt.toolbarTextStyle(st)) {};
+    return new TextStyle(AppBarObjSt.toolbarTextStyle(st));
   }
   public TextStyle titleTextStyle() {
-    return new TextStyle(AppBarObjSt.titleTextStyle(st)) {};
+    return new TextStyle(AppBarObjSt.titleTextStyle(st));
   }
   public boolean forceMaterialTransparency() {
     return intToBool(AppBarObjSt.forceMaterialTransparency(st));
