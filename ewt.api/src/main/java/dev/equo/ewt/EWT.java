@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 public class EWT {
   public static TextStyleTextStyleBuilder TextStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();
@@ -53,11 +55,156 @@ public class EWT {
     return IconIconBuilder.iconIcon(icon);
   }
 
+  public static TransformRotateBuilder Transform_rotate(double angle) {
+    return TransformRotateBuilder.transformRotate(angle);
+  }
+  public static TransformTranslateBuilder Transform_translate(OffsetI offset) {
+    return TransformTranslateBuilder.transformTranslate(offset);
+  }
+  public static TransformScaleBuilder Transform_scale() {
+    return TransformScaleBuilder.transformScale();
+  }
+  public static TransformFlipBuilder Transform_flip() {
+    return TransformFlipBuilder.transformFlip();
+  }
+
+  public static OffsetOffsetBuilder Offset(double dx, double dy) {
+    return OffsetOffsetBuilder.offsetOffset(dx, dy);
+  }
+  public static OffsetFromDirectionBuilder Offset_fromDirection(double direction) {
+    return OffsetFromDirectionBuilder.offsetFromDirection(direction);
+  }
+
+  public static OpacityOpacityBuilder Opacity(double opacity) {
+    return OpacityOpacityBuilder.opacityOpacity(opacity);
+  }
+
+  public static StackStackBuilder Stack() {
+    return StackStackBuilder.stackStack();
+  }
+
+  public static BoxConstraintsBoxConstraintsBuilder BoxConstraints() {
+    return BoxConstraintsBoxConstraintsBuilder.boxConstraintsBoxConstraints();
+  }
+  public static BoxConstraintsTightForBuilder BoxConstraints_tightFor() {
+    return BoxConstraintsTightForBuilder.boxConstraintsTightFor();
+  }
+  public static BoxConstraintsTightForFiniteBuilder BoxConstraints_tightForFinite() {
+    return BoxConstraintsTightForFiniteBuilder.boxConstraintsTightForFinite();
+  }
+  public static BoxConstraintsExpandBuilder BoxConstraints_expand() {
+    return BoxConstraintsExpandBuilder.boxConstraintsExpand();
+  }
+
+  public static ContainerContainerBuilder Container() {
+    return ContainerContainerBuilder.containerContainer();
+  }
+
+  public static BoxDecorationBoxDecorationBuilder BoxDecoration() {
+    return BoxDecorationBoxDecorationBuilder.boxDecorationBoxDecoration();
+  }
+
+  public static RadiusCircularBuilder Radius_circular(double radius) {
+    return RadiusCircularBuilder.radiusCircular(radius);
+  }
+  public static RadiusEllipticalBuilder Radius_elliptical(double x, double y) {
+    return RadiusEllipticalBuilder.radiusElliptical(x, y);
+  }
+
+  public static BorderRadiusAllBuilder BorderRadius_all(RadiusI radius) {
+    return BorderRadiusAllBuilder.borderRadiusAll(radius);
+  }
+  public static BorderRadiusCircularBuilder BorderRadius_circular(double radius) {
+    return BorderRadiusCircularBuilder.borderRadiusCircular(radius);
+  }
+  public static BorderRadiusVerticalBuilder BorderRadius_vertical() {
+    return BorderRadiusVerticalBuilder.borderRadiusVertical();
+  }
+  public static BorderRadiusHorizontalBuilder BorderRadius_horizontal() {
+    return BorderRadiusHorizontalBuilder.borderRadiusHorizontal();
+  }
+  public static BorderRadiusOnlyBuilder BorderRadius_only() {
+    return BorderRadiusOnlyBuilder.borderRadiusOnly();
+  }
+
+  public static BoxShadowBoxShadowBuilder BoxShadow() {
+    return BoxShadowBoxShadowBuilder.boxShadowBoxShadow();
+  }
+
+  public static ShadowShadowBuilder Shadow() {
+    return ShadowShadowBuilder.shadowShadow();
+  }
+
+  public static PaddingPaddingBuilder Padding(EdgeInsetsGeometryI padding) {
+    return PaddingPaddingBuilder.paddingPadding(padding);
+  }
+
+  public static EdgeInsetsFromLTRBBuilder EdgeInsets_fromLTRB(double left, double top, double right, double bottom) {
+    return EdgeInsetsFromLTRBBuilder.edgeInsetsFromLTRB(left, top, right, bottom);
+  }
+  public static EdgeInsetsAllBuilder EdgeInsets_all(double value) {
+    return EdgeInsetsAllBuilder.edgeInsetsAll(value);
+  }
+  public static EdgeInsetsOnlyBuilder EdgeInsets_only() {
+    return EdgeInsetsOnlyBuilder.edgeInsetsOnly();
+  }
+  public static EdgeInsetsSymmetricBuilder EdgeInsets_symmetric() {
+    return EdgeInsetsSymmetricBuilder.edgeInsetsSymmetric();
+  }
+
   public static AnimationControllerAnimationControllerBuilder AnimationController() {
     return AnimationControllerAnimationControllerBuilder.animationControllerAnimationController();
   }
   public static AnimationControllerUnboundedBuilder AnimationController_unbounded() {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
+  }
+
+  public static AnimatedBuilderAnimatedBuilderBuilder AnimatedBuilder(ListenableI animation, BiFunction<BuildContext, Widget, Widget> builder) {
+    return AnimatedBuilderAnimatedBuilderBuilder.animatedBuilderAnimatedBuilder(animation, builder);
+  }
+
+  public static ListenableBuilderListenableBuilderBuilder ListenableBuilder(ListenableI listenable, BiFunction<BuildContext, Widget, Widget> builder) {
+    return ListenableBuilderListenableBuilderBuilder.listenableBuilderListenableBuilder(listenable, builder);
+  }
+
+  public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {
+    return CubicCubicBuilder.cubicCubic(a, b, c, d);
+  }
+
+  public static ThreePointCubicThreePointCubicBuilder ThreePointCubic(OffsetI a1, OffsetI b1, OffsetI midpoint, OffsetI a2, OffsetI b2) {
+    return ThreePointCubicThreePointCubicBuilder.threePointCubicThreePointCubic(a1, b1, midpoint, a2, b2);
+  }
+
+  public static ElasticOutCurveElasticOutCurveBuilder ElasticOutCurve() {
+    return ElasticOutCurveElasticOutCurveBuilder.elasticOutCurveElasticOutCurve();
+  }
+
+  public static ElasticInCurveElasticInCurveBuilder ElasticInCurve() {
+    return ElasticInCurveElasticInCurveBuilder.elasticInCurveElasticInCurve();
+  }
+
+  public static ElasticInOutCurveElasticInOutCurveBuilder ElasticInOutCurve() {
+    return ElasticInOutCurveElasticInOutCurveBuilder.elasticInOutCurveElasticInOutCurve();
+  }
+
+  public static CurvedAnimationCurvedAnimationBuilder CurvedAnimation(AnimationI parent, CurveI curve) {
+    return CurvedAnimationCurvedAnimationBuilder.curvedAnimationCurvedAnimation(parent, curve);
+  }
+
+  public static SizedBoxSizedBoxBuilder SizedBox() {
+    return SizedBoxSizedBoxBuilder.sizedBoxSizedBox();
+  }
+  public static SizedBoxExpandBuilder SizedBox_expand() {
+    return SizedBoxExpandBuilder.sizedBoxExpand();
+  }
+  public static SizedBoxShrinkBuilder SizedBox_shrink() {
+    return SizedBoxShrinkBuilder.sizedBoxShrink();
+  }
+  public static SizedBoxFromSizeBuilder SizedBox_fromSize() {
+    return SizedBoxFromSizeBuilder.sizedBoxFromSize();
+  }
+  public static SizedBoxSquareBuilder SizedBox_square() {
+    return SizedBoxSquareBuilder.sizedBoxSquare();
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
@@ -109,6 +256,23 @@ public class EWT {
 
   public static MaterialAccentColorMaterialAccentColorBuilder MaterialAccentColor(int primary, Map<Integer, Color> swatch) {
     return MaterialAccentColorMaterialAccentColorBuilder.materialAccentColorMaterialAccentColor(primary, swatch);
+  }
+
+  public static MaterialMaterialBuilder Material() {
+    return MaterialMaterialBuilder.materialMaterial();
+  }
+
+  public static IconButtonIconButtonBuilder IconButton() {
+    return IconButtonIconButtonBuilder.iconButtonIconButton();
+  }
+  public static IconButtonFilledBuilder IconButton_filled() {
+    return IconButtonFilledBuilder.iconButtonFilled();
+  }
+  public static IconButtonFilledTonalBuilder IconButton_filledTonal() {
+    return IconButtonFilledTonalBuilder.iconButtonFilledTonal();
+  }
+  public static IconButtonOutlinedBuilder IconButton_outlined() {
+    return IconButtonOutlinedBuilder.iconButtonOutlined();
   }
 
   public static AppBarAppBarBuilder AppBar() {

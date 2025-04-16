@@ -38,6 +38,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     TextStyleObjSt titleTextStyle;
  *     int forceMaterialTransparency;
  *     int clipBehavior;
+ *     DartObj actionsPadding;
  * }
  * }
  */
@@ -72,8 +73,10 @@ public class AppBarObjSt {
         TextStyleObjSt.layout().withName("toolbarTextStyle"),
         TextStyleObjSt.layout().withName("titleTextStyle"),
         StarterBridge.C_INT.withName("forceMaterialTransparency"),
-        StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$209:9");
+        StarterBridge.C_INT.withName("clipBehavior"),
+        StarterBridge.C_INT.withName("actionsPadding"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$374:9");
 
     /**
      * The layout of this struct
@@ -1092,6 +1095,50 @@ public class AppBarObjSt {
      */
     public static void clipBehavior(MemorySegment struct, int fieldValue) {
         struct.set(clipBehavior$LAYOUT, clipBehavior$OFFSET, fieldValue);
+    }
+
+    private static final OfInt actionsPadding$LAYOUT = (OfInt)$LAYOUT.select(groupElement("actionsPadding"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static final OfInt actionsPadding$layout() {
+        return actionsPadding$LAYOUT;
+    }
+
+    private static final long actionsPadding$OFFSET = 312;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static final long actionsPadding$offset() {
+        return actionsPadding$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static int actionsPadding(MemorySegment struct) {
+        return struct.get(actionsPadding$LAYOUT, actionsPadding$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static void actionsPadding(MemorySegment struct, int fieldValue) {
+        struct.set(actionsPadding$LAYOUT, actionsPadding$OFFSET, fieldValue);
     }
 
     /**

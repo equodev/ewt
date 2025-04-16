@@ -46,8 +46,8 @@ extension on ffi.Pointer<ffi.Double> {
 extension on ffi.Pointer<ffi.Char> { String? strOrNul() => this == ffi.nullptr ? null : cast<Utf8>().toDartString(); }
 extension ObjPtr<T> on ffi.Pointer<ffi.Int> { T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T; }
 extension on ffi.Pointer<ArrayC> {
-  List<Widget> orEmpty() {
-    final List<Widget> list = List.empty(growable: true);
+  List<T> orEmpty<T extends Widget>() {
+    final List<T> list = List.empty(growable: true);
     if (this != ffi.nullptr) {
       final st = ref;
       for (var i=0; i<st.size; i++) {
@@ -55,7 +55,7 @@ extension on ffi.Pointer<ArrayC> {
         print('Find widget at $i id: $wId');
         final w = getWidget(wId);
         print('Got widget $w');
-        list.add(w as Widget);
+        list.add(w as T);
       }
     }
     return list;

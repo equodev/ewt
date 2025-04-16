@@ -2,6 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
 import 'package:analyzer/src/dart/element/element.dart';
+import 'package:analyzer/src/dart/element/type.dart';
 import 'package:analyzer/src/generated/utilities_dart.dart';
 import 'package:analyzer/src/utilities/extensions/string.dart';
 
@@ -10,7 +11,7 @@ import 'gen.dart';
 class Types {
   Set<DartType> unsupportedTypes = {};
   Set<DartType> requiredTypes = {};
-  Set<TypeAliasElement> typeDefs = {};
+  Set<InstantiatedTypeAliasElement> typeDefs = {};
   Iterable<ClassElement> widgets;
   ClassElement? widgetElement;
   late List<TypeHandler> handlers;
@@ -41,9 +42,9 @@ class Types {
     throw UnsupportedError('No AGen for $dartClass');
   }
 
-  void addTypeDef(TypeAliasElement element) {
-    if (!typeDefs.any((d) => d.name == element.name)) {
-      typeDefs.add(element);
+  void addTypeDef(InstantiatedTypeAliasElement t) {
+    if (!typeDefs.any((d) => d.element.name == t.element.name)) {
+      typeDefs.add(t);
     }
   }
 
@@ -342,6 +343,14 @@ class Types {
       if (t.isDartCoreString) {
         value = 'arena.allocateFrom($value)';
       }
+      else if (t.isDartCoreList) {
+        final arrayType = (t as InterfaceType).typeArguments[0];
+        if (arrayType.isDartCoreString) {
+          value = 'ptrStrList($value)';
+        } else {
+          value = 'ptrList($value)';
+        }
+      }
       else if (t.element is EnumElement) {
         value = '$value.ordinal()';
       }
@@ -386,7 +395,8 @@ class Types {
       if (hasSubClassInJava(t)) {
         return 'SubclassedInJava.getSubNatObj($value)';
       } else {
-        return 'new ${t.element!.name}($value)${(t.element as ClassElement).isAbstract ? ' {}' : ''}';
+        var isAbstract = t.element is ClassElement && (t.element as ClassElement).isAbstract;
+        return 'new ${t.element!.name}($value)${isAbstract ? ' {}' : ''}';
       }
     }
     return value;
@@ -436,35 +446,40 @@ class FunctionHandler with TypeHandler {
   @override
   bool matches(DartType t) =>
       t is FunctionType && (t.parameters.isEmpty ||
-          t.parameters.every((p) => types.supportedType(p.type))) &&
+          t.parameters.every((p) => types.supportedType(p.type) || p.type is TypeParameterType)) &&
           (t.returnType is VoidType || types.supportedType(t.returnType));
   @override
   String type4C(DartType t) {
     var fn = t as FunctionType;
-    var alias = fn.alias?.element;
+    var alias = fn.alias;
     if (fn.alias == null) {
       String aliasName = getAliasName(fn);
-      alias = TypeAliasElementImpl(aliasName, 0)
-        ..aliasedType = fn;
+      alias = InstantiatedTypeAliasElementImpl(element: TypeAliasElementImpl(aliasName, 0)..aliasedType = fn, typeArguments: []);
     }
     types.addTypeDef(alias!);
-    return '${alias.name}FFI';
+    return getAliasName(fn, withSuffix: true);
   }
-  String getAliasName(FunctionType fn) {
+  String getAliasName(FunctionType fn, {bool withSuffix = false}) {
+    var alias = fn.alias;
+    if (alias != null) {
+      return getInstantiatedAliasName(alias, withSuffix: withSuffix);
+    }
     final cbRet = (fn.returnType is VoidType) ? 'Void' : types.type4C(fn.returnType);
-    final aliasName = '${cbRet}Callback${fn.parameters.map((p) => types.type4C(p.type)).join(', ')}';
-    return aliasName;
+    final aliasName = '${cbRet}Callback${fn.parameters.map((p) => types.type4C(p.type)).join('')}';
+    return '$aliasName${withSuffix ? 'FFI' : ''}';
+  }
+  String getInstantiatedAliasName(InstantiatedTypeAliasElement alias, {bool withSuffix = false}) {
+    return '${alias.element.name}${alias.typeArguments.isEmpty ? '' : 'For${alias.typeArguments.map((t) => t.element!.name!.firstUpper()).join()}'}${withSuffix ? 'FFI' : ''}';
   }
   @override
   String type4D(DartType t) {
     var fn = t as FunctionType;
-    var alias = fn.alias != null ? fn.alias!.element.name : getAliasName(fn);
-    return '${alias}FFI';
+    return getAliasName(fn, withSuffix: true);
   }
   @override
-  String type4J(DartType t) {
+  String type4J(DartType t, [List<DartType>? typeArguments]) {
     var fn = t as FunctionType;
-    var params = fn.parameters.map((p) => types.type4J(p.type).firstUpper()).join(', ');
+    var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => types.type4J(p.type).firstUpper()).join(', ');
     if (fn.returnType is VoidType) {
       if (fn.parameters.isEmpty) {
         return 'Runnable';
@@ -487,11 +502,7 @@ class FunctionHandler with TypeHandler {
   String value4D(ParameterElement param) {
     final t = param.type as FunctionType;
     var value = param.name;
-    if (t.alias != null) {
-      value = '$value.to${t.alias!.element.name}Fn()';
-    } else {
-      value = '$value.to${getAliasName(t)}Fn()';
-    }
+    value = '$value.to${getAliasName(t)}Fn()';
     return value;
   }
   @override
@@ -499,16 +510,11 @@ class FunctionHandler with TypeHandler {
     var value = Params.escape4J(types, param);
     final t = param.type as FunctionType;
     if (param.isOptional) {
-      if (t.alias != null) {
-        value = '$value.isPresent() ? ptr${t.alias!.element.name}Fn($value.get()) : MemorySegment.NULL';
-        return value;
-      }
       final fn = 'ptr${getAliasName(t)}Fn($value.get())';
       value = '$value.isPresent() ? $fn : MemorySegment.NULL';
     } else {
       value = 'ptr${getAliasName(t)}Fn($value)';
     }
-    // final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
     return value;
   }
 
@@ -524,3 +530,18 @@ class FunctionHandler with TypeHandler {
 }
 
 ParameterElement paramElement(String name, DartType type) => ParameterElementImpl.synthetic(name, type, type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED);
+
+List<ParameterElement> bindTypeParameters(List<ParameterElement> parameters, List<DartType> typeArguments) {
+  if (typeArguments.isEmpty) {
+    return parameters;
+  }
+  List<ParameterElement> newParams = List.of(parameters, growable: false);
+  var tpi = 0;
+  for (var i=0; i < parameters.length; i++) {
+    var parameter = parameters[i];
+    if (parameter.type is TypeParameterType && tpi < typeArguments.length) {
+      newParams[i] = paramElement(parameter.name, typeArguments[tpi]);
+    }
+  }
+  return newParams;
+}

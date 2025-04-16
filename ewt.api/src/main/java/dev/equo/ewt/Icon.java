@@ -14,7 +14,7 @@ public class Icon extends StatelessWidget implements IconI {
     System.out.println("New Icon id:"+id);
   }
   @Builder.Factory
-  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<List<ShadowI>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
     var st = factories.iconIcon(icon.build(),
       size,
       fill,
@@ -22,6 +22,7 @@ public class Icon extends StatelessWidget implements IconI {
       grade,
       opticalSize,
       color.map(ColorI::build),
+      shadows.map(i -> i.stream().map(ShadowI::build).toList()),
       semanticLabel,
       textDirection,
       applyTextScaling,

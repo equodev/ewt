@@ -94,7 +94,7 @@ class WidgetGen implements AGen {
       for (var constr in constructors) {
         writeFactory(constr);
       }
-      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !isPrimitive(m.returnType) /*&& m.returnType == dartClass.thisType*/)) {
+      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !isPrimitive(m.returnType) && !m.returnType.isDartCoreList /*&& m.returnType == dartClass.thisType*/)) {
         writeFactory(constr);
       }
     }
@@ -335,6 +335,12 @@ class WidgetGen implements AGen {
   void writeConst(ConstFieldElementImpl fld, int constId) {
     String factory = _escape4D(fld.name);
     var initializer = fld.constantInitializer;
+    if (initializer is InstanceCreationExpression) {
+      var creationExpression = initializer as InstanceCreationExpression;
+      if (creationExpression.constructorName.staticElement!.isPrivate || creationExpression.staticType!.element!.isPrivate) {
+        return;
+      }
+    }
     javaFile
       .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
@@ -368,13 +374,26 @@ class WidgetGen implements AGen {
           .map((a) => '.${a.name.label}(${a.expression.toString().replaceAll(
           '\'', '"')})')
           .join('');
-      return '${e.constructorName}.${e.constructorName.toString().firstLower()}($requiredArgs)$otherArgs.build()';
+
+      // var clazz = dartClass != e.constructorName.type.element ? '.${e.constructorName.toString().firstLower()}' : '';
+      // var clazz = '.${e.constructorName.toString().firstLower()}';
+      var constructorName = e.constructorName.toString();
+      if (e.constructorName.name == null) {
+        constructorName += '.${e.constructorName.toString().firstLower()}';
+      }
+      return '$constructorName($requiredArgs)$otherArgs.build()';
     }
     else if (e is SetOrMapLiteral) {
       return 'Map.ofEntries(${e.elements.whereType<MapLiteralEntry>().map((e) => 'Map.entry(${e.key}, ${dartExptrToJava(e.value)})').join(', ')})';
     }
     else if (e is SimpleIdentifier) {
       return '$e()';
+    }
+    else if (e is PrefixedIdentifier) {
+      if (e.staticType != null && !isPrimitive(e.staticType!)) {
+        return '${e.toString()}()';
+      }
+      return replace(e.toString());
     }
     return e.toString();
   }
@@ -406,6 +425,10 @@ class WidgetGen implements AGen {
     _ => name
   };
 
+  String replace(String expr) => switch (expr) {
+    'double.infinity' => 'Double.POSITIVE_INFINITY',
+    _ => expr
+  };
 }
 
 abstract class ObjStGen extends WidgetGen {
@@ -474,9 +497,9 @@ abstract class ObjStGen extends WidgetGen {
   /// Shared callable fields filter logic
   Iterable<FieldElement> getCallableFields(ClassElement sourceClass) =>
       sourceClass.fields.where((f) =>
-          !f.getter!.hasOverride && f.isPublic
+          !f.getter!.hasOverride && f.isPublic && !f.isStatic
           && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
-          && !isInterface(f.type.element) && types.supportedType(f.type));
+          && !isInterface(f.type.element) && types.supportedType(f.type) && f.type != sourceClass.thisType);
 }
 
 class ImmutableGen extends ObjStGen {
@@ -789,6 +812,8 @@ class Generation {
       ..writeln('import java.util.Optional;')
       ..writeln('import java.util.OptionalInt;')
       ..writeln('import java.util.OptionalDouble;')
+      ..writeln('import java.util.function.BiFunction;')
+      ..writeln('import java.util.function.Function;')
       ..writeln('public class EWT {');
 
     for (var dartClass in widgets) {
@@ -817,21 +842,33 @@ class Generation {
 
     javaStatics.writeln('}');
 
+    addTypeDefs();
+    javaFactories.writeln('}');
+  }
+
+  void addTypeDefs() {
     for (var td in types.typeDefs) {
-      var fnType = td.aliasedType;
-      var name = '${td.name}FFI';
+      var fnType = td.element.aliasedType;
+      var aliasName = td.element.name;
+      var ourName = '${aliasName}FFI';
       if (fnType is FunctionType) {
-        typedefFile.writeln('typedef ${CLang(types).field(name, types.type4C(fnType.returnType), params: fnType.parameters)}');
-        // if (!aliasedType.parameters.any((p) => p.type.isDartCoreBool || !isPrimitive(p.type))) { // we need to wrap from int to bool
-        var tp = fnType.parameters.map((p) => p.type).whereType<TypeParameterType>().join(', ');
+        final h = types.getHandler(fnType) as FunctionHandler;
+        var aliasName = h.getInstantiatedAliasName(td);
+        var ourName = h.getInstantiatedAliasName(td, withSuffix: true);
+        var boundParams = bindTypeParameters(fnType.parameters, td.typeArguments);
+        typedefFile.writeln('typedef ${CLang(types).field(ourName, types.type4C(fnType.returnType), params: boundParams)}');
+        // if (!aliasedType.boundParams.any((p) => p.type.isDartCoreBool || !isPrimitive(p.type))) { // we need to wrap from int to bool
+        var tp = boundParams.map((p) => p.type).whereType<TypeParameterType>().join(', ');
+        var rtp = td.typeArguments.isEmpty ? '' : '<${td.typeArguments.join(', ')}>';
         tp = tp.isEmpty ? '' : '<$tp>';
-          var retType = (td.aliasedElement != null) ? td.name : fnType; // custom aliases
+          var isFlutterAlias = td.element.aliasedElement != null;
+          var retType = (isFlutterAlias) ? '${td.element.name}$rtp' : fnType; // custom aliases
           dartFactories.writeln(
-                  'extension on $name {\n'
-                  '  $retType to${td.name}Fn$tp() {\n'
-                  '    return (${fnType.parameters.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
-                  '      Dart${td.name}FFIFunction dFn = asFunction();\n'
-                  '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${fnType.parameters.map((p) => Params.paramValueDtoC(types, p)).join(', ')});');
+                  'extension on $ourName {\n'
+                  '  $retType to${aliasName}Fn$tp() {\n'
+                  '    return (${boundParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
+                  '      Dart${aliasName}FFIFunction dFn = asFunction();\n'
+                  '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${boundParams.map((p) => Params.paramValueDtoC(types, p)).join(', ')});');
           if (fnType.returnType is! VoidType) {
             dartFactories.writeln(
                   '      return ${Params.paramValue4D(types, paramElement('dFnRet', fnType.returnType))};');
@@ -840,16 +877,15 @@ class Generation {
                   '    };\n'
                   '  }\n'
                   '}\n'
-                  'extension on ffi.Pointer<$name> {\n'
-                  '  $retType? to${td.name}Fn$tp() => (this != ffi.nullptr) ? this.value.to${td.name}Fn() : null;\n'
+                  'extension on ffi.Pointer<$ourName> {\n'
+                  '  $retType? to${aliasName}Fn$tp() => (this != ffi.nullptr) ? this.value.to${aliasName}Fn() : null;\n'
                   '}\n'
           );
         // }
-        final h = types.getHandler(fnType) as FunctionHandler;
-        String jtp = JLang().methodTypeParameters(fnType);
-        javaFactories.writeln('${jtp}MemorySegment ptr${td.name}Fn(${h.type4J(fnType)} jFn) {\n'
-            '  return $name.allocate((${fnType.parameters.map((p) => ensureName(p)).join(', ')}) -> {\n'
-            '    ${fnType.returnType is! VoidType ? 'final var jFnRet = ' : ''}jFn.${h.functionMethod(fnType)}(${fnType.parameters.map((p) => types.paramValueFFMtoJ(types, p)).join(', ')});');
+        String jtp = isFlutterAlias ? '' : JLang().methodTypeParameters(fnType);
+        javaFactories.writeln('${jtp}MemorySegment ptr${aliasName}Fn(${h.type4J(fnType, td.typeArguments)} jFn) {\n'
+            '  return $ourName.allocate((${boundParams.map((p) => ensureName(p)).join(', ')}) -> {\n'
+            '    ${fnType.returnType is! VoidType ? 'final var jFnRet = ' : ''}jFn.${h.functionMethod(fnType)}(${boundParams.map((p) => types.paramValueFFMtoJ(types, p)).join(', ')});');
         if (fnType.returnType is! VoidType) {
           javaFactories.writeln(
             '    return ${types.paramValue4FFM(types, paramElement('jFnRet', fnType.returnType))};');
@@ -858,10 +894,9 @@ class Generation {
             '  }, arena);\n'
             '}');
       } else {
-        typedefFile.writeln('typedef $fnType $name');
+        typedefFile.writeln('typedef $fnType $ourName');
       }
     }
-    javaFactories.writeln('}');
   }
 
   void processWidget(ClassElement dartClass) {
@@ -1088,11 +1123,12 @@ class Params {
         }
         else if (t.isDartCoreList) {
           final arrayType = t.typeArguments[0];
-          if (isPrimitive(arrayType)) {
+          // if (isPrimitive(arrayType)) {
+          // if (t.nullabilitySuffix == NullabilitySuffix.none) {
             value = '${param.name}.orEmpty()';
-          } else {
-            value = '${param.name}.orEmpty()';
-          }
+          // } else {
+          //   value = '${param.name}.orEmpty()';
+          // }
         }
         else if (t.element is EnumElement) {
           if (t.nullabilitySuffix == NullabilitySuffix.none) {

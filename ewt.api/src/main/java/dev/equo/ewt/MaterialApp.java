@@ -14,7 +14,7 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
     System.out.println("New MaterialApp id:"+id);
   }
   @Builder.Factory
-  static MaterialApp materialAppMaterialApp(Optional<WidgetI> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  static MaterialApp materialAppMaterialApp(Optional<WidgetI> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<CurveI> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = factories.materialAppMaterialApp(home.map(WidgetI::build),
       initialRoute,
       builder,
@@ -26,6 +26,7 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
       highContrastTheme.map(ThemeDataI::build),
       highContrastDarkTheme.map(ThemeDataI::build),
       themeMode,
+      themeAnimationCurve.map(CurveI::build),
       debugShowMaterialGrid,
       showPerformanceOverlay,
       checkerboardRasterCacheImages,
@@ -41,7 +42,7 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
     return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
   }
   @Builder.Factory
-  static MaterialApp materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  static MaterialApp materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<CurveI> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = factories.materialAppRouter(builder,
       title,
       onGenerateTitle,
@@ -51,6 +52,7 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
       highContrastTheme.map(ThemeDataI::build),
       highContrastDarkTheme.map(ThemeDataI::build),
       themeMode,
+      themeAnimationCurve.map(CurveI::build),
       debugShowMaterialGrid,
       showPerformanceOverlay,
       checkerboardRasterCacheImages,
@@ -82,6 +84,9 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
   }
   public ThemeMode themeMode() {
     return ThemeMode.values()[MaterialAppObjSt.themeMode(st)];
+  }
+  public Curve themeAnimationCurve() {
+    return new Curve(MaterialAppObjSt.themeAnimationCurve(st)) {};
   }
   public Color color() {
     return new Color(MaterialAppObjSt.color(st));

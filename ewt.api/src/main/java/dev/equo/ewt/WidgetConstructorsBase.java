@@ -1,13 +1,8 @@
 package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.lang.foreign.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.Supplier;
 
 class WidgetConstructorsBase {
   static WidgetConstructors instance = new WidgetConstructors();
@@ -54,13 +49,17 @@ class WidgetConstructorsBase {
   }
   <T extends NativeObj> MemorySegment ptrList(Optional<List<T>> opt) {
     if (opt.isPresent()) {
-      MemorySegment struct = ArrayC.allocate(arena);
-      ArrayC.size(struct, opt.get().size());
-      MemorySegment array = arena.allocateFrom(StarterBridge.C_INT, opt.get().stream().mapToInt(NativeObj::getId).toArray());
-      ArrayC.list(struct, array);
-      return struct;
+      List<T> list = opt.get();
+      return ptrList(list);
     }
     return MemorySegment.NULL;
+  }
+  <T extends NativeObj> MemorySegment ptrList(List<T> list) {
+    MemorySegment struct = ArrayC.allocate(arena);
+    ArrayC.size(struct, list.size());
+    MemorySegment array = arena.allocateFrom(StarterBridge.C_INT, list.stream().mapToInt(NativeObj::getId).toArray());
+    ArrayC.list(struct, array);
+    return struct;
   }
   MemorySegment ptrStrList(Optional<List<String>> opt) {
     if (opt.isPresent()) {

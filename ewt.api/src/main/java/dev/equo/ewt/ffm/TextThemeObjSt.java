@@ -58,7 +58,7 @@ public class TextThemeObjSt {
         TextStyleObjSt.layout().withName("labelLarge"),
         TextStyleObjSt.layout().withName("labelMedium"),
         TextStyleObjSt.layout().withName("labelSmall")
-    ).withName("$anon$152:9");
+    ).withName("$anon$284:9");
 
     /**
      * The layout of this struct

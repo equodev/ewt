@@ -59,7 +59,7 @@ public class ScaffoldObjSt {
         StarterBridge.C_DOUBLE.withName("drawerEdgeDragWidth"),
         StarterBridge.C_INT.withName("drawerEnableOpenDragGesture"),
         StarterBridge.C_INT.withName("endDrawerEnableOpenDragGesture")
-    ).withName("$anon$235:9");
+    ).withName("$anon$401:9");
 
     /**
      * The layout of this struct

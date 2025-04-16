@@ -14,7 +14,7 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
     System.out.println("New AppBar id:"+id);
   }
   @Builder.Factory
-  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior) {
+  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding) {
     var st = factories.appBarAppBar(leading.map(WidgetI::build),
       automaticallyImplyLeading,
       title.map(WidgetI::build),
@@ -38,7 +38,8 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       toolbarTextStyle.map(TextStyleI::build),
       titleTextStyle.map(TextStyleI::build),
       forceMaterialTransparency,
-      clipBehavior);
+      clipBehavior,
+      actionsPadding.map(EdgeInsetsGeometryI::build));
     if (st == null) throw new RuntimeException("Failed to created widget AppBar");
     return new AppBar(st);
   }
@@ -110,6 +111,9 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   }
   public Clip clipBehavior() {
     return Clip.values()[AppBarObjSt.clipBehavior(st)];
+  }
+  public EdgeInsetsGeometry actionsPadding() {
+    return new EdgeInsetsGeometry(AppBarObjSt.actionsPadding(st)) {};
   }
   @Override
   public AppBar build() {

@@ -34,6 +34,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int materialTapTargetSize;
  *     int enableFeedback;
  *     double extendedIconLabelSpacing;
+ *     DartObj extendedPadding;
  *     TextStyleObjSt extendedTextStyle;
  * }
  * }
@@ -65,8 +66,10 @@ public class FloatingActionButtonObjSt {
         StarterBridge.C_INT.withName("materialTapTargetSize"),
         StarterBridge.C_INT.withName("enableFeedback"),
         StarterBridge.C_DOUBLE.withName("extendedIconLabelSpacing"),
+        StarterBridge.C_INT.withName("extendedPadding"),
+        MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("extendedTextStyle")
-    ).withName("$anon$273:9");
+    ).withName("$anon$440:9");
 
     /**
      * The layout of this struct
@@ -911,6 +914,50 @@ public class FloatingActionButtonObjSt {
         struct.set(extendedIconLabelSpacing$LAYOUT, extendedIconLabelSpacing$OFFSET, fieldValue);
     }
 
+    private static final OfInt extendedPadding$LAYOUT = (OfInt)$LAYOUT.select(groupElement("extendedPadding"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj extendedPadding
+     * }
+     */
+    public static final OfInt extendedPadding$layout() {
+        return extendedPadding$LAYOUT;
+    }
+
+    private static final long extendedPadding$OFFSET = 104;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj extendedPadding
+     * }
+     */
+    public static final long extendedPadding$offset() {
+        return extendedPadding$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj extendedPadding
+     * }
+     */
+    public static int extendedPadding(MemorySegment struct) {
+        return struct.get(extendedPadding$LAYOUT, extendedPadding$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj extendedPadding
+     * }
+     */
+    public static void extendedPadding(MemorySegment struct, int fieldValue) {
+        struct.set(extendedPadding$LAYOUT, extendedPadding$OFFSET, fieldValue);
+    }
+
     private static final GroupLayout extendedTextStyle$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("extendedTextStyle"));
 
     /**
@@ -923,7 +970,7 @@ public class FloatingActionButtonObjSt {
         return extendedTextStyle$LAYOUT;
     }
 
-    private static final long extendedTextStyle$OFFSET = 104;
+    private static final long extendedTextStyle$OFFSET = 112;
 
     /**
      * Offset for field:
