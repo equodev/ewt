@@ -1,12 +1,8 @@
 package dev.equo.ewt;
 import java.util.*;
-public abstract class ValueListenable<T> extends NativeObj.Base implements Listenable, ValueListenableI {
-  protected ValueListenable() {}
-  ValueListenable(int id) {
-    this.id = id;
-  }
+public interface ValueListenable<T> extends Listenable {
   @Override
-  public ValueListenable build() {
+  default ValueListenable build() {
     return this;
   }
 }

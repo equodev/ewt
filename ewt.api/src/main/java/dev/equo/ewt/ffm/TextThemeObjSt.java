@@ -58,7 +58,7 @@ public class TextThemeObjSt {
         TextStyleObjSt.layout().withName("labelLarge"),
         TextStyleObjSt.layout().withName("labelMedium"),
         TextStyleObjSt.layout().withName("labelSmall")
-    ).withName("$anon$284:9");
+    ).withName("$anon$301:9");
 
     /**
      * The layout of this struct
@@ -167,7 +167,7 @@ public class TextThemeObjSt {
         return displayMedium$LAYOUT;
     }
 
-    private static final long displayMedium$OFFSET = 104;
+    private static final long displayMedium$OFFSET = 120;
 
     /**
      * Offset for field:
@@ -211,7 +211,7 @@ public class TextThemeObjSt {
         return displaySmall$LAYOUT;
     }
 
-    private static final long displaySmall$OFFSET = 200;
+    private static final long displaySmall$OFFSET = 232;
 
     /**
      * Offset for field:
@@ -255,7 +255,7 @@ public class TextThemeObjSt {
         return headlineLarge$LAYOUT;
     }
 
-    private static final long headlineLarge$OFFSET = 296;
+    private static final long headlineLarge$OFFSET = 344;
 
     /**
      * Offset for field:
@@ -299,7 +299,7 @@ public class TextThemeObjSt {
         return headlineMedium$LAYOUT;
     }
 
-    private static final long headlineMedium$OFFSET = 392;
+    private static final long headlineMedium$OFFSET = 456;
 
     /**
      * Offset for field:
@@ -343,7 +343,7 @@ public class TextThemeObjSt {
         return headlineSmall$LAYOUT;
     }
 
-    private static final long headlineSmall$OFFSET = 488;
+    private static final long headlineSmall$OFFSET = 568;
 
     /**
      * Offset for field:
@@ -387,7 +387,7 @@ public class TextThemeObjSt {
         return titleLarge$LAYOUT;
     }
 
-    private static final long titleLarge$OFFSET = 584;
+    private static final long titleLarge$OFFSET = 680;
 
     /**
      * Offset for field:
@@ -431,7 +431,7 @@ public class TextThemeObjSt {
         return titleMedium$LAYOUT;
     }
 
-    private static final long titleMedium$OFFSET = 680;
+    private static final long titleMedium$OFFSET = 792;
 
     /**
      * Offset for field:
@@ -475,7 +475,7 @@ public class TextThemeObjSt {
         return titleSmall$LAYOUT;
     }
 
-    private static final long titleSmall$OFFSET = 776;
+    private static final long titleSmall$OFFSET = 904;
 
     /**
      * Offset for field:
@@ -519,7 +519,7 @@ public class TextThemeObjSt {
         return bodyLarge$LAYOUT;
     }
 
-    private static final long bodyLarge$OFFSET = 872;
+    private static final long bodyLarge$OFFSET = 1016;
 
     /**
      * Offset for field:
@@ -563,7 +563,7 @@ public class TextThemeObjSt {
         return bodyMedium$LAYOUT;
     }
 
-    private static final long bodyMedium$OFFSET = 968;
+    private static final long bodyMedium$OFFSET = 1128;
 
     /**
      * Offset for field:
@@ -607,7 +607,7 @@ public class TextThemeObjSt {
         return bodySmall$LAYOUT;
     }
 
-    private static final long bodySmall$OFFSET = 1064;
+    private static final long bodySmall$OFFSET = 1240;
 
     /**
      * Offset for field:
@@ -651,7 +651,7 @@ public class TextThemeObjSt {
         return labelLarge$LAYOUT;
     }
 
-    private static final long labelLarge$OFFSET = 1160;
+    private static final long labelLarge$OFFSET = 1352;
 
     /**
      * Offset for field:
@@ -695,7 +695,7 @@ public class TextThemeObjSt {
         return labelMedium$LAYOUT;
     }
 
-    private static final long labelMedium$OFFSET = 1256;
+    private static final long labelMedium$OFFSET = 1464;
 
     /**
      * Offset for field:
@@ -739,7 +739,7 @@ public class TextThemeObjSt {
         return labelSmall$LAYOUT;
     }
 
-    private static final long labelSmall$OFFSET = 1352;
+    private static final long labelSmall$OFFSET = 1576;
 
     /**
      * Offset for field:

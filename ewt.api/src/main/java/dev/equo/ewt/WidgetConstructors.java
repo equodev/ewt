@@ -310,6 +310,57 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(clipBehavior));
   }
 
+  int stackParentDataStackParentData() {
+    var st = WidgetFactories.stackParentData(factories);
+    var fn = WidgetFactories.StackParentDataSt.stackParentData(st);
+    return WidgetFactories.StackParentDataSt.stackParentData.invoke(fn);
+  }
+
+  int boxParentDataBoxParentData() {
+    var st = WidgetFactories.boxParentData(factories);
+    var fn = WidgetFactories.BoxParentDataSt.boxParentData(st);
+    return WidgetFactories.BoxParentDataSt.boxParentData.invoke(fn);
+  }
+
+  int parentDataParentData() {
+    var st = WidgetFactories.parentData(factories);
+    var fn = WidgetFactories.ParentDataSt.parentData(st);
+    return WidgetFactories.ParentDataSt.parentData.invoke(fn);
+  }
+
+  MemorySegment positionedPositioned(OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Widget child) {
+    var st = WidgetFactories.positioned(factories);
+    var fn = WidgetFactories.PositionedSt.positioned(st);
+    return WidgetFactories.PositionedSt.positioned.invoke(fn, arena, ptr(left),
+      ptr(top),
+      ptr(right),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      child.getId());
+  }
+  MemorySegment positionedFill(OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, Widget child) {
+    var st = WidgetFactories.positioned(factories);
+    var fn = WidgetFactories.PositionedSt.fill(st);
+    return WidgetFactories.PositionedSt.fill.invoke(fn, arena, ptr(left),
+      ptr(top),
+      ptr(right),
+      ptr(bottom),
+      child.getId());
+  }
+  MemorySegment positionedDirectional(TextDirection textDirection, OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Widget child) {
+    var st = WidgetFactories.positioned(factories);
+    var fn = WidgetFactories.PositionedSt.directional(st);
+    return WidgetFactories.PositionedSt.directional.invoke(fn, arena, textDirection.ordinal(),
+      ptr(start),
+      ptr(top),
+      ptr(end),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      child.getId());
+  }
+
   MemorySegment boxDecorationBoxDecoration(Optional<Color> color, Optional<BorderRadiusGeometry> borderRadius, Optional<List<BoxShadow>> boxShadow, Optional<BlendMode> backgroundBlendMode, Optional<BoxShape> shape) {
     var st = WidgetFactories.boxDecoration(factories);
     var fn = WidgetFactories.BoxDecorationSt.boxDecoration(st);
@@ -1406,7 +1457,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
 
 MemorySegment ptrTransitionBuilderFn(BiFunction<BuildContext, Widget, Widget> jFn) {
   return TransitionBuilderFFI.allocate((context, child) -> {
-    final var jFnRet = jFn.apply(new BuildContext(context) {}, new Widget(child) {});
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Widget(child) {});
     return jFnRet.getId();
   }, arena);
 }
@@ -1427,7 +1478,7 @@ MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {
 }
 MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
   return GenerateAppTitleFFI.allocate((context) -> {
-    final var jFnRet = jFn.apply(new BuildContext(context) {});
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
     return arena.allocateFrom(jFnRet);
   }, arena);
 }
@@ -1438,7 +1489,7 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
 }
 MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {
   return DartObjCallbackDartObjFFI.allocate((b) -> {
-    final var jFnRet = jFn.apply(new BuildContext(b) {});
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return b; } });
     return jFnRet.getId();
   }, arena);
 }

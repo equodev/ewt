@@ -127,6 +127,9 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
   public Widget child() {
     return new Widget(FloatingActionButtonObjSt.child(st)) {};
   }
+  public String tooltip() {
+    return FloatingActionButtonObjSt.tooltip(st).getString(0);
+  }
   public Color foregroundColor() {
     return new Color(FloatingActionButtonObjSt.foregroundColor(st));
   }

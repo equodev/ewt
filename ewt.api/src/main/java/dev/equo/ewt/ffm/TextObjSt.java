@@ -16,6 +16,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     char *data;
  *     DartObj textSpan;
  *     TextStyleObjSt style;
  *     int textAlign;
@@ -24,6 +25,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int overflow;
  *     double textScaleFactor;
  *     int maxLines;
+ *     char *semanticsLabel;
  *     int textWidthBasis;
  *     DartObj selectionColor;
  * }
@@ -37,7 +39,10 @@ public class TextObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_POINTER.withName("data"),
         StarterBridge.C_INT.withName("textSpan"),
+        MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("style"),
         StarterBridge.C_INT.withName("textAlign"),
         StarterBridge.C_INT.withName("textDirection"),
@@ -45,10 +50,11 @@ public class TextObjSt {
         StarterBridge.C_INT.withName("overflow"),
         StarterBridge.C_DOUBLE.withName("textScaleFactor"),
         StarterBridge.C_INT.withName("maxLines"),
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_POINTER.withName("semanticsLabel"),
         StarterBridge.C_INT.withName("textWidthBasis"),
-        StarterBridge.C_INT.withName("selectionColor"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$19:9");
+        StarterBridge.C_INT.withName("selectionColor")
+    ).withName("$anon$21:9");
 
     /**
      * The layout of this struct
@@ -101,6 +107,50 @@ public class TextObjSt {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout data$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("data"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *data
+     * }
+     */
+    public static final AddressLayout data$layout() {
+        return data$LAYOUT;
+    }
+
+    private static final long data$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *data
+     * }
+     */
+    public static final long data$offset() {
+        return data$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *data
+     * }
+     */
+    public static MemorySegment data(MemorySegment struct) {
+        return struct.get(data$LAYOUT, data$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *data
+     * }
+     */
+    public static void data(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(data$LAYOUT, data$OFFSET, fieldValue);
+    }
+
     private static final OfInt textSpan$LAYOUT = (OfInt)$LAYOUT.select(groupElement("textSpan"));
 
     /**
@@ -113,7 +163,7 @@ public class TextObjSt {
         return textSpan$LAYOUT;
     }
 
-    private static final long textSpan$OFFSET = 4;
+    private static final long textSpan$OFFSET = 16;
 
     /**
      * Offset for field:
@@ -157,7 +207,7 @@ public class TextObjSt {
         return style$LAYOUT;
     }
 
-    private static final long style$OFFSET = 8;
+    private static final long style$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -201,7 +251,7 @@ public class TextObjSt {
         return textAlign$LAYOUT;
     }
 
-    private static final long textAlign$OFFSET = 104;
+    private static final long textAlign$OFFSET = 136;
 
     /**
      * Offset for field:
@@ -245,7 +295,7 @@ public class TextObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 108;
+    private static final long textDirection$OFFSET = 140;
 
     /**
      * Offset for field:
@@ -289,7 +339,7 @@ public class TextObjSt {
         return softWrap$LAYOUT;
     }
 
-    private static final long softWrap$OFFSET = 112;
+    private static final long softWrap$OFFSET = 144;
 
     /**
      * Offset for field:
@@ -333,7 +383,7 @@ public class TextObjSt {
         return overflow$LAYOUT;
     }
 
-    private static final long overflow$OFFSET = 116;
+    private static final long overflow$OFFSET = 148;
 
     /**
      * Offset for field:
@@ -377,7 +427,7 @@ public class TextObjSt {
         return textScaleFactor$LAYOUT;
     }
 
-    private static final long textScaleFactor$OFFSET = 120;
+    private static final long textScaleFactor$OFFSET = 152;
 
     /**
      * Offset for field:
@@ -421,7 +471,7 @@ public class TextObjSt {
         return maxLines$LAYOUT;
     }
 
-    private static final long maxLines$OFFSET = 128;
+    private static final long maxLines$OFFSET = 160;
 
     /**
      * Offset for field:
@@ -453,6 +503,50 @@ public class TextObjSt {
         struct.set(maxLines$LAYOUT, maxLines$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout semanticsLabel$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("semanticsLabel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *semanticsLabel
+     * }
+     */
+    public static final AddressLayout semanticsLabel$layout() {
+        return semanticsLabel$LAYOUT;
+    }
+
+    private static final long semanticsLabel$OFFSET = 168;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *semanticsLabel
+     * }
+     */
+    public static final long semanticsLabel$offset() {
+        return semanticsLabel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *semanticsLabel
+     * }
+     */
+    public static MemorySegment semanticsLabel(MemorySegment struct) {
+        return struct.get(semanticsLabel$LAYOUT, semanticsLabel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *semanticsLabel
+     * }
+     */
+    public static void semanticsLabel(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(semanticsLabel$LAYOUT, semanticsLabel$OFFSET, fieldValue);
+    }
+
     private static final OfInt textWidthBasis$LAYOUT = (OfInt)$LAYOUT.select(groupElement("textWidthBasis"));
 
     /**
@@ -465,7 +559,7 @@ public class TextObjSt {
         return textWidthBasis$LAYOUT;
     }
 
-    private static final long textWidthBasis$OFFSET = 132;
+    private static final long textWidthBasis$OFFSET = 176;
 
     /**
      * Offset for field:
@@ -509,7 +603,7 @@ public class TextObjSt {
         return selectionColor$LAYOUT;
     }
 
-    private static final long selectionColor$OFFSET = 136;
+    private static final long selectionColor$OFFSET = 180;
 
     /**
      * Offset for field:

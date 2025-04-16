@@ -154,6 +154,9 @@ public class IconButton extends StatelessWidget implements IconButtonI {
   public boolean autofocus() {
     return intToBool(IconButtonObjSt.autofocus(st));
   }
+  public String tooltip() {
+    return IconButtonObjSt.tooltip(st).getString(0);
+  }
   public boolean enableFeedback() {
     return intToBool(IconButtonObjSt.enableFeedback(st));
   }

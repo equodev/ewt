@@ -27,6 +27,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj highlightColor;
  *     DartObj disabledColor;
  *     int autofocus;
+ *     char *tooltip;
  *     int enableFeedback;
  *     BoxConstraintsObjSt constraints;
  *     int isSelected;
@@ -55,12 +56,13 @@ public class IconButtonObjSt {
         StarterBridge.C_INT.withName("highlightColor"),
         StarterBridge.C_INT.withName("disabledColor"),
         StarterBridge.C_INT.withName("autofocus"),
+        StarterBridge.C_POINTER.withName("tooltip"),
         StarterBridge.C_INT.withName("enableFeedback"),
         MemoryLayout.paddingLayout(4),
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("isSelected"),
         StarterBridge.C_INT.withName("selectedIcon")
-    ).withName("$anon$355:9");
+    ).withName("$anon$372:9");
 
     /**
      * The layout of this struct
@@ -597,6 +599,50 @@ public class IconButtonObjSt {
         struct.set(autofocus$LAYOUT, autofocus$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout tooltip$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("tooltip"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static final AddressLayout tooltip$layout() {
+        return tooltip$LAYOUT;
+    }
+
+    private static final long tooltip$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static final long tooltip$offset() {
+        return tooltip$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static MemorySegment tooltip(MemorySegment struct) {
+        return struct.get(tooltip$LAYOUT, tooltip$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static void tooltip(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(tooltip$LAYOUT, tooltip$OFFSET, fieldValue);
+    }
+
     private static final OfInt enableFeedback$LAYOUT = (OfInt)$LAYOUT.select(groupElement("enableFeedback"));
 
     /**
@@ -609,7 +655,7 @@ public class IconButtonObjSt {
         return enableFeedback$LAYOUT;
     }
 
-    private static final long enableFeedback$OFFSET = 64;
+    private static final long enableFeedback$OFFSET = 72;
 
     /**
      * Offset for field:
@@ -653,7 +699,7 @@ public class IconButtonObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 72;
+    private static final long constraints$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -697,7 +743,7 @@ public class IconButtonObjSt {
         return isSelected$LAYOUT;
     }
 
-    private static final long isSelected$OFFSET = 136;
+    private static final long isSelected$OFFSET = 144;
 
     /**
      * Offset for field:
@@ -741,7 +787,7 @@ public class IconButtonObjSt {
         return selectedIcon$LAYOUT;
     }
 
-    private static final long selectedIcon$OFFSET = 140;
+    private static final long selectedIcon$OFFSET = 148;
 
     /**
      * Offset for field:

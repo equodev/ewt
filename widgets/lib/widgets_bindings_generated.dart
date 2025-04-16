@@ -134,6 +134,14 @@ final class WidgetFactories extends ffi.Struct {
 
   external ContainerSt container;
 
+  external StackParentDataSt stackParentData;
+
+  external BoxParentDataSt boxParentData;
+
+  external ParentDataSt parentData;
+
+  external PositionedSt positioned;
+
   external BoxDecorationSt boxDecoration;
 
   external RadiusSt radius;
@@ -244,6 +252,8 @@ final class TextStyleObjSt extends ffi.Struct {
   @DartObj()
   external int backgroundColor;
 
+  external ffi.Pointer<ffi.Char> fontFamily;
+
   @ffi.Double()
   external double fontSize;
 
@@ -273,6 +283,8 @@ final class TextStyleObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double decorationThickness;
+
+  external ffi.Pointer<ffi.Char> debugLabel;
 
   @ffi.Int()
   external int overflow;
@@ -356,6 +368,8 @@ final class TextObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
 
+  external ffi.Pointer<ffi.Char> data;
+
   @DartObj()
   external int textSpan;
 
@@ -378,6 +392,8 @@ final class TextObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int maxLines;
+
+  external ffi.Pointer<ffi.Char> semanticsLabel;
 
   @ffi.Int()
   external int textWidthBasis;
@@ -506,6 +522,10 @@ final class IconDataObjSt extends ffi.Struct {
   @ffi.Int()
   external int codePoint;
 
+  external ffi.Pointer<ffi.Char> fontFamily;
+
+  external ffi.Pointer<ffi.Char> fontPackage;
+
   @ffi.Int()
   external int matchTextDirection;
 }
@@ -551,6 +571,8 @@ final class IconObjSt extends ffi.Struct {
 
   @DartObj()
   external int color;
+
+  external ffi.Pointer<ffi.Char> semanticLabel;
 
   @ffi.Int()
   external int textDirection;
@@ -784,6 +806,75 @@ final class ContainerObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int clipBehavior;
+}
+
+final class StackParentDataSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> stackParentData;
+}
+
+final class BoxParentDataSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> boxParentData;
+}
+
+final class ParentDataSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> parentData;
+}
+
+final class PositionedSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          PositionedObjSt Function(
+              ffi.Pointer<ffi.Double> left,
+              ffi.Pointer<ffi.Double> top,
+              ffi.Pointer<ffi.Double> right,
+              ffi.Pointer<ffi.Double> bottom,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<ffi.Double> height,
+              DartObj child)>> positioned;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          PositionedObjSt Function(
+              ffi.Pointer<ffi.Double> left,
+              ffi.Pointer<ffi.Double> top,
+              ffi.Pointer<ffi.Double> right,
+              ffi.Pointer<ffi.Double> bottom,
+              DartObj child)>> fill;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          PositionedObjSt Function(
+              ffi.Int textDirection,
+              ffi.Pointer<ffi.Double> start,
+              ffi.Pointer<ffi.Double> top,
+              ffi.Pointer<ffi.Double> end,
+              ffi.Pointer<ffi.Double> bottom,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<ffi.Double> height,
+              DartObj child)>> directional;
+}
+
+final class PositionedObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double left;
+
+  @ffi.Double()
+  external double top;
+
+  @ffi.Double()
+  external double right;
+
+  @ffi.Double()
+  external double bottom;
+
+  @ffi.Double()
+  external double width;
+
+  @ffi.Double()
+  external double height;
 }
 
 final class BoxDecorationSt extends ffi.Struct {
@@ -2190,6 +2281,8 @@ final class IconButtonObjSt extends ffi.Struct {
   @ffi.Int()
   external int autofocus;
 
+  external ffi.Pointer<ffi.Char> tooltip;
+
   @ffi.Int()
   external int enableFeedback;
 
@@ -2395,6 +2488,8 @@ final class ScaffoldObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int endDrawerEnableOpenDragGesture;
+
+  external ffi.Pointer<ffi.Char> restorationId;
 }
 
 typedef DrawerCallbackFFI
@@ -2457,6 +2552,10 @@ final class MaterialAppObjSt extends ffi.Struct {
   @DartObj()
   external int home;
 
+  external ffi.Pointer<ffi.Char> initialRoute;
+
+  external ffi.Pointer<ffi.Char> title;
+
   external ThemeDataObjSt theme;
 
   external ThemeDataObjSt darkTheme;
@@ -2488,6 +2587,8 @@ final class MaterialAppObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int debugShowCheckedModeBanner;
+
+  external ffi.Pointer<ffi.Char> restorationScopeId;
 
   @ffi.Int()
   external int debugShowMaterialGrid;
@@ -2607,6 +2708,8 @@ final class FloatingActionButtonObjSt extends ffi.Struct {
   @DartObj()
   external int child;
 
+  external ffi.Pointer<ffi.Char> tooltip;
+
   @DartObj()
   external int foregroundColor;
 
@@ -2702,8 +2805,6 @@ final class SubStateObjSt extends ffi.Struct {
   external int id;
 
   external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> widget;
-
-  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> context;
 
   external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>> mounted;
 

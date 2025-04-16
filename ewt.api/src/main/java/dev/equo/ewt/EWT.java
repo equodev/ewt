@@ -100,6 +100,28 @@ public class EWT {
     return ContainerContainerBuilder.containerContainer();
   }
 
+  public static StackParentDataStackParentDataBuilder StackParentData() {
+    return StackParentDataStackParentDataBuilder.stackParentDataStackParentData();
+  }
+
+  public static BoxParentDataBoxParentDataBuilder BoxParentData() {
+    return BoxParentDataBoxParentDataBuilder.boxParentDataBoxParentData();
+  }
+
+  public static ParentDataParentDataBuilder ParentData() {
+    return ParentDataParentDataBuilder.parentDataParentData();
+  }
+
+  public static PositionedPositionedBuilder Positioned() {
+    return PositionedPositionedBuilder.positionedPositioned();
+  }
+  public static PositionedFillBuilder Positioned_fill() {
+    return PositionedFillBuilder.positionedFill();
+  }
+  public static PositionedDirectionalBuilder Positioned_directional(TextDirection textDirection) {
+    return PositionedDirectionalBuilder.positionedDirectional(textDirection);
+  }
+
   public static BoxDecorationBoxDecorationBuilder BoxDecoration() {
     return BoxDecorationBoxDecorationBuilder.boxDecorationBoxDecoration();
   }

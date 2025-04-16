@@ -33,7 +33,7 @@ public class OpacityObjSt {
         StarterBridge.C_DOUBLE.withName("opacity"),
         StarterBridge.C_INT.withName("alwaysIncludeSemantics"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$87:9");
+    ).withName("$anon$94:9");
 
     /**
      * The layout of this struct

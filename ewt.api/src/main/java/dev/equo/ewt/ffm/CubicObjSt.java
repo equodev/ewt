@@ -36,7 +36,7 @@ public class CubicObjSt {
         StarterBridge.C_DOUBLE.withName("b"),
         StarterBridge.C_DOUBLE.withName("c"),
         StarterBridge.C_DOUBLE.withName("d")
-    ).withName("$anon$174:9");
+    ).withName("$anon$191:9");
 
     /**
      * The layout of this struct

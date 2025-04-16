@@ -76,7 +76,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("actionsPadding"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$374:9");
+    ).withName("$anon$392:9");
 
     /**
      * The layout of this struct
@@ -977,7 +977,7 @@ public class AppBarObjSt {
         return titleTextStyle$LAYOUT;
     }
 
-    private static final long titleTextStyle$OFFSET = 208;
+    private static final long titleTextStyle$OFFSET = 224;
 
     /**
      * Offset for field:
@@ -1021,7 +1021,7 @@ public class AppBarObjSt {
         return forceMaterialTransparency$LAYOUT;
     }
 
-    private static final long forceMaterialTransparency$OFFSET = 304;
+    private static final long forceMaterialTransparency$OFFSET = 336;
 
     /**
      * Offset for field:
@@ -1065,7 +1065,7 @@ public class AppBarObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 308;
+    private static final long clipBehavior$OFFSET = 340;
 
     /**
      * Offset for field:
@@ -1109,7 +1109,7 @@ public class AppBarObjSt {
         return actionsPadding$LAYOUT;
     }
 
-    private static final long actionsPadding$OFFSET = 312;
+    private static final long actionsPadding$OFFSET = 344;
 
     /**
      * Offset for field:

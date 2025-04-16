@@ -43,7 +43,7 @@ public class ContainerObjSt {
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("margin"),
         StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$114:9");
+    ).withName("$anon$121:9");
 
     /**
      * The layout of this struct

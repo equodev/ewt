@@ -54,6 +54,9 @@ public class Icon extends StatelessWidget implements IconI {
   public Color color() {
     return new Color(IconObjSt.color(st));
   }
+  public String semanticLabel() {
+    return IconObjSt.semanticLabel(st).getString(0);
+  }
   public TextDirection textDirection() {
     return TextDirection.values()[IconObjSt.textDirection(st)];
   }

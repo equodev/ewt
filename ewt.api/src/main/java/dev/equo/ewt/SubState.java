@@ -57,10 +57,6 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
     MemorySegment funcPtr = SubStateObjSt.widget(st);
     return SubclassedInJava.getSubNatObj(SubStateObjSt.widget.invoke(funcPtr));
   }
-  public BuildContext context() {
-    MemorySegment funcPtr = SubStateObjSt.context(st);
-    return new BuildContext(SubStateObjSt.context.invoke(funcPtr)) {};
-  }
   public boolean mounted() {
     MemorySegment funcPtr = SubStateObjSt.mounted(st);
     return intToBool(SubStateObjSt.mounted.invoke(funcPtr));

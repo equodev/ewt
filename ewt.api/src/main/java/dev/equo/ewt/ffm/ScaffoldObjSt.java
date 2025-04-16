@@ -32,6 +32,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double drawerEdgeDragWidth;
  *     int drawerEnableOpenDragGesture;
  *     int endDrawerEnableOpenDragGesture;
+ *     char *restorationId;
  * }
  * }
  */
@@ -58,8 +59,9 @@ public class ScaffoldObjSt {
         StarterBridge.C_INT.withName("drawerDragStartBehavior"),
         StarterBridge.C_DOUBLE.withName("drawerEdgeDragWidth"),
         StarterBridge.C_INT.withName("drawerEnableOpenDragGesture"),
-        StarterBridge.C_INT.withName("endDrawerEnableOpenDragGesture")
-    ).withName("$anon$401:9");
+        StarterBridge.C_INT.withName("endDrawerEnableOpenDragGesture"),
+        StarterBridge.C_POINTER.withName("restorationId")
+    ).withName("$anon$419:9");
 
     /**
      * The layout of this struct
@@ -814,6 +816,50 @@ public class ScaffoldObjSt {
      */
     public static void endDrawerEnableOpenDragGesture(MemorySegment struct, int fieldValue) {
         struct.set(endDrawerEnableOpenDragGesture$LAYOUT, endDrawerEnableOpenDragGesture$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout restorationId$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("restorationId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *restorationId
+     * }
+     */
+    public static final AddressLayout restorationId$layout() {
+        return restorationId$LAYOUT;
+    }
+
+    private static final long restorationId$OFFSET = 72;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *restorationId
+     * }
+     */
+    public static final long restorationId$offset() {
+        return restorationId$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *restorationId
+     * }
+     */
+    public static MemorySegment restorationId(MemorySegment struct) {
+        return struct.get(restorationId$LAYOUT, restorationId$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *restorationId
+     * }
+     */
+    public static void restorationId(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(restorationId$LAYOUT, restorationId$OFFSET, fieldValue);
     }
 
     /**

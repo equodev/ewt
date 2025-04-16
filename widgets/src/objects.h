@@ -3,6 +3,7 @@ typedef struct {
   int inherit;
   DartObj color;
   DartObj backgroundColor;
+  char* fontFamily;
   double fontSize;
   int fontStyle;
   double letterSpacing;
@@ -13,11 +14,13 @@ typedef struct {
   DartObj decorationColor;
   int decorationStyle;
   double decorationThickness;
+  char* debugLabel;
   int overflow;
 } TextStyleObjSt;
 
 typedef struct {
   int id;
+  char* data;
   DartObj textSpan;
   TextStyleObjSt style;
   int textAlign;
@@ -26,6 +29,7 @@ typedef struct {
   int overflow;
   double textScaleFactor;
   int maxLines;
+  char* semanticsLabel;
   int textWidthBasis;
   DartObj selectionColor;
 } TextObjSt;
@@ -60,6 +64,8 @@ typedef struct {
 typedef struct {
   int id;
   int codePoint;
+  char* fontFamily;
+  char* fontPackage;
   int matchTextDirection;
 } IconDataObjSt;
 
@@ -72,6 +78,7 @@ typedef struct {
   double grade;
   double opticalSize;
   DartObj color;
+  char* semanticLabel;
   int textDirection;
   int applyTextScaling;
   int blendMode;
@@ -122,6 +129,16 @@ typedef struct {
   DartObj margin;
   int clipBehavior;
 } ContainerObjSt;
+
+typedef struct {
+  int id;
+  double left;
+  double top;
+  double right;
+  double bottom;
+  double width;
+  double height;
+} PositionedObjSt;
 
 typedef struct {
   int id;
@@ -365,6 +382,7 @@ typedef struct {
   DartObj highlightColor;
   DartObj disabledColor;
   int autofocus;
+  char* tooltip;
   int enableFeedback;
   BoxConstraintsObjSt constraints;
   int isSelected;
@@ -416,11 +434,14 @@ typedef struct {
   double drawerEdgeDragWidth;
   int drawerEnableOpenDragGesture;
   int endDrawerEnableOpenDragGesture;
+  char* restorationId;
 } ScaffoldObjSt;
 
 typedef struct {
   int id;
   DartObj home;
+  char* initialRoute;
+  char* title;
   ThemeDataObjSt theme;
   ThemeDataObjSt darkTheme;
   ThemeDataObjSt highContrastTheme;
@@ -433,6 +454,7 @@ typedef struct {
   int checkerboardOffscreenLayers;
   int showSemanticsDebugger;
   int debugShowCheckedModeBanner;
+  char* restorationScopeId;
   int debugShowMaterialGrid;
   int useInheritedMediaQuery;
 } MaterialAppObjSt;
@@ -440,6 +462,7 @@ typedef struct {
 typedef struct {
   int id;
   DartObj child;
+  char* tooltip;
   DartObj foregroundColor;
   DartObj backgroundColor;
   DartObj focusColor;
@@ -470,7 +493,6 @@ typedef struct {
 typedef struct {
   int id;
   DartObj (*widget)(void);
-  DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);
 } SubStateObjSt;

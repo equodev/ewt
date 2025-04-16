@@ -395,8 +395,13 @@ class Types {
       if (hasSubClassInJava(t)) {
         return 'SubclassedInJava.getSubNatObj($value)';
       } else {
-        var isAbstract = t.element is ClassElement && (t.element as ClassElement).isAbstract;
-        return 'new ${t.element!.name}($value)${isAbstract ? ' {}' : ''}';
+        if (isInterface(t.element)) {
+          return 'new ${t.element!.name}() { public int getId() { return $value; } }';
+        } else {
+          var isAbstract = t.element is ClassElement &&
+              (t.element as ClassElement).isAbstract;
+          return 'new ${t.element!.name}($value)${isAbstract ? ' {}' : ''}';
+        }
       }
     }
     return value;
@@ -410,12 +415,29 @@ class Types {
 
 bool isPrimitive(DartType t) => t.isDartCoreString || t.isDartCoreBool || t.isDartCoreDouble || t.isDartCoreInt;
 
-bool isInterface(Element? dartClass) =>
-    dartClass is ClassElement &&
-        (dartClass.isInterface || dartClass.isMixinClass ||
+bool isInterface(Element? dartClass) {
+  if (dartClass == null || dartClass is MixinElement) {
+    return true;
+  }
+  if (dartClass is EnumElement)
+    return false;
+  if (dartClass is TypeParameterElement)
+    return isInterface(dartClass.bound?.element);
+  if (dartClass is ClassElement) {
+    if (isPrimitive(dartClass.thisType))
+      return false;
+    if (dartClass.thisType.isDartCoreObject)
+      return true;
+    return (dartClass.isInterface || dartClass.isMixinClass ||
             (dartClass.isAbstract &&
                 (dartClass.interfaces.any((i) => i.element is ClassElement) ||
-                    (dartClass.methods.every((m) => m.isAbstract) && dartClass.fields.isEmpty))));
+                    (dartClass.methods.every((m) => m.isAbstract) &&
+                        (dartClass.fields.isEmpty || dartClass.fields.every((f) => f.getter!.isAbstract))
+                        && dartClass.allSupertypes.every((s) => isInterface(s.element))))
+                ));
+  }
+  return false;
+}
 
 mixin TypeHandler {
   late Types types;

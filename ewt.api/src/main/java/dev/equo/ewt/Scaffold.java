@@ -46,7 +46,7 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
     int id = factories.scaffoldGeometryOf(context.build());
     if (id == -1) throw new RuntimeException("Failed to created widget ValueListenable<ScaffoldGeometry>");
     System.out.println("New ValueListenable<ScaffoldGeometry> id:"+id);
-    return new ValueListenable(id) {};
+    return new ValueListenable() { public int getId() { return id; } };
   }
   public boolean extendBody() {
     return intToBool(ScaffoldObjSt.extendBody(st));
@@ -95,6 +95,9 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   }
   public boolean endDrawerEnableOpenDragGesture() {
     return intToBool(ScaffoldObjSt.endDrawerEnableOpenDragGesture(st));
+  }
+  public String restorationId() {
+    return ScaffoldObjSt.restorationId(st).getString(0);
   }
   @Override
   public Scaffold build() {

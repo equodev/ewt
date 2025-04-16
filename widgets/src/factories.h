@@ -75,6 +75,24 @@ typedef struct {
     ContainerObjSt (*container)(DartObj* padding, DartObj* color, DartObj* decoration, DartObj* foregroundDecoration, double* width, double* height, DartObj* constraints, DartObj* margin, DartObj* child, int* clipBehavior);
   } container;
 
+  struct StackParentDataSt {
+    DartObj (*stackParentData)(void);
+  } stackParentData;
+
+  struct BoxParentDataSt {
+    DartObj (*boxParentData)(void);
+  } boxParentData;
+
+  struct ParentDataSt {
+    DartObj (*parentData)(void);
+  } parentData;
+
+  struct PositionedSt {
+    PositionedObjSt (*positioned)(double* left, double* top, double* right, double* bottom, double* width, double* height, DartObj child);
+    PositionedObjSt (*fill)(double* left, double* top, double* right, double* bottom, DartObj child);
+    PositionedObjSt (*directional)(int textDirection, double* start, double* top, double* end, double* bottom, double* width, double* height, DartObj child);
+  } positioned;
+
   struct BoxDecorationSt {
     BoxDecorationObjSt (*boxDecoration)(DartObj* color, DartObj* borderRadius, ArrayC* boxShadow, int* backgroundBlendMode, int* shape);
     BoxDecorationObjSt (*lerp)(DartObj a, DartObj b, double t);

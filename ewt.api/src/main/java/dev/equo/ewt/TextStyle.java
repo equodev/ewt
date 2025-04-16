@@ -56,6 +56,9 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
   public Color backgroundColor() {
     return new Color(TextStyleObjSt.backgroundColor(st));
   }
+  public String fontFamily() {
+    return TextStyleObjSt.fontFamily(st).getString(0);
+  }
   public double fontSize() {
     return TextStyleObjSt.fontSize(st);
   }
@@ -85,6 +88,9 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
   }
   public double decorationThickness() {
     return TextStyleObjSt.decorationThickness(st);
+  }
+  public String debugLabel() {
+    return TextStyleObjSt.debugLabel(st).getString(0);
   }
   public TextOverflow overflow() {
     return TextOverflow.values()[TextStyleObjSt.overflow(st)];

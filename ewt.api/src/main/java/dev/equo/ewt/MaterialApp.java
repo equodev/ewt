@@ -70,6 +70,12 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
   public Widget home() {
     return new Widget(MaterialAppObjSt.home(st)) {};
   }
+  public String initialRoute() {
+    return MaterialAppObjSt.initialRoute(st).getString(0);
+  }
+  public String title() {
+    return MaterialAppObjSt.title(st).getString(0);
+  }
   public ThemeData theme() {
     return new ThemeData(MaterialAppObjSt.theme(st));
   }
@@ -105,6 +111,9 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
   }
   public boolean debugShowCheckedModeBanner() {
     return intToBool(MaterialAppObjSt.debugShowCheckedModeBanner(st));
+  }
+  public String restorationScopeId() {
+    return MaterialAppObjSt.restorationScopeId(st).getString(0);
   }
   public boolean debugShowMaterialGrid() {
     return intToBool(MaterialAppObjSt.debugShowMaterialGrid(st));

@@ -51,6 +51,9 @@ public class Text extends StatelessWidget implements TextI {
   public static TextRichBuilder rich(InlineSpanI textSpan) {
     return TextRichBuilder.textRich(textSpan);
   }
+  public String data() {
+    return TextObjSt.data(st).getString(0);
+  }
   public InlineSpan textSpan() {
     return new InlineSpan(TextObjSt.textSpan(st)) {};
   }
@@ -74,6 +77,9 @@ public class Text extends StatelessWidget implements TextI {
   }
   public int maxLines() {
     return TextObjSt.maxLines(st);
+  }
+  public String semanticsLabel() {
+    return TextObjSt.semanticsLabel(st).getString(0);
   }
   public TextWidthBasis textWidthBasis() {
     return TextWidthBasis.values()[TextObjSt.textWidthBasis(st)];

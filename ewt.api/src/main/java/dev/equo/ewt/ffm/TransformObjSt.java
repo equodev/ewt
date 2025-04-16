@@ -33,7 +33,7 @@ public class TransformObjSt {
         StarterBridge.C_INT.withName("origin"),
         StarterBridge.C_INT.withName("transformHitTests"),
         StarterBridge.C_INT.withName("filterQuality")
-    ).withName("$anon$80:9");
+    ).withName("$anon$87:9");
 
     /**
      * The layout of this struct

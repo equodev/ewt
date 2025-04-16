@@ -1,6 +1,5 @@
-import 'package:flutter/src/material/theme.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart' as w;
-import 'package:flutter/src/animation/curves.dart';
 import 'package:flutter/material.dart' as m;
 import 'subwidgets.dart' as s;
 
@@ -21,6 +20,10 @@ w.Opacity? opacity;
 w.Stack? stack;
 w.BoxConstraints? boxConstraints;
 w.Container? container;
+RenderObject? renderObject;
+w.RenderBox? renderBox;
+StackParentData? stackParentData;
+w.Positioned? positioned;
 w.BoxDecoration? boxDecoration;
 w.Radius? radius;
 w.BorderRadius? borderRadius;

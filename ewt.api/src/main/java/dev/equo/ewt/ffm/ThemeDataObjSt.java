@@ -80,7 +80,7 @@ public class ThemeDataObjSt {
         TextThemeObjSt.layout().withName("textTheme"),
         StarterBridge.C_INT.withName("dialogBackgroundColor"),
         StarterBridge.C_INT.withName("brightness")
-    ).withName("$anon$303:9");
+    ).withName("$anon$320:9");
 
     /**
      * The layout of this struct
@@ -1157,7 +1157,7 @@ public class ThemeDataObjSt {
         return textTheme$LAYOUT;
     }
 
-    private static final long textTheme$OFFSET = 1744;
+    private static final long textTheme$OFFSET = 1984;
 
     /**
      * Offset for field:
@@ -1201,7 +1201,7 @@ public class ThemeDataObjSt {
         return dialogBackgroundColor$LAYOUT;
     }
 
-    private static final long dialogBackgroundColor$OFFSET = 3192;
+    private static final long dialogBackgroundColor$OFFSET = 3672;
 
     /**
      * Offset for field:
@@ -1245,7 +1245,7 @@ public class ThemeDataObjSt {
         return brightness$LAYOUT;
     }
 
-    private static final long brightness$OFFSET = 3196;
+    private static final long brightness$OFFSET = 3676;
 
     /**
      * Offset for field:

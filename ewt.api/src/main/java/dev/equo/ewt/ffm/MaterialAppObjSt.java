@@ -17,6 +17,8 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     DartObj home;
+ *     char *initialRoute;
+ *     char *title;
  *     ThemeDataObjSt theme;
  *     ThemeDataObjSt darkTheme;
  *     ThemeDataObjSt highContrastTheme;
@@ -29,6 +31,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int checkerboardOffscreenLayers;
  *     int showSemanticsDebugger;
  *     int debugShowCheckedModeBanner;
+ *     char *restorationScopeId;
  *     int debugShowMaterialGrid;
  *     int useInheritedMediaQuery;
  * }
@@ -43,6 +46,8 @@ public class MaterialAppObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("home"),
+        StarterBridge.C_POINTER.withName("initialRoute"),
+        StarterBridge.C_POINTER.withName("title"),
         ThemeDataObjSt.layout().withName("theme"),
         ThemeDataObjSt.layout().withName("darkTheme"),
         ThemeDataObjSt.layout().withName("highContrastTheme"),
@@ -55,9 +60,10 @@ public class MaterialAppObjSt {
         StarterBridge.C_INT.withName("checkerboardOffscreenLayers"),
         StarterBridge.C_INT.withName("showSemanticsDebugger"),
         StarterBridge.C_INT.withName("debugShowCheckedModeBanner"),
+        StarterBridge.C_POINTER.withName("restorationScopeId"),
         StarterBridge.C_INT.withName("debugShowMaterialGrid"),
         StarterBridge.C_INT.withName("useInheritedMediaQuery")
-    ).withName("$anon$421:9");
+    ).withName("$anon$440:9");
 
     /**
      * The layout of this struct
@@ -154,6 +160,94 @@ public class MaterialAppObjSt {
         struct.set(home$LAYOUT, home$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout initialRoute$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("initialRoute"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *initialRoute
+     * }
+     */
+    public static final AddressLayout initialRoute$layout() {
+        return initialRoute$LAYOUT;
+    }
+
+    private static final long initialRoute$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *initialRoute
+     * }
+     */
+    public static final long initialRoute$offset() {
+        return initialRoute$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *initialRoute
+     * }
+     */
+    public static MemorySegment initialRoute(MemorySegment struct) {
+        return struct.get(initialRoute$LAYOUT, initialRoute$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *initialRoute
+     * }
+     */
+    public static void initialRoute(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(initialRoute$LAYOUT, initialRoute$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout title$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("title"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *title
+     * }
+     */
+    public static final AddressLayout title$layout() {
+        return title$LAYOUT;
+    }
+
+    private static final long title$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *title
+     * }
+     */
+    public static final long title$offset() {
+        return title$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *title
+     * }
+     */
+    public static MemorySegment title(MemorySegment struct) {
+        return struct.get(title$LAYOUT, title$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *title
+     * }
+     */
+    public static void title(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(title$LAYOUT, title$OFFSET, fieldValue);
+    }
+
     private static final GroupLayout theme$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("theme"));
 
     /**
@@ -166,7 +260,7 @@ public class MaterialAppObjSt {
         return theme$LAYOUT;
     }
 
-    private static final long theme$OFFSET = 8;
+    private static final long theme$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -210,7 +304,7 @@ public class MaterialAppObjSt {
         return darkTheme$LAYOUT;
     }
 
-    private static final long darkTheme$OFFSET = 3208;
+    private static final long darkTheme$OFFSET = 3704;
 
     /**
      * Offset for field:
@@ -254,7 +348,7 @@ public class MaterialAppObjSt {
         return highContrastTheme$LAYOUT;
     }
 
-    private static final long highContrastTheme$OFFSET = 6408;
+    private static final long highContrastTheme$OFFSET = 7384;
 
     /**
      * Offset for field:
@@ -298,7 +392,7 @@ public class MaterialAppObjSt {
         return highContrastDarkTheme$LAYOUT;
     }
 
-    private static final long highContrastDarkTheme$OFFSET = 9608;
+    private static final long highContrastDarkTheme$OFFSET = 11064;
 
     /**
      * Offset for field:
@@ -342,7 +436,7 @@ public class MaterialAppObjSt {
         return themeMode$LAYOUT;
     }
 
-    private static final long themeMode$OFFSET = 12808;
+    private static final long themeMode$OFFSET = 14744;
 
     /**
      * Offset for field:
@@ -386,7 +480,7 @@ public class MaterialAppObjSt {
         return themeAnimationCurve$LAYOUT;
     }
 
-    private static final long themeAnimationCurve$OFFSET = 12812;
+    private static final long themeAnimationCurve$OFFSET = 14748;
 
     /**
      * Offset for field:
@@ -430,7 +524,7 @@ public class MaterialAppObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 12816;
+    private static final long color$OFFSET = 14752;
 
     /**
      * Offset for field:
@@ -474,7 +568,7 @@ public class MaterialAppObjSt {
         return showPerformanceOverlay$LAYOUT;
     }
 
-    private static final long showPerformanceOverlay$OFFSET = 12820;
+    private static final long showPerformanceOverlay$OFFSET = 14756;
 
     /**
      * Offset for field:
@@ -518,7 +612,7 @@ public class MaterialAppObjSt {
         return checkerboardRasterCacheImages$LAYOUT;
     }
 
-    private static final long checkerboardRasterCacheImages$OFFSET = 12824;
+    private static final long checkerboardRasterCacheImages$OFFSET = 14760;
 
     /**
      * Offset for field:
@@ -562,7 +656,7 @@ public class MaterialAppObjSt {
         return checkerboardOffscreenLayers$LAYOUT;
     }
 
-    private static final long checkerboardOffscreenLayers$OFFSET = 12828;
+    private static final long checkerboardOffscreenLayers$OFFSET = 14764;
 
     /**
      * Offset for field:
@@ -606,7 +700,7 @@ public class MaterialAppObjSt {
         return showSemanticsDebugger$LAYOUT;
     }
 
-    private static final long showSemanticsDebugger$OFFSET = 12832;
+    private static final long showSemanticsDebugger$OFFSET = 14768;
 
     /**
      * Offset for field:
@@ -650,7 +744,7 @@ public class MaterialAppObjSt {
         return debugShowCheckedModeBanner$LAYOUT;
     }
 
-    private static final long debugShowCheckedModeBanner$OFFSET = 12836;
+    private static final long debugShowCheckedModeBanner$OFFSET = 14772;
 
     /**
      * Offset for field:
@@ -682,6 +776,50 @@ public class MaterialAppObjSt {
         struct.set(debugShowCheckedModeBanner$LAYOUT, debugShowCheckedModeBanner$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout restorationScopeId$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("restorationScopeId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *restorationScopeId
+     * }
+     */
+    public static final AddressLayout restorationScopeId$layout() {
+        return restorationScopeId$LAYOUT;
+    }
+
+    private static final long restorationScopeId$OFFSET = 14776;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *restorationScopeId
+     * }
+     */
+    public static final long restorationScopeId$offset() {
+        return restorationScopeId$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *restorationScopeId
+     * }
+     */
+    public static MemorySegment restorationScopeId(MemorySegment struct) {
+        return struct.get(restorationScopeId$LAYOUT, restorationScopeId$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *restorationScopeId
+     * }
+     */
+    public static void restorationScopeId(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(restorationScopeId$LAYOUT, restorationScopeId$OFFSET, fieldValue);
+    }
+
     private static final OfInt debugShowMaterialGrid$LAYOUT = (OfInt)$LAYOUT.select(groupElement("debugShowMaterialGrid"));
 
     /**
@@ -694,7 +832,7 @@ public class MaterialAppObjSt {
         return debugShowMaterialGrid$LAYOUT;
     }
 
-    private static final long debugShowMaterialGrid$OFFSET = 12840;
+    private static final long debugShowMaterialGrid$OFFSET = 14784;
 
     /**
      * Offset for field:
@@ -738,7 +876,7 @@ public class MaterialAppObjSt {
         return useInheritedMediaQuery$LAYOUT;
     }
 
-    private static final long useInheritedMediaQuery$OFFSET = 12844;
+    private static final long useInheritedMediaQuery$OFFSET = 14788;
 
     /**
      * Offset for field:

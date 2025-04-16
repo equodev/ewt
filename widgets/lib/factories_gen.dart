@@ -38,6 +38,7 @@ TextStyleObjSt _createTextStyleObjSt(TextStyle? w) {
   stObj.inherit = w.inherit.toInt();
   stObj.color = _addWidget(w.color);
   stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.fontFamily = (w.fontFamily != null) ? w.fontFamily!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.fontSize = (w.fontSize != null) ? w.fontSize! : 0;
   stObj.fontStyle = (w.fontStyle != null) ? w.fontStyle!.index : 0;
   stObj.letterSpacing = (w.letterSpacing != null) ? w.letterSpacing! : 0;
@@ -48,6 +49,7 @@ TextStyleObjSt _createTextStyleObjSt(TextStyle? w) {
   stObj.decorationColor = _addWidget(w.decorationColor);
   stObj.decorationStyle = (w.decorationStyle != null) ? w.decorationStyle!.index : 0;
   stObj.decorationThickness = (w.decorationThickness != null) ? w.decorationThickness! : 0;
+  stObj.debugLabel = (w.debugLabel != null) ? w.debugLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.overflow = (w.overflow != null) ? w.overflow!.index : 0;
   return stObj;
 }
@@ -134,6 +136,7 @@ TextObjSt _createTextObjSt(Text? w) {
   final TextObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  stObj.data = (w.data != null) ? w.data!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.textSpan = _addWidget(w.textSpan);
   stObj.style = _createTextStyleObjSt(w.style);
   stObj.textAlign = (w.textAlign != null) ? w.textAlign!.index : 0;
@@ -142,6 +145,7 @@ TextObjSt _createTextObjSt(Text? w) {
   stObj.overflow = (w.overflow != null) ? w.overflow!.index : 0;
   stObj.textScaleFactor = (w.textScaleFactor != null) ? w.textScaleFactor! : 0;
   stObj.maxLines = (w.maxLines != null) ? w.maxLines! : 0;
+  stObj.semanticsLabel = (w.semanticsLabel != null) ? w.semanticsLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.textWidthBasis = (w.textWidthBasis != null) ? w.textWidthBasis!.index : 0;
   stObj.selectionColor = _addWidget(w.selectionColor);
   return stObj;
@@ -250,6 +254,8 @@ IconDataObjSt _createIconDataObjSt(IconData? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.codePoint = w.codePoint;
+  stObj.fontFamily = (w.fontFamily != null) ? w.fontFamily!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.fontPackage = (w.fontPackage != null) ? w.fontPackage!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.matchTextDirection = w.matchTextDirection.toInt();
   return stObj;
 }
@@ -283,6 +289,7 @@ IconObjSt _createIconObjSt(Icon? w) {
   stObj.grade = (w.grade != null) ? w.grade! : 0;
   stObj.opticalSize = (w.opticalSize != null) ? w.opticalSize! : 0;
   stObj.color = _addWidget(w.color);
+  stObj.semanticLabel = (w.semanticLabel != null) ? w.semanticLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
   stObj.applyTextScaling = (w.applyTextScaling != null) ? w.applyTextScaling!.toInt() : 0;
   stObj.blendMode = (w.blendMode != null) ? w.blendMode!.index : 0;
@@ -479,6 +486,77 @@ ContainerObjSt _createContainerObjSt(Container? w) {
   stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
   stObj.margin = _addWidget(w.margin);
   stObj.clipBehavior = w.clipBehavior.index;
+  return stObj;
+}
+
+void _setupStackParentData(WidgetFactories f) {
+  f.stackParentData.stackParentData = ffi.Pointer.fromFunction(stackParentDataStackParentData, exception);
+}
+int stackParentDataStackParentData() {
+  final w = StackParentData();
+  return _addWidget(w);
+}
+
+void _setupBoxParentData(WidgetFactories f) {
+  f.boxParentData.boxParentData = ffi.Pointer.fromFunction(boxParentDataBoxParentData, exception);
+}
+int boxParentDataBoxParentData() {
+  final w = BoxParentData();
+  return _addWidget(w);
+}
+
+void _setupParentData(WidgetFactories f) {
+  f.parentData.parentData = ffi.Pointer.fromFunction(parentDataParentData, exception);
+}
+int parentDataParentData() {
+  final w = ParentData();
+  return _addWidget(w);
+}
+
+void _setupPositioned(WidgetFactories f) {
+  f.positioned.positioned = ffi.Pointer.fromFunction(positionedPositioned);
+  f.positioned.fill = ffi.Pointer.fromFunction(positionedFill);
+  f.positioned.directional = ffi.Pointer.fromFunction(positionedDirectional);
+}
+PositionedObjSt positionedPositioned(ffi.Pointer<ffi.Double> left, ffi.Pointer<ffi.Double> top, ffi.Pointer<ffi.Double> right, ffi.Pointer<ffi.Double> bottom, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, DartDartObj child) {
+  final w = Positioned(left: left.doubleOrNul(),
+      top: top.doubleOrNul(),
+      right: right.doubleOrNul(),
+      bottom: bottom.doubleOrNul(),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createPositionedObjSt(w);
+}
+PositionedObjSt positionedFill(ffi.Pointer<ffi.Double> left, ffi.Pointer<ffi.Double> top, ffi.Pointer<ffi.Double> right, ffi.Pointer<ffi.Double> bottom, DartDartObj child) {
+  final w = Positioned.fill(left: left.doubleOrNul(),
+      top: top.doubleOrNul(),
+      right: right.doubleOrNul(),
+      bottom: bottom.doubleOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createPositionedObjSt(w);
+}
+PositionedObjSt positionedDirectional(int textDirection, ffi.Pointer<ffi.Double> start, ffi.Pointer<ffi.Double> top, ffi.Pointer<ffi.Double> end, ffi.Pointer<ffi.Double> bottom, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, DartDartObj child) {
+  final w = Positioned.directional(textDirection: _widgetsMap[textDirection]! as TextDirection,
+      start: start.doubleOrNul(),
+      top: top.doubleOrNul(),
+      end: end.doubleOrNul(),
+      bottom: bottom.doubleOrNul(),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createPositionedObjSt(w);
+}
+PositionedObjSt _createPositionedObjSt(Positioned? w) {
+  final PositionedObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.left = (w.left != null) ? w.left! : 0;
+  stObj.top = (w.top != null) ? w.top! : 0;
+  stObj.right = (w.right != null) ? w.right! : 0;
+  stObj.bottom = (w.bottom != null) ? w.bottom! : 0;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
   return stObj;
 }
 
@@ -1668,6 +1746,7 @@ IconButtonObjSt _createIconButtonObjSt(IconButton? w) {
   stObj.highlightColor = _addWidget(w.highlightColor);
   stObj.disabledColor = _addWidget(w.disabledColor);
   stObj.autofocus = w.autofocus.toInt();
+  stObj.tooltip = (w.tooltip != null) ? w.tooltip!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
   stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
   stObj.isSelected = (w.isSelected != null) ? w.isSelected!.toInt() : 0;
@@ -1788,6 +1867,7 @@ ScaffoldObjSt _createScaffoldObjSt(Scaffold? w) {
   stObj.drawerEdgeDragWidth = (w.drawerEdgeDragWidth != null) ? w.drawerEdgeDragWidth! : 0;
   stObj.drawerEnableOpenDragGesture = w.drawerEnableOpenDragGesture.toInt();
   stObj.endDrawerEnableOpenDragGesture = w.endDrawerEnableOpenDragGesture.toInt();
+  stObj.restorationId = (w.restorationId != null) ? w.restorationId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   return stObj;
 }
 
@@ -1844,6 +1924,8 @@ MaterialAppObjSt _createMaterialAppObjSt(MaterialApp? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.home = _addWidget(w.home);
+  stObj.initialRoute = (w.initialRoute != null) ? w.initialRoute!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.title = (w.title != null) ? w.title!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.theme = _createThemeDataObjSt(w.theme);
   stObj.darkTheme = _createThemeDataObjSt(w.darkTheme);
   stObj.highContrastTheme = _createThemeDataObjSt(w.highContrastTheme);
@@ -1856,6 +1938,7 @@ MaterialAppObjSt _createMaterialAppObjSt(MaterialApp? w) {
   stObj.checkerboardOffscreenLayers = w.checkerboardOffscreenLayers.toInt();
   stObj.showSemanticsDebugger = w.showSemanticsDebugger.toInt();
   stObj.debugShowCheckedModeBanner = w.debugShowCheckedModeBanner.toInt();
+  stObj.restorationScopeId = (w.restorationScopeId != null) ? w.restorationScopeId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.debugShowMaterialGrid = w.debugShowMaterialGrid.toInt();
   stObj.useInheritedMediaQuery = w.useInheritedMediaQuery.toInt();
   return stObj;
@@ -1963,6 +2046,7 @@ FloatingActionButtonObjSt _createFloatingActionButtonObjSt(FloatingActionButton?
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.child = _addWidget(w.child);
+  stObj.tooltip = (w.tooltip != null) ? w.tooltip!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.foregroundColor = _addWidget(w.foregroundColor);
   stObj.backgroundColor = _addWidget(w.backgroundColor);
   stObj.focusColor = _addWidget(w.focusColor);
@@ -2025,8 +2109,6 @@ SubStateObjSt subStateSubState(VoidCallbackFFI initStateFn, VoidCallbackDartObjF
   stObj.setState = setStateFn.nativeFunction;
   final widgetFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.widget), exceptionalReturn: exception);
   stObj.widget = widgetFn.nativeFunction;
-  final contextFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.context), exceptionalReturn: exception);
-  stObj.context = contextFn.nativeFunction;
   final mountedFn = ffi.NativeCallable<ffi.Int Function()>.isolateLocal(() => w.mounted.toInt(), exceptionalReturn: exception);
   stObj.mounted = mountedFn.nativeFunction;
   return stObj;
@@ -2067,6 +2149,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupStack(f);
   _setupBoxConstraints(f);
   _setupContainer(f);
+  _setupStackParentData(f);
+  _setupPositioned(f);
   _setupBoxDecoration(f);
   _setupRadius(f);
   _setupBorderRadius(f);
@@ -2100,6 +2184,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubStatelessWidget(f);
   _setupAlign(f);
   _setupFlex(f);
+  _setupBoxParentData(f);
+  _setupParentData(f);
   _setupShadow(f);
   _setupShadow(f);
   _setupListenableBuilder(f);

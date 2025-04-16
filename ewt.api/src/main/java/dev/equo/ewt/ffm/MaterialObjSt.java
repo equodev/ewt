@@ -50,7 +50,7 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("borderRadius"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$341:9");
+    ).withName("$anon$358:9");
 
     /**
      * The layout of this struct
@@ -423,7 +423,7 @@ public class MaterialObjSt {
         return borderOnForeground$LAYOUT;
     }
 
-    private static final long borderOnForeground$OFFSET = 136;
+    private static final long borderOnForeground$OFFSET = 152;
 
     /**
      * Offset for field:
@@ -467,7 +467,7 @@ public class MaterialObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 140;
+    private static final long clipBehavior$OFFSET = 156;
 
     /**
      * Offset for field:
@@ -511,7 +511,7 @@ public class MaterialObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 144;
+    private static final long borderRadius$OFFSET = 160;
 
     /**
      * Offset for field:

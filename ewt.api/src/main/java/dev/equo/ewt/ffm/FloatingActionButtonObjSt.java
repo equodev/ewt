@@ -17,6 +17,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     DartObj child;
+ *     char *tooltip;
  *     DartObj foregroundColor;
  *     DartObj backgroundColor;
  *     DartObj focusColor;
@@ -48,6 +49,7 @@ public class FloatingActionButtonObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("child"),
+        StarterBridge.C_POINTER.withName("tooltip"),
         StarterBridge.C_INT.withName("foregroundColor"),
         StarterBridge.C_INT.withName("backgroundColor"),
         StarterBridge.C_INT.withName("focusColor"),
@@ -69,7 +71,7 @@ public class FloatingActionButtonObjSt {
         StarterBridge.C_INT.withName("extendedPadding"),
         MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("extendedTextStyle")
-    ).withName("$anon$440:9");
+    ).withName("$anon$462:9");
 
     /**
      * The layout of this struct
@@ -166,6 +168,50 @@ public class FloatingActionButtonObjSt {
         struct.set(child$LAYOUT, child$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout tooltip$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("tooltip"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static final AddressLayout tooltip$layout() {
+        return tooltip$LAYOUT;
+    }
+
+    private static final long tooltip$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static final long tooltip$offset() {
+        return tooltip$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static MemorySegment tooltip(MemorySegment struct) {
+        return struct.get(tooltip$LAYOUT, tooltip$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *tooltip
+     * }
+     */
+    public static void tooltip(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(tooltip$LAYOUT, tooltip$OFFSET, fieldValue);
+    }
+
     private static final OfInt foregroundColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("foregroundColor"));
 
     /**
@@ -178,7 +224,7 @@ public class FloatingActionButtonObjSt {
         return foregroundColor$LAYOUT;
     }
 
-    private static final long foregroundColor$OFFSET = 8;
+    private static final long foregroundColor$OFFSET = 16;
 
     /**
      * Offset for field:
@@ -222,7 +268,7 @@ public class FloatingActionButtonObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 12;
+    private static final long backgroundColor$OFFSET = 20;
 
     /**
      * Offset for field:
@@ -266,7 +312,7 @@ public class FloatingActionButtonObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 16;
+    private static final long focusColor$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -310,7 +356,7 @@ public class FloatingActionButtonObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 20;
+    private static final long hoverColor$OFFSET = 28;
 
     /**
      * Offset for field:
@@ -354,7 +400,7 @@ public class FloatingActionButtonObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 24;
+    private static final long splashColor$OFFSET = 32;
 
     /**
      * Offset for field:
@@ -398,7 +444,7 @@ public class FloatingActionButtonObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 32;
+    private static final long elevation$OFFSET = 40;
 
     /**
      * Offset for field:
@@ -442,7 +488,7 @@ public class FloatingActionButtonObjSt {
         return focusElevation$LAYOUT;
     }
 
-    private static final long focusElevation$OFFSET = 40;
+    private static final long focusElevation$OFFSET = 48;
 
     /**
      * Offset for field:
@@ -486,7 +532,7 @@ public class FloatingActionButtonObjSt {
         return hoverElevation$LAYOUT;
     }
 
-    private static final long hoverElevation$OFFSET = 48;
+    private static final long hoverElevation$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -530,7 +576,7 @@ public class FloatingActionButtonObjSt {
         return highlightElevation$LAYOUT;
     }
 
-    private static final long highlightElevation$OFFSET = 56;
+    private static final long highlightElevation$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -574,7 +620,7 @@ public class FloatingActionButtonObjSt {
         return disabledElevation$LAYOUT;
     }
 
-    private static final long disabledElevation$OFFSET = 64;
+    private static final long disabledElevation$OFFSET = 72;
 
     /**
      * Offset for field:
@@ -618,7 +664,7 @@ public class FloatingActionButtonObjSt {
         return mini$LAYOUT;
     }
 
-    private static final long mini$OFFSET = 72;
+    private static final long mini$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -662,7 +708,7 @@ public class FloatingActionButtonObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 76;
+    private static final long clipBehavior$OFFSET = 84;
 
     /**
      * Offset for field:
@@ -706,7 +752,7 @@ public class FloatingActionButtonObjSt {
         return isExtended$LAYOUT;
     }
 
-    private static final long isExtended$OFFSET = 80;
+    private static final long isExtended$OFFSET = 88;
 
     /**
      * Offset for field:
@@ -750,7 +796,7 @@ public class FloatingActionButtonObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 84;
+    private static final long autofocus$OFFSET = 92;
 
     /**
      * Offset for field:
@@ -794,7 +840,7 @@ public class FloatingActionButtonObjSt {
         return materialTapTargetSize$LAYOUT;
     }
 
-    private static final long materialTapTargetSize$OFFSET = 88;
+    private static final long materialTapTargetSize$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -838,7 +884,7 @@ public class FloatingActionButtonObjSt {
         return enableFeedback$LAYOUT;
     }
 
-    private static final long enableFeedback$OFFSET = 92;
+    private static final long enableFeedback$OFFSET = 100;
 
     /**
      * Offset for field:
@@ -882,7 +928,7 @@ public class FloatingActionButtonObjSt {
         return extendedIconLabelSpacing$LAYOUT;
     }
 
-    private static final long extendedIconLabelSpacing$OFFSET = 96;
+    private static final long extendedIconLabelSpacing$OFFSET = 104;
 
     /**
      * Offset for field:
@@ -926,7 +972,7 @@ public class FloatingActionButtonObjSt {
         return extendedPadding$LAYOUT;
     }
 
-    private static final long extendedPadding$OFFSET = 104;
+    private static final long extendedPadding$OFFSET = 112;
 
     /**
      * Offset for field:
@@ -970,7 +1016,7 @@ public class FloatingActionButtonObjSt {
         return extendedTextStyle$LAYOUT;
     }
 
-    private static final long extendedTextStyle$OFFSET = 112;
+    private static final long extendedTextStyle$OFFSET = 120;
 
     /**
      * Offset for field:

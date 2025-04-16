@@ -29,7 +29,7 @@ public class PaddingObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("padding")
-    ).withName("$anon$148:9");
+    ).withName("$anon$165:9");
 
     /**
      * The layout of this struct
