@@ -30,6 +30,7 @@ w.BorderRadius? borderRadius;
 w.BoxShadow? boxShadow;
 w.Padding? padding;
 w.EdgeInsets? edgeInsets;
+w.Border? border;
 w.TickerProvider? tickerProvider;
 w.AnimationController? animationController;
 w.AnimatedBuilder? animatedBuilder;
@@ -58,6 +59,7 @@ m.MaterialApp? materialApp;
 m.FloatingActionButton? floatingActionButton;
 m.Icons? icons;
 m.Theme? theme;
+m.ElevatedButton? elevatedButton;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;

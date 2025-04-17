@@ -14,8 +14,9 @@ public class BoxDecoration extends Decoration implements BoxDecorationI {
     System.out.println("New BoxDecoration id:"+id);
   }
   @Builder.Factory
-  static BoxDecoration boxDecorationBoxDecoration(Optional<ColorI> color, Optional<BorderRadiusGeometryI> borderRadius, Optional<List<BoxShadowI>> boxShadow, Optional<BlendMode> backgroundBlendMode, Optional<BoxShape> shape) {
+  static BoxDecoration boxDecorationBoxDecoration(Optional<ColorI> color, Optional<BoxBorderI> border, Optional<BorderRadiusGeometryI> borderRadius, Optional<List<BoxShadowI>> boxShadow, Optional<BlendMode> backgroundBlendMode, Optional<BoxShape> shape) {
     var st = factories.boxDecorationBoxDecoration(color.map(ColorI::build),
+      border.map(BoxBorderI::build),
       borderRadius.map(BorderRadiusGeometryI::build),
       boxShadow.map(i -> i.stream().map(BoxShadowI::build).toList()),
       backgroundBlendMode,
@@ -35,6 +36,9 @@ public class BoxDecoration extends Decoration implements BoxDecorationI {
   }
   public Color color() {
     return new Color(BoxDecorationObjSt.color(st));
+  }
+  public BoxBorder border() {
+    return new BoxBorder(BoxDecorationObjSt.border(st)) {};
   }
   public BorderRadiusGeometry borderRadius() {
     return new BorderRadiusGeometry(BoxDecorationObjSt.borderRadius(st)) {};

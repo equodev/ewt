@@ -27,7 +27,7 @@ public class AnimatedBuilderObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$182:9");
+    ).withName("$anon$187:9");
 
     /**
      * The layout of this struct

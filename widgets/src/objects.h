@@ -143,6 +143,7 @@ typedef struct {
 typedef struct {
   int id;
   DartObj color;
+  DartObj border;
   DartObj borderRadius;
   int backgroundBlendMode;
   int shape;
@@ -178,6 +179,10 @@ typedef struct {
   DartObj bottomLeft;
   DartObj bottomRight;
 } EdgeInsetsObjSt;
+
+typedef struct {
+  int id;
+} BorderObjSt;
 
 typedef struct {
   int id;
@@ -364,6 +369,7 @@ typedef struct {
   DartObj shadowColor;
   DartObj surfaceTintColor;
   TextStyleObjSt textStyle;
+  DartObj shape;
   int borderOnForeground;
   int clipBehavior;
   DartObj borderRadius;
@@ -399,6 +405,7 @@ typedef struct {
   double scrolledUnderElevation;
   DartObj shadowColor;
   DartObj surfaceTintColor;
+  DartObj shape;
   DartObj backgroundColor;
   DartObj foregroundColor;
   int primary;
@@ -474,6 +481,7 @@ typedef struct {
   double highlightElevation;
   double disabledElevation;
   int mini;
+  DartObj shape;
   int clipBehavior;
   int isExtended;
   int autofocus;
@@ -489,6 +497,10 @@ typedef struct {
   ThemeDataObjSt data;
   DartObj child;
 } ThemeObjSt;
+
+typedef struct {
+  int id;
+} ElevatedButtonObjSt;
 
 typedef struct {
   int id;

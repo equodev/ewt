@@ -27,7 +27,7 @@ public class SubStatelessWidgetObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$504:9");
+    ).withName("$anon$516:9");
 
     /**
      * The layout of this struct

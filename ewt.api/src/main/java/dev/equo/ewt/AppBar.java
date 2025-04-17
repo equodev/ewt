@@ -14,7 +14,7 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
     System.out.println("New AppBar id:"+id);
   }
   @Builder.Factory
-  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding) {
+  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding) {
     var st = factories.appBarAppBar(leading.map(WidgetI::build),
       automaticallyImplyLeading,
       title.map(WidgetI::build),
@@ -25,6 +25,7 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       scrolledUnderElevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      shape.map(ShapeBorderI::build),
       backgroundColor.map(ColorI::build),
       foregroundColor.map(ColorI::build),
       primary,
@@ -69,6 +70,9 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   }
   public Color surfaceTintColor() {
     return new Color(AppBarObjSt.surfaceTintColor(st));
+  }
+  public ShapeBorder shape() {
+    return new ShapeBorder(AppBarObjSt.shape(st)) {};
   }
   public Color backgroundColor() {
     return new Color(AppBarObjSt.backgroundColor(st));

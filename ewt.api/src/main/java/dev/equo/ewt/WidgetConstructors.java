@@ -361,10 +361,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.getId());
   }
 
-  MemorySegment boxDecorationBoxDecoration(Optional<Color> color, Optional<BorderRadiusGeometry> borderRadius, Optional<List<BoxShadow>> boxShadow, Optional<BlendMode> backgroundBlendMode, Optional<BoxShape> shape) {
+  MemorySegment boxDecorationBoxDecoration(Optional<Color> color, Optional<BoxBorder> border, Optional<BorderRadiusGeometry> borderRadius, Optional<List<BoxShadow>> boxShadow, Optional<BlendMode> backgroundBlendMode, Optional<BoxShape> shape) {
     var st = WidgetFactories.boxDecoration(factories);
     var fn = WidgetFactories.BoxDecorationSt.boxDecoration(st);
     return WidgetFactories.BoxDecorationSt.boxDecoration.invoke(fn, arena, ptrObj(color),
+      ptrObj(border),
       ptrObj(borderRadius),
       ptrList(boxShadow),
       ptrEnum(backgroundBlendMode),
@@ -505,6 +506,38 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.edgeInsets(factories);
     var fn = WidgetFactories.EdgeInsetsSt.lerp(st);
     return WidgetFactories.EdgeInsetsSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
+  }
+
+  MemorySegment borderBorder() {
+    var st = WidgetFactories.border(factories);
+    var fn = WidgetFactories.BorderSt.border(st);
+    return WidgetFactories.BorderSt.border.invoke(fn, arena);
+  }
+  MemorySegment borderSymmetric() {
+    var st = WidgetFactories.border(factories);
+    var fn = WidgetFactories.BorderSt.symmetric(st);
+    return WidgetFactories.BorderSt.symmetric.invoke(fn, arena);
+  }
+  MemorySegment borderAll(Optional<Color> color, OptionalDouble width, Optional<BorderStyle> style, OptionalDouble strokeAlign) {
+    var st = WidgetFactories.border(factories);
+    var fn = WidgetFactories.BorderSt.all(st);
+    return WidgetFactories.BorderSt.all.invoke(fn, arena, ptrObj(color),
+      ptr(width),
+      ptrEnum(style),
+      ptr(strokeAlign));
+  }
+  MemorySegment borderMerge(Border a, Border b) {
+    var st = WidgetFactories.border(factories);
+    var fn = WidgetFactories.BorderSt.merge(st);
+    return WidgetFactories.BorderSt.merge.invoke(fn, arena, a.getId(),
+      b.getId());
+  }
+  MemorySegment borderLerp(Border a, Border b, double t) {
+    var st = WidgetFactories.border(factories);
+    var fn = WidgetFactories.BorderSt.lerp(st);
+    return WidgetFactories.BorderSt.lerp.invoke(fn, arena, a.getId(),
       b.getId(),
       t);
   }
@@ -1106,7 +1139,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrMap(swatch));
   }
 
-  MemorySegment materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<TextStyle> textStyle, Optional<BorderRadiusGeometry> borderRadius, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<Widget> child) {
+  MemorySegment materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<TextStyle> textStyle, Optional<BorderRadiusGeometry> borderRadius, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<Widget> child) {
     var st = WidgetFactories.material(factories);
     var fn = WidgetFactories.MaterialSt.material(st);
     return WidgetFactories.MaterialSt.material.invoke(fn, arena, ptrEnum(type),
@@ -1116,6 +1149,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(surfaceTintColor),
       ptrObj(textStyle),
       ptrObj(borderRadius),
+      ptrObj(shape),
       ptrBool(borderOnForeground),
       ptrEnum(clipBehavior),
       ptrObj(child));
@@ -1214,7 +1248,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       icon.getId());
   }
 
-  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     var st = WidgetFactories.appBar(factories);
     var fn = WidgetFactories.AppBarSt.appBar(st);
     return WidgetFactories.AppBarSt.appBar.invoke(fn, arena, ptrObj(leading),
@@ -1227,6 +1261,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(scrolledUnderElevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(shape),
       ptrObj(backgroundColor),
       ptrObj(foregroundColor),
       ptrBool(primary),
@@ -1322,7 +1357,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(useInheritedMediaQuery));
   }
 
-  MemorySegment floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.floatingActionButton(st);
     return WidgetFactories.FloatingActionButtonSt.floatingActionButton.invoke(fn, arena, ptrObj(child),
@@ -1340,13 +1375,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(disabledElevation),
       ptrVoidCallbackFn(onPressed),
       ptrBool(mini),
+      ptrObj(shape),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
       ptrBool(isExtended),
       ptrBool(enableFeedback));
   }
-  MemorySegment floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.small(st);
     return WidgetFactories.FloatingActionButtonSt.small.invoke(fn, arena, ptrObj(child),
@@ -1363,12 +1399,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(highlightElevation),
       ptr(disabledElevation),
       ptrVoidCallbackFn(onPressed),
+      ptrObj(shape),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  MemorySegment floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.large(st);
     return WidgetFactories.FloatingActionButtonSt.large.invoke(fn, arena, ptrObj(child),
@@ -1385,12 +1422,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(highlightElevation),
       ptr(disabledElevation),
       ptrVoidCallbackFn(onPressed),
+      ptrObj(shape),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  MemorySegment floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometry> extendedPadding, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorder> shape, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometry> extendedPadding, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.extended(st);
     return WidgetFactories.FloatingActionButtonSt.extended.invoke(fn, arena, ptrStr(tooltip),
@@ -1406,6 +1444,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(highlightElevation),
       ptr(disabledElevation),
       ptrVoidCallbackFn(onPressed),
+      ptrObj(shape),
       ptrBool(isExtended),
       ptrEnum(materialTapTargetSize),
       ptrEnum(clipBehavior),
@@ -1428,6 +1467,31 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.theme(factories);
     var fn = WidgetFactories.ThemeSt.of(st);
     return WidgetFactories.ThemeSt.of.invoke(fn, arena, context.getId());
+  }
+
+  MemorySegment elevatedButtonElevatedButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+    var st = WidgetFactories.elevatedButton(factories);
+    var fn = WidgetFactories.ElevatedButtonSt.elevatedButton(st);
+    return WidgetFactories.ElevatedButtonSt.elevatedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      child.getId());
+  }
+  MemorySegment elevatedButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+    var st = WidgetFactories.elevatedButton(factories);
+    var fn = WidgetFactories.ElevatedButtonSt.icon(st);
+    return WidgetFactories.ElevatedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      ptrObj(icon),
+      label.getId(),
+      ptrEnum(iconAlignment));
   }
 
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {

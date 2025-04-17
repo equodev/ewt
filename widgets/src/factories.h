@@ -94,7 +94,7 @@ typedef struct {
   } positioned;
 
   struct BoxDecorationSt {
-    BoxDecorationObjSt (*boxDecoration)(DartObj* color, DartObj* borderRadius, ArrayC* boxShadow, int* backgroundBlendMode, int* shape);
+    BoxDecorationObjSt (*boxDecoration)(DartObj* color, DartObj* border, DartObj* borderRadius, ArrayC* boxShadow, int* backgroundBlendMode, int* shape);
     BoxDecorationObjSt (*lerp)(DartObj a, DartObj b, double t);
   } boxDecoration;
 
@@ -134,6 +134,14 @@ typedef struct {
     EdgeInsetsObjSt (*symmetric)(double* vertical, double* horizontal);
     EdgeInsetsObjSt (*lerp)(DartObj a, DartObj b, double t);
   } edgeInsets;
+
+  struct BorderSt {
+    BorderObjSt (*border)(void);
+    BorderObjSt (*symmetric)(void);
+    BorderObjSt (*all)(DartObj* color, double* width, int* style, double* strokeAlign);
+    BorderObjSt (*merge)(DartObj a, DartObj b);
+    BorderObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } border;
 
   struct AnimationControllerSt {
     DartObj (*animationController)(double* value, char* debugLabel, double* lowerBound, double* upperBound, int* animationBehavior, DartObj vsync);
@@ -223,7 +231,7 @@ typedef struct {
   } materialAccentColor;
 
   struct MaterialSt {
-    MaterialObjSt (*material)(int* type, double* elevation, DartObj* color, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* textStyle, DartObj* borderRadius, int* borderOnForeground, int* clipBehavior, DartObj* child);
+    MaterialObjSt (*material)(int* type, double* elevation, DartObj* color, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* textStyle, DartObj* borderRadius, DartObj* shape, int* borderOnForeground, int* clipBehavior, DartObj* child);
   } material;
 
   struct IconButtonSt {
@@ -234,7 +242,7 @@ typedef struct {
   } iconButton;
 
   struct AppBarSt {
-    AppBarObjSt (*appBar)(DartObj* leading, int* automaticallyImplyLeading, DartObj* title, ArrayC* actions, DartObj* flexibleSpace, DartObj* bottom, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* backgroundColor, DartObj* foregroundColor, int* primary, int* centerTitle, int* excludeHeaderSemantics, double* titleSpacing, double* toolbarOpacity, double* bottomOpacity, double* toolbarHeight, double* leadingWidth, DartObj* toolbarTextStyle, DartObj* titleTextStyle, int* forceMaterialTransparency, int* clipBehavior, DartObj* actionsPadding);
+    AppBarObjSt (*appBar)(DartObj* leading, int* automaticallyImplyLeading, DartObj* title, ArrayC* actions, DartObj* flexibleSpace, DartObj* bottom, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* backgroundColor, DartObj* foregroundColor, int* primary, int* centerTitle, int* excludeHeaderSemantics, double* titleSpacing, double* toolbarOpacity, double* bottomOpacity, double* toolbarHeight, double* leadingWidth, DartObj* toolbarTextStyle, DartObj* titleTextStyle, int* forceMaterialTransparency, int* clipBehavior, DartObj* actionsPadding);
   } appBar;
 
   struct ScaffoldSt {
@@ -248,16 +256,21 @@ typedef struct {
   } materialApp;
 
   struct FloatingActionButtonSt {
-    FloatingActionButtonObjSt (*floatingActionButton)(DartObj* child, char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, int* mini, int* clipBehavior, int* autofocus, int* materialTapTargetSize, int* isExtended, int* enableFeedback);
-    FloatingActionButtonObjSt (*small)(DartObj* child, char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, int* clipBehavior, int* autofocus, int* materialTapTargetSize, int* enableFeedback);
-    FloatingActionButtonObjSt (*large)(DartObj* child, char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, int* clipBehavior, int* autofocus, int* materialTapTargetSize, int* enableFeedback);
-    FloatingActionButtonObjSt (*extended)(char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, DartObj* splashColor, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, int* isExtended, int* materialTapTargetSize, int* clipBehavior, int* autofocus, double* extendedIconLabelSpacing, DartObj* extendedPadding, DartObj* extendedTextStyle, DartObj* icon, DartObj label, int* enableFeedback);
+    FloatingActionButtonObjSt (*floatingActionButton)(DartObj* child, char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, int* mini, DartObj* shape, int* clipBehavior, int* autofocus, int* materialTapTargetSize, int* isExtended, int* enableFeedback);
+    FloatingActionButtonObjSt (*small)(DartObj* child, char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, DartObj* shape, int* clipBehavior, int* autofocus, int* materialTapTargetSize, int* enableFeedback);
+    FloatingActionButtonObjSt (*large)(DartObj* child, char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, DartObj* shape, int* clipBehavior, int* autofocus, int* materialTapTargetSize, int* enableFeedback);
+    FloatingActionButtonObjSt (*extended)(char* tooltip, DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* heroTag, double* elevation, double* focusElevation, double* hoverElevation, DartObj* splashColor, double* highlightElevation, double* disabledElevation, VoidCallbackFFI onPressed, DartObj* shape, int* isExtended, int* materialTapTargetSize, int* clipBehavior, int* autofocus, double* extendedIconLabelSpacing, DartObj* extendedPadding, DartObj* extendedTextStyle, DartObj* icon, DartObj label, int* enableFeedback);
   } floatingActionButton;
 
   struct ThemeSt {
     ThemeObjSt (*theme)(DartObj data, DartObj child);
     ThemeDataObjSt (*of)(DartObj context);
   } theme;
+
+  struct ElevatedButtonSt {
+    ElevatedButtonObjSt (*elevatedButton)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj child);
+    ElevatedButtonObjSt (*icon)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj* icon, DartObj label, int* iconAlignment);
+  } elevatedButton;
 
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);

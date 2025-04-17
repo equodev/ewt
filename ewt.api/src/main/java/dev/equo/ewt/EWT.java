@@ -174,6 +174,16 @@ public class EWT {
     return EdgeInsetsSymmetricBuilder.edgeInsetsSymmetric();
   }
 
+  public static BorderBorderBuilder Border() {
+    return BorderBorderBuilder.borderBorder();
+  }
+  public static BorderSymmetricBuilder Border_symmetric() {
+    return BorderSymmetricBuilder.borderSymmetric();
+  }
+  public static BorderAllBuilder Border_all() {
+    return BorderAllBuilder.borderAll();
+  }
+
   public static AnimationControllerAnimationControllerBuilder AnimationController() {
     return AnimationControllerAnimationControllerBuilder.animationControllerAnimationController();
   }
@@ -327,6 +337,13 @@ public class EWT {
 
   public static ThemeThemeBuilder Theme(ThemeDataI data, WidgetI child) {
     return ThemeThemeBuilder.themeTheme(data, child);
+  }
+
+  public static ElevatedButtonElevatedButtonBuilder ElevatedButton(Runnable onPressed) {
+    return ElevatedButtonElevatedButtonBuilder.elevatedButtonElevatedButton(onPressed);
+  }
+  public static ElevatedButtonIconBuilder ElevatedButton_icon(Runnable onPressed) {
+    return ElevatedButtonIconBuilder.elevatedButtonIcon(onPressed);
   }
 
 

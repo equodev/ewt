@@ -30,7 +30,7 @@ public class ElasticInCurveObjSt {
         StarterBridge.C_INT.withName("id"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("period")
-    ).withName("$anon$213:9");
+    ).withName("$anon$218:9");
 
     /**
      * The layout of this struct

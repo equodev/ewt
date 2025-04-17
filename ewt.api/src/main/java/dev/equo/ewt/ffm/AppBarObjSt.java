@@ -24,6 +24,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double scrolledUnderElevation;
  *     DartObj shadowColor;
  *     DartObj surfaceTintColor;
+ *     DartObj shape;
  *     DartObj backgroundColor;
  *     DartObj foregroundColor;
  *     int primary;
@@ -59,12 +60,12 @@ public class AppBarObjSt {
         StarterBridge.C_DOUBLE.withName("scrolledUnderElevation"),
         StarterBridge.C_INT.withName("shadowColor"),
         StarterBridge.C_INT.withName("surfaceTintColor"),
+        StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("backgroundColor"),
         StarterBridge.C_INT.withName("foregroundColor"),
         StarterBridge.C_INT.withName("primary"),
         StarterBridge.C_INT.withName("centerTitle"),
         StarterBridge.C_INT.withName("excludeHeaderSemantics"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("titleSpacing"),
         StarterBridge.C_DOUBLE.withName("toolbarOpacity"),
         StarterBridge.C_DOUBLE.withName("bottomOpacity"),
@@ -76,7 +77,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("actionsPadding"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$392:9");
+    ).withName("$anon$398:9");
 
     /**
      * The layout of this struct
@@ -481,6 +482,50 @@ public class AppBarObjSt {
         struct.set(surfaceTintColor$LAYOUT, surfaceTintColor$OFFSET, fieldValue);
     }
 
+    private static final OfInt shape$LAYOUT = (OfInt)$LAYOUT.select(groupElement("shape"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final OfInt shape$layout() {
+        return shape$LAYOUT;
+    }
+
+    private static final long shape$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final long shape$offset() {
+        return shape$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static int shape(MemorySegment struct) {
+        return struct.get(shape$LAYOUT, shape$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static void shape(MemorySegment struct, int fieldValue) {
+        struct.set(shape$LAYOUT, shape$OFFSET, fieldValue);
+    }
+
     private static final OfInt backgroundColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("backgroundColor"));
 
     /**
@@ -493,7 +538,7 @@ public class AppBarObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 48;
+    private static final long backgroundColor$OFFSET = 52;
 
     /**
      * Offset for field:
@@ -537,7 +582,7 @@ public class AppBarObjSt {
         return foregroundColor$LAYOUT;
     }
 
-    private static final long foregroundColor$OFFSET = 52;
+    private static final long foregroundColor$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -581,7 +626,7 @@ public class AppBarObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 56;
+    private static final long primary$OFFSET = 60;
 
     /**
      * Offset for field:
@@ -625,7 +670,7 @@ public class AppBarObjSt {
         return centerTitle$LAYOUT;
     }
 
-    private static final long centerTitle$OFFSET = 60;
+    private static final long centerTitle$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -669,7 +714,7 @@ public class AppBarObjSt {
         return excludeHeaderSemantics$LAYOUT;
     }
 
-    private static final long excludeHeaderSemantics$OFFSET = 64;
+    private static final long excludeHeaderSemantics$OFFSET = 68;
 
     /**
      * Offset for field:

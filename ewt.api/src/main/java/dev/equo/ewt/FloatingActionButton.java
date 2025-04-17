@@ -14,7 +14,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     System.out.println("New FloatingActionButton id:"+id);
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<ShapeBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = factories.floatingActionButtonFloatingActionButton(child.map(WidgetI::build),
       tooltip,
       foregroundColor.map(ColorI::build),
@@ -30,6 +30,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
       disabledElevation,
       onPressed,
       mini,
+      shape.map(ShapeBorderI::build),
       clipBehavior,
       autofocus,
       materialTapTargetSize,
@@ -42,7 +43,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     return FloatingActionButtonFloatingActionButtonBuilder.floatingActionButtonFloatingActionButton();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonSmall(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonSmall(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = factories.floatingActionButtonSmall(child.map(WidgetI::build),
       tooltip,
       foregroundColor.map(ColorI::build),
@@ -57,6 +58,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
       highlightElevation,
       disabledElevation,
       onPressed,
+      shape.map(ShapeBorderI::build),
       clipBehavior,
       autofocus,
       materialTapTargetSize,
@@ -68,7 +70,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     return FloatingActionButtonSmallBuilder.floatingActionButtonSmall();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonLarge(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonLarge(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = factories.floatingActionButtonLarge(child.map(WidgetI::build),
       tooltip,
       foregroundColor.map(ColorI::build),
@@ -83,6 +85,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
       highlightElevation,
       disabledElevation,
       onPressed,
+      shape.map(ShapeBorderI::build),
       clipBehavior,
       autofocus,
       materialTapTargetSize,
@@ -94,7 +97,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     return FloatingActionButtonLargeBuilder.floatingActionButtonLarge();
   }
   @Builder.Factory
-  static FloatingActionButton floatingActionButtonExtended(Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<ColorI> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometryI> extendedPadding, Optional<TextStyleI> extendedTextStyle, Optional<WidgetI> icon, WidgetI label, Optional<Boolean> enableFeedback) {
+  static FloatingActionButton floatingActionButtonExtended(Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<ColorI> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorderI> shape, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometryI> extendedPadding, Optional<TextStyleI> extendedTextStyle, Optional<WidgetI> icon, WidgetI label, Optional<Boolean> enableFeedback) {
     var st = factories.floatingActionButtonExtended(tooltip,
       foregroundColor.map(ColorI::build),
       backgroundColor.map(ColorI::build),
@@ -108,6 +111,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
       highlightElevation,
       disabledElevation,
       onPressed,
+      shape.map(ShapeBorderI::build),
       isExtended,
       materialTapTargetSize,
       clipBehavior,
@@ -162,6 +166,9 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
   }
   public boolean mini() {
     return intToBool(FloatingActionButtonObjSt.mini(st));
+  }
+  public ShapeBorder shape() {
+    return new ShapeBorder(FloatingActionButtonObjSt.shape(st)) {};
   }
   public Clip clipBehavior() {
     return Clip.values()[FloatingActionButtonObjSt.clipBehavior(st)];

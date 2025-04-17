@@ -156,6 +156,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external EdgeInsetsSt edgeInsets;
 
+  external BorderSt border;
+
   external AnimationControllerSt animationController;
 
   external AnimatedBuilderSt animatedBuilder;
@@ -201,6 +203,8 @@ final class WidgetFactories extends ffi.Struct {
   external FloatingActionButtonSt floatingActionButton;
 
   external ThemeSt theme;
+
+  external ElevatedButtonSt elevatedButton;
 
   external SubStateSt subState;
 
@@ -882,6 +886,7 @@ final class BoxDecorationSt extends ffi.Struct {
       ffi.NativeFunction<
           BoxDecorationObjSt Function(
               ffi.Pointer<DartObj> color,
+              ffi.Pointer<DartObj> border,
               ffi.Pointer<DartObj> borderRadius,
               ffi.Pointer<ArrayC> boxShadow,
               ffi.Pointer<ffi.Int> backgroundBlendMode,
@@ -899,6 +904,9 @@ final class BoxDecorationObjSt extends ffi.Struct {
 
   @DartObj()
   external int color;
+
+  @DartObj()
+  external int border;
 
   @DartObj()
   external int borderRadius;
@@ -1084,6 +1092,33 @@ final class EdgeInsetsObjSt extends ffi.Struct {
 
   @DartObj()
   external int bottomRight;
+}
+
+final class BorderSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<BorderObjSt Function()>> border;
+
+  external ffi.Pointer<ffi.NativeFunction<BorderObjSt Function()>> symmetric;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderObjSt Function(
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<ffi.Int> style,
+              ffi.Pointer<ffi.Double> strokeAlign)>> all;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<BorderObjSt Function(DartObj a, DartObj b)>>
+      merge;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderObjSt Function(DartObj a, DartObj b, ffi.Double t)>> lerp;
+}
+
+final class BorderObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
 }
 
 final class AnimationControllerSt extends ffi.Struct {
@@ -2111,6 +2146,7 @@ final class MaterialSt extends ffi.Struct {
               ffi.Pointer<DartObj> surfaceTintColor,
               ffi.Pointer<DartObj> textStyle,
               ffi.Pointer<DartObj> borderRadius,
+              ffi.Pointer<DartObj> shape,
               ffi.Pointer<ffi.Int> borderOnForeground,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<DartObj> child)>> material;
@@ -2139,6 +2175,9 @@ final class MaterialObjSt extends ffi.Struct {
   external int surfaceTintColor;
 
   external TextStyleObjSt textStyle;
+
+  @DartObj()
+  external int shape;
 
   @ffi.Int()
   external int borderOnForeground;
@@ -2318,6 +2357,7 @@ final class AppBarSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> scrolledUnderElevation,
               ffi.Pointer<DartObj> shadowColor,
               ffi.Pointer<DartObj> surfaceTintColor,
+              ffi.Pointer<DartObj> shape,
               ffi.Pointer<DartObj> backgroundColor,
               ffi.Pointer<DartObj> foregroundColor,
               ffi.Pointer<ffi.Int> primary,
@@ -2362,6 +2402,9 @@ final class AppBarObjSt extends ffi.Struct {
 
   @DartObj()
   external int surfaceTintColor;
+
+  @DartObj()
+  external int shape;
 
   @DartObj()
   external int backgroundColor;
@@ -2623,6 +2666,7 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> disabledElevation,
               VoidCallbackFFI onPressed,
               ffi.Pointer<ffi.Int> mini,
+              ffi.Pointer<DartObj> shape,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
@@ -2646,6 +2690,7 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
               VoidCallbackFFI onPressed,
+              ffi.Pointer<DartObj> shape,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
@@ -2668,6 +2713,7 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
               VoidCallbackFFI onPressed,
+              ffi.Pointer<DartObj> shape,
               ffi.Pointer<ffi.Int> clipBehavior,
               ffi.Pointer<ffi.Int> autofocus,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
@@ -2689,6 +2735,7 @@ final class FloatingActionButtonSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> highlightElevation,
               ffi.Pointer<ffi.Double> disabledElevation,
               VoidCallbackFFI onPressed,
+              ffi.Pointer<DartObj> shape,
               ffi.Pointer<ffi.Int> isExtended,
               ffi.Pointer<ffi.Int> materialTapTargetSize,
               ffi.Pointer<ffi.Int> clipBehavior,
@@ -2743,6 +2790,9 @@ final class FloatingActionButtonObjSt extends ffi.Struct {
   @ffi.Int()
   external int mini;
 
+  @DartObj()
+  external int shape;
+
   @ffi.Int()
   external int clipBehavior;
 
@@ -2784,6 +2834,37 @@ final class ThemeObjSt extends ffi.Struct {
 
   @DartObj()
   external int child;
+}
+
+final class ElevatedButtonSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ElevatedButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              DartObj child)>> elevatedButton;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ElevatedButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> icon,
+              DartObj label,
+              ffi.Pointer<ffi.Int> iconAlignment)>> icon;
+}
+
+final class ElevatedButtonObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
 }
 
 final class SubStateSt extends ffi.Struct {

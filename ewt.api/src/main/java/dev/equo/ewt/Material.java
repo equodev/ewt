@@ -14,7 +14,7 @@ public class Material extends StatefulWidget implements MaterialI {
     System.out.println("New Material id:"+id);
   }
   @Builder.Factory
-  static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
+  static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.materialMaterial(type,
       elevation,
       color.map(ColorI::build),
@@ -22,6 +22,7 @@ public class Material extends StatefulWidget implements MaterialI {
       surfaceTintColor.map(ColorI::build),
       textStyle.map(TextStyleI::build),
       borderRadius.map(BorderRadiusGeometryI::build),
+      shape.map(ShapeBorderI::build),
       borderOnForeground,
       clipBehavior,
       child.map(WidgetI::build));
@@ -51,6 +52,9 @@ public class Material extends StatefulWidget implements MaterialI {
   }
   public TextStyle textStyle() {
     return new TextStyle(MaterialObjSt.textStyle(st));
+  }
+  public ShapeBorder shape() {
+    return new ShapeBorder(MaterialObjSt.shape(st)) {};
   }
   public boolean borderOnForeground() {
     return intToBool(MaterialObjSt.borderOnForeground(st));

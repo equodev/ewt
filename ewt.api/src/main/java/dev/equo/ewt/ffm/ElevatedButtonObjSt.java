@@ -16,24 +16,18 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     ThemeDataObjSt data;
- *     DartObj child;
  * }
  * }
  */
-public class ThemeObjSt {
+public class ElevatedButtonObjSt {
 
-    ThemeObjSt() {
+    ElevatedButtonObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id"),
-        MemoryLayout.paddingLayout(4),
-        ThemeDataObjSt.layout().withName("data"),
-        StarterBridge.C_INT.withName("child"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$495:9");
+        StarterBridge.C_INT.withName("id")
+    ).withName("$anon$501:9");
 
     /**
      * The layout of this struct
@@ -84,94 +78,6 @@ public class ThemeObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
-    }
-
-    private static final GroupLayout data$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("data"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * ThemeDataObjSt data
-     * }
-     */
-    public static final GroupLayout data$layout() {
-        return data$LAYOUT;
-    }
-
-    private static final long data$OFFSET = 8;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * ThemeDataObjSt data
-     * }
-     */
-    public static final long data$offset() {
-        return data$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * ThemeDataObjSt data
-     * }
-     */
-    public static MemorySegment data(MemorySegment struct) {
-        return struct.asSlice(data$OFFSET, data$LAYOUT.byteSize());
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * ThemeDataObjSt data
-     * }
-     */
-    public static void data(MemorySegment struct, MemorySegment fieldValue) {
-        MemorySegment.copy(fieldValue, 0L, struct, data$OFFSET, data$LAYOUT.byteSize());
-    }
-
-    private static final OfInt child$LAYOUT = (OfInt)$LAYOUT.select(groupElement("child"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj child
-     * }
-     */
-    public static final OfInt child$layout() {
-        return child$LAYOUT;
-    }
-
-    private static final long child$OFFSET = 3688;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj child
-     * }
-     */
-    public static final long child$offset() {
-        return child$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj child
-     * }
-     */
-    public static int child(MemorySegment struct) {
-        return struct.get(child$LAYOUT, child$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj child
-     * }
-     */
-    public static void child(MemorySegment struct, int fieldValue) {
-        struct.set(child$LAYOUT, child$OFFSET, fieldValue);
     }
 
     /**

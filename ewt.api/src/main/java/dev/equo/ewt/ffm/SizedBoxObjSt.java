@@ -32,7 +32,7 @@ public class SizedBoxObjSt {
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("width"),
         StarterBridge.C_DOUBLE.withName("height")
-    ).withName("$anon$223:9");
+    ).withName("$anon$228:9");
 
     /**
      * The layout of this struct

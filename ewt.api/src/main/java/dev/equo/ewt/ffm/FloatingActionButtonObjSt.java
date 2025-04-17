@@ -29,6 +29,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double highlightElevation;
  *     double disabledElevation;
  *     int mini;
+ *     DartObj shape;
  *     int clipBehavior;
  *     int isExtended;
  *     int autofocus;
@@ -62,16 +63,18 @@ public class FloatingActionButtonObjSt {
         StarterBridge.C_DOUBLE.withName("highlightElevation"),
         StarterBridge.C_DOUBLE.withName("disabledElevation"),
         StarterBridge.C_INT.withName("mini"),
+        StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("isExtended"),
         StarterBridge.C_INT.withName("autofocus"),
         StarterBridge.C_INT.withName("materialTapTargetSize"),
         StarterBridge.C_INT.withName("enableFeedback"),
+        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("extendedIconLabelSpacing"),
         StarterBridge.C_INT.withName("extendedPadding"),
         MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("extendedTextStyle")
-    ).withName("$anon$462:9");
+    ).withName("$anon$469:9");
 
     /**
      * The layout of this struct
@@ -696,6 +699,50 @@ public class FloatingActionButtonObjSt {
         struct.set(mini$LAYOUT, mini$OFFSET, fieldValue);
     }
 
+    private static final OfInt shape$LAYOUT = (OfInt)$LAYOUT.select(groupElement("shape"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final OfInt shape$layout() {
+        return shape$LAYOUT;
+    }
+
+    private static final long shape$OFFSET = 84;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final long shape$offset() {
+        return shape$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static int shape(MemorySegment struct) {
+        return struct.get(shape$LAYOUT, shape$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static void shape(MemorySegment struct, int fieldValue) {
+        struct.set(shape$LAYOUT, shape$OFFSET, fieldValue);
+    }
+
     private static final OfInt clipBehavior$LAYOUT = (OfInt)$LAYOUT.select(groupElement("clipBehavior"));
 
     /**
@@ -708,7 +755,7 @@ public class FloatingActionButtonObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 84;
+    private static final long clipBehavior$OFFSET = 88;
 
     /**
      * Offset for field:
@@ -752,7 +799,7 @@ public class FloatingActionButtonObjSt {
         return isExtended$LAYOUT;
     }
 
-    private static final long isExtended$OFFSET = 88;
+    private static final long isExtended$OFFSET = 92;
 
     /**
      * Offset for field:
@@ -796,7 +843,7 @@ public class FloatingActionButtonObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 92;
+    private static final long autofocus$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -840,7 +887,7 @@ public class FloatingActionButtonObjSt {
         return materialTapTargetSize$LAYOUT;
     }
 
-    private static final long materialTapTargetSize$OFFSET = 96;
+    private static final long materialTapTargetSize$OFFSET = 100;
 
     /**
      * Offset for field:
@@ -884,7 +931,7 @@ public class FloatingActionButtonObjSt {
         return enableFeedback$LAYOUT;
     }
 
-    private static final long enableFeedback$OFFSET = 100;
+    private static final long enableFeedback$OFFSET = 104;
 
     /**
      * Offset for field:
@@ -928,7 +975,7 @@ public class FloatingActionButtonObjSt {
         return extendedIconLabelSpacing$LAYOUT;
     }
 
-    private static final long extendedIconLabelSpacing$OFFSET = 104;
+    private static final long extendedIconLabelSpacing$OFFSET = 112;
 
     /**
      * Offset for field:
@@ -972,7 +1019,7 @@ public class FloatingActionButtonObjSt {
         return extendedPadding$LAYOUT;
     }
 
-    private static final long extendedPadding$OFFSET = 112;
+    private static final long extendedPadding$OFFSET = 120;
 
     /**
      * Offset for field:
@@ -1016,7 +1063,7 @@ public class FloatingActionButtonObjSt {
         return extendedTextStyle$LAYOUT;
     }
 
-    private static final long extendedTextStyle$OFFSET = 120;
+    private static final long extendedTextStyle$OFFSET = 128;
 
     /**
      * Offset for field:

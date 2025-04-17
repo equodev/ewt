@@ -17,6 +17,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     DartObj color;
+ *     DartObj border;
  *     DartObj borderRadius;
  *     int backgroundBlendMode;
  *     int shape;
@@ -32,6 +33,7 @@ public class BoxDecorationObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("color"),
+        StarterBridge.C_INT.withName("border"),
         StarterBridge.C_INT.withName("borderRadius"),
         StarterBridge.C_INT.withName("backgroundBlendMode"),
         StarterBridge.C_INT.withName("shape")
@@ -132,6 +134,50 @@ public class BoxDecorationObjSt {
         struct.set(color$LAYOUT, color$OFFSET, fieldValue);
     }
 
+    private static final OfInt border$LAYOUT = (OfInt)$LAYOUT.select(groupElement("border"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj border
+     * }
+     */
+    public static final OfInt border$layout() {
+        return border$LAYOUT;
+    }
+
+    private static final long border$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj border
+     * }
+     */
+    public static final long border$offset() {
+        return border$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj border
+     * }
+     */
+    public static int border(MemorySegment struct) {
+        return struct.get(border$LAYOUT, border$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj border
+     * }
+     */
+    public static void border(MemorySegment struct, int fieldValue) {
+        struct.set(border$LAYOUT, border$OFFSET, fieldValue);
+    }
+
     private static final OfInt borderRadius$LAYOUT = (OfInt)$LAYOUT.select(groupElement("borderRadius"));
 
     /**
@@ -144,7 +190,7 @@ public class BoxDecorationObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 8;
+    private static final long borderRadius$OFFSET = 12;
 
     /**
      * Offset for field:
@@ -188,7 +234,7 @@ public class BoxDecorationObjSt {
         return backgroundBlendMode$LAYOUT;
     }
 
-    private static final long backgroundBlendMode$OFFSET = 12;
+    private static final long backgroundBlendMode$OFFSET = 16;
 
     /**
      * Offset for field:
@@ -232,7 +278,7 @@ public class BoxDecorationObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 16;
+    private static final long shape$OFFSET = 20;
 
     /**
      * Offset for field:

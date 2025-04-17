@@ -37,7 +37,7 @@ public class ThreePointCubicObjSt {
         StarterBridge.C_INT.withName("midpoint"),
         StarterBridge.C_INT.withName("a2"),
         StarterBridge.C_INT.withName("b2")
-    ).withName("$anon$199:9");
+    ).withName("$anon$204:9");
 
     /**
      * The layout of this struct

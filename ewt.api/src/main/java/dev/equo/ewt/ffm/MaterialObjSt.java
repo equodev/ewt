@@ -23,6 +23,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj shadowColor;
  *     DartObj surfaceTintColor;
  *     TextStyleObjSt textStyle;
+ *     DartObj shape;
  *     int borderOnForeground;
  *     int clipBehavior;
  *     DartObj borderRadius;
@@ -46,11 +47,11 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("surfaceTintColor"),
         MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("textStyle"),
+        StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("borderOnForeground"),
         StarterBridge.C_INT.withName("clipBehavior"),
-        StarterBridge.C_INT.withName("borderRadius"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$358:9");
+        StarterBridge.C_INT.withName("borderRadius")
+    ).withName("$anon$363:9");
 
     /**
      * The layout of this struct
@@ -411,6 +412,50 @@ public class MaterialObjSt {
         MemorySegment.copy(fieldValue, 0L, struct, textStyle$OFFSET, textStyle$LAYOUT.byteSize());
     }
 
+    private static final OfInt shape$LAYOUT = (OfInt)$LAYOUT.select(groupElement("shape"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final OfInt shape$layout() {
+        return shape$LAYOUT;
+    }
+
+    private static final long shape$OFFSET = 152;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final long shape$offset() {
+        return shape$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static int shape(MemorySegment struct) {
+        return struct.get(shape$LAYOUT, shape$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static void shape(MemorySegment struct, int fieldValue) {
+        struct.set(shape$LAYOUT, shape$OFFSET, fieldValue);
+    }
+
     private static final OfInt borderOnForeground$LAYOUT = (OfInt)$LAYOUT.select(groupElement("borderOnForeground"));
 
     /**
@@ -423,7 +468,7 @@ public class MaterialObjSt {
         return borderOnForeground$LAYOUT;
     }
 
-    private static final long borderOnForeground$OFFSET = 152;
+    private static final long borderOnForeground$OFFSET = 156;
 
     /**
      * Offset for field:
@@ -467,7 +512,7 @@ public class MaterialObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 156;
+    private static final long clipBehavior$OFFSET = 160;
 
     /**
      * Offset for field:
@@ -511,7 +556,7 @@ public class MaterialObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 160;
+    private static final long borderRadius$OFFSET = 164;
 
     /**
      * Offset for field:
