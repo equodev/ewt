@@ -16,6 +16,10 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     BorderSideObjSt top;
+ *     BorderSideObjSt right;
+ *     BorderSideObjSt bottom;
+ *     BorderSideObjSt left;
  * }
  * }
  */
@@ -26,8 +30,13 @@ public class BorderObjSt {
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$183:9");
+        StarterBridge.C_INT.withName("id"),
+        MemoryLayout.paddingLayout(4),
+        BorderSideObjSt.layout().withName("top"),
+        BorderSideObjSt.layout().withName("right"),
+        BorderSideObjSt.layout().withName("bottom"),
+        BorderSideObjSt.layout().withName("left")
+    ).withName("$anon$203:9");
 
     /**
      * The layout of this struct
@@ -78,6 +87,182 @@ public class BorderObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout top$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("top"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt top
+     * }
+     */
+    public static final GroupLayout top$layout() {
+        return top$LAYOUT;
+    }
+
+    private static final long top$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt top
+     * }
+     */
+    public static final long top$offset() {
+        return top$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt top
+     * }
+     */
+    public static MemorySegment top(MemorySegment struct) {
+        return struct.asSlice(top$OFFSET, top$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt top
+     * }
+     */
+    public static void top(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, top$OFFSET, top$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout right$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("right"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt right
+     * }
+     */
+    public static final GroupLayout right$layout() {
+        return right$LAYOUT;
+    }
+
+    private static final long right$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt right
+     * }
+     */
+    public static final long right$offset() {
+        return right$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt right
+     * }
+     */
+    public static MemorySegment right(MemorySegment struct) {
+        return struct.asSlice(right$OFFSET, right$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt right
+     * }
+     */
+    public static void right(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, right$OFFSET, right$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout bottom$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("bottom"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt bottom
+     * }
+     */
+    public static final GroupLayout bottom$layout() {
+        return bottom$LAYOUT;
+    }
+
+    private static final long bottom$OFFSET = 120;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt bottom
+     * }
+     */
+    public static final long bottom$offset() {
+        return bottom$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt bottom
+     * }
+     */
+    public static MemorySegment bottom(MemorySegment struct) {
+        return struct.asSlice(bottom$OFFSET, bottom$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt bottom
+     * }
+     */
+    public static void bottom(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, bottom$OFFSET, bottom$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout left$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("left"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt left
+     * }
+     */
+    public static final GroupLayout left$layout() {
+        return left$LAYOUT;
+    }
+
+    private static final long left$OFFSET = 176;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt left
+     * }
+     */
+    public static final long left$offset() {
+        return left$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt left
+     * }
+     */
+    public static MemorySegment left(MemorySegment struct) {
+        return struct.asSlice(left$OFFSET, left$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BorderSideObjSt left
+     * }
+     */
+    public static void left(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, left$OFFSET, left$LAYOUT.byteSize());
     }
 
     /**

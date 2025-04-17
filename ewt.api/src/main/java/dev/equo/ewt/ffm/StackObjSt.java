@@ -16,6 +16,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     DartObj alignment;
  *     int textDirection;
  *     int fit;
  *     int clipBehavior;
@@ -30,10 +31,11 @@ public class StackObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
+        StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_INT.withName("textDirection"),
         StarterBridge.C_INT.withName("fit"),
         StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$100:9");
+    ).withName("$anon$106:9");
 
     /**
      * The layout of this struct
@@ -86,6 +88,50 @@ public class StackObjSt {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
+    private static final OfInt alignment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("alignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final OfInt alignment$layout() {
+        return alignment$LAYOUT;
+    }
+
+    private static final long alignment$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final long alignment$offset() {
+        return alignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static int alignment(MemorySegment struct) {
+        return struct.get(alignment$LAYOUT, alignment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static void alignment(MemorySegment struct, int fieldValue) {
+        struct.set(alignment$LAYOUT, alignment$OFFSET, fieldValue);
+    }
+
     private static final OfInt textDirection$LAYOUT = (OfInt)$LAYOUT.select(groupElement("textDirection"));
 
     /**
@@ -98,7 +144,7 @@ public class StackObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 4;
+    private static final long textDirection$OFFSET = 8;
 
     /**
      * Offset for field:
@@ -142,7 +188,7 @@ public class StackObjSt {
         return fit$LAYOUT;
     }
 
-    private static final long fit$OFFSET = 8;
+    private static final long fit$OFFSET = 12;
 
     /**
      * Offset for field:
@@ -186,7 +232,7 @@ public class StackObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 12;
+    private static final long clipBehavior$OFFSET = 16;
 
     /**
      * Offset for field:

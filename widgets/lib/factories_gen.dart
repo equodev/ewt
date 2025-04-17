@@ -170,8 +170,9 @@ CenterObjSt _createCenterObjSt(Center? w) {
 void _setupAlign(WidgetFactories f) {
   f.align.align = ffi.Pointer.fromFunction(alignAlign);
 }
-AlignObjSt alignAlign(ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
-  final w = Align(widthFactor: widthFactor.doubleOrNul(),
+AlignObjSt alignAlign(ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
+  final w = Align(alignment: alignment.objOrNul(),
+      widthFactor: widthFactor.doubleOrNul(),
       heightFactor: heightFactor.doubleOrNul(),
       child: child.objOrNul());
   return _createAlignObjSt(w);
@@ -180,6 +181,7 @@ AlignObjSt _createAlignObjSt(Align? w) {
   final AlignObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  stObj.alignment = _addWidget(w.alignment);
   stObj.widthFactor = (w.widthFactor != null) ? w.widthFactor! : 0;
   stObj.heightFactor = (w.heightFactor != null) ? w.heightFactor! : 0;
   return stObj;
@@ -235,6 +237,27 @@ FlexObjSt _createFlexObjSt(Flex? w) {
   stObj.textBaseline = (w.textBaseline != null) ? w.textBaseline!.index : 0;
   stObj.clipBehavior = w.clipBehavior.index;
   stObj.spacing = w.spacing;
+  return stObj;
+}
+
+void _setupRow(WidgetFactories f) {
+  f.row.row = ffi.Pointer.fromFunction(rowRow);
+}
+RowObjSt rowRow(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ArrayC> children) {
+  final w = Row(mainAxisAlignment: mainAxisAlignment.enumOr(MainAxisAlignment.values, MainAxisAlignment.start),
+      mainAxisSize: mainAxisSize.enumOr(MainAxisSize.values, MainAxisSize.max),
+      crossAxisAlignment: crossAxisAlignment.enumOr(CrossAxisAlignment.values, CrossAxisAlignment.center),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      verticalDirection: verticalDirection.enumOr(VerticalDirection.values, VerticalDirection.down),
+      textBaseline: textBaseline.enumOrNul(TextBaseline.values),
+      spacing: spacing.doubleOr(0.0),
+      children: children.orEmpty());
+  return _createRowObjSt(w);
+}
+RowObjSt _createRowObjSt(Row? w) {
+  final RowObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
   return stObj;
 }
 
@@ -302,9 +325,10 @@ void _setupTransform(WidgetFactories f) {
   f.transform.scale = ffi.Pointer.fromFunction(transformScale);
   f.transform.flip = ffi.Pointer.fromFunction(transformFlip);
 }
-TransformObjSt transformRotate(double angle, ffi.Pointer<DartObj> origin, ffi.Pointer<ffi.Int> transformHitTests, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
+TransformObjSt transformRotate(double angle, ffi.Pointer<DartObj> origin, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> transformHitTests, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
   final w = Transform.rotate(angle: angle,
       origin: origin.objOrNul(),
+      alignment: alignment.objOrNul(),
       transformHitTests: transformHitTests.boolOr(true),
       filterQuality: filterQuality.enumOrNul(FilterQuality.values),
       child: child.objOrNul());
@@ -317,11 +341,12 @@ TransformObjSt transformTranslate(DartDartObj offset, ffi.Pointer<ffi.Int> trans
       child: child.objOrNul());
   return _createTransformObjSt(w);
 }
-TransformObjSt transformScale(ffi.Pointer<ffi.Double> scale, ffi.Pointer<ffi.Double> scaleX, ffi.Pointer<ffi.Double> scaleY, ffi.Pointer<DartObj> origin, ffi.Pointer<ffi.Int> transformHitTests, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
+TransformObjSt transformScale(ffi.Pointer<ffi.Double> scale, ffi.Pointer<ffi.Double> scaleX, ffi.Pointer<ffi.Double> scaleY, ffi.Pointer<DartObj> origin, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> transformHitTests, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
   final w = Transform.scale(scale: scale.doubleOrNul(),
       scaleX: scaleX.doubleOrNul(),
       scaleY: scaleY.doubleOrNul(),
       origin: origin.objOrNul(),
+      alignment: alignment.objOrNul(),
       transformHitTests: transformHitTests.boolOr(true),
       filterQuality: filterQuality.enumOrNul(FilterQuality.values),
       child: child.objOrNul());
@@ -341,6 +366,7 @@ TransformObjSt _createTransformObjSt(Transform? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.origin = _addWidget(w.origin);
+  stObj.alignment = _addWidget(w.alignment);
   stObj.transformHitTests = w.transformHitTests.toInt();
   stObj.filterQuality = (w.filterQuality != null) ? w.filterQuality!.index : 0;
   return stObj;
@@ -389,8 +415,9 @@ OpacityObjSt _createOpacityObjSt(Opacity? w) {
 void _setupStack(WidgetFactories f) {
   f.stack.stack = ffi.Pointer.fromFunction(stackStack);
 }
-StackObjSt stackStack(ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> fit, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ArrayC> children) {
-  final w = Stack(textDirection: textDirection.enumOrNul(TextDirection.values),
+StackObjSt stackStack(ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> fit, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ArrayC> children) {
+  final w = Stack(alignment: alignment.objOrNul(),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
       fit: fit.enumOr(StackFit.values, StackFit.loose),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
       children: children.orEmpty());
@@ -400,6 +427,7 @@ StackObjSt _createStackObjSt(Stack? w) {
   final StackObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  stObj.alignment = _addWidget(w.alignment);
   stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
   stObj.fit = w.fit.index;
   stObj.clipBehavior = w.clipBehavior.index;
@@ -461,8 +489,9 @@ BoxConstraintsObjSt _createBoxConstraintsObjSt(BoxConstraints? w) {
 void _setupContainer(WidgetFactories f) {
   f.container.container = ffi.Pointer.fromFunction(containerContainer);
 }
-ContainerObjSt containerContainer(ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> foregroundDecoration, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> clipBehavior) {
-  final w = Container(padding: padding.objOrNul(),
+ContainerObjSt containerContainer(ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> foregroundDecoration, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> transformAlignment, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> clipBehavior) {
+  final w = Container(alignment: alignment.objOrNul(),
+      padding: padding.objOrNul(),
       color: color.objOrNul(),
       decoration: decoration.objOrNul(),
       foregroundDecoration: foregroundDecoration.objOrNul(),
@@ -470,6 +499,7 @@ ContainerObjSt containerContainer(ffi.Pointer<DartObj> padding, ffi.Pointer<Dart
       height: height.doubleOrNul(),
       constraints: constraints.objOrNul(),
       margin: margin.objOrNul(),
+      transformAlignment: transformAlignment.objOrNul(),
       child: child.objOrNul(),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none));
   return _createContainerObjSt(w);
@@ -479,12 +509,14 @@ ContainerObjSt _createContainerObjSt(Container? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.child = _addWidget(w.child);
+  stObj.alignment = _addWidget(w.alignment);
   stObj.padding = _addWidget(w.padding);
   stObj.color = _addWidget(w.color);
   stObj.decoration = _addWidget(w.decoration);
   stObj.foregroundDecoration = _addWidget(w.foregroundDecoration);
   stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
   stObj.margin = _addWidget(w.margin);
+  stObj.transformAlignment = _addWidget(w.transformAlignment);
   stObj.clipBehavior = w.clipBehavior.index;
   return stObj;
 }
@@ -773,19 +805,65 @@ EdgeInsetsObjSt _createEdgeInsetsObjSt(EdgeInsets? w) {
   return stObj;
 }
 
+void _setupBorderSide(WidgetFactories f) {
+  f.borderSide.borderSide = ffi.Pointer.fromFunction(borderSideBorderSide);
+  f.borderSide.merge = ffi.Pointer.fromFunction(borderSideMerge);
+  f.borderSide.lerp = ffi.Pointer.fromFunction(borderSideLerp);
+}
+BorderSideObjSt borderSideBorderSide(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Int> style, ffi.Pointer<ffi.Double> strokeAlign) {
+  final w = BorderSide(color: color.objOrNul(),
+      width: width.doubleOr(1.0),
+      style: style.enumOr(BorderStyle.values, BorderStyle.solid),
+      strokeAlign: strokeAlign.doubleOr(BorderSide.strokeAlignInside));
+  return _createBorderSideObjSt(w);
+}
+BorderSideObjSt borderSideMerge(DartDartObj a, DartDartObj b) {
+  final w = BorderSide.merge(_widgetsMap[a]! as BorderSide,
+      _widgetsMap[b]! as BorderSide);
+  return _createBorderSideObjSt(w);
+}
+BorderSideObjSt borderSideLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = BorderSide.lerp(_widgetsMap[a]! as BorderSide,
+      _widgetsMap[b]! as BorderSide,
+      t);
+  return _createBorderSideObjSt(w);
+}
+BorderSideObjSt _createBorderSideObjSt(BorderSide? w) {
+  final BorderSideObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.width = w.width;
+  stObj.style = w.style.index;
+  stObj.strokeAlign = w.strokeAlign;
+  stObj.strokeInset = w.strokeInset;
+  stObj.strokeOutset = w.strokeOutset;
+  stObj.strokeOffset = w.strokeOffset;
+  return stObj;
+}
+
 void _setupBorder(WidgetFactories f) {
   f.border.border = ffi.Pointer.fromFunction(borderBorder);
+  f.border.fromBorderSide = ffi.Pointer.fromFunction(borderFromBorderSide);
   f.border.symmetric = ffi.Pointer.fromFunction(borderSymmetric);
   f.border.all = ffi.Pointer.fromFunction(borderAll);
   f.border.merge = ffi.Pointer.fromFunction(borderMerge);
   f.border.lerp = ffi.Pointer.fromFunction(borderLerp);
 }
-BorderObjSt borderBorder() {
-  final w = Border();
+BorderObjSt borderBorder(ffi.Pointer<DartObj> top, ffi.Pointer<DartObj> right, ffi.Pointer<DartObj> bottom, ffi.Pointer<DartObj> left) {
+  final w = Border(top: top.objOrNul(),
+      right: right.objOrNul(),
+      bottom: bottom.objOrNul(),
+      left: left.objOrNul());
   return _createBorderObjSt(w);
 }
-BorderObjSt borderSymmetric() {
-  final w = Border.symmetric();
+BorderObjSt borderFromBorderSide(DartDartObj side) {
+  final w = Border.fromBorderSide(_widgetsMap[side]! as BorderSide);
+  return _createBorderObjSt(w);
+}
+BorderObjSt borderSymmetric(ffi.Pointer<DartObj> vertical, ffi.Pointer<DartObj> horizontal) {
+  final w = Border.symmetric(vertical: vertical.objOrNul(),
+      horizontal: horizontal.objOrNul());
   return _createBorderObjSt(w);
 }
 BorderObjSt borderAll(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Int> style, ffi.Pointer<ffi.Double> strokeAlign) {
@@ -810,6 +888,26 @@ BorderObjSt _createBorderObjSt(Border? w) {
   final BorderObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  stObj.top = _createBorderSideObjSt(w.top);
+  stObj.right = _createBorderSideObjSt(w.right);
+  stObj.bottom = _createBorderSideObjSt(w.bottom);
+  stObj.left = _createBorderSideObjSt(w.left);
+  return stObj;
+}
+
+void _setupRoundedRectangleBorder(WidgetFactories f) {
+  f.roundedRectangleBorder.roundedRectangleBorder = ffi.Pointer.fromFunction(roundedRectangleBorderRoundedRectangleBorder);
+}
+RoundedRectangleBorderObjSt roundedRectangleBorderRoundedRectangleBorder(ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> borderRadius) {
+  final w = RoundedRectangleBorder(side: side.objOrNul(),
+      borderRadius: borderRadius.objOrNul());
+  return _createRoundedRectangleBorderObjSt(w);
+}
+RoundedRectangleBorderObjSt _createRoundedRectangleBorderObjSt(RoundedRectangleBorder? w) {
+  final RoundedRectangleBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.borderRadius = _addWidget(w.borderRadius);
   return stObj;
 }
 
@@ -1002,6 +1100,30 @@ SizedBoxObjSt _createSizedBoxObjSt(SizedBox? w) {
   if (w == null) return stObj;
   stObj.width = (w.width != null) ? w.width! : 0;
   stObj.height = (w.height != null) ? w.height! : 0;
+  return stObj;
+}
+
+void _setupAlignment(WidgetFactories f) {
+  f.alignment.alignment = ffi.Pointer.fromFunction(alignmentAlignment);
+  f.alignment.lerp = ffi.Pointer.fromFunction(alignmentLerp);
+}
+AlignmentObjSt alignmentAlignment(double x, double y) {
+  final w = Alignment(x,
+      y);
+  return _createAlignmentObjSt(w);
+}
+AlignmentObjSt? alignmentLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = Alignment.lerp(_widgetsMap[a]! as Alignment?,
+      _widgetsMap[b]! as Alignment?,
+      t);
+  return w != null ? _createAlignmentObjSt(w) : null;
+}
+AlignmentObjSt _createAlignmentObjSt(Alignment? w) {
+  final AlignmentObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.x = w.x;
+  stObj.y = w.y;
   return stObj;
 }
 
@@ -1687,9 +1809,10 @@ void _setupIconButton(WidgetFactories f) {
   f.iconButton.filledTonal = ffi.Pointer.fromFunction(iconButtonFilledTonal);
   f.iconButton.outlined = ffi.Pointer.fromFunction(iconButtonOutlined);
 }
-IconButtonObjSt iconButtonIconButton(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonIconButton(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton(iconSize: iconSize.doubleOrNul(),
       padding: padding.objOrNul(),
+      alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
       color: color.objOrNul(),
       focusColor: focusColor.objOrNul(),
@@ -1709,9 +1832,10 @@ IconButtonObjSt iconButtonIconButton(ffi.Pointer<ffi.Double> iconSize, ffi.Point
       icon: _widgetsMap[icon]! as Widget);
   return _createIconButtonObjSt(w);
 }
-IconButtonObjSt iconButtonFilled(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonFilled(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton.filled(iconSize: iconSize.doubleOrNul(),
       padding: padding.objOrNul(),
+      alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
       color: color.objOrNul(),
       focusColor: focusColor.objOrNul(),
@@ -1731,9 +1855,10 @@ IconButtonObjSt iconButtonFilled(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<D
       icon: _widgetsMap[icon]! as Widget);
   return _createIconButtonObjSt(w);
 }
-IconButtonObjSt iconButtonFilledTonal(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonFilledTonal(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton.filledTonal(iconSize: iconSize.doubleOrNul(),
       padding: padding.objOrNul(),
+      alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
       color: color.objOrNul(),
       focusColor: focusColor.objOrNul(),
@@ -1753,9 +1878,10 @@ IconButtonObjSt iconButtonFilledTonal(ffi.Pointer<ffi.Double> iconSize, ffi.Poin
       icon: _widgetsMap[icon]! as Widget);
   return _createIconButtonObjSt(w);
 }
-IconButtonObjSt iconButtonOutlined(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonOutlined(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton.outlined(iconSize: iconSize.doubleOrNul(),
       padding: padding.objOrNul(),
+      alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
       color: color.objOrNul(),
       focusColor: focusColor.objOrNul(),
@@ -1781,6 +1907,7 @@ IconButtonObjSt _createIconButtonObjSt(IconButton? w) {
   if (w == null) return stObj;
   stObj.iconSize = (w.iconSize != null) ? w.iconSize! : 0;
   stObj.padding = _addWidget(w.padding);
+  stObj.alignment = _addWidget(w.alignment);
   stObj.splashRadius = (w.splashRadius != null) ? w.splashRadius! : 0;
   stObj.icon = _addWidget(w.icon);
   stObj.focusColor = _addWidget(w.focusColor);
@@ -2175,6 +2302,39 @@ ElevatedButtonObjSt _createElevatedButtonObjSt(ElevatedButton? w) {
   return stObj;
 }
 
+void _setupOutlinedButton(WidgetFactories f) {
+  f.outlinedButton.outlinedButton = ffi.Pointer.fromFunction(outlinedButtonOutlinedButton);
+  f.outlinedButton.icon = ffi.Pointer.fromFunction(outlinedButtonIcon);
+}
+OutlinedButtonObjSt outlinedButtonOutlinedButton(VoidCallbackFFI onPressed, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> clipBehavior, DartDartObj child) {
+  final w = OutlinedButton(onPressed: onPressed.toVoidCallbackFn(),
+      onLongPress: onLongPress.toVoidCallbackFn(),
+      onHover: onHover.toValueChangedForBoolFn(),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      autofocus: autofocus.boolOr(false),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      child: _widgetsMap[child]! as Widget?);
+  return _createOutlinedButtonObjSt(w);
+}
+OutlinedButtonObjSt outlinedButtonIcon(VoidCallbackFFI onPressed, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> icon, DartDartObj label, ffi.Pointer<ffi.Int> iconAlignment) {
+  final w = OutlinedButton.icon(onPressed: onPressed.toVoidCallbackFn(),
+      onLongPress: onLongPress.toVoidCallbackFn(),
+      onHover: onHover.toValueChangedForBoolFn(),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      autofocus: autofocus.boolOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      icon: icon.objOrNul(),
+      label: _widgetsMap[label]! as Widget,
+      iconAlignment: iconAlignment.enumOrNul(IconAlignment.values));
+  return _createOutlinedButtonObjSt(w);
+}
+OutlinedButtonObjSt _createOutlinedButtonObjSt(OutlinedButton? w) {
+  final OutlinedButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -2225,6 +2385,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupText(f);
   _setupCenter(f);
   _setupColumn(f);
+  _setupRow(f);
   _setupIconData(f);
   _setupIcon(f);
   _setupColor(f);
@@ -2241,7 +2402,9 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupBoxShadow(f);
   _setupPadding(f);
   _setupEdgeInsets(f);
+  _setupBorderSide(f);
   _setupBorder(f);
+  _setupRoundedRectangleBorder(f);
   _setupAnimationController(f);
   _setupAnimatedBuilder(f);
   _setupOffset(f);
@@ -2252,6 +2415,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupElasticInOutCurve(f);
   _setupCurvedAnimation(f);
   _setupSizedBox(f);
+  _setupAlignment(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupThemeData(f);
@@ -2265,6 +2429,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupFloatingActionButton(f);
   _setupTheme(f);
   _setupElevatedButton(f);
+  _setupOutlinedButton(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

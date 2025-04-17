@@ -18,6 +18,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int id;
  *     double iconSize;
  *     DartObj padding;
+ *     DartObj alignment;
  *     double splashRadius;
  *     DartObj icon;
  *     DartObj focusColor;
@@ -46,7 +47,7 @@ public class IconButtonObjSt {
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("iconSize"),
         StarterBridge.C_INT.withName("padding"),
-        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_DOUBLE.withName("splashRadius"),
         StarterBridge.C_INT.withName("icon"),
         StarterBridge.C_INT.withName("focusColor"),
@@ -62,7 +63,7 @@ public class IconButtonObjSt {
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("isSelected"),
         StarterBridge.C_INT.withName("selectedIcon")
-    ).withName("$anon$378:9");
+    ).withName("$anon$413:9");
 
     /**
      * The layout of this struct
@@ -201,6 +202,50 @@ public class IconButtonObjSt {
      */
     public static void padding(MemorySegment struct, int fieldValue) {
         struct.set(padding$LAYOUT, padding$OFFSET, fieldValue);
+    }
+
+    private static final OfInt alignment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("alignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final OfInt alignment$layout() {
+        return alignment$LAYOUT;
+    }
+
+    private static final long alignment$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final long alignment$offset() {
+        return alignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static int alignment(MemorySegment struct) {
+        return struct.get(alignment$LAYOUT, alignment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static void alignment(MemorySegment struct, int fieldValue) {
+        struct.set(alignment$LAYOUT, alignment$OFFSET, fieldValue);
     }
 
     private static final OfDouble splashRadius$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("splashRadius"));

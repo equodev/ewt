@@ -23,7 +23,7 @@ typedef struct {
   } center;
 
   struct AlignSt {
-    AlignObjSt (*align)(double* widthFactor, double* heightFactor, DartObj* child);
+    AlignObjSt (*align)(DartObj* alignment, double* widthFactor, double* heightFactor, DartObj* child);
   } align;
 
   struct ColumnSt {
@@ -34,6 +34,10 @@ typedef struct {
     FlexObjSt (*flex)(int direction, int* mainAxisAlignment, int* mainAxisSize, int* crossAxisAlignment, int* textDirection, int* verticalDirection, int* textBaseline, int* clipBehavior, double* spacing, ArrayC* children);
   } flex;
 
+  struct RowSt {
+    RowObjSt (*row)(int* mainAxisAlignment, int* mainAxisSize, int* crossAxisAlignment, int* textDirection, int* verticalDirection, int* textBaseline, double* spacing, ArrayC* children);
+  } row;
+
   struct IconDataSt {
     IconDataObjSt (*iconData)(int codePoint, char* fontFamily, char* fontPackage, int* matchTextDirection, char*** fontFamilyFallback);
   } iconData;
@@ -43,9 +47,9 @@ typedef struct {
   } icon;
 
   struct TransformSt {
-    TransformObjSt (*rotate)(double angle, DartObj* origin, int* transformHitTests, int* filterQuality, DartObj* child);
+    TransformObjSt (*rotate)(double angle, DartObj* origin, DartObj* alignment, int* transformHitTests, int* filterQuality, DartObj* child);
     TransformObjSt (*translate)(DartObj offset, int* transformHitTests, int* filterQuality, DartObj* child);
-    TransformObjSt (*scale)(double* scale, double* scaleX, double* scaleY, DartObj* origin, int* transformHitTests, int* filterQuality, DartObj* child);
+    TransformObjSt (*scale)(double* scale, double* scaleX, double* scaleY, DartObj* origin, DartObj* alignment, int* transformHitTests, int* filterQuality, DartObj* child);
     TransformObjSt (*flip)(int* flipX, int* flipY, DartObj* origin, int* transformHitTests, int* filterQuality, DartObj* child);
   } transform;
 
@@ -60,7 +64,7 @@ typedef struct {
   } opacity;
 
   struct StackSt {
-    StackObjSt (*stack)(int* textDirection, int* fit, int* clipBehavior, ArrayC* children);
+    StackObjSt (*stack)(DartObj* alignment, int* textDirection, int* fit, int* clipBehavior, ArrayC* children);
   } stack;
 
   struct BoxConstraintsSt {
@@ -72,7 +76,7 @@ typedef struct {
   } boxConstraints;
 
   struct ContainerSt {
-    ContainerObjSt (*container)(DartObj* padding, DartObj* color, DartObj* decoration, DartObj* foregroundDecoration, double* width, double* height, DartObj* constraints, DartObj* margin, DartObj* child, int* clipBehavior);
+    ContainerObjSt (*container)(DartObj* alignment, DartObj* padding, DartObj* color, DartObj* decoration, DartObj* foregroundDecoration, double* width, double* height, DartObj* constraints, DartObj* margin, DartObj* transformAlignment, DartObj* child, int* clipBehavior);
   } container;
 
   struct StackParentDataSt {
@@ -135,13 +139,24 @@ typedef struct {
     EdgeInsetsObjSt (*lerp)(DartObj a, DartObj b, double t);
   } edgeInsets;
 
+  struct BorderSideSt {
+    BorderSideObjSt (*borderSide)(DartObj* color, double* width, int* style, double* strokeAlign);
+    BorderSideObjSt (*merge)(DartObj a, DartObj b);
+    BorderSideObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } borderSide;
+
   struct BorderSt {
-    BorderObjSt (*border)(void);
-    BorderObjSt (*symmetric)(void);
+    BorderObjSt (*border)(DartObj* top, DartObj* right, DartObj* bottom, DartObj* left);
+    BorderObjSt (*fromBorderSide)(DartObj side);
+    BorderObjSt (*symmetric)(DartObj* vertical, DartObj* horizontal);
     BorderObjSt (*all)(DartObj* color, double* width, int* style, double* strokeAlign);
     BorderObjSt (*merge)(DartObj a, DartObj b);
     BorderObjSt (*lerp)(DartObj a, DartObj b, double t);
   } border;
+
+  struct RoundedRectangleBorderSt {
+    RoundedRectangleBorderObjSt (*roundedRectangleBorder)(DartObj* side, DartObj* borderRadius);
+  } roundedRectangleBorder;
 
   struct AnimationControllerSt {
     DartObj (*animationController)(double* value, char* debugLabel, double* lowerBound, double* upperBound, int* animationBehavior, DartObj vsync);
@@ -187,6 +202,11 @@ typedef struct {
     SizedBoxObjSt (*fromSize)(DartObj* child);
     SizedBoxObjSt (*square)(DartObj* child, double* dimension);
   } sizedBox;
+
+  struct AlignmentSt {
+    AlignmentObjSt (*alignment)(double x, double y);
+    AlignmentObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } alignment;
 
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
@@ -235,10 +255,10 @@ typedef struct {
   } material;
 
   struct IconButtonSt {
-    IconButtonObjSt (*iconButton)(double* iconSize, DartObj* padding, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
-    IconButtonObjSt (*filled)(double* iconSize, DartObj* padding, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
-    IconButtonObjSt (*filledTonal)(double* iconSize, DartObj* padding, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
-    IconButtonObjSt (*outlined)(double* iconSize, DartObj* padding, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*iconButton)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*filled)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*filledTonal)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*outlined)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
   } iconButton;
 
   struct AppBarSt {
@@ -271,6 +291,11 @@ typedef struct {
     ElevatedButtonObjSt (*elevatedButton)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj child);
     ElevatedButtonObjSt (*icon)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj* icon, DartObj label, int* iconAlignment);
   } elevatedButton;
+
+  struct OutlinedButtonSt {
+    OutlinedButtonObjSt (*outlinedButton)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj child);
+    OutlinedButtonObjSt (*icon)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj* icon, DartObj label, int* iconAlignment);
+  } outlinedButton;
 
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);

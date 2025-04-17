@@ -127,7 +127,7 @@ public class ColorSchemeObjSt {
         StarterBridge.C_INT.withName("surfaceTint"),
         StarterBridge.C_INT.withName("background"),
         StarterBridge.C_INT.withName("onBackground")
-    ).withName("$anon$234:9");
+    ).withName("$anon$269:9");
 
     /**
      * The layout of this struct

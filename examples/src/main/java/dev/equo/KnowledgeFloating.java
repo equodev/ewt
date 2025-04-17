@@ -307,8 +307,8 @@ class ActionPopupState extends SubState<ActionPopup> implements SingleTickerProv
                                                                 .style(
                                                                     TextStyle()
                                                                         .color(Colors.white())
-                                                                        .fontWeight(
-                                                                            FontWeight.bold())
+                                                                        /*.fontWeight(
+                                                                            FontWeight.bold()*/)
                                                                         .fontSize(13))))))))),
                     Positioned()
                         .left(-8)

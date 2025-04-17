@@ -14,8 +14,11 @@ public class Border extends BoxBorder implements BorderI {
     System.out.println("New Border id:"+id);
   }
   @Builder.Factory
-  static Border borderBorder() {
-    var st = factories.borderBorder();
+  static Border borderBorder(Optional<BorderSideI> top, Optional<BorderSideI> right, Optional<BorderSideI> bottom, Optional<BorderSideI> left) {
+    var st = factories.borderBorder(top.map(BorderSideI::build),
+      right.map(BorderSideI::build),
+      bottom.map(BorderSideI::build),
+      left.map(BorderSideI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Border");
     return new Border(st);
   }
@@ -23,8 +26,18 @@ public class Border extends BoxBorder implements BorderI {
     return BorderBorderBuilder.borderBorder();
   }
   @Builder.Factory
-  static Border borderSymmetric() {
-    var st = factories.borderSymmetric();
+  static Border borderFromBorderSide(@Builder.Parameter BorderSideI side) {
+    var st = factories.borderFromBorderSide(side.build());
+    if (st == null) throw new RuntimeException("Failed to created widget Border");
+    return new Border(st);
+  }
+  public static BorderFromBorderSideBuilder fromBorderSide(BorderSideI side) {
+    return BorderFromBorderSideBuilder.borderFromBorderSide(side);
+  }
+  @Builder.Factory
+  static Border borderSymmetric(Optional<BorderSideI> vertical, Optional<BorderSideI> horizontal) {
+    var st = factories.borderSymmetric(vertical.map(BorderSideI::build),
+      horizontal.map(BorderSideI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Border");
     return new Border(st);
   }
@@ -55,6 +68,18 @@ public class Border extends BoxBorder implements BorderI {
       t);
     if (st == null) throw new RuntimeException("Failed to created widget Border");
     return new Border(st);
+  }
+  public BorderSide top() {
+    return new BorderSide(BorderObjSt.top(st));
+  }
+  public BorderSide right() {
+    return new BorderSide(BorderObjSt.right(st));
+  }
+  public BorderSide bottom() {
+    return new BorderSide(BorderObjSt.bottom(st));
+  }
+  public BorderSide left() {
+    return new BorderSide(BorderObjSt.left(st));
   }
   @Override
   public Border build() {

@@ -14,8 +14,9 @@ public class Container extends StatelessWidget implements ContainerI {
     System.out.println("New Container id:"+id);
   }
   @Builder.Factory
-  static Container containerContainer(Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<DecorationI> decoration, Optional<DecorationI> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> margin, Optional<WidgetI> child, Optional<Clip> clipBehavior) {
-    var st = factories.containerContainer(padding.map(EdgeInsetsGeometryI::build),
+  static Container containerContainer(Optional<AlignmentGeometryI> alignment, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<DecorationI> decoration, Optional<DecorationI> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> margin, Optional<AlignmentGeometryI> transformAlignment, Optional<WidgetI> child, Optional<Clip> clipBehavior) {
+    var st = factories.containerContainer(alignment.map(AlignmentGeometryI::build),
+      padding.map(EdgeInsetsGeometryI::build),
       color.map(ColorI::build),
       decoration.map(DecorationI::build),
       foregroundDecoration.map(DecorationI::build),
@@ -23,6 +24,7 @@ public class Container extends StatelessWidget implements ContainerI {
       height,
       constraints.map(BoxConstraintsI::build),
       margin.map(EdgeInsetsGeometryI::build),
+      transformAlignment.map(AlignmentGeometryI::build),
       child.map(WidgetI::build),
       clipBehavior);
     if (st == null) throw new RuntimeException("Failed to created widget Container");
@@ -33,6 +35,9 @@ public class Container extends StatelessWidget implements ContainerI {
   }
   public Widget child() {
     return new Widget(ContainerObjSt.child(st)) {};
+  }
+  public AlignmentGeometry alignment() {
+    return new AlignmentGeometry(ContainerObjSt.alignment(st)) {};
   }
   public EdgeInsetsGeometry padding() {
     return new EdgeInsetsGeometry(ContainerObjSt.padding(st)) {};
@@ -51,6 +56,9 @@ public class Container extends StatelessWidget implements ContainerI {
   }
   public EdgeInsetsGeometry margin() {
     return new EdgeInsetsGeometry(ContainerObjSt.margin(st)) {};
+  }
+  public AlignmentGeometry transformAlignment() {
+    return new AlignmentGeometry(ContainerObjSt.transformAlignment(st)) {};
   }
   public Clip clipBehavior() {
     return Clip.values()[ContainerObjSt.clipBehavior(st)];

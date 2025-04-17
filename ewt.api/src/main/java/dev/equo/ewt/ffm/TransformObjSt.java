@@ -17,6 +17,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     DartObj origin;
+ *     DartObj alignment;
  *     int transformHitTests;
  *     int filterQuality;
  * }
@@ -31,9 +32,10 @@ public class TransformObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("origin"),
+        StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_INT.withName("transformHitTests"),
         StarterBridge.C_INT.withName("filterQuality")
-    ).withName("$anon$87:9");
+    ).withName("$anon$92:9");
 
     /**
      * The layout of this struct
@@ -130,6 +132,50 @@ public class TransformObjSt {
         struct.set(origin$LAYOUT, origin$OFFSET, fieldValue);
     }
 
+    private static final OfInt alignment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("alignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final OfInt alignment$layout() {
+        return alignment$LAYOUT;
+    }
+
+    private static final long alignment$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final long alignment$offset() {
+        return alignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static int alignment(MemorySegment struct) {
+        return struct.get(alignment$LAYOUT, alignment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static void alignment(MemorySegment struct, int fieldValue) {
+        struct.set(alignment$LAYOUT, alignment$OFFSET, fieldValue);
+    }
+
     private static final OfInt transformHitTests$LAYOUT = (OfInt)$LAYOUT.select(groupElement("transformHitTests"));
 
     /**
@@ -142,7 +188,7 @@ public class TransformObjSt {
         return transformHitTests$LAYOUT;
     }
 
-    private static final long transformHitTests$OFFSET = 8;
+    private static final long transformHitTests$OFFSET = 12;
 
     /**
      * Offset for field:
@@ -186,7 +232,7 @@ public class TransformObjSt {
         return filterQuality$LAYOUT;
     }
 
-    private static final long filterQuality$OFFSET = 12;
+    private static final long filterQuality$OFFSET = 16;
 
     /**
      * Offset for field:

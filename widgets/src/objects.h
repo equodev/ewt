@@ -40,6 +40,7 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj alignment;
   double widthFactor;
   double heightFactor;
 } AlignObjSt;
@@ -60,6 +61,10 @@ typedef struct {
   int clipBehavior;
   double spacing;
 } FlexObjSt;
+
+typedef struct {
+  int id;
+} RowObjSt;
 
 typedef struct {
   int id;
@@ -87,6 +92,7 @@ typedef struct {
 typedef struct {
   int id;
   DartObj origin;
+  DartObj alignment;
   int transformHitTests;
   int filterQuality;
 } TransformObjSt;
@@ -99,6 +105,7 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj alignment;
   int textDirection;
   int fit;
   int clipBehavior;
@@ -121,12 +128,14 @@ typedef struct {
 typedef struct {
   int id;
   DartObj child;
+  DartObj alignment;
   DartObj padding;
   DartObj color;
   DartObj decoration;
   DartObj foregroundDecoration;
   BoxConstraintsObjSt constraints;
   DartObj margin;
+  DartObj transformAlignment;
   int clipBehavior;
 } ContainerObjSt;
 
@@ -182,7 +191,27 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj color;
+  double width;
+  int style;
+  double strokeAlign;
+  double strokeInset;
+  double strokeOutset;
+  double strokeOffset;
+} BorderSideObjSt;
+
+typedef struct {
+  int id;
+  BorderSideObjSt top;
+  BorderSideObjSt right;
+  BorderSideObjSt bottom;
+  BorderSideObjSt left;
 } BorderObjSt;
+
+typedef struct {
+  int id;
+  DartObj borderRadius;
+} RoundedRectangleBorderObjSt;
 
 typedef struct {
   int id;
@@ -230,6 +259,12 @@ typedef struct {
   double width;
   double height;
 } SizedBoxObjSt;
+
+typedef struct {
+  int id;
+  double x;
+  double y;
+} AlignmentObjSt;
 
 typedef struct {
   int id;
@@ -379,6 +414,7 @@ typedef struct {
   int id;
   double iconSize;
   DartObj padding;
+  DartObj alignment;
   double splashRadius;
   DartObj icon;
   DartObj focusColor;
@@ -501,6 +537,10 @@ typedef struct {
 typedef struct {
   int id;
 } ElevatedButtonObjSt;
+
+typedef struct {
+  int id;
+} OutlinedButtonObjSt;
 
 typedef struct {
   int id;

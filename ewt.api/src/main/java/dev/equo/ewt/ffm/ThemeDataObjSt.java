@@ -80,7 +80,7 @@ public class ThemeDataObjSt {
         TextThemeObjSt.layout().withName("textTheme"),
         StarterBridge.C_INT.withName("dialogBackgroundColor"),
         StarterBridge.C_INT.withName("brightness")
-    ).withName("$anon$325:9");
+    ).withName("$anon$360:9");
 
     /**
      * The layout of this struct

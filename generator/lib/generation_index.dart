@@ -11,6 +11,7 @@ w.Text? text;
 w.InlineSpan? inlineSpan;
 w.Center? center;
 w.Column? column;
+w.Row? row;
 w.IconData? iconData;
 w.Icon? icon;
 w.BuildContext? buildContext;
@@ -30,7 +31,9 @@ w.BorderRadius? borderRadius;
 w.BoxShadow? boxShadow;
 w.Padding? padding;
 w.EdgeInsets? edgeInsets;
+w.BorderSide? borderSide;
 w.Border? border;
+w.RoundedRectangleBorder? roundedRectangleBorder;
 w.TickerProvider? tickerProvider;
 w.AnimationController? animationController;
 w.AnimatedBuilder? animatedBuilder;
@@ -44,6 +47,8 @@ w.ElasticInOutCurve? elasticInOutCurve;
 w.Curves? curves;
 w.CurvedAnimation? curvedAnimation;
 w.SizedBox? sizedBox;
+w.Alignment? alignment;
+// w.FontWeight? fontWeight; constants accessing privates
 
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;
@@ -60,6 +65,7 @@ m.FloatingActionButton? floatingActionButton;
 m.Icons? icons;
 m.Theme? theme;
 m.ElevatedButton? elevatedButton;
+m.OutlinedButton? outlinedButton;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;

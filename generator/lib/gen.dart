@@ -1116,7 +1116,7 @@ class Params {
         }
         else if (t.isDartCoreDouble) {
           if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.doubleOr(${param.defaultValueCode})';
+            value = '${param.name}.doubleOr(${defaultDoubleCode(param)})';
           } else {
             value = '${param.name}.doubleOrNul()';
           }
@@ -1170,6 +1170,16 @@ class Params {
       value = '${param.name}: $value';
     }
     return value;
+  }
+
+  static String? defaultDoubleCode(ParameterElement param) {
+    var defaultValue = param.defaultValueCode!;
+    if (double.tryParse(defaultValue) != null) {
+      return param.defaultValueCode;
+    }
+    if (defaultValue.contains('.'))
+      return defaultValue;
+    return '${param.thisOrAncestorOfType<ClassElement>()!.name}.$defaultValue';
   }
 
   static String paramValueDtoC(Types ctx, ParameterElement param) {

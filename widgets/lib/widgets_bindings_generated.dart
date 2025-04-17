@@ -118,6 +118,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external FlexSt flex;
 
+  external RowSt row;
+
   external IconDataSt iconData;
 
   external IconSt icon;
@@ -156,7 +158,11 @@ final class WidgetFactories extends ffi.Struct {
 
   external EdgeInsetsSt edgeInsets;
 
+  external BorderSideSt borderSide;
+
   external BorderSt border;
+
+  external RoundedRectangleBorderSt roundedRectangleBorder;
 
   external AnimationControllerSt animationController;
 
@@ -177,6 +183,8 @@ final class WidgetFactories extends ffi.Struct {
   external CurvedAnimationSt curvedAnimation;
 
   external SizedBoxSt sizedBox;
+
+  external AlignmentSt alignment;
 
   external ColorSchemeSt colorScheme;
 
@@ -205,6 +213,8 @@ final class WidgetFactories extends ffi.Struct {
   external ThemeSt theme;
 
   external ElevatedButtonSt elevatedButton;
+
+  external OutlinedButtonSt outlinedButton;
 
   external SubStateSt subState;
 
@@ -424,6 +434,7 @@ final class AlignSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           AlignObjSt Function(
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> widthFactor,
               ffi.Pointer<ffi.Double> heightFactor,
               ffi.Pointer<DartObj> child)>> align;
@@ -432,6 +443,9 @@ final class AlignSt extends ffi.Struct {
 final class AlignObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
+
+  @DartObj()
+  external int alignment;
 
   @ffi.Double()
   external double widthFactor;
@@ -505,6 +519,25 @@ final class FlexObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double spacing;
+}
+
+final class RowSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          RowObjSt Function(
+              ffi.Pointer<ffi.Int> mainAxisAlignment,
+              ffi.Pointer<ffi.Int> mainAxisSize,
+              ffi.Pointer<ffi.Int> crossAxisAlignment,
+              ffi.Pointer<ffi.Int> textDirection,
+              ffi.Pointer<ffi.Int> verticalDirection,
+              ffi.Pointer<ffi.Int> textBaseline,
+              ffi.Pointer<ffi.Double> spacing,
+              ffi.Pointer<ArrayC> children)>> row;
+}
+
+final class RowObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
 }
 
 final class IconDataSt extends ffi.Struct {
@@ -594,6 +627,7 @@ final class TransformSt extends ffi.Struct {
           TransformObjSt Function(
               ffi.Double angle,
               ffi.Pointer<DartObj> origin,
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Int> transformHitTests,
               ffi.Pointer<ffi.Int> filterQuality,
               ffi.Pointer<DartObj> child)>> rotate;
@@ -613,6 +647,7 @@ final class TransformSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> scaleX,
               ffi.Pointer<ffi.Double> scaleY,
               ffi.Pointer<DartObj> origin,
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Int> transformHitTests,
               ffi.Pointer<ffi.Int> filterQuality,
               ffi.Pointer<DartObj> child)>> scale;
@@ -634,6 +669,9 @@ final class TransformObjSt extends ffi.Struct {
 
   @DartObj()
   external int origin;
+
+  @DartObj()
+  external int alignment;
 
   @ffi.Int()
   external int transformHitTests;
@@ -683,6 +721,7 @@ final class StackSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           StackObjSt Function(
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Int> textDirection,
               ffi.Pointer<ffi.Int> fit,
               ffi.Pointer<ffi.Int> clipBehavior,
@@ -692,6 +731,9 @@ final class StackSt extends ffi.Struct {
 final class StackObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
+
+  @DartObj()
+  external int alignment;
 
   @ffi.Int()
   external int textDirection;
@@ -772,6 +814,7 @@ final class ContainerSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ContainerObjSt Function(
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<DartObj> padding,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> decoration,
@@ -780,6 +823,7 @@ final class ContainerSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> height,
               ffi.Pointer<DartObj> constraints,
               ffi.Pointer<DartObj> margin,
+              ffi.Pointer<DartObj> transformAlignment,
               ffi.Pointer<DartObj> child,
               ffi.Pointer<ffi.Int> clipBehavior)>> container;
 }
@@ -790,6 +834,9 @@ final class ContainerObjSt extends ffi.Struct {
 
   @DartObj()
   external int child;
+
+  @DartObj()
+  external int alignment;
 
   @DartObj()
   external int padding;
@@ -807,6 +854,9 @@ final class ContainerObjSt extends ffi.Struct {
 
   @DartObj()
   external int margin;
+
+  @DartObj()
+  external int transformAlignment;
 
   @ffi.Int()
   external int clipBehavior;
@@ -1094,10 +1144,65 @@ final class EdgeInsetsObjSt extends ffi.Struct {
   external int bottomRight;
 }
 
-final class BorderSt extends ffi.Struct {
-  external ffi.Pointer<ffi.NativeFunction<BorderObjSt Function()>> border;
+final class BorderSideSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderSideObjSt Function(
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<ffi.Int> style,
+              ffi.Pointer<ffi.Double> strokeAlign)>> borderSide;
 
-  external ffi.Pointer<ffi.NativeFunction<BorderObjSt Function()>> symmetric;
+  external ffi.Pointer<
+      ffi.NativeFunction<BorderSideObjSt Function(DartObj a, DartObj b)>> merge;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderSideObjSt Function(DartObj a, DartObj b, ffi.Double t)>> lerp;
+}
+
+final class BorderSideObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int color;
+
+  @ffi.Double()
+  external double width;
+
+  @ffi.Int()
+  external int style;
+
+  @ffi.Double()
+  external double strokeAlign;
+
+  @ffi.Double()
+  external double strokeInset;
+
+  @ffi.Double()
+  external double strokeOutset;
+
+  @ffi.Double()
+  external double strokeOffset;
+}
+
+final class BorderSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderObjSt Function(
+              ffi.Pointer<DartObj> top,
+              ffi.Pointer<DartObj> right,
+              ffi.Pointer<DartObj> bottom,
+              ffi.Pointer<DartObj> left)>> border;
+
+  external ffi.Pointer<ffi.NativeFunction<BorderObjSt Function(DartObj side)>>
+      fromBorderSide;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderObjSt Function(ffi.Pointer<DartObj> vertical,
+              ffi.Pointer<DartObj> horizontal)>> symmetric;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1119,6 +1224,29 @@ final class BorderSt extends ffi.Struct {
 final class BorderObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
+
+  external BorderSideObjSt top;
+
+  external BorderSideObjSt right;
+
+  external BorderSideObjSt bottom;
+
+  external BorderSideObjSt left;
+}
+
+final class RoundedRectangleBorderSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          RoundedRectangleBorderObjSt Function(ffi.Pointer<DartObj> side,
+              ffi.Pointer<DartObj> borderRadius)>> roundedRectangleBorder;
+}
+
+final class RoundedRectangleBorderObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int borderRadius;
 }
 
 final class AnimationControllerSt extends ffi.Struct {
@@ -1320,6 +1448,28 @@ final class SizedBoxObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double height;
+}
+
+final class AlignmentSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<AlignmentObjSt Function(ffi.Double x, ffi.Double y)>>
+      alignment;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AlignmentObjSt Function(DartObj a, DartObj b, ffi.Double t)>> lerp;
+}
+
+final class AlignmentObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double x;
+
+  @ffi.Double()
+  external double y;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -2195,6 +2345,7 @@ final class IconButtonSt extends ffi.Struct {
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
               ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> focusColor,
@@ -2218,6 +2369,7 @@ final class IconButtonSt extends ffi.Struct {
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
               ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> focusColor,
@@ -2241,6 +2393,7 @@ final class IconButtonSt extends ffi.Struct {
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
               ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> focusColor,
@@ -2264,6 +2417,7 @@ final class IconButtonSt extends ffi.Struct {
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
               ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> focusColor,
@@ -2292,6 +2446,9 @@ final class IconButtonObjSt extends ffi.Struct {
 
   @DartObj()
   external int padding;
+
+  @DartObj()
+  external int alignment;
 
   @ffi.Double()
   external double splashRadius;
@@ -2863,6 +3020,37 @@ final class ElevatedButtonSt extends ffi.Struct {
 }
 
 final class ElevatedButtonObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+final class OutlinedButtonSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          OutlinedButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              DartObj child)>> outlinedButton;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          OutlinedButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> icon,
+              DartObj label,
+              ffi.Pointer<ffi.Int> iconAlignment)>> icon;
+}
+
+final class OutlinedButtonObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
 }

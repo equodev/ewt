@@ -14,8 +14,9 @@ public class Stack extends MultiChildRenderObjectWidget implements StackI {
     System.out.println("New Stack id:"+id);
   }
   @Builder.Factory
-  static Stack stackStack(Optional<TextDirection> textDirection, Optional<StackFit> fit, Optional<Clip> clipBehavior, Optional<List<WidgetI>> children) {
-    var st = factories.stackStack(textDirection,
+  static Stack stackStack(Optional<AlignmentGeometryI> alignment, Optional<TextDirection> textDirection, Optional<StackFit> fit, Optional<Clip> clipBehavior, Optional<List<WidgetI>> children) {
+    var st = factories.stackStack(alignment.map(AlignmentGeometryI::build),
+      textDirection,
       fit,
       clipBehavior,
       children.map(i -> i.stream().map(WidgetI::build).toList()));
@@ -24,6 +25,9 @@ public class Stack extends MultiChildRenderObjectWidget implements StackI {
   }
   public static StackStackBuilder stack() {
     return StackStackBuilder.stackStack();
+  }
+  public AlignmentGeometry alignment() {
+    return new AlignmentGeometry(StackObjSt.alignment(st)) {};
   }
   public TextDirection textDirection() {
     return TextDirection.values()[StackObjSt.textDirection(st)];

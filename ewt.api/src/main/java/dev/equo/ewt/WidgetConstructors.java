@@ -122,10 +122,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
-  MemorySegment alignAlign(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
+  MemorySegment alignAlign(Optional<AlignmentGeometry> alignment, OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
     var st = WidgetFactories.align(factories);
     var fn = WidgetFactories.AlignSt.align(st);
-    return WidgetFactories.AlignSt.align.invoke(fn, arena, ptr(widthFactor),
+    return WidgetFactories.AlignSt.align.invoke(fn, arena, ptrObj(alignment),
+      ptr(widthFactor),
       ptr(heightFactor),
       ptrObj(child));
   }
@@ -158,6 +159,19 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
+  MemorySegment rowRow(Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, OptionalDouble spacing, Optional<List<Widget>> children) {
+    var st = WidgetFactories.row(factories);
+    var fn = WidgetFactories.RowSt.row(st);
+    return WidgetFactories.RowSt.row.invoke(fn, arena, ptrEnum(mainAxisAlignment),
+      ptrEnum(mainAxisSize),
+      ptrEnum(crossAxisAlignment),
+      ptrEnum(textDirection),
+      ptrEnum(verticalDirection),
+      ptrEnum(textBaseline),
+      ptr(spacing),
+      ptrList(children));
+  }
+
   MemorySegment iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
     var st = WidgetFactories.iconData(factories);
     var fn = WidgetFactories.IconDataSt.iconData(st);
@@ -185,11 +199,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(blendMode));
   }
 
-  MemorySegment transformRotate(double angle, Optional<Offset> origin, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
+  MemorySegment transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     var st = WidgetFactories.transform(factories);
     var fn = WidgetFactories.TransformSt.rotate(st);
     return WidgetFactories.TransformSt.rotate.invoke(fn, arena, angle,
       ptrObj(origin),
+      ptrObj(alignment),
       ptrBool(transformHitTests),
       ptrEnum(filterQuality),
       ptrObj(child));
@@ -202,13 +217,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(filterQuality),
       ptrObj(child));
   }
-  MemorySegment transformScale(OptionalDouble scale, OptionalDouble scaleX, OptionalDouble scaleY, Optional<Offset> origin, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
+  MemorySegment transformScale(OptionalDouble scale, OptionalDouble scaleX, OptionalDouble scaleY, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     var st = WidgetFactories.transform(factories);
     var fn = WidgetFactories.TransformSt.scale(st);
     return WidgetFactories.TransformSt.scale.invoke(fn, arena, ptr(scale),
       ptr(scaleX),
       ptr(scaleY),
       ptrObj(origin),
+      ptrObj(alignment),
       ptrBool(transformHitTests),
       ptrEnum(filterQuality),
       ptrObj(child));
@@ -252,10 +268,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
-  MemorySegment stackStack(Optional<TextDirection> textDirection, Optional<StackFit> fit, Optional<Clip> clipBehavior, Optional<List<Widget>> children) {
+  MemorySegment stackStack(Optional<AlignmentGeometry> alignment, Optional<TextDirection> textDirection, Optional<StackFit> fit, Optional<Clip> clipBehavior, Optional<List<Widget>> children) {
     var st = WidgetFactories.stack(factories);
     var fn = WidgetFactories.StackSt.stack(st);
-    return WidgetFactories.StackSt.stack.invoke(fn, arena, ptrEnum(textDirection),
+    return WidgetFactories.StackSt.stack.invoke(fn, arena, ptrObj(alignment),
+      ptrEnum(textDirection),
       ptrEnum(fit),
       ptrEnum(clipBehavior),
       ptrList(children));
@@ -295,10 +312,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  MemorySegment containerContainer(Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, Optional<Decoration> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraints> constraints, Optional<EdgeInsetsGeometry> margin, Optional<Widget> child, Optional<Clip> clipBehavior) {
+  MemorySegment containerContainer(Optional<AlignmentGeometry> alignment, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, Optional<Decoration> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraints> constraints, Optional<EdgeInsetsGeometry> margin, Optional<AlignmentGeometry> transformAlignment, Optional<Widget> child, Optional<Clip> clipBehavior) {
     var st = WidgetFactories.container(factories);
     var fn = WidgetFactories.ContainerSt.container(st);
-    return WidgetFactories.ContainerSt.container.invoke(fn, arena, ptrObj(padding),
+    return WidgetFactories.ContainerSt.container.invoke(fn, arena, ptrObj(alignment),
+      ptrObj(padding),
       ptrObj(color),
       ptrObj(decoration),
       ptrObj(foregroundDecoration),
@@ -306,6 +324,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(height),
       ptrObj(constraints),
       ptrObj(margin),
+      ptrObj(transformAlignment),
       ptrObj(child),
       ptrEnum(clipBehavior));
   }
@@ -510,15 +529,46 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  MemorySegment borderBorder() {
+  MemorySegment borderSideBorderSide(Optional<Color> color, OptionalDouble width, Optional<BorderStyle> style, OptionalDouble strokeAlign) {
+    var st = WidgetFactories.borderSide(factories);
+    var fn = WidgetFactories.BorderSideSt.borderSide(st);
+    return WidgetFactories.BorderSideSt.borderSide.invoke(fn, arena, ptrObj(color),
+      ptr(width),
+      ptrEnum(style),
+      ptr(strokeAlign));
+  }
+  MemorySegment borderSideMerge(BorderSide a, BorderSide b) {
+    var st = WidgetFactories.borderSide(factories);
+    var fn = WidgetFactories.BorderSideSt.merge(st);
+    return WidgetFactories.BorderSideSt.merge.invoke(fn, arena, a.getId(),
+      b.getId());
+  }
+  MemorySegment borderSideLerp(BorderSide a, BorderSide b, double t) {
+    var st = WidgetFactories.borderSide(factories);
+    var fn = WidgetFactories.BorderSideSt.lerp(st);
+    return WidgetFactories.BorderSideSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
+  }
+
+  MemorySegment borderBorder(Optional<BorderSide> top, Optional<BorderSide> right, Optional<BorderSide> bottom, Optional<BorderSide> left) {
     var st = WidgetFactories.border(factories);
     var fn = WidgetFactories.BorderSt.border(st);
-    return WidgetFactories.BorderSt.border.invoke(fn, arena);
+    return WidgetFactories.BorderSt.border.invoke(fn, arena, ptrObj(top),
+      ptrObj(right),
+      ptrObj(bottom),
+      ptrObj(left));
   }
-  MemorySegment borderSymmetric() {
+  MemorySegment borderFromBorderSide(BorderSide side) {
+    var st = WidgetFactories.border(factories);
+    var fn = WidgetFactories.BorderSt.fromBorderSide(st);
+    return WidgetFactories.BorderSt.fromBorderSide.invoke(fn, arena, side.getId());
+  }
+  MemorySegment borderSymmetric(Optional<BorderSide> vertical, Optional<BorderSide> horizontal) {
     var st = WidgetFactories.border(factories);
     var fn = WidgetFactories.BorderSt.symmetric(st);
-    return WidgetFactories.BorderSt.symmetric.invoke(fn, arena);
+    return WidgetFactories.BorderSt.symmetric.invoke(fn, arena, ptrObj(vertical),
+      ptrObj(horizontal));
   }
   MemorySegment borderAll(Optional<Color> color, OptionalDouble width, Optional<BorderStyle> style, OptionalDouble strokeAlign) {
     var st = WidgetFactories.border(factories);
@@ -540,6 +590,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.BorderSt.lerp.invoke(fn, arena, a.getId(),
       b.getId(),
       t);
+  }
+
+  MemorySegment roundedRectangleBorderRoundedRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    var st = WidgetFactories.roundedRectangleBorder(factories);
+    var fn = WidgetFactories.RoundedRectangleBorderSt.roundedRectangleBorder(st);
+    return WidgetFactories.RoundedRectangleBorderSt.roundedRectangleBorder.invoke(fn, arena, ptrObj(side),
+      ptrObj(borderRadius));
   }
 
   int animationControllerAnimationController(OptionalDouble value, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProvider vsync) {
@@ -649,6 +706,20 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.SizedBoxSt.square(st);
     return WidgetFactories.SizedBoxSt.square.invoke(fn, arena, ptrObj(child),
       ptr(dimension));
+  }
+
+  MemorySegment alignmentAlignment(double x, double y) {
+    var st = WidgetFactories.alignment(factories);
+    var fn = WidgetFactories.AlignmentSt.alignment(st);
+    return WidgetFactories.AlignmentSt.alignment.invoke(fn, arena, x,
+      y);
+  }
+  MemorySegment alignmentLerp(Alignment a, Alignment b, double t) {
+    var st = WidgetFactories.alignment(factories);
+    var fn = WidgetFactories.AlignmentSt.lerp(st);
+    return WidgetFactories.AlignmentSt.lerp.invoke(fn, arena, a.getId(),
+      b.getId(),
+      t);
   }
 
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
@@ -1155,11 +1226,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
-  MemorySegment iconButtonIconButton(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonIconButton(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.iconButton(st);
     return WidgetFactories.IconButtonSt.iconButton.invoke(fn, arena, ptr(iconSize),
       ptrObj(padding),
+      ptrObj(alignment),
       ptr(splashRadius),
       ptrObj(color),
       ptrObj(focusColor),
@@ -1178,11 +1250,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectedIcon),
       icon.getId());
   }
-  MemorySegment iconButtonFilled(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonFilled(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.filled(st);
     return WidgetFactories.IconButtonSt.filled.invoke(fn, arena, ptr(iconSize),
       ptrObj(padding),
+      ptrObj(alignment),
       ptr(splashRadius),
       ptrObj(color),
       ptrObj(focusColor),
@@ -1201,11 +1274,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectedIcon),
       icon.getId());
   }
-  MemorySegment iconButtonFilledTonal(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonFilledTonal(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.filledTonal(st);
     return WidgetFactories.IconButtonSt.filledTonal.invoke(fn, arena, ptr(iconSize),
       ptrObj(padding),
+      ptrObj(alignment),
       ptr(splashRadius),
       ptrObj(color),
       ptrObj(focusColor),
@@ -1224,11 +1298,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectedIcon),
       icon.getId());
   }
-  MemorySegment iconButtonOutlined(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonOutlined(OptionalDouble iconSize, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.outlined(st);
     return WidgetFactories.IconButtonSt.outlined.invoke(fn, arena, ptr(iconSize),
       ptrObj(padding),
+      ptrObj(alignment),
       ptr(splashRadius),
       ptrObj(color),
       ptrObj(focusColor),
@@ -1484,6 +1559,31 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.icon(st);
     return WidgetFactories.ElevatedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      ptrObj(icon),
+      label.getId(),
+      ptrEnum(iconAlignment));
+  }
+
+  MemorySegment outlinedButtonOutlinedButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+    var st = WidgetFactories.outlinedButton(factories);
+    var fn = WidgetFactories.OutlinedButtonSt.outlinedButton(st);
+    return WidgetFactories.OutlinedButtonSt.outlinedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      child.getId());
+  }
+  MemorySegment outlinedButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+    var st = WidgetFactories.outlinedButton(factories);
+    var fn = WidgetFactories.OutlinedButtonSt.icon(st);
+    return WidgetFactories.OutlinedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
       onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,

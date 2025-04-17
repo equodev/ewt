@@ -51,7 +51,7 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("borderOnForeground"),
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("borderRadius")
-    ).withName("$anon$363:9");
+    ).withName("$anon$398:9");
 
     /**
      * The layout of this struct

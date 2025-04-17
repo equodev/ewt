@@ -47,6 +47,10 @@ public class EWT {
     return FlexFlexBuilder.flexFlex(direction);
   }
 
+  public static RowRowBuilder Row() {
+    return RowRowBuilder.rowRow();
+  }
+
   public static IconDataIconDataBuilder IconData(int codePoint) {
     return IconDataIconDataBuilder.iconDataIconData(codePoint);
   }
@@ -174,14 +178,25 @@ public class EWT {
     return EdgeInsetsSymmetricBuilder.edgeInsetsSymmetric();
   }
 
+  public static BorderSideBorderSideBuilder BorderSide() {
+    return BorderSideBorderSideBuilder.borderSideBorderSide();
+  }
+
   public static BorderBorderBuilder Border() {
     return BorderBorderBuilder.borderBorder();
+  }
+  public static BorderFromBorderSideBuilder Border_fromBorderSide(BorderSideI side) {
+    return BorderFromBorderSideBuilder.borderFromBorderSide(side);
   }
   public static BorderSymmetricBuilder Border_symmetric() {
     return BorderSymmetricBuilder.borderSymmetric();
   }
   public static BorderAllBuilder Border_all() {
     return BorderAllBuilder.borderAll();
+  }
+
+  public static RoundedRectangleBorderRoundedRectangleBorderBuilder RoundedRectangleBorder() {
+    return RoundedRectangleBorderRoundedRectangleBorderBuilder.roundedRectangleBorderRoundedRectangleBorder();
   }
 
   public static AnimationControllerAnimationControllerBuilder AnimationController() {
@@ -237,6 +252,10 @@ public class EWT {
   }
   public static SizedBoxSquareBuilder SizedBox_square() {
     return SizedBoxSquareBuilder.sizedBoxSquare();
+  }
+
+  public static AlignmentAlignmentBuilder Alignment(double x, double y) {
+    return AlignmentAlignmentBuilder.alignmentAlignment(x, y);
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
@@ -344,6 +363,13 @@ public class EWT {
   }
   public static ElevatedButtonIconBuilder ElevatedButton_icon(Runnable onPressed) {
     return ElevatedButtonIconBuilder.elevatedButtonIcon(onPressed);
+  }
+
+  public static OutlinedButtonOutlinedButtonBuilder OutlinedButton(Runnable onPressed) {
+    return OutlinedButtonOutlinedButtonBuilder.outlinedButtonOutlinedButton(onPressed);
+  }
+  public static OutlinedButtonIconBuilder OutlinedButton_icon(Runnable onPressed) {
+    return OutlinedButtonIconBuilder.outlinedButtonIcon(onPressed);
   }
 
 

@@ -17,12 +17,14 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     DartObj child;
+ *     DartObj alignment;
  *     DartObj padding;
  *     DartObj color;
  *     DartObj decoration;
  *     DartObj foregroundDecoration;
  *     BoxConstraintsObjSt constraints;
  *     DartObj margin;
+ *     DartObj transformAlignment;
  *     int clipBehavior;
  * }
  * }
@@ -36,14 +38,18 @@ public class ContainerObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("child"),
+        StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_INT.withName("padding"),
         StarterBridge.C_INT.withName("color"),
         StarterBridge.C_INT.withName("decoration"),
         StarterBridge.C_INT.withName("foregroundDecoration"),
+        MemoryLayout.paddingLayout(4),
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("margin"),
-        StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$121:9");
+        StarterBridge.C_INT.withName("transformAlignment"),
+        StarterBridge.C_INT.withName("clipBehavior"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$128:9");
 
     /**
      * The layout of this struct
@@ -140,6 +146,50 @@ public class ContainerObjSt {
         struct.set(child$LAYOUT, child$OFFSET, fieldValue);
     }
 
+    private static final OfInt alignment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("alignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final OfInt alignment$layout() {
+        return alignment$LAYOUT;
+    }
+
+    private static final long alignment$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final long alignment$offset() {
+        return alignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static int alignment(MemorySegment struct) {
+        return struct.get(alignment$LAYOUT, alignment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static void alignment(MemorySegment struct, int fieldValue) {
+        struct.set(alignment$LAYOUT, alignment$OFFSET, fieldValue);
+    }
+
     private static final OfInt padding$LAYOUT = (OfInt)$LAYOUT.select(groupElement("padding"));
 
     /**
@@ -152,7 +202,7 @@ public class ContainerObjSt {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 8;
+    private static final long padding$OFFSET = 12;
 
     /**
      * Offset for field:
@@ -196,7 +246,7 @@ public class ContainerObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 12;
+    private static final long color$OFFSET = 16;
 
     /**
      * Offset for field:
@@ -240,7 +290,7 @@ public class ContainerObjSt {
         return decoration$LAYOUT;
     }
 
-    private static final long decoration$OFFSET = 16;
+    private static final long decoration$OFFSET = 20;
 
     /**
      * Offset for field:
@@ -284,7 +334,7 @@ public class ContainerObjSt {
         return foregroundDecoration$LAYOUT;
     }
 
-    private static final long foregroundDecoration$OFFSET = 20;
+    private static final long foregroundDecoration$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -328,7 +378,7 @@ public class ContainerObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 24;
+    private static final long constraints$OFFSET = 32;
 
     /**
      * Offset for field:
@@ -372,7 +422,7 @@ public class ContainerObjSt {
         return margin$LAYOUT;
     }
 
-    private static final long margin$OFFSET = 88;
+    private static final long margin$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -404,6 +454,50 @@ public class ContainerObjSt {
         struct.set(margin$LAYOUT, margin$OFFSET, fieldValue);
     }
 
+    private static final OfInt transformAlignment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("transformAlignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj transformAlignment
+     * }
+     */
+    public static final OfInt transformAlignment$layout() {
+        return transformAlignment$LAYOUT;
+    }
+
+    private static final long transformAlignment$OFFSET = 100;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj transformAlignment
+     * }
+     */
+    public static final long transformAlignment$offset() {
+        return transformAlignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj transformAlignment
+     * }
+     */
+    public static int transformAlignment(MemorySegment struct) {
+        return struct.get(transformAlignment$LAYOUT, transformAlignment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj transformAlignment
+     * }
+     */
+    public static void transformAlignment(MemorySegment struct, int fieldValue) {
+        struct.set(transformAlignment$LAYOUT, transformAlignment$OFFSET, fieldValue);
+    }
+
     private static final OfInt clipBehavior$LAYOUT = (OfInt)$LAYOUT.select(groupElement("clipBehavior"));
 
     /**
@@ -416,7 +510,7 @@ public class ContainerObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 92;
+    private static final long clipBehavior$OFFSET = 104;
 
     /**
      * Offset for field:

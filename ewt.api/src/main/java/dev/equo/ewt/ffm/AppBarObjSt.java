@@ -77,7 +77,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("actionsPadding"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$398:9");
+    ).withName("$anon$434:9");
 
     /**
      * The layout of this struct

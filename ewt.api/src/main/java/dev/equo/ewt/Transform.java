@@ -14,9 +14,10 @@ public class Transform extends SingleChildRenderObjectWidget implements Transfor
     System.out.println("New Transform id:"+id);
   }
   @Builder.Factory
-  static Transform transformRotate(@Builder.Parameter double angle, Optional<OffsetI> origin, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
+  static Transform transformRotate(@Builder.Parameter double angle, Optional<OffsetI> origin, Optional<AlignmentGeometryI> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
     var st = factories.transformRotate(angle,
       origin.map(OffsetI::build),
+      alignment.map(AlignmentGeometryI::build),
       transformHitTests,
       filterQuality,
       child.map(WidgetI::build));
@@ -39,11 +40,12 @@ public class Transform extends SingleChildRenderObjectWidget implements Transfor
     return TransformTranslateBuilder.transformTranslate(offset);
   }
   @Builder.Factory
-  static Transform transformScale(OptionalDouble scale, OptionalDouble scaleX, OptionalDouble scaleY, Optional<OffsetI> origin, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
+  static Transform transformScale(OptionalDouble scale, OptionalDouble scaleX, OptionalDouble scaleY, Optional<OffsetI> origin, Optional<AlignmentGeometryI> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
     var st = factories.transformScale(scale,
       scaleX,
       scaleY,
       origin.map(OffsetI::build),
+      alignment.map(AlignmentGeometryI::build),
       transformHitTests,
       filterQuality,
       child.map(WidgetI::build));
@@ -69,6 +71,9 @@ public class Transform extends SingleChildRenderObjectWidget implements Transfor
   }
   public Offset origin() {
     return new Offset(TransformObjSt.origin(st));
+  }
+  public AlignmentGeometry alignment() {
+    return new AlignmentGeometry(TransformObjSt.alignment(st)) {};
   }
   public boolean transformHitTests() {
     return intToBool(TransformObjSt.transformHitTests(st));

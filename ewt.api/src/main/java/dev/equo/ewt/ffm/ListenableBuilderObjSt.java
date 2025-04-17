@@ -29,7 +29,7 @@ public class ListenableBuilderObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("child")
-    ).withName("$anon$191:9");
+    ).withName("$anon$220:9");
 
     /**
      * The layout of this struct
