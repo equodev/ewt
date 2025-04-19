@@ -35,6 +35,7 @@ extension on bool {
 }
 extension on ffi.Pointer<ffi.Int> {
   int? intOrNul() => this == ffi.nullptr ? null : value;
+  int intOr(int def) => this == ffi.nullptr ? def : value;
   bool? boolOrNul() => this == ffi.nullptr ? null : value == 1 ? true : false;
   bool boolOr(bool def) => this == ffi.nullptr ? def : value == 1 ? true : false;
   E? enumOrNul<E extends Enum>(List<E> values) => this == ffi.nullptr ? null : values[value];

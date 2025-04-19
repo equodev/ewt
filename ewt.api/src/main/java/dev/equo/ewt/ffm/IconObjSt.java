@@ -52,7 +52,7 @@ public class IconObjSt {
         StarterBridge.C_INT.withName("applyTextScaling"),
         StarterBridge.C_INT.withName("blendMode"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$77:9");
+    ).withName("$anon$97:9");
 
     /**
      * The layout of this struct

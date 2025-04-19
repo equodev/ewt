@@ -27,7 +27,7 @@ public class ColumnObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$48:9");
+    ).withName("$anon$68:9");
 
     /**
      * The layout of this struct

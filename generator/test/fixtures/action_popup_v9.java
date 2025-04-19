@@ -408,7 +408,7 @@ class ActionPopupDemoState extends SubState<ActionPopupDemo> {
                                     .style(TextStyle().fontSize(16)),
                                 SizedBox().height(24),
                                 ElevatedButton()
-                                    .onPressed(isPopupVisible ? closePopup : showPopup)
+                                    .onPressed(isPopupVisible ? this::closePopup : this::showPopup)
                                     .style(ElevatedButton.styleFrom()
                                         .backgroundColor(Color(0xFF3F51B5)))
                                     .child(Text(isPopupVisible ? "Hide Popup" : "Show Popup")),

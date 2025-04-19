@@ -110,6 +110,10 @@ final class WidgetFactories extends ffi.Struct {
 
   external TextSt text;
 
+  external TextSpanSt textSpan;
+
+  external RichTextSt richText;
+
   external CenterSt center;
 
   external AlignSt align;
@@ -166,6 +170,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external AnimationControllerSt animationController;
 
+  external DurationSt duration;
+
   external AnimatedBuilderSt animatedBuilder;
 
   external ListenableBuilderSt listenableBuilder;
@@ -185,6 +191,8 @@ final class WidgetFactories extends ffi.Struct {
   external SizedBoxSt sizedBox;
 
   external AlignmentSt alignment;
+
+  external MouseRegionSt mouseRegion;
 
   external ColorSchemeSt colorScheme;
 
@@ -414,6 +422,76 @@ final class TextObjSt extends ffi.Struct {
 
   @DartObj()
   external int selectionColor;
+}
+
+final class TextSpanSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextSpanObjSt Function(
+              ffi.Pointer<ffi.Char> text,
+              ffi.Pointer<ArrayC> children,
+              ffi.Pointer<DartObj> style,
+              ffi.Pointer<ffi.Char> semanticsLabel,
+              ffi.Pointer<ffi.Int> spellOut)>> textSpan;
+}
+
+final class TextSpanObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external ffi.Pointer<ffi.Char> text;
+
+  external ffi.Pointer<ffi.Char> semanticsLabel;
+
+  @ffi.Int()
+  external int spellOut;
+}
+
+final class RichTextSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          RichTextObjSt Function(
+              DartObj text,
+              ffi.Pointer<ffi.Int> textAlign,
+              ffi.Pointer<ffi.Int> textDirection,
+              ffi.Pointer<ffi.Int> softWrap,
+              ffi.Pointer<ffi.Int> overflow,
+              ffi.Pointer<ffi.Double> textScaleFactor,
+              ffi.Pointer<ffi.Int> maxLines,
+              ffi.Pointer<ffi.Int> textWidthBasis,
+              ffi.Pointer<DartObj> selectionColor)>> richText;
+}
+
+final class RichTextObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int text;
+
+  @ffi.Int()
+  external int textAlign;
+
+  @ffi.Int()
+  external int textDirection;
+
+  @ffi.Int()
+  external int softWrap;
+
+  @ffi.Int()
+  external int overflow;
+
+  @ffi.Int()
+  external int maxLines;
+
+  @ffi.Int()
+  external int textWidthBasis;
+
+  @DartObj()
+  external int selectionColor;
+
+  @ffi.Double()
+  external double textScaleFactor;
 }
 
 final class CenterSt extends ffi.Struct {
@@ -1254,6 +1332,8 @@ final class AnimationControllerSt extends ffi.Struct {
       ffi.NativeFunction<
           DartObj Function(
               ffi.Pointer<ffi.Double> value,
+              ffi.Pointer<DartObj> duration,
+              ffi.Pointer<DartObj> reverseDuration,
               ffi.Pointer<ffi.Char> debugLabel,
               ffi.Pointer<ffi.Double> lowerBound,
               ffi.Pointer<ffi.Double> upperBound,
@@ -1264,9 +1344,23 @@ final class AnimationControllerSt extends ffi.Struct {
       ffi.NativeFunction<
           DartObj Function(
               ffi.Pointer<ffi.Double> value,
+              ffi.Pointer<DartObj> duration,
+              ffi.Pointer<DartObj> reverseDuration,
               ffi.Pointer<ffi.Char> debugLabel,
               DartObj vsync,
               ffi.Pointer<ffi.Int> animationBehavior)>> unbounded;
+}
+
+final class DurationSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              ffi.Pointer<ffi.Int> days,
+              ffi.Pointer<ffi.Int> hours,
+              ffi.Pointer<ffi.Int> minutes,
+              ffi.Pointer<ffi.Int> seconds,
+              ffi.Pointer<ffi.Int> milliseconds,
+              ffi.Pointer<ffi.Int> microseconds)>> duration;
 }
 
 final class AnimatedBuilderSt extends ffi.Struct {
@@ -1470,6 +1564,26 @@ final class AlignmentObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double y;
+}
+
+final class MouseRegionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          MouseRegionObjSt Function(
+              ffi.Pointer<ffi.Int> opaque,
+              ffi.Pointer<ffi.Int> hitTestBehavior,
+              ffi.Pointer<DartObj> child)>> mouseRegion;
+}
+
+final class MouseRegionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int opaque;
+
+  @ffi.Int()
+  external int hitTestBehavior;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -2299,6 +2413,7 @@ final class MaterialSt extends ffi.Struct {
               ffi.Pointer<DartObj> shape,
               ffi.Pointer<ffi.Int> borderOnForeground,
               ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> animationDuration,
               ffi.Pointer<DartObj> child)>> material;
 }
 
@@ -2334,6 +2449,9 @@ final class MaterialObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int clipBehavior;
+
+  @DartObj()
+  external int animationDuration;
 
   @DartObj()
   external int borderRadius;
@@ -2712,6 +2830,7 @@ final class MaterialAppSt extends ffi.Struct {
               ffi.Pointer<DartObj> highContrastTheme,
               ffi.Pointer<DartObj> highContrastDarkTheme,
               ffi.Pointer<ffi.Int> themeMode,
+              ffi.Pointer<DartObj> themeAnimationDuration,
               ffi.Pointer<DartObj> themeAnimationCurve,
               ffi.Pointer<ffi.Int> debugShowMaterialGrid,
               ffi.Pointer<ffi.Int> showPerformanceOverlay,
@@ -2734,6 +2853,7 @@ final class MaterialAppSt extends ffi.Struct {
               ffi.Pointer<DartObj> highContrastTheme,
               ffi.Pointer<DartObj> highContrastDarkTheme,
               ffi.Pointer<ffi.Int> themeMode,
+              ffi.Pointer<DartObj> themeAnimationDuration,
               ffi.Pointer<DartObj> themeAnimationCurve,
               ffi.Pointer<ffi.Int> debugShowMaterialGrid,
               ffi.Pointer<ffi.Int> showPerformanceOverlay,
@@ -2766,6 +2886,9 @@ final class MaterialAppObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int themeMode;
+
+  @DartObj()
+  external int themeAnimationDuration;
 
   @DartObj()
   external int themeAnimationCurve;

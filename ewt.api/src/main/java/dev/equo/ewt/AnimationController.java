@@ -8,8 +8,10 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     this.id = id;
   }
   @Builder.Factory
-  static AnimationController animationControllerAnimationController(OptionalDouble value, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProviderI vsync) {
+  static AnimationController animationControllerAnimationController(OptionalDouble value, Optional<DurationI> duration, Optional<DurationI> reverseDuration, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProviderI vsync) {
     int id = factories.animationControllerAnimationController(value,
+      duration.map(DurationI::build),
+      reverseDuration.map(DurationI::build),
       debugLabel,
       lowerBound,
       upperBound,
@@ -23,8 +25,10 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     return AnimationControllerAnimationControllerBuilder.animationControllerAnimationController();
   }
   @Builder.Factory
-  static AnimationController animationControllerUnbounded(OptionalDouble value, Optional<String> debugLabel, TickerProviderI vsync, Optional<AnimationBehavior> animationBehavior) {
+  static AnimationController animationControllerUnbounded(OptionalDouble value, Optional<DurationI> duration, Optional<DurationI> reverseDuration, Optional<String> debugLabel, TickerProviderI vsync, Optional<AnimationBehavior> animationBehavior) {
     int id = factories.animationControllerUnbounded(value,
+      duration.map(DurationI::build),
+      reverseDuration.map(DurationI::build),
       debugLabel,
       vsync.build(),
       animationBehavior);

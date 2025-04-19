@@ -151,6 +151,58 @@ TextObjSt _createTextObjSt(Text? w) {
   return stObj;
 }
 
+void _setupTextSpan(WidgetFactories f) {
+  f.textSpan.textSpan = ffi.Pointer.fromFunction(textSpanTextSpan);
+}
+TextSpanObjSt textSpanTextSpan(ffi.Pointer<ffi.Char> text, ffi.Pointer<ArrayC> children, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Int> spellOut) {
+  final w = TextSpan(text: text.strOrNul(),
+      children: children.orEmpty(),
+      style: style.objOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      spellOut: spellOut.boolOrNul());
+  return _createTextSpanObjSt(w);
+}
+TextSpanObjSt _createTextSpanObjSt(TextSpan? w) {
+  final TextSpanObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.text = (w.text != null) ? w.text!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.semanticsLabel = (w.semanticsLabel != null) ? w.semanticsLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.spellOut = (w.spellOut != null) ? w.spellOut!.toInt() : 0;
+  return stObj;
+}
+
+void _setupRichText(WidgetFactories f) {
+  f.richText.richText = ffi.Pointer.fromFunction(richTextRichText);
+}
+RichTextObjSt richTextRichText(DartDartObj text, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Double> textScaleFactor, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> textWidthBasis, ffi.Pointer<DartObj> selectionColor) {
+  final w = RichText(text: _widgetsMap[text]! as InlineSpan,
+      textAlign: textAlign.enumOr(TextAlign.values, TextAlign.start),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      softWrap: softWrap.boolOr(true),
+      overflow: overflow.enumOr(TextOverflow.values, TextOverflow.clip),
+      textScaleFactor: textScaleFactor.doubleOr(1.0),
+      maxLines: maxLines.intOrNul(),
+      textWidthBasis: textWidthBasis.enumOr(TextWidthBasis.values, TextWidthBasis.parent),
+      selectionColor: selectionColor.objOrNul());
+  return _createRichTextObjSt(w);
+}
+RichTextObjSt _createRichTextObjSt(RichText? w) {
+  final RichTextObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.text = _addWidget(w.text);
+  stObj.textAlign = w.textAlign.index;
+  stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
+  stObj.softWrap = w.softWrap.toInt();
+  stObj.overflow = w.overflow.index;
+  stObj.maxLines = (w.maxLines != null) ? w.maxLines! : 0;
+  stObj.textWidthBasis = w.textWidthBasis.index;
+  stObj.selectionColor = _addWidget(w.selectionColor);
+  stObj.textScaleFactor = w.textScaleFactor;
+  return stObj;
+}
+
 void _setupCenter(WidgetFactories f) {
   f.center.center = ffi.Pointer.fromFunction(centerCenter);
 }
@@ -915,8 +967,10 @@ void _setupAnimationController(WidgetFactories f) {
   f.animationController.animationController = ffi.Pointer.fromFunction(animationControllerAnimationController, exception);
   f.animationController.unbounded = ffi.Pointer.fromFunction(animationControllerUnbounded, exception);
 }
-int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Double> lowerBound, ffi.Pointer<ffi.Double> upperBound, ffi.Pointer<ffi.Int> animationBehavior, DartDartObj vsync) {
+int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Double> lowerBound, ffi.Pointer<ffi.Double> upperBound, ffi.Pointer<ffi.Int> animationBehavior, DartDartObj vsync) {
   final w = AnimationController(value: value.doubleOrNul(),
+      duration: duration.objOrNul(),
+      reverseDuration: reverseDuration.objOrNul(),
       debugLabel: debugLabel.strOrNul(),
       lowerBound: lowerBound.doubleOr(0.0),
       upperBound: upperBound.doubleOr(1.0),
@@ -924,11 +978,26 @@ int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Po
       vsync: _widgetsMap[vsync]! as TickerProvider);
   return _addWidget(w);
 }
-int animationControllerUnbounded(ffi.Pointer<ffi.Double> value, ffi.Pointer<ffi.Char> debugLabel, DartDartObj vsync, ffi.Pointer<ffi.Int> animationBehavior) {
+int animationControllerUnbounded(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Char> debugLabel, DartDartObj vsync, ffi.Pointer<ffi.Int> animationBehavior) {
   final w = AnimationController.unbounded(value: value.doubleOr(0.0),
+      duration: duration.objOrNul(),
+      reverseDuration: reverseDuration.objOrNul(),
       debugLabel: debugLabel.strOrNul(),
       vsync: _widgetsMap[vsync]! as TickerProvider,
       animationBehavior: animationBehavior.enumOr(AnimationBehavior.values, AnimationBehavior.preserve));
+  return _addWidget(w);
+}
+
+void _setupDuration(WidgetFactories f) {
+  f.duration.duration = ffi.Pointer.fromFunction(durationDuration, exception);
+}
+int durationDuration(ffi.Pointer<ffi.Int> days, ffi.Pointer<ffi.Int> hours, ffi.Pointer<ffi.Int> minutes, ffi.Pointer<ffi.Int> seconds, ffi.Pointer<ffi.Int> milliseconds, ffi.Pointer<ffi.Int> microseconds) {
+  final w = Duration(days: days.intOr(0),
+      hours: hours.intOr(0),
+      minutes: minutes.intOr(0),
+      seconds: seconds.intOr(0),
+      milliseconds: milliseconds.intOr(0),
+      microseconds: microseconds.intOr(0));
   return _addWidget(w);
 }
 
@@ -1124,6 +1193,24 @@ AlignmentObjSt _createAlignmentObjSt(Alignment? w) {
   if (w == null) return stObj;
   stObj.x = w.x;
   stObj.y = w.y;
+  return stObj;
+}
+
+void _setupMouseRegion(WidgetFactories f) {
+  f.mouseRegion.mouseRegion = ffi.Pointer.fromFunction(mouseRegionMouseRegion);
+}
+MouseRegionObjSt mouseRegionMouseRegion(ffi.Pointer<ffi.Int> opaque, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<DartObj> child) {
+  final w = MouseRegion(opaque: opaque.boolOr(true),
+      hitTestBehavior: hitTestBehavior.enumOrNul(HitTestBehavior.values),
+      child: child.objOrNul());
+  return _createMouseRegionObjSt(w);
+}
+MouseRegionObjSt _createMouseRegionObjSt(MouseRegion? w) {
+  final MouseRegionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.opaque = w.opaque.toInt();
+  stObj.hitTestBehavior = (w.hitTestBehavior != null) ? w.hitTestBehavior!.index : 0;
   return stObj;
 }
 
@@ -1771,7 +1858,7 @@ MaterialAccentColorObjSt _createMaterialAccentColorObjSt(MaterialAccentColor? w)
 void _setupMaterial(WidgetFactories f) {
   f.material.material = ffi.Pointer.fromFunction(materialMaterial);
 }
-MaterialObjSt materialMaterial(ffi.Pointer<ffi.Int> type, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> borderOnForeground, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child) {
+MaterialObjSt materialMaterial(ffi.Pointer<ffi.Int> type, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> borderOnForeground, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> animationDuration, ffi.Pointer<DartObj> child) {
   final w = Material(type: type.enumOr(MaterialType.values, MaterialType.canvas),
       elevation: elevation.doubleOr(0.0),
       color: color.objOrNul(),
@@ -1782,6 +1869,7 @@ MaterialObjSt materialMaterial(ffi.Pointer<ffi.Int> type, ffi.Pointer<ffi.Double
       shape: shape.objOrNul(),
       borderOnForeground: borderOnForeground.boolOr(true),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      animationDuration: animationDuration.objOrNul(),
       child: child.objOrNul());
   return _createMaterialObjSt(w);
 }
@@ -1799,6 +1887,7 @@ MaterialObjSt _createMaterialObjSt(Material? w) {
   stObj.shape = _addWidget(w.shape);
   stObj.borderOnForeground = w.borderOnForeground.toInt();
   stObj.clipBehavior = w.clipBehavior.index;
+  stObj.animationDuration = _addWidget(w.animationDuration);
   stObj.borderRadius = _addWidget(w.borderRadius);
   return stObj;
 }
@@ -2048,7 +2137,7 @@ void _setupMaterialApp(WidgetFactories f) {
   f.materialApp.materialApp = ffi.Pointer.fromFunction(materialAppMaterialApp);
   f.materialApp.router = ffi.Pointer.fromFunction(materialAppRouter);
 }
-MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<DartObj> themeAnimationCurve, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
+MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<DartObj> themeAnimationDuration, ffi.Pointer<DartObj> themeAnimationCurve, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
   final w = MaterialApp(home: home.objOrNul(),
       initialRoute: initialRoute.strOrNul(),
       builder: builder.toTransitionBuilderFn(),
@@ -2060,6 +2149,7 @@ MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<f
       highContrastTheme: highContrastTheme.objOrNul(),
       highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
       themeMode: themeMode.enumOrNul(ThemeMode.values),
+      themeAnimationDuration: themeAnimationDuration.objOrNul(),
       themeAnimationCurve: themeAnimationCurve.objOrNul(),
       debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
       showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
@@ -2071,7 +2161,7 @@ MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<f
       useInheritedMediaQuery: useInheritedMediaQuery.boolOr(false));
   return _createMaterialAppObjSt(w);
 }
-MaterialAppObjSt materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<DartObj> themeAnimationCurve, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
+MaterialAppObjSt materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ffi.Pointer<ffi.Char> title, ffi.Pointer<GenerateAppTitleFFI> onGenerateTitle, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> theme, ffi.Pointer<DartObj> darkTheme, ffi.Pointer<DartObj> highContrastTheme, ffi.Pointer<DartObj> highContrastDarkTheme, ffi.Pointer<ffi.Int> themeMode, ffi.Pointer<DartObj> themeAnimationDuration, ffi.Pointer<DartObj> themeAnimationCurve, ffi.Pointer<ffi.Int> debugShowMaterialGrid, ffi.Pointer<ffi.Int> showPerformanceOverlay, ffi.Pointer<ffi.Int> checkerboardRasterCacheImages, ffi.Pointer<ffi.Int> checkerboardOffscreenLayers, ffi.Pointer<ffi.Int> showSemanticsDebugger, ffi.Pointer<ffi.Int> debugShowCheckedModeBanner, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> useInheritedMediaQuery) {
   final w = MaterialApp.router(builder: builder.toTransitionBuilderFn(),
       title: title.strOrNul(),
       onGenerateTitle: onGenerateTitle.toGenerateAppTitleFn(),
@@ -2081,6 +2171,7 @@ MaterialAppObjSt materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ff
       highContrastTheme: highContrastTheme.objOrNul(),
       highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
       themeMode: themeMode.enumOrNul(ThemeMode.values),
+      themeAnimationDuration: themeAnimationDuration.objOrNul(),
       themeAnimationCurve: themeAnimationCurve.objOrNul(),
       debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
       showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
@@ -2104,6 +2195,7 @@ MaterialAppObjSt _createMaterialAppObjSt(MaterialApp? w) {
   stObj.highContrastTheme = _createThemeDataObjSt(w.highContrastTheme);
   stObj.highContrastDarkTheme = _createThemeDataObjSt(w.highContrastDarkTheme);
   stObj.themeMode = (w.themeMode != null) ? w.themeMode!.index : 0;
+  stObj.themeAnimationDuration = _addWidget(w.themeAnimationDuration);
   stObj.themeAnimationCurve = _addWidget(w.themeAnimationCurve);
   stObj.color = _addWidget(w.color);
   stObj.showPerformanceOverlay = w.showPerformanceOverlay.toInt();
@@ -2383,6 +2475,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   final f = fp.ref;
   _setupTextStyle(f);
   _setupText(f);
+  _setupTextSpan(f);
+  _setupRichText(f);
   _setupCenter(f);
   _setupColumn(f);
   _setupRow(f);
@@ -2416,6 +2510,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupCurvedAnimation(f);
   _setupSizedBox(f);
   _setupAlignment(f);
+  _setupMouseRegion(f);
+  _setupDuration(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupThemeData(f);

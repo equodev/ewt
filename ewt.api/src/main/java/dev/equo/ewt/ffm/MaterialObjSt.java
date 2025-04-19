@@ -26,6 +26,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj shape;
  *     int borderOnForeground;
  *     int clipBehavior;
+ *     DartObj animationDuration;
  *     DartObj borderRadius;
  * }
  * }
@@ -50,8 +51,10 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("borderOnForeground"),
         StarterBridge.C_INT.withName("clipBehavior"),
-        StarterBridge.C_INT.withName("borderRadius")
-    ).withName("$anon$398:9");
+        StarterBridge.C_INT.withName("animationDuration"),
+        StarterBridge.C_INT.withName("borderRadius"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$424:9");
 
     /**
      * The layout of this struct
@@ -544,6 +547,50 @@ public class MaterialObjSt {
         struct.set(clipBehavior$LAYOUT, clipBehavior$OFFSET, fieldValue);
     }
 
+    private static final OfInt animationDuration$LAYOUT = (OfInt)$LAYOUT.select(groupElement("animationDuration"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj animationDuration
+     * }
+     */
+    public static final OfInt animationDuration$layout() {
+        return animationDuration$LAYOUT;
+    }
+
+    private static final long animationDuration$OFFSET = 164;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj animationDuration
+     * }
+     */
+    public static final long animationDuration$offset() {
+        return animationDuration$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj animationDuration
+     * }
+     */
+    public static int animationDuration(MemorySegment struct) {
+        return struct.get(animationDuration$LAYOUT, animationDuration$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj animationDuration
+     * }
+     */
+    public static void animationDuration(MemorySegment struct, int fieldValue) {
+        struct.set(animationDuration$LAYOUT, animationDuration$OFFSET, fieldValue);
+    }
+
     private static final OfInt borderRadius$LAYOUT = (OfInt)$LAYOUT.select(groupElement("borderRadius"));
 
     /**
@@ -556,7 +603,7 @@ public class MaterialObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 164;
+    private static final long borderRadius$OFFSET = 168;
 
     /**
      * Offset for field:

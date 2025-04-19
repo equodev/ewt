@@ -42,7 +42,7 @@ public class BorderSideObjSt {
         StarterBridge.C_DOUBLE.withName("strokeInset"),
         StarterBridge.C_DOUBLE.withName("strokeOutset"),
         StarterBridge.C_DOUBLE.withName("strokeOffset")
-    ).withName("$anon$192:9");
+    ).withName("$anon$212:9");
 
     /**
      * The layout of this struct

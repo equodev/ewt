@@ -167,7 +167,7 @@ class Types {
     //     return '${arity}Function<$params, $retType4j>';
     //   }
     // }
-    return namedType.toString();
+    return namedType.getDisplayString(withNullability: false);
   }
 
   String type4C(DartType namedType) {

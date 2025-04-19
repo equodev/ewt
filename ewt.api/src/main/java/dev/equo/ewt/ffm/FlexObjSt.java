@@ -46,7 +46,7 @@ public class FlexObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("spacing")
-    ).withName("$anon$52:9");
+    ).withName("$anon$72:9");
 
     /**
      * The layout of this struct

@@ -353,7 +353,7 @@ class WidgetGen implements AGen {
     }
     else {
       javaFile
-          .writeln('    return $initializer;');
+          .writeln('    return ${dartExptrToJava(initializer!)};');
     }
     javaFile
       .writeln('  }');
@@ -395,6 +395,11 @@ class WidgetGen implements AGen {
       }
       return replace(e.toString());
     }
+    else if (e is BinaryExpression) {
+      return  '${dartExptrToJava(e.leftOperand)} ${e.operator} ${dartExptrToJava(e.rightOperand)}';
+    }
+    else if (e is DoubleLiteral || e is IntegerLiteral || e is PrefixExpression)
+      return e.toString();
     return e.toString();
   }
 
@@ -1112,7 +1117,11 @@ class Params {
           }
         }
         else if (t.isDartCoreInt) {
-          value = '${param.name}.intOrNul()';
+          if (t.nullabilitySuffix == NullabilitySuffix.none) {
+            value = '${param.name}.intOr(${param.defaultValueCode})';
+          } else {
+            value = '${param.name}.intOrNul()';
+          }
         }
         else if (t.isDartCoreDouble) {
           if (t.nullabilitySuffix == NullabilitySuffix.none) {

@@ -33,7 +33,7 @@ public class BoxShadowObjSt {
         StarterBridge.C_DOUBLE.withName("spreadRadius"),
         StarterBridge.C_INT.withName("blurStyle"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$169:9");
+    ).withName("$anon$189:9");
 
     /**
      * The layout of this struct

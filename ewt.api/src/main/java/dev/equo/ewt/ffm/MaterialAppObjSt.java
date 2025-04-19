@@ -24,6 +24,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     ThemeDataObjSt highContrastTheme;
  *     ThemeDataObjSt highContrastDarkTheme;
  *     int themeMode;
+ *     DartObj themeAnimationDuration;
  *     DartObj themeAnimationCurve;
  *     DartObj color;
  *     int showPerformanceOverlay;
@@ -53,6 +54,7 @@ public class MaterialAppObjSt {
         ThemeDataObjSt.layout().withName("highContrastTheme"),
         ThemeDataObjSt.layout().withName("highContrastDarkTheme"),
         StarterBridge.C_INT.withName("themeMode"),
+        StarterBridge.C_INT.withName("themeAnimationDuration"),
         StarterBridge.C_INT.withName("themeAnimationCurve"),
         StarterBridge.C_INT.withName("color"),
         StarterBridge.C_INT.withName("showPerformanceOverlay"),
@@ -60,10 +62,11 @@ public class MaterialAppObjSt {
         StarterBridge.C_INT.withName("checkerboardOffscreenLayers"),
         StarterBridge.C_INT.withName("showSemanticsDebugger"),
         StarterBridge.C_INT.withName("debugShowCheckedModeBanner"),
+        MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("restorationScopeId"),
         StarterBridge.C_INT.withName("debugShowMaterialGrid"),
         StarterBridge.C_INT.withName("useInheritedMediaQuery")
-    ).withName("$anon$483:9");
+    ).withName("$anon$510:9");
 
     /**
      * The layout of this struct
@@ -468,6 +471,50 @@ public class MaterialAppObjSt {
         struct.set(themeMode$LAYOUT, themeMode$OFFSET, fieldValue);
     }
 
+    private static final OfInt themeAnimationDuration$LAYOUT = (OfInt)$LAYOUT.select(groupElement("themeAnimationDuration"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj themeAnimationDuration
+     * }
+     */
+    public static final OfInt themeAnimationDuration$layout() {
+        return themeAnimationDuration$LAYOUT;
+    }
+
+    private static final long themeAnimationDuration$OFFSET = 14748;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj themeAnimationDuration
+     * }
+     */
+    public static final long themeAnimationDuration$offset() {
+        return themeAnimationDuration$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj themeAnimationDuration
+     * }
+     */
+    public static int themeAnimationDuration(MemorySegment struct) {
+        return struct.get(themeAnimationDuration$LAYOUT, themeAnimationDuration$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj themeAnimationDuration
+     * }
+     */
+    public static void themeAnimationDuration(MemorySegment struct, int fieldValue) {
+        struct.set(themeAnimationDuration$LAYOUT, themeAnimationDuration$OFFSET, fieldValue);
+    }
+
     private static final OfInt themeAnimationCurve$LAYOUT = (OfInt)$LAYOUT.select(groupElement("themeAnimationCurve"));
 
     /**
@@ -480,7 +527,7 @@ public class MaterialAppObjSt {
         return themeAnimationCurve$LAYOUT;
     }
 
-    private static final long themeAnimationCurve$OFFSET = 14748;
+    private static final long themeAnimationCurve$OFFSET = 14752;
 
     /**
      * Offset for field:
@@ -524,7 +571,7 @@ public class MaterialAppObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 14752;
+    private static final long color$OFFSET = 14756;
 
     /**
      * Offset for field:
@@ -568,7 +615,7 @@ public class MaterialAppObjSt {
         return showPerformanceOverlay$LAYOUT;
     }
 
-    private static final long showPerformanceOverlay$OFFSET = 14756;
+    private static final long showPerformanceOverlay$OFFSET = 14760;
 
     /**
      * Offset for field:
@@ -612,7 +659,7 @@ public class MaterialAppObjSt {
         return checkerboardRasterCacheImages$LAYOUT;
     }
 
-    private static final long checkerboardRasterCacheImages$OFFSET = 14760;
+    private static final long checkerboardRasterCacheImages$OFFSET = 14764;
 
     /**
      * Offset for field:
@@ -656,7 +703,7 @@ public class MaterialAppObjSt {
         return checkerboardOffscreenLayers$LAYOUT;
     }
 
-    private static final long checkerboardOffscreenLayers$OFFSET = 14764;
+    private static final long checkerboardOffscreenLayers$OFFSET = 14768;
 
     /**
      * Offset for field:
@@ -700,7 +747,7 @@ public class MaterialAppObjSt {
         return showSemanticsDebugger$LAYOUT;
     }
 
-    private static final long showSemanticsDebugger$OFFSET = 14768;
+    private static final long showSemanticsDebugger$OFFSET = 14772;
 
     /**
      * Offset for field:
@@ -744,7 +791,7 @@ public class MaterialAppObjSt {
         return debugShowCheckedModeBanner$LAYOUT;
     }
 
-    private static final long debugShowCheckedModeBanner$OFFSET = 14772;
+    private static final long debugShowCheckedModeBanner$OFFSET = 14776;
 
     /**
      * Offset for field:
@@ -788,7 +835,7 @@ public class MaterialAppObjSt {
         return restorationScopeId$LAYOUT;
     }
 
-    private static final long restorationScopeId$OFFSET = 14776;
+    private static final long restorationScopeId$OFFSET = 14784;
 
     /**
      * Offset for field:
@@ -832,7 +879,7 @@ public class MaterialAppObjSt {
         return debugShowMaterialGrid$LAYOUT;
     }
 
-    private static final long debugShowMaterialGrid$OFFSET = 14784;
+    private static final long debugShowMaterialGrid$OFFSET = 14792;
 
     /**
      * Offset for field:
@@ -876,7 +923,7 @@ public class MaterialAppObjSt {
         return useInheritedMediaQuery$LAYOUT;
     }
 
-    private static final long useInheritedMediaQuery$OFFSET = 14788;
+    private static final long useInheritedMediaQuery$OFFSET = 14796;
 
     /**
      * Offset for field:

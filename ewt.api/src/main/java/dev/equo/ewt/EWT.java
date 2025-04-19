@@ -31,6 +31,14 @@ public class EWT {
     return TextRichBuilder.textRich(textSpan);
   }
 
+  public static TextSpanTextSpanBuilder TextSpan() {
+    return TextSpanTextSpanBuilder.textSpanTextSpan();
+  }
+
+  public static RichTextRichTextBuilder RichText(InlineSpanI text) {
+    return RichTextRichTextBuilder.richTextRichText(text);
+  }
+
   public static CenterCenterBuilder Center() {
     return CenterCenterBuilder.centerCenter();
   }
@@ -206,6 +214,10 @@ public class EWT {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
   }
 
+  public static DurationDurationBuilder Duration() {
+    return DurationDurationBuilder.durationDuration();
+  }
+
   public static AnimatedBuilderAnimatedBuilderBuilder AnimatedBuilder(ListenableI animation, BiFunction<BuildContext, Widget, Widget> builder) {
     return AnimatedBuilderAnimatedBuilderBuilder.animatedBuilderAnimatedBuilder(animation, builder);
   }
@@ -256,6 +268,10 @@ public class EWT {
 
   public static AlignmentAlignmentBuilder Alignment(double x, double y) {
     return AlignmentAlignmentBuilder.alignmentAlignment(x, y);
+  }
+
+  public static MouseRegionMouseRegionBuilder MouseRegion() {
+    return MouseRegionMouseRegionBuilder.mouseRegionMouseRegion();
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {

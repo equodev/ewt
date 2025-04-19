@@ -14,7 +14,7 @@ public class Material extends StatefulWidget implements MaterialI {
     System.out.println("New Material id:"+id);
   }
   @Builder.Factory
-  static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
+  static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<DurationI> animationDuration, Optional<WidgetI> child) {
     var st = factories.materialMaterial(type,
       elevation,
       color.map(ColorI::build),
@@ -25,6 +25,7 @@ public class Material extends StatefulWidget implements MaterialI {
       shape.map(ShapeBorderI::build),
       borderOnForeground,
       clipBehavior,
+      animationDuration.map(DurationI::build),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Material");
     return new Material(st);
@@ -61,6 +62,9 @@ public class Material extends StatefulWidget implements MaterialI {
   }
   public Clip clipBehavior() {
     return Clip.values()[MaterialObjSt.clipBehavior(st)];
+  }
+  public Duration animationDuration() {
+    return new Duration(MaterialObjSt.animationDuration(st));
   }
   public BorderRadiusGeometry borderRadius() {
     return new BorderRadiusGeometry(MaterialObjSt.borderRadius(st)) {};

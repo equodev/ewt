@@ -9,6 +9,8 @@ w.Widget? widget;
 w.TextStyle? textStyle;
 w.Text? text;
 w.InlineSpan? inlineSpan;
+w.TextSpan? textSpan;
+w.RichText? richText;
 w.Center? center;
 w.Column? column;
 w.Row? row;
@@ -48,8 +50,12 @@ w.Curves? curves;
 w.CurvedAnimation? curvedAnimation;
 w.SizedBox? sizedBox;
 w.Alignment? alignment;
+w.MouseRegion? mouseRegion;
+Duration? duration;
+
 // w.FontWeight? fontWeight; constants accessing privates
 
+m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;
 m.ThemeData? themeData;

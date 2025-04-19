@@ -48,7 +48,7 @@ public class BoxConstraintsObjSt {
         StarterBridge.C_INT.withName("hasBoundedHeight"),
         StarterBridge.C_INT.withName("hasInfiniteWidth"),
         StarterBridge.C_INT.withName("hasInfiniteHeight")
-    ).withName("$anon$114:9");
+    ).withName("$anon$134:9");
 
     /**
      * The layout of this struct

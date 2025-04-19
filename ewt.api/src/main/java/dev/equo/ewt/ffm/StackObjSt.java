@@ -35,7 +35,7 @@ public class StackObjSt {
         StarterBridge.C_INT.withName("textDirection"),
         StarterBridge.C_INT.withName("fit"),
         StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$106:9");
+    ).withName("$anon$126:9");
 
     /**
      * The layout of this struct

@@ -36,6 +36,26 @@ typedef struct {
 
 typedef struct {
   int id;
+  char* text;
+  char* semanticsLabel;
+  int spellOut;
+} TextSpanObjSt;
+
+typedef struct {
+  int id;
+  DartObj text;
+  int textAlign;
+  int textDirection;
+  int softWrap;
+  int overflow;
+  int maxLines;
+  int textWidthBasis;
+  DartObj selectionColor;
+  double textScaleFactor;
+} RichTextObjSt;
+
+typedef struct {
+  int id;
 } CenterObjSt;
 
 typedef struct {
@@ -268,6 +288,12 @@ typedef struct {
 
 typedef struct {
   int id;
+  int opaque;
+  int hitTestBehavior;
+} MouseRegionObjSt;
+
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;
@@ -407,6 +433,7 @@ typedef struct {
   DartObj shape;
   int borderOnForeground;
   int clipBehavior;
+  DartObj animationDuration;
   DartObj borderRadius;
 } MaterialObjSt;
 
@@ -490,6 +517,7 @@ typedef struct {
   ThemeDataObjSt highContrastTheme;
   ThemeDataObjSt highContrastDarkTheme;
   int themeMode;
+  DartObj themeAnimationDuration;
   DartObj themeAnimationCurve;
   DartObj color;
   int showPerformanceOverlay;

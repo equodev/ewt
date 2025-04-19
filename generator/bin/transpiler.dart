@@ -276,9 +276,16 @@ class Dart2JavaVisitor extends ToSourceVisitor {
   @override
   void visitIndexExpression(IndexExpression node) {
     node.realTarget.accept(this);
-    write(node, node.realTarget.staticType!.isDartCoreList ? '.get(' : node.leftBracket);
+    var type = node.realTarget.staticType;
+    if (type!.isDartCoreList) {
+      write(node, '.get(');
+    } else if (type.isDartCoreMap) {
+      write(node, '.get(');
+    } else {
+      write(node, node.leftBracket);
+    }
     node.index.accept(this);
-    write(node, node.realTarget.staticType!.isDartCoreList ? ')' : node.rightBracket);
+    write(node, type.isDartCoreList || type.isDartCoreMap ? ')' : node.rightBracket);
   }
 
   @override
@@ -369,14 +376,22 @@ class Dart2JavaVisitor extends ToSourceVisitor {
 
   @override
   void visitAssignmentExpression(AssignmentExpression node) {
-    if (node.leftHandSide is PropertyAccess && (!isUserClass((node.leftHandSide as PropertyAccess).realTarget) /*|| !isUserClass(node.rightHandSide)*/)) {
+    var leftHandSide = node.leftHandSide;
+    if (leftHandSide is PropertyAccess && (!isUserClass((leftHandSide).realTarget) /*|| !isUserClass(node.rightHandSide)*/)) {
       // setter
-      _visitNode(node.leftHandSide);
+      _visitNode(leftHandSide);
       write(node, '(');
       _visitNode(node.rightHandSide);
       write(node, ')');
+    } else if (leftHandSide is IndexExpression && leftHandSide.realTarget.staticType!.isDartCoreMap) {
+      leftHandSide.realTarget.accept(this);
+      write(node, '.put(');
+      leftHandSide.index.accept(this);
+      write(node, ', ');
+      _visitNode(node.rightHandSide);
+      write(node, ')');
     } else {
-      _visitNode(node.leftHandSide);
+      _visitNode(leftHandSide);
       sink.write(' ');
       sink.write(node.operator.lexeme);
       sink.write(' ');
@@ -422,8 +437,16 @@ class Dart2JavaVisitor extends ToSourceVisitor {
         t = 'BiFunction<${javaType(type.parameters[0].type)}, ${javaType(type.parameters[1].type)}, ${javaType(type.returnType)}>';
       }
     }
-    if (boxed && (type.isDartCoreBool || type.isDartCoreInt || type.isDartCoreDouble)) {
-      t = t[0].toUpperCase() + t.substring(1);
+    if (boxed) {
+      if (type.isDartCoreBool) {
+        t = 'Boolean';
+      }
+      if (type.isDartCoreInt) {
+        t = 'Integer';
+      }
+      if (type.isDartCoreDouble) {
+        t = 'Double';
+      }
     }
     return t;
   }
@@ -441,7 +464,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
       if (node.realTarget != null) {
         write(node, '.');
       }
-      final replace = replacement(node.realTarget?.staticType, node.methodName.name);
+      final replace = replacementForMethod(node.realTarget?.staticType, node.methodName.name);
       if (replace != null) {
         write(node, replace);
       } else {
@@ -578,6 +601,13 @@ class Dart2JavaVisitor extends ToSourceVisitor {
 
   @override
   void visitConstructorName(ConstructorName node) {
+    if (node.name != null) {
+      var repl = replacementForConstructor(node.type.type, node.name);
+      if (repl != null) {
+        write(node, repl);
+        return;
+      }
+    }
     write(node, javaify(node.type.name2));
     if (node.name != null) {
       write(node, '_${node.name}');
@@ -723,7 +753,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
       //   }
       // }
       sink.write(node.operator.lexeme);
-      final replace = replacement(node.target?.staticType, node.propertyName.name);
+      final replace = replacementForMethod(node.target?.staticType, node.propertyName.name);
       if (replace != null) {
         write(node, replace);
         if (!isUserLibrary2(node.propertyName.element?.library2)) {
@@ -742,7 +772,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
     //   write(node, '()');
     // }
     write(node, '.');
-    final replace = replacement(node.prefix.staticType, node.identifier.name);
+    final replace = replacementForMethod(node.prefix.staticType, node.identifier.name);
     if (replace != null) {
       write(node, replace);
       if (node.staticType?.element is! EnumElement && !isUserLibrary2(node.identifier.element?.library2)) {
@@ -774,6 +804,15 @@ class Dart2JavaVisitor extends ToSourceVisitor {
       _visitNodeList(node.elements, separator: ', ');
       sink.write(')');
     }
+  }
+
+  @override
+  void visitSetOrMapLiteral(SetOrMapLiteral node) {
+    _imports.add('java.util.Map');
+    write(node, 'Map');
+    sink.write('.of(');
+    _visitNodeList(node.elements, separator: ', ');
+    sink.write(')');
   }
 
   @override
@@ -899,13 +938,27 @@ class Dart2JavaVisitor extends ToSourceVisitor {
     return code.toString();
   }
 
-  String? replacement(DartType? staticType, String name) {
+  String? replacementForMethod(DartType? staticType, String? name) {
     if (staticType != null && staticType.isDartCoreList) {
       return switch (name) {
         'length' => 'size',
         'sublist' => 'subList',
         _ => null,
       };
+    }
+    return null;
+  }
+
+  String? replacementForConstructor(DartType? staticType, SimpleIdentifier? name) {
+    if (staticType != null && staticType.isDartCoreList) {
+      var e = switch (name?.token.lexeme) {
+        'filled' => 'Collections.nCopies',
+        _ => null,
+      };
+      if (e != null) {
+        _imports.add('java.util.Collections');
+      }
+      return e;
     }
     return null;
   }

@@ -107,6 +107,15 @@ void main() {
 
       expect(actualOutput, completion(equals(expectedOutput)));
     });
+
+    test('View Test', () async {
+      final dartInput = 'test/fixtures/knowledge_view_v57.dart';
+      final actualOutput = transpile(dartInput, '../examples/src/main/java/dev/equo/KnowledgeView.java');
+      final expectedOutput = File('test/fixtures/knowledge_view_v57.java')
+          .readAsStringSync();
+
+      expect(actualOutput, completion(equals(expectedOutput)));
+    });
   });
 
   group('Dart to Java Fragments', () {

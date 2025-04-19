@@ -114,6 +114,30 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectionColor));
   }
 
+  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<String> semanticsLabel, Optional<Boolean> spellOut) {
+    var st = WidgetFactories.textSpan(factories);
+    var fn = WidgetFactories.TextSpanSt.textSpan(st);
+    return WidgetFactories.TextSpanSt.textSpan.invoke(fn, arena, ptrStr(text),
+      ptrList(children),
+      ptrObj(style),
+      ptrStr(semanticsLabel),
+      ptrBool(spellOut));
+  }
+
+  MemorySegment richTextRichText(InlineSpan text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
+    var st = WidgetFactories.richText(factories);
+    var fn = WidgetFactories.RichTextSt.richText(st);
+    return WidgetFactories.RichTextSt.richText.invoke(fn, arena, text.getId(),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(textScaleFactor),
+      ptr(maxLines),
+      ptrEnum(textWidthBasis),
+      ptrObj(selectionColor));
+  }
+
   MemorySegment centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<Widget> child) {
     var st = WidgetFactories.center(factories);
     var fn = WidgetFactories.CenterSt.center(st);
@@ -599,23 +623,38 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(borderRadius));
   }
 
-  int animationControllerAnimationController(OptionalDouble value, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProvider vsync) {
+  int animationControllerAnimationController(OptionalDouble value, Optional<Duration> duration, Optional<Duration> reverseDuration, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProvider vsync) {
     var st = WidgetFactories.animationController(factories);
     var fn = WidgetFactories.AnimationControllerSt.animationController(st);
     return WidgetFactories.AnimationControllerSt.animationController.invoke(fn, ptr(value),
+      ptrObj(duration),
+      ptrObj(reverseDuration),
       ptrStr(debugLabel),
       ptr(lowerBound),
       ptr(upperBound),
       ptrEnum(animationBehavior),
       vsync.getId());
   }
-  int animationControllerUnbounded(OptionalDouble value, Optional<String> debugLabel, TickerProvider vsync, Optional<AnimationBehavior> animationBehavior) {
+  int animationControllerUnbounded(OptionalDouble value, Optional<Duration> duration, Optional<Duration> reverseDuration, Optional<String> debugLabel, TickerProvider vsync, Optional<AnimationBehavior> animationBehavior) {
     var st = WidgetFactories.animationController(factories);
     var fn = WidgetFactories.AnimationControllerSt.unbounded(st);
     return WidgetFactories.AnimationControllerSt.unbounded.invoke(fn, ptr(value),
+      ptrObj(duration),
+      ptrObj(reverseDuration),
       ptrStr(debugLabel),
       vsync.getId(),
       ptrEnum(animationBehavior));
+  }
+
+  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
+    var st = WidgetFactories.duration(factories);
+    var fn = WidgetFactories.DurationSt.duration(st);
+    return WidgetFactories.DurationSt.duration.invoke(fn, ptr(days),
+      ptr(hours),
+      ptr(minutes),
+      ptr(seconds),
+      ptr(milliseconds),
+      ptr(microseconds));
   }
 
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {
@@ -720,6 +759,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.AlignmentSt.lerp.invoke(fn, arena, a.getId(),
       b.getId(),
       t);
+  }
+
+  MemorySegment mouseRegionMouseRegion(Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
+    var st = WidgetFactories.mouseRegion(factories);
+    var fn = WidgetFactories.MouseRegionSt.mouseRegion(st);
+    return WidgetFactories.MouseRegionSt.mouseRegion.invoke(fn, arena, ptrBool(opaque),
+      ptrEnum(hitTestBehavior),
+      ptrObj(child));
   }
 
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
@@ -1210,7 +1257,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrMap(swatch));
   }
 
-  MemorySegment materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<TextStyle> textStyle, Optional<BorderRadiusGeometry> borderRadius, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<Widget> child) {
+  MemorySegment materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<TextStyle> textStyle, Optional<BorderRadiusGeometry> borderRadius, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<Duration> animationDuration, Optional<Widget> child) {
     var st = WidgetFactories.material(factories);
     var fn = WidgetFactories.MaterialSt.material(st);
     return WidgetFactories.MaterialSt.material.invoke(fn, arena, ptrEnum(type),
@@ -1223,6 +1270,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(shape),
       ptrBool(borderOnForeground),
       ptrEnum(clipBehavior),
+      ptrObj(animationDuration),
       ptrObj(child));
   }
 
@@ -1385,7 +1433,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ScaffoldSt.geometryOf.invoke(fn, context.getId());
   }
 
-  MemorySegment materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Curve> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  MemorySegment materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Duration> themeAnimationDuration, Optional<Curve> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
     var fn = WidgetFactories.MaterialAppSt.materialApp(st);
     return WidgetFactories.MaterialAppSt.materialApp.invoke(fn, arena, ptrObj(home),
@@ -1399,6 +1447,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highContrastTheme),
       ptrObj(highContrastDarkTheme),
       ptrEnum(themeMode),
+      ptrObj(themeAnimationDuration),
       ptrObj(themeAnimationCurve),
       ptrBool(debugShowMaterialGrid),
       ptrBool(showPerformanceOverlay),
@@ -1409,7 +1458,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(restorationScopeId),
       ptrBool(useInheritedMediaQuery));
   }
-  MemorySegment materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Curve> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  MemorySegment materialAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Duration> themeAnimationDuration, Optional<Curve> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
     var fn = WidgetFactories.MaterialAppSt.router(st);
     return WidgetFactories.MaterialAppSt.router.invoke(fn, arena, builder.isPresent() ? ptrTransitionBuilderFn(builder.get()) : MemorySegment.NULL,
@@ -1421,6 +1470,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highContrastTheme),
       ptrObj(highContrastDarkTheme),
       ptrEnum(themeMode),
+      ptrObj(themeAnimationDuration),
       ptrObj(themeAnimationCurve),
       ptrBool(debugShowMaterialGrid),
       ptrBool(showPerformanceOverlay),
