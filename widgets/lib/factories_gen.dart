@@ -223,7 +223,7 @@ void _setupAlign(WidgetFactories f) {
   f.align.align = ffi.Pointer.fromFunction(alignAlign);
 }
 AlignObjSt alignAlign(ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<DartObj> child) {
-  final w = Align(alignment: alignment.objOrNul(),
+  final w = Align(alignment: alignment.objOr(Alignment.center),
       widthFactor: widthFactor.doubleOrNul(),
       heightFactor: heightFactor.doubleOrNul(),
       child: child.objOrNul());
@@ -468,7 +468,7 @@ void _setupStack(WidgetFactories f) {
   f.stack.stack = ffi.Pointer.fromFunction(stackStack);
 }
 StackObjSt stackStack(ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> fit, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ArrayC> children) {
-  final w = Stack(alignment: alignment.objOrNul(),
+  final w = Stack(alignment: alignment.objOr(AlignmentDirectional.topStart),
       textDirection: textDirection.enumOrNul(TextDirection.values),
       fit: fit.enumOr(StackFit.values, StackFit.loose),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
@@ -713,20 +713,20 @@ BorderRadiusObjSt borderRadiusCircular(double radius) {
   return _createBorderRadiusObjSt(w);
 }
 BorderRadiusObjSt borderRadiusVertical(ffi.Pointer<DartObj> top, ffi.Pointer<DartObj> bottom) {
-  final w = BorderRadius.vertical(top: top.objOrNul(),
-      bottom: bottom.objOrNul());
+  final w = BorderRadius.vertical(top: top.objOr(Radius.zero),
+      bottom: bottom.objOr(Radius.zero));
   return _createBorderRadiusObjSt(w);
 }
 BorderRadiusObjSt borderRadiusHorizontal(ffi.Pointer<DartObj> left, ffi.Pointer<DartObj> right) {
-  final w = BorderRadius.horizontal(left: left.objOrNul(),
-      right: right.objOrNul());
+  final w = BorderRadius.horizontal(left: left.objOr(Radius.zero),
+      right: right.objOr(Radius.zero));
   return _createBorderRadiusObjSt(w);
 }
 BorderRadiusObjSt borderRadiusOnly(ffi.Pointer<DartObj> topLeft, ffi.Pointer<DartObj> topRight, ffi.Pointer<DartObj> bottomLeft, ffi.Pointer<DartObj> bottomRight) {
-  final w = BorderRadius.only(topLeft: topLeft.objOrNul(),
-      topRight: topRight.objOrNul(),
-      bottomLeft: bottomLeft.objOrNul(),
-      bottomRight: bottomRight.objOrNul());
+  final w = BorderRadius.only(topLeft: topLeft.objOr(Radius.zero),
+      topRight: topRight.objOr(Radius.zero),
+      bottomLeft: bottomLeft.objOr(Radius.zero),
+      bottomRight: bottomRight.objOr(Radius.zero));
   return _createBorderRadiusObjSt(w);
 }
 BorderRadiusObjSt? borderRadiusLerp(DartDartObj a, DartDartObj b, double t) {
@@ -751,8 +751,8 @@ void _setupBoxShadow(WidgetFactories f) {
   f.boxShadow.lerp = ffi.Pointer.fromFunction(boxShadowLerp);
 }
 BoxShadowObjSt boxShadowBoxShadow(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> offset, ffi.Pointer<ffi.Double> blurRadius, ffi.Pointer<ffi.Double> spreadRadius, ffi.Pointer<ffi.Int> blurStyle) {
-  final w = BoxShadow(color: color.objOrNul(),
-      offset: offset.objOrNul(),
+  final w = BoxShadow(color: color.objOr(const Color(0xFF000000)),
+      offset: offset.objOr(Offset.zero),
       blurRadius: blurRadius.doubleOr(0.0),
       spreadRadius: spreadRadius.doubleOr(0.0),
       blurStyle: blurStyle.enumOr(BlurStyle.values, BlurStyle.normal));
@@ -778,8 +778,8 @@ void _setupShadow(WidgetFactories f) {
   f.shadow.lerp = ffi.Pointer.fromFunction(shadowLerp, exception);
 }
 int shadowShadow(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> offset, ffi.Pointer<ffi.Double> blurRadius) {
-  final w = Shadow(color: color.objOrNul(),
-      offset: offset.objOrNul(),
+  final w = Shadow(color: color.objOr(const Color(0xFF000000)),
+      offset: offset.objOr(Offset.zero),
       blurRadius: blurRadius.doubleOr(0.0));
   return _addWidget(w);
 }
@@ -863,7 +863,7 @@ void _setupBorderSide(WidgetFactories f) {
   f.borderSide.lerp = ffi.Pointer.fromFunction(borderSideLerp);
 }
 BorderSideObjSt borderSideBorderSide(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Int> style, ffi.Pointer<ffi.Double> strokeAlign) {
-  final w = BorderSide(color: color.objOrNul(),
+  final w = BorderSide(color: color.objOr(const Color(0xFF000000)),
       width: width.doubleOr(1.0),
       style: style.enumOr(BorderStyle.values, BorderStyle.solid),
       strokeAlign: strokeAlign.doubleOr(BorderSide.strokeAlignInside));
@@ -903,10 +903,10 @@ void _setupBorder(WidgetFactories f) {
   f.border.lerp = ffi.Pointer.fromFunction(borderLerp);
 }
 BorderObjSt borderBorder(ffi.Pointer<DartObj> top, ffi.Pointer<DartObj> right, ffi.Pointer<DartObj> bottom, ffi.Pointer<DartObj> left) {
-  final w = Border(top: top.objOrNul(),
-      right: right.objOrNul(),
-      bottom: bottom.objOrNul(),
-      left: left.objOrNul());
+  final w = Border(top: top.objOr(BorderSide.none),
+      right: right.objOr(BorderSide.none),
+      bottom: bottom.objOr(BorderSide.none),
+      left: left.objOr(BorderSide.none));
   return _createBorderObjSt(w);
 }
 BorderObjSt borderFromBorderSide(DartDartObj side) {
@@ -914,12 +914,12 @@ BorderObjSt borderFromBorderSide(DartDartObj side) {
   return _createBorderObjSt(w);
 }
 BorderObjSt borderSymmetric(ffi.Pointer<DartObj> vertical, ffi.Pointer<DartObj> horizontal) {
-  final w = Border.symmetric(vertical: vertical.objOrNul(),
-      horizontal: horizontal.objOrNul());
+  final w = Border.symmetric(vertical: vertical.objOr(BorderSide.none),
+      horizontal: horizontal.objOr(BorderSide.none));
   return _createBorderObjSt(w);
 }
 BorderObjSt borderAll(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Int> style, ffi.Pointer<ffi.Double> strokeAlign) {
-  final w = Border.all(color: color.objOrNul(),
+  final w = Border.all(color: color.objOr(const Color(0xFF000000)),
       width: width.doubleOr(1.0),
       style: style.enumOr(BorderStyle.values, BorderStyle.solid),
       strokeAlign: strokeAlign.doubleOr(BorderSide.strokeAlignInside));
@@ -951,8 +951,8 @@ void _setupRoundedRectangleBorder(WidgetFactories f) {
   f.roundedRectangleBorder.roundedRectangleBorder = ffi.Pointer.fromFunction(roundedRectangleBorderRoundedRectangleBorder);
 }
 RoundedRectangleBorderObjSt roundedRectangleBorderRoundedRectangleBorder(ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> borderRadius) {
-  final w = RoundedRectangleBorder(side: side.objOrNul(),
-      borderRadius: borderRadius.objOrNul());
+  final w = RoundedRectangleBorder(side: side.objOr(BorderSide.none),
+      borderRadius: borderRadius.objOr(BorderRadius.zero));
   return _createRoundedRectangleBorderObjSt(w);
 }
 RoundedRectangleBorderObjSt _createRoundedRectangleBorderObjSt(RoundedRectangleBorder? w) {
@@ -1336,16 +1336,16 @@ ColorSchemeObjSt colorSchemeFromSeed(DartDartObj seedColor, ffi.Pointer<ffi.Int>
 }
 ColorSchemeObjSt colorSchemeLight(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> primary, ffi.Pointer<DartObj> onPrimary, ffi.Pointer<DartObj> primaryContainer, ffi.Pointer<DartObj> onPrimaryContainer, ffi.Pointer<DartObj> primaryFixed, ffi.Pointer<DartObj> primaryFixedDim, ffi.Pointer<DartObj> onPrimaryFixed, ffi.Pointer<DartObj> onPrimaryFixedVariant, ffi.Pointer<DartObj> secondary, ffi.Pointer<DartObj> onSecondary, ffi.Pointer<DartObj> secondaryContainer, ffi.Pointer<DartObj> onSecondaryContainer, ffi.Pointer<DartObj> secondaryFixed, ffi.Pointer<DartObj> secondaryFixedDim, ffi.Pointer<DartObj> onSecondaryFixed, ffi.Pointer<DartObj> onSecondaryFixedVariant, ffi.Pointer<DartObj> tertiary, ffi.Pointer<DartObj> onTertiary, ffi.Pointer<DartObj> tertiaryContainer, ffi.Pointer<DartObj> onTertiaryContainer, ffi.Pointer<DartObj> tertiaryFixed, ffi.Pointer<DartObj> tertiaryFixedDim, ffi.Pointer<DartObj> onTertiaryFixed, ffi.Pointer<DartObj> onTertiaryFixedVariant, ffi.Pointer<DartObj> error, ffi.Pointer<DartObj> onError, ffi.Pointer<DartObj> errorContainer, ffi.Pointer<DartObj> onErrorContainer, ffi.Pointer<DartObj> surface, ffi.Pointer<DartObj> onSurface, ffi.Pointer<DartObj> surfaceDim, ffi.Pointer<DartObj> surfaceBright, ffi.Pointer<DartObj> surfaceContainerLowest, ffi.Pointer<DartObj> surfaceContainerLow, ffi.Pointer<DartObj> surfaceContainer, ffi.Pointer<DartObj> surfaceContainerHigh, ffi.Pointer<DartObj> surfaceContainerHighest, ffi.Pointer<DartObj> onSurfaceVariant, ffi.Pointer<DartObj> outline, ffi.Pointer<DartObj> outlineVariant, ffi.Pointer<DartObj> shadow, ffi.Pointer<DartObj> scrim, ffi.Pointer<DartObj> inverseSurface, ffi.Pointer<DartObj> onInverseSurface, ffi.Pointer<DartObj> inversePrimary, ffi.Pointer<DartObj> surfaceTint, ffi.Pointer<DartObj> background, ffi.Pointer<DartObj> onBackground, ffi.Pointer<DartObj> surfaceVariant) {
   final w = ColorScheme.light(brightness: brightness.enumOr(Brightness.values, Brightness.light),
-      primary: primary.objOrNul(),
-      onPrimary: onPrimary.objOrNul(),
+      primary: primary.objOr(const Color(0xff6200ee)),
+      onPrimary: onPrimary.objOr(Colors.white),
       primaryContainer: primaryContainer.objOrNul(),
       onPrimaryContainer: onPrimaryContainer.objOrNul(),
       primaryFixed: primaryFixed.objOrNul(),
       primaryFixedDim: primaryFixedDim.objOrNul(),
       onPrimaryFixed: onPrimaryFixed.objOrNul(),
       onPrimaryFixedVariant: onPrimaryFixedVariant.objOrNul(),
-      secondary: secondary.objOrNul(),
-      onSecondary: onSecondary.objOrNul(),
+      secondary: secondary.objOr(const Color(0xff03dac6)),
+      onSecondary: onSecondary.objOr(Colors.black),
       secondaryContainer: secondaryContainer.objOrNul(),
       onSecondaryContainer: onSecondaryContainer.objOrNul(),
       secondaryFixed: secondaryFixed.objOrNul(),
@@ -1360,12 +1360,12 @@ ColorSchemeObjSt colorSchemeLight(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<D
       tertiaryFixedDim: tertiaryFixedDim.objOrNul(),
       onTertiaryFixed: onTertiaryFixed.objOrNul(),
       onTertiaryFixedVariant: onTertiaryFixedVariant.objOrNul(),
-      error: error.objOrNul(),
-      onError: onError.objOrNul(),
+      error: error.objOr(const Color(0xffb00020)),
+      onError: onError.objOr(Colors.white),
       errorContainer: errorContainer.objOrNul(),
       onErrorContainer: onErrorContainer.objOrNul(),
-      surface: surface.objOrNul(),
-      onSurface: onSurface.objOrNul(),
+      surface: surface.objOr(Colors.white),
+      onSurface: onSurface.objOr(Colors.black),
       surfaceDim: surfaceDim.objOrNul(),
       surfaceBright: surfaceBright.objOrNul(),
       surfaceContainerLowest: surfaceContainerLowest.objOrNul(),
@@ -1389,16 +1389,16 @@ ColorSchemeObjSt colorSchemeLight(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<D
 }
 ColorSchemeObjSt colorSchemeDark(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> primary, ffi.Pointer<DartObj> onPrimary, ffi.Pointer<DartObj> primaryContainer, ffi.Pointer<DartObj> onPrimaryContainer, ffi.Pointer<DartObj> primaryFixed, ffi.Pointer<DartObj> primaryFixedDim, ffi.Pointer<DartObj> onPrimaryFixed, ffi.Pointer<DartObj> onPrimaryFixedVariant, ffi.Pointer<DartObj> secondary, ffi.Pointer<DartObj> onSecondary, ffi.Pointer<DartObj> secondaryContainer, ffi.Pointer<DartObj> onSecondaryContainer, ffi.Pointer<DartObj> secondaryFixed, ffi.Pointer<DartObj> secondaryFixedDim, ffi.Pointer<DartObj> onSecondaryFixed, ffi.Pointer<DartObj> onSecondaryFixedVariant, ffi.Pointer<DartObj> tertiary, ffi.Pointer<DartObj> onTertiary, ffi.Pointer<DartObj> tertiaryContainer, ffi.Pointer<DartObj> onTertiaryContainer, ffi.Pointer<DartObj> tertiaryFixed, ffi.Pointer<DartObj> tertiaryFixedDim, ffi.Pointer<DartObj> onTertiaryFixed, ffi.Pointer<DartObj> onTertiaryFixedVariant, ffi.Pointer<DartObj> error, ffi.Pointer<DartObj> onError, ffi.Pointer<DartObj> errorContainer, ffi.Pointer<DartObj> onErrorContainer, ffi.Pointer<DartObj> surface, ffi.Pointer<DartObj> onSurface, ffi.Pointer<DartObj> surfaceDim, ffi.Pointer<DartObj> surfaceBright, ffi.Pointer<DartObj> surfaceContainerLowest, ffi.Pointer<DartObj> surfaceContainerLow, ffi.Pointer<DartObj> surfaceContainer, ffi.Pointer<DartObj> surfaceContainerHigh, ffi.Pointer<DartObj> surfaceContainerHighest, ffi.Pointer<DartObj> onSurfaceVariant, ffi.Pointer<DartObj> outline, ffi.Pointer<DartObj> outlineVariant, ffi.Pointer<DartObj> shadow, ffi.Pointer<DartObj> scrim, ffi.Pointer<DartObj> inverseSurface, ffi.Pointer<DartObj> onInverseSurface, ffi.Pointer<DartObj> inversePrimary, ffi.Pointer<DartObj> surfaceTint, ffi.Pointer<DartObj> background, ffi.Pointer<DartObj> onBackground, ffi.Pointer<DartObj> surfaceVariant) {
   final w = ColorScheme.dark(brightness: brightness.enumOr(Brightness.values, Brightness.dark),
-      primary: primary.objOrNul(),
-      onPrimary: onPrimary.objOrNul(),
+      primary: primary.objOr(const Color(0xffbb86fc)),
+      onPrimary: onPrimary.objOr(Colors.black),
       primaryContainer: primaryContainer.objOrNul(),
       onPrimaryContainer: onPrimaryContainer.objOrNul(),
       primaryFixed: primaryFixed.objOrNul(),
       primaryFixedDim: primaryFixedDim.objOrNul(),
       onPrimaryFixed: onPrimaryFixed.objOrNul(),
       onPrimaryFixedVariant: onPrimaryFixedVariant.objOrNul(),
-      secondary: secondary.objOrNul(),
-      onSecondary: onSecondary.objOrNul(),
+      secondary: secondary.objOr(const Color(0xff03dac6)),
+      onSecondary: onSecondary.objOr(Colors.black),
       secondaryContainer: secondaryContainer.objOrNul(),
       onSecondaryContainer: onSecondaryContainer.objOrNul(),
       secondaryFixed: secondaryFixed.objOrNul(),
@@ -1413,12 +1413,12 @@ ColorSchemeObjSt colorSchemeDark(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<Da
       tertiaryFixedDim: tertiaryFixedDim.objOrNul(),
       onTertiaryFixed: onTertiaryFixed.objOrNul(),
       onTertiaryFixedVariant: onTertiaryFixedVariant.objOrNul(),
-      error: error.objOrNul(),
-      onError: onError.objOrNul(),
+      error: error.objOr(const Color(0xffcf6679)),
+      onError: onError.objOr(Colors.black),
       errorContainer: errorContainer.objOrNul(),
       onErrorContainer: onErrorContainer.objOrNul(),
-      surface: surface.objOrNul(),
-      onSurface: onSurface.objOrNul(),
+      surface: surface.objOr(const Color(0xff121212)),
+      onSurface: onSurface.objOr(Colors.white),
       surfaceDim: surfaceDim.objOrNul(),
       surfaceBright: surfaceBright.objOrNul(),
       surfaceContainerLowest: surfaceContainerLowest.objOrNul(),
@@ -1442,16 +1442,16 @@ ColorSchemeObjSt colorSchemeDark(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<Da
 }
 ColorSchemeObjSt colorSchemeHighContrastLight(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> primary, ffi.Pointer<DartObj> onPrimary, ffi.Pointer<DartObj> primaryContainer, ffi.Pointer<DartObj> onPrimaryContainer, ffi.Pointer<DartObj> primaryFixed, ffi.Pointer<DartObj> primaryFixedDim, ffi.Pointer<DartObj> onPrimaryFixed, ffi.Pointer<DartObj> onPrimaryFixedVariant, ffi.Pointer<DartObj> secondary, ffi.Pointer<DartObj> onSecondary, ffi.Pointer<DartObj> secondaryContainer, ffi.Pointer<DartObj> onSecondaryContainer, ffi.Pointer<DartObj> secondaryFixed, ffi.Pointer<DartObj> secondaryFixedDim, ffi.Pointer<DartObj> onSecondaryFixed, ffi.Pointer<DartObj> onSecondaryFixedVariant, ffi.Pointer<DartObj> tertiary, ffi.Pointer<DartObj> onTertiary, ffi.Pointer<DartObj> tertiaryContainer, ffi.Pointer<DartObj> onTertiaryContainer, ffi.Pointer<DartObj> tertiaryFixed, ffi.Pointer<DartObj> tertiaryFixedDim, ffi.Pointer<DartObj> onTertiaryFixed, ffi.Pointer<DartObj> onTertiaryFixedVariant, ffi.Pointer<DartObj> error, ffi.Pointer<DartObj> onError, ffi.Pointer<DartObj> errorContainer, ffi.Pointer<DartObj> onErrorContainer, ffi.Pointer<DartObj> surface, ffi.Pointer<DartObj> onSurface, ffi.Pointer<DartObj> surfaceDim, ffi.Pointer<DartObj> surfaceBright, ffi.Pointer<DartObj> surfaceContainerLowest, ffi.Pointer<DartObj> surfaceContainerLow, ffi.Pointer<DartObj> surfaceContainer, ffi.Pointer<DartObj> surfaceContainerHigh, ffi.Pointer<DartObj> surfaceContainerHighest, ffi.Pointer<DartObj> onSurfaceVariant, ffi.Pointer<DartObj> outline, ffi.Pointer<DartObj> outlineVariant, ffi.Pointer<DartObj> shadow, ffi.Pointer<DartObj> scrim, ffi.Pointer<DartObj> inverseSurface, ffi.Pointer<DartObj> onInverseSurface, ffi.Pointer<DartObj> inversePrimary, ffi.Pointer<DartObj> surfaceTint, ffi.Pointer<DartObj> background, ffi.Pointer<DartObj> onBackground, ffi.Pointer<DartObj> surfaceVariant) {
   final w = ColorScheme.highContrastLight(brightness: brightness.enumOr(Brightness.values, Brightness.light),
-      primary: primary.objOrNul(),
-      onPrimary: onPrimary.objOrNul(),
+      primary: primary.objOr(const Color(0xff0000ba)),
+      onPrimary: onPrimary.objOr(Colors.white),
       primaryContainer: primaryContainer.objOrNul(),
       onPrimaryContainer: onPrimaryContainer.objOrNul(),
       primaryFixed: primaryFixed.objOrNul(),
       primaryFixedDim: primaryFixedDim.objOrNul(),
       onPrimaryFixed: onPrimaryFixed.objOrNul(),
       onPrimaryFixedVariant: onPrimaryFixedVariant.objOrNul(),
-      secondary: secondary.objOrNul(),
-      onSecondary: onSecondary.objOrNul(),
+      secondary: secondary.objOr(const Color(0xff66fff9)),
+      onSecondary: onSecondary.objOr(Colors.black),
       secondaryContainer: secondaryContainer.objOrNul(),
       onSecondaryContainer: onSecondaryContainer.objOrNul(),
       secondaryFixed: secondaryFixed.objOrNul(),
@@ -1466,12 +1466,12 @@ ColorSchemeObjSt colorSchemeHighContrastLight(ffi.Pointer<ffi.Int> brightness, f
       tertiaryFixedDim: tertiaryFixedDim.objOrNul(),
       onTertiaryFixed: onTertiaryFixed.objOrNul(),
       onTertiaryFixedVariant: onTertiaryFixedVariant.objOrNul(),
-      error: error.objOrNul(),
-      onError: onError.objOrNul(),
+      error: error.objOr(const Color(0xff790000)),
+      onError: onError.objOr(Colors.white),
       errorContainer: errorContainer.objOrNul(),
       onErrorContainer: onErrorContainer.objOrNul(),
-      surface: surface.objOrNul(),
-      onSurface: onSurface.objOrNul(),
+      surface: surface.objOr(Colors.white),
+      onSurface: onSurface.objOr(Colors.black),
       surfaceDim: surfaceDim.objOrNul(),
       surfaceBright: surfaceBright.objOrNul(),
       surfaceContainerLowest: surfaceContainerLowest.objOrNul(),
@@ -1495,16 +1495,16 @@ ColorSchemeObjSt colorSchemeHighContrastLight(ffi.Pointer<ffi.Int> brightness, f
 }
 ColorSchemeObjSt colorSchemeHighContrastDark(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> primary, ffi.Pointer<DartObj> onPrimary, ffi.Pointer<DartObj> primaryContainer, ffi.Pointer<DartObj> onPrimaryContainer, ffi.Pointer<DartObj> primaryFixed, ffi.Pointer<DartObj> primaryFixedDim, ffi.Pointer<DartObj> onPrimaryFixed, ffi.Pointer<DartObj> onPrimaryFixedVariant, ffi.Pointer<DartObj> secondary, ffi.Pointer<DartObj> onSecondary, ffi.Pointer<DartObj> secondaryContainer, ffi.Pointer<DartObj> onSecondaryContainer, ffi.Pointer<DartObj> secondaryFixed, ffi.Pointer<DartObj> secondaryFixedDim, ffi.Pointer<DartObj> onSecondaryFixed, ffi.Pointer<DartObj> onSecondaryFixedVariant, ffi.Pointer<DartObj> tertiary, ffi.Pointer<DartObj> onTertiary, ffi.Pointer<DartObj> tertiaryContainer, ffi.Pointer<DartObj> onTertiaryContainer, ffi.Pointer<DartObj> tertiaryFixed, ffi.Pointer<DartObj> tertiaryFixedDim, ffi.Pointer<DartObj> onTertiaryFixed, ffi.Pointer<DartObj> onTertiaryFixedVariant, ffi.Pointer<DartObj> error, ffi.Pointer<DartObj> onError, ffi.Pointer<DartObj> errorContainer, ffi.Pointer<DartObj> onErrorContainer, ffi.Pointer<DartObj> surface, ffi.Pointer<DartObj> onSurface, ffi.Pointer<DartObj> surfaceDim, ffi.Pointer<DartObj> surfaceBright, ffi.Pointer<DartObj> surfaceContainerLowest, ffi.Pointer<DartObj> surfaceContainerLow, ffi.Pointer<DartObj> surfaceContainer, ffi.Pointer<DartObj> surfaceContainerHigh, ffi.Pointer<DartObj> surfaceContainerHighest, ffi.Pointer<DartObj> onSurfaceVariant, ffi.Pointer<DartObj> outline, ffi.Pointer<DartObj> outlineVariant, ffi.Pointer<DartObj> shadow, ffi.Pointer<DartObj> scrim, ffi.Pointer<DartObj> inverseSurface, ffi.Pointer<DartObj> onInverseSurface, ffi.Pointer<DartObj> inversePrimary, ffi.Pointer<DartObj> surfaceTint, ffi.Pointer<DartObj> background, ffi.Pointer<DartObj> onBackground, ffi.Pointer<DartObj> surfaceVariant) {
   final w = ColorScheme.highContrastDark(brightness: brightness.enumOr(Brightness.values, Brightness.dark),
-      primary: primary.objOrNul(),
-      onPrimary: onPrimary.objOrNul(),
+      primary: primary.objOr(const Color(0xffefb7ff)),
+      onPrimary: onPrimary.objOr(Colors.black),
       primaryContainer: primaryContainer.objOrNul(),
       onPrimaryContainer: onPrimaryContainer.objOrNul(),
       primaryFixed: primaryFixed.objOrNul(),
       primaryFixedDim: primaryFixedDim.objOrNul(),
       onPrimaryFixed: onPrimaryFixed.objOrNul(),
       onPrimaryFixedVariant: onPrimaryFixedVariant.objOrNul(),
-      secondary: secondary.objOrNul(),
-      onSecondary: onSecondary.objOrNul(),
+      secondary: secondary.objOr(const Color(0xff66fff9)),
+      onSecondary: onSecondary.objOr(Colors.black),
       secondaryContainer: secondaryContainer.objOrNul(),
       onSecondaryContainer: onSecondaryContainer.objOrNul(),
       secondaryFixed: secondaryFixed.objOrNul(),
@@ -1519,12 +1519,12 @@ ColorSchemeObjSt colorSchemeHighContrastDark(ffi.Pointer<ffi.Int> brightness, ff
       tertiaryFixedDim: tertiaryFixedDim.objOrNul(),
       onTertiaryFixed: onTertiaryFixed.objOrNul(),
       onTertiaryFixedVariant: onTertiaryFixedVariant.objOrNul(),
-      error: error.objOrNul(),
-      onError: onError.objOrNul(),
+      error: error.objOr(const Color(0xff9b374d)),
+      onError: onError.objOr(Colors.black),
       errorContainer: errorContainer.objOrNul(),
       onErrorContainer: onErrorContainer.objOrNul(),
-      surface: surface.objOrNul(),
-      onSurface: onSurface.objOrNul(),
+      surface: surface.objOr(const Color(0xff121212)),
+      onSurface: onSurface.objOr(Colors.white),
       surfaceDim: surfaceDim.objOrNul(),
       surfaceBright: surfaceBright.objOrNul(),
       surfaceContainerLowest: surfaceContainerLowest.objOrNul(),
@@ -1547,7 +1547,7 @@ ColorSchemeObjSt colorSchemeHighContrastDark(ffi.Pointer<ffi.Int> brightness, ff
   return _createColorSchemeObjSt(w);
 }
 ColorSchemeObjSt colorSchemeFromSwatch(ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> accentColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> errorColor, ffi.Pointer<ffi.Int> brightness) {
-  final w = ColorScheme.fromSwatch(primarySwatch: primarySwatch.objOrNul(),
+  final w = ColorScheme.fromSwatch(primarySwatch: primarySwatch.objOr(Colors.blue),
       accentColor: accentColor.objOrNul(),
       cardColor: cardColor.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
@@ -1869,7 +1869,7 @@ MaterialObjSt materialMaterial(ffi.Pointer<ffi.Int> type, ffi.Pointer<ffi.Double
       shape: shape.objOrNul(),
       borderOnForeground: borderOnForeground.boolOr(true),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
-      animationDuration: animationDuration.objOrNul(),
+      animationDuration: animationDuration.objOr(kThemeChangeDuration),
       child: child.objOrNul());
   return _createMaterialObjSt(w);
 }
@@ -2149,8 +2149,8 @@ MaterialAppObjSt materialAppMaterialApp(ffi.Pointer<DartObj> home, ffi.Pointer<f
       highContrastTheme: highContrastTheme.objOrNul(),
       highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
       themeMode: themeMode.enumOrNul(ThemeMode.values),
-      themeAnimationDuration: themeAnimationDuration.objOrNul(),
-      themeAnimationCurve: themeAnimationCurve.objOrNul(),
+      themeAnimationDuration: themeAnimationDuration.objOr(kThemeAnimationDuration),
+      themeAnimationCurve: themeAnimationCurve.objOr(Curves.linear),
       debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
       showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
       checkerboardRasterCacheImages: checkerboardRasterCacheImages.boolOr(false),
@@ -2171,8 +2171,8 @@ MaterialAppObjSt materialAppRouter(ffi.Pointer<TransitionBuilderFFI> builder, ff
       highContrastTheme: highContrastTheme.objOrNul(),
       highContrastDarkTheme: highContrastDarkTheme.objOrNul(),
       themeMode: themeMode.enumOrNul(ThemeMode.values),
-      themeAnimationDuration: themeAnimationDuration.objOrNul(),
-      themeAnimationCurve: themeAnimationCurve.objOrNul(),
+      themeAnimationDuration: themeAnimationDuration.objOr(kThemeAnimationDuration),
+      themeAnimationCurve: themeAnimationCurve.objOr(Curves.linear),
       debugShowMaterialGrid: debugShowMaterialGrid.boolOr(false),
       showPerformanceOverlay: showPerformanceOverlay.boolOr(false),
       checkerboardRasterCacheImages: checkerboardRasterCacheImages.boolOr(false),

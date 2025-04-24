@@ -1147,7 +1147,11 @@ class Params {
           }
         }
         else if (!isPrimitive(t)) {
-          value = '${param.name}.objOrNul()';
+          if (t.nullabilitySuffix == NullabilitySuffix.none) {
+            value = '${param.name}.objOr(${defaultObjCode(param)})';
+          } else {
+            value = '${param.name}.objOrNul()';
+          }
         }
       } else {
         if (t.isDartCoreBool) {
@@ -1186,9 +1190,34 @@ class Params {
     if (double.tryParse(defaultValue) != null) {
       return param.defaultValueCode;
     }
-    if (defaultValue.contains('.'))
+    if (defaultValue.contains('.')) {
       return defaultValue;
+    }
     return '${param.thisOrAncestorOfType<ClassElement>()!.name}.$defaultValue';
+  }
+
+  static String? defaultObjCode(ParameterElement param) {
+    var defaultValue = param.defaultValueCode!;
+    if (defaultValue.contains('.')) {
+      return defaultValue;
+    }
+    if (defaultValue.contains('_')) {
+      RegExp pattern = RegExp(r"_\w+");
+      Match? match = pattern.firstMatch(defaultValue);
+      if (match != null) {
+        var targetParam = (param is SuperFormalParameterElement) ? param.superConstructorParameter! : param ;
+        String? result = match.group(0); // Remove the leading underscore
+        var field = targetParam.thisOrAncestorOfType<ClassElement>()!.getField(result!);
+        if (field is ConstFieldElementImpl) {
+          return defaultValue.replaceAll(result, field.constantInitializer.toString());
+        }
+        return field!.toString();
+      }
+    }
+    if (!defaultValue.startsWith('const')) {
+      // return '${param.thisOrAncestorOfType<ClassElement>()!.name}.$defaultValue';
+    }
+    return defaultValue;
   }
 
   static String paramValueDtoC(Types ctx, ParameterElement param) {

@@ -46,7 +46,10 @@ extension on ffi.Pointer<ffi.Double> {
   double doubleOr(double def) => this == ffi.nullptr ? def : value;
 }
 extension on ffi.Pointer<ffi.Char> { String? strOrNul() => this == ffi.nullptr ? null : cast<Utf8>().toDartString(); }
-extension ObjPtr<T> on ffi.Pointer<ffi.Int> { T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T; }
+extension ObjPtr<T> on ffi.Pointer<ffi.Int> {
+  T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T;
+  T objOr(T def) => this == ffi.nullptr ? def : _widgetsMap[value]! as T;
+}
 extension on ffi.Pointer<ArrayC> {
   List<T> orEmpty<T extends Widget>() {
     final List<T> list = List.empty(growable: true);
