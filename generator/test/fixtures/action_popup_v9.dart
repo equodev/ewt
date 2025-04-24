@@ -137,11 +137,11 @@ class _ActionPopupState extends State<ActionPopup> with SingleTickerProviderStat
                             ),
                             children: [
                               TextSpan(
-                                text: widget.subStep.actions[widget.subStep.currentAction].split(' ').sublist(0, 2).join(' ') + ' ',
+                                text: getCurrentActionSteps().sublist(0, 2).join(' ') + ' ',
                                 style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                               TextSpan(
-                                text: widget.subStep.actions[widget.subStep.currentAction].split(' ').sublist(2).join(' '),
+                                text: getCurrentActionSteps().sublist(2).join(' '),
                               ),
                             ],
                           ),
@@ -269,6 +269,8 @@ class _ActionPopupState extends State<ActionPopup> with SingleTickerProviderStat
       ),
     );
   }
+
+  List<String> getCurrentActionSteps() => widget.subStep.actions[widget.subStep.currentAction].split(' ');
 }
 
 // Triangle painter for the popup

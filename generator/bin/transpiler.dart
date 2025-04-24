@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -9,6 +10,8 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/src/dart/ast/to_source_visitor.dart';
+import 'package:analyzer/src/dart/ast/ast.dart';
+import 'package:_fe_analyzer_shared/src/scanner/token_impl.dart';
 import 'package:path/path.dart' as path;
 
 // Get theath
@@ -460,18 +463,27 @@ class Dart2JavaVisitor extends ToSourceVisitor {
         // write(node, ';');
       // }
     } else {
+      final replace = replacementForMethod(node.realTarget?.staticType, node.methodName.name, node: node);
+      if (replace?.$4 != null) {
+        _imports.add(replace!.$4!);
+      }
+      if (replace?.$1 != null) {
+        write(node, replace!.$1);
+      }
       _visitNode(node.target);
       if (node.realTarget != null) {
         write(node, '.');
       }
-      final replace = replacementForMethod(node.realTarget?.staticType, node.methodName.name);
       if (replace != null) {
-        write(node, replace);
+        write(node, replace.$2);
       } else {
         _visitNode(node.methodName);
       }
       _visitNode(node.typeArguments);
-      _visitNode(node.argumentList);
+      _visitNode(replace?.$5 ?? node.argumentList);
+      if (replace?.$3 != null) {
+        write(node, replace!.$3);
+      }
     }
   }
 
@@ -493,7 +505,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
         if (!isUser) {
           List<FormalParameterElement> mandatory = [];
           if (parent is InstanceCreationExpression) {
-            mandatory = parent.constructorName.element!.formalParameters.takeWhile((p) => p.isRequired).toList(growable: false);
+            mandatory = parent.constructorName.element!.formalParameters.where((p) => 'key' != p.name3).takeWhile((p) => p.isRequired).toList(growable: false);
           }
           if (argument is NamedExpression && mandatory.contains(argument.correspondingParameter)) {
             if (close && i != 0) {
@@ -556,7 +568,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
 
   @override
   void visitSimpleIdentifier(SimpleIdentifier node) {
-    if (node.parent is NamedExpression && node.element is MethodElement2) {
+    if ((node.parent is NamedExpression || node.parent is ConditionalExpression) && node.element is MethodElement2) {
       write(node, 'this::');
     }
     super.visitSimpleIdentifier(node);
@@ -755,7 +767,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
       sink.write(node.operator.lexeme);
       final replace = replacementForMethod(node.target?.staticType, node.propertyName.name);
       if (replace != null) {
-        write(node, replace);
+        write(node, replace.$2);
         if (!isUserLibrary2(node.propertyName.element?.library2)) {
           write(node, '()');
         }
@@ -774,7 +786,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
     write(node, '.');
     final replace = replacementForMethod(node.prefix.staticType, node.identifier.name);
     if (replace != null) {
-      write(node, replace);
+      write(node, replace.$2);
       if (node.staticType?.element is! EnumElement && !isUserLibrary2(node.identifier.element?.library2)) {
         write(node, '()');
       }
@@ -938,15 +950,37 @@ class Dart2JavaVisitor extends ToSourceVisitor {
     return code.toString();
   }
 
-  String? replacementForMethod(DartType? staticType, String? name) {
-    if (staticType != null && staticType.isDartCoreList) {
+  (String?, String, String?, String?, ArgumentList?)? replacementForMethod(DartType? staticType, String? name, {MethodInvocation? node}) {
+    if (staticType == null) {
+      return null;
+    }
+
+    if (staticType.isDartCoreList) {
       return switch (name) {
-        'length' => 'size',
-        'sublist' => 'subList',
+        'length' => (null, 'size', null, null, null),
+        'sublist' => subListMethod(node!),
+        'join' => (null, 'stream().collect(Collectors.joining', ')', 'java.util.stream.Collectors', null),
+        _ => null,
+      };
+    }
+    if (staticType.isDartCoreString) {
+      return switch (name) {
+        'split' => ('Arrays.stream(', 'split', ').toList()', 'java.util.Arrays', null),
         _ => null,
       };
     }
     return null;
+  }
+
+  (String?, String, String?, String?, ArgumentList?) subListMethod(
+      MethodInvocation node) {
+    var argList = (node.argumentList.arguments.length == 1) ?
+      ArgumentListImpl(leftParenthesis: node.beginToken, arguments:
+        List.of(
+            List.castFrom<Expression, ExpressionImpl>(node.argumentList.arguments))
+          ..add(PropertyAccessImpl(target: node.target as ExpressionImpl, operator: Token(TokenType.PERIOD, 0), propertyName: SimpleIdentifierImpl(StringTokenImpl.fromString(TokenType.IDENTIFIER, 'size()', 0)))), rightParenthesis: node.beginToken)
+      : null;
+    return (null, 'subList', null, null, argList);
   }
 
   String? replacementForConstructor(DartType? staticType, SimpleIdentifier? name) {
