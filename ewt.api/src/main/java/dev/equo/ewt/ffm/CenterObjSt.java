@@ -27,7 +27,7 @@ public class CenterObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$57:9");
+    ).withName("$anon$58:9");
 
     /**
      * The layout of this struct

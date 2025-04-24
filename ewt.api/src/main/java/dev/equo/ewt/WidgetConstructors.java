@@ -8,13 +8,14 @@ import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
-  MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
+  MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.textStyle(st);
     return WidgetFactories.TextStyleSt.textStyle.invoke(fn, arena, ptrBool(inherit),
       ptrObj(color),
       ptrObj(backgroundColor),
       ptr(fontSize),
+      ptrObj(fontWeight),
       ptrEnum(fontStyle),
       ptr(letterSpacing),
       ptr(wordSpacing),
@@ -81,6 +82,50 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.ColorSt.alphaBlend(st);
     return WidgetFactories.ColorSt.alphaBlend.invoke(fn, foreground.getId(),
       background.getId());
+  }
+
+  int fontWeightLerp(FontWeight a, FontWeight b, double t) {
+    var st = WidgetFactories.fontWeight(factories);
+    var fn = WidgetFactories.FontWeightSt.lerp(st);
+    return WidgetFactories.FontWeightSt.lerp.invoke(fn, a.getId(),
+      b.getId(),
+      t);
+  }
+  int fontWeightW100() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w100(st);
+  }
+  int fontWeightW200() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w200(st);
+  }
+  int fontWeightW300() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w300(st);
+  }
+  int fontWeightW400() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w400(st);
+  }
+  int fontWeightW500() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w500(st);
+  }
+  int fontWeightW600() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w600(st);
+  }
+  int fontWeightW700() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w700(st);
+  }
+  int fontWeightW800() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w800(st);
+  }
+  int fontWeightW900() {
+    var st = WidgetFactories.fontWeight(factories);
+    return WidgetFactories.FontWeightSt.w900(st);
   }
 
   MemorySegment textText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
@@ -351,6 +396,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(transformAlignment),
       ptrObj(child),
       ptrEnum(clipBehavior));
+  }
+
+  int edgeInsetsGeometryInfinity() {
+    var st = WidgetFactories.edgeInsetsGeometry(factories);
+    return WidgetFactories.EdgeInsetsGeometrySt.infinity(st);
   }
 
   int stackParentDataStackParentData() {
@@ -708,6 +758,27 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.elasticInOutCurve(factories);
     var fn = WidgetFactories.ElasticInOutCurveSt.elasticInOutCurve(st);
     return WidgetFactories.ElasticInOutCurveSt.elasticInOutCurve.invoke(fn, arena, ptr(period));
+  }
+
+  int curvesLinear() {
+    var st = WidgetFactories.curves(factories);
+    return WidgetFactories.CurvesSt.linear(st);
+  }
+  int curvesDecelerate() {
+    var st = WidgetFactories.curves(factories);
+    return WidgetFactories.CurvesSt.decelerate(st);
+  }
+  int curvesBounceIn() {
+    var st = WidgetFactories.curves(factories);
+    return WidgetFactories.CurvesSt.bounceIn(st);
+  }
+  int curvesBounceOut() {
+    var st = WidgetFactories.curves(factories);
+    return WidgetFactories.CurvesSt.bounceOut(st);
+  }
+  int curvesBounceInOut() {
+    var st = WidgetFactories.curves(factories);
+    return WidgetFactories.CurvesSt.bounceInOut(st);
   }
 
   int curvedAnimationCurvedAnimation(Animation parent, Curve curve, Optional<Curve> reverseCurve) {

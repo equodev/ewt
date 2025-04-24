@@ -5,6 +5,7 @@ typedef struct {
   DartObj backgroundColor;
   char* fontFamily;
   double fontSize;
+  DartObj fontWeight;
   int fontStyle;
   double letterSpacing;
   double wordSpacing;

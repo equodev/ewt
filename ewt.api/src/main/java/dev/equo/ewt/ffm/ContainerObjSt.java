@@ -49,7 +49,7 @@ public class ContainerObjSt {
         StarterBridge.C_INT.withName("transformAlignment"),
         StarterBridge.C_INT.withName("clipBehavior"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$148:9");
+    ).withName("$anon$149:9");
 
     /**
      * The layout of this struct

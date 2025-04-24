@@ -24,6 +24,7 @@ public class EWT {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
 
+
   public static TextTextBuilder Text(String data) {
     return TextTextBuilder.textText(data);
   }
@@ -111,6 +112,7 @@ public class EWT {
   public static ContainerContainerBuilder Container() {
     return ContainerContainerBuilder.containerContainer();
   }
+
 
   public static StackParentDataStackParentDataBuilder StackParentData() {
     return StackParentDataStackParentDataBuilder.stackParentDataStackParentData();
@@ -245,6 +247,7 @@ public class EWT {
   public static ElasticInOutCurveElasticInOutCurveBuilder ElasticInOutCurve() {
     return ElasticInOutCurveElasticInOutCurveBuilder.elasticInOutCurveElasticInOutCurve();
   }
+
 
   public static CurvedAnimationCurvedAnimationBuilder CurvedAnimation(AnimationI parent, CurveI curve) {
     return CurvedAnimationCurvedAnimationBuilder.curvedAnimationCurvedAnimation(parent, curve);

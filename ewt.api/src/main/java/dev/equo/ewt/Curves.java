@@ -5,6 +5,18 @@ public abstract class Curves extends NativeObj.Base implements CurvesI {
   Curves(int id) {
     this.id = id;
   }
+  public static Curve linear() {
+    int id = factories.curvesLinear();
+    if (id == -1) throw new RuntimeException("Failed to create const linear");
+    System.out.println("Const linear id:"+id);
+    return new Curve(id) {};
+  }
+  public static Curve decelerate() {
+    int id = factories.curvesDecelerate();
+    if (id == -1) throw new RuntimeException("Failed to create const decelerate");
+    System.out.println("Const decelerate id:"+id);
+    return new Curve(id) {};
+  }
   public static Cubic fastLinearToSlowEaseIn() {
     return Cubic.cubic(0.18, 1.0, 0.04, 1.0).build();
   }
@@ -109,6 +121,24 @@ public abstract class Curves extends NativeObj.Base implements CurvesI {
   }
   public static Cubic slowMiddle() {
     return Cubic.cubic(0.15, 0.85, 0.85, 0.15).build();
+  }
+  public static Curve bounceIn() {
+    int id = factories.curvesBounceIn();
+    if (id == -1) throw new RuntimeException("Failed to create const bounceIn");
+    System.out.println("Const bounceIn id:"+id);
+    return new Curve(id) {};
+  }
+  public static Curve bounceOut() {
+    int id = factories.curvesBounceOut();
+    if (id == -1) throw new RuntimeException("Failed to create const bounceOut");
+    System.out.println("Const bounceOut id:"+id);
+    return new Curve(id) {};
+  }
+  public static Curve bounceInOut() {
+    int id = factories.curvesBounceInOut();
+    if (id == -1) throw new RuntimeException("Failed to create const bounceInOut");
+    System.out.println("Const bounceInOut id:"+id);
+    return new Curve(id) {};
   }
   public static ElasticInCurve elasticIn() {
     return ElasticInCurve.elasticInCurve().build();

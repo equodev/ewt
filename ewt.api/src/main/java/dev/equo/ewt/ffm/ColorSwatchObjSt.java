@@ -27,7 +27,7 @@ public class ColorSwatchObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$363:9");
+    ).withName("$anon$364:9");
 
     /**
      * The layout of this struct

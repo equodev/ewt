@@ -35,7 +35,7 @@ public class TextSpanObjSt {
         StarterBridge.C_POINTER.withName("semanticsLabel"),
         StarterBridge.C_INT.withName("spellOut"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$37:9");
+    ).withName("$anon$38:9");
 
     /**
      * The layout of this struct

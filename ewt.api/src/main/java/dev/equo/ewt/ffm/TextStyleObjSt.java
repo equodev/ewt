@@ -21,6 +21,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj backgroundColor;
  *     char *fontFamily;
  *     double fontSize;
+ *     DartObj fontWeight;
  *     int fontStyle;
  *     double letterSpacing;
  *     double wordSpacing;
@@ -48,8 +49,8 @@ public class TextStyleObjSt {
         StarterBridge.C_INT.withName("backgroundColor"),
         StarterBridge.C_POINTER.withName("fontFamily"),
         StarterBridge.C_DOUBLE.withName("fontSize"),
+        StarterBridge.C_INT.withName("fontWeight"),
         StarterBridge.C_INT.withName("fontStyle"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("letterSpacing"),
         StarterBridge.C_DOUBLE.withName("wordSpacing"),
         StarterBridge.C_INT.withName("textBaseline"),
@@ -336,6 +337,50 @@ public class TextStyleObjSt {
         struct.set(fontSize$LAYOUT, fontSize$OFFSET, fieldValue);
     }
 
+    private static final OfInt fontWeight$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fontWeight"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static final OfInt fontWeight$layout() {
+        return fontWeight$LAYOUT;
+    }
+
+    private static final long fontWeight$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static final long fontWeight$offset() {
+        return fontWeight$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static int fontWeight(MemorySegment struct) {
+        return struct.get(fontWeight$LAYOUT, fontWeight$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static void fontWeight(MemorySegment struct, int fieldValue) {
+        struct.set(fontWeight$LAYOUT, fontWeight$OFFSET, fieldValue);
+    }
+
     private static final OfInt fontStyle$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fontStyle"));
 
     /**
@@ -348,7 +393,7 @@ public class TextStyleObjSt {
         return fontStyle$LAYOUT;
     }
 
-    private static final long fontStyle$OFFSET = 32;
+    private static final long fontStyle$OFFSET = 36;
 
     /**
      * Offset for field:

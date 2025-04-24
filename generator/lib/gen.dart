@@ -83,8 +83,8 @@ class WidgetGen implements AGen {
   @override
   void gen() {
     var constructors = dartClass.constructors.where((f) => f.isPublic);
-    var consts = dartClass.fields.where((f) => f.isStatic && f.isConst);
-    var hasMembers = (!dartClass.isAbstract && constructors.isNotEmpty) /*|| (dartClass.isAbstract && consts.isNotEmpty)*/;
+    var consts = dartClass.fields.where((f) => f.isStatic && f.isConst).whereType<ConstFieldElementImpl>();
+    var hasMembers = (!dartClass.isAbstract && constructors.isNotEmpty) || (consts.where(isPrivateConst).isNotEmpty);
     writeHeaders(hasMembers);
     if (hasMembers) {
       dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
@@ -101,7 +101,7 @@ class WidgetGen implements AGen {
     writeMembers();
     if (consts.isNotEmpty) {
       var c=1;
-      for (var constr in consts.whereType<ConstFieldElementImpl>()) {
+      for (var constr in consts) {
         writeConst(constr, c++);
       }
     }
@@ -332,20 +332,48 @@ class WidgetGen implements AGen {
       ..writeln('  }');
   }
 
-  void writeConst(ConstFieldElementImpl fld, int constId) {
-    String factory = _escape4D(fld.name);
+  void writeJavaConstMethod(String factoryName, String factory, ConstFieldElementImpl node) {
+    var gen = types.getGen(node.type.element!);
+    javaFactories
+      ..writeln('  ${gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int'} $factoryName() {')
+      ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+      ..writeln('    return WidgetFactories.${widgetClass}St.$factory(st);')
+      ..writeln('  }');
+  }
+
+  bool isPrivateConst(ConstFieldElementImpl fld) {
     var initializer = fld.constantInitializer;
     if (initializer is InstanceCreationExpression) {
       var creationExpression = initializer as InstanceCreationExpression;
-      if (creationExpression.constructorName.staticElement!.isPrivate || creationExpression.staticType!.element!.isPrivate) {
-        return;
-      }
+      return (creationExpression.constructorName.staticElement!.isPrivate ||
+          creationExpression.staticType!.element!.isPrivate);
     }
+    return false;
+  }
+
+  void writeConst(ConstFieldElementImpl fld, int constId) {
+    String factory = _escape4D(fld.name);
+    var initializer = fld.constantInitializer;
     javaFile
-      .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+        .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
-      javaFile
-        .writeln('    return ${dartExptrToJava(initializer as Expression)};');
+      String factoryName = '$widgetField${fld.name.firstUpper()}';
+      if (isPrivateConst(fld)) {
+        headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
+
+        dartAssigns
+            .writeln('  f.$widgetField.$factory = _addWidget($widgetClass.${fld.name});');
+
+        javaFile
+          ..writeln('    int id = factories.$factoryName();')
+          ..writeln('    if (id == -1) throw new RuntimeException("Failed to create const $factory");')
+          ..writeln('    System.out.println("Const $factory id:"+id);')
+          ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
+        writeJavaConstMethod(factoryName, factory, fld);
+      } else {
+        javaFile.writeln(
+            '    return ${dartExptrToJava(initializer as Expression)};');
+      }
     }
     else if (initializer is ListLiteral) {
       javaFile

@@ -1,6 +1,6 @@
 typedef struct {
   struct TextStyleSt {
-    TextStyleObjSt (*textStyle)(int* inherit, DartObj* color, DartObj* backgroundColor, double* fontSize, int* fontStyle, double* letterSpacing, double* wordSpacing, int* textBaseline, double* height, int* leadingDistribution, ArrayC* shadows, DartObj* decorationColor, int* decorationStyle, double* decorationThickness, char* debugLabel, char* fontFamily, char*** fontFamilyFallback, char* package, int* overflow);
+    TextStyleObjSt (*textStyle)(int* inherit, DartObj* color, DartObj* backgroundColor, double* fontSize, DartObj* fontWeight, int* fontStyle, double* letterSpacing, double* wordSpacing, int* textBaseline, double* height, int* leadingDistribution, ArrayC* shadows, DartObj* decorationColor, int* decorationStyle, double* decorationThickness, char* debugLabel, char* fontFamily, char*** fontFamilyFallback, char* package, int* overflow);
     TextStyleObjSt (*lerp)(DartObj a, DartObj b, double t);
   } textStyle;
 
@@ -12,6 +12,19 @@ typedef struct {
     DartObj (*lerp)(DartObj x, DartObj y, double t);
     DartObj (*alphaBlend)(DartObj foreground, DartObj background);
   } color;
+
+  struct FontWeightSt {
+    DartObj (*lerp)(DartObj a, DartObj b, double t);
+    DartObj w100;
+    DartObj w200;
+    DartObj w300;
+    DartObj w400;
+    DartObj w500;
+    DartObj w600;
+    DartObj w700;
+    DartObj w800;
+    DartObj w900;
+  } fontWeight;
 
   struct TextSt {
     TextObjSt (*text)(char* data, DartObj* style, int* textAlign, int* textDirection, int* softWrap, int* overflow, double* textScaleFactor, int* maxLines, char* semanticsLabel, int* textWidthBasis, DartObj* selectionColor);
@@ -86,6 +99,10 @@ typedef struct {
   struct ContainerSt {
     ContainerObjSt (*container)(DartObj* alignment, DartObj* padding, DartObj* color, DartObj* decoration, DartObj* foregroundDecoration, double* width, double* height, DartObj* constraints, DartObj* margin, DartObj* transformAlignment, DartObj* child, int* clipBehavior);
   } container;
+
+  struct EdgeInsetsGeometrySt {
+    DartObj infinity;
+  } edgeInsetsGeometry;
 
   struct StackParentDataSt {
     DartObj (*stackParentData)(void);
@@ -202,6 +219,14 @@ typedef struct {
   struct ElasticInOutCurveSt {
     ElasticInOutCurveObjSt (*elasticInOutCurve)(double* period);
   } elasticInOutCurve;
+
+  struct CurvesSt {
+    DartObj linear;
+    DartObj decelerate;
+    DartObj bounceIn;
+    DartObj bounceOut;
+    DartObj bounceInOut;
+  } curves;
 
   struct CurvedAnimationSt {
     DartObj (*curvedAnimation)(DartObj parent, DartObj curve, DartObj* reverseCurve);

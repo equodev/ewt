@@ -108,6 +108,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external ColorSt color;
 
+  external FontWeightSt fontWeight;
+
   external TextSt text;
 
   external TextSpanSt textSpan;
@@ -139,6 +141,8 @@ final class WidgetFactories extends ffi.Struct {
   external BoxConstraintsSt boxConstraints;
 
   external ContainerSt container;
+
+  external EdgeInsetsGeometrySt edgeInsetsGeometry;
 
   external StackParentDataSt stackParentData;
 
@@ -185,6 +189,8 @@ final class WidgetFactories extends ffi.Struct {
   external ElasticInCurveSt elasticInCurve;
 
   external ElasticInOutCurveSt elasticInOutCurve;
+
+  external CurvesSt curves;
 
   external CurvedAnimationSt curvedAnimation;
 
@@ -239,6 +245,7 @@ final class TextStyleSt extends ffi.Struct {
               ffi.Pointer<DartObj> color,
               ffi.Pointer<DartObj> backgroundColor,
               ffi.Pointer<ffi.Double> fontSize,
+              ffi.Pointer<DartObj> fontWeight,
               ffi.Pointer<ffi.Int> fontStyle,
               ffi.Pointer<ffi.Double> letterSpacing,
               ffi.Pointer<ffi.Double> wordSpacing,
@@ -278,6 +285,9 @@ final class TextStyleObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double fontSize;
+
+  @DartObj()
+  external int fontWeight;
 
   @ffi.Int()
   external int fontStyle;
@@ -352,6 +362,40 @@ final class ColorSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           DartObj Function(DartObj foreground, DartObj background)>> alphaBlend;
+}
+
+final class FontWeightSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<DartObj Function(DartObj a, DartObj b, ffi.Double t)>>
+      lerp;
+
+  @DartObj()
+  external int w100;
+
+  @DartObj()
+  external int w200;
+
+  @DartObj()
+  external int w300;
+
+  @DartObj()
+  external int w400;
+
+  @DartObj()
+  external int w500;
+
+  @DartObj()
+  external int w600;
+
+  @DartObj()
+  external int w700;
+
+  @DartObj()
+  external int w800;
+
+  @DartObj()
+  external int w900;
 }
 
 final class TextSt extends ffi.Struct {
@@ -940,6 +984,11 @@ final class ContainerObjSt extends ffi.Struct {
   external int clipBehavior;
 }
 
+final class EdgeInsetsGeometrySt extends ffi.Struct {
+  @DartObj()
+  external int infinity;
+}
+
 final class StackParentDataSt extends ffi.Struct {
   external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> stackParentData;
 }
@@ -1495,6 +1544,23 @@ final class ElasticInOutCurveObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double period;
+}
+
+final class CurvesSt extends ffi.Struct {
+  @DartObj()
+  external int linear;
+
+  @DartObj()
+  external int decelerate;
+
+  @DartObj()
+  external int bounceIn;
+
+  @DartObj()
+  external int bounceOut;
+
+  @DartObj()
+  external int bounceInOut;
 }
 
 final class CurvedAnimationSt extends ffi.Struct {

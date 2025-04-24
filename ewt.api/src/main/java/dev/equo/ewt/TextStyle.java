@@ -14,11 +14,12 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
     System.out.println("New TextStyle id:"+id);
   }
   @Builder.Factory
-  static TextStyle textStyleTextStyle(Optional<Boolean> inherit, Optional<ColorI> color, Optional<ColorI> backgroundColor, OptionalDouble fontSize, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<ShadowI>> shadows, Optional<ColorI> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
+  static TextStyle textStyleTextStyle(Optional<Boolean> inherit, Optional<ColorI> color, Optional<ColorI> backgroundColor, OptionalDouble fontSize, Optional<FontWeightI> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<ShadowI>> shadows, Optional<ColorI> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = factories.textStyleTextStyle(inherit,
       color.map(ColorI::build),
       backgroundColor.map(ColorI::build),
       fontSize,
+      fontWeight.map(FontWeightI::build),
       fontStyle,
       letterSpacing,
       wordSpacing,
@@ -61,6 +62,9 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
   }
   public double fontSize() {
     return TextStyleObjSt.fontSize(st);
+  }
+  public FontWeight fontWeight() {
+    return new FontWeight(TextStyleObjSt.fontWeight(st));
   }
   public FontStyle fontStyle() {
     return FontStyle.values()[TextStyleObjSt.fontStyle(st)];

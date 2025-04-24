@@ -51,6 +51,7 @@ w.CurvedAnimation? curvedAnimation;
 w.SizedBox? sizedBox;
 w.Alignment? alignment;
 w.MouseRegion? mouseRegion;
+w.FontWeight? fontWeight;
 Duration? duration;
 
 // w.FontWeight? fontWeight; constants accessing privates

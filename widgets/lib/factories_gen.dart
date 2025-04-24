@@ -3,11 +3,12 @@ void _setupTextStyle(WidgetFactories f) {
   f.textStyle.textStyle = ffi.Pointer.fromFunction(textStyleTextStyle);
   f.textStyle.lerp = ffi.Pointer.fromFunction(textStyleLerp);
 }
-TextStyleObjSt textStyleTextStyle(ffi.Pointer<ffi.Int> inherit, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> fontSize, ffi.Pointer<ffi.Int> fontStyle, ffi.Pointer<ffi.Double> letterSpacing, ffi.Pointer<ffi.Double> wordSpacing, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> height, ffi.Pointer<ffi.Int> leadingDistribution, ffi.Pointer<ArrayC> shadows, ffi.Pointer<DartObj> decorationColor, ffi.Pointer<ffi.Int> decorationStyle, ffi.Pointer<ffi.Double> decorationThickness, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<ffi.Int> overflow) {
+TextStyleObjSt textStyleTextStyle(ffi.Pointer<ffi.Int> inherit, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> fontSize, ffi.Pointer<DartObj> fontWeight, ffi.Pointer<ffi.Int> fontStyle, ffi.Pointer<ffi.Double> letterSpacing, ffi.Pointer<ffi.Double> wordSpacing, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> height, ffi.Pointer<ffi.Int> leadingDistribution, ffi.Pointer<ArrayC> shadows, ffi.Pointer<DartObj> decorationColor, ffi.Pointer<ffi.Int> decorationStyle, ffi.Pointer<ffi.Double> decorationThickness, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<ffi.Int> overflow) {
   final w = TextStyle(inherit: inherit.boolOr(true),
       color: color.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
       fontSize: fontSize.doubleOrNul(),
+      fontWeight: fontWeight.objOrNul(),
       fontStyle: fontStyle.enumOrNul(FontStyle.values),
       letterSpacing: letterSpacing.doubleOrNul(),
       wordSpacing: wordSpacing.doubleOrNul(),
@@ -40,6 +41,7 @@ TextStyleObjSt _createTextStyleObjSt(TextStyle? w) {
   stObj.backgroundColor = _addWidget(w.backgroundColor);
   stObj.fontFamily = (w.fontFamily != null) ? w.fontFamily!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.fontSize = (w.fontSize != null) ? w.fontSize! : 0;
+  stObj.fontWeight = _addWidget(w.fontWeight);
   stObj.fontStyle = (w.fontStyle != null) ? w.fontStyle!.index : 0;
   stObj.letterSpacing = (w.letterSpacing != null) ? w.letterSpacing! : 0;
   stObj.wordSpacing = (w.wordSpacing != null) ? w.wordSpacing! : 0;
@@ -97,6 +99,25 @@ int colorLerp(DartDartObj x, DartDartObj y, double t) {
 int colorAlphaBlend(DartDartObj foreground, DartDartObj background) {
   final w = Color.alphaBlend(_widgetsMap[foreground]! as Color,
       _widgetsMap[background]! as Color);
+  return _addWidget(w);
+}
+
+void _setupFontWeight(WidgetFactories f) {
+  f.fontWeight.lerp = ffi.Pointer.fromFunction(fontWeightLerp, exception);
+  f.fontWeight.w100 = _addWidget(FontWeight.w100);
+  f.fontWeight.w200 = _addWidget(FontWeight.w200);
+  f.fontWeight.w300 = _addWidget(FontWeight.w300);
+  f.fontWeight.w400 = _addWidget(FontWeight.w400);
+  f.fontWeight.w500 = _addWidget(FontWeight.w500);
+  f.fontWeight.w600 = _addWidget(FontWeight.w600);
+  f.fontWeight.w700 = _addWidget(FontWeight.w700);
+  f.fontWeight.w800 = _addWidget(FontWeight.w800);
+  f.fontWeight.w900 = _addWidget(FontWeight.w900);
+}
+int fontWeightLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = FontWeight.lerp(_widgetsMap[a]! as FontWeight?,
+      _widgetsMap[b]! as FontWeight?,
+      t);
   return _addWidget(w);
 }
 
@@ -571,6 +592,10 @@ ContainerObjSt _createContainerObjSt(Container? w) {
   stObj.transformAlignment = _addWidget(w.transformAlignment);
   stObj.clipBehavior = w.clipBehavior.index;
   return stObj;
+}
+
+void _setupEdgeInsetsGeometry(WidgetFactories f) {
+  f.edgeInsetsGeometry.infinity = _addWidget(EdgeInsetsGeometry.infinity);
 }
 
 void _setupStackParentData(WidgetFactories f) {
@@ -1121,6 +1146,14 @@ ElasticInOutCurveObjSt _createElasticInOutCurveObjSt(ElasticInOutCurve? w) {
   if (w == null) return stObj;
   stObj.period = w.period;
   return stObj;
+}
+
+void _setupCurves(WidgetFactories f) {
+  f.curves.linear = _addWidget(Curves.linear);
+  f.curves.decelerate = _addWidget(Curves.decelerate);
+  f.curves.bounceIn = _addWidget(Curves.bounceIn);
+  f.curves.bounceOut = _addWidget(Curves.bounceOut);
+  f.curves.bounceInOut = _addWidget(Curves.bounceInOut);
 }
 
 void _setupCurvedAnimation(WidgetFactories f) {
@@ -2511,6 +2544,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSizedBox(f);
   _setupAlignment(f);
   _setupMouseRegion(f);
+  _setupFontWeight(f);
   _setupDuration(f);
   _setupColorScheme(f);
   _setupTextTheme(f);

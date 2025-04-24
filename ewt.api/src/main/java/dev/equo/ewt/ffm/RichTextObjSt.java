@@ -46,7 +46,7 @@ public class RichTextObjSt {
         StarterBridge.C_INT.withName("selectionColor"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("textScaleFactor")
-    ).withName("$anon$44:9");
+    ).withName("$anon$45:9");
 
     /**
      * The layout of this struct
