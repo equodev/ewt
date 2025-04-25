@@ -17,6 +17,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     double iconSize;
+ *     VisualDensityObjSt visualDensity;
  *     DartObj padding;
  *     DartObj alignment;
  *     double splashRadius;
@@ -46,6 +47,7 @@ public class IconButtonObjSt {
         StarterBridge.C_INT.withName("id"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("iconSize"),
+        VisualDensityObjSt.layout().withName("visualDensity"),
         StarterBridge.C_INT.withName("padding"),
         StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_DOUBLE.withName("splashRadius"),
@@ -63,7 +65,7 @@ public class IconButtonObjSt {
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("isSelected"),
         StarterBridge.C_INT.withName("selectedIcon")
-    ).withName("$anon$441:9");
+    ).withName("$anon$450:9");
 
     /**
      * The layout of this struct
@@ -160,6 +162,50 @@ public class IconButtonObjSt {
         struct.set(iconSize$LAYOUT, iconSize$OFFSET, fieldValue);
     }
 
+    private static final GroupLayout visualDensity$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("visualDensity"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static final GroupLayout visualDensity$layout() {
+        return visualDensity$LAYOUT;
+    }
+
+    private static final long visualDensity$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static final long visualDensity$offset() {
+        return visualDensity$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static MemorySegment visualDensity(MemorySegment struct) {
+        return struct.asSlice(visualDensity$OFFSET, visualDensity$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static void visualDensity(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, visualDensity$OFFSET, visualDensity$LAYOUT.byteSize());
+    }
+
     private static final OfInt padding$LAYOUT = (OfInt)$LAYOUT.select(groupElement("padding"));
 
     /**
@@ -172,7 +218,7 @@ public class IconButtonObjSt {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 16;
+    private static final long padding$OFFSET = 48;
 
     /**
      * Offset for field:
@@ -216,7 +262,7 @@ public class IconButtonObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 20;
+    private static final long alignment$OFFSET = 52;
 
     /**
      * Offset for field:
@@ -260,7 +306,7 @@ public class IconButtonObjSt {
         return splashRadius$LAYOUT;
     }
 
-    private static final long splashRadius$OFFSET = 24;
+    private static final long splashRadius$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -304,7 +350,7 @@ public class IconButtonObjSt {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 32;
+    private static final long icon$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -348,7 +394,7 @@ public class IconButtonObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 36;
+    private static final long focusColor$OFFSET = 68;
 
     /**
      * Offset for field:
@@ -392,7 +438,7 @@ public class IconButtonObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 40;
+    private static final long hoverColor$OFFSET = 72;
 
     /**
      * Offset for field:
@@ -436,7 +482,7 @@ public class IconButtonObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 44;
+    private static final long color$OFFSET = 76;
 
     /**
      * Offset for field:
@@ -480,7 +526,7 @@ public class IconButtonObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 48;
+    private static final long splashColor$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -524,7 +570,7 @@ public class IconButtonObjSt {
         return highlightColor$LAYOUT;
     }
 
-    private static final long highlightColor$OFFSET = 52;
+    private static final long highlightColor$OFFSET = 84;
 
     /**
      * Offset for field:
@@ -568,7 +614,7 @@ public class IconButtonObjSt {
         return disabledColor$LAYOUT;
     }
 
-    private static final long disabledColor$OFFSET = 56;
+    private static final long disabledColor$OFFSET = 88;
 
     /**
      * Offset for field:
@@ -612,7 +658,7 @@ public class IconButtonObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 60;
+    private static final long autofocus$OFFSET = 92;
 
     /**
      * Offset for field:
@@ -656,7 +702,7 @@ public class IconButtonObjSt {
         return tooltip$LAYOUT;
     }
 
-    private static final long tooltip$OFFSET = 64;
+    private static final long tooltip$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -700,7 +746,7 @@ public class IconButtonObjSt {
         return enableFeedback$LAYOUT;
     }
 
-    private static final long enableFeedback$OFFSET = 72;
+    private static final long enableFeedback$OFFSET = 104;
 
     /**
      * Offset for field:
@@ -744,7 +790,7 @@ public class IconButtonObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 80;
+    private static final long constraints$OFFSET = 112;
 
     /**
      * Offset for field:
@@ -788,7 +834,7 @@ public class IconButtonObjSt {
         return isSelected$LAYOUT;
     }
 
-    private static final long isSelected$OFFSET = 144;
+    private static final long isSelected$OFFSET = 176;
 
     /**
      * Offset for field:
@@ -832,7 +878,7 @@ public class IconButtonObjSt {
         return selectedIcon$LAYOUT;
     }
 
-    private static final long selectedIcon$OFFSET = 148;
+    private static final long selectedIcon$OFFSET = 180;
 
     /**
      * Offset for field:

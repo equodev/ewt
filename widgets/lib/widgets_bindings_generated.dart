@@ -208,6 +208,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external TextThemeSt textTheme;
 
+  external VisualDensitySt visualDensity;
+
   external ThemeDataSt themeData;
 
   external MaterialAccentColorSt materialAccentColor;
@@ -229,6 +231,14 @@ final class WidgetFactories extends ffi.Struct {
   external ElevatedButtonSt elevatedButton;
 
   external OutlinedButtonSt outlinedButton;
+
+  external TextButtonSt textButton;
+
+  external NavigatorStateSt navigatorState;
+
+  external NavigatorSt navigator;
+
+  external AlertDialogSt alertDialog;
 
   external SubStateSt subState;
 
@@ -1424,6 +1434,9 @@ final class AnimatedBuilderSt extends ffi.Struct {
 final class AnimatedBuilderObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
+
+  @DartObj()
+  external int animation;
 }
 
 typedef TransitionBuilderFFI
@@ -2289,6 +2302,36 @@ final class TextThemeObjSt extends ffi.Struct {
   external TextStyleObjSt labelSmall;
 }
 
+final class VisualDensitySt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          VisualDensityObjSt Function(ffi.Pointer<ffi.Double> horizontal,
+              ffi.Pointer<ffi.Double> vertical)>> visualDensity;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<VisualDensityObjSt Function(ffi.Int platform)>>
+      defaultDensityForPlatform;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              VisualDensityObjSt Function(DartObj a, DartObj b, ffi.Double t)>>
+      lerp;
+}
+
+final class VisualDensityObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double horizontal;
+
+  @ffi.Double()
+  external double vertical;
+
+  @DartObj()
+  external int baseSizeAdjustment;
+}
+
 final class ThemeDataSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -2297,6 +2340,7 @@ final class ThemeDataSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> materialTapTargetSize,
               ffi.Pointer<ffi.Int> platform,
               ffi.Pointer<ffi.Int> useMaterial3,
+              ffi.Pointer<DartObj> visualDensity,
               ffi.Pointer<DartObj> colorScheme,
               ffi.Pointer<ffi.Int> brightness,
               ffi.Pointer<DartObj> colorSchemeSeed,
@@ -2376,6 +2420,8 @@ final class ThemeDataObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int useMaterial3;
+
+  external VisualDensityObjSt visualDensity;
 
   @DartObj()
   external int canvasColor;
@@ -2528,6 +2574,7 @@ final class IconButtonSt extends ffi.Struct {
       ffi.NativeFunction<
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
+              ffi.Pointer<DartObj> visualDensity,
               ffi.Pointer<DartObj> padding,
               ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
@@ -2552,6 +2599,7 @@ final class IconButtonSt extends ffi.Struct {
       ffi.NativeFunction<
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
+              ffi.Pointer<DartObj> visualDensity,
               ffi.Pointer<DartObj> padding,
               ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
@@ -2576,6 +2624,7 @@ final class IconButtonSt extends ffi.Struct {
       ffi.NativeFunction<
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
+              ffi.Pointer<DartObj> visualDensity,
               ffi.Pointer<DartObj> padding,
               ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
@@ -2600,6 +2649,7 @@ final class IconButtonSt extends ffi.Struct {
       ffi.NativeFunction<
           IconButtonObjSt Function(
               ffi.Pointer<ffi.Double> iconSize,
+              ffi.Pointer<DartObj> visualDensity,
               ffi.Pointer<DartObj> padding,
               ffi.Pointer<DartObj> alignment,
               ffi.Pointer<ffi.Double> splashRadius,
@@ -2627,6 +2677,8 @@ final class IconButtonObjSt extends ffi.Struct {
 
   @ffi.Double()
   external double iconSize;
+
+  external VisualDensityObjSt visualDensity;
 
   @DartObj()
   external int padding;
@@ -2732,6 +2784,9 @@ final class AppBarObjSt extends ffi.Struct {
   @DartObj()
   external int flexibleSpace;
 
+  @DartObj()
+  external int bottom;
+
   @ffi.Double()
   external double elevation;
 
@@ -2830,6 +2885,9 @@ final class ScaffoldObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int extendBodyBehindAppBar;
+
+  @DartObj()
+  external int appBar;
 
   @DartObj()
   external int body;
@@ -3244,6 +3302,225 @@ final class OutlinedButtonObjSt extends ffi.Struct {
   external int id;
 }
 
+final class TextButtonSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> isSemanticButton,
+              DartObj child)>> textButton;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> icon,
+              DartObj label,
+              ffi.Pointer<ffi.Int> iconAlignment)>> icon;
+}
+
+final class TextButtonObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+final class NavigatorStateSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> navigatorState;
+}
+
+final class NavigatorSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          NavigatorObjSt Function(
+              ffi.Pointer<ffi.Char> initialRoute,
+              ffi.Pointer<ffi.Int> reportsRouteUpdateToEngine,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> requestFocus,
+              ffi.Pointer<ffi.Char> restorationScopeId,
+              ffi.Pointer<ffi.Int> routeTraversalEdgeBehavior)>> navigator;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              DartObj context, ffi.Pointer<ffi.Int> rootNavigator)>> of;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              DartObj context, ffi.Pointer<ffi.Int> rootNavigator)>> maybeOf;
+}
+
+final class NavigatorObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external ffi.Pointer<ffi.Char> initialRoute;
+
+  external ffi.Pointer<ffi.Char> restorationScopeId;
+
+  @ffi.Int()
+  external int routeTraversalEdgeBehavior;
+
+  @ffi.Int()
+  external int reportsRouteUpdateToEngine;
+
+  @ffi.Int()
+  external int clipBehavior;
+
+  @ffi.Int()
+  external int requestFocus;
+}
+
+final class AlertDialogSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AlertDialogObjSt Function(
+              ffi.Pointer<DartObj> icon,
+              ffi.Pointer<DartObj> iconPadding,
+              ffi.Pointer<DartObj> iconColor,
+              ffi.Pointer<DartObj> title,
+              ffi.Pointer<DartObj> titlePadding,
+              ffi.Pointer<DartObj> titleTextStyle,
+              ffi.Pointer<DartObj> content,
+              ffi.Pointer<DartObj> contentPadding,
+              ffi.Pointer<DartObj> contentTextStyle,
+              ffi.Pointer<ArrayC> actions,
+              ffi.Pointer<DartObj> actionsPadding,
+              ffi.Pointer<ffi.Int> actionsAlignment,
+              ffi.Pointer<ffi.Int> actionsOverflowAlignment,
+              ffi.Pointer<ffi.Int> actionsOverflowDirection,
+              ffi.Pointer<ffi.Double> actionsOverflowButtonSpacing,
+              ffi.Pointer<DartObj> buttonPadding,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<DartObj> shadowColor,
+              ffi.Pointer<DartObj> surfaceTintColor,
+              ffi.Pointer<ffi.Char> semanticLabel,
+              ffi.Pointer<DartObj> insetPadding,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> scrollable)>> alertDialog;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AlertDialogObjSt Function(
+              ffi.Pointer<DartObj> icon,
+              ffi.Pointer<DartObj> iconPadding,
+              ffi.Pointer<DartObj> iconColor,
+              ffi.Pointer<DartObj> title,
+              ffi.Pointer<DartObj> titlePadding,
+              ffi.Pointer<DartObj> titleTextStyle,
+              ffi.Pointer<DartObj> content,
+              ffi.Pointer<DartObj> contentPadding,
+              ffi.Pointer<DartObj> contentTextStyle,
+              ffi.Pointer<ArrayC> actions,
+              ffi.Pointer<DartObj> actionsPadding,
+              ffi.Pointer<ffi.Int> actionsAlignment,
+              ffi.Pointer<ffi.Int> actionsOverflowAlignment,
+              ffi.Pointer<ffi.Int> actionsOverflowDirection,
+              ffi.Pointer<ffi.Double> actionsOverflowButtonSpacing,
+              ffi.Pointer<DartObj> buttonPadding,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<DartObj> shadowColor,
+              ffi.Pointer<DartObj> surfaceTintColor,
+              ffi.Pointer<ffi.Char> semanticLabel,
+              ffi.Pointer<DartObj> insetPadding,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> scrollable,
+              ffi.Pointer<DartObj> insetAnimationDuration,
+              ffi.Pointer<DartObj> insetAnimationCurve)>> adaptive;
+}
+
+final class AlertDialogObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int icon;
+
+  @DartObj()
+  external int iconColor;
+
+  @DartObj()
+  external int iconPadding;
+
+  @DartObj()
+  external int title;
+
+  @DartObj()
+  external int titlePadding;
+
+  external TextStyleObjSt titleTextStyle;
+
+  @DartObj()
+  external int content;
+
+  @DartObj()
+  external int contentPadding;
+
+  external TextStyleObjSt contentTextStyle;
+
+  @DartObj()
+  external int actionsPadding;
+
+  @ffi.Int()
+  external int actionsAlignment;
+
+  @ffi.Int()
+  external int actionsOverflowAlignment;
+
+  @ffi.Int()
+  external int actionsOverflowDirection;
+
+  @ffi.Double()
+  external double actionsOverflowButtonSpacing;
+
+  @DartObj()
+  external int buttonPadding;
+
+  @DartObj()
+  external int backgroundColor;
+
+  @ffi.Double()
+  external double elevation;
+
+  @DartObj()
+  external int shadowColor;
+
+  @DartObj()
+  external int surfaceTintColor;
+
+  external ffi.Pointer<ffi.Char> semanticLabel;
+
+  external EdgeInsetsObjSt insetPadding;
+
+  @ffi.Int()
+  external int clipBehavior;
+
+  @DartObj()
+  external int shape;
+
+  @DartObj()
+  external int alignment;
+
+  @ffi.Int()
+  external int scrollable;
+}
+
 final class SubStateSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -3263,6 +3540,8 @@ final class SubStateObjSt extends ffi.Struct {
   external int id;
 
   external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> widget;
+
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> context;
 
   external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>> mounted;
 

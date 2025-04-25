@@ -24,6 +24,9 @@ public class AnimatedBuilder extends ListenableBuilder implements AnimatedBuilde
   public static AnimatedBuilderAnimatedBuilderBuilder animatedBuilder(ListenableI animation, BiFunction<BuildContext, Widget, Widget> builder) {
     return AnimatedBuilderAnimatedBuilderBuilder.animatedBuilderAnimatedBuilder(animation, builder);
   }
+  public Listenable animation() {
+    return new Listenable() { public int getId() { return AnimatedBuilderObjSt.animation(st); } };
+  }
   @Override
   public AnimatedBuilder build() {
     return this;

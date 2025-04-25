@@ -54,6 +54,9 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   public boolean extendBodyBehindAppBar() {
     return intToBool(ScaffoldObjSt.extendBodyBehindAppBar(st));
   }
+  public PreferredSizeWidget appBar() {
+    return new PreferredSizeWidget() { public int getId() { return ScaffoldObjSt.appBar(st); } };
+  }
   public Widget body() {
     return new Widget(ScaffoldObjSt.body(st)) {};
   }

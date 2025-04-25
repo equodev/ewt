@@ -276,8 +276,14 @@ typedef struct {
     TextThemeObjSt (*primaryOf)(DartObj context);
   } textTheme;
 
+  struct VisualDensitySt {
+    VisualDensityObjSt (*visualDensity)(double* horizontal, double* vertical);
+    VisualDensityObjSt (*defaultDensityForPlatform)(int platform);
+    VisualDensityObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } visualDensity;
+
   struct ThemeDataSt {
-    ThemeDataObjSt (*themeData)(int* applyElevationOverlayColor, int* materialTapTargetSize, int* platform, int* useMaterial3, DartObj* colorScheme, int* brightness, DartObj* colorSchemeSeed, DartObj* canvasColor, DartObj* cardColor, DartObj* disabledColor, DartObj* dividerColor, DartObj* focusColor, DartObj* highlightColor, DartObj* hintColor, DartObj* hoverColor, DartObj* indicatorColor, DartObj* primaryColor, DartObj* primaryColorDark, DartObj* primaryColorLight, DartObj* primarySwatch, DartObj* scaffoldBackgroundColor, DartObj* secondaryHeaderColor, DartObj* shadowColor, DartObj* splashColor, DartObj* unselectedWidgetColor, char* fontFamily, char*** fontFamilyFallback, char* package, DartObj* primaryTextTheme, DartObj* textTheme, DartObj* cardTheme, DartObj* dialogTheme, DartObj* tabBarTheme, DartObj* dialogBackgroundColor);
+    ThemeDataObjSt (*themeData)(int* applyElevationOverlayColor, int* materialTapTargetSize, int* platform, int* useMaterial3, DartObj* visualDensity, DartObj* colorScheme, int* brightness, DartObj* colorSchemeSeed, DartObj* canvasColor, DartObj* cardColor, DartObj* disabledColor, DartObj* dividerColor, DartObj* focusColor, DartObj* highlightColor, DartObj* hintColor, DartObj* hoverColor, DartObj* indicatorColor, DartObj* primaryColor, DartObj* primaryColorDark, DartObj* primaryColorLight, DartObj* primarySwatch, DartObj* scaffoldBackgroundColor, DartObj* secondaryHeaderColor, DartObj* shadowColor, DartObj* splashColor, DartObj* unselectedWidgetColor, char* fontFamily, char*** fontFamilyFallback, char* package, DartObj* primaryTextTheme, DartObj* textTheme, DartObj* cardTheme, DartObj* dialogTheme, DartObj* tabBarTheme, DartObj* dialogBackgroundColor);
     ThemeDataObjSt (*from)(DartObj colorScheme, DartObj* textTheme, int* useMaterial3);
     ThemeDataObjSt (*light)(int* useMaterial3);
     ThemeDataObjSt (*dark)(int* useMaterial3);
@@ -296,10 +302,10 @@ typedef struct {
   } material;
 
   struct IconButtonSt {
-    IconButtonObjSt (*iconButton)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
-    IconButtonObjSt (*filled)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
-    IconButtonObjSt (*filledTonal)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
-    IconButtonObjSt (*outlined)(double* iconSize, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*iconButton)(double* iconSize, DartObj* visualDensity, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*filled)(double* iconSize, DartObj* visualDensity, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*filledTonal)(double* iconSize, DartObj* visualDensity, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
+    IconButtonObjSt (*outlined)(double* iconSize, DartObj* visualDensity, DartObj* padding, DartObj* alignment, double* splashRadius, DartObj* color, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* disabledColor, VoidCallbackFFI onPressed, ValueChangedForBoolFFI* onHover, VoidCallbackFFI* onLongPress, int* autofocus, char* tooltip, int* enableFeedback, DartObj* constraints, int* isSelected, DartObj* selectedIcon, DartObj icon);
   } iconButton;
 
   struct AppBarSt {
@@ -337,6 +343,26 @@ typedef struct {
     OutlinedButtonObjSt (*outlinedButton)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj child);
     OutlinedButtonObjSt (*icon)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj* icon, DartObj label, int* iconAlignment);
   } outlinedButton;
+
+  struct TextButtonSt {
+    TextButtonObjSt (*textButton)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, int* isSemanticButton, DartObj child);
+    TextButtonObjSt (*icon)(VoidCallbackFFI onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHover, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* clipBehavior, DartObj* icon, DartObj label, int* iconAlignment);
+  } textButton;
+
+  struct NavigatorStateSt {
+    DartObj (*navigatorState)(void);
+  } navigatorState;
+
+  struct NavigatorSt {
+    NavigatorObjSt (*navigator)(char* initialRoute, int* reportsRouteUpdateToEngine, int* clipBehavior, int* requestFocus, char* restorationScopeId, int* routeTraversalEdgeBehavior);
+    DartObj (*of)(DartObj context, int* rootNavigator);
+    DartObj (*maybeOf)(DartObj context, int* rootNavigator);
+  } navigator;
+
+  struct AlertDialogSt {
+    AlertDialogObjSt (*alertDialog)(DartObj* icon, DartObj* iconPadding, DartObj* iconColor, DartObj* title, DartObj* titlePadding, DartObj* titleTextStyle, DartObj* content, DartObj* contentPadding, DartObj* contentTextStyle, ArrayC* actions, DartObj* actionsPadding, int* actionsAlignment, int* actionsOverflowAlignment, int* actionsOverflowDirection, double* actionsOverflowButtonSpacing, DartObj* buttonPadding, DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, char* semanticLabel, DartObj* insetPadding, int* clipBehavior, DartObj* shape, DartObj* alignment, int* scrollable);
+    AlertDialogObjSt (*adaptive)(DartObj* icon, DartObj* iconPadding, DartObj* iconColor, DartObj* title, DartObj* titlePadding, DartObj* titleTextStyle, DartObj* content, DartObj* contentPadding, DartObj* contentTextStyle, ArrayC* actions, DartObj* actionsPadding, int* actionsAlignment, int* actionsOverflowAlignment, int* actionsOverflowDirection, double* actionsOverflowButtonSpacing, DartObj* buttonPadding, DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, char* semanticLabel, DartObj* insetPadding, int* clipBehavior, DartObj* shape, DartObj* alignment, int* scrollable, DartObj* insetAnimationDuration, DartObj* insetAnimationCurve);
+  } alertDialog;
 
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);

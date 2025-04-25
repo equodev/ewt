@@ -33,7 +33,7 @@ public class ThemeObjSt {
         ThemeDataObjSt.layout().withName("data"),
         StarterBridge.C_INT.withName("child"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$560:9");
+    ).withName("$anon$572:9");
 
     /**
      * The layout of this struct
@@ -142,7 +142,7 @@ public class ThemeObjSt {
         return child$LAYOUT;
     }
 
-    private static final long child$OFFSET = 3688;
+    private static final long child$OFFSET = 3720;
 
     /**
      * Offset for field:

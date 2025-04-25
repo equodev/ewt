@@ -368,7 +368,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
     write(node, ' ');
     if (node.parent is MethodDeclaration) {
       final method = node.parent as MethodDeclaration;
-      if (isPrivate(method.name)) {
+      if (isPrivateToken(method.name)) {
         write(node, 'private ');
       } else if (method.declaredElement!.hasProtected ||
           method.declaredElement!.hasOverride) {
@@ -451,7 +451,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
         t = 'Double';
       }
     }
-    return t;
+    return javaify(t);
   }
 
   @override
@@ -620,7 +620,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
         return;
       }
     }
-    write(node, javaify(node.type.name2));
+    write(node, javaifyToken(node.type.name2));
     if (node.name != null) {
       write(node, '_${node.name}');
     }
@@ -628,10 +628,10 @@ class Dart2JavaVisitor extends ToSourceVisitor {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (isPrivate(node.name)) {
+    if (isPrivateToken(node.name)) {
       // write(node, 'private ');
     }
-    write(node, 'class ${javaify(node.name)}');
+    write(node, 'class ${javaifyToken(node.name)}');
     node.typeParameters?.accept(this);
     node.extendsClause?.accept(this);
     node.withClause?.accept(this);
@@ -699,7 +699,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
     if (node.metadata.isEmpty) {
-      if (isPrivate(node.name)) {
+      if (isPrivateToken(node.name)) {
         write(node, 'private ');
       } else if (node.declaredElement!.hasProtected ||
           node.declaredElement!.hasOverride) {
@@ -735,7 +735,7 @@ class Dart2JavaVisitor extends ToSourceVisitor {
 
   @override
   void visitFieldDeclaration(FieldDeclaration node) {
-    if (isPrivate(node.fields.variables[0].name)) {
+    if (isPrivateToken(node.fields.variables[0].name)) {
       write(node, 'private ');
     }
     super.visitFieldDeclaration(node);
@@ -892,13 +892,19 @@ class Dart2JavaVisitor extends ToSourceVisitor {
     }
   }
 
-  bool isPrivate(Token name) =>  name.lexeme.startsWith('_');
+  bool isPrivateToken(Token name) => isPrivate(name.lexeme);
+  bool isPrivate(String name) => name.startsWith('_');
 
-  String javaify(Token name) {
-    if (isPrivate(name)) {
-      return name.lexeme.substring(1);
+  String javaifyToken(Token name) {
+    var lexeme = name.lexeme;
+    return javaify(lexeme);
+  }
+
+  String javaify(String lexeme) {
+    if (isPrivate(lexeme)) {
+      return lexeme.substring(1);
     }
-    return name.lexeme;
+    return lexeme;
   }
 
   bool isUserClass(Expression node) {

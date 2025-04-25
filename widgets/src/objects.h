@@ -236,6 +236,7 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj animation;
 } AnimatedBuilderObjSt;
 
 typedef struct {
@@ -386,10 +387,18 @@ typedef struct {
 
 typedef struct {
   int id;
+  double horizontal;
+  double vertical;
+  DartObj baseSizeAdjustment;
+} VisualDensityObjSt;
+
+typedef struct {
+  int id;
   int applyElevationOverlayColor;
   int materialTapTargetSize;
   int platform;
   int useMaterial3;
+  VisualDensityObjSt visualDensity;
   DartObj canvasColor;
   DartObj cardColor;
   ColorSchemeObjSt colorScheme;
@@ -441,6 +450,7 @@ typedef struct {
 typedef struct {
   int id;
   double iconSize;
+  VisualDensityObjSt visualDensity;
   DartObj padding;
   DartObj alignment;
   double splashRadius;
@@ -465,6 +475,7 @@ typedef struct {
   int automaticallyImplyLeading;
   DartObj title;
   DartObj flexibleSpace;
+  DartObj bottom;
   double elevation;
   double scrolledUnderElevation;
   DartObj shadowColor;
@@ -491,6 +502,7 @@ typedef struct {
   int id;
   int extendBody;
   int extendBodyBehindAppBar;
+  DartObj appBar;
   DartObj body;
   DartObj floatingActionButton;
   DartObj drawer;
@@ -573,7 +585,51 @@ typedef struct {
 
 typedef struct {
   int id;
+} TextButtonObjSt;
+
+typedef struct {
+  int id;
+  char* initialRoute;
+  char* restorationScopeId;
+  int routeTraversalEdgeBehavior;
+  int reportsRouteUpdateToEngine;
+  int clipBehavior;
+  int requestFocus;
+} NavigatorObjSt;
+
+typedef struct {
+  int id;
+  DartObj icon;
+  DartObj iconColor;
+  DartObj iconPadding;
+  DartObj title;
+  DartObj titlePadding;
+  TextStyleObjSt titleTextStyle;
+  DartObj content;
+  DartObj contentPadding;
+  TextStyleObjSt contentTextStyle;
+  DartObj actionsPadding;
+  int actionsAlignment;
+  int actionsOverflowAlignment;
+  int actionsOverflowDirection;
+  double actionsOverflowButtonSpacing;
+  DartObj buttonPadding;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  char* semanticLabel;
+  EdgeInsetsObjSt insetPadding;
+  int clipBehavior;
+  DartObj shape;
+  DartObj alignment;
+  int scrollable;
+} AlertDialogObjSt;
+
+typedef struct {
+  int id;
   DartObj (*widget)(void);
+  DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);
 } SubStateObjSt;

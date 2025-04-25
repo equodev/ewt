@@ -16,28 +16,26 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     DartObj a1;
- *     DartObj b1;
- *     DartObj midpoint;
- *     DartObj a2;
- *     DartObj b2;
+ *     double horizontal;
+ *     double vertical;
+ *     DartObj baseSizeAdjustment;
  * }
  * }
  */
-public class ThreePointCubicObjSt {
+public class VisualDensityObjSt {
 
-    ThreePointCubicObjSt() {
+    VisualDensityObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
-        StarterBridge.C_INT.withName("a1"),
-        StarterBridge.C_INT.withName("b1"),
-        StarterBridge.C_INT.withName("midpoint"),
-        StarterBridge.C_INT.withName("a2"),
-        StarterBridge.C_INT.withName("b2")
-    ).withName("$anon$255:9");
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_DOUBLE.withName("horizontal"),
+        StarterBridge.C_DOUBLE.withName("vertical"),
+        StarterBridge.C_INT.withName("baseSizeAdjustment"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$388:9");
 
     /**
      * The layout of this struct
@@ -90,224 +88,136 @@ public class ThreePointCubicObjSt {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
-    private static final OfInt a1$LAYOUT = (OfInt)$LAYOUT.select(groupElement("a1"));
+    private static final OfDouble horizontal$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("horizontal"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * DartObj a1
+     * double horizontal
      * }
      */
-    public static final OfInt a1$layout() {
-        return a1$LAYOUT;
+    public static final OfDouble horizontal$layout() {
+        return horizontal$LAYOUT;
     }
 
-    private static final long a1$OFFSET = 4;
+    private static final long horizontal$OFFSET = 8;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * DartObj a1
+     * double horizontal
      * }
      */
-    public static final long a1$offset() {
-        return a1$OFFSET;
+    public static final long horizontal$offset() {
+        return horizontal$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * DartObj a1
+     * double horizontal
      * }
      */
-    public static int a1(MemorySegment struct) {
-        return struct.get(a1$LAYOUT, a1$OFFSET);
+    public static double horizontal(MemorySegment struct) {
+        return struct.get(horizontal$LAYOUT, horizontal$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * DartObj a1
+     * double horizontal
      * }
      */
-    public static void a1(MemorySegment struct, int fieldValue) {
-        struct.set(a1$LAYOUT, a1$OFFSET, fieldValue);
+    public static void horizontal(MemorySegment struct, double fieldValue) {
+        struct.set(horizontal$LAYOUT, horizontal$OFFSET, fieldValue);
     }
 
-    private static final OfInt b1$LAYOUT = (OfInt)$LAYOUT.select(groupElement("b1"));
+    private static final OfDouble vertical$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("vertical"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * DartObj b1
+     * double vertical
      * }
      */
-    public static final OfInt b1$layout() {
-        return b1$LAYOUT;
+    public static final OfDouble vertical$layout() {
+        return vertical$LAYOUT;
     }
 
-    private static final long b1$OFFSET = 8;
+    private static final long vertical$OFFSET = 16;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * DartObj b1
+     * double vertical
      * }
      */
-    public static final long b1$offset() {
-        return b1$OFFSET;
+    public static final long vertical$offset() {
+        return vertical$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * DartObj b1
+     * double vertical
      * }
      */
-    public static int b1(MemorySegment struct) {
-        return struct.get(b1$LAYOUT, b1$OFFSET);
+    public static double vertical(MemorySegment struct) {
+        return struct.get(vertical$LAYOUT, vertical$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * DartObj b1
+     * double vertical
      * }
      */
-    public static void b1(MemorySegment struct, int fieldValue) {
-        struct.set(b1$LAYOUT, b1$OFFSET, fieldValue);
+    public static void vertical(MemorySegment struct, double fieldValue) {
+        struct.set(vertical$LAYOUT, vertical$OFFSET, fieldValue);
     }
 
-    private static final OfInt midpoint$LAYOUT = (OfInt)$LAYOUT.select(groupElement("midpoint"));
+    private static final OfInt baseSizeAdjustment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("baseSizeAdjustment"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * DartObj midpoint
+     * DartObj baseSizeAdjustment
      * }
      */
-    public static final OfInt midpoint$layout() {
-        return midpoint$LAYOUT;
+    public static final OfInt baseSizeAdjustment$layout() {
+        return baseSizeAdjustment$LAYOUT;
     }
 
-    private static final long midpoint$OFFSET = 12;
+    private static final long baseSizeAdjustment$OFFSET = 24;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * DartObj midpoint
+     * DartObj baseSizeAdjustment
      * }
      */
-    public static final long midpoint$offset() {
-        return midpoint$OFFSET;
+    public static final long baseSizeAdjustment$offset() {
+        return baseSizeAdjustment$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * DartObj midpoint
+     * DartObj baseSizeAdjustment
      * }
      */
-    public static int midpoint(MemorySegment struct) {
-        return struct.get(midpoint$LAYOUT, midpoint$OFFSET);
+    public static int baseSizeAdjustment(MemorySegment struct) {
+        return struct.get(baseSizeAdjustment$LAYOUT, baseSizeAdjustment$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * DartObj midpoint
+     * DartObj baseSizeAdjustment
      * }
      */
-    public static void midpoint(MemorySegment struct, int fieldValue) {
-        struct.set(midpoint$LAYOUT, midpoint$OFFSET, fieldValue);
-    }
-
-    private static final OfInt a2$LAYOUT = (OfInt)$LAYOUT.select(groupElement("a2"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj a2
-     * }
-     */
-    public static final OfInt a2$layout() {
-        return a2$LAYOUT;
-    }
-
-    private static final long a2$OFFSET = 16;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj a2
-     * }
-     */
-    public static final long a2$offset() {
-        return a2$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj a2
-     * }
-     */
-    public static int a2(MemorySegment struct) {
-        return struct.get(a2$LAYOUT, a2$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj a2
-     * }
-     */
-    public static void a2(MemorySegment struct, int fieldValue) {
-        struct.set(a2$LAYOUT, a2$OFFSET, fieldValue);
-    }
-
-    private static final OfInt b2$LAYOUT = (OfInt)$LAYOUT.select(groupElement("b2"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj b2
-     * }
-     */
-    public static final OfInt b2$layout() {
-        return b2$LAYOUT;
-    }
-
-    private static final long b2$OFFSET = 20;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj b2
-     * }
-     */
-    public static final long b2$offset() {
-        return b2$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj b2
-     * }
-     */
-    public static int b2(MemorySegment struct) {
-        return struct.get(b2$LAYOUT, b2$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj b2
-     * }
-     */
-    public static void b2(MemorySegment struct, int fieldValue) {
-        struct.set(b2$LAYOUT, b2$OFFSET, fieldValue);
+    public static void baseSizeAdjustment(MemorySegment struct, int fieldValue) {
+        struct.set(baseSizeAdjustment$LAYOUT, baseSizeAdjustment$OFFSET, fieldValue);
     }
 
     /**

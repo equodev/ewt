@@ -20,6 +20,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int automaticallyImplyLeading;
  *     DartObj title;
  *     DartObj flexibleSpace;
+ *     DartObj bottom;
  *     double elevation;
  *     double scrolledUnderElevation;
  *     DartObj shadowColor;
@@ -55,7 +56,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("automaticallyImplyLeading"),
         StarterBridge.C_INT.withName("title"),
         StarterBridge.C_INT.withName("flexibleSpace"),
-        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_INT.withName("bottom"),
         StarterBridge.C_DOUBLE.withName("elevation"),
         StarterBridge.C_DOUBLE.withName("scrolledUnderElevation"),
         StarterBridge.C_INT.withName("shadowColor"),
@@ -77,7 +78,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("actionsPadding"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$462:9");
+    ).withName("$anon$472:9");
 
     /**
      * The layout of this struct
@@ -304,6 +305,50 @@ public class AppBarObjSt {
      */
     public static void flexibleSpace(MemorySegment struct, int fieldValue) {
         struct.set(flexibleSpace$LAYOUT, flexibleSpace$OFFSET, fieldValue);
+    }
+
+    private static final OfInt bottom$LAYOUT = (OfInt)$LAYOUT.select(groupElement("bottom"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static final OfInt bottom$layout() {
+        return bottom$LAYOUT;
+    }
+
+    private static final long bottom$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static final long bottom$offset() {
+        return bottom$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static int bottom(MemorySegment struct) {
+        return struct.get(bottom$LAYOUT, bottom$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static void bottom(MemorySegment struct, int fieldValue) {
+        struct.set(bottom$LAYOUT, bottom$OFFSET, fieldValue);
     }
 
     private static final OfDouble elevation$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("elevation"));

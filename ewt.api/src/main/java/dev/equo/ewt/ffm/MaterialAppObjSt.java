@@ -66,7 +66,7 @@ public class MaterialAppObjSt {
         StarterBridge.C_POINTER.withName("restorationScopeId"),
         StarterBridge.C_INT.withName("debugShowMaterialGrid"),
         StarterBridge.C_INT.withName("useInheritedMediaQuery")
-    ).withName("$anon$511:9");
+    ).withName("$anon$523:9");
 
     /**
      * The layout of this struct
@@ -307,7 +307,7 @@ public class MaterialAppObjSt {
         return darkTheme$LAYOUT;
     }
 
-    private static final long darkTheme$OFFSET = 3704;
+    private static final long darkTheme$OFFSET = 3736;
 
     /**
      * Offset for field:
@@ -351,7 +351,7 @@ public class MaterialAppObjSt {
         return highContrastTheme$LAYOUT;
     }
 
-    private static final long highContrastTheme$OFFSET = 7384;
+    private static final long highContrastTheme$OFFSET = 7448;
 
     /**
      * Offset for field:
@@ -395,7 +395,7 @@ public class MaterialAppObjSt {
         return highContrastDarkTheme$LAYOUT;
     }
 
-    private static final long highContrastDarkTheme$OFFSET = 11064;
+    private static final long highContrastDarkTheme$OFFSET = 11160;
 
     /**
      * Offset for field:
@@ -439,7 +439,7 @@ public class MaterialAppObjSt {
         return themeMode$LAYOUT;
     }
 
-    private static final long themeMode$OFFSET = 14744;
+    private static final long themeMode$OFFSET = 14872;
 
     /**
      * Offset for field:
@@ -483,7 +483,7 @@ public class MaterialAppObjSt {
         return themeAnimationDuration$LAYOUT;
     }
 
-    private static final long themeAnimationDuration$OFFSET = 14748;
+    private static final long themeAnimationDuration$OFFSET = 14876;
 
     /**
      * Offset for field:
@@ -527,7 +527,7 @@ public class MaterialAppObjSt {
         return themeAnimationCurve$LAYOUT;
     }
 
-    private static final long themeAnimationCurve$OFFSET = 14752;
+    private static final long themeAnimationCurve$OFFSET = 14880;
 
     /**
      * Offset for field:
@@ -571,7 +571,7 @@ public class MaterialAppObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 14756;
+    private static final long color$OFFSET = 14884;
 
     /**
      * Offset for field:
@@ -615,7 +615,7 @@ public class MaterialAppObjSt {
         return showPerformanceOverlay$LAYOUT;
     }
 
-    private static final long showPerformanceOverlay$OFFSET = 14760;
+    private static final long showPerformanceOverlay$OFFSET = 14888;
 
     /**
      * Offset for field:
@@ -659,7 +659,7 @@ public class MaterialAppObjSt {
         return checkerboardRasterCacheImages$LAYOUT;
     }
 
-    private static final long checkerboardRasterCacheImages$OFFSET = 14764;
+    private static final long checkerboardRasterCacheImages$OFFSET = 14892;
 
     /**
      * Offset for field:
@@ -703,7 +703,7 @@ public class MaterialAppObjSt {
         return checkerboardOffscreenLayers$LAYOUT;
     }
 
-    private static final long checkerboardOffscreenLayers$OFFSET = 14768;
+    private static final long checkerboardOffscreenLayers$OFFSET = 14896;
 
     /**
      * Offset for field:
@@ -747,7 +747,7 @@ public class MaterialAppObjSt {
         return showSemanticsDebugger$LAYOUT;
     }
 
-    private static final long showSemanticsDebugger$OFFSET = 14772;
+    private static final long showSemanticsDebugger$OFFSET = 14900;
 
     /**
      * Offset for field:
@@ -791,7 +791,7 @@ public class MaterialAppObjSt {
         return debugShowCheckedModeBanner$LAYOUT;
     }
 
-    private static final long debugShowCheckedModeBanner$OFFSET = 14776;
+    private static final long debugShowCheckedModeBanner$OFFSET = 14904;
 
     /**
      * Offset for field:
@@ -835,7 +835,7 @@ public class MaterialAppObjSt {
         return restorationScopeId$LAYOUT;
     }
 
-    private static final long restorationScopeId$OFFSET = 14784;
+    private static final long restorationScopeId$OFFSET = 14912;
 
     /**
      * Offset for field:
@@ -879,7 +879,7 @@ public class MaterialAppObjSt {
         return debugShowMaterialGrid$LAYOUT;
     }
 
-    private static final long debugShowMaterialGrid$OFFSET = 14792;
+    private static final long debugShowMaterialGrid$OFFSET = 14920;
 
     /**
      * Offset for field:
@@ -923,7 +923,7 @@ public class MaterialAppObjSt {
         return useInheritedMediaQuery$LAYOUT;
     }
 
-    private static final long useInheritedMediaQuery$OFFSET = 14796;
+    private static final long useInheritedMediaQuery$OFFSET = 14924;
 
     /**
      * Offset for field:

@@ -16,20 +16,18 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     DartObj animation;
  * }
  * }
  */
-public class AnimatedBuilderObjSt {
+public class TextButtonObjSt {
 
-    AnimatedBuilderObjSt() {
+    TextButtonObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id"),
-        StarterBridge.C_INT.withName("animation")
-    ).withName("$anon$237:9");
+        StarterBridge.C_INT.withName("id")
+    ).withName("$anon$586:9");
 
     /**
      * The layout of this struct
@@ -80,50 +78,6 @@ public class AnimatedBuilderObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
-    }
-
-    private static final OfInt animation$LAYOUT = (OfInt)$LAYOUT.select(groupElement("animation"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj animation
-     * }
-     */
-    public static final OfInt animation$layout() {
-        return animation$LAYOUT;
-    }
-
-    private static final long animation$OFFSET = 4;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj animation
-     * }
-     */
-    public static final long animation$offset() {
-        return animation$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj animation
-     * }
-     */
-    public static int animation(MemorySegment struct) {
-        return struct.get(animation$LAYOUT, animation$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj animation
-     * }
-     */
-    public static void animation(MemorySegment struct, int fieldValue) {
-        struct.set(animation$LAYOUT, animation$OFFSET, fieldValue);
     }
 
     /**

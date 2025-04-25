@@ -116,6 +116,15 @@ void main() {
 
       expect(actualOutput, completion(equals(expectedOutput)));
     });
+
+    test('Hacka Test', () async {
+      final dartInput = 'test/fixtures/hacka.dart';
+      final actualOutput = transpile(dartInput, '../examples/src/main/java/dev/equo/Hacka.java');
+      final expectedOutput = File('test/fixtures/Hacka.java')
+          .readAsStringSync();
+
+      expect(actualOutput, completion(equals(expectedOutput)));
+    });
   });
 
   group('Dart to Java Fragments', () {

@@ -1039,6 +1039,7 @@ AnimatedBuilderObjSt _createAnimatedBuilderObjSt(AnimatedBuilder? w) {
   final AnimatedBuilderObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  stObj.animation = _addWidget(w.animation);
   return stObj;
 }
 
@@ -1756,6 +1757,36 @@ TextThemeObjSt _createTextThemeObjSt(TextTheme? w) {
   return stObj;
 }
 
+void _setupVisualDensity(WidgetFactories f) {
+  f.visualDensity.visualDensity = ffi.Pointer.fromFunction(visualDensityVisualDensity);
+  f.visualDensity.defaultDensityForPlatform = ffi.Pointer.fromFunction(visualDensityDefaultDensityForPlatform);
+  f.visualDensity.lerp = ffi.Pointer.fromFunction(visualDensityLerp);
+}
+VisualDensityObjSt visualDensityVisualDensity(ffi.Pointer<ffi.Double> horizontal, ffi.Pointer<ffi.Double> vertical) {
+  final w = VisualDensity(horizontal: horizontal.doubleOr(0.0),
+      vertical: vertical.doubleOr(0.0));
+  return _createVisualDensityObjSt(w);
+}
+VisualDensityObjSt visualDensityDefaultDensityForPlatform(int platform) {
+  final w = VisualDensity.defaultDensityForPlatform(_widgetsMap[platform]! as TargetPlatform);
+  return _createVisualDensityObjSt(w);
+}
+VisualDensityObjSt visualDensityLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = VisualDensity.lerp(_widgetsMap[a]! as VisualDensity,
+      _widgetsMap[b]! as VisualDensity,
+      t);
+  return _createVisualDensityObjSt(w);
+}
+VisualDensityObjSt _createVisualDensityObjSt(VisualDensity? w) {
+  final VisualDensityObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.horizontal = w.horizontal;
+  stObj.vertical = w.vertical;
+  stObj.baseSizeAdjustment = _addWidget(w.baseSizeAdjustment);
+  return stObj;
+}
+
 void _setupThemeData(WidgetFactories f) {
   f.themeData.themeData = ffi.Pointer.fromFunction(themeDataThemeData);
   f.themeData.from = ffi.Pointer.fromFunction(themeDataFrom);
@@ -1766,11 +1797,12 @@ void _setupThemeData(WidgetFactories f) {
   f.themeData.estimateBrightnessForColor = ffi.Pointer.fromFunction(themeDataEstimateBrightnessForColor, exception);
   f.themeData.lerp = ffi.Pointer.fromFunction(themeDataLerp);
 }
-ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor) {
+ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor) {
   final w = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor.boolOrNul(),
       materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
       platform: platform.enumOrNul(TargetPlatform.values),
       useMaterial3: useMaterial3.boolOrNul(),
+      visualDensity: visualDensity.objOrNul(),
       colorScheme: colorScheme.objOrNul(),
       brightness: brightness.enumOrNul(Brightness.values),
       colorSchemeSeed: colorSchemeSeed.objOrNul(),
@@ -1844,6 +1876,7 @@ ThemeDataObjSt _createThemeDataObjSt(ThemeData? w) {
   stObj.materialTapTargetSize = w.materialTapTargetSize.index;
   stObj.platform = w.platform.index;
   stObj.useMaterial3 = w.useMaterial3.toInt();
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
   stObj.canvasColor = _addWidget(w.canvasColor);
   stObj.cardColor = _addWidget(w.cardColor);
   stObj.colorScheme = _createColorSchemeObjSt(w.colorScheme);
@@ -1931,8 +1964,9 @@ void _setupIconButton(WidgetFactories f) {
   f.iconButton.filledTonal = ffi.Pointer.fromFunction(iconButtonFilledTonal);
   f.iconButton.outlined = ffi.Pointer.fromFunction(iconButtonOutlined);
 }
-IconButtonObjSt iconButtonIconButton(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonIconButton(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton(iconSize: iconSize.doubleOrNul(),
+      visualDensity: visualDensity.objOrNul(),
       padding: padding.objOrNul(),
       alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
@@ -1954,8 +1988,9 @@ IconButtonObjSt iconButtonIconButton(ffi.Pointer<ffi.Double> iconSize, ffi.Point
       icon: _widgetsMap[icon]! as Widget);
   return _createIconButtonObjSt(w);
 }
-IconButtonObjSt iconButtonFilled(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonFilled(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton.filled(iconSize: iconSize.doubleOrNul(),
+      visualDensity: visualDensity.objOrNul(),
       padding: padding.objOrNul(),
       alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
@@ -1977,8 +2012,9 @@ IconButtonObjSt iconButtonFilled(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<D
       icon: _widgetsMap[icon]! as Widget);
   return _createIconButtonObjSt(w);
 }
-IconButtonObjSt iconButtonFilledTonal(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonFilledTonal(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton.filledTonal(iconSize: iconSize.doubleOrNul(),
+      visualDensity: visualDensity.objOrNul(),
       padding: padding.objOrNul(),
       alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
@@ -2000,8 +2036,9 @@ IconButtonObjSt iconButtonFilledTonal(ffi.Pointer<ffi.Double> iconSize, ffi.Poin
       icon: _widgetsMap[icon]! as Widget);
   return _createIconButtonObjSt(w);
 }
-IconButtonObjSt iconButtonOutlined(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
+IconButtonObjSt iconButtonOutlined(ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> disabledColor, VoidCallbackFFI onPressed, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> isSelected, ffi.Pointer<DartObj> selectedIcon, DartDartObj icon) {
   final w = IconButton.outlined(iconSize: iconSize.doubleOrNul(),
+      visualDensity: visualDensity.objOrNul(),
       padding: padding.objOrNul(),
       alignment: alignment.objOrNul(),
       splashRadius: splashRadius.doubleOrNul(),
@@ -2028,6 +2065,7 @@ IconButtonObjSt _createIconButtonObjSt(IconButton? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.iconSize = (w.iconSize != null) ? w.iconSize! : 0;
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
   stObj.padding = _addWidget(w.padding);
   stObj.alignment = _addWidget(w.alignment);
   stObj.splashRadius = (w.splashRadius != null) ? w.splashRadius! : 0;
@@ -2087,6 +2125,7 @@ AppBarObjSt _createAppBarObjSt(AppBar? w) {
   stObj.automaticallyImplyLeading = w.automaticallyImplyLeading.toInt();
   stObj.title = _addWidget(w.title);
   stObj.flexibleSpace = _addWidget(w.flexibleSpace);
+  stObj.bottom = _addWidget(w.bottom);
   stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
   stObj.scrolledUnderElevation = (w.scrolledUnderElevation != null) ? w.scrolledUnderElevation! : 0;
   stObj.shadowColor = _addWidget(w.shadowColor);
@@ -2148,6 +2187,7 @@ ScaffoldObjSt _createScaffoldObjSt(Scaffold? w) {
   if (w == null) return stObj;
   stObj.extendBody = w.extendBody.toInt();
   stObj.extendBodyBehindAppBar = w.extendBodyBehindAppBar.toInt();
+  stObj.appBar = _addWidget(w.appBar);
   stObj.body = _addWidget(w.body);
   stObj.floatingActionButton = _addWidget(w.floatingActionButton);
   stObj.drawer = _addWidget(w.drawer);
@@ -2460,6 +2500,181 @@ OutlinedButtonObjSt _createOutlinedButtonObjSt(OutlinedButton? w) {
   return stObj;
 }
 
+void _setupTextButton(WidgetFactories f) {
+  f.textButton.textButton = ffi.Pointer.fromFunction(textButtonTextButton);
+  f.textButton.icon = ffi.Pointer.fromFunction(textButtonIcon);
+}
+TextButtonObjSt textButtonTextButton(VoidCallbackFFI onPressed, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> isSemanticButton, DartDartObj child) {
+  final w = TextButton(onPressed: onPressed.toVoidCallbackFn(),
+      onLongPress: onLongPress.toVoidCallbackFn(),
+      onHover: onHover.toValueChangedForBoolFn(),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      autofocus: autofocus.boolOr(false),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      isSemanticButton: isSemanticButton.boolOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createTextButtonObjSt(w);
+}
+TextButtonObjSt textButtonIcon(VoidCallbackFFI onPressed, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> icon, DartDartObj label, ffi.Pointer<ffi.Int> iconAlignment) {
+  final w = TextButton.icon(onPressed: onPressed.toVoidCallbackFn(),
+      onLongPress: onLongPress.toVoidCallbackFn(),
+      onHover: onHover.toValueChangedForBoolFn(),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      autofocus: autofocus.boolOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      icon: icon.objOrNul(),
+      label: _widgetsMap[label]! as Widget,
+      iconAlignment: iconAlignment.enumOrNul(IconAlignment.values));
+  return _createTextButtonObjSt(w);
+}
+TextButtonObjSt _createTextButtonObjSt(TextButton? w) {
+  final TextButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupNavigatorState(WidgetFactories f) {
+  f.navigatorState.navigatorState = ffi.Pointer.fromFunction(navigatorStateNavigatorState, exception);
+}
+int navigatorStateNavigatorState() {
+  final w = NavigatorState();
+  return _addWidget(w);
+}
+
+void _setupNavigator(WidgetFactories f) {
+  f.navigator.navigator = ffi.Pointer.fromFunction(navigatorNavigator);
+  f.navigator.of = ffi.Pointer.fromFunction(navigatorOf, exception);
+  f.navigator.maybeOf = ffi.Pointer.fromFunction(navigatorMaybeOf, exception);
+}
+NavigatorObjSt navigatorNavigator(ffi.Pointer<ffi.Char> initialRoute, ffi.Pointer<ffi.Int> reportsRouteUpdateToEngine, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> requestFocus, ffi.Pointer<ffi.Char> restorationScopeId, ffi.Pointer<ffi.Int> routeTraversalEdgeBehavior) {
+  final w = Navigator(initialRoute: initialRoute.strOrNul(),
+      reportsRouteUpdateToEngine: reportsRouteUpdateToEngine.boolOr(false),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      requestFocus: requestFocus.boolOr(true),
+      restorationScopeId: restorationScopeId.strOrNul(),
+      routeTraversalEdgeBehavior: routeTraversalEdgeBehavior.enumOr(TraversalEdgeBehavior.values, kDefaultRouteTraversalEdgeBehavior));
+  return _createNavigatorObjSt(w);
+}
+int navigatorOf(DartDartObj context, ffi.Pointer<ffi.Int> rootNavigator) {
+  final w = Navigator.of(_widgetsMap[context]! as BuildContext,
+      rootNavigator: rootNavigator.boolOr(false));
+  return _addWidget(w);
+}
+int navigatorMaybeOf(DartDartObj context, ffi.Pointer<ffi.Int> rootNavigator) {
+  final w = Navigator.maybeOf(_widgetsMap[context]! as BuildContext,
+      rootNavigator: rootNavigator.boolOr(false));
+  return _addWidget(w);
+}
+NavigatorObjSt _createNavigatorObjSt(Navigator? w) {
+  final NavigatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.initialRoute = (w.initialRoute != null) ? w.initialRoute!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.restorationScopeId = (w.restorationScopeId != null) ? w.restorationScopeId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.routeTraversalEdgeBehavior = w.routeTraversalEdgeBehavior.index;
+  stObj.reportsRouteUpdateToEngine = w.reportsRouteUpdateToEngine.toInt();
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.requestFocus = w.requestFocus.toInt();
+  return stObj;
+}
+
+void _setupAlertDialog(WidgetFactories f) {
+  f.alertDialog.alertDialog = ffi.Pointer.fromFunction(alertDialogAlertDialog);
+  f.alertDialog.adaptive = ffi.Pointer.fromFunction(alertDialogAdaptive);
+}
+AlertDialogObjSt alertDialogAlertDialog(ffi.Pointer<DartObj> icon, ffi.Pointer<DartObj> iconPadding, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> title, ffi.Pointer<DartObj> titlePadding, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> content, ffi.Pointer<DartObj> contentPadding, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<ffi.Int> actionsAlignment, ffi.Pointer<ffi.Int> actionsOverflowAlignment, ffi.Pointer<ffi.Int> actionsOverflowDirection, ffi.Pointer<ffi.Double> actionsOverflowButtonSpacing, ffi.Pointer<DartObj> buttonPadding, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Char> semanticLabel, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> scrollable) {
+  final w = AlertDialog(icon: icon.objOrNul(),
+      iconPadding: iconPadding.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      title: title.objOrNul(),
+      titlePadding: titlePadding.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      content: content.objOrNul(),
+      contentPadding: contentPadding.objOrNul(),
+      contentTextStyle: contentTextStyle.objOrNul(),
+      actions: actions.orEmpty(),
+      actionsPadding: actionsPadding.objOrNul(),
+      actionsAlignment: actionsAlignment.enumOrNul(MainAxisAlignment.values),
+      actionsOverflowAlignment: actionsOverflowAlignment.enumOrNul(OverflowBarAlignment.values),
+      actionsOverflowDirection: actionsOverflowDirection.enumOrNul(VerticalDirection.values),
+      actionsOverflowButtonSpacing: actionsOverflowButtonSpacing.doubleOrNul(),
+      buttonPadding: buttonPadding.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      semanticLabel: semanticLabel.strOrNul(),
+      insetPadding: insetPadding.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      shape: shape.objOrNul(),
+      alignment: alignment.objOrNul(),
+      scrollable: scrollable.boolOr(false));
+  return _createAlertDialogObjSt(w);
+}
+AlertDialogObjSt alertDialogAdaptive(ffi.Pointer<DartObj> icon, ffi.Pointer<DartObj> iconPadding, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> title, ffi.Pointer<DartObj> titlePadding, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> content, ffi.Pointer<DartObj> contentPadding, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<ffi.Int> actionsAlignment, ffi.Pointer<ffi.Int> actionsOverflowAlignment, ffi.Pointer<ffi.Int> actionsOverflowDirection, ffi.Pointer<ffi.Double> actionsOverflowButtonSpacing, ffi.Pointer<DartObj> buttonPadding, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Char> semanticLabel, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> scrollable, ffi.Pointer<DartObj> insetAnimationDuration, ffi.Pointer<DartObj> insetAnimationCurve) {
+  final w = AlertDialog.adaptive(icon: icon.objOrNul(),
+      iconPadding: iconPadding.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      title: title.objOrNul(),
+      titlePadding: titlePadding.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      content: content.objOrNul(),
+      contentPadding: contentPadding.objOrNul(),
+      contentTextStyle: contentTextStyle.objOrNul(),
+      actions: actions.orEmpty(),
+      actionsPadding: actionsPadding.objOrNul(),
+      actionsAlignment: actionsAlignment.enumOrNul(MainAxisAlignment.values),
+      actionsOverflowAlignment: actionsOverflowAlignment.enumOrNul(OverflowBarAlignment.values),
+      actionsOverflowDirection: actionsOverflowDirection.enumOrNul(VerticalDirection.values),
+      actionsOverflowButtonSpacing: actionsOverflowButtonSpacing.doubleOrNul(),
+      buttonPadding: buttonPadding.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      semanticLabel: semanticLabel.strOrNul(),
+      insetPadding: insetPadding.objOr(null),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      shape: shape.objOrNul(),
+      alignment: alignment.objOrNul(),
+      scrollable: scrollable.boolOr(false),
+      insetAnimationDuration: insetAnimationDuration.objOr(null),
+      insetAnimationCurve: insetAnimationCurve.objOr(null));
+  return _createAlertDialogObjSt(w);
+}
+AlertDialogObjSt _createAlertDialogObjSt(AlertDialog? w) {
+  final AlertDialogObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.icon = _addWidget(w.icon);
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.iconPadding = _addWidget(w.iconPadding);
+  stObj.title = _addWidget(w.title);
+  stObj.titlePadding = _addWidget(w.titlePadding);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.content = _addWidget(w.content);
+  stObj.contentPadding = _addWidget(w.contentPadding);
+  stObj.contentTextStyle = _createTextStyleObjSt(w.contentTextStyle);
+  stObj.actionsPadding = _addWidget(w.actionsPadding);
+  stObj.actionsAlignment = (w.actionsAlignment != null) ? w.actionsAlignment!.index : 0;
+  stObj.actionsOverflowAlignment = (w.actionsOverflowAlignment != null) ? w.actionsOverflowAlignment!.index : 0;
+  stObj.actionsOverflowDirection = (w.actionsOverflowDirection != null) ? w.actionsOverflowDirection!.index : 0;
+  stObj.actionsOverflowButtonSpacing = (w.actionsOverflowButtonSpacing != null) ? w.actionsOverflowButtonSpacing! : 0;
+  stObj.buttonPadding = _addWidget(w.buttonPadding);
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.semanticLabel = (w.semanticLabel != null) ? w.semanticLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.insetPadding = _createEdgeInsetsObjSt(w.insetPadding);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.scrollable = w.scrollable.toInt();
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -2478,6 +2693,8 @@ SubStateObjSt subStateSubState(VoidCallbackFFI initStateFn, VoidCallbackDartObjF
   stObj.setState = setStateFn.nativeFunction;
   final widgetFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.widget), exceptionalReturn: exception);
   stObj.widget = widgetFn.nativeFunction;
+  final contextFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.context), exceptionalReturn: exception);
+  stObj.context = contextFn.nativeFunction;
   final mountedFn = ffi.NativeCallable<ffi.Int Function()>.isolateLocal(() => w.mounted.toInt(), exceptionalReturn: exception);
   stObj.mounted = mountedFn.nativeFunction;
   return stObj;
@@ -2548,6 +2765,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupDuration(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
+  _setupVisualDensity(f);
   _setupThemeData(f);
   _setupMaterialAccentColor(f);
   _setupMaterialColor(f);
@@ -2560,6 +2778,10 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupTheme(f);
   _setupElevatedButton(f);
   _setupOutlinedButton(f);
+  _setupTextButton(f);
+  _setupNavigatorState(f);
+  _setupNavigator(f);
+  _setupAlertDialog(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

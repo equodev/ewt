@@ -59,6 +59,7 @@ Duration? duration;
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;
+m.VisualDensity? visualDensity;
 m.ThemeData? themeData;
 m.MaterialAccentColor? materialAccentColor;
 m.MaterialColor? materialColor;
@@ -73,6 +74,10 @@ m.Icons? icons;
 m.Theme? theme;
 m.ElevatedButton? elevatedButton;
 m.OutlinedButton? outlinedButton;
+m.TextButton? textButton;
+m.NavigatorState? navigatorState;
+m.Navigator? navigator;
+m.AlertDialog? alertDialog;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;

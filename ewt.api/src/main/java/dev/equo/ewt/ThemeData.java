@@ -14,11 +14,12 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
     System.out.println("New ThemeData id:"+id);
   }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> indicatorColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> cardTheme, Optional<NativeObj.I> dialogTheme, Optional<NativeObj.I> tabBarTheme, Optional<ColorI> dialogBackgroundColor) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> indicatorColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> cardTheme, Optional<NativeObj.I> dialogTheme, Optional<NativeObj.I> tabBarTheme, Optional<ColorI> dialogBackgroundColor) {
     var st = factories.themeDataThemeData(applyElevationOverlayColor,
       materialTapTargetSize,
       platform,
       useMaterial3,
+      visualDensity.map(VisualDensityI::build),
       colorScheme.map(ColorSchemeI::build),
       brightness,
       colorSchemeSeed.map(ColorI::build),
@@ -123,6 +124,9 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   }
   public boolean useMaterial3() {
     return intToBool(ThemeDataObjSt.useMaterial3(st));
+  }
+  public VisualDensity visualDensity() {
+    return new VisualDensity(ThemeDataObjSt.visualDensity(st));
   }
   public Color canvasColor() {
     return new Color(ThemeDataObjSt.canvasColor(st));

@@ -32,7 +32,7 @@ public class AlignmentObjSt {
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("x"),
         StarterBridge.C_DOUBLE.withName("y")
-    ).withName("$anon$284:9");
+    ).withName("$anon$285:9");
 
     /**
      * The layout of this struct

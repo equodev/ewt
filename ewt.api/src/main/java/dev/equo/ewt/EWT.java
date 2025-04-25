@@ -308,6 +308,10 @@ public class EWT {
     return TextThemeTextThemeBuilder.textThemeTextTheme();
   }
 
+  public static VisualDensityVisualDensityBuilder VisualDensity() {
+    return VisualDensityVisualDensityBuilder.visualDensityVisualDensity();
+  }
+
   public static ThemeDataThemeDataBuilder ThemeData() {
     return ThemeDataThemeDataBuilder.themeDataThemeData();
   }
@@ -389,6 +393,28 @@ public class EWT {
   }
   public static OutlinedButtonIconBuilder OutlinedButton_icon(Runnable onPressed) {
     return OutlinedButtonIconBuilder.outlinedButtonIcon(onPressed);
+  }
+
+  public static TextButtonTextButtonBuilder TextButton(Runnable onPressed) {
+    return TextButtonTextButtonBuilder.textButtonTextButton(onPressed);
+  }
+  public static TextButtonIconBuilder TextButton_icon(Runnable onPressed) {
+    return TextButtonIconBuilder.textButtonIcon(onPressed);
+  }
+
+  public static NavigatorStateNavigatorStateBuilder NavigatorState() {
+    return NavigatorStateNavigatorStateBuilder.navigatorStateNavigatorState();
+  }
+
+  public static NavigatorNavigatorBuilder Navigator() {
+    return NavigatorNavigatorBuilder.navigatorNavigator();
+  }
+
+  public static AlertDialogAlertDialogBuilder AlertDialog() {
+    return AlertDialogAlertDialogBuilder.alertDialogAlertDialog();
+  }
+  public static AlertDialogAdaptiveBuilder AlertDialog_adaptive() {
+    return AlertDialogAdaptiveBuilder.alertDialogAdaptive();
   }
 
 

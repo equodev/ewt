@@ -236,7 +236,10 @@ class WidgetGen implements AGen {
     String factory = (node.name!.isEmpty) ? widgetField : node.name!;
     String factoryName = '$widgetField${factory.firstUpper()}';
     String builderClass = '$widgetClass${factory.firstUpper()}Builder';
-    writeJavaFactory(node, factoryName, builderClass, factory);
+    if (node is ConstructorElement)
+      writeJavaFactory(node, factoryName, builderClass, factory);
+    else
+      writeJavaFactoryForStatic(node, factoryName, builderClass, factory);
     // headerFile
     // .writeln("    int (*$factory)(${cParams.decl});");
     // CLang(generation).writeField(headerFile, factory, 'int', params: node.parameters);
@@ -312,6 +315,26 @@ class WidgetGen implements AGen {
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
     }
+  }
+
+  void writeJavaFactoryForStatic(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
+    var params = node.parameters.where((p) => !p.isOptional).toList();
+    final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+    final jParamsDecl = Params(types, params, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
+    final jParamsValuesOpt = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    javaFile
+        .writeln('  public static ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
+    var gen = types.getGen(node.returnType.element!);
+    if (gen is WidgetGen) {
+      gen.writeJavaInstanceBody(factoryName, jParamsValuesOpt, node);
+      javaFile.write(gen.javaFile);
+    } else {
+      writeJavaInstanceBody(factoryName, jParamsValuesOpt, node);
+    }
+    javaFile
+        .writeln('  }');
+    writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
   }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
@@ -426,8 +449,11 @@ class WidgetGen implements AGen {
     else if (e is BinaryExpression) {
       return  '${dartExptrToJava(e.leftOperand)} ${e.operator} ${dartExptrToJava(e.rightOperand)}';
     }
-    else if (e is DoubleLiteral || e is IntegerLiteral || e is PrefixExpression)
+    else if (e is DoubleLiteral || e is IntegerLiteral || e is PrefixExpression) {
       return e.toString();
+    } else if (e is StringLiteral) {
+      return '"${e.stringValue}"';
+    }
     return e.toString();
   }
 
@@ -532,7 +558,7 @@ abstract class ObjStGen extends WidgetGen {
       sourceClass.fields.where((f) =>
           !f.getter!.hasOverride && f.isPublic && !f.isStatic
           && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
-          && !isInterface(f.type.element) && types.supportedType(f.type) && f.type != sourceClass.thisType);
+          /*&& !isInterface(f.type.element)*/ && types.supportedType(f.type) && f.type != sourceClass.thisType);
 }
 
 class ImmutableGen extends ObjStGen {
@@ -1139,7 +1165,7 @@ class Params {
         }
         else if (t.isDartCoreBool) {
           if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.boolOr(${param.defaultValueCode})';
+            value = '${param.name}.boolOr(${param.defaultValueCode ?? 'false'})';
           } else {
             value = '${param.name}.boolOrNul()';
           }
@@ -1225,6 +1251,9 @@ class Params {
   }
 
   static String? defaultObjCode(ParameterElement param) {
+    if (param.defaultValueCode == null) {
+      return null;
+    }
     var defaultValue = param.defaultValueCode!;
     if (defaultValue.contains('.')) {
       return defaultValue;
@@ -1354,6 +1383,8 @@ class Params {
     return value;
   }
 
+  static String paramValue4JOptional(Types types, ParameterElement param) =>
+      (param.isOptional) ? 'Optional.empty()' : paramValue4JBuilder(types, param);
   static String paramValue4JBuilder(Types types, ParameterElement param) {
     final t = param.type;
     var value = escape4J(types, param);

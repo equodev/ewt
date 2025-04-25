@@ -59,6 +59,9 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   public Widget flexibleSpace() {
     return new Widget(AppBarObjSt.flexibleSpace(st)) {};
   }
+  public PreferredSizeWidget bottom() {
+    return new PreferredSizeWidget() { public int getId() { return AppBarObjSt.bottom(st); } };
+  }
   public double elevation() {
     return AppBarObjSt.elevation(st);
   }

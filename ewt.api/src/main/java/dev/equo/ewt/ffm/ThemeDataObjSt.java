@@ -20,6 +20,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int materialTapTargetSize;
  *     int platform;
  *     int useMaterial3;
+ *     VisualDensityObjSt visualDensity;
  *     DartObj canvasColor;
  *     DartObj cardColor;
  *     ColorSchemeObjSt colorScheme;
@@ -57,6 +58,8 @@ public class ThemeDataObjSt {
         StarterBridge.C_INT.withName("materialTapTargetSize"),
         StarterBridge.C_INT.withName("platform"),
         StarterBridge.C_INT.withName("useMaterial3"),
+        MemoryLayout.paddingLayout(4),
+        VisualDensityObjSt.layout().withName("visualDensity"),
         StarterBridge.C_INT.withName("canvasColor"),
         StarterBridge.C_INT.withName("cardColor"),
         ColorSchemeObjSt.layout().withName("colorScheme"),
@@ -75,12 +78,11 @@ public class ThemeDataObjSt {
         StarterBridge.C_INT.withName("shadowColor"),
         StarterBridge.C_INT.withName("splashColor"),
         StarterBridge.C_INT.withName("unselectedWidgetColor"),
-        MemoryLayout.paddingLayout(4),
         TextThemeObjSt.layout().withName("primaryTextTheme"),
         TextThemeObjSt.layout().withName("textTheme"),
         StarterBridge.C_INT.withName("dialogBackgroundColor"),
         StarterBridge.C_INT.withName("brightness")
-    ).withName("$anon$387:9");
+    ).withName("$anon$395:9");
 
     /**
      * The layout of this struct
@@ -309,6 +311,50 @@ public class ThemeDataObjSt {
         struct.set(useMaterial3$LAYOUT, useMaterial3$OFFSET, fieldValue);
     }
 
+    private static final GroupLayout visualDensity$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("visualDensity"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static final GroupLayout visualDensity$layout() {
+        return visualDensity$LAYOUT;
+    }
+
+    private static final long visualDensity$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static final long visualDensity$offset() {
+        return visualDensity$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static MemorySegment visualDensity(MemorySegment struct) {
+        return struct.asSlice(visualDensity$OFFSET, visualDensity$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static void visualDensity(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, visualDensity$OFFSET, visualDensity$LAYOUT.byteSize());
+    }
+
     private static final OfInt canvasColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("canvasColor"));
 
     /**
@@ -321,7 +367,7 @@ public class ThemeDataObjSt {
         return canvasColor$LAYOUT;
     }
 
-    private static final long canvasColor$OFFSET = 20;
+    private static final long canvasColor$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -365,7 +411,7 @@ public class ThemeDataObjSt {
         return cardColor$LAYOUT;
     }
 
-    private static final long cardColor$OFFSET = 24;
+    private static final long cardColor$OFFSET = 60;
 
     /**
      * Offset for field:
@@ -409,7 +455,7 @@ public class ThemeDataObjSt {
         return colorScheme$LAYOUT;
     }
 
-    private static final long colorScheme$OFFSET = 28;
+    private static final long colorScheme$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -453,7 +499,7 @@ public class ThemeDataObjSt {
         return disabledColor$LAYOUT;
     }
 
-    private static final long disabledColor$OFFSET = 232;
+    private static final long disabledColor$OFFSET = 268;
 
     /**
      * Offset for field:
@@ -497,7 +543,7 @@ public class ThemeDataObjSt {
         return dividerColor$LAYOUT;
     }
 
-    private static final long dividerColor$OFFSET = 236;
+    private static final long dividerColor$OFFSET = 272;
 
     /**
      * Offset for field:
@@ -541,7 +587,7 @@ public class ThemeDataObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 240;
+    private static final long focusColor$OFFSET = 276;
 
     /**
      * Offset for field:
@@ -585,7 +631,7 @@ public class ThemeDataObjSt {
         return highlightColor$LAYOUT;
     }
 
-    private static final long highlightColor$OFFSET = 244;
+    private static final long highlightColor$OFFSET = 280;
 
     /**
      * Offset for field:
@@ -629,7 +675,7 @@ public class ThemeDataObjSt {
         return hintColor$LAYOUT;
     }
 
-    private static final long hintColor$OFFSET = 248;
+    private static final long hintColor$OFFSET = 284;
 
     /**
      * Offset for field:
@@ -673,7 +719,7 @@ public class ThemeDataObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 252;
+    private static final long hoverColor$OFFSET = 288;
 
     /**
      * Offset for field:
@@ -717,7 +763,7 @@ public class ThemeDataObjSt {
         return indicatorColor$LAYOUT;
     }
 
-    private static final long indicatorColor$OFFSET = 256;
+    private static final long indicatorColor$OFFSET = 292;
 
     /**
      * Offset for field:
@@ -761,7 +807,7 @@ public class ThemeDataObjSt {
         return primaryColor$LAYOUT;
     }
 
-    private static final long primaryColor$OFFSET = 260;
+    private static final long primaryColor$OFFSET = 296;
 
     /**
      * Offset for field:
@@ -805,7 +851,7 @@ public class ThemeDataObjSt {
         return primaryColorDark$LAYOUT;
     }
 
-    private static final long primaryColorDark$OFFSET = 264;
+    private static final long primaryColorDark$OFFSET = 300;
 
     /**
      * Offset for field:
@@ -849,7 +895,7 @@ public class ThemeDataObjSt {
         return primaryColorLight$LAYOUT;
     }
 
-    private static final long primaryColorLight$OFFSET = 268;
+    private static final long primaryColorLight$OFFSET = 304;
 
     /**
      * Offset for field:
@@ -893,7 +939,7 @@ public class ThemeDataObjSt {
         return scaffoldBackgroundColor$LAYOUT;
     }
 
-    private static final long scaffoldBackgroundColor$OFFSET = 272;
+    private static final long scaffoldBackgroundColor$OFFSET = 308;
 
     /**
      * Offset for field:
@@ -937,7 +983,7 @@ public class ThemeDataObjSt {
         return secondaryHeaderColor$LAYOUT;
     }
 
-    private static final long secondaryHeaderColor$OFFSET = 276;
+    private static final long secondaryHeaderColor$OFFSET = 312;
 
     /**
      * Offset for field:
@@ -981,7 +1027,7 @@ public class ThemeDataObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 280;
+    private static final long shadowColor$OFFSET = 316;
 
     /**
      * Offset for field:
@@ -1025,7 +1071,7 @@ public class ThemeDataObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 284;
+    private static final long splashColor$OFFSET = 320;
 
     /**
      * Offset for field:
@@ -1069,7 +1115,7 @@ public class ThemeDataObjSt {
         return unselectedWidgetColor$LAYOUT;
     }
 
-    private static final long unselectedWidgetColor$OFFSET = 288;
+    private static final long unselectedWidgetColor$OFFSET = 324;
 
     /**
      * Offset for field:
@@ -1113,7 +1159,7 @@ public class ThemeDataObjSt {
         return primaryTextTheme$LAYOUT;
     }
 
-    private static final long primaryTextTheme$OFFSET = 296;
+    private static final long primaryTextTheme$OFFSET = 328;
 
     /**
      * Offset for field:
@@ -1157,7 +1203,7 @@ public class ThemeDataObjSt {
         return textTheme$LAYOUT;
     }
 
-    private static final long textTheme$OFFSET = 1984;
+    private static final long textTheme$OFFSET = 2016;
 
     /**
      * Offset for field:
@@ -1201,7 +1247,7 @@ public class ThemeDataObjSt {
         return dialogBackgroundColor$LAYOUT;
     }
 
-    private static final long dialogBackgroundColor$OFFSET = 3672;
+    private static final long dialogBackgroundColor$OFFSET = 3704;
 
     /**
      * Offset for field:
@@ -1245,7 +1291,7 @@ public class ThemeDataObjSt {
         return brightness$LAYOUT;
     }
 
-    private static final long brightness$OFFSET = 3676;
+    private static final long brightness$OFFSET = 3708;
 
     /**
      * Offset for field:

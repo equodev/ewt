@@ -74,7 +74,7 @@ public class FloatingActionButtonObjSt {
         StarterBridge.C_INT.withName("extendedPadding"),
         MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("extendedTextStyle")
-    ).withName("$anon$534:9");
+    ).withName("$anon$546:9");
 
     /**
      * The layout of this struct
