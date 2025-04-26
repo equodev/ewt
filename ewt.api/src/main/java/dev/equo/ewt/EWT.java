@@ -126,6 +126,10 @@ public class EWT {
     return ParentDataParentDataBuilder.parentDataParentData();
   }
 
+  public static FlexParentDataFlexParentDataBuilder FlexParentData() {
+    return FlexParentDataFlexParentDataBuilder.flexParentDataFlexParentData();
+  }
+
   public static PositionedPositionedBuilder Positioned() {
     return PositionedPositionedBuilder.positionedPositioned();
   }
@@ -277,6 +281,14 @@ public class EWT {
     return MouseRegionMouseRegionBuilder.mouseRegionMouseRegion();
   }
 
+  public static ExpandedExpandedBuilder Expanded() {
+    return ExpandedExpandedBuilder.expandedExpanded();
+  }
+
+  public static FlexibleFlexibleBuilder Flexible() {
+    return FlexibleFlexibleBuilder.flexibleFlexible();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
@@ -415,6 +427,10 @@ public class EWT {
   }
   public static AlertDialogAdaptiveBuilder AlertDialog_adaptive() {
     return AlertDialogAdaptiveBuilder.alertDialogAdaptive();
+  }
+
+  public static TextFieldTextFieldBuilder TextField() {
+    return TextFieldTextFieldBuilder.textFieldTextField();
   }
 
 

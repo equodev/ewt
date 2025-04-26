@@ -296,6 +296,16 @@ typedef struct {
 
 typedef struct {
   int id;
+} ExpandedObjSt;
+
+typedef struct {
+  int id;
+  int flex;
+  int fit;
+} FlexibleObjSt;
+
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;
@@ -625,6 +635,51 @@ typedef struct {
   DartObj alignment;
   int scrollable;
 } AlertDialogObjSt;
+
+typedef struct {
+  int id;
+  int textInputAction;
+  int textCapitalization;
+  TextStyleObjSt style;
+  int textAlign;
+  int textDirection;
+  int autofocus;
+  char* obscuringCharacter;
+  int obscureText;
+  int autocorrect;
+  int smartDashesType;
+  int smartQuotesType;
+  int enableSuggestions;
+  int maxLines;
+  int minLines;
+  int expands;
+  int readOnly;
+  int showCursor;
+  int maxLength;
+  int maxLengthEnforcement;
+  int enabled;
+  int ignorePointers;
+  double cursorWidth;
+  double cursorHeight;
+  DartObj cursorRadius;
+  int cursorOpacityAnimates;
+  DartObj cursorColor;
+  DartObj cursorErrorColor;
+  int selectionHeightStyle;
+  int selectionWidthStyle;
+  int keyboardAppearance;
+  EdgeInsetsObjSt scrollPadding;
+  int enableInteractiveSelection;
+  int dragStartBehavior;
+  int onTapAlwaysCalled;
+  int clipBehavior;
+  char* restorationId;
+  int scribbleEnabled;
+  int stylusHandwritingEnabled;
+  int enableIMEPersonalizedLearning;
+  int canRequestFocus;
+  int selectionEnabled;
+} TextFieldObjSt;
 
 typedef struct {
   int id;
