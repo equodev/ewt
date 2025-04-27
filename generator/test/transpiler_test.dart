@@ -125,6 +125,15 @@ void main() {
 
       expect(actualOutput, completion(equals(expectedOutput)));
     });
+
+    test('HackaSS Test', () async {
+      final dartInput = 'test/fixtures/temp_dart.dart';
+      final actualOutput = transpile(dartInput, '../examples/src/main/java/dev/equo/Temp.java');
+      final expectedOutput = File('test/fixtures/temp_dart.java')
+          .readAsStringSync();
+
+      expect(actualOutput, completion(equals(expectedOutput)));
+    });
   });
 
   group('Dart to Java Fragments', () {

@@ -54,7 +54,7 @@ public class TextObjSt {
         StarterBridge.C_POINTER.withName("semanticsLabel"),
         StarterBridge.C_INT.withName("textWidthBasis"),
         StarterBridge.C_INT.withName("selectionColor")
-    ).withName("$anon$22:9");
+    ).withName("$anon$23:9");
 
     /**
      * The layout of this struct

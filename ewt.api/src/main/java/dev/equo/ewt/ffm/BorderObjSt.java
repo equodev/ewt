@@ -36,7 +36,7 @@ public class BorderObjSt {
         BorderSideObjSt.layout().withName("right"),
         BorderSideObjSt.layout().withName("bottom"),
         BorderSideObjSt.layout().withName("left")
-    ).withName("$anon$224:9");
+    ).withName("$anon$225:9");
 
     /**
      * The layout of this struct

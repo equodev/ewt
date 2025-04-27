@@ -1,5 +1,6 @@
 package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
+import dev.equo.ewt.util.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,7 +9,7 @@ import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
-  MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
+  MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<TextDecoration> decoration, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.textStyle(st);
     return WidgetFactories.TextStyleSt.textStyle.invoke(fn, arena, ptrBool(inherit),
@@ -23,6 +24,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(height),
       ptrEnum(leadingDistribution),
       ptrList(shadows),
+      ptrObj(decoration),
       ptrObj(decorationColor),
       ptrEnum(decorationStyle),
       ptr(decorationThickness),
@@ -35,8 +37,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment textStyleLerp(TextStyle a, TextStyle b, double t) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.lerp(st);
-    return WidgetFactories.TextStyleSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.TextStyleSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -73,8 +75,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int colorLerp(Color x, Color y, double t) {
     var st = WidgetFactories.color(factories);
     var fn = WidgetFactories.ColorSt.lerp(st);
-    return WidgetFactories.ColorSt.lerp.invoke(fn, x.getId(),
-      y.getId(),
+    return WidgetFactories.ColorSt.lerp.invoke(fn, x != null ? x.getId() : null,
+      y != null ? y.getId() : null,
       t);
   }
   int colorAlphaBlend(Color foreground, Color background) {
@@ -87,8 +89,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int fontWeightLerp(FontWeight a, FontWeight b, double t) {
     var st = WidgetFactories.fontWeight(factories);
     var fn = WidgetFactories.FontWeightSt.lerp(st);
-    return WidgetFactories.FontWeightSt.lerp.invoke(fn, a.getId(),
-      b.getId(),
+    return WidgetFactories.FontWeightSt.lerp.invoke(fn, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
   int fontWeightW100() {
@@ -126,6 +128,28 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int fontWeightW900() {
     var st = WidgetFactories.fontWeight(factories);
     return WidgetFactories.FontWeightSt.w900(st);
+  }
+
+  int textDecorationCombine(List<TextDecoration> decorations) {
+    var st = WidgetFactories.textDecoration(factories);
+    var fn = WidgetFactories.TextDecorationSt.combine(st);
+    return WidgetFactories.TextDecorationSt.combine.invoke(fn, ptrList(decorations));
+  }
+  int textDecorationNone() {
+    var st = WidgetFactories.textDecoration(factories);
+    return WidgetFactories.TextDecorationSt.none(st);
+  }
+  int textDecorationUnderline() {
+    var st = WidgetFactories.textDecoration(factories);
+    return WidgetFactories.TextDecorationSt.underline(st);
+  }
+  int textDecorationOverline() {
+    var st = WidgetFactories.textDecoration(factories);
+    return WidgetFactories.TextDecorationSt.overline(st);
+  }
+  int textDecorationLineThrough() {
+    var st = WidgetFactories.textDecoration(factories);
+    return WidgetFactories.TextDecorationSt.lineThrough(st);
   }
 
   MemorySegment textText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
@@ -254,7 +278,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<List<Shadow>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
     var st = WidgetFactories.icon(factories);
     var fn = WidgetFactories.IconSt.icon(st);
-    return WidgetFactories.IconSt.icon.invoke(fn, arena, icon.getId(),
+    return WidgetFactories.IconSt.icon.invoke(fn, arena, icon != null ? icon.getId() : null,
       ptr(size),
       ptr(fill),
       ptr(weight),
@@ -324,8 +348,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int offsetLerp(Offset a, Offset b, double t) {
     var st = WidgetFactories.offset(factories);
     var fn = WidgetFactories.OffsetSt.lerp(st);
-    return WidgetFactories.OffsetSt.lerp.invoke(fn, a.getId(),
-      b.getId(),
+    return WidgetFactories.OffsetSt.lerp.invoke(fn, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -376,8 +400,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment boxConstraintsLerp(BoxConstraints a, BoxConstraints b, double t) {
     var st = WidgetFactories.boxConstraints(factories);
     var fn = WidgetFactories.BoxConstraintsSt.lerp(st);
-    return WidgetFactories.BoxConstraintsSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.BoxConstraintsSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -419,6 +443,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.parentData(factories);
     var fn = WidgetFactories.ParentDataSt.parentData(st);
     return WidgetFactories.ParentDataSt.parentData.invoke(fn);
+  }
+
+  int flexParentDataFlexParentData() {
+    var st = WidgetFactories.flexParentData(factories);
+    var fn = WidgetFactories.FlexParentDataSt.flexParentData(st);
+    return WidgetFactories.FlexParentDataSt.flexParentData.invoke(fn);
   }
 
   MemorySegment positionedPositioned(OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Widget child) {
@@ -467,8 +497,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment boxDecorationLerp(BoxDecoration a, BoxDecoration b, double t) {
     var st = WidgetFactories.boxDecoration(factories);
     var fn = WidgetFactories.BoxDecorationSt.lerp(st);
-    return WidgetFactories.BoxDecorationSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.BoxDecorationSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -486,8 +516,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int radiusLerp(Radius a, Radius b, double t) {
     var st = WidgetFactories.radius(factories);
     var fn = WidgetFactories.RadiusSt.lerp(st);
-    return WidgetFactories.RadiusSt.lerp.invoke(fn, a.getId(),
-      b.getId(),
+    return WidgetFactories.RadiusSt.lerp.invoke(fn, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -524,8 +554,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment borderRadiusLerp(BorderRadius a, BorderRadius b, double t) {
     var st = WidgetFactories.borderRadius(factories);
     var fn = WidgetFactories.BorderRadiusSt.lerp(st);
-    return WidgetFactories.BorderRadiusSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.BorderRadiusSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -541,8 +571,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
     var st = WidgetFactories.boxShadow(factories);
     var fn = WidgetFactories.BoxShadowSt.lerp(st);
-    return WidgetFactories.BoxShadowSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.BoxShadowSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -556,8 +586,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int shadowLerp(Shadow a, Shadow b, double t) {
     var st = WidgetFactories.shadow(factories);
     var fn = WidgetFactories.ShadowSt.lerp(st);
-    return WidgetFactories.ShadowSt.lerp.invoke(fn, a.getId(),
-      b.getId(),
+    return WidgetFactories.ShadowSt.lerp.invoke(fn, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -598,8 +628,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment edgeInsetsLerp(EdgeInsets a, EdgeInsets b, double t) {
     var st = WidgetFactories.edgeInsets(factories);
     var fn = WidgetFactories.EdgeInsetsSt.lerp(st);
-    return WidgetFactories.EdgeInsetsSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.EdgeInsetsSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -661,8 +691,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment borderLerp(Border a, Border b, double t) {
     var st = WidgetFactories.border(factories);
     var fn = WidgetFactories.BorderSt.lerp(st);
-    return WidgetFactories.BorderSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.BorderSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -827,8 +857,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment alignmentLerp(Alignment a, Alignment b, double t) {
     var st = WidgetFactories.alignment(factories);
     var fn = WidgetFactories.AlignmentSt.lerp(st);
-    return WidgetFactories.AlignmentSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.AlignmentSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -838,6 +868,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.MouseRegionSt.mouseRegion.invoke(fn, arena, ptrBool(opaque),
       ptrEnum(hitTestBehavior),
       ptrObj(child));
+  }
+
+  MemorySegment expandedExpanded(OptionalInt flex, Widget child) {
+    var st = WidgetFactories.expanded(factories);
+    var fn = WidgetFactories.ExpandedSt.expanded(st);
+    return WidgetFactories.ExpandedSt.expanded.invoke(fn, arena, ptr(flex),
+      child.getId());
+  }
+
+  MemorySegment flexibleFlexible(OptionalInt flex, Optional<FlexFit> fit, Widget child) {
+    var st = WidgetFactories.flexible(factories);
+    var fn = WidgetFactories.FlexibleSt.flexible(st);
+    return WidgetFactories.FlexibleSt.flexible.invoke(fn, arena, ptr(flex),
+      ptrEnum(fit),
+      child.getId());
   }
 
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
@@ -1200,8 +1245,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
     var st = WidgetFactories.colorSwatch(factories);
     var fn = WidgetFactories.ColorSwatchSt.lerp(st);
-    return WidgetFactories.ColorSwatchSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.ColorSwatchSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
 
@@ -1227,8 +1272,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
   MemorySegment textThemeLerp(TextTheme a, TextTheme b, double t) {
     var st = WidgetFactories.textTheme(factories);
     var fn = WidgetFactories.TextThemeSt.lerp(st);
-    return WidgetFactories.TextThemeSt.lerp.invoke(fn, arena, a.getId(),
-      b.getId(),
+    return WidgetFactories.TextThemeSt.lerp.invoke(fn, arena, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
       t);
   }
   MemorySegment textThemeOf(BuildContext context) {
@@ -1698,7 +1743,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrEnum(clipBehavior),
-      child.getId());
+      child != null ? child.getId() : null);
   }
   MemorySegment elevatedButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.elevatedButton(factories);
@@ -1723,7 +1768,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrEnum(clipBehavior),
-      child.getId());
+      child != null ? child.getId() : null);
   }
   MemorySegment outlinedButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.outlinedButton(factories);
@@ -1857,6 +1902,57 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(insetAnimationCurve));
   }
 
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+    var st = WidgetFactories.textField(factories);
+    var fn = WidgetFactories.TextFieldSt.textField(st);
+    return WidgetFactories.TextFieldSt.textField.invoke(fn, arena, ptrObj(groupId),
+      ptrEnum(textInputAction),
+      ptrEnum(textCapitalization),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptrBool(readOnly),
+      ptrBool(showCursor),
+      ptrBool(autofocus),
+      ptrStr(obscuringCharacter),
+      ptrBool(obscureText),
+      ptrBool(autocorrect),
+      ptrEnum(smartDashesType),
+      ptrEnum(smartQuotesType),
+      ptrBool(enableSuggestions),
+      ptr(maxLines),
+      ptr(minLines),
+      ptrBool(expands),
+      ptr(maxLength),
+      ptrEnum(maxLengthEnforcement),
+      onChanged.isPresent() ? ptrValueChangedForStringFn(onChanged.get()) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrVoidCallbackFn(onEditingComplete.get()) : MemorySegment.NULL,
+      onSubmitted.isPresent() ? ptrValueChangedForStringFn(onSubmitted.get()) : MemorySegment.NULL,
+      ptrBool(enabled),
+      ptrBool(ignorePointers),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorRadius),
+      ptrBool(cursorOpacityAnimates),
+      ptrObj(cursorColor),
+      ptrObj(cursorErrorColor),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrEnum(keyboardAppearance),
+      ptrObj(scrollPadding),
+      ptrEnum(dragStartBehavior),
+      ptrBool(enableInteractiveSelection),
+      onTap.isPresent() ? ptrGestureTapCallbackFn(onTap.get()) : MemorySegment.NULL,
+      ptrBool(onTapAlwaysCalled),
+      buildCounter.isPresent() ? ptrInputCounterWidgetBuilderFn(buildCounter.get()) : MemorySegment.NULL,
+      ptrEnum(clipBehavior),
+      ptrStr(restorationId),
+      ptrBool(scribbleEnabled),
+      ptrBool(stylusHandwritingEnabled),
+      ptrBool(enableIMEPersonalizedLearning),
+      ptrBool(canRequestFocus));
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
@@ -1907,6 +2003,22 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
   return GenerateAppTitleFFI.allocate((context) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
     return arena.allocateFrom(jFnRet);
+  }, arena);
+}
+MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
+  return ValueChangedForStringFFI.allocate((value) -> {
+    jFn.accept(value.getString(0));
+  }, arena);
+}
+MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
+  return GestureTapCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
+}
+MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {
+  return InputCounterWidgetBuilderFFI.allocate((context, currentLength, isFocused, maxLength) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, currentLength, intToBool(isFocused), maxLength);
+    return jFnRet != null ? jFnRet.getId() : null;
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {

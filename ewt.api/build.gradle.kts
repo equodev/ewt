@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("maven-publish")
 }
 
 group = "dev.equo"
@@ -63,4 +64,12 @@ tasks.register<Exec>("jextract") {
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
     inputs.files(header, "../widgets/src/common.h", "../widgets/src/factories.h", "../widgets/src/objects.h")
     outputs.dir("$output/dev/equo/ewt/ffm")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("ewt") {
+            from(components["java"])
+        }
+    }
 }

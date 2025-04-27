@@ -12,6 +12,7 @@ typedef struct {
   int textBaseline;
   double height;
   int leadingDistribution;
+  DartObj decoration;
   DartObj decorationColor;
   int decorationStyle;
   double decorationThickness;

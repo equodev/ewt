@@ -44,7 +44,7 @@ public class EdgeInsetsObjSt {
         StarterBridge.C_INT.withName("topRight"),
         StarterBridge.C_INT.withName("bottomLeft"),
         StarterBridge.C_INT.withName("bottomRight")
-    ).withName("$anon$201:9");
+    ).withName("$anon$202:9");
 
     /**
      * The layout of this struct

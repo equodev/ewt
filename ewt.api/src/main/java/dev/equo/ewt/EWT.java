@@ -25,6 +25,10 @@ public class EWT {
   }
 
 
+  public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
+    return TextDecorationCombineBuilder.textDecorationCombine(decorations);
+  }
+
   public static TextTextBuilder Text(String data) {
     return TextTextBuilder.textText(data);
   }

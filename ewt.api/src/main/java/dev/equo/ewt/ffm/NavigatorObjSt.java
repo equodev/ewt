@@ -40,7 +40,7 @@ public class NavigatorObjSt {
         StarterBridge.C_INT.withName("reportsRouteUpdateToEngine"),
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("requestFocus")
-    ).withName("$anon$590:9");
+    ).withName("$anon$601:9");
 
     /**
      * The layout of this struct

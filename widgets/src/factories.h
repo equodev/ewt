@@ -1,6 +1,6 @@
 typedef struct {
   struct TextStyleSt {
-    TextStyleObjSt (*textStyle)(int* inherit, DartObj* color, DartObj* backgroundColor, double* fontSize, DartObj* fontWeight, int* fontStyle, double* letterSpacing, double* wordSpacing, int* textBaseline, double* height, int* leadingDistribution, ArrayC* shadows, DartObj* decorationColor, int* decorationStyle, double* decorationThickness, char* debugLabel, char* fontFamily, char*** fontFamilyFallback, char* package, int* overflow);
+    TextStyleObjSt (*textStyle)(int* inherit, DartObj* color, DartObj* backgroundColor, double* fontSize, DartObj* fontWeight, int* fontStyle, double* letterSpacing, double* wordSpacing, int* textBaseline, double* height, int* leadingDistribution, ArrayC* shadows, DartObj* decoration, DartObj* decorationColor, int* decorationStyle, double* decorationThickness, char* debugLabel, char* fontFamily, char*** fontFamilyFallback, char* package, int* overflow);
     TextStyleObjSt (*lerp)(DartObj a, DartObj b, double t);
   } textStyle;
 
@@ -25,6 +25,14 @@ typedef struct {
     DartObj w800;
     DartObj w900;
   } fontWeight;
+
+  struct TextDecorationSt {
+    DartObj (*combine)(ArrayC decorations);
+    DartObj none;
+    DartObj underline;
+    DartObj overline;
+    DartObj lineThrough;
+  } textDecoration;
 
   struct TextSt {
     TextObjSt (*text)(char* data, DartObj* style, int* textAlign, int* textDirection, int* softWrap, int* overflow, double* textScaleFactor, int* maxLines, char* semanticsLabel, int* textWidthBasis, DartObj* selectionColor);

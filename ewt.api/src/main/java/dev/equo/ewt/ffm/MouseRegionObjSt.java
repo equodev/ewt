@@ -31,7 +31,7 @@ public class MouseRegionObjSt {
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("opaque"),
         StarterBridge.C_INT.withName("hitTestBehavior")
-    ).withName("$anon$291:9");
+    ).withName("$anon$292:9");
 
     /**
      * The layout of this struct

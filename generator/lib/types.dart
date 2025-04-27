@@ -5,6 +5,7 @@ import 'package:analyzer/src/dart/element/element.dart';
 import 'package:analyzer/src/dart/element/type.dart';
 import 'package:analyzer/src/generated/utilities_dart.dart';
 import 'package:analyzer/src/utilities/extensions/string.dart';
+import 'package:collection/collection.dart';
 
 import 'gen.dart';
 
@@ -43,7 +44,10 @@ class Types {
   }
 
   void addTypeDef(InstantiatedTypeAliasElement t) {
-    if (!typeDefs.any((d) => d.element.name == t.element.name)) {
+    equals(InstantiatedTypeAliasElement d) =>
+        d == t ||
+            (d.element.name == t.element.name && ListEquality().equals(d.typeArguments, t.typeArguments));
+    if (!typeDefs.any(equals)) {
       typeDefs.add(t);
     }
   }
@@ -362,7 +366,11 @@ class Types {
       //   return 'ptrFn($value)';
       // }
       else if (!isPrimitive(t)) {
-        value = '$value.getId()';
+        if (t.nullabilitySuffix == NullabilitySuffix.question) {
+          value = '$value != null ? $value.getId() : null';
+        } else {
+          value = '$value.getId()';
+        }
       }
     }
     return value;
@@ -501,7 +509,7 @@ class FunctionHandler with TypeHandler {
   @override
   String type4J(DartType t, [List<DartType>? typeArguments]) {
     var fn = t as FunctionType;
-    var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => types.type4J(p.type).firstUpper()).join(', ');
+    var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => boxedType(types.type4J(p.type).firstUpper())).join(', ');
     if (fn.returnType is VoidType) {
       if (fn.parameters.isEmpty) {
         return 'Runnable';
@@ -515,6 +523,8 @@ class FunctionHandler with TypeHandler {
       final arity = switch(fn.parameters.length) {
         1 => '',
         2 => 'Bi',
+        3 => 'Tri',
+        4 => 'Quad',
         var i => throw 'Unsupported $i args function',
       };
       return '${arity}Function<$params, $retType4j>';
@@ -551,7 +561,14 @@ class FunctionHandler with TypeHandler {
   }
 }
 
-ParameterElement paramElement(String name, DartType type) => ParameterElementImpl.synthetic(name, type, type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED);
+String boxedType(String name) => switch (name.toLowerCase()) {
+  'int' => 'Integer',
+  'double' => 'Double',
+  'bool' => 'Boolean',
+  _ => name
+};
+
+ParameterElement paramElement(String name, DartType type, [ParameterKind? kind]) => ParameterElementImpl.synthetic(name, type, kind ?? (type.nullabilitySuffix == NullabilitySuffix.question ? ParameterKind.POSITIONAL : ParameterKind.REQUIRED));
 
 List<ParameterElement> bindTypeParameters(List<ParameterElement> parameters, List<DartType> typeArguments) {
   if (typeArguments.isEmpty) {

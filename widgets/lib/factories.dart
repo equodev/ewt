@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:widgets/subwidgets.dart';
 import 'package:widgets/widgets_bindings_generated.dart';
 import 'package:ffi/ffi.dart';
@@ -45,7 +46,13 @@ extension on ffi.Pointer<ffi.Double> {
   double? doubleOrNul() => this == ffi.nullptr ? null : value;
   double doubleOr(double def) => this == ffi.nullptr ? def : value;
 }
-extension on ffi.Pointer<ffi.Char> { String? strOrNul() => this == ffi.nullptr ? null : cast<Utf8>().toDartString(); }
+extension on ffi.Pointer<ffi.Char> {
+  String? strOrNul() => this == ffi.nullptr ? null : cast<Utf8>().toDartString();
+  String strOr(String def) => this == ffi.nullptr ? def : cast<Utf8>().toDartString();
+}
+extension Obj<T> on int? {
+  T? objOrNul() => this == null ? null : _widgetsMap[this]! as T;
+}
 extension ObjPtr<T> on ffi.Pointer<ffi.Int> {
   T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T;
   T objOr(T def) => this == ffi.nullptr ? def : _widgetsMap[value]! as T;

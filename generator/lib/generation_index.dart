@@ -26,6 +26,7 @@ w.Container? container;
 RenderObject? renderObject;
 w.RenderBox? renderBox;
 StackParentData? stackParentData;
+FlexParentData? flexParentData;
 w.Positioned? positioned;
 w.BoxDecoration? boxDecoration;
 w.Radius? radius;
@@ -53,6 +54,7 @@ w.Alignment? alignment;
 w.MouseRegion? mouseRegion;
 w.FontWeight? fontWeight;
 Duration? duration;
+w.Expanded? expanded;
 
 // w.FontWeight? fontWeight; constants accessing privates
 
@@ -78,6 +80,8 @@ m.TextButton? textButton;
 m.NavigatorState? navigatorState;
 m.Navigator? navigator;
 m.AlertDialog? alertDialog;
+m.TextField? textField;
+m.TextDecoration? textDecoration;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;

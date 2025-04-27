@@ -47,6 +47,9 @@ class WidgetConstructorsBase {
   <T extends NativeObj> MemorySegment ptrObj(Optional<T> opt) {
     return opt.isPresent() ? arena.allocateFrom(StarterBridge.C_INT, opt.get().getId()) : MemorySegment.NULL;
   }
+  MemorySegment ptrObj(Widget opt) {
+    return arena.allocateFrom(StarterBridge.C_INT, opt.getId());
+  }
   <T extends NativeObj> MemorySegment ptrList(Optional<List<T>> opt) {
     if (opt.isPresent()) {
       List<T> list = opt.get();

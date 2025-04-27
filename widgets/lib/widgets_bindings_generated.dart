@@ -110,6 +110,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external FontWeightSt fontWeight;
 
+  external TextDecorationSt textDecoration;
+
   external TextSt text;
 
   external TextSpanSt textSpan;
@@ -149,6 +151,8 @@ final class WidgetFactories extends ffi.Struct {
   external BoxParentDataSt boxParentData;
 
   external ParentDataSt parentData;
+
+  external FlexParentDataSt flexParentData;
 
   external PositionedSt positioned;
 
@@ -200,6 +204,10 @@ final class WidgetFactories extends ffi.Struct {
 
   external MouseRegionSt mouseRegion;
 
+  external ExpandedSt expanded;
+
+  external FlexibleSt flexible;
+
   external ColorSchemeSt colorScheme;
 
   external MaterialColorSt materialColor;
@@ -240,6 +248,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external AlertDialogSt alertDialog;
 
+  external TextFieldSt textField;
+
   external SubStateSt subState;
 
   external SubStatefulWidgetSt subStatefulWidget;
@@ -263,6 +273,7 @@ final class TextStyleSt extends ffi.Struct {
               ffi.Pointer<ffi.Double> height,
               ffi.Pointer<ffi.Int> leadingDistribution,
               ffi.Pointer<ArrayC> shadows,
+              ffi.Pointer<DartObj> decoration,
               ffi.Pointer<DartObj> decorationColor,
               ffi.Pointer<ffi.Int> decorationStyle,
               ffi.Pointer<ffi.Double> decorationThickness,
@@ -316,6 +327,9 @@ final class TextStyleObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int leadingDistribution;
+
+  @DartObj()
+  external int decoration;
 
   @DartObj()
   external int decorationColor;
@@ -406,6 +420,23 @@ final class FontWeightSt extends ffi.Struct {
 
   @DartObj()
   external int w900;
+}
+
+final class TextDecorationSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function(ArrayC decorations)>>
+      combine;
+
+  @DartObj()
+  external int none;
+
+  @DartObj()
+  external int underline;
+
+  @DartObj()
+  external int overline;
+
+  @DartObj()
+  external int lineThrough;
 }
 
 final class TextSt extends ffi.Struct {
@@ -1009,6 +1040,10 @@ final class BoxParentDataSt extends ffi.Struct {
 
 final class ParentDataSt extends ffi.Struct {
   external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> parentData;
+}
+
+final class FlexParentDataSt extends ffi.Struct {
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> flexParentData;
 }
 
 final class PositionedSt extends ffi.Struct {
@@ -1663,6 +1698,36 @@ final class MouseRegionObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int hitTestBehavior;
+}
+
+final class ExpandedSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              ExpandedObjSt Function(ffi.Pointer<ffi.Int> flex, DartObj child)>>
+      expanded;
+}
+
+final class ExpandedObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+final class FlexibleSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FlexibleObjSt Function(ffi.Pointer<ffi.Int> flex,
+              ffi.Pointer<ffi.Int> fit, DartObj child)>> flexible;
+}
+
+final class FlexibleObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int flex;
+
+  @ffi.Int()
+  external int fit;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -3520,6 +3585,199 @@ final class AlertDialogObjSt extends ffi.Struct {
   @ffi.Int()
   external int scrollable;
 }
+
+final class TextFieldSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TextFieldObjSt Function(
+              ffi.Pointer<DartObj> groupId,
+              ffi.Pointer<ffi.Int> textInputAction,
+              ffi.Pointer<ffi.Int> textCapitalization,
+              ffi.Pointer<DartObj> style,
+              ffi.Pointer<ffi.Int> textAlign,
+              ffi.Pointer<ffi.Int> textDirection,
+              ffi.Pointer<ffi.Int> readOnly,
+              ffi.Pointer<ffi.Int> showCursor,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Char> obscuringCharacter,
+              ffi.Pointer<ffi.Int> obscureText,
+              ffi.Pointer<ffi.Int> autocorrect,
+              ffi.Pointer<ffi.Int> smartDashesType,
+              ffi.Pointer<ffi.Int> smartQuotesType,
+              ffi.Pointer<ffi.Int> enableSuggestions,
+              ffi.Pointer<ffi.Int> maxLines,
+              ffi.Pointer<ffi.Int> minLines,
+              ffi.Pointer<ffi.Int> expands,
+              ffi.Pointer<ffi.Int> maxLength,
+              ffi.Pointer<ffi.Int> maxLengthEnforcement,
+              ffi.Pointer<ValueChangedForStringFFI> onChanged,
+              ffi.Pointer<VoidCallbackFFI> onEditingComplete,
+              ffi.Pointer<ValueChangedForStringFFI> onSubmitted,
+              ffi.Pointer<ffi.Int> enabled,
+              ffi.Pointer<ffi.Int> ignorePointers,
+              ffi.Pointer<ffi.Double> cursorWidth,
+              ffi.Pointer<ffi.Double> cursorHeight,
+              ffi.Pointer<DartObj> cursorRadius,
+              ffi.Pointer<ffi.Int> cursorOpacityAnimates,
+              ffi.Pointer<DartObj> cursorColor,
+              ffi.Pointer<DartObj> cursorErrorColor,
+              ffi.Pointer<ffi.Int> selectionHeightStyle,
+              ffi.Pointer<ffi.Int> selectionWidthStyle,
+              ffi.Pointer<ffi.Int> keyboardAppearance,
+              ffi.Pointer<DartObj> scrollPadding,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> enableInteractiveSelection,
+              ffi.Pointer<GestureTapCallbackFFI> onTap,
+              ffi.Pointer<ffi.Int> onTapAlwaysCalled,
+              ffi.Pointer<InputCounterWidgetBuilderFFI> buildCounter,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> scribbleEnabled,
+              ffi.Pointer<ffi.Int> stylusHandwritingEnabled,
+              ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning,
+              ffi.Pointer<ffi.Int> canRequestFocus)>> textField;
+}
+
+final class TextFieldObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int textInputAction;
+
+  @ffi.Int()
+  external int textCapitalization;
+
+  external TextStyleObjSt style;
+
+  @ffi.Int()
+  external int textAlign;
+
+  @ffi.Int()
+  external int textDirection;
+
+  @ffi.Int()
+  external int autofocus;
+
+  external ffi.Pointer<ffi.Char> obscuringCharacter;
+
+  @ffi.Int()
+  external int obscureText;
+
+  @ffi.Int()
+  external int autocorrect;
+
+  @ffi.Int()
+  external int smartDashesType;
+
+  @ffi.Int()
+  external int smartQuotesType;
+
+  @ffi.Int()
+  external int enableSuggestions;
+
+  @ffi.Int()
+  external int maxLines;
+
+  @ffi.Int()
+  external int minLines;
+
+  @ffi.Int()
+  external int expands;
+
+  @ffi.Int()
+  external int readOnly;
+
+  @ffi.Int()
+  external int showCursor;
+
+  @ffi.Int()
+  external int maxLength;
+
+  @ffi.Int()
+  external int maxLengthEnforcement;
+
+  @ffi.Int()
+  external int enabled;
+
+  @ffi.Int()
+  external int ignorePointers;
+
+  @ffi.Double()
+  external double cursorWidth;
+
+  @ffi.Double()
+  external double cursorHeight;
+
+  @DartObj()
+  external int cursorRadius;
+
+  @ffi.Int()
+  external int cursorOpacityAnimates;
+
+  @DartObj()
+  external int cursorColor;
+
+  @DartObj()
+  external int cursorErrorColor;
+
+  @ffi.Int()
+  external int selectionHeightStyle;
+
+  @ffi.Int()
+  external int selectionWidthStyle;
+
+  @ffi.Int()
+  external int keyboardAppearance;
+
+  external EdgeInsetsObjSt scrollPadding;
+
+  @ffi.Int()
+  external int enableInteractiveSelection;
+
+  @ffi.Int()
+  external int dragStartBehavior;
+
+  @ffi.Int()
+  external int onTapAlwaysCalled;
+
+  @ffi.Int()
+  external int clipBehavior;
+
+  external ffi.Pointer<ffi.Char> restorationId;
+
+  @ffi.Int()
+  external int scribbleEnabled;
+
+  @ffi.Int()
+  external int stylusHandwritingEnabled;
+
+  @ffi.Int()
+  external int enableIMEPersonalizedLearning;
+
+  @ffi.Int()
+  external int canRequestFocus;
+
+  @ffi.Int()
+  external int selectionEnabled;
+}
+
+typedef ValueChangedForStringFFI
+    = ffi.Pointer<ffi.NativeFunction<ValueChangedForStringFFIFunction>>;
+typedef ValueChangedForStringFFIFunction = ffi.Void Function(
+    ffi.Pointer<ffi.Char> value);
+typedef DartValueChangedForStringFFIFunction = void Function(
+    ffi.Pointer<ffi.Char> value);
+typedef GestureTapCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<GestureTapCallbackFFIFunction>>;
+typedef GestureTapCallbackFFIFunction = ffi.Void Function();
+typedef DartGestureTapCallbackFFIFunction = void Function();
+typedef InputCounterWidgetBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<InputCounterWidgetBuilderFFIFunction>>;
+typedef InputCounterWidgetBuilderFFIFunction = DartObj Function(DartObj context,
+    ffi.Int currentLength, ffi.Int isFocused, ffi.Int maxLength);
+typedef DartInputCounterWidgetBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context, int currentLength, int isFocused, int maxLength);
 
 final class SubStateSt extends ffi.Struct {
   external ffi.Pointer<

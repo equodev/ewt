@@ -28,6 +28,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int textBaseline;
  *     double height;
  *     int leadingDistribution;
+ *     DartObj decoration;
  *     DartObj decorationColor;
  *     int decorationStyle;
  *     double decorationThickness;
@@ -57,9 +58,9 @@ public class TextStyleObjSt {
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("height"),
         StarterBridge.C_INT.withName("leadingDistribution"),
+        StarterBridge.C_INT.withName("decoration"),
         StarterBridge.C_INT.withName("decorationColor"),
         StarterBridge.C_INT.withName("decorationStyle"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("decorationThickness"),
         StarterBridge.C_POINTER.withName("debugLabel"),
         StarterBridge.C_INT.withName("overflow"),
@@ -645,6 +646,50 @@ public class TextStyleObjSt {
         struct.set(leadingDistribution$LAYOUT, leadingDistribution$OFFSET, fieldValue);
     }
 
+    private static final OfInt decoration$LAYOUT = (OfInt)$LAYOUT.select(groupElement("decoration"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static final OfInt decoration$layout() {
+        return decoration$LAYOUT;
+    }
+
+    private static final long decoration$OFFSET = 76;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static final long decoration$offset() {
+        return decoration$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static int decoration(MemorySegment struct) {
+        return struct.get(decoration$LAYOUT, decoration$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static void decoration(MemorySegment struct, int fieldValue) {
+        struct.set(decoration$LAYOUT, decoration$OFFSET, fieldValue);
+    }
+
     private static final OfInt decorationColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("decorationColor"));
 
     /**
@@ -657,7 +702,7 @@ public class TextStyleObjSt {
         return decorationColor$LAYOUT;
     }
 
-    private static final long decorationColor$OFFSET = 76;
+    private static final long decorationColor$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -701,7 +746,7 @@ public class TextStyleObjSt {
         return decorationStyle$LAYOUT;
     }
 
-    private static final long decorationStyle$OFFSET = 80;
+    private static final long decorationStyle$OFFSET = 84;
 
     /**
      * Offset for field:

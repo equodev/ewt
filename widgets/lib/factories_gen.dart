@@ -3,7 +3,7 @@ void _setupTextStyle(WidgetFactories f) {
   f.textStyle.textStyle = ffi.Pointer.fromFunction(textStyleTextStyle);
   f.textStyle.lerp = ffi.Pointer.fromFunction(textStyleLerp);
 }
-TextStyleObjSt textStyleTextStyle(ffi.Pointer<ffi.Int> inherit, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> fontSize, ffi.Pointer<DartObj> fontWeight, ffi.Pointer<ffi.Int> fontStyle, ffi.Pointer<ffi.Double> letterSpacing, ffi.Pointer<ffi.Double> wordSpacing, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> height, ffi.Pointer<ffi.Int> leadingDistribution, ffi.Pointer<ArrayC> shadows, ffi.Pointer<DartObj> decorationColor, ffi.Pointer<ffi.Int> decorationStyle, ffi.Pointer<ffi.Double> decorationThickness, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<ffi.Int> overflow) {
+TextStyleObjSt textStyleTextStyle(ffi.Pointer<ffi.Int> inherit, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> fontSize, ffi.Pointer<DartObj> fontWeight, ffi.Pointer<ffi.Int> fontStyle, ffi.Pointer<ffi.Double> letterSpacing, ffi.Pointer<ffi.Double> wordSpacing, ffi.Pointer<ffi.Int> textBaseline, ffi.Pointer<ffi.Double> height, ffi.Pointer<ffi.Int> leadingDistribution, ffi.Pointer<ArrayC> shadows, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> decorationColor, ffi.Pointer<ffi.Int> decorationStyle, ffi.Pointer<ffi.Double> decorationThickness, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<ffi.Int> overflow) {
   final w = TextStyle(inherit: inherit.boolOr(true),
       color: color.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
@@ -16,6 +16,7 @@ TextStyleObjSt textStyleTextStyle(ffi.Pointer<ffi.Int> inherit, ffi.Pointer<Dart
       height: height.doubleOrNul(),
       leadingDistribution: leadingDistribution.enumOrNul(TextLeadingDistribution.values),
       shadows: shadows.orEmpty(),
+      decoration: decoration.objOrNul(),
       decorationColor: decorationColor.objOrNul(),
       decorationStyle: decorationStyle.enumOrNul(TextDecorationStyle.values),
       decorationThickness: decorationThickness.doubleOrNul(),
@@ -48,6 +49,7 @@ TextStyleObjSt _createTextStyleObjSt(TextStyle? w) {
   stObj.textBaseline = (w.textBaseline != null) ? w.textBaseline!.index : 0;
   stObj.height = (w.height != null) ? w.height! : 0;
   stObj.leadingDistribution = (w.leadingDistribution != null) ? w.leadingDistribution!.index : 0;
+  stObj.decoration = _addWidget(w.decoration);
   stObj.decorationColor = _addWidget(w.decorationColor);
   stObj.decorationStyle = (w.decorationStyle != null) ? w.decorationStyle!.index : 0;
   stObj.decorationThickness = (w.decorationThickness != null) ? w.decorationThickness! : 0;
@@ -118,6 +120,18 @@ int fontWeightLerp(DartDartObj a, DartDartObj b, double t) {
   final w = FontWeight.lerp(_widgetsMap[a]! as FontWeight?,
       _widgetsMap[b]! as FontWeight?,
       t);
+  return _addWidget(w);
+}
+
+void _setupTextDecoration(WidgetFactories f) {
+  f.textDecoration.combine = ffi.Pointer.fromFunction(textDecorationCombine, exception);
+  f.textDecoration.none = _addWidget(TextDecoration.none);
+  f.textDecoration.underline = _addWidget(TextDecoration.underline);
+  f.textDecoration.overline = _addWidget(TextDecoration.overline);
+  f.textDecoration.lineThrough = _addWidget(TextDecoration.lineThrough);
+}
+int textDecorationCombine(ArrayC decorations) {
+  final w = TextDecoration.combine(_widgetsMap[decorations]! as List<TextDecoration>);
   return _addWidget(w);
 }
 
@@ -619,6 +633,14 @@ void _setupParentData(WidgetFactories f) {
 }
 int parentDataParentData() {
   final w = ParentData();
+  return _addWidget(w);
+}
+
+void _setupFlexParentData(WidgetFactories f) {
+  f.flexParentData.flexParentData = ffi.Pointer.fromFunction(flexParentDataFlexParentData, exception);
+}
+int flexParentDataFlexParentData() {
+  final w = FlexParentData();
   return _addWidget(w);
 }
 
@@ -1245,6 +1267,39 @@ MouseRegionObjSt _createMouseRegionObjSt(MouseRegion? w) {
   if (w == null) return stObj;
   stObj.opaque = w.opaque.toInt();
   stObj.hitTestBehavior = (w.hitTestBehavior != null) ? w.hitTestBehavior!.index : 0;
+  return stObj;
+}
+
+void _setupExpanded(WidgetFactories f) {
+  f.expanded.expanded = ffi.Pointer.fromFunction(expandedExpanded);
+}
+ExpandedObjSt expandedExpanded(ffi.Pointer<ffi.Int> flex, DartDartObj child) {
+  final w = Expanded(flex: flex.intOr(1),
+      child: _widgetsMap[child]! as Widget);
+  return _createExpandedObjSt(w);
+}
+ExpandedObjSt _createExpandedObjSt(Expanded? w) {
+  final ExpandedObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupFlexible(WidgetFactories f) {
+  f.flexible.flexible = ffi.Pointer.fromFunction(flexibleFlexible);
+}
+FlexibleObjSt flexibleFlexible(ffi.Pointer<ffi.Int> flex, ffi.Pointer<ffi.Int> fit, DartDartObj child) {
+  final w = Flexible(flex: flex.intOr(1),
+      fit: fit.enumOr(FlexFit.values, FlexFit.loose),
+      child: _widgetsMap[child]! as Widget);
+  return _createFlexibleObjSt(w);
+}
+FlexibleObjSt _createFlexibleObjSt(Flexible? w) {
+  final FlexibleObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.flex = w.flex;
+  stObj.fit = w.fit.index;
   return stObj;
 }
 
@@ -2675,6 +2730,106 @@ AlertDialogObjSt _createAlertDialogObjSt(AlertDialog? w) {
   return stObj;
 }
 
+void _setupTextField(WidgetFactories f) {
+  f.textField.textField = ffi.Pointer.fromFunction(textFieldTextField);
+}
+TextFieldObjSt textFieldTextField(ffi.Pointer<DartObj> groupId, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> ignorePointers, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<DartObj> cursorErrorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Int> onTapAlwaysCalled, ffi.Pointer<InputCounterWidgetBuilderFFI> buildCounter, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning, ffi.Pointer<ffi.Int> canRequestFocus) {
+  final w = TextField(groupId: groupId.objOr(EditableText),
+      textInputAction: textInputAction.enumOrNul(TextInputAction.values),
+      textCapitalization: textCapitalization.enumOr(TextCapitalization.values, TextCapitalization.none),
+      style: style.objOrNul(),
+      textAlign: textAlign.enumOr(TextAlign.values, TextAlign.start),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      readOnly: readOnly.boolOr(false),
+      showCursor: showCursor.boolOrNul(),
+      autofocus: autofocus.boolOr(false),
+      obscuringCharacter: obscuringCharacter.strOr('•'),
+      obscureText: obscureText.boolOr(false),
+      autocorrect: autocorrect.boolOr(true),
+      smartDashesType: smartDashesType.enumOrNul(SmartDashesType.values),
+      smartQuotesType: smartQuotesType.enumOrNul(SmartQuotesType.values),
+      enableSuggestions: enableSuggestions.boolOr(true),
+      maxLines: maxLines.intOrNul(),
+      minLines: minLines.intOrNul(),
+      expands: expands.boolOr(false),
+      maxLength: maxLength.intOrNul(),
+      maxLengthEnforcement: maxLengthEnforcement.enumOrNul(MaxLengthEnforcement.values),
+      onChanged: onChanged.toValueChangedForStringFn(),
+      onEditingComplete: onEditingComplete.toVoidCallbackFn(),
+      onSubmitted: onSubmitted.toValueChangedForStringFn(),
+      enabled: enabled.boolOrNul(),
+      ignorePointers: ignorePointers.boolOrNul(),
+      cursorWidth: cursorWidth.doubleOr(2.0),
+      cursorHeight: cursorHeight.doubleOrNul(),
+      cursorRadius: cursorRadius.objOrNul(),
+      cursorOpacityAnimates: cursorOpacityAnimates.boolOrNul(),
+      cursorColor: cursorColor.objOrNul(),
+      cursorErrorColor: cursorErrorColor.objOrNul(),
+      selectionHeightStyle: selectionHeightStyle.enumOr(BoxHeightStyle.values, BoxHeightStyle.tight),
+      selectionWidthStyle: selectionWidthStyle.enumOr(BoxWidthStyle.values, BoxWidthStyle.tight),
+      keyboardAppearance: keyboardAppearance.enumOrNul(Brightness.values),
+      scrollPadding: scrollPadding.objOr(const EdgeInsets.all(20.0)),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      enableInteractiveSelection: enableInteractiveSelection.boolOrNul(),
+      onTap: onTap.toGestureTapCallbackFn(),
+      onTapAlwaysCalled: onTapAlwaysCalled.boolOr(false),
+      buildCounter: buildCounter.toInputCounterWidgetBuilderFn(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      restorationId: restorationId.strOrNul(),
+      scribbleEnabled: scribbleEnabled.boolOr(true),
+      stylusHandwritingEnabled: stylusHandwritingEnabled.boolOr(EditableText.defaultStylusHandwritingEnabled),
+      enableIMEPersonalizedLearning: enableIMEPersonalizedLearning.boolOr(true),
+      canRequestFocus: canRequestFocus.boolOr(true));
+  return _createTextFieldObjSt(w);
+}
+TextFieldObjSt _createTextFieldObjSt(TextField? w) {
+  final TextFieldObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.textInputAction = (w.textInputAction != null) ? w.textInputAction!.index : 0;
+  stObj.textCapitalization = w.textCapitalization.index;
+  stObj.style = _createTextStyleObjSt(w.style);
+  stObj.textAlign = w.textAlign.index;
+  stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.obscuringCharacter = w.obscuringCharacter.toNativeUtf8().cast<ffi.Char>();
+  stObj.obscureText = w.obscureText.toInt();
+  stObj.autocorrect = w.autocorrect.toInt();
+  stObj.smartDashesType = w.smartDashesType.index;
+  stObj.smartQuotesType = w.smartQuotesType.index;
+  stObj.enableSuggestions = w.enableSuggestions.toInt();
+  stObj.maxLines = (w.maxLines != null) ? w.maxLines! : 0;
+  stObj.minLines = (w.minLines != null) ? w.minLines! : 0;
+  stObj.expands = w.expands.toInt();
+  stObj.readOnly = w.readOnly.toInt();
+  stObj.showCursor = (w.showCursor != null) ? w.showCursor!.toInt() : 0;
+  stObj.maxLength = (w.maxLength != null) ? w.maxLength! : 0;
+  stObj.maxLengthEnforcement = (w.maxLengthEnforcement != null) ? w.maxLengthEnforcement!.index : 0;
+  stObj.enabled = (w.enabled != null) ? w.enabled!.toInt() : 0;
+  stObj.ignorePointers = (w.ignorePointers != null) ? w.ignorePointers!.toInt() : 0;
+  stObj.cursorWidth = w.cursorWidth;
+  stObj.cursorHeight = (w.cursorHeight != null) ? w.cursorHeight! : 0;
+  stObj.cursorRadius = _addWidget(w.cursorRadius);
+  stObj.cursorOpacityAnimates = (w.cursorOpacityAnimates != null) ? w.cursorOpacityAnimates!.toInt() : 0;
+  stObj.cursorColor = _addWidget(w.cursorColor);
+  stObj.cursorErrorColor = _addWidget(w.cursorErrorColor);
+  stObj.selectionHeightStyle = w.selectionHeightStyle.index;
+  stObj.selectionWidthStyle = w.selectionWidthStyle.index;
+  stObj.keyboardAppearance = (w.keyboardAppearance != null) ? w.keyboardAppearance!.index : 0;
+  stObj.scrollPadding = _createEdgeInsetsObjSt(w.scrollPadding);
+  stObj.enableInteractiveSelection = w.enableInteractiveSelection.toInt();
+  stObj.dragStartBehavior = w.dragStartBehavior.index;
+  stObj.onTapAlwaysCalled = w.onTapAlwaysCalled.toInt();
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.restorationId = (w.restorationId != null) ? w.restorationId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.scribbleEnabled = w.scribbleEnabled.toInt();
+  stObj.stylusHandwritingEnabled = w.stylusHandwritingEnabled.toInt();
+  stObj.enableIMEPersonalizedLearning = w.enableIMEPersonalizedLearning.toInt();
+  stObj.canRequestFocus = w.canRequestFocus.toInt();
+  stObj.selectionEnabled = w.selectionEnabled.toInt();
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -2739,6 +2894,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupBoxConstraints(f);
   _setupContainer(f);
   _setupStackParentData(f);
+  _setupFlexParentData(f);
   _setupPositioned(f);
   _setupBoxDecoration(f);
   _setupRadius(f);
@@ -2763,6 +2919,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupMouseRegion(f);
   _setupFontWeight(f);
   _setupDuration(f);
+  _setupExpanded(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);
@@ -2782,6 +2939,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupNavigatorState(f);
   _setupNavigator(f);
   _setupAlertDialog(f);
+  _setupTextField(f);
+  _setupTextDecoration(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
@@ -2792,6 +2951,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupShadow(f);
   _setupShadow(f);
   _setupListenableBuilder(f);
+  _setupFlexible(f);
   _setupColorSwatch(f);
   _setupColorSwatch(f);
   return fp;
@@ -2856,6 +3016,43 @@ extension on GenerateAppTitleFFI {
 }
 extension on ffi.Pointer<GenerateAppTitleFFI> {
   GenerateAppTitle? toGenerateAppTitleFn() => (this != ffi.nullptr) ? this.value.toGenerateAppTitleFn() : null;
+}
+
+extension on ValueChangedForStringFFI {
+  ValueChanged<String> toValueChangedForStringFn() {
+    return (String value) {
+      DartValueChangedForStringFFIFunction dFn = asFunction();
+      dFn(value.toNativeUtf8().cast<ffi.Char>());
+    };
+  }
+}
+extension on ffi.Pointer<ValueChangedForStringFFI> {
+  ValueChanged<String>? toValueChangedForStringFn() => (this != ffi.nullptr) ? this.value.toValueChangedForStringFn() : null;
+}
+
+extension on GestureTapCallbackFFI {
+  GestureTapCallback toGestureTapCallbackFn() {
+    return () {
+      DartGestureTapCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
+  }
+}
+extension on ffi.Pointer<GestureTapCallbackFFI> {
+  GestureTapCallback? toGestureTapCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapCallbackFn() : null;
+}
+
+extension on InputCounterWidgetBuilderFFI {
+  InputCounterWidgetBuilder toInputCounterWidgetBuilderFn() {
+    return (BuildContext context, {required int currentLength, required bool isFocused, required int? maxLength}) {
+      DartInputCounterWidgetBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), currentLength, isFocused.toInt(), maxLength!);
+      return dFnRet.objOrNul();
+    };
+  }
+}
+extension on ffi.Pointer<InputCounterWidgetBuilderFFI> {
+  InputCounterWidgetBuilder? toInputCounterWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toInputCounterWidgetBuilderFn() : null;
 }
 
 extension on VoidCallbackDartObjFFI {
