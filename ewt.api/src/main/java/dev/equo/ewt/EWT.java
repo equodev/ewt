@@ -293,6 +293,10 @@ public class EWT {
     return FlexibleFlexibleBuilder.flexibleFlexible();
   }
 
+  public static SafeAreaSafeAreaBuilder SafeArea() {
+    return SafeAreaSafeAreaBuilder.safeAreaSafeArea();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
@@ -435,6 +439,10 @@ public class EWT {
 
   public static TextFieldTextFieldBuilder TextField() {
     return TextFieldTextFieldBuilder.textFieldTextField();
+  }
+
+  public static DividerDividerBuilder Divider() {
+    return DividerDividerBuilder.dividerDivider();
   }
 
 

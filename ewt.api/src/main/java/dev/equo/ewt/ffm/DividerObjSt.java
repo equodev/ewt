@@ -16,26 +16,30 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     double horizontal;
- *     double vertical;
- *     DartObj baseSizeAdjustment;
+ *     double height;
+ *     double thickness;
+ *     double indent;
+ *     double endIndent;
+ *     DartObj color;
  * }
  * }
  */
-public class VisualDensityObjSt {
+public class DividerObjSt {
 
-    VisualDensityObjSt() {
+    DividerObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         MemoryLayout.paddingLayout(4),
-        StarterBridge.C_DOUBLE.withName("horizontal"),
-        StarterBridge.C_DOUBLE.withName("vertical"),
-        StarterBridge.C_INT.withName("baseSizeAdjustment"),
+        StarterBridge.C_DOUBLE.withName("height"),
+        StarterBridge.C_DOUBLE.withName("thickness"),
+        StarterBridge.C_DOUBLE.withName("indent"),
+        StarterBridge.C_DOUBLE.withName("endIndent"),
+        StarterBridge.C_INT.withName("color"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$410:9");
+    ).withName("$anon$696:9");
 
     /**
      * The layout of this struct
@@ -88,136 +92,224 @@ public class VisualDensityObjSt {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
-    private static final OfDouble horizontal$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("horizontal"));
+    private static final OfDouble height$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("height"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double horizontal
+     * double height
      * }
      */
-    public static final OfDouble horizontal$layout() {
-        return horizontal$LAYOUT;
+    public static final OfDouble height$layout() {
+        return height$LAYOUT;
     }
 
-    private static final long horizontal$OFFSET = 8;
+    private static final long height$OFFSET = 8;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double horizontal
+     * double height
      * }
      */
-    public static final long horizontal$offset() {
-        return horizontal$OFFSET;
+    public static final long height$offset() {
+        return height$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double horizontal
+     * double height
      * }
      */
-    public static double horizontal(MemorySegment struct) {
-        return struct.get(horizontal$LAYOUT, horizontal$OFFSET);
+    public static double height(MemorySegment struct) {
+        return struct.get(height$LAYOUT, height$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double horizontal
+     * double height
      * }
      */
-    public static void horizontal(MemorySegment struct, double fieldValue) {
-        struct.set(horizontal$LAYOUT, horizontal$OFFSET, fieldValue);
+    public static void height(MemorySegment struct, double fieldValue) {
+        struct.set(height$LAYOUT, height$OFFSET, fieldValue);
     }
 
-    private static final OfDouble vertical$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("vertical"));
+    private static final OfDouble thickness$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("thickness"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double vertical
+     * double thickness
      * }
      */
-    public static final OfDouble vertical$layout() {
-        return vertical$LAYOUT;
+    public static final OfDouble thickness$layout() {
+        return thickness$LAYOUT;
     }
 
-    private static final long vertical$OFFSET = 16;
+    private static final long thickness$OFFSET = 16;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double vertical
+     * double thickness
      * }
      */
-    public static final long vertical$offset() {
-        return vertical$OFFSET;
+    public static final long thickness$offset() {
+        return thickness$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double vertical
+     * double thickness
      * }
      */
-    public static double vertical(MemorySegment struct) {
-        return struct.get(vertical$LAYOUT, vertical$OFFSET);
+    public static double thickness(MemorySegment struct) {
+        return struct.get(thickness$LAYOUT, thickness$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double vertical
+     * double thickness
      * }
      */
-    public static void vertical(MemorySegment struct, double fieldValue) {
-        struct.set(vertical$LAYOUT, vertical$OFFSET, fieldValue);
+    public static void thickness(MemorySegment struct, double fieldValue) {
+        struct.set(thickness$LAYOUT, thickness$OFFSET, fieldValue);
     }
 
-    private static final OfInt baseSizeAdjustment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("baseSizeAdjustment"));
+    private static final OfDouble indent$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("indent"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * double indent
      * }
      */
-    public static final OfInt baseSizeAdjustment$layout() {
-        return baseSizeAdjustment$LAYOUT;
+    public static final OfDouble indent$layout() {
+        return indent$LAYOUT;
     }
 
-    private static final long baseSizeAdjustment$OFFSET = 24;
+    private static final long indent$OFFSET = 24;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * double indent
      * }
      */
-    public static final long baseSizeAdjustment$offset() {
-        return baseSizeAdjustment$OFFSET;
+    public static final long indent$offset() {
+        return indent$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * double indent
      * }
      */
-    public static int baseSizeAdjustment(MemorySegment struct) {
-        return struct.get(baseSizeAdjustment$LAYOUT, baseSizeAdjustment$OFFSET);
+    public static double indent(MemorySegment struct) {
+        return struct.get(indent$LAYOUT, indent$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * double indent
      * }
      */
-    public static void baseSizeAdjustment(MemorySegment struct, int fieldValue) {
-        struct.set(baseSizeAdjustment$LAYOUT, baseSizeAdjustment$OFFSET, fieldValue);
+    public static void indent(MemorySegment struct, double fieldValue) {
+        struct.set(indent$LAYOUT, indent$OFFSET, fieldValue);
+    }
+
+    private static final OfDouble endIndent$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("endIndent"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * double endIndent
+     * }
+     */
+    public static final OfDouble endIndent$layout() {
+        return endIndent$LAYOUT;
+    }
+
+    private static final long endIndent$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * double endIndent
+     * }
+     */
+    public static final long endIndent$offset() {
+        return endIndent$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * double endIndent
+     * }
+     */
+    public static double endIndent(MemorySegment struct) {
+        return struct.get(endIndent$LAYOUT, endIndent$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * double endIndent
+     * }
+     */
+    public static void endIndent(MemorySegment struct, double fieldValue) {
+        struct.set(endIndent$LAYOUT, endIndent$OFFSET, fieldValue);
+    }
+
+    private static final OfInt color$LAYOUT = (OfInt)$LAYOUT.select(groupElement("color"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj color
+     * }
+     */
+    public static final OfInt color$layout() {
+        return color$LAYOUT;
+    }
+
+    private static final long color$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj color
+     * }
+     */
+    public static final long color$offset() {
+        return color$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj color
+     * }
+     */
+    public static int color(MemorySegment struct) {
+        return struct.get(color$LAYOUT, color$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj color
+     * }
+     */
+    public static void color(MemorySegment struct, int fieldValue) {
+        struct.set(color$LAYOUT, color$OFFSET, fieldValue);
     }
 
     /**

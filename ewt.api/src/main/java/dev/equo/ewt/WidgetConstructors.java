@@ -885,6 +885,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.getId());
   }
 
+  MemorySegment safeAreaSafeArea(Optional<Boolean> left, Optional<Boolean> top, Optional<Boolean> right, Optional<Boolean> bottom, Optional<EdgeInsets> minimum, Optional<Boolean> maintainBottomViewPadding, Widget child) {
+    var st = WidgetFactories.safeArea(factories);
+    var fn = WidgetFactories.SafeAreaSt.safeArea(st);
+    return WidgetFactories.SafeAreaSt.safeArea.invoke(fn, arena, ptrBool(left),
+      ptrBool(top),
+      ptrBool(right),
+      ptrBool(bottom),
+      ptrObj(minimum),
+      ptrBool(maintainBottomViewPadding),
+      child.getId());
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -1951,6 +1963,23 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(stylusHandwritingEnabled),
       ptrBool(enableIMEPersonalizedLearning),
       ptrBool(canRequestFocus));
+  }
+
+  MemorySegment dividerDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<Color> color) {
+    var st = WidgetFactories.divider(factories);
+    var fn = WidgetFactories.DividerSt.divider(st);
+    return WidgetFactories.DividerSt.divider.invoke(fn, arena, ptr(height),
+      ptr(thickness),
+      ptr(indent),
+      ptr(endIndent),
+      ptrObj(color));
+  }
+  MemorySegment dividerCreateBorderSide(BuildContext context, Optional<Color> color, OptionalDouble width) {
+    var st = WidgetFactories.divider(factories);
+    var fn = WidgetFactories.DividerSt.createBorderSide(st);
+    return WidgetFactories.DividerSt.createBorderSide.invoke(fn, arena, context != null ? context.getId() : null,
+      ptrObj(color),
+      ptr(width));
   }
 
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {

@@ -307,6 +307,17 @@ typedef struct {
 
 typedef struct {
   int id;
+  int left;
+  int top;
+  int right;
+  int bottom;
+  EdgeInsetsObjSt minimum;
+  int maintainBottomViewPadding;
+  DartObj child;
+} SafeAreaObjSt;
+
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;
@@ -681,6 +692,15 @@ typedef struct {
   int canRequestFocus;
   int selectionEnabled;
 } TextFieldObjSt;
+
+typedef struct {
+  int id;
+  double height;
+  double thickness;
+  double indent;
+  double endIndent;
+  DartObj color;
+} DividerObjSt;
 
 typedef struct {
   int id;

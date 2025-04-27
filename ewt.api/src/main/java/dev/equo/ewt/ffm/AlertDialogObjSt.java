@@ -77,7 +77,7 @@ public class AlertDialogObjSt {
         StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_INT.withName("scrollable")
-    ).withName("$anon$611:9");
+    ).withName("$anon$622:9");
 
     /**
      * The layout of this struct

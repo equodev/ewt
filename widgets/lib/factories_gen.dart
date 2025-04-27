@@ -1303,6 +1303,33 @@ FlexibleObjSt _createFlexibleObjSt(Flexible? w) {
   return stObj;
 }
 
+void _setupSafeArea(WidgetFactories f) {
+  f.safeArea.safeArea = ffi.Pointer.fromFunction(safeAreaSafeArea);
+}
+SafeAreaObjSt safeAreaSafeArea(ffi.Pointer<ffi.Int> left, ffi.Pointer<ffi.Int> top, ffi.Pointer<ffi.Int> right, ffi.Pointer<ffi.Int> bottom, ffi.Pointer<DartObj> minimum, ffi.Pointer<ffi.Int> maintainBottomViewPadding, DartDartObj child) {
+  final w = SafeArea(left: left.boolOr(true),
+      top: top.boolOr(true),
+      right: right.boolOr(true),
+      bottom: bottom.boolOr(true),
+      minimum: minimum.objOr(EdgeInsets.zero),
+      maintainBottomViewPadding: maintainBottomViewPadding.boolOr(false),
+      child: _widgetsMap[child]! as Widget);
+  return _createSafeAreaObjSt(w);
+}
+SafeAreaObjSt _createSafeAreaObjSt(SafeArea? w) {
+  final SafeAreaObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.left = w.left.toInt();
+  stObj.top = w.top.toInt();
+  stObj.right = w.right.toInt();
+  stObj.bottom = w.bottom.toInt();
+  stObj.minimum = _createEdgeInsetsObjSt(w.minimum);
+  stObj.maintainBottomViewPadding = w.maintainBottomViewPadding.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -2830,6 +2857,36 @@ TextFieldObjSt _createTextFieldObjSt(TextField? w) {
   return stObj;
 }
 
+void _setupDivider(WidgetFactories f) {
+  f.divider.divider = ffi.Pointer.fromFunction(dividerDivider);
+  f.divider.createBorderSide = ffi.Pointer.fromFunction(dividerCreateBorderSide);
+}
+DividerObjSt dividerDivider(ffi.Pointer<ffi.Double> height, ffi.Pointer<ffi.Double> thickness, ffi.Pointer<ffi.Double> indent, ffi.Pointer<ffi.Double> endIndent, ffi.Pointer<DartObj> color) {
+  final w = Divider(height: height.doubleOrNul(),
+      thickness: thickness.doubleOrNul(),
+      indent: indent.doubleOrNul(),
+      endIndent: endIndent.doubleOrNul(),
+      color: color.objOrNul());
+  return _createDividerObjSt(w);
+}
+BorderSideObjSt dividerCreateBorderSide(DartDartObj context, ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> width) {
+  final w = Divider.createBorderSide(_widgetsMap[context]! as BuildContext?,
+      color: color.objOrNul(),
+      width: width.doubleOrNul());
+  return _createBorderSideObjSt(w);
+}
+DividerObjSt _createDividerObjSt(Divider? w) {
+  final DividerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.thickness = (w.thickness != null) ? w.thickness! : 0;
+  stObj.indent = (w.indent != null) ? w.indent! : 0;
+  stObj.endIndent = (w.endIndent != null) ? w.endIndent! : 0;
+  stObj.color = _addWidget(w.color);
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -2920,6 +2977,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupFontWeight(f);
   _setupDuration(f);
   _setupExpanded(f);
+  _setupSafeArea(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);
@@ -2941,6 +2999,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupAlertDialog(f);
   _setupTextField(f);
   _setupTextDecoration(f);
+  _setupDivider(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

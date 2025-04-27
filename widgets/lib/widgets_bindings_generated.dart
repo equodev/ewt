@@ -208,6 +208,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external FlexibleSt flexible;
 
+  external SafeAreaSt safeArea;
+
   external ColorSchemeSt colorScheme;
 
   external MaterialColorSt materialColor;
@@ -249,6 +251,8 @@ final class WidgetFactories extends ffi.Struct {
   external AlertDialogSt alertDialog;
 
   external TextFieldSt textField;
+
+  external DividerSt divider;
 
   external SubStateSt subState;
 
@@ -1728,6 +1732,44 @@ final class FlexibleObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int fit;
+}
+
+final class SafeAreaSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SafeAreaObjSt Function(
+              ffi.Pointer<ffi.Int> left,
+              ffi.Pointer<ffi.Int> top,
+              ffi.Pointer<ffi.Int> right,
+              ffi.Pointer<ffi.Int> bottom,
+              ffi.Pointer<DartObj> minimum,
+              ffi.Pointer<ffi.Int> maintainBottomViewPadding,
+              DartObj child)>> safeArea;
+}
+
+final class SafeAreaObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int left;
+
+  @ffi.Int()
+  external int top;
+
+  @ffi.Int()
+  external int right;
+
+  @ffi.Int()
+  external int bottom;
+
+  external EdgeInsetsObjSt minimum;
+
+  @ffi.Int()
+  external int maintainBottomViewPadding;
+
+  @DartObj()
+  external int child;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -3778,6 +3820,42 @@ typedef InputCounterWidgetBuilderFFIFunction = DartObj Function(DartObj context,
     ffi.Int currentLength, ffi.Int isFocused, ffi.Int maxLength);
 typedef DartInputCounterWidgetBuilderFFIFunction = DartDartObj Function(
     DartDartObj context, int currentLength, int isFocused, int maxLength);
+
+final class DividerSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DividerObjSt Function(
+              ffi.Pointer<ffi.Double> height,
+              ffi.Pointer<ffi.Double> thickness,
+              ffi.Pointer<ffi.Double> indent,
+              ffi.Pointer<ffi.Double> endIndent,
+              ffi.Pointer<DartObj> color)>> divider;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BorderSideObjSt Function(DartObj context, ffi.Pointer<DartObj> color,
+              ffi.Pointer<ffi.Double> width)>> createBorderSide;
+}
+
+final class DividerObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double height;
+
+  @ffi.Double()
+  external double thickness;
+
+  @ffi.Double()
+  external double indent;
+
+  @ffi.Double()
+  external double endIndent;
+
+  @DartObj()
+  external int color;
+}
 
 final class SubStateSt extends ffi.Struct {
   external ffi.Pointer<

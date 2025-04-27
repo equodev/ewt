@@ -27,7 +27,7 @@ public class TextButtonObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$597:9");
+    ).withName("$anon$608:9");
 
     /**
      * The layout of this struct

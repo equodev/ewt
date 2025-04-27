@@ -1390,8 +1390,23 @@ class Params {
     return value;
   }
 
-  static String paramValue4JOptional(Types types, ParameterElement param) =>
-      (param.isOptional) ? 'Optional.empty()' : paramValue4JBuilder(types, param);
+  static String paramValue4JOptional(Types types, ParameterElement param) {
+    if (param.isOptional) {
+      var t = '';
+      if (param.type.isDartCoreDouble) {
+        t = 'OptionalDouble';
+      }
+      else if (param.type.isDartCoreInt) {
+        t = 'OptionalInt';
+      } else {
+        t = 'Optional';
+      }
+      return '$t.empty()';
+    } else {
+      return paramValue4JBuilder(types, param);
+    }
+  }
+
   static String paramValue4JBuilder(Types types, ParameterElement param) {
     final t = param.type;
     var value = escape4J(types, param);

@@ -55,6 +55,7 @@ w.MouseRegion? mouseRegion;
 w.FontWeight? fontWeight;
 Duration? duration;
 w.Expanded? expanded;
+w.SafeArea? safeArea;
 
 // w.FontWeight? fontWeight; constants accessing privates
 
@@ -82,6 +83,7 @@ m.Navigator? navigator;
 m.AlertDialog? alertDialog;
 m.TextField? textField;
 m.TextDecoration? textDecoration;
+m.Divider? divider;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
