@@ -12,6 +12,7 @@ public class Expanded extends Flexible implements ExpandedI {
   Expanded(MemorySegment st) {
     this.id = ExpandedObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Expanded");
     System.out.println("New Expanded id:"+id);
   }
   @Builder.Factory

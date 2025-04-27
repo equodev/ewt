@@ -12,6 +12,7 @@ public class BoxConstraints extends Constraints implements BoxConstraintsI {
   BoxConstraints(MemorySegment st) {
     this.id = BoxConstraintsObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
     System.out.println("New BoxConstraints id:"+id);
   }
   @Builder.Factory

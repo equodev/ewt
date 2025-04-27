@@ -12,6 +12,7 @@ public class MouseRegion extends SingleChildRenderObjectWidget implements MouseR
   MouseRegion(MemorySegment st) {
     this.id = MouseRegionObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget MouseRegion");
     System.out.println("New MouseRegion id:"+id);
   }
   @Builder.Factory

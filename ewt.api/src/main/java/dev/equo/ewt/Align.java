@@ -12,6 +12,7 @@ public class Align extends SingleChildRenderObjectWidget implements AlignI {
   Align(MemorySegment st) {
     this.id = AlignObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Align");
     System.out.println("New Align id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class Material extends StatefulWidget implements MaterialI {
   Material(MemorySegment st) {
     this.id = MaterialObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Material");
     System.out.println("New Material id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class Flexible extends ParentDataWidget<FlexParentData> implements Flexib
   Flexible(MemorySegment st) {
     this.id = FlexibleObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Flexible");
     System.out.println("New Flexible id:"+id);
   }
   @Builder.Factory

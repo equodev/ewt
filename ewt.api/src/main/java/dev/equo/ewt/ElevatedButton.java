@@ -12,6 +12,7 @@ public class ElevatedButton extends ButtonStyleButton implements ElevatedButtonI
   ElevatedButton(MemorySegment st) {
     this.id = ElevatedButtonObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ElevatedButton");
     System.out.println("New ElevatedButton id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   ThemeData(MemorySegment st) {
     this.id = ThemeDataObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ThemeData");
     System.out.println("New ThemeData id:"+id);
   }
   @Builder.Factory
@@ -103,7 +104,7 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   }
   public static Brightness estimateBrightnessForColor(ColorI color) {
     int id = factories.themeDataEstimateBrightnessForColor(color.build());
-    if (id == -1) throw new RuntimeException("Failed to created widget Brightness");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Brightness");
     System.out.println("New Brightness id:"+id);
     return Brightness.values()[id];
   }

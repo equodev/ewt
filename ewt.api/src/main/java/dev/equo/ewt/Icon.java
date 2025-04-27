@@ -12,6 +12,7 @@ public class Icon extends StatelessWidget implements IconI {
   Icon(MemorySegment st) {
     this.id = IconObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Icon");
     System.out.println("New Icon id:"+id);
   }
   @Builder.Factory

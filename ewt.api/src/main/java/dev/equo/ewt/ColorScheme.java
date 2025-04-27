@@ -12,6 +12,7 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
   ColorScheme(MemorySegment st) {
     this.id = ColorSchemeObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ColorScheme");
     System.out.println("New ColorScheme id:"+id);
   }
   @Builder.Factory

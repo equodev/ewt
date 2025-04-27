@@ -12,6 +12,7 @@ public class ElasticOutCurve extends Curve implements ElasticOutCurveI {
   ElasticOutCurve(MemorySegment st) {
     this.id = ElasticOutCurveObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ElasticOutCurve");
     System.out.println("New ElasticOutCurve id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   AppBar(MemorySegment st) {
     this.id = AppBarObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget AppBar");
     System.out.println("New AppBar id:"+id);
   }
   @Builder.Factory

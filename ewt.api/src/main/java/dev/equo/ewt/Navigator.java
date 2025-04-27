@@ -12,6 +12,7 @@ public class Navigator extends StatefulWidget implements NavigatorI {
   Navigator(MemorySegment st) {
     this.id = NavigatorObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Navigator");
     System.out.println("New Navigator id:"+id);
   }
   @Builder.Factory
@@ -31,14 +32,14 @@ public class Navigator extends StatefulWidget implements NavigatorI {
   public static NavigatorState of(BuildContextI context) {
     int id = factories.navigatorOf(context.build(),
       Optional.empty());
-    if (id == -1) throw new RuntimeException("Failed to created widget NavigatorState");
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState");
     System.out.println("New NavigatorState id:"+id);
     return new NavigatorState(id);
   }
   public static NavigatorState maybeOf(BuildContextI context) {
     int id = factories.navigatorMaybeOf(context.build(),
       Optional.empty());
-    if (id == -1) throw new RuntimeException("Failed to created widget NavigatorState?");
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState?");
     System.out.println("New NavigatorState? id:"+id);
     return new NavigatorState(id);
   }

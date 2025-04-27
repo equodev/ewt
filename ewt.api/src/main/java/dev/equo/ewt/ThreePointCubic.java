@@ -12,6 +12,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
   ThreePointCubic(MemorySegment st) {
     this.id = ThreePointCubicObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ThreePointCubic");
     System.out.println("New ThreePointCubic id:"+id);
   }
   @Builder.Factory

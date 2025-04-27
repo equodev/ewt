@@ -341,7 +341,7 @@ class WidgetGen implements AGen {
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
     javaFile
       ..writeln('    int id = factories.$factoryName(${jParams.names});')
-      ..writeln('    if (id == -1) throw new RuntimeException("Failed to created widget ${node.returnType}");')
+      ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");')
       ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
       ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
   }
@@ -390,7 +390,7 @@ class WidgetGen implements AGen {
 
         javaFile
           ..writeln('    int id = factories.$factoryName();')
-          ..writeln('    if (id == -1) throw new RuntimeException("Failed to create const $factory");')
+          ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
           ..writeln('    System.out.println("Const $factory id:"+id);')
           ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
         writeJavaConstMethod(factoryName, factory, fld);
@@ -577,6 +577,7 @@ class ImmutableGen extends ObjStGen {
         ..writeln('  $widgetClass(MemorySegment st) {')
         ..writeln('    this.id = $widgetSt.id(st);')
         ..writeln('    this.st = st;')
+        ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget $widgetClass");')
         ..writeln('    System.out.println("New $widgetClass id:"+id);')
         ..writeln('  }');
     }
@@ -1187,13 +1188,13 @@ class Params {
           }
         }
         else if (t.isDartCoreList) {
-          final arrayType = t.typeArguments[0];
+          // final arrayType = t.typeArguments[0];
           // if (isPrimitive(arrayType)) {
-          // if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.orEmpty()';
-          // } else {
-          //   value = '${param.name}.orEmpty()';
-          // }
+          if (t.nullabilitySuffix == NullabilitySuffix.none) {
+            value = '${param.name}.listOrEmpty()';
+          } else {
+            value = '${param.name}.listOrNul()';
+          }
         }
         else if (t.element is EnumElement) {
           if (t.nullabilitySuffix == NullabilitySuffix.none) {
@@ -1219,6 +1220,15 @@ class Params {
         // else if (t.isDartCoreMap) {
         //   value = '${param.name}.toMap()';
         // }
+        else if (t.isDartCoreList) {
+          // final arrayType = t.typeArguments[0];
+          // if (isPrimitive(arrayType)) {
+          // if (t.nullabilitySuffix == NullabilitySuffix.none) {
+            value = '${param.name}.listOrEmpty()';
+          // } else {
+          //   value = '${param.name}.listOrNull()';
+          // }
+        }
         else if (!isPrimitive(t)) {
           if (t.typeArguments.isNotEmpty) {
             value = '_widgetsMap[$value]! as ${t.typeArguments.any((p) => p is TypeParameterType) ? t.element.name : t}';

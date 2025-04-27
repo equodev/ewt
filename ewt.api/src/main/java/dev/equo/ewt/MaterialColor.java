@@ -12,6 +12,7 @@ public class MaterialColor extends ColorSwatch<Integer> implements MaterialColor
   MaterialColor(MemorySegment st) {
     this.id = MaterialColorObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialColor");
     System.out.println("New MaterialColor id:"+id);
   }
   @Builder.Factory

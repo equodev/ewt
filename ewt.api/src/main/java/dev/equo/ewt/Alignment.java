@@ -12,6 +12,7 @@ public class Alignment extends AlignmentGeometry implements AlignmentI {
   Alignment(MemorySegment st) {
     this.id = AlignmentObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Alignment");
     System.out.println("New Alignment id:"+id);
   }
   @Builder.Factory

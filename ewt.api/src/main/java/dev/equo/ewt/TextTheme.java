@@ -12,6 +12,7 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
   TextTheme(MemorySegment st) {
     this.id = TextThemeObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
     System.out.println("New TextTheme id:"+id);
   }
   @Builder.Factory

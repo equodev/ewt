@@ -12,6 +12,7 @@ public class Divider extends StatelessWidget implements DividerI {
   Divider(MemorySegment st) {
     this.id = DividerObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Divider");
     System.out.println("New Divider id:"+id);
   }
   @Builder.Factory

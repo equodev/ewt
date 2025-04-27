@@ -12,7 +12,7 @@ public class Offset extends OffsetBase implements OffsetI {
   static Offset offsetOffset(@Builder.Parameter double dx, @Builder.Parameter double dy) {
     int id = factories.offsetOffset(dx,
       dy);
-    if (id == -1) throw new RuntimeException("Failed to created widget Offset");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Offset");
     System.out.println("New Offset id:"+id);
     return new Offset(id);
   }
@@ -23,7 +23,7 @@ public class Offset extends OffsetBase implements OffsetI {
   static Offset offsetFromDirection(@Builder.Parameter double direction, OptionalDouble distance) {
     int id = factories.offsetFromDirection(direction,
       distance);
-    if (id == -1) throw new RuntimeException("Failed to created widget Offset");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Offset");
     System.out.println("New Offset id:"+id);
     return new Offset(id);
   }
@@ -34,7 +34,7 @@ public class Offset extends OffsetBase implements OffsetI {
     int id = factories.offsetLerp(a.build(),
       b.build(),
       t);
-    if (id == -1) throw new RuntimeException("Failed to created widget Offset?");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Offset?");
     System.out.println("New Offset? id:"+id);
     return new Offset(id);
   }

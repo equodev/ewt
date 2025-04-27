@@ -16,7 +16,7 @@ public class Duration extends NativeObj.Base implements DurationI {
       seconds,
       milliseconds,
       microseconds);
-    if (id == -1) throw new RuntimeException("Failed to created widget Duration");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Duration");
     System.out.println("New Duration id:"+id);
     return new Duration(id);
   }

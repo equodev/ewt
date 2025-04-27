@@ -12,6 +12,7 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
   BorderRadius(MemorySegment st) {
     this.id = BorderRadiusObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
     System.out.println("New BorderRadius id:"+id);
   }
   @Builder.Factory

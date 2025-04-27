@@ -12,6 +12,7 @@ public class Cubic extends Curve implements CubicI {
   Cubic(MemorySegment st) {
     this.id = CubicObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Cubic");
     System.out.println("New Cubic id:"+id);
   }
   @Builder.Factory

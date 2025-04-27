@@ -12,6 +12,7 @@ public class Border extends BoxBorder implements BorderI {
   Border(MemorySegment st) {
     this.id = BorderObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
     System.out.println("New Border id:"+id);
   }
   @Builder.Factory

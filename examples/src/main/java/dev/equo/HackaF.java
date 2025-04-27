@@ -5,7 +5,7 @@ import static dev.equo.ewt.EWT.*;
 import dev.equo.ewt.*;
 import java.util.List;
 
-public class Main {
+public class HackaF {
   public static void main(String[] args) {
     App.runApp(() -> new MyApp());
   }
@@ -38,21 +38,20 @@ class IssueDetailsScreen extends SubStatelessWidget {
                         SizedBox().height(20),
                         _buildSectionWithIcon("Assignees", Icons.settings()),
                         SizedBox().height(8),
-                        _buildSectionContent("No one - ", "Assign yourself", true)
-                )))));
-//                        _buildDivider(),
-//                        SizedBox().height(16),
-//                        _buildSectionWithIcon("Labels", Icons.settings()),
-//                        SizedBox().height(8),
-//                        _buildSectionContent("No labels", "", false),
-//                        _buildDivider(),
-//                        SizedBox().height(16),
-//                        _buildSectionWithIcon("Projects", Icons.settings()),
-//                        SizedBox().height(8),
-//                        _buildSectionContent("No projects", "", false),
-//                        _buildDivider(),
-//                        SizedBox().height(16),
-//                        _buildSectionWithIcon("Milestone", Icons.settings()))))));
+                        _buildSectionContent("No one - ", "Assign yourself", true),
+                        _buildDivider(),
+                        SizedBox().height(16),
+                        _buildSectionWithIcon("Labels", Icons.settings()),
+                        SizedBox().height(8),
+                        _buildSectionContent("No labels", "", false),
+                        _buildDivider(),
+                        SizedBox().height(16),
+                        _buildSectionWithIcon("Projects", Icons.settings()),
+                        SizedBox().height(8),
+                        _buildSectionContent("No projects", "", false),
+                        _buildDivider(),
+                        SizedBox().height(16),
+                        _buildSectionWithIcon("Milestone", Icons.settings()))))));
   }
 
   private Widget _buildSectionWithIcon(String title, IconData icon) {
@@ -68,21 +67,16 @@ class IssueDetailsScreen extends SubStatelessWidget {
   }
 
   private Widget _buildSectionContent(String mainText, String actionText, boolean hasAction) {
-    return
-        //hasAction ?
-        RichText(TextSpan()
-            .children(List.of(TextSpan().text(mainText))));
-//        ? RichText(TextSpan()
-//                .children(List.of(
-//                    TextSpan()
-//                        .text(mainText)
-//                        .style(TextStyle().color(Color(0xFF768390)).fontSize(14)),
-//                    TextSpan()
-//                        .text(actionText)
-//                        .style(TextStyle().color(Colors.blue()).fontSize(14))
-    //)))
-    //    :
-//    Text(mainText).style(TextStyle().color(Color(0xFF768390)).fontSize(14));
+    return hasAction
+        ? RichText(TextSpan()
+            .children(List.of(
+                TextSpan()
+                    .text(mainText)
+                    .style(TextStyle().color(Color(0xFF768390)).fontSize(14)),
+                TextSpan()
+                    .text(actionText)
+                    .style(TextStyle().color(Colors.blue()).fontSize(14)))))
+        : Text(mainText).style(TextStyle().color(Color(0xFF768390)).fontSize(14));
   }
 
   private Widget _buildDivider() {

@@ -12,6 +12,7 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
   TextButton(MemorySegment st) {
     this.id = TextButtonObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextButton");
     System.out.println("New TextButton id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
   FloatingActionButton(MemorySegment st) {
     this.id = FloatingActionButtonObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget FloatingActionButton");
     System.out.println("New FloatingActionButton id:"+id);
   }
   @Builder.Factory

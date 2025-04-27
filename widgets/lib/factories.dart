@@ -57,21 +57,25 @@ extension ObjPtr<T> on ffi.Pointer<ffi.Int> {
   T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T;
   T objOr(T def) => this == ffi.nullptr ? def : _widgetsMap[value]! as T;
 }
-extension on ffi.Pointer<ArrayC> {
-  List<T> orEmpty<T extends Widget>() {
+extension on ArrayC {
+  List<T> listOrEmpty<T>() {
     final List<T> list = List.empty(growable: true);
-    if (this != ffi.nullptr) {
-      final st = ref;
-      for (var i=0; i<st.size; i++) {
-        final wId = st.list[i];
-        print('Find widget at $i id: $wId');
-        final w = getWidget(wId);
-        print('Got widget $w');
-        list.add(w as T);
-      }
+    final st = this;
+    for (var i = 0; i < st.size; i++) {
+      final wId = st.list[i];
+      print('Find widget at $i/${st.size} id: $wId');
+      final w = getWidget(wId);
+      print('Got widget $w ${list.runtimeType}');
+      list.add(w as T);
+      print('After add to list');
     }
+    print('Got list $list');
     return list;
   }
+}
+extension on ffi.Pointer<ArrayC> {
+  List<T>? listOrNul<T>() => this == ffi.nullptr ? null : ref.listOrEmpty();
+  List<T> listOrEmpty<T>() => this == ffi.nullptr ? [] : ref.listOrEmpty();
 }
 extension on MapC {
   Map<int, Color> toMap() {
@@ -88,7 +92,7 @@ extension on MapC {
   }
 }
 extension on ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> {
-  List<String>? orEmpty() {
+  List<String>? listOrNul() {
     if (this != ffi.nullptr) {
       final List<String> list = List.empty(growable: true);
       final array = value;

@@ -12,6 +12,7 @@ public class Column extends Flex implements ColumnI {
   Column(MemorySegment st) {
     this.id = ColumnObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Column");
     System.out.println("New Column id:"+id);
   }
   @Builder.Factory

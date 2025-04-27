@@ -12,6 +12,7 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
   AlertDialog(MemorySegment st) {
     this.id = AlertDialogObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget AlertDialog");
     System.out.println("New AlertDialog id:"+id);
   }
   @Builder.Factory

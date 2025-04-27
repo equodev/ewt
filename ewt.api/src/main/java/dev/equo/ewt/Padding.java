@@ -12,6 +12,7 @@ public class Padding extends SingleChildRenderObjectWidget implements PaddingI {
   Padding(MemorySegment st) {
     this.id = PaddingObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Padding");
     System.out.println("New Padding id:"+id);
   }
   @Builder.Factory

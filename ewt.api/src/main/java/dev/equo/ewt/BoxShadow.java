@@ -12,6 +12,7 @@ public class BoxShadow extends Shadow implements BoxShadowI {
   BoxShadow(MemorySegment st) {
     this.id = BoxShadowObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxShadow");
     System.out.println("New BoxShadow id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class EdgeInsets extends EdgeInsetsGeometry implements EdgeInsetsI {
   EdgeInsets(MemorySegment st) {
     this.id = EdgeInsetsObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget EdgeInsets");
     System.out.println("New EdgeInsets id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class BoxDecoration extends Decoration implements BoxDecorationI {
   BoxDecoration(MemorySegment st) {
     this.id = BoxDecorationObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxDecoration");
     System.out.println("New BoxDecoration id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class Positioned extends ParentDataWidget<StackParentData> implements Pos
   Positioned(MemorySegment st) {
     this.id = PositionedObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Positioned");
     System.out.println("New Positioned id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
   MaterialAccentColor(MemorySegment st) {
     this.id = MaterialAccentColorObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialAccentColor");
     System.out.println("New MaterialAccentColor id:"+id);
   }
   @Builder.Factory

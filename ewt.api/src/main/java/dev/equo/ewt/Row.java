@@ -12,6 +12,7 @@ public class Row extends Flex implements RowI {
   Row(MemorySegment st) {
     this.id = RowObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Row");
     System.out.println("New Row id:"+id);
   }
   @Builder.Factory

@@ -12,6 +12,7 @@ public class ListenableBuilder extends AnimatedWidget implements ListenableBuild
   ListenableBuilder(MemorySegment st) {
     this.id = ListenableBuilderObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ListenableBuilder");
     System.out.println("New ListenableBuilder id:"+id);
   }
   @Builder.Factory

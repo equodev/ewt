@@ -13,7 +13,7 @@ public class Shadow extends NativeObj.Base implements ShadowI {
     int id = factories.shadowShadow(color.map(ColorI::build),
       offset.map(OffsetI::build),
       blurRadius);
-    if (id == -1) throw new RuntimeException("Failed to created widget Shadow");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Shadow");
     System.out.println("New Shadow id:"+id);
     return new Shadow(id);
   }
@@ -24,7 +24,7 @@ public class Shadow extends NativeObj.Base implements ShadowI {
     int id = factories.shadowLerp(a.build(),
       b.build(),
       t);
-    if (id == -1) throw new RuntimeException("Failed to created widget Shadow?");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Shadow?");
     System.out.println("New Shadow? id:"+id);
     return new Shadow(id);
   }

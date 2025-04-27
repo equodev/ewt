@@ -7,13 +7,13 @@ public abstract class Curves extends NativeObj.Base implements CurvesI {
   }
   public static Curve linear() {
     int id = factories.curvesLinear();
-    if (id == -1) throw new RuntimeException("Failed to create const linear");
+    if (id <= 0) throw new RuntimeException("Failed to create const linear");
     System.out.println("Const linear id:"+id);
     return new Curve(id) {};
   }
   public static Curve decelerate() {
     int id = factories.curvesDecelerate();
-    if (id == -1) throw new RuntimeException("Failed to create const decelerate");
+    if (id <= 0) throw new RuntimeException("Failed to create const decelerate");
     System.out.println("Const decelerate id:"+id);
     return new Curve(id) {};
   }
@@ -124,19 +124,19 @@ public abstract class Curves extends NativeObj.Base implements CurvesI {
   }
   public static Curve bounceIn() {
     int id = factories.curvesBounceIn();
-    if (id == -1) throw new RuntimeException("Failed to create const bounceIn");
+    if (id <= 0) throw new RuntimeException("Failed to create const bounceIn");
     System.out.println("Const bounceIn id:"+id);
     return new Curve(id) {};
   }
   public static Curve bounceOut() {
     int id = factories.curvesBounceOut();
-    if (id == -1) throw new RuntimeException("Failed to create const bounceOut");
+    if (id <= 0) throw new RuntimeException("Failed to create const bounceOut");
     System.out.println("Const bounceOut id:"+id);
     return new Curve(id) {};
   }
   public static Curve bounceInOut() {
     int id = factories.curvesBounceInOut();
-    if (id == -1) throw new RuntimeException("Failed to create const bounceInOut");
+    if (id <= 0) throw new RuntimeException("Failed to create const bounceInOut");
     System.out.println("Const bounceInOut id:"+id);
     return new Curve(id) {};
   }

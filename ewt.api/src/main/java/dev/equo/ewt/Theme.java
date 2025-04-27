@@ -12,6 +12,7 @@ public class Theme extends StatelessWidget implements ThemeI {
   Theme(MemorySegment st) {
     this.id = ThemeObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Theme");
     System.out.println("New Theme id:"+id);
   }
   @Builder.Factory

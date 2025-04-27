@@ -12,6 +12,7 @@ public class Center extends Align implements CenterI {
   Center(MemorySegment st) {
     this.id = CenterObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Center");
     System.out.println("New Center id:"+id);
   }
   @Builder.Factory

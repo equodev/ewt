@@ -18,7 +18,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
       upperBound,
       animationBehavior,
       vsync.build());
-    if (id == -1) throw new RuntimeException("Failed to created widget AnimationController");
+    if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
     System.out.println("New AnimationController id:"+id);
     return new AnimationController(id);
   }
@@ -33,7 +33,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
       debugLabel,
       vsync.build(),
       animationBehavior);
-    if (id == -1) throw new RuntimeException("Failed to created widget AnimationController");
+    if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
     System.out.println("New AnimationController id:"+id);
     return new AnimationController(id);
   }

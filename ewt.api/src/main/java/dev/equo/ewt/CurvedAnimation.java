@@ -13,7 +13,7 @@ public class CurvedAnimation extends NativeObj.Base implements Animation<Double>
     int id = factories.curvedAnimationCurvedAnimation(parent.build(),
       curve.build(),
       reverseCurve.map(CurveI::build));
-    if (id == -1) throw new RuntimeException("Failed to created widget CurvedAnimation");
+    if (id <= 0) throw new RuntimeException("Failed to created widget CurvedAnimation");
     System.out.println("New CurvedAnimation id:"+id);
     return new CurvedAnimation(id);
   }

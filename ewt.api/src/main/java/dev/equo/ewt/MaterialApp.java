@@ -12,6 +12,7 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
   MaterialApp(MemorySegment st) {
     this.id = MaterialAppObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialApp");
     System.out.println("New MaterialApp id:"+id);
   }
   @Builder.Factory

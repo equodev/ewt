@@ -12,6 +12,7 @@ public class Flex extends MultiChildRenderObjectWidget implements FlexI {
   Flex(MemorySegment st) {
     this.id = FlexObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Flex");
     System.out.println("New Flex id:"+id);
   }
   @Builder.Factory

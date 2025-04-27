@@ -11,7 +11,7 @@ public class StackParentData extends ContainerBoxParentData<RenderBox> implement
   @Builder.Factory
   static StackParentData stackParentDataStackParentData() {
     int id = factories.stackParentDataStackParentData();
-    if (id == -1) throw new RuntimeException("Failed to created widget StackParentData");
+    if (id <= 0) throw new RuntimeException("Failed to created widget StackParentData");
     System.out.println("New StackParentData id:"+id);
     return new StackParentData(id);
   }

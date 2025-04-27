@@ -12,6 +12,7 @@ public class Transform extends SingleChildRenderObjectWidget implements Transfor
   Transform(MemorySegment st) {
     this.id = TransformObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Transform");
     System.out.println("New Transform id:"+id);
   }
   @Builder.Factory

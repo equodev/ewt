@@ -15,14 +15,14 @@ TextStyleObjSt textStyleTextStyle(ffi.Pointer<ffi.Int> inherit, ffi.Pointer<Dart
       textBaseline: textBaseline.enumOrNul(TextBaseline.values),
       height: height.doubleOrNul(),
       leadingDistribution: leadingDistribution.enumOrNul(TextLeadingDistribution.values),
-      shadows: shadows.orEmpty(),
+      shadows: shadows.listOrNul(),
       decoration: decoration.objOrNul(),
       decorationColor: decorationColor.objOrNul(),
       decorationStyle: decorationStyle.enumOrNul(TextDecorationStyle.values),
       decorationThickness: decorationThickness.doubleOrNul(),
       debugLabel: debugLabel.strOrNul(),
       fontFamily: fontFamily.strOrNul(),
-      fontFamilyFallback: fontFamilyFallback.orEmpty(),
+      fontFamilyFallback: fontFamilyFallback.listOrNul(),
       package: package.strOrNul(),
       overflow: overflow.enumOrNul(TextOverflow.values));
   return _createTextStyleObjSt(w);
@@ -131,7 +131,7 @@ void _setupTextDecoration(WidgetFactories f) {
   f.textDecoration.lineThrough = _addWidget(TextDecoration.lineThrough);
 }
 int textDecorationCombine(ArrayC decorations) {
-  final w = TextDecoration.combine(_widgetsMap[decorations]! as List<TextDecoration>);
+  final w = TextDecoration.combine(decorations.listOrEmpty());
   return _addWidget(w);
 }
 
@@ -191,7 +191,7 @@ void _setupTextSpan(WidgetFactories f) {
 }
 TextSpanObjSt textSpanTextSpan(ffi.Pointer<ffi.Char> text, ffi.Pointer<ArrayC> children, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Int> spellOut) {
   final w = TextSpan(text: text.strOrNul(),
-      children: children.orEmpty(),
+      children: children.listOrNul(),
       style: style.objOrNul(),
       semanticsLabel: semanticsLabel.strOrNul(),
       spellOut: spellOut.boolOrNul());
@@ -285,7 +285,7 @@ ColumnObjSt columnColumn(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi
       verticalDirection: verticalDirection.enumOr(VerticalDirection.values, VerticalDirection.down),
       textBaseline: textBaseline.enumOrNul(TextBaseline.values),
       spacing: spacing.doubleOr(0.0),
-      children: children.orEmpty());
+      children: children.listOrEmpty());
   return _createColumnObjSt(w);
 }
 ColumnObjSt _createColumnObjSt(Column? w) {
@@ -308,7 +308,7 @@ FlexObjSt flexFlex(int direction, ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Po
       textBaseline: textBaseline.enumOrNul(TextBaseline.values),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
       spacing: spacing.doubleOr(0.0),
-      children: children.orEmpty());
+      children: children.listOrEmpty());
   return _createFlexObjSt(w);
 }
 FlexObjSt _createFlexObjSt(Flex? w) {
@@ -338,7 +338,7 @@ RowObjSt rowRow(ffi.Pointer<ffi.Int> mainAxisAlignment, ffi.Pointer<ffi.Int> mai
       verticalDirection: verticalDirection.enumOr(VerticalDirection.values, VerticalDirection.down),
       textBaseline: textBaseline.enumOrNul(TextBaseline.values),
       spacing: spacing.doubleOr(0.0),
-      children: children.orEmpty());
+      children: children.listOrEmpty());
   return _createRowObjSt(w);
 }
 RowObjSt _createRowObjSt(Row? w) {
@@ -356,7 +356,7 @@ IconDataObjSt iconDataIconData(int codePoint, ffi.Pointer<ffi.Char> fontFamily, 
       fontFamily: fontFamily.strOrNul(),
       fontPackage: fontPackage.strOrNul(),
       matchTextDirection: matchTextDirection.boolOr(false),
-      fontFamilyFallback: fontFamilyFallback.orEmpty());
+      fontFamilyFallback: fontFamilyFallback.listOrNul());
   return _createIconDataObjSt(w);
 }
 IconDataObjSt _createIconDataObjSt(IconData? w) {
@@ -381,7 +381,7 @@ IconObjSt iconIcon(DartDartObj icon, ffi.Pointer<ffi.Double> size, ffi.Pointer<f
       grade: grade.doubleOrNul(),
       opticalSize: opticalSize.doubleOrNul(),
       color: color.objOrNul(),
-      shadows: shadows.orEmpty(),
+      shadows: shadows.listOrNul(),
       semanticLabel: semanticLabel.strOrNul(),
       textDirection: textDirection.enumOrNul(TextDirection.values),
       applyTextScaling: applyTextScaling.boolOrNul(),
@@ -507,7 +507,7 @@ StackObjSt stackStack(ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> textD
       textDirection: textDirection.enumOrNul(TextDirection.values),
       fit: fit.enumOr(StackFit.values, StackFit.loose),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
-      children: children.orEmpty());
+      children: children.listOrEmpty());
   return _createStackObjSt(w);
 }
 StackObjSt _createStackObjSt(Stack? w) {
@@ -699,7 +699,7 @@ BoxDecorationObjSt boxDecorationBoxDecoration(ffi.Pointer<DartObj> color, ffi.Po
   final w = BoxDecoration(color: color.objOrNul(),
       border: border.objOrNul(),
       borderRadius: borderRadius.objOrNul(),
-      boxShadow: boxShadow.orEmpty(),
+      boxShadow: boxShadow.listOrNul(),
       backgroundBlendMode: backgroundBlendMode.enumOrNul(BlendMode.values),
       shape: shape.enumOr(BoxShape.values, BoxShape.rectangle));
   return _createBoxDecorationObjSt(w);
@@ -1907,7 +1907,7 @@ ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColo
       splashColor: splashColor.objOrNul(),
       unselectedWidgetColor: unselectedWidgetColor.objOrNul(),
       fontFamily: fontFamily.strOrNul(),
-      fontFamilyFallback: fontFamilyFallback.orEmpty(),
+      fontFamilyFallback: fontFamilyFallback.listOrNul(),
       package: package.strOrNul(),
       primaryTextTheme: primaryTextTheme.objOrNul(),
       textTheme: textTheme.objOrNul(),
@@ -2174,7 +2174,7 @@ AppBarObjSt appBarAppBar(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> auto
   final w = AppBar(leading: leading.objOrNul(),
       automaticallyImplyLeading: automaticallyImplyLeading.boolOr(true),
       title: title.objOrNul(),
-      actions: actions.orEmpty(),
+      actions: actions.listOrNul(),
       flexibleSpace: flexibleSpace.objOrNul(),
       bottom: bottom.objOrNul(),
       elevation: elevation.doubleOrNul(),
@@ -2239,7 +2239,7 @@ ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj>
   final w = Scaffold(appBar: appBar.objOrNul(),
       body: body.objOrNul(),
       floatingActionButton: floatingActionButton.objOrNul(),
-      persistentFooterButtons: persistentFooterButtons.orEmpty(),
+      persistentFooterButtons: persistentFooterButtons.listOrNul(),
       drawer: drawer.objOrNul(),
       onDrawerChanged: onDrawerChanged.toDrawerCallbackFn(),
       endDrawer: endDrawer.objOrNul(),
@@ -2675,7 +2675,7 @@ AlertDialogObjSt alertDialogAlertDialog(ffi.Pointer<DartObj> icon, ffi.Pointer<D
       content: content.objOrNul(),
       contentPadding: contentPadding.objOrNul(),
       contentTextStyle: contentTextStyle.objOrNul(),
-      actions: actions.orEmpty(),
+      actions: actions.listOrNul(),
       actionsPadding: actionsPadding.objOrNul(),
       actionsAlignment: actionsAlignment.enumOrNul(MainAxisAlignment.values),
       actionsOverflowAlignment: actionsOverflowAlignment.enumOrNul(OverflowBarAlignment.values),
@@ -2704,7 +2704,7 @@ AlertDialogObjSt alertDialogAdaptive(ffi.Pointer<DartObj> icon, ffi.Pointer<Dart
       content: content.objOrNul(),
       contentPadding: contentPadding.objOrNul(),
       contentTextStyle: contentTextStyle.objOrNul(),
-      actions: actions.orEmpty(),
+      actions: actions.listOrNul(),
       actionsPadding: actionsPadding.objOrNul(),
       actionsAlignment: actionsAlignment.enumOrNul(MainAxisAlignment.values),
       actionsOverflowAlignment: actionsOverflowAlignment.enumOrNul(OverflowBarAlignment.values),

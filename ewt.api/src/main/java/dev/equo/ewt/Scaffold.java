@@ -12,6 +12,7 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   Scaffold(MemorySegment st) {
     this.id = ScaffoldObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Scaffold");
     System.out.println("New Scaffold id:"+id);
   }
   @Builder.Factory
@@ -45,7 +46,7 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   }
   public static ValueListenable geometryOf(BuildContextI context) {
     int id = factories.scaffoldGeometryOf(context.build());
-    if (id == -1) throw new RuntimeException("Failed to created widget ValueListenable<ScaffoldGeometry>");
+    if (id <= 0) throw new RuntimeException("Failed to created widget ValueListenable<ScaffoldGeometry>");
     System.out.println("New ValueListenable<ScaffoldGeometry> id:"+id);
     return new ValueListenable() { public int getId() { return id; } };
   }

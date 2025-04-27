@@ -12,6 +12,7 @@ public class Text extends StatelessWidget implements TextI {
   Text(MemorySegment st) {
     this.id = TextObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Text");
     System.out.println("New Text id:"+id);
   }
   @Builder.Factory

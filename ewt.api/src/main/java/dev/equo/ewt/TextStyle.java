@@ -12,6 +12,7 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
   TextStyle(MemorySegment st) {
     this.id = TextStyleObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextStyle");
     System.out.println("New TextStyle id:"+id);
   }
   @Builder.Factory

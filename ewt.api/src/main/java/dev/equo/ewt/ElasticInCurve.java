@@ -12,6 +12,7 @@ public class ElasticInCurve extends Curve implements ElasticInCurveI {
   ElasticInCurve(MemorySegment st) {
     this.id = ElasticInCurveObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ElasticInCurve");
     System.out.println("New ElasticInCurve id:"+id);
   }
   @Builder.Factory

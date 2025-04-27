@@ -12,6 +12,7 @@ public class TextField extends StatefulWidget implements TextFieldI {
   TextField(MemorySegment st) {
     this.id = TextFieldObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextField");
     System.out.println("New TextField id:"+id);
   }
   @Builder.Factory

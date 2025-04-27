@@ -12,6 +12,7 @@ public class SafeArea extends StatelessWidget implements SafeAreaI {
   SafeArea(MemorySegment st) {
     this.id = SafeAreaObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget SafeArea");
     System.out.println("New SafeArea id:"+id);
   }
   @Builder.Factory

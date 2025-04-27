@@ -12,6 +12,7 @@ public class SizedBox extends SingleChildRenderObjectWidget implements SizedBoxI
   SizedBox(MemorySegment st) {
     this.id = SizedBoxObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget SizedBox");
     System.out.println("New SizedBox id:"+id);
   }
   @Builder.Factory

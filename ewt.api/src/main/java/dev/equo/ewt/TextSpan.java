@@ -12,6 +12,7 @@ public class TextSpan extends InlineSpan implements TextSpanI {
   TextSpan(MemorySegment st) {
     this.id = TextSpanObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextSpan");
     System.out.println("New TextSpan id:"+id);
   }
   @Builder.Factory

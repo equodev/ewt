@@ -12,6 +12,7 @@ public class RichText extends MultiChildRenderObjectWidget implements RichTextI 
   RichText(MemorySegment st) {
     this.id = RichTextObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget RichText");
     System.out.println("New RichText id:"+id);
   }
   @Builder.Factory

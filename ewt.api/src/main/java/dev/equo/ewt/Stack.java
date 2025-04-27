@@ -12,6 +12,7 @@ public class Stack extends MultiChildRenderObjectWidget implements StackI {
   Stack(MemorySegment st) {
     this.id = StackObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Stack");
     System.out.println("New Stack id:"+id);
   }
   @Builder.Factory

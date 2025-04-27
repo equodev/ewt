@@ -12,6 +12,7 @@ public class BorderSide extends NativeObj.Base implements BorderSideI {
   BorderSide(MemorySegment st) {
     this.id = BorderSideObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderSide");
     System.out.println("New BorderSide id:"+id);
   }
   @Builder.Factory

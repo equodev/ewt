@@ -12,6 +12,7 @@ public class IconData extends NativeObj.Base implements IconDataI {
   IconData(MemorySegment st) {
     this.id = IconDataObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget IconData");
     System.out.println("New IconData id:"+id);
   }
   @Builder.Factory

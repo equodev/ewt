@@ -12,6 +12,7 @@ public class Container extends StatelessWidget implements ContainerI {
   Container(MemorySegment st) {
     this.id = ContainerObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Container");
     System.out.println("New Container id:"+id);
   }
   @Builder.Factory

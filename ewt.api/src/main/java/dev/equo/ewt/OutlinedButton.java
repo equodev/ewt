@@ -12,6 +12,7 @@ public class OutlinedButton extends ButtonStyleButton implements OutlinedButtonI
   OutlinedButton(MemorySegment st) {
     this.id = OutlinedButtonObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget OutlinedButton");
     System.out.println("New OutlinedButton id:"+id);
   }
   @Builder.Factory
