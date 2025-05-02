@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
 import 'subwidgets.dart' as s;
 
-
 w.Widget? widget;
 // w.StatefulWidget? statefulWidget;
 w.TextStyle? textStyle;
@@ -88,6 +87,8 @@ m.Divider? divider;
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;
+
+const showDialog = m.showDialog;
 
 void main() {
   //print('I am an index with the widgets to generate');

@@ -1,4 +1,5 @@
 typedef struct {
+  DartObj (*showDialog)(DartObj context, WidgetBuilderFFI builder, int* barrierDismissible, DartObj* barrierColor, char* barrierLabel, int* useSafeArea, int* useRootNavigator, DartObj* anchorPoint, int* traversalEdgeBehavior);
   struct TextStyleSt {
     TextStyleObjSt (*textStyle)(int* inherit, DartObj* color, DartObj* backgroundColor, double* fontSize, DartObj* fontWeight, int* fontStyle, double* letterSpacing, double* wordSpacing, int* textBaseline, double* height, int* leadingDistribution, ArrayC* shadows, DartObj* decoration, DartObj* decorationColor, int* decorationStyle, double* decorationThickness, char* debugLabel, char* fontFamily, char*** fontFamilyFallback, char* package, int* overflow);
     TextStyleObjSt (*lerp)(DartObj a, DartObj b, double t);
@@ -12,6 +13,12 @@ typedef struct {
     DartObj (*lerp)(DartObj x, DartObj y, double t);
     DartObj (*alphaBlend)(DartObj foreground, DartObj background);
   } color;
+
+  struct OffsetSt {
+    DartObj (*offset)(double dx, double dy);
+    DartObj (*fromDirection)(double direction, double* distance);
+    DartObj (*lerp)(DartObj a, DartObj b, double t);
+  } offset;
 
   struct FontWeightSt {
     DartObj (*lerp)(DartObj a, DartObj b, double t);
@@ -81,12 +88,6 @@ typedef struct {
     TransformObjSt (*scale)(double* scale, double* scaleX, double* scaleY, DartObj* origin, DartObj* alignment, int* transformHitTests, int* filterQuality, DartObj* child);
     TransformObjSt (*flip)(int* flipX, int* flipY, DartObj* origin, int* transformHitTests, int* filterQuality, DartObj* child);
   } transform;
-
-  struct OffsetSt {
-    DartObj (*offset)(double dx, double dy);
-    DartObj (*fromDirection)(double direction, double* distance);
-    DartObj (*lerp)(DartObj a, DartObj b, double t);
-  } offset;
 
   struct OpacitySt {
     OpacityObjSt (*opacity)(double opacity, int* alwaysIncludeSemantics, DartObj* child);
@@ -379,6 +380,10 @@ typedef struct {
 
   struct NavigatorSt {
     NavigatorObjSt (*navigator)(char* initialRoute, int* reportsRouteUpdateToEngine, int* clipBehavior, int* requestFocus, char* restorationScopeId, int* routeTraversalEdgeBehavior);
+    DartObj (*pushNamed)(DartObj context, char* routeName, DartObj* arguments);
+    DartObj (*pushReplacementNamed)(DartObj context, char* routeName, DartObj* result, DartObj* arguments);
+    DartObj (*popAndPushNamed)(DartObj context, char* routeName, DartObj* result, DartObj* arguments);
+    DartObj (*maybePop)(DartObj context, DartObj* result);
     DartObj (*of)(DartObj context, int* rootNavigator);
     DartObj (*maybeOf)(DartObj context, int* rootNavigator);
   } navigator;

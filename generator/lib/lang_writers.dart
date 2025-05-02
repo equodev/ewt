@@ -33,6 +33,6 @@ class JLang {
         tp.addAll((param.type as FunctionType).parameters.map((p) => p.type).whereType<TypeParameterType>());
       }
     }
-    return tp.isEmpty ? '' : '<${tp.map((t) => t.element).join(', ')}> ';
+    return tp.isEmpty ? '' : '<${tp.map((t) => t.element.toString().replaceAll('Object?', 'NativeObj')).join(', ')}> ';
   }
 }

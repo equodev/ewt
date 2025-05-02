@@ -1,3 +1,4 @@
+typedef DartObj (*WidgetBuilderFFI)(DartObj context);
 typedef DartObj (*TransitionBuilderFFI)(DartObj context, DartObj child);
 typedef void (*VoidCallbackFFI)(void);
 typedef void (*ValueChangedForBoolFFI)(int value);

@@ -7,6 +7,20 @@ import java.util.OptionalDouble;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 public class EWT {
+  public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
+    int id = WidgetConstructors.instance.dialogShowDialog(context.build(),
+      builder,
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
+    System.out.println("New Future<T?> id:"+id);
+    return new Future() { public int getId() { return id; } };
+  }
   public static TextStyleTextStyleBuilder TextStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();
   }
@@ -24,6 +38,12 @@ public class EWT {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
 
+  public static OffsetOffsetBuilder Offset(double dx, double dy) {
+    return OffsetOffsetBuilder.offsetOffset(dx, dy);
+  }
+  public static OffsetFromDirectionBuilder Offset_fromDirection(double direction) {
+    return OffsetFromDirectionBuilder.offsetFromDirection(direction);
+  }
 
   public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
     return TextDecorationCombineBuilder.textDecorationCombine(decorations);
@@ -85,13 +105,6 @@ public class EWT {
     return TransformFlipBuilder.transformFlip();
   }
 
-  public static OffsetOffsetBuilder Offset(double dx, double dy) {
-    return OffsetOffsetBuilder.offsetOffset(dx, dy);
-  }
-  public static OffsetFromDirectionBuilder Offset_fromDirection(double direction) {
-    return OffsetFromDirectionBuilder.offsetFromDirection(direction);
-  }
-
   public static OpacityOpacityBuilder Opacity(double opacity) {
     return OpacityOpacityBuilder.opacityOpacity(opacity);
   }
@@ -116,7 +129,6 @@ public class EWT {
   public static ContainerContainerBuilder Container() {
     return ContainerContainerBuilder.containerContainer();
   }
-
 
   public static StackParentDataStackParentDataBuilder StackParentData() {
     return StackParentDataStackParentDataBuilder.stackParentDataStackParentData();
@@ -256,7 +268,6 @@ public class EWT {
     return ElasticInOutCurveElasticInOutCurveBuilder.elasticInOutCurveElasticInOutCurve();
   }
 
-
   public static CurvedAnimationCurvedAnimationBuilder CurvedAnimation(AnimationI parent, CurveI curve) {
     return CurvedAnimationCurvedAnimationBuilder.curvedAnimationCurvedAnimation(parent, curve);
   }
@@ -322,7 +333,6 @@ public class EWT {
   public static MaterialColorMaterialColorBuilder MaterialColor(int primary, Map<Integer, Color> swatch) {
     return MaterialColorMaterialColorBuilder.materialColorMaterialColor(primary, swatch);
   }
-
 
   public static TextThemeTextThemeBuilder TextTheme() {
     return TextThemeTextThemeBuilder.textThemeTextTheme();
@@ -444,8 +454,5 @@ public class EWT {
   public static DividerDividerBuilder Divider() {
     return DividerDividerBuilder.dividerDivider();
   }
-
-
-
 
 }

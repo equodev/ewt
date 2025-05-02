@@ -9,6 +9,18 @@ import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
+  int dialogShowDialog(BuildContext context, Function<BuildContext, Widget> builder, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useSafeArea, Optional<Boolean> useRootNavigator, Optional<Offset> anchorPoint, Optional<TraversalEdgeBehavior> traversalEdgeBehavior) {
+    var fn = WidgetFactories.showDialog(factories);
+    return WidgetFactories.showDialog.invoke(fn, context.getId(),
+      ptrWidgetBuilderFn(builder),
+      ptrBool(barrierDismissible),
+      ptrObj(barrierColor),
+      ptrStr(barrierLabel),
+      ptrBool(useSafeArea),
+      ptrBool(useRootNavigator),
+      ptrObj(anchorPoint),
+      ptrEnum(traversalEdgeBehavior));
+  }
   MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<TextDecoration> decoration, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.textStyle(st);
@@ -84,6 +96,26 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.ColorSt.alphaBlend(st);
     return WidgetFactories.ColorSt.alphaBlend.invoke(fn, foreground.getId(),
       background.getId());
+  }
+
+  int offsetOffset(double dx, double dy) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.offset(st);
+    return WidgetFactories.OffsetSt.offset.invoke(fn, dx,
+      dy);
+  }
+  int offsetFromDirection(double direction, OptionalDouble distance) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.fromDirection(st);
+    return WidgetFactories.OffsetSt.fromDirection.invoke(fn, direction,
+      ptr(distance));
+  }
+  int offsetLerp(Offset a, Offset b, double t) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.lerp(st);
+    return WidgetFactories.OffsetSt.lerp.invoke(fn, a != null ? a.getId() : null,
+      b != null ? b.getId() : null,
+      t);
   }
 
   int fontWeightLerp(FontWeight a, FontWeight b, double t) {
@@ -331,26 +363,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(transformHitTests),
       ptrEnum(filterQuality),
       ptrObj(child));
-  }
-
-  int offsetOffset(double dx, double dy) {
-    var st = WidgetFactories.offset(factories);
-    var fn = WidgetFactories.OffsetSt.offset(st);
-    return WidgetFactories.OffsetSt.offset.invoke(fn, dx,
-      dy);
-  }
-  int offsetFromDirection(double direction, OptionalDouble distance) {
-    var st = WidgetFactories.offset(factories);
-    var fn = WidgetFactories.OffsetSt.fromDirection(st);
-    return WidgetFactories.OffsetSt.fromDirection.invoke(fn, direction,
-      ptr(distance));
-  }
-  int offsetLerp(Offset a, Offset b, double t) {
-    var st = WidgetFactories.offset(factories);
-    var fn = WidgetFactories.OffsetSt.lerp(st);
-    return WidgetFactories.OffsetSt.lerp.invoke(fn, a != null ? a.getId() : null,
-      b != null ? b.getId() : null,
-      t);
   }
 
   MemorySegment opacityOpacity(double opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> child) {
@@ -1838,6 +1850,35 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(restorationScopeId),
       ptrEnum(routeTraversalEdgeBehavior));
   }
+  int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.pushNamed(st);
+    return WidgetFactories.NavigatorSt.pushNamed.invoke(fn, context.getId(),
+      arena.allocateFrom(routeName),
+      ptrObj(arguments));
+  }
+  <TO extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.pushReplacementNamed(st);
+    return WidgetFactories.NavigatorSt.pushReplacementNamed.invoke(fn, context.getId(),
+      arena.allocateFrom(routeName),
+      ptrObj(result),
+      ptrObj(arguments));
+  }
+  <TO extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.popAndPushNamed(st);
+    return WidgetFactories.NavigatorSt.popAndPushNamed.invoke(fn, context.getId(),
+      arena.allocateFrom(routeName),
+      ptrObj(result),
+      ptrObj(arguments));
+  }
+  <T extends NativeObj> int navigatorMaybePop(BuildContext context, Optional<T> result) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.maybePop(st);
+    return WidgetFactories.NavigatorSt.maybePop.invoke(fn, context.getId(),
+      ptrObj(result));
+  }
   int navigatorOf(BuildContext context, Optional<Boolean> rootNavigator) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.of(st);
@@ -2007,6 +2048,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrDartObjCallbackDartObjFn(buildFn));
   }
 
+MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {
+  return WidgetBuilderFFI.allocate((context) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
+    return jFnRet.build().getId();
+  }, arena);
+}
 MemorySegment ptrTransitionBuilderFn(BiFunction<BuildContext, Widget, Widget> jFn) {
   return TransitionBuilderFFI.allocate((context, child) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Widget(child) {});

@@ -1,4 +1,19 @@
 part of 'factories.dart';
+void _setupTopFunctions(WidgetFactories f) {
+  f.showDialog = ffi.Pointer.fromFunction(dialogShowDialog, exception);
+}
+int dialogShowDialog(DartDartObj context, WidgetBuilderFFI builder, ffi.Pointer<ffi.Int> barrierDismissible, ffi.Pointer<DartObj> barrierColor, ffi.Pointer<ffi.Char> barrierLabel, ffi.Pointer<ffi.Int> useSafeArea, ffi.Pointer<ffi.Int> useRootNavigator, ffi.Pointer<DartObj> anchorPoint, ffi.Pointer<ffi.Int> traversalEdgeBehavior) {
+  final w = showDialog(context: _widgetsMap[context]! as BuildContext,
+      builder: builder.toWidgetBuilderFn(),
+      barrierDismissible: barrierDismissible.boolOr(true),
+      barrierColor: barrierColor.objOrNul(),
+      barrierLabel: barrierLabel.strOrNul(),
+      useSafeArea: useSafeArea.boolOr(true),
+      useRootNavigator: useRootNavigator.boolOr(true),
+      anchorPoint: anchorPoint.objOrNul(),
+      traversalEdgeBehavior: traversalEdgeBehavior.enumOrNul(TraversalEdgeBehavior.values));
+  return _addWidget(w);
+}
 void _setupTextStyle(WidgetFactories f) {
   f.textStyle.textStyle = ffi.Pointer.fromFunction(textStyleTextStyle);
   f.textStyle.lerp = ffi.Pointer.fromFunction(textStyleLerp);
@@ -101,6 +116,28 @@ int colorLerp(DartDartObj x, DartDartObj y, double t) {
 int colorAlphaBlend(DartDartObj foreground, DartDartObj background) {
   final w = Color.alphaBlend(_widgetsMap[foreground]! as Color,
       _widgetsMap[background]! as Color);
+  return _addWidget(w);
+}
+
+void _setupOffset(WidgetFactories f) {
+  f.offset.offset = ffi.Pointer.fromFunction(offsetOffset, exception);
+  f.offset.fromDirection = ffi.Pointer.fromFunction(offsetFromDirection, exception);
+  f.offset.lerp = ffi.Pointer.fromFunction(offsetLerp, exception);
+}
+int offsetOffset(double dx, double dy) {
+  final w = Offset(dx,
+      dy);
+  return _addWidget(w);
+}
+int offsetFromDirection(double direction, ffi.Pointer<ffi.Double> distance) {
+  final w = Offset.fromDirection(direction,
+      distance.doubleOr(1.0));
+  return _addWidget(w);
+}
+int offsetLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = Offset.lerp(_widgetsMap[a]! as Offset?,
+      _widgetsMap[b]! as Offset?,
+      t);
   return _addWidget(w);
 }
 
@@ -457,28 +494,6 @@ TransformObjSt _createTransformObjSt(Transform? w) {
   stObj.transformHitTests = w.transformHitTests.toInt();
   stObj.filterQuality = (w.filterQuality != null) ? w.filterQuality!.index : 0;
   return stObj;
-}
-
-void _setupOffset(WidgetFactories f) {
-  f.offset.offset = ffi.Pointer.fromFunction(offsetOffset, exception);
-  f.offset.fromDirection = ffi.Pointer.fromFunction(offsetFromDirection, exception);
-  f.offset.lerp = ffi.Pointer.fromFunction(offsetLerp, exception);
-}
-int offsetOffset(double dx, double dy) {
-  final w = Offset(dx,
-      dy);
-  return _addWidget(w);
-}
-int offsetFromDirection(double direction, ffi.Pointer<ffi.Double> distance) {
-  final w = Offset.fromDirection(direction,
-      distance.doubleOr(1.0));
-  return _addWidget(w);
-}
-int offsetLerp(DartDartObj a, DartDartObj b, double t) {
-  final w = Offset.lerp(_widgetsMap[a]! as Offset?,
-      _widgetsMap[b]! as Offset?,
-      t);
-  return _addWidget(w);
 }
 
 void _setupOpacity(WidgetFactories f) {
@@ -2626,6 +2641,10 @@ int navigatorStateNavigatorState() {
 
 void _setupNavigator(WidgetFactories f) {
   f.navigator.navigator = ffi.Pointer.fromFunction(navigatorNavigator);
+  f.navigator.pushNamed = ffi.Pointer.fromFunction(navigatorPushNamed, exception);
+  f.navigator.pushReplacementNamed = ffi.Pointer.fromFunction(navigatorPushReplacementNamed, exception);
+  f.navigator.popAndPushNamed = ffi.Pointer.fromFunction(navigatorPopAndPushNamed, exception);
+  f.navigator.maybePop = ffi.Pointer.fromFunction(navigatorMaybePop, exception);
   f.navigator.of = ffi.Pointer.fromFunction(navigatorOf, exception);
   f.navigator.maybeOf = ffi.Pointer.fromFunction(navigatorMaybeOf, exception);
 }
@@ -2637,6 +2656,31 @@ NavigatorObjSt navigatorNavigator(ffi.Pointer<ffi.Char> initialRoute, ffi.Pointe
       restorationScopeId: restorationScopeId.strOrNul(),
       routeTraversalEdgeBehavior: routeTraversalEdgeBehavior.enumOr(TraversalEdgeBehavior.values, kDefaultRouteTraversalEdgeBehavior));
   return _createNavigatorObjSt(w);
+}
+int navigatorPushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> arguments) {
+  final w = Navigator.pushNamed(_widgetsMap[context]! as BuildContext,
+      routeName.cast<Utf8>().toDartString(),
+      arguments: arguments.objOrNul());
+  return _addWidget(w);
+}
+int navigatorPushReplacementNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> result, ffi.Pointer<DartObj> arguments) {
+  final w = Navigator.pushReplacementNamed(_widgetsMap[context]! as BuildContext,
+      routeName.cast<Utf8>().toDartString(),
+      result: result,
+      arguments: arguments.objOrNul());
+  return _addWidget(w);
+}
+int navigatorPopAndPushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> result, ffi.Pointer<DartObj> arguments) {
+  final w = Navigator.popAndPushNamed(_widgetsMap[context]! as BuildContext,
+      routeName.cast<Utf8>().toDartString(),
+      result: result,
+      arguments: arguments.objOrNul());
+  return _addWidget(w);
+}
+int navigatorMaybePop(DartDartObj context, ffi.Pointer<DartObj> result) {
+  final w = Navigator.maybePop(_widgetsMap[context]! as BuildContext,
+      result);
+  return _addWidget(w);
 }
 int navigatorOf(DartDartObj context, ffi.Pointer<ffi.Int> rootNavigator) {
   final w = Navigator.of(_widgetsMap[context]! as BuildContext,
@@ -2935,6 +2979,7 @@ SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDart
 ffi.Pointer<WidgetFactories> _setupFactories() {
   final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
   final f = fp.ref;
+  _setupTopFunctions(f);
   _setupTextStyle(f);
   _setupText(f);
   _setupTextSpan(f);
@@ -3015,6 +3060,19 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupColorSwatch(f);
   return fp;
 }
+extension on WidgetBuilderFFI {
+  WidgetBuilder toWidgetBuilderFn() {
+    return (BuildContext context) {
+      DartWidgetBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context));
+      return _widgetsMap[dFnRet]! as Widget;
+    };
+  }
+}
+extension on ffi.Pointer<WidgetBuilderFFI> {
+  WidgetBuilder? toWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toWidgetBuilderFn() : null;
+}
+
 extension on TransitionBuilderFFI {
   TransitionBuilder toTransitionBuilderFn() {
     return (BuildContext context, Widget? child) {

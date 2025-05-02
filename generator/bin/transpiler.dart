@@ -507,6 +507,10 @@ class Dart2JavaVisitor extends ToSourceVisitor {
           if (parent is InstanceCreationExpression) {
             mandatory = parent.constructorName.element!.formalParameters.where((p) => 'key' != p.name3).takeWhile((p) => p.isRequired).toList(growable: false);
           }
+          else if (parent is MethodInvocation) {
+            // mandatory = parent.target
+            mandatory = (parent.staticInvokeType as FunctionType).formalParameters.where((p) => 'key' != p.name3).where((p) => p.isRequired).toList(growable: false);
+          }
           if (argument is NamedExpression && mandatory.contains(argument.correspondingParameter)) {
             if (close && i != 0) {
               write(node, ', ');
@@ -568,8 +572,12 @@ class Dart2JavaVisitor extends ToSourceVisitor {
 
   @override
   void visitSimpleIdentifier(SimpleIdentifier node) {
-    if ((node.parent is NamedExpression || node.parent is ConditionalExpression) && node.element is MethodElement2) {
-      write(node, 'this::');
+    if ((node.parent is NamedExpression || node.parent is ConditionalExpression)) {
+      if (node.element is MethodElement2) {
+        write(node, 'this::');
+      } else if (node.element is TopLevelFunctionElement) {
+        write(node, '$_className::');
+      }
     }
     super.visitSimpleIdentifier(node);
     if (node.parent is! MethodInvocation && node.parent?.parent is! AssignmentExpression) {

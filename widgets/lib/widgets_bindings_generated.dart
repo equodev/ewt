@@ -104,9 +104,24 @@ typedef DartbuildWidgetTreeFnFunction = int Function(
     ffi.Pointer<WidgetFactories>);
 
 final class WidgetFactories extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              DartObj context,
+              WidgetBuilderFFI builder,
+              ffi.Pointer<ffi.Int> barrierDismissible,
+              ffi.Pointer<DartObj> barrierColor,
+              ffi.Pointer<ffi.Char> barrierLabel,
+              ffi.Pointer<ffi.Int> useSafeArea,
+              ffi.Pointer<ffi.Int> useRootNavigator,
+              ffi.Pointer<DartObj> anchorPoint,
+              ffi.Pointer<ffi.Int> traversalEdgeBehavior)>> showDialog;
+
   external TextStyleSt textStyle;
 
   external ColorSt color;
+
+  external OffsetSt offset;
 
   external FontWeightSt fontWeight;
 
@@ -133,8 +148,6 @@ final class WidgetFactories extends ffi.Struct {
   external IconSt icon;
 
   external TransformSt transform;
-
-  external OffsetSt offset;
 
   external OpacitySt opacity;
 
@@ -261,6 +274,14 @@ final class WidgetFactories extends ffi.Struct {
   external SubStatelessWidgetSt subStatelessWidget;
 }
 
+typedef DartObj = ffi.Int;
+typedef DartDartObj = int;
+typedef WidgetBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<WidgetBuilderFFIFunction>>;
+typedef WidgetBuilderFFIFunction = DartObj Function(DartObj context);
+typedef DartWidgetBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context);
+
 final class TextStyleSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -350,9 +371,6 @@ final class TextStyleObjSt extends ffi.Struct {
   external int overflow;
 }
 
-typedef DartObj = ffi.Int;
-typedef DartDartObj = int;
-
 /// typedef void (*VoidCallback)(void);
 /// typedef DartObj (*DartObjCallback)(void);
 /// typedef DartObj (*DartObjCallbackDartObj)(DartObj);
@@ -390,6 +408,23 @@ final class ColorSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           DartObj Function(DartObj foreground, DartObj background)>> alphaBlend;
+}
+
+final class OffsetSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<DartObj Function(ffi.Double dx, ffi.Double dy)>>
+      offset;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              DartObj Function(
+                  ffi.Double direction, ffi.Pointer<ffi.Double> distance)>>
+      fromDirection;
+
+  external ffi.Pointer<
+          ffi
+          .NativeFunction<DartObj Function(DartObj a, DartObj b, ffi.Double t)>>
+      lerp;
 }
 
 final class FontWeightSt extends ffi.Struct {
@@ -845,23 +880,6 @@ final class TransformObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int filterQuality;
-}
-
-final class OffsetSt extends ffi.Struct {
-  external ffi.Pointer<
-          ffi.NativeFunction<DartObj Function(ffi.Double dx, ffi.Double dy)>>
-      offset;
-
-  external ffi.Pointer<
-          ffi.NativeFunction<
-              DartObj Function(
-                  ffi.Double direction, ffi.Pointer<ffi.Double> distance)>>
-      fromDirection;
-
-  external ffi.Pointer<
-          ffi
-          .NativeFunction<DartObj Function(DartObj a, DartObj b, ffi.Double t)>>
-      lerp;
 }
 
 final class OpacitySt extends ffi.Struct {
@@ -3455,6 +3473,32 @@ final class NavigatorSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> requestFocus,
               ffi.Pointer<ffi.Char> restorationScopeId,
               ffi.Pointer<ffi.Int> routeTraversalEdgeBehavior)>> navigator;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(DartObj context, ffi.Pointer<ffi.Char> routeName,
+              ffi.Pointer<DartObj> arguments)>> pushNamed;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              DartObj context,
+              ffi.Pointer<ffi.Char> routeName,
+              ffi.Pointer<DartObj> result,
+              ffi.Pointer<DartObj> arguments)>> pushReplacementNamed;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(
+              DartObj context,
+              ffi.Pointer<ffi.Char> routeName,
+              ffi.Pointer<DartObj> result,
+              ffi.Pointer<DartObj> arguments)>> popAndPushNamed;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              DartObj Function(DartObj context, ffi.Pointer<DartObj> result)>>
+      maybePop;
 
   external ffi.Pointer<
       ffi.NativeFunction<

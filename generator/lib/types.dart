@@ -87,10 +87,11 @@ class Types {
     if (t is TypeParameterType) {
       return supportedType(t.bound);
     }
-    for (var handler in handlers) {
-      if (handler.matches(t)) {
-        return true;
-      }
+    if (getHandler(t) != null) {
+      return true;
+    }
+    if (t.isDartAsyncFuture) {
+      return true;
     }
     unsupportedTypes.add(t);
     return false;
@@ -367,9 +368,9 @@ class Types {
       // }
       else if (!isPrimitive(t)) {
         if (t.nullabilitySuffix == NullabilitySuffix.question) {
-          value = '$value != null ? $value.getId() : null';
+          value = '$value != null ? $value.build().getId() : null';
         } else {
-          value = '$value.getId()';
+          value = '$value.build().getId()';
         }
       }
     }

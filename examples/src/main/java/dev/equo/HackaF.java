@@ -7,11 +7,11 @@ import java.util.List;
 
 public class HackaF {
   public static void main(String[] args) {
-    App.runApp(() -> new MyApp());
+    App.runApp(() -> new MyAppF());
   }
 }
 
-class MyApp extends SubStatelessWidget {
+class MyAppF extends SubStatelessWidget {
   @Override
   protected Widget build(BuildContext context) {
     return MaterialApp()
