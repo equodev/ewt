@@ -97,6 +97,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ColorSt.alphaBlend.invoke(fn, foreground.build().getId(),
       background.build().getId());
   }
+  int colorGetAlphaFromOpacity(double opacity) {
+    var st = WidgetFactories.color(factories);
+    var fn = WidgetFactories.ColorSt.getAlphaFromOpacity(st);
+    return WidgetFactories.ColorSt.getAlphaFromOpacity.invoke(fn, opacity);
+  }
 
   int offsetOffset(double dx, double dy) {
     var st = WidgetFactories.offset(factories);
@@ -595,6 +600,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(offset),
       ptr(blurRadius));
   }
+  double shadowConvertRadiusToSigma(double radius) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.convertRadiusToSigma(st);
+    return WidgetFactories.ShadowSt.convertRadiusToSigma.invoke(fn, radius);
+  }
   int shadowLerp(Shadow a, Shadow b, double t) {
     var st = WidgetFactories.shadow(factories);
     var fn = WidgetFactories.ShadowSt.lerp(st);
@@ -657,6 +667,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.borderSide(factories);
     var fn = WidgetFactories.BorderSideSt.merge(st);
     return WidgetFactories.BorderSideSt.merge.invoke(fn, arena, a.build().getId(),
+      b.build().getId());
+  }
+  int borderSideCanMerge(BorderSide a, BorderSide b) {
+    var st = WidgetFactories.borderSide(factories);
+    var fn = WidgetFactories.BorderSideSt.canMerge(st);
+    return WidgetFactories.BorderSideSt.canMerge.invoke(fn, a.build().getId(),
       b.build().getId());
   }
   MemorySegment borderSideLerp(BorderSide a, BorderSide b, double t) {
@@ -1596,6 +1612,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.ScaffoldSt.geometryOf(st);
     return WidgetFactories.ScaffoldSt.geometryOf.invoke(fn, context.build().getId());
   }
+  int scaffoldHasDrawer(BuildContext context, Optional<Boolean> registerForUpdates) {
+    var st = WidgetFactories.scaffold(factories);
+    var fn = WidgetFactories.ScaffoldSt.hasDrawer(st);
+    return WidgetFactories.ScaffoldSt.hasDrawer.invoke(fn, context.build().getId(),
+      ptrBool(registerForUpdates));
+  }
 
   MemorySegment materialAppMaterialApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<ThemeData> theme, Optional<ThemeData> darkTheme, Optional<ThemeData> highContrastTheme, Optional<ThemeData> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<Duration> themeAnimationDuration, Optional<Curve> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.materialApp(factories);
@@ -1857,10 +1879,25 @@ class WidgetConstructors extends WidgetConstructorsBase {
       arena.allocateFrom(routeName),
       ptrObj(arguments));
   }
+  MemorySegment navigatorRestorablePushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.restorablePushNamed(st);
+    return WidgetFactories.NavigatorSt.restorablePushNamed.invoke(fn, context.build().getId(),
+      arena.allocateFrom(routeName),
+      ptrObj(arguments));
+  }
   <TO extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pushReplacementNamed(st);
     return WidgetFactories.NavigatorSt.pushReplacementNamed.invoke(fn, context.build().getId(),
+      arena.allocateFrom(routeName),
+      ptrObj(result),
+      ptrObj(arguments));
+  }
+  <TO extends NativeObj> MemorySegment navigatorRestorablePushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.restorablePushReplacementNamed(st);
+    return WidgetFactories.NavigatorSt.restorablePushReplacementNamed.invoke(fn, context.build().getId(),
       arena.allocateFrom(routeName),
       ptrObj(result),
       ptrObj(arguments));
@@ -1873,10 +1910,29 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(result),
       ptrObj(arguments));
   }
+  <TO extends NativeObj> MemorySegment navigatorRestorablePopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.restorablePopAndPushNamed(st);
+    return WidgetFactories.NavigatorSt.restorablePopAndPushNamed.invoke(fn, context.build().getId(),
+      arena.allocateFrom(routeName),
+      ptrObj(result),
+      ptrObj(arguments));
+  }
+  int navigatorCanPop(BuildContext context) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.canPop(st);
+    return WidgetFactories.NavigatorSt.canPop.invoke(fn, context.build().getId());
+  }
   <T extends NativeObj> int navigatorMaybePop(BuildContext context, Optional<T> result) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.maybePop(st);
     return WidgetFactories.NavigatorSt.maybePop.invoke(fn, context.build().getId(),
+      ptrObj(result));
+  }
+  <T extends NativeObj> void navigatorPop(BuildContext context, Optional<T> result) {
+    var st = WidgetFactories.navigator(factories);
+    var fn = WidgetFactories.NavigatorSt.pop(st);
+    WidgetFactories.NavigatorSt.pop.invoke(fn, context.build().getId(),
       ptrObj(result));
   }
   int navigatorOf(BuildContext context, Optional<Boolean> rootNavigator) {

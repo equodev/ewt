@@ -408,6 +408,9 @@ final class ColorSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           DartObj Function(DartObj foreground, DartObj background)>> alphaBlend;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Double opacity)>>
+      getAlphaFromOpacity;
 }
 
 final class OffsetSt extends ffi.Struct {
@@ -1260,6 +1263,10 @@ final class ShadowSt extends ffi.Struct {
               ffi.Pointer<DartObj> offset,
               ffi.Pointer<ffi.Double> blurRadius)>> shadow;
 
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Double Function(ffi.Double radius)>>
+      convertRadiusToSigma;
+
   external ffi.Pointer<
           ffi
           .NativeFunction<DartObj Function(DartObj a, DartObj b, ffi.Double t)>>
@@ -1349,6 +1356,10 @@ final class BorderSideSt extends ffi.Struct {
 
   external ffi.Pointer<
       ffi.NativeFunction<BorderSideObjSt Function(DartObj a, DartObj b)>> merge;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Int Function(DartObj a, DartObj b)>>
+      canMerge;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -2999,6 +3010,12 @@ final class ScaffoldSt extends ffi.Struct {
 
   external ffi.Pointer<ffi.NativeFunction<DartObj Function(DartObj context)>>
       geometryOf;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              ffi.Int Function(
+                  DartObj context, ffi.Pointer<ffi.Int> registerForUpdates)>>
+      hasDrawer;
 }
 
 final class ScaffoldObjSt extends ffi.Struct {
@@ -3481,11 +3498,26 @@ final class NavigatorSt extends ffi.Struct {
 
   external ffi.Pointer<
       ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              DartObj context,
+              ffi.Pointer<ffi.Char> routeName,
+              ffi.Pointer<DartObj> arguments)>> restorablePushNamed;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
           DartObj Function(
               DartObj context,
               ffi.Pointer<ffi.Char> routeName,
               ffi.Pointer<DartObj> result,
               ffi.Pointer<DartObj> arguments)>> pushReplacementNamed;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              DartObj context,
+              ffi.Pointer<ffi.Char> routeName,
+              ffi.Pointer<DartObj> result,
+              ffi.Pointer<DartObj> arguments)>> restorablePushReplacementNamed;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -3496,9 +3528,24 @@ final class NavigatorSt extends ffi.Struct {
               ffi.Pointer<DartObj> arguments)>> popAndPushNamed;
 
   external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              DartObj context,
+              ffi.Pointer<ffi.Char> routeName,
+              ffi.Pointer<DartObj> result,
+              ffi.Pointer<DartObj> arguments)>> restorablePopAndPushNamed;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      canPop;
+
+  external ffi.Pointer<
           ffi.NativeFunction<
               DartObj Function(DartObj context, ffi.Pointer<DartObj> result)>>
       maybePop;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Void Function(DartObj context, ffi.Pointer<DartObj> result)>> pop;
 
   external ffi.Pointer<
       ffi.NativeFunction<

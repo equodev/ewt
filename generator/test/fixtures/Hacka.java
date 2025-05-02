@@ -1,3 +1,5 @@
+package dev.equo;
+
 import static dev.equo.ewt.EWT.*;
 
 import dev.equo.ewt.*;
@@ -5,25 +7,30 @@ import java.util.List;
 
 public class Hacka {
   public static void main(String[] args) {
-    App.runApp(() -> new MyApp());
+    App.runApp(() -> new MyAppD());
+  }
+
+  public static Widget dialogBuilder(BuildContext context) {
+    return AlertDialog()
+        .title(Text("Hello!"))
+        .content(Text("This is a simple Hello World Flutter application."))
+        .actions(List.of(TextButton(() -> Navigator.pop(context)).child(Text("OK"))));
   }
 }
 
-class MyApp extends SubStatelessWidget {
+class MyAppD extends SubStatelessWidget {
   @Override
   protected Widget build(BuildContext context) {
     return MaterialApp()
         .title("Hello World")
-        .theme(ThemeData()
-            .primarySwatch(Colors.blue())
-            .visualDensity(VisualDensity.adaptivePlatformDensity()))
+        .theme(ThemeData().primarySwatch(Colors.blue()).visualDensity(VisualDensity.compact()))
         .home(new MyHomePage());
   }
 }
 
 class MyHomePage extends SubStatefulWidget {
   @Override
-  protected _MyHomePageState createState() {
+  protected MyHomePageState createState() {
     return new MyHomePageState();
   }
 }
@@ -52,33 +59,6 @@ class MyHomePageState extends SubState<MyHomePage> {
   }
 
   private void _showMessage() {
-    showDialog().context(context()).builder(createDialogBuilder());
-  }
-
-  DialogBuilder createDialogBuilder() {
-    return new DialogBuilder();
-  }
-}
-
-class DialogBuilder {
-  Widget call(BuildContext context) {
-    return AlertDialog()
-        .title(Text("Hello!"))
-        .content(Text("This is a simple Hello World Flutter application."))
-        .actions(List.of(TextButton().onPressed(createDismissCallback(context)).child(Text("OK"))));
-  }
-
-  Runnable createDismissCallback(BuildContext context) {
-    return new DismissCallback(context);
-  }
-}
-
-class DismissCallback {
-  final BuildContext context;
-
-  public DismissCallback(BuildContext context) {}
-
-  void call() {
-    Navigator.of(context).pop();
+    showDialog(context(), Hacka::dialogBuilder);
   }
 }

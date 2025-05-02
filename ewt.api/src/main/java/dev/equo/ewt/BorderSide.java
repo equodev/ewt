@@ -33,6 +33,13 @@ public class BorderSide extends NativeObj.Base implements BorderSideI {
     if (st == null) throw new RuntimeException("Failed to created widget BorderSide");
     return new BorderSide(st);
   }
+  public static boolean canMerge(BorderSideI a, BorderSideI b) {
+    int id = factories.borderSideCanMerge(a.build(),
+      b.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget bool");
+    System.out.println("New bool id:"+id);
+    return intToBool(id);
+  }
   public static BorderSide lerp(BorderSideI a, BorderSideI b, double t) {
     var st = factories.borderSideLerp(a.build(),
       b.build(),

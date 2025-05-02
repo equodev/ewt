@@ -16,6 +16,7 @@ part 'factories_gen.dart';
 
 final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
+const exceptionDouble = -1.0;
 Map<int, Object> _widgetsMap = {};
 
 Object getWidget(int id) => _widgetsMap[id]!;

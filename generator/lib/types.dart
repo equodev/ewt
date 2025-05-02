@@ -68,7 +68,7 @@ class Types {
   }
 
   bool supportedType(DartType t) {
-    if (t.isDartCoreEnum || isPrimitive(t)) {
+    if (t.isDartCoreEnum || t is VoidType || isPrimitive(t)) {
       return true;
     }
     if (t.element is EnumElement) {
@@ -126,6 +126,23 @@ class Types {
     }
     return null;
     // throw 'Wrong type $t not supported by any handler';
+  }
+
+  String type4FFMRet(DartType namedType) {
+    if (namedType is VoidType) {
+      return 'void';
+    }
+    if (namedType.isDartCoreBool) {
+      return 'int';
+    }
+    if (namedType.isDartCoreString) {
+      return 'MemorySegment';
+    }
+    if (isPrimitive(namedType)) {
+      return type4J(namedType);
+    }
+    var gen = getGen(namedType.element!);
+    return gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int';
   }
 
   String type4J(DartType namedType) {
@@ -225,6 +242,18 @@ class Types {
       return getGen(namedType.element!).objType(); //'DartObj'; // object are passes as ids or structs
     }
     return namedType.toString();
+  }
+
+  String type4DRet(DartType namedType) {
+    if (namedType is VoidType) {
+      return 'void';
+    }
+    if (isPrimitive(namedType)) {
+      var type4d = type4D(namedType);
+      return namedType.isDartCoreString ? type4d : type4d.substring(4).toLowerCase();
+    }
+    var gen = getGen(namedType.element!);
+    return gen.objType() == 'DartObj' ? 'int' : gen.objType();
   }
 
   String type4D(DartType namedType) {

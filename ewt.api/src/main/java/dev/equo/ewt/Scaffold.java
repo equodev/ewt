@@ -50,6 +50,13 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
     System.out.println("New ValueListenable<ScaffoldGeometry> id:"+id);
     return new ValueListenable() { public int getId() { return id; } };
   }
+  public static boolean hasDrawer(BuildContextI context) {
+    int id = factories.scaffoldHasDrawer(context.build(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget bool");
+    System.out.println("New bool id:"+id);
+    return intToBool(id);
+  }
   public boolean extendBody() {
     return intToBool(ScaffoldObjSt.extendBody(st));
   }

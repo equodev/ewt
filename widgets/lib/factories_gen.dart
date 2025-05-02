@@ -80,6 +80,7 @@ void _setupColor(WidgetFactories f) {
   f.color.fromRGBO = ffi.Pointer.fromFunction(colorFromRGBO, exception);
   f.color.lerp = ffi.Pointer.fromFunction(colorLerp, exception);
   f.color.alphaBlend = ffi.Pointer.fromFunction(colorAlphaBlend, exception);
+  f.color.getAlphaFromOpacity = ffi.Pointer.fromFunction(colorGetAlphaFromOpacity, exception);
 }
 int colorColor(int value) {
   final w = Color(value);
@@ -107,7 +108,7 @@ int colorFromRGBO(int r, int g, int b, double opacity) {
       opacity);
   return _addWidget(w);
 }
-int colorLerp(DartDartObj x, DartDartObj y, double t) {
+int? colorLerp(DartDartObj x, DartDartObj y, double t) {
   final w = Color.lerp(_widgetsMap[x]! as Color?,
       _widgetsMap[y]! as Color?,
       t);
@@ -117,6 +118,10 @@ int colorAlphaBlend(DartDartObj foreground, DartDartObj background) {
   final w = Color.alphaBlend(_widgetsMap[foreground]! as Color,
       _widgetsMap[background]! as Color);
   return _addWidget(w);
+}
+int colorGetAlphaFromOpacity(double opacity) {
+  final w = Color.getAlphaFromOpacity(opacity);
+  return w;
 }
 
 void _setupOffset(WidgetFactories f) {
@@ -134,7 +139,7 @@ int offsetFromDirection(double direction, ffi.Pointer<ffi.Double> distance) {
       distance.doubleOr(1.0));
   return _addWidget(w);
 }
-int offsetLerp(DartDartObj a, DartDartObj b, double t) {
+int? offsetLerp(DartDartObj a, DartDartObj b, double t) {
   final w = Offset.lerp(_widgetsMap[a]! as Offset?,
       _widgetsMap[b]! as Offset?,
       t);
@@ -153,7 +158,7 @@ void _setupFontWeight(WidgetFactories f) {
   f.fontWeight.w800 = _addWidget(FontWeight.w800);
   f.fontWeight.w900 = _addWidget(FontWeight.w900);
 }
-int fontWeightLerp(DartDartObj a, DartDartObj b, double t) {
+int? fontWeightLerp(DartDartObj a, DartDartObj b, double t) {
   final w = FontWeight.lerp(_widgetsMap[a]! as FontWeight?,
       _widgetsMap[b]! as FontWeight?,
       t);
@@ -751,7 +756,7 @@ int radiusElliptical(double x, double y) {
       y);
   return _addWidget(w);
 }
-int radiusLerp(DartDartObj a, DartDartObj b, double t) {
+int? radiusLerp(DartDartObj a, DartDartObj b, double t) {
   final w = Radius.lerp(_widgetsMap[a]! as Radius?,
       _widgetsMap[b]! as Radius?,
       t);
@@ -837,6 +842,7 @@ BoxShadowObjSt _createBoxShadowObjSt(BoxShadow? w) {
 
 void _setupShadow(WidgetFactories f) {
   f.shadow.shadow = ffi.Pointer.fromFunction(shadowShadow, exception);
+  f.shadow.convertRadiusToSigma = ffi.Pointer.fromFunction(shadowConvertRadiusToSigma, exceptionDouble);
   f.shadow.lerp = ffi.Pointer.fromFunction(shadowLerp, exception);
 }
 int shadowShadow(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> offset, ffi.Pointer<ffi.Double> blurRadius) {
@@ -845,7 +851,11 @@ int shadowShadow(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> offset, ffi.Po
       blurRadius: blurRadius.doubleOr(0.0));
   return _addWidget(w);
 }
-int shadowLerp(DartDartObj a, DartDartObj b, double t) {
+double shadowConvertRadiusToSigma(double radius) {
+  final w = Shadow.convertRadiusToSigma(radius);
+  return w;
+}
+int? shadowLerp(DartDartObj a, DartDartObj b, double t) {
   final w = Shadow.lerp(_widgetsMap[a]! as Shadow?,
       _widgetsMap[b]! as Shadow?,
       t);
@@ -922,6 +932,7 @@ EdgeInsetsObjSt _createEdgeInsetsObjSt(EdgeInsets? w) {
 void _setupBorderSide(WidgetFactories f) {
   f.borderSide.borderSide = ffi.Pointer.fromFunction(borderSideBorderSide);
   f.borderSide.merge = ffi.Pointer.fromFunction(borderSideMerge);
+  f.borderSide.canMerge = ffi.Pointer.fromFunction(borderSideCanMerge, exception);
   f.borderSide.lerp = ffi.Pointer.fromFunction(borderSideLerp);
 }
 BorderSideObjSt borderSideBorderSide(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Int> style, ffi.Pointer<ffi.Double> strokeAlign) {
@@ -935,6 +946,11 @@ BorderSideObjSt borderSideMerge(DartDartObj a, DartDartObj b) {
   final w = BorderSide.merge(_widgetsMap[a]! as BorderSide,
       _widgetsMap[b]! as BorderSide);
   return _createBorderSideObjSt(w);
+}
+int borderSideCanMerge(DartDartObj a, DartDartObj b) {
+  final w = BorderSide.canMerge(_widgetsMap[a]! as BorderSide,
+      _widgetsMap[b]! as BorderSide);
+  return w.toInt();
 }
 BorderSideObjSt borderSideLerp(DartDartObj a, DartDartObj b, double t) {
   final w = BorderSide.lerp(_widgetsMap[a]! as BorderSide,
@@ -2249,6 +2265,7 @@ AppBarObjSt _createAppBarObjSt(AppBar? w) {
 void _setupScaffold(WidgetFactories f) {
   f.scaffold.scaffold = ffi.Pointer.fromFunction(scaffoldScaffold);
   f.scaffold.geometryOf = ffi.Pointer.fromFunction(scaffoldGeometryOf, exception);
+  f.scaffold.hasDrawer = ffi.Pointer.fromFunction(scaffoldHasDrawer, exception);
 }
 ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj> body, ffi.Pointer<DartObj> floatingActionButton, ffi.Pointer<ArrayC> persistentFooterButtons, ffi.Pointer<DartObj> drawer, ffi.Pointer<DrawerCallbackFFI> onDrawerChanged, ffi.Pointer<DartObj> endDrawer, ffi.Pointer<DrawerCallbackFFI> onEndDrawerChanged, ffi.Pointer<DartObj> bottomNavigationBar, ffi.Pointer<DartObj> bottomSheet, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> resizeToAvoidBottomInset, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> drawerDragStartBehavior, ffi.Pointer<ffi.Int> extendBody, ffi.Pointer<ffi.Int> extendBodyBehindAppBar, ffi.Pointer<DartObj> drawerScrimColor, ffi.Pointer<ffi.Double> drawerEdgeDragWidth, ffi.Pointer<ffi.Int> drawerEnableOpenDragGesture, ffi.Pointer<ffi.Int> endDrawerEnableOpenDragGesture, ffi.Pointer<ffi.Char> restorationId) {
   final w = Scaffold(appBar: appBar.objOrNul(),
@@ -2277,6 +2294,11 @@ ScaffoldObjSt scaffoldScaffold(ffi.Pointer<DartObj> appBar, ffi.Pointer<DartObj>
 int scaffoldGeometryOf(DartDartObj context) {
   final w = Scaffold.geometryOf(_widgetsMap[context]! as BuildContext);
   return _addWidget(w);
+}
+int scaffoldHasDrawer(DartDartObj context, ffi.Pointer<ffi.Int> registerForUpdates) {
+  final w = Scaffold.hasDrawer(_widgetsMap[context]! as BuildContext,
+      registerForUpdates: registerForUpdates.boolOr(true));
+  return w.toInt();
 }
 ScaffoldObjSt _createScaffoldObjSt(Scaffold? w) {
   final ScaffoldObjSt stObj = ffi.Struct.create();
@@ -2642,9 +2664,14 @@ int navigatorStateNavigatorState() {
 void _setupNavigator(WidgetFactories f) {
   f.navigator.navigator = ffi.Pointer.fromFunction(navigatorNavigator);
   f.navigator.pushNamed = ffi.Pointer.fromFunction(navigatorPushNamed, exception);
+  f.navigator.restorablePushNamed = ffi.Pointer.fromFunction(navigatorRestorablePushNamed);
   f.navigator.pushReplacementNamed = ffi.Pointer.fromFunction(navigatorPushReplacementNamed, exception);
+  f.navigator.restorablePushReplacementNamed = ffi.Pointer.fromFunction(navigatorRestorablePushReplacementNamed);
   f.navigator.popAndPushNamed = ffi.Pointer.fromFunction(navigatorPopAndPushNamed, exception);
+  f.navigator.restorablePopAndPushNamed = ffi.Pointer.fromFunction(navigatorRestorablePopAndPushNamed);
+  f.navigator.canPop = ffi.Pointer.fromFunction(navigatorCanPop, exception);
   f.navigator.maybePop = ffi.Pointer.fromFunction(navigatorMaybePop, exception);
+  f.navigator.pop = ffi.Pointer.fromFunction(navigatorPop);
   f.navigator.of = ffi.Pointer.fromFunction(navigatorOf, exception);
   f.navigator.maybeOf = ffi.Pointer.fromFunction(navigatorMaybeOf, exception);
 }
@@ -2663,12 +2690,25 @@ int navigatorPushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi
       arguments: arguments.objOrNul());
   return _addWidget(w);
 }
+ffi.Pointer<ffi.Char> navigatorRestorablePushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> arguments) {
+  final w = Navigator.restorablePushNamed(_widgetsMap[context]! as BuildContext,
+      routeName.cast<Utf8>().toDartString(),
+      arguments: arguments.objOrNul());
+  return w.toNativeUtf8().cast<ffi.Char>();
+}
 int navigatorPushReplacementNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> result, ffi.Pointer<DartObj> arguments) {
   final w = Navigator.pushReplacementNamed(_widgetsMap[context]! as BuildContext,
       routeName.cast<Utf8>().toDartString(),
       result: result,
       arguments: arguments.objOrNul());
   return _addWidget(w);
+}
+ffi.Pointer<ffi.Char> navigatorRestorablePushReplacementNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> result, ffi.Pointer<DartObj> arguments) {
+  final w = Navigator.restorablePushReplacementNamed(_widgetsMap[context]! as BuildContext,
+      routeName.cast<Utf8>().toDartString(),
+      result: result,
+      arguments: arguments.objOrNul());
+  return w.toNativeUtf8().cast<ffi.Char>();
 }
 int navigatorPopAndPushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> result, ffi.Pointer<DartObj> arguments) {
   final w = Navigator.popAndPushNamed(_widgetsMap[context]! as BuildContext,
@@ -2677,17 +2717,32 @@ int navigatorPopAndPushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeNam
       arguments: arguments.objOrNul());
   return _addWidget(w);
 }
+ffi.Pointer<ffi.Char> navigatorRestorablePopAndPushNamed(DartDartObj context, ffi.Pointer<ffi.Char> routeName, ffi.Pointer<DartObj> result, ffi.Pointer<DartObj> arguments) {
+  final w = Navigator.restorablePopAndPushNamed(_widgetsMap[context]! as BuildContext,
+      routeName.cast<Utf8>().toDartString(),
+      result: result,
+      arguments: arguments.objOrNul());
+  return w.toNativeUtf8().cast<ffi.Char>();
+}
+int navigatorCanPop(DartDartObj context) {
+  final w = Navigator.canPop(_widgetsMap[context]! as BuildContext);
+  return w.toInt();
+}
 int navigatorMaybePop(DartDartObj context, ffi.Pointer<DartObj> result) {
   final w = Navigator.maybePop(_widgetsMap[context]! as BuildContext,
       result);
   return _addWidget(w);
+}
+void navigatorPop(DartDartObj context, ffi.Pointer<DartObj> result) {
+  Navigator.pop(_widgetsMap[context]! as BuildContext,
+      result);
 }
 int navigatorOf(DartDartObj context, ffi.Pointer<ffi.Int> rootNavigator) {
   final w = Navigator.of(_widgetsMap[context]! as BuildContext,
       rootNavigator: rootNavigator.boolOr(false));
   return _addWidget(w);
 }
-int navigatorMaybeOf(DartDartObj context, ffi.Pointer<ffi.Int> rootNavigator) {
+int? navigatorMaybeOf(DartDartObj context, ffi.Pointer<ffi.Int> rootNavigator) {
   final w = Navigator.maybeOf(_widgetsMap[context]! as BuildContext,
       rootNavigator: rootNavigator.boolOr(false));
   return _addWidget(w);

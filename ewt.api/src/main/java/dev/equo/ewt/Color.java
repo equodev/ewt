@@ -73,6 +73,12 @@ public class Color extends NativeObj.Base implements ColorI {
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
+  public static int getAlphaFromOpacity(double opacity) {
+    int id = factories.colorGetAlphaFromOpacity(opacity);
+    if (id <= 0) throw new RuntimeException("Failed to created widget int");
+    System.out.println("New int id:"+id);
+    return id;
+  }
   @Override
   public Color build() {
     return this;

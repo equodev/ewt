@@ -78,7 +78,7 @@ Widget dialogBuilder(BuildContext context) {
     content: Text('This is a simple Hello World Flutter application.'),
     actions: <Widget>[
       TextButton(
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Navigator.pop(context),
         child: Text('OK'),
       ),
     ],

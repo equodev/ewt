@@ -20,6 +20,11 @@ public class Shadow extends NativeObj.Base implements ShadowI {
   public static ShadowShadowBuilder shadow() {
     return ShadowShadowBuilder.shadowShadow();
   }
+  public static double convertRadiusToSigma(double radius) {
+    double id = factories.shadowConvertRadiusToSigma(radius);
+    System.out.println("New double id:"+id);
+    return id;
+  }
   public static Shadow lerp(ShadowI a, ShadowI b, double t) {
     int id = factories.shadowLerp(a.build(),
       b.build(),

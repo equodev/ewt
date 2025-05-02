@@ -101,7 +101,7 @@ class WidgetGen implements AGen {
       for (var constr in constructors) {
         writeFactory(constr);
       }
-      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !isPrimitive(m.returnType) && !m.returnType.isDartCoreList /*&& m.returnType == dartClass.thisType*/)) {
+      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList /*&& m.returnType == dartClass.thisType*/)) {
         writeFactory(constr);
       }
     }
@@ -248,15 +248,18 @@ class WidgetGen implements AGen {
   }
 
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
-    var gen = types.getGen(node.returnType.element!);
+    var gen = node.returnType is! VoidType ? types.getGen(node.returnType.element!) : null;
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
-        .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen.objType().endsWith('ObjSt') ? '' : ', exception'});');
+        .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen == null || node.returnType.isDartCoreString || gen.objType().endsWith('ObjSt') ? '' : ', ${exception(node.returnType)}'});');
     var nullabilitySuffix = node.returnType.nullabilitySuffix == NullabilitySuffix.question ? '?' : '' ;
     dartFns
-      ..writeln('${gen.objType() == 'DartObj' ? 'int' : '${gen.objType()}$nullabilitySuffix'} $factoryName(${dartParams.decl}) {')
-      ..writeln('  final w = $widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
-    if (gen.objType().endsWith('ObjSt')) {
+      ..writeln('${types.type4DRet(node.returnType)}$nullabilitySuffix $factoryName(${dartParams.decl}) {')
+      // ..writeln('${gen.objType() == 'DartObj' ? 'int' : '${gen.objType()}$nullabilitySuffix'} $factoryName(${dartParams.decl}) {')
+      ..writeln('  ${gen == null ? '' : 'final w = '}$widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
+    if (gen == null) {
+    }
+    else if (gen.objType().endsWith('ObjSt')) {
       if (node.returnType.nullabilitySuffix == NullabilitySuffix.question) {
         dartFns.writeln('  return w != null ? _create${gen.objType()}(w) : null;');
       } else {
@@ -264,13 +267,14 @@ class WidgetGen implements AGen {
       }
     }
     else {
-      dartFns.writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};');
+      // dartFns.writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};');
+      dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
     }
     dartFns .writeln('}');
   }
 
   void writeCFactory(String factory, FunctionTypedElement node, String retType) {
-    headerFile.writeln('    ${CLang(types).field(factory, types.getGen(node.returnType.element!).objType(), params: node.parameters)}');
+    headerFile.writeln('    ${CLang(types).field(factory, types.type4C(node.returnType), params: node.parameters)}');
   }
 
   void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
@@ -315,7 +319,7 @@ class WidgetGen implements AGen {
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
     javaFile
         .writeln('  public static ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
-    var gen = types.getGen(node.returnType.element!);
+    var gen = node.returnType is VoidType ? null : types.getGen(node.returnType.element!);
     if (gen is WidgetGen) {
       gen.writeJavaInstanceBody(factoryName, jParamsValuesOpt, node);
       javaFile.write(gen.javaFile);
@@ -328,20 +332,25 @@ class WidgetGen implements AGen {
   }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
+    final retType = types.type4FFMRet(node.returnType);
     javaFile
-      ..writeln('    int id = factories.$factoryName(${jParams.names});')
-      ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");')
+      ..writeln('    $retType id = factories.$factoryName(${jParams.names});');
+    if (retType == 'int')
+      javaFile
+        ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
+    javaFile
       ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
       ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
   }
 
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, FunctionTypedElement node) {
-    var gen = types.getGen(node.returnType.element!);
+    var type4ffmRet = types.type4FFMRet(node.returnType);
+    var useArena = node.returnType is! VoidType && types.getGen(node.returnType.element!).objType().endsWith('ObjSt');
     javaFactories
-      ..writeln('  ${JLang().methodTypeParameters(node.type)}${gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int'} $factoryName(${jParams.decl}) {')
+      ..writeln('  ${JLang().methodTypeParameters(node.type)}$type4ffmRet $factoryName(${jParams.decl}) {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
       ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
-      ..writeln('    return WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${gen.objType().endsWith('ObjSt') ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
+      ..writeln('    ${node.returnType is VoidType ? '' : 'return '}WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
       ..writeln('  }');
   }
 
@@ -472,6 +481,13 @@ class WidgetGen implements AGen {
   };
 }
 
+String exception(DartType returnType) {
+  if (returnType.isDartCoreDouble) {
+    return 'exceptionDouble';
+  }
+  return 'exception';
+}
+
 abstract class ObjStGen extends WidgetGen {
   String widgetSt;
 
@@ -578,10 +594,17 @@ class ImmutableGen extends ObjStGen {
       super.writeJavaInstanceBody(factoryName, jParams, node);
       return;
     }
-    javaFile
-      ..writeln('    var st = factories.$factoryName(${jParams.names});')
-      ..writeln('    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
-      ..writeln('    return new ${types.type4J(node.returnType)}(st);');
+    if (node.returnType is VoidType) {
+      javaFile
+        .writeln('    factories.$factoryName(${jParams.names});');
+    } else {
+      javaFile
+        ..writeln('    var st = factories.$factoryName(${jParams.names});')
+        ..writeln(
+            '    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
+        ..writeln(
+            '    return new ${types.type4J(node.returnType)}(st);');
+    }
   }
 
   @override

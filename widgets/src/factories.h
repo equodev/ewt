@@ -12,6 +12,7 @@ typedef struct {
     DartObj (*fromRGBO)(int r, int g, int b, double opacity);
     DartObj (*lerp)(DartObj x, DartObj y, double t);
     DartObj (*alphaBlend)(DartObj foreground, DartObj background);
+    int (*getAlphaFromOpacity)(double opacity);
   } color;
 
   struct OffsetSt {
@@ -162,6 +163,7 @@ typedef struct {
 
   struct ShadowSt {
     DartObj (*shadow)(DartObj* color, DartObj* offset, double* blurRadius);
+    double (*convertRadiusToSigma)(double radius);
     DartObj (*lerp)(DartObj a, DartObj b, double t);
   } shadow;
 
@@ -180,6 +182,7 @@ typedef struct {
   struct BorderSideSt {
     BorderSideObjSt (*borderSide)(DartObj* color, double* width, int* style, double* strokeAlign);
     BorderSideObjSt (*merge)(DartObj a, DartObj b);
+    int (*canMerge)(DartObj a, DartObj b);
     BorderSideObjSt (*lerp)(DartObj a, DartObj b, double t);
   } borderSide;
 
@@ -340,6 +343,7 @@ typedef struct {
   struct ScaffoldSt {
     ScaffoldObjSt (*scaffold)(DartObj* appBar, DartObj* body, DartObj* floatingActionButton, ArrayC* persistentFooterButtons, DartObj* drawer, DrawerCallbackFFI* onDrawerChanged, DartObj* endDrawer, DrawerCallbackFFI* onEndDrawerChanged, DartObj* bottomNavigationBar, DartObj* bottomSheet, DartObj* backgroundColor, int* resizeToAvoidBottomInset, int* primary, int* drawerDragStartBehavior, int* extendBody, int* extendBodyBehindAppBar, DartObj* drawerScrimColor, double* drawerEdgeDragWidth, int* drawerEnableOpenDragGesture, int* endDrawerEnableOpenDragGesture, char* restorationId);
     DartObj (*geometryOf)(DartObj context);
+    int (*hasDrawer)(DartObj context, int* registerForUpdates);
   } scaffold;
 
   struct MaterialAppSt {
@@ -381,9 +385,14 @@ typedef struct {
   struct NavigatorSt {
     NavigatorObjSt (*navigator)(char* initialRoute, int* reportsRouteUpdateToEngine, int* clipBehavior, int* requestFocus, char* restorationScopeId, int* routeTraversalEdgeBehavior);
     DartObj (*pushNamed)(DartObj context, char* routeName, DartObj* arguments);
+    char* (*restorablePushNamed)(DartObj context, char* routeName, DartObj* arguments);
     DartObj (*pushReplacementNamed)(DartObj context, char* routeName, DartObj* result, DartObj* arguments);
+    char* (*restorablePushReplacementNamed)(DartObj context, char* routeName, DartObj* result, DartObj* arguments);
     DartObj (*popAndPushNamed)(DartObj context, char* routeName, DartObj* result, DartObj* arguments);
+    char* (*restorablePopAndPushNamed)(DartObj context, char* routeName, DartObj* result, DartObj* arguments);
+    int (*canPop)(DartObj context);
     DartObj (*maybePop)(DartObj context, DartObj* result);
+    void (*pop)(DartObj context, DartObj* result);
     DartObj (*of)(DartObj context, int* rootNavigator);
     DartObj (*maybeOf)(DartObj context, int* rootNavigator);
   } navigator;
