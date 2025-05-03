@@ -19,15 +19,15 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * }
  * }
  */
-public class SubStatefulWidgetObjSt {
+public class FilledButtonObjSt {
 
-    SubStatefulWidgetObjSt() {
+    FilledButtonObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$816:9");
+    ).withName("$anon$763:9");
 
     /**
      * The layout of this struct

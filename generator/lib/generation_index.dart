@@ -80,9 +80,15 @@ m.TextButton? textButton;
 m.NavigatorState? navigatorState;
 m.Navigator? navigator;
 m.AlertDialog? alertDialog;
+m.InputDecoration? inputDecoration;
 m.TextField? textField;
 m.TextDecoration? textDecoration;
 m.Divider? divider;
+m.FilledButton? filledButton;
+m.OutlineInputBorder? outlineInputBorder;
+m.SnackBarAction? snackBarAction;
+m.SnackBar? snackBar;
+m.ScaffoldMessenger? scaffoldMessenger;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;

@@ -16,18 +16,24 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     double gapPadding;
+ *     BorderRadiusObjSt borderRadius;
  * }
  * }
  */
-public class SubStatefulWidgetObjSt {
+public class OutlineInputBorderObjSt {
 
-    SubStatefulWidgetObjSt() {
+    OutlineInputBorderObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$816:9");
+        StarterBridge.C_INT.withName("id"),
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_DOUBLE.withName("gapPadding"),
+        BorderRadiusObjSt.layout().withName("borderRadius"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$767:9");
 
     /**
      * The layout of this struct
@@ -78,6 +84,94 @@ public class SubStatefulWidgetObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfDouble gapPadding$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("gapPadding"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * double gapPadding
+     * }
+     */
+    public static final OfDouble gapPadding$layout() {
+        return gapPadding$LAYOUT;
+    }
+
+    private static final long gapPadding$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * double gapPadding
+     * }
+     */
+    public static final long gapPadding$offset() {
+        return gapPadding$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * double gapPadding
+     * }
+     */
+    public static double gapPadding(MemorySegment struct) {
+        return struct.get(gapPadding$LAYOUT, gapPadding$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * double gapPadding
+     * }
+     */
+    public static void gapPadding(MemorySegment struct, double fieldValue) {
+        struct.set(gapPadding$LAYOUT, gapPadding$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout borderRadius$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("borderRadius"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BorderRadiusObjSt borderRadius
+     * }
+     */
+    public static final GroupLayout borderRadius$layout() {
+        return borderRadius$LAYOUT;
+    }
+
+    private static final long borderRadius$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BorderRadiusObjSt borderRadius
+     * }
+     */
+    public static final long borderRadius$offset() {
+        return borderRadius$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BorderRadiusObjSt borderRadius
+     * }
+     */
+    public static MemorySegment borderRadius(MemorySegment struct) {
+        return struct.asSlice(borderRadius$OFFSET, borderRadius$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BorderRadiusObjSt borderRadius
+     * }
+     */
+    public static void borderRadius(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, borderRadius$OFFSET, borderRadius$LAYOUT.byteSize());
     }
 
     /**

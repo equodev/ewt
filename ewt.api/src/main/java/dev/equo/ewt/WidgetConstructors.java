@@ -2011,10 +2011,92 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(insetAnimationCurve));
   }
 
-  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.inputDecoration(factories);
+    var fn = WidgetFactories.InputDecorationSt.inputDecoration(st);
+    return WidgetFactories.InputDecorationSt.inputDecoration.invoke(fn, arena, ptrObj(icon),
+      ptrObj(iconColor),
+      ptrObj(label),
+      ptrStr(labelText),
+      ptrObj(labelStyle),
+      ptrObj(floatingLabelStyle),
+      ptrObj(helper),
+      ptrStr(helperText),
+      ptrObj(helperStyle),
+      ptr(helperMaxLines),
+      ptrStr(hintText),
+      ptrObj(hintStyle),
+      ptrEnum(hintTextDirection),
+      ptr(hintMaxLines),
+      ptrObj(hintFadeDuration),
+      ptrBool(maintainHintHeight),
+      ptrObj(error),
+      ptrStr(errorText),
+      ptrObj(errorStyle),
+      ptr(errorMaxLines),
+      ptrEnum(floatingLabelBehavior),
+      ptrBool(isCollapsed),
+      ptrBool(isDense),
+      ptrObj(contentPadding),
+      ptrObj(prefixIcon),
+      ptrObj(prefixIconConstraints),
+      ptrObj(prefix),
+      ptrStr(prefixText),
+      ptrObj(prefixStyle),
+      ptrObj(prefixIconColor),
+      ptrObj(suffixIcon),
+      ptrObj(suffix),
+      ptrStr(suffixText),
+      ptrObj(suffixStyle),
+      ptrObj(suffixIconColor),
+      ptrObj(suffixIconConstraints),
+      ptrObj(counter),
+      ptrStr(counterText),
+      ptrObj(counterStyle),
+      ptrBool(filled),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(errorBorder),
+      ptrObj(focusedBorder),
+      ptrObj(focusedErrorBorder),
+      ptrObj(disabledBorder),
+      ptrObj(enabledBorder),
+      ptrObj(border),
+      ptrBool(enabled),
+      ptrStr(semanticCounterText),
+      ptrBool(alignLabelWithHint),
+      ptrObj(constraints));
+  }
+  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.inputDecoration(factories);
+    var fn = WidgetFactories.InputDecorationSt.collapsed(st);
+    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, arena.allocateFrom(hintText),
+      ptrEnum(floatingLabelBehavior),
+      ptrObj(hintStyle),
+      ptrEnum(hintTextDirection),
+      ptr(hintMaxLines),
+      ptrObj(hintFadeDuration),
+      ptrBool(maintainHintHeight),
+      ptrBool(filled),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(border),
+      ptrBool(enabled),
+      ptrObj(constraints));
+  }
+
+  int inputBorderNone() {
+    var st = WidgetFactories.inputBorder(factories);
+    return WidgetFactories.InputBorderSt.none(st);
+  }
+
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     var st = WidgetFactories.textField(factories);
     var fn = WidgetFactories.TextFieldSt.textField(st);
     return WidgetFactories.TextFieldSt.textField.invoke(fn, arena, ptrObj(groupId),
+      ptrObj(decoration),
       ptrEnum(textInputAction),
       ptrEnum(textCapitalization),
       ptrObj(style),
@@ -2077,6 +2159,110 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.DividerSt.createBorderSide.invoke(fn, arena, context != null ? context.build().getId() : null,
       ptrObj(color),
       ptr(width));
+  }
+
+  MemorySegment filledButtonFilledButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+    var st = WidgetFactories.filledButton(factories);
+    var fn = WidgetFactories.FilledButtonSt.filledButton(st);
+    return WidgetFactories.FilledButtonSt.filledButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      child != null ? child.build().getId() : null);
+  }
+  MemorySegment filledButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+    var st = WidgetFactories.filledButton(factories);
+    var fn = WidgetFactories.FilledButtonSt.icon(st);
+    return WidgetFactories.FilledButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      ptrObj(icon),
+      label.build().getId(),
+      ptrEnum(iconAlignment));
+  }
+  MemorySegment filledButtonTonal(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+    var st = WidgetFactories.filledButton(factories);
+    var fn = WidgetFactories.FilledButtonSt.tonal(st);
+    return WidgetFactories.FilledButtonSt.tonal.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      child != null ? child.build().getId() : null);
+  }
+  MemorySegment filledButtonTonalIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+    var st = WidgetFactories.filledButton(factories);
+    var fn = WidgetFactories.FilledButtonSt.tonalIcon(st);
+    return WidgetFactories.FilledButtonSt.tonalIcon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(clipBehavior),
+      ptrObj(icon),
+      label.build().getId(),
+      ptrEnum(iconAlignment));
+  }
+
+  MemorySegment outlineInputBorderOutlineInputBorder(Optional<BorderSide> borderSide, Optional<BorderRadius> borderRadius, OptionalDouble gapPadding) {
+    var st = WidgetFactories.outlineInputBorder(factories);
+    var fn = WidgetFactories.OutlineInputBorderSt.outlineInputBorder(st);
+    return WidgetFactories.OutlineInputBorderSt.outlineInputBorder.invoke(fn, arena, ptrObj(borderSide),
+      ptrObj(borderRadius),
+      ptr(gapPadding));
+  }
+
+  MemorySegment snackBarActionSnackBarAction(Optional<Color> textColor, Optional<Color> disabledTextColor, Optional<Color> backgroundColor, Optional<Color> disabledBackgroundColor, String label, Runnable onPressed) {
+    var st = WidgetFactories.snackBarAction(factories);
+    var fn = WidgetFactories.SnackBarActionSt.snackBarAction(st);
+    return WidgetFactories.SnackBarActionSt.snackBarAction.invoke(fn, arena, ptrObj(textColor),
+      ptrObj(disabledTextColor),
+      ptrObj(backgroundColor),
+      ptrObj(disabledBackgroundColor),
+      arena.allocateFrom(label),
+      ptrVoidCallbackFn(onPressed));
+  }
+
+  MemorySegment snackBarSnackBar(Widget content, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, OptionalDouble width, Optional<ShapeBorder> shape, Optional<HitTestBehavior> hitTestBehavior, Optional<SnackBarBehavior> behavior, Optional<SnackBarAction> action, OptionalDouble actionOverflowThreshold, Optional<Boolean> showCloseIcon, Optional<Color> closeIconColor, Optional<Duration> duration, Optional<Animation> animation, Optional<Runnable> onVisible, Optional<DismissDirection> dismissDirection, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.snackBar(factories);
+    var fn = WidgetFactories.SnackBarSt.snackBar(st);
+    return WidgetFactories.SnackBarSt.snackBar.invoke(fn, arena, content.build().getId(),
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(margin),
+      ptrObj(padding),
+      ptr(width),
+      ptrObj(shape),
+      ptrEnum(hitTestBehavior),
+      ptrEnum(behavior),
+      ptrObj(action),
+      ptr(actionOverflowThreshold),
+      ptrBool(showCloseIcon),
+      ptrObj(closeIconColor),
+      ptrObj(duration),
+      ptrObj(animation),
+      onVisible.isPresent() ? ptrVoidCallbackFn(onVisible.get()) : MemorySegment.NULL,
+      ptrEnum(dismissDirection),
+      ptrEnum(clipBehavior));
+  }
+  int snackBarCreateAnimationController(TickerProvider vsync, Optional<Duration> duration, Optional<Duration> reverseDuration) {
+    var st = WidgetFactories.snackBar(factories);
+    var fn = WidgetFactories.SnackBarSt.createAnimationController(st);
+    return WidgetFactories.SnackBarSt.createAnimationController.invoke(fn, vsync.build().getId(),
+      ptrObj(duration),
+      ptrObj(reverseDuration));
+  }
+
+  MemorySegment scaffoldMessengerScaffoldMessenger(Widget child) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger(st);
+    return WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger.invoke(fn, arena, child.build().getId());
   }
 
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {

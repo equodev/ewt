@@ -650,6 +650,64 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj icon;
+  DartObj iconColor;
+  DartObj label;
+  char* labelText;
+  TextStyleObjSt labelStyle;
+  TextStyleObjSt floatingLabelStyle;
+  DartObj helper;
+  char* helperText;
+  TextStyleObjSt helperStyle;
+  int helperMaxLines;
+  char* hintText;
+  TextStyleObjSt hintStyle;
+  int hintTextDirection;
+  int hintMaxLines;
+  DartObj hintFadeDuration;
+  int maintainHintHeight;
+  DartObj error;
+  char* errorText;
+  TextStyleObjSt errorStyle;
+  int errorMaxLines;
+  int floatingLabelBehavior;
+  int isDense;
+  DartObj contentPadding;
+  int isCollapsed;
+  DartObj prefixIcon;
+  BoxConstraintsObjSt prefixIconConstraints;
+  DartObj prefix;
+  char* prefixText;
+  TextStyleObjSt prefixStyle;
+  DartObj prefixIconColor;
+  DartObj suffixIcon;
+  DartObj suffix;
+  char* suffixText;
+  TextStyleObjSt suffixStyle;
+  DartObj suffixIconColor;
+  BoxConstraintsObjSt suffixIconConstraints;
+  char* counterText;
+  DartObj counter;
+  TextStyleObjSt counterStyle;
+  int filled;
+  DartObj fillColor;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj errorBorder;
+  DartObj focusedBorder;
+  DartObj focusedErrorBorder;
+  DartObj disabledBorder;
+  DartObj enabledBorder;
+  DartObj border;
+  int enabled;
+  char* semanticCounterText;
+  int alignLabelWithHint;
+  BoxConstraintsObjSt constraints;
+} InputDecorationObjSt;
+
+typedef struct {
+  int id;
+  InputDecorationObjSt decoration;
   int textInputAction;
   int textCapitalization;
   TextStyleObjSt style;
@@ -701,6 +759,51 @@ typedef struct {
   double endIndent;
   DartObj color;
 } DividerObjSt;
+
+typedef struct {
+  int id;
+} FilledButtonObjSt;
+
+typedef struct {
+  int id;
+  double gapPadding;
+  BorderRadiusObjSt borderRadius;
+} OutlineInputBorderObjSt;
+
+typedef struct {
+  int id;
+  DartObj textColor;
+  DartObj backgroundColor;
+  DartObj disabledTextColor;
+  DartObj disabledBackgroundColor;
+  char* label;
+} SnackBarActionObjSt;
+
+typedef struct {
+  int id;
+  DartObj content;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj margin;
+  DartObj padding;
+  double width;
+  DartObj shape;
+  int hitTestBehavior;
+  int behavior;
+  SnackBarActionObjSt action;
+  double actionOverflowThreshold;
+  int showCloseIcon;
+  DartObj closeIconColor;
+  DartObj duration;
+  DartObj animation;
+  int dismissDirection;
+  int clipBehavior;
+} SnackBarObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+} ScaffoldMessengerObjSt;
 
 typedef struct {
   int id;

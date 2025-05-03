@@ -446,7 +446,7 @@ class Types {
   }
 
   bool hasSubClassInJava(DartType t) {
-    return widgets.any((w) => w.name == "Sub${t.element!.name}");
+    return widgets.any((w) => w.name == "Sub${t.element?.name}");
   }
 
 }

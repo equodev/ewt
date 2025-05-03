@@ -252,11 +252,12 @@ void main() {
           String expr() => actions[widget.currentAction].split(' ').sublist(0, 2).join(' ') + ' ';
         }''');
       final actualOutput = await transpile(dartFile.path, 'List', skipFormat: true);
-      expect(actualOutput, equalsIgnoringWhitespace('''
+      expect(actualOutput, equalsIgnoringWhitespace('''import java.util.stream.Collectors;
+        import java.util.Arrays;
         class B {
           List<String> actions;
           String expr() {
-            return actions.get(widget.currentAction).split(" ").subList(0, 2).join(" ") + " ";
+            return Arrays.stream(actions.get(widget.currentAction).split(" ")).toList().subList(0, 2).stream().collect(Collectors.joining(" ")) + " ";
           }
         }'''));
     });

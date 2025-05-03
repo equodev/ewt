@@ -263,9 +263,23 @@ final class WidgetFactories extends ffi.Struct {
 
   external AlertDialogSt alertDialog;
 
+  external InputDecorationSt inputDecoration;
+
+  external InputBorderSt inputBorder;
+
   external TextFieldSt textField;
 
   external DividerSt divider;
+
+  external FilledButtonSt filledButton;
+
+  external OutlineInputBorderSt outlineInputBorder;
+
+  external SnackBarActionSt snackBarAction;
+
+  external SnackBarSt snackBar;
+
+  external ScaffoldMessengerSt scaffoldMessenger;
 
   external SubStateSt subState;
 
@@ -3719,11 +3733,239 @@ final class AlertDialogObjSt extends ffi.Struct {
   external int scrollable;
 }
 
+final class InputDecorationSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          InputDecorationObjSt Function(
+              ffi.Pointer<DartObj> icon,
+              ffi.Pointer<DartObj> iconColor,
+              ffi.Pointer<DartObj> label,
+              ffi.Pointer<ffi.Char> labelText,
+              ffi.Pointer<DartObj> labelStyle,
+              ffi.Pointer<DartObj> floatingLabelStyle,
+              ffi.Pointer<DartObj> helper,
+              ffi.Pointer<ffi.Char> helperText,
+              ffi.Pointer<DartObj> helperStyle,
+              ffi.Pointer<ffi.Int> helperMaxLines,
+              ffi.Pointer<ffi.Char> hintText,
+              ffi.Pointer<DartObj> hintStyle,
+              ffi.Pointer<ffi.Int> hintTextDirection,
+              ffi.Pointer<ffi.Int> hintMaxLines,
+              ffi.Pointer<DartObj> hintFadeDuration,
+              ffi.Pointer<ffi.Int> maintainHintHeight,
+              ffi.Pointer<DartObj> error,
+              ffi.Pointer<ffi.Char> errorText,
+              ffi.Pointer<DartObj> errorStyle,
+              ffi.Pointer<ffi.Int> errorMaxLines,
+              ffi.Pointer<ffi.Int> floatingLabelBehavior,
+              ffi.Pointer<ffi.Int> isCollapsed,
+              ffi.Pointer<ffi.Int> isDense,
+              ffi.Pointer<DartObj> contentPadding,
+              ffi.Pointer<DartObj> prefixIcon,
+              ffi.Pointer<DartObj> prefixIconConstraints,
+              ffi.Pointer<DartObj> prefix,
+              ffi.Pointer<ffi.Char> prefixText,
+              ffi.Pointer<DartObj> prefixStyle,
+              ffi.Pointer<DartObj> prefixIconColor,
+              ffi.Pointer<DartObj> suffixIcon,
+              ffi.Pointer<DartObj> suffix,
+              ffi.Pointer<ffi.Char> suffixText,
+              ffi.Pointer<DartObj> suffixStyle,
+              ffi.Pointer<DartObj> suffixIconColor,
+              ffi.Pointer<DartObj> suffixIconConstraints,
+              ffi.Pointer<DartObj> counter,
+              ffi.Pointer<ffi.Char> counterText,
+              ffi.Pointer<DartObj> counterStyle,
+              ffi.Pointer<ffi.Int> filled,
+              ffi.Pointer<DartObj> fillColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> errorBorder,
+              ffi.Pointer<DartObj> focusedBorder,
+              ffi.Pointer<DartObj> focusedErrorBorder,
+              ffi.Pointer<DartObj> disabledBorder,
+              ffi.Pointer<DartObj> enabledBorder,
+              ffi.Pointer<DartObj> border,
+              ffi.Pointer<ffi.Int> enabled,
+              ffi.Pointer<ffi.Char> semanticCounterText,
+              ffi.Pointer<ffi.Int> alignLabelWithHint,
+              ffi.Pointer<DartObj> constraints)>> inputDecoration;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          InputDecorationObjSt Function(
+              ffi.Pointer<ffi.Char> hintText,
+              ffi.Pointer<ffi.Int> floatingLabelBehavior,
+              ffi.Pointer<DartObj> hintStyle,
+              ffi.Pointer<ffi.Int> hintTextDirection,
+              ffi.Pointer<ffi.Int> hintMaxLines,
+              ffi.Pointer<DartObj> hintFadeDuration,
+              ffi.Pointer<ffi.Int> maintainHintHeight,
+              ffi.Pointer<ffi.Int> filled,
+              ffi.Pointer<DartObj> fillColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<DartObj> border,
+              ffi.Pointer<ffi.Int> enabled,
+              ffi.Pointer<DartObj> constraints)>> collapsed;
+}
+
+final class InputDecorationObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int icon;
+
+  @DartObj()
+  external int iconColor;
+
+  @DartObj()
+  external int label;
+
+  external ffi.Pointer<ffi.Char> labelText;
+
+  external TextStyleObjSt labelStyle;
+
+  external TextStyleObjSt floatingLabelStyle;
+
+  @DartObj()
+  external int helper;
+
+  external ffi.Pointer<ffi.Char> helperText;
+
+  external TextStyleObjSt helperStyle;
+
+  @ffi.Int()
+  external int helperMaxLines;
+
+  external ffi.Pointer<ffi.Char> hintText;
+
+  external TextStyleObjSt hintStyle;
+
+  @ffi.Int()
+  external int hintTextDirection;
+
+  @ffi.Int()
+  external int hintMaxLines;
+
+  @DartObj()
+  external int hintFadeDuration;
+
+  @ffi.Int()
+  external int maintainHintHeight;
+
+  @DartObj()
+  external int error;
+
+  external ffi.Pointer<ffi.Char> errorText;
+
+  external TextStyleObjSt errorStyle;
+
+  @ffi.Int()
+  external int errorMaxLines;
+
+  @ffi.Int()
+  external int floatingLabelBehavior;
+
+  @ffi.Int()
+  external int isDense;
+
+  @DartObj()
+  external int contentPadding;
+
+  @ffi.Int()
+  external int isCollapsed;
+
+  @DartObj()
+  external int prefixIcon;
+
+  external BoxConstraintsObjSt prefixIconConstraints;
+
+  @DartObj()
+  external int prefix;
+
+  external ffi.Pointer<ffi.Char> prefixText;
+
+  external TextStyleObjSt prefixStyle;
+
+  @DartObj()
+  external int prefixIconColor;
+
+  @DartObj()
+  external int suffixIcon;
+
+  @DartObj()
+  external int suffix;
+
+  external ffi.Pointer<ffi.Char> suffixText;
+
+  external TextStyleObjSt suffixStyle;
+
+  @DartObj()
+  external int suffixIconColor;
+
+  external BoxConstraintsObjSt suffixIconConstraints;
+
+  external ffi.Pointer<ffi.Char> counterText;
+
+  @DartObj()
+  external int counter;
+
+  external TextStyleObjSt counterStyle;
+
+  @ffi.Int()
+  external int filled;
+
+  @DartObj()
+  external int fillColor;
+
+  @DartObj()
+  external int focusColor;
+
+  @DartObj()
+  external int hoverColor;
+
+  @DartObj()
+  external int errorBorder;
+
+  @DartObj()
+  external int focusedBorder;
+
+  @DartObj()
+  external int focusedErrorBorder;
+
+  @DartObj()
+  external int disabledBorder;
+
+  @DartObj()
+  external int enabledBorder;
+
+  @DartObj()
+  external int border;
+
+  @ffi.Int()
+  external int enabled;
+
+  external ffi.Pointer<ffi.Char> semanticCounterText;
+
+  @ffi.Int()
+  external int alignLabelWithHint;
+
+  external BoxConstraintsObjSt constraints;
+}
+
+final class InputBorderSt extends ffi.Struct {
+  @DartObj()
+  external int none;
+}
+
 final class TextFieldSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           TextFieldObjSt Function(
               ffi.Pointer<DartObj> groupId,
+              ffi.Pointer<DartObj> decoration,
               ffi.Pointer<ffi.Int> textInputAction,
               ffi.Pointer<ffi.Int> textCapitalization,
               ffi.Pointer<DartObj> style,
@@ -3774,6 +4016,8 @@ final class TextFieldSt extends ffi.Struct {
 final class TextFieldObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
+
+  external InputDecorationObjSt decoration;
 
   @ffi.Int()
   external int textInputAction;
@@ -3946,6 +4190,209 @@ final class DividerObjSt extends ffi.Struct {
 
   @DartObj()
   external int color;
+}
+
+final class FilledButtonSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FilledButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              DartObj child)>> filledButton;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FilledButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> icon,
+              DartObj label,
+              ffi.Pointer<ffi.Int> iconAlignment)>> icon;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FilledButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              DartObj child)>> tonal;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FilledButtonObjSt Function(
+              VoidCallbackFFI onPressed,
+              ffi.Pointer<VoidCallbackFFI> onLongPress,
+              ffi.Pointer<ValueChangedForBoolFFI> onHover,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> icon,
+              DartObj label,
+              ffi.Pointer<ffi.Int> iconAlignment)>> tonalIcon;
+}
+
+final class FilledButtonObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+final class OutlineInputBorderSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          OutlineInputBorderObjSt Function(
+              ffi.Pointer<DartObj> borderSide,
+              ffi.Pointer<DartObj> borderRadius,
+              ffi.Pointer<ffi.Double> gapPadding)>> outlineInputBorder;
+}
+
+final class OutlineInputBorderObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double gapPadding;
+
+  external BorderRadiusObjSt borderRadius;
+}
+
+final class SnackBarActionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SnackBarActionObjSt Function(
+              ffi.Pointer<DartObj> textColor,
+              ffi.Pointer<DartObj> disabledTextColor,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> disabledBackgroundColor,
+              ffi.Pointer<ffi.Char> label,
+              VoidCallbackFFI onPressed)>> snackBarAction;
+}
+
+final class SnackBarActionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int textColor;
+
+  @DartObj()
+  external int backgroundColor;
+
+  @DartObj()
+  external int disabledTextColor;
+
+  @DartObj()
+  external int disabledBackgroundColor;
+
+  external ffi.Pointer<ffi.Char> label;
+}
+
+final class SnackBarSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SnackBarObjSt Function(
+              DartObj content,
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<DartObj> margin,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<ffi.Int> hitTestBehavior,
+              ffi.Pointer<ffi.Int> behavior,
+              ffi.Pointer<DartObj> action,
+              ffi.Pointer<ffi.Double> actionOverflowThreshold,
+              ffi.Pointer<ffi.Int> showCloseIcon,
+              ffi.Pointer<DartObj> closeIconColor,
+              ffi.Pointer<DartObj> duration,
+              ffi.Pointer<DartObj> animation,
+              ffi.Pointer<VoidCallbackFFI> onVisible,
+              ffi.Pointer<ffi.Int> dismissDirection,
+              ffi.Pointer<ffi.Int> clipBehavior)>> snackBar;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DartObj Function(DartObj vsync, ffi.Pointer<DartObj> duration,
+              ffi.Pointer<DartObj> reverseDuration)>> createAnimationController;
+}
+
+final class SnackBarObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int content;
+
+  @DartObj()
+  external int backgroundColor;
+
+  @ffi.Double()
+  external double elevation;
+
+  @DartObj()
+  external int margin;
+
+  @DartObj()
+  external int padding;
+
+  @ffi.Double()
+  external double width;
+
+  @DartObj()
+  external int shape;
+
+  @ffi.Int()
+  external int hitTestBehavior;
+
+  @ffi.Int()
+  external int behavior;
+
+  external SnackBarActionObjSt action;
+
+  @ffi.Double()
+  external double actionOverflowThreshold;
+
+  @ffi.Int()
+  external int showCloseIcon;
+
+  @DartObj()
+  external int closeIconColor;
+
+  @DartObj()
+  external int duration;
+
+  @DartObj()
+  external int animation;
+
+  @ffi.Int()
+  external int dismissDirection;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class ScaffoldMessengerSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<ScaffoldMessengerObjSt Function(DartObj child)>>
+      scaffoldMessenger;
+}
+
+final class ScaffoldMessengerObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int child;
 }
 
 final class SubStateSt extends ffi.Struct {

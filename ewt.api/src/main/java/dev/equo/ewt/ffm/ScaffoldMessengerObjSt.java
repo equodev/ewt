@@ -16,18 +16,20 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     DartObj child;
  * }
  * }
  */
-public class SubStatefulWidgetObjSt {
+public class ScaffoldMessengerObjSt {
 
-    SubStatefulWidgetObjSt() {
+    ScaffoldMessengerObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$816:9");
+        StarterBridge.C_INT.withName("id"),
+        StarterBridge.C_INT.withName("child")
+    ).withName("$anon$803:9");
 
     /**
      * The layout of this struct
@@ -78,6 +80,50 @@ public class SubStatefulWidgetObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfInt child$LAYOUT = (OfInt)$LAYOUT.select(groupElement("child"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj child
+     * }
+     */
+    public static final OfInt child$layout() {
+        return child$LAYOUT;
+    }
+
+    private static final long child$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj child
+     * }
+     */
+    public static final long child$offset() {
+        return child$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj child
+     * }
+     */
+    public static int child(MemorySegment struct) {
+        return struct.get(child$LAYOUT, child$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj child
+     * }
+     */
+    public static void child(MemorySegment struct, int fieldValue) {
+        struct.set(child$LAYOUT, child$OFFSET, fieldValue);
     }
 
     /**

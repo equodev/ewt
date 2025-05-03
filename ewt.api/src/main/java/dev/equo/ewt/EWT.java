@@ -447,12 +447,48 @@ public class EWT {
     return AlertDialogAdaptiveBuilder.alertDialogAdaptive();
   }
 
+  public static InputDecorationInputDecorationBuilder InputDecoration() {
+    return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
+  }
+  public static InputDecorationCollapsedBuilder InputDecoration_collapsed(String hintText) {
+    return InputDecorationCollapsedBuilder.inputDecorationCollapsed(hintText);
+  }
+
   public static TextFieldTextFieldBuilder TextField() {
     return TextFieldTextFieldBuilder.textFieldTextField();
   }
 
   public static DividerDividerBuilder Divider() {
     return DividerDividerBuilder.dividerDivider();
+  }
+
+  public static FilledButtonFilledButtonBuilder FilledButton(Runnable onPressed) {
+    return FilledButtonFilledButtonBuilder.filledButtonFilledButton(onPressed);
+  }
+  public static FilledButtonIconBuilder FilledButton_icon(Runnable onPressed) {
+    return FilledButtonIconBuilder.filledButtonIcon(onPressed);
+  }
+  public static FilledButtonTonalBuilder FilledButton_tonal(Runnable onPressed) {
+    return FilledButtonTonalBuilder.filledButtonTonal(onPressed);
+  }
+  public static FilledButtonTonalIconBuilder FilledButton_tonalIcon(Runnable onPressed) {
+    return FilledButtonTonalIconBuilder.filledButtonTonalIcon(onPressed);
+  }
+
+  public static OutlineInputBorderOutlineInputBorderBuilder OutlineInputBorder() {
+    return OutlineInputBorderOutlineInputBorderBuilder.outlineInputBorderOutlineInputBorder();
+  }
+
+  public static SnackBarActionSnackBarActionBuilder SnackBarAction() {
+    return SnackBarActionSnackBarActionBuilder.snackBarActionSnackBarAction();
+  }
+
+  public static SnackBarSnackBarBuilder SnackBar(WidgetI content) {
+    return SnackBarSnackBarBuilder.snackBarSnackBar(content);
+  }
+
+  public static ScaffoldMessengerScaffoldMessengerBuilder ScaffoldMessenger(WidgetI child) {
+    return ScaffoldMessengerScaffoldMessengerBuilder.scaffoldMessengerScaffoldMessenger(child);
   }
 
 }

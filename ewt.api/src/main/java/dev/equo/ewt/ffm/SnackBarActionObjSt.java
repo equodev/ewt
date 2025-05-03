@@ -16,30 +16,29 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     double height;
- *     double thickness;
- *     double indent;
- *     double endIndent;
- *     DartObj color;
+ *     DartObj textColor;
+ *     DartObj backgroundColor;
+ *     DartObj disabledTextColor;
+ *     DartObj disabledBackgroundColor;
+ *     char *label;
  * }
  * }
  */
-public class DividerObjSt {
+public class SnackBarActionObjSt {
 
-    DividerObjSt() {
+    SnackBarActionObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
+        StarterBridge.C_INT.withName("textColor"),
+        StarterBridge.C_INT.withName("backgroundColor"),
+        StarterBridge.C_INT.withName("disabledTextColor"),
+        StarterBridge.C_INT.withName("disabledBackgroundColor"),
         MemoryLayout.paddingLayout(4),
-        StarterBridge.C_DOUBLE.withName("height"),
-        StarterBridge.C_DOUBLE.withName("thickness"),
-        StarterBridge.C_DOUBLE.withName("indent"),
-        StarterBridge.C_DOUBLE.withName("endIndent"),
-        StarterBridge.C_INT.withName("color"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$754:9");
+        StarterBridge.C_POINTER.withName("label")
+    ).withName("$anon$773:9");
 
     /**
      * The layout of this struct
@@ -92,224 +91,224 @@ public class DividerObjSt {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
-    private static final OfDouble height$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("height"));
+    private static final OfInt textColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("textColor"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double height
+     * DartObj textColor
      * }
      */
-    public static final OfDouble height$layout() {
-        return height$LAYOUT;
+    public static final OfInt textColor$layout() {
+        return textColor$LAYOUT;
     }
 
-    private static final long height$OFFSET = 8;
+    private static final long textColor$OFFSET = 4;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double height
+     * DartObj textColor
      * }
      */
-    public static final long height$offset() {
-        return height$OFFSET;
+    public static final long textColor$offset() {
+        return textColor$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double height
+     * DartObj textColor
      * }
      */
-    public static double height(MemorySegment struct) {
-        return struct.get(height$LAYOUT, height$OFFSET);
+    public static int textColor(MemorySegment struct) {
+        return struct.get(textColor$LAYOUT, textColor$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double height
+     * DartObj textColor
      * }
      */
-    public static void height(MemorySegment struct, double fieldValue) {
-        struct.set(height$LAYOUT, height$OFFSET, fieldValue);
+    public static void textColor(MemorySegment struct, int fieldValue) {
+        struct.set(textColor$LAYOUT, textColor$OFFSET, fieldValue);
     }
 
-    private static final OfDouble thickness$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("thickness"));
+    private static final OfInt backgroundColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("backgroundColor"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double thickness
+     * DartObj backgroundColor
      * }
      */
-    public static final OfDouble thickness$layout() {
-        return thickness$LAYOUT;
+    public static final OfInt backgroundColor$layout() {
+        return backgroundColor$LAYOUT;
     }
 
-    private static final long thickness$OFFSET = 16;
+    private static final long backgroundColor$OFFSET = 8;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double thickness
+     * DartObj backgroundColor
      * }
      */
-    public static final long thickness$offset() {
-        return thickness$OFFSET;
+    public static final long backgroundColor$offset() {
+        return backgroundColor$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double thickness
+     * DartObj backgroundColor
      * }
      */
-    public static double thickness(MemorySegment struct) {
-        return struct.get(thickness$LAYOUT, thickness$OFFSET);
+    public static int backgroundColor(MemorySegment struct) {
+        return struct.get(backgroundColor$LAYOUT, backgroundColor$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double thickness
+     * DartObj backgroundColor
      * }
      */
-    public static void thickness(MemorySegment struct, double fieldValue) {
-        struct.set(thickness$LAYOUT, thickness$OFFSET, fieldValue);
+    public static void backgroundColor(MemorySegment struct, int fieldValue) {
+        struct.set(backgroundColor$LAYOUT, backgroundColor$OFFSET, fieldValue);
     }
 
-    private static final OfDouble indent$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("indent"));
+    private static final OfInt disabledTextColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("disabledTextColor"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double indent
+     * DartObj disabledTextColor
      * }
      */
-    public static final OfDouble indent$layout() {
-        return indent$LAYOUT;
+    public static final OfInt disabledTextColor$layout() {
+        return disabledTextColor$LAYOUT;
     }
 
-    private static final long indent$OFFSET = 24;
+    private static final long disabledTextColor$OFFSET = 12;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double indent
+     * DartObj disabledTextColor
      * }
      */
-    public static final long indent$offset() {
-        return indent$OFFSET;
+    public static final long disabledTextColor$offset() {
+        return disabledTextColor$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double indent
+     * DartObj disabledTextColor
      * }
      */
-    public static double indent(MemorySegment struct) {
-        return struct.get(indent$LAYOUT, indent$OFFSET);
+    public static int disabledTextColor(MemorySegment struct) {
+        return struct.get(disabledTextColor$LAYOUT, disabledTextColor$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double indent
+     * DartObj disabledTextColor
      * }
      */
-    public static void indent(MemorySegment struct, double fieldValue) {
-        struct.set(indent$LAYOUT, indent$OFFSET, fieldValue);
+    public static void disabledTextColor(MemorySegment struct, int fieldValue) {
+        struct.set(disabledTextColor$LAYOUT, disabledTextColor$OFFSET, fieldValue);
     }
 
-    private static final OfDouble endIndent$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("endIndent"));
+    private static final OfInt disabledBackgroundColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("disabledBackgroundColor"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double endIndent
+     * DartObj disabledBackgroundColor
      * }
      */
-    public static final OfDouble endIndent$layout() {
-        return endIndent$LAYOUT;
+    public static final OfInt disabledBackgroundColor$layout() {
+        return disabledBackgroundColor$LAYOUT;
     }
 
-    private static final long endIndent$OFFSET = 32;
+    private static final long disabledBackgroundColor$OFFSET = 16;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double endIndent
+     * DartObj disabledBackgroundColor
      * }
      */
-    public static final long endIndent$offset() {
-        return endIndent$OFFSET;
+    public static final long disabledBackgroundColor$offset() {
+        return disabledBackgroundColor$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double endIndent
+     * DartObj disabledBackgroundColor
      * }
      */
-    public static double endIndent(MemorySegment struct) {
-        return struct.get(endIndent$LAYOUT, endIndent$OFFSET);
+    public static int disabledBackgroundColor(MemorySegment struct) {
+        return struct.get(disabledBackgroundColor$LAYOUT, disabledBackgroundColor$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double endIndent
+     * DartObj disabledBackgroundColor
      * }
      */
-    public static void endIndent(MemorySegment struct, double fieldValue) {
-        struct.set(endIndent$LAYOUT, endIndent$OFFSET, fieldValue);
+    public static void disabledBackgroundColor(MemorySegment struct, int fieldValue) {
+        struct.set(disabledBackgroundColor$LAYOUT, disabledBackgroundColor$OFFSET, fieldValue);
     }
 
-    private static final OfInt color$LAYOUT = (OfInt)$LAYOUT.select(groupElement("color"));
+    private static final AddressLayout label$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("label"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * DartObj color
+     * char *label
      * }
      */
-    public static final OfInt color$layout() {
-        return color$LAYOUT;
+    public static final AddressLayout label$layout() {
+        return label$LAYOUT;
     }
 
-    private static final long color$OFFSET = 40;
+    private static final long label$OFFSET = 24;
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * DartObj color
+     * char *label
      * }
      */
-    public static final long color$offset() {
-        return color$OFFSET;
+    public static final long label$offset() {
+        return label$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * DartObj color
+     * char *label
      * }
      */
-    public static int color(MemorySegment struct) {
-        return struct.get(color$LAYOUT, color$OFFSET);
+    public static MemorySegment label(MemorySegment struct) {
+        return struct.get(label$LAYOUT, label$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * DartObj color
+     * char *label
      * }
      */
-    public static void color(MemorySegment struct, int fieldValue) {
-        struct.set(color$LAYOUT, color$OFFSET, fieldValue);
+    public static void label(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(label$LAYOUT, label$OFFSET, fieldValue);
     }
 
     /**

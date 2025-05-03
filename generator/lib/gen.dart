@@ -333,14 +333,20 @@ class WidgetGen implements AGen {
 
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
     final retType = types.type4FFMRet(node.returnType);
-    javaFile
-      ..writeln('    $retType id = factories.$factoryName(${jParams.names});');
-    if (retType == 'int')
+    if (node.returnType is VoidType) {
+      javaFile.writeln('    factories.$factoryName(${jParams.names});');
+    } else {
+      javaFile.writeln('    $retType id = factories.$factoryName(${jParams.names});');
+    }
+    if (retType == 'int') {
       javaFile
-        ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
-    javaFile
-      ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
-      ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+        .writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
+    }
+    if (node.returnType is! VoidType) {
+      javaFile
+        ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
+        ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+    }
   }
 
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, FunctionTypedElement node) {
@@ -1411,9 +1417,13 @@ class Params {
       Match? match = pattern.firstMatch(defaultValue);
       if (match != null) {
         var targetParam = (param is SuperFormalParameterElement) ? param.superConstructorParameter! : param ;
-        String? result = match.group(0); // Remove the leading underscore
+        String? result = match.group(0);
         var field = targetParam.thisOrAncestorOfType<ClassElement>()!.getField(result!);
-        if (field is ConstFieldElementImpl) {
+        if (field == null) {
+          var top = targetParam.library2!.getTopLevelVariable(result);
+          return defaultValue.replaceAll(result, (top!.firstFragment as ConstTopLevelVariableElementImpl).constantInitializer.toString());
+        }
+        else if (field is ConstFieldElementImpl) {
           return defaultValue.replaceAll(result, field.constantInitializer.toString());
         }
         return field!.toString();
