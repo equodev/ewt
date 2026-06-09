@@ -28,8 +28,8 @@ Future<void> main() async {
       ..gen()
       ..write();
     print('-- PreGeneration ${sw.elapsedReset}');
-    preindexCache.create();
-    preindexCache.setLastModified(lastModified);
+    await preindexCache.create(recursive: true);
+    await preindexCache.setLastModified(lastModified);
   } else {
     print('-- Skipped PreGeneration');
   }
