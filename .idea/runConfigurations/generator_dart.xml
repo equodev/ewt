@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="generator.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" nameIsGenerated="true">
-    <option name="filePath" value="$PROJECT_DIR$/widgets/tool/generator.dart" />
-    <option name="workingDirectory" value="$PROJECT_DIR$/widgets" />
+  <configuration default="false" name="generator.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+    <option name="filePath" value="$PROJECT_DIR$/generator/bin/generator.dart" />
+    <option name="workingDirectory" value="$PROJECT_DIR$/generator" />
     <method v="2" />
   </configuration>
 </component>

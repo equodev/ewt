@@ -19,16 +19,20 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int inherit;
  *     DartObj color;
  *     DartObj backgroundColor;
+ *     char *fontFamily;
  *     double fontSize;
+ *     DartObj fontWeight;
  *     int fontStyle;
  *     double letterSpacing;
  *     double wordSpacing;
  *     int textBaseline;
  *     double height;
  *     int leadingDistribution;
+ *     DartObj decoration;
  *     DartObj decorationColor;
  *     int decorationStyle;
  *     double decorationThickness;
+ *     char *debugLabel;
  *     int overflow;
  * }
  * }
@@ -44,19 +48,21 @@ public class TextStyleObjSt {
         StarterBridge.C_INT.withName("inherit"),
         StarterBridge.C_INT.withName("color"),
         StarterBridge.C_INT.withName("backgroundColor"),
+        StarterBridge.C_POINTER.withName("fontFamily"),
         StarterBridge.C_DOUBLE.withName("fontSize"),
+        StarterBridge.C_INT.withName("fontWeight"),
         StarterBridge.C_INT.withName("fontStyle"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("letterSpacing"),
         StarterBridge.C_DOUBLE.withName("wordSpacing"),
         StarterBridge.C_INT.withName("textBaseline"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("height"),
         StarterBridge.C_INT.withName("leadingDistribution"),
+        StarterBridge.C_INT.withName("decoration"),
         StarterBridge.C_INT.withName("decorationColor"),
         StarterBridge.C_INT.withName("decorationStyle"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("decorationThickness"),
+        StarterBridge.C_POINTER.withName("debugLabel"),
         StarterBridge.C_INT.withName("overflow"),
         MemoryLayout.paddingLayout(4)
     ).withName("$anon$1:9");
@@ -244,6 +250,50 @@ public class TextStyleObjSt {
         struct.set(backgroundColor$LAYOUT, backgroundColor$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout fontFamily$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("fontFamily"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *fontFamily
+     * }
+     */
+    public static final AddressLayout fontFamily$layout() {
+        return fontFamily$LAYOUT;
+    }
+
+    private static final long fontFamily$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *fontFamily
+     * }
+     */
+    public static final long fontFamily$offset() {
+        return fontFamily$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *fontFamily
+     * }
+     */
+    public static MemorySegment fontFamily(MemorySegment struct) {
+        return struct.get(fontFamily$LAYOUT, fontFamily$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *fontFamily
+     * }
+     */
+    public static void fontFamily(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(fontFamily$LAYOUT, fontFamily$OFFSET, fieldValue);
+    }
+
     private static final OfDouble fontSize$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("fontSize"));
 
     /**
@@ -256,7 +306,7 @@ public class TextStyleObjSt {
         return fontSize$LAYOUT;
     }
 
-    private static final long fontSize$OFFSET = 16;
+    private static final long fontSize$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -288,6 +338,50 @@ public class TextStyleObjSt {
         struct.set(fontSize$LAYOUT, fontSize$OFFSET, fieldValue);
     }
 
+    private static final OfInt fontWeight$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fontWeight"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static final OfInt fontWeight$layout() {
+        return fontWeight$LAYOUT;
+    }
+
+    private static final long fontWeight$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static final long fontWeight$offset() {
+        return fontWeight$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static int fontWeight(MemorySegment struct) {
+        return struct.get(fontWeight$LAYOUT, fontWeight$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static void fontWeight(MemorySegment struct, int fieldValue) {
+        struct.set(fontWeight$LAYOUT, fontWeight$OFFSET, fieldValue);
+    }
+
     private static final OfInt fontStyle$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fontStyle"));
 
     /**
@@ -300,7 +394,7 @@ public class TextStyleObjSt {
         return fontStyle$LAYOUT;
     }
 
-    private static final long fontStyle$OFFSET = 24;
+    private static final long fontStyle$OFFSET = 36;
 
     /**
      * Offset for field:
@@ -344,7 +438,7 @@ public class TextStyleObjSt {
         return letterSpacing$LAYOUT;
     }
 
-    private static final long letterSpacing$OFFSET = 32;
+    private static final long letterSpacing$OFFSET = 40;
 
     /**
      * Offset for field:
@@ -388,7 +482,7 @@ public class TextStyleObjSt {
         return wordSpacing$LAYOUT;
     }
 
-    private static final long wordSpacing$OFFSET = 40;
+    private static final long wordSpacing$OFFSET = 48;
 
     /**
      * Offset for field:
@@ -432,7 +526,7 @@ public class TextStyleObjSt {
         return textBaseline$LAYOUT;
     }
 
-    private static final long textBaseline$OFFSET = 48;
+    private static final long textBaseline$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -476,7 +570,7 @@ public class TextStyleObjSt {
         return height$LAYOUT;
     }
 
-    private static final long height$OFFSET = 56;
+    private static final long height$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -520,7 +614,7 @@ public class TextStyleObjSt {
         return leadingDistribution$LAYOUT;
     }
 
-    private static final long leadingDistribution$OFFSET = 64;
+    private static final long leadingDistribution$OFFSET = 72;
 
     /**
      * Offset for field:
@@ -552,6 +646,50 @@ public class TextStyleObjSt {
         struct.set(leadingDistribution$LAYOUT, leadingDistribution$OFFSET, fieldValue);
     }
 
+    private static final OfInt decoration$LAYOUT = (OfInt)$LAYOUT.select(groupElement("decoration"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static final OfInt decoration$layout() {
+        return decoration$LAYOUT;
+    }
+
+    private static final long decoration$OFFSET = 76;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static final long decoration$offset() {
+        return decoration$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static int decoration(MemorySegment struct) {
+        return struct.get(decoration$LAYOUT, decoration$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj decoration
+     * }
+     */
+    public static void decoration(MemorySegment struct, int fieldValue) {
+        struct.set(decoration$LAYOUT, decoration$OFFSET, fieldValue);
+    }
+
     private static final OfInt decorationColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("decorationColor"));
 
     /**
@@ -564,7 +702,7 @@ public class TextStyleObjSt {
         return decorationColor$LAYOUT;
     }
 
-    private static final long decorationColor$OFFSET = 68;
+    private static final long decorationColor$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -608,7 +746,7 @@ public class TextStyleObjSt {
         return decorationStyle$LAYOUT;
     }
 
-    private static final long decorationStyle$OFFSET = 72;
+    private static final long decorationStyle$OFFSET = 84;
 
     /**
      * Offset for field:
@@ -652,7 +790,7 @@ public class TextStyleObjSt {
         return decorationThickness$LAYOUT;
     }
 
-    private static final long decorationThickness$OFFSET = 80;
+    private static final long decorationThickness$OFFSET = 88;
 
     /**
      * Offset for field:
@@ -684,6 +822,50 @@ public class TextStyleObjSt {
         struct.set(decorationThickness$LAYOUT, decorationThickness$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout debugLabel$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("debugLabel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *debugLabel
+     * }
+     */
+    public static final AddressLayout debugLabel$layout() {
+        return debugLabel$LAYOUT;
+    }
+
+    private static final long debugLabel$OFFSET = 96;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *debugLabel
+     * }
+     */
+    public static final long debugLabel$offset() {
+        return debugLabel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *debugLabel
+     * }
+     */
+    public static MemorySegment debugLabel(MemorySegment struct) {
+        return struct.get(debugLabel$LAYOUT, debugLabel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *debugLabel
+     * }
+     */
+    public static void debugLabel(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(debugLabel$LAYOUT, debugLabel$OFFSET, fieldValue);
+    }
+
     private static final OfInt overflow$LAYOUT = (OfInt)$LAYOUT.select(groupElement("overflow"));
 
     /**
@@ -696,7 +878,7 @@ public class TextStyleObjSt {
         return overflow$LAYOUT;
     }
 
-    private static final long overflow$OFFSET = 88;
+    private static final long overflow$OFFSET = 104;
 
     /**
      * Offset for field:

@@ -14,12 +14,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef DartObj (*DartObjCallbackDartObj)(DartObj)
+ * typedef DartObj (*WidgetBuilderFFI)(DartObj)
  * }
  */
-public class DartObjCallbackDartObj {
+public class WidgetBuilderFFI {
 
-    DartObjCallbackDartObj() {
+    WidgetBuilderFFI() {
         // Should not be called directly
     }
 
@@ -27,7 +27,7 @@ public class DartObjCallbackDartObj {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        int apply(int _x0);
+        int apply(int context);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
@@ -42,13 +42,13 @@ public class DartObjCallbackDartObj {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DartObjCallbackDartObj.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(WidgetBuilderFFI.Function.class, "apply", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
      * The lifetime of the returned segment is managed by {@code arena}
      */
-    public static MemorySegment allocate(DartObjCallbackDartObj.Function fi, Arena arena) {
+    public static MemorySegment allocate(WidgetBuilderFFI.Function fi, Arena arena) {
         return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
     }
 
@@ -57,9 +57,9 @@ public class DartObjCallbackDartObj {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr,int _x0) {
+    public static int invoke(MemorySegment funcPtr,int context) {
         try {
-            return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            return (int) DOWN$MH.invokeExact(funcPtr, context);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

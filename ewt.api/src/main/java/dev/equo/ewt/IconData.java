@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.IconDataObjSt;
@@ -11,6 +12,7 @@ public class IconData extends NativeObj.Base implements IconDataI {
   IconData(MemorySegment st) {
     this.id = IconDataObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget IconData");
     System.out.println("New IconData id:"+id);
   }
   @Builder.Factory
@@ -28,6 +30,12 @@ public class IconData extends NativeObj.Base implements IconDataI {
   }
   public int codePoint() {
     return IconDataObjSt.codePoint(st);
+  }
+  public String fontFamily() {
+    return IconDataObjSt.fontFamily(st).getString(0);
+  }
+  public String fontPackage() {
+    return IconDataObjSt.fontPackage(st).getString(0);
   }
   public boolean matchTextDirection() {
     return intToBool(IconDataObjSt.matchTextDirection(st));

@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextThemeObjSt;
@@ -11,6 +12,7 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
   TextTheme(MemorySegment st) {
     this.id = TextThemeObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
     System.out.println("New TextTheme id:"+id);
   }
   @Builder.Factory
@@ -54,49 +56,49 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
     return new TextTheme(st);
   }
   public TextStyle displayLarge() {
-    return new TextStyle(TextThemeObjSt.displayLarge(st)) {};
+    return new TextStyle(TextThemeObjSt.displayLarge(st));
   }
   public TextStyle displayMedium() {
-    return new TextStyle(TextThemeObjSt.displayMedium(st)) {};
+    return new TextStyle(TextThemeObjSt.displayMedium(st));
   }
   public TextStyle displaySmall() {
-    return new TextStyle(TextThemeObjSt.displaySmall(st)) {};
+    return new TextStyle(TextThemeObjSt.displaySmall(st));
   }
   public TextStyle headlineLarge() {
-    return new TextStyle(TextThemeObjSt.headlineLarge(st)) {};
+    return new TextStyle(TextThemeObjSt.headlineLarge(st));
   }
   public TextStyle headlineMedium() {
-    return new TextStyle(TextThemeObjSt.headlineMedium(st)) {};
+    return new TextStyle(TextThemeObjSt.headlineMedium(st));
   }
   public TextStyle headlineSmall() {
-    return new TextStyle(TextThemeObjSt.headlineSmall(st)) {};
+    return new TextStyle(TextThemeObjSt.headlineSmall(st));
   }
   public TextStyle titleLarge() {
-    return new TextStyle(TextThemeObjSt.titleLarge(st)) {};
+    return new TextStyle(TextThemeObjSt.titleLarge(st));
   }
   public TextStyle titleMedium() {
-    return new TextStyle(TextThemeObjSt.titleMedium(st)) {};
+    return new TextStyle(TextThemeObjSt.titleMedium(st));
   }
   public TextStyle titleSmall() {
-    return new TextStyle(TextThemeObjSt.titleSmall(st)) {};
+    return new TextStyle(TextThemeObjSt.titleSmall(st));
   }
   public TextStyle bodyLarge() {
-    return new TextStyle(TextThemeObjSt.bodyLarge(st)) {};
+    return new TextStyle(TextThemeObjSt.bodyLarge(st));
   }
   public TextStyle bodyMedium() {
-    return new TextStyle(TextThemeObjSt.bodyMedium(st)) {};
+    return new TextStyle(TextThemeObjSt.bodyMedium(st));
   }
   public TextStyle bodySmall() {
-    return new TextStyle(TextThemeObjSt.bodySmall(st)) {};
+    return new TextStyle(TextThemeObjSt.bodySmall(st));
   }
   public TextStyle labelLarge() {
-    return new TextStyle(TextThemeObjSt.labelLarge(st)) {};
+    return new TextStyle(TextThemeObjSt.labelLarge(st));
   }
   public TextStyle labelMedium() {
-    return new TextStyle(TextThemeObjSt.labelMedium(st)) {};
+    return new TextStyle(TextThemeObjSt.labelMedium(st));
   }
   public TextStyle labelSmall() {
-    return new TextStyle(TextThemeObjSt.labelSmall(st)) {};
+    return new TextStyle(TextThemeObjSt.labelSmall(st));
   }
   @Override
   public TextTheme build() {

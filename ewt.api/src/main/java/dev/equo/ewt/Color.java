@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 public class Color extends NativeObj.Base implements ColorI {
   protected Color() {}
@@ -10,7 +11,7 @@ public class Color extends NativeObj.Base implements ColorI {
   @Builder.Factory
   static Color colorColor(@Builder.Parameter int value) {
     int id = factories.colorColor(value);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
@@ -24,7 +25,7 @@ public class Color extends NativeObj.Base implements ColorI {
       green,
       blue,
       colorSpace);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
@@ -37,7 +38,7 @@ public class Color extends NativeObj.Base implements ColorI {
       r,
       g,
       b);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
@@ -50,7 +51,7 @@ public class Color extends NativeObj.Base implements ColorI {
       g,
       b,
       opacity);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
@@ -61,16 +62,22 @@ public class Color extends NativeObj.Base implements ColorI {
     int id = factories.colorLerp(x.build(),
       y.build(),
       t);
-    if (id == -1) throw new RuntimeException("Failed to created widget Color?");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Color?");
     System.out.println("New Color? id:"+id);
     return new Color(id);
   }
   public static Color alphaBlend(ColorI foreground, ColorI background) {
     int id = factories.colorAlphaBlend(foreground.build(),
       background.build());
-    if (id == -1) throw new RuntimeException("Failed to created widget Color");
+    if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
+  }
+  public static int getAlphaFromOpacity(double opacity) {
+    int id = factories.colorGetAlphaFromOpacity(opacity);
+    if (id <= 0) throw new RuntimeException("Failed to created widget int");
+    System.out.println("New int id:"+id);
+    return id;
   }
   @Override
   public Color build() {

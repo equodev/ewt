@@ -14,12 +14,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef DartObj (*DartObjCallback)(void)
+ * typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj)
  * }
  */
-public class DartObjCallback {
+public class DartObjCallbackDartObjFFI {
 
-    DartObjCallback() {
+    DartObjCallbackDartObjFFI() {
         // Should not be called directly
     }
 
@@ -27,11 +27,13 @@ public class DartObjCallback {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        int apply();
+        int apply(int _x0);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
-        StarterBridge.C_INT);
+        StarterBridge.C_INT,
+        StarterBridge.C_INT
+    );
 
     /**
      * The descriptor of this function pointer
@@ -40,13 +42,13 @@ public class DartObjCallback {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DartObjCallback.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = StarterBridge.upcallHandle(DartObjCallbackDartObjFFI.Function.class, "apply", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
      * The lifetime of the returned segment is managed by {@code arena}
      */
-    public static MemorySegment allocate(DartObjCallback.Function fi, Arena arena) {
+    public static MemorySegment allocate(DartObjCallbackDartObjFFI.Function fi, Arena arena) {
         return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
     }
 
@@ -55,9 +57,9 @@ public class DartObjCallback {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr) {
+    public static int invoke(MemorySegment funcPtr,int _x0) {
         try {
-            return (int) DOWN$MH.invokeExact(funcPtr);
+            return (int) DOWN$MH.invokeExact(funcPtr, _x0);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

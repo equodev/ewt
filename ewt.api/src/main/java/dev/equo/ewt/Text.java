@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.TextObjSt;
@@ -11,6 +12,7 @@ public class Text extends StatelessWidget implements TextI {
   Text(MemorySegment st) {
     this.id = TextObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Text");
     System.out.println("New Text id:"+id);
   }
   @Builder.Factory
@@ -51,11 +53,14 @@ public class Text extends StatelessWidget implements TextI {
   public static TextRichBuilder rich(InlineSpanI textSpan) {
     return TextRichBuilder.textRich(textSpan);
   }
+  public String data() {
+    return TextObjSt.data(st).getString(0);
+  }
   public InlineSpan textSpan() {
     return new InlineSpan(TextObjSt.textSpan(st)) {};
   }
   public TextStyle style() {
-    return new TextStyle(TextObjSt.style(st)) {};
+    return new TextStyle(TextObjSt.style(st));
   }
   public TextAlign textAlign() {
     return TextAlign.values()[TextObjSt.textAlign(st)];
@@ -75,11 +80,14 @@ public class Text extends StatelessWidget implements TextI {
   public int maxLines() {
     return TextObjSt.maxLines(st);
   }
+  public String semanticsLabel() {
+    return TextObjSt.semanticsLabel(st).getString(0);
+  }
   public TextWidthBasis textWidthBasis() {
     return TextWidthBasis.values()[TextObjSt.textWidthBasis(st)];
   }
   public Color selectionColor() {
-    return new Color(TextObjSt.selectionColor(st)) {};
+    return new Color(TextObjSt.selectionColor(st));
   }
   @Override
   public Text build() {

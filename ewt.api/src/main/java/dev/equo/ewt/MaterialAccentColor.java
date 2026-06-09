@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.MaterialAccentColorObjSt;
@@ -11,6 +12,7 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
   MaterialAccentColor(MemorySegment st) {
     this.id = MaterialAccentColorObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialAccentColor");
     System.out.println("New MaterialAccentColor id:"+id);
   }
   @Builder.Factory
@@ -24,16 +26,16 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
     return MaterialAccentColorMaterialAccentColorBuilder.materialAccentColorMaterialAccentColor(primary, swatch);
   }
   public Color shade100() {
-    return new Color(MaterialAccentColorObjSt.shade100(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade100(st));
   }
   public Color shade200() {
-    return new Color(MaterialAccentColorObjSt.shade200(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade200(st));
   }
   public Color shade400() {
-    return new Color(MaterialAccentColorObjSt.shade400(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade400(st));
   }
   public Color shade700() {
-    return new Color(MaterialAccentColorObjSt.shade700(st)) {};
+    return new Color(MaterialAccentColorObjSt.shade700(st));
   }
   @Override
   public MaterialAccentColor build() {

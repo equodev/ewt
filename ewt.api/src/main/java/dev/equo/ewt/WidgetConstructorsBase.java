@@ -1,13 +1,8 @@
 package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.lang.foreign.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.Supplier;
 
 class WidgetConstructorsBase {
   static WidgetConstructors instance = new WidgetConstructors();
@@ -52,15 +47,22 @@ class WidgetConstructorsBase {
   <T extends NativeObj> MemorySegment ptrObj(Optional<T> opt) {
     return opt.isPresent() ? arena.allocateFrom(StarterBridge.C_INT, opt.get().getId()) : MemorySegment.NULL;
   }
+  MemorySegment ptrObj(Widget opt) {
+    return arena.allocateFrom(StarterBridge.C_INT, opt.getId());
+  }
   <T extends NativeObj> MemorySegment ptrList(Optional<List<T>> opt) {
     if (opt.isPresent()) {
-      MemorySegment struct = ArrayC.allocate(arena);
-      ArrayC.size(struct, opt.get().size());
-      MemorySegment array = arena.allocateFrom(StarterBridge.C_INT, opt.get().stream().mapToInt(NativeObj::getId).toArray());
-      ArrayC.list(struct, array);
-      return struct;
+      List<T> list = opt.get();
+      return ptrList(list);
     }
     return MemorySegment.NULL;
+  }
+  <T extends NativeObj> MemorySegment ptrList(List<T> list) {
+    MemorySegment struct = ArrayC.allocate(arena);
+    ArrayC.size(struct, list.size());
+    MemorySegment array = arena.allocateFrom(StarterBridge.C_INT, list.stream().mapToInt(NativeObj::getId).toArray());
+    ArrayC.list(struct, array);
+    return struct;
   }
   MemorySegment ptrStrList(Optional<List<String>> opt) {
     if (opt.isPresent()) {
@@ -88,18 +90,18 @@ class WidgetConstructorsBase {
     MapC.entries(struct, entriesC);
     return struct;
   }
-  MemorySegment ptrFn(Runnable runnable) {
-    return VoidCallbackFFI.allocate(runnable::run, arena);
-  }
-  <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
-    return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
-  }
-  <T extends NativeObj, R extends NativeObj> MemorySegment ptrFn(Function<T, R> f) {
-    return DartObjCallbackDartObj.allocate((ctx) -> {
-      System.out.println("java buil ctx: "+ctx);
-      return f.apply((T) new BuildContext(ctx){}).getId() ;
-    }, arena);
-  }
+//  MemorySegment ptrFn(Runnable runnable) {
+//    return VoidCallbackFFI.allocate(runnable::run, arena);
+//  }
+//  <T extends NativeObj> MemorySegment ptrFn(Supplier<T> runnable) {
+//    return DartObjCallback.allocate(() -> runnable.get().getId(), arena);
+//  }
+//  <T extends NativeObj, R extends NativeObj> MemorySegment ptrFn(Function<T, R> f) {
+//    return DartObjCallbackDartObj.allocate((ctx) -> {
+//      System.out.println("java buil ctx: "+ctx);
+//      return f.apply((T) new BuildContext(ctx){}).getId() ;
+//    }, arena);
+//  }
 //  MemorySegment ptrFn(Optional<Consumer<Boolean>> opt) {
 //    if (opt.isPresent()) {
 //      return DrawerCallbackFFI.allocate((i) -> opt.get().accept(i == 1), arena);

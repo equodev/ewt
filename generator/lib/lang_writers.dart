@@ -1,5 +1,8 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
+import 'package:analyzer/dart/element/type_visitor.dart';
+import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/src/utilities/extensions/string.dart';
 import 'package:generator/types.dart';
 
@@ -10,15 +13,6 @@ class CLang {
 
   CLang(this.generation);
 
-  // writeField(StringBuffer buff, String name, String ret, {List<ParameterElement>? params}) {
-  //   if (params != null) {
-  //     final cParams = Params(generation, params, Params.paramDef4C);
-  //     buff.writeln('  $ret (*$name)(${cParams.decl});');
-  //   } else {
-  //     buff.writeln('  $ret $name;');
-  //   }
-  // }
-
   field(String name, String ret, {List<ParameterElement>? params}) {
     if (params != null) {
       final cParams = Params(generation, params, Params.paramDef4C);
@@ -28,4 +22,17 @@ class CLang {
     }
   }
 
+}
+
+class JLang {
+
+  String methodTypeParameters(FunctionType fnType) {
+    List<DartType> tp = fnType.parameters.map((p) => p.type).whereType<TypeParameterType>().toList();
+    for (var param in fnType.parameters) {
+      if (param.type is FunctionType) {
+        tp.addAll((param.type as FunctionType).parameters.map((p) => p.type).whereType<TypeParameterType>());
+      }
+    }
+    return tp.isEmpty ? '' : '<${tp.map((t) => t.element.toString().replaceAll('Object?', 'NativeObj')).join(', ')}> ';
+  }
 }

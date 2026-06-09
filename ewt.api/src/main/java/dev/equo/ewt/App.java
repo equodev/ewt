@@ -11,11 +11,42 @@ import java.util.concurrent.Callable;
 
 public class App {
     static {
-        var mode = "Release";
-        String p = "/Users/guillez/ws/ewt";
-        System.load(Path.of(p+"/widgets/example/build/macos/Build/Products/"+mode+"/widgets_example.app/Contents/Frameworks/FlutterMacOS.framework/FlutterMacOS").toAbsolutePath().toString());
-        System.load(Path.of(p+"/widgets/example/build/macos/Build/Products/"+mode+"/widgets_example.app/Contents/Frameworks/widgets.framework/widgets").toAbsolutePath().toString());
-        System.load(Path.of(p+"/widgets/example/build/macos/Build/Products/"+mode+"/libStarter.dylib").toAbsolutePath().toString());
+        String ewtHome = System.getenv("EWT_HOME");
+        if (ewtHome == null) ewtHome = System.getProperty("ewt.home");
+        if (ewtHome == null) throw new RuntimeException(
+            "EWT_HOME environment variable is not set. " +
+            "Set it to the root of the EWT repository.");
+
+        Path home = Path.of(ewtHome);
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("mac")) {
+            var mode = "Release";
+            Path frameworks = home.resolve(
+                "widgets/example/build/macos/Build/Products/" + mode +
+                "/widgets_example.app/Contents/Frameworks");
+            System.load(frameworks.resolve(
+                "FlutterMacOS.framework/FlutterMacOS").toString());
+            System.load(frameworks.resolve(
+                "widgets.framework/widgets").toString());
+            System.load(home.resolve(
+                "widgets/example/build/macos/Build/Products/" + mode +
+                "/libStarter.dylib").toString());
+        } else if (os.contains("linux")) {
+            Path lib = home.resolve(
+                "widgets/example/build/linux/x64/release/bundle/lib");
+            System.load(lib.resolve("libflutter_linux_gtk.so").toString());
+            System.load(lib.resolve("libwidgets.so").toString());
+            System.load(lib.resolve("libStarter.so").toString());
+        } else if (os.contains("win")) {
+            Path lib = home.resolve(
+                "widgets/example/build/windows/x64/runner/Release");
+            System.load(lib.resolve("flutter_windows.dll").toString());
+            System.load(lib.resolve("widgets.dll").toString());
+            System.load(lib.resolve("Starter.dll").toString());
+        } else {
+            throw new RuntimeException("Unsupported OS: " + os);
+        }
     }
 
     private final Callable<Widget> builderFn;
@@ -42,7 +73,7 @@ public class App {
                     System.out.println("CLEANUP");
                 }));
 //                WidgetConstructorsBase.instance.set(widgetFactories);
-                Widget w = builderFn.call();
+                Widget w = builderFn.call().build();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {
                 throw new RuntimeException(e);

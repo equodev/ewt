@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.IconObjSt;
@@ -11,10 +12,11 @@ public class Icon extends StatelessWidget implements IconI {
   Icon(MemorySegment st) {
     this.id = IconObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Icon");
     System.out.println("New Icon id:"+id);
   }
   @Builder.Factory
-  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<List<ShadowI>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
     var st = factories.iconIcon(icon.build(),
       size,
       fill,
@@ -22,6 +24,7 @@ public class Icon extends StatelessWidget implements IconI {
       grade,
       opticalSize,
       color.map(ColorI::build),
+      shadows.map(i -> i.stream().map(ShadowI::build).toList()),
       semanticLabel,
       textDirection,
       applyTextScaling,
@@ -33,7 +36,7 @@ public class Icon extends StatelessWidget implements IconI {
     return IconIconBuilder.iconIcon(icon);
   }
   public IconData icon() {
-    return new IconData(IconObjSt.icon(st)) {};
+    return new IconData(IconObjSt.icon(st));
   }
   public double size() {
     return IconObjSt.size(st);
@@ -51,7 +54,10 @@ public class Icon extends StatelessWidget implements IconI {
     return IconObjSt.opticalSize(st);
   }
   public Color color() {
-    return new Color(IconObjSt.color(st)) {};
+    return new Color(IconObjSt.color(st));
+  }
+  public String semanticLabel() {
+    return IconObjSt.semanticLabel(st).getString(0);
   }
   public TextDirection textDirection() {
     return TextDirection.values()[IconObjSt.textDirection(st)];

@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ScaffoldObjSt;
@@ -11,6 +12,7 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   Scaffold(MemorySegment st) {
     this.id = ScaffoldObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Scaffold");
     System.out.println("New Scaffold id:"+id);
   }
   @Builder.Factory
@@ -42,11 +44,27 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   public static ScaffoldScaffoldBuilder scaffold() {
     return ScaffoldScaffoldBuilder.scaffoldScaffold();
   }
+  public static ValueListenable geometryOf(BuildContextI context) {
+    int id = factories.scaffoldGeometryOf(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget ValueListenable<ScaffoldGeometry>");
+    System.out.println("New ValueListenable<ScaffoldGeometry> id:"+id);
+    return new ValueListenable() { public int getId() { return id; } };
+  }
+  public static boolean hasDrawer(BuildContextI context) {
+    int id = factories.scaffoldHasDrawer(context.build(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget bool");
+    System.out.println("New bool id:"+id);
+    return intToBool(id);
+  }
   public boolean extendBody() {
     return intToBool(ScaffoldObjSt.extendBody(st));
   }
   public boolean extendBodyBehindAppBar() {
     return intToBool(ScaffoldObjSt.extendBodyBehindAppBar(st));
+  }
+  public PreferredSizeWidget appBar() {
+    return new PreferredSizeWidget() { public int getId() { return ScaffoldObjSt.appBar(st); } };
   }
   public Widget body() {
     return new Widget(ScaffoldObjSt.body(st)) {};
@@ -61,10 +79,10 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
     return new Widget(ScaffoldObjSt.endDrawer(st)) {};
   }
   public Color drawerScrimColor() {
-    return new Color(ScaffoldObjSt.drawerScrimColor(st)) {};
+    return new Color(ScaffoldObjSt.drawerScrimColor(st));
   }
   public Color backgroundColor() {
-    return new Color(ScaffoldObjSt.backgroundColor(st)) {};
+    return new Color(ScaffoldObjSt.backgroundColor(st));
   }
   public Widget bottomNavigationBar() {
     return new Widget(ScaffoldObjSt.bottomNavigationBar(st)) {};
@@ -89,6 +107,9 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   }
   public boolean endDrawerEnableOpenDragGesture() {
     return intToBool(ScaffoldObjSt.endDrawerEnableOpenDragGesture(st));
+  }
+  public String restorationId() {
+    return ScaffoldObjSt.restorationId(st).getString(0);
   }
   @Override
   public Scaffold build() {

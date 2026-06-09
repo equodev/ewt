@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ColorSchemeObjSt;
@@ -11,6 +12,7 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
   ColorScheme(MemorySegment st) {
     this.id = ColorSchemeObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget ColorScheme");
     System.out.println("New ColorScheme id:"+id);
   }
   @Builder.Factory
@@ -394,151 +396,151 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
     return Brightness.values()[ColorSchemeObjSt.brightness(st)];
   }
   public Color primary() {
-    return new Color(ColorSchemeObjSt.primary(st)) {};
+    return new Color(ColorSchemeObjSt.primary(st));
   }
   public Color onPrimary() {
-    return new Color(ColorSchemeObjSt.onPrimary(st)) {};
+    return new Color(ColorSchemeObjSt.onPrimary(st));
   }
   public Color secondary() {
-    return new Color(ColorSchemeObjSt.secondary(st)) {};
+    return new Color(ColorSchemeObjSt.secondary(st));
   }
   public Color onSecondary() {
-    return new Color(ColorSchemeObjSt.onSecondary(st)) {};
+    return new Color(ColorSchemeObjSt.onSecondary(st));
   }
   public Color error() {
-    return new Color(ColorSchemeObjSt.error(st)) {};
+    return new Color(ColorSchemeObjSt.error(st));
   }
   public Color onError() {
-    return new Color(ColorSchemeObjSt.onError(st)) {};
+    return new Color(ColorSchemeObjSt.onError(st));
   }
   public Color surface() {
-    return new Color(ColorSchemeObjSt.surface(st)) {};
+    return new Color(ColorSchemeObjSt.surface(st));
   }
   public Color onSurface() {
-    return new Color(ColorSchemeObjSt.onSurface(st)) {};
+    return new Color(ColorSchemeObjSt.onSurface(st));
   }
   public Color primaryContainer() {
-    return new Color(ColorSchemeObjSt.primaryContainer(st)) {};
+    return new Color(ColorSchemeObjSt.primaryContainer(st));
   }
   public Color onPrimaryContainer() {
-    return new Color(ColorSchemeObjSt.onPrimaryContainer(st)) {};
+    return new Color(ColorSchemeObjSt.onPrimaryContainer(st));
   }
   public Color primaryFixed() {
-    return new Color(ColorSchemeObjSt.primaryFixed(st)) {};
+    return new Color(ColorSchemeObjSt.primaryFixed(st));
   }
   public Color primaryFixedDim() {
-    return new Color(ColorSchemeObjSt.primaryFixedDim(st)) {};
+    return new Color(ColorSchemeObjSt.primaryFixedDim(st));
   }
   public Color onPrimaryFixed() {
-    return new Color(ColorSchemeObjSt.onPrimaryFixed(st)) {};
+    return new Color(ColorSchemeObjSt.onPrimaryFixed(st));
   }
   public Color onPrimaryFixedVariant() {
-    return new Color(ColorSchemeObjSt.onPrimaryFixedVariant(st)) {};
+    return new Color(ColorSchemeObjSt.onPrimaryFixedVariant(st));
   }
   public Color secondaryContainer() {
-    return new Color(ColorSchemeObjSt.secondaryContainer(st)) {};
+    return new Color(ColorSchemeObjSt.secondaryContainer(st));
   }
   public Color onSecondaryContainer() {
-    return new Color(ColorSchemeObjSt.onSecondaryContainer(st)) {};
+    return new Color(ColorSchemeObjSt.onSecondaryContainer(st));
   }
   public Color secondaryFixed() {
-    return new Color(ColorSchemeObjSt.secondaryFixed(st)) {};
+    return new Color(ColorSchemeObjSt.secondaryFixed(st));
   }
   public Color secondaryFixedDim() {
-    return new Color(ColorSchemeObjSt.secondaryFixedDim(st)) {};
+    return new Color(ColorSchemeObjSt.secondaryFixedDim(st));
   }
   public Color onSecondaryFixed() {
-    return new Color(ColorSchemeObjSt.onSecondaryFixed(st)) {};
+    return new Color(ColorSchemeObjSt.onSecondaryFixed(st));
   }
   public Color onSecondaryFixedVariant() {
-    return new Color(ColorSchemeObjSt.onSecondaryFixedVariant(st)) {};
+    return new Color(ColorSchemeObjSt.onSecondaryFixedVariant(st));
   }
   public Color tertiary() {
-    return new Color(ColorSchemeObjSt.tertiary(st)) {};
+    return new Color(ColorSchemeObjSt.tertiary(st));
   }
   public Color onTertiary() {
-    return new Color(ColorSchemeObjSt.onTertiary(st)) {};
+    return new Color(ColorSchemeObjSt.onTertiary(st));
   }
   public Color tertiaryContainer() {
-    return new Color(ColorSchemeObjSt.tertiaryContainer(st)) {};
+    return new Color(ColorSchemeObjSt.tertiaryContainer(st));
   }
   public Color onTertiaryContainer() {
-    return new Color(ColorSchemeObjSt.onTertiaryContainer(st)) {};
+    return new Color(ColorSchemeObjSt.onTertiaryContainer(st));
   }
   public Color tertiaryFixed() {
-    return new Color(ColorSchemeObjSt.tertiaryFixed(st)) {};
+    return new Color(ColorSchemeObjSt.tertiaryFixed(st));
   }
   public Color tertiaryFixedDim() {
-    return new Color(ColorSchemeObjSt.tertiaryFixedDim(st)) {};
+    return new Color(ColorSchemeObjSt.tertiaryFixedDim(st));
   }
   public Color onTertiaryFixed() {
-    return new Color(ColorSchemeObjSt.onTertiaryFixed(st)) {};
+    return new Color(ColorSchemeObjSt.onTertiaryFixed(st));
   }
   public Color onTertiaryFixedVariant() {
-    return new Color(ColorSchemeObjSt.onTertiaryFixedVariant(st)) {};
+    return new Color(ColorSchemeObjSt.onTertiaryFixedVariant(st));
   }
   public Color errorContainer() {
-    return new Color(ColorSchemeObjSt.errorContainer(st)) {};
+    return new Color(ColorSchemeObjSt.errorContainer(st));
   }
   public Color onErrorContainer() {
-    return new Color(ColorSchemeObjSt.onErrorContainer(st)) {};
+    return new Color(ColorSchemeObjSt.onErrorContainer(st));
   }
   public Color surfaceVariant() {
-    return new Color(ColorSchemeObjSt.surfaceVariant(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceVariant(st));
   }
   public Color surfaceDim() {
-    return new Color(ColorSchemeObjSt.surfaceDim(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceDim(st));
   }
   public Color surfaceBright() {
-    return new Color(ColorSchemeObjSt.surfaceBright(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceBright(st));
   }
   public Color surfaceContainerLowest() {
-    return new Color(ColorSchemeObjSt.surfaceContainerLowest(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceContainerLowest(st));
   }
   public Color surfaceContainerLow() {
-    return new Color(ColorSchemeObjSt.surfaceContainerLow(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceContainerLow(st));
   }
   public Color surfaceContainer() {
-    return new Color(ColorSchemeObjSt.surfaceContainer(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceContainer(st));
   }
   public Color surfaceContainerHigh() {
-    return new Color(ColorSchemeObjSt.surfaceContainerHigh(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceContainerHigh(st));
   }
   public Color surfaceContainerHighest() {
-    return new Color(ColorSchemeObjSt.surfaceContainerHighest(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceContainerHighest(st));
   }
   public Color onSurfaceVariant() {
-    return new Color(ColorSchemeObjSt.onSurfaceVariant(st)) {};
+    return new Color(ColorSchemeObjSt.onSurfaceVariant(st));
   }
   public Color outline() {
-    return new Color(ColorSchemeObjSt.outline(st)) {};
+    return new Color(ColorSchemeObjSt.outline(st));
   }
   public Color outlineVariant() {
-    return new Color(ColorSchemeObjSt.outlineVariant(st)) {};
+    return new Color(ColorSchemeObjSt.outlineVariant(st));
   }
   public Color shadow() {
-    return new Color(ColorSchemeObjSt.shadow(st)) {};
+    return new Color(ColorSchemeObjSt.shadow(st));
   }
   public Color scrim() {
-    return new Color(ColorSchemeObjSt.scrim(st)) {};
+    return new Color(ColorSchemeObjSt.scrim(st));
   }
   public Color inverseSurface() {
-    return new Color(ColorSchemeObjSt.inverseSurface(st)) {};
+    return new Color(ColorSchemeObjSt.inverseSurface(st));
   }
   public Color onInverseSurface() {
-    return new Color(ColorSchemeObjSt.onInverseSurface(st)) {};
+    return new Color(ColorSchemeObjSt.onInverseSurface(st));
   }
   public Color inversePrimary() {
-    return new Color(ColorSchemeObjSt.inversePrimary(st)) {};
+    return new Color(ColorSchemeObjSt.inversePrimary(st));
   }
   public Color surfaceTint() {
-    return new Color(ColorSchemeObjSt.surfaceTint(st)) {};
+    return new Color(ColorSchemeObjSt.surfaceTint(st));
   }
   public Color background() {
-    return new Color(ColorSchemeObjSt.background(st)) {};
+    return new Color(ColorSchemeObjSt.background(st));
   }
   public Color onBackground() {
-    return new Color(ColorSchemeObjSt.onBackground(st)) {};
+    return new Color(ColorSchemeObjSt.onBackground(st));
   }
   @Override
   public ColorScheme build() {

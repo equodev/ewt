@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.MaterialColorObjSt;
@@ -11,6 +12,7 @@ public class MaterialColor extends ColorSwatch<Integer> implements MaterialColor
   MaterialColor(MemorySegment st) {
     this.id = MaterialColorObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialColor");
     System.out.println("New MaterialColor id:"+id);
   }
   @Builder.Factory
@@ -24,34 +26,34 @@ public class MaterialColor extends ColorSwatch<Integer> implements MaterialColor
     return MaterialColorMaterialColorBuilder.materialColorMaterialColor(primary, swatch);
   }
   public Color shade50() {
-    return new Color(MaterialColorObjSt.shade50(st)) {};
+    return new Color(MaterialColorObjSt.shade50(st));
   }
   public Color shade100() {
-    return new Color(MaterialColorObjSt.shade100(st)) {};
+    return new Color(MaterialColorObjSt.shade100(st));
   }
   public Color shade200() {
-    return new Color(MaterialColorObjSt.shade200(st)) {};
+    return new Color(MaterialColorObjSt.shade200(st));
   }
   public Color shade300() {
-    return new Color(MaterialColorObjSt.shade300(st)) {};
+    return new Color(MaterialColorObjSt.shade300(st));
   }
   public Color shade400() {
-    return new Color(MaterialColorObjSt.shade400(st)) {};
+    return new Color(MaterialColorObjSt.shade400(st));
   }
   public Color shade500() {
-    return new Color(MaterialColorObjSt.shade500(st)) {};
+    return new Color(MaterialColorObjSt.shade500(st));
   }
   public Color shade600() {
-    return new Color(MaterialColorObjSt.shade600(st)) {};
+    return new Color(MaterialColorObjSt.shade600(st));
   }
   public Color shade700() {
-    return new Color(MaterialColorObjSt.shade700(st)) {};
+    return new Color(MaterialColorObjSt.shade700(st));
   }
   public Color shade800() {
-    return new Color(MaterialColorObjSt.shade800(st)) {};
+    return new Color(MaterialColorObjSt.shade800(st));
   }
   public Color shade900() {
-    return new Color(MaterialColorObjSt.shade900(st)) {};
+    return new Color(MaterialColorObjSt.shade900(st));
   }
   @Override
   public MaterialColor build() {

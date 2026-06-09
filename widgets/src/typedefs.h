@@ -1,4 +1,12 @@
-typedef void (*DrawerCallbackFFI)(int isOpened);
+typedef DartObj (*WidgetBuilderFFI)(DartObj context);
 typedef DartObj (*TransitionBuilderFFI)(DartObj context, DartObj child);
-typedef char* (*GenerateAppTitleFFI)(DartObj context);
 typedef void (*VoidCallbackFFI)(void);
+typedef void (*ValueChangedForBoolFFI)(int value);
+typedef void (*DrawerCallbackFFI)(int isOpened);
+typedef char* (*GenerateAppTitleFFI)(DartObj context);
+typedef void (*ValueChangedForStringFFI)(char* value);
+typedef void (*GestureTapCallbackFFI)(void);
+typedef DartObj (*InputCounterWidgetBuilderFFI)(DartObj context, int currentLength, int isFocused, int maxLength);
+typedef void (*VoidCallbackDartObjFFI)(DartObj );
+typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj );
+typedef DartObj (*DartObjCallbackFFI)(void);

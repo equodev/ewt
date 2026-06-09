@@ -23,6 +23,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double grade;
  *     double opticalSize;
  *     DartObj color;
+ *     char *semanticLabel;
  *     int textDirection;
  *     int applyTextScaling;
  *     int blendMode;
@@ -37,6 +38,7 @@ public class IconObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
+        MemoryLayout.paddingLayout(4),
         IconDataObjSt.layout().withName("icon"),
         StarterBridge.C_DOUBLE.withName("size"),
         StarterBridge.C_DOUBLE.withName("fill"),
@@ -44,10 +46,13 @@ public class IconObjSt {
         StarterBridge.C_DOUBLE.withName("grade"),
         StarterBridge.C_DOUBLE.withName("opticalSize"),
         StarterBridge.C_INT.withName("color"),
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_POINTER.withName("semanticLabel"),
         StarterBridge.C_INT.withName("textDirection"),
         StarterBridge.C_INT.withName("applyTextScaling"),
-        StarterBridge.C_INT.withName("blendMode")
-    ).withName("$anon$66:9");
+        StarterBridge.C_INT.withName("blendMode"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$99:9");
 
     /**
      * The layout of this struct
@@ -112,7 +117,7 @@ public class IconObjSt {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 4;
+    private static final long icon$OFFSET = 8;
 
     /**
      * Offset for field:
@@ -156,7 +161,7 @@ public class IconObjSt {
         return size$LAYOUT;
     }
 
-    private static final long size$OFFSET = 16;
+    private static final long size$OFFSET = 40;
 
     /**
      * Offset for field:
@@ -200,7 +205,7 @@ public class IconObjSt {
         return fill$LAYOUT;
     }
 
-    private static final long fill$OFFSET = 24;
+    private static final long fill$OFFSET = 48;
 
     /**
      * Offset for field:
@@ -244,7 +249,7 @@ public class IconObjSt {
         return weight$LAYOUT;
     }
 
-    private static final long weight$OFFSET = 32;
+    private static final long weight$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -288,7 +293,7 @@ public class IconObjSt {
         return grade$LAYOUT;
     }
 
-    private static final long grade$OFFSET = 40;
+    private static final long grade$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -332,7 +337,7 @@ public class IconObjSt {
         return opticalSize$LAYOUT;
     }
 
-    private static final long opticalSize$OFFSET = 48;
+    private static final long opticalSize$OFFSET = 72;
 
     /**
      * Offset for field:
@@ -376,7 +381,7 @@ public class IconObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 56;
+    private static final long color$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -408,6 +413,50 @@ public class IconObjSt {
         struct.set(color$LAYOUT, color$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout semanticLabel$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("semanticLabel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *semanticLabel
+     * }
+     */
+    public static final AddressLayout semanticLabel$layout() {
+        return semanticLabel$LAYOUT;
+    }
+
+    private static final long semanticLabel$OFFSET = 88;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *semanticLabel
+     * }
+     */
+    public static final long semanticLabel$offset() {
+        return semanticLabel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *semanticLabel
+     * }
+     */
+    public static MemorySegment semanticLabel(MemorySegment struct) {
+        return struct.get(semanticLabel$LAYOUT, semanticLabel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *semanticLabel
+     * }
+     */
+    public static void semanticLabel(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(semanticLabel$LAYOUT, semanticLabel$OFFSET, fieldValue);
+    }
+
     private static final OfInt textDirection$LAYOUT = (OfInt)$LAYOUT.select(groupElement("textDirection"));
 
     /**
@@ -420,7 +469,7 @@ public class IconObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 60;
+    private static final long textDirection$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -464,7 +513,7 @@ public class IconObjSt {
         return applyTextScaling$LAYOUT;
     }
 
-    private static final long applyTextScaling$OFFSET = 64;
+    private static final long applyTextScaling$OFFSET = 100;
 
     /**
      * Offset for field:
@@ -508,7 +557,7 @@ public class IconObjSt {
         return blendMode$LAYOUT;
     }
 
-    private static final long blendMode$OFFSET = 68;
+    private static final long blendMode$OFFSET = 104;
 
     /**
      * Offset for field:

@@ -20,10 +20,12 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int automaticallyImplyLeading;
  *     DartObj title;
  *     DartObj flexibleSpace;
+ *     DartObj bottom;
  *     double elevation;
  *     double scrolledUnderElevation;
  *     DartObj shadowColor;
  *     DartObj surfaceTintColor;
+ *     DartObj shape;
  *     DartObj backgroundColor;
  *     DartObj foregroundColor;
  *     int primary;
@@ -38,6 +40,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     TextStyleObjSt titleTextStyle;
  *     int forceMaterialTransparency;
  *     int clipBehavior;
+ *     DartObj actionsPadding;
  * }
  * }
  */
@@ -53,17 +56,17 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("automaticallyImplyLeading"),
         StarterBridge.C_INT.withName("title"),
         StarterBridge.C_INT.withName("flexibleSpace"),
-        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_INT.withName("bottom"),
         StarterBridge.C_DOUBLE.withName("elevation"),
         StarterBridge.C_DOUBLE.withName("scrolledUnderElevation"),
         StarterBridge.C_INT.withName("shadowColor"),
         StarterBridge.C_INT.withName("surfaceTintColor"),
+        StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("backgroundColor"),
         StarterBridge.C_INT.withName("foregroundColor"),
         StarterBridge.C_INT.withName("primary"),
         StarterBridge.C_INT.withName("centerTitle"),
         StarterBridge.C_INT.withName("excludeHeaderSemantics"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("titleSpacing"),
         StarterBridge.C_DOUBLE.withName("toolbarOpacity"),
         StarterBridge.C_DOUBLE.withName("bottomOpacity"),
@@ -72,8 +75,10 @@ public class AppBarObjSt {
         TextStyleObjSt.layout().withName("toolbarTextStyle"),
         TextStyleObjSt.layout().withName("titleTextStyle"),
         StarterBridge.C_INT.withName("forceMaterialTransparency"),
-        StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$209:9");
+        StarterBridge.C_INT.withName("clipBehavior"),
+        StarterBridge.C_INT.withName("actionsPadding"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$494:9");
 
     /**
      * The layout of this struct
@@ -302,6 +307,50 @@ public class AppBarObjSt {
         struct.set(flexibleSpace$LAYOUT, flexibleSpace$OFFSET, fieldValue);
     }
 
+    private static final OfInt bottom$LAYOUT = (OfInt)$LAYOUT.select(groupElement("bottom"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static final OfInt bottom$layout() {
+        return bottom$LAYOUT;
+    }
+
+    private static final long bottom$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static final long bottom$offset() {
+        return bottom$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static int bottom(MemorySegment struct) {
+        return struct.get(bottom$LAYOUT, bottom$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj bottom
+     * }
+     */
+    public static void bottom(MemorySegment struct, int fieldValue) {
+        struct.set(bottom$LAYOUT, bottom$OFFSET, fieldValue);
+    }
+
     private static final OfDouble elevation$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("elevation"));
 
     /**
@@ -478,6 +527,50 @@ public class AppBarObjSt {
         struct.set(surfaceTintColor$LAYOUT, surfaceTintColor$OFFSET, fieldValue);
     }
 
+    private static final OfInt shape$LAYOUT = (OfInt)$LAYOUT.select(groupElement("shape"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final OfInt shape$layout() {
+        return shape$LAYOUT;
+    }
+
+    private static final long shape$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static final long shape$offset() {
+        return shape$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static int shape(MemorySegment struct) {
+        return struct.get(shape$LAYOUT, shape$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj shape
+     * }
+     */
+    public static void shape(MemorySegment struct, int fieldValue) {
+        struct.set(shape$LAYOUT, shape$OFFSET, fieldValue);
+    }
+
     private static final OfInt backgroundColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("backgroundColor"));
 
     /**
@@ -490,7 +583,7 @@ public class AppBarObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 48;
+    private static final long backgroundColor$OFFSET = 52;
 
     /**
      * Offset for field:
@@ -534,7 +627,7 @@ public class AppBarObjSt {
         return foregroundColor$LAYOUT;
     }
 
-    private static final long foregroundColor$OFFSET = 52;
+    private static final long foregroundColor$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -578,7 +671,7 @@ public class AppBarObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 56;
+    private static final long primary$OFFSET = 60;
 
     /**
      * Offset for field:
@@ -622,7 +715,7 @@ public class AppBarObjSt {
         return centerTitle$LAYOUT;
     }
 
-    private static final long centerTitle$OFFSET = 60;
+    private static final long centerTitle$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -666,7 +759,7 @@ public class AppBarObjSt {
         return excludeHeaderSemantics$LAYOUT;
     }
 
-    private static final long excludeHeaderSemantics$OFFSET = 64;
+    private static final long excludeHeaderSemantics$OFFSET = 68;
 
     /**
      * Offset for field:
@@ -974,7 +1067,7 @@ public class AppBarObjSt {
         return titleTextStyle$LAYOUT;
     }
 
-    private static final long titleTextStyle$OFFSET = 208;
+    private static final long titleTextStyle$OFFSET = 224;
 
     /**
      * Offset for field:
@@ -1018,7 +1111,7 @@ public class AppBarObjSt {
         return forceMaterialTransparency$LAYOUT;
     }
 
-    private static final long forceMaterialTransparency$OFFSET = 304;
+    private static final long forceMaterialTransparency$OFFSET = 336;
 
     /**
      * Offset for field:
@@ -1062,7 +1155,7 @@ public class AppBarObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 308;
+    private static final long clipBehavior$OFFSET = 340;
 
     /**
      * Offset for field:
@@ -1092,6 +1185,50 @@ public class AppBarObjSt {
      */
     public static void clipBehavior(MemorySegment struct, int fieldValue) {
         struct.set(clipBehavior$LAYOUT, clipBehavior$OFFSET, fieldValue);
+    }
+
+    private static final OfInt actionsPadding$LAYOUT = (OfInt)$LAYOUT.select(groupElement("actionsPadding"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static final OfInt actionsPadding$layout() {
+        return actionsPadding$LAYOUT;
+    }
+
+    private static final long actionsPadding$OFFSET = 344;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static final long actionsPadding$offset() {
+        return actionsPadding$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static int actionsPadding(MemorySegment struct) {
+        return struct.get(actionsPadding$LAYOUT, actionsPadding$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj actionsPadding
+     * }
+     */
+    public static void actionsPadding(MemorySegment struct, int fieldValue) {
+        struct.set(actionsPadding$LAYOUT, actionsPadding$OFFSET, fieldValue);
     }
 
     /**

@@ -3,21 +3,26 @@ typedef struct {
   int inherit;
   DartObj color;
   DartObj backgroundColor;
+  char* fontFamily;
   double fontSize;
+  DartObj fontWeight;
   int fontStyle;
   double letterSpacing;
   double wordSpacing;
   int textBaseline;
   double height;
   int leadingDistribution;
+  DartObj decoration;
   DartObj decorationColor;
   int decorationStyle;
   double decorationThickness;
+  char* debugLabel;
   int overflow;
 } TextStyleObjSt;
 
 typedef struct {
   int id;
+  char* data;
   DartObj textSpan;
   TextStyleObjSt style;
   int textAlign;
@@ -26,9 +31,30 @@ typedef struct {
   int overflow;
   double textScaleFactor;
   int maxLines;
+  char* semanticsLabel;
   int textWidthBasis;
   DartObj selectionColor;
 } TextObjSt;
+
+typedef struct {
+  int id;
+  char* text;
+  char* semanticsLabel;
+  int spellOut;
+} TextSpanObjSt;
+
+typedef struct {
+  int id;
+  DartObj text;
+  int textAlign;
+  int textDirection;
+  int softWrap;
+  int overflow;
+  int maxLines;
+  int textWidthBasis;
+  DartObj selectionColor;
+  double textScaleFactor;
+} RichTextObjSt;
 
 typedef struct {
   int id;
@@ -36,6 +62,7 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj alignment;
   double widthFactor;
   double heightFactor;
 } AlignObjSt;
@@ -59,7 +86,13 @@ typedef struct {
 
 typedef struct {
   int id;
+} RowObjSt;
+
+typedef struct {
+  int id;
   int codePoint;
+  char* fontFamily;
+  char* fontPackage;
   int matchTextDirection;
 } IconDataObjSt;
 
@@ -72,10 +105,216 @@ typedef struct {
   double grade;
   double opticalSize;
   DartObj color;
+  char* semanticLabel;
   int textDirection;
   int applyTextScaling;
   int blendMode;
 } IconObjSt;
+
+typedef struct {
+  int id;
+  DartObj origin;
+  DartObj alignment;
+  int transformHitTests;
+  int filterQuality;
+} TransformObjSt;
+
+typedef struct {
+  int id;
+  double opacity;
+  int alwaysIncludeSemantics;
+} OpacityObjSt;
+
+typedef struct {
+  int id;
+  DartObj alignment;
+  int textDirection;
+  int fit;
+  int clipBehavior;
+} StackObjSt;
+
+typedef struct {
+  int id;
+  double minWidth;
+  double maxWidth;
+  double minHeight;
+  double maxHeight;
+  int hasTightWidth;
+  int hasTightHeight;
+  int hasBoundedWidth;
+  int hasBoundedHeight;
+  int hasInfiniteWidth;
+  int hasInfiniteHeight;
+} BoxConstraintsObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj alignment;
+  DartObj padding;
+  DartObj color;
+  DartObj decoration;
+  DartObj foregroundDecoration;
+  BoxConstraintsObjSt constraints;
+  DartObj margin;
+  DartObj transformAlignment;
+  int clipBehavior;
+} ContainerObjSt;
+
+typedef struct {
+  int id;
+  double left;
+  double top;
+  double right;
+  double bottom;
+  double width;
+  double height;
+} PositionedObjSt;
+
+typedef struct {
+  int id;
+  DartObj color;
+  DartObj border;
+  DartObj borderRadius;
+  int backgroundBlendMode;
+  int shape;
+} BoxDecorationObjSt;
+
+typedef struct {
+  int id;
+  DartObj topLeft;
+  DartObj topRight;
+  DartObj bottomLeft;
+  DartObj bottomRight;
+} BorderRadiusObjSt;
+
+typedef struct {
+  int id;
+  double spreadRadius;
+  int blurStyle;
+} BoxShadowObjSt;
+
+typedef struct {
+  int id;
+  DartObj padding;
+} PaddingObjSt;
+
+typedef struct {
+  int id;
+  double left;
+  double top;
+  double right;
+  double bottom;
+  DartObj topLeft;
+  DartObj topRight;
+  DartObj bottomLeft;
+  DartObj bottomRight;
+} EdgeInsetsObjSt;
+
+typedef struct {
+  int id;
+  DartObj color;
+  double width;
+  int style;
+  double strokeAlign;
+  double strokeInset;
+  double strokeOutset;
+  double strokeOffset;
+} BorderSideObjSt;
+
+typedef struct {
+  int id;
+  BorderSideObjSt top;
+  BorderSideObjSt right;
+  BorderSideObjSt bottom;
+  BorderSideObjSt left;
+} BorderObjSt;
+
+typedef struct {
+  int id;
+  DartObj borderRadius;
+} RoundedRectangleBorderObjSt;
+
+typedef struct {
+  int id;
+  DartObj animation;
+} AnimatedBuilderObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+} ListenableBuilderObjSt;
+
+typedef struct {
+  int id;
+  double a;
+  double b;
+  double c;
+  double d;
+} CubicObjSt;
+
+typedef struct {
+  int id;
+  DartObj a1;
+  DartObj b1;
+  DartObj midpoint;
+  DartObj a2;
+  DartObj b2;
+} ThreePointCubicObjSt;
+
+typedef struct {
+  int id;
+  double period;
+} ElasticOutCurveObjSt;
+
+typedef struct {
+  int id;
+  double period;
+} ElasticInCurveObjSt;
+
+typedef struct {
+  int id;
+  double period;
+} ElasticInOutCurveObjSt;
+
+typedef struct {
+  int id;
+  double width;
+  double height;
+} SizedBoxObjSt;
+
+typedef struct {
+  int id;
+  double x;
+  double y;
+} AlignmentObjSt;
+
+typedef struct {
+  int id;
+  int opaque;
+  int hitTestBehavior;
+} MouseRegionObjSt;
+
+typedef struct {
+  int id;
+} ExpandedObjSt;
+
+typedef struct {
+  int id;
+  int flex;
+  int fit;
+} FlexibleObjSt;
+
+typedef struct {
+  int id;
+  int left;
+  int top;
+  int right;
+  int bottom;
+  EdgeInsetsObjSt minimum;
+  int maintainBottomViewPadding;
+  DartObj child;
+} SafeAreaObjSt;
 
 typedef struct {
   int id;
@@ -170,10 +409,18 @@ typedef struct {
 
 typedef struct {
   int id;
+  double horizontal;
+  double vertical;
+  DartObj baseSizeAdjustment;
+} VisualDensityObjSt;
+
+typedef struct {
+  int id;
   int applyElevationOverlayColor;
   int materialTapTargetSize;
   int platform;
   int useMaterial3;
+  VisualDensityObjSt visualDensity;
   DartObj canvasColor;
   DartObj cardColor;
   ColorSchemeObjSt colorScheme;
@@ -208,14 +455,54 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj child;
+  int type;
+  double elevation;
+  DartObj color;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  TextStyleObjSt textStyle;
+  DartObj shape;
+  int borderOnForeground;
+  int clipBehavior;
+  DartObj animationDuration;
+  DartObj borderRadius;
+} MaterialObjSt;
+
+typedef struct {
+  int id;
+  double iconSize;
+  VisualDensityObjSt visualDensity;
+  DartObj padding;
+  DartObj alignment;
+  double splashRadius;
+  DartObj icon;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj color;
+  DartObj splashColor;
+  DartObj highlightColor;
+  DartObj disabledColor;
+  int autofocus;
+  char* tooltip;
+  int enableFeedback;
+  BoxConstraintsObjSt constraints;
+  int isSelected;
+  DartObj selectedIcon;
+} IconButtonObjSt;
+
+typedef struct {
+  int id;
   DartObj leading;
   int automaticallyImplyLeading;
   DartObj title;
   DartObj flexibleSpace;
+  DartObj bottom;
   double elevation;
   double scrolledUnderElevation;
   DartObj shadowColor;
   DartObj surfaceTintColor;
+  DartObj shape;
   DartObj backgroundColor;
   DartObj foregroundColor;
   int primary;
@@ -230,12 +517,14 @@ typedef struct {
   TextStyleObjSt titleTextStyle;
   int forceMaterialTransparency;
   int clipBehavior;
+  DartObj actionsPadding;
 } AppBarObjSt;
 
 typedef struct {
   int id;
   int extendBody;
   int extendBodyBehindAppBar;
+  DartObj appBar;
   DartObj body;
   DartObj floatingActionButton;
   DartObj drawer;
@@ -250,22 +539,28 @@ typedef struct {
   double drawerEdgeDragWidth;
   int drawerEnableOpenDragGesture;
   int endDrawerEnableOpenDragGesture;
+  char* restorationId;
 } ScaffoldObjSt;
 
 typedef struct {
   int id;
   DartObj home;
+  char* initialRoute;
+  char* title;
   ThemeDataObjSt theme;
   ThemeDataObjSt darkTheme;
   ThemeDataObjSt highContrastTheme;
   ThemeDataObjSt highContrastDarkTheme;
   int themeMode;
+  DartObj themeAnimationDuration;
+  DartObj themeAnimationCurve;
   DartObj color;
   int showPerformanceOverlay;
   int checkerboardRasterCacheImages;
   int checkerboardOffscreenLayers;
   int showSemanticsDebugger;
   int debugShowCheckedModeBanner;
+  char* restorationScopeId;
   int debugShowMaterialGrid;
   int useInheritedMediaQuery;
 } MaterialAppObjSt;
@@ -273,6 +568,7 @@ typedef struct {
 typedef struct {
   int id;
   DartObj child;
+  char* tooltip;
   DartObj foregroundColor;
   DartObj backgroundColor;
   DartObj focusColor;
@@ -284,12 +580,14 @@ typedef struct {
   double highlightElevation;
   double disabledElevation;
   int mini;
+  DartObj shape;
   int clipBehavior;
   int isExtended;
   int autofocus;
   int materialTapTargetSize;
   int enableFeedback;
   double extendedIconLabelSpacing;
+  DartObj extendedPadding;
   TextStyleObjSt extendedTextStyle;
 } FloatingActionButtonObjSt;
 
@@ -298,6 +596,214 @@ typedef struct {
   ThemeDataObjSt data;
   DartObj child;
 } ThemeObjSt;
+
+typedef struct {
+  int id;
+} ElevatedButtonObjSt;
+
+typedef struct {
+  int id;
+} OutlinedButtonObjSt;
+
+typedef struct {
+  int id;
+} TextButtonObjSt;
+
+typedef struct {
+  int id;
+  char* initialRoute;
+  char* restorationScopeId;
+  int routeTraversalEdgeBehavior;
+  int reportsRouteUpdateToEngine;
+  int clipBehavior;
+  int requestFocus;
+} NavigatorObjSt;
+
+typedef struct {
+  int id;
+  DartObj icon;
+  DartObj iconColor;
+  DartObj iconPadding;
+  DartObj title;
+  DartObj titlePadding;
+  TextStyleObjSt titleTextStyle;
+  DartObj content;
+  DartObj contentPadding;
+  TextStyleObjSt contentTextStyle;
+  DartObj actionsPadding;
+  int actionsAlignment;
+  int actionsOverflowAlignment;
+  int actionsOverflowDirection;
+  double actionsOverflowButtonSpacing;
+  DartObj buttonPadding;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  char* semanticLabel;
+  EdgeInsetsObjSt insetPadding;
+  int clipBehavior;
+  DartObj shape;
+  DartObj alignment;
+  int scrollable;
+} AlertDialogObjSt;
+
+typedef struct {
+  int id;
+  DartObj icon;
+  DartObj iconColor;
+  DartObj label;
+  char* labelText;
+  TextStyleObjSt labelStyle;
+  TextStyleObjSt floatingLabelStyle;
+  DartObj helper;
+  char* helperText;
+  TextStyleObjSt helperStyle;
+  int helperMaxLines;
+  char* hintText;
+  TextStyleObjSt hintStyle;
+  int hintTextDirection;
+  int hintMaxLines;
+  DartObj hintFadeDuration;
+  int maintainHintHeight;
+  DartObj error;
+  char* errorText;
+  TextStyleObjSt errorStyle;
+  int errorMaxLines;
+  int floatingLabelBehavior;
+  int isDense;
+  DartObj contentPadding;
+  int isCollapsed;
+  DartObj prefixIcon;
+  BoxConstraintsObjSt prefixIconConstraints;
+  DartObj prefix;
+  char* prefixText;
+  TextStyleObjSt prefixStyle;
+  DartObj prefixIconColor;
+  DartObj suffixIcon;
+  DartObj suffix;
+  char* suffixText;
+  TextStyleObjSt suffixStyle;
+  DartObj suffixIconColor;
+  BoxConstraintsObjSt suffixIconConstraints;
+  char* counterText;
+  DartObj counter;
+  TextStyleObjSt counterStyle;
+  int filled;
+  DartObj fillColor;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj errorBorder;
+  DartObj focusedBorder;
+  DartObj focusedErrorBorder;
+  DartObj disabledBorder;
+  DartObj enabledBorder;
+  DartObj border;
+  int enabled;
+  char* semanticCounterText;
+  int alignLabelWithHint;
+  BoxConstraintsObjSt constraints;
+} InputDecorationObjSt;
+
+typedef struct {
+  int id;
+  InputDecorationObjSt decoration;
+  int textInputAction;
+  int textCapitalization;
+  TextStyleObjSt style;
+  int textAlign;
+  int textDirection;
+  int autofocus;
+  char* obscuringCharacter;
+  int obscureText;
+  int autocorrect;
+  int smartDashesType;
+  int smartQuotesType;
+  int enableSuggestions;
+  int maxLines;
+  int minLines;
+  int expands;
+  int readOnly;
+  int showCursor;
+  int maxLength;
+  int maxLengthEnforcement;
+  int enabled;
+  int ignorePointers;
+  double cursorWidth;
+  double cursorHeight;
+  DartObj cursorRadius;
+  int cursorOpacityAnimates;
+  DartObj cursorColor;
+  DartObj cursorErrorColor;
+  int selectionHeightStyle;
+  int selectionWidthStyle;
+  int keyboardAppearance;
+  EdgeInsetsObjSt scrollPadding;
+  int enableInteractiveSelection;
+  int dragStartBehavior;
+  int onTapAlwaysCalled;
+  int clipBehavior;
+  char* restorationId;
+  int scribbleEnabled;
+  int stylusHandwritingEnabled;
+  int enableIMEPersonalizedLearning;
+  int canRequestFocus;
+  int selectionEnabled;
+} TextFieldObjSt;
+
+typedef struct {
+  int id;
+  double height;
+  double thickness;
+  double indent;
+  double endIndent;
+  DartObj color;
+} DividerObjSt;
+
+typedef struct {
+  int id;
+} FilledButtonObjSt;
+
+typedef struct {
+  int id;
+  double gapPadding;
+  BorderRadiusObjSt borderRadius;
+} OutlineInputBorderObjSt;
+
+typedef struct {
+  int id;
+  DartObj textColor;
+  DartObj backgroundColor;
+  DartObj disabledTextColor;
+  DartObj disabledBackgroundColor;
+  char* label;
+} SnackBarActionObjSt;
+
+typedef struct {
+  int id;
+  DartObj content;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj margin;
+  DartObj padding;
+  double width;
+  DartObj shape;
+  int hitTestBehavior;
+  int behavior;
+  SnackBarActionObjSt action;
+  double actionOverflowThreshold;
+  int showCloseIcon;
+  DartObj closeIconColor;
+  DartObj duration;
+  DartObj animation;
+  int dismissDirection;
+  int clipBehavior;
+} SnackBarObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+} ScaffoldMessengerObjSt;
 
 typedef struct {
   int id;

@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.ColumnObjSt;
@@ -11,6 +12,7 @@ public class Column extends Flex implements ColumnI {
   Column(MemorySegment st) {
     this.id = ColumnObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Column");
     System.out.println("New Column id:"+id);
   }
   @Builder.Factory

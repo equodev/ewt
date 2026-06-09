@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.FlexObjSt;
@@ -11,6 +12,7 @@ public class Flex extends MultiChildRenderObjectWidget implements FlexI {
   Flex(MemorySegment st) {
     this.id = FlexObjSt.id(st);
     this.st = st;
+    if (id <= 0) throw new RuntimeException("Failed to created widget Flex");
     System.out.println("New Flex id:"+id);
   }
   @Builder.Factory

@@ -16,6 +16,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     DartObj alignment;
  *     double widthFactor;
  *     double heightFactor;
  * }
@@ -29,10 +30,10 @@ public class AlignObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
-        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_DOUBLE.withName("widthFactor"),
         StarterBridge.C_DOUBLE.withName("heightFactor")
-    ).withName("$anon$37:9");
+    ).withName("$anon$63:9");
 
     /**
      * The layout of this struct
@@ -83,6 +84,50 @@ public class AlignObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfInt alignment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("alignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final OfInt alignment$layout() {
+        return alignment$LAYOUT;
+    }
+
+    private static final long alignment$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static final long alignment$offset() {
+        return alignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static int alignment(MemorySegment struct) {
+        return struct.get(alignment$LAYOUT, alignment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj alignment
+     * }
+     */
+    public static void alignment(MemorySegment struct, int fieldValue) {
+        struct.set(alignment$LAYOUT, alignment$OFFSET, fieldValue);
     }
 
     private static final OfDouble widthFactor$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("widthFactor"));
