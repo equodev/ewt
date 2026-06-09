@@ -57,6 +57,9 @@ add_subdirectory("runner")
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# Windows Starter bridge library loaded by Java via System.load()
+add_subdirectory("Starter")
+
 
 # === Installation ===
 # Support files are copied into place next to the executable, so that it can
