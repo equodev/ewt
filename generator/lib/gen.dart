@@ -252,22 +252,20 @@ class WidgetGen implements AGen {
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen == null || node.returnType.isDartCoreString || gen.objType().endsWith('ObjSt') ? '' : ', ${exception(node.returnType)}'});');
-    var nullabilitySuffix = node.returnType.nullabilitySuffix == NullabilitySuffix.question ? '?' : '' ;
+    // Native callbacks wired through ffi.Pointer.fromFunction must return a
+    // NON-nullable type. A nullable factory result (e.g. a static lerp() that
+    // returns T?) is absorbed here rather than surfacing as a nullable return:
+    // _create*ObjSt(null) yields an empty struct (id 0) and paramValueDtoC
+    // falls back to 0 / nullptr for a null value.
     dartFns
-      ..writeln('${types.type4DRet(node.returnType)}$nullabilitySuffix $factoryName(${dartParams.decl}) {')
-      // ..writeln('${gen.objType() == 'DartObj' ? 'int' : '${gen.objType()}$nullabilitySuffix'} $factoryName(${dartParams.decl}) {')
+      ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
       ..writeln('  ${gen == null ? '' : 'final w = '}$widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
     if (gen == null) {
     }
     else if (gen.objType().endsWith('ObjSt')) {
-      if (node.returnType.nullabilitySuffix == NullabilitySuffix.question) {
-        dartFns.writeln('  return w != null ? _create${gen.objType()}(w) : null;');
-      } else {
-        dartFns.writeln('  return _create${gen.objType()}(w);');
-      }
+      dartFns.writeln('  return _create${gen.objType()}(w);');
     }
     else {
-      // dartFns.writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};');
       dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
     }
     dartFns .writeln('}');

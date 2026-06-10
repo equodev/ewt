@@ -565,6 +565,14 @@ class FunctionHandler with TypeHandler {
     final t = param.type as FunctionType;
     var value = param.name;
     value = '$value.to${getAliasName(t)}Fn()';
+    // Optional params arrive as a nullable pointer, so .toFn() is nullable.
+    // When the Flutter parameter type is a NON-nullable function (it carries a
+    // default value), fall back to a no-op builder so the value stays
+    // assignable. Builder-style callbacks return Widget?/void, so => null fits.
+    if (param.isOptional && t.nullabilitySuffix != NullabilitySuffix.question) {
+      final lambdaParams = List.generate(t.parameters.length, (i) => 'p$i').join(', ');
+      value = '($value ?? ($lambdaParams) => null)';
+    }
     return value;
   }
   @override
