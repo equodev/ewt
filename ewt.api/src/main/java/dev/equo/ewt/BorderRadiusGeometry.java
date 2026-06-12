@@ -5,6 +5,9 @@ public abstract class BorderRadiusGeometry extends NativeObj.Base implements Bor
   BorderRadiusGeometry(int id) {
     this.id = id;
   }
+  public static BorderRadiusGeometry zero() {
+    return BorderRadius.zero();
+  }
   @Override
   public BorderRadiusGeometry build() {
     return this;

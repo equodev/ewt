@@ -8,6 +8,16 @@ public class FontWeight extends NativeObj.Base implements FontWeightI {
   FontWeight(int id) {
     this.id = id;
   }
+  @Builder.Factory
+  static FontWeight fontWeightFontWeight(@Builder.Parameter int value) {
+    int id = factories.fontWeightFontWeight(value);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FontWeight");
+    System.out.println("New FontWeight id:"+id);
+    return new FontWeight(id);
+  }
+  public static FontWeightFontWeightBuilder fontWeight(int value) {
+    return FontWeightFontWeightBuilder.fontWeightFontWeight(value);
+  }
   public static FontWeight lerp(FontWeightI a, FontWeightI b, double t) {
     int id = factories.fontWeightLerp(a.build(),
       b.build(),
@@ -17,58 +27,31 @@ public class FontWeight extends NativeObj.Base implements FontWeightI {
     return new FontWeight(id);
   }
   public static FontWeight w100() {
-    int id = factories.fontWeightW100();
-    if (id <= 0) throw new RuntimeException("Failed to create const w100");
-    System.out.println("Const w100 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(100).build();
   }
   public static FontWeight w200() {
-    int id = factories.fontWeightW200();
-    if (id <= 0) throw new RuntimeException("Failed to create const w200");
-    System.out.println("Const w200 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(200).build();
   }
   public static FontWeight w300() {
-    int id = factories.fontWeightW300();
-    if (id <= 0) throw new RuntimeException("Failed to create const w300");
-    System.out.println("Const w300 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(300).build();
   }
   public static FontWeight w400() {
-    int id = factories.fontWeightW400();
-    if (id <= 0) throw new RuntimeException("Failed to create const w400");
-    System.out.println("Const w400 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(400).build();
   }
   public static FontWeight w500() {
-    int id = factories.fontWeightW500();
-    if (id <= 0) throw new RuntimeException("Failed to create const w500");
-    System.out.println("Const w500 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(500).build();
   }
   public static FontWeight w600() {
-    int id = factories.fontWeightW600();
-    if (id <= 0) throw new RuntimeException("Failed to create const w600");
-    System.out.println("Const w600 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(600).build();
   }
   public static FontWeight w700() {
-    int id = factories.fontWeightW700();
-    if (id <= 0) throw new RuntimeException("Failed to create const w700");
-    System.out.println("Const w700 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(700).build();
   }
   public static FontWeight w800() {
-    int id = factories.fontWeightW800();
-    if (id <= 0) throw new RuntimeException("Failed to create const w800");
-    System.out.println("Const w800 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(800).build();
   }
   public static FontWeight w900() {
-    int id = factories.fontWeightW900();
-    if (id <= 0) throw new RuntimeException("Failed to create const w900");
-    System.out.println("Const w900 id:"+id);
-    return new FontWeight(id);
+    return FontWeight.fontWeight(900).build();
   }
   public static FontWeight normal() {
     return w400();

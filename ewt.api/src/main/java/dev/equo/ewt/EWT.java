@@ -16,6 +16,8 @@ public class EWT {
       Optional.empty(),
       Optional.empty(),
       Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
     System.out.println("New Future<T?> id:"+id);
@@ -43,6 +45,10 @@ public class EWT {
   }
   public static OffsetFromDirectionBuilder Offset_fromDirection(double direction) {
     return OffsetFromDirectionBuilder.offsetFromDirection(direction);
+  }
+
+  public static FontWeightFontWeightBuilder FontWeight(int value) {
+    return FontWeightFontWeightBuilder.fontWeightFontWeight(value);
   }
 
   public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
@@ -290,6 +296,10 @@ public class EWT {
 
   public static AlignmentAlignmentBuilder Alignment(double x, double y) {
     return AlignmentAlignmentBuilder.alignmentAlignment(x, y);
+  }
+
+  public static AlignmentDirectionalAlignmentDirectionalBuilder AlignmentDirectional(double start, double y) {
+    return AlignmentDirectionalAlignmentDirectionalBuilder.alignmentDirectionalAlignmentDirectional(start, y);
   }
 
   public static MouseRegionMouseRegionBuilder MouseRegion() {

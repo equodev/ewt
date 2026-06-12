@@ -16,11 +16,13 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
     System.out.println("New Scaffold id:"+id);
   }
   @Builder.Factory
-  static Scaffold scaffoldScaffold(Optional<PreferredSizeWidgetI> appBar, Optional<WidgetI> body, Optional<WidgetI> floatingActionButton, Optional<List<WidgetI>> persistentFooterButtons, Optional<WidgetI> drawer, Optional<Consumer<Boolean>> onDrawerChanged, Optional<WidgetI> endDrawer, Optional<Consumer<Boolean>> onEndDrawerChanged, Optional<WidgetI> bottomNavigationBar, Optional<WidgetI> bottomSheet, Optional<ColorI> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> extendBodyBehindAppBar, Optional<ColorI> drawerScrimColor, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
+  static Scaffold scaffoldScaffold(Optional<PreferredSizeWidgetI> appBar, Optional<WidgetI> body, Optional<WidgetI> floatingActionButton, Optional<List<WidgetI>> persistentFooterButtons, Optional<AlignmentDirectionalI> persistentFooterAlignment, Optional<BoxDecorationI> persistentFooterDecoration, Optional<WidgetI> drawer, Optional<Consumer<Boolean>> onDrawerChanged, Optional<WidgetI> endDrawer, Optional<Consumer<Boolean>> onEndDrawerChanged, Optional<WidgetI> bottomNavigationBar, Optional<WidgetI> bottomSheet, Optional<ColorI> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> drawerBarrierDismissible, Optional<Boolean> extendBodyBehindAppBar, Optional<ColorI> drawerScrimColor, Optional<BiFunction<BuildContext, Animation, Widget>> bottomSheetScrimBuilder, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
     var st = factories.scaffoldScaffold(appBar.map(PreferredSizeWidgetI::build),
       body.map(WidgetI::build),
       floatingActionButton.map(WidgetI::build),
       persistentFooterButtons.map(i -> i.stream().map(WidgetI::build).toList()),
+      persistentFooterAlignment.map(AlignmentDirectionalI::build),
+      persistentFooterDecoration.map(BoxDecorationI::build),
       drawer.map(WidgetI::build),
       onDrawerChanged,
       endDrawer.map(WidgetI::build),
@@ -32,8 +34,10 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
       primary,
       drawerDragStartBehavior,
       extendBody,
+      drawerBarrierDismissible,
       extendBodyBehindAppBar,
       drawerScrimColor.map(ColorI::build),
+      bottomSheetScrimBuilder,
       drawerEdgeDragWidth,
       drawerEnableOpenDragGesture,
       endDrawerEnableOpenDragGesture,
@@ -60,6 +64,9 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   public boolean extendBody() {
     return intToBool(ScaffoldObjSt.extendBody(st));
   }
+  public boolean drawerBarrierDismissible() {
+    return intToBool(ScaffoldObjSt.drawerBarrierDismissible(st));
+  }
   public boolean extendBodyBehindAppBar() {
     return intToBool(ScaffoldObjSt.extendBodyBehindAppBar(st));
   }
@@ -71,6 +78,12 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
   }
   public Widget floatingActionButton() {
     return new Widget(ScaffoldObjSt.floatingActionButton(st)) {};
+  }
+  public AlignmentDirectional persistentFooterAlignment() {
+    return new AlignmentDirectional(ScaffoldObjSt.persistentFooterAlignment(st));
+  }
+  public BoxDecoration persistentFooterDecoration() {
+    return new BoxDecoration(ScaffoldObjSt.persistentFooterDecoration(st));
   }
   public Widget drawer() {
     return new Widget(ScaffoldObjSt.drawer(st)) {};

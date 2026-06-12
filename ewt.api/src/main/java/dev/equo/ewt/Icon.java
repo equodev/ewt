@@ -16,7 +16,7 @@ public class Icon extends StatelessWidget implements IconI {
     System.out.println("New Icon id:"+id);
   }
   @Builder.Factory
-  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<List<ShadowI>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode) {
+  static Icon iconIcon(@Builder.Parameter IconDataI icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<ColorI> color, Optional<List<ShadowI>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode, Optional<FontWeightI> fontWeight) {
     var st = factories.iconIcon(icon.build(),
       size,
       fill,
@@ -28,7 +28,8 @@ public class Icon extends StatelessWidget implements IconI {
       semanticLabel,
       textDirection,
       applyTextScaling,
-      blendMode);
+      blendMode,
+      fontWeight.map(FontWeightI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Icon");
     return new Icon(st);
   }
@@ -67,6 +68,9 @@ public class Icon extends StatelessWidget implements IconI {
   }
   public BlendMode blendMode() {
     return BlendMode.values()[IconObjSt.blendMode(st)];
+  }
+  public FontWeight fontWeight() {
+    return new FontWeight(IconObjSt.fontWeight(st));
   }
   @Override
   public Icon build() {

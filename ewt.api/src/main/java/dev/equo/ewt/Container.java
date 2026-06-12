@@ -16,10 +16,11 @@ public class Container extends StatelessWidget implements ContainerI {
     System.out.println("New Container id:"+id);
   }
   @Builder.Factory
-  static Container containerContainer(Optional<AlignmentGeometryI> alignment, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<DecorationI> decoration, Optional<DecorationI> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> margin, Optional<AlignmentGeometryI> transformAlignment, Optional<WidgetI> child, Optional<Clip> clipBehavior) {
+  static Container containerContainer(Optional<AlignmentGeometryI> alignment, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<Boolean> isAntiAlias, Optional<DecorationI> decoration, Optional<DecorationI> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> margin, Optional<AlignmentGeometryI> transformAlignment, Optional<WidgetI> child, Optional<Clip> clipBehavior) {
     var st = factories.containerContainer(alignment.map(AlignmentGeometryI::build),
       padding.map(EdgeInsetsGeometryI::build),
       color.map(ColorI::build),
+      isAntiAlias,
       decoration.map(DecorationI::build),
       foregroundDecoration.map(DecorationI::build),
       width,
@@ -46,6 +47,9 @@ public class Container extends StatelessWidget implements ContainerI {
   }
   public Color color() {
     return new Color(ContainerObjSt.color(st));
+  }
+  public boolean isAntiAlias() {
+    return intToBool(ContainerObjSt.isAntiAlias(st));
   }
   public Decoration decoration() {
     return new Decoration(ContainerObjSt.decoration(st)) {};

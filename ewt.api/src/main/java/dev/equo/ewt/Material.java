@@ -16,7 +16,7 @@ public class Material extends StatefulWidget implements MaterialI {
     System.out.println("New Material id:"+id);
   }
   @Builder.Factory
-  static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<DurationI> animationDuration, Optional<WidgetI> child) {
+  static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<DurationI> animationDuration, Optional<WidgetI> child, Optional<Boolean> animateColor) {
     var st = factories.materialMaterial(type,
       elevation,
       color.map(ColorI::build),
@@ -28,7 +28,8 @@ public class Material extends StatefulWidget implements MaterialI {
       borderOnForeground,
       clipBehavior,
       animationDuration.map(DurationI::build),
-      child.map(WidgetI::build));
+      child.map(WidgetI::build),
+      animateColor);
     if (st == null) throw new RuntimeException("Failed to created widget Material");
     return new Material(st);
   }
@@ -40,6 +41,9 @@ public class Material extends StatefulWidget implements MaterialI {
   }
   public MaterialType type() {
     return MaterialType.values()[MaterialObjSt.type(st)];
+  }
+  public boolean animateColor() {
+    return intToBool(MaterialObjSt.animateColor(st));
   }
   public double elevation() {
     return MaterialObjSt.elevation(st);
