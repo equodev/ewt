@@ -3,6 +3,7 @@ typedef DartObj (*TransitionBuilderFFI)(DartObj context, DartObj child);
 typedef void (*VoidCallbackFFI)(void);
 typedef void (*ValueChangedForBoolFFI)(int value);
 typedef void (*DrawerCallbackFFI)(int isOpened);
+typedef DartObj (*DartObjCallbackDartObjDartObjFFI)(DartObj , DartObj );
 typedef char* (*GenerateAppTitleFFI)(DartObj context);
 typedef void (*ValueChangedForStringFFI)(char* value);
 typedef void (*GestureTapCallbackFFI)(void);

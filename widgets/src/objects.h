@@ -32,6 +32,7 @@ typedef struct {
   double textScaleFactor;
   int maxLines;
   char* semanticsLabel;
+  char* semanticsIdentifier;
   int textWidthBasis;
   DartObj selectionColor;
 } TextObjSt;
@@ -40,6 +41,7 @@ typedef struct {
   int id;
   char* text;
   char* semanticsLabel;
+  char* semanticsIdentifier;
   int spellOut;
 } TextSpanObjSt;
 
@@ -109,6 +111,7 @@ typedef struct {
   int textDirection;
   int applyTextScaling;
   int blendMode;
+  DartObj fontWeight;
 } IconObjSt;
 
 typedef struct {
@@ -153,6 +156,7 @@ typedef struct {
   DartObj alignment;
   DartObj padding;
   DartObj color;
+  int isAntiAlias;
   DartObj decoration;
   DartObj foregroundDecoration;
   BoxConstraintsObjSt constraints;
@@ -288,6 +292,12 @@ typedef struct {
   double x;
   double y;
 } AlignmentObjSt;
+
+typedef struct {
+  int id;
+  double start;
+  double y;
+} AlignmentDirectionalObjSt;
 
 typedef struct {
   int id;
@@ -430,7 +440,6 @@ typedef struct {
   DartObj highlightColor;
   DartObj hintColor;
   DartObj hoverColor;
-  DartObj indicatorColor;
   DartObj primaryColor;
   DartObj primaryColorDark;
   DartObj primaryColorLight;
@@ -442,6 +451,7 @@ typedef struct {
   TextThemeObjSt primaryTextTheme;
   TextThemeObjSt textTheme;
   DartObj dialogBackgroundColor;
+  DartObj indicatorColor;
   int brightness;
 } ThemeDataObjSt;
 
@@ -457,6 +467,7 @@ typedef struct {
   int id;
   DartObj child;
   int type;
+  int animateColor;
   double elevation;
   DartObj color;
   DartObj shadowColor;
@@ -496,6 +507,7 @@ typedef struct {
   DartObj leading;
   int automaticallyImplyLeading;
   DartObj title;
+  int automaticallyImplyActions;
   DartObj flexibleSpace;
   DartObj bottom;
   double elevation;
@@ -516,17 +528,22 @@ typedef struct {
   TextStyleObjSt toolbarTextStyle;
   TextStyleObjSt titleTextStyle;
   int forceMaterialTransparency;
+  int useDefaultSemanticsOrder;
   int clipBehavior;
   DartObj actionsPadding;
+  int animateColor;
 } AppBarObjSt;
 
 typedef struct {
   int id;
   int extendBody;
+  int drawerBarrierDismissible;
   int extendBodyBehindAppBar;
   DartObj appBar;
   DartObj body;
   DartObj floatingActionButton;
+  AlignmentDirectionalObjSt persistentFooterAlignment;
+  BoxDecorationObjSt persistentFooterDecoration;
   DartObj drawer;
   DartObj endDrawer;
   DartObj drawerScrimColor;
@@ -614,6 +631,7 @@ typedef struct {
   char* initialRoute;
   char* restorationScopeId;
   int routeTraversalEdgeBehavior;
+  int routeDirectionalTraversalEdgeBehavior;
   int reportsRouteUpdateToEngine;
   int clipBehavior;
   int requestFocus;
@@ -645,6 +663,7 @@ typedef struct {
   int clipBehavior;
   DartObj shape;
   DartObj alignment;
+  BoxConstraintsObjSt constraints;
   int scrollable;
 } AlertDialogObjSt;
 
@@ -661,11 +680,14 @@ typedef struct {
   TextStyleObjSt helperStyle;
   int helperMaxLines;
   char* hintText;
+  DartObj hint;
   TextStyleObjSt hintStyle;
   int hintTextDirection;
   int hintMaxLines;
   DartObj hintFadeDuration;
   int maintainHintHeight;
+  int maintainHintSize;
+  int maintainLabelSize;
   DartObj error;
   char* errorText;
   TextStyleObjSt errorStyle;
@@ -703,6 +725,7 @@ typedef struct {
   char* semanticCounterText;
   int alignLabelWithHint;
   BoxConstraintsObjSt constraints;
+  VisualDensityObjSt visualDensity;
 } InputDecorationObjSt;
 
 typedef struct {
@@ -740,6 +763,7 @@ typedef struct {
   int keyboardAppearance;
   EdgeInsetsObjSt scrollPadding;
   int enableInteractiveSelection;
+  int selectAllOnFocus;
   int dragStartBehavior;
   int onTapAlwaysCalled;
   int clipBehavior;
@@ -747,6 +771,7 @@ typedef struct {
   int scribbleEnabled;
   int stylusHandwritingEnabled;
   int enableIMEPersonalizedLearning;
+  int enableInlinePrediction;
   int canRequestFocus;
   int selectionEnabled;
 } TextFieldObjSt;
@@ -757,6 +782,7 @@ typedef struct {
   double thickness;
   double indent;
   double endIndent;
+  DartObj radius;
   DartObj color;
 } DividerObjSt;
 
@@ -795,6 +821,7 @@ typedef struct {
   int showCloseIcon;
   DartObj closeIconColor;
   DartObj duration;
+  int persist;
   DartObj animation;
   int dismissDirection;
   int clipBehavior;
