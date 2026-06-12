@@ -19,6 +19,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     char *initialRoute;
  *     char *restorationScopeId;
  *     int routeTraversalEdgeBehavior;
+ *     int routeDirectionalTraversalEdgeBehavior;
  *     int reportsRouteUpdateToEngine;
  *     int clipBehavior;
  *     int requestFocus;
@@ -37,10 +38,12 @@ public class NavigatorObjSt {
         StarterBridge.C_POINTER.withName("initialRoute"),
         StarterBridge.C_POINTER.withName("restorationScopeId"),
         StarterBridge.C_INT.withName("routeTraversalEdgeBehavior"),
+        StarterBridge.C_INT.withName("routeDirectionalTraversalEdgeBehavior"),
         StarterBridge.C_INT.withName("reportsRouteUpdateToEngine"),
         StarterBridge.C_INT.withName("clipBehavior"),
-        StarterBridge.C_INT.withName("requestFocus")
-    ).withName("$anon$612:9");
+        StarterBridge.C_INT.withName("requestFocus"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$629:9");
 
     /**
      * The layout of this struct
@@ -225,6 +228,50 @@ public class NavigatorObjSt {
         struct.set(routeTraversalEdgeBehavior$LAYOUT, routeTraversalEdgeBehavior$OFFSET, fieldValue);
     }
 
+    private static final OfInt routeDirectionalTraversalEdgeBehavior$LAYOUT = (OfInt)$LAYOUT.select(groupElement("routeDirectionalTraversalEdgeBehavior"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int routeDirectionalTraversalEdgeBehavior
+     * }
+     */
+    public static final OfInt routeDirectionalTraversalEdgeBehavior$layout() {
+        return routeDirectionalTraversalEdgeBehavior$LAYOUT;
+    }
+
+    private static final long routeDirectionalTraversalEdgeBehavior$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int routeDirectionalTraversalEdgeBehavior
+     * }
+     */
+    public static final long routeDirectionalTraversalEdgeBehavior$offset() {
+        return routeDirectionalTraversalEdgeBehavior$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int routeDirectionalTraversalEdgeBehavior
+     * }
+     */
+    public static int routeDirectionalTraversalEdgeBehavior(MemorySegment struct) {
+        return struct.get(routeDirectionalTraversalEdgeBehavior$LAYOUT, routeDirectionalTraversalEdgeBehavior$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int routeDirectionalTraversalEdgeBehavior
+     * }
+     */
+    public static void routeDirectionalTraversalEdgeBehavior(MemorySegment struct, int fieldValue) {
+        struct.set(routeDirectionalTraversalEdgeBehavior$LAYOUT, routeDirectionalTraversalEdgeBehavior$OFFSET, fieldValue);
+    }
+
     private static final OfInt reportsRouteUpdateToEngine$LAYOUT = (OfInt)$LAYOUT.select(groupElement("reportsRouteUpdateToEngine"));
 
     /**
@@ -237,7 +284,7 @@ public class NavigatorObjSt {
         return reportsRouteUpdateToEngine$LAYOUT;
     }
 
-    private static final long reportsRouteUpdateToEngine$OFFSET = 28;
+    private static final long reportsRouteUpdateToEngine$OFFSET = 32;
 
     /**
      * Offset for field:
@@ -281,7 +328,7 @@ public class NavigatorObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 32;
+    private static final long clipBehavior$OFFSET = 36;
 
     /**
      * Offset for field:
@@ -325,7 +372,7 @@ public class NavigatorObjSt {
         return requestFocus$LAYOUT;
     }
 
-    private static final long requestFocus$OFFSET = 36;
+    private static final long requestFocus$OFFSET = 40;
 
     /**
      * Offset for field:

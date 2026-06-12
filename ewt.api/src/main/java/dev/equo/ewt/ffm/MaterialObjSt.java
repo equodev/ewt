@@ -18,6 +18,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int id;
  *     DartObj child;
  *     int type;
+ *     int animateColor;
  *     double elevation;
  *     DartObj color;
  *     DartObj shadowColor;
@@ -41,7 +42,7 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("child"),
         StarterBridge.C_INT.withName("type"),
-        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_INT.withName("animateColor"),
         StarterBridge.C_DOUBLE.withName("elevation"),
         StarterBridge.C_INT.withName("color"),
         StarterBridge.C_INT.withName("shadowColor"),
@@ -54,7 +55,7 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("animationDuration"),
         StarterBridge.C_INT.withName("borderRadius"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$456:9");
+    ).withName("$anon$466:9");
 
     /**
      * The layout of this struct
@@ -193,6 +194,50 @@ public class MaterialObjSt {
      */
     public static void type(MemorySegment struct, int fieldValue) {
         struct.set(type$LAYOUT, type$OFFSET, fieldValue);
+    }
+
+    private static final OfInt animateColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("animateColor"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static final OfInt animateColor$layout() {
+        return animateColor$LAYOUT;
+    }
+
+    private static final long animateColor$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static final long animateColor$offset() {
+        return animateColor$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static int animateColor(MemorySegment struct) {
+        return struct.get(animateColor$LAYOUT, animateColor$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static void animateColor(MemorySegment struct, int fieldValue) {
+        struct.set(animateColor$LAYOUT, animateColor$OFFSET, fieldValue);
     }
 
     private static final OfDouble elevation$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("elevation"));

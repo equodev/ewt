@@ -40,6 +40,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int clipBehavior;
  *     DartObj shape;
  *     DartObj alignment;
+ *     BoxConstraintsObjSt constraints;
  *     int scrollable;
  * }
  * }
@@ -76,8 +77,11 @@ public class AlertDialogObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("shape"),
         StarterBridge.C_INT.withName("alignment"),
-        StarterBridge.C_INT.withName("scrollable")
-    ).withName("$anon$622:9");
+        MemoryLayout.paddingLayout(4),
+        BoxConstraintsObjSt.layout().withName("constraints"),
+        StarterBridge.C_INT.withName("scrollable"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$640:9");
 
     /**
      * The layout of this struct
@@ -1186,6 +1190,50 @@ public class AlertDialogObjSt {
         struct.set(alignment$LAYOUT, alignment$OFFSET, fieldValue);
     }
 
+    private static final GroupLayout constraints$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("constraints"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BoxConstraintsObjSt constraints
+     * }
+     */
+    public static final GroupLayout constraints$layout() {
+        return constraints$LAYOUT;
+    }
+
+    private static final long constraints$OFFSET = 384;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BoxConstraintsObjSt constraints
+     * }
+     */
+    public static final long constraints$offset() {
+        return constraints$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BoxConstraintsObjSt constraints
+     * }
+     */
+    public static MemorySegment constraints(MemorySegment struct) {
+        return struct.asSlice(constraints$OFFSET, constraints$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BoxConstraintsObjSt constraints
+     * }
+     */
+    public static void constraints(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, constraints$OFFSET, constraints$LAYOUT.byteSize());
+    }
+
     private static final OfInt scrollable$LAYOUT = (OfInt)$LAYOUT.select(groupElement("scrollable"));
 
     /**
@@ -1198,7 +1246,7 @@ public class AlertDialogObjSt {
         return scrollable$LAYOUT;
     }
 
-    private static final long scrollable$OFFSET = 380;
+    private static final long scrollable$OFFSET = 448;
 
     /**
      * Offset for field:

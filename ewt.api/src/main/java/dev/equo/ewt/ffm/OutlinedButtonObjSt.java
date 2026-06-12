@@ -27,7 +27,7 @@ public class OutlinedButtonObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$604:9");
+    ).withName("$anon$621:9");
 
     /**
      * The layout of this struct

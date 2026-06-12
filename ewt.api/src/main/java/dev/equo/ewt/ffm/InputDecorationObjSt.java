@@ -27,11 +27,14 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     TextStyleObjSt helperStyle;
  *     int helperMaxLines;
  *     char *hintText;
+ *     DartObj hint;
  *     TextStyleObjSt hintStyle;
  *     int hintTextDirection;
  *     int hintMaxLines;
  *     DartObj hintFadeDuration;
  *     int maintainHintHeight;
+ *     int maintainHintSize;
+ *     int maintainLabelSize;
  *     DartObj error;
  *     char *errorText;
  *     TextStyleObjSt errorStyle;
@@ -69,6 +72,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     char *semanticCounterText;
  *     int alignLabelWithHint;
  *     BoxConstraintsObjSt constraints;
+ *     VisualDensityObjSt visualDensity;
  * }
  * }
  */
@@ -93,11 +97,15 @@ public class InputDecorationObjSt {
         StarterBridge.C_INT.withName("helperMaxLines"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("hintText"),
+        StarterBridge.C_INT.withName("hint"),
+        MemoryLayout.paddingLayout(4),
         TextStyleObjSt.layout().withName("hintStyle"),
         StarterBridge.C_INT.withName("hintTextDirection"),
         StarterBridge.C_INT.withName("hintMaxLines"),
         StarterBridge.C_INT.withName("hintFadeDuration"),
         StarterBridge.C_INT.withName("maintainHintHeight"),
+        StarterBridge.C_INT.withName("maintainHintSize"),
+        StarterBridge.C_INT.withName("maintainLabelSize"),
         StarterBridge.C_INT.withName("error"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("errorText"),
@@ -141,8 +149,9 @@ public class InputDecorationObjSt {
         StarterBridge.C_POINTER.withName("semanticCounterText"),
         StarterBridge.C_INT.withName("alignLabelWithHint"),
         MemoryLayout.paddingLayout(4),
-        BoxConstraintsObjSt.layout().withName("constraints")
-    ).withName("$anon$651:9");
+        BoxConstraintsObjSt.layout().withName("constraints"),
+        VisualDensityObjSt.layout().withName("visualDensity")
+    ).withName("$anon$670:9");
 
     /**
      * The layout of this struct
@@ -679,6 +688,50 @@ public class InputDecorationObjSt {
         struct.set(hintText$LAYOUT, hintText$OFFSET, fieldValue);
     }
 
+    private static final OfInt hint$LAYOUT = (OfInt)$LAYOUT.select(groupElement("hint"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj hint
+     * }
+     */
+    public static final OfInt hint$layout() {
+        return hint$LAYOUT;
+    }
+
+    private static final long hint$OFFSET = 392;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj hint
+     * }
+     */
+    public static final long hint$offset() {
+        return hint$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj hint
+     * }
+     */
+    public static int hint(MemorySegment struct) {
+        return struct.get(hint$LAYOUT, hint$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj hint
+     * }
+     */
+    public static void hint(MemorySegment struct, int fieldValue) {
+        struct.set(hint$LAYOUT, hint$OFFSET, fieldValue);
+    }
+
     private static final GroupLayout hintStyle$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("hintStyle"));
 
     /**
@@ -691,7 +744,7 @@ public class InputDecorationObjSt {
         return hintStyle$LAYOUT;
     }
 
-    private static final long hintStyle$OFFSET = 392;
+    private static final long hintStyle$OFFSET = 400;
 
     /**
      * Offset for field:
@@ -735,7 +788,7 @@ public class InputDecorationObjSt {
         return hintTextDirection$LAYOUT;
     }
 
-    private static final long hintTextDirection$OFFSET = 504;
+    private static final long hintTextDirection$OFFSET = 512;
 
     /**
      * Offset for field:
@@ -779,7 +832,7 @@ public class InputDecorationObjSt {
         return hintMaxLines$LAYOUT;
     }
 
-    private static final long hintMaxLines$OFFSET = 508;
+    private static final long hintMaxLines$OFFSET = 516;
 
     /**
      * Offset for field:
@@ -823,7 +876,7 @@ public class InputDecorationObjSt {
         return hintFadeDuration$LAYOUT;
     }
 
-    private static final long hintFadeDuration$OFFSET = 512;
+    private static final long hintFadeDuration$OFFSET = 520;
 
     /**
      * Offset for field:
@@ -867,7 +920,7 @@ public class InputDecorationObjSt {
         return maintainHintHeight$LAYOUT;
     }
 
-    private static final long maintainHintHeight$OFFSET = 516;
+    private static final long maintainHintHeight$OFFSET = 524;
 
     /**
      * Offset for field:
@@ -899,6 +952,94 @@ public class InputDecorationObjSt {
         struct.set(maintainHintHeight$LAYOUT, maintainHintHeight$OFFSET, fieldValue);
     }
 
+    private static final OfInt maintainHintSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("maintainHintSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int maintainHintSize
+     * }
+     */
+    public static final OfInt maintainHintSize$layout() {
+        return maintainHintSize$LAYOUT;
+    }
+
+    private static final long maintainHintSize$OFFSET = 528;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int maintainHintSize
+     * }
+     */
+    public static final long maintainHintSize$offset() {
+        return maintainHintSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int maintainHintSize
+     * }
+     */
+    public static int maintainHintSize(MemorySegment struct) {
+        return struct.get(maintainHintSize$LAYOUT, maintainHintSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int maintainHintSize
+     * }
+     */
+    public static void maintainHintSize(MemorySegment struct, int fieldValue) {
+        struct.set(maintainHintSize$LAYOUT, maintainHintSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt maintainLabelSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("maintainLabelSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int maintainLabelSize
+     * }
+     */
+    public static final OfInt maintainLabelSize$layout() {
+        return maintainLabelSize$LAYOUT;
+    }
+
+    private static final long maintainLabelSize$OFFSET = 532;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int maintainLabelSize
+     * }
+     */
+    public static final long maintainLabelSize$offset() {
+        return maintainLabelSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int maintainLabelSize
+     * }
+     */
+    public static int maintainLabelSize(MemorySegment struct) {
+        return struct.get(maintainLabelSize$LAYOUT, maintainLabelSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int maintainLabelSize
+     * }
+     */
+    public static void maintainLabelSize(MemorySegment struct, int fieldValue) {
+        struct.set(maintainLabelSize$LAYOUT, maintainLabelSize$OFFSET, fieldValue);
+    }
+
     private static final OfInt error$LAYOUT = (OfInt)$LAYOUT.select(groupElement("error"));
 
     /**
@@ -911,7 +1052,7 @@ public class InputDecorationObjSt {
         return error$LAYOUT;
     }
 
-    private static final long error$OFFSET = 520;
+    private static final long error$OFFSET = 536;
 
     /**
      * Offset for field:
@@ -955,7 +1096,7 @@ public class InputDecorationObjSt {
         return errorText$LAYOUT;
     }
 
-    private static final long errorText$OFFSET = 528;
+    private static final long errorText$OFFSET = 544;
 
     /**
      * Offset for field:
@@ -999,7 +1140,7 @@ public class InputDecorationObjSt {
         return errorStyle$LAYOUT;
     }
 
-    private static final long errorStyle$OFFSET = 536;
+    private static final long errorStyle$OFFSET = 552;
 
     /**
      * Offset for field:
@@ -1043,7 +1184,7 @@ public class InputDecorationObjSt {
         return errorMaxLines$LAYOUT;
     }
 
-    private static final long errorMaxLines$OFFSET = 648;
+    private static final long errorMaxLines$OFFSET = 664;
 
     /**
      * Offset for field:
@@ -1087,7 +1228,7 @@ public class InputDecorationObjSt {
         return floatingLabelBehavior$LAYOUT;
     }
 
-    private static final long floatingLabelBehavior$OFFSET = 652;
+    private static final long floatingLabelBehavior$OFFSET = 668;
 
     /**
      * Offset for field:
@@ -1131,7 +1272,7 @@ public class InputDecorationObjSt {
         return isDense$LAYOUT;
     }
 
-    private static final long isDense$OFFSET = 656;
+    private static final long isDense$OFFSET = 672;
 
     /**
      * Offset for field:
@@ -1175,7 +1316,7 @@ public class InputDecorationObjSt {
         return contentPadding$LAYOUT;
     }
 
-    private static final long contentPadding$OFFSET = 660;
+    private static final long contentPadding$OFFSET = 676;
 
     /**
      * Offset for field:
@@ -1219,7 +1360,7 @@ public class InputDecorationObjSt {
         return isCollapsed$LAYOUT;
     }
 
-    private static final long isCollapsed$OFFSET = 664;
+    private static final long isCollapsed$OFFSET = 680;
 
     /**
      * Offset for field:
@@ -1263,7 +1404,7 @@ public class InputDecorationObjSt {
         return prefixIcon$LAYOUT;
     }
 
-    private static final long prefixIcon$OFFSET = 668;
+    private static final long prefixIcon$OFFSET = 684;
 
     /**
      * Offset for field:
@@ -1307,7 +1448,7 @@ public class InputDecorationObjSt {
         return prefixIconConstraints$LAYOUT;
     }
 
-    private static final long prefixIconConstraints$OFFSET = 672;
+    private static final long prefixIconConstraints$OFFSET = 688;
 
     /**
      * Offset for field:
@@ -1351,7 +1492,7 @@ public class InputDecorationObjSt {
         return prefix$LAYOUT;
     }
 
-    private static final long prefix$OFFSET = 736;
+    private static final long prefix$OFFSET = 752;
 
     /**
      * Offset for field:
@@ -1395,7 +1536,7 @@ public class InputDecorationObjSt {
         return prefixText$LAYOUT;
     }
 
-    private static final long prefixText$OFFSET = 744;
+    private static final long prefixText$OFFSET = 760;
 
     /**
      * Offset for field:
@@ -1439,7 +1580,7 @@ public class InputDecorationObjSt {
         return prefixStyle$LAYOUT;
     }
 
-    private static final long prefixStyle$OFFSET = 752;
+    private static final long prefixStyle$OFFSET = 768;
 
     /**
      * Offset for field:
@@ -1483,7 +1624,7 @@ public class InputDecorationObjSt {
         return prefixIconColor$LAYOUT;
     }
 
-    private static final long prefixIconColor$OFFSET = 864;
+    private static final long prefixIconColor$OFFSET = 880;
 
     /**
      * Offset for field:
@@ -1527,7 +1668,7 @@ public class InputDecorationObjSt {
         return suffixIcon$LAYOUT;
     }
 
-    private static final long suffixIcon$OFFSET = 868;
+    private static final long suffixIcon$OFFSET = 884;
 
     /**
      * Offset for field:
@@ -1571,7 +1712,7 @@ public class InputDecorationObjSt {
         return suffix$LAYOUT;
     }
 
-    private static final long suffix$OFFSET = 872;
+    private static final long suffix$OFFSET = 888;
 
     /**
      * Offset for field:
@@ -1615,7 +1756,7 @@ public class InputDecorationObjSt {
         return suffixText$LAYOUT;
     }
 
-    private static final long suffixText$OFFSET = 880;
+    private static final long suffixText$OFFSET = 896;
 
     /**
      * Offset for field:
@@ -1659,7 +1800,7 @@ public class InputDecorationObjSt {
         return suffixStyle$LAYOUT;
     }
 
-    private static final long suffixStyle$OFFSET = 888;
+    private static final long suffixStyle$OFFSET = 904;
 
     /**
      * Offset for field:
@@ -1703,7 +1844,7 @@ public class InputDecorationObjSt {
         return suffixIconColor$LAYOUT;
     }
 
-    private static final long suffixIconColor$OFFSET = 1000;
+    private static final long suffixIconColor$OFFSET = 1016;
 
     /**
      * Offset for field:
@@ -1747,7 +1888,7 @@ public class InputDecorationObjSt {
         return suffixIconConstraints$LAYOUT;
     }
 
-    private static final long suffixIconConstraints$OFFSET = 1008;
+    private static final long suffixIconConstraints$OFFSET = 1024;
 
     /**
      * Offset for field:
@@ -1791,7 +1932,7 @@ public class InputDecorationObjSt {
         return counterText$LAYOUT;
     }
 
-    private static final long counterText$OFFSET = 1072;
+    private static final long counterText$OFFSET = 1088;
 
     /**
      * Offset for field:
@@ -1835,7 +1976,7 @@ public class InputDecorationObjSt {
         return counter$LAYOUT;
     }
 
-    private static final long counter$OFFSET = 1080;
+    private static final long counter$OFFSET = 1096;
 
     /**
      * Offset for field:
@@ -1879,7 +2020,7 @@ public class InputDecorationObjSt {
         return counterStyle$LAYOUT;
     }
 
-    private static final long counterStyle$OFFSET = 1088;
+    private static final long counterStyle$OFFSET = 1104;
 
     /**
      * Offset for field:
@@ -1923,7 +2064,7 @@ public class InputDecorationObjSt {
         return filled$LAYOUT;
     }
 
-    private static final long filled$OFFSET = 1200;
+    private static final long filled$OFFSET = 1216;
 
     /**
      * Offset for field:
@@ -1967,7 +2108,7 @@ public class InputDecorationObjSt {
         return fillColor$LAYOUT;
     }
 
-    private static final long fillColor$OFFSET = 1204;
+    private static final long fillColor$OFFSET = 1220;
 
     /**
      * Offset for field:
@@ -2011,7 +2152,7 @@ public class InputDecorationObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 1208;
+    private static final long focusColor$OFFSET = 1224;
 
     /**
      * Offset for field:
@@ -2055,7 +2196,7 @@ public class InputDecorationObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 1212;
+    private static final long hoverColor$OFFSET = 1228;
 
     /**
      * Offset for field:
@@ -2099,7 +2240,7 @@ public class InputDecorationObjSt {
         return errorBorder$LAYOUT;
     }
 
-    private static final long errorBorder$OFFSET = 1216;
+    private static final long errorBorder$OFFSET = 1232;
 
     /**
      * Offset for field:
@@ -2143,7 +2284,7 @@ public class InputDecorationObjSt {
         return focusedBorder$LAYOUT;
     }
 
-    private static final long focusedBorder$OFFSET = 1220;
+    private static final long focusedBorder$OFFSET = 1236;
 
     /**
      * Offset for field:
@@ -2187,7 +2328,7 @@ public class InputDecorationObjSt {
         return focusedErrorBorder$LAYOUT;
     }
 
-    private static final long focusedErrorBorder$OFFSET = 1224;
+    private static final long focusedErrorBorder$OFFSET = 1240;
 
     /**
      * Offset for field:
@@ -2231,7 +2372,7 @@ public class InputDecorationObjSt {
         return disabledBorder$LAYOUT;
     }
 
-    private static final long disabledBorder$OFFSET = 1228;
+    private static final long disabledBorder$OFFSET = 1244;
 
     /**
      * Offset for field:
@@ -2275,7 +2416,7 @@ public class InputDecorationObjSt {
         return enabledBorder$LAYOUT;
     }
 
-    private static final long enabledBorder$OFFSET = 1232;
+    private static final long enabledBorder$OFFSET = 1248;
 
     /**
      * Offset for field:
@@ -2319,7 +2460,7 @@ public class InputDecorationObjSt {
         return border$LAYOUT;
     }
 
-    private static final long border$OFFSET = 1236;
+    private static final long border$OFFSET = 1252;
 
     /**
      * Offset for field:
@@ -2363,7 +2504,7 @@ public class InputDecorationObjSt {
         return enabled$LAYOUT;
     }
 
-    private static final long enabled$OFFSET = 1240;
+    private static final long enabled$OFFSET = 1256;
 
     /**
      * Offset for field:
@@ -2407,7 +2548,7 @@ public class InputDecorationObjSt {
         return semanticCounterText$LAYOUT;
     }
 
-    private static final long semanticCounterText$OFFSET = 1248;
+    private static final long semanticCounterText$OFFSET = 1264;
 
     /**
      * Offset for field:
@@ -2451,7 +2592,7 @@ public class InputDecorationObjSt {
         return alignLabelWithHint$LAYOUT;
     }
 
-    private static final long alignLabelWithHint$OFFSET = 1256;
+    private static final long alignLabelWithHint$OFFSET = 1272;
 
     /**
      * Offset for field:
@@ -2495,7 +2636,7 @@ public class InputDecorationObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 1264;
+    private static final long constraints$OFFSET = 1280;
 
     /**
      * Offset for field:
@@ -2525,6 +2666,50 @@ public class InputDecorationObjSt {
      */
     public static void constraints(MemorySegment struct, MemorySegment fieldValue) {
         MemorySegment.copy(fieldValue, 0L, struct, constraints$OFFSET, constraints$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout visualDensity$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("visualDensity"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static final GroupLayout visualDensity$layout() {
+        return visualDensity$LAYOUT;
+    }
+
+    private static final long visualDensity$OFFSET = 1344;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static final long visualDensity$offset() {
+        return visualDensity$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static MemorySegment visualDensity(MemorySegment struct) {
+        return struct.asSlice(visualDensity$OFFSET, visualDensity$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * VisualDensityObjSt visualDensity
+     * }
+     */
+    public static void visualDensity(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, visualDensity$OFFSET, visualDensity$LAYOUT.byteSize());
     }
 
     /**

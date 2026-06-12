@@ -16,18 +16,23 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     double start;
+ *     double y;
  * }
  * }
  */
-public class ExpandedObjSt {
+public class AlignmentDirectionalObjSt {
 
-    ExpandedObjSt() {
+    AlignmentDirectionalObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$308:9");
+        StarterBridge.C_INT.withName("id"),
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_DOUBLE.withName("start"),
+        StarterBridge.C_DOUBLE.withName("y")
+    ).withName("$anon$296:9");
 
     /**
      * The layout of this struct
@@ -78,6 +83,94 @@ public class ExpandedObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfDouble start$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("start"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * double start
+     * }
+     */
+    public static final OfDouble start$layout() {
+        return start$LAYOUT;
+    }
+
+    private static final long start$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * double start
+     * }
+     */
+    public static final long start$offset() {
+        return start$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * double start
+     * }
+     */
+    public static double start(MemorySegment struct) {
+        return struct.get(start$LAYOUT, start$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * double start
+     * }
+     */
+    public static void start(MemorySegment struct, double fieldValue) {
+        struct.set(start$LAYOUT, start$OFFSET, fieldValue);
+    }
+
+    private static final OfDouble y$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("y"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * double y
+     * }
+     */
+    public static final OfDouble y$layout() {
+        return y$LAYOUT;
+    }
+
+    private static final long y$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * double y
+     * }
+     */
+    public static final long y$offset() {
+        return y$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * double y
+     * }
+     */
+    public static double y(MemorySegment struct) {
+        return struct.get(y$LAYOUT, y$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * double y
+     * }
+     */
+    public static void y(MemorySegment struct, double fieldValue) {
+        struct.set(y$LAYOUT, y$OFFSET, fieldValue);
     }
 
     /**

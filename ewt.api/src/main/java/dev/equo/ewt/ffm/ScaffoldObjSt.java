@@ -17,10 +17,13 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct {
  *     int id;
  *     int extendBody;
+ *     int drawerBarrierDismissible;
  *     int extendBodyBehindAppBar;
  *     DartObj appBar;
  *     DartObj body;
  *     DartObj floatingActionButton;
+ *     AlignmentDirectionalObjSt persistentFooterAlignment;
+ *     BoxDecorationObjSt persistentFooterDecoration;
  *     DartObj drawer;
  *     DartObj endDrawer;
  *     DartObj drawerScrimColor;
@@ -46,10 +49,14 @@ public class ScaffoldObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("extendBody"),
+        StarterBridge.C_INT.withName("drawerBarrierDismissible"),
         StarterBridge.C_INT.withName("extendBodyBehindAppBar"),
         StarterBridge.C_INT.withName("appBar"),
         StarterBridge.C_INT.withName("body"),
         StarterBridge.C_INT.withName("floatingActionButton"),
+        MemoryLayout.paddingLayout(4),
+        AlignmentDirectionalObjSt.layout().withName("persistentFooterAlignment"),
+        BoxDecorationObjSt.layout().withName("persistentFooterDecoration"),
         StarterBridge.C_INT.withName("drawer"),
         StarterBridge.C_INT.withName("endDrawer"),
         StarterBridge.C_INT.withName("drawerScrimColor"),
@@ -64,7 +71,7 @@ public class ScaffoldObjSt {
         StarterBridge.C_INT.withName("drawerEnableOpenDragGesture"),
         StarterBridge.C_INT.withName("endDrawerEnableOpenDragGesture"),
         StarterBridge.C_POINTER.withName("restorationId")
-    ).withName("$anon$523:9");
+    ).withName("$anon$537:9");
 
     /**
      * The layout of this struct
@@ -161,6 +168,50 @@ public class ScaffoldObjSt {
         struct.set(extendBody$LAYOUT, extendBody$OFFSET, fieldValue);
     }
 
+    private static final OfInt drawerBarrierDismissible$LAYOUT = (OfInt)$LAYOUT.select(groupElement("drawerBarrierDismissible"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int drawerBarrierDismissible
+     * }
+     */
+    public static final OfInt drawerBarrierDismissible$layout() {
+        return drawerBarrierDismissible$LAYOUT;
+    }
+
+    private static final long drawerBarrierDismissible$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int drawerBarrierDismissible
+     * }
+     */
+    public static final long drawerBarrierDismissible$offset() {
+        return drawerBarrierDismissible$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int drawerBarrierDismissible
+     * }
+     */
+    public static int drawerBarrierDismissible(MemorySegment struct) {
+        return struct.get(drawerBarrierDismissible$LAYOUT, drawerBarrierDismissible$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int drawerBarrierDismissible
+     * }
+     */
+    public static void drawerBarrierDismissible(MemorySegment struct, int fieldValue) {
+        struct.set(drawerBarrierDismissible$LAYOUT, drawerBarrierDismissible$OFFSET, fieldValue);
+    }
+
     private static final OfInt extendBodyBehindAppBar$LAYOUT = (OfInt)$LAYOUT.select(groupElement("extendBodyBehindAppBar"));
 
     /**
@@ -173,7 +224,7 @@ public class ScaffoldObjSt {
         return extendBodyBehindAppBar$LAYOUT;
     }
 
-    private static final long extendBodyBehindAppBar$OFFSET = 8;
+    private static final long extendBodyBehindAppBar$OFFSET = 12;
 
     /**
      * Offset for field:
@@ -217,7 +268,7 @@ public class ScaffoldObjSt {
         return appBar$LAYOUT;
     }
 
-    private static final long appBar$OFFSET = 12;
+    private static final long appBar$OFFSET = 16;
 
     /**
      * Offset for field:
@@ -261,7 +312,7 @@ public class ScaffoldObjSt {
         return body$LAYOUT;
     }
 
-    private static final long body$OFFSET = 16;
+    private static final long body$OFFSET = 20;
 
     /**
      * Offset for field:
@@ -305,7 +356,7 @@ public class ScaffoldObjSt {
         return floatingActionButton$LAYOUT;
     }
 
-    private static final long floatingActionButton$OFFSET = 20;
+    private static final long floatingActionButton$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -337,6 +388,94 @@ public class ScaffoldObjSt {
         struct.set(floatingActionButton$LAYOUT, floatingActionButton$OFFSET, fieldValue);
     }
 
+    private static final GroupLayout persistentFooterAlignment$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("persistentFooterAlignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * AlignmentDirectionalObjSt persistentFooterAlignment
+     * }
+     */
+    public static final GroupLayout persistentFooterAlignment$layout() {
+        return persistentFooterAlignment$LAYOUT;
+    }
+
+    private static final long persistentFooterAlignment$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * AlignmentDirectionalObjSt persistentFooterAlignment
+     * }
+     */
+    public static final long persistentFooterAlignment$offset() {
+        return persistentFooterAlignment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * AlignmentDirectionalObjSt persistentFooterAlignment
+     * }
+     */
+    public static MemorySegment persistentFooterAlignment(MemorySegment struct) {
+        return struct.asSlice(persistentFooterAlignment$OFFSET, persistentFooterAlignment$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * AlignmentDirectionalObjSt persistentFooterAlignment
+     * }
+     */
+    public static void persistentFooterAlignment(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, persistentFooterAlignment$OFFSET, persistentFooterAlignment$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout persistentFooterDecoration$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("persistentFooterDecoration"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BoxDecorationObjSt persistentFooterDecoration
+     * }
+     */
+    public static final GroupLayout persistentFooterDecoration$layout() {
+        return persistentFooterDecoration$LAYOUT;
+    }
+
+    private static final long persistentFooterDecoration$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BoxDecorationObjSt persistentFooterDecoration
+     * }
+     */
+    public static final long persistentFooterDecoration$offset() {
+        return persistentFooterDecoration$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BoxDecorationObjSt persistentFooterDecoration
+     * }
+     */
+    public static MemorySegment persistentFooterDecoration(MemorySegment struct) {
+        return struct.asSlice(persistentFooterDecoration$OFFSET, persistentFooterDecoration$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BoxDecorationObjSt persistentFooterDecoration
+     * }
+     */
+    public static void persistentFooterDecoration(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, persistentFooterDecoration$OFFSET, persistentFooterDecoration$LAYOUT.byteSize());
+    }
+
     private static final OfInt drawer$LAYOUT = (OfInt)$LAYOUT.select(groupElement("drawer"));
 
     /**
@@ -349,7 +488,7 @@ public class ScaffoldObjSt {
         return drawer$LAYOUT;
     }
 
-    private static final long drawer$OFFSET = 24;
+    private static final long drawer$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -393,7 +532,7 @@ public class ScaffoldObjSt {
         return endDrawer$LAYOUT;
     }
 
-    private static final long endDrawer$OFFSET = 28;
+    private static final long endDrawer$OFFSET = 84;
 
     /**
      * Offset for field:
@@ -437,7 +576,7 @@ public class ScaffoldObjSt {
         return drawerScrimColor$LAYOUT;
     }
 
-    private static final long drawerScrimColor$OFFSET = 32;
+    private static final long drawerScrimColor$OFFSET = 88;
 
     /**
      * Offset for field:
@@ -481,7 +620,7 @@ public class ScaffoldObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 36;
+    private static final long backgroundColor$OFFSET = 92;
 
     /**
      * Offset for field:
@@ -525,7 +664,7 @@ public class ScaffoldObjSt {
         return bottomNavigationBar$LAYOUT;
     }
 
-    private static final long bottomNavigationBar$OFFSET = 40;
+    private static final long bottomNavigationBar$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -569,7 +708,7 @@ public class ScaffoldObjSt {
         return bottomSheet$LAYOUT;
     }
 
-    private static final long bottomSheet$OFFSET = 44;
+    private static final long bottomSheet$OFFSET = 100;
 
     /**
      * Offset for field:
@@ -613,7 +752,7 @@ public class ScaffoldObjSt {
         return resizeToAvoidBottomInset$LAYOUT;
     }
 
-    private static final long resizeToAvoidBottomInset$OFFSET = 48;
+    private static final long resizeToAvoidBottomInset$OFFSET = 104;
 
     /**
      * Offset for field:
@@ -657,7 +796,7 @@ public class ScaffoldObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 52;
+    private static final long primary$OFFSET = 108;
 
     /**
      * Offset for field:
@@ -701,7 +840,7 @@ public class ScaffoldObjSt {
         return drawerDragStartBehavior$LAYOUT;
     }
 
-    private static final long drawerDragStartBehavior$OFFSET = 56;
+    private static final long drawerDragStartBehavior$OFFSET = 112;
 
     /**
      * Offset for field:
@@ -745,7 +884,7 @@ public class ScaffoldObjSt {
         return drawerEdgeDragWidth$LAYOUT;
     }
 
-    private static final long drawerEdgeDragWidth$OFFSET = 64;
+    private static final long drawerEdgeDragWidth$OFFSET = 120;
 
     /**
      * Offset for field:
@@ -789,7 +928,7 @@ public class ScaffoldObjSt {
         return drawerEnableOpenDragGesture$LAYOUT;
     }
 
-    private static final long drawerEnableOpenDragGesture$OFFSET = 72;
+    private static final long drawerEnableOpenDragGesture$OFFSET = 128;
 
     /**
      * Offset for field:
@@ -833,7 +972,7 @@ public class ScaffoldObjSt {
         return endDrawerEnableOpenDragGesture$LAYOUT;
     }
 
-    private static final long endDrawerEnableOpenDragGesture$OFFSET = 76;
+    private static final long endDrawerEnableOpenDragGesture$OFFSET = 132;
 
     /**
      * Offset for field:
@@ -877,7 +1016,7 @@ public class ScaffoldObjSt {
         return restorationId$LAYOUT;
     }
 
-    private static final long restorationId$OFFSET = 80;
+    private static final long restorationId$OFFSET = 136;
 
     /**
      * Offset for field:

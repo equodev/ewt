@@ -49,6 +49,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int keyboardAppearance;
  *     EdgeInsetsObjSt scrollPadding;
  *     int enableInteractiveSelection;
+ *     int selectAllOnFocus;
  *     int dragStartBehavior;
  *     int onTapAlwaysCalled;
  *     int clipBehavior;
@@ -56,6 +57,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int scribbleEnabled;
  *     int stylusHandwritingEnabled;
  *     int enableIMEPersonalizedLearning;
+ *     int enableInlinePrediction;
  *     int canRequestFocus;
  *     int selectionEnabled;
  * }
@@ -105,17 +107,19 @@ public class TextFieldObjSt {
         MemoryLayout.paddingLayout(4),
         EdgeInsetsObjSt.layout().withName("scrollPadding"),
         StarterBridge.C_INT.withName("enableInteractiveSelection"),
+        StarterBridge.C_INT.withName("selectAllOnFocus"),
         StarterBridge.C_INT.withName("dragStartBehavior"),
         StarterBridge.C_INT.withName("onTapAlwaysCalled"),
         StarterBridge.C_INT.withName("clipBehavior"),
+        MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("restorationId"),
         StarterBridge.C_INT.withName("scribbleEnabled"),
         StarterBridge.C_INT.withName("stylusHandwritingEnabled"),
         StarterBridge.C_INT.withName("enableIMEPersonalizedLearning"),
+        StarterBridge.C_INT.withName("enableInlinePrediction"),
         StarterBridge.C_INT.withName("canRequestFocus"),
-        StarterBridge.C_INT.withName("selectionEnabled"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$708:9");
+        StarterBridge.C_INT.withName("selectionEnabled")
+    ).withName("$anon$731:9");
 
     /**
      * The layout of this struct
@@ -224,7 +228,7 @@ public class TextFieldObjSt {
         return textInputAction$LAYOUT;
     }
 
-    private static final long textInputAction$OFFSET = 1336;
+    private static final long textInputAction$OFFSET = 1384;
 
     /**
      * Offset for field:
@@ -268,7 +272,7 @@ public class TextFieldObjSt {
         return textCapitalization$LAYOUT;
     }
 
-    private static final long textCapitalization$OFFSET = 1340;
+    private static final long textCapitalization$OFFSET = 1388;
 
     /**
      * Offset for field:
@@ -312,7 +316,7 @@ public class TextFieldObjSt {
         return style$LAYOUT;
     }
 
-    private static final long style$OFFSET = 1344;
+    private static final long style$OFFSET = 1392;
 
     /**
      * Offset for field:
@@ -356,7 +360,7 @@ public class TextFieldObjSt {
         return textAlign$LAYOUT;
     }
 
-    private static final long textAlign$OFFSET = 1456;
+    private static final long textAlign$OFFSET = 1504;
 
     /**
      * Offset for field:
@@ -400,7 +404,7 @@ public class TextFieldObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 1460;
+    private static final long textDirection$OFFSET = 1508;
 
     /**
      * Offset for field:
@@ -444,7 +448,7 @@ public class TextFieldObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 1464;
+    private static final long autofocus$OFFSET = 1512;
 
     /**
      * Offset for field:
@@ -488,7 +492,7 @@ public class TextFieldObjSt {
         return obscuringCharacter$LAYOUT;
     }
 
-    private static final long obscuringCharacter$OFFSET = 1472;
+    private static final long obscuringCharacter$OFFSET = 1520;
 
     /**
      * Offset for field:
@@ -532,7 +536,7 @@ public class TextFieldObjSt {
         return obscureText$LAYOUT;
     }
 
-    private static final long obscureText$OFFSET = 1480;
+    private static final long obscureText$OFFSET = 1528;
 
     /**
      * Offset for field:
@@ -576,7 +580,7 @@ public class TextFieldObjSt {
         return autocorrect$LAYOUT;
     }
 
-    private static final long autocorrect$OFFSET = 1484;
+    private static final long autocorrect$OFFSET = 1532;
 
     /**
      * Offset for field:
@@ -620,7 +624,7 @@ public class TextFieldObjSt {
         return smartDashesType$LAYOUT;
     }
 
-    private static final long smartDashesType$OFFSET = 1488;
+    private static final long smartDashesType$OFFSET = 1536;
 
     /**
      * Offset for field:
@@ -664,7 +668,7 @@ public class TextFieldObjSt {
         return smartQuotesType$LAYOUT;
     }
 
-    private static final long smartQuotesType$OFFSET = 1492;
+    private static final long smartQuotesType$OFFSET = 1540;
 
     /**
      * Offset for field:
@@ -708,7 +712,7 @@ public class TextFieldObjSt {
         return enableSuggestions$LAYOUT;
     }
 
-    private static final long enableSuggestions$OFFSET = 1496;
+    private static final long enableSuggestions$OFFSET = 1544;
 
     /**
      * Offset for field:
@@ -752,7 +756,7 @@ public class TextFieldObjSt {
         return maxLines$LAYOUT;
     }
 
-    private static final long maxLines$OFFSET = 1500;
+    private static final long maxLines$OFFSET = 1548;
 
     /**
      * Offset for field:
@@ -796,7 +800,7 @@ public class TextFieldObjSt {
         return minLines$LAYOUT;
     }
 
-    private static final long minLines$OFFSET = 1504;
+    private static final long minLines$OFFSET = 1552;
 
     /**
      * Offset for field:
@@ -840,7 +844,7 @@ public class TextFieldObjSt {
         return expands$LAYOUT;
     }
 
-    private static final long expands$OFFSET = 1508;
+    private static final long expands$OFFSET = 1556;
 
     /**
      * Offset for field:
@@ -884,7 +888,7 @@ public class TextFieldObjSt {
         return readOnly$LAYOUT;
     }
 
-    private static final long readOnly$OFFSET = 1512;
+    private static final long readOnly$OFFSET = 1560;
 
     /**
      * Offset for field:
@@ -928,7 +932,7 @@ public class TextFieldObjSt {
         return showCursor$LAYOUT;
     }
 
-    private static final long showCursor$OFFSET = 1516;
+    private static final long showCursor$OFFSET = 1564;
 
     /**
      * Offset for field:
@@ -972,7 +976,7 @@ public class TextFieldObjSt {
         return maxLength$LAYOUT;
     }
 
-    private static final long maxLength$OFFSET = 1520;
+    private static final long maxLength$OFFSET = 1568;
 
     /**
      * Offset for field:
@@ -1016,7 +1020,7 @@ public class TextFieldObjSt {
         return maxLengthEnforcement$LAYOUT;
     }
 
-    private static final long maxLengthEnforcement$OFFSET = 1524;
+    private static final long maxLengthEnforcement$OFFSET = 1572;
 
     /**
      * Offset for field:
@@ -1060,7 +1064,7 @@ public class TextFieldObjSt {
         return enabled$LAYOUT;
     }
 
-    private static final long enabled$OFFSET = 1528;
+    private static final long enabled$OFFSET = 1576;
 
     /**
      * Offset for field:
@@ -1104,7 +1108,7 @@ public class TextFieldObjSt {
         return ignorePointers$LAYOUT;
     }
 
-    private static final long ignorePointers$OFFSET = 1532;
+    private static final long ignorePointers$OFFSET = 1580;
 
     /**
      * Offset for field:
@@ -1148,7 +1152,7 @@ public class TextFieldObjSt {
         return cursorWidth$LAYOUT;
     }
 
-    private static final long cursorWidth$OFFSET = 1536;
+    private static final long cursorWidth$OFFSET = 1584;
 
     /**
      * Offset for field:
@@ -1192,7 +1196,7 @@ public class TextFieldObjSt {
         return cursorHeight$LAYOUT;
     }
 
-    private static final long cursorHeight$OFFSET = 1544;
+    private static final long cursorHeight$OFFSET = 1592;
 
     /**
      * Offset for field:
@@ -1236,7 +1240,7 @@ public class TextFieldObjSt {
         return cursorRadius$LAYOUT;
     }
 
-    private static final long cursorRadius$OFFSET = 1552;
+    private static final long cursorRadius$OFFSET = 1600;
 
     /**
      * Offset for field:
@@ -1280,7 +1284,7 @@ public class TextFieldObjSt {
         return cursorOpacityAnimates$LAYOUT;
     }
 
-    private static final long cursorOpacityAnimates$OFFSET = 1556;
+    private static final long cursorOpacityAnimates$OFFSET = 1604;
 
     /**
      * Offset for field:
@@ -1324,7 +1328,7 @@ public class TextFieldObjSt {
         return cursorColor$LAYOUT;
     }
 
-    private static final long cursorColor$OFFSET = 1560;
+    private static final long cursorColor$OFFSET = 1608;
 
     /**
      * Offset for field:
@@ -1368,7 +1372,7 @@ public class TextFieldObjSt {
         return cursorErrorColor$LAYOUT;
     }
 
-    private static final long cursorErrorColor$OFFSET = 1564;
+    private static final long cursorErrorColor$OFFSET = 1612;
 
     /**
      * Offset for field:
@@ -1412,7 +1416,7 @@ public class TextFieldObjSt {
         return selectionHeightStyle$LAYOUT;
     }
 
-    private static final long selectionHeightStyle$OFFSET = 1568;
+    private static final long selectionHeightStyle$OFFSET = 1616;
 
     /**
      * Offset for field:
@@ -1456,7 +1460,7 @@ public class TextFieldObjSt {
         return selectionWidthStyle$LAYOUT;
     }
 
-    private static final long selectionWidthStyle$OFFSET = 1572;
+    private static final long selectionWidthStyle$OFFSET = 1620;
 
     /**
      * Offset for field:
@@ -1500,7 +1504,7 @@ public class TextFieldObjSt {
         return keyboardAppearance$LAYOUT;
     }
 
-    private static final long keyboardAppearance$OFFSET = 1576;
+    private static final long keyboardAppearance$OFFSET = 1624;
 
     /**
      * Offset for field:
@@ -1544,7 +1548,7 @@ public class TextFieldObjSt {
         return scrollPadding$LAYOUT;
     }
 
-    private static final long scrollPadding$OFFSET = 1584;
+    private static final long scrollPadding$OFFSET = 1632;
 
     /**
      * Offset for field:
@@ -1588,7 +1592,7 @@ public class TextFieldObjSt {
         return enableInteractiveSelection$LAYOUT;
     }
 
-    private static final long enableInteractiveSelection$OFFSET = 1640;
+    private static final long enableInteractiveSelection$OFFSET = 1688;
 
     /**
      * Offset for field:
@@ -1620,6 +1624,50 @@ public class TextFieldObjSt {
         struct.set(enableInteractiveSelection$LAYOUT, enableInteractiveSelection$OFFSET, fieldValue);
     }
 
+    private static final OfInt selectAllOnFocus$LAYOUT = (OfInt)$LAYOUT.select(groupElement("selectAllOnFocus"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int selectAllOnFocus
+     * }
+     */
+    public static final OfInt selectAllOnFocus$layout() {
+        return selectAllOnFocus$LAYOUT;
+    }
+
+    private static final long selectAllOnFocus$OFFSET = 1692;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int selectAllOnFocus
+     * }
+     */
+    public static final long selectAllOnFocus$offset() {
+        return selectAllOnFocus$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int selectAllOnFocus
+     * }
+     */
+    public static int selectAllOnFocus(MemorySegment struct) {
+        return struct.get(selectAllOnFocus$LAYOUT, selectAllOnFocus$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int selectAllOnFocus
+     * }
+     */
+    public static void selectAllOnFocus(MemorySegment struct, int fieldValue) {
+        struct.set(selectAllOnFocus$LAYOUT, selectAllOnFocus$OFFSET, fieldValue);
+    }
+
     private static final OfInt dragStartBehavior$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dragStartBehavior"));
 
     /**
@@ -1632,7 +1680,7 @@ public class TextFieldObjSt {
         return dragStartBehavior$LAYOUT;
     }
 
-    private static final long dragStartBehavior$OFFSET = 1644;
+    private static final long dragStartBehavior$OFFSET = 1696;
 
     /**
      * Offset for field:
@@ -1676,7 +1724,7 @@ public class TextFieldObjSt {
         return onTapAlwaysCalled$LAYOUT;
     }
 
-    private static final long onTapAlwaysCalled$OFFSET = 1648;
+    private static final long onTapAlwaysCalled$OFFSET = 1700;
 
     /**
      * Offset for field:
@@ -1720,7 +1768,7 @@ public class TextFieldObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 1652;
+    private static final long clipBehavior$OFFSET = 1704;
 
     /**
      * Offset for field:
@@ -1764,7 +1812,7 @@ public class TextFieldObjSt {
         return restorationId$LAYOUT;
     }
 
-    private static final long restorationId$OFFSET = 1656;
+    private static final long restorationId$OFFSET = 1712;
 
     /**
      * Offset for field:
@@ -1808,7 +1856,7 @@ public class TextFieldObjSt {
         return scribbleEnabled$LAYOUT;
     }
 
-    private static final long scribbleEnabled$OFFSET = 1664;
+    private static final long scribbleEnabled$OFFSET = 1720;
 
     /**
      * Offset for field:
@@ -1852,7 +1900,7 @@ public class TextFieldObjSt {
         return stylusHandwritingEnabled$LAYOUT;
     }
 
-    private static final long stylusHandwritingEnabled$OFFSET = 1668;
+    private static final long stylusHandwritingEnabled$OFFSET = 1724;
 
     /**
      * Offset for field:
@@ -1896,7 +1944,7 @@ public class TextFieldObjSt {
         return enableIMEPersonalizedLearning$LAYOUT;
     }
 
-    private static final long enableIMEPersonalizedLearning$OFFSET = 1672;
+    private static final long enableIMEPersonalizedLearning$OFFSET = 1728;
 
     /**
      * Offset for field:
@@ -1928,6 +1976,50 @@ public class TextFieldObjSt {
         struct.set(enableIMEPersonalizedLearning$LAYOUT, enableIMEPersonalizedLearning$OFFSET, fieldValue);
     }
 
+    private static final OfInt enableInlinePrediction$LAYOUT = (OfInt)$LAYOUT.select(groupElement("enableInlinePrediction"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int enableInlinePrediction
+     * }
+     */
+    public static final OfInt enableInlinePrediction$layout() {
+        return enableInlinePrediction$LAYOUT;
+    }
+
+    private static final long enableInlinePrediction$OFFSET = 1732;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int enableInlinePrediction
+     * }
+     */
+    public static final long enableInlinePrediction$offset() {
+        return enableInlinePrediction$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int enableInlinePrediction
+     * }
+     */
+    public static int enableInlinePrediction(MemorySegment struct) {
+        return struct.get(enableInlinePrediction$LAYOUT, enableInlinePrediction$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int enableInlinePrediction
+     * }
+     */
+    public static void enableInlinePrediction(MemorySegment struct, int fieldValue) {
+        struct.set(enableInlinePrediction$LAYOUT, enableInlinePrediction$OFFSET, fieldValue);
+    }
+
     private static final OfInt canRequestFocus$LAYOUT = (OfInt)$LAYOUT.select(groupElement("canRequestFocus"));
 
     /**
@@ -1940,7 +2032,7 @@ public class TextFieldObjSt {
         return canRequestFocus$LAYOUT;
     }
 
-    private static final long canRequestFocus$OFFSET = 1676;
+    private static final long canRequestFocus$OFFSET = 1736;
 
     /**
      * Offset for field:
@@ -1984,7 +2076,7 @@ public class TextFieldObjSt {
         return selectionEnabled$LAYOUT;
     }
 
-    private static final long selectionEnabled$OFFSET = 1680;
+    private static final long selectionEnabled$OFFSET = 1740;
 
     /**
      * Offset for field:

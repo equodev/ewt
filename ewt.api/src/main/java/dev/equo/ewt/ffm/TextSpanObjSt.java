@@ -18,6 +18,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int id;
  *     char *text;
  *     char *semanticsLabel;
+ *     char *semanticsIdentifier;
  *     int spellOut;
  * }
  * }
@@ -33,9 +34,10 @@ public class TextSpanObjSt {
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("text"),
         StarterBridge.C_POINTER.withName("semanticsLabel"),
+        StarterBridge.C_POINTER.withName("semanticsIdentifier"),
         StarterBridge.C_INT.withName("spellOut"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$39:9");
+    ).withName("$anon$40:9");
 
     /**
      * The layout of this struct
@@ -176,6 +178,50 @@ public class TextSpanObjSt {
         struct.set(semanticsLabel$LAYOUT, semanticsLabel$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout semanticsIdentifier$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("semanticsIdentifier"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static final AddressLayout semanticsIdentifier$layout() {
+        return semanticsIdentifier$LAYOUT;
+    }
+
+    private static final long semanticsIdentifier$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static final long semanticsIdentifier$offset() {
+        return semanticsIdentifier$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static MemorySegment semanticsIdentifier(MemorySegment struct) {
+        return struct.get(semanticsIdentifier$LAYOUT, semanticsIdentifier$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static void semanticsIdentifier(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(semanticsIdentifier$LAYOUT, semanticsIdentifier$OFFSET, fieldValue);
+    }
+
     private static final OfInt spellOut$LAYOUT = (OfInt)$LAYOUT.select(groupElement("spellOut"));
 
     /**
@@ -188,7 +234,7 @@ public class TextSpanObjSt {
         return spellOut$LAYOUT;
     }
 
-    private static final long spellOut$OFFSET = 24;
+    private static final long spellOut$OFFSET = 32;
 
     /**
      * Offset for field:
