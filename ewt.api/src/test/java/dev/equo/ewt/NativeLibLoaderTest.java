@@ -46,4 +46,44 @@ class NativeLibLoaderTest {
         ).isInstanceOf(RuntimeException.class)
          .hasMessageContaining("Resource not found");
     }
+
+    @Test
+    void extractsDirFromZip() throws IOException {
+        Path zipPath = tempDir.resolve("test.zip");
+        try (var zos = new java.util.zip.ZipOutputStream(Files.newOutputStream(zipPath))) {
+            zos.putNextEntry(new java.util.zip.ZipEntry("assets/subdir/file.txt"));
+            zos.write("hello".getBytes());
+            zos.closeEntry();
+            zos.putNextEntry(new java.util.zip.ZipEntry("assets/top.txt"));
+            zos.write("world".getBytes());
+            zos.closeEntry();
+        }
+
+        Path outDir = tempDir.resolve("out");
+        NativeLibLoader.extractDirFromZip(zipPath, "assets/", outDir);
+
+        assertThat(outDir.resolve("subdir/file.txt")).exists();
+        assertThat(Files.readString(outDir.resolve("subdir/file.txt"))).isEqualTo("hello");
+        assertThat(outDir.resolve("top.txt")).exists();
+        assertThat(Files.readString(outDir.resolve("top.txt"))).isEqualTo("world");
+    }
+
+    @Test
+    void extractDirFromZipSkipsWhenTargetExists() throws IOException {
+        Path zipPath = tempDir.resolve("test.zip");
+        try (var zos = new java.util.zip.ZipOutputStream(Files.newOutputStream(zipPath))) {
+            zos.putNextEntry(new java.util.zip.ZipEntry("assets/file.txt"));
+            zos.write("new".getBytes());
+            zos.closeEntry();
+        }
+
+        Path outDir = tempDir.resolve("out");
+        Files.createDirectories(outDir);
+        Files.writeString(outDir.resolve("file.txt"), "original");
+
+        // outDir already exists — must skip entirely
+        NativeLibLoader.extractDirFromZip(zipPath, "assets/", outDir);
+
+        assertThat(Files.readString(outDir.resolve("file.txt"))).isEqualTo("original");
+    }
 }
