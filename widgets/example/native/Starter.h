@@ -15,5 +15,9 @@
 
 EXPORT int startApp(buildWidgetTreeFn buildWidgetTree);
 
+EXPORT void setFlutterPaths(const char* assets_path,
+                             const char* icu_path,
+                             const char* aot_path);
+
 
 #endif /* Starter_h */

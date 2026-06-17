@@ -146,3 +146,15 @@ int startApp(buildWidgetTreeFn buildWidgetTree) {
   ewt_g_object_unref(gtk_app);
   return status;
 }
+
+extern "C" __attribute__((visibility("default")))
+void setFlutterPaths(const char* assets_path,
+                     const char* icu_path,
+                     const char* aot_path) {
+    if (assets_path && assets_path[0] != '\0')
+        snprintf(g_assets_path, sizeof(g_assets_path), "%s", assets_path);
+    if (icu_path && icu_path[0] != '\0')
+        snprintf(g_icu_data_path, sizeof(g_icu_data_path), "%s", icu_path);
+    if (aot_path && aot_path[0] != '\0')
+        snprintf(g_aot_library_path, sizeof(g_aot_library_path), "%s", aot_path);
+}

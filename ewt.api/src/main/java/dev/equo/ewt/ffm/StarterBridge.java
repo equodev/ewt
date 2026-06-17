@@ -132,5 +132,64 @@ public class StarterBridge {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+
+    private static class setFlutterPaths {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            StarterBridge.C_POINTER,
+            StarterBridge.C_POINTER,
+            StarterBridge.C_POINTER
+        );
+
+        public static final MemorySegment ADDR = StarterBridge.findOrThrow("setFlutterPaths");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void setFlutterPaths(const char *assets_path, const char *icu_path, const char *aot_path)
+     * }
+     */
+    public static FunctionDescriptor setFlutterPaths$descriptor() {
+        return setFlutterPaths.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void setFlutterPaths(const char *assets_path, const char *icu_path, const char *aot_path)
+     * }
+     */
+    public static MethodHandle setFlutterPaths$handle() {
+        return setFlutterPaths.HANDLE;
+    }
+
+    /**
+     * Address for:
+     * {@snippet lang=c :
+     * void setFlutterPaths(const char *assets_path, const char *icu_path, const char *aot_path)
+     * }
+     */
+    public static MemorySegment setFlutterPaths$address() {
+        return setFlutterPaths.ADDR;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * void setFlutterPaths(const char *assets_path, const char *icu_path, const char *aot_path)
+     * }
+     */
+    public static void setFlutterPaths(MemorySegment assets_path, MemorySegment icu_path, MemorySegment aot_path) {
+        var mh$ = setFlutterPaths.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("setFlutterPaths", assets_path, icu_path, aot_path);
+            }
+            mh$.invokeExact(assets_path, icu_path, aot_path);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
 }
 
