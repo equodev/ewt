@@ -1,4 +1,4 @@
 package dev.equo.ewt;
 public enum ThemeMode {
-system, light, dark
+system, light, dark, isSystem, isLight, isDark
 }

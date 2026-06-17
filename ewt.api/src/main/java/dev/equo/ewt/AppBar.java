@@ -16,11 +16,12 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
     System.out.println("New AppBar id:"+id);
   }
   @Builder.Factory
-  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding) {
+  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<Boolean> automaticallyImplyActions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<Boolean> animateColor) {
     var st = factories.appBarAppBar(leading.map(WidgetI::build),
       automaticallyImplyLeading,
       title.map(WidgetI::build),
       actions.map(i -> i.stream().map(WidgetI::build).toList()),
+      automaticallyImplyActions,
       flexibleSpace.map(WidgetI::build),
       bottom.map(PreferredSizeWidgetI::build),
       elevation,
@@ -41,8 +42,10 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       toolbarTextStyle.map(TextStyleI::build),
       titleTextStyle.map(TextStyleI::build),
       forceMaterialTransparency,
+      useDefaultSemanticsOrder,
       clipBehavior,
-      actionsPadding.map(EdgeInsetsGeometryI::build));
+      actionsPadding.map(EdgeInsetsGeometryI::build),
+      animateColor);
     if (st == null) throw new RuntimeException("Failed to created widget AppBar");
     return new AppBar(st);
   }
@@ -57,6 +60,9 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   }
   public Widget title() {
     return new Widget(AppBarObjSt.title(st)) {};
+  }
+  public boolean automaticallyImplyActions() {
+    return intToBool(AppBarObjSt.automaticallyImplyActions(st));
   }
   public Widget flexibleSpace() {
     return new Widget(AppBarObjSt.flexibleSpace(st)) {};
@@ -118,11 +124,17 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   public boolean forceMaterialTransparency() {
     return intToBool(AppBarObjSt.forceMaterialTransparency(st));
   }
+  public boolean useDefaultSemanticsOrder() {
+    return intToBool(AppBarObjSt.useDefaultSemanticsOrder(st));
+  }
   public Clip clipBehavior() {
     return Clip.values()[AppBarObjSt.clipBehavior(st)];
   }
   public EdgeInsetsGeometry actionsPadding() {
     return new EdgeInsetsGeometry(AppBarObjSt.actionsPadding(st)) {};
+  }
+  public boolean animateColor() {
+    return intToBool(AppBarObjSt.animateColor(st));
   }
   @Override
   public AppBar build() {

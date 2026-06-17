@@ -36,7 +36,7 @@ public class IconDataObjSt {
         StarterBridge.C_POINTER.withName("fontPackage"),
         StarterBridge.C_INT.withName("matchTextDirection"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$91:9");
+    ).withName("$anon$93:9");
 
     /**
      * The layout of this struct

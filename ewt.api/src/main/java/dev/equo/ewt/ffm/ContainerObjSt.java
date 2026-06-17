@@ -20,6 +20,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj alignment;
  *     DartObj padding;
  *     DartObj color;
+ *     int isAntiAlias;
  *     DartObj decoration;
  *     DartObj foregroundDecoration;
  *     BoxConstraintsObjSt constraints;
@@ -41,15 +42,15 @@ public class ContainerObjSt {
         StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_INT.withName("padding"),
         StarterBridge.C_INT.withName("color"),
+        StarterBridge.C_INT.withName("isAntiAlias"),
         StarterBridge.C_INT.withName("decoration"),
         StarterBridge.C_INT.withName("foregroundDecoration"),
-        MemoryLayout.paddingLayout(4),
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("margin"),
         StarterBridge.C_INT.withName("transformAlignment"),
         StarterBridge.C_INT.withName("clipBehavior"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$150:9");
+    ).withName("$anon$153:9");
 
     /**
      * The layout of this struct
@@ -278,6 +279,50 @@ public class ContainerObjSt {
         struct.set(color$LAYOUT, color$OFFSET, fieldValue);
     }
 
+    private static final OfInt isAntiAlias$LAYOUT = (OfInt)$LAYOUT.select(groupElement("isAntiAlias"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int isAntiAlias
+     * }
+     */
+    public static final OfInt isAntiAlias$layout() {
+        return isAntiAlias$LAYOUT;
+    }
+
+    private static final long isAntiAlias$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int isAntiAlias
+     * }
+     */
+    public static final long isAntiAlias$offset() {
+        return isAntiAlias$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int isAntiAlias
+     * }
+     */
+    public static int isAntiAlias(MemorySegment struct) {
+        return struct.get(isAntiAlias$LAYOUT, isAntiAlias$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int isAntiAlias
+     * }
+     */
+    public static void isAntiAlias(MemorySegment struct, int fieldValue) {
+        struct.set(isAntiAlias$LAYOUT, isAntiAlias$OFFSET, fieldValue);
+    }
+
     private static final OfInt decoration$LAYOUT = (OfInt)$LAYOUT.select(groupElement("decoration"));
 
     /**
@@ -290,7 +335,7 @@ public class ContainerObjSt {
         return decoration$LAYOUT;
     }
 
-    private static final long decoration$OFFSET = 20;
+    private static final long decoration$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -334,7 +379,7 @@ public class ContainerObjSt {
         return foregroundDecoration$LAYOUT;
     }
 
-    private static final long foregroundDecoration$OFFSET = 24;
+    private static final long foregroundDecoration$OFFSET = 28;
 
     /**
      * Offset for field:

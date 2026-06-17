@@ -33,7 +33,7 @@ public class AlignObjSt {
         StarterBridge.C_INT.withName("alignment"),
         StarterBridge.C_DOUBLE.withName("widthFactor"),
         StarterBridge.C_DOUBLE.withName("heightFactor")
-    ).withName("$anon$63:9");
+    ).withName("$anon$65:9");
 
     /**
      * The layout of this struct

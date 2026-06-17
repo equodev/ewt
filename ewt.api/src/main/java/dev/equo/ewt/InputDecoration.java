@@ -16,7 +16,7 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
     System.out.println("New InputDecoration id:"+id);
   }
   @Builder.Factory
-  static InputDecoration inputDecorationInputDecoration(Optional<WidgetI> icon, Optional<ColorI> iconColor, Optional<WidgetI> label, Optional<String> labelText, Optional<TextStyleI> labelStyle, Optional<TextStyleI> floatingLabelStyle, Optional<WidgetI> helper, Optional<String> helperText, Optional<TextStyleI> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<TextStyleI> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<WidgetI> error, Optional<String> errorText, Optional<TextStyleI> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> prefixIcon, Optional<BoxConstraintsI> prefixIconConstraints, Optional<WidgetI> prefix, Optional<String> prefixText, Optional<TextStyleI> prefixStyle, Optional<ColorI> prefixIconColor, Optional<WidgetI> suffixIcon, Optional<WidgetI> suffix, Optional<String> suffixText, Optional<TextStyleI> suffixStyle, Optional<ColorI> suffixIconColor, Optional<BoxConstraintsI> suffixIconConstraints, Optional<WidgetI> counter, Optional<String> counterText, Optional<TextStyleI> counterStyle, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> errorBorder, Optional<InputBorderI> focusedBorder, Optional<InputBorderI> focusedErrorBorder, Optional<InputBorderI> disabledBorder, Optional<InputBorderI> enabledBorder, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraintsI> constraints) {
+  static InputDecoration inputDecorationInputDecoration(Optional<WidgetI> icon, Optional<ColorI> iconColor, Optional<WidgetI> label, Optional<String> labelText, Optional<TextStyleI> labelStyle, Optional<TextStyleI> floatingLabelStyle, Optional<WidgetI> helper, Optional<String> helperText, Optional<TextStyleI> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<WidgetI> hint, Optional<TextStyleI> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> maintainLabelSize, Optional<WidgetI> error, Optional<String> errorText, Optional<TextStyleI> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> prefixIcon, Optional<BoxConstraintsI> prefixIconConstraints, Optional<WidgetI> prefix, Optional<String> prefixText, Optional<TextStyleI> prefixStyle, Optional<ColorI> prefixIconColor, Optional<WidgetI> suffixIcon, Optional<WidgetI> suffix, Optional<String> suffixText, Optional<TextStyleI> suffixStyle, Optional<ColorI> suffixIconColor, Optional<BoxConstraintsI> suffixIconConstraints, Optional<WidgetI> counter, Optional<String> counterText, Optional<TextStyleI> counterStyle, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> errorBorder, Optional<InputBorderI> focusedBorder, Optional<InputBorderI> focusedErrorBorder, Optional<InputBorderI> disabledBorder, Optional<InputBorderI> enabledBorder, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraintsI> constraints, Optional<VisualDensityI> visualDensity) {
     var st = factories.inputDecorationInputDecoration(icon.map(WidgetI::build),
       iconColor.map(ColorI::build),
       label.map(WidgetI::build),
@@ -28,11 +28,14 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       helperStyle.map(TextStyleI::build),
       helperMaxLines,
       hintText,
+      hint.map(WidgetI::build),
       hintStyle.map(TextStyleI::build),
       hintTextDirection,
       hintMaxLines,
       hintFadeDuration.map(DurationI::build),
       maintainHintHeight,
+      maintainHintSize,
+      maintainLabelSize,
       error.map(WidgetI::build),
       errorText,
       errorStyle.map(TextStyleI::build),
@@ -69,7 +72,8 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       enabled,
       semanticCounterText,
       alignLabelWithHint,
-      constraints.map(BoxConstraintsI::build));
+      constraints.map(BoxConstraintsI::build),
+      visualDensity.map(VisualDensityI::build));
     if (st == null) throw new RuntimeException("Failed to created widget InputDecoration");
     return new InputDecoration(st);
   }
@@ -77,14 +81,17 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
     return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
   }
   @Builder.Factory
-  static InputDecoration inputDecorationCollapsed(@Builder.Parameter String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyleI> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<BoxConstraintsI> constraints) {
+  static InputDecoration inputDecorationCollapsed(@Builder.Parameter String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyleI> hintStyle, Optional<WidgetI> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> maintainLabelSize, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<BoxConstraintsI> constraints) {
     var st = factories.inputDecorationCollapsed(hintText,
       floatingLabelBehavior,
       hintStyle.map(TextStyleI::build),
+      hint.map(WidgetI::build),
       hintTextDirection,
       hintMaxLines,
       hintFadeDuration.map(DurationI::build),
       maintainHintHeight,
+      maintainHintSize,
+      maintainLabelSize,
       filled,
       fillColor.map(ColorI::build),
       focusColor.map(ColorI::build),
@@ -131,6 +138,9 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
   public String hintText() {
     return InputDecorationObjSt.hintText(st).getString(0);
   }
+  public Widget hint() {
+    return new Widget(InputDecorationObjSt.hint(st)) {};
+  }
   public TextStyle hintStyle() {
     return new TextStyle(InputDecorationObjSt.hintStyle(st));
   }
@@ -145,6 +155,12 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
   }
   public boolean maintainHintHeight() {
     return intToBool(InputDecorationObjSt.maintainHintHeight(st));
+  }
+  public boolean maintainHintSize() {
+    return intToBool(InputDecorationObjSt.maintainHintSize(st));
+  }
+  public boolean maintainLabelSize() {
+    return intToBool(InputDecorationObjSt.maintainLabelSize(st));
   }
   public Widget error() {
     return new Widget(InputDecorationObjSt.error(st)) {};
@@ -256,6 +272,9 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
   }
   public BoxConstraints constraints() {
     return new BoxConstraints(InputDecorationObjSt.constraints(st));
+  }
+  public VisualDensity visualDensity() {
+    return new VisualDensity(InputDecorationObjSt.visualDensity(st));
   }
   @Override
   public InputDecoration build() {

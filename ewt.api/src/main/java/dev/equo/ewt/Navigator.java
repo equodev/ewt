@@ -16,13 +16,14 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     System.out.println("New Navigator id:"+id);
   }
   @Builder.Factory
-  static Navigator navigatorNavigator(Optional<String> initialRoute, Optional<Boolean> reportsRouteUpdateToEngine, Optional<Clip> clipBehavior, Optional<Boolean> requestFocus, Optional<String> restorationScopeId, Optional<TraversalEdgeBehavior> routeTraversalEdgeBehavior) {
+  static Navigator navigatorNavigator(Optional<String> initialRoute, Optional<Boolean> reportsRouteUpdateToEngine, Optional<Clip> clipBehavior, Optional<Boolean> requestFocus, Optional<String> restorationScopeId, Optional<TraversalEdgeBehavior> routeTraversalEdgeBehavior, Optional<TraversalEdgeBehavior> routeDirectionalTraversalEdgeBehavior) {
     var st = factories.navigatorNavigator(initialRoute,
       reportsRouteUpdateToEngine,
       clipBehavior,
       requestFocus,
       restorationScopeId,
-      routeTraversalEdgeBehavior);
+      routeTraversalEdgeBehavior,
+      routeDirectionalTraversalEdgeBehavior);
     if (st == null) throw new RuntimeException("Failed to created widget Navigator");
     return new Navigator(st);
   }
@@ -117,6 +118,9 @@ public class Navigator extends StatefulWidget implements NavigatorI {
   }
   public TraversalEdgeBehavior routeTraversalEdgeBehavior() {
     return TraversalEdgeBehavior.values()[NavigatorObjSt.routeTraversalEdgeBehavior(st)];
+  }
+  public TraversalEdgeBehavior routeDirectionalTraversalEdgeBehavior() {
+    return TraversalEdgeBehavior.values()[NavigatorObjSt.routeDirectionalTraversalEdgeBehavior(st)];
   }
   public boolean reportsRouteUpdateToEngine() {
     return intToBool(NavigatorObjSt.reportsRouteUpdateToEngine(st));

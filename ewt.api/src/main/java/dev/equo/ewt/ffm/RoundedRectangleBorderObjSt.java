@@ -29,7 +29,7 @@ public class RoundedRectangleBorderObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("borderRadius")
-    ).withName("$anon$233:9");
+    ).withName("$anon$237:9");
 
     /**
      * The layout of this struct

@@ -35,7 +35,7 @@ public class BorderRadiusObjSt {
         StarterBridge.C_INT.withName("topRight"),
         StarterBridge.C_INT.withName("bottomLeft"),
         StarterBridge.C_INT.withName("bottomRight")
-    ).withName("$anon$183:9");
+    ).withName("$anon$187:9");
 
     /**
      * The layout of this struct

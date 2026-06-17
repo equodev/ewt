@@ -16,11 +16,13 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
     System.out.println("New ThemeData id:"+id);
   }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> indicatorColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> cardTheme, Optional<NativeObj.I> dialogTheme, Optional<NativeObj.I> tabBarTheme, Optional<ColorI> dialogBackgroundColor) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj.I> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> appBarTheme, Optional<ColorI> dialogBackgroundColor, Optional<ColorI> indicatorColor) {
     var st = factories.themeDataThemeData(applyElevationOverlayColor,
+      inputDecorationTheme.map(NativeObj.I::build),
       materialTapTargetSize,
       platform,
       useMaterial3,
+      useSystemColors,
       visualDensity.map(VisualDensityI::build),
       colorScheme.map(ColorSchemeI::build),
       brightness,
@@ -33,7 +35,6 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
       highlightColor.map(ColorI::build),
       hintColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
-      indicatorColor.map(ColorI::build),
       primaryColor.map(ColorI::build),
       primaryColorDark.map(ColorI::build),
       primaryColorLight.map(ColorI::build),
@@ -48,10 +49,9 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
       _package,
       primaryTextTheme.map(TextThemeI::build),
       textTheme.map(TextThemeI::build),
-      cardTheme.map(NativeObj.I::build),
-      dialogTheme.map(NativeObj.I::build),
-      tabBarTheme.map(NativeObj.I::build),
-      dialogBackgroundColor.map(ColorI::build));
+      appBarTheme.map(NativeObj.I::build),
+      dialogBackgroundColor.map(ColorI::build),
+      indicatorColor.map(ColorI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
     return new ThemeData(st);
   }
@@ -157,9 +157,6 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   public Color hoverColor() {
     return new Color(ThemeDataObjSt.hoverColor(st));
   }
-  public Color indicatorColor() {
-    return new Color(ThemeDataObjSt.indicatorColor(st));
-  }
   public Color primaryColor() {
     return new Color(ThemeDataObjSt.primaryColor(st));
   }
@@ -192,6 +189,9 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   }
   public Color dialogBackgroundColor() {
     return new Color(ThemeDataObjSt.dialogBackgroundColor(st));
+  }
+  public Color indicatorColor() {
+    return new Color(ThemeDataObjSt.indicatorColor(st));
   }
   public Brightness brightness() {
     return Brightness.values()[ThemeDataObjSt.brightness(st)];

@@ -35,7 +35,7 @@ public class VisualDensityObjSt {
         StarterBridge.C_DOUBLE.withName("vertical"),
         StarterBridge.C_INT.withName("baseSizeAdjustment"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$410:9");
+    ).withName("$anon$420:9");
 
     /**
      * The layout of this struct

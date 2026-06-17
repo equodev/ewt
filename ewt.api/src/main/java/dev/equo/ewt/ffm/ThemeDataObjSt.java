@@ -30,7 +30,6 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj highlightColor;
  *     DartObj hintColor;
  *     DartObj hoverColor;
- *     DartObj indicatorColor;
  *     DartObj primaryColor;
  *     DartObj primaryColorDark;
  *     DartObj primaryColorLight;
@@ -42,6 +41,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     TextThemeObjSt primaryTextTheme;
  *     TextThemeObjSt textTheme;
  *     DartObj dialogBackgroundColor;
+ *     DartObj indicatorColor;
  *     int brightness;
  * }
  * }
@@ -69,7 +69,6 @@ public class ThemeDataObjSt {
         StarterBridge.C_INT.withName("highlightColor"),
         StarterBridge.C_INT.withName("hintColor"),
         StarterBridge.C_INT.withName("hoverColor"),
-        StarterBridge.C_INT.withName("indicatorColor"),
         StarterBridge.C_INT.withName("primaryColor"),
         StarterBridge.C_INT.withName("primaryColorDark"),
         StarterBridge.C_INT.withName("primaryColorLight"),
@@ -78,11 +77,14 @@ public class ThemeDataObjSt {
         StarterBridge.C_INT.withName("shadowColor"),
         StarterBridge.C_INT.withName("splashColor"),
         StarterBridge.C_INT.withName("unselectedWidgetColor"),
+        MemoryLayout.paddingLayout(4),
         TextThemeObjSt.layout().withName("primaryTextTheme"),
         TextThemeObjSt.layout().withName("textTheme"),
         StarterBridge.C_INT.withName("dialogBackgroundColor"),
-        StarterBridge.C_INT.withName("brightness")
-    ).withName("$anon$417:9");
+        StarterBridge.C_INT.withName("indicatorColor"),
+        StarterBridge.C_INT.withName("brightness"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$427:9");
 
     /**
      * The layout of this struct
@@ -751,50 +753,6 @@ public class ThemeDataObjSt {
         struct.set(hoverColor$LAYOUT, hoverColor$OFFSET, fieldValue);
     }
 
-    private static final OfInt indicatorColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("indicatorColor"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj indicatorColor
-     * }
-     */
-    public static final OfInt indicatorColor$layout() {
-        return indicatorColor$LAYOUT;
-    }
-
-    private static final long indicatorColor$OFFSET = 292;
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj indicatorColor
-     * }
-     */
-    public static final long indicatorColor$offset() {
-        return indicatorColor$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj indicatorColor
-     * }
-     */
-    public static int indicatorColor(MemorySegment struct) {
-        return struct.get(indicatorColor$LAYOUT, indicatorColor$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj indicatorColor
-     * }
-     */
-    public static void indicatorColor(MemorySegment struct, int fieldValue) {
-        struct.set(indicatorColor$LAYOUT, indicatorColor$OFFSET, fieldValue);
-    }
-
     private static final OfInt primaryColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("primaryColor"));
 
     /**
@@ -807,7 +765,7 @@ public class ThemeDataObjSt {
         return primaryColor$LAYOUT;
     }
 
-    private static final long primaryColor$OFFSET = 296;
+    private static final long primaryColor$OFFSET = 292;
 
     /**
      * Offset for field:
@@ -851,7 +809,7 @@ public class ThemeDataObjSt {
         return primaryColorDark$LAYOUT;
     }
 
-    private static final long primaryColorDark$OFFSET = 300;
+    private static final long primaryColorDark$OFFSET = 296;
 
     /**
      * Offset for field:
@@ -895,7 +853,7 @@ public class ThemeDataObjSt {
         return primaryColorLight$LAYOUT;
     }
 
-    private static final long primaryColorLight$OFFSET = 304;
+    private static final long primaryColorLight$OFFSET = 300;
 
     /**
      * Offset for field:
@@ -939,7 +897,7 @@ public class ThemeDataObjSt {
         return scaffoldBackgroundColor$LAYOUT;
     }
 
-    private static final long scaffoldBackgroundColor$OFFSET = 308;
+    private static final long scaffoldBackgroundColor$OFFSET = 304;
 
     /**
      * Offset for field:
@@ -983,7 +941,7 @@ public class ThemeDataObjSt {
         return secondaryHeaderColor$LAYOUT;
     }
 
-    private static final long secondaryHeaderColor$OFFSET = 312;
+    private static final long secondaryHeaderColor$OFFSET = 308;
 
     /**
      * Offset for field:
@@ -1027,7 +985,7 @@ public class ThemeDataObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 316;
+    private static final long shadowColor$OFFSET = 312;
 
     /**
      * Offset for field:
@@ -1071,7 +1029,7 @@ public class ThemeDataObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 320;
+    private static final long splashColor$OFFSET = 316;
 
     /**
      * Offset for field:
@@ -1115,7 +1073,7 @@ public class ThemeDataObjSt {
         return unselectedWidgetColor$LAYOUT;
     }
 
-    private static final long unselectedWidgetColor$OFFSET = 324;
+    private static final long unselectedWidgetColor$OFFSET = 320;
 
     /**
      * Offset for field:
@@ -1279,6 +1237,50 @@ public class ThemeDataObjSt {
         struct.set(dialogBackgroundColor$LAYOUT, dialogBackgroundColor$OFFSET, fieldValue);
     }
 
+    private static final OfInt indicatorColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("indicatorColor"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj indicatorColor
+     * }
+     */
+    public static final OfInt indicatorColor$layout() {
+        return indicatorColor$LAYOUT;
+    }
+
+    private static final long indicatorColor$OFFSET = 3708;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj indicatorColor
+     * }
+     */
+    public static final long indicatorColor$offset() {
+        return indicatorColor$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj indicatorColor
+     * }
+     */
+    public static int indicatorColor(MemorySegment struct) {
+        return struct.get(indicatorColor$LAYOUT, indicatorColor$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj indicatorColor
+     * }
+     */
+    public static void indicatorColor(MemorySegment struct, int fieldValue) {
+        struct.set(indicatorColor$LAYOUT, indicatorColor$OFFSET, fieldValue);
+    }
+
     private static final OfInt brightness$LAYOUT = (OfInt)$LAYOUT.select(groupElement("brightness"));
 
     /**
@@ -1291,7 +1293,7 @@ public class ThemeDataObjSt {
         return brightness$LAYOUT;
     }
 
-    private static final long brightness$OFFSET = 3708;
+    private static final long brightness$OFFSET = 3712;
 
     /**
      * Offset for field:

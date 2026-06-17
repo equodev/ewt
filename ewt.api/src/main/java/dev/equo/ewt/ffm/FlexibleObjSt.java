@@ -31,7 +31,7 @@ public class FlexibleObjSt {
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("flex"),
         StarterBridge.C_INT.withName("fit")
-    ).withName("$anon$302:9");
+    ).withName("$anon$312:9");
 
     /**
      * The layout of this struct

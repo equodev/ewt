@@ -20,6 +20,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double thickness;
  *     double indent;
  *     double endIndent;
+ *     DartObj radius;
  *     DartObj color;
  * }
  * }
@@ -37,9 +38,9 @@ public class DividerObjSt {
         StarterBridge.C_DOUBLE.withName("thickness"),
         StarterBridge.C_DOUBLE.withName("indent"),
         StarterBridge.C_DOUBLE.withName("endIndent"),
-        StarterBridge.C_INT.withName("color"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$754:9");
+        StarterBridge.C_INT.withName("radius"),
+        StarterBridge.C_INT.withName("color")
+    ).withName("$anon$779:9");
 
     /**
      * The layout of this struct
@@ -268,6 +269,50 @@ public class DividerObjSt {
         struct.set(endIndent$LAYOUT, endIndent$OFFSET, fieldValue);
     }
 
+    private static final OfInt radius$LAYOUT = (OfInt)$LAYOUT.select(groupElement("radius"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj radius
+     * }
+     */
+    public static final OfInt radius$layout() {
+        return radius$LAYOUT;
+    }
+
+    private static final long radius$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj radius
+     * }
+     */
+    public static final long radius$offset() {
+        return radius$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj radius
+     * }
+     */
+    public static int radius(MemorySegment struct) {
+        return struct.get(radius$LAYOUT, radius$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj radius
+     * }
+     */
+    public static void radius(MemorySegment struct, int fieldValue) {
+        struct.set(radius$LAYOUT, radius$OFFSET, fieldValue);
+    }
+
     private static final OfInt color$LAYOUT = (OfInt)$LAYOUT.select(groupElement("color"));
 
     /**
@@ -280,7 +325,7 @@ public class DividerObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 40;
+    private static final long color$OFFSET = 44;
 
     /**
      * Offset for field:

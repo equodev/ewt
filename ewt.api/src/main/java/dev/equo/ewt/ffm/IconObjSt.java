@@ -27,6 +27,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int textDirection;
  *     int applyTextScaling;
  *     int blendMode;
+ *     DartObj fontWeight;
  * }
  * }
  */
@@ -51,8 +52,8 @@ public class IconObjSt {
         StarterBridge.C_INT.withName("textDirection"),
         StarterBridge.C_INT.withName("applyTextScaling"),
         StarterBridge.C_INT.withName("blendMode"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$99:9");
+        StarterBridge.C_INT.withName("fontWeight")
+    ).withName("$anon$101:9");
 
     /**
      * The layout of this struct
@@ -587,6 +588,50 @@ public class IconObjSt {
      */
     public static void blendMode(MemorySegment struct, int fieldValue) {
         struct.set(blendMode$LAYOUT, blendMode$OFFSET, fieldValue);
+    }
+
+    private static final OfInt fontWeight$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fontWeight"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static final OfInt fontWeight$layout() {
+        return fontWeight$LAYOUT;
+    }
+
+    private static final long fontWeight$OFFSET = 108;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static final long fontWeight$offset() {
+        return fontWeight$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static int fontWeight(MemorySegment struct) {
+        return struct.get(fontWeight$LAYOUT, fontWeight$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj fontWeight
+     * }
+     */
+    public static void fontWeight(MemorySegment struct, int fieldValue) {
+        struct.set(fontWeight$LAYOUT, fontWeight$OFFSET, fieldValue);
     }
 
     /**

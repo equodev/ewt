@@ -16,11 +16,12 @@ public class TextSpan extends InlineSpan implements TextSpanI {
     System.out.println("New TextSpan id:"+id);
   }
   @Builder.Factory
-  static TextSpan textSpanTextSpan(Optional<String> text, Optional<List<InlineSpanI>> children, Optional<TextStyleI> style, Optional<String> semanticsLabel, Optional<Boolean> spellOut) {
+  static TextSpan textSpanTextSpan(Optional<String> text, Optional<List<InlineSpanI>> children, Optional<TextStyleI> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     var st = factories.textSpanTextSpan(text,
       children.map(i -> i.stream().map(InlineSpanI::build).toList()),
       style.map(TextStyleI::build),
       semanticsLabel,
+      semanticsIdentifier,
       spellOut);
     if (st == null) throw new RuntimeException("Failed to created widget TextSpan");
     return new TextSpan(st);
@@ -33,6 +34,9 @@ public class TextSpan extends InlineSpan implements TextSpanI {
   }
   public String semanticsLabel() {
     return TextSpanObjSt.semanticsLabel(st).getString(0);
+  }
+  public String semanticsIdentifier() {
+    return TextSpanObjSt.semanticsIdentifier(st).getString(0);
   }
   public boolean spellOut() {
     return intToBool(TextSpanObjSt.spellOut(st));

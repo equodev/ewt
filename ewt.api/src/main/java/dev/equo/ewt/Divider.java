@@ -16,12 +16,13 @@ public class Divider extends StatelessWidget implements DividerI {
     System.out.println("New Divider id:"+id);
   }
   @Builder.Factory
-  static Divider dividerDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<ColorI> color) {
+  static Divider dividerDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<ColorI> color, Optional<BorderRadiusGeometryI> radius) {
     var st = factories.dividerDivider(height,
       thickness,
       indent,
       endIndent,
-      color.map(ColorI::build));
+      color.map(ColorI::build),
+      radius.map(BorderRadiusGeometryI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Divider");
     return new Divider(st);
   }
@@ -46,6 +47,9 @@ public class Divider extends StatelessWidget implements DividerI {
   }
   public double endIndent() {
     return DividerObjSt.endIndent(st);
+  }
+  public BorderRadiusGeometry radius() {
+    return new BorderRadiusGeometry(DividerObjSt.radius(st)) {};
   }
   public Color color() {
     return new Color(DividerObjSt.color(st));

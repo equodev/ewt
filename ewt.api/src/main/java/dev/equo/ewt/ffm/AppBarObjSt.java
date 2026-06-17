@@ -19,6 +19,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj leading;
  *     int automaticallyImplyLeading;
  *     DartObj title;
+ *     int automaticallyImplyActions;
  *     DartObj flexibleSpace;
  *     DartObj bottom;
  *     double elevation;
@@ -39,8 +40,10 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     TextStyleObjSt toolbarTextStyle;
  *     TextStyleObjSt titleTextStyle;
  *     int forceMaterialTransparency;
+ *     int useDefaultSemanticsOrder;
  *     int clipBehavior;
  *     DartObj actionsPadding;
+ *     int animateColor;
  * }
  * }
  */
@@ -55,8 +58,10 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("leading"),
         StarterBridge.C_INT.withName("automaticallyImplyLeading"),
         StarterBridge.C_INT.withName("title"),
+        StarterBridge.C_INT.withName("automaticallyImplyActions"),
         StarterBridge.C_INT.withName("flexibleSpace"),
         StarterBridge.C_INT.withName("bottom"),
+        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("elevation"),
         StarterBridge.C_DOUBLE.withName("scrolledUnderElevation"),
         StarterBridge.C_INT.withName("shadowColor"),
@@ -75,10 +80,12 @@ public class AppBarObjSt {
         TextStyleObjSt.layout().withName("toolbarTextStyle"),
         TextStyleObjSt.layout().withName("titleTextStyle"),
         StarterBridge.C_INT.withName("forceMaterialTransparency"),
+        StarterBridge.C_INT.withName("useDefaultSemanticsOrder"),
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("actionsPadding"),
+        StarterBridge.C_INT.withName("animateColor"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$494:9");
+    ).withName("$anon$505:9");
 
     /**
      * The layout of this struct
@@ -263,6 +270,50 @@ public class AppBarObjSt {
         struct.set(title$LAYOUT, title$OFFSET, fieldValue);
     }
 
+    private static final OfInt automaticallyImplyActions$LAYOUT = (OfInt)$LAYOUT.select(groupElement("automaticallyImplyActions"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int automaticallyImplyActions
+     * }
+     */
+    public static final OfInt automaticallyImplyActions$layout() {
+        return automaticallyImplyActions$LAYOUT;
+    }
+
+    private static final long automaticallyImplyActions$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int automaticallyImplyActions
+     * }
+     */
+    public static final long automaticallyImplyActions$offset() {
+        return automaticallyImplyActions$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int automaticallyImplyActions
+     * }
+     */
+    public static int automaticallyImplyActions(MemorySegment struct) {
+        return struct.get(automaticallyImplyActions$LAYOUT, automaticallyImplyActions$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int automaticallyImplyActions
+     * }
+     */
+    public static void automaticallyImplyActions(MemorySegment struct, int fieldValue) {
+        struct.set(automaticallyImplyActions$LAYOUT, automaticallyImplyActions$OFFSET, fieldValue);
+    }
+
     private static final OfInt flexibleSpace$LAYOUT = (OfInt)$LAYOUT.select(groupElement("flexibleSpace"));
 
     /**
@@ -275,7 +326,7 @@ public class AppBarObjSt {
         return flexibleSpace$LAYOUT;
     }
 
-    private static final long flexibleSpace$OFFSET = 16;
+    private static final long flexibleSpace$OFFSET = 20;
 
     /**
      * Offset for field:
@@ -319,7 +370,7 @@ public class AppBarObjSt {
         return bottom$LAYOUT;
     }
 
-    private static final long bottom$OFFSET = 20;
+    private static final long bottom$OFFSET = 24;
 
     /**
      * Offset for field:
@@ -363,7 +414,7 @@ public class AppBarObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 24;
+    private static final long elevation$OFFSET = 32;
 
     /**
      * Offset for field:
@@ -407,7 +458,7 @@ public class AppBarObjSt {
         return scrolledUnderElevation$LAYOUT;
     }
 
-    private static final long scrolledUnderElevation$OFFSET = 32;
+    private static final long scrolledUnderElevation$OFFSET = 40;
 
     /**
      * Offset for field:
@@ -451,7 +502,7 @@ public class AppBarObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 40;
+    private static final long shadowColor$OFFSET = 48;
 
     /**
      * Offset for field:
@@ -495,7 +546,7 @@ public class AppBarObjSt {
         return surfaceTintColor$LAYOUT;
     }
 
-    private static final long surfaceTintColor$OFFSET = 44;
+    private static final long surfaceTintColor$OFFSET = 52;
 
     /**
      * Offset for field:
@@ -539,7 +590,7 @@ public class AppBarObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 48;
+    private static final long shape$OFFSET = 56;
 
     /**
      * Offset for field:
@@ -583,7 +634,7 @@ public class AppBarObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 52;
+    private static final long backgroundColor$OFFSET = 60;
 
     /**
      * Offset for field:
@@ -627,7 +678,7 @@ public class AppBarObjSt {
         return foregroundColor$LAYOUT;
     }
 
-    private static final long foregroundColor$OFFSET = 56;
+    private static final long foregroundColor$OFFSET = 64;
 
     /**
      * Offset for field:
@@ -671,7 +722,7 @@ public class AppBarObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 60;
+    private static final long primary$OFFSET = 68;
 
     /**
      * Offset for field:
@@ -715,7 +766,7 @@ public class AppBarObjSt {
         return centerTitle$LAYOUT;
     }
 
-    private static final long centerTitle$OFFSET = 64;
+    private static final long centerTitle$OFFSET = 72;
 
     /**
      * Offset for field:
@@ -759,7 +810,7 @@ public class AppBarObjSt {
         return excludeHeaderSemantics$LAYOUT;
     }
 
-    private static final long excludeHeaderSemantics$OFFSET = 68;
+    private static final long excludeHeaderSemantics$OFFSET = 76;
 
     /**
      * Offset for field:
@@ -803,7 +854,7 @@ public class AppBarObjSt {
         return titleSpacing$LAYOUT;
     }
 
-    private static final long titleSpacing$OFFSET = 72;
+    private static final long titleSpacing$OFFSET = 80;
 
     /**
      * Offset for field:
@@ -847,7 +898,7 @@ public class AppBarObjSt {
         return toolbarOpacity$LAYOUT;
     }
 
-    private static final long toolbarOpacity$OFFSET = 80;
+    private static final long toolbarOpacity$OFFSET = 88;
 
     /**
      * Offset for field:
@@ -891,7 +942,7 @@ public class AppBarObjSt {
         return bottomOpacity$LAYOUT;
     }
 
-    private static final long bottomOpacity$OFFSET = 88;
+    private static final long bottomOpacity$OFFSET = 96;
 
     /**
      * Offset for field:
@@ -935,7 +986,7 @@ public class AppBarObjSt {
         return toolbarHeight$LAYOUT;
     }
 
-    private static final long toolbarHeight$OFFSET = 96;
+    private static final long toolbarHeight$OFFSET = 104;
 
     /**
      * Offset for field:
@@ -979,7 +1030,7 @@ public class AppBarObjSt {
         return leadingWidth$LAYOUT;
     }
 
-    private static final long leadingWidth$OFFSET = 104;
+    private static final long leadingWidth$OFFSET = 112;
 
     /**
      * Offset for field:
@@ -1023,7 +1074,7 @@ public class AppBarObjSt {
         return toolbarTextStyle$LAYOUT;
     }
 
-    private static final long toolbarTextStyle$OFFSET = 112;
+    private static final long toolbarTextStyle$OFFSET = 120;
 
     /**
      * Offset for field:
@@ -1067,7 +1118,7 @@ public class AppBarObjSt {
         return titleTextStyle$LAYOUT;
     }
 
-    private static final long titleTextStyle$OFFSET = 224;
+    private static final long titleTextStyle$OFFSET = 232;
 
     /**
      * Offset for field:
@@ -1111,7 +1162,7 @@ public class AppBarObjSt {
         return forceMaterialTransparency$LAYOUT;
     }
 
-    private static final long forceMaterialTransparency$OFFSET = 336;
+    private static final long forceMaterialTransparency$OFFSET = 344;
 
     /**
      * Offset for field:
@@ -1143,6 +1194,50 @@ public class AppBarObjSt {
         struct.set(forceMaterialTransparency$LAYOUT, forceMaterialTransparency$OFFSET, fieldValue);
     }
 
+    private static final OfInt useDefaultSemanticsOrder$LAYOUT = (OfInt)$LAYOUT.select(groupElement("useDefaultSemanticsOrder"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int useDefaultSemanticsOrder
+     * }
+     */
+    public static final OfInt useDefaultSemanticsOrder$layout() {
+        return useDefaultSemanticsOrder$LAYOUT;
+    }
+
+    private static final long useDefaultSemanticsOrder$OFFSET = 348;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int useDefaultSemanticsOrder
+     * }
+     */
+    public static final long useDefaultSemanticsOrder$offset() {
+        return useDefaultSemanticsOrder$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int useDefaultSemanticsOrder
+     * }
+     */
+    public static int useDefaultSemanticsOrder(MemorySegment struct) {
+        return struct.get(useDefaultSemanticsOrder$LAYOUT, useDefaultSemanticsOrder$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int useDefaultSemanticsOrder
+     * }
+     */
+    public static void useDefaultSemanticsOrder(MemorySegment struct, int fieldValue) {
+        struct.set(useDefaultSemanticsOrder$LAYOUT, useDefaultSemanticsOrder$OFFSET, fieldValue);
+    }
+
     private static final OfInt clipBehavior$LAYOUT = (OfInt)$LAYOUT.select(groupElement("clipBehavior"));
 
     /**
@@ -1155,7 +1250,7 @@ public class AppBarObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 340;
+    private static final long clipBehavior$OFFSET = 352;
 
     /**
      * Offset for field:
@@ -1199,7 +1294,7 @@ public class AppBarObjSt {
         return actionsPadding$LAYOUT;
     }
 
-    private static final long actionsPadding$OFFSET = 344;
+    private static final long actionsPadding$OFFSET = 356;
 
     /**
      * Offset for field:
@@ -1229,6 +1324,50 @@ public class AppBarObjSt {
      */
     public static void actionsPadding(MemorySegment struct, int fieldValue) {
         struct.set(actionsPadding$LAYOUT, actionsPadding$OFFSET, fieldValue);
+    }
+
+    private static final OfInt animateColor$LAYOUT = (OfInt)$LAYOUT.select(groupElement("animateColor"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static final OfInt animateColor$layout() {
+        return animateColor$LAYOUT;
+    }
+
+    private static final long animateColor$OFFSET = 360;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static final long animateColor$offset() {
+        return animateColor$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static int animateColor(MemorySegment struct) {
+        return struct.get(animateColor$LAYOUT, animateColor$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int animateColor
+     * }
+     */
+    public static void animateColor(MemorySegment struct, int fieldValue) {
+        struct.set(animateColor$LAYOUT, animateColor$OFFSET, fieldValue);
     }
 
     /**

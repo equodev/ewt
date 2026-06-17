@@ -42,7 +42,7 @@ public class SafeAreaObjSt {
         EdgeInsetsObjSt.layout().withName("minimum"),
         StarterBridge.C_INT.withName("maintainBottomViewPadding"),
         StarterBridge.C_INT.withName("child")
-    ).withName("$anon$308:9");
+    ).withName("$anon$318:9");
 
     /**
      * The layout of this struct

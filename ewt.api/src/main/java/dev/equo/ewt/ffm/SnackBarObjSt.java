@@ -30,6 +30,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int showCloseIcon;
  *     DartObj closeIconColor;
  *     DartObj duration;
+ *     int persist;
  *     DartObj animation;
  *     int dismissDirection;
  *     int clipBehavior;
@@ -60,10 +61,12 @@ public class SnackBarObjSt {
         StarterBridge.C_INT.withName("showCloseIcon"),
         StarterBridge.C_INT.withName("closeIconColor"),
         StarterBridge.C_INT.withName("duration"),
+        StarterBridge.C_INT.withName("persist"),
         StarterBridge.C_INT.withName("animation"),
         StarterBridge.C_INT.withName("dismissDirection"),
-        StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$782:9");
+        StarterBridge.C_INT.withName("clipBehavior"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$808:9");
 
     /**
      * The layout of this struct
@@ -732,6 +735,50 @@ public class SnackBarObjSt {
         struct.set(duration$LAYOUT, duration$OFFSET, fieldValue);
     }
 
+    private static final OfInt persist$LAYOUT = (OfInt)$LAYOUT.select(groupElement("persist"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int persist
+     * }
+     */
+    public static final OfInt persist$layout() {
+        return persist$LAYOUT;
+    }
+
+    private static final long persist$OFFSET = 108;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int persist
+     * }
+     */
+    public static final long persist$offset() {
+        return persist$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int persist
+     * }
+     */
+    public static int persist(MemorySegment struct) {
+        return struct.get(persist$LAYOUT, persist$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int persist
+     * }
+     */
+    public static void persist(MemorySegment struct, int fieldValue) {
+        struct.set(persist$LAYOUT, persist$OFFSET, fieldValue);
+    }
+
     private static final OfInt animation$LAYOUT = (OfInt)$LAYOUT.select(groupElement("animation"));
 
     /**
@@ -744,7 +791,7 @@ public class SnackBarObjSt {
         return animation$LAYOUT;
     }
 
-    private static final long animation$OFFSET = 108;
+    private static final long animation$OFFSET = 112;
 
     /**
      * Offset for field:
@@ -788,7 +835,7 @@ public class SnackBarObjSt {
         return dismissDirection$LAYOUT;
     }
 
-    private static final long dismissDirection$OFFSET = 112;
+    private static final long dismissDirection$OFFSET = 116;
 
     /**
      * Offset for field:
@@ -832,7 +879,7 @@ public class SnackBarObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 116;
+    private static final long clipBehavior$OFFSET = 120;
 
     /**
      * Offset for field:

@@ -50,6 +50,7 @@ w.Curves? curves;
 w.CurvedAnimation? curvedAnimation;
 w.SizedBox? sizedBox;
 w.Alignment? alignment;
+w.AlignmentDirectional? alignmentDirectional;
 w.MouseRegion? mouseRegion;
 w.FontWeight? fontWeight;
 Duration? duration;

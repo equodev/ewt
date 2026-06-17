@@ -16,7 +16,7 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
     System.out.println("New AlertDialog id:"+id);
   }
   @Builder.Factory
-  static AlertDialog alertDialogAlertDialog(Optional<WidgetI> icon, Optional<EdgeInsetsGeometryI> iconPadding, Optional<ColorI> iconColor, Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<WidgetI> content, Optional<EdgeInsetsGeometryI> contentPadding, Optional<TextStyleI> contentTextStyle, Optional<List<WidgetI>> actions, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<MainAxisAlignment> actionsAlignment, Optional<OverflowBarAlignment> actionsOverflowAlignment, Optional<VerticalDirection> actionsOverflowDirection, OptionalDouble actionsOverflowButtonSpacing, Optional<EdgeInsetsGeometryI> buttonPadding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<Boolean> scrollable) {
+  static AlertDialog alertDialogAlertDialog(Optional<WidgetI> icon, Optional<EdgeInsetsGeometryI> iconPadding, Optional<ColorI> iconColor, Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<WidgetI> content, Optional<EdgeInsetsGeometryI> contentPadding, Optional<TextStyleI> contentTextStyle, Optional<List<WidgetI>> actions, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<MainAxisAlignment> actionsAlignment, Optional<OverflowBarAlignment> actionsOverflowAlignment, Optional<VerticalDirection> actionsOverflowDirection, OptionalDouble actionsOverflowButtonSpacing, Optional<EdgeInsetsGeometryI> buttonPadding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<BoxConstraintsI> constraints, Optional<Boolean> scrollable) {
     var st = factories.alertDialogAlertDialog(icon.map(WidgetI::build),
       iconPadding.map(EdgeInsetsGeometryI::build),
       iconColor.map(ColorI::build),
@@ -42,6 +42,7 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
       clipBehavior,
       shape.map(ShapeBorderI::build),
       alignment.map(AlignmentGeometryI::build),
+      constraints.map(BoxConstraintsI::build),
       scrollable);
     if (st == null) throw new RuntimeException("Failed to created widget AlertDialog");
     return new AlertDialog(st);
@@ -50,7 +51,7 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
     return AlertDialogAlertDialogBuilder.alertDialogAlertDialog();
   }
   @Builder.Factory
-  static AlertDialog alertDialogAdaptive(Optional<WidgetI> icon, Optional<EdgeInsetsGeometryI> iconPadding, Optional<ColorI> iconColor, Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<WidgetI> content, Optional<EdgeInsetsGeometryI> contentPadding, Optional<TextStyleI> contentTextStyle, Optional<List<WidgetI>> actions, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<MainAxisAlignment> actionsAlignment, Optional<OverflowBarAlignment> actionsOverflowAlignment, Optional<VerticalDirection> actionsOverflowDirection, OptionalDouble actionsOverflowButtonSpacing, Optional<EdgeInsetsGeometryI> buttonPadding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<Boolean> scrollable, Optional<DurationI> insetAnimationDuration, Optional<CurveI> insetAnimationCurve) {
+  static AlertDialog alertDialogAdaptive(Optional<WidgetI> icon, Optional<EdgeInsetsGeometryI> iconPadding, Optional<ColorI> iconColor, Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<WidgetI> content, Optional<EdgeInsetsGeometryI> contentPadding, Optional<TextStyleI> contentTextStyle, Optional<List<WidgetI>> actions, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<MainAxisAlignment> actionsAlignment, Optional<OverflowBarAlignment> actionsOverflowAlignment, Optional<VerticalDirection> actionsOverflowDirection, OptionalDouble actionsOverflowButtonSpacing, Optional<EdgeInsetsGeometryI> buttonPadding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<BoxConstraintsI> constraints, Optional<Boolean> scrollable, Optional<DurationI> insetAnimationDuration, Optional<CurveI> insetAnimationCurve) {
     var st = factories.alertDialogAdaptive(icon.map(WidgetI::build),
       iconPadding.map(EdgeInsetsGeometryI::build),
       iconColor.map(ColorI::build),
@@ -76,6 +77,7 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
       clipBehavior,
       shape.map(ShapeBorderI::build),
       alignment.map(AlignmentGeometryI::build),
+      constraints.map(BoxConstraintsI::build),
       scrollable,
       insetAnimationDuration.map(DurationI::build),
       insetAnimationCurve.map(CurveI::build));
@@ -156,6 +158,9 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
   }
   public AlignmentGeometry alignment() {
     return new AlignmentGeometry(AlertDialogObjSt.alignment(st)) {};
+  }
+  public BoxConstraints constraints() {
+    return new BoxConstraints(AlertDialogObjSt.constraints(st));
   }
   public boolean scrollable() {
     return intToBool(AlertDialogObjSt.scrollable(st));

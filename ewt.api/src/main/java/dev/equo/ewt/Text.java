@@ -16,7 +16,7 @@ public class Text extends StatelessWidget implements TextI {
     System.out.println("New Text id:"+id);
   }
   @Builder.Factory
-  static Text textText(@Builder.Parameter String data, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
+  static Text textText(@Builder.Parameter String data, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
     var st = factories.textText(data,
       style.map(TextStyleI::build),
       textAlign,
@@ -26,6 +26,7 @@ public class Text extends StatelessWidget implements TextI {
       textScaleFactor,
       maxLines,
       semanticsLabel,
+      semanticsIdentifier,
       textWidthBasis,
       selectionColor.map(ColorI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Text");
@@ -35,7 +36,7 @@ public class Text extends StatelessWidget implements TextI {
     return TextTextBuilder.textText(data);
   }
   @Builder.Factory
-  static Text textRich(@Builder.Parameter InlineSpanI textSpan, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
+  static Text textRich(@Builder.Parameter InlineSpanI textSpan, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
     var st = factories.textRich(textSpan.build(),
       style.map(TextStyleI::build),
       textAlign,
@@ -45,6 +46,7 @@ public class Text extends StatelessWidget implements TextI {
       textScaleFactor,
       maxLines,
       semanticsLabel,
+      semanticsIdentifier,
       textWidthBasis,
       selectionColor.map(ColorI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Text");
@@ -82,6 +84,9 @@ public class Text extends StatelessWidget implements TextI {
   }
   public String semanticsLabel() {
     return TextObjSt.semanticsLabel(st).getString(0);
+  }
+  public String semanticsIdentifier() {
+    return TextObjSt.semanticsIdentifier(st).getString(0);
   }
   public TextWidthBasis textWidthBasis() {
     return TextWidthBasis.values()[TextObjSt.textWidthBasis(st)];

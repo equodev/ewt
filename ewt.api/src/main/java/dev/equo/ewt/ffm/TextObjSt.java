@@ -26,6 +26,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double textScaleFactor;
  *     int maxLines;
  *     char *semanticsLabel;
+ *     char *semanticsIdentifier;
  *     int textWidthBasis;
  *     DartObj selectionColor;
  * }
@@ -52,6 +53,7 @@ public class TextObjSt {
         StarterBridge.C_INT.withName("maxLines"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("semanticsLabel"),
+        StarterBridge.C_POINTER.withName("semanticsIdentifier"),
         StarterBridge.C_INT.withName("textWidthBasis"),
         StarterBridge.C_INT.withName("selectionColor")
     ).withName("$anon$23:9");
@@ -547,6 +549,50 @@ public class TextObjSt {
         struct.set(semanticsLabel$LAYOUT, semanticsLabel$OFFSET, fieldValue);
     }
 
+    private static final AddressLayout semanticsIdentifier$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("semanticsIdentifier"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static final AddressLayout semanticsIdentifier$layout() {
+        return semanticsIdentifier$LAYOUT;
+    }
+
+    private static final long semanticsIdentifier$OFFSET = 176;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static final long semanticsIdentifier$offset() {
+        return semanticsIdentifier$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static MemorySegment semanticsIdentifier(MemorySegment struct) {
+        return struct.get(semanticsIdentifier$LAYOUT, semanticsIdentifier$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * char *semanticsIdentifier
+     * }
+     */
+    public static void semanticsIdentifier(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(semanticsIdentifier$LAYOUT, semanticsIdentifier$OFFSET, fieldValue);
+    }
+
     private static final OfInt textWidthBasis$LAYOUT = (OfInt)$LAYOUT.select(groupElement("textWidthBasis"));
 
     /**
@@ -559,7 +605,7 @@ public class TextObjSt {
         return textWidthBasis$LAYOUT;
     }
 
-    private static final long textWidthBasis$OFFSET = 176;
+    private static final long textWidthBasis$OFFSET = 184;
 
     /**
      * Offset for field:
@@ -603,7 +649,7 @@ public class TextObjSt {
         return selectionColor$LAYOUT;
     }
 
-    private static final long selectionColor$OFFSET = 180;
+    private static final long selectionColor$OFFSET = 188;
 
     /**
      * Offset for field:

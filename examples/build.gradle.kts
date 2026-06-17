@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    application
 }
 
 group = "dev.equo"
@@ -18,4 +19,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass = providers.gradleProperty("mainClass").getOrElse("dev.equo.Counter")
+    applicationDefaultJvmArgs = listOf(
+        "--enable-native-access=ALL-UNNAMED"
+    )
+}
+
+tasks.named<JavaExec>("run") {
+    environment("EWT_HOME", System.getenv("EWT_HOME") ?: rootProject.projectDir.absolutePath)
 }
