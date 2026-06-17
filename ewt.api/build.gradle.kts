@@ -20,7 +20,6 @@ dependencies {
     annotationProcessor("org.immutables:value:2.10.1")
     annotationProcessor("org.immutables:builder:2.10.1")
     annotationProcessor(project(":annotation-processor"))
-    implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
 }
 
 // Split annotation processors from compile to modify immutable generated classes
@@ -92,7 +91,26 @@ tasks.register<Copy>("copyNativeLibs") {
 }
 
 tasks.named("processResources") {
-    dependsOn("copyNativeLibs")
+    dependsOn("copyNativeLibs", "copyFlutterData")
+}
+
+tasks.register<Copy>("copyFlutterData") {
+    group = "native"
+    description = "Copy Flutter assets and ICU data from Flutter build into jar resources"
+    val os = System.getProperty("os.name").lowercase()
+    val dataDir = when {
+        os.contains("linux") ->
+            rootProject.file("widgets/example/build/linux/x64/release/bundle/data")
+        os.contains("mac") ->
+            // STUB: macOS data path TBD — see Open Questions in embedded-native-libs plan
+            rootProject.file("widgets/example/build/macos/Build/Products/Release/data")
+        os.contains("win") ->
+            rootProject.file("widgets/example/build/windows/x64/runner/Release/data")
+        else -> throw GradleException("Unsupported OS: $os")
+    }
+    onlyIf { dataDir.exists() }
+    from(dataDir)
+    into("src/main/resources/flutter_data/${nativeOsDir()}")
 }
 
 // Append OS classifier to JAR name when -Pclassifier=<os> is passed (used by CI)

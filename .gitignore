@@ -47,3 +47,4 @@ out/
 
 ### EWT native resources (build artifacts, not committed) ###
 ewt.api/src/main/resources/native/
+ewt.api/src/main/resources/flutter_data/
