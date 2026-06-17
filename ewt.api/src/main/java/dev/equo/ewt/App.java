@@ -46,7 +46,14 @@ public class App {
                 throw new RuntimeException("Unsupported OS: " + os);
             }
         } else {
-            NativeLibLoader.load();
+            var paths = NativeLibLoader.load();
+            try (Arena arena = Arena.ofConfined()) {
+                StarterBridge.setFlutterPaths(
+                    arena.allocateFrom(paths.assetsDir().toString()),
+                    arena.allocateFrom(paths.icuFile().toString()),
+                    arena.allocateFrom(paths.aotLib().toString())
+                );
+            }
         }
     }
 
