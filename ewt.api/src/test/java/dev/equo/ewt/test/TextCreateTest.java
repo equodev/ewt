@@ -23,7 +23,7 @@ public class TextCreateTest {
 
     @Test
     void create_text() {
-        var t = Text.of("hello")
+        var t = Text.text("hello")
                 .textDirection(TextDirection.ltr).build();
 
     }

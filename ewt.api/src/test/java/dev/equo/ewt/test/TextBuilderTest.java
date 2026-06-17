@@ -15,7 +15,7 @@ public class TextBuilderTest {
 
     @Test
     void build_rich_text() {
-        var t = Text.rich(new InlineSpan())
+        var t = Text.rich(new InlineSpan() {})
 //                .softWrap(true)
 //                .overflow(false)
                 ;
@@ -27,7 +27,7 @@ public class TextBuilderTest {
 
     @Test
     void build_text() {
-        var t = Text.of("hello")
+        var t = Text.text("hello")
 //            .softWrap(true)
 //            .overflow(false)
                 ;
