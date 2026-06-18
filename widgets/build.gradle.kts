@@ -1,9 +1,21 @@
 
+val isWindows = System.getProperty("os.name").lowercase().contains("win")
+val home = System.getProperty("user.home")
+val sep = System.getProperty("file.separator")
+val dartExecutable = if (isWindows)
+    listOf(home, "flutter", "bin", "dart.bat").joinToString(sep)
+else
+    listOf(home, "bin", "flutter", "bin", "dart").joinToString(sep)
+val flutterExecutable = if (isWindows)
+    listOf(home, "flutter", "bin", "flutter.bat").joinToString(sep)
+else
+    listOf(home, "bin", "flutter", "bin", "flutter").joinToString(sep)
+
 val ffigen = tasks.register<Exec>("ffigen") {
     group = "native"
     description = "Generate widgets lib Dart ffigen bindings"
-    
-    executable = "${System.getProperty("user.home")}/bin/flutter/bin/dart"
+
+    executable = dartExecutable
     args("run", "ffigen", "--config", "ffigen.yaml")
     inputs.file("ffigen.yaml")
     inputs.dir("src")
@@ -23,7 +35,7 @@ val os = getOS(if (project.hasProperty("os")) project.property("os").toString() 
 tasks.register<Exec>("native") {
     println("path: "+System.getenv("PATH"))
     group = "Flutter"
-    executable = "${System.getProperty("user.home")}/bin/flutter/bin/flutter"
+    executable = flutterExecutable
     args("build", os, "--release", "--no-tree-shake-icons")
     workingDir("example")
     inputs.dir("lib")

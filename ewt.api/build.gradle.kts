@@ -52,7 +52,7 @@ tasks.test {
 
     systemProperty("os.name", System.getProperty("os.name"))
 
-    if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+    if (System.getProperty("os.name").lowercase().contains("mac")) {
         jvmArgs("-XstartOnFirstThread")
     }
 }
@@ -77,11 +77,21 @@ fun flutterBuildTarget(): String {
     }
 }
 
+fun flutterExecutable(): String {
+    val home = System.getProperty("user.home")
+    val sep = System.getProperty("file.separator")
+    val isWindows = System.getProperty("os.name").lowercase().contains("win")
+    return if (isWindows)
+        listOf(home, "flutter", "bin", "flutter.bat").joinToString(sep)
+    else
+        listOf(home, "bin", "flutter", "bin", "flutter").joinToString(sep)
+}
+
 tasks.register<Exec>("buildFlutter") {
     group = "native"
     description = "Build Flutter widgets/example for the current platform (always re-runs)"
     workingDir = rootProject.file("widgets/example")
-    commandLine("${System.getProperty("user.home")}/bin/flutter/bin/flutter", "build", flutterBuildTarget(), "--release")
+    commandLine(flutterExecutable(), "build", flutterBuildTarget(), "--release")
     outputs.upToDateWhen { false }
 }
 
@@ -139,7 +149,9 @@ if (classifier.isNotEmpty()) {
 tasks.register<Exec>("jextract") {
     group = "native"
     description = "Generate Starter lib FFM bindiings"
-    executable = "${System.getenv("HOME")}/bin/jextract-22/bin/jextract"
+    val isWindows = System.getProperty("os.name").lowercase().contains("win")
+    val jextractExe = if (isWindows) "jextract.exe" else "jextract"
+    executable = listOf(System.getProperty("user.home"), "bin", "jextract-22", "bin", jextractExe).joinToString(System.getProperty("file.separator"))
     val header = "../widgets/example/native/Starter.h"
     val output = "./src/main/java"
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
