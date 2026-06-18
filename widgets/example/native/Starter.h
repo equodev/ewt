@@ -15,5 +15,4 @@
 
 EXPORT int startApp(buildWidgetTreeFn buildWidgetTree);
 
-
 #endif /* Starter_h */

@@ -1,7 +1,9 @@
 #include <dlfcn.h>
+#include <filesystem>
 #include <flutter_linux/flutter_linux.h>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 #include "common.h"
 
@@ -26,9 +28,22 @@
 // Provided by libwidgets.so
 extern "C" void setBuildWidgetTree(buildWidgetTreeFn fn);
 
+// Used as an address anchor for dladdr self-location
+extern "C" __attribute__((visibility("default"))) void DummyExportedFunction() {}
+
 static char g_assets_path[4096];
 static char g_icu_data_path[4096];
 static char g_aot_library_path[4096];
+
+// Returns the directory containing libStarter.so
+static std::string GetLibDir() {
+  Dl_info dl_info;
+  if (dladdr(reinterpret_cast<void*>(&DummyExportedFunction), &dl_info) != 0
+      && dl_info.dli_fname != nullptr) {
+    return std::filesystem::path(dl_info.dli_fname).parent_path().string();
+  }
+  return "";
+}
 
 // --- GTK wrappers (runtime-loaded, no link-time dependency) ---------------
 
@@ -123,6 +138,20 @@ extern "C" __attribute__((visibility("default")))
 int startApp(buildWidgetTreeFn buildWidgetTree) {
   setBuildWidgetTree(buildWidgetTree);
 
+  // Primary: locate paths relative to this shared library.
+  // Layout mirrors Flutter's bundle: lib/libStarter.so, data/flutter_assets, data/icudtl.dat
+  std::string lib_dir = GetLibDir();
+  if (!lib_dir.empty()) {
+    std::string bundle_root = std::filesystem::path(lib_dir).parent_path().string();
+    snprintf(g_assets_path, sizeof(g_assets_path),
+             "%s/data/flutter_assets", bundle_root.c_str());
+    snprintf(g_icu_data_path, sizeof(g_icu_data_path),
+             "%s/data/icudtl.dat", bundle_root.c_str());
+    snprintf(g_aot_library_path, sizeof(g_aot_library_path),
+             "%s/lib/libapp.so", bundle_root.c_str());
+  }
+
+  // Secondary: EWT_HOME overrides for development builds
   const char* ewt_home = getenv("EWT_HOME");
   if (ewt_home) {
     snprintf(g_assets_path, sizeof(g_assets_path),

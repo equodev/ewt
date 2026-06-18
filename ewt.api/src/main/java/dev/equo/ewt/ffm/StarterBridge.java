@@ -132,5 +132,6 @@ public class StarterBridge {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+
 }
 

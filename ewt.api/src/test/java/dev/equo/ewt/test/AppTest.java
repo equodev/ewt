@@ -9,7 +9,7 @@ public class AppTest {
 
     @Test
     void run_app() {
-        App.runApp(() -> Text.of("hello from java")
+        App.runApp(() -> Text.text("hello from java")
                     .textDirection(TextDirection.ltr).build());
     }
 }
