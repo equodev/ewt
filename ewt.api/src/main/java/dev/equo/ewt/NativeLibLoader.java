@@ -29,7 +29,13 @@ class NativeLibLoader {
             libs = new String[]{"flutter_windows.dll", "widgets.dll", "Starter.dll"};
         } else if (os.contains("mac")) {
             osDir = "macos-arm64";
-            libs = new String[]{"libStarter.dylib"};
+            // Load order matters: FlutterMacOS and widgets must be in-process before Starter.dll
+            // so that dyld can resolve libStarter.dylib's LC_LOAD_DYLIB entries without rpath.
+            libs = new String[]{
+                "FlutterMacOS.framework/FlutterMacOS",
+                "widgets.framework/widgets",
+                "libStarter.dylib"
+            };
         } else {
             throw new RuntimeException(
                 "Embedded native libs not supported on OS: " + os +
@@ -50,10 +56,20 @@ class NativeLibLoader {
                 System.load(p.toString());
             }
 
-            // Extract flutter_assets/ and icudtl.dat to native/<osDir>/data/
+            // Extract flutter_assets/ and icudtl.dat (Linux/Windows) or App.framework (macOS)
+            // to native/<osDir>/data/. Starter self-locates this dir via dladdr at runtime.
             String dataPrefix = "native/" + osDir + "/data/";
             Path dataDir = jarDir.resolve("native").resolve(osDir).resolve("data");
             extractDirFromZip(jarPath, dataPrefix, dataDir);
+
+            if (os.contains("mac")) {
+                // App.framework/App is a Mach-O dylib that Flutter loads via dlopen internally;
+                // it must be executable on disk or FlutterDartProject will fail to open it.
+                Path appBinary = dataDir.resolve("App.framework").resolve("App");
+                if (Files.exists(appBinary)) {
+                    appBinary.toFile().setExecutable(true, false);
+                }
+            }
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException("Failed to extract EWT native libraries", e);
         }
@@ -64,8 +80,10 @@ class NativeLibLoader {
         Files.createDirectories(targetDir);
         List<Path> result = new ArrayList<>();
         for (String name : libNames) {
-            Path target = targetDir.resolve(name);
+            // name may contain path separators (e.g. "FlutterMacOS.framework/FlutterMacOS")
+            Path target = targetDir.resolve(name.replace("/", java.io.File.separator));
             if (!Files.exists(target)) {
+                Files.createDirectories(target.getParent());
                 try (InputStream in = NativeLibLoader.class.getClassLoader()
                         .getResourceAsStream(prefix + name)) {
                     if (in == null) {
@@ -73,6 +91,7 @@ class NativeLibLoader {
                     }
                     Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
                 }
+                target.toFile().setExecutable(true, false);
             }
             result.add(target);
         }
