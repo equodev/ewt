@@ -14,9 +14,7 @@ import java.util.zip.ZipInputStream;
 
 class NativeLibLoader {
 
-    record ExtractedPaths(Path assetsDir, Path icuFile, Path aotLib) {}
-
-    static ExtractedPaths load() {
+    static void load() {
         String os = System.getProperty("os.name").toLowerCase();
         String osDir;
         String[] libs;
@@ -44,22 +42,18 @@ class NativeLibLoader {
             Path jarPath = Path.of(jarUrl.toURI());
             Path jarDir = jarPath.getParent();
 
-            // Extract .so / .dll files
-            Path nativeDir = jarDir.resolve("native").resolve(osDir);
-            List<Path> paths = extractToDir("native/" + osDir + "/", libs, nativeDir);
-            for (Path p : paths) {
+            // Extract libs to native/<osDir>/lib/ — sibling to data/
+            String libPrefix = "native/" + osDir + "/lib/";
+            Path libDir = jarDir.resolve("native").resolve(osDir).resolve("lib");
+            List<Path> extracted = extractToDir(libPrefix, libs, libDir);
+            for (Path p : extracted) {
                 System.load(p.toString());
             }
 
-            // Extract flutter_assets/ and icudtl.dat
-            Path flutterDataDir = jarDir.resolve("flutter_data").resolve(osDir);
-            extractDirFromZip(jarPath, "flutter_data/" + osDir + "/", flutterDataDir);
-
-            return new ExtractedPaths(
-                flutterDataDir.resolve("flutter_assets"),
-                flutterDataDir.resolve("icudtl.dat"),
-                nativeDir.resolve(libs[libs.length - 1])  // libapp.so / Starter.dll / libStarter.dylib
-            );
+            // Extract flutter_assets/ and icudtl.dat to native/<osDir>/data/
+            String dataPrefix = "native/" + osDir + "/data/";
+            Path dataDir = jarDir.resolve("native").resolve(osDir).resolve("data");
+            extractDirFromZip(jarPath, dataPrefix, dataDir);
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException("Failed to extract EWT native libraries", e);
         }
