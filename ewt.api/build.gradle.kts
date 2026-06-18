@@ -67,30 +67,47 @@ fun nativeOsDir(): String {
     }
 }
 
+fun flutterBuildTarget(): String {
+    val os = System.getProperty("os.name").lowercase()
+    return when {
+        os.contains("linux") -> "linux"
+        os.contains("mac")   -> "macos"
+        os.contains("win")   -> "windows"
+        else -> throw GradleException("Unsupported OS: $os")
+    }
+}
+
+tasks.register<Exec>("buildFlutter") {
+    group = "native"
+    description = "Build Flutter widgets/example for the current platform (always re-runs)"
+    workingDir = rootProject.file("widgets/example")
+    commandLine("${System.getProperty("user.home")}/bin/flutter/bin/flutter", "build", flutterBuildTarget(), "--release")
+    outputs.upToDateWhen { false }
+}
+
 tasks.register<Copy>("copyNativeLibs") {
     group = "native"
     description = "Copy platform native libs from Flutter build into jar resources"
-    val os = System.getProperty("os.name").lowercase()
-    val (libDir, libs) = when {
-        os.contains("linux") -> Pair(
+    dependsOn("buildFlutter")
+    val (libDir, libs) = when (flutterBuildTarget()) {
+        "linux" -> Pair(
             rootProject.file("widgets/example/build/linux/x64/release/bundle/lib"),
             listOf("libflutter_linux_gtk.so", "libwidgets.so", "libStarter.so", "libapp.so")
         )
-        os.contains("mac") -> Pair(
-            // NOTE: macOS support is a stub — FlutterMacOS.framework and widgets.framework
-            // are directory trees, not flat files. Full macOS extraction is tracked in Open Questions.
+        "macos" -> Pair(
+            // NOTE: macOS — FlutterMacOS.framework and widgets.framework are directory trees,
+            // not flat files; full macOS extraction needs more work.
             rootProject.file("widgets/example/build/macos/Build/Products/Release"),
             listOf("libStarter.dylib")
         )
-        os.contains("win") -> Pair(
+        "windows" -> Pair(
             rootProject.file("widgets/example/build/windows/x64/runner/Release"),
             listOf("flutter_windows.dll", "widgets.dll", "Starter.dll")
         )
-        else -> throw GradleException("Unsupported OS: $os")
+        else -> throw GradleException("Unsupported OS: ${flutterBuildTarget()}")
     }
-    onlyIf { libDir.exists() }
     from(libDir) { include(libs) }
-    into("src/main/resources/native/${nativeOsDir()}")
+    into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/lib"))
 }
 
 tasks.named("processResources") {
@@ -100,20 +117,15 @@ tasks.named("processResources") {
 tasks.register<Copy>("copyFlutterData") {
     group = "native"
     description = "Copy Flutter assets and ICU data from Flutter build into jar resources"
-    val os = System.getProperty("os.name").lowercase()
-    val dataDir = when {
-        os.contains("linux") ->
-            rootProject.file("widgets/example/build/linux/x64/release/bundle/data")
-        os.contains("mac") ->
-            // STUB: macOS data path TBD — see Open Questions in embedded-native-libs plan
-            rootProject.file("widgets/example/build/macos/Build/Products/Release/data")
-        os.contains("win") ->
-            rootProject.file("widgets/example/build/windows/x64/runner/Release/data")
-        else -> throw GradleException("Unsupported OS: $os")
+    dependsOn("buildFlutter")
+    val dataDir = when (flutterBuildTarget()) {
+        "linux"   -> rootProject.file("widgets/example/build/linux/x64/release/bundle/data")
+        "macos"   -> rootProject.file("widgets/example/build/macos/Build/Products/Release/data")
+        "windows" -> rootProject.file("widgets/example/build/windows/x64/runner/Release/data")
+        else -> throw GradleException("Unsupported OS: ${flutterBuildTarget()}")
     }
-    onlyIf { dataDir.exists() }
     from(dataDir)
-    into("src/main/resources/flutter_data/${nativeOsDir()}")
+    into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/data"))
 }
 
 // Append OS classifier to JAR name when -Pclassifier=<os> is passed (used by CI)
