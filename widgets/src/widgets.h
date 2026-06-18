@@ -4,6 +4,11 @@
 
 #if _WIN32
 #include <windows.h>
+// rpcndr.h (pulled in by windows.h) defines 'small' as 'char', which
+// conflicts with the generated factory member name in factories.h.
+#ifdef small
+#undef small
+#endif
 #else
 #include <pthread.h>
 #include <unistd.h>
