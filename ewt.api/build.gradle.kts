@@ -41,6 +41,9 @@ sourceSets {
         java {
             srcDir("${layout.buildDirectory.get()}/generated/sources/immutables")
         }
+        resources {
+            srcDir(layout.buildDirectory.dir("generated/resources/main"))
+        }
     }
 }
 
