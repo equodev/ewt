@@ -78,13 +78,8 @@ fun flutterBuildTarget(): String {
 }
 
 fun flutterExecutable(): String {
-    val home = System.getProperty("user.home")
-    val sep = System.getProperty("file.separator")
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
-    return if (isWindows)
-        listOf(home, "flutter", "bin", "flutter.bat").joinToString(sep)
-    else
-        listOf(home, "bin", "flutter", "bin", "flutter").joinToString(sep)
+    return if (isWindows) "flutter.bat" else "flutter"
 }
 
 tasks.register<Exec>("buildFlutter") {
@@ -148,10 +143,9 @@ if (classifier.isNotEmpty()) {
 
 tasks.register<Exec>("jextract") {
     group = "native"
-    description = "Generate Starter lib FFM bindiings"
+    description = "Generate Starter lib FFM bindings"
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
-    val jextractExe = if (isWindows) "jextract.exe" else "jextract"
-    executable = listOf(System.getProperty("user.home"), "bin", "jextract-22", "bin", jextractExe).joinToString(System.getProperty("file.separator"))
+    executable = if (isWindows) "jextract.exe" else "jextract"
     val header = "../widgets/example/native/Starter.h"
     val output = "./src/main/java"
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)

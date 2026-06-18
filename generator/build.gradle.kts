@@ -2,13 +2,8 @@ tasks.register<Exec>("generator") {
     group = "native"
     description = "Generate source from flutter widgets"
 
-    val home = System.getProperty("user.home")
-    val sep = System.getProperty("file.separator")
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
-    executable = if (isWindows)
-        listOf(home, "flutter", "bin", "dart.bat").joinToString(sep)
-    else
-        listOf(home, "bin", "flutter", "bin", "dart").joinToString(sep)
+    executable = if (isWindows) "dart.bat" else "dart"
     args("run", "bin/generator.dart")
     inputs.dir("lib")
     inputs.file("bin/generator.dart")

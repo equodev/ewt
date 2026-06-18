@@ -1,15 +1,7 @@
 
 val isWindows = System.getProperty("os.name").lowercase().contains("win")
-val home = System.getProperty("user.home")
-val sep = System.getProperty("file.separator")
-val dartExecutable = if (isWindows)
-    listOf(home, "flutter", "bin", "dart.bat").joinToString(sep)
-else
-    listOf(home, "bin", "flutter", "bin", "dart").joinToString(sep)
-val flutterExecutable = if (isWindows)
-    listOf(home, "flutter", "bin", "flutter.bat").joinToString(sep)
-else
-    listOf(home, "bin", "flutter", "bin", "flutter").joinToString(sep)
+val dartExecutable = if (isWindows) "dart.bat" else "dart"
+val flutterExecutable = if (isWindows) "flutter.bat" else "flutter"
 
 val ffigen = tasks.register<Exec>("ffigen") {
     group = "native"
