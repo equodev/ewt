@@ -86,7 +86,7 @@ tasks.register<Exec>("buildFlutter") {
     group = "native"
     description = "Build Flutter widgets/example for the current platform (always re-runs)"
     workingDir = rootProject.file("widgets/example")
-    commandLine(flutterExecutable(), "build", flutterBuildTarget(), "--release")
+    commandLine("${System.getProperty("user.home")}/bin/flutter/bin/flutter", "build", flutterBuildTarget(), "--release", "--no-tree-shake-icons")
     outputs.upToDateWhen { false }
 }
 
@@ -125,6 +125,7 @@ tasks.register<Copy>("copyMacOSFrameworkLibs") {
         "widgets_example.app/Contents/Frameworks")
     from(frameworksDir) {
         include("FlutterMacOS.framework/FlutterMacOS")
+        include("FlutterMacOS.framework/Resources/icudtl.dat")
         include("widgets.framework/widgets")
     }
     into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/lib"))
@@ -174,7 +175,8 @@ tasks.register<Exec>("jextract") {
     group = "native"
     description = "Generate Starter lib FFM bindings"
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
-    executable = if (isWindows) "jextract.exe" else "jextract"
+    val home = System.getProperty("user.home")
+    executable = if (isWindows) "jextract.exe" else "$home/bin/jextract-22/bin/jextract"
     val header = "../widgets/example/native/Starter.h"
     val output = "./src/main/java"
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
