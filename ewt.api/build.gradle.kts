@@ -4,7 +4,6 @@ plugins {
 }
 
 group = "dev.equo"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -77,6 +76,8 @@ fun flutterBuildTarget(): String {
     }
 }
 
+val skipFlutter = System.getProperty("skipFlutterBuild") != null
+
 fun flutterExecutable(): String {
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
     return if (isWindows) "flutter.bat" else "flutter"
@@ -93,7 +94,7 @@ tasks.register<Exec>("buildFlutter") {
 tasks.register<Copy>("copyNativeLibs") {
     group = "native"
     description = "Copy platform native libs from Flutter build into jar resources"
-    dependsOn("buildFlutter")
+    if (!skipFlutter) dependsOn("buildFlutter")
     val releaseDir = when (flutterBuildTarget()) {
         "linux"   -> rootProject.file("widgets/example/build/linux/x64/release/bundle/lib")
         "windows" -> rootProject.file("widgets/example/build/windows/x64/runner/Release")
@@ -139,7 +140,7 @@ tasks.named("processResources") {
 tasks.register<Copy>("copyFlutterData") {
     group = "native"
     description = "Copy Flutter data from Flutter build into jar resources"
-    dependsOn("buildFlutter")
+    if (!skipFlutter) dependsOn("buildFlutter")
     // macOS embeds Dart code and assets inside App.framework (a directory bundle), not a flat
     // data/ dir. We copy the entire framework so NativeLibLoader can pass it to FlutterDartProject.
     // Linux and Windows use a flat data/ dir with flutter_assets/ and icudtl.dat.
@@ -200,9 +201,42 @@ tasks.register<Exec>("jextract") {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("ewt") {
-            from(components["java"])
+    repositories {
+        maven {
+            name = "Gitlab"
+            url = uri(
+                "${System.getenv("CI_API_V4_URL") ?: "http://localhost"}" +
+                        "/projects/${System.getenv("CI_PROJECT_ID") ?: "0"}/packages/maven"
+            )
+            credentials(HttpHeaderCredentials::class) {
+                name = "Job-Token"
+                value = System.getenv("CI_JOB_TOKEN") ?: ""
+            }
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
         }
     }
+    publications {
+        listOf("linux", "macos", "windows").forEach { os ->
+            create<MavenPublication>("ewt-$os") {
+                groupId = "dev.equo"
+                artifactId = "ewt.api"
+                version = project.version.toString()
+                artifact(file("build/libs/ewt.api-${project.version}-${os}.jar")) {
+                    classifier = os
+                }
+                pom {
+                    name.set("EWT API ($os)")
+                    description.set("Equo Widget Toolkit — $os platform JAR")
+                }
+            }
+        }
+    }
+}
+
+tasks.register("publishAllPlatforms") {
+    group = "publishing"
+    description = "Publish all three platform JARs to the configured Maven repository"
+    dependsOn(tasks.withType<PublishToMavenRepository>())
 }
