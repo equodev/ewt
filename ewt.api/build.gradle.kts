@@ -47,7 +47,11 @@ sourceSets {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (System.getProperty("skipNativeTests") != null) {
+            excludeTags("native")
+        }
+    }
 
     systemProperty("os.name", System.getProperty("os.name"))
 

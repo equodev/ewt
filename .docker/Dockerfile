@@ -31,5 +31,13 @@ RUN curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stabl
     | tar xJ -C /opt
 ENV PATH="/opt/flutter/bin:${PATH}"
 ENV CXXFLAGS="-std=c++17"
-RUN flutter config --enable-linux-desktop \
+
+# Flutter refuses to run as root. Create a non-root user, transfer Flutter ownership,
+# and run all Flutter setup as that user. CI jobs inherit this user via Kubernetes.
+RUN useradd -ms /bin/bash ci \
+    && chown -R ci:ci /opt/flutter
+USER ci
+ENV HOME=/home/ci
+RUN git config --global --add safe.directory /opt/flutter \
+    && flutter config --enable-linux-desktop \
     && flutter precache --linux
