@@ -1,4 +1,10 @@
 #include <windows.h>
+// rpcndr.h (pulled in by windows.h) defines 'small' as 'char', which
+// conflicts with the generated factory member name in factories.h.
+#ifdef small
+#undef small
+#endif
+
 #include <flutter/dart_project.h>
 #include <flutter/flutter_view_controller.h>
 
@@ -11,6 +17,27 @@
 extern "C" void setBuildWidgetTree(buildWidgetTreeFn fn);
 
 #define STARTER_EXPORT __declspec(dllexport)
+
+// Address anchor for GetModuleHandleExW self-location
+extern "C" STARTER_EXPORT void EWT_Starter_AddressAnchor() {}
+
+// Returns the directory containing Starter.dll, or empty string on failure.
+static std::wstring GetDllDir() {
+  HMODULE hModule = nullptr;
+  if (!GetModuleHandleExW(
+          GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
+          GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+          reinterpret_cast<LPCWSTR>(&EWT_Starter_AddressAnchor),
+          &hModule)) {
+    return L"";
+  }
+  wchar_t path[MAX_PATH];
+  DWORD len = GetModuleFileNameW(hModule, path, MAX_PATH);
+  if (len == 0 || len == MAX_PATH) return L"";
+  wchar_t* last_sep = wcsrchr(path, L'\\');
+  if (last_sep) *last_sep = L'\0';
+  return std::wstring(path);
+}
 
 static std::unique_ptr<flutter::FlutterViewController> g_flutter_controller;
 
@@ -58,11 +85,17 @@ int startApp(buildWidgetTreeFn buildWidgetTree) {
 
   ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
 
-  // Resolve the data directory from EWT_HOME, falling back to "data" (relative
-  // to the current working directory) so the standard Flutter runner still works.
-  std::wstring data_dir = L"data";
-  const wchar_t* ewt_home = _wgetenv(L"EWT_HOME");
-  if (ewt_home && ewt_home[0] != L'\0') {
+  // Primary: locate data dir relative to this DLL.
+  // JAR layout: lib/Starter.dll  →  ../data/ (flutter_assets, icudtl.dat)
+  std::wstring dll_dir = GetDllDir();
+  std::wstring raw_data = dll_dir.empty() ? L"data" : dll_dir + L"\\..\\data";
+  wchar_t canonical[MAX_PATH];
+  DWORD n = GetFullPathNameW(raw_data.c_str(), MAX_PATH, canonical, nullptr);
+  std::wstring data_dir = (n > 0 && n < MAX_PATH) ? std::wstring(canonical) : raw_data;
+
+  // Secondary: EWT_HOME overrides for development builds.
+  wchar_t ewt_home[MAX_PATH] = {};
+  if (GetEnvironmentVariableW(L"EWT_HOME", ewt_home, MAX_PATH) > 0) {
     data_dir = std::wstring(ewt_home) +
                L"\\widgets\\example\\build\\windows\\x64\\runner\\Release\\data";
   }
