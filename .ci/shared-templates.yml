@@ -1,0 +1,61 @@
+.gcs_upload:
+  image: google/cloud-sdk:latest
+  variables:
+    GCS_BUCKET: "gs://ewt-gallery"
+    FOLDER_TO_UPLOAD: "ewt.api/build/libs"
+  before_script:
+    - echo ${service_account} | base64 -d > gcp-key.json
+    - gcloud auth activate-service-account --key-file=gcp-key.json
+  script:
+    - gsutil -m -h "Cache-Control:public, max-age=3600" cp -a public-read -r $FOLDER_TO_UPLOAD/* $GCS_BUCKET/
+
+# Downloads Flutter SDK and enables macOS desktop support.
+# The macOS app uses Swift Package Manager (not CocoaPods) so no gem/pod setup needed.
+.flutter:macos:
+  tags: [vm-runner]
+  variables:
+    RUNNER_OS: "mac"
+  before_script:
+    - curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${FLUTTER_SDK}-stable.zip" -o flutter.zip
+    - unzip -q flutter.zip -d $HOME
+    - export PATH="$HOME/flutter/bin:${PATH}"
+    - flutter config --enable-macos-desktop
+    - flutter config --enable-swift-package-manager
+
+# Downloads Flutter SDK and Visual Studio Build Tools, enables Windows desktop support.
+# Runner shell is bash (Git Bash). Flutter commands run via powershell.exe -C "..." with PATH set.
+.flutter:windows:
+  tags: [vm-runner]
+  variables:
+    RUNNER_OS: "win"
+    ErrorActionPreference: stop
+  before_script:
+    - ( choco.exe install -y 7zip && touch 7zDone ) &
+    - ( curl -L -o flutter.zip https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_${FLUTTER_SDK}-stable.zip && while [ ! -f 7zDone ]; do sleep 1; done && 7z.exe x flutter.zip -oc:\\ ) &
+    - ( choco.exe install -y visualstudio2022buildtools visualstudio2022-workload-vctools ) &
+    - wait
+    - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter config --enable-windows-desktop"
+
+# Downloads JDK 23 (Temurin) for macOS Gradle builds.
+# Targets Apple Silicon (aarch64) — change to x64 if runner is Intel.
+.ewt_build:macos:
+  tags: [vm-runner]
+  variables:
+    RUNNER_OS: "mac"
+  before_script:
+    - curl -L "https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2%2B7/OpenJDK23U-jdk_aarch64_mac_hotspot_23.0.2_7.tar.gz" | tar -xz
+    - export JAVA_HOME="$PWD/jdk-23.0.2+7/Contents/Home"
+    - export PATH="$JAVA_HOME/bin:$PATH"
+
+# Downloads JDK 23 (Temurin) for Windows Gradle builds.
+# Runner shell is bash (Git Bash). Gradle runs via java.exe to avoid PATH issues.
+.ewt_build:windows:
+  tags: [vm-runner]
+  variables:
+    RUNNER_OS: "win"
+    ErrorActionPreference: stop
+  before_script:
+    - ( choco.exe install -y 7zip && touch 7zDone ) &
+    - ( curl -L -o java23.zip "https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2%2B7/OpenJDK23U-jdk_x64_windows_hotspot_23.0.2_7.zip" && while [ ! -f 7zDone ]; do sleep 1; done && 7z.exe x java23.zip -o. ) &
+    - export JAVA_FOLDER="jdk-23.0.2+7"
+    - wait
