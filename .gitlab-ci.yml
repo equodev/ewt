@@ -1,0 +1,250 @@
+stages:
+  - docker_build
+  - check
+  - flutter
+  - build
+  - deploy
+  - release
+
+# --- Release cadence model (mirrors swt-flutter) ---
+# Push to main  → ONLY mark_release_needed runs (sets NEED_RELEASE=true).
+#                 The release chain is available behind the manual release_gate button.
+# Daily schedule → pipeline created ONLY when NEED_RELEASE == "true"; full chain runs automatically.
+# Merge requests → release_gate is absent; flutter + build jobs run normally.
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      variables:
+        MARK_PIPELINE: "true"
+
+include:
+  - '/.ci/shared-templates.yml'
+
+variables:
+  GRADLE_OPTS: >-
+    -Dorg.gradle.daemon=false
+    -Dorg.gradle.console=plain
+    -Dorg.gradle.vfs.watch=false
+  FLUTTER_SDK: "3.44.1"
+  FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk23.flutter:linux
+
+build_docker_image:
+  stage: docker_build
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  rules:
+    - if: '$CI_IMAGE'
+    - if: '$CI_COMMIT_MESSAGE =~ /\[ci image\]/'
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build --pull --build-arg FLUTTER_VERSION=$FLUTTER_SDK -f .docker/Dockerfile -t "$FLUTTER_IMAGE_TAG" .
+    - docker push "$FLUTTER_IMAGE_TAG"
+
+# Runs on every push to main. Records that a release is pending so the next
+# scheduled run triggers the full release chain.
+mark_release_needed:
+  stage: check
+  image: alpine/curl:latest
+  needs: []
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - 'curl -sf --request PUT --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN"
+       "$CI_API_V4_URL/projects/${CI_PROJECT_ID}/variables/NEED_RELEASE"
+       --form "value=true"'
+  rules:
+    - if: '$MARK_PIPELINE == "true"'
+
+# Manual button on master pipelines. Clicking it unblocks the flutter/build chain
+# so the full release runs in THIS pipeline instead of waiting for the next schedule.
+# On scheduled release pipelines this job is absent and the chain runs automatically.
+release_gate:
+  stage: check
+  image: alpine:latest
+  needs: []
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "Release gate opened — running the release chain in this pipeline."
+  rules:
+    - if: '$MARK_PIPELINE == "true"'
+      when: manual
+      allow_failure: true
+
+flutter:linux:
+  stage: flutter
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  script:
+    - rm -rf widgets/example/build/linux
+    - cd widgets/example && flutter pub get && flutter build linux --release
+  artifacts:
+    paths:
+      - widgets/example/build/linux/
+    expire_in: 1 week
+
+flutter:macos:
+  # STUB: macOS JAR not yet fully runnable — FlutterMacOS.framework extraction pending.
+  extends: .flutter:macos
+  stage: flutter
+  needs:
+    - job: release_gate
+      optional: true
+  script:
+    - rm -rf widgets/example/build/macos
+    - cd widgets/example && flutter pub get && flutter build macos --release
+  artifacts:
+    paths:
+      - widgets/example/build/macos/
+    expire_in: 1 week
+
+flutter:windows:
+  extends: .flutter:windows
+  stage: flutter
+  needs:
+    - job: release_gate
+      optional: true
+  script:
+    - rm -rf widgets/example/build/windows
+    - cd widgets/example
+    - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter pub get; flutter build windows --release"
+  artifacts:
+    paths:
+      - widgets/example/build/windows/
+    expire_in: 1 week
+
+# =============================================================================
+# BUILD STAGE
+# =============================================================================
+
+ewt_build:linux:
+  stage: build
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - flutter:linux
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  script:
+    - ./gradlew :ewt.api:build -Pclassifier=linux -DskipFlutterBuild --no-daemon
+    - ./gradlew generateVersionEnv --no-daemon
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt.api-*-linux.jar
+      - build/published/version.env
+    reports:
+      dotenv: build/published/version.env
+    expire_in: 1 week
+
+ewt_build:macos:
+  # STUB: macOS JAR not yet fully runnable — FlutterMacOS.framework extraction pending.
+  extends: .ewt_build:macos
+  stage: build
+  needs:
+    - flutter:macos
+    - job: release_gate
+      optional: true
+  script:
+    - ./gradlew :ewt.api:build -Pclassifier=macos -DskipFlutterBuild --no-daemon
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt.api-*-macos.jar
+    expire_in: 1 week
+
+ewt_build:windows:
+  extends: .ewt_build:windows
+  stage: build
+  needs:
+    - flutter:windows
+    - job: release_gate
+      optional: true
+  script:
+    - powershell.exe -C "\$env:GRADLE_OPTS='$GRADLE_OPTS'; ./$JAVA_FOLDER/bin/java.exe -cp gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain :ewt.api:build -Pclassifier=windows '-DskipFlutterBuild' '--no-daemon'"
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt.api-*-windows.jar
+    expire_in: 1 week
+
+# =============================================================================
+# DEPLOY STAGE
+# =============================================================================
+
+publish_to_mvn:
+  stage: deploy
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - ewt_build:linux
+    - ewt_build:macos
+    - ewt_build:windows
+  script:
+    - ./gradlew :ewt.api:publishAllPlatforms --no-daemon
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
+upload_to_gcs:
+  extends: .gcs_upload
+  stage: deploy
+  needs:
+    - ewt_build:linux
+    - ewt_build:macos
+    - ewt_build:windows
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
+# =============================================================================
+# RELEASE STAGE
+# =============================================================================
+
+github_release:
+  stage: release
+  image:
+    name: maniator/gh:latest
+    entrypoint: [""]
+  variables:
+    GITHUB_TOKEN: $GITHUB_TOKEN
+    GIT_STRATEGY: none
+  needs:
+    - publish_to_mvn
+    - job: upload_to_gcs
+      artifacts: false
+    - ewt_build:linux
+    - ewt_build:macos
+    - ewt_build:windows
+  before_script:
+    - apk add --no-cache curl
+  script:
+    - echo "Releasing v$RELEASE_NEXT"
+    - gh release create "v$RELEASE_NEXT"
+        --target main
+        --generate-notes
+        --repo equodev/ewt
+        ewt.api/build/libs/ewt.api-*-linux.jar
+        ewt.api/build/libs/ewt.api-*-macos.jar
+        ewt.api/build/libs/ewt.api-*-windows.jar
+    - echo "Release published — clearing NEED_RELEASE"
+    - 'curl -sf --request PUT --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN"
+       "$CI_API_V4_URL/projects/$CI_PROJECT_ID/variables/NEED_RELEASE"
+       --form "value=false"'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: delayed
+      start_in: 5 minutes
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+      when: delayed
+      start_in: 5 minutes
+
