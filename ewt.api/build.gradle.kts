@@ -86,7 +86,7 @@ tasks.register<Exec>("buildFlutter") {
     group = "native"
     description = "Build Flutter widgets/example for the current platform (always re-runs)"
     workingDir = rootProject.file("widgets/example")
-    commandLine(flutterExecutable(), "build", flutterBuildTarget(), "--release")
+    commandLine("${System.getProperty("user.home")}/bin/flutter/bin/flutter", "build", flutterBuildTarget(), "--release", "--no-tree-shake-icons")
     outputs.upToDateWhen { false }
 }
 
@@ -94,43 +94,73 @@ tasks.register<Copy>("copyNativeLibs") {
     group = "native"
     description = "Copy platform native libs from Flutter build into jar resources"
     dependsOn("buildFlutter")
-    val (libDir, libs) = when (flutterBuildTarget()) {
-        "linux" -> Pair(
-            rootProject.file("widgets/example/build/linux/x64/release/bundle/lib"),
-            listOf("libflutter_linux_gtk.so", "libwidgets.so", "libStarter.so", "libapp.so")
-        )
-        "macos" -> Pair(
-            // NOTE: macOS — FlutterMacOS.framework and widgets.framework are directory trees,
-            // not flat files; full macOS extraction needs more work.
-            rootProject.file("widgets/example/build/macos/Build/Products/Release"),
-            listOf("libStarter.dylib")
-        )
-        "windows" -> Pair(
-            rootProject.file("widgets/example/build/windows/x64/runner/Release"),
-            listOf("flutter_windows.dll", "widgets.dll", "Starter.dll")
-        )
+    val releaseDir = when (flutterBuildTarget()) {
+        "linux"   -> rootProject.file("widgets/example/build/linux/x64/release/bundle/lib")
+        "windows" -> rootProject.file("widgets/example/build/windows/x64/runner/Release")
+        // macOS: libStarter.dylib is at Release/; frameworks are inside the .app bundle.
+        // NativeLibLoader loads FlutterMacOS and widgets before libStarter so that dyld can
+        // resolve their LC_LOAD_DYLIB entries without needing rpath adjustments.
+        "macos"   -> rootProject.file("widgets/example/build/macos/Build/Products/Release")
         else -> throw GradleException("Unsupported OS: ${flutterBuildTarget()}")
     }
-    from(libDir) { include(libs) }
+    val libs = when (flutterBuildTarget()) {
+        "linux"   -> listOf("libflutter_linux_gtk.so", "libwidgets.so", "libStarter.so", "libapp.so")
+        "windows" -> listOf("flutter_windows.dll", "widgets.dll", "Starter.dll")
+        "macos"   -> listOf("libStarter.dylib")
+        else -> throw GradleException("Unsupported OS: ${flutterBuildTarget()}")
+    }
+    from(releaseDir) { include(libs) }
+    into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/lib"))
+}
+
+// macOS only: copy FlutterMacOS.framework and widgets.framework binaries so they can be
+// loaded via System.load() before libStarter.dylib (see NativeLibLoader macOS load order).
+tasks.register<Copy>("copyMacOSFrameworkLibs") {
+    group = "native"
+    description = "Copy FlutterMacOS and widgets framework binaries for macOS JAR embedding"
+    enabled = flutterBuildTarget() == "macos"
+    dependsOn("buildFlutter")
+    val frameworksDir = rootProject.file(
+        "widgets/example/build/macos/Build/Products/Release/" +
+        "widgets_example.app/Contents/Frameworks")
+    from(frameworksDir) {
+        include("FlutterMacOS.framework/FlutterMacOS")
+        include("FlutterMacOS.framework/Resources/icudtl.dat")
+        include("widgets.framework/widgets")
+    }
     into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/lib"))
 }
 
 tasks.named("processResources") {
     dependsOn("copyNativeLibs", "copyFlutterData")
+    if (flutterBuildTarget() == "macos") dependsOn("copyMacOSFrameworkLibs")
 }
 
 tasks.register<Copy>("copyFlutterData") {
     group = "native"
-    description = "Copy Flutter assets and ICU data from Flutter build into jar resources"
+    description = "Copy Flutter data from Flutter build into jar resources"
     dependsOn("buildFlutter")
-    val dataDir = when (flutterBuildTarget()) {
-        "linux"   -> rootProject.file("widgets/example/build/linux/x64/release/bundle/data")
-        "macos"   -> rootProject.file("widgets/example/build/macos/Build/Products/Release/data")
-        "windows" -> rootProject.file("widgets/example/build/windows/x64/runner/Release/data")
+    // macOS embeds Dart code and assets inside App.framework (a directory bundle), not a flat
+    // data/ dir. We copy the entire framework so NativeLibLoader can pass it to FlutterDartProject.
+    // Linux and Windows use a flat data/ dir with flutter_assets/ and icudtl.dat.
+    when (flutterBuildTarget()) {
+        "linux" -> {
+            from(rootProject.file("widgets/example/build/linux/x64/release/bundle/data"))
+            into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/data"))
+        }
+        "macos" -> {
+            from(rootProject.file(
+                "widgets/example/build/macos/Build/Products/Release/" +
+                "widgets_example.app/Contents/Frameworks/App.framework"))
+            into(layout.buildDirectory.dir(
+                "generated/resources/main/native/${nativeOsDir()}/data/App.framework"))
+        }
+        "windows" -> {
+            from(rootProject.file("widgets/example/build/windows/x64/runner/Release/data"))
+            into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/data"))
+        }
         else -> throw GradleException("Unsupported OS: ${flutterBuildTarget()}")
     }
-    from(dataDir)
-    into(layout.buildDirectory.dir("generated/resources/main/native/${nativeOsDir()}/data"))
 }
 
 // Append OS classifier to JAR name when -Pclassifier=<os> is passed (used by CI)
@@ -145,7 +175,8 @@ tasks.register<Exec>("jextract") {
     group = "native"
     description = "Generate Starter lib FFM bindings"
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
-    executable = if (isWindows) "jextract.exe" else "jextract"
+    val home = System.getProperty("user.home")
+    executable = if (isWindows) "jextract.exe" else "$home/bin/jextract-22/bin/jextract"
     val header = "../widgets/example/native/Starter.h"
     val output = "./src/main/java"
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
