@@ -172,7 +172,7 @@ ewt_build:windows:
     - job: release_gate
       optional: true
   script:
-    - powershell.exe -C "\$env:GRADLE_OPTS='$GRADLE_OPTS'; ./$JAVA_FOLDER/bin/java.exe '-Dorg.gradle.console=plain' -cp gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain :ewt.api:build -Pclassifier=windows '-DskipFlutterBuild' '-DskipNativeTests' '--no-daemon'"
+    - powershell.exe -C "\$env:GRADLE_OPTS='$GRADLE_OPTS'; ./$JAVA_FOLDER/bin/java.exe '-Dorg.gradle.native=false' '-Dorg.gradle.console=plain' -cp gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain :ewt.api:build -Pclassifier=windows '-DskipFlutterBuild' '-DskipNativeTests' '--no-daemon'"
   artifacts:
     paths:
       - ewt.api/build/libs/ewt.api-*-windows.jar
