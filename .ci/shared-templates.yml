@@ -15,7 +15,7 @@
   tags: [vm-runner]
   variables:
     RUNNER_OS: "mac"
-    RUNNER_OS_VERSION: "vnt-x15-16cores-30ram"
+    RUNNER_OS_VERSION: "sq-x26-8cores-16ram"
   before_script:
     - curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${FLUTTER_SDK}-stable.zip" -o flutter.zip
     - unzip -q flutter.zip -d $HOME
