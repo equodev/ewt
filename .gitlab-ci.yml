@@ -41,7 +41,11 @@ build_docker_image:
     DOCKER_TLS_CERTDIR: "/certs"
   rules:
     - if: '$CI_IMAGE'
-    - if: '$CI_COMMIT_MESSAGE =~ /\[ci image\]/'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      changes:
+        paths:
+          - .docker/Dockerfile
+        compare_to: $CI_COMMIT_SHA^
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
@@ -96,7 +100,6 @@ flutter:linux:
     expire_in: 1 week
 
 flutter:macos:
-  # STUB: macOS JAR not yet fully runnable — FlutterMacOS.framework extraction pending.
   extends: .flutter:macos
   stage: flutter
   needs:
@@ -129,53 +132,32 @@ flutter:windows:
 # BUILD STAGE
 # =============================================================================
 
-ewt_build:linux:
+# ewt.api is JVM bytecode — cross-platform by nature. We compile once on Linux,
+# bundling the flutter artifacts from all three platforms into their respective JARs.
+ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
   needs:
     - flutter:linux
+    - flutter:macos
+    - flutter:windows
     - job: build_docker_image
       optional: true
     - job: release_gate
       optional: true
   script:
     - ./gradlew :ewt.api:build -Pclassifier=linux -DskipFlutterBuild -DskipNativeTests --no-daemon
+    - ./gradlew :ewt.api:build -Pclassifier=macos -DskipFlutterBuild -DskipNativeTests --no-daemon
+    - ./gradlew :ewt.api:build -Pclassifier=windows -DskipFlutterBuild -DskipNativeTests --no-daemon
     - ./gradlew generateVersionEnv --no-daemon
   artifacts:
     paths:
       - ewt.api/build/libs/ewt.api-*-linux.jar
+      - ewt.api/build/libs/ewt.api-*-macos.jar
+      - ewt.api/build/libs/ewt.api-*-windows.jar
       - build/published/version.env
     reports:
       dotenv: build/published/version.env
-    expire_in: 1 week
-
-ewt_build:macos:
-  # STUB: macOS JAR not yet fully runnable — FlutterMacOS.framework extraction pending.
-  extends: .ewt_build:macos
-  stage: build
-  needs:
-    - flutter:macos
-    - job: release_gate
-      optional: true
-  script:
-    - ./gradlew :ewt.api:build -Pclassifier=macos -DskipFlutterBuild --no-daemon
-  artifacts:
-    paths:
-      - ewt.api/build/libs/ewt.api-*-macos.jar
-    expire_in: 1 week
-
-ewt_build:windows:
-  extends: .ewt_build:windows
-  stage: build
-  needs:
-    - flutter:windows
-    - job: release_gate
-      optional: true
-  script:
-    - powershell.exe -C "\$env:GRADLE_OPTS='$GRADLE_OPTS'; ./$JAVA_FOLDER/bin/java.exe '-Dorg.gradle.native=false' '-Dorg.gradle.console=plain' -cp gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain :ewt.api:build -Pclassifier=windows '-DskipFlutterBuild' '-DskipNativeTests' '--no-daemon'"
-  artifacts:
-    paths:
-      - ewt.api/build/libs/ewt.api-*-windows.jar
     expire_in: 1 week
 
 # =============================================================================
@@ -186,9 +168,7 @@ publish_to_mvn:
   stage: deploy
   image: $FLUTTER_IMAGE_TAG
   needs:
-    - ewt_build:linux
-    - ewt_build:macos
-    - ewt_build:windows
+    - ewt_build
   script:
     - ./gradlew :ewt.api:publishAllPlatforms --no-daemon
   rules:
@@ -199,9 +179,7 @@ upload_to_gcs:
   extends: .gcs_upload
   stage: deploy
   needs:
-    - ewt_build:linux
-    - ewt_build:macos
-    - ewt_build:windows
+    - ewt_build
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
@@ -222,9 +200,7 @@ github_release:
     - publish_to_mvn
     - job: upload_to_gcs
       artifacts: false
-    - ewt_build:linux
-    - ewt_build:macos
-    - ewt_build:windows
+    - ewt_build
   before_script:
     - apk add --no-cache curl
   script:
@@ -247,4 +223,38 @@ github_release:
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
       when: delayed
       start_in: 5 minutes
+
+# Increments the patch version in gradle.properties after a successful release
+# so the next cycle doesn't try to release the same version again.
+# Uses the GitLab Files API with [skip ci] to avoid triggering another pipeline.
+bump_version:
+  stage: release
+  image: alpine:latest
+  needs:
+    - job: github_release
+      artifacts: false
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - apk add --no-cache curl
+  script:
+    - |
+      CURRENT=$(curl -sf --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/files/gradle.properties/raw?ref=$CI_DEFAULT_BRANCH")
+      CURRENT_VERSION=$(echo "$CURRENT" | grep '^version=' | cut -d= -f2)
+      MAJOR=$(echo "$CURRENT_VERSION" | cut -d. -f1)
+      MINOR=$(echo "$CURRENT_VERSION" | cut -d. -f2)
+      PATCH=$(echo "$CURRENT_VERSION" | cut -d. -f3)
+      NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+      NEW_CONTENT=$(echo "$CURRENT" | sed "s/^version=.*/version=$NEW_VERSION/")
+      ENCODED=$(printf '%s' "$NEW_CONTENT" | base64 -w 0)
+      curl -sf --request PUT \
+        --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
+        --header "Content-Type: application/json" \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/files/gradle.properties" \
+        --data "{\"branch\":\"$CI_DEFAULT_BRANCH\",\"content\":\"$ENCODED\",\"encoding\":\"base64\",\"commit_message\":\"chore: bump version to $NEW_VERSION [skip ci]\"}"
+      echo "Bumped $CURRENT_VERSION → $NEW_VERSION"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 

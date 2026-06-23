@@ -60,17 +60,9 @@ tasks.test {
     }
 }
 
-fun nativeOsDir(): String {
-    val os = System.getProperty("os.name").lowercase()
-    return when {
-        os.contains("linux") -> "linux-x64"
-        os.contains("mac")   -> "macos-arm64"
-        os.contains("win")   -> "windows-x64"
-        else -> throw GradleException("Unsupported OS: $os")
-    }
-}
-
 fun flutterBuildTarget(): String {
+    val clf = project.findProperty("classifier")?.toString()
+    if (!clf.isNullOrEmpty()) return clf
     val os = System.getProperty("os.name").lowercase()
     return when {
         os.contains("linux") -> "linux"
@@ -78,6 +70,13 @@ fun flutterBuildTarget(): String {
         os.contains("win")   -> "windows"
         else -> throw GradleException("Unsupported OS: $os")
     }
+}
+
+fun nativeOsDir(): String = when (flutterBuildTarget()) {
+    "linux"   -> "linux-x64"
+    "macos"   -> "macos-arm64"
+    "windows" -> "windows-x64"
+    else -> throw GradleException("Unsupported platform: ${flutterBuildTarget()}")
 }
 
 val skipFlutter = System.getProperty("skipFlutterBuild") != null
@@ -124,7 +123,7 @@ tasks.register<Copy>("copyMacOSFrameworkLibs") {
     group = "native"
     description = "Copy FlutterMacOS and widgets framework binaries for macOS JAR embedding"
     enabled = flutterBuildTarget() == "macos"
-    dependsOn("buildFlutter")
+    if (!skipFlutter) dependsOn("buildFlutter")
     val frameworksDir = rootProject.file(
         "widgets/example/build/macos/Build/Products/Release/" +
         "widgets_example.app/Contents/Frameworks")
