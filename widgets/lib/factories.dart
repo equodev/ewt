@@ -18,15 +18,30 @@ final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
 const exceptionDouble = -1.0;
 Map<int, Object> _widgetsMap = {};
+final _buildScopeStack = <Set<int>>[];
+var _nextWidgetId = 1;
 
 Object getWidget(int id) => _widgetsMap[id]!;
 int _addWidget(Object? w) {
-  if (w == null)
-    return 0;
-  final id = w.hashCode;
+  if (w == null) return 0;
+  final id = _nextWidgetId++;
   _widgetsMap[id] = w;
+  // BuildContext is captured by button callbacks (e.g. Navigator.pop(ctx)) and must
+  // outlive the build scope that created it, so we never track it for cleanup.
+  if (_buildScopeStack.isNotEmpty && w is! BuildContext) {
+    _buildScopeStack.last.add(id);
+  }
   print('Added widget $w id: $id');
   return id;
+}
+T _runBuildScope<T>(T Function() fn) {
+  _buildScopeStack.add(<int>{});
+  try {
+    return fn();
+  } finally {
+    final scope = _buildScopeStack.removeLast();
+    _widgetsMap.removeWhere((k, _) => scope.contains(k));
+  }
 }
 extension on int {
   bool toBool() => this == 1 ? true : false;
