@@ -10,18 +10,16 @@
     - gsutil -m -h "Cache-Control:public, max-age=3600" cp -a public-read -r $FOLDER_TO_UPLOAD/* $GCS_BUCKET/
 
 # Downloads Flutter SDK and enables macOS desktop support.
-# The macOS app uses Swift Package Manager (not CocoaPods) so no gem/pod setup needed.
+# The widgets plugin uses SPM — no CocoaPods needed.
 .flutter:macos:
   tags: [vm-runner]
   variables:
     RUNNER_OS: "mac"
     RUNNER_OS_VERSION: "sq-x26-8cores-16ram"
   before_script:
-    - curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${FLUTTER_SDK}-stable.zip" -o flutter.zip
-    - unzip -q flutter.zip -d $HOME
+    - curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${FLUTTER_SDK}-stable.zip" -o flutter.zip && unzip -q flutter.zip -d $HOME
     - export PATH="$HOME/flutter/bin:${PATH}"
     - flutter config --enable-macos-desktop
-    - flutter config --enable-swift-package-manager
 
 # Downloads Flutter SDK and Visual Studio Build Tools, enables Windows desktop support.
 # Runner shell is bash (Git Bash). Flutter commands run via powershell.exe -C "..." with PATH set.
