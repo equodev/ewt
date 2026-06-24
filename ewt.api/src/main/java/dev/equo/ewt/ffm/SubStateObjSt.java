@@ -57,7 +57,7 @@ public class SubStateObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -94,9 +94,9 @@ public class SubStateObjSt {
      * DartObj (*widget)(void)
      * }
      */
-    public static class widget {
+    public final static class widget {
 
-        widget() {
+        private widget() {
             // Should not be called directly
         }
 
@@ -135,6 +135,8 @@ public class SubStateObjSt {
         public static int invoke(MemorySegment funcPtr) {
             try {
                 return (int) DOWN$MH.invokeExact(funcPtr);
+            } catch (Error | RuntimeException ex) {
+                throw ex;
             } catch (Throwable ex$) {
                 throw new AssertionError("should not reach here", ex$);
             }
@@ -153,7 +155,7 @@ public class SubStateObjSt {
         return widget$LAYOUT;
     }
 
-    private static final long widget$OFFSET = 8;
+    private static final long widget$OFFSET = $LAYOUT.byteOffset(groupElement("widget"));
 
     /**
      * Offset for field:
@@ -190,9 +192,9 @@ public class SubStateObjSt {
      * DartObj (*context)(void)
      * }
      */
-    public static class context {
+    public final static class context {
 
-        context() {
+        private context() {
             // Should not be called directly
         }
 
@@ -231,6 +233,8 @@ public class SubStateObjSt {
         public static int invoke(MemorySegment funcPtr) {
             try {
                 return (int) DOWN$MH.invokeExact(funcPtr);
+            } catch (Error | RuntimeException ex) {
+                throw ex;
             } catch (Throwable ex$) {
                 throw new AssertionError("should not reach here", ex$);
             }
@@ -249,7 +253,7 @@ public class SubStateObjSt {
         return context$LAYOUT;
     }
 
-    private static final long context$OFFSET = 16;
+    private static final long context$OFFSET = $LAYOUT.byteOffset(groupElement("context"));
 
     /**
      * Offset for field:
@@ -286,9 +290,9 @@ public class SubStateObjSt {
      * int (*mounted)(void)
      * }
      */
-    public static class mounted {
+    public final static class mounted {
 
-        mounted() {
+        private mounted() {
             // Should not be called directly
         }
 
@@ -327,6 +331,8 @@ public class SubStateObjSt {
         public static int invoke(MemorySegment funcPtr) {
             try {
                 return (int) DOWN$MH.invokeExact(funcPtr);
+            } catch (Error | RuntimeException ex) {
+                throw ex;
             } catch (Throwable ex$) {
                 throw new AssertionError("should not reach here", ex$);
             }
@@ -345,7 +351,7 @@ public class SubStateObjSt {
         return mounted$LAYOUT;
     }
 
-    private static final long mounted$OFFSET = 24;
+    private static final long mounted$OFFSET = $LAYOUT.byteOffset(groupElement("mounted"));
 
     /**
      * Offset for field:
@@ -382,9 +388,9 @@ public class SubStateObjSt {
      * void (*setState)(VoidCallbackFFI)
      * }
      */
-    public static class setState {
+    public final static class setState {
 
-        setState() {
+        private setState() {
             // Should not be called directly
         }
 
@@ -421,9 +427,11 @@ public class SubStateObjSt {
         /**
          * Invoke the upcall stub {@code funcPtr}, with given parameters
          */
-        public static void invoke(MemorySegment funcPtr,MemorySegment _x0) {
+        public static void invoke(MemorySegment funcPtr, MemorySegment _x0) {
             try {
                  DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Error | RuntimeException ex) {
+                throw ex;
             } catch (Throwable ex$) {
                 throw new AssertionError("should not reach here", ex$);
             }
@@ -442,7 +450,7 @@ public class SubStateObjSt {
         return setState$LAYOUT;
     }
 
-    private static final long setState$OFFSET = 32;
+    private static final long setState$OFFSET = $LAYOUT.byteOffset(groupElement("setState"));
 
     /**
      * Offset for field:

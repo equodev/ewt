@@ -79,7 +79,7 @@ public class TextThemeObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -123,7 +123,7 @@ public class TextThemeObjSt {
         return displayLarge$LAYOUT;
     }
 
-    private static final long displayLarge$OFFSET = 8;
+    private static final long displayLarge$OFFSET = $LAYOUT.byteOffset(groupElement("displayLarge"));
 
     /**
      * Offset for field:
@@ -167,7 +167,7 @@ public class TextThemeObjSt {
         return displayMedium$LAYOUT;
     }
 
-    private static final long displayMedium$OFFSET = 120;
+    private static final long displayMedium$OFFSET = $LAYOUT.byteOffset(groupElement("displayMedium"));
 
     /**
      * Offset for field:
@@ -211,7 +211,7 @@ public class TextThemeObjSt {
         return displaySmall$LAYOUT;
     }
 
-    private static final long displaySmall$OFFSET = 232;
+    private static final long displaySmall$OFFSET = $LAYOUT.byteOffset(groupElement("displaySmall"));
 
     /**
      * Offset for field:
@@ -255,7 +255,7 @@ public class TextThemeObjSt {
         return headlineLarge$LAYOUT;
     }
 
-    private static final long headlineLarge$OFFSET = 344;
+    private static final long headlineLarge$OFFSET = $LAYOUT.byteOffset(groupElement("headlineLarge"));
 
     /**
      * Offset for field:
@@ -299,7 +299,7 @@ public class TextThemeObjSt {
         return headlineMedium$LAYOUT;
     }
 
-    private static final long headlineMedium$OFFSET = 456;
+    private static final long headlineMedium$OFFSET = $LAYOUT.byteOffset(groupElement("headlineMedium"));
 
     /**
      * Offset for field:
@@ -343,7 +343,7 @@ public class TextThemeObjSt {
         return headlineSmall$LAYOUT;
     }
 
-    private static final long headlineSmall$OFFSET = 568;
+    private static final long headlineSmall$OFFSET = $LAYOUT.byteOffset(groupElement("headlineSmall"));
 
     /**
      * Offset for field:
@@ -387,7 +387,7 @@ public class TextThemeObjSt {
         return titleLarge$LAYOUT;
     }
 
-    private static final long titleLarge$OFFSET = 680;
+    private static final long titleLarge$OFFSET = $LAYOUT.byteOffset(groupElement("titleLarge"));
 
     /**
      * Offset for field:
@@ -431,7 +431,7 @@ public class TextThemeObjSt {
         return titleMedium$LAYOUT;
     }
 
-    private static final long titleMedium$OFFSET = 792;
+    private static final long titleMedium$OFFSET = $LAYOUT.byteOffset(groupElement("titleMedium"));
 
     /**
      * Offset for field:
@@ -475,7 +475,7 @@ public class TextThemeObjSt {
         return titleSmall$LAYOUT;
     }
 
-    private static final long titleSmall$OFFSET = 904;
+    private static final long titleSmall$OFFSET = $LAYOUT.byteOffset(groupElement("titleSmall"));
 
     /**
      * Offset for field:
@@ -519,7 +519,7 @@ public class TextThemeObjSt {
         return bodyLarge$LAYOUT;
     }
 
-    private static final long bodyLarge$OFFSET = 1016;
+    private static final long bodyLarge$OFFSET = $LAYOUT.byteOffset(groupElement("bodyLarge"));
 
     /**
      * Offset for field:
@@ -563,7 +563,7 @@ public class TextThemeObjSt {
         return bodyMedium$LAYOUT;
     }
 
-    private static final long bodyMedium$OFFSET = 1128;
+    private static final long bodyMedium$OFFSET = $LAYOUT.byteOffset(groupElement("bodyMedium"));
 
     /**
      * Offset for field:
@@ -607,7 +607,7 @@ public class TextThemeObjSt {
         return bodySmall$LAYOUT;
     }
 
-    private static final long bodySmall$OFFSET = 1240;
+    private static final long bodySmall$OFFSET = $LAYOUT.byteOffset(groupElement("bodySmall"));
 
     /**
      * Offset for field:
@@ -651,7 +651,7 @@ public class TextThemeObjSt {
         return labelLarge$LAYOUT;
     }
 
-    private static final long labelLarge$OFFSET = 1352;
+    private static final long labelLarge$OFFSET = $LAYOUT.byteOffset(groupElement("labelLarge"));
 
     /**
      * Offset for field:
@@ -695,7 +695,7 @@ public class TextThemeObjSt {
         return labelMedium$LAYOUT;
     }
 
-    private static final long labelMedium$OFFSET = 1464;
+    private static final long labelMedium$OFFSET = $LAYOUT.byteOffset(groupElement("labelMedium"));
 
     /**
      * Offset for field:
@@ -739,7 +739,7 @@ public class TextThemeObjSt {
         return labelSmall$LAYOUT;
     }
 
-    private static final long labelSmall$OFFSET = 1576;
+    private static final long labelSmall$OFFSET = $LAYOUT.byteOffset(groupElement("labelSmall"));
 
     /**
      * Offset for field:

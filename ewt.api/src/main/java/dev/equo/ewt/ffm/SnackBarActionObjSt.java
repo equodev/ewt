@@ -59,7 +59,7 @@ public class SnackBarActionObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -103,7 +103,7 @@ public class SnackBarActionObjSt {
         return textColor$LAYOUT;
     }
 
-    private static final long textColor$OFFSET = 4;
+    private static final long textColor$OFFSET = $LAYOUT.byteOffset(groupElement("textColor"));
 
     /**
      * Offset for field:
@@ -147,7 +147,7 @@ public class SnackBarActionObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 8;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -191,7 +191,7 @@ public class SnackBarActionObjSt {
         return disabledTextColor$LAYOUT;
     }
 
-    private static final long disabledTextColor$OFFSET = 12;
+    private static final long disabledTextColor$OFFSET = $LAYOUT.byteOffset(groupElement("disabledTextColor"));
 
     /**
      * Offset for field:
@@ -235,7 +235,7 @@ public class SnackBarActionObjSt {
         return disabledBackgroundColor$LAYOUT;
     }
 
-    private static final long disabledBackgroundColor$OFFSET = 16;
+    private static final long disabledBackgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("disabledBackgroundColor"));
 
     /**
      * Offset for field:
@@ -279,7 +279,7 @@ public class SnackBarActionObjSt {
         return label$LAYOUT;
     }
 
-    private static final long label$OFFSET = 24;
+    private static final long label$OFFSET = $LAYOUT.byteOffset(groupElement("label"));
 
     /**
      * Offset for field:

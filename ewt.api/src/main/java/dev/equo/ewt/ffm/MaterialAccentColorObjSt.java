@@ -56,7 +56,7 @@ public class MaterialAccentColorObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -100,7 +100,7 @@ public class MaterialAccentColorObjSt {
         return shade100$LAYOUT;
     }
 
-    private static final long shade100$OFFSET = 4;
+    private static final long shade100$OFFSET = $LAYOUT.byteOffset(groupElement("shade100"));
 
     /**
      * Offset for field:
@@ -144,7 +144,7 @@ public class MaterialAccentColorObjSt {
         return shade200$LAYOUT;
     }
 
-    private static final long shade200$OFFSET = 8;
+    private static final long shade200$OFFSET = $LAYOUT.byteOffset(groupElement("shade200"));
 
     /**
      * Offset for field:
@@ -188,7 +188,7 @@ public class MaterialAccentColorObjSt {
         return shade400$LAYOUT;
     }
 
-    private static final long shade400$OFFSET = 12;
+    private static final long shade400$OFFSET = $LAYOUT.byteOffset(groupElement("shade400"));
 
     /**
      * Offset for field:
@@ -232,7 +232,7 @@ public class MaterialAccentColorObjSt {
         return shade700$LAYOUT;
     }
 
-    private static final long shade700$OFFSET = 16;
+    private static final long shade700$OFFSET = $LAYOUT.byteOffset(groupElement("shade700"));
 
     /**
      * Offset for field:

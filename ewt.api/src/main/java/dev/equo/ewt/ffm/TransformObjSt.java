@@ -56,7 +56,7 @@ public class TransformObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -100,7 +100,7 @@ public class TransformObjSt {
         return origin$LAYOUT;
     }
 
-    private static final long origin$OFFSET = 4;
+    private static final long origin$OFFSET = $LAYOUT.byteOffset(groupElement("origin"));
 
     /**
      * Offset for field:
@@ -144,7 +144,7 @@ public class TransformObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 8;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -188,7 +188,7 @@ public class TransformObjSt {
         return transformHitTests$LAYOUT;
     }
 
-    private static final long transformHitTests$OFFSET = 12;
+    private static final long transformHitTests$OFFSET = $LAYOUT.byteOffset(groupElement("transformHitTests"));
 
     /**
      * Offset for field:
@@ -232,7 +232,7 @@ public class TransformObjSt {
         return filterQuality$LAYOUT;
     }
 
-    private static final long filterQuality$OFFSET = 16;
+    private static final long filterQuality$OFFSET = $LAYOUT.byteOffset(groupElement("filterQuality"));
 
     /**
      * Offset for field:

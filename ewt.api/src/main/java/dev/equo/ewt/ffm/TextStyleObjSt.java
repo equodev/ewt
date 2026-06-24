@@ -86,7 +86,7 @@ public class TextStyleObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -130,7 +130,7 @@ public class TextStyleObjSt {
         return inherit$LAYOUT;
     }
 
-    private static final long inherit$OFFSET = 4;
+    private static final long inherit$OFFSET = $LAYOUT.byteOffset(groupElement("inherit"));
 
     /**
      * Offset for field:
@@ -174,7 +174,7 @@ public class TextStyleObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 8;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -218,7 +218,7 @@ public class TextStyleObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 12;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -262,7 +262,7 @@ public class TextStyleObjSt {
         return fontFamily$LAYOUT;
     }
 
-    private static final long fontFamily$OFFSET = 16;
+    private static final long fontFamily$OFFSET = $LAYOUT.byteOffset(groupElement("fontFamily"));
 
     /**
      * Offset for field:
@@ -306,7 +306,7 @@ public class TextStyleObjSt {
         return fontSize$LAYOUT;
     }
 
-    private static final long fontSize$OFFSET = 24;
+    private static final long fontSize$OFFSET = $LAYOUT.byteOffset(groupElement("fontSize"));
 
     /**
      * Offset for field:
@@ -350,7 +350,7 @@ public class TextStyleObjSt {
         return fontWeight$LAYOUT;
     }
 
-    private static final long fontWeight$OFFSET = 32;
+    private static final long fontWeight$OFFSET = $LAYOUT.byteOffset(groupElement("fontWeight"));
 
     /**
      * Offset for field:
@@ -394,7 +394,7 @@ public class TextStyleObjSt {
         return fontStyle$LAYOUT;
     }
 
-    private static final long fontStyle$OFFSET = 36;
+    private static final long fontStyle$OFFSET = $LAYOUT.byteOffset(groupElement("fontStyle"));
 
     /**
      * Offset for field:
@@ -438,7 +438,7 @@ public class TextStyleObjSt {
         return letterSpacing$LAYOUT;
     }
 
-    private static final long letterSpacing$OFFSET = 40;
+    private static final long letterSpacing$OFFSET = $LAYOUT.byteOffset(groupElement("letterSpacing"));
 
     /**
      * Offset for field:
@@ -482,7 +482,7 @@ public class TextStyleObjSt {
         return wordSpacing$LAYOUT;
     }
 
-    private static final long wordSpacing$OFFSET = 48;
+    private static final long wordSpacing$OFFSET = $LAYOUT.byteOffset(groupElement("wordSpacing"));
 
     /**
      * Offset for field:
@@ -526,7 +526,7 @@ public class TextStyleObjSt {
         return textBaseline$LAYOUT;
     }
 
-    private static final long textBaseline$OFFSET = 56;
+    private static final long textBaseline$OFFSET = $LAYOUT.byteOffset(groupElement("textBaseline"));
 
     /**
      * Offset for field:
@@ -570,7 +570,7 @@ public class TextStyleObjSt {
         return height$LAYOUT;
     }
 
-    private static final long height$OFFSET = 64;
+    private static final long height$OFFSET = $LAYOUT.byteOffset(groupElement("height"));
 
     /**
      * Offset for field:
@@ -614,7 +614,7 @@ public class TextStyleObjSt {
         return leadingDistribution$LAYOUT;
     }
 
-    private static final long leadingDistribution$OFFSET = 72;
+    private static final long leadingDistribution$OFFSET = $LAYOUT.byteOffset(groupElement("leadingDistribution"));
 
     /**
      * Offset for field:
@@ -658,7 +658,7 @@ public class TextStyleObjSt {
         return decoration$LAYOUT;
     }
 
-    private static final long decoration$OFFSET = 76;
+    private static final long decoration$OFFSET = $LAYOUT.byteOffset(groupElement("decoration"));
 
     /**
      * Offset for field:
@@ -702,7 +702,7 @@ public class TextStyleObjSt {
         return decorationColor$LAYOUT;
     }
 
-    private static final long decorationColor$OFFSET = 80;
+    private static final long decorationColor$OFFSET = $LAYOUT.byteOffset(groupElement("decorationColor"));
 
     /**
      * Offset for field:
@@ -746,7 +746,7 @@ public class TextStyleObjSt {
         return decorationStyle$LAYOUT;
     }
 
-    private static final long decorationStyle$OFFSET = 84;
+    private static final long decorationStyle$OFFSET = $LAYOUT.byteOffset(groupElement("decorationStyle"));
 
     /**
      * Offset for field:
@@ -790,7 +790,7 @@ public class TextStyleObjSt {
         return decorationThickness$LAYOUT;
     }
 
-    private static final long decorationThickness$OFFSET = 88;
+    private static final long decorationThickness$OFFSET = $LAYOUT.byteOffset(groupElement("decorationThickness"));
 
     /**
      * Offset for field:
@@ -834,7 +834,7 @@ public class TextStyleObjSt {
         return debugLabel$LAYOUT;
     }
 
-    private static final long debugLabel$OFFSET = 96;
+    private static final long debugLabel$OFFSET = $LAYOUT.byteOffset(groupElement("debugLabel"));
 
     /**
      * Offset for field:
@@ -878,7 +878,7 @@ public class TextStyleObjSt {
         return overflow$LAYOUT;
     }
 
-    private static final long overflow$OFFSET = 104;
+    private static final long overflow$OFFSET = $LAYOUT.byteOffset(groupElement("overflow"));
 
     /**
      * Offset for field:

@@ -56,7 +56,7 @@ public class VisualDensityObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -100,7 +100,7 @@ public class VisualDensityObjSt {
         return horizontal$LAYOUT;
     }
 
-    private static final long horizontal$OFFSET = 8;
+    private static final long horizontal$OFFSET = $LAYOUT.byteOffset(groupElement("horizontal"));
 
     /**
      * Offset for field:
@@ -144,7 +144,7 @@ public class VisualDensityObjSt {
         return vertical$LAYOUT;
     }
 
-    private static final long vertical$OFFSET = 16;
+    private static final long vertical$OFFSET = $LAYOUT.byteOffset(groupElement("vertical"));
 
     /**
      * Offset for field:
@@ -188,7 +188,7 @@ public class VisualDensityObjSt {
         return baseSizeAdjustment$LAYOUT;
     }
 
-    private static final long baseSizeAdjustment$OFFSET = 24;
+    private static final long baseSizeAdjustment$OFFSET = $LAYOUT.byteOffset(groupElement("baseSizeAdjustment"));
 
     /**
      * Offset for field:

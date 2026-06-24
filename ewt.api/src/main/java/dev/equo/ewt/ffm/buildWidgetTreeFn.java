@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef int (*buildWidgetTreeFn)(WidgetFactories *)
  * }
  */
-public class buildWidgetTreeFn {
+public final class buildWidgetTreeFn {
 
-    buildWidgetTreeFn() {
+    private buildWidgetTreeFn() {
         // Should not be called directly
     }
 
@@ -57,9 +57,11 @@ public class buildWidgetTreeFn {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+    public static int invoke(MemorySegment funcPtr, MemorySegment _x0) {
         try {
             return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

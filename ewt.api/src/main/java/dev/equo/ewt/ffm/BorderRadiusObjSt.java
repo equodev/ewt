@@ -56,7 +56,7 @@ public class BorderRadiusObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -100,7 +100,7 @@ public class BorderRadiusObjSt {
         return topLeft$LAYOUT;
     }
 
-    private static final long topLeft$OFFSET = 4;
+    private static final long topLeft$OFFSET = $LAYOUT.byteOffset(groupElement("topLeft"));
 
     /**
      * Offset for field:
@@ -144,7 +144,7 @@ public class BorderRadiusObjSt {
         return topRight$LAYOUT;
     }
 
-    private static final long topRight$OFFSET = 8;
+    private static final long topRight$OFFSET = $LAYOUT.byteOffset(groupElement("topRight"));
 
     /**
      * Offset for field:
@@ -188,7 +188,7 @@ public class BorderRadiusObjSt {
         return bottomLeft$LAYOUT;
     }
 
-    private static final long bottomLeft$OFFSET = 12;
+    private static final long bottomLeft$OFFSET = $LAYOUT.byteOffset(groupElement("bottomLeft"));
 
     /**
      * Offset for field:
@@ -232,7 +232,7 @@ public class BorderRadiusObjSt {
         return bottomRight$LAYOUT;
     }
 
-    private static final long bottomRight$OFFSET = 16;
+    private static final long bottomRight$OFFSET = $LAYOUT.byteOffset(groupElement("bottomRight"));
 
     /**
      * Offset for field:

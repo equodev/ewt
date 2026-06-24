@@ -92,7 +92,7 @@ public class ScaffoldObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -136,7 +136,7 @@ public class ScaffoldObjSt {
         return extendBody$LAYOUT;
     }
 
-    private static final long extendBody$OFFSET = 4;
+    private static final long extendBody$OFFSET = $LAYOUT.byteOffset(groupElement("extendBody"));
 
     /**
      * Offset for field:
@@ -180,7 +180,7 @@ public class ScaffoldObjSt {
         return drawerBarrierDismissible$LAYOUT;
     }
 
-    private static final long drawerBarrierDismissible$OFFSET = 8;
+    private static final long drawerBarrierDismissible$OFFSET = $LAYOUT.byteOffset(groupElement("drawerBarrierDismissible"));
 
     /**
      * Offset for field:
@@ -224,7 +224,7 @@ public class ScaffoldObjSt {
         return extendBodyBehindAppBar$LAYOUT;
     }
 
-    private static final long extendBodyBehindAppBar$OFFSET = 12;
+    private static final long extendBodyBehindAppBar$OFFSET = $LAYOUT.byteOffset(groupElement("extendBodyBehindAppBar"));
 
     /**
      * Offset for field:
@@ -268,7 +268,7 @@ public class ScaffoldObjSt {
         return appBar$LAYOUT;
     }
 
-    private static final long appBar$OFFSET = 16;
+    private static final long appBar$OFFSET = $LAYOUT.byteOffset(groupElement("appBar"));
 
     /**
      * Offset for field:
@@ -312,7 +312,7 @@ public class ScaffoldObjSt {
         return body$LAYOUT;
     }
 
-    private static final long body$OFFSET = 20;
+    private static final long body$OFFSET = $LAYOUT.byteOffset(groupElement("body"));
 
     /**
      * Offset for field:
@@ -356,7 +356,7 @@ public class ScaffoldObjSt {
         return floatingActionButton$LAYOUT;
     }
 
-    private static final long floatingActionButton$OFFSET = 24;
+    private static final long floatingActionButton$OFFSET = $LAYOUT.byteOffset(groupElement("floatingActionButton"));
 
     /**
      * Offset for field:
@@ -400,7 +400,7 @@ public class ScaffoldObjSt {
         return persistentFooterAlignment$LAYOUT;
     }
 
-    private static final long persistentFooterAlignment$OFFSET = 32;
+    private static final long persistentFooterAlignment$OFFSET = $LAYOUT.byteOffset(groupElement("persistentFooterAlignment"));
 
     /**
      * Offset for field:
@@ -444,7 +444,7 @@ public class ScaffoldObjSt {
         return persistentFooterDecoration$LAYOUT;
     }
 
-    private static final long persistentFooterDecoration$OFFSET = 56;
+    private static final long persistentFooterDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("persistentFooterDecoration"));
 
     /**
      * Offset for field:
@@ -488,7 +488,7 @@ public class ScaffoldObjSt {
         return drawer$LAYOUT;
     }
 
-    private static final long drawer$OFFSET = 80;
+    private static final long drawer$OFFSET = $LAYOUT.byteOffset(groupElement("drawer"));
 
     /**
      * Offset for field:
@@ -532,7 +532,7 @@ public class ScaffoldObjSt {
         return endDrawer$LAYOUT;
     }
 
-    private static final long endDrawer$OFFSET = 84;
+    private static final long endDrawer$OFFSET = $LAYOUT.byteOffset(groupElement("endDrawer"));
 
     /**
      * Offset for field:
@@ -576,7 +576,7 @@ public class ScaffoldObjSt {
         return drawerScrimColor$LAYOUT;
     }
 
-    private static final long drawerScrimColor$OFFSET = 88;
+    private static final long drawerScrimColor$OFFSET = $LAYOUT.byteOffset(groupElement("drawerScrimColor"));
 
     /**
      * Offset for field:
@@ -620,7 +620,7 @@ public class ScaffoldObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 92;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -664,7 +664,7 @@ public class ScaffoldObjSt {
         return bottomNavigationBar$LAYOUT;
     }
 
-    private static final long bottomNavigationBar$OFFSET = 96;
+    private static final long bottomNavigationBar$OFFSET = $LAYOUT.byteOffset(groupElement("bottomNavigationBar"));
 
     /**
      * Offset for field:
@@ -708,7 +708,7 @@ public class ScaffoldObjSt {
         return bottomSheet$LAYOUT;
     }
 
-    private static final long bottomSheet$OFFSET = 100;
+    private static final long bottomSheet$OFFSET = $LAYOUT.byteOffset(groupElement("bottomSheet"));
 
     /**
      * Offset for field:
@@ -752,7 +752,7 @@ public class ScaffoldObjSt {
         return resizeToAvoidBottomInset$LAYOUT;
     }
 
-    private static final long resizeToAvoidBottomInset$OFFSET = 104;
+    private static final long resizeToAvoidBottomInset$OFFSET = $LAYOUT.byteOffset(groupElement("resizeToAvoidBottomInset"));
 
     /**
      * Offset for field:
@@ -796,7 +796,7 @@ public class ScaffoldObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 108;
+    private static final long primary$OFFSET = $LAYOUT.byteOffset(groupElement("primary"));
 
     /**
      * Offset for field:
@@ -840,7 +840,7 @@ public class ScaffoldObjSt {
         return drawerDragStartBehavior$LAYOUT;
     }
 
-    private static final long drawerDragStartBehavior$OFFSET = 112;
+    private static final long drawerDragStartBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("drawerDragStartBehavior"));
 
     /**
      * Offset for field:
@@ -884,7 +884,7 @@ public class ScaffoldObjSt {
         return drawerEdgeDragWidth$LAYOUT;
     }
 
-    private static final long drawerEdgeDragWidth$OFFSET = 120;
+    private static final long drawerEdgeDragWidth$OFFSET = $LAYOUT.byteOffset(groupElement("drawerEdgeDragWidth"));
 
     /**
      * Offset for field:
@@ -928,7 +928,7 @@ public class ScaffoldObjSt {
         return drawerEnableOpenDragGesture$LAYOUT;
     }
 
-    private static final long drawerEnableOpenDragGesture$OFFSET = 128;
+    private static final long drawerEnableOpenDragGesture$OFFSET = $LAYOUT.byteOffset(groupElement("drawerEnableOpenDragGesture"));
 
     /**
      * Offset for field:
@@ -972,7 +972,7 @@ public class ScaffoldObjSt {
         return endDrawerEnableOpenDragGesture$LAYOUT;
     }
 
-    private static final long endDrawerEnableOpenDragGesture$OFFSET = 132;
+    private static final long endDrawerEnableOpenDragGesture$OFFSET = $LAYOUT.byteOffset(groupElement("endDrawerEnableOpenDragGesture"));
 
     /**
      * Offset for field:
@@ -1016,7 +1016,7 @@ public class ScaffoldObjSt {
         return restorationId$LAYOUT;
     }
 
-    private static final long restorationId$OFFSET = 136;
+    private static final long restorationId$OFFSET = $LAYOUT.byteOffset(groupElement("restorationId"));
 
     /**
      * Offset for field:

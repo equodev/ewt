@@ -176,12 +176,27 @@ tasks.register<Exec>("jextract") {
     description = "Generate Starter lib FFM bindings"
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
     val home = System.getProperty("user.home")
-    executable = if (isWindows) "jextract.exe" else "$home/bin/jextract-22/bin/jextract"
+    val jextractBin = if (isWindows) "jextract.exe" else "$home/bin/jextract-25/bin/jextract"
+    executable = jextractBin
     val header = "../widgets/example/native/Starter.h"
     val output = "./src/main/java"
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
     inputs.files(header, "../widgets/src/common.h", "../widgets/src/factories.h", "../widgets/src/objects.h")
     outputs.dir("$output/dev/equo/ewt/ffm")
+
+    doFirst {
+        val versionOutput = ProcessBuilder(jextractBin, "--version")
+            .redirectErrorStream(true)
+            .start()
+            .inputStream.bufferedReader().readText()
+        if (!versionOutput.trimStart().startsWith("jextract 25")) {
+            throw GradleException(
+                "Wrong jextract version. Expected jextract 25, got:\n$versionOutput\n" +
+                "Install jextract 25 to ~/bin/jextract-25/bin/jextract\n" +
+                "Download: https://jdk.java.net/jextract/"
+            )
+        }
+    }
 }
 
 publishing {

@@ -54,7 +54,7 @@ public class OpacityObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -98,7 +98,7 @@ public class OpacityObjSt {
         return opacity$LAYOUT;
     }
 
-    private static final long opacity$OFFSET = 8;
+    private static final long opacity$OFFSET = $LAYOUT.byteOffset(groupElement("opacity"));
 
     /**
      * Offset for field:
@@ -142,7 +142,7 @@ public class OpacityObjSt {
         return alwaysIncludeSemantics$LAYOUT;
     }
 
-    private static final long alwaysIncludeSemantics$OFFSET = 16;
+    private static final long alwaysIncludeSemantics$OFFSET = $LAYOUT.byteOffset(groupElement("alwaysIncludeSemantics"));
 
     /**
      * Offset for field:

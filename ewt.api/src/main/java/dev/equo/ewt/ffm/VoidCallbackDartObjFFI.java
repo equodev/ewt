@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef void (*VoidCallbackDartObjFFI)(DartObj)
  * }
  */
-public class VoidCallbackDartObjFFI {
+public final class VoidCallbackDartObjFFI {
 
-    VoidCallbackDartObjFFI() {
+    private VoidCallbackDartObjFFI() {
         // Should not be called directly
     }
 
@@ -56,9 +56,11 @@ public class VoidCallbackDartObjFFI {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static void invoke(MemorySegment funcPtr,int _x0) {
+    public static void invoke(MemorySegment funcPtr, int _x0) {
         try {
              DOWN$MH.invokeExact(funcPtr, _x0);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

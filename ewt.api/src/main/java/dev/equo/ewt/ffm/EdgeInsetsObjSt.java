@@ -65,7 +65,7 @@ public class EdgeInsetsObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -109,7 +109,7 @@ public class EdgeInsetsObjSt {
         return left$LAYOUT;
     }
 
-    private static final long left$OFFSET = 8;
+    private static final long left$OFFSET = $LAYOUT.byteOffset(groupElement("left"));
 
     /**
      * Offset for field:
@@ -153,7 +153,7 @@ public class EdgeInsetsObjSt {
         return top$LAYOUT;
     }
 
-    private static final long top$OFFSET = 16;
+    private static final long top$OFFSET = $LAYOUT.byteOffset(groupElement("top"));
 
     /**
      * Offset for field:
@@ -197,7 +197,7 @@ public class EdgeInsetsObjSt {
         return right$LAYOUT;
     }
 
-    private static final long right$OFFSET = 24;
+    private static final long right$OFFSET = $LAYOUT.byteOffset(groupElement("right"));
 
     /**
      * Offset for field:
@@ -241,7 +241,7 @@ public class EdgeInsetsObjSt {
         return bottom$LAYOUT;
     }
 
-    private static final long bottom$OFFSET = 32;
+    private static final long bottom$OFFSET = $LAYOUT.byteOffset(groupElement("bottom"));
 
     /**
      * Offset for field:
@@ -285,7 +285,7 @@ public class EdgeInsetsObjSt {
         return topLeft$LAYOUT;
     }
 
-    private static final long topLeft$OFFSET = 40;
+    private static final long topLeft$OFFSET = $LAYOUT.byteOffset(groupElement("topLeft"));
 
     /**
      * Offset for field:
@@ -329,7 +329,7 @@ public class EdgeInsetsObjSt {
         return topRight$LAYOUT;
     }
 
-    private static final long topRight$OFFSET = 44;
+    private static final long topRight$OFFSET = $LAYOUT.byteOffset(groupElement("topRight"));
 
     /**
      * Offset for field:
@@ -373,7 +373,7 @@ public class EdgeInsetsObjSt {
         return bottomLeft$LAYOUT;
     }
 
-    private static final long bottomLeft$OFFSET = 48;
+    private static final long bottomLeft$OFFSET = $LAYOUT.byteOffset(groupElement("bottomLeft"));
 
     /**
      * Offset for field:
@@ -417,7 +417,7 @@ public class EdgeInsetsObjSt {
         return bottomRight$LAYOUT;
     }
 
-    private static final long bottomRight$OFFSET = 52;
+    private static final long bottomRight$OFFSET = $LAYOUT.byteOffset(groupElement("bottomRight"));
 
     /**
      * Offset for field:

@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef void (*DrawerCallbackFFI)(int)
  * }
  */
-public class DrawerCallbackFFI {
+public final class DrawerCallbackFFI {
 
-    DrawerCallbackFFI() {
+    private DrawerCallbackFFI() {
         // Should not be called directly
     }
 
@@ -56,9 +56,11 @@ public class DrawerCallbackFFI {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static void invoke(MemorySegment funcPtr,int isOpened) {
+    public static void invoke(MemorySegment funcPtr, int isOpened) {
         try {
              DOWN$MH.invokeExact(funcPtr, isOpened);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

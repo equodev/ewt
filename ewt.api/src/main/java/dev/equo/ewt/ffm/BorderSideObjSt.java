@@ -63,7 +63,7 @@ public class BorderSideObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -107,7 +107,7 @@ public class BorderSideObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 4;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -151,7 +151,7 @@ public class BorderSideObjSt {
         return width$LAYOUT;
     }
 
-    private static final long width$OFFSET = 8;
+    private static final long width$OFFSET = $LAYOUT.byteOffset(groupElement("width"));
 
     /**
      * Offset for field:
@@ -195,7 +195,7 @@ public class BorderSideObjSt {
         return style$LAYOUT;
     }
 
-    private static final long style$OFFSET = 16;
+    private static final long style$OFFSET = $LAYOUT.byteOffset(groupElement("style"));
 
     /**
      * Offset for field:
@@ -239,7 +239,7 @@ public class BorderSideObjSt {
         return strokeAlign$LAYOUT;
     }
 
-    private static final long strokeAlign$OFFSET = 24;
+    private static final long strokeAlign$OFFSET = $LAYOUT.byteOffset(groupElement("strokeAlign"));
 
     /**
      * Offset for field:
@@ -283,7 +283,7 @@ public class BorderSideObjSt {
         return strokeInset$LAYOUT;
     }
 
-    private static final long strokeInset$OFFSET = 32;
+    private static final long strokeInset$OFFSET = $LAYOUT.byteOffset(groupElement("strokeInset"));
 
     /**
      * Offset for field:
@@ -327,7 +327,7 @@ public class BorderSideObjSt {
         return strokeOutset$LAYOUT;
     }
 
-    private static final long strokeOutset$OFFSET = 40;
+    private static final long strokeOutset$OFFSET = $LAYOUT.byteOffset(groupElement("strokeOutset"));
 
     /**
      * Offset for field:
@@ -371,7 +371,7 @@ public class BorderSideObjSt {
         return strokeOffset$LAYOUT;
     }
 
-    private static final long strokeOffset$OFFSET = 48;
+    private static final long strokeOffset$OFFSET = $LAYOUT.byteOffset(groupElement("strokeOffset"));
 
     /**
      * Offset for field:

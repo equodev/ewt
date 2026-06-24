@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef DartObj (*WidgetBuilderFFI)(DartObj)
  * }
  */
-public class WidgetBuilderFFI {
+public final class WidgetBuilderFFI {
 
-    WidgetBuilderFFI() {
+    private WidgetBuilderFFI() {
         // Should not be called directly
     }
 
@@ -57,9 +57,11 @@ public class WidgetBuilderFFI {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr,int context) {
+    public static int invoke(MemorySegment funcPtr, int context) {
         try {
             return (int) DOWN$MH.invokeExact(funcPtr, context);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

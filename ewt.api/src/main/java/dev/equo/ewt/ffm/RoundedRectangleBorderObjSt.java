@@ -50,7 +50,7 @@ public class RoundedRectangleBorderObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -94,7 +94,7 @@ public class RoundedRectangleBorderObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 4;
+    private static final long borderRadius$OFFSET = $LAYOUT.byteOffset(groupElement("borderRadius"));
 
     /**
      * Offset for field:

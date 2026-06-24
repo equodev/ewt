@@ -499,9 +499,9 @@ public class WidgetFactories {
      * DartObj (*showDialog)(DartObj, WidgetBuilderFFI, int *, DartObj *, char *, int *, int *, DartObj *, int *, int *, int *)
      * }
      */
-    public static class showDialog {
+    public final static class showDialog {
 
-        showDialog() {
+        private showDialog() {
             // Should not be called directly
         }
 
@@ -549,9 +549,11 @@ public class WidgetFactories {
         /**
          * Invoke the upcall stub {@code funcPtr}, with given parameters
          */
-        public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10) {
+        public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10) {
             try {
                 return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10);
+            } catch (Error | RuntimeException ex) {
+                throw ex;
             } catch (Throwable ex$) {
                 throw new AssertionError("should not reach here", ex$);
             }
@@ -570,7 +572,7 @@ public class WidgetFactories {
         return showDialog$LAYOUT;
     }
 
-    private static final long showDialog$OFFSET = 0;
+    private static final long showDialog$OFFSET = $LAYOUT.byteOffset(groupElement("showDialog"));
 
     /**
      * Offset for field:
@@ -633,9 +635,9 @@ public class WidgetFactories {
          * TextStyleObjSt (*textStyle)(int *, DartObj *, DartObj *, double *, DartObj *, int *, double *, double *, int *, double *, int *, ArrayC *, DartObj *, DartObj *, int *, double *, char *, char *, char ***, char *, int *)
          * }
          */
-        public static class textStyle {
+        public final static class textStyle {
 
-            textStyle() {
+            private textStyle() {
                 // Should not be called directly
             }
 
@@ -693,9 +695,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -714,7 +718,7 @@ public class WidgetFactories {
             return textStyle$LAYOUT;
         }
 
-        private static final long textStyle$OFFSET = 0;
+        private static final long textStyle$OFFSET = $LAYOUT.byteOffset(groupElement("textStyle"));
 
         /**
          * Offset for field:
@@ -751,9 +755,9 @@ public class WidgetFactories {
          * TextStyleObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -793,9 +797,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -814,7 +820,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -903,7 +909,7 @@ public class WidgetFactories {
         return textStyle$LAYOUT;
     }
 
-    private static final long textStyle$OFFSET = 8;
+    private static final long textStyle$OFFSET = $LAYOUT.byteOffset(groupElement("textStyle"));
 
     /**
      * Offset for field:
@@ -976,9 +982,9 @@ public class WidgetFactories {
          * DartObj (*color)(int)
          * }
          */
-        public static class color {
+        public final static class color {
 
-            color() {
+            private color() {
                 // Should not be called directly
             }
 
@@ -1016,9 +1022,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1037,7 +1045,7 @@ public class WidgetFactories {
             return color$LAYOUT;
         }
 
-        private static final long color$OFFSET = 0;
+        private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
         /**
          * Offset for field:
@@ -1074,9 +1082,9 @@ public class WidgetFactories {
          * DartObj (*from)(double, double, double, double, int *)
          * }
          */
-        public static class from {
+        public final static class from {
 
-            from() {
+            private from() {
                 // Should not be called directly
             }
 
@@ -1118,9 +1126,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,double _x0, double _x1, double _x2, double _x3, MemorySegment _x4) {
+            public static int invoke(MemorySegment funcPtr, double _x0, double _x1, double _x2, double _x3, MemorySegment _x4) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1139,7 +1149,7 @@ public class WidgetFactories {
             return from$LAYOUT;
         }
 
-        private static final long from$OFFSET = 8;
+        private static final long from$OFFSET = $LAYOUT.byteOffset(groupElement("from"));
 
         /**
          * Offset for field:
@@ -1176,9 +1186,9 @@ public class WidgetFactories {
          * DartObj (*fromARGB)(int, int, int, int)
          * }
          */
-        public static class fromARGB {
+        public final static class fromARGB {
 
-            fromARGB() {
+            private fromARGB() {
                 // Should not be called directly
             }
 
@@ -1219,9 +1229,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, int _x2, int _x3) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, int _x2, int _x3) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1240,7 +1252,7 @@ public class WidgetFactories {
             return fromARGB$LAYOUT;
         }
 
-        private static final long fromARGB$OFFSET = 16;
+        private static final long fromARGB$OFFSET = $LAYOUT.byteOffset(groupElement("fromARGB"));
 
         /**
          * Offset for field:
@@ -1277,9 +1289,9 @@ public class WidgetFactories {
          * DartObj (*fromRGBO)(int, int, int, double)
          * }
          */
-        public static class fromRGBO {
+        public final static class fromRGBO {
 
-            fromRGBO() {
+            private fromRGBO() {
                 // Should not be called directly
             }
 
@@ -1320,9 +1332,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, int _x2, double _x3) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, int _x2, double _x3) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1341,7 +1355,7 @@ public class WidgetFactories {
             return fromRGBO$LAYOUT;
         }
 
-        private static final long fromRGBO$OFFSET = 24;
+        private static final long fromRGBO$OFFSET = $LAYOUT.byteOffset(groupElement("fromRGBO"));
 
         /**
          * Offset for field:
@@ -1378,9 +1392,9 @@ public class WidgetFactories {
          * DartObj (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -1420,9 +1434,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, double _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, double _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1441,7 +1457,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 32;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -1478,9 +1494,9 @@ public class WidgetFactories {
          * DartObj (*alphaBlend)(DartObj, DartObj)
          * }
          */
-        public static class alphaBlend {
+        public final static class alphaBlend {
 
-            alphaBlend() {
+            private alphaBlend() {
                 // Should not be called directly
             }
 
@@ -1519,9 +1535,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1540,7 +1558,7 @@ public class WidgetFactories {
             return alphaBlend$LAYOUT;
         }
 
-        private static final long alphaBlend$OFFSET = 40;
+        private static final long alphaBlend$OFFSET = $LAYOUT.byteOffset(groupElement("alphaBlend"));
 
         /**
          * Offset for field:
@@ -1577,9 +1595,9 @@ public class WidgetFactories {
          * int (*getAlphaFromOpacity)(double)
          * }
          */
-        public static class getAlphaFromOpacity {
+        public final static class getAlphaFromOpacity {
 
-            getAlphaFromOpacity() {
+            private getAlphaFromOpacity() {
                 // Should not be called directly
             }
 
@@ -1617,9 +1635,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,double _x0) {
+            public static int invoke(MemorySegment funcPtr, double _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1638,7 +1658,7 @@ public class WidgetFactories {
             return getAlphaFromOpacity$LAYOUT;
         }
 
-        private static final long getAlphaFromOpacity$OFFSET = 48;
+        private static final long getAlphaFromOpacity$OFFSET = $LAYOUT.byteOffset(groupElement("getAlphaFromOpacity"));
 
         /**
          * Offset for field:
@@ -1727,7 +1747,7 @@ public class WidgetFactories {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 24;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -1792,9 +1812,9 @@ public class WidgetFactories {
          * DartObj (*offset)(double, double)
          * }
          */
-        public static class offset {
+        public final static class offset {
 
-            offset() {
+            private offset() {
                 // Should not be called directly
             }
 
@@ -1833,9 +1853,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,double _x0, double _x1) {
+            public static int invoke(MemorySegment funcPtr, double _x0, double _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1854,7 +1876,7 @@ public class WidgetFactories {
             return offset$LAYOUT;
         }
 
-        private static final long offset$OFFSET = 0;
+        private static final long offset$OFFSET = $LAYOUT.byteOffset(groupElement("offset"));
 
         /**
          * Offset for field:
@@ -1891,9 +1913,9 @@ public class WidgetFactories {
          * DartObj (*fromDirection)(double, double *)
          * }
          */
-        public static class fromDirection {
+        public final static class fromDirection {
 
-            fromDirection() {
+            private fromDirection() {
                 // Should not be called directly
             }
 
@@ -1932,9 +1954,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,double _x0, MemorySegment _x1) {
+            public static int invoke(MemorySegment funcPtr, double _x0, MemorySegment _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -1953,7 +1977,7 @@ public class WidgetFactories {
             return fromDirection$LAYOUT;
         }
 
-        private static final long fromDirection$OFFSET = 8;
+        private static final long fromDirection$OFFSET = $LAYOUT.byteOffset(groupElement("fromDirection"));
 
         /**
          * Offset for field:
@@ -1990,9 +2014,9 @@ public class WidgetFactories {
          * DartObj (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -2032,9 +2056,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, double _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, double _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2053,7 +2079,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 16;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -2142,7 +2168,7 @@ public class WidgetFactories {
         return offset$LAYOUT;
     }
 
-    private static final long offset$OFFSET = 80;
+    private static final long offset$OFFSET = $LAYOUT.byteOffset(groupElement("offset"));
 
     /**
      * Offset for field:
@@ -2205,9 +2231,9 @@ public class WidgetFactories {
          * DartObj (*fontWeight)(int)
          * }
          */
-        public static class fontWeight {
+        public final static class fontWeight {
 
-            fontWeight() {
+            private fontWeight() {
                 // Should not be called directly
             }
 
@@ -2245,9 +2271,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2266,7 +2294,7 @@ public class WidgetFactories {
             return fontWeight$LAYOUT;
         }
 
-        private static final long fontWeight$OFFSET = 0;
+        private static final long fontWeight$OFFSET = $LAYOUT.byteOffset(groupElement("fontWeight"));
 
         /**
          * Offset for field:
@@ -2303,9 +2331,9 @@ public class WidgetFactories {
          * DartObj (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -2345,9 +2373,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, double _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, double _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2366,7 +2396,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -2455,7 +2485,7 @@ public class WidgetFactories {
         return fontWeight$LAYOUT;
     }
 
-    private static final long fontWeight$OFFSET = 104;
+    private static final long fontWeight$OFFSET = $LAYOUT.byteOffset(groupElement("fontWeight"));
 
     /**
      * Offset for field:
@@ -2524,9 +2554,9 @@ public class WidgetFactories {
          * DartObj (*combine)(ArrayC)
          * }
          */
-        public static class combine {
+        public final static class combine {
 
-            combine() {
+            private combine() {
                 // Should not be called directly
             }
 
@@ -2564,9 +2594,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            public static int invoke(MemorySegment funcPtr, MemorySegment _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2585,7 +2617,7 @@ public class WidgetFactories {
             return combine$LAYOUT;
         }
 
-        private static final long combine$OFFSET = 0;
+        private static final long combine$OFFSET = $LAYOUT.byteOffset(groupElement("combine"));
 
         /**
          * Offset for field:
@@ -2629,7 +2661,7 @@ public class WidgetFactories {
             return none$LAYOUT;
         }
 
-        private static final long none$OFFSET = 8;
+        private static final long none$OFFSET = $LAYOUT.byteOffset(groupElement("none"));
 
         /**
          * Offset for field:
@@ -2673,7 +2705,7 @@ public class WidgetFactories {
             return underline$LAYOUT;
         }
 
-        private static final long underline$OFFSET = 12;
+        private static final long underline$OFFSET = $LAYOUT.byteOffset(groupElement("underline"));
 
         /**
          * Offset for field:
@@ -2717,7 +2749,7 @@ public class WidgetFactories {
             return overline$LAYOUT;
         }
 
-        private static final long overline$OFFSET = 16;
+        private static final long overline$OFFSET = $LAYOUT.byteOffset(groupElement("overline"));
 
         /**
          * Offset for field:
@@ -2761,7 +2793,7 @@ public class WidgetFactories {
             return lineThrough$LAYOUT;
         }
 
-        private static final long lineThrough$OFFSET = 20;
+        private static final long lineThrough$OFFSET = $LAYOUT.byteOffset(groupElement("lineThrough"));
 
         /**
          * Offset for field:
@@ -2850,7 +2882,7 @@ public class WidgetFactories {
         return textDecoration$LAYOUT;
     }
 
-    private static final long textDecoration$OFFSET = 120;
+    private static final long textDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("textDecoration"));
 
     /**
      * Offset for field:
@@ -2913,9 +2945,9 @@ public class WidgetFactories {
          * TextObjSt (*text)(char *, DartObj *, int *, int *, int *, int *, double *, int *, char *, char *, int *, DartObj *)
          * }
          */
-        public static class text {
+        public final static class text {
 
-            text() {
+            private text() {
                 // Should not be called directly
             }
 
@@ -2964,9 +2996,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -2985,7 +3019,7 @@ public class WidgetFactories {
             return text$LAYOUT;
         }
 
-        private static final long text$OFFSET = 0;
+        private static final long text$OFFSET = $LAYOUT.byteOffset(groupElement("text"));
 
         /**
          * Offset for field:
@@ -3022,9 +3056,9 @@ public class WidgetFactories {
          * TextObjSt (*rich)(DartObj, DartObj *, int *, int *, int *, int *, double *, int *, char *, char *, int *, DartObj *)
          * }
          */
-        public static class rich {
+        public final static class rich {
 
-            rich() {
+            private rich() {
                 // Should not be called directly
             }
 
@@ -3073,9 +3107,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -3094,7 +3130,7 @@ public class WidgetFactories {
             return rich$LAYOUT;
         }
 
-        private static final long rich$OFFSET = 8;
+        private static final long rich$OFFSET = $LAYOUT.byteOffset(groupElement("rich"));
 
         /**
          * Offset for field:
@@ -3183,7 +3219,7 @@ public class WidgetFactories {
         return text$LAYOUT;
     }
 
-    private static final long text$OFFSET = 144;
+    private static final long text$OFFSET = $LAYOUT.byteOffset(groupElement("text"));
 
     /**
      * Offset for field:
@@ -3244,9 +3280,9 @@ public class WidgetFactories {
          * TextSpanObjSt (*textSpan)(char *, ArrayC *, DartObj *, char *, char *, int *)
          * }
          */
-        public static class textSpan {
+        public final static class textSpan {
 
-            textSpan() {
+            private textSpan() {
                 // Should not be called directly
             }
 
@@ -3289,9 +3325,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -3310,7 +3348,7 @@ public class WidgetFactories {
             return textSpan$LAYOUT;
         }
 
-        private static final long textSpan$OFFSET = 0;
+        private static final long textSpan$OFFSET = $LAYOUT.byteOffset(groupElement("textSpan"));
 
         /**
          * Offset for field:
@@ -3399,7 +3437,7 @@ public class WidgetFactories {
         return textSpan$LAYOUT;
     }
 
-    private static final long textSpan$OFFSET = 160;
+    private static final long textSpan$OFFSET = $LAYOUT.byteOffset(groupElement("textSpan"));
 
     /**
      * Offset for field:
@@ -3460,9 +3498,9 @@ public class WidgetFactories {
          * RichTextObjSt (*richText)(DartObj, int *, int *, int *, int *, double *, int *, int *, DartObj *)
          * }
          */
-        public static class richText {
+        public final static class richText {
 
-            richText() {
+            private richText() {
                 // Should not be called directly
             }
 
@@ -3508,9 +3546,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -3529,7 +3569,7 @@ public class WidgetFactories {
             return richText$LAYOUT;
         }
 
-        private static final long richText$OFFSET = 0;
+        private static final long richText$OFFSET = $LAYOUT.byteOffset(groupElement("richText"));
 
         /**
          * Offset for field:
@@ -3618,7 +3658,7 @@ public class WidgetFactories {
         return richText$LAYOUT;
     }
 
-    private static final long richText$OFFSET = 168;
+    private static final long richText$OFFSET = $LAYOUT.byteOffset(groupElement("richText"));
 
     /**
      * Offset for field:
@@ -3679,9 +3719,9 @@ public class WidgetFactories {
          * CenterObjSt (*center)(double *, double *, DartObj *)
          * }
          */
-        public static class center {
+        public final static class center {
 
-            center() {
+            private center() {
                 // Should not be called directly
             }
 
@@ -3721,9 +3761,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -3742,7 +3784,7 @@ public class WidgetFactories {
             return center$LAYOUT;
         }
 
-        private static final long center$OFFSET = 0;
+        private static final long center$OFFSET = $LAYOUT.byteOffset(groupElement("center"));
 
         /**
          * Offset for field:
@@ -3831,7 +3873,7 @@ public class WidgetFactories {
         return center$LAYOUT;
     }
 
-    private static final long center$OFFSET = 176;
+    private static final long center$OFFSET = $LAYOUT.byteOffset(groupElement("center"));
 
     /**
      * Offset for field:
@@ -3892,9 +3934,9 @@ public class WidgetFactories {
          * AlignObjSt (*align)(DartObj *, double *, double *, DartObj *)
          * }
          */
-        public static class align {
+        public final static class align {
 
-            align() {
+            private align() {
                 // Should not be called directly
             }
 
@@ -3935,9 +3977,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -3956,7 +4000,7 @@ public class WidgetFactories {
             return align$LAYOUT;
         }
 
-        private static final long align$OFFSET = 0;
+        private static final long align$OFFSET = $LAYOUT.byteOffset(groupElement("align"));
 
         /**
          * Offset for field:
@@ -4045,7 +4089,7 @@ public class WidgetFactories {
         return align$LAYOUT;
     }
 
-    private static final long align$OFFSET = 184;
+    private static final long align$OFFSET = $LAYOUT.byteOffset(groupElement("align"));
 
     /**
      * Offset for field:
@@ -4106,9 +4150,9 @@ public class WidgetFactories {
          * ColumnObjSt (*column)(int *, int *, int *, int *, int *, int *, double *, ArrayC *)
          * }
          */
-        public static class column {
+        public final static class column {
 
-            column() {
+            private column() {
                 // Should not be called directly
             }
 
@@ -4153,9 +4197,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4174,7 +4220,7 @@ public class WidgetFactories {
             return column$LAYOUT;
         }
 
-        private static final long column$OFFSET = 0;
+        private static final long column$OFFSET = $LAYOUT.byteOffset(groupElement("column"));
 
         /**
          * Offset for field:
@@ -4263,7 +4309,7 @@ public class WidgetFactories {
         return column$LAYOUT;
     }
 
-    private static final long column$OFFSET = 192;
+    private static final long column$OFFSET = $LAYOUT.byteOffset(groupElement("column"));
 
     /**
      * Offset for field:
@@ -4324,9 +4370,9 @@ public class WidgetFactories {
          * FlexObjSt (*flex)(int, int *, int *, int *, int *, int *, int *, int *, double *, ArrayC *)
          * }
          */
-        public static class flex {
+        public final static class flex {
 
-            flex() {
+            private flex() {
                 // Should not be called directly
             }
 
@@ -4373,9 +4419,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4394,7 +4442,7 @@ public class WidgetFactories {
             return flex$LAYOUT;
         }
 
-        private static final long flex$OFFSET = 0;
+        private static final long flex$OFFSET = $LAYOUT.byteOffset(groupElement("flex"));
 
         /**
          * Offset for field:
@@ -4483,7 +4531,7 @@ public class WidgetFactories {
         return flex$LAYOUT;
     }
 
-    private static final long flex$OFFSET = 200;
+    private static final long flex$OFFSET = $LAYOUT.byteOffset(groupElement("flex"));
 
     /**
      * Offset for field:
@@ -4544,9 +4592,9 @@ public class WidgetFactories {
          * RowObjSt (*row)(int *, int *, int *, int *, int *, int *, double *, ArrayC *)
          * }
          */
-        public static class row {
+        public final static class row {
 
-            row() {
+            private row() {
                 // Should not be called directly
             }
 
@@ -4591,9 +4639,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4612,7 +4662,7 @@ public class WidgetFactories {
             return row$LAYOUT;
         }
 
-        private static final long row$OFFSET = 0;
+        private static final long row$OFFSET = $LAYOUT.byteOffset(groupElement("row"));
 
         /**
          * Offset for field:
@@ -4701,7 +4751,7 @@ public class WidgetFactories {
         return row$LAYOUT;
     }
 
-    private static final long row$OFFSET = 208;
+    private static final long row$OFFSET = $LAYOUT.byteOffset(groupElement("row"));
 
     /**
      * Offset for field:
@@ -4762,9 +4812,9 @@ public class WidgetFactories {
          * IconDataObjSt (*iconData)(int, char *, char *, int *, char ***)
          * }
          */
-        public static class iconData {
+        public final static class iconData {
 
-            iconData() {
+            private iconData() {
                 // Should not be called directly
             }
 
@@ -4806,9 +4856,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -4827,7 +4879,7 @@ public class WidgetFactories {
             return iconData$LAYOUT;
         }
 
-        private static final long iconData$OFFSET = 0;
+        private static final long iconData$OFFSET = $LAYOUT.byteOffset(groupElement("iconData"));
 
         /**
          * Offset for field:
@@ -4916,7 +4968,7 @@ public class WidgetFactories {
         return iconData$LAYOUT;
     }
 
-    private static final long iconData$OFFSET = 216;
+    private static final long iconData$OFFSET = $LAYOUT.byteOffset(groupElement("iconData"));
 
     /**
      * Offset for field:
@@ -4977,9 +5029,9 @@ public class WidgetFactories {
          * IconObjSt (*icon)(DartObj, double *, double *, double *, double *, double *, DartObj *, ArrayC *, char *, int *, int *, int *, DartObj *)
          * }
          */
-        public static class icon {
+        public final static class icon {
 
-            icon() {
+            private icon() {
                 // Should not be called directly
             }
 
@@ -5029,9 +5081,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5050,7 +5104,7 @@ public class WidgetFactories {
             return icon$LAYOUT;
         }
 
-        private static final long icon$OFFSET = 0;
+        private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
         /**
          * Offset for field:
@@ -5139,7 +5193,7 @@ public class WidgetFactories {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 224;
+    private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
     /**
      * Offset for field:
@@ -5206,9 +5260,9 @@ public class WidgetFactories {
          * TransformObjSt (*rotate)(double, DartObj *, DartObj *, int *, int *, DartObj *)
          * }
          */
-        public static class rotate {
+        public final static class rotate {
 
-            rotate() {
+            private rotate() {
                 // Should not be called directly
             }
 
@@ -5251,9 +5305,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5272,7 +5328,7 @@ public class WidgetFactories {
             return rotate$LAYOUT;
         }
 
-        private static final long rotate$OFFSET = 0;
+        private static final long rotate$OFFSET = $LAYOUT.byteOffset(groupElement("rotate"));
 
         /**
          * Offset for field:
@@ -5309,9 +5365,9 @@ public class WidgetFactories {
          * TransformObjSt (*translate)(DartObj, int *, int *, DartObj *)
          * }
          */
-        public static class translate {
+        public final static class translate {
 
-            translate() {
+            private translate() {
                 // Should not be called directly
             }
 
@@ -5352,9 +5408,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5373,7 +5431,7 @@ public class WidgetFactories {
             return translate$LAYOUT;
         }
 
-        private static final long translate$OFFSET = 8;
+        private static final long translate$OFFSET = $LAYOUT.byteOffset(groupElement("translate"));
 
         /**
          * Offset for field:
@@ -5410,9 +5468,9 @@ public class WidgetFactories {
          * TransformObjSt (*scale)(double *, double *, double *, DartObj *, DartObj *, int *, int *, DartObj *)
          * }
          */
-        public static class scale {
+        public final static class scale {
 
-            scale() {
+            private scale() {
                 // Should not be called directly
             }
 
@@ -5457,9 +5515,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5478,7 +5538,7 @@ public class WidgetFactories {
             return scale$LAYOUT;
         }
 
-        private static final long scale$OFFSET = 16;
+        private static final long scale$OFFSET = $LAYOUT.byteOffset(groupElement("scale"));
 
         /**
          * Offset for field:
@@ -5515,9 +5575,9 @@ public class WidgetFactories {
          * TransformObjSt (*flip)(int *, int *, DartObj *, int *, int *, DartObj *)
          * }
          */
-        public static class flip {
+        public final static class flip {
 
-            flip() {
+            private flip() {
                 // Should not be called directly
             }
 
@@ -5560,9 +5620,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5581,7 +5643,7 @@ public class WidgetFactories {
             return flip$LAYOUT;
         }
 
-        private static final long flip$OFFSET = 24;
+        private static final long flip$OFFSET = $LAYOUT.byteOffset(groupElement("flip"));
 
         /**
          * Offset for field:
@@ -5670,7 +5732,7 @@ public class WidgetFactories {
         return transform$LAYOUT;
     }
 
-    private static final long transform$OFFSET = 232;
+    private static final long transform$OFFSET = $LAYOUT.byteOffset(groupElement("transform"));
 
     /**
      * Offset for field:
@@ -5731,9 +5793,9 @@ public class WidgetFactories {
          * OpacityObjSt (*opacity)(double, int *, DartObj *)
          * }
          */
-        public static class opacity {
+        public final static class opacity {
 
-            opacity() {
+            private opacity() {
                 // Should not be called directly
             }
 
@@ -5773,9 +5835,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -5794,7 +5858,7 @@ public class WidgetFactories {
             return opacity$LAYOUT;
         }
 
-        private static final long opacity$OFFSET = 0;
+        private static final long opacity$OFFSET = $LAYOUT.byteOffset(groupElement("opacity"));
 
         /**
          * Offset for field:
@@ -5883,7 +5947,7 @@ public class WidgetFactories {
         return opacity$LAYOUT;
     }
 
-    private static final long opacity$OFFSET = 264;
+    private static final long opacity$OFFSET = $LAYOUT.byteOffset(groupElement("opacity"));
 
     /**
      * Offset for field:
@@ -5944,9 +6008,9 @@ public class WidgetFactories {
          * StackObjSt (*stack)(DartObj *, int *, int *, int *, ArrayC *)
          * }
          */
-        public static class stack {
+        public final static class stack {
 
-            stack() {
+            private stack() {
                 // Should not be called directly
             }
 
@@ -5988,9 +6052,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6009,7 +6075,7 @@ public class WidgetFactories {
             return stack$LAYOUT;
         }
 
-        private static final long stack$OFFSET = 0;
+        private static final long stack$OFFSET = $LAYOUT.byteOffset(groupElement("stack"));
 
         /**
          * Offset for field:
@@ -6098,7 +6164,7 @@ public class WidgetFactories {
         return stack$LAYOUT;
     }
 
-    private static final long stack$OFFSET = 272;
+    private static final long stack$OFFSET = $LAYOUT.byteOffset(groupElement("stack"));
 
     /**
      * Offset for field:
@@ -6167,9 +6233,9 @@ public class WidgetFactories {
          * BoxConstraintsObjSt (*boxConstraints)(double *, double *, double *, double *)
          * }
          */
-        public static class boxConstraints {
+        public final static class boxConstraints {
 
-            boxConstraints() {
+            private boxConstraints() {
                 // Should not be called directly
             }
 
@@ -6210,9 +6276,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6231,7 +6299,7 @@ public class WidgetFactories {
             return boxConstraints$LAYOUT;
         }
 
-        private static final long boxConstraints$OFFSET = 0;
+        private static final long boxConstraints$OFFSET = $LAYOUT.byteOffset(groupElement("boxConstraints"));
 
         /**
          * Offset for field:
@@ -6268,9 +6336,9 @@ public class WidgetFactories {
          * BoxConstraintsObjSt (*tightFor)(double *, double *)
          * }
          */
-        public static class tightFor {
+        public final static class tightFor {
 
-            tightFor() {
+            private tightFor() {
                 // Should not be called directly
             }
 
@@ -6309,9 +6377,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6330,7 +6400,7 @@ public class WidgetFactories {
             return tightFor$LAYOUT;
         }
 
-        private static final long tightFor$OFFSET = 8;
+        private static final long tightFor$OFFSET = $LAYOUT.byteOffset(groupElement("tightFor"));
 
         /**
          * Offset for field:
@@ -6367,9 +6437,9 @@ public class WidgetFactories {
          * BoxConstraintsObjSt (*tightForFinite)(double *, double *)
          * }
          */
-        public static class tightForFinite {
+        public final static class tightForFinite {
 
-            tightForFinite() {
+            private tightForFinite() {
                 // Should not be called directly
             }
 
@@ -6408,9 +6478,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6429,7 +6501,7 @@ public class WidgetFactories {
             return tightForFinite$LAYOUT;
         }
 
-        private static final long tightForFinite$OFFSET = 16;
+        private static final long tightForFinite$OFFSET = $LAYOUT.byteOffset(groupElement("tightForFinite"));
 
         /**
          * Offset for field:
@@ -6466,9 +6538,9 @@ public class WidgetFactories {
          * BoxConstraintsObjSt (*expand)(double *, double *)
          * }
          */
-        public static class expand {
+        public final static class expand {
 
-            expand() {
+            private expand() {
                 // Should not be called directly
             }
 
@@ -6507,9 +6579,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6528,7 +6602,7 @@ public class WidgetFactories {
             return expand$LAYOUT;
         }
 
-        private static final long expand$OFFSET = 24;
+        private static final long expand$OFFSET = $LAYOUT.byteOffset(groupElement("expand"));
 
         /**
          * Offset for field:
@@ -6565,9 +6639,9 @@ public class WidgetFactories {
          * BoxConstraintsObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -6607,9 +6681,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6628,7 +6704,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 32;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -6717,7 +6793,7 @@ public class WidgetFactories {
         return boxConstraints$LAYOUT;
     }
 
-    private static final long boxConstraints$OFFSET = 280;
+    private static final long boxConstraints$OFFSET = $LAYOUT.byteOffset(groupElement("boxConstraints"));
 
     /**
      * Offset for field:
@@ -6778,9 +6854,9 @@ public class WidgetFactories {
          * ContainerObjSt (*container)(DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, double *, double *, DartObj *, DartObj *, DartObj *, DartObj *, int *)
          * }
          */
-        public static class container {
+        public final static class container {
 
-            container() {
+            private container() {
                 // Should not be called directly
             }
 
@@ -6830,9 +6906,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -6851,7 +6929,7 @@ public class WidgetFactories {
             return container$LAYOUT;
         }
 
-        private static final long container$OFFSET = 0;
+        private static final long container$OFFSET = $LAYOUT.byteOffset(groupElement("container"));
 
         /**
          * Offset for field:
@@ -6940,7 +7018,7 @@ public class WidgetFactories {
         return container$LAYOUT;
     }
 
-    private static final long container$OFFSET = 320;
+    private static final long container$OFFSET = $LAYOUT.byteOffset(groupElement("container"));
 
     /**
      * Offset for field:
@@ -7008,7 +7086,7 @@ public class WidgetFactories {
             return infinity$LAYOUT;
         }
 
-        private static final long infinity$OFFSET = 0;
+        private static final long infinity$OFFSET = $LAYOUT.byteOffset(groupElement("infinity"));
 
         /**
          * Offset for field:
@@ -7097,7 +7175,7 @@ public class WidgetFactories {
         return edgeInsetsGeometry$LAYOUT;
     }
 
-    private static final long edgeInsetsGeometry$OFFSET = 328;
+    private static final long edgeInsetsGeometry$OFFSET = $LAYOUT.byteOffset(groupElement("edgeInsetsGeometry"));
 
     /**
      * Offset for field:
@@ -7158,9 +7236,9 @@ public class WidgetFactories {
          * DartObj (*stackParentData)(void)
          * }
          */
-        public static class stackParentData {
+        public final static class stackParentData {
 
-            stackParentData() {
+            private stackParentData() {
                 // Should not be called directly
             }
 
@@ -7199,6 +7277,8 @@ public class WidgetFactories {
             public static int invoke(MemorySegment funcPtr) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -7217,7 +7297,7 @@ public class WidgetFactories {
             return stackParentData$LAYOUT;
         }
 
-        private static final long stackParentData$OFFSET = 0;
+        private static final long stackParentData$OFFSET = $LAYOUT.byteOffset(groupElement("stackParentData"));
 
         /**
          * Offset for field:
@@ -7306,7 +7386,7 @@ public class WidgetFactories {
         return stackParentData$LAYOUT;
     }
 
-    private static final long stackParentData$OFFSET = 336;
+    private static final long stackParentData$OFFSET = $LAYOUT.byteOffset(groupElement("stackParentData"));
 
     /**
      * Offset for field:
@@ -7367,9 +7447,9 @@ public class WidgetFactories {
          * DartObj (*boxParentData)(void)
          * }
          */
-        public static class boxParentData {
+        public final static class boxParentData {
 
-            boxParentData() {
+            private boxParentData() {
                 // Should not be called directly
             }
 
@@ -7408,6 +7488,8 @@ public class WidgetFactories {
             public static int invoke(MemorySegment funcPtr) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -7426,7 +7508,7 @@ public class WidgetFactories {
             return boxParentData$LAYOUT;
         }
 
-        private static final long boxParentData$OFFSET = 0;
+        private static final long boxParentData$OFFSET = $LAYOUT.byteOffset(groupElement("boxParentData"));
 
         /**
          * Offset for field:
@@ -7515,7 +7597,7 @@ public class WidgetFactories {
         return boxParentData$LAYOUT;
     }
 
-    private static final long boxParentData$OFFSET = 344;
+    private static final long boxParentData$OFFSET = $LAYOUT.byteOffset(groupElement("boxParentData"));
 
     /**
      * Offset for field:
@@ -7576,9 +7658,9 @@ public class WidgetFactories {
          * DartObj (*parentData)(void)
          * }
          */
-        public static class parentData {
+        public final static class parentData {
 
-            parentData() {
+            private parentData() {
                 // Should not be called directly
             }
 
@@ -7617,6 +7699,8 @@ public class WidgetFactories {
             public static int invoke(MemorySegment funcPtr) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -7635,7 +7719,7 @@ public class WidgetFactories {
             return parentData$LAYOUT;
         }
 
-        private static final long parentData$OFFSET = 0;
+        private static final long parentData$OFFSET = $LAYOUT.byteOffset(groupElement("parentData"));
 
         /**
          * Offset for field:
@@ -7724,7 +7808,7 @@ public class WidgetFactories {
         return parentData$LAYOUT;
     }
 
-    private static final long parentData$OFFSET = 352;
+    private static final long parentData$OFFSET = $LAYOUT.byteOffset(groupElement("parentData"));
 
     /**
      * Offset for field:
@@ -7785,9 +7869,9 @@ public class WidgetFactories {
          * DartObj (*flexParentData)(void)
          * }
          */
-        public static class flexParentData {
+        public final static class flexParentData {
 
-            flexParentData() {
+            private flexParentData() {
                 // Should not be called directly
             }
 
@@ -7826,6 +7910,8 @@ public class WidgetFactories {
             public static int invoke(MemorySegment funcPtr) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -7844,7 +7930,7 @@ public class WidgetFactories {
             return flexParentData$LAYOUT;
         }
 
-        private static final long flexParentData$OFFSET = 0;
+        private static final long flexParentData$OFFSET = $LAYOUT.byteOffset(groupElement("flexParentData"));
 
         /**
          * Offset for field:
@@ -7933,7 +8019,7 @@ public class WidgetFactories {
         return flexParentData$LAYOUT;
     }
 
-    private static final long flexParentData$OFFSET = 360;
+    private static final long flexParentData$OFFSET = $LAYOUT.byteOffset(groupElement("flexParentData"));
 
     /**
      * Offset for field:
@@ -7998,9 +8084,9 @@ public class WidgetFactories {
          * PositionedObjSt (*positioned)(double *, double *, double *, double *, double *, double *, DartObj)
          * }
          */
-        public static class positioned {
+        public final static class positioned {
 
-            positioned() {
+            private positioned() {
                 // Should not be called directly
             }
 
@@ -8044,9 +8130,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8065,7 +8153,7 @@ public class WidgetFactories {
             return positioned$LAYOUT;
         }
 
-        private static final long positioned$OFFSET = 0;
+        private static final long positioned$OFFSET = $LAYOUT.byteOffset(groupElement("positioned"));
 
         /**
          * Offset for field:
@@ -8102,9 +8190,9 @@ public class WidgetFactories {
          * PositionedObjSt (*fill)(double *, double *, double *, double *, DartObj)
          * }
          */
-        public static class fill {
+        public final static class fill {
 
-            fill() {
+            private fill() {
                 // Should not be called directly
             }
 
@@ -8146,9 +8234,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, int _x4) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, int _x4) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8167,7 +8257,7 @@ public class WidgetFactories {
             return fill$LAYOUT;
         }
 
-        private static final long fill$OFFSET = 8;
+        private static final long fill$OFFSET = $LAYOUT.byteOffset(groupElement("fill"));
 
         /**
          * Offset for field:
@@ -8204,9 +8294,9 @@ public class WidgetFactories {
          * PositionedObjSt (*directional)(int, double *, double *, double *, double *, double *, double *, DartObj)
          * }
          */
-        public static class directional {
+        public final static class directional {
 
-            directional() {
+            private directional() {
                 // Should not be called directly
             }
 
@@ -8251,9 +8341,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8272,7 +8364,7 @@ public class WidgetFactories {
             return directional$LAYOUT;
         }
 
-        private static final long directional$OFFSET = 16;
+        private static final long directional$OFFSET = $LAYOUT.byteOffset(groupElement("directional"));
 
         /**
          * Offset for field:
@@ -8361,7 +8453,7 @@ public class WidgetFactories {
         return positioned$LAYOUT;
     }
 
-    private static final long positioned$OFFSET = 368;
+    private static final long positioned$OFFSET = $LAYOUT.byteOffset(groupElement("positioned"));
 
     /**
      * Offset for field:
@@ -8424,9 +8516,9 @@ public class WidgetFactories {
          * BoxDecorationObjSt (*boxDecoration)(DartObj *, DartObj *, DartObj *, ArrayC *, int *, int *)
          * }
          */
-        public static class boxDecoration {
+        public final static class boxDecoration {
 
-            boxDecoration() {
+            private boxDecoration() {
                 // Should not be called directly
             }
 
@@ -8469,9 +8561,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8490,7 +8584,7 @@ public class WidgetFactories {
             return boxDecoration$LAYOUT;
         }
 
-        private static final long boxDecoration$OFFSET = 0;
+        private static final long boxDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("boxDecoration"));
 
         /**
          * Offset for field:
@@ -8527,9 +8621,9 @@ public class WidgetFactories {
          * BoxDecorationObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -8569,9 +8663,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8590,7 +8686,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -8679,7 +8775,7 @@ public class WidgetFactories {
         return boxDecoration$LAYOUT;
     }
 
-    private static final long boxDecoration$OFFSET = 392;
+    private static final long boxDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("boxDecoration"));
 
     /**
      * Offset for field:
@@ -8744,9 +8840,9 @@ public class WidgetFactories {
          * DartObj (*circular)(double)
          * }
          */
-        public static class circular {
+        public final static class circular {
 
-            circular() {
+            private circular() {
                 // Should not be called directly
             }
 
@@ -8784,9 +8880,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,double _x0) {
+            public static int invoke(MemorySegment funcPtr, double _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8805,7 +8903,7 @@ public class WidgetFactories {
             return circular$LAYOUT;
         }
 
-        private static final long circular$OFFSET = 0;
+        private static final long circular$OFFSET = $LAYOUT.byteOffset(groupElement("circular"));
 
         /**
          * Offset for field:
@@ -8842,9 +8940,9 @@ public class WidgetFactories {
          * DartObj (*elliptical)(double, double)
          * }
          */
-        public static class elliptical {
+        public final static class elliptical {
 
-            elliptical() {
+            private elliptical() {
                 // Should not be called directly
             }
 
@@ -8883,9 +8981,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,double _x0, double _x1) {
+            public static int invoke(MemorySegment funcPtr, double _x0, double _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -8904,7 +9004,7 @@ public class WidgetFactories {
             return elliptical$LAYOUT;
         }
 
-        private static final long elliptical$OFFSET = 8;
+        private static final long elliptical$OFFSET = $LAYOUT.byteOffset(groupElement("elliptical"));
 
         /**
          * Offset for field:
@@ -8941,9 +9041,9 @@ public class WidgetFactories {
          * DartObj (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -8983,9 +9083,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, double _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, double _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9004,7 +9106,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 16;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -9093,7 +9195,7 @@ public class WidgetFactories {
         return radius$LAYOUT;
     }
 
-    private static final long radius$OFFSET = 408;
+    private static final long radius$OFFSET = $LAYOUT.byteOffset(groupElement("radius"));
 
     /**
      * Offset for field:
@@ -9164,9 +9266,9 @@ public class WidgetFactories {
          * BorderRadiusObjSt (*all)(DartObj)
          * }
          */
-        public static class all {
+        public final static class all {
 
-            all() {
+            private all() {
                 // Should not be called directly
             }
 
@@ -9204,9 +9306,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9225,7 +9329,7 @@ public class WidgetFactories {
             return all$LAYOUT;
         }
 
-        private static final long all$OFFSET = 0;
+        private static final long all$OFFSET = $LAYOUT.byteOffset(groupElement("all"));
 
         /**
          * Offset for field:
@@ -9262,9 +9366,9 @@ public class WidgetFactories {
          * BorderRadiusObjSt (*circular)(double)
          * }
          */
-        public static class circular {
+        public final static class circular {
 
-            circular() {
+            private circular() {
                 // Should not be called directly
             }
 
@@ -9302,9 +9406,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9323,7 +9429,7 @@ public class WidgetFactories {
             return circular$LAYOUT;
         }
 
-        private static final long circular$OFFSET = 8;
+        private static final long circular$OFFSET = $LAYOUT.byteOffset(groupElement("circular"));
 
         /**
          * Offset for field:
@@ -9360,9 +9466,9 @@ public class WidgetFactories {
          * BorderRadiusObjSt (*vertical)(DartObj *, DartObj *)
          * }
          */
-        public static class vertical {
+        public final static class vertical {
 
-            vertical() {
+            private vertical() {
                 // Should not be called directly
             }
 
@@ -9401,9 +9507,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9422,7 +9530,7 @@ public class WidgetFactories {
             return vertical$LAYOUT;
         }
 
-        private static final long vertical$OFFSET = 16;
+        private static final long vertical$OFFSET = $LAYOUT.byteOffset(groupElement("vertical"));
 
         /**
          * Offset for field:
@@ -9459,9 +9567,9 @@ public class WidgetFactories {
          * BorderRadiusObjSt (*horizontal)(DartObj *, DartObj *)
          * }
          */
-        public static class horizontal {
+        public final static class horizontal {
 
-            horizontal() {
+            private horizontal() {
                 // Should not be called directly
             }
 
@@ -9500,9 +9608,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9521,7 +9631,7 @@ public class WidgetFactories {
             return horizontal$LAYOUT;
         }
 
-        private static final long horizontal$OFFSET = 24;
+        private static final long horizontal$OFFSET = $LAYOUT.byteOffset(groupElement("horizontal"));
 
         /**
          * Offset for field:
@@ -9558,9 +9668,9 @@ public class WidgetFactories {
          * BorderRadiusObjSt (*only)(DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class only {
+        public final static class only {
 
-            only() {
+            private only() {
                 // Should not be called directly
             }
 
@@ -9601,9 +9711,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9622,7 +9734,7 @@ public class WidgetFactories {
             return only$LAYOUT;
         }
 
-        private static final long only$OFFSET = 32;
+        private static final long only$OFFSET = $LAYOUT.byteOffset(groupElement("only"));
 
         /**
          * Offset for field:
@@ -9659,9 +9771,9 @@ public class WidgetFactories {
          * BorderRadiusObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -9701,9 +9813,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9722,7 +9836,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 40;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -9811,7 +9925,7 @@ public class WidgetFactories {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 432;
+    private static final long borderRadius$OFFSET = $LAYOUT.byteOffset(groupElement("borderRadius"));
 
     /**
      * Offset for field:
@@ -9874,9 +9988,9 @@ public class WidgetFactories {
          * BoxShadowObjSt (*boxShadow)(DartObj *, DartObj *, double *, double *, int *)
          * }
          */
-        public static class boxShadow {
+        public final static class boxShadow {
 
-            boxShadow() {
+            private boxShadow() {
                 // Should not be called directly
             }
 
@@ -9918,9 +10032,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -9939,7 +10055,7 @@ public class WidgetFactories {
             return boxShadow$LAYOUT;
         }
 
-        private static final long boxShadow$OFFSET = 0;
+        private static final long boxShadow$OFFSET = $LAYOUT.byteOffset(groupElement("boxShadow"));
 
         /**
          * Offset for field:
@@ -9976,9 +10092,9 @@ public class WidgetFactories {
          * BoxShadowObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -10018,9 +10134,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10039,7 +10157,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -10128,7 +10246,7 @@ public class WidgetFactories {
         return boxShadow$LAYOUT;
     }
 
-    private static final long boxShadow$OFFSET = 480;
+    private static final long boxShadow$OFFSET = $LAYOUT.byteOffset(groupElement("boxShadow"));
 
     /**
      * Offset for field:
@@ -10193,9 +10311,9 @@ public class WidgetFactories {
          * DartObj (*shadow)(DartObj *, DartObj *, double *)
          * }
          */
-        public static class shadow {
+        public final static class shadow {
 
-            shadow() {
+            private shadow() {
                 // Should not be called directly
             }
 
@@ -10235,9 +10353,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static int invoke(MemorySegment funcPtr, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10256,7 +10376,7 @@ public class WidgetFactories {
             return shadow$LAYOUT;
         }
 
-        private static final long shadow$OFFSET = 0;
+        private static final long shadow$OFFSET = $LAYOUT.byteOffset(groupElement("shadow"));
 
         /**
          * Offset for field:
@@ -10293,9 +10413,9 @@ public class WidgetFactories {
          * double (*convertRadiusToSigma)(double)
          * }
          */
-        public static class convertRadiusToSigma {
+        public final static class convertRadiusToSigma {
 
-            convertRadiusToSigma() {
+            private convertRadiusToSigma() {
                 // Should not be called directly
             }
 
@@ -10333,9 +10453,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static double invoke(MemorySegment funcPtr,double _x0) {
+            public static double invoke(MemorySegment funcPtr, double _x0) {
                 try {
                     return (double) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10354,7 +10476,7 @@ public class WidgetFactories {
             return convertRadiusToSigma$LAYOUT;
         }
 
-        private static final long convertRadiusToSigma$OFFSET = 8;
+        private static final long convertRadiusToSigma$OFFSET = $LAYOUT.byteOffset(groupElement("convertRadiusToSigma"));
 
         /**
          * Offset for field:
@@ -10391,9 +10513,9 @@ public class WidgetFactories {
          * DartObj (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -10433,9 +10555,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, double _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, double _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10454,7 +10578,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 16;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -10543,7 +10667,7 @@ public class WidgetFactories {
         return shadow$LAYOUT;
     }
 
-    private static final long shadow$OFFSET = 496;
+    private static final long shadow$OFFSET = $LAYOUT.byteOffset(groupElement("shadow"));
 
     /**
      * Offset for field:
@@ -10604,9 +10728,9 @@ public class WidgetFactories {
          * PaddingObjSt (*padding)(DartObj, DartObj *)
          * }
          */
-        public static class padding {
+        public final static class padding {
 
-            padding() {
+            private padding() {
                 // Should not be called directly
             }
 
@@ -10645,9 +10769,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10666,7 +10792,7 @@ public class WidgetFactories {
             return padding$LAYOUT;
         }
 
-        private static final long padding$OFFSET = 0;
+        private static final long padding$OFFSET = $LAYOUT.byteOffset(groupElement("padding"));
 
         /**
          * Offset for field:
@@ -10755,7 +10881,7 @@ public class WidgetFactories {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 520;
+    private static final long padding$OFFSET = $LAYOUT.byteOffset(groupElement("padding"));
 
     /**
      * Offset for field:
@@ -10824,9 +10950,9 @@ public class WidgetFactories {
          * EdgeInsetsObjSt (*fromLTRB)(double, double, double, double)
          * }
          */
-        public static class fromLTRB {
+        public final static class fromLTRB {
 
-            fromLTRB() {
+            private fromLTRB() {
                 // Should not be called directly
             }
 
@@ -10867,9 +10993,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0, double _x1, double _x2, double _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0, double _x1, double _x2, double _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10888,7 +11016,7 @@ public class WidgetFactories {
             return fromLTRB$LAYOUT;
         }
 
-        private static final long fromLTRB$OFFSET = 0;
+        private static final long fromLTRB$OFFSET = $LAYOUT.byteOffset(groupElement("fromLTRB"));
 
         /**
          * Offset for field:
@@ -10925,9 +11053,9 @@ public class WidgetFactories {
          * EdgeInsetsObjSt (*all)(double)
          * }
          */
-        public static class all {
+        public final static class all {
 
-            all() {
+            private all() {
                 // Should not be called directly
             }
 
@@ -10965,9 +11093,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -10986,7 +11116,7 @@ public class WidgetFactories {
             return all$LAYOUT;
         }
 
-        private static final long all$OFFSET = 8;
+        private static final long all$OFFSET = $LAYOUT.byteOffset(groupElement("all"));
 
         /**
          * Offset for field:
@@ -11023,9 +11153,9 @@ public class WidgetFactories {
          * EdgeInsetsObjSt (*only)(double *, double *, double *, double *)
          * }
          */
-        public static class only {
+        public final static class only {
 
-            only() {
+            private only() {
                 // Should not be called directly
             }
 
@@ -11066,9 +11196,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11087,7 +11219,7 @@ public class WidgetFactories {
             return only$LAYOUT;
         }
 
-        private static final long only$OFFSET = 16;
+        private static final long only$OFFSET = $LAYOUT.byteOffset(groupElement("only"));
 
         /**
          * Offset for field:
@@ -11124,9 +11256,9 @@ public class WidgetFactories {
          * EdgeInsetsObjSt (*symmetric)(double *, double *)
          * }
          */
-        public static class symmetric {
+        public final static class symmetric {
 
-            symmetric() {
+            private symmetric() {
                 // Should not be called directly
             }
 
@@ -11165,9 +11297,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11186,7 +11320,7 @@ public class WidgetFactories {
             return symmetric$LAYOUT;
         }
 
-        private static final long symmetric$OFFSET = 24;
+        private static final long symmetric$OFFSET = $LAYOUT.byteOffset(groupElement("symmetric"));
 
         /**
          * Offset for field:
@@ -11223,9 +11357,9 @@ public class WidgetFactories {
          * EdgeInsetsObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -11265,9 +11399,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11286,7 +11422,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 32;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -11375,7 +11511,7 @@ public class WidgetFactories {
         return edgeInsets$LAYOUT;
     }
 
-    private static final long edgeInsets$OFFSET = 528;
+    private static final long edgeInsets$OFFSET = $LAYOUT.byteOffset(groupElement("edgeInsets"));
 
     /**
      * Offset for field:
@@ -11442,9 +11578,9 @@ public class WidgetFactories {
          * BorderSideObjSt (*borderSide)(DartObj *, double *, int *, double *)
          * }
          */
-        public static class borderSide {
+        public final static class borderSide {
 
-            borderSide() {
+            private borderSide() {
                 // Should not be called directly
             }
 
@@ -11485,9 +11621,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11506,7 +11644,7 @@ public class WidgetFactories {
             return borderSide$LAYOUT;
         }
 
-        private static final long borderSide$OFFSET = 0;
+        private static final long borderSide$OFFSET = $LAYOUT.byteOffset(groupElement("borderSide"));
 
         /**
          * Offset for field:
@@ -11543,9 +11681,9 @@ public class WidgetFactories {
          * BorderSideObjSt (*merge)(DartObj, DartObj)
          * }
          */
-        public static class merge {
+        public final static class merge {
 
-            merge() {
+            private merge() {
                 // Should not be called directly
             }
 
@@ -11584,9 +11722,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11605,7 +11745,7 @@ public class WidgetFactories {
             return merge$LAYOUT;
         }
 
-        private static final long merge$OFFSET = 8;
+        private static final long merge$OFFSET = $LAYOUT.byteOffset(groupElement("merge"));
 
         /**
          * Offset for field:
@@ -11642,9 +11782,9 @@ public class WidgetFactories {
          * int (*canMerge)(DartObj, DartObj)
          * }
          */
-        public static class canMerge {
+        public final static class canMerge {
 
-            canMerge() {
+            private canMerge() {
                 // Should not be called directly
             }
 
@@ -11683,9 +11823,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11704,7 +11846,7 @@ public class WidgetFactories {
             return canMerge$LAYOUT;
         }
 
-        private static final long canMerge$OFFSET = 16;
+        private static final long canMerge$OFFSET = $LAYOUT.byteOffset(groupElement("canMerge"));
 
         /**
          * Offset for field:
@@ -11741,9 +11883,9 @@ public class WidgetFactories {
          * BorderSideObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -11783,9 +11925,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -11804,7 +11948,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 24;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -11893,7 +12037,7 @@ public class WidgetFactories {
         return borderSide$LAYOUT;
     }
 
-    private static final long borderSide$OFFSET = 568;
+    private static final long borderSide$OFFSET = $LAYOUT.byteOffset(groupElement("borderSide"));
 
     /**
      * Offset for field:
@@ -11964,9 +12108,9 @@ public class WidgetFactories {
          * BorderObjSt (*border)(DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class border {
+        public final static class border {
 
-            border() {
+            private border() {
                 // Should not be called directly
             }
 
@@ -12007,9 +12151,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12028,7 +12174,7 @@ public class WidgetFactories {
             return border$LAYOUT;
         }
 
-        private static final long border$OFFSET = 0;
+        private static final long border$OFFSET = $LAYOUT.byteOffset(groupElement("border"));
 
         /**
          * Offset for field:
@@ -12065,9 +12211,9 @@ public class WidgetFactories {
          * BorderObjSt (*fromBorderSide)(DartObj)
          * }
          */
-        public static class fromBorderSide {
+        public final static class fromBorderSide {
 
-            fromBorderSide() {
+            private fromBorderSide() {
                 // Should not be called directly
             }
 
@@ -12105,9 +12251,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12126,7 +12274,7 @@ public class WidgetFactories {
             return fromBorderSide$LAYOUT;
         }
 
-        private static final long fromBorderSide$OFFSET = 8;
+        private static final long fromBorderSide$OFFSET = $LAYOUT.byteOffset(groupElement("fromBorderSide"));
 
         /**
          * Offset for field:
@@ -12163,9 +12311,9 @@ public class WidgetFactories {
          * BorderObjSt (*symmetric)(DartObj *, DartObj *)
          * }
          */
-        public static class symmetric {
+        public final static class symmetric {
 
-            symmetric() {
+            private symmetric() {
                 // Should not be called directly
             }
 
@@ -12204,9 +12352,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12225,7 +12375,7 @@ public class WidgetFactories {
             return symmetric$LAYOUT;
         }
 
-        private static final long symmetric$OFFSET = 16;
+        private static final long symmetric$OFFSET = $LAYOUT.byteOffset(groupElement("symmetric"));
 
         /**
          * Offset for field:
@@ -12262,9 +12412,9 @@ public class WidgetFactories {
          * BorderObjSt (*all)(DartObj *, double *, int *, double *)
          * }
          */
-        public static class all {
+        public final static class all {
 
-            all() {
+            private all() {
                 // Should not be called directly
             }
 
@@ -12305,9 +12455,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12326,7 +12478,7 @@ public class WidgetFactories {
             return all$LAYOUT;
         }
 
-        private static final long all$OFFSET = 24;
+        private static final long all$OFFSET = $LAYOUT.byteOffset(groupElement("all"));
 
         /**
          * Offset for field:
@@ -12363,9 +12515,9 @@ public class WidgetFactories {
          * BorderObjSt (*merge)(DartObj, DartObj)
          * }
          */
-        public static class merge {
+        public final static class merge {
 
-            merge() {
+            private merge() {
                 // Should not be called directly
             }
 
@@ -12404,9 +12556,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12425,7 +12579,7 @@ public class WidgetFactories {
             return merge$LAYOUT;
         }
 
-        private static final long merge$OFFSET = 32;
+        private static final long merge$OFFSET = $LAYOUT.byteOffset(groupElement("merge"));
 
         /**
          * Offset for field:
@@ -12462,9 +12616,9 @@ public class WidgetFactories {
          * BorderObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -12504,9 +12658,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12525,7 +12681,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 40;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -12614,7 +12770,7 @@ public class WidgetFactories {
         return border$LAYOUT;
     }
 
-    private static final long border$OFFSET = 600;
+    private static final long border$OFFSET = $LAYOUT.byteOffset(groupElement("border"));
 
     /**
      * Offset for field:
@@ -12675,9 +12831,9 @@ public class WidgetFactories {
          * RoundedRectangleBorderObjSt (*roundedRectangleBorder)(DartObj *, DartObj *)
          * }
          */
-        public static class roundedRectangleBorder {
+        public final static class roundedRectangleBorder {
 
-            roundedRectangleBorder() {
+            private roundedRectangleBorder() {
                 // Should not be called directly
             }
 
@@ -12716,9 +12872,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12737,7 +12895,7 @@ public class WidgetFactories {
             return roundedRectangleBorder$LAYOUT;
         }
 
-        private static final long roundedRectangleBorder$OFFSET = 0;
+        private static final long roundedRectangleBorder$OFFSET = $LAYOUT.byteOffset(groupElement("roundedRectangleBorder"));
 
         /**
          * Offset for field:
@@ -12826,7 +12984,7 @@ public class WidgetFactories {
         return roundedRectangleBorder$LAYOUT;
     }
 
-    private static final long roundedRectangleBorder$OFFSET = 648;
+    private static final long roundedRectangleBorder$OFFSET = $LAYOUT.byteOffset(groupElement("roundedRectangleBorder"));
 
     /**
      * Offset for field:
@@ -12889,9 +13047,9 @@ public class WidgetFactories {
          * DartObj (*animationController)(double *, DartObj *, DartObj *, char *, double *, double *, int *, DartObj)
          * }
          */
-        public static class animationController {
+        public final static class animationController {
 
-            animationController() {
+            private animationController() {
                 // Should not be called directly
             }
 
@@ -12936,9 +13094,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7) {
+            public static int invoke(MemorySegment funcPtr, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -12957,7 +13117,7 @@ public class WidgetFactories {
             return animationController$LAYOUT;
         }
 
-        private static final long animationController$OFFSET = 0;
+        private static final long animationController$OFFSET = $LAYOUT.byteOffset(groupElement("animationController"));
 
         /**
          * Offset for field:
@@ -12994,9 +13154,9 @@ public class WidgetFactories {
          * DartObj (*unbounded)(double *, DartObj *, DartObj *, char *, DartObj, int *)
          * }
          */
-        public static class unbounded {
+        public final static class unbounded {
 
-            unbounded() {
+            private unbounded() {
                 // Should not be called directly
             }
 
@@ -13039,9 +13199,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, int _x4, MemorySegment _x5) {
+            public static int invoke(MemorySegment funcPtr, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, int _x4, MemorySegment _x5) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -13060,7 +13222,7 @@ public class WidgetFactories {
             return unbounded$LAYOUT;
         }
 
-        private static final long unbounded$OFFSET = 8;
+        private static final long unbounded$OFFSET = $LAYOUT.byteOffset(groupElement("unbounded"));
 
         /**
          * Offset for field:
@@ -13149,7 +13311,7 @@ public class WidgetFactories {
         return animationController$LAYOUT;
     }
 
-    private static final long animationController$OFFSET = 656;
+    private static final long animationController$OFFSET = $LAYOUT.byteOffset(groupElement("animationController"));
 
     /**
      * Offset for field:
@@ -13210,9 +13372,9 @@ public class WidgetFactories {
          * DartObj (*duration)(int *, int *, int *, int *, int *, int *)
          * }
          */
-        public static class duration {
+        public final static class duration {
 
-            duration() {
+            private duration() {
                 // Should not be called directly
             }
 
@@ -13255,9 +13417,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static int invoke(MemorySegment funcPtr, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -13276,7 +13440,7 @@ public class WidgetFactories {
             return duration$LAYOUT;
         }
 
-        private static final long duration$OFFSET = 0;
+        private static final long duration$OFFSET = $LAYOUT.byteOffset(groupElement("duration"));
 
         /**
          * Offset for field:
@@ -13365,7 +13529,7 @@ public class WidgetFactories {
         return duration$LAYOUT;
     }
 
-    private static final long duration$OFFSET = 672;
+    private static final long duration$OFFSET = $LAYOUT.byteOffset(groupElement("duration"));
 
     /**
      * Offset for field:
@@ -13426,9 +13590,9 @@ public class WidgetFactories {
          * AnimatedBuilderObjSt (*animatedBuilder)(DartObj, TransitionBuilderFFI, DartObj *)
          * }
          */
-        public static class animatedBuilder {
+        public final static class animatedBuilder {
 
-            animatedBuilder() {
+            private animatedBuilder() {
                 // Should not be called directly
             }
 
@@ -13468,9 +13632,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -13489,7 +13655,7 @@ public class WidgetFactories {
             return animatedBuilder$LAYOUT;
         }
 
-        private static final long animatedBuilder$OFFSET = 0;
+        private static final long animatedBuilder$OFFSET = $LAYOUT.byteOffset(groupElement("animatedBuilder"));
 
         /**
          * Offset for field:
@@ -13578,7 +13744,7 @@ public class WidgetFactories {
         return animatedBuilder$LAYOUT;
     }
 
-    private static final long animatedBuilder$OFFSET = 680;
+    private static final long animatedBuilder$OFFSET = $LAYOUT.byteOffset(groupElement("animatedBuilder"));
 
     /**
      * Offset for field:
@@ -13639,9 +13805,9 @@ public class WidgetFactories {
          * ListenableBuilderObjSt (*listenableBuilder)(DartObj, TransitionBuilderFFI, DartObj *)
          * }
          */
-        public static class listenableBuilder {
+        public final static class listenableBuilder {
 
-            listenableBuilder() {
+            private listenableBuilder() {
                 // Should not be called directly
             }
 
@@ -13681,9 +13847,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -13702,7 +13870,7 @@ public class WidgetFactories {
             return listenableBuilder$LAYOUT;
         }
 
-        private static final long listenableBuilder$OFFSET = 0;
+        private static final long listenableBuilder$OFFSET = $LAYOUT.byteOffset(groupElement("listenableBuilder"));
 
         /**
          * Offset for field:
@@ -13791,7 +13959,7 @@ public class WidgetFactories {
         return listenableBuilder$LAYOUT;
     }
 
-    private static final long listenableBuilder$OFFSET = 688;
+    private static final long listenableBuilder$OFFSET = $LAYOUT.byteOffset(groupElement("listenableBuilder"));
 
     /**
      * Offset for field:
@@ -13852,9 +14020,9 @@ public class WidgetFactories {
          * CubicObjSt (*cubic)(double, double, double, double)
          * }
          */
-        public static class cubic {
+        public final static class cubic {
 
-            cubic() {
+            private cubic() {
                 // Should not be called directly
             }
 
@@ -13895,9 +14063,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0, double _x1, double _x2, double _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0, double _x1, double _x2, double _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -13916,7 +14086,7 @@ public class WidgetFactories {
             return cubic$LAYOUT;
         }
 
-        private static final long cubic$OFFSET = 0;
+        private static final long cubic$OFFSET = $LAYOUT.byteOffset(groupElement("cubic"));
 
         /**
          * Offset for field:
@@ -14005,7 +14175,7 @@ public class WidgetFactories {
         return cubic$LAYOUT;
     }
 
-    private static final long cubic$OFFSET = 696;
+    private static final long cubic$OFFSET = $LAYOUT.byteOffset(groupElement("cubic"));
 
     /**
      * Offset for field:
@@ -14066,9 +14236,9 @@ public class WidgetFactories {
          * ThreePointCubicObjSt (*threePointCubic)(DartObj, DartObj, DartObj, DartObj, DartObj)
          * }
          */
-        public static class threePointCubic {
+        public final static class threePointCubic {
 
-            threePointCubic() {
+            private threePointCubic() {
                 // Should not be called directly
             }
 
@@ -14110,9 +14280,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, int _x2, int _x3, int _x4) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, int _x2, int _x3, int _x4) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -14131,7 +14303,7 @@ public class WidgetFactories {
             return threePointCubic$LAYOUT;
         }
 
-        private static final long threePointCubic$OFFSET = 0;
+        private static final long threePointCubic$OFFSET = $LAYOUT.byteOffset(groupElement("threePointCubic"));
 
         /**
          * Offset for field:
@@ -14220,7 +14392,7 @@ public class WidgetFactories {
         return threePointCubic$LAYOUT;
     }
 
-    private static final long threePointCubic$OFFSET = 704;
+    private static final long threePointCubic$OFFSET = $LAYOUT.byteOffset(groupElement("threePointCubic"));
 
     /**
      * Offset for field:
@@ -14281,9 +14453,9 @@ public class WidgetFactories {
          * ElasticOutCurveObjSt (*elasticOutCurve)(double *)
          * }
          */
-        public static class elasticOutCurve {
+        public final static class elasticOutCurve {
 
-            elasticOutCurve() {
+            private elasticOutCurve() {
                 // Should not be called directly
             }
 
@@ -14321,9 +14493,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -14342,7 +14516,7 @@ public class WidgetFactories {
             return elasticOutCurve$LAYOUT;
         }
 
-        private static final long elasticOutCurve$OFFSET = 0;
+        private static final long elasticOutCurve$OFFSET = $LAYOUT.byteOffset(groupElement("elasticOutCurve"));
 
         /**
          * Offset for field:
@@ -14431,7 +14605,7 @@ public class WidgetFactories {
         return elasticOutCurve$LAYOUT;
     }
 
-    private static final long elasticOutCurve$OFFSET = 712;
+    private static final long elasticOutCurve$OFFSET = $LAYOUT.byteOffset(groupElement("elasticOutCurve"));
 
     /**
      * Offset for field:
@@ -14492,9 +14666,9 @@ public class WidgetFactories {
          * ElasticInCurveObjSt (*elasticInCurve)(double *)
          * }
          */
-        public static class elasticInCurve {
+        public final static class elasticInCurve {
 
-            elasticInCurve() {
+            private elasticInCurve() {
                 // Should not be called directly
             }
 
@@ -14532,9 +14706,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -14553,7 +14729,7 @@ public class WidgetFactories {
             return elasticInCurve$LAYOUT;
         }
 
-        private static final long elasticInCurve$OFFSET = 0;
+        private static final long elasticInCurve$OFFSET = $LAYOUT.byteOffset(groupElement("elasticInCurve"));
 
         /**
          * Offset for field:
@@ -14642,7 +14818,7 @@ public class WidgetFactories {
         return elasticInCurve$LAYOUT;
     }
 
-    private static final long elasticInCurve$OFFSET = 720;
+    private static final long elasticInCurve$OFFSET = $LAYOUT.byteOffset(groupElement("elasticInCurve"));
 
     /**
      * Offset for field:
@@ -14703,9 +14879,9 @@ public class WidgetFactories {
          * ElasticInOutCurveObjSt (*elasticInOutCurve)(double *)
          * }
          */
-        public static class elasticInOutCurve {
+        public final static class elasticInOutCurve {
 
-            elasticInOutCurve() {
+            private elasticInOutCurve() {
                 // Should not be called directly
             }
 
@@ -14743,9 +14919,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -14764,7 +14942,7 @@ public class WidgetFactories {
             return elasticInOutCurve$LAYOUT;
         }
 
-        private static final long elasticInOutCurve$OFFSET = 0;
+        private static final long elasticInOutCurve$OFFSET = $LAYOUT.byteOffset(groupElement("elasticInOutCurve"));
 
         /**
          * Offset for field:
@@ -14853,7 +15031,7 @@ public class WidgetFactories {
         return elasticInOutCurve$LAYOUT;
     }
 
-    private static final long elasticInOutCurve$OFFSET = 728;
+    private static final long elasticInOutCurve$OFFSET = $LAYOUT.byteOffset(groupElement("elasticInOutCurve"));
 
     /**
      * Offset for field:
@@ -14929,7 +15107,7 @@ public class WidgetFactories {
             return linear$LAYOUT;
         }
 
-        private static final long linear$OFFSET = 0;
+        private static final long linear$OFFSET = $LAYOUT.byteOffset(groupElement("linear"));
 
         /**
          * Offset for field:
@@ -14973,7 +15151,7 @@ public class WidgetFactories {
             return decelerate$LAYOUT;
         }
 
-        private static final long decelerate$OFFSET = 4;
+        private static final long decelerate$OFFSET = $LAYOUT.byteOffset(groupElement("decelerate"));
 
         /**
          * Offset for field:
@@ -15017,7 +15195,7 @@ public class WidgetFactories {
             return bounceIn$LAYOUT;
         }
 
-        private static final long bounceIn$OFFSET = 8;
+        private static final long bounceIn$OFFSET = $LAYOUT.byteOffset(groupElement("bounceIn"));
 
         /**
          * Offset for field:
@@ -15061,7 +15239,7 @@ public class WidgetFactories {
             return bounceOut$LAYOUT;
         }
 
-        private static final long bounceOut$OFFSET = 12;
+        private static final long bounceOut$OFFSET = $LAYOUT.byteOffset(groupElement("bounceOut"));
 
         /**
          * Offset for field:
@@ -15105,7 +15283,7 @@ public class WidgetFactories {
             return bounceInOut$LAYOUT;
         }
 
-        private static final long bounceInOut$OFFSET = 16;
+        private static final long bounceInOut$OFFSET = $LAYOUT.byteOffset(groupElement("bounceInOut"));
 
         /**
          * Offset for field:
@@ -15194,7 +15372,7 @@ public class WidgetFactories {
         return curves$LAYOUT;
     }
 
-    private static final long curves$OFFSET = 736;
+    private static final long curves$OFFSET = $LAYOUT.byteOffset(groupElement("curves"));
 
     /**
      * Offset for field:
@@ -15255,9 +15433,9 @@ public class WidgetFactories {
          * DartObj (*curvedAnimation)(DartObj, DartObj, DartObj *)
          * }
          */
-        public static class curvedAnimation {
+        public final static class curvedAnimation {
 
-            curvedAnimation() {
+            private curvedAnimation() {
                 // Should not be called directly
             }
 
@@ -15297,9 +15475,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, int _x1, MemorySegment _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, int _x1, MemorySegment _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -15318,7 +15498,7 @@ public class WidgetFactories {
             return curvedAnimation$LAYOUT;
         }
 
-        private static final long curvedAnimation$OFFSET = 0;
+        private static final long curvedAnimation$OFFSET = $LAYOUT.byteOffset(groupElement("curvedAnimation"));
 
         /**
          * Offset for field:
@@ -15407,7 +15587,7 @@ public class WidgetFactories {
         return curvedAnimation$LAYOUT;
     }
 
-    private static final long curvedAnimation$OFFSET = 760;
+    private static final long curvedAnimation$OFFSET = $LAYOUT.byteOffset(groupElement("curvedAnimation"));
 
     /**
      * Offset for field:
@@ -15476,9 +15656,9 @@ public class WidgetFactories {
          * SizedBoxObjSt (*sizedBox)(double *, double *, DartObj *)
          * }
          */
-        public static class sizedBox {
+        public final static class sizedBox {
 
-            sizedBox() {
+            private sizedBox() {
                 // Should not be called directly
             }
 
@@ -15518,9 +15698,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -15539,7 +15721,7 @@ public class WidgetFactories {
             return sizedBox$LAYOUT;
         }
 
-        private static final long sizedBox$OFFSET = 0;
+        private static final long sizedBox$OFFSET = $LAYOUT.byteOffset(groupElement("sizedBox"));
 
         /**
          * Offset for field:
@@ -15576,9 +15758,9 @@ public class WidgetFactories {
          * SizedBoxObjSt (*expand)(DartObj *)
          * }
          */
-        public static class expand {
+        public final static class expand {
 
-            expand() {
+            private expand() {
                 // Should not be called directly
             }
 
@@ -15616,9 +15798,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -15637,7 +15821,7 @@ public class WidgetFactories {
             return expand$LAYOUT;
         }
 
-        private static final long expand$OFFSET = 8;
+        private static final long expand$OFFSET = $LAYOUT.byteOffset(groupElement("expand"));
 
         /**
          * Offset for field:
@@ -15674,9 +15858,9 @@ public class WidgetFactories {
          * SizedBoxObjSt (*shrink)(DartObj *)
          * }
          */
-        public static class shrink {
+        public final static class shrink {
 
-            shrink() {
+            private shrink() {
                 // Should not be called directly
             }
 
@@ -15714,9 +15898,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -15735,7 +15921,7 @@ public class WidgetFactories {
             return shrink$LAYOUT;
         }
 
-        private static final long shrink$OFFSET = 16;
+        private static final long shrink$OFFSET = $LAYOUT.byteOffset(groupElement("shrink"));
 
         /**
          * Offset for field:
@@ -15772,9 +15958,9 @@ public class WidgetFactories {
          * SizedBoxObjSt (*fromSize)(DartObj *)
          * }
          */
-        public static class fromSize {
+        public final static class fromSize {
 
-            fromSize() {
+            private fromSize() {
                 // Should not be called directly
             }
 
@@ -15812,9 +15998,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -15833,7 +16021,7 @@ public class WidgetFactories {
             return fromSize$LAYOUT;
         }
 
-        private static final long fromSize$OFFSET = 24;
+        private static final long fromSize$OFFSET = $LAYOUT.byteOffset(groupElement("fromSize"));
 
         /**
          * Offset for field:
@@ -15870,9 +16058,9 @@ public class WidgetFactories {
          * SizedBoxObjSt (*square)(DartObj *, double *)
          * }
          */
-        public static class square {
+        public final static class square {
 
-            square() {
+            private square() {
                 // Should not be called directly
             }
 
@@ -15911,9 +16099,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -15932,7 +16122,7 @@ public class WidgetFactories {
             return square$LAYOUT;
         }
 
-        private static final long square$OFFSET = 32;
+        private static final long square$OFFSET = $LAYOUT.byteOffset(groupElement("square"));
 
         /**
          * Offset for field:
@@ -16021,7 +16211,7 @@ public class WidgetFactories {
         return sizedBox$LAYOUT;
     }
 
-    private static final long sizedBox$OFFSET = 768;
+    private static final long sizedBox$OFFSET = $LAYOUT.byteOffset(groupElement("sizedBox"));
 
     /**
      * Offset for field:
@@ -16084,9 +16274,9 @@ public class WidgetFactories {
          * AlignmentObjSt (*alignment)(double, double)
          * }
          */
-        public static class alignment {
+        public final static class alignment {
 
-            alignment() {
+            private alignment() {
                 // Should not be called directly
             }
 
@@ -16125,9 +16315,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0, double _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0, double _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -16146,7 +16338,7 @@ public class WidgetFactories {
             return alignment$LAYOUT;
         }
 
-        private static final long alignment$OFFSET = 0;
+        private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
         /**
          * Offset for field:
@@ -16183,9 +16375,9 @@ public class WidgetFactories {
          * AlignmentObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -16225,9 +16417,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -16246,7 +16440,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -16335,7 +16529,7 @@ public class WidgetFactories {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 808;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -16398,9 +16592,9 @@ public class WidgetFactories {
          * AlignmentDirectionalObjSt (*alignmentDirectional)(double, double)
          * }
          */
-        public static class alignmentDirectional {
+        public final static class alignmentDirectional {
 
-            alignmentDirectional() {
+            private alignmentDirectional() {
                 // Should not be called directly
             }
 
@@ -16439,9 +16633,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,double _x0, double _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, double _x0, double _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -16460,7 +16656,7 @@ public class WidgetFactories {
             return alignmentDirectional$LAYOUT;
         }
 
-        private static final long alignmentDirectional$OFFSET = 0;
+        private static final long alignmentDirectional$OFFSET = $LAYOUT.byteOffset(groupElement("alignmentDirectional"));
 
         /**
          * Offset for field:
@@ -16497,9 +16693,9 @@ public class WidgetFactories {
          * AlignmentDirectionalObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -16539,9 +16735,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -16560,7 +16758,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -16649,7 +16847,7 @@ public class WidgetFactories {
         return alignmentDirectional$LAYOUT;
     }
 
-    private static final long alignmentDirectional$OFFSET = 824;
+    private static final long alignmentDirectional$OFFSET = $LAYOUT.byteOffset(groupElement("alignmentDirectional"));
 
     /**
      * Offset for field:
@@ -16710,9 +16908,9 @@ public class WidgetFactories {
          * MouseRegionObjSt (*mouseRegion)(int *, int *, DartObj *)
          * }
          */
-        public static class mouseRegion {
+        public final static class mouseRegion {
 
-            mouseRegion() {
+            private mouseRegion() {
                 // Should not be called directly
             }
 
@@ -16752,9 +16950,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -16773,7 +16973,7 @@ public class WidgetFactories {
             return mouseRegion$LAYOUT;
         }
 
-        private static final long mouseRegion$OFFSET = 0;
+        private static final long mouseRegion$OFFSET = $LAYOUT.byteOffset(groupElement("mouseRegion"));
 
         /**
          * Offset for field:
@@ -16862,7 +17062,7 @@ public class WidgetFactories {
         return mouseRegion$LAYOUT;
     }
 
-    private static final long mouseRegion$OFFSET = 840;
+    private static final long mouseRegion$OFFSET = $LAYOUT.byteOffset(groupElement("mouseRegion"));
 
     /**
      * Offset for field:
@@ -16923,9 +17123,9 @@ public class WidgetFactories {
          * ExpandedObjSt (*expanded)(int *, DartObj)
          * }
          */
-        public static class expanded {
+        public final static class expanded {
 
-            expanded() {
+            private expanded() {
                 // Should not be called directly
             }
 
@@ -16964,9 +17164,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, int _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, int _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -16985,7 +17187,7 @@ public class WidgetFactories {
             return expanded$LAYOUT;
         }
 
-        private static final long expanded$OFFSET = 0;
+        private static final long expanded$OFFSET = $LAYOUT.byteOffset(groupElement("expanded"));
 
         /**
          * Offset for field:
@@ -17074,7 +17276,7 @@ public class WidgetFactories {
         return expanded$LAYOUT;
     }
 
-    private static final long expanded$OFFSET = 848;
+    private static final long expanded$OFFSET = $LAYOUT.byteOffset(groupElement("expanded"));
 
     /**
      * Offset for field:
@@ -17135,9 +17337,9 @@ public class WidgetFactories {
          * FlexibleObjSt (*flexible)(int *, int *, DartObj)
          * }
          */
-        public static class flexible {
+        public final static class flexible {
 
-            flexible() {
+            private flexible() {
                 // Should not be called directly
             }
 
@@ -17177,9 +17379,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, int _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, int _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -17198,7 +17402,7 @@ public class WidgetFactories {
             return flexible$LAYOUT;
         }
 
-        private static final long flexible$OFFSET = 0;
+        private static final long flexible$OFFSET = $LAYOUT.byteOffset(groupElement("flexible"));
 
         /**
          * Offset for field:
@@ -17287,7 +17491,7 @@ public class WidgetFactories {
         return flexible$LAYOUT;
     }
 
-    private static final long flexible$OFFSET = 856;
+    private static final long flexible$OFFSET = $LAYOUT.byteOffset(groupElement("flexible"));
 
     /**
      * Offset for field:
@@ -17348,9 +17552,9 @@ public class WidgetFactories {
          * SafeAreaObjSt (*safeArea)(int *, int *, int *, int *, DartObj *, int *, DartObj)
          * }
          */
-        public static class safeArea {
+        public final static class safeArea {
 
-            safeArea() {
+            private safeArea() {
                 // Should not be called directly
             }
 
@@ -17394,9 +17598,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -17415,7 +17621,7 @@ public class WidgetFactories {
             return safeArea$LAYOUT;
         }
 
-        private static final long safeArea$OFFSET = 0;
+        private static final long safeArea$OFFSET = $LAYOUT.byteOffset(groupElement("safeArea"));
 
         /**
          * Offset for field:
@@ -17504,7 +17710,7 @@ public class WidgetFactories {
         return safeArea$LAYOUT;
     }
 
-    private static final long safeArea$OFFSET = 864;
+    private static final long safeArea$OFFSET = $LAYOUT.byteOffset(groupElement("safeArea"));
 
     /**
      * Offset for field:
@@ -17581,9 +17787,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*colorScheme)(int, DartObj, DartObj, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj, DartObj, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj, DartObj, DartObj *, DartObj *, DartObj, DartObj, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class colorScheme {
+        public final static class colorScheme {
 
-            colorScheme() {
+            private colorScheme() {
                 // Should not be called directly
             }
 
@@ -17670,9 +17876,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, int _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, int _x9, int _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, int _x25, int _x26, MemorySegment _x27, MemorySegment _x28, int _x29, int _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, int _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, int _x9, int _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, int _x25, int _x26, MemorySegment _x27, MemorySegment _x28, int _x29, int _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -17691,7 +17899,7 @@ public class WidgetFactories {
             return colorScheme$LAYOUT;
         }
 
-        private static final long colorScheme$OFFSET = 0;
+        private static final long colorScheme$OFFSET = $LAYOUT.byteOffset(groupElement("colorScheme"));
 
         /**
          * Offset for field:
@@ -17728,9 +17936,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*fromSeed)(DartObj, int *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class fromSeed {
+        public final static class fromSeed {
 
-            fromSeed() {
+            private fromSeed() {
                 // Should not be called directly
             }
 
@@ -17820,9 +18028,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49, MemorySegment _x50, MemorySegment _x51, MemorySegment _x52) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49, MemorySegment _x50, MemorySegment _x51, MemorySegment _x52) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49, _x50, _x51, _x52);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -17841,7 +18051,7 @@ public class WidgetFactories {
             return fromSeed$LAYOUT;
         }
 
-        private static final long fromSeed$OFFSET = 8;
+        private static final long fromSeed$OFFSET = $LAYOUT.byteOffset(groupElement("fromSeed"));
 
         /**
          * Offset for field:
@@ -17878,9 +18088,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*light)(int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class light {
+        public final static class light {
 
-            light() {
+            private light() {
                 // Should not be called directly
             }
 
@@ -17967,9 +18177,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -17988,7 +18200,7 @@ public class WidgetFactories {
             return light$LAYOUT;
         }
 
-        private static final long light$OFFSET = 16;
+        private static final long light$OFFSET = $LAYOUT.byteOffset(groupElement("light"));
 
         /**
          * Offset for field:
@@ -18025,9 +18237,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*dark)(int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class dark {
+        public final static class dark {
 
-            dark() {
+            private dark() {
                 // Should not be called directly
             }
 
@@ -18114,9 +18326,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18135,7 +18349,7 @@ public class WidgetFactories {
             return dark$LAYOUT;
         }
 
-        private static final long dark$OFFSET = 24;
+        private static final long dark$OFFSET = $LAYOUT.byteOffset(groupElement("dark"));
 
         /**
          * Offset for field:
@@ -18172,9 +18386,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*highContrastLight)(int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class highContrastLight {
+        public final static class highContrastLight {
 
-            highContrastLight() {
+            private highContrastLight() {
                 // Should not be called directly
             }
 
@@ -18261,9 +18475,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18282,7 +18498,7 @@ public class WidgetFactories {
             return highContrastLight$LAYOUT;
         }
 
-        private static final long highContrastLight$OFFSET = 32;
+        private static final long highContrastLight$OFFSET = $LAYOUT.byteOffset(groupElement("highContrastLight"));
 
         /**
          * Offset for field:
@@ -18319,9 +18535,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*highContrastDark)(int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class highContrastDark {
+        public final static class highContrastDark {
 
-            highContrastDark() {
+            private highContrastDark() {
                 // Should not be called directly
             }
 
@@ -18408,9 +18624,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18429,7 +18647,7 @@ public class WidgetFactories {
             return highContrastDark$LAYOUT;
         }
 
-        private static final long highContrastDark$OFFSET = 40;
+        private static final long highContrastDark$OFFSET = $LAYOUT.byteOffset(groupElement("highContrastDark"));
 
         /**
          * Offset for field:
@@ -18466,9 +18684,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*fromSwatch)(DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *)
          * }
          */
-        public static class fromSwatch {
+        public final static class fromSwatch {
 
-            fromSwatch() {
+            private fromSwatch() {
                 // Should not be called directly
             }
 
@@ -18511,9 +18729,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18532,7 +18752,7 @@ public class WidgetFactories {
             return fromSwatch$LAYOUT;
         }
 
-        private static final long fromSwatch$OFFSET = 48;
+        private static final long fromSwatch$OFFSET = $LAYOUT.byteOffset(groupElement("fromSwatch"));
 
         /**
          * Offset for field:
@@ -18569,9 +18789,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -18611,9 +18831,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18632,7 +18854,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 56;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -18669,9 +18891,9 @@ public class WidgetFactories {
          * ColorSchemeObjSt (*of)(DartObj)
          * }
          */
-        public static class of {
+        public final static class of {
 
-            of() {
+            private of() {
                 // Should not be called directly
             }
 
@@ -18709,9 +18931,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18730,7 +18954,7 @@ public class WidgetFactories {
             return of$LAYOUT;
         }
 
-        private static final long of$OFFSET = 64;
+        private static final long of$OFFSET = $LAYOUT.byteOffset(groupElement("of"));
 
         /**
          * Offset for field:
@@ -18819,7 +19043,7 @@ public class WidgetFactories {
         return colorScheme$LAYOUT;
     }
 
-    private static final long colorScheme$OFFSET = 872;
+    private static final long colorScheme$OFFSET = $LAYOUT.byteOffset(groupElement("colorScheme"));
 
     /**
      * Offset for field:
@@ -18880,9 +19104,9 @@ public class WidgetFactories {
          * MaterialColorObjSt (*materialColor)(int, MapC)
          * }
          */
-        public static class materialColor {
+        public final static class materialColor {
 
-            materialColor() {
+            private materialColor() {
                 // Should not be called directly
             }
 
@@ -18921,9 +19145,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -18942,7 +19168,7 @@ public class WidgetFactories {
             return materialColor$LAYOUT;
         }
 
-        private static final long materialColor$OFFSET = 0;
+        private static final long materialColor$OFFSET = $LAYOUT.byteOffset(groupElement("materialColor"));
 
         /**
          * Offset for field:
@@ -19031,7 +19257,7 @@ public class WidgetFactories {
         return materialColor$LAYOUT;
     }
 
-    private static final long materialColor$OFFSET = 944;
+    private static final long materialColor$OFFSET = $LAYOUT.byteOffset(groupElement("materialColor"));
 
     /**
      * Offset for field:
@@ -19092,9 +19318,9 @@ public class WidgetFactories {
          * ColorSwatchObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -19134,9 +19360,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19155,7 +19383,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 0;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -19244,7 +19472,7 @@ public class WidgetFactories {
         return colorSwatch$LAYOUT;
     }
 
-    private static final long colorSwatch$OFFSET = 952;
+    private static final long colorSwatch$OFFSET = $LAYOUT.byteOffset(groupElement("colorSwatch"));
 
     /**
      * Offset for field:
@@ -19311,9 +19539,9 @@ public class WidgetFactories {
          * TextThemeObjSt (*textTheme)(DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class textTheme {
+        public final static class textTheme {
 
-            textTheme() {
+            private textTheme() {
                 // Should not be called directly
             }
 
@@ -19365,9 +19593,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19386,7 +19616,7 @@ public class WidgetFactories {
             return textTheme$LAYOUT;
         }
 
-        private static final long textTheme$OFFSET = 0;
+        private static final long textTheme$OFFSET = $LAYOUT.byteOffset(groupElement("textTheme"));
 
         /**
          * Offset for field:
@@ -19423,9 +19653,9 @@ public class WidgetFactories {
          * TextThemeObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -19465,9 +19695,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19486,7 +19718,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 8;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -19523,9 +19755,9 @@ public class WidgetFactories {
          * TextThemeObjSt (*of)(DartObj)
          * }
          */
-        public static class of {
+        public final static class of {
 
-            of() {
+            private of() {
                 // Should not be called directly
             }
 
@@ -19563,9 +19795,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19584,7 +19818,7 @@ public class WidgetFactories {
             return of$LAYOUT;
         }
 
-        private static final long of$OFFSET = 16;
+        private static final long of$OFFSET = $LAYOUT.byteOffset(groupElement("of"));
 
         /**
          * Offset for field:
@@ -19621,9 +19855,9 @@ public class WidgetFactories {
          * TextThemeObjSt (*primaryOf)(DartObj)
          * }
          */
-        public static class primaryOf {
+        public final static class primaryOf {
 
-            primaryOf() {
+            private primaryOf() {
                 // Should not be called directly
             }
 
@@ -19661,9 +19895,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19682,7 +19918,7 @@ public class WidgetFactories {
             return primaryOf$LAYOUT;
         }
 
-        private static final long primaryOf$OFFSET = 24;
+        private static final long primaryOf$OFFSET = $LAYOUT.byteOffset(groupElement("primaryOf"));
 
         /**
          * Offset for field:
@@ -19771,7 +20007,7 @@ public class WidgetFactories {
         return textTheme$LAYOUT;
     }
 
-    private static final long textTheme$OFFSET = 960;
+    private static final long textTheme$OFFSET = $LAYOUT.byteOffset(groupElement("textTheme"));
 
     /**
      * Offset for field:
@@ -19836,9 +20072,9 @@ public class WidgetFactories {
          * VisualDensityObjSt (*visualDensity)(double *, double *)
          * }
          */
-        public static class visualDensity {
+        public final static class visualDensity {
 
-            visualDensity() {
+            private visualDensity() {
                 // Should not be called directly
             }
 
@@ -19877,9 +20113,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19898,7 +20136,7 @@ public class WidgetFactories {
             return visualDensity$LAYOUT;
         }
 
-        private static final long visualDensity$OFFSET = 0;
+        private static final long visualDensity$OFFSET = $LAYOUT.byteOffset(groupElement("visualDensity"));
 
         /**
          * Offset for field:
@@ -19935,9 +20173,9 @@ public class WidgetFactories {
          * VisualDensityObjSt (*defaultDensityForPlatform)(int)
          * }
          */
-        public static class defaultDensityForPlatform {
+        public final static class defaultDensityForPlatform {
 
-            defaultDensityForPlatform() {
+            private defaultDensityForPlatform() {
                 // Should not be called directly
             }
 
@@ -19975,9 +20213,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -19996,7 +20236,7 @@ public class WidgetFactories {
             return defaultDensityForPlatform$LAYOUT;
         }
 
-        private static final long defaultDensityForPlatform$OFFSET = 8;
+        private static final long defaultDensityForPlatform$OFFSET = $LAYOUT.byteOffset(groupElement("defaultDensityForPlatform"));
 
         /**
          * Offset for field:
@@ -20033,9 +20273,9 @@ public class WidgetFactories {
          * VisualDensityObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -20075,9 +20315,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20096,7 +20338,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 16;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -20185,7 +20427,7 @@ public class WidgetFactories {
         return visualDensity$LAYOUT;
     }
 
-    private static final long visualDensity$OFFSET = 992;
+    private static final long visualDensity$OFFSET = $LAYOUT.byteOffset(groupElement("visualDensity"));
 
     /**
      * Offset for field:
@@ -20260,9 +20502,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*themeData)(int *, DartObj *, int *, int *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, char *, char ***, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *)
          * }
          */
-        public static class themeData {
+        public final static class themeData {
 
-            themeData() {
+            private themeData() {
                 // Should not be called directly
             }
 
@@ -20334,9 +20576,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20355,7 +20599,7 @@ public class WidgetFactories {
             return themeData$LAYOUT;
         }
 
-        private static final long themeData$OFFSET = 0;
+        private static final long themeData$OFFSET = $LAYOUT.byteOffset(groupElement("themeData"));
 
         /**
          * Offset for field:
@@ -20392,9 +20636,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*from)(DartObj, DartObj *, int *)
          * }
          */
-        public static class from {
+        public final static class from {
 
-            from() {
+            private from() {
                 // Should not be called directly
             }
 
@@ -20434,9 +20678,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20455,7 +20701,7 @@ public class WidgetFactories {
             return from$LAYOUT;
         }
 
-        private static final long from$OFFSET = 8;
+        private static final long from$OFFSET = $LAYOUT.byteOffset(groupElement("from"));
 
         /**
          * Offset for field:
@@ -20492,9 +20738,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*light)(int *)
          * }
          */
-        public static class light {
+        public final static class light {
 
-            light() {
+            private light() {
                 // Should not be called directly
             }
 
@@ -20532,9 +20778,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20553,7 +20801,7 @@ public class WidgetFactories {
             return light$LAYOUT;
         }
 
-        private static final long light$OFFSET = 16;
+        private static final long light$OFFSET = $LAYOUT.byteOffset(groupElement("light"));
 
         /**
          * Offset for field:
@@ -20590,9 +20838,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*dark)(int *)
          * }
          */
-        public static class dark {
+        public final static class dark {
 
-            dark() {
+            private dark() {
                 // Should not be called directly
             }
 
@@ -20630,9 +20878,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20651,7 +20901,7 @@ public class WidgetFactories {
             return dark$LAYOUT;
         }
 
-        private static final long dark$OFFSET = 24;
+        private static final long dark$OFFSET = $LAYOUT.byteOffset(groupElement("dark"));
 
         /**
          * Offset for field:
@@ -20688,9 +20938,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*fallback)(int *)
          * }
          */
-        public static class fallback {
+        public final static class fallback {
 
-            fallback() {
+            private fallback() {
                 // Should not be called directly
             }
 
@@ -20728,9 +20978,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20749,7 +21001,7 @@ public class WidgetFactories {
             return fallback$LAYOUT;
         }
 
-        private static final long fallback$OFFSET = 32;
+        private static final long fallback$OFFSET = $LAYOUT.byteOffset(groupElement("fallback"));
 
         /**
          * Offset for field:
@@ -20786,9 +21038,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*localize)(DartObj, DartObj)
          * }
          */
-        public static class localize {
+        public final static class localize {
 
-            localize() {
+            private localize() {
                 // Should not be called directly
             }
 
@@ -20827,9 +21079,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20848,7 +21102,7 @@ public class WidgetFactories {
             return localize$LAYOUT;
         }
 
-        private static final long localize$OFFSET = 40;
+        private static final long localize$OFFSET = $LAYOUT.byteOffset(groupElement("localize"));
 
         /**
          * Offset for field:
@@ -20885,9 +21139,9 @@ public class WidgetFactories {
          * int (*estimateBrightnessForColor)(DartObj)
          * }
          */
-        public static class estimateBrightnessForColor {
+        public final static class estimateBrightnessForColor {
 
-            estimateBrightnessForColor() {
+            private estimateBrightnessForColor() {
                 // Should not be called directly
             }
 
@@ -20925,9 +21179,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -20946,7 +21202,7 @@ public class WidgetFactories {
             return estimateBrightnessForColor$LAYOUT;
         }
 
-        private static final long estimateBrightnessForColor$OFFSET = 48;
+        private static final long estimateBrightnessForColor$OFFSET = $LAYOUT.byteOffset(groupElement("estimateBrightnessForColor"));
 
         /**
          * Offset for field:
@@ -20983,9 +21239,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*lerp)(DartObj, DartObj, double)
          * }
          */
-        public static class lerp {
+        public final static class lerp {
 
-            lerp() {
+            private lerp() {
                 // Should not be called directly
             }
 
@@ -21025,9 +21281,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1, double _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1, double _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -21046,7 +21304,7 @@ public class WidgetFactories {
             return lerp$LAYOUT;
         }
 
-        private static final long lerp$OFFSET = 56;
+        private static final long lerp$OFFSET = $LAYOUT.byteOffset(groupElement("lerp"));
 
         /**
          * Offset for field:
@@ -21135,7 +21393,7 @@ public class WidgetFactories {
         return themeData$LAYOUT;
     }
 
-    private static final long themeData$OFFSET = 1016;
+    private static final long themeData$OFFSET = $LAYOUT.byteOffset(groupElement("themeData"));
 
     /**
      * Offset for field:
@@ -21196,9 +21454,9 @@ public class WidgetFactories {
          * MaterialAccentColorObjSt (*materialAccentColor)(int, MapC)
          * }
          */
-        public static class materialAccentColor {
+        public final static class materialAccentColor {
 
-            materialAccentColor() {
+            private materialAccentColor() {
                 // Should not be called directly
             }
 
@@ -21237,9 +21495,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -21258,7 +21518,7 @@ public class WidgetFactories {
             return materialAccentColor$LAYOUT;
         }
 
-        private static final long materialAccentColor$OFFSET = 0;
+        private static final long materialAccentColor$OFFSET = $LAYOUT.byteOffset(groupElement("materialAccentColor"));
 
         /**
          * Offset for field:
@@ -21347,7 +21607,7 @@ public class WidgetFactories {
         return materialAccentColor$LAYOUT;
     }
 
-    private static final long materialAccentColor$OFFSET = 1080;
+    private static final long materialAccentColor$OFFSET = $LAYOUT.byteOffset(groupElement("materialAccentColor"));
 
     /**
      * Offset for field:
@@ -21408,9 +21668,9 @@ public class WidgetFactories {
          * MaterialObjSt (*material)(int *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *)
          * }
          */
-        public static class material {
+        public final static class material {
 
-            material() {
+            private material() {
                 // Should not be called directly
             }
 
@@ -21460,9 +21720,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -21481,7 +21743,7 @@ public class WidgetFactories {
             return material$LAYOUT;
         }
 
-        private static final long material$OFFSET = 0;
+        private static final long material$OFFSET = $LAYOUT.byteOffset(groupElement("material"));
 
         /**
          * Offset for field:
@@ -21570,7 +21832,7 @@ public class WidgetFactories {
         return material$LAYOUT;
     }
 
-    private static final long material$OFFSET = 1088;
+    private static final long material$OFFSET = $LAYOUT.byteOffset(groupElement("material"));
 
     /**
      * Offset for field:
@@ -21637,9 +21899,9 @@ public class WidgetFactories {
          * IconButtonObjSt (*iconButton)(double *, DartObj *, DartObj *, DartObj *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, VoidCallbackFFI, ValueChangedForBoolFFI *, VoidCallbackFFI *, int *, char *, int *, DartObj *, int *, DartObj *, DartObj)
          * }
          */
-        public static class iconButton {
+        public final static class iconButton {
 
-            iconButton() {
+            private iconButton() {
                 // Should not be called directly
             }
 
@@ -21697,9 +21959,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -21718,7 +21982,7 @@ public class WidgetFactories {
             return iconButton$LAYOUT;
         }
 
-        private static final long iconButton$OFFSET = 0;
+        private static final long iconButton$OFFSET = $LAYOUT.byteOffset(groupElement("iconButton"));
 
         /**
          * Offset for field:
@@ -21755,9 +22019,9 @@ public class WidgetFactories {
          * IconButtonObjSt (*filled)(double *, DartObj *, DartObj *, DartObj *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, VoidCallbackFFI, ValueChangedForBoolFFI *, VoidCallbackFFI *, int *, char *, int *, DartObj *, int *, DartObj *, DartObj)
          * }
          */
-        public static class filled {
+        public final static class filled {
 
-            filled() {
+            private filled() {
                 // Should not be called directly
             }
 
@@ -21815,9 +22079,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -21836,7 +22102,7 @@ public class WidgetFactories {
             return filled$LAYOUT;
         }
 
-        private static final long filled$OFFSET = 8;
+        private static final long filled$OFFSET = $LAYOUT.byteOffset(groupElement("filled"));
 
         /**
          * Offset for field:
@@ -21873,9 +22139,9 @@ public class WidgetFactories {
          * IconButtonObjSt (*filledTonal)(double *, DartObj *, DartObj *, DartObj *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, VoidCallbackFFI, ValueChangedForBoolFFI *, VoidCallbackFFI *, int *, char *, int *, DartObj *, int *, DartObj *, DartObj)
          * }
          */
-        public static class filledTonal {
+        public final static class filledTonal {
 
-            filledTonal() {
+            private filledTonal() {
                 // Should not be called directly
             }
 
@@ -21933,9 +22199,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -21954,7 +22222,7 @@ public class WidgetFactories {
             return filledTonal$LAYOUT;
         }
 
-        private static final long filledTonal$OFFSET = 16;
+        private static final long filledTonal$OFFSET = $LAYOUT.byteOffset(groupElement("filledTonal"));
 
         /**
          * Offset for field:
@@ -21991,9 +22259,9 @@ public class WidgetFactories {
          * IconButtonObjSt (*outlined)(double *, DartObj *, DartObj *, DartObj *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, VoidCallbackFFI, ValueChangedForBoolFFI *, VoidCallbackFFI *, int *, char *, int *, DartObj *, int *, DartObj *, DartObj)
          * }
          */
-        public static class outlined {
+        public final static class outlined {
 
-            outlined() {
+            private outlined() {
                 // Should not be called directly
             }
 
@@ -22051,9 +22319,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, int _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -22072,7 +22342,7 @@ public class WidgetFactories {
             return outlined$LAYOUT;
         }
 
-        private static final long outlined$OFFSET = 24;
+        private static final long outlined$OFFSET = $LAYOUT.byteOffset(groupElement("outlined"));
 
         /**
          * Offset for field:
@@ -22161,7 +22431,7 @@ public class WidgetFactories {
         return iconButton$LAYOUT;
     }
 
-    private static final long iconButton$OFFSET = 1096;
+    private static final long iconButton$OFFSET = $LAYOUT.byteOffset(groupElement("iconButton"));
 
     /**
      * Offset for field:
@@ -22222,9 +22492,9 @@ public class WidgetFactories {
          * AppBarObjSt (*appBar)(DartObj *, int *, DartObj *, ArrayC *, int *, DartObj *, DartObj *, double *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, int *, double *, double *, double *, double *, double *, DartObj *, DartObj *, int *, int *, int *, DartObj *, int *)
          * }
          */
-        public static class appBar {
+        public final static class appBar {
 
-            appBar() {
+            private appBar() {
                 // Should not be called directly
             }
 
@@ -22290,9 +22560,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -22311,7 +22583,7 @@ public class WidgetFactories {
             return appBar$LAYOUT;
         }
 
-        private static final long appBar$OFFSET = 0;
+        private static final long appBar$OFFSET = $LAYOUT.byteOffset(groupElement("appBar"));
 
         /**
          * Offset for field:
@@ -22400,7 +22672,7 @@ public class WidgetFactories {
         return appBar$LAYOUT;
     }
 
-    private static final long appBar$OFFSET = 1128;
+    private static final long appBar$OFFSET = $LAYOUT.byteOffset(groupElement("appBar"));
 
     /**
      * Offset for field:
@@ -22465,9 +22737,9 @@ public class WidgetFactories {
          * ScaffoldObjSt (*scaffold)(DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, DartObj *, DartObj *, DrawerCallbackFFI *, DartObj *, DrawerCallbackFFI *, DartObj *, DartObj *, DartObj *, int *, int *, int *, int *, int *, int *, DartObj *, DartObjCallbackDartObjDartObjFFI *, double *, int *, int *, char *)
          * }
          */
-        public static class scaffold {
+        public final static class scaffold {
 
-            scaffold() {
+            private scaffold() {
                 // Should not be called directly
             }
 
@@ -22529,9 +22801,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -22550,7 +22824,7 @@ public class WidgetFactories {
             return scaffold$LAYOUT;
         }
 
-        private static final long scaffold$OFFSET = 0;
+        private static final long scaffold$OFFSET = $LAYOUT.byteOffset(groupElement("scaffold"));
 
         /**
          * Offset for field:
@@ -22587,9 +22861,9 @@ public class WidgetFactories {
          * DartObj (*geometryOf)(DartObj)
          * }
          */
-        public static class geometryOf {
+        public final static class geometryOf {
 
-            geometryOf() {
+            private geometryOf() {
                 // Should not be called directly
             }
 
@@ -22627,9 +22901,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -22648,7 +22924,7 @@ public class WidgetFactories {
             return geometryOf$LAYOUT;
         }
 
-        private static final long geometryOf$OFFSET = 8;
+        private static final long geometryOf$OFFSET = $LAYOUT.byteOffset(groupElement("geometryOf"));
 
         /**
          * Offset for field:
@@ -22685,9 +22961,9 @@ public class WidgetFactories {
          * int (*hasDrawer)(DartObj, int *)
          * }
          */
-        public static class hasDrawer {
+        public final static class hasDrawer {
 
-            hasDrawer() {
+            private hasDrawer() {
                 // Should not be called directly
             }
 
@@ -22726,9 +23002,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -22747,7 +23025,7 @@ public class WidgetFactories {
             return hasDrawer$LAYOUT;
         }
 
-        private static final long hasDrawer$OFFSET = 16;
+        private static final long hasDrawer$OFFSET = $LAYOUT.byteOffset(groupElement("hasDrawer"));
 
         /**
          * Offset for field:
@@ -22836,7 +23114,7 @@ public class WidgetFactories {
         return scaffold$LAYOUT;
     }
 
-    private static final long scaffold$OFFSET = 1136;
+    private static final long scaffold$OFFSET = $LAYOUT.byteOffset(groupElement("scaffold"));
 
     /**
      * Offset for field:
@@ -22899,9 +23177,9 @@ public class WidgetFactories {
          * MaterialAppObjSt (*materialApp)(DartObj *, char *, TransitionBuilderFFI *, char *, GenerateAppTitleFFI *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, int *, int *, int *, int *, int *, char *, int *)
          * }
          */
-        public static class materialApp {
+        public final static class materialApp {
 
-            materialApp() {
+            private materialApp() {
                 // Should not be called directly
             }
 
@@ -22959,9 +23237,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -22980,7 +23260,7 @@ public class WidgetFactories {
             return materialApp$LAYOUT;
         }
 
-        private static final long materialApp$OFFSET = 0;
+        private static final long materialApp$OFFSET = $LAYOUT.byteOffset(groupElement("materialApp"));
 
         /**
          * Offset for field:
@@ -23017,9 +23297,9 @@ public class WidgetFactories {
          * MaterialAppObjSt (*router)(TransitionBuilderFFI *, char *, GenerateAppTitleFFI *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, int *, int *, int *, int *, int *, char *, int *)
          * }
          */
-        public static class router {
+        public final static class router {
 
-            router() {
+            private router() {
                 // Should not be called directly
             }
 
@@ -23075,9 +23355,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -23096,7 +23378,7 @@ public class WidgetFactories {
             return router$LAYOUT;
         }
 
-        private static final long router$OFFSET = 8;
+        private static final long router$OFFSET = $LAYOUT.byteOffset(groupElement("router"));
 
         /**
          * Offset for field:
@@ -23185,7 +23467,7 @@ public class WidgetFactories {
         return materialApp$LAYOUT;
     }
 
-    private static final long materialApp$OFFSET = 1160;
+    private static final long materialApp$OFFSET = $LAYOUT.byteOffset(groupElement("materialApp"));
 
     /**
      * Offset for field:
@@ -23252,9 +23534,9 @@ public class WidgetFactories {
          * FloatingActionButtonObjSt (*floatingActionButton)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, int *, DartObj *, int *, int *, int *, int *, int *)
          * }
          */
-        public static class floatingActionButton {
+        public final static class floatingActionButton {
 
-            floatingActionButton() {
+            private floatingActionButton() {
                 // Should not be called directly
             }
 
@@ -23312,9 +23594,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -23333,7 +23617,7 @@ public class WidgetFactories {
             return floatingActionButton$LAYOUT;
         }
 
-        private static final long floatingActionButton$OFFSET = 0;
+        private static final long floatingActionButton$OFFSET = $LAYOUT.byteOffset(groupElement("floatingActionButton"));
 
         /**
          * Offset for field:
@@ -23370,9 +23654,9 @@ public class WidgetFactories {
          * FloatingActionButtonObjSt (*small)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, DartObj *, int *, int *, int *, int *)
          * }
          */
-        public static class small {
+        public final static class small {
 
-            small() {
+            private small() {
                 // Should not be called directly
             }
 
@@ -23428,9 +23712,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -23449,7 +23735,7 @@ public class WidgetFactories {
             return small$LAYOUT;
         }
 
-        private static final long small$OFFSET = 8;
+        private static final long small$OFFSET = $LAYOUT.byteOffset(groupElement("small"));
 
         /**
          * Offset for field:
@@ -23486,9 +23772,9 @@ public class WidgetFactories {
          * FloatingActionButtonObjSt (*large)(DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, double *, double *, VoidCallbackFFI, DartObj *, int *, int *, int *, int *)
          * }
          */
-        public static class large {
+        public final static class large {
 
-            large() {
+            private large() {
                 // Should not be called directly
             }
 
@@ -23544,9 +23830,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -23565,7 +23853,7 @@ public class WidgetFactories {
             return large$LAYOUT;
         }
 
-        private static final long large$OFFSET = 16;
+        private static final long large$OFFSET = $LAYOUT.byteOffset(groupElement("large"));
 
         /**
          * Offset for field:
@@ -23602,9 +23890,9 @@ public class WidgetFactories {
          * FloatingActionButtonObjSt (*extended)(char *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, double *, double *, double *, DartObj *, double *, double *, VoidCallbackFFI, DartObj *, int *, int *, int *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj, int *)
          * }
          */
-        public static class extended {
+        public final static class extended {
 
-            extended() {
+            private extended() {
                 // Should not be called directly
             }
 
@@ -23665,9 +23953,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, int _x22, MemorySegment _x23) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, int _x22, MemorySegment _x23) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -23686,7 +23976,7 @@ public class WidgetFactories {
             return extended$LAYOUT;
         }
 
-        private static final long extended$OFFSET = 24;
+        private static final long extended$OFFSET = $LAYOUT.byteOffset(groupElement("extended"));
 
         /**
          * Offset for field:
@@ -23775,7 +24065,7 @@ public class WidgetFactories {
         return floatingActionButton$LAYOUT;
     }
 
-    private static final long floatingActionButton$OFFSET = 1176;
+    private static final long floatingActionButton$OFFSET = $LAYOUT.byteOffset(groupElement("floatingActionButton"));
 
     /**
      * Offset for field:
@@ -23842,9 +24132,9 @@ public class WidgetFactories {
          * ThemeObjSt (*theme)(DartObj, DartObj)
          * }
          */
-        public static class theme {
+        public final static class theme {
 
-            theme() {
+            private theme() {
                 // Should not be called directly
             }
 
@@ -23883,9 +24173,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, int _x1) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, int _x1) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -23904,7 +24196,7 @@ public class WidgetFactories {
             return theme$LAYOUT;
         }
 
-        private static final long theme$OFFSET = 0;
+        private static final long theme$OFFSET = $LAYOUT.byteOffset(groupElement("theme"));
 
         /**
          * Offset for field:
@@ -23941,9 +24233,9 @@ public class WidgetFactories {
          * ThemeDataObjSt (*of)(DartObj)
          * }
          */
-        public static class of {
+        public final static class of {
 
-            of() {
+            private of() {
                 // Should not be called directly
             }
 
@@ -23981,9 +24273,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24002,7 +24296,7 @@ public class WidgetFactories {
             return of$LAYOUT;
         }
 
-        private static final long of$OFFSET = 8;
+        private static final long of$OFFSET = $LAYOUT.byteOffset(groupElement("of"));
 
         /**
          * Offset for field:
@@ -24039,9 +24333,9 @@ public class WidgetFactories {
          * int (*brightnessOf)(DartObj)
          * }
          */
-        public static class brightnessOf {
+        public final static class brightnessOf {
 
-            brightnessOf() {
+            private brightnessOf() {
                 // Should not be called directly
             }
 
@@ -24079,9 +24373,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24100,7 +24396,7 @@ public class WidgetFactories {
             return brightnessOf$LAYOUT;
         }
 
-        private static final long brightnessOf$OFFSET = 16;
+        private static final long brightnessOf$OFFSET = $LAYOUT.byteOffset(groupElement("brightnessOf"));
 
         /**
          * Offset for field:
@@ -24137,9 +24433,9 @@ public class WidgetFactories {
          * int (*maybeBrightnessOf)(DartObj)
          * }
          */
-        public static class maybeBrightnessOf {
+        public final static class maybeBrightnessOf {
 
-            maybeBrightnessOf() {
+            private maybeBrightnessOf() {
                 // Should not be called directly
             }
 
@@ -24177,9 +24473,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24198,7 +24496,7 @@ public class WidgetFactories {
             return maybeBrightnessOf$LAYOUT;
         }
 
-        private static final long maybeBrightnessOf$OFFSET = 24;
+        private static final long maybeBrightnessOf$OFFSET = $LAYOUT.byteOffset(groupElement("maybeBrightnessOf"));
 
         /**
          * Offset for field:
@@ -24287,7 +24585,7 @@ public class WidgetFactories {
         return theme$LAYOUT;
     }
 
-    private static final long theme$OFFSET = 1208;
+    private static final long theme$OFFSET = $LAYOUT.byteOffset(groupElement("theme"));
 
     /**
      * Offset for field:
@@ -24350,9 +24648,9 @@ public class WidgetFactories {
          * ElevatedButtonObjSt (*elevatedButton)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj)
          * }
          */
-        public static class elevatedButton {
+        public final static class elevatedButton {
 
-            elevatedButton() {
+            private elevatedButton() {
                 // Should not be called directly
             }
 
@@ -24396,9 +24694,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24417,7 +24717,7 @@ public class WidgetFactories {
             return elevatedButton$LAYOUT;
         }
 
-        private static final long elevatedButton$OFFSET = 0;
+        private static final long elevatedButton$OFFSET = $LAYOUT.byteOffset(groupElement("elevatedButton"));
 
         /**
          * Offset for field:
@@ -24454,9 +24754,9 @@ public class WidgetFactories {
          * ElevatedButtonObjSt (*icon)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj *, DartObj, int *)
          * }
          */
-        public static class icon {
+        public final static class icon {
 
-            icon() {
+            private icon() {
                 // Should not be called directly
             }
 
@@ -24502,9 +24802,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24523,7 +24825,7 @@ public class WidgetFactories {
             return icon$LAYOUT;
         }
 
-        private static final long icon$OFFSET = 8;
+        private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
         /**
          * Offset for field:
@@ -24612,7 +24914,7 @@ public class WidgetFactories {
         return elevatedButton$LAYOUT;
     }
 
-    private static final long elevatedButton$OFFSET = 1240;
+    private static final long elevatedButton$OFFSET = $LAYOUT.byteOffset(groupElement("elevatedButton"));
 
     /**
      * Offset for field:
@@ -24675,9 +24977,9 @@ public class WidgetFactories {
          * OutlinedButtonObjSt (*outlinedButton)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj)
          * }
          */
-        public static class outlinedButton {
+        public final static class outlinedButton {
 
-            outlinedButton() {
+            private outlinedButton() {
                 // Should not be called directly
             }
 
@@ -24721,9 +25023,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24742,7 +25046,7 @@ public class WidgetFactories {
             return outlinedButton$LAYOUT;
         }
 
-        private static final long outlinedButton$OFFSET = 0;
+        private static final long outlinedButton$OFFSET = $LAYOUT.byteOffset(groupElement("outlinedButton"));
 
         /**
          * Offset for field:
@@ -24779,9 +25083,9 @@ public class WidgetFactories {
          * OutlinedButtonObjSt (*icon)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj *, DartObj, int *)
          * }
          */
-        public static class icon {
+        public final static class icon {
 
-            icon() {
+            private icon() {
                 // Should not be called directly
             }
 
@@ -24827,9 +25131,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -24848,7 +25154,7 @@ public class WidgetFactories {
             return icon$LAYOUT;
         }
 
-        private static final long icon$OFFSET = 8;
+        private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
         /**
          * Offset for field:
@@ -24937,7 +25243,7 @@ public class WidgetFactories {
         return outlinedButton$LAYOUT;
     }
 
-    private static final long outlinedButton$OFFSET = 1256;
+    private static final long outlinedButton$OFFSET = $LAYOUT.byteOffset(groupElement("outlinedButton"));
 
     /**
      * Offset for field:
@@ -25000,9 +25306,9 @@ public class WidgetFactories {
          * TextButtonObjSt (*textButton)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, int *, DartObj)
          * }
          */
-        public static class textButton {
+        public final static class textButton {
 
-            textButton() {
+            private textButton() {
                 // Should not be called directly
             }
 
@@ -25047,9 +25353,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25068,7 +25376,7 @@ public class WidgetFactories {
             return textButton$LAYOUT;
         }
 
-        private static final long textButton$OFFSET = 0;
+        private static final long textButton$OFFSET = $LAYOUT.byteOffset(groupElement("textButton"));
 
         /**
          * Offset for field:
@@ -25105,9 +25413,9 @@ public class WidgetFactories {
          * TextButtonObjSt (*icon)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj *, DartObj, int *)
          * }
          */
-        public static class icon {
+        public final static class icon {
 
-            icon() {
+            private icon() {
                 // Should not be called directly
             }
 
@@ -25153,9 +25461,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25174,7 +25484,7 @@ public class WidgetFactories {
             return icon$LAYOUT;
         }
 
-        private static final long icon$OFFSET = 8;
+        private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
         /**
          * Offset for field:
@@ -25263,7 +25573,7 @@ public class WidgetFactories {
         return textButton$LAYOUT;
     }
 
-    private static final long textButton$OFFSET = 1272;
+    private static final long textButton$OFFSET = $LAYOUT.byteOffset(groupElement("textButton"));
 
     /**
      * Offset for field:
@@ -25324,9 +25634,9 @@ public class WidgetFactories {
          * DartObj (*navigatorState)(void)
          * }
          */
-        public static class navigatorState {
+        public final static class navigatorState {
 
-            navigatorState() {
+            private navigatorState() {
                 // Should not be called directly
             }
 
@@ -25365,6 +25675,8 @@ public class WidgetFactories {
             public static int invoke(MemorySegment funcPtr) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25383,7 +25695,7 @@ public class WidgetFactories {
             return navigatorState$LAYOUT;
         }
 
-        private static final long navigatorState$OFFSET = 0;
+        private static final long navigatorState$OFFSET = $LAYOUT.byteOffset(groupElement("navigatorState"));
 
         /**
          * Offset for field:
@@ -25472,7 +25784,7 @@ public class WidgetFactories {
         return navigatorState$LAYOUT;
     }
 
-    private static final long navigatorState$OFFSET = 1288;
+    private static final long navigatorState$OFFSET = $LAYOUT.byteOffset(groupElement("navigatorState"));
 
     /**
      * Offset for field:
@@ -25555,9 +25867,9 @@ public class WidgetFactories {
          * NavigatorObjSt (*navigator)(char *, int *, int *, int *, char *, int *, int *)
          * }
          */
-        public static class navigator {
+        public final static class navigator {
 
-            navigator() {
+            private navigator() {
                 // Should not be called directly
             }
 
@@ -25601,9 +25913,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25622,7 +25936,7 @@ public class WidgetFactories {
             return navigator$LAYOUT;
         }
 
-        private static final long navigator$OFFSET = 0;
+        private static final long navigator$OFFSET = $LAYOUT.byteOffset(groupElement("navigator"));
 
         /**
          * Offset for field:
@@ -25659,9 +25973,9 @@ public class WidgetFactories {
          * DartObj (*pushNamed)(DartObj, char *, DartObj *)
          * }
          */
-        public static class pushNamed {
+        public final static class pushNamed {
 
-            pushNamed() {
+            private pushNamed() {
                 // Should not be called directly
             }
 
@@ -25701,9 +26015,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25722,7 +26038,7 @@ public class WidgetFactories {
             return pushNamed$LAYOUT;
         }
 
-        private static final long pushNamed$OFFSET = 8;
+        private static final long pushNamed$OFFSET = $LAYOUT.byteOffset(groupElement("pushNamed"));
 
         /**
          * Offset for field:
@@ -25759,9 +26075,9 @@ public class WidgetFactories {
          * char *(*restorablePushNamed)(DartObj, char *, DartObj *)
          * }
          */
-        public static class restorablePushNamed {
+        public final static class restorablePushNamed {
 
-            restorablePushNamed() {
+            private restorablePushNamed() {
                 // Should not be called directly
             }
 
@@ -25801,9 +26117,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25822,7 +26140,7 @@ public class WidgetFactories {
             return restorablePushNamed$LAYOUT;
         }
 
-        private static final long restorablePushNamed$OFFSET = 16;
+        private static final long restorablePushNamed$OFFSET = $LAYOUT.byteOffset(groupElement("restorablePushNamed"));
 
         /**
          * Offset for field:
@@ -25859,9 +26177,9 @@ public class WidgetFactories {
          * DartObj (*pushReplacementNamed)(DartObj, char *, DartObj *, DartObj *)
          * }
          */
-        public static class pushReplacementNamed {
+        public final static class pushReplacementNamed {
 
-            pushReplacementNamed() {
+            private pushReplacementNamed() {
                 // Should not be called directly
             }
 
@@ -25902,9 +26220,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -25923,7 +26243,7 @@ public class WidgetFactories {
             return pushReplacementNamed$LAYOUT;
         }
 
-        private static final long pushReplacementNamed$OFFSET = 24;
+        private static final long pushReplacementNamed$OFFSET = $LAYOUT.byteOffset(groupElement("pushReplacementNamed"));
 
         /**
          * Offset for field:
@@ -25960,9 +26280,9 @@ public class WidgetFactories {
          * char *(*restorablePushReplacementNamed)(DartObj, char *, DartObj *, DartObj *)
          * }
          */
-        public static class restorablePushReplacementNamed {
+        public final static class restorablePushReplacementNamed {
 
-            restorablePushReplacementNamed() {
+            private restorablePushReplacementNamed() {
                 // Should not be called directly
             }
 
@@ -26003,9 +26323,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26024,7 +26346,7 @@ public class WidgetFactories {
             return restorablePushReplacementNamed$LAYOUT;
         }
 
-        private static final long restorablePushReplacementNamed$OFFSET = 32;
+        private static final long restorablePushReplacementNamed$OFFSET = $LAYOUT.byteOffset(groupElement("restorablePushReplacementNamed"));
 
         /**
          * Offset for field:
@@ -26061,9 +26383,9 @@ public class WidgetFactories {
          * DartObj (*popAndPushNamed)(DartObj, char *, DartObj *, DartObj *)
          * }
          */
-        public static class popAndPushNamed {
+        public final static class popAndPushNamed {
 
-            popAndPushNamed() {
+            private popAndPushNamed() {
                 // Should not be called directly
             }
 
@@ -26104,9 +26426,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26125,7 +26449,7 @@ public class WidgetFactories {
             return popAndPushNamed$LAYOUT;
         }
 
-        private static final long popAndPushNamed$OFFSET = 40;
+        private static final long popAndPushNamed$OFFSET = $LAYOUT.byteOffset(groupElement("popAndPushNamed"));
 
         /**
          * Offset for field:
@@ -26162,9 +26486,9 @@ public class WidgetFactories {
          * char *(*restorablePopAndPushNamed)(DartObj, char *, DartObj *, DartObj *)
          * }
          */
-        public static class restorablePopAndPushNamed {
+        public final static class restorablePopAndPushNamed {
 
-            restorablePopAndPushNamed() {
+            private restorablePopAndPushNamed() {
                 // Should not be called directly
             }
 
@@ -26205,9 +26529,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+            public static MemorySegment invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26226,7 +26552,7 @@ public class WidgetFactories {
             return restorablePopAndPushNamed$LAYOUT;
         }
 
-        private static final long restorablePopAndPushNamed$OFFSET = 48;
+        private static final long restorablePopAndPushNamed$OFFSET = $LAYOUT.byteOffset(groupElement("restorablePopAndPushNamed"));
 
         /**
          * Offset for field:
@@ -26263,9 +26589,9 @@ public class WidgetFactories {
          * int (*canPop)(DartObj)
          * }
          */
-        public static class canPop {
+        public final static class canPop {
 
-            canPop() {
+            private canPop() {
                 // Should not be called directly
             }
 
@@ -26303,9 +26629,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0) {
+            public static int invoke(MemorySegment funcPtr, int _x0) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26324,7 +26652,7 @@ public class WidgetFactories {
             return canPop$LAYOUT;
         }
 
-        private static final long canPop$OFFSET = 56;
+        private static final long canPop$OFFSET = $LAYOUT.byteOffset(groupElement("canPop"));
 
         /**
          * Offset for field:
@@ -26361,9 +26689,9 @@ public class WidgetFactories {
          * DartObj (*maybePop)(DartObj, DartObj *)
          * }
          */
-        public static class maybePop {
+        public final static class maybePop {
 
-            maybePop() {
+            private maybePop() {
                 // Should not be called directly
             }
 
@@ -26402,9 +26730,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26423,7 +26753,7 @@ public class WidgetFactories {
             return maybePop$LAYOUT;
         }
 
-        private static final long maybePop$OFFSET = 64;
+        private static final long maybePop$OFFSET = $LAYOUT.byteOffset(groupElement("maybePop"));
 
         /**
          * Offset for field:
@@ -26460,9 +26790,9 @@ public class WidgetFactories {
          * void (*pop)(DartObj, DartObj *)
          * }
          */
-        public static class pop {
+        public final static class pop {
 
-            pop() {
+            private pop() {
                 // Should not be called directly
             }
 
@@ -26500,9 +26830,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static void invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1) {
+            public static void invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1) {
                 try {
                      DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26521,7 +26853,7 @@ public class WidgetFactories {
             return pop$LAYOUT;
         }
 
-        private static final long pop$OFFSET = 72;
+        private static final long pop$OFFSET = $LAYOUT.byteOffset(groupElement("pop"));
 
         /**
          * Offset for field:
@@ -26558,9 +26890,9 @@ public class WidgetFactories {
          * DartObj (*of)(DartObj, int *)
          * }
          */
-        public static class of {
+        public final static class of {
 
-            of() {
+            private of() {
                 // Should not be called directly
             }
 
@@ -26599,9 +26931,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26620,7 +26954,7 @@ public class WidgetFactories {
             return of$LAYOUT;
         }
 
-        private static final long of$OFFSET = 80;
+        private static final long of$OFFSET = $LAYOUT.byteOffset(groupElement("of"));
 
         /**
          * Offset for field:
@@ -26657,9 +26991,9 @@ public class WidgetFactories {
          * DartObj (*maybeOf)(DartObj, int *)
          * }
          */
-        public static class maybeOf {
+        public final static class maybeOf {
 
-            maybeOf() {
+            private maybeOf() {
                 // Should not be called directly
             }
 
@@ -26698,9 +27032,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26719,7 +27055,7 @@ public class WidgetFactories {
             return maybeOf$LAYOUT;
         }
 
-        private static final long maybeOf$OFFSET = 88;
+        private static final long maybeOf$OFFSET = $LAYOUT.byteOffset(groupElement("maybeOf"));
 
         /**
          * Offset for field:
@@ -26808,7 +27144,7 @@ public class WidgetFactories {
         return navigator$LAYOUT;
     }
 
-    private static final long navigator$OFFSET = 1296;
+    private static final long navigator$OFFSET = $LAYOUT.byteOffset(groupElement("navigator"));
 
     /**
      * Offset for field:
@@ -26871,9 +27207,9 @@ public class WidgetFactories {
          * AlertDialogObjSt (*alertDialog)(DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, int *, int *, int *, double *, DartObj *, DartObj *, double *, DartObj *, DartObj *, char *, DartObj *, int *, DartObj *, DartObj *, DartObj *, int *)
          * }
          */
-        public static class alertDialog {
+        public final static class alertDialog {
 
-            alertDialog() {
+            private alertDialog() {
                 // Should not be called directly
             }
 
@@ -26937,9 +27273,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -26958,7 +27296,7 @@ public class WidgetFactories {
             return alertDialog$LAYOUT;
         }
 
-        private static final long alertDialog$OFFSET = 0;
+        private static final long alertDialog$OFFSET = $LAYOUT.byteOffset(groupElement("alertDialog"));
 
         /**
          * Offset for field:
@@ -26995,9 +27333,9 @@ public class WidgetFactories {
          * AlertDialogObjSt (*adaptive)(DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, ArrayC *, DartObj *, int *, int *, int *, double *, DartObj *, DartObj *, double *, DartObj *, DartObj *, char *, DartObj *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *)
          * }
          */
-        public static class adaptive {
+        public final static class adaptive {
 
-            adaptive() {
+            private adaptive() {
                 // Should not be called directly
             }
 
@@ -27063,9 +27401,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -27084,7 +27424,7 @@ public class WidgetFactories {
             return adaptive$LAYOUT;
         }
 
-        private static final long adaptive$OFFSET = 8;
+        private static final long adaptive$OFFSET = $LAYOUT.byteOffset(groupElement("adaptive"));
 
         /**
          * Offset for field:
@@ -27173,7 +27513,7 @@ public class WidgetFactories {
         return alertDialog$LAYOUT;
     }
 
-    private static final long alertDialog$OFFSET = 1392;
+    private static final long alertDialog$OFFSET = $LAYOUT.byteOffset(groupElement("alertDialog"));
 
     /**
      * Offset for field:
@@ -27236,9 +27576,9 @@ public class WidgetFactories {
          * InputDecorationObjSt (*inputDecoration)(DartObj *, DartObj *, DartObj *, char *, DartObj *, DartObj *, DartObj *, char *, DartObj *, int *, char *, DartObj *, DartObj *, int *, int *, DartObj *, int *, int *, int *, DartObj *, char *, DartObj *, int *, int *, int *, int *, DartObj *, DartObj *, DartObj *, DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, char *, DartObj *, DartObj *, DartObj *, DartObj *, char *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, char *, int *, DartObj *, DartObj *)
          * }
          */
-        public static class inputDecoration {
+        public final static class inputDecoration {
 
-            inputDecoration() {
+            private inputDecoration() {
                 // Should not be called directly
             }
 
@@ -27332,9 +27672,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49, MemorySegment _x50, MemorySegment _x51, MemorySegment _x52, MemorySegment _x53, MemorySegment _x54, MemorySegment _x55, MemorySegment _x56) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48, MemorySegment _x49, MemorySegment _x50, MemorySegment _x51, MemorySegment _x52, MemorySegment _x53, MemorySegment _x54, MemorySegment _x55, MemorySegment _x56) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48, _x49, _x50, _x51, _x52, _x53, _x54, _x55, _x56);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -27353,7 +27695,7 @@ public class WidgetFactories {
             return inputDecoration$LAYOUT;
         }
 
-        private static final long inputDecoration$OFFSET = 0;
+        private static final long inputDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("inputDecoration"));
 
         /**
          * Offset for field:
@@ -27390,9 +27732,9 @@ public class WidgetFactories {
          * InputDecorationObjSt (*collapsed)(char *, int *, DartObj *, DartObj *, int *, int *, DartObj *, int *, int *, int *, int *, DartObj *, DartObj *, DartObj *, DartObj *, int *, DartObj *)
          * }
          */
-        public static class collapsed {
+        public final static class collapsed {
 
-            collapsed() {
+            private collapsed() {
                 // Should not be called directly
             }
 
@@ -27446,9 +27788,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -27467,7 +27811,7 @@ public class WidgetFactories {
             return collapsed$LAYOUT;
         }
 
-        private static final long collapsed$OFFSET = 8;
+        private static final long collapsed$OFFSET = $LAYOUT.byteOffset(groupElement("collapsed"));
 
         /**
          * Offset for field:
@@ -27556,7 +27900,7 @@ public class WidgetFactories {
         return inputDecoration$LAYOUT;
     }
 
-    private static final long inputDecoration$OFFSET = 1408;
+    private static final long inputDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("inputDecoration"));
 
     /**
      * Offset for field:
@@ -27624,7 +27968,7 @@ public class WidgetFactories {
             return none$LAYOUT;
         }
 
-        private static final long none$OFFSET = 0;
+        private static final long none$OFFSET = $LAYOUT.byteOffset(groupElement("none"));
 
         /**
          * Offset for field:
@@ -27713,7 +28057,7 @@ public class WidgetFactories {
         return inputBorder$LAYOUT;
     }
 
-    private static final long inputBorder$OFFSET = 1424;
+    private static final long inputBorder$OFFSET = $LAYOUT.byteOffset(groupElement("inputBorder"));
 
     /**
      * Offset for field:
@@ -27774,9 +28118,9 @@ public class WidgetFactories {
          * TextFieldObjSt (*textField)(DartObj *, DartObj *, int *, int *, DartObj *, int *, int *, int *, int *, int *, char *, int *, int *, int *, int *, int *, int *, int *, int *, int *, int *, ValueChangedForStringFFI *, VoidCallbackFFI *, ValueChangedForStringFFI *, int *, int *, double *, double *, DartObj *, int *, DartObj *, DartObj *, int *, int *, int *, DartObj *, int *, int *, int *, GestureTapCallbackFFI *, int *, InputCounterWidgetBuilderFFI *, int *, char *, int *, int *, int *, int *, int *)
          * }
          */
-        public static class textField {
+        public final static class textField {
 
-            textField() {
+            private textField() {
                 // Should not be called directly
             }
 
@@ -27862,9 +28206,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33, MemorySegment _x34, MemorySegment _x35, MemorySegment _x36, MemorySegment _x37, MemorySegment _x38, MemorySegment _x39, MemorySegment _x40, MemorySegment _x41, MemorySegment _x42, MemorySegment _x43, MemorySegment _x44, MemorySegment _x45, MemorySegment _x46, MemorySegment _x47, MemorySegment _x48) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -27883,7 +28229,7 @@ public class WidgetFactories {
             return textField$LAYOUT;
         }
 
-        private static final long textField$OFFSET = 0;
+        private static final long textField$OFFSET = $LAYOUT.byteOffset(groupElement("textField"));
 
         /**
          * Offset for field:
@@ -27972,7 +28318,7 @@ public class WidgetFactories {
         return textField$LAYOUT;
     }
 
-    private static final long textField$OFFSET = 1432;
+    private static final long textField$OFFSET = $LAYOUT.byteOffset(groupElement("textField"));
 
     /**
      * Offset for field:
@@ -28035,9 +28381,9 @@ public class WidgetFactories {
          * DividerObjSt (*divider)(double *, double *, double *, double *, DartObj *, DartObj *)
          * }
          */
-        public static class divider {
+        public final static class divider {
 
-            divider() {
+            private divider() {
                 // Should not be called directly
             }
 
@@ -28080,9 +28426,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28101,7 +28449,7 @@ public class WidgetFactories {
             return divider$LAYOUT;
         }
 
-        private static final long divider$OFFSET = 0;
+        private static final long divider$OFFSET = $LAYOUT.byteOffset(groupElement("divider"));
 
         /**
          * Offset for field:
@@ -28138,9 +28486,9 @@ public class WidgetFactories {
          * BorderSideObjSt (*createBorderSide)(DartObj, DartObj *, double *)
          * }
          */
-        public static class createBorderSide {
+        public final static class createBorderSide {
 
-            createBorderSide() {
+            private createBorderSide() {
                 // Should not be called directly
             }
 
@@ -28180,9 +28528,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28201,7 +28551,7 @@ public class WidgetFactories {
             return createBorderSide$LAYOUT;
         }
 
-        private static final long createBorderSide$OFFSET = 8;
+        private static final long createBorderSide$OFFSET = $LAYOUT.byteOffset(groupElement("createBorderSide"));
 
         /**
          * Offset for field:
@@ -28290,7 +28640,7 @@ public class WidgetFactories {
         return divider$LAYOUT;
     }
 
-    private static final long divider$OFFSET = 1440;
+    private static final long divider$OFFSET = $LAYOUT.byteOffset(groupElement("divider"));
 
     /**
      * Offset for field:
@@ -28357,9 +28707,9 @@ public class WidgetFactories {
          * FilledButtonObjSt (*filledButton)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj)
          * }
          */
-        public static class filledButton {
+        public final static class filledButton {
 
-            filledButton() {
+            private filledButton() {
                 // Should not be called directly
             }
 
@@ -28403,9 +28753,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28424,7 +28776,7 @@ public class WidgetFactories {
             return filledButton$LAYOUT;
         }
 
-        private static final long filledButton$OFFSET = 0;
+        private static final long filledButton$OFFSET = $LAYOUT.byteOffset(groupElement("filledButton"));
 
         /**
          * Offset for field:
@@ -28461,9 +28813,9 @@ public class WidgetFactories {
          * FilledButtonObjSt (*icon)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj *, DartObj, int *)
          * }
          */
-        public static class icon {
+        public final static class icon {
 
-            icon() {
+            private icon() {
                 // Should not be called directly
             }
 
@@ -28509,9 +28861,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28530,7 +28884,7 @@ public class WidgetFactories {
             return icon$LAYOUT;
         }
 
-        private static final long icon$OFFSET = 8;
+        private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
         /**
          * Offset for field:
@@ -28567,9 +28921,9 @@ public class WidgetFactories {
          * FilledButtonObjSt (*tonal)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj)
          * }
          */
-        public static class tonal {
+        public final static class tonal {
 
-            tonal() {
+            private tonal() {
                 // Should not be called directly
             }
 
@@ -28613,9 +28967,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, int _x6) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28634,7 +28990,7 @@ public class WidgetFactories {
             return tonal$LAYOUT;
         }
 
-        private static final long tonal$OFFSET = 16;
+        private static final long tonal$OFFSET = $LAYOUT.byteOffset(groupElement("tonal"));
 
         /**
          * Offset for field:
@@ -28671,9 +29027,9 @@ public class WidgetFactories {
          * FilledButtonObjSt (*tonalIcon)(VoidCallbackFFI, VoidCallbackFFI *, ValueChangedForBoolFFI *, ValueChangedForBoolFFI *, int *, int *, DartObj *, DartObj, int *)
          * }
          */
-        public static class tonalIcon {
+        public final static class tonalIcon {
 
-            tonalIcon() {
+            private tonalIcon() {
                 // Should not be called directly
             }
 
@@ -28719,9 +29075,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28740,7 +29098,7 @@ public class WidgetFactories {
             return tonalIcon$LAYOUT;
         }
 
-        private static final long tonalIcon$OFFSET = 24;
+        private static final long tonalIcon$OFFSET = $LAYOUT.byteOffset(groupElement("tonalIcon"));
 
         /**
          * Offset for field:
@@ -28829,7 +29187,7 @@ public class WidgetFactories {
         return filledButton$LAYOUT;
     }
 
-    private static final long filledButton$OFFSET = 1456;
+    private static final long filledButton$OFFSET = $LAYOUT.byteOffset(groupElement("filledButton"));
 
     /**
      * Offset for field:
@@ -28890,9 +29248,9 @@ public class WidgetFactories {
          * OutlineInputBorderObjSt (*outlineInputBorder)(DartObj *, DartObj *, double *)
          * }
          */
-        public static class outlineInputBorder {
+        public final static class outlineInputBorder {
 
-            outlineInputBorder() {
+            private outlineInputBorder() {
                 // Should not be called directly
             }
 
@@ -28932,9 +29290,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -28953,7 +29313,7 @@ public class WidgetFactories {
             return outlineInputBorder$LAYOUT;
         }
 
-        private static final long outlineInputBorder$OFFSET = 0;
+        private static final long outlineInputBorder$OFFSET = $LAYOUT.byteOffset(groupElement("outlineInputBorder"));
 
         /**
          * Offset for field:
@@ -29042,7 +29402,7 @@ public class WidgetFactories {
         return outlineInputBorder$LAYOUT;
     }
 
-    private static final long outlineInputBorder$OFFSET = 1488;
+    private static final long outlineInputBorder$OFFSET = $LAYOUT.byteOffset(groupElement("outlineInputBorder"));
 
     /**
      * Offset for field:
@@ -29103,9 +29463,9 @@ public class WidgetFactories {
          * SnackBarActionObjSt (*snackBarAction)(DartObj *, DartObj *, DartObj *, DartObj *, char *, VoidCallbackFFI)
          * }
          */
-        public static class snackBarAction {
+        public final static class snackBarAction {
 
-            snackBarAction() {
+            private snackBarAction() {
                 // Should not be called directly
             }
 
@@ -29148,9 +29508,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -29169,7 +29531,7 @@ public class WidgetFactories {
             return snackBarAction$LAYOUT;
         }
 
-        private static final long snackBarAction$OFFSET = 0;
+        private static final long snackBarAction$OFFSET = $LAYOUT.byteOffset(groupElement("snackBarAction"));
 
         /**
          * Offset for field:
@@ -29258,7 +29620,7 @@ public class WidgetFactories {
         return snackBarAction$LAYOUT;
     }
 
-    private static final long snackBarAction$OFFSET = 1496;
+    private static final long snackBarAction$OFFSET = $LAYOUT.byteOffset(groupElement("snackBarAction"));
 
     /**
      * Offset for field:
@@ -29321,9 +29683,9 @@ public class WidgetFactories {
          * SnackBarObjSt (*snackBar)(DartObj, DartObj *, double *, DartObj *, DartObj *, double *, DartObj *, int *, int *, DartObj *, double *, int *, DartObj *, DartObj *, int *, DartObj *, VoidCallbackFFI *, int *, int *)
          * }
          */
-        public static class snackBar {
+        public final static class snackBar {
 
-            snackBar() {
+            private snackBar() {
                 // Should not be called directly
             }
 
@@ -29379,9 +29741,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -29400,7 +29764,7 @@ public class WidgetFactories {
             return snackBar$LAYOUT;
         }
 
-        private static final long snackBar$OFFSET = 0;
+        private static final long snackBar$OFFSET = $LAYOUT.byteOffset(groupElement("snackBar"));
 
         /**
          * Offset for field:
@@ -29437,9 +29801,9 @@ public class WidgetFactories {
          * DartObj (*createAnimationController)(DartObj, DartObj *, DartObj *)
          * }
          */
-        public static class createAnimationController {
+        public final static class createAnimationController {
 
-            createAnimationController() {
+            private createAnimationController() {
                 // Should not be called directly
             }
 
@@ -29479,9 +29843,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static int invoke(MemorySegment funcPtr,int _x0, MemorySegment _x1, MemorySegment _x2) {
+            public static int invoke(MemorySegment funcPtr, int _x0, MemorySegment _x1, MemorySegment _x2) {
                 try {
                     return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -29500,7 +29866,7 @@ public class WidgetFactories {
             return createAnimationController$LAYOUT;
         }
 
-        private static final long createAnimationController$OFFSET = 8;
+        private static final long createAnimationController$OFFSET = $LAYOUT.byteOffset(groupElement("createAnimationController"));
 
         /**
          * Offset for field:
@@ -29589,7 +29955,7 @@ public class WidgetFactories {
         return snackBar$LAYOUT;
     }
 
-    private static final long snackBar$OFFSET = 1504;
+    private static final long snackBar$OFFSET = $LAYOUT.byteOffset(groupElement("snackBar"));
 
     /**
      * Offset for field:
@@ -29650,9 +30016,9 @@ public class WidgetFactories {
          * ScaffoldMessengerObjSt (*scaffoldMessenger)(DartObj)
          * }
          */
-        public static class scaffoldMessenger {
+        public final static class scaffoldMessenger {
 
-            scaffoldMessenger() {
+            private scaffoldMessenger() {
                 // Should not be called directly
             }
 
@@ -29690,9 +30056,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,int _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -29711,7 +30079,7 @@ public class WidgetFactories {
             return scaffoldMessenger$LAYOUT;
         }
 
-        private static final long scaffoldMessenger$OFFSET = 0;
+        private static final long scaffoldMessenger$OFFSET = $LAYOUT.byteOffset(groupElement("scaffoldMessenger"));
 
         /**
          * Offset for field:
@@ -29800,7 +30168,7 @@ public class WidgetFactories {
         return scaffoldMessenger$LAYOUT;
     }
 
-    private static final long scaffoldMessenger$OFFSET = 1520;
+    private static final long scaffoldMessenger$OFFSET = $LAYOUT.byteOffset(groupElement("scaffoldMessenger"));
 
     /**
      * Offset for field:
@@ -29861,9 +30229,9 @@ public class WidgetFactories {
          * SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI)
          * }
          */
-        public static class subState {
+        public final static class subState {
 
-            subState() {
+            private subState() {
                 // Should not be called directly
             }
 
@@ -29908,9 +30276,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -29929,7 +30299,7 @@ public class WidgetFactories {
             return subState$LAYOUT;
         }
 
-        private static final long subState$OFFSET = 0;
+        private static final long subState$OFFSET = $LAYOUT.byteOffset(groupElement("subState"));
 
         /**
          * Offset for field:
@@ -30018,7 +30388,7 @@ public class WidgetFactories {
         return subState$LAYOUT;
     }
 
-    private static final long subState$OFFSET = 1528;
+    private static final long subState$OFFSET = $LAYOUT.byteOffset(groupElement("subState"));
 
     /**
      * Offset for field:
@@ -30079,9 +30449,9 @@ public class WidgetFactories {
          * SubStatefulWidgetObjSt (*subStatefulWidget)(DartObjCallbackFFI)
          * }
          */
-        public static class subStatefulWidget {
+        public final static class subStatefulWidget {
 
-            subStatefulWidget() {
+            private subStatefulWidget() {
                 // Should not be called directly
             }
 
@@ -30119,9 +30489,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -30140,7 +30512,7 @@ public class WidgetFactories {
             return subStatefulWidget$LAYOUT;
         }
 
-        private static final long subStatefulWidget$OFFSET = 0;
+        private static final long subStatefulWidget$OFFSET = $LAYOUT.byteOffset(groupElement("subStatefulWidget"));
 
         /**
          * Offset for field:
@@ -30229,7 +30601,7 @@ public class WidgetFactories {
         return subStatefulWidget$LAYOUT;
     }
 
-    private static final long subStatefulWidget$OFFSET = 1536;
+    private static final long subStatefulWidget$OFFSET = $LAYOUT.byteOffset(groupElement("subStatefulWidget"));
 
     /**
      * Offset for field:
@@ -30290,9 +30662,9 @@ public class WidgetFactories {
          * SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI)
          * }
          */
-        public static class subStatelessWidget {
+        public final static class subStatelessWidget {
 
-            subStatelessWidget() {
+            private subStatelessWidget() {
                 // Should not be called directly
             }
 
@@ -30330,9 +30702,11 @@ public class WidgetFactories {
             /**
              * Invoke the upcall stub {@code funcPtr}, with given parameters
              */
-            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc,MemorySegment _x0) {
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0) {
                 try {
                     return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
                 } catch (Throwable ex$) {
                     throw new AssertionError("should not reach here", ex$);
                 }
@@ -30351,7 +30725,7 @@ public class WidgetFactories {
             return subStatelessWidget$LAYOUT;
         }
 
-        private static final long subStatelessWidget$OFFSET = 0;
+        private static final long subStatelessWidget$OFFSET = $LAYOUT.byteOffset(groupElement("subStatelessWidget"));
 
         /**
          * Offset for field:
@@ -30440,7 +30814,7 @@ public class WidgetFactories {
         return subStatelessWidget$LAYOUT;
     }
 
-    private static final long subStatelessWidget$OFFSET = 1544;
+    private static final long subStatelessWidget$OFFSET = $LAYOUT.byteOffset(groupElement("subStatelessWidget"));
 
     /**
      * Offset for field:

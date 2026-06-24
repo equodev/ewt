@@ -148,7 +148,7 @@ public class ColorSchemeObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -192,7 +192,7 @@ public class ColorSchemeObjSt {
         return brightness$LAYOUT;
     }
 
-    private static final long brightness$OFFSET = 4;
+    private static final long brightness$OFFSET = $LAYOUT.byteOffset(groupElement("brightness"));
 
     /**
      * Offset for field:
@@ -236,7 +236,7 @@ public class ColorSchemeObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 8;
+    private static final long primary$OFFSET = $LAYOUT.byteOffset(groupElement("primary"));
 
     /**
      * Offset for field:
@@ -280,7 +280,7 @@ public class ColorSchemeObjSt {
         return onPrimary$LAYOUT;
     }
 
-    private static final long onPrimary$OFFSET = 12;
+    private static final long onPrimary$OFFSET = $LAYOUT.byteOffset(groupElement("onPrimary"));
 
     /**
      * Offset for field:
@@ -324,7 +324,7 @@ public class ColorSchemeObjSt {
         return secondary$LAYOUT;
     }
 
-    private static final long secondary$OFFSET = 16;
+    private static final long secondary$OFFSET = $LAYOUT.byteOffset(groupElement("secondary"));
 
     /**
      * Offset for field:
@@ -368,7 +368,7 @@ public class ColorSchemeObjSt {
         return onSecondary$LAYOUT;
     }
 
-    private static final long onSecondary$OFFSET = 20;
+    private static final long onSecondary$OFFSET = $LAYOUT.byteOffset(groupElement("onSecondary"));
 
     /**
      * Offset for field:
@@ -412,7 +412,7 @@ public class ColorSchemeObjSt {
         return error$LAYOUT;
     }
 
-    private static final long error$OFFSET = 24;
+    private static final long error$OFFSET = $LAYOUT.byteOffset(groupElement("error"));
 
     /**
      * Offset for field:
@@ -456,7 +456,7 @@ public class ColorSchemeObjSt {
         return onError$LAYOUT;
     }
 
-    private static final long onError$OFFSET = 28;
+    private static final long onError$OFFSET = $LAYOUT.byteOffset(groupElement("onError"));
 
     /**
      * Offset for field:
@@ -500,7 +500,7 @@ public class ColorSchemeObjSt {
         return surface$LAYOUT;
     }
 
-    private static final long surface$OFFSET = 32;
+    private static final long surface$OFFSET = $LAYOUT.byteOffset(groupElement("surface"));
 
     /**
      * Offset for field:
@@ -544,7 +544,7 @@ public class ColorSchemeObjSt {
         return onSurface$LAYOUT;
     }
 
-    private static final long onSurface$OFFSET = 36;
+    private static final long onSurface$OFFSET = $LAYOUT.byteOffset(groupElement("onSurface"));
 
     /**
      * Offset for field:
@@ -588,7 +588,7 @@ public class ColorSchemeObjSt {
         return primaryContainer$LAYOUT;
     }
 
-    private static final long primaryContainer$OFFSET = 40;
+    private static final long primaryContainer$OFFSET = $LAYOUT.byteOffset(groupElement("primaryContainer"));
 
     /**
      * Offset for field:
@@ -632,7 +632,7 @@ public class ColorSchemeObjSt {
         return onPrimaryContainer$LAYOUT;
     }
 
-    private static final long onPrimaryContainer$OFFSET = 44;
+    private static final long onPrimaryContainer$OFFSET = $LAYOUT.byteOffset(groupElement("onPrimaryContainer"));
 
     /**
      * Offset for field:
@@ -676,7 +676,7 @@ public class ColorSchemeObjSt {
         return primaryFixed$LAYOUT;
     }
 
-    private static final long primaryFixed$OFFSET = 48;
+    private static final long primaryFixed$OFFSET = $LAYOUT.byteOffset(groupElement("primaryFixed"));
 
     /**
      * Offset for field:
@@ -720,7 +720,7 @@ public class ColorSchemeObjSt {
         return primaryFixedDim$LAYOUT;
     }
 
-    private static final long primaryFixedDim$OFFSET = 52;
+    private static final long primaryFixedDim$OFFSET = $LAYOUT.byteOffset(groupElement("primaryFixedDim"));
 
     /**
      * Offset for field:
@@ -764,7 +764,7 @@ public class ColorSchemeObjSt {
         return onPrimaryFixed$LAYOUT;
     }
 
-    private static final long onPrimaryFixed$OFFSET = 56;
+    private static final long onPrimaryFixed$OFFSET = $LAYOUT.byteOffset(groupElement("onPrimaryFixed"));
 
     /**
      * Offset for field:
@@ -808,7 +808,7 @@ public class ColorSchemeObjSt {
         return onPrimaryFixedVariant$LAYOUT;
     }
 
-    private static final long onPrimaryFixedVariant$OFFSET = 60;
+    private static final long onPrimaryFixedVariant$OFFSET = $LAYOUT.byteOffset(groupElement("onPrimaryFixedVariant"));
 
     /**
      * Offset for field:
@@ -852,7 +852,7 @@ public class ColorSchemeObjSt {
         return secondaryContainer$LAYOUT;
     }
 
-    private static final long secondaryContainer$OFFSET = 64;
+    private static final long secondaryContainer$OFFSET = $LAYOUT.byteOffset(groupElement("secondaryContainer"));
 
     /**
      * Offset for field:
@@ -896,7 +896,7 @@ public class ColorSchemeObjSt {
         return onSecondaryContainer$LAYOUT;
     }
 
-    private static final long onSecondaryContainer$OFFSET = 68;
+    private static final long onSecondaryContainer$OFFSET = $LAYOUT.byteOffset(groupElement("onSecondaryContainer"));
 
     /**
      * Offset for field:
@@ -940,7 +940,7 @@ public class ColorSchemeObjSt {
         return secondaryFixed$LAYOUT;
     }
 
-    private static final long secondaryFixed$OFFSET = 72;
+    private static final long secondaryFixed$OFFSET = $LAYOUT.byteOffset(groupElement("secondaryFixed"));
 
     /**
      * Offset for field:
@@ -984,7 +984,7 @@ public class ColorSchemeObjSt {
         return secondaryFixedDim$LAYOUT;
     }
 
-    private static final long secondaryFixedDim$OFFSET = 76;
+    private static final long secondaryFixedDim$OFFSET = $LAYOUT.byteOffset(groupElement("secondaryFixedDim"));
 
     /**
      * Offset for field:
@@ -1028,7 +1028,7 @@ public class ColorSchemeObjSt {
         return onSecondaryFixed$LAYOUT;
     }
 
-    private static final long onSecondaryFixed$OFFSET = 80;
+    private static final long onSecondaryFixed$OFFSET = $LAYOUT.byteOffset(groupElement("onSecondaryFixed"));
 
     /**
      * Offset for field:
@@ -1072,7 +1072,7 @@ public class ColorSchemeObjSt {
         return onSecondaryFixedVariant$LAYOUT;
     }
 
-    private static final long onSecondaryFixedVariant$OFFSET = 84;
+    private static final long onSecondaryFixedVariant$OFFSET = $LAYOUT.byteOffset(groupElement("onSecondaryFixedVariant"));
 
     /**
      * Offset for field:
@@ -1116,7 +1116,7 @@ public class ColorSchemeObjSt {
         return tertiary$LAYOUT;
     }
 
-    private static final long tertiary$OFFSET = 88;
+    private static final long tertiary$OFFSET = $LAYOUT.byteOffset(groupElement("tertiary"));
 
     /**
      * Offset for field:
@@ -1160,7 +1160,7 @@ public class ColorSchemeObjSt {
         return onTertiary$LAYOUT;
     }
 
-    private static final long onTertiary$OFFSET = 92;
+    private static final long onTertiary$OFFSET = $LAYOUT.byteOffset(groupElement("onTertiary"));
 
     /**
      * Offset for field:
@@ -1204,7 +1204,7 @@ public class ColorSchemeObjSt {
         return tertiaryContainer$LAYOUT;
     }
 
-    private static final long tertiaryContainer$OFFSET = 96;
+    private static final long tertiaryContainer$OFFSET = $LAYOUT.byteOffset(groupElement("tertiaryContainer"));
 
     /**
      * Offset for field:
@@ -1248,7 +1248,7 @@ public class ColorSchemeObjSt {
         return onTertiaryContainer$LAYOUT;
     }
 
-    private static final long onTertiaryContainer$OFFSET = 100;
+    private static final long onTertiaryContainer$OFFSET = $LAYOUT.byteOffset(groupElement("onTertiaryContainer"));
 
     /**
      * Offset for field:
@@ -1292,7 +1292,7 @@ public class ColorSchemeObjSt {
         return tertiaryFixed$LAYOUT;
     }
 
-    private static final long tertiaryFixed$OFFSET = 104;
+    private static final long tertiaryFixed$OFFSET = $LAYOUT.byteOffset(groupElement("tertiaryFixed"));
 
     /**
      * Offset for field:
@@ -1336,7 +1336,7 @@ public class ColorSchemeObjSt {
         return tertiaryFixedDim$LAYOUT;
     }
 
-    private static final long tertiaryFixedDim$OFFSET = 108;
+    private static final long tertiaryFixedDim$OFFSET = $LAYOUT.byteOffset(groupElement("tertiaryFixedDim"));
 
     /**
      * Offset for field:
@@ -1380,7 +1380,7 @@ public class ColorSchemeObjSt {
         return onTertiaryFixed$LAYOUT;
     }
 
-    private static final long onTertiaryFixed$OFFSET = 112;
+    private static final long onTertiaryFixed$OFFSET = $LAYOUT.byteOffset(groupElement("onTertiaryFixed"));
 
     /**
      * Offset for field:
@@ -1424,7 +1424,7 @@ public class ColorSchemeObjSt {
         return onTertiaryFixedVariant$LAYOUT;
     }
 
-    private static final long onTertiaryFixedVariant$OFFSET = 116;
+    private static final long onTertiaryFixedVariant$OFFSET = $LAYOUT.byteOffset(groupElement("onTertiaryFixedVariant"));
 
     /**
      * Offset for field:
@@ -1468,7 +1468,7 @@ public class ColorSchemeObjSt {
         return errorContainer$LAYOUT;
     }
 
-    private static final long errorContainer$OFFSET = 120;
+    private static final long errorContainer$OFFSET = $LAYOUT.byteOffset(groupElement("errorContainer"));
 
     /**
      * Offset for field:
@@ -1512,7 +1512,7 @@ public class ColorSchemeObjSt {
         return onErrorContainer$LAYOUT;
     }
 
-    private static final long onErrorContainer$OFFSET = 124;
+    private static final long onErrorContainer$OFFSET = $LAYOUT.byteOffset(groupElement("onErrorContainer"));
 
     /**
      * Offset for field:
@@ -1556,7 +1556,7 @@ public class ColorSchemeObjSt {
         return surfaceVariant$LAYOUT;
     }
 
-    private static final long surfaceVariant$OFFSET = 128;
+    private static final long surfaceVariant$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceVariant"));
 
     /**
      * Offset for field:
@@ -1600,7 +1600,7 @@ public class ColorSchemeObjSt {
         return surfaceDim$LAYOUT;
     }
 
-    private static final long surfaceDim$OFFSET = 132;
+    private static final long surfaceDim$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceDim"));
 
     /**
      * Offset for field:
@@ -1644,7 +1644,7 @@ public class ColorSchemeObjSt {
         return surfaceBright$LAYOUT;
     }
 
-    private static final long surfaceBright$OFFSET = 136;
+    private static final long surfaceBright$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceBright"));
 
     /**
      * Offset for field:
@@ -1688,7 +1688,7 @@ public class ColorSchemeObjSt {
         return surfaceContainerLowest$LAYOUT;
     }
 
-    private static final long surfaceContainerLowest$OFFSET = 140;
+    private static final long surfaceContainerLowest$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceContainerLowest"));
 
     /**
      * Offset for field:
@@ -1732,7 +1732,7 @@ public class ColorSchemeObjSt {
         return surfaceContainerLow$LAYOUT;
     }
 
-    private static final long surfaceContainerLow$OFFSET = 144;
+    private static final long surfaceContainerLow$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceContainerLow"));
 
     /**
      * Offset for field:
@@ -1776,7 +1776,7 @@ public class ColorSchemeObjSt {
         return surfaceContainer$LAYOUT;
     }
 
-    private static final long surfaceContainer$OFFSET = 148;
+    private static final long surfaceContainer$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceContainer"));
 
     /**
      * Offset for field:
@@ -1820,7 +1820,7 @@ public class ColorSchemeObjSt {
         return surfaceContainerHigh$LAYOUT;
     }
 
-    private static final long surfaceContainerHigh$OFFSET = 152;
+    private static final long surfaceContainerHigh$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceContainerHigh"));
 
     /**
      * Offset for field:
@@ -1864,7 +1864,7 @@ public class ColorSchemeObjSt {
         return surfaceContainerHighest$LAYOUT;
     }
 
-    private static final long surfaceContainerHighest$OFFSET = 156;
+    private static final long surfaceContainerHighest$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceContainerHighest"));
 
     /**
      * Offset for field:
@@ -1908,7 +1908,7 @@ public class ColorSchemeObjSt {
         return onSurfaceVariant$LAYOUT;
     }
 
-    private static final long onSurfaceVariant$OFFSET = 160;
+    private static final long onSurfaceVariant$OFFSET = $LAYOUT.byteOffset(groupElement("onSurfaceVariant"));
 
     /**
      * Offset for field:
@@ -1952,7 +1952,7 @@ public class ColorSchemeObjSt {
         return outline$LAYOUT;
     }
 
-    private static final long outline$OFFSET = 164;
+    private static final long outline$OFFSET = $LAYOUT.byteOffset(groupElement("outline"));
 
     /**
      * Offset for field:
@@ -1996,7 +1996,7 @@ public class ColorSchemeObjSt {
         return outlineVariant$LAYOUT;
     }
 
-    private static final long outlineVariant$OFFSET = 168;
+    private static final long outlineVariant$OFFSET = $LAYOUT.byteOffset(groupElement("outlineVariant"));
 
     /**
      * Offset for field:
@@ -2040,7 +2040,7 @@ public class ColorSchemeObjSt {
         return shadow$LAYOUT;
     }
 
-    private static final long shadow$OFFSET = 172;
+    private static final long shadow$OFFSET = $LAYOUT.byteOffset(groupElement("shadow"));
 
     /**
      * Offset for field:
@@ -2084,7 +2084,7 @@ public class ColorSchemeObjSt {
         return scrim$LAYOUT;
     }
 
-    private static final long scrim$OFFSET = 176;
+    private static final long scrim$OFFSET = $LAYOUT.byteOffset(groupElement("scrim"));
 
     /**
      * Offset for field:
@@ -2128,7 +2128,7 @@ public class ColorSchemeObjSt {
         return inverseSurface$LAYOUT;
     }
 
-    private static final long inverseSurface$OFFSET = 180;
+    private static final long inverseSurface$OFFSET = $LAYOUT.byteOffset(groupElement("inverseSurface"));
 
     /**
      * Offset for field:
@@ -2172,7 +2172,7 @@ public class ColorSchemeObjSt {
         return onInverseSurface$LAYOUT;
     }
 
-    private static final long onInverseSurface$OFFSET = 184;
+    private static final long onInverseSurface$OFFSET = $LAYOUT.byteOffset(groupElement("onInverseSurface"));
 
     /**
      * Offset for field:
@@ -2216,7 +2216,7 @@ public class ColorSchemeObjSt {
         return inversePrimary$LAYOUT;
     }
 
-    private static final long inversePrimary$OFFSET = 188;
+    private static final long inversePrimary$OFFSET = $LAYOUT.byteOffset(groupElement("inversePrimary"));
 
     /**
      * Offset for field:
@@ -2260,7 +2260,7 @@ public class ColorSchemeObjSt {
         return surfaceTint$LAYOUT;
     }
 
-    private static final long surfaceTint$OFFSET = 192;
+    private static final long surfaceTint$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceTint"));
 
     /**
      * Offset for field:
@@ -2304,7 +2304,7 @@ public class ColorSchemeObjSt {
         return background$LAYOUT;
     }
 
-    private static final long background$OFFSET = 196;
+    private static final long background$OFFSET = $LAYOUT.byteOffset(groupElement("background"));
 
     /**
      * Offset for field:
@@ -2348,7 +2348,7 @@ public class ColorSchemeObjSt {
         return onBackground$LAYOUT;
     }
 
-    private static final long onBackground$OFFSET = 200;
+    private static final long onBackground$OFFSET = $LAYOUT.byteOffset(groupElement("onBackground"));
 
     /**
      * Offset for field:

@@ -54,7 +54,7 @@ public class BoxShadowObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -98,7 +98,7 @@ public class BoxShadowObjSt {
         return spreadRadius$LAYOUT;
     }
 
-    private static final long spreadRadius$OFFSET = 8;
+    private static final long spreadRadius$OFFSET = $LAYOUT.byteOffset(groupElement("spreadRadius"));
 
     /**
      * Offset for field:
@@ -142,7 +142,7 @@ public class BoxShadowObjSt {
         return blurStyle$LAYOUT;
     }
 
-    private static final long blurStyle$OFFSET = 16;
+    private static final long blurStyle$OFFSET = $LAYOUT.byteOffset(groupElement("blurStyle"));
 
     /**
      * Offset for field:

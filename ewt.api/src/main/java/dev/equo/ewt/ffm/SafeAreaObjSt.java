@@ -63,7 +63,7 @@ public class SafeAreaObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -107,7 +107,7 @@ public class SafeAreaObjSt {
         return left$LAYOUT;
     }
 
-    private static final long left$OFFSET = 4;
+    private static final long left$OFFSET = $LAYOUT.byteOffset(groupElement("left"));
 
     /**
      * Offset for field:
@@ -151,7 +151,7 @@ public class SafeAreaObjSt {
         return top$LAYOUT;
     }
 
-    private static final long top$OFFSET = 8;
+    private static final long top$OFFSET = $LAYOUT.byteOffset(groupElement("top"));
 
     /**
      * Offset for field:
@@ -195,7 +195,7 @@ public class SafeAreaObjSt {
         return right$LAYOUT;
     }
 
-    private static final long right$OFFSET = 12;
+    private static final long right$OFFSET = $LAYOUT.byteOffset(groupElement("right"));
 
     /**
      * Offset for field:
@@ -239,7 +239,7 @@ public class SafeAreaObjSt {
         return bottom$LAYOUT;
     }
 
-    private static final long bottom$OFFSET = 16;
+    private static final long bottom$OFFSET = $LAYOUT.byteOffset(groupElement("bottom"));
 
     /**
      * Offset for field:
@@ -283,7 +283,7 @@ public class SafeAreaObjSt {
         return minimum$LAYOUT;
     }
 
-    private static final long minimum$OFFSET = 24;
+    private static final long minimum$OFFSET = $LAYOUT.byteOffset(groupElement("minimum"));
 
     /**
      * Offset for field:
@@ -327,7 +327,7 @@ public class SafeAreaObjSt {
         return maintainBottomViewPadding$LAYOUT;
     }
 
-    private static final long maintainBottomViewPadding$OFFSET = 80;
+    private static final long maintainBottomViewPadding$OFFSET = $LAYOUT.byteOffset(groupElement("maintainBottomViewPadding"));
 
     /**
      * Offset for field:
@@ -371,7 +371,7 @@ public class SafeAreaObjSt {
         return child$LAYOUT;
     }
 
-    private static final long child$OFFSET = 84;
+    private static final long child$OFFSET = $LAYOUT.byteOffset(groupElement("child"));
 
     /**
      * Offset for field:

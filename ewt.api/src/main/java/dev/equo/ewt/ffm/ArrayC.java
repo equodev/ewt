@@ -51,7 +51,7 @@ public class ArrayC {
         return size$LAYOUT;
     }
 
-    private static final long size$OFFSET = 0;
+    private static final long size$OFFSET = $LAYOUT.byteOffset(groupElement("size"));
 
     /**
      * Offset for field:
@@ -95,7 +95,7 @@ public class ArrayC {
         return list$LAYOUT;
     }
 
-    private static final long list$OFFSET = 8;
+    private static final long list$OFFSET = $LAYOUT.byteOffset(groupElement("list"));
 
     /**
      * Offset for field:

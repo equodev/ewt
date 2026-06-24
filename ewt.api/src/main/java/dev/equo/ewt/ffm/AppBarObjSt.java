@@ -106,7 +106,7 @@ public class AppBarObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -150,7 +150,7 @@ public class AppBarObjSt {
         return leading$LAYOUT;
     }
 
-    private static final long leading$OFFSET = 4;
+    private static final long leading$OFFSET = $LAYOUT.byteOffset(groupElement("leading"));
 
     /**
      * Offset for field:
@@ -194,7 +194,7 @@ public class AppBarObjSt {
         return automaticallyImplyLeading$LAYOUT;
     }
 
-    private static final long automaticallyImplyLeading$OFFSET = 8;
+    private static final long automaticallyImplyLeading$OFFSET = $LAYOUT.byteOffset(groupElement("automaticallyImplyLeading"));
 
     /**
      * Offset for field:
@@ -238,7 +238,7 @@ public class AppBarObjSt {
         return title$LAYOUT;
     }
 
-    private static final long title$OFFSET = 12;
+    private static final long title$OFFSET = $LAYOUT.byteOffset(groupElement("title"));
 
     /**
      * Offset for field:
@@ -282,7 +282,7 @@ public class AppBarObjSt {
         return automaticallyImplyActions$LAYOUT;
     }
 
-    private static final long automaticallyImplyActions$OFFSET = 16;
+    private static final long automaticallyImplyActions$OFFSET = $LAYOUT.byteOffset(groupElement("automaticallyImplyActions"));
 
     /**
      * Offset for field:
@@ -326,7 +326,7 @@ public class AppBarObjSt {
         return flexibleSpace$LAYOUT;
     }
 
-    private static final long flexibleSpace$OFFSET = 20;
+    private static final long flexibleSpace$OFFSET = $LAYOUT.byteOffset(groupElement("flexibleSpace"));
 
     /**
      * Offset for field:
@@ -370,7 +370,7 @@ public class AppBarObjSt {
         return bottom$LAYOUT;
     }
 
-    private static final long bottom$OFFSET = 24;
+    private static final long bottom$OFFSET = $LAYOUT.byteOffset(groupElement("bottom"));
 
     /**
      * Offset for field:
@@ -414,7 +414,7 @@ public class AppBarObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 32;
+    private static final long elevation$OFFSET = $LAYOUT.byteOffset(groupElement("elevation"));
 
     /**
      * Offset for field:
@@ -458,7 +458,7 @@ public class AppBarObjSt {
         return scrolledUnderElevation$LAYOUT;
     }
 
-    private static final long scrolledUnderElevation$OFFSET = 40;
+    private static final long scrolledUnderElevation$OFFSET = $LAYOUT.byteOffset(groupElement("scrolledUnderElevation"));
 
     /**
      * Offset for field:
@@ -502,7 +502,7 @@ public class AppBarObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 48;
+    private static final long shadowColor$OFFSET = $LAYOUT.byteOffset(groupElement("shadowColor"));
 
     /**
      * Offset for field:
@@ -546,7 +546,7 @@ public class AppBarObjSt {
         return surfaceTintColor$LAYOUT;
     }
 
-    private static final long surfaceTintColor$OFFSET = 52;
+    private static final long surfaceTintColor$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceTintColor"));
 
     /**
      * Offset for field:
@@ -590,7 +590,7 @@ public class AppBarObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 56;
+    private static final long shape$OFFSET = $LAYOUT.byteOffset(groupElement("shape"));
 
     /**
      * Offset for field:
@@ -634,7 +634,7 @@ public class AppBarObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 60;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -678,7 +678,7 @@ public class AppBarObjSt {
         return foregroundColor$LAYOUT;
     }
 
-    private static final long foregroundColor$OFFSET = 64;
+    private static final long foregroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("foregroundColor"));
 
     /**
      * Offset for field:
@@ -722,7 +722,7 @@ public class AppBarObjSt {
         return primary$LAYOUT;
     }
 
-    private static final long primary$OFFSET = 68;
+    private static final long primary$OFFSET = $LAYOUT.byteOffset(groupElement("primary"));
 
     /**
      * Offset for field:
@@ -766,7 +766,7 @@ public class AppBarObjSt {
         return centerTitle$LAYOUT;
     }
 
-    private static final long centerTitle$OFFSET = 72;
+    private static final long centerTitle$OFFSET = $LAYOUT.byteOffset(groupElement("centerTitle"));
 
     /**
      * Offset for field:
@@ -810,7 +810,7 @@ public class AppBarObjSt {
         return excludeHeaderSemantics$LAYOUT;
     }
 
-    private static final long excludeHeaderSemantics$OFFSET = 76;
+    private static final long excludeHeaderSemantics$OFFSET = $LAYOUT.byteOffset(groupElement("excludeHeaderSemantics"));
 
     /**
      * Offset for field:
@@ -854,7 +854,7 @@ public class AppBarObjSt {
         return titleSpacing$LAYOUT;
     }
 
-    private static final long titleSpacing$OFFSET = 80;
+    private static final long titleSpacing$OFFSET = $LAYOUT.byteOffset(groupElement("titleSpacing"));
 
     /**
      * Offset for field:
@@ -898,7 +898,7 @@ public class AppBarObjSt {
         return toolbarOpacity$LAYOUT;
     }
 
-    private static final long toolbarOpacity$OFFSET = 88;
+    private static final long toolbarOpacity$OFFSET = $LAYOUT.byteOffset(groupElement("toolbarOpacity"));
 
     /**
      * Offset for field:
@@ -942,7 +942,7 @@ public class AppBarObjSt {
         return bottomOpacity$LAYOUT;
     }
 
-    private static final long bottomOpacity$OFFSET = 96;
+    private static final long bottomOpacity$OFFSET = $LAYOUT.byteOffset(groupElement("bottomOpacity"));
 
     /**
      * Offset for field:
@@ -986,7 +986,7 @@ public class AppBarObjSt {
         return toolbarHeight$LAYOUT;
     }
 
-    private static final long toolbarHeight$OFFSET = 104;
+    private static final long toolbarHeight$OFFSET = $LAYOUT.byteOffset(groupElement("toolbarHeight"));
 
     /**
      * Offset for field:
@@ -1030,7 +1030,7 @@ public class AppBarObjSt {
         return leadingWidth$LAYOUT;
     }
 
-    private static final long leadingWidth$OFFSET = 112;
+    private static final long leadingWidth$OFFSET = $LAYOUT.byteOffset(groupElement("leadingWidth"));
 
     /**
      * Offset for field:
@@ -1074,7 +1074,7 @@ public class AppBarObjSt {
         return toolbarTextStyle$LAYOUT;
     }
 
-    private static final long toolbarTextStyle$OFFSET = 120;
+    private static final long toolbarTextStyle$OFFSET = $LAYOUT.byteOffset(groupElement("toolbarTextStyle"));
 
     /**
      * Offset for field:
@@ -1118,7 +1118,7 @@ public class AppBarObjSt {
         return titleTextStyle$LAYOUT;
     }
 
-    private static final long titleTextStyle$OFFSET = 232;
+    private static final long titleTextStyle$OFFSET = $LAYOUT.byteOffset(groupElement("titleTextStyle"));
 
     /**
      * Offset for field:
@@ -1162,7 +1162,7 @@ public class AppBarObjSt {
         return forceMaterialTransparency$LAYOUT;
     }
 
-    private static final long forceMaterialTransparency$OFFSET = 344;
+    private static final long forceMaterialTransparency$OFFSET = $LAYOUT.byteOffset(groupElement("forceMaterialTransparency"));
 
     /**
      * Offset for field:
@@ -1206,7 +1206,7 @@ public class AppBarObjSt {
         return useDefaultSemanticsOrder$LAYOUT;
     }
 
-    private static final long useDefaultSemanticsOrder$OFFSET = 348;
+    private static final long useDefaultSemanticsOrder$OFFSET = $LAYOUT.byteOffset(groupElement("useDefaultSemanticsOrder"));
 
     /**
      * Offset for field:
@@ -1250,7 +1250,7 @@ public class AppBarObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 352;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -1294,7 +1294,7 @@ public class AppBarObjSt {
         return actionsPadding$LAYOUT;
     }
 
-    private static final long actionsPadding$OFFSET = 356;
+    private static final long actionsPadding$OFFSET = $LAYOUT.byteOffset(groupElement("actionsPadding"));
 
     /**
      * Offset for field:
@@ -1338,7 +1338,7 @@ public class AppBarObjSt {
         return animateColor$LAYOUT;
     }
 
-    private static final long animateColor$OFFSET = 360;
+    private static final long animateColor$OFFSET = $LAYOUT.byteOffset(groupElement("animateColor"));
 
     /**
      * Offset for field:

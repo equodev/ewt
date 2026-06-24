@@ -71,7 +71,7 @@ public class ContainerObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -115,7 +115,7 @@ public class ContainerObjSt {
         return child$LAYOUT;
     }
 
-    private static final long child$OFFSET = 4;
+    private static final long child$OFFSET = $LAYOUT.byteOffset(groupElement("child"));
 
     /**
      * Offset for field:
@@ -159,7 +159,7 @@ public class ContainerObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 8;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -203,7 +203,7 @@ public class ContainerObjSt {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 12;
+    private static final long padding$OFFSET = $LAYOUT.byteOffset(groupElement("padding"));
 
     /**
      * Offset for field:
@@ -247,7 +247,7 @@ public class ContainerObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 16;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -291,7 +291,7 @@ public class ContainerObjSt {
         return isAntiAlias$LAYOUT;
     }
 
-    private static final long isAntiAlias$OFFSET = 20;
+    private static final long isAntiAlias$OFFSET = $LAYOUT.byteOffset(groupElement("isAntiAlias"));
 
     /**
      * Offset for field:
@@ -335,7 +335,7 @@ public class ContainerObjSt {
         return decoration$LAYOUT;
     }
 
-    private static final long decoration$OFFSET = 24;
+    private static final long decoration$OFFSET = $LAYOUT.byteOffset(groupElement("decoration"));
 
     /**
      * Offset for field:
@@ -379,7 +379,7 @@ public class ContainerObjSt {
         return foregroundDecoration$LAYOUT;
     }
 
-    private static final long foregroundDecoration$OFFSET = 28;
+    private static final long foregroundDecoration$OFFSET = $LAYOUT.byteOffset(groupElement("foregroundDecoration"));
 
     /**
      * Offset for field:
@@ -423,7 +423,7 @@ public class ContainerObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 32;
+    private static final long constraints$OFFSET = $LAYOUT.byteOffset(groupElement("constraints"));
 
     /**
      * Offset for field:
@@ -467,7 +467,7 @@ public class ContainerObjSt {
         return margin$LAYOUT;
     }
 
-    private static final long margin$OFFSET = 96;
+    private static final long margin$OFFSET = $LAYOUT.byteOffset(groupElement("margin"));
 
     /**
      * Offset for field:
@@ -511,7 +511,7 @@ public class ContainerObjSt {
         return transformAlignment$LAYOUT;
     }
 
-    private static final long transformAlignment$OFFSET = 100;
+    private static final long transformAlignment$OFFSET = $LAYOUT.byteOffset(groupElement("transformAlignment"));
 
     /**
      * Offset for field:
@@ -555,7 +555,7 @@ public class ContainerObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 104;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:

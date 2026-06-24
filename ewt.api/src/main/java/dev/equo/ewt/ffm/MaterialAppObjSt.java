@@ -87,7 +87,7 @@ public class MaterialAppObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -131,7 +131,7 @@ public class MaterialAppObjSt {
         return home$LAYOUT;
     }
 
-    private static final long home$OFFSET = 4;
+    private static final long home$OFFSET = $LAYOUT.byteOffset(groupElement("home"));
 
     /**
      * Offset for field:
@@ -175,7 +175,7 @@ public class MaterialAppObjSt {
         return initialRoute$LAYOUT;
     }
 
-    private static final long initialRoute$OFFSET = 8;
+    private static final long initialRoute$OFFSET = $LAYOUT.byteOffset(groupElement("initialRoute"));
 
     /**
      * Offset for field:
@@ -219,7 +219,7 @@ public class MaterialAppObjSt {
         return title$LAYOUT;
     }
 
-    private static final long title$OFFSET = 16;
+    private static final long title$OFFSET = $LAYOUT.byteOffset(groupElement("title"));
 
     /**
      * Offset for field:
@@ -263,7 +263,7 @@ public class MaterialAppObjSt {
         return theme$LAYOUT;
     }
 
-    private static final long theme$OFFSET = 24;
+    private static final long theme$OFFSET = $LAYOUT.byteOffset(groupElement("theme"));
 
     /**
      * Offset for field:
@@ -307,7 +307,7 @@ public class MaterialAppObjSt {
         return darkTheme$LAYOUT;
     }
 
-    private static final long darkTheme$OFFSET = 3744;
+    private static final long darkTheme$OFFSET = $LAYOUT.byteOffset(groupElement("darkTheme"));
 
     /**
      * Offset for field:
@@ -351,7 +351,7 @@ public class MaterialAppObjSt {
         return highContrastTheme$LAYOUT;
     }
 
-    private static final long highContrastTheme$OFFSET = 7464;
+    private static final long highContrastTheme$OFFSET = $LAYOUT.byteOffset(groupElement("highContrastTheme"));
 
     /**
      * Offset for field:
@@ -395,7 +395,7 @@ public class MaterialAppObjSt {
         return highContrastDarkTheme$LAYOUT;
     }
 
-    private static final long highContrastDarkTheme$OFFSET = 11184;
+    private static final long highContrastDarkTheme$OFFSET = $LAYOUT.byteOffset(groupElement("highContrastDarkTheme"));
 
     /**
      * Offset for field:
@@ -439,7 +439,7 @@ public class MaterialAppObjSt {
         return themeMode$LAYOUT;
     }
 
-    private static final long themeMode$OFFSET = 14904;
+    private static final long themeMode$OFFSET = $LAYOUT.byteOffset(groupElement("themeMode"));
 
     /**
      * Offset for field:
@@ -483,7 +483,7 @@ public class MaterialAppObjSt {
         return themeAnimationDuration$LAYOUT;
     }
 
-    private static final long themeAnimationDuration$OFFSET = 14908;
+    private static final long themeAnimationDuration$OFFSET = $LAYOUT.byteOffset(groupElement("themeAnimationDuration"));
 
     /**
      * Offset for field:
@@ -527,7 +527,7 @@ public class MaterialAppObjSt {
         return themeAnimationCurve$LAYOUT;
     }
 
-    private static final long themeAnimationCurve$OFFSET = 14912;
+    private static final long themeAnimationCurve$OFFSET = $LAYOUT.byteOffset(groupElement("themeAnimationCurve"));
 
     /**
      * Offset for field:
@@ -571,7 +571,7 @@ public class MaterialAppObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 14916;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -615,7 +615,7 @@ public class MaterialAppObjSt {
         return showPerformanceOverlay$LAYOUT;
     }
 
-    private static final long showPerformanceOverlay$OFFSET = 14920;
+    private static final long showPerformanceOverlay$OFFSET = $LAYOUT.byteOffset(groupElement("showPerformanceOverlay"));
 
     /**
      * Offset for field:
@@ -659,7 +659,7 @@ public class MaterialAppObjSt {
         return checkerboardRasterCacheImages$LAYOUT;
     }
 
-    private static final long checkerboardRasterCacheImages$OFFSET = 14924;
+    private static final long checkerboardRasterCacheImages$OFFSET = $LAYOUT.byteOffset(groupElement("checkerboardRasterCacheImages"));
 
     /**
      * Offset for field:
@@ -703,7 +703,7 @@ public class MaterialAppObjSt {
         return checkerboardOffscreenLayers$LAYOUT;
     }
 
-    private static final long checkerboardOffscreenLayers$OFFSET = 14928;
+    private static final long checkerboardOffscreenLayers$OFFSET = $LAYOUT.byteOffset(groupElement("checkerboardOffscreenLayers"));
 
     /**
      * Offset for field:
@@ -747,7 +747,7 @@ public class MaterialAppObjSt {
         return showSemanticsDebugger$LAYOUT;
     }
 
-    private static final long showSemanticsDebugger$OFFSET = 14932;
+    private static final long showSemanticsDebugger$OFFSET = $LAYOUT.byteOffset(groupElement("showSemanticsDebugger"));
 
     /**
      * Offset for field:
@@ -791,7 +791,7 @@ public class MaterialAppObjSt {
         return debugShowCheckedModeBanner$LAYOUT;
     }
 
-    private static final long debugShowCheckedModeBanner$OFFSET = 14936;
+    private static final long debugShowCheckedModeBanner$OFFSET = $LAYOUT.byteOffset(groupElement("debugShowCheckedModeBanner"));
 
     /**
      * Offset for field:
@@ -835,7 +835,7 @@ public class MaterialAppObjSt {
         return restorationScopeId$LAYOUT;
     }
 
-    private static final long restorationScopeId$OFFSET = 14944;
+    private static final long restorationScopeId$OFFSET = $LAYOUT.byteOffset(groupElement("restorationScopeId"));
 
     /**
      * Offset for field:
@@ -879,7 +879,7 @@ public class MaterialAppObjSt {
         return debugShowMaterialGrid$LAYOUT;
     }
 
-    private static final long debugShowMaterialGrid$OFFSET = 14952;
+    private static final long debugShowMaterialGrid$OFFSET = $LAYOUT.byteOffset(groupElement("debugShowMaterialGrid"));
 
     /**
      * Offset for field:
@@ -923,7 +923,7 @@ public class MaterialAppObjSt {
         return useInheritedMediaQuery$LAYOUT;
     }
 
-    private static final long useInheritedMediaQuery$OFFSET = 14956;
+    private static final long useInheritedMediaQuery$OFFSET = $LAYOUT.byteOffset(groupElement("useInheritedMediaQuery"));
 
     /**
      * Offset for field:

@@ -51,7 +51,7 @@ public class ElasticOutCurveObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -95,7 +95,7 @@ public class ElasticOutCurveObjSt {
         return period$LAYOUT;
     }
 
-    private static final long period$OFFSET = 8;
+    private static final long period$OFFSET = $LAYOUT.byteOffset(groupElement("period"));
 
     /**
      * Offset for field:

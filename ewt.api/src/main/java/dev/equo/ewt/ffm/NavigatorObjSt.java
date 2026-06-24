@@ -64,7 +64,7 @@ public class NavigatorObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -108,7 +108,7 @@ public class NavigatorObjSt {
         return initialRoute$LAYOUT;
     }
 
-    private static final long initialRoute$OFFSET = 8;
+    private static final long initialRoute$OFFSET = $LAYOUT.byteOffset(groupElement("initialRoute"));
 
     /**
      * Offset for field:
@@ -152,7 +152,7 @@ public class NavigatorObjSt {
         return restorationScopeId$LAYOUT;
     }
 
-    private static final long restorationScopeId$OFFSET = 16;
+    private static final long restorationScopeId$OFFSET = $LAYOUT.byteOffset(groupElement("restorationScopeId"));
 
     /**
      * Offset for field:
@@ -196,7 +196,7 @@ public class NavigatorObjSt {
         return routeTraversalEdgeBehavior$LAYOUT;
     }
 
-    private static final long routeTraversalEdgeBehavior$OFFSET = 24;
+    private static final long routeTraversalEdgeBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("routeTraversalEdgeBehavior"));
 
     /**
      * Offset for field:
@@ -240,7 +240,7 @@ public class NavigatorObjSt {
         return routeDirectionalTraversalEdgeBehavior$LAYOUT;
     }
 
-    private static final long routeDirectionalTraversalEdgeBehavior$OFFSET = 28;
+    private static final long routeDirectionalTraversalEdgeBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("routeDirectionalTraversalEdgeBehavior"));
 
     /**
      * Offset for field:
@@ -284,7 +284,7 @@ public class NavigatorObjSt {
         return reportsRouteUpdateToEngine$LAYOUT;
     }
 
-    private static final long reportsRouteUpdateToEngine$OFFSET = 32;
+    private static final long reportsRouteUpdateToEngine$OFFSET = $LAYOUT.byteOffset(groupElement("reportsRouteUpdateToEngine"));
 
     /**
      * Offset for field:
@@ -328,7 +328,7 @@ public class NavigatorObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 36;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -372,7 +372,7 @@ public class NavigatorObjSt {
         return requestFocus$LAYOUT;
     }
 
-    private static final long requestFocus$OFFSET = 40;
+    private static final long requestFocus$OFFSET = $LAYOUT.byteOffset(groupElement("requestFocus"));
 
     /**
      * Offset for field:

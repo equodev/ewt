@@ -86,7 +86,7 @@ public class IconButtonObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -130,7 +130,7 @@ public class IconButtonObjSt {
         return iconSize$LAYOUT;
     }
 
-    private static final long iconSize$OFFSET = 8;
+    private static final long iconSize$OFFSET = $LAYOUT.byteOffset(groupElement("iconSize"));
 
     /**
      * Offset for field:
@@ -174,7 +174,7 @@ public class IconButtonObjSt {
         return visualDensity$LAYOUT;
     }
 
-    private static final long visualDensity$OFFSET = 16;
+    private static final long visualDensity$OFFSET = $LAYOUT.byteOffset(groupElement("visualDensity"));
 
     /**
      * Offset for field:
@@ -218,7 +218,7 @@ public class IconButtonObjSt {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 48;
+    private static final long padding$OFFSET = $LAYOUT.byteOffset(groupElement("padding"));
 
     /**
      * Offset for field:
@@ -262,7 +262,7 @@ public class IconButtonObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 52;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -306,7 +306,7 @@ public class IconButtonObjSt {
         return splashRadius$LAYOUT;
     }
 
-    private static final long splashRadius$OFFSET = 56;
+    private static final long splashRadius$OFFSET = $LAYOUT.byteOffset(groupElement("splashRadius"));
 
     /**
      * Offset for field:
@@ -350,7 +350,7 @@ public class IconButtonObjSt {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 64;
+    private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
     /**
      * Offset for field:
@@ -394,7 +394,7 @@ public class IconButtonObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 68;
+    private static final long focusColor$OFFSET = $LAYOUT.byteOffset(groupElement("focusColor"));
 
     /**
      * Offset for field:
@@ -438,7 +438,7 @@ public class IconButtonObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 72;
+    private static final long hoverColor$OFFSET = $LAYOUT.byteOffset(groupElement("hoverColor"));
 
     /**
      * Offset for field:
@@ -482,7 +482,7 @@ public class IconButtonObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 76;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -526,7 +526,7 @@ public class IconButtonObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 80;
+    private static final long splashColor$OFFSET = $LAYOUT.byteOffset(groupElement("splashColor"));
 
     /**
      * Offset for field:
@@ -570,7 +570,7 @@ public class IconButtonObjSt {
         return highlightColor$LAYOUT;
     }
 
-    private static final long highlightColor$OFFSET = 84;
+    private static final long highlightColor$OFFSET = $LAYOUT.byteOffset(groupElement("highlightColor"));
 
     /**
      * Offset for field:
@@ -614,7 +614,7 @@ public class IconButtonObjSt {
         return disabledColor$LAYOUT;
     }
 
-    private static final long disabledColor$OFFSET = 88;
+    private static final long disabledColor$OFFSET = $LAYOUT.byteOffset(groupElement("disabledColor"));
 
     /**
      * Offset for field:
@@ -658,7 +658,7 @@ public class IconButtonObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 92;
+    private static final long autofocus$OFFSET = $LAYOUT.byteOffset(groupElement("autofocus"));
 
     /**
      * Offset for field:
@@ -702,7 +702,7 @@ public class IconButtonObjSt {
         return tooltip$LAYOUT;
     }
 
-    private static final long tooltip$OFFSET = 96;
+    private static final long tooltip$OFFSET = $LAYOUT.byteOffset(groupElement("tooltip"));
 
     /**
      * Offset for field:
@@ -746,7 +746,7 @@ public class IconButtonObjSt {
         return enableFeedback$LAYOUT;
     }
 
-    private static final long enableFeedback$OFFSET = 104;
+    private static final long enableFeedback$OFFSET = $LAYOUT.byteOffset(groupElement("enableFeedback"));
 
     /**
      * Offset for field:
@@ -790,7 +790,7 @@ public class IconButtonObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 112;
+    private static final long constraints$OFFSET = $LAYOUT.byteOffset(groupElement("constraints"));
 
     /**
      * Offset for field:
@@ -834,7 +834,7 @@ public class IconButtonObjSt {
         return isSelected$LAYOUT;
     }
 
-    private static final long isSelected$OFFSET = 176;
+    private static final long isSelected$OFFSET = $LAYOUT.byteOffset(groupElement("isSelected"));
 
     /**
      * Offset for field:
@@ -878,7 +878,7 @@ public class IconButtonObjSt {
         return selectedIcon$LAYOUT;
     }
 
-    private static final long selectedIcon$OFFSET = 180;
+    private static final long selectedIcon$OFFSET = $LAYOUT.byteOffset(groupElement("selectedIcon"));
 
     /**
      * Offset for field:

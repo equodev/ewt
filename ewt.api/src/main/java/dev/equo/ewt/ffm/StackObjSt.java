@@ -56,7 +56,7 @@ public class StackObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -100,7 +100,7 @@ public class StackObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 4;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -144,7 +144,7 @@ public class StackObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 8;
+    private static final long textDirection$OFFSET = $LAYOUT.byteOffset(groupElement("textDirection"));
 
     /**
      * Offset for field:
@@ -188,7 +188,7 @@ public class StackObjSt {
         return fit$LAYOUT;
     }
 
-    private static final long fit$OFFSET = 12;
+    private static final long fit$OFFSET = $LAYOUT.byteOffset(groupElement("fit"));
 
     /**
      * Offset for field:
@@ -232,7 +232,7 @@ public class StackObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 16;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:

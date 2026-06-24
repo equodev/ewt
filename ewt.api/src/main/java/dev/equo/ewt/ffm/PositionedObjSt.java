@@ -61,7 +61,7 @@ public class PositionedObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -105,7 +105,7 @@ public class PositionedObjSt {
         return left$LAYOUT;
     }
 
-    private static final long left$OFFSET = 8;
+    private static final long left$OFFSET = $LAYOUT.byteOffset(groupElement("left"));
 
     /**
      * Offset for field:
@@ -149,7 +149,7 @@ public class PositionedObjSt {
         return top$LAYOUT;
     }
 
-    private static final long top$OFFSET = 16;
+    private static final long top$OFFSET = $LAYOUT.byteOffset(groupElement("top"));
 
     /**
      * Offset for field:
@@ -193,7 +193,7 @@ public class PositionedObjSt {
         return right$LAYOUT;
     }
 
-    private static final long right$OFFSET = 24;
+    private static final long right$OFFSET = $LAYOUT.byteOffset(groupElement("right"));
 
     /**
      * Offset for field:
@@ -237,7 +237,7 @@ public class PositionedObjSt {
         return bottom$LAYOUT;
     }
 
-    private static final long bottom$OFFSET = 32;
+    private static final long bottom$OFFSET = $LAYOUT.byteOffset(groupElement("bottom"));
 
     /**
      * Offset for field:
@@ -281,7 +281,7 @@ public class PositionedObjSt {
         return width$LAYOUT;
     }
 
-    private static final long width$OFFSET = 40;
+    private static final long width$OFFSET = $LAYOUT.byteOffset(groupElement("width"));
 
     /**
      * Offset for field:
@@ -325,7 +325,7 @@ public class PositionedObjSt {
         return height$LAYOUT;
     }
 
-    private static final long height$OFFSET = 48;
+    private static final long height$OFFSET = $LAYOUT.byteOffset(groupElement("height"));
 
     /**
      * Offset for field:

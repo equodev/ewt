@@ -87,7 +87,7 @@ public class SnackBarObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -131,7 +131,7 @@ public class SnackBarObjSt {
         return content$LAYOUT;
     }
 
-    private static final long content$OFFSET = 4;
+    private static final long content$OFFSET = $LAYOUT.byteOffset(groupElement("content"));
 
     /**
      * Offset for field:
@@ -175,7 +175,7 @@ public class SnackBarObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 8;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -219,7 +219,7 @@ public class SnackBarObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 16;
+    private static final long elevation$OFFSET = $LAYOUT.byteOffset(groupElement("elevation"));
 
     /**
      * Offset for field:
@@ -263,7 +263,7 @@ public class SnackBarObjSt {
         return margin$LAYOUT;
     }
 
-    private static final long margin$OFFSET = 24;
+    private static final long margin$OFFSET = $LAYOUT.byteOffset(groupElement("margin"));
 
     /**
      * Offset for field:
@@ -307,7 +307,7 @@ public class SnackBarObjSt {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 28;
+    private static final long padding$OFFSET = $LAYOUT.byteOffset(groupElement("padding"));
 
     /**
      * Offset for field:
@@ -351,7 +351,7 @@ public class SnackBarObjSt {
         return width$LAYOUT;
     }
 
-    private static final long width$OFFSET = 32;
+    private static final long width$OFFSET = $LAYOUT.byteOffset(groupElement("width"));
 
     /**
      * Offset for field:
@@ -395,7 +395,7 @@ public class SnackBarObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 40;
+    private static final long shape$OFFSET = $LAYOUT.byteOffset(groupElement("shape"));
 
     /**
      * Offset for field:
@@ -439,7 +439,7 @@ public class SnackBarObjSt {
         return hitTestBehavior$LAYOUT;
     }
 
-    private static final long hitTestBehavior$OFFSET = 44;
+    private static final long hitTestBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("hitTestBehavior"));
 
     /**
      * Offset for field:
@@ -483,7 +483,7 @@ public class SnackBarObjSt {
         return behavior$LAYOUT;
     }
 
-    private static final long behavior$OFFSET = 48;
+    private static final long behavior$OFFSET = $LAYOUT.byteOffset(groupElement("behavior"));
 
     /**
      * Offset for field:
@@ -527,7 +527,7 @@ public class SnackBarObjSt {
         return action$LAYOUT;
     }
 
-    private static final long action$OFFSET = 56;
+    private static final long action$OFFSET = $LAYOUT.byteOffset(groupElement("action"));
 
     /**
      * Offset for field:
@@ -571,7 +571,7 @@ public class SnackBarObjSt {
         return actionOverflowThreshold$LAYOUT;
     }
 
-    private static final long actionOverflowThreshold$OFFSET = 88;
+    private static final long actionOverflowThreshold$OFFSET = $LAYOUT.byteOffset(groupElement("actionOverflowThreshold"));
 
     /**
      * Offset for field:
@@ -615,7 +615,7 @@ public class SnackBarObjSt {
         return showCloseIcon$LAYOUT;
     }
 
-    private static final long showCloseIcon$OFFSET = 96;
+    private static final long showCloseIcon$OFFSET = $LAYOUT.byteOffset(groupElement("showCloseIcon"));
 
     /**
      * Offset for field:
@@ -659,7 +659,7 @@ public class SnackBarObjSt {
         return closeIconColor$LAYOUT;
     }
 
-    private static final long closeIconColor$OFFSET = 100;
+    private static final long closeIconColor$OFFSET = $LAYOUT.byteOffset(groupElement("closeIconColor"));
 
     /**
      * Offset for field:
@@ -703,7 +703,7 @@ public class SnackBarObjSt {
         return duration$LAYOUT;
     }
 
-    private static final long duration$OFFSET = 104;
+    private static final long duration$OFFSET = $LAYOUT.byteOffset(groupElement("duration"));
 
     /**
      * Offset for field:
@@ -747,7 +747,7 @@ public class SnackBarObjSt {
         return persist$LAYOUT;
     }
 
-    private static final long persist$OFFSET = 108;
+    private static final long persist$OFFSET = $LAYOUT.byteOffset(groupElement("persist"));
 
     /**
      * Offset for field:
@@ -791,7 +791,7 @@ public class SnackBarObjSt {
         return animation$LAYOUT;
     }
 
-    private static final long animation$OFFSET = 112;
+    private static final long animation$OFFSET = $LAYOUT.byteOffset(groupElement("animation"));
 
     /**
      * Offset for field:
@@ -835,7 +835,7 @@ public class SnackBarObjSt {
         return dismissDirection$LAYOUT;
     }
 
-    private static final long dismissDirection$OFFSET = 116;
+    private static final long dismissDirection$OFFSET = $LAYOUT.byteOffset(groupElement("dismissDirection"));
 
     /**
      * Offset for field:
@@ -879,7 +879,7 @@ public class SnackBarObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 120;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:

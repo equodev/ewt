@@ -50,7 +50,7 @@ public class AnimatedBuilderObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -94,7 +94,7 @@ public class AnimatedBuilderObjSt {
         return animation$LAYOUT;
     }
 
-    private static final long animation$OFFSET = 4;
+    private static final long animation$OFFSET = $LAYOUT.byteOffset(groupElement("animation"));
 
     /**
      * Offset for field:
