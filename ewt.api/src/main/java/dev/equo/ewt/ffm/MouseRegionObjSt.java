@@ -52,7 +52,7 @@ public class MouseRegionObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -96,7 +96,7 @@ public class MouseRegionObjSt {
         return opaque$LAYOUT;
     }
 
-    private static final long opaque$OFFSET = 4;
+    private static final long opaque$OFFSET = $LAYOUT.byteOffset(groupElement("opaque"));
 
     /**
      * Offset for field:
@@ -140,7 +140,7 @@ public class MouseRegionObjSt {
         return hitTestBehavior$LAYOUT;
     }
 
-    private static final long hitTestBehavior$OFFSET = 8;
+    private static final long hitTestBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("hitTestBehavior"));
 
     /**
      * Offset for field:

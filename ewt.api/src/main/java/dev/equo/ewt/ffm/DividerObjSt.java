@@ -61,7 +61,7 @@ public class DividerObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -105,7 +105,7 @@ public class DividerObjSt {
         return height$LAYOUT;
     }
 
-    private static final long height$OFFSET = 8;
+    private static final long height$OFFSET = $LAYOUT.byteOffset(groupElement("height"));
 
     /**
      * Offset for field:
@@ -149,7 +149,7 @@ public class DividerObjSt {
         return thickness$LAYOUT;
     }
 
-    private static final long thickness$OFFSET = 16;
+    private static final long thickness$OFFSET = $LAYOUT.byteOffset(groupElement("thickness"));
 
     /**
      * Offset for field:
@@ -193,7 +193,7 @@ public class DividerObjSt {
         return indent$LAYOUT;
     }
 
-    private static final long indent$OFFSET = 24;
+    private static final long indent$OFFSET = $LAYOUT.byteOffset(groupElement("indent"));
 
     /**
      * Offset for field:
@@ -237,7 +237,7 @@ public class DividerObjSt {
         return endIndent$LAYOUT;
     }
 
-    private static final long endIndent$OFFSET = 32;
+    private static final long endIndent$OFFSET = $LAYOUT.byteOffset(groupElement("endIndent"));
 
     /**
      * Offset for field:
@@ -281,7 +281,7 @@ public class DividerObjSt {
         return radius$LAYOUT;
     }
 
-    private static final long radius$OFFSET = 40;
+    private static final long radius$OFFSET = $LAYOUT.byteOffset(groupElement("radius"));
 
     /**
      * Offset for field:
@@ -325,7 +325,7 @@ public class DividerObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 44;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:

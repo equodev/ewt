@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef DartObj (*TransitionBuilderFFI)(DartObj, DartObj)
  * }
  */
-public class TransitionBuilderFFI {
+public final class TransitionBuilderFFI {
 
-    TransitionBuilderFFI() {
+    private TransitionBuilderFFI() {
         // Should not be called directly
     }
 
@@ -58,9 +58,11 @@ public class TransitionBuilderFFI {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr,int context, int child) {
+    public static int invoke(MemorySegment funcPtr, int context, int child) {
         try {
             return (int) DOWN$MH.invokeExact(funcPtr, context, child);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

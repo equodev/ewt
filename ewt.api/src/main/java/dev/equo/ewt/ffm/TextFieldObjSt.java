@@ -140,7 +140,7 @@ public class TextFieldObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -184,7 +184,7 @@ public class TextFieldObjSt {
         return decoration$LAYOUT;
     }
 
-    private static final long decoration$OFFSET = 8;
+    private static final long decoration$OFFSET = $LAYOUT.byteOffset(groupElement("decoration"));
 
     /**
      * Offset for field:
@@ -228,7 +228,7 @@ public class TextFieldObjSt {
         return textInputAction$LAYOUT;
     }
 
-    private static final long textInputAction$OFFSET = 1384;
+    private static final long textInputAction$OFFSET = $LAYOUT.byteOffset(groupElement("textInputAction"));
 
     /**
      * Offset for field:
@@ -272,7 +272,7 @@ public class TextFieldObjSt {
         return textCapitalization$LAYOUT;
     }
 
-    private static final long textCapitalization$OFFSET = 1388;
+    private static final long textCapitalization$OFFSET = $LAYOUT.byteOffset(groupElement("textCapitalization"));
 
     /**
      * Offset for field:
@@ -316,7 +316,7 @@ public class TextFieldObjSt {
         return style$LAYOUT;
     }
 
-    private static final long style$OFFSET = 1392;
+    private static final long style$OFFSET = $LAYOUT.byteOffset(groupElement("style"));
 
     /**
      * Offset for field:
@@ -360,7 +360,7 @@ public class TextFieldObjSt {
         return textAlign$LAYOUT;
     }
 
-    private static final long textAlign$OFFSET = 1504;
+    private static final long textAlign$OFFSET = $LAYOUT.byteOffset(groupElement("textAlign"));
 
     /**
      * Offset for field:
@@ -404,7 +404,7 @@ public class TextFieldObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 1508;
+    private static final long textDirection$OFFSET = $LAYOUT.byteOffset(groupElement("textDirection"));
 
     /**
      * Offset for field:
@@ -448,7 +448,7 @@ public class TextFieldObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 1512;
+    private static final long autofocus$OFFSET = $LAYOUT.byteOffset(groupElement("autofocus"));
 
     /**
      * Offset for field:
@@ -492,7 +492,7 @@ public class TextFieldObjSt {
         return obscuringCharacter$LAYOUT;
     }
 
-    private static final long obscuringCharacter$OFFSET = 1520;
+    private static final long obscuringCharacter$OFFSET = $LAYOUT.byteOffset(groupElement("obscuringCharacter"));
 
     /**
      * Offset for field:
@@ -536,7 +536,7 @@ public class TextFieldObjSt {
         return obscureText$LAYOUT;
     }
 
-    private static final long obscureText$OFFSET = 1528;
+    private static final long obscureText$OFFSET = $LAYOUT.byteOffset(groupElement("obscureText"));
 
     /**
      * Offset for field:
@@ -580,7 +580,7 @@ public class TextFieldObjSt {
         return autocorrect$LAYOUT;
     }
 
-    private static final long autocorrect$OFFSET = 1532;
+    private static final long autocorrect$OFFSET = $LAYOUT.byteOffset(groupElement("autocorrect"));
 
     /**
      * Offset for field:
@@ -624,7 +624,7 @@ public class TextFieldObjSt {
         return smartDashesType$LAYOUT;
     }
 
-    private static final long smartDashesType$OFFSET = 1536;
+    private static final long smartDashesType$OFFSET = $LAYOUT.byteOffset(groupElement("smartDashesType"));
 
     /**
      * Offset for field:
@@ -668,7 +668,7 @@ public class TextFieldObjSt {
         return smartQuotesType$LAYOUT;
     }
 
-    private static final long smartQuotesType$OFFSET = 1540;
+    private static final long smartQuotesType$OFFSET = $LAYOUT.byteOffset(groupElement("smartQuotesType"));
 
     /**
      * Offset for field:
@@ -712,7 +712,7 @@ public class TextFieldObjSt {
         return enableSuggestions$LAYOUT;
     }
 
-    private static final long enableSuggestions$OFFSET = 1544;
+    private static final long enableSuggestions$OFFSET = $LAYOUT.byteOffset(groupElement("enableSuggestions"));
 
     /**
      * Offset for field:
@@ -756,7 +756,7 @@ public class TextFieldObjSt {
         return maxLines$LAYOUT;
     }
 
-    private static final long maxLines$OFFSET = 1548;
+    private static final long maxLines$OFFSET = $LAYOUT.byteOffset(groupElement("maxLines"));
 
     /**
      * Offset for field:
@@ -800,7 +800,7 @@ public class TextFieldObjSt {
         return minLines$LAYOUT;
     }
 
-    private static final long minLines$OFFSET = 1552;
+    private static final long minLines$OFFSET = $LAYOUT.byteOffset(groupElement("minLines"));
 
     /**
      * Offset for field:
@@ -844,7 +844,7 @@ public class TextFieldObjSt {
         return expands$LAYOUT;
     }
 
-    private static final long expands$OFFSET = 1556;
+    private static final long expands$OFFSET = $LAYOUT.byteOffset(groupElement("expands"));
 
     /**
      * Offset for field:
@@ -888,7 +888,7 @@ public class TextFieldObjSt {
         return readOnly$LAYOUT;
     }
 
-    private static final long readOnly$OFFSET = 1560;
+    private static final long readOnly$OFFSET = $LAYOUT.byteOffset(groupElement("readOnly"));
 
     /**
      * Offset for field:
@@ -932,7 +932,7 @@ public class TextFieldObjSt {
         return showCursor$LAYOUT;
     }
 
-    private static final long showCursor$OFFSET = 1564;
+    private static final long showCursor$OFFSET = $LAYOUT.byteOffset(groupElement("showCursor"));
 
     /**
      * Offset for field:
@@ -976,7 +976,7 @@ public class TextFieldObjSt {
         return maxLength$LAYOUT;
     }
 
-    private static final long maxLength$OFFSET = 1568;
+    private static final long maxLength$OFFSET = $LAYOUT.byteOffset(groupElement("maxLength"));
 
     /**
      * Offset for field:
@@ -1020,7 +1020,7 @@ public class TextFieldObjSt {
         return maxLengthEnforcement$LAYOUT;
     }
 
-    private static final long maxLengthEnforcement$OFFSET = 1572;
+    private static final long maxLengthEnforcement$OFFSET = $LAYOUT.byteOffset(groupElement("maxLengthEnforcement"));
 
     /**
      * Offset for field:
@@ -1064,7 +1064,7 @@ public class TextFieldObjSt {
         return enabled$LAYOUT;
     }
 
-    private static final long enabled$OFFSET = 1576;
+    private static final long enabled$OFFSET = $LAYOUT.byteOffset(groupElement("enabled"));
 
     /**
      * Offset for field:
@@ -1108,7 +1108,7 @@ public class TextFieldObjSt {
         return ignorePointers$LAYOUT;
     }
 
-    private static final long ignorePointers$OFFSET = 1580;
+    private static final long ignorePointers$OFFSET = $LAYOUT.byteOffset(groupElement("ignorePointers"));
 
     /**
      * Offset for field:
@@ -1152,7 +1152,7 @@ public class TextFieldObjSt {
         return cursorWidth$LAYOUT;
     }
 
-    private static final long cursorWidth$OFFSET = 1584;
+    private static final long cursorWidth$OFFSET = $LAYOUT.byteOffset(groupElement("cursorWidth"));
 
     /**
      * Offset for field:
@@ -1196,7 +1196,7 @@ public class TextFieldObjSt {
         return cursorHeight$LAYOUT;
     }
 
-    private static final long cursorHeight$OFFSET = 1592;
+    private static final long cursorHeight$OFFSET = $LAYOUT.byteOffset(groupElement("cursorHeight"));
 
     /**
      * Offset for field:
@@ -1240,7 +1240,7 @@ public class TextFieldObjSt {
         return cursorRadius$LAYOUT;
     }
 
-    private static final long cursorRadius$OFFSET = 1600;
+    private static final long cursorRadius$OFFSET = $LAYOUT.byteOffset(groupElement("cursorRadius"));
 
     /**
      * Offset for field:
@@ -1284,7 +1284,7 @@ public class TextFieldObjSt {
         return cursorOpacityAnimates$LAYOUT;
     }
 
-    private static final long cursorOpacityAnimates$OFFSET = 1604;
+    private static final long cursorOpacityAnimates$OFFSET = $LAYOUT.byteOffset(groupElement("cursorOpacityAnimates"));
 
     /**
      * Offset for field:
@@ -1328,7 +1328,7 @@ public class TextFieldObjSt {
         return cursorColor$LAYOUT;
     }
 
-    private static final long cursorColor$OFFSET = 1608;
+    private static final long cursorColor$OFFSET = $LAYOUT.byteOffset(groupElement("cursorColor"));
 
     /**
      * Offset for field:
@@ -1372,7 +1372,7 @@ public class TextFieldObjSt {
         return cursorErrorColor$LAYOUT;
     }
 
-    private static final long cursorErrorColor$OFFSET = 1612;
+    private static final long cursorErrorColor$OFFSET = $LAYOUT.byteOffset(groupElement("cursorErrorColor"));
 
     /**
      * Offset for field:
@@ -1416,7 +1416,7 @@ public class TextFieldObjSt {
         return selectionHeightStyle$LAYOUT;
     }
 
-    private static final long selectionHeightStyle$OFFSET = 1616;
+    private static final long selectionHeightStyle$OFFSET = $LAYOUT.byteOffset(groupElement("selectionHeightStyle"));
 
     /**
      * Offset for field:
@@ -1460,7 +1460,7 @@ public class TextFieldObjSt {
         return selectionWidthStyle$LAYOUT;
     }
 
-    private static final long selectionWidthStyle$OFFSET = 1620;
+    private static final long selectionWidthStyle$OFFSET = $LAYOUT.byteOffset(groupElement("selectionWidthStyle"));
 
     /**
      * Offset for field:
@@ -1504,7 +1504,7 @@ public class TextFieldObjSt {
         return keyboardAppearance$LAYOUT;
     }
 
-    private static final long keyboardAppearance$OFFSET = 1624;
+    private static final long keyboardAppearance$OFFSET = $LAYOUT.byteOffset(groupElement("keyboardAppearance"));
 
     /**
      * Offset for field:
@@ -1548,7 +1548,7 @@ public class TextFieldObjSt {
         return scrollPadding$LAYOUT;
     }
 
-    private static final long scrollPadding$OFFSET = 1632;
+    private static final long scrollPadding$OFFSET = $LAYOUT.byteOffset(groupElement("scrollPadding"));
 
     /**
      * Offset for field:
@@ -1592,7 +1592,7 @@ public class TextFieldObjSt {
         return enableInteractiveSelection$LAYOUT;
     }
 
-    private static final long enableInteractiveSelection$OFFSET = 1688;
+    private static final long enableInteractiveSelection$OFFSET = $LAYOUT.byteOffset(groupElement("enableInteractiveSelection"));
 
     /**
      * Offset for field:
@@ -1636,7 +1636,7 @@ public class TextFieldObjSt {
         return selectAllOnFocus$LAYOUT;
     }
 
-    private static final long selectAllOnFocus$OFFSET = 1692;
+    private static final long selectAllOnFocus$OFFSET = $LAYOUT.byteOffset(groupElement("selectAllOnFocus"));
 
     /**
      * Offset for field:
@@ -1680,7 +1680,7 @@ public class TextFieldObjSt {
         return dragStartBehavior$LAYOUT;
     }
 
-    private static final long dragStartBehavior$OFFSET = 1696;
+    private static final long dragStartBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("dragStartBehavior"));
 
     /**
      * Offset for field:
@@ -1724,7 +1724,7 @@ public class TextFieldObjSt {
         return onTapAlwaysCalled$LAYOUT;
     }
 
-    private static final long onTapAlwaysCalled$OFFSET = 1700;
+    private static final long onTapAlwaysCalled$OFFSET = $LAYOUT.byteOffset(groupElement("onTapAlwaysCalled"));
 
     /**
      * Offset for field:
@@ -1768,7 +1768,7 @@ public class TextFieldObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 1704;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -1812,7 +1812,7 @@ public class TextFieldObjSt {
         return restorationId$LAYOUT;
     }
 
-    private static final long restorationId$OFFSET = 1712;
+    private static final long restorationId$OFFSET = $LAYOUT.byteOffset(groupElement("restorationId"));
 
     /**
      * Offset for field:
@@ -1856,7 +1856,7 @@ public class TextFieldObjSt {
         return scribbleEnabled$LAYOUT;
     }
 
-    private static final long scribbleEnabled$OFFSET = 1720;
+    private static final long scribbleEnabled$OFFSET = $LAYOUT.byteOffset(groupElement("scribbleEnabled"));
 
     /**
      * Offset for field:
@@ -1900,7 +1900,7 @@ public class TextFieldObjSt {
         return stylusHandwritingEnabled$LAYOUT;
     }
 
-    private static final long stylusHandwritingEnabled$OFFSET = 1724;
+    private static final long stylusHandwritingEnabled$OFFSET = $LAYOUT.byteOffset(groupElement("stylusHandwritingEnabled"));
 
     /**
      * Offset for field:
@@ -1944,7 +1944,7 @@ public class TextFieldObjSt {
         return enableIMEPersonalizedLearning$LAYOUT;
     }
 
-    private static final long enableIMEPersonalizedLearning$OFFSET = 1728;
+    private static final long enableIMEPersonalizedLearning$OFFSET = $LAYOUT.byteOffset(groupElement("enableIMEPersonalizedLearning"));
 
     /**
      * Offset for field:
@@ -1988,7 +1988,7 @@ public class TextFieldObjSt {
         return enableInlinePrediction$LAYOUT;
     }
 
-    private static final long enableInlinePrediction$OFFSET = 1732;
+    private static final long enableInlinePrediction$OFFSET = $LAYOUT.byteOffset(groupElement("enableInlinePrediction"));
 
     /**
      * Offset for field:
@@ -2032,7 +2032,7 @@ public class TextFieldObjSt {
         return canRequestFocus$LAYOUT;
     }
 
-    private static final long canRequestFocus$OFFSET = 1736;
+    private static final long canRequestFocus$OFFSET = $LAYOUT.byteOffset(groupElement("canRequestFocus"));
 
     /**
      * Offset for field:
@@ -2076,7 +2076,7 @@ public class TextFieldObjSt {
         return selectionEnabled$LAYOUT;
     }
 
-    private static final long selectionEnabled$OFFSET = 1740;
+    private static final long selectionEnabled$OFFSET = $LAYOUT.byteOffset(groupElement("selectionEnabled"));
 
     /**
      * Offset for field:

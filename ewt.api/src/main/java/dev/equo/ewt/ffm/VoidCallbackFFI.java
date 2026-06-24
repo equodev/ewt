@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef void (*VoidCallbackFFI)(void)
  * }
  */
-public class VoidCallbackFFI {
+public final class VoidCallbackFFI {
 
-    VoidCallbackFFI() {
+    private VoidCallbackFFI() {
         // Should not be called directly
     }
 
@@ -57,6 +57,8 @@ public class VoidCallbackFFI {
     public static void invoke(MemorySegment funcPtr) {
         try {
              DOWN$MH.invokeExact(funcPtr);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

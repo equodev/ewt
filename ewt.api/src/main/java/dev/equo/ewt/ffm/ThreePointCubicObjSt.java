@@ -58,7 +58,7 @@ public class ThreePointCubicObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -102,7 +102,7 @@ public class ThreePointCubicObjSt {
         return a1$LAYOUT;
     }
 
-    private static final long a1$OFFSET = 4;
+    private static final long a1$OFFSET = $LAYOUT.byteOffset(groupElement("a1"));
 
     /**
      * Offset for field:
@@ -146,7 +146,7 @@ public class ThreePointCubicObjSt {
         return b1$LAYOUT;
     }
 
-    private static final long b1$OFFSET = 8;
+    private static final long b1$OFFSET = $LAYOUT.byteOffset(groupElement("b1"));
 
     /**
      * Offset for field:
@@ -190,7 +190,7 @@ public class ThreePointCubicObjSt {
         return midpoint$LAYOUT;
     }
 
-    private static final long midpoint$OFFSET = 12;
+    private static final long midpoint$OFFSET = $LAYOUT.byteOffset(groupElement("midpoint"));
 
     /**
      * Offset for field:
@@ -234,7 +234,7 @@ public class ThreePointCubicObjSt {
         return a2$LAYOUT;
     }
 
-    private static final long a2$OFFSET = 16;
+    private static final long a2$OFFSET = $LAYOUT.byteOffset(groupElement("a2"));
 
     /**
      * Offset for field:
@@ -278,7 +278,7 @@ public class ThreePointCubicObjSt {
         return b2$LAYOUT;
     }
 
-    private static final long b2$OFFSET = 20;
+    private static final long b2$OFFSET = $LAYOUT.byteOffset(groupElement("b2"));
 
     /**
      * Offset for field:

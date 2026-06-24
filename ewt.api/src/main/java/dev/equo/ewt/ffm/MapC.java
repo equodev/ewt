@@ -51,7 +51,7 @@ public class MapC {
         return size$LAYOUT;
     }
 
-    private static final long size$OFFSET = 0;
+    private static final long size$OFFSET = $LAYOUT.byteOffset(groupElement("size"));
 
     /**
      * Offset for field:
@@ -95,7 +95,7 @@ public class MapC {
         return entries$LAYOUT;
     }
 
-    private static final long entries$OFFSET = 8;
+    private static final long entries$OFFSET = $LAYOUT.byteOffset(groupElement("entries"));
 
     /**
      * Offset for field:

@@ -53,7 +53,7 @@ public class SizedBoxObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -97,7 +97,7 @@ public class SizedBoxObjSt {
         return width$LAYOUT;
     }
 
-    private static final long width$OFFSET = 8;
+    private static final long width$OFFSET = $LAYOUT.byteOffset(groupElement("width"));
 
     /**
      * Offset for field:
@@ -141,7 +141,7 @@ public class SizedBoxObjSt {
         return height$LAYOUT;
     }
 
-    private static final long height$OFFSET = 16;
+    private static final long height$OFFSET = $LAYOUT.byteOffset(groupElement("height"));
 
     /**
      * Offset for field:

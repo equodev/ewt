@@ -76,7 +76,7 @@ public class MaterialObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -120,7 +120,7 @@ public class MaterialObjSt {
         return child$LAYOUT;
     }
 
-    private static final long child$OFFSET = 4;
+    private static final long child$OFFSET = $LAYOUT.byteOffset(groupElement("child"));
 
     /**
      * Offset for field:
@@ -164,7 +164,7 @@ public class MaterialObjSt {
         return type$LAYOUT;
     }
 
-    private static final long type$OFFSET = 8;
+    private static final long type$OFFSET = $LAYOUT.byteOffset(groupElement("type"));
 
     /**
      * Offset for field:
@@ -208,7 +208,7 @@ public class MaterialObjSt {
         return animateColor$LAYOUT;
     }
 
-    private static final long animateColor$OFFSET = 12;
+    private static final long animateColor$OFFSET = $LAYOUT.byteOffset(groupElement("animateColor"));
 
     /**
      * Offset for field:
@@ -252,7 +252,7 @@ public class MaterialObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 16;
+    private static final long elevation$OFFSET = $LAYOUT.byteOffset(groupElement("elevation"));
 
     /**
      * Offset for field:
@@ -296,7 +296,7 @@ public class MaterialObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 24;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -340,7 +340,7 @@ public class MaterialObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 28;
+    private static final long shadowColor$OFFSET = $LAYOUT.byteOffset(groupElement("shadowColor"));
 
     /**
      * Offset for field:
@@ -384,7 +384,7 @@ public class MaterialObjSt {
         return surfaceTintColor$LAYOUT;
     }
 
-    private static final long surfaceTintColor$OFFSET = 32;
+    private static final long surfaceTintColor$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceTintColor"));
 
     /**
      * Offset for field:
@@ -428,7 +428,7 @@ public class MaterialObjSt {
         return textStyle$LAYOUT;
     }
 
-    private static final long textStyle$OFFSET = 40;
+    private static final long textStyle$OFFSET = $LAYOUT.byteOffset(groupElement("textStyle"));
 
     /**
      * Offset for field:
@@ -472,7 +472,7 @@ public class MaterialObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 152;
+    private static final long shape$OFFSET = $LAYOUT.byteOffset(groupElement("shape"));
 
     /**
      * Offset for field:
@@ -516,7 +516,7 @@ public class MaterialObjSt {
         return borderOnForeground$LAYOUT;
     }
 
-    private static final long borderOnForeground$OFFSET = 156;
+    private static final long borderOnForeground$OFFSET = $LAYOUT.byteOffset(groupElement("borderOnForeground"));
 
     /**
      * Offset for field:
@@ -560,7 +560,7 @@ public class MaterialObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 160;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -604,7 +604,7 @@ public class MaterialObjSt {
         return animationDuration$LAYOUT;
     }
 
-    private static final long animationDuration$OFFSET = 164;
+    private static final long animationDuration$OFFSET = $LAYOUT.byteOffset(groupElement("animationDuration"));
 
     /**
      * Offset for field:
@@ -648,7 +648,7 @@ public class MaterialObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 168;
+    private static final long borderRadius$OFFSET = $LAYOUT.byteOffset(groupElement("borderRadius"));
 
     /**
      * Offset for field:

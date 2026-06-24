@@ -105,7 +105,7 @@ public class ThemeDataObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -149,7 +149,7 @@ public class ThemeDataObjSt {
         return applyElevationOverlayColor$LAYOUT;
     }
 
-    private static final long applyElevationOverlayColor$OFFSET = 4;
+    private static final long applyElevationOverlayColor$OFFSET = $LAYOUT.byteOffset(groupElement("applyElevationOverlayColor"));
 
     /**
      * Offset for field:
@@ -193,7 +193,7 @@ public class ThemeDataObjSt {
         return materialTapTargetSize$LAYOUT;
     }
 
-    private static final long materialTapTargetSize$OFFSET = 8;
+    private static final long materialTapTargetSize$OFFSET = $LAYOUT.byteOffset(groupElement("materialTapTargetSize"));
 
     /**
      * Offset for field:
@@ -237,7 +237,7 @@ public class ThemeDataObjSt {
         return platform$LAYOUT;
     }
 
-    private static final long platform$OFFSET = 12;
+    private static final long platform$OFFSET = $LAYOUT.byteOffset(groupElement("platform"));
 
     /**
      * Offset for field:
@@ -281,7 +281,7 @@ public class ThemeDataObjSt {
         return useMaterial3$LAYOUT;
     }
 
-    private static final long useMaterial3$OFFSET = 16;
+    private static final long useMaterial3$OFFSET = $LAYOUT.byteOffset(groupElement("useMaterial3"));
 
     /**
      * Offset for field:
@@ -325,7 +325,7 @@ public class ThemeDataObjSt {
         return visualDensity$LAYOUT;
     }
 
-    private static final long visualDensity$OFFSET = 24;
+    private static final long visualDensity$OFFSET = $LAYOUT.byteOffset(groupElement("visualDensity"));
 
     /**
      * Offset for field:
@@ -369,7 +369,7 @@ public class ThemeDataObjSt {
         return canvasColor$LAYOUT;
     }
 
-    private static final long canvasColor$OFFSET = 56;
+    private static final long canvasColor$OFFSET = $LAYOUT.byteOffset(groupElement("canvasColor"));
 
     /**
      * Offset for field:
@@ -413,7 +413,7 @@ public class ThemeDataObjSt {
         return cardColor$LAYOUT;
     }
 
-    private static final long cardColor$OFFSET = 60;
+    private static final long cardColor$OFFSET = $LAYOUT.byteOffset(groupElement("cardColor"));
 
     /**
      * Offset for field:
@@ -457,7 +457,7 @@ public class ThemeDataObjSt {
         return colorScheme$LAYOUT;
     }
 
-    private static final long colorScheme$OFFSET = 64;
+    private static final long colorScheme$OFFSET = $LAYOUT.byteOffset(groupElement("colorScheme"));
 
     /**
      * Offset for field:
@@ -501,7 +501,7 @@ public class ThemeDataObjSt {
         return disabledColor$LAYOUT;
     }
 
-    private static final long disabledColor$OFFSET = 268;
+    private static final long disabledColor$OFFSET = $LAYOUT.byteOffset(groupElement("disabledColor"));
 
     /**
      * Offset for field:
@@ -545,7 +545,7 @@ public class ThemeDataObjSt {
         return dividerColor$LAYOUT;
     }
 
-    private static final long dividerColor$OFFSET = 272;
+    private static final long dividerColor$OFFSET = $LAYOUT.byteOffset(groupElement("dividerColor"));
 
     /**
      * Offset for field:
@@ -589,7 +589,7 @@ public class ThemeDataObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 276;
+    private static final long focusColor$OFFSET = $LAYOUT.byteOffset(groupElement("focusColor"));
 
     /**
      * Offset for field:
@@ -633,7 +633,7 @@ public class ThemeDataObjSt {
         return highlightColor$LAYOUT;
     }
 
-    private static final long highlightColor$OFFSET = 280;
+    private static final long highlightColor$OFFSET = $LAYOUT.byteOffset(groupElement("highlightColor"));
 
     /**
      * Offset for field:
@@ -677,7 +677,7 @@ public class ThemeDataObjSt {
         return hintColor$LAYOUT;
     }
 
-    private static final long hintColor$OFFSET = 284;
+    private static final long hintColor$OFFSET = $LAYOUT.byteOffset(groupElement("hintColor"));
 
     /**
      * Offset for field:
@@ -721,7 +721,7 @@ public class ThemeDataObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 288;
+    private static final long hoverColor$OFFSET = $LAYOUT.byteOffset(groupElement("hoverColor"));
 
     /**
      * Offset for field:
@@ -765,7 +765,7 @@ public class ThemeDataObjSt {
         return primaryColor$LAYOUT;
     }
 
-    private static final long primaryColor$OFFSET = 292;
+    private static final long primaryColor$OFFSET = $LAYOUT.byteOffset(groupElement("primaryColor"));
 
     /**
      * Offset for field:
@@ -809,7 +809,7 @@ public class ThemeDataObjSt {
         return primaryColorDark$LAYOUT;
     }
 
-    private static final long primaryColorDark$OFFSET = 296;
+    private static final long primaryColorDark$OFFSET = $LAYOUT.byteOffset(groupElement("primaryColorDark"));
 
     /**
      * Offset for field:
@@ -853,7 +853,7 @@ public class ThemeDataObjSt {
         return primaryColorLight$LAYOUT;
     }
 
-    private static final long primaryColorLight$OFFSET = 300;
+    private static final long primaryColorLight$OFFSET = $LAYOUT.byteOffset(groupElement("primaryColorLight"));
 
     /**
      * Offset for field:
@@ -897,7 +897,7 @@ public class ThemeDataObjSt {
         return scaffoldBackgroundColor$LAYOUT;
     }
 
-    private static final long scaffoldBackgroundColor$OFFSET = 304;
+    private static final long scaffoldBackgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("scaffoldBackgroundColor"));
 
     /**
      * Offset for field:
@@ -941,7 +941,7 @@ public class ThemeDataObjSt {
         return secondaryHeaderColor$LAYOUT;
     }
 
-    private static final long secondaryHeaderColor$OFFSET = 308;
+    private static final long secondaryHeaderColor$OFFSET = $LAYOUT.byteOffset(groupElement("secondaryHeaderColor"));
 
     /**
      * Offset for field:
@@ -985,7 +985,7 @@ public class ThemeDataObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 312;
+    private static final long shadowColor$OFFSET = $LAYOUT.byteOffset(groupElement("shadowColor"));
 
     /**
      * Offset for field:
@@ -1029,7 +1029,7 @@ public class ThemeDataObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 316;
+    private static final long splashColor$OFFSET = $LAYOUT.byteOffset(groupElement("splashColor"));
 
     /**
      * Offset for field:
@@ -1073,7 +1073,7 @@ public class ThemeDataObjSt {
         return unselectedWidgetColor$LAYOUT;
     }
 
-    private static final long unselectedWidgetColor$OFFSET = 320;
+    private static final long unselectedWidgetColor$OFFSET = $LAYOUT.byteOffset(groupElement("unselectedWidgetColor"));
 
     /**
      * Offset for field:
@@ -1117,7 +1117,7 @@ public class ThemeDataObjSt {
         return primaryTextTheme$LAYOUT;
     }
 
-    private static final long primaryTextTheme$OFFSET = 328;
+    private static final long primaryTextTheme$OFFSET = $LAYOUT.byteOffset(groupElement("primaryTextTheme"));
 
     /**
      * Offset for field:
@@ -1161,7 +1161,7 @@ public class ThemeDataObjSt {
         return textTheme$LAYOUT;
     }
 
-    private static final long textTheme$OFFSET = 2016;
+    private static final long textTheme$OFFSET = $LAYOUT.byteOffset(groupElement("textTheme"));
 
     /**
      * Offset for field:
@@ -1205,7 +1205,7 @@ public class ThemeDataObjSt {
         return dialogBackgroundColor$LAYOUT;
     }
 
-    private static final long dialogBackgroundColor$OFFSET = 3704;
+    private static final long dialogBackgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("dialogBackgroundColor"));
 
     /**
      * Offset for field:
@@ -1249,7 +1249,7 @@ public class ThemeDataObjSt {
         return indicatorColor$LAYOUT;
     }
 
-    private static final long indicatorColor$OFFSET = 3708;
+    private static final long indicatorColor$OFFSET = $LAYOUT.byteOffset(groupElement("indicatorColor"));
 
     /**
      * Offset for field:
@@ -1293,7 +1293,7 @@ public class ThemeDataObjSt {
         return brightness$LAYOUT;
     }
 
-    private static final long brightness$OFFSET = 3712;
+    private static final long brightness$OFFSET = $LAYOUT.byteOffset(groupElement("brightness"));
 
     /**
      * Offset for field:

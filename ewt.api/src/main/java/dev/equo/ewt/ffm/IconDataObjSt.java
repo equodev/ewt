@@ -57,7 +57,7 @@ public class IconDataObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -101,7 +101,7 @@ public class IconDataObjSt {
         return codePoint$LAYOUT;
     }
 
-    private static final long codePoint$OFFSET = 4;
+    private static final long codePoint$OFFSET = $LAYOUT.byteOffset(groupElement("codePoint"));
 
     /**
      * Offset for field:
@@ -145,7 +145,7 @@ public class IconDataObjSt {
         return fontFamily$LAYOUT;
     }
 
-    private static final long fontFamily$OFFSET = 8;
+    private static final long fontFamily$OFFSET = $LAYOUT.byteOffset(groupElement("fontFamily"));
 
     /**
      * Offset for field:
@@ -189,7 +189,7 @@ public class IconDataObjSt {
         return fontPackage$LAYOUT;
     }
 
-    private static final long fontPackage$OFFSET = 16;
+    private static final long fontPackage$OFFSET = $LAYOUT.byteOffset(groupElement("fontPackage"));
 
     /**
      * Offset for field:
@@ -233,7 +233,7 @@ public class IconDataObjSt {
         return matchTextDirection$LAYOUT;
     }
 
-    private static final long matchTextDirection$OFFSET = 24;
+    private static final long matchTextDirection$OFFSET = $LAYOUT.byteOffset(groupElement("matchTextDirection"));
 
     /**
      * Offset for field:

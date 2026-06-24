@@ -95,7 +95,7 @@ public class FloatingActionButtonObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -139,7 +139,7 @@ public class FloatingActionButtonObjSt {
         return child$LAYOUT;
     }
 
-    private static final long child$OFFSET = 4;
+    private static final long child$OFFSET = $LAYOUT.byteOffset(groupElement("child"));
 
     /**
      * Offset for field:
@@ -183,7 +183,7 @@ public class FloatingActionButtonObjSt {
         return tooltip$LAYOUT;
     }
 
-    private static final long tooltip$OFFSET = 8;
+    private static final long tooltip$OFFSET = $LAYOUT.byteOffset(groupElement("tooltip"));
 
     /**
      * Offset for field:
@@ -227,7 +227,7 @@ public class FloatingActionButtonObjSt {
         return foregroundColor$LAYOUT;
     }
 
-    private static final long foregroundColor$OFFSET = 16;
+    private static final long foregroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("foregroundColor"));
 
     /**
      * Offset for field:
@@ -271,7 +271,7 @@ public class FloatingActionButtonObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 20;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -315,7 +315,7 @@ public class FloatingActionButtonObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 24;
+    private static final long focusColor$OFFSET = $LAYOUT.byteOffset(groupElement("focusColor"));
 
     /**
      * Offset for field:
@@ -359,7 +359,7 @@ public class FloatingActionButtonObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 28;
+    private static final long hoverColor$OFFSET = $LAYOUT.byteOffset(groupElement("hoverColor"));
 
     /**
      * Offset for field:
@@ -403,7 +403,7 @@ public class FloatingActionButtonObjSt {
         return splashColor$LAYOUT;
     }
 
-    private static final long splashColor$OFFSET = 32;
+    private static final long splashColor$OFFSET = $LAYOUT.byteOffset(groupElement("splashColor"));
 
     /**
      * Offset for field:
@@ -447,7 +447,7 @@ public class FloatingActionButtonObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 40;
+    private static final long elevation$OFFSET = $LAYOUT.byteOffset(groupElement("elevation"));
 
     /**
      * Offset for field:
@@ -491,7 +491,7 @@ public class FloatingActionButtonObjSt {
         return focusElevation$LAYOUT;
     }
 
-    private static final long focusElevation$OFFSET = 48;
+    private static final long focusElevation$OFFSET = $LAYOUT.byteOffset(groupElement("focusElevation"));
 
     /**
      * Offset for field:
@@ -535,7 +535,7 @@ public class FloatingActionButtonObjSt {
         return hoverElevation$LAYOUT;
     }
 
-    private static final long hoverElevation$OFFSET = 56;
+    private static final long hoverElevation$OFFSET = $LAYOUT.byteOffset(groupElement("hoverElevation"));
 
     /**
      * Offset for field:
@@ -579,7 +579,7 @@ public class FloatingActionButtonObjSt {
         return highlightElevation$LAYOUT;
     }
 
-    private static final long highlightElevation$OFFSET = 64;
+    private static final long highlightElevation$OFFSET = $LAYOUT.byteOffset(groupElement("highlightElevation"));
 
     /**
      * Offset for field:
@@ -623,7 +623,7 @@ public class FloatingActionButtonObjSt {
         return disabledElevation$LAYOUT;
     }
 
-    private static final long disabledElevation$OFFSET = 72;
+    private static final long disabledElevation$OFFSET = $LAYOUT.byteOffset(groupElement("disabledElevation"));
 
     /**
      * Offset for field:
@@ -667,7 +667,7 @@ public class FloatingActionButtonObjSt {
         return mini$LAYOUT;
     }
 
-    private static final long mini$OFFSET = 80;
+    private static final long mini$OFFSET = $LAYOUT.byteOffset(groupElement("mini"));
 
     /**
      * Offset for field:
@@ -711,7 +711,7 @@ public class FloatingActionButtonObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 84;
+    private static final long shape$OFFSET = $LAYOUT.byteOffset(groupElement("shape"));
 
     /**
      * Offset for field:
@@ -755,7 +755,7 @@ public class FloatingActionButtonObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 88;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -799,7 +799,7 @@ public class FloatingActionButtonObjSt {
         return isExtended$LAYOUT;
     }
 
-    private static final long isExtended$OFFSET = 92;
+    private static final long isExtended$OFFSET = $LAYOUT.byteOffset(groupElement("isExtended"));
 
     /**
      * Offset for field:
@@ -843,7 +843,7 @@ public class FloatingActionButtonObjSt {
         return autofocus$LAYOUT;
     }
 
-    private static final long autofocus$OFFSET = 96;
+    private static final long autofocus$OFFSET = $LAYOUT.byteOffset(groupElement("autofocus"));
 
     /**
      * Offset for field:
@@ -887,7 +887,7 @@ public class FloatingActionButtonObjSt {
         return materialTapTargetSize$LAYOUT;
     }
 
-    private static final long materialTapTargetSize$OFFSET = 100;
+    private static final long materialTapTargetSize$OFFSET = $LAYOUT.byteOffset(groupElement("materialTapTargetSize"));
 
     /**
      * Offset for field:
@@ -931,7 +931,7 @@ public class FloatingActionButtonObjSt {
         return enableFeedback$LAYOUT;
     }
 
-    private static final long enableFeedback$OFFSET = 104;
+    private static final long enableFeedback$OFFSET = $LAYOUT.byteOffset(groupElement("enableFeedback"));
 
     /**
      * Offset for field:
@@ -975,7 +975,7 @@ public class FloatingActionButtonObjSt {
         return extendedIconLabelSpacing$LAYOUT;
     }
 
-    private static final long extendedIconLabelSpacing$OFFSET = 112;
+    private static final long extendedIconLabelSpacing$OFFSET = $LAYOUT.byteOffset(groupElement("extendedIconLabelSpacing"));
 
     /**
      * Offset for field:
@@ -1019,7 +1019,7 @@ public class FloatingActionButtonObjSt {
         return extendedPadding$LAYOUT;
     }
 
-    private static final long extendedPadding$OFFSET = 120;
+    private static final long extendedPadding$OFFSET = $LAYOUT.byteOffset(groupElement("extendedPadding"));
 
     /**
      * Offset for field:
@@ -1063,7 +1063,7 @@ public class FloatingActionButtonObjSt {
         return extendedTextStyle$LAYOUT;
     }
 
-    private static final long extendedTextStyle$OFFSET = 128;
+    private static final long extendedTextStyle$OFFSET = $LAYOUT.byteOffset(groupElement("extendedTextStyle"));
 
     /**
      * Offset for field:

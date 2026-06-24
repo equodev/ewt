@@ -172,7 +172,7 @@ public class InputDecorationObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -216,7 +216,7 @@ public class InputDecorationObjSt {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 4;
+    private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
     /**
      * Offset for field:
@@ -260,7 +260,7 @@ public class InputDecorationObjSt {
         return iconColor$LAYOUT;
     }
 
-    private static final long iconColor$OFFSET = 8;
+    private static final long iconColor$OFFSET = $LAYOUT.byteOffset(groupElement("iconColor"));
 
     /**
      * Offset for field:
@@ -304,7 +304,7 @@ public class InputDecorationObjSt {
         return label$LAYOUT;
     }
 
-    private static final long label$OFFSET = 12;
+    private static final long label$OFFSET = $LAYOUT.byteOffset(groupElement("label"));
 
     /**
      * Offset for field:
@@ -348,7 +348,7 @@ public class InputDecorationObjSt {
         return labelText$LAYOUT;
     }
 
-    private static final long labelText$OFFSET = 16;
+    private static final long labelText$OFFSET = $LAYOUT.byteOffset(groupElement("labelText"));
 
     /**
      * Offset for field:
@@ -392,7 +392,7 @@ public class InputDecorationObjSt {
         return labelStyle$LAYOUT;
     }
 
-    private static final long labelStyle$OFFSET = 24;
+    private static final long labelStyle$OFFSET = $LAYOUT.byteOffset(groupElement("labelStyle"));
 
     /**
      * Offset for field:
@@ -436,7 +436,7 @@ public class InputDecorationObjSt {
         return floatingLabelStyle$LAYOUT;
     }
 
-    private static final long floatingLabelStyle$OFFSET = 136;
+    private static final long floatingLabelStyle$OFFSET = $LAYOUT.byteOffset(groupElement("floatingLabelStyle"));
 
     /**
      * Offset for field:
@@ -480,7 +480,7 @@ public class InputDecorationObjSt {
         return helper$LAYOUT;
     }
 
-    private static final long helper$OFFSET = 248;
+    private static final long helper$OFFSET = $LAYOUT.byteOffset(groupElement("helper"));
 
     /**
      * Offset for field:
@@ -524,7 +524,7 @@ public class InputDecorationObjSt {
         return helperText$LAYOUT;
     }
 
-    private static final long helperText$OFFSET = 256;
+    private static final long helperText$OFFSET = $LAYOUT.byteOffset(groupElement("helperText"));
 
     /**
      * Offset for field:
@@ -568,7 +568,7 @@ public class InputDecorationObjSt {
         return helperStyle$LAYOUT;
     }
 
-    private static final long helperStyle$OFFSET = 264;
+    private static final long helperStyle$OFFSET = $LAYOUT.byteOffset(groupElement("helperStyle"));
 
     /**
      * Offset for field:
@@ -612,7 +612,7 @@ public class InputDecorationObjSt {
         return helperMaxLines$LAYOUT;
     }
 
-    private static final long helperMaxLines$OFFSET = 376;
+    private static final long helperMaxLines$OFFSET = $LAYOUT.byteOffset(groupElement("helperMaxLines"));
 
     /**
      * Offset for field:
@@ -656,7 +656,7 @@ public class InputDecorationObjSt {
         return hintText$LAYOUT;
     }
 
-    private static final long hintText$OFFSET = 384;
+    private static final long hintText$OFFSET = $LAYOUT.byteOffset(groupElement("hintText"));
 
     /**
      * Offset for field:
@@ -700,7 +700,7 @@ public class InputDecorationObjSt {
         return hint$LAYOUT;
     }
 
-    private static final long hint$OFFSET = 392;
+    private static final long hint$OFFSET = $LAYOUT.byteOffset(groupElement("hint"));
 
     /**
      * Offset for field:
@@ -744,7 +744,7 @@ public class InputDecorationObjSt {
         return hintStyle$LAYOUT;
     }
 
-    private static final long hintStyle$OFFSET = 400;
+    private static final long hintStyle$OFFSET = $LAYOUT.byteOffset(groupElement("hintStyle"));
 
     /**
      * Offset for field:
@@ -788,7 +788,7 @@ public class InputDecorationObjSt {
         return hintTextDirection$LAYOUT;
     }
 
-    private static final long hintTextDirection$OFFSET = 512;
+    private static final long hintTextDirection$OFFSET = $LAYOUT.byteOffset(groupElement("hintTextDirection"));
 
     /**
      * Offset for field:
@@ -832,7 +832,7 @@ public class InputDecorationObjSt {
         return hintMaxLines$LAYOUT;
     }
 
-    private static final long hintMaxLines$OFFSET = 516;
+    private static final long hintMaxLines$OFFSET = $LAYOUT.byteOffset(groupElement("hintMaxLines"));
 
     /**
      * Offset for field:
@@ -876,7 +876,7 @@ public class InputDecorationObjSt {
         return hintFadeDuration$LAYOUT;
     }
 
-    private static final long hintFadeDuration$OFFSET = 520;
+    private static final long hintFadeDuration$OFFSET = $LAYOUT.byteOffset(groupElement("hintFadeDuration"));
 
     /**
      * Offset for field:
@@ -920,7 +920,7 @@ public class InputDecorationObjSt {
         return maintainHintHeight$LAYOUT;
     }
 
-    private static final long maintainHintHeight$OFFSET = 524;
+    private static final long maintainHintHeight$OFFSET = $LAYOUT.byteOffset(groupElement("maintainHintHeight"));
 
     /**
      * Offset for field:
@@ -964,7 +964,7 @@ public class InputDecorationObjSt {
         return maintainHintSize$LAYOUT;
     }
 
-    private static final long maintainHintSize$OFFSET = 528;
+    private static final long maintainHintSize$OFFSET = $LAYOUT.byteOffset(groupElement("maintainHintSize"));
 
     /**
      * Offset for field:
@@ -1008,7 +1008,7 @@ public class InputDecorationObjSt {
         return maintainLabelSize$LAYOUT;
     }
 
-    private static final long maintainLabelSize$OFFSET = 532;
+    private static final long maintainLabelSize$OFFSET = $LAYOUT.byteOffset(groupElement("maintainLabelSize"));
 
     /**
      * Offset for field:
@@ -1052,7 +1052,7 @@ public class InputDecorationObjSt {
         return error$LAYOUT;
     }
 
-    private static final long error$OFFSET = 536;
+    private static final long error$OFFSET = $LAYOUT.byteOffset(groupElement("error"));
 
     /**
      * Offset for field:
@@ -1096,7 +1096,7 @@ public class InputDecorationObjSt {
         return errorText$LAYOUT;
     }
 
-    private static final long errorText$OFFSET = 544;
+    private static final long errorText$OFFSET = $LAYOUT.byteOffset(groupElement("errorText"));
 
     /**
      * Offset for field:
@@ -1140,7 +1140,7 @@ public class InputDecorationObjSt {
         return errorStyle$LAYOUT;
     }
 
-    private static final long errorStyle$OFFSET = 552;
+    private static final long errorStyle$OFFSET = $LAYOUT.byteOffset(groupElement("errorStyle"));
 
     /**
      * Offset for field:
@@ -1184,7 +1184,7 @@ public class InputDecorationObjSt {
         return errorMaxLines$LAYOUT;
     }
 
-    private static final long errorMaxLines$OFFSET = 664;
+    private static final long errorMaxLines$OFFSET = $LAYOUT.byteOffset(groupElement("errorMaxLines"));
 
     /**
      * Offset for field:
@@ -1228,7 +1228,7 @@ public class InputDecorationObjSt {
         return floatingLabelBehavior$LAYOUT;
     }
 
-    private static final long floatingLabelBehavior$OFFSET = 668;
+    private static final long floatingLabelBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("floatingLabelBehavior"));
 
     /**
      * Offset for field:
@@ -1272,7 +1272,7 @@ public class InputDecorationObjSt {
         return isDense$LAYOUT;
     }
 
-    private static final long isDense$OFFSET = 672;
+    private static final long isDense$OFFSET = $LAYOUT.byteOffset(groupElement("isDense"));
 
     /**
      * Offset for field:
@@ -1316,7 +1316,7 @@ public class InputDecorationObjSt {
         return contentPadding$LAYOUT;
     }
 
-    private static final long contentPadding$OFFSET = 676;
+    private static final long contentPadding$OFFSET = $LAYOUT.byteOffset(groupElement("contentPadding"));
 
     /**
      * Offset for field:
@@ -1360,7 +1360,7 @@ public class InputDecorationObjSt {
         return isCollapsed$LAYOUT;
     }
 
-    private static final long isCollapsed$OFFSET = 680;
+    private static final long isCollapsed$OFFSET = $LAYOUT.byteOffset(groupElement("isCollapsed"));
 
     /**
      * Offset for field:
@@ -1404,7 +1404,7 @@ public class InputDecorationObjSt {
         return prefixIcon$LAYOUT;
     }
 
-    private static final long prefixIcon$OFFSET = 684;
+    private static final long prefixIcon$OFFSET = $LAYOUT.byteOffset(groupElement("prefixIcon"));
 
     /**
      * Offset for field:
@@ -1448,7 +1448,7 @@ public class InputDecorationObjSt {
         return prefixIconConstraints$LAYOUT;
     }
 
-    private static final long prefixIconConstraints$OFFSET = 688;
+    private static final long prefixIconConstraints$OFFSET = $LAYOUT.byteOffset(groupElement("prefixIconConstraints"));
 
     /**
      * Offset for field:
@@ -1492,7 +1492,7 @@ public class InputDecorationObjSt {
         return prefix$LAYOUT;
     }
 
-    private static final long prefix$OFFSET = 752;
+    private static final long prefix$OFFSET = $LAYOUT.byteOffset(groupElement("prefix"));
 
     /**
      * Offset for field:
@@ -1536,7 +1536,7 @@ public class InputDecorationObjSt {
         return prefixText$LAYOUT;
     }
 
-    private static final long prefixText$OFFSET = 760;
+    private static final long prefixText$OFFSET = $LAYOUT.byteOffset(groupElement("prefixText"));
 
     /**
      * Offset for field:
@@ -1580,7 +1580,7 @@ public class InputDecorationObjSt {
         return prefixStyle$LAYOUT;
     }
 
-    private static final long prefixStyle$OFFSET = 768;
+    private static final long prefixStyle$OFFSET = $LAYOUT.byteOffset(groupElement("prefixStyle"));
 
     /**
      * Offset for field:
@@ -1624,7 +1624,7 @@ public class InputDecorationObjSt {
         return prefixIconColor$LAYOUT;
     }
 
-    private static final long prefixIconColor$OFFSET = 880;
+    private static final long prefixIconColor$OFFSET = $LAYOUT.byteOffset(groupElement("prefixIconColor"));
 
     /**
      * Offset for field:
@@ -1668,7 +1668,7 @@ public class InputDecorationObjSt {
         return suffixIcon$LAYOUT;
     }
 
-    private static final long suffixIcon$OFFSET = 884;
+    private static final long suffixIcon$OFFSET = $LAYOUT.byteOffset(groupElement("suffixIcon"));
 
     /**
      * Offset for field:
@@ -1712,7 +1712,7 @@ public class InputDecorationObjSt {
         return suffix$LAYOUT;
     }
 
-    private static final long suffix$OFFSET = 888;
+    private static final long suffix$OFFSET = $LAYOUT.byteOffset(groupElement("suffix"));
 
     /**
      * Offset for field:
@@ -1756,7 +1756,7 @@ public class InputDecorationObjSt {
         return suffixText$LAYOUT;
     }
 
-    private static final long suffixText$OFFSET = 896;
+    private static final long suffixText$OFFSET = $LAYOUT.byteOffset(groupElement("suffixText"));
 
     /**
      * Offset for field:
@@ -1800,7 +1800,7 @@ public class InputDecorationObjSt {
         return suffixStyle$LAYOUT;
     }
 
-    private static final long suffixStyle$OFFSET = 904;
+    private static final long suffixStyle$OFFSET = $LAYOUT.byteOffset(groupElement("suffixStyle"));
 
     /**
      * Offset for field:
@@ -1844,7 +1844,7 @@ public class InputDecorationObjSt {
         return suffixIconColor$LAYOUT;
     }
 
-    private static final long suffixIconColor$OFFSET = 1016;
+    private static final long suffixIconColor$OFFSET = $LAYOUT.byteOffset(groupElement("suffixIconColor"));
 
     /**
      * Offset for field:
@@ -1888,7 +1888,7 @@ public class InputDecorationObjSt {
         return suffixIconConstraints$LAYOUT;
     }
 
-    private static final long suffixIconConstraints$OFFSET = 1024;
+    private static final long suffixIconConstraints$OFFSET = $LAYOUT.byteOffset(groupElement("suffixIconConstraints"));
 
     /**
      * Offset for field:
@@ -1932,7 +1932,7 @@ public class InputDecorationObjSt {
         return counterText$LAYOUT;
     }
 
-    private static final long counterText$OFFSET = 1088;
+    private static final long counterText$OFFSET = $LAYOUT.byteOffset(groupElement("counterText"));
 
     /**
      * Offset for field:
@@ -1976,7 +1976,7 @@ public class InputDecorationObjSt {
         return counter$LAYOUT;
     }
 
-    private static final long counter$OFFSET = 1096;
+    private static final long counter$OFFSET = $LAYOUT.byteOffset(groupElement("counter"));
 
     /**
      * Offset for field:
@@ -2020,7 +2020,7 @@ public class InputDecorationObjSt {
         return counterStyle$LAYOUT;
     }
 
-    private static final long counterStyle$OFFSET = 1104;
+    private static final long counterStyle$OFFSET = $LAYOUT.byteOffset(groupElement("counterStyle"));
 
     /**
      * Offset for field:
@@ -2064,7 +2064,7 @@ public class InputDecorationObjSt {
         return filled$LAYOUT;
     }
 
-    private static final long filled$OFFSET = 1216;
+    private static final long filled$OFFSET = $LAYOUT.byteOffset(groupElement("filled"));
 
     /**
      * Offset for field:
@@ -2108,7 +2108,7 @@ public class InputDecorationObjSt {
         return fillColor$LAYOUT;
     }
 
-    private static final long fillColor$OFFSET = 1220;
+    private static final long fillColor$OFFSET = $LAYOUT.byteOffset(groupElement("fillColor"));
 
     /**
      * Offset for field:
@@ -2152,7 +2152,7 @@ public class InputDecorationObjSt {
         return focusColor$LAYOUT;
     }
 
-    private static final long focusColor$OFFSET = 1224;
+    private static final long focusColor$OFFSET = $LAYOUT.byteOffset(groupElement("focusColor"));
 
     /**
      * Offset for field:
@@ -2196,7 +2196,7 @@ public class InputDecorationObjSt {
         return hoverColor$LAYOUT;
     }
 
-    private static final long hoverColor$OFFSET = 1228;
+    private static final long hoverColor$OFFSET = $LAYOUT.byteOffset(groupElement("hoverColor"));
 
     /**
      * Offset for field:
@@ -2240,7 +2240,7 @@ public class InputDecorationObjSt {
         return errorBorder$LAYOUT;
     }
 
-    private static final long errorBorder$OFFSET = 1232;
+    private static final long errorBorder$OFFSET = $LAYOUT.byteOffset(groupElement("errorBorder"));
 
     /**
      * Offset for field:
@@ -2284,7 +2284,7 @@ public class InputDecorationObjSt {
         return focusedBorder$LAYOUT;
     }
 
-    private static final long focusedBorder$OFFSET = 1236;
+    private static final long focusedBorder$OFFSET = $LAYOUT.byteOffset(groupElement("focusedBorder"));
 
     /**
      * Offset for field:
@@ -2328,7 +2328,7 @@ public class InputDecorationObjSt {
         return focusedErrorBorder$LAYOUT;
     }
 
-    private static final long focusedErrorBorder$OFFSET = 1240;
+    private static final long focusedErrorBorder$OFFSET = $LAYOUT.byteOffset(groupElement("focusedErrorBorder"));
 
     /**
      * Offset for field:
@@ -2372,7 +2372,7 @@ public class InputDecorationObjSt {
         return disabledBorder$LAYOUT;
     }
 
-    private static final long disabledBorder$OFFSET = 1244;
+    private static final long disabledBorder$OFFSET = $LAYOUT.byteOffset(groupElement("disabledBorder"));
 
     /**
      * Offset for field:
@@ -2416,7 +2416,7 @@ public class InputDecorationObjSt {
         return enabledBorder$LAYOUT;
     }
 
-    private static final long enabledBorder$OFFSET = 1248;
+    private static final long enabledBorder$OFFSET = $LAYOUT.byteOffset(groupElement("enabledBorder"));
 
     /**
      * Offset for field:
@@ -2460,7 +2460,7 @@ public class InputDecorationObjSt {
         return border$LAYOUT;
     }
 
-    private static final long border$OFFSET = 1252;
+    private static final long border$OFFSET = $LAYOUT.byteOffset(groupElement("border"));
 
     /**
      * Offset for field:
@@ -2504,7 +2504,7 @@ public class InputDecorationObjSt {
         return enabled$LAYOUT;
     }
 
-    private static final long enabled$OFFSET = 1256;
+    private static final long enabled$OFFSET = $LAYOUT.byteOffset(groupElement("enabled"));
 
     /**
      * Offset for field:
@@ -2548,7 +2548,7 @@ public class InputDecorationObjSt {
         return semanticCounterText$LAYOUT;
     }
 
-    private static final long semanticCounterText$OFFSET = 1264;
+    private static final long semanticCounterText$OFFSET = $LAYOUT.byteOffset(groupElement("semanticCounterText"));
 
     /**
      * Offset for field:
@@ -2592,7 +2592,7 @@ public class InputDecorationObjSt {
         return alignLabelWithHint$LAYOUT;
     }
 
-    private static final long alignLabelWithHint$OFFSET = 1272;
+    private static final long alignLabelWithHint$OFFSET = $LAYOUT.byteOffset(groupElement("alignLabelWithHint"));
 
     /**
      * Offset for field:
@@ -2636,7 +2636,7 @@ public class InputDecorationObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 1280;
+    private static final long constraints$OFFSET = $LAYOUT.byteOffset(groupElement("constraints"));
 
     /**
      * Offset for field:
@@ -2680,7 +2680,7 @@ public class InputDecorationObjSt {
         return visualDensity$LAYOUT;
     }
 
-    private static final long visualDensity$OFFSET = 1344;
+    private static final long visualDensity$OFFSET = $LAYOUT.byteOffset(groupElement("visualDensity"));
 
     /**
      * Offset for field:

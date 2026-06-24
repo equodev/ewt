@@ -68,7 +68,7 @@ public class MaterialColorObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -112,7 +112,7 @@ public class MaterialColorObjSt {
         return shade50$LAYOUT;
     }
 
-    private static final long shade50$OFFSET = 4;
+    private static final long shade50$OFFSET = $LAYOUT.byteOffset(groupElement("shade50"));
 
     /**
      * Offset for field:
@@ -156,7 +156,7 @@ public class MaterialColorObjSt {
         return shade100$LAYOUT;
     }
 
-    private static final long shade100$OFFSET = 8;
+    private static final long shade100$OFFSET = $LAYOUT.byteOffset(groupElement("shade100"));
 
     /**
      * Offset for field:
@@ -200,7 +200,7 @@ public class MaterialColorObjSt {
         return shade200$LAYOUT;
     }
 
-    private static final long shade200$OFFSET = 12;
+    private static final long shade200$OFFSET = $LAYOUT.byteOffset(groupElement("shade200"));
 
     /**
      * Offset for field:
@@ -244,7 +244,7 @@ public class MaterialColorObjSt {
         return shade300$LAYOUT;
     }
 
-    private static final long shade300$OFFSET = 16;
+    private static final long shade300$OFFSET = $LAYOUT.byteOffset(groupElement("shade300"));
 
     /**
      * Offset for field:
@@ -288,7 +288,7 @@ public class MaterialColorObjSt {
         return shade400$LAYOUT;
     }
 
-    private static final long shade400$OFFSET = 20;
+    private static final long shade400$OFFSET = $LAYOUT.byteOffset(groupElement("shade400"));
 
     /**
      * Offset for field:
@@ -332,7 +332,7 @@ public class MaterialColorObjSt {
         return shade500$LAYOUT;
     }
 
-    private static final long shade500$OFFSET = 24;
+    private static final long shade500$OFFSET = $LAYOUT.byteOffset(groupElement("shade500"));
 
     /**
      * Offset for field:
@@ -376,7 +376,7 @@ public class MaterialColorObjSt {
         return shade600$LAYOUT;
     }
 
-    private static final long shade600$OFFSET = 28;
+    private static final long shade600$OFFSET = $LAYOUT.byteOffset(groupElement("shade600"));
 
     /**
      * Offset for field:
@@ -420,7 +420,7 @@ public class MaterialColorObjSt {
         return shade700$LAYOUT;
     }
 
-    private static final long shade700$OFFSET = 32;
+    private static final long shade700$OFFSET = $LAYOUT.byteOffset(groupElement("shade700"));
 
     /**
      * Offset for field:
@@ -464,7 +464,7 @@ public class MaterialColorObjSt {
         return shade800$LAYOUT;
     }
 
-    private static final long shade800$OFFSET = 36;
+    private static final long shade800$OFFSET = $LAYOUT.byteOffset(groupElement("shade800"));
 
     /**
      * Offset for field:
@@ -508,7 +508,7 @@ public class MaterialColorObjSt {
         return shade900$LAYOUT;
     }
 
-    private static final long shade900$OFFSET = 40;
+    private static final long shade900$OFFSET = $LAYOUT.byteOffset(groupElement("shade900"));
 
     /**
      * Offset for field:

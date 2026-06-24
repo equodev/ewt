@@ -67,7 +67,7 @@ public class RichTextObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -111,7 +111,7 @@ public class RichTextObjSt {
         return text$LAYOUT;
     }
 
-    private static final long text$OFFSET = 4;
+    private static final long text$OFFSET = $LAYOUT.byteOffset(groupElement("text"));
 
     /**
      * Offset for field:
@@ -155,7 +155,7 @@ public class RichTextObjSt {
         return textAlign$LAYOUT;
     }
 
-    private static final long textAlign$OFFSET = 8;
+    private static final long textAlign$OFFSET = $LAYOUT.byteOffset(groupElement("textAlign"));
 
     /**
      * Offset for field:
@@ -199,7 +199,7 @@ public class RichTextObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 12;
+    private static final long textDirection$OFFSET = $LAYOUT.byteOffset(groupElement("textDirection"));
 
     /**
      * Offset for field:
@@ -243,7 +243,7 @@ public class RichTextObjSt {
         return softWrap$LAYOUT;
     }
 
-    private static final long softWrap$OFFSET = 16;
+    private static final long softWrap$OFFSET = $LAYOUT.byteOffset(groupElement("softWrap"));
 
     /**
      * Offset for field:
@@ -287,7 +287,7 @@ public class RichTextObjSt {
         return overflow$LAYOUT;
     }
 
-    private static final long overflow$OFFSET = 20;
+    private static final long overflow$OFFSET = $LAYOUT.byteOffset(groupElement("overflow"));
 
     /**
      * Offset for field:
@@ -331,7 +331,7 @@ public class RichTextObjSt {
         return maxLines$LAYOUT;
     }
 
-    private static final long maxLines$OFFSET = 24;
+    private static final long maxLines$OFFSET = $LAYOUT.byteOffset(groupElement("maxLines"));
 
     /**
      * Offset for field:
@@ -375,7 +375,7 @@ public class RichTextObjSt {
         return textWidthBasis$LAYOUT;
     }
 
-    private static final long textWidthBasis$OFFSET = 28;
+    private static final long textWidthBasis$OFFSET = $LAYOUT.byteOffset(groupElement("textWidthBasis"));
 
     /**
      * Offset for field:
@@ -419,7 +419,7 @@ public class RichTextObjSt {
         return selectionColor$LAYOUT;
     }
 
-    private static final long selectionColor$OFFSET = 32;
+    private static final long selectionColor$OFFSET = $LAYOUT.byteOffset(groupElement("selectionColor"));
 
     /**
      * Offset for field:
@@ -463,7 +463,7 @@ public class RichTextObjSt {
         return textScaleFactor$LAYOUT;
     }
 
-    private static final long textScaleFactor$OFFSET = 40;
+    private static final long textScaleFactor$OFFSET = $LAYOUT.byteOffset(groupElement("textScaleFactor"));
 
     /**
      * Offset for field:

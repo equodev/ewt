@@ -58,7 +58,7 @@ public class TextSpanObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -102,7 +102,7 @@ public class TextSpanObjSt {
         return text$LAYOUT;
     }
 
-    private static final long text$OFFSET = 8;
+    private static final long text$OFFSET = $LAYOUT.byteOffset(groupElement("text"));
 
     /**
      * Offset for field:
@@ -146,7 +146,7 @@ public class TextSpanObjSt {
         return semanticsLabel$LAYOUT;
     }
 
-    private static final long semanticsLabel$OFFSET = 16;
+    private static final long semanticsLabel$OFFSET = $LAYOUT.byteOffset(groupElement("semanticsLabel"));
 
     /**
      * Offset for field:
@@ -190,7 +190,7 @@ public class TextSpanObjSt {
         return semanticsIdentifier$LAYOUT;
     }
 
-    private static final long semanticsIdentifier$OFFSET = 24;
+    private static final long semanticsIdentifier$OFFSET = $LAYOUT.byteOffset(groupElement("semanticsIdentifier"));
 
     /**
      * Offset for field:
@@ -234,7 +234,7 @@ public class TextSpanObjSt {
         return spellOut$LAYOUT;
     }
 
-    private static final long spellOut$OFFSET = 32;
+    private static final long spellOut$OFFSET = $LAYOUT.byteOffset(groupElement("spellOut"));
 
     /**
      * Offset for field:

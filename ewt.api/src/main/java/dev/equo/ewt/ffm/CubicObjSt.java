@@ -57,7 +57,7 @@ public class CubicObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -101,7 +101,7 @@ public class CubicObjSt {
         return a$LAYOUT;
     }
 
-    private static final long a$OFFSET = 8;
+    private static final long a$OFFSET = $LAYOUT.byteOffset(groupElement("a"));
 
     /**
      * Offset for field:
@@ -145,7 +145,7 @@ public class CubicObjSt {
         return b$LAYOUT;
     }
 
-    private static final long b$OFFSET = 16;
+    private static final long b$OFFSET = $LAYOUT.byteOffset(groupElement("b"));
 
     /**
      * Offset for field:
@@ -189,7 +189,7 @@ public class CubicObjSt {
         return c$LAYOUT;
     }
 
-    private static final long c$OFFSET = 24;
+    private static final long c$OFFSET = $LAYOUT.byteOffset(groupElement("c"));
 
     /**
      * Offset for field:
@@ -233,7 +233,7 @@ public class CubicObjSt {
         return d$LAYOUT;
     }
 
-    private static final long d$OFFSET = 32;
+    private static final long d$OFFSET = $LAYOUT.byteOffset(groupElement("d"));
 
     /**
      * Offset for field:

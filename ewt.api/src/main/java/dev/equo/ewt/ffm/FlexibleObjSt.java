@@ -52,7 +52,7 @@ public class FlexibleObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -96,7 +96,7 @@ public class FlexibleObjSt {
         return flex$LAYOUT;
     }
 
-    private static final long flex$OFFSET = 4;
+    private static final long flex$OFFSET = $LAYOUT.byteOffset(groupElement("flex"));
 
     /**
      * Offset for field:
@@ -140,7 +140,7 @@ public class FlexibleObjSt {
         return fit$LAYOUT;
     }
 
-    private static final long fit$OFFSET = 8;
+    private static final long fit$OFFSET = $LAYOUT.byteOffset(groupElement("fit"));
 
     /**
      * Offset for field:

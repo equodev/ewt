@@ -67,7 +67,7 @@ public class FlexObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -111,7 +111,7 @@ public class FlexObjSt {
         return direction$LAYOUT;
     }
 
-    private static final long direction$OFFSET = 4;
+    private static final long direction$OFFSET = $LAYOUT.byteOffset(groupElement("direction"));
 
     /**
      * Offset for field:
@@ -155,7 +155,7 @@ public class FlexObjSt {
         return mainAxisAlignment$LAYOUT;
     }
 
-    private static final long mainAxisAlignment$OFFSET = 8;
+    private static final long mainAxisAlignment$OFFSET = $LAYOUT.byteOffset(groupElement("mainAxisAlignment"));
 
     /**
      * Offset for field:
@@ -199,7 +199,7 @@ public class FlexObjSt {
         return mainAxisSize$LAYOUT;
     }
 
-    private static final long mainAxisSize$OFFSET = 12;
+    private static final long mainAxisSize$OFFSET = $LAYOUT.byteOffset(groupElement("mainAxisSize"));
 
     /**
      * Offset for field:
@@ -243,7 +243,7 @@ public class FlexObjSt {
         return crossAxisAlignment$LAYOUT;
     }
 
-    private static final long crossAxisAlignment$OFFSET = 16;
+    private static final long crossAxisAlignment$OFFSET = $LAYOUT.byteOffset(groupElement("crossAxisAlignment"));
 
     /**
      * Offset for field:
@@ -287,7 +287,7 @@ public class FlexObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 20;
+    private static final long textDirection$OFFSET = $LAYOUT.byteOffset(groupElement("textDirection"));
 
     /**
      * Offset for field:
@@ -331,7 +331,7 @@ public class FlexObjSt {
         return verticalDirection$LAYOUT;
     }
 
-    private static final long verticalDirection$OFFSET = 24;
+    private static final long verticalDirection$OFFSET = $LAYOUT.byteOffset(groupElement("verticalDirection"));
 
     /**
      * Offset for field:
@@ -375,7 +375,7 @@ public class FlexObjSt {
         return textBaseline$LAYOUT;
     }
 
-    private static final long textBaseline$OFFSET = 28;
+    private static final long textBaseline$OFFSET = $LAYOUT.byteOffset(groupElement("textBaseline"));
 
     /**
      * Offset for field:
@@ -419,7 +419,7 @@ public class FlexObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 32;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -463,7 +463,7 @@ public class FlexObjSt {
         return spacing$LAYOUT;
     }
 
-    private static final long spacing$OFFSET = 40;
+    private static final long spacing$OFFSET = $LAYOUT.byteOffset(groupElement("spacing"));
 
     /**
      * Offset for field:

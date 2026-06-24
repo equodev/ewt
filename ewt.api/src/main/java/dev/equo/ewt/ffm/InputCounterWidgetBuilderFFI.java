@@ -17,9 +17,9 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * typedef DartObj (*InputCounterWidgetBuilderFFI)(DartObj, int, int, int)
  * }
  */
-public class InputCounterWidgetBuilderFFI {
+public final class InputCounterWidgetBuilderFFI {
 
-    InputCounterWidgetBuilderFFI() {
+    private InputCounterWidgetBuilderFFI() {
         // Should not be called directly
     }
 
@@ -60,9 +60,11 @@ public class InputCounterWidgetBuilderFFI {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr,int context, int currentLength, int isFocused, int maxLength) {
+    public static int invoke(MemorySegment funcPtr, int context, int currentLength, int isFocused, int maxLength) {
         try {
             return (int) DOWN$MH.invokeExact(funcPtr, context, currentLength, isFocused, maxLength);
+        } catch (Error | RuntimeException ex) {
+            throw ex;
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

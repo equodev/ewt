@@ -102,7 +102,7 @@ public class AlertDialogObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -146,7 +146,7 @@ public class AlertDialogObjSt {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 4;
+    private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
     /**
      * Offset for field:
@@ -190,7 +190,7 @@ public class AlertDialogObjSt {
         return iconColor$LAYOUT;
     }
 
-    private static final long iconColor$OFFSET = 8;
+    private static final long iconColor$OFFSET = $LAYOUT.byteOffset(groupElement("iconColor"));
 
     /**
      * Offset for field:
@@ -234,7 +234,7 @@ public class AlertDialogObjSt {
         return iconPadding$LAYOUT;
     }
 
-    private static final long iconPadding$OFFSET = 12;
+    private static final long iconPadding$OFFSET = $LAYOUT.byteOffset(groupElement("iconPadding"));
 
     /**
      * Offset for field:
@@ -278,7 +278,7 @@ public class AlertDialogObjSt {
         return title$LAYOUT;
     }
 
-    private static final long title$OFFSET = 16;
+    private static final long title$OFFSET = $LAYOUT.byteOffset(groupElement("title"));
 
     /**
      * Offset for field:
@@ -322,7 +322,7 @@ public class AlertDialogObjSt {
         return titlePadding$LAYOUT;
     }
 
-    private static final long titlePadding$OFFSET = 20;
+    private static final long titlePadding$OFFSET = $LAYOUT.byteOffset(groupElement("titlePadding"));
 
     /**
      * Offset for field:
@@ -366,7 +366,7 @@ public class AlertDialogObjSt {
         return titleTextStyle$LAYOUT;
     }
 
-    private static final long titleTextStyle$OFFSET = 24;
+    private static final long titleTextStyle$OFFSET = $LAYOUT.byteOffset(groupElement("titleTextStyle"));
 
     /**
      * Offset for field:
@@ -410,7 +410,7 @@ public class AlertDialogObjSt {
         return content$LAYOUT;
     }
 
-    private static final long content$OFFSET = 136;
+    private static final long content$OFFSET = $LAYOUT.byteOffset(groupElement("content"));
 
     /**
      * Offset for field:
@@ -454,7 +454,7 @@ public class AlertDialogObjSt {
         return contentPadding$LAYOUT;
     }
 
-    private static final long contentPadding$OFFSET = 140;
+    private static final long contentPadding$OFFSET = $LAYOUT.byteOffset(groupElement("contentPadding"));
 
     /**
      * Offset for field:
@@ -498,7 +498,7 @@ public class AlertDialogObjSt {
         return contentTextStyle$LAYOUT;
     }
 
-    private static final long contentTextStyle$OFFSET = 144;
+    private static final long contentTextStyle$OFFSET = $LAYOUT.byteOffset(groupElement("contentTextStyle"));
 
     /**
      * Offset for field:
@@ -542,7 +542,7 @@ public class AlertDialogObjSt {
         return actionsPadding$LAYOUT;
     }
 
-    private static final long actionsPadding$OFFSET = 256;
+    private static final long actionsPadding$OFFSET = $LAYOUT.byteOffset(groupElement("actionsPadding"));
 
     /**
      * Offset for field:
@@ -586,7 +586,7 @@ public class AlertDialogObjSt {
         return actionsAlignment$LAYOUT;
     }
 
-    private static final long actionsAlignment$OFFSET = 260;
+    private static final long actionsAlignment$OFFSET = $LAYOUT.byteOffset(groupElement("actionsAlignment"));
 
     /**
      * Offset for field:
@@ -630,7 +630,7 @@ public class AlertDialogObjSt {
         return actionsOverflowAlignment$LAYOUT;
     }
 
-    private static final long actionsOverflowAlignment$OFFSET = 264;
+    private static final long actionsOverflowAlignment$OFFSET = $LAYOUT.byteOffset(groupElement("actionsOverflowAlignment"));
 
     /**
      * Offset for field:
@@ -674,7 +674,7 @@ public class AlertDialogObjSt {
         return actionsOverflowDirection$LAYOUT;
     }
 
-    private static final long actionsOverflowDirection$OFFSET = 268;
+    private static final long actionsOverflowDirection$OFFSET = $LAYOUT.byteOffset(groupElement("actionsOverflowDirection"));
 
     /**
      * Offset for field:
@@ -718,7 +718,7 @@ public class AlertDialogObjSt {
         return actionsOverflowButtonSpacing$LAYOUT;
     }
 
-    private static final long actionsOverflowButtonSpacing$OFFSET = 272;
+    private static final long actionsOverflowButtonSpacing$OFFSET = $LAYOUT.byteOffset(groupElement("actionsOverflowButtonSpacing"));
 
     /**
      * Offset for field:
@@ -762,7 +762,7 @@ public class AlertDialogObjSt {
         return buttonPadding$LAYOUT;
     }
 
-    private static final long buttonPadding$OFFSET = 280;
+    private static final long buttonPadding$OFFSET = $LAYOUT.byteOffset(groupElement("buttonPadding"));
 
     /**
      * Offset for field:
@@ -806,7 +806,7 @@ public class AlertDialogObjSt {
         return backgroundColor$LAYOUT;
     }
 
-    private static final long backgroundColor$OFFSET = 284;
+    private static final long backgroundColor$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundColor"));
 
     /**
      * Offset for field:
@@ -850,7 +850,7 @@ public class AlertDialogObjSt {
         return elevation$LAYOUT;
     }
 
-    private static final long elevation$OFFSET = 288;
+    private static final long elevation$OFFSET = $LAYOUT.byteOffset(groupElement("elevation"));
 
     /**
      * Offset for field:
@@ -894,7 +894,7 @@ public class AlertDialogObjSt {
         return shadowColor$LAYOUT;
     }
 
-    private static final long shadowColor$OFFSET = 296;
+    private static final long shadowColor$OFFSET = $LAYOUT.byteOffset(groupElement("shadowColor"));
 
     /**
      * Offset for field:
@@ -938,7 +938,7 @@ public class AlertDialogObjSt {
         return surfaceTintColor$LAYOUT;
     }
 
-    private static final long surfaceTintColor$OFFSET = 300;
+    private static final long surfaceTintColor$OFFSET = $LAYOUT.byteOffset(groupElement("surfaceTintColor"));
 
     /**
      * Offset for field:
@@ -982,7 +982,7 @@ public class AlertDialogObjSt {
         return semanticLabel$LAYOUT;
     }
 
-    private static final long semanticLabel$OFFSET = 304;
+    private static final long semanticLabel$OFFSET = $LAYOUT.byteOffset(groupElement("semanticLabel"));
 
     /**
      * Offset for field:
@@ -1026,7 +1026,7 @@ public class AlertDialogObjSt {
         return insetPadding$LAYOUT;
     }
 
-    private static final long insetPadding$OFFSET = 312;
+    private static final long insetPadding$OFFSET = $LAYOUT.byteOffset(groupElement("insetPadding"));
 
     /**
      * Offset for field:
@@ -1070,7 +1070,7 @@ public class AlertDialogObjSt {
         return clipBehavior$LAYOUT;
     }
 
-    private static final long clipBehavior$OFFSET = 368;
+    private static final long clipBehavior$OFFSET = $LAYOUT.byteOffset(groupElement("clipBehavior"));
 
     /**
      * Offset for field:
@@ -1114,7 +1114,7 @@ public class AlertDialogObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 372;
+    private static final long shape$OFFSET = $LAYOUT.byteOffset(groupElement("shape"));
 
     /**
      * Offset for field:
@@ -1158,7 +1158,7 @@ public class AlertDialogObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 376;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -1202,7 +1202,7 @@ public class AlertDialogObjSt {
         return constraints$LAYOUT;
     }
 
-    private static final long constraints$OFFSET = 384;
+    private static final long constraints$OFFSET = $LAYOUT.byteOffset(groupElement("constraints"));
 
     /**
      * Offset for field:
@@ -1246,7 +1246,7 @@ public class AlertDialogObjSt {
         return scrollable$LAYOUT;
     }
 
-    private static final long scrollable$OFFSET = 448;
+    private static final long scrollable$OFFSET = $LAYOUT.byteOffset(groupElement("scrollable"));
 
     /**
      * Offset for field:

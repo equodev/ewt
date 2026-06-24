@@ -50,7 +50,7 @@ public class PaddingObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -94,7 +94,7 @@ public class PaddingObjSt {
         return padding$LAYOUT;
     }
 
-    private static final long padding$OFFSET = 4;
+    private static final long padding$OFFSET = $LAYOUT.byteOffset(groupElement("padding"));
 
     /**
      * Offset for field:

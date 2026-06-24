@@ -54,7 +54,7 @@ public class OutlineInputBorderObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -98,7 +98,7 @@ public class OutlineInputBorderObjSt {
         return gapPadding$LAYOUT;
     }
 
-    private static final long gapPadding$OFFSET = 8;
+    private static final long gapPadding$OFFSET = $LAYOUT.byteOffset(groupElement("gapPadding"));
 
     /**
      * Offset for field:
@@ -142,7 +142,7 @@ public class OutlineInputBorderObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 16;
+    private static final long borderRadius$OFFSET = $LAYOUT.byteOffset(groupElement("borderRadius"));
 
     /**
      * Offset for field:

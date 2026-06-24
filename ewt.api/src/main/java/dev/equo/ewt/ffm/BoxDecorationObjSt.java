@@ -58,7 +58,7 @@ public class BoxDecorationObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -102,7 +102,7 @@ public class BoxDecorationObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 4;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -146,7 +146,7 @@ public class BoxDecorationObjSt {
         return border$LAYOUT;
     }
 
-    private static final long border$OFFSET = 8;
+    private static final long border$OFFSET = $LAYOUT.byteOffset(groupElement("border"));
 
     /**
      * Offset for field:
@@ -190,7 +190,7 @@ public class BoxDecorationObjSt {
         return borderRadius$LAYOUT;
     }
 
-    private static final long borderRadius$OFFSET = 12;
+    private static final long borderRadius$OFFSET = $LAYOUT.byteOffset(groupElement("borderRadius"));
 
     /**
      * Offset for field:
@@ -234,7 +234,7 @@ public class BoxDecorationObjSt {
         return backgroundBlendMode$LAYOUT;
     }
 
-    private static final long backgroundBlendMode$OFFSET = 16;
+    private static final long backgroundBlendMode$OFFSET = $LAYOUT.byteOffset(groupElement("backgroundBlendMode"));
 
     /**
      * Offset for field:
@@ -278,7 +278,7 @@ public class BoxDecorationObjSt {
         return shape$LAYOUT;
     }
 
-    private static final long shape$OFFSET = 20;
+    private static final long shape$OFFSET = $LAYOUT.byteOffset(groupElement("shape"));
 
     /**
      * Offset for field:

@@ -69,7 +69,7 @@ public class BoxConstraintsObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -113,7 +113,7 @@ public class BoxConstraintsObjSt {
         return minWidth$LAYOUT;
     }
 
-    private static final long minWidth$OFFSET = 8;
+    private static final long minWidth$OFFSET = $LAYOUT.byteOffset(groupElement("minWidth"));
 
     /**
      * Offset for field:
@@ -157,7 +157,7 @@ public class BoxConstraintsObjSt {
         return maxWidth$LAYOUT;
     }
 
-    private static final long maxWidth$OFFSET = 16;
+    private static final long maxWidth$OFFSET = $LAYOUT.byteOffset(groupElement("maxWidth"));
 
     /**
      * Offset for field:
@@ -201,7 +201,7 @@ public class BoxConstraintsObjSt {
         return minHeight$LAYOUT;
     }
 
-    private static final long minHeight$OFFSET = 24;
+    private static final long minHeight$OFFSET = $LAYOUT.byteOffset(groupElement("minHeight"));
 
     /**
      * Offset for field:
@@ -245,7 +245,7 @@ public class BoxConstraintsObjSt {
         return maxHeight$LAYOUT;
     }
 
-    private static final long maxHeight$OFFSET = 32;
+    private static final long maxHeight$OFFSET = $LAYOUT.byteOffset(groupElement("maxHeight"));
 
     /**
      * Offset for field:
@@ -289,7 +289,7 @@ public class BoxConstraintsObjSt {
         return hasTightWidth$LAYOUT;
     }
 
-    private static final long hasTightWidth$OFFSET = 40;
+    private static final long hasTightWidth$OFFSET = $LAYOUT.byteOffset(groupElement("hasTightWidth"));
 
     /**
      * Offset for field:
@@ -333,7 +333,7 @@ public class BoxConstraintsObjSt {
         return hasTightHeight$LAYOUT;
     }
 
-    private static final long hasTightHeight$OFFSET = 44;
+    private static final long hasTightHeight$OFFSET = $LAYOUT.byteOffset(groupElement("hasTightHeight"));
 
     /**
      * Offset for field:
@@ -377,7 +377,7 @@ public class BoxConstraintsObjSt {
         return hasBoundedWidth$LAYOUT;
     }
 
-    private static final long hasBoundedWidth$OFFSET = 48;
+    private static final long hasBoundedWidth$OFFSET = $LAYOUT.byteOffset(groupElement("hasBoundedWidth"));
 
     /**
      * Offset for field:
@@ -421,7 +421,7 @@ public class BoxConstraintsObjSt {
         return hasBoundedHeight$LAYOUT;
     }
 
-    private static final long hasBoundedHeight$OFFSET = 52;
+    private static final long hasBoundedHeight$OFFSET = $LAYOUT.byteOffset(groupElement("hasBoundedHeight"));
 
     /**
      * Offset for field:
@@ -465,7 +465,7 @@ public class BoxConstraintsObjSt {
         return hasInfiniteWidth$LAYOUT;
     }
 
-    private static final long hasInfiniteWidth$OFFSET = 56;
+    private static final long hasInfiniteWidth$OFFSET = $LAYOUT.byteOffset(groupElement("hasInfiniteWidth"));
 
     /**
      * Offset for field:
@@ -509,7 +509,7 @@ public class BoxConstraintsObjSt {
         return hasInfiniteHeight$LAYOUT;
     }
 
-    private static final long hasInfiniteHeight$OFFSET = 60;
+    private static final long hasInfiniteHeight$OFFSET = $LAYOUT.byteOffset(groupElement("hasInfiniteHeight"));
 
     /**
      * Offset for field:

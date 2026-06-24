@@ -50,7 +50,7 @@ public class ScaffoldMessengerObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -94,7 +94,7 @@ public class ScaffoldMessengerObjSt {
         return child$LAYOUT;
     }
 
-    private static final long child$OFFSET = 4;
+    private static final long child$OFFSET = $LAYOUT.byteOffset(groupElement("child"));
 
     /**
      * Offset for field:

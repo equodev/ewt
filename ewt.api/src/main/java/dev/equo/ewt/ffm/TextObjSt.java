@@ -77,7 +77,7 @@ public class TextObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -121,7 +121,7 @@ public class TextObjSt {
         return data$LAYOUT;
     }
 
-    private static final long data$OFFSET = 8;
+    private static final long data$OFFSET = $LAYOUT.byteOffset(groupElement("data"));
 
     /**
      * Offset for field:
@@ -165,7 +165,7 @@ public class TextObjSt {
         return textSpan$LAYOUT;
     }
 
-    private static final long textSpan$OFFSET = 16;
+    private static final long textSpan$OFFSET = $LAYOUT.byteOffset(groupElement("textSpan"));
 
     /**
      * Offset for field:
@@ -209,7 +209,7 @@ public class TextObjSt {
         return style$LAYOUT;
     }
 
-    private static final long style$OFFSET = 24;
+    private static final long style$OFFSET = $LAYOUT.byteOffset(groupElement("style"));
 
     /**
      * Offset for field:
@@ -253,7 +253,7 @@ public class TextObjSt {
         return textAlign$LAYOUT;
     }
 
-    private static final long textAlign$OFFSET = 136;
+    private static final long textAlign$OFFSET = $LAYOUT.byteOffset(groupElement("textAlign"));
 
     /**
      * Offset for field:
@@ -297,7 +297,7 @@ public class TextObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 140;
+    private static final long textDirection$OFFSET = $LAYOUT.byteOffset(groupElement("textDirection"));
 
     /**
      * Offset for field:
@@ -341,7 +341,7 @@ public class TextObjSt {
         return softWrap$LAYOUT;
     }
 
-    private static final long softWrap$OFFSET = 144;
+    private static final long softWrap$OFFSET = $LAYOUT.byteOffset(groupElement("softWrap"));
 
     /**
      * Offset for field:
@@ -385,7 +385,7 @@ public class TextObjSt {
         return overflow$LAYOUT;
     }
 
-    private static final long overflow$OFFSET = 148;
+    private static final long overflow$OFFSET = $LAYOUT.byteOffset(groupElement("overflow"));
 
     /**
      * Offset for field:
@@ -429,7 +429,7 @@ public class TextObjSt {
         return textScaleFactor$LAYOUT;
     }
 
-    private static final long textScaleFactor$OFFSET = 152;
+    private static final long textScaleFactor$OFFSET = $LAYOUT.byteOffset(groupElement("textScaleFactor"));
 
     /**
      * Offset for field:
@@ -473,7 +473,7 @@ public class TextObjSt {
         return maxLines$LAYOUT;
     }
 
-    private static final long maxLines$OFFSET = 160;
+    private static final long maxLines$OFFSET = $LAYOUT.byteOffset(groupElement("maxLines"));
 
     /**
      * Offset for field:
@@ -517,7 +517,7 @@ public class TextObjSt {
         return semanticsLabel$LAYOUT;
     }
 
-    private static final long semanticsLabel$OFFSET = 168;
+    private static final long semanticsLabel$OFFSET = $LAYOUT.byteOffset(groupElement("semanticsLabel"));
 
     /**
      * Offset for field:
@@ -561,7 +561,7 @@ public class TextObjSt {
         return semanticsIdentifier$LAYOUT;
     }
 
-    private static final long semanticsIdentifier$OFFSET = 176;
+    private static final long semanticsIdentifier$OFFSET = $LAYOUT.byteOffset(groupElement("semanticsIdentifier"));
 
     /**
      * Offset for field:
@@ -605,7 +605,7 @@ public class TextObjSt {
         return textWidthBasis$LAYOUT;
     }
 
-    private static final long textWidthBasis$OFFSET = 184;
+    private static final long textWidthBasis$OFFSET = $LAYOUT.byteOffset(groupElement("textWidthBasis"));
 
     /**
      * Offset for field:
@@ -649,7 +649,7 @@ public class TextObjSt {
         return selectionColor$LAYOUT;
     }
 
-    private static final long selectionColor$OFFSET = 188;
+    private static final long selectionColor$OFFSET = $LAYOUT.byteOffset(groupElement("selectionColor"));
 
     /**
      * Offset for field:

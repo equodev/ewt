@@ -74,7 +74,7 @@ public class IconObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -118,7 +118,7 @@ public class IconObjSt {
         return icon$LAYOUT;
     }
 
-    private static final long icon$OFFSET = 8;
+    private static final long icon$OFFSET = $LAYOUT.byteOffset(groupElement("icon"));
 
     /**
      * Offset for field:
@@ -162,7 +162,7 @@ public class IconObjSt {
         return size$LAYOUT;
     }
 
-    private static final long size$OFFSET = 40;
+    private static final long size$OFFSET = $LAYOUT.byteOffset(groupElement("size"));
 
     /**
      * Offset for field:
@@ -206,7 +206,7 @@ public class IconObjSt {
         return fill$LAYOUT;
     }
 
-    private static final long fill$OFFSET = 48;
+    private static final long fill$OFFSET = $LAYOUT.byteOffset(groupElement("fill"));
 
     /**
      * Offset for field:
@@ -250,7 +250,7 @@ public class IconObjSt {
         return weight$LAYOUT;
     }
 
-    private static final long weight$OFFSET = 56;
+    private static final long weight$OFFSET = $LAYOUT.byteOffset(groupElement("weight"));
 
     /**
      * Offset for field:
@@ -294,7 +294,7 @@ public class IconObjSt {
         return grade$LAYOUT;
     }
 
-    private static final long grade$OFFSET = 64;
+    private static final long grade$OFFSET = $LAYOUT.byteOffset(groupElement("grade"));
 
     /**
      * Offset for field:
@@ -338,7 +338,7 @@ public class IconObjSt {
         return opticalSize$LAYOUT;
     }
 
-    private static final long opticalSize$OFFSET = 72;
+    private static final long opticalSize$OFFSET = $LAYOUT.byteOffset(groupElement("opticalSize"));
 
     /**
      * Offset for field:
@@ -382,7 +382,7 @@ public class IconObjSt {
         return color$LAYOUT;
     }
 
-    private static final long color$OFFSET = 80;
+    private static final long color$OFFSET = $LAYOUT.byteOffset(groupElement("color"));
 
     /**
      * Offset for field:
@@ -426,7 +426,7 @@ public class IconObjSt {
         return semanticLabel$LAYOUT;
     }
 
-    private static final long semanticLabel$OFFSET = 88;
+    private static final long semanticLabel$OFFSET = $LAYOUT.byteOffset(groupElement("semanticLabel"));
 
     /**
      * Offset for field:
@@ -470,7 +470,7 @@ public class IconObjSt {
         return textDirection$LAYOUT;
     }
 
-    private static final long textDirection$OFFSET = 96;
+    private static final long textDirection$OFFSET = $LAYOUT.byteOffset(groupElement("textDirection"));
 
     /**
      * Offset for field:
@@ -514,7 +514,7 @@ public class IconObjSt {
         return applyTextScaling$LAYOUT;
     }
 
-    private static final long applyTextScaling$OFFSET = 100;
+    private static final long applyTextScaling$OFFSET = $LAYOUT.byteOffset(groupElement("applyTextScaling"));
 
     /**
      * Offset for field:
@@ -558,7 +558,7 @@ public class IconObjSt {
         return blendMode$LAYOUT;
     }
 
-    private static final long blendMode$OFFSET = 104;
+    private static final long blendMode$OFFSET = $LAYOUT.byteOffset(groupElement("blendMode"));
 
     /**
      * Offset for field:
@@ -602,7 +602,7 @@ public class IconObjSt {
         return fontWeight$LAYOUT;
     }
 
-    private static final long fontWeight$OFFSET = 108;
+    private static final long fontWeight$OFFSET = $LAYOUT.byteOffset(groupElement("fontWeight"));
 
     /**
      * Offset for field:

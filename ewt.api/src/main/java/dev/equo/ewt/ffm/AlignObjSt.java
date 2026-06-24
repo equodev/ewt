@@ -54,7 +54,7 @@ public class AlignObjSt {
         return id$LAYOUT;
     }
 
-    private static final long id$OFFSET = 0;
+    private static final long id$OFFSET = $LAYOUT.byteOffset(groupElement("id"));
 
     /**
      * Offset for field:
@@ -98,7 +98,7 @@ public class AlignObjSt {
         return alignment$LAYOUT;
     }
 
-    private static final long alignment$OFFSET = 4;
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
@@ -142,7 +142,7 @@ public class AlignObjSt {
         return widthFactor$LAYOUT;
     }
 
-    private static final long widthFactor$OFFSET = 8;
+    private static final long widthFactor$OFFSET = $LAYOUT.byteOffset(groupElement("widthFactor"));
 
     /**
      * Offset for field:
@@ -186,7 +186,7 @@ public class AlignObjSt {
         return heightFactor$LAYOUT;
     }
 
-    private static final long heightFactor$OFFSET = 16;
+    private static final long heightFactor$OFFSET = $LAYOUT.byteOffset(groupElement("heightFactor"));
 
     /**
      * Offset for field:
