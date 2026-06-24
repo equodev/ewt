@@ -90,6 +90,14 @@ m.OutlineInputBorder? outlineInputBorder;
 m.SnackBarAction? snackBarAction;
 m.SnackBar? snackBar;
 m.ScaffoldMessenger? scaffoldMessenger;
+m.Card? card;
+m.Chip? chip;
+w.GestureDetector? gestureDetector;
+m.ListTile? listTile;
+w.Wrap? wrap;
+w.SingleChildScrollView? singleChildScrollView;
+m.CircularProgressIndicator? circularProgressIndicator;
+m.LinearProgressIndicator? linearProgressIndicator;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
