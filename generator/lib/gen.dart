@@ -969,12 +969,16 @@ class Generation {
         tp = tp.isEmpty ? '' : '<$tp>';
           var isFlutterAlias = td.element.aliasedElement != null;
           var retType = (isFlutterAlias) ? '${td.element.name}$rtp' : fnType; // custom aliases
+          // Callbacks that build widget sub-trees must be wrapped in _runBuildScope so that
+          // every intermediate widget ID added during the Java→Dart call is removed from
+          // _widgetsMap once the callback returns and Flutter holds the tree directly.
+          final needsScope = fnType.returnType is! VoidType && !isPrimitive(fnType.returnType);
           dartFactories.writeln(
                   'extension on $ourName {\n'
                   '  $retType to${aliasName}Fn$tp() {\n'
                   // '    return (${fnType}) {\n'
                   // '    return (${boundParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
-                  '    return (${boundPositionalParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${p.type} ${ensureName(p)}').join(', ')}}' : ''}) {\n'
+                  '    return (${boundPositionalParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${p.type} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
                   '      Dart${aliasName}FFIFunction dFn = asFunction();\n'
                   '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p)).join(', ')});');
           if (fnType.returnType is! VoidType) {
@@ -982,7 +986,7 @@ class Generation {
                   '      return ${Params.paramValue4D(types, paramElement('dFnRet', fnType.returnType))};');
           }
           dartFactories.writeln(
-                  '    };\n'
+                  '    }${needsScope ? ')' : ''};\n'
                   '  }\n'
                   '}\n'
                   'extension on ffi.Pointer<$ourName> {\n'
