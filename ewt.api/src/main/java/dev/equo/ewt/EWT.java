@@ -501,4 +501,45 @@ public class EWT {
     return ScaffoldMessengerScaffoldMessengerBuilder.scaffoldMessengerScaffoldMessenger(child);
   }
 
+  public static CardCardBuilder Card() {
+    return CardCardBuilder.cardCard();
+  }
+  public static CardFilledBuilder Card_filled() {
+    return CardFilledBuilder.cardFilled();
+  }
+  public static CardOutlinedBuilder Card_outlined() {
+    return CardOutlinedBuilder.cardOutlined();
+  }
+
+  public static ChipChipBuilder Chip() {
+    return ChipChipBuilder.chipChip();
+  }
+
+  public static GestureDetectorGestureDetectorBuilder GestureDetector() {
+    return GestureDetectorGestureDetectorBuilder.gestureDetectorGestureDetector();
+  }
+
+  public static ListTileListTileBuilder ListTile() {
+    return ListTileListTileBuilder.listTileListTile();
+  }
+
+  public static WrapWrapBuilder Wrap() {
+    return WrapWrapBuilder.wrapWrap();
+  }
+
+  public static SingleChildScrollViewSingleChildScrollViewBuilder SingleChildScrollView() {
+    return SingleChildScrollViewSingleChildScrollViewBuilder.singleChildScrollViewSingleChildScrollView();
+  }
+
+  public static CircularProgressIndicatorCircularProgressIndicatorBuilder CircularProgressIndicator() {
+    return CircularProgressIndicatorCircularProgressIndicatorBuilder.circularProgressIndicatorCircularProgressIndicator();
+  }
+  public static CircularProgressIndicatorAdaptiveBuilder CircularProgressIndicator_adaptive() {
+    return CircularProgressIndicatorAdaptiveBuilder.circularProgressIndicatorAdaptive();
+  }
+
+  public static LinearProgressIndicatorLinearProgressIndicatorBuilder LinearProgressIndicator() {
+    return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
+  }
+
 }

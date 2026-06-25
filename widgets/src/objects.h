@@ -834,6 +834,139 @@ typedef struct {
 
 typedef struct {
   int id;
+  DartObj color;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  double elevation;
+  DartObj shape;
+  int borderOnForeground;
+  int clipBehavior;
+  DartObj margin;
+  int semanticContainer;
+  DartObj child;
+} CardObjSt;
+
+typedef struct {
+  int id;
+  DartObj avatar;
+  DartObj label;
+  TextStyleObjSt labelStyle;
+  DartObj labelPadding;
+  BorderSideObjSt side;
+  DartObj shape;
+  int clipBehavior;
+  int autofocus;
+  DartObj backgroundColor;
+  DartObj padding;
+  VisualDensityObjSt visualDensity;
+  DartObj deleteIcon;
+  DartObj deleteIconColor;
+  char* deleteButtonTooltipMessage;
+  int materialTapTargetSize;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  BoxConstraintsObjSt avatarBoxConstraints;
+  BoxConstraintsObjSt deleteIconBoxConstraints;
+} ChipObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+  int behavior;
+  int excludeFromSemantics;
+  int dragStartBehavior;
+  int trackpadScrollCausesScale;
+  DartObj trackpadScrollToScaleFactor;
+} GestureDetectorObjSt;
+
+typedef struct {
+  int id;
+  DartObj leading;
+  DartObj title;
+  DartObj subtitle;
+  DartObj trailing;
+  int isThreeLine;
+  int dense;
+  VisualDensityObjSt visualDensity;
+  DartObj shape;
+  DartObj selectedColor;
+  DartObj iconColor;
+  DartObj textColor;
+  TextStyleObjSt titleTextStyle;
+  TextStyleObjSt subtitleTextStyle;
+  TextStyleObjSt leadingAndTrailingTextStyle;
+  int style;
+  DartObj contentPadding;
+  int enabled;
+  int selected;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj splashColor;
+  int autofocus;
+  DartObj tileColor;
+  DartObj selectedTileColor;
+  int enableFeedback;
+  double horizontalTitleGap;
+  double minVerticalPadding;
+  double minLeadingWidth;
+  double minTileHeight;
+  int titleAlignment;
+  int internalAddSemanticForOnTap;
+} ListTileObjSt;
+
+typedef struct {
+  int id;
+  int direction;
+  int alignment;
+  double spacing;
+  int runAlignment;
+  double runSpacing;
+  int crossAxisAlignment;
+  int textDirection;
+  int verticalDirection;
+  int clipBehavior;
+} WrapObjSt;
+
+typedef struct {
+  int id;
+  int scrollDirection;
+  int reverse;
+  DartObj padding;
+  int primary;
+  DartObj child;
+  int dragStartBehavior;
+  int clipBehavior;
+  int hitTestBehavior;
+  char* restorationId;
+  int keyboardDismissBehavior;
+} SingleChildScrollViewObjSt;
+
+typedef struct {
+  int id;
+  double strokeWidth;
+  double strokeAlign;
+  int strokeCap;
+  BoxConstraintsObjSt constraints;
+  double trackGap;
+  int year2023;
+  DartObj padding;
+  DartObj controller;
+} CircularProgressIndicatorObjSt;
+
+typedef struct {
+  int id;
+  double minHeight;
+  DartObj borderRadius;
+  DartObj stopIndicatorColor;
+  double stopIndicatorRadius;
+  double trackGap;
+  int year2023;
+  DartObj controller;
+} LinearProgressIndicatorObjSt;
+
+typedef struct {
+  int id;
   DartObj (*widget)(void);
   DartObj (*context)(void);
   int (*mounted)(void);

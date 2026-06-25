@@ -6,7 +6,7 @@ description: |
   Regenerate bindings with `dart run ffigen --config ffigen.yaml`.
 output: 'lib/widgets_bindings_generated.dart'
 compiler-opts:
-- '-isystem/usr/lib/clang/22/include'
+- '-isystem/usr/lib/clang/21/include'
 headers:
   entry-points:
     - 'src/widgets.h'

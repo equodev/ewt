@@ -443,6 +443,41 @@ typedef struct {
     ScaffoldMessengerObjSt (*scaffoldMessenger)(DartObj child);
   } scaffoldMessenger;
 
+  struct CardSt {
+    CardObjSt (*card)(DartObj* color, DartObj* shadowColor, DartObj* surfaceTintColor, double* elevation, DartObj* shape, int* borderOnForeground, DartObj* margin, int* clipBehavior, DartObj* child, int* semanticContainer);
+    CardObjSt (*filled)(DartObj* color, DartObj* shadowColor, DartObj* surfaceTintColor, double* elevation, DartObj* shape, int* borderOnForeground, DartObj* margin, int* clipBehavior, DartObj* child, int* semanticContainer);
+    CardObjSt (*outlined)(DartObj* color, DartObj* shadowColor, DartObj* surfaceTintColor, double* elevation, DartObj* shape, int* borderOnForeground, DartObj* margin, int* clipBehavior, DartObj* child, int* semanticContainer);
+  } card;
+
+  struct ChipSt {
+    ChipObjSt (*chip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+  } chip;
+
+  struct GestureDetectorSt {
+    GestureDetectorObjSt (*gestureDetector)(DartObj* child, GestureTapCallbackFFI* onTap, GestureTapCancelCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapCancelCallbackFFI* onSecondaryTapCancel, GestureTapCancelCallbackFFI* onTertiaryTapCancel, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onDoubleTapCancel, GestureLongPressCancelCallbackFFI* onLongPressCancel, GestureLongPressCallbackFFI* onLongPress, GestureLongPressUpCallbackFFI* onLongPressUp, GestureLongPressCancelCallbackFFI* onSecondaryLongPressCancel, GestureLongPressCallbackFFI* onSecondaryLongPress, GestureLongPressUpCallbackFFI* onSecondaryLongPressUp, GestureLongPressCancelCallbackFFI* onTertiaryLongPressCancel, GestureLongPressCallbackFFI* onTertiaryLongPress, GestureLongPressUpCallbackFFI* onTertiaryLongPressUp, GestureDragCancelCallbackFFI* onVerticalDragCancel, GestureDragCancelCallbackFFI* onHorizontalDragCancel, GestureDragCancelCallbackFFI* onPanCancel, int* behavior, int* excludeFromSemantics, int* dragStartBehavior, int* trackpadScrollCausesScale, DartObj* trackpadScrollToScaleFactor);
+  } gestureDetector;
+
+  struct ListTileSt {
+    ListTileObjSt (*listTile)(DartObj* leading, DartObj* title, DartObj* subtitle, DartObj* trailing, int* isThreeLine, int* dense, DartObj* visualDensity, DartObj* shape, int* style, DartObj* selectedColor, DartObj* iconColor, DartObj* textColor, DartObj* titleTextStyle, DartObj* subtitleTextStyle, DartObj* leadingAndTrailingTextStyle, DartObj* contentPadding, int* enabled, GestureTapCallbackFFI* onTap, GestureLongPressCallbackFFI* onLongPress, ValueChangedForBoolFFI* onFocusChange, int* selected, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, int* autofocus, DartObj* tileColor, DartObj* selectedTileColor, int* enableFeedback, double* horizontalTitleGap, double* minVerticalPadding, double* minLeadingWidth, double* minTileHeight, int* titleAlignment, int* internalAddSemanticForOnTap);
+  } listTile;
+
+  struct WrapSt {
+    WrapObjSt (*wrap)(int* direction, int* alignment, double* spacing, int* runAlignment, double* runSpacing, int* crossAxisAlignment, int* textDirection, int* verticalDirection, int* clipBehavior, ArrayC* children);
+  } wrap;
+
+  struct SingleChildScrollViewSt {
+    SingleChildScrollViewObjSt (*singleChildScrollView)(int* scrollDirection, int* reverse, DartObj* padding, int* primary, DartObj* child, int* dragStartBehavior, int* clipBehavior, int* hitTestBehavior, char* restorationId, int* keyboardDismissBehavior);
+  } singleChildScrollView;
+
+  struct CircularProgressIndicatorSt {
+    CircularProgressIndicatorObjSt (*circularProgressIndicator)(double* value, DartObj* backgroundColor, DartObj* color, DartObj* valueColor, double* strokeWidth, double* strokeAlign, char* semanticsLabel, char* semanticsValue, int* strokeCap, DartObj* constraints, double* trackGap, int* year2023, DartObj* padding, DartObj* controller);
+    CircularProgressIndicatorObjSt (*adaptive)(double* value, DartObj* backgroundColor, DartObj* valueColor, double* strokeWidth, char* semanticsLabel, char* semanticsValue, int* strokeCap, double* strokeAlign, DartObj* constraints, double* trackGap, int* year2023, DartObj* padding, DartObj* controller);
+  } circularProgressIndicator;
+
+  struct LinearProgressIndicatorSt {
+    LinearProgressIndicatorObjSt (*linearProgressIndicator)(double* value, DartObj* backgroundColor, DartObj* color, DartObj* valueColor, double* minHeight, char* semanticsLabel, char* semanticsValue, DartObj* borderRadius, DartObj* stopIndicatorColor, double* stopIndicatorRadius, double* trackGap, int* year2023, DartObj* controller);
+  } linearProgressIndicator;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

@@ -1457,7 +1457,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1482,7 +1482,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1507,7 +1507,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1532,7 +1532,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1792,7 +1792,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.elevatedButton(st);
     return WidgetFactories.ElevatedButtonSt.elevatedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1803,7 +1803,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.icon(st);
     return WidgetFactories.ElevatedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1817,7 +1817,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.outlinedButton(factories);
     var fn = WidgetFactories.OutlinedButtonSt.outlinedButton(st);
     return WidgetFactories.OutlinedButtonSt.outlinedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1828,7 +1828,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.outlinedButton(factories);
     var fn = WidgetFactories.OutlinedButtonSt.icon(st);
     return WidgetFactories.OutlinedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1842,7 +1842,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.textButton(factories);
     var fn = WidgetFactories.TextButtonSt.textButton(st);
     return WidgetFactories.TextButtonSt.textButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1854,7 +1854,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.textButton(factories);
     var fn = WidgetFactories.TextButtonSt.icon(st);
     return WidgetFactories.TextButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2135,7 +2135,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(maxLength),
       ptrEnum(maxLengthEnforcement),
       onChanged.isPresent() ? ptrValueChangedForStringFn(onChanged.get()) : MemorySegment.NULL,
-      onEditingComplete.isPresent() ? ptrVoidCallbackFn(onEditingComplete.get()) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrVoidCallbackPtrFn(onEditingComplete.get()) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrValueChangedForStringFn(onSubmitted.get()) : MemorySegment.NULL,
       ptrBool(enabled),
       ptrBool(ignorePointers),
@@ -2186,7 +2186,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.filledButton(st);
     return WidgetFactories.FilledButtonSt.filledButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2197,7 +2197,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.icon(st);
     return WidgetFactories.FilledButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2210,7 +2210,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.tonal(st);
     return WidgetFactories.FilledButtonSt.tonal.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2221,7 +2221,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.tonalIcon(st);
     return WidgetFactories.FilledButtonSt.tonalIcon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2269,7 +2269,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(duration),
       ptrBool(persist),
       ptrObj(animation),
-      onVisible.isPresent() ? ptrVoidCallbackFn(onVisible.get()) : MemorySegment.NULL,
+      onVisible.isPresent() ? ptrVoidCallbackPtrFn(onVisible.get()) : MemorySegment.NULL,
       ptrEnum(dismissDirection),
       ptrEnum(clipBehavior));
   }
@@ -2285,6 +2285,228 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.scaffoldMessenger(factories);
     var fn = WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger(st);
     return WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment cardCard(Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometry> margin, Optional<Clip> clipBehavior, Optional<Widget> child, Optional<Boolean> semanticContainer) {
+    var st = WidgetFactories.card(factories);
+    var fn = WidgetFactories.CardSt.card(st);
+    return WidgetFactories.CardSt.card.invoke(fn, arena, ptrObj(color),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptr(elevation),
+      ptrObj(shape),
+      ptrBool(borderOnForeground),
+      ptrObj(margin),
+      ptrEnum(clipBehavior),
+      ptrObj(child),
+      ptrBool(semanticContainer));
+  }
+  MemorySegment cardFilled(Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometry> margin, Optional<Clip> clipBehavior, Optional<Widget> child, Optional<Boolean> semanticContainer) {
+    var st = WidgetFactories.card(factories);
+    var fn = WidgetFactories.CardSt.filled(st);
+    return WidgetFactories.CardSt.filled.invoke(fn, arena, ptrObj(color),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptr(elevation),
+      ptrObj(shape),
+      ptrBool(borderOnForeground),
+      ptrObj(margin),
+      ptrEnum(clipBehavior),
+      ptrObj(child),
+      ptrBool(semanticContainer));
+  }
+  MemorySegment cardOutlined(Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometry> margin, Optional<Clip> clipBehavior, Optional<Widget> child, Optional<Boolean> semanticContainer) {
+    var st = WidgetFactories.card(factories);
+    var fn = WidgetFactories.CardSt.outlined(st);
+    return WidgetFactories.CardSt.outlined.invoke(fn, arena, ptrObj(color),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptr(elevation),
+      ptrObj(shape),
+      ptrBool(borderOnForeground),
+      ptrObj(margin),
+      ptrEnum(clipBehavior),
+      ptrObj(child),
+      ptrBool(semanticContainer));
+  }
+
+  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.chip(factories);
+    var fn = WidgetFactories.ChipSt.chip(st);
+    return WidgetFactories.ChipSt.chip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrVoidCallbackPtrFn(onDeleted.get()) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Runnable> onTertiaryTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+    var st = WidgetFactories.gestureDetector(factories);
+    var fn = WidgetFactories.GestureDetectorSt.gestureDetector(st);
+    return WidgetFactories.GestureDetectorSt.gestureDetector.invoke(fn, arena, ptrObj(child),
+      onTap.isPresent() ? ptrGestureTapCallbackFn(onTap.get()) : MemorySegment.NULL,
+      onTapCancel.isPresent() ? ptrGestureTapCancelCallbackFn(onTapCancel.get()) : MemorySegment.NULL,
+      onSecondaryTap.isPresent() ? ptrGestureTapCallbackFn(onSecondaryTap.get()) : MemorySegment.NULL,
+      onSecondaryTapCancel.isPresent() ? ptrGestureTapCancelCallbackFn(onSecondaryTapCancel.get()) : MemorySegment.NULL,
+      onTertiaryTapCancel.isPresent() ? ptrGestureTapCancelCallbackFn(onTertiaryTapCancel.get()) : MemorySegment.NULL,
+      onDoubleTap.isPresent() ? ptrGestureTapCallbackFn(onDoubleTap.get()) : MemorySegment.NULL,
+      onDoubleTapCancel.isPresent() ? ptrGestureTapCancelCallbackFn(onDoubleTapCancel.get()) : MemorySegment.NULL,
+      onLongPressCancel.isPresent() ? ptrGestureLongPressCancelCallbackFn(onLongPressCancel.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrGestureLongPressCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPressUp.isPresent() ? ptrGestureLongPressUpCallbackFn(onLongPressUp.get()) : MemorySegment.NULL,
+      onSecondaryLongPressCancel.isPresent() ? ptrGestureLongPressCancelCallbackFn(onSecondaryLongPressCancel.get()) : MemorySegment.NULL,
+      onSecondaryLongPress.isPresent() ? ptrGestureLongPressCallbackFn(onSecondaryLongPress.get()) : MemorySegment.NULL,
+      onSecondaryLongPressUp.isPresent() ? ptrGestureLongPressUpCallbackFn(onSecondaryLongPressUp.get()) : MemorySegment.NULL,
+      onTertiaryLongPressCancel.isPresent() ? ptrGestureLongPressCancelCallbackFn(onTertiaryLongPressCancel.get()) : MemorySegment.NULL,
+      onTertiaryLongPress.isPresent() ? ptrGestureLongPressCallbackFn(onTertiaryLongPress.get()) : MemorySegment.NULL,
+      onTertiaryLongPressUp.isPresent() ? ptrGestureLongPressUpCallbackFn(onTertiaryLongPressUp.get()) : MemorySegment.NULL,
+      onVerticalDragCancel.isPresent() ? ptrGestureDragCancelCallbackFn(onVerticalDragCancel.get()) : MemorySegment.NULL,
+      onHorizontalDragCancel.isPresent() ? ptrGestureDragCancelCallbackFn(onHorizontalDragCancel.get()) : MemorySegment.NULL,
+      onPanCancel.isPresent() ? ptrGestureDragCancelCallbackFn(onPanCancel.get()) : MemorySegment.NULL,
+      ptrEnum(behavior),
+      ptrBool(excludeFromSemantics),
+      ptrEnum(dragStartBehavior),
+      ptrBool(trackpadScrollCausesScale),
+      ptrObj(trackpadScrollToScaleFactor));
+  }
+
+  MemorySegment listTileListTile(Optional<Widget> leading, Optional<Widget> title, Optional<Widget> subtitle, Optional<Widget> trailing, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<VisualDensity> visualDensity, Optional<ShapeBorder> shape, Optional<ListTileStyle> style, Optional<Color> selectedColor, Optional<Color> iconColor, Optional<Color> textColor, Optional<TextStyle> titleTextStyle, Optional<TextStyle> subtitleTextStyle, Optional<TextStyle> leadingAndTrailingTextStyle, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> enabled, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> selected, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+    var st = WidgetFactories.listTile(factories);
+    var fn = WidgetFactories.ListTileSt.listTile(st);
+    return WidgetFactories.ListTileSt.listTile.invoke(fn, arena, ptrObj(leading),
+      ptrObj(title),
+      ptrObj(subtitle),
+      ptrObj(trailing),
+      ptrBool(isThreeLine),
+      ptrBool(dense),
+      ptrObj(visualDensity),
+      ptrObj(shape),
+      ptrEnum(style),
+      ptrObj(selectedColor),
+      ptrObj(iconColor),
+      ptrObj(textColor),
+      ptrObj(titleTextStyle),
+      ptrObj(subtitleTextStyle),
+      ptrObj(leadingAndTrailingTextStyle),
+      ptrObj(contentPadding),
+      ptrBool(enabled),
+      onTap.isPresent() ? ptrGestureTapCallbackFn(onTap.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrGestureLongPressCallbackFn(onLongPress.get()) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
+      ptrBool(selected),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(splashColor),
+      ptrBool(autofocus),
+      ptrObj(tileColor),
+      ptrObj(selectedTileColor),
+      ptrBool(enableFeedback),
+      ptr(horizontalTitleGap),
+      ptr(minVerticalPadding),
+      ptr(minLeadingWidth),
+      ptr(minTileHeight),
+      ptrEnum(titleAlignment),
+      ptrBool(internalAddSemanticForOnTap));
+  }
+
+  MemorySegment wrapWrap(Optional<Axis> direction, Optional<WrapAlignment> alignment, OptionalDouble spacing, Optional<WrapAlignment> runAlignment, OptionalDouble runSpacing, Optional<WrapCrossAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<Clip> clipBehavior, Optional<List<Widget>> children) {
+    var st = WidgetFactories.wrap(factories);
+    var fn = WidgetFactories.WrapSt.wrap(st);
+    return WidgetFactories.WrapSt.wrap.invoke(fn, arena, ptrEnum(direction),
+      ptrEnum(alignment),
+      ptr(spacing),
+      ptrEnum(runAlignment),
+      ptr(runSpacing),
+      ptrEnum(crossAxisAlignment),
+      ptrEnum(textDirection),
+      ptrEnum(verticalDirection),
+      ptrEnum(clipBehavior),
+      ptrList(children));
+  }
+
+  MemorySegment singleChildScrollViewSingleChildScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> primary, Optional<Widget> child, Optional<DragStartBehavior> dragStartBehavior, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior) {
+    var st = WidgetFactories.singleChildScrollView(factories);
+    var fn = WidgetFactories.SingleChildScrollViewSt.singleChildScrollView(st);
+    return WidgetFactories.SingleChildScrollViewSt.singleChildScrollView.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrObj(padding),
+      ptrBool(primary),
+      ptrObj(child),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior),
+      ptrStr(restorationId),
+      ptrEnum(keyboardDismissBehavior));
+  }
+
+  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding, Optional<AnimationController> controller) {
+    var st = WidgetFactories.circularProgressIndicator(factories);
+    var fn = WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator(st);
+    return WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(color),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptr(strokeAlign),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(padding),
+      ptrObj(controller));
+  }
+  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding, Optional<AnimationController> controller) {
+    var st = WidgetFactories.circularProgressIndicator(factories);
+    var fn = WidgetFactories.CircularProgressIndicatorSt.adaptive(st);
+    return WidgetFactories.CircularProgressIndicatorSt.adaptive.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptr(strokeAlign),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(padding),
+      ptrObj(controller));
+  }
+
+  MemorySegment linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<AnimationController> controller) {
+    var st = WidgetFactories.linearProgressIndicator(factories);
+    var fn = WidgetFactories.LinearProgressIndicatorSt.linearProgressIndicator(st);
+    return WidgetFactories.LinearProgressIndicatorSt.linearProgressIndicator.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(color),
+      ptrObj(valueColor),
+      ptr(minHeight),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrObj(borderRadius),
+      ptrObj(stopIndicatorColor),
+      ptr(stopIndicatorRadius),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(controller));
   }
 
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
@@ -2329,15 +2551,23 @@ MemorySegment ptrVoidCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
+private MemorySegment ptrHolder(MemorySegment stub) {
+  var h = arena.allocate(8, 8);
+  h.set(ValueLayout.JAVA_LONG, 0, stub.address());
+  return h;
+}
+MemorySegment ptrVoidCallbackPtrFn(Runnable jFn) {
+  return ptrHolder(VoidCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+}
 MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
-  return ValueChangedForBoolFFI.allocate((value) -> {
+  return ptrHolder(ValueChangedForBoolFFI.allocate((value) -> {
     jFn.accept(intToBool(value));
-  }, arena);
+  }, arena));
 }
 MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {
-  return DrawerCallbackFFI.allocate((isOpened) -> {
+  return ptrHolder(DrawerCallbackFFI.allocate((isOpened) -> {
     jFn.accept(intToBool(isOpened));
-  }, arena);
+  }, arena));
 }
 MemorySegment ptrDartObjCallbackDartObjDartObjFn(BiFunction<BuildContext, Animation, Widget> jFn) {
   return DartObjCallbackDartObjDartObjFFI.allocate((b, a) -> {
@@ -2352,20 +2582,35 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
   }, arena);
 }
 MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
-  return ValueChangedForStringFFI.allocate((value) -> {
+  return ptrHolder(ValueChangedForStringFFI.allocate((value) -> {
     jFn.accept(value.getString(0));
-  }, arena);
+  }, arena));
 }
 MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
-  return GestureTapCallbackFFI.allocate(() -> {
+  return ptrHolder(GestureTapCallbackFFI.allocate(() -> {
     jFn.run();
-  }, arena);
+  }, arena));
 }
 MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {
   return InputCounterWidgetBuilderFFI.allocate((context, currentLength, isFocused, maxLength) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, currentLength, intToBool(isFocused), maxLength);
     return jFnRet != null ? jFnRet.build().getId() : null;
   }, arena);
+}
+MemorySegment ptrGestureTapCancelCallbackFn(Runnable jFn) {
+  return ptrHolder(GestureTapCancelCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+}
+MemorySegment ptrGestureLongPressCancelCallbackFn(Runnable jFn) {
+  return ptrHolder(GestureLongPressCancelCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+}
+MemorySegment ptrGestureLongPressCallbackFn(Runnable jFn) {
+  return ptrHolder(GestureLongPressCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+}
+MemorySegment ptrGestureLongPressUpCallbackFn(Runnable jFn) {
+  return ptrHolder(GestureLongPressUpCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+}
+MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
+  return ptrHolder(GestureDragCancelCallbackFFI.allocate(() -> { jFn.run(); }, arena));
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {
   return VoidCallbackDartObjFFI.allocate((t) -> {

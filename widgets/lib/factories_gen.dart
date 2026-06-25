@@ -3378,6 +3378,393 @@ ScaffoldMessengerObjSt _createScaffoldMessengerObjSt(ScaffoldMessenger? w) {
   return stObj;
 }
 
+void _setupCard(WidgetFactories f) {
+  f.card.card = ffi.Pointer.fromFunction(cardCard);
+  f.card.filled = ffi.Pointer.fromFunction(cardFilled);
+  f.card.outlined = ffi.Pointer.fromFunction(cardOutlined);
+}
+CardObjSt cardCard(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> borderOnForeground, ffi.Pointer<DartObj> margin, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> semanticContainer) {
+  final w = Card(color: color.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shape: shape.objOrNul(),
+      borderOnForeground: borderOnForeground.boolOr(true),
+      margin: margin.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      child: child.objOrNul(),
+      semanticContainer: semanticContainer.boolOr(true));
+  return _createCardObjSt(w);
+}
+CardObjSt cardFilled(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> borderOnForeground, ffi.Pointer<DartObj> margin, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> semanticContainer) {
+  final w = Card.filled(color: color.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shape: shape.objOrNul(),
+      borderOnForeground: borderOnForeground.boolOr(true),
+      margin: margin.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      child: child.objOrNul(),
+      semanticContainer: semanticContainer.boolOr(true));
+  return _createCardObjSt(w);
+}
+CardObjSt cardOutlined(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> borderOnForeground, ffi.Pointer<DartObj> margin, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> semanticContainer) {
+  final w = Card.outlined(color: color.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shape: shape.objOrNul(),
+      borderOnForeground: borderOnForeground.boolOr(true),
+      margin: margin.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      child: child.objOrNul(),
+      semanticContainer: semanticContainer.boolOr(true));
+  return _createCardObjSt(w);
+}
+CardObjSt _createCardObjSt(Card? w) {
+  final CardObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.borderOnForeground = w.borderOnForeground.toInt();
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.margin = _addWidget(w.margin);
+  stObj.semanticContainer = w.semanticContainer.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupChip(WidgetFactories f) {
+  f.chip.chip = ffi.Pointer.fromFunction(chipChip);
+}
+ChipObjSt chipChip(ffi.Pointer<DartObj> avatar, DartDartObj label, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> deleteIcon, ffi.Pointer<VoidCallbackFFI> onDeleted, ffi.Pointer<DartObj> deleteIconColor, ffi.Pointer<ffi.Char> deleteButtonTooltipMessage, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> avatarBoxConstraints, ffi.Pointer<DartObj> deleteIconBoxConstraints) {
+  final w = Chip(avatar: avatar.objOrNul(),
+      label: _widgetsMap[label]! as Widget,
+      labelStyle: labelStyle.objOrNul(),
+      labelPadding: labelPadding.objOrNul(),
+      deleteIcon: deleteIcon.objOrNul(),
+      onDeleted: onDeleted.toVoidCallbackFn(),
+      deleteIconColor: deleteIconColor.objOrNul(),
+      deleteButtonTooltipMessage: deleteButtonTooltipMessage.strOrNul(),
+      side: side.objOrNul(),
+      shape: shape.objOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      autofocus: autofocus.boolOr(false),
+      backgroundColor: backgroundColor.objOrNul(),
+      padding: padding.objOrNul(),
+      visualDensity: visualDensity.objOrNul(),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      avatarBoxConstraints: avatarBoxConstraints.objOrNul(),
+      deleteIconBoxConstraints: deleteIconBoxConstraints.objOrNul());
+  return _createChipObjSt(w);
+}
+ChipObjSt _createChipObjSt(Chip? w) {
+  final ChipObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.avatar = _addWidget(w.avatar);
+  stObj.label = _addWidget(w.label);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  stObj.side = _createBorderSideObjSt(w.side);
+  stObj.shape = _addWidget(w.shape);
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.padding = _addWidget(w.padding);
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.deleteIcon = _addWidget(w.deleteIcon);
+  stObj.deleteIconColor = _addWidget(w.deleteIconColor);
+  stObj.deleteButtonTooltipMessage = (w.deleteButtonTooltipMessage != null) ? w.deleteButtonTooltipMessage!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.avatarBoxConstraints = _createBoxConstraintsObjSt(w.avatarBoxConstraints);
+  stObj.deleteIconBoxConstraints = _createBoxConstraintsObjSt(w.deleteIconBoxConstraints);
+  return stObj;
+}
+
+void _setupGestureDetector(WidgetFactories f) {
+  f.gestureDetector.gestureDetector = ffi.Pointer.fromFunction(gestureDetectorGestureDetector);
+}
+GestureDetectorObjSt gestureDetectorGestureDetector(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapCancelCallbackFFI> onSecondaryTapCancel, ffi.Pointer<GestureTapCancelCallbackFFI> onTertiaryTapCancel, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onDoubleTapCancel, ffi.Pointer<GestureLongPressCancelCallbackFFI> onLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onLongPressUp, ffi.Pointer<GestureLongPressCancelCallbackFFI> onSecondaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onSecondaryLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onSecondaryLongPressUp, ffi.Pointer<GestureLongPressCancelCallbackFFI> onTertiaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onTertiaryLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onTertiaryLongPressUp, ffi.Pointer<GestureDragCancelCallbackFFI> onVerticalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onHorizontalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onPanCancel, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, ffi.Pointer<DartObj> trackpadScrollToScaleFactor) {
+  final w = GestureDetector(child: child.objOrNul(),
+      onTap: onTap.toGestureTapCallbackFn(),
+      onTapCancel: onTapCancel.toGestureTapCancelCallbackFn(),
+      onSecondaryTap: onSecondaryTap.toGestureTapCallbackFn(),
+      onSecondaryTapCancel: onSecondaryTapCancel.toGestureTapCancelCallbackFn(),
+      onTertiaryTapCancel: onTertiaryTapCancel.toGestureTapCancelCallbackFn(),
+      onDoubleTap: onDoubleTap.toGestureTapCallbackFn(),
+      onDoubleTapCancel: onDoubleTapCancel.toGestureTapCancelCallbackFn(),
+      onLongPressCancel: onLongPressCancel.toGestureLongPressCancelCallbackFn(),
+      onLongPress: onLongPress.toGestureLongPressCallbackFn(),
+      onLongPressUp: onLongPressUp.toGestureLongPressUpCallbackFn(),
+      onSecondaryLongPressCancel: onSecondaryLongPressCancel.toGestureLongPressCancelCallbackFn(),
+      onSecondaryLongPress: onSecondaryLongPress.toGestureLongPressCallbackFn(),
+      onSecondaryLongPressUp: onSecondaryLongPressUp.toGestureLongPressUpCallbackFn(),
+      onTertiaryLongPressCancel: onTertiaryLongPressCancel.toGestureLongPressCancelCallbackFn(),
+      onTertiaryLongPress: onTertiaryLongPress.toGestureLongPressCallbackFn(),
+      onTertiaryLongPressUp: onTertiaryLongPressUp.toGestureLongPressUpCallbackFn(),
+      onVerticalDragCancel: onVerticalDragCancel.toGestureDragCancelCallbackFn(),
+      onHorizontalDragCancel: onHorizontalDragCancel.toGestureDragCancelCallbackFn(),
+      onPanCancel: onPanCancel.toGestureDragCancelCallbackFn(),
+      behavior: behavior.enumOrNul(HitTestBehavior.values),
+      excludeFromSemantics: excludeFromSemantics.boolOr(false),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      trackpadScrollCausesScale: trackpadScrollCausesScale.boolOr(false),
+      trackpadScrollToScaleFactor: trackpadScrollToScaleFactor.objOr(kDefaultTrackpadScrollToScaleFactor));
+  return _createGestureDetectorObjSt(w);
+}
+GestureDetectorObjSt _createGestureDetectorObjSt(GestureDetector? w) {
+  final GestureDetectorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.behavior = (w.behavior != null) ? w.behavior!.index : 0;
+  stObj.excludeFromSemantics = w.excludeFromSemantics.toInt();
+  stObj.dragStartBehavior = w.dragStartBehavior.index;
+  stObj.trackpadScrollCausesScale = w.trackpadScrollCausesScale.toInt();
+  stObj.trackpadScrollToScaleFactor = _addWidget(w.trackpadScrollToScaleFactor);
+  return stObj;
+}
+
+void _setupListTile(WidgetFactories f) {
+  f.listTile.listTile = ffi.Pointer.fromFunction(listTileListTile);
+}
+ListTileObjSt listTileListTile(ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> title, ffi.Pointer<DartObj> subtitle, ffi.Pointer<DartObj> trailing, ffi.Pointer<ffi.Int> isThreeLine, ffi.Pointer<ffi.Int> dense, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> style, ffi.Pointer<DartObj> selectedColor, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> textColor, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> subtitleTextStyle, ffi.Pointer<DartObj> leadingAndTrailingTextStyle, ffi.Pointer<DartObj> contentPadding, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> selected, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> tileColor, ffi.Pointer<DartObj> selectedTileColor, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Double> horizontalTitleGap, ffi.Pointer<ffi.Double> minVerticalPadding, ffi.Pointer<ffi.Double> minLeadingWidth, ffi.Pointer<ffi.Double> minTileHeight, ffi.Pointer<ffi.Int> titleAlignment, ffi.Pointer<ffi.Int> internalAddSemanticForOnTap) {
+  final w = ListTile(leading: leading.objOrNul(),
+      title: title.objOrNul(),
+      subtitle: subtitle.objOrNul(),
+      trailing: trailing.objOrNul(),
+      isThreeLine: isThreeLine.boolOrNul(),
+      dense: dense.boolOrNul(),
+      visualDensity: visualDensity.objOrNul(),
+      shape: shape.objOrNul(),
+      style: style.enumOrNul(ListTileStyle.values),
+      selectedColor: selectedColor.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      textColor: textColor.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      subtitleTextStyle: subtitleTextStyle.objOrNul(),
+      leadingAndTrailingTextStyle: leadingAndTrailingTextStyle.objOrNul(),
+      contentPadding: contentPadding.objOrNul(),
+      enabled: enabled.boolOr(true),
+      onTap: onTap.toGestureTapCallbackFn(),
+      onLongPress: onLongPress.toGestureLongPressCallbackFn(),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      selected: selected.boolOr(false),
+      focusColor: focusColor.objOrNul(),
+      hoverColor: hoverColor.objOrNul(),
+      splashColor: splashColor.objOrNul(),
+      autofocus: autofocus.boolOr(false),
+      tileColor: tileColor.objOrNul(),
+      selectedTileColor: selectedTileColor.objOrNul(),
+      enableFeedback: enableFeedback.boolOrNul(),
+      horizontalTitleGap: horizontalTitleGap.doubleOrNul(),
+      minVerticalPadding: minVerticalPadding.doubleOrNul(),
+      minLeadingWidth: minLeadingWidth.doubleOrNul(),
+      minTileHeight: minTileHeight.doubleOrNul(),
+      titleAlignment: titleAlignment.enumOrNul(ListTileTitleAlignment.values),
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap.boolOr(true));
+  return _createListTileObjSt(w);
+}
+ListTileObjSt _createListTileObjSt(ListTile? w) {
+  final ListTileObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.leading = _addWidget(w.leading);
+  stObj.title = _addWidget(w.title);
+  stObj.subtitle = _addWidget(w.subtitle);
+  stObj.trailing = _addWidget(w.trailing);
+  stObj.isThreeLine = (w.isThreeLine != null) ? w.isThreeLine!.toInt() : 0;
+  stObj.dense = (w.dense != null) ? w.dense!.toInt() : 0;
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.shape = _addWidget(w.shape);
+  stObj.selectedColor = _addWidget(w.selectedColor);
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.textColor = _addWidget(w.textColor);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.subtitleTextStyle = _createTextStyleObjSt(w.subtitleTextStyle);
+  stObj.leadingAndTrailingTextStyle = _createTextStyleObjSt(w.leadingAndTrailingTextStyle);
+  stObj.style = (w.style != null) ? w.style!.index : 0;
+  stObj.contentPadding = _addWidget(w.contentPadding);
+  stObj.enabled = w.enabled.toInt();
+  stObj.selected = w.selected.toInt();
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.hoverColor = _addWidget(w.hoverColor);
+  stObj.splashColor = _addWidget(w.splashColor);
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.tileColor = _addWidget(w.tileColor);
+  stObj.selectedTileColor = _addWidget(w.selectedTileColor);
+  stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
+  stObj.horizontalTitleGap = (w.horizontalTitleGap != null) ? w.horizontalTitleGap! : 0;
+  stObj.minVerticalPadding = (w.minVerticalPadding != null) ? w.minVerticalPadding! : 0;
+  stObj.minLeadingWidth = (w.minLeadingWidth != null) ? w.minLeadingWidth! : 0;
+  stObj.minTileHeight = (w.minTileHeight != null) ? w.minTileHeight! : 0;
+  stObj.titleAlignment = (w.titleAlignment != null) ? w.titleAlignment!.index : 0;
+  stObj.internalAddSemanticForOnTap = w.internalAddSemanticForOnTap.toInt();
+  return stObj;
+}
+
+void _setupWrap(WidgetFactories f) {
+  f.wrap.wrap = ffi.Pointer.fromFunction(wrapWrap);
+}
+WrapObjSt wrapWrap(ffi.Pointer<ffi.Int> direction, ffi.Pointer<ffi.Int> alignment, ffi.Pointer<ffi.Double> spacing, ffi.Pointer<ffi.Int> runAlignment, ffi.Pointer<ffi.Double> runSpacing, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> verticalDirection, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ArrayC> children) {
+  final w = Wrap(direction: direction.enumOr(Axis.values, Axis.horizontal),
+      alignment: alignment.enumOr(WrapAlignment.values, WrapAlignment.start),
+      spacing: spacing.doubleOr(0.0),
+      runAlignment: runAlignment.enumOr(WrapAlignment.values, WrapAlignment.start),
+      runSpacing: runSpacing.doubleOr(0.0),
+      crossAxisAlignment: crossAxisAlignment.enumOr(WrapCrossAlignment.values, WrapCrossAlignment.start),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      verticalDirection: verticalDirection.enumOr(VerticalDirection.values, VerticalDirection.down),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      children: children.listOrEmpty());
+  return _createWrapObjSt(w);
+}
+WrapObjSt _createWrapObjSt(Wrap? w) {
+  final WrapObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.direction = w.direction.index;
+  stObj.alignment = w.alignment.index;
+  stObj.spacing = w.spacing;
+  stObj.runAlignment = w.runAlignment.index;
+  stObj.runSpacing = w.runSpacing;
+  stObj.crossAxisAlignment = w.crossAxisAlignment.index;
+  stObj.textDirection = (w.textDirection != null) ? w.textDirection!.index : 0;
+  stObj.verticalDirection = w.verticalDirection.index;
+  stObj.clipBehavior = w.clipBehavior.index;
+  return stObj;
+}
+
+void _setupSingleChildScrollView(WidgetFactories f) {
+  f.singleChildScrollView.singleChildScrollView = ffi.Pointer.fromFunction(singleChildScrollViewSingleChildScrollView);
+}
+SingleChildScrollViewObjSt singleChildScrollViewSingleChildScrollView(ffi.Pointer<ffi.Int> scrollDirection, ffi.Pointer<ffi.Int> reverse, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Int> primary, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> keyboardDismissBehavior) {
+  final w = SingleChildScrollView(scrollDirection: scrollDirection.enumOr(Axis.values, Axis.vertical),
+      reverse: reverse.boolOr(false),
+      padding: padding.objOrNul(),
+      primary: primary.boolOrNul(),
+      child: child.objOrNul(),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.opaque),
+      restorationId: restorationId.strOrNul(),
+      keyboardDismissBehavior: keyboardDismissBehavior.enumOrNul(ScrollViewKeyboardDismissBehavior.values));
+  return _createSingleChildScrollViewObjSt(w);
+}
+SingleChildScrollViewObjSt _createSingleChildScrollViewObjSt(SingleChildScrollView? w) {
+  final SingleChildScrollViewObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.scrollDirection = w.scrollDirection.index;
+  stObj.reverse = w.reverse.toInt();
+  stObj.padding = _addWidget(w.padding);
+  stObj.primary = (w.primary != null) ? w.primary!.toInt() : 0;
+  stObj.child = _addWidget(w.child);
+  stObj.dragStartBehavior = w.dragStartBehavior.index;
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.hitTestBehavior = w.hitTestBehavior.index;
+  stObj.restorationId = (w.restorationId != null) ? w.restorationId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.keyboardDismissBehavior = (w.keyboardDismissBehavior != null) ? w.keyboardDismissBehavior!.index : 0;
+  return stObj;
+}
+
+void _setupCircularProgressIndicator(WidgetFactories f) {
+  f.circularProgressIndicator.circularProgressIndicator = ffi.Pointer.fromFunction(circularProgressIndicatorCircularProgressIndicator);
+  f.circularProgressIndicator.adaptive = ffi.Pointer.fromFunction(circularProgressIndicatorAdaptive);
+}
+CircularProgressIndicatorObjSt circularProgressIndicatorCircularProgressIndicator(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> controller) {
+  final w = CircularProgressIndicator(value: value.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      color: color.objOrNul(),
+      valueColor: valueColor.objOrNul(),
+      strokeWidth: strokeWidth.doubleOrNul(),
+      strokeAlign: strokeAlign.doubleOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
+      constraints: constraints.objOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      year2023: year2023.boolOrNul(),
+      padding: padding.objOrNul(),
+      controller: controller.objOrNul());
+  return _createCircularProgressIndicatorObjSt(w);
+}
+CircularProgressIndicatorObjSt circularProgressIndicatorAdaptive(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> controller) {
+  final w = CircularProgressIndicator.adaptive(value: value.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      valueColor: valueColor.objOrNul(),
+      strokeWidth: strokeWidth.doubleOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
+      strokeAlign: strokeAlign.doubleOrNul(),
+      constraints: constraints.objOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      year2023: year2023.boolOrNul(),
+      padding: padding.objOrNul(),
+      controller: controller.objOrNul());
+  return _createCircularProgressIndicatorObjSt(w);
+}
+CircularProgressIndicatorObjSt _createCircularProgressIndicatorObjSt(CircularProgressIndicator? w) {
+  final CircularProgressIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.strokeWidth = (w.strokeWidth != null) ? w.strokeWidth! : 0;
+  stObj.strokeAlign = (w.strokeAlign != null) ? w.strokeAlign! : 0;
+  stObj.strokeCap = (w.strokeCap != null) ? w.strokeCap!.index : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.trackGap = (w.trackGap != null) ? w.trackGap! : 0;
+  stObj.year2023 = (w.year2023 != null) ? w.year2023!.toInt() : 0;
+  stObj.padding = _addWidget(w.padding);
+  stObj.controller = _addWidget(w.controller);
+  return stObj;
+}
+
+void _setupLinearProgressIndicator(WidgetFactories f) {
+  f.linearProgressIndicator.linearProgressIndicator = ffi.Pointer.fromFunction(linearProgressIndicatorLinearProgressIndicator);
+}
+LinearProgressIndicatorObjSt linearProgressIndicatorLinearProgressIndicator(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> minHeight, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> stopIndicatorColor, ffi.Pointer<ffi.Double> stopIndicatorRadius, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> controller) {
+  final w = LinearProgressIndicator(value: value.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      color: color.objOrNul(),
+      valueColor: valueColor.objOrNul(),
+      minHeight: minHeight.doubleOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      borderRadius: borderRadius.objOrNul(),
+      stopIndicatorColor: stopIndicatorColor.objOrNul(),
+      stopIndicatorRadius: stopIndicatorRadius.doubleOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      year2023: year2023.boolOrNul(),
+      controller: controller.objOrNul());
+  return _createLinearProgressIndicatorObjSt(w);
+}
+LinearProgressIndicatorObjSt _createLinearProgressIndicatorObjSt(LinearProgressIndicator? w) {
+  final LinearProgressIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.minHeight = (w.minHeight != null) ? w.minHeight! : 0;
+  stObj.borderRadius = _addWidget(w.borderRadius);
+  stObj.stopIndicatorColor = _addWidget(w.stopIndicatorColor);
+  stObj.stopIndicatorRadius = (w.stopIndicatorRadius != null) ? w.stopIndicatorRadius! : 0;
+  stObj.trackGap = (w.trackGap != null) ? w.trackGap! : 0;
+  stObj.year2023 = (w.year2023 != null) ? w.year2023!.toInt() : 0;
+  stObj.controller = _addWidget(w.controller);
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -3392,7 +3779,7 @@ SubStateObjSt subStateSubState(VoidCallbackFFI initStateFn, VoidCallbackDartObjF
       didChangeDependenciesFn: didChangeDependenciesFn.toVoidCallbackFn());
   final SubStateObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
-  final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
+  final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.listener((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
   stObj.setState = setStateFn.nativeFunction;
   final widgetFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.widget), exceptionalReturn: exception);
   stObj.widget = widgetFn.nativeFunction;
@@ -3499,6 +3886,14 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSnackBarAction(f);
   _setupSnackBar(f);
   _setupScaffoldMessenger(f);
+  _setupCard(f);
+  _setupChip(f);
+  _setupGestureDetector(f);
+  _setupListTile(f);
+  _setupWrap(f);
+  _setupSingleChildScrollView(f);
+  _setupCircularProgressIndicator(f);
+  _setupLinearProgressIndicator(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
@@ -3637,6 +4032,66 @@ extension on InputCounterWidgetBuilderFFI {
 }
 extension on ffi.Pointer<InputCounterWidgetBuilderFFI> {
   InputCounterWidgetBuilder? toInputCounterWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toInputCounterWidgetBuilderFn() : null;
+}
+
+extension on GestureTapCancelCallbackFFI {
+  GestureTapCancelCallback toGestureTapCancelCallbackFn() {
+    return () {
+      DartGestureTapCancelCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
+  }
+}
+extension on ffi.Pointer<GestureTapCancelCallbackFFI> {
+  GestureTapCancelCallback? toGestureTapCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapCancelCallbackFn() : null;
+}
+
+extension on GestureLongPressCancelCallbackFFI {
+  GestureLongPressCancelCallback toGestureLongPressCancelCallbackFn() {
+    return () {
+      DartGestureLongPressCancelCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressCancelCallbackFFI> {
+  GestureLongPressCancelCallback? toGestureLongPressCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressCancelCallbackFn() : null;
+}
+
+extension on GestureLongPressCallbackFFI {
+  GestureLongPressCallback toGestureLongPressCallbackFn() {
+    return () {
+      DartGestureLongPressCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressCallbackFFI> {
+  GestureLongPressCallback? toGestureLongPressCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressCallbackFn() : null;
+}
+
+extension on GestureLongPressUpCallbackFFI {
+  GestureLongPressUpCallback toGestureLongPressUpCallbackFn() {
+    return () {
+      DartGestureLongPressUpCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressUpCallbackFFI> {
+  GestureLongPressUpCallback? toGestureLongPressUpCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressUpCallbackFn() : null;
+}
+
+extension on GestureDragCancelCallbackFFI {
+  GestureDragCancelCallback toGestureDragCancelCallbackFn() {
+    return () {
+      DartGestureDragCancelCallbackFFIFunction dFn = asFunction();
+      dFn();
+    };
+  }
+}
+extension on ffi.Pointer<GestureDragCancelCallbackFFI> {
+  GestureDragCancelCallback? toGestureDragCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragCancelCallbackFn() : null;
 }
 
 extension on VoidCallbackDartObjFFI {

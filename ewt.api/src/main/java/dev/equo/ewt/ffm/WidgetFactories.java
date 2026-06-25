@@ -376,6 +376,33 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     struct ScaffoldMessengerSt {
  *         ScaffoldMessengerObjSt (*scaffoldMessenger)(DartObj);
  *     } scaffoldMessenger;
+ *     struct CardSt {
+ *         CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *);
+ *         CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *);
+ *         CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *);
+ *     } card;
+ *     struct ChipSt {
+ *         ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *);
+ *     } chip;
+ *     struct GestureDetectorSt {
+ *         GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *);
+ *     } gestureDetector;
+ *     struct ListTileSt {
+ *         ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *);
+ *     } listTile;
+ *     struct WrapSt {
+ *         WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *);
+ *     } wrap;
+ *     struct SingleChildScrollViewSt {
+ *         SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *);
+ *     } singleChildScrollView;
+ *     struct CircularProgressIndicatorSt {
+ *         CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *);
+ *         CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *);
+ *     } circularProgressIndicator;
+ *     struct LinearProgressIndicatorSt {
+ *         LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *);
+ *     } linearProgressIndicator;
  *     struct SubStateSt {
  *         SubStateObjSt (*subState)(VoidCallbackFFI, VoidCallbackDartObjFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, VoidCallbackFFI, DartObjCallbackDartObjFFI, VoidCallbackFFI);
  *     } subState;
@@ -482,6 +509,14 @@ public class WidgetFactories {
         WidgetFactories.SnackBarActionSt.layout().withName("snackBarAction"),
         WidgetFactories.SnackBarSt.layout().withName("snackBar"),
         WidgetFactories.ScaffoldMessengerSt.layout().withName("scaffoldMessenger"),
+        WidgetFactories.CardSt.layout().withName("card"),
+        WidgetFactories.ChipSt.layout().withName("chip"),
+        WidgetFactories.GestureDetectorSt.layout().withName("gestureDetector"),
+        WidgetFactories.ListTileSt.layout().withName("listTile"),
+        WidgetFactories.WrapSt.layout().withName("wrap"),
+        WidgetFactories.SingleChildScrollViewSt.layout().withName("singleChildScrollView"),
+        WidgetFactories.CircularProgressIndicatorSt.layout().withName("circularProgressIndicator"),
+        WidgetFactories.LinearProgressIndicatorSt.layout().withName("linearProgressIndicator"),
         WidgetFactories.SubStateSt.layout().withName("subState"),
         WidgetFactories.SubStatefulWidgetSt.layout().withName("subStatefulWidget"),
         WidgetFactories.SubStatelessWidgetSt.layout().withName("subStatelessWidget")
@@ -30198,6 +30233,2175 @@ public class WidgetFactories {
      */
     public static void scaffoldMessenger(MemorySegment struct, MemorySegment fieldValue) {
         MemorySegment.copy(fieldValue, 0L, struct, scaffoldMessenger$OFFSET, scaffoldMessenger$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct CardSt {
+     *     CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *);
+     *     CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *);
+     *     CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *);
+     * }
+     * }
+     */
+    public static class CardSt {
+
+        CardSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("card"),
+            StarterBridge.C_POINTER.withName("filled"),
+            StarterBridge.C_POINTER.withName("outlined")
+        ).withName("CardSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public final static class card {
+
+            private card() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                CardObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(card.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(card.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout card$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("card"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static final AddressLayout card$layout() {
+            return card$LAYOUT;
+        }
+
+        private static final long card$OFFSET = $LAYOUT.byteOffset(groupElement("card"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static final long card$offset() {
+            return card$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static MemorySegment card(MemorySegment struct) {
+            return struct.get(card$LAYOUT, card$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * CardObjSt (*card)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static void card(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(card$LAYOUT, card$OFFSET, fieldValue);
+        }
+
+        /**
+         * {@snippet lang=c :
+         * CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public final static class filled {
+
+            private filled() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                CardObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(filled.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(filled.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout filled$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("filled"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static final AddressLayout filled$layout() {
+            return filled$LAYOUT;
+        }
+
+        private static final long filled$OFFSET = $LAYOUT.byteOffset(groupElement("filled"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static final long filled$offset() {
+            return filled$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static MemorySegment filled(MemorySegment struct) {
+            return struct.get(filled$LAYOUT, filled$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * CardObjSt (*filled)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static void filled(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(filled$LAYOUT, filled$OFFSET, fieldValue);
+        }
+
+        /**
+         * {@snippet lang=c :
+         * CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public final static class outlined {
+
+            private outlined() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                CardObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(outlined.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(outlined.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout outlined$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("outlined"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static final AddressLayout outlined$layout() {
+            return outlined$LAYOUT;
+        }
+
+        private static final long outlined$OFFSET = $LAYOUT.byteOffset(groupElement("outlined"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static final long outlined$offset() {
+            return outlined$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static MemorySegment outlined(MemorySegment struct) {
+            return struct.get(outlined$LAYOUT, outlined$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * CardObjSt (*outlined)(DartObj *, DartObj *, DartObj *, double *, DartObj *, int *, DartObj *, int *, DartObj *, int *)
+         * }
+         */
+        public static void outlined(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(outlined$LAYOUT, outlined$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout card$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("card"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct CardSt card
+     * }
+     */
+    public static final GroupLayout card$layout() {
+        return card$LAYOUT;
+    }
+
+    private static final long card$OFFSET = $LAYOUT.byteOffset(groupElement("card"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct CardSt card
+     * }
+     */
+    public static final long card$offset() {
+        return card$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct CardSt card
+     * }
+     */
+    public static MemorySegment card(MemorySegment struct) {
+        return struct.asSlice(card$OFFSET, card$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct CardSt card
+     * }
+     */
+    public static void card(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, card$OFFSET, card$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct ChipSt {
+     *     ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *);
+     * }
+     * }
+     */
+    public static class ChipSt {
+
+        ChipSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("chip")
+        ).withName("ChipSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *)
+         * }
+         */
+        public final static class chip {
+
+            private chip() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                ChipObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(chip.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(chip.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout chip$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("chip"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *)
+         * }
+         */
+        public static final AddressLayout chip$layout() {
+            return chip$LAYOUT;
+        }
+
+        private static final long chip$OFFSET = $LAYOUT.byteOffset(groupElement("chip"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *)
+         * }
+         */
+        public static final long chip$offset() {
+            return chip$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *)
+         * }
+         */
+        public static MemorySegment chip(MemorySegment struct) {
+            return struct.get(chip$LAYOUT, chip$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * ChipObjSt (*chip)(DartObj *, DartObj, DartObj *, DartObj *, DartObj *, VoidCallbackFFI *, DartObj *, char *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, DartObj *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *)
+         * }
+         */
+        public static void chip(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(chip$LAYOUT, chip$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout chip$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("chip"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct ChipSt chip
+     * }
+     */
+    public static final GroupLayout chip$layout() {
+        return chip$LAYOUT;
+    }
+
+    private static final long chip$OFFSET = $LAYOUT.byteOffset(groupElement("chip"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct ChipSt chip
+     * }
+     */
+    public static final long chip$offset() {
+        return chip$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct ChipSt chip
+     * }
+     */
+    public static MemorySegment chip(MemorySegment struct) {
+        return struct.asSlice(chip$OFFSET, chip$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct ChipSt chip
+     * }
+     */
+    public static void chip(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, chip$OFFSET, chip$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct GestureDetectorSt {
+     *     GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *);
+     * }
+     * }
+     */
+    public static class GestureDetectorSt {
+
+        GestureDetectorSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("gestureDetector")
+        ).withName("GestureDetectorSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *)
+         * }
+         */
+        public final static class gestureDetector {
+
+            private gestureDetector() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                GestureDetectorObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(gestureDetector.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(gestureDetector.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout gestureDetector$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("gestureDetector"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *)
+         * }
+         */
+        public static final AddressLayout gestureDetector$layout() {
+            return gestureDetector$LAYOUT;
+        }
+
+        private static final long gestureDetector$OFFSET = $LAYOUT.byteOffset(groupElement("gestureDetector"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *)
+         * }
+         */
+        public static final long gestureDetector$offset() {
+            return gestureDetector$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *)
+         * }
+         */
+        public static MemorySegment gestureDetector(MemorySegment struct) {
+            return struct.get(gestureDetector$LAYOUT, gestureDetector$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * GestureDetectorObjSt (*gestureDetector)(DartObj *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCancelCallbackFFI *, GestureTapCallbackFFI *, GestureTapCancelCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureLongPressCancelCallbackFFI *, GestureLongPressCallbackFFI *, GestureLongPressUpCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, GestureDragCancelCallbackFFI *, int *, int *, int *, int *, DartObj *)
+         * }
+         */
+        public static void gestureDetector(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(gestureDetector$LAYOUT, gestureDetector$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout gestureDetector$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("gestureDetector"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct GestureDetectorSt gestureDetector
+     * }
+     */
+    public static final GroupLayout gestureDetector$layout() {
+        return gestureDetector$LAYOUT;
+    }
+
+    private static final long gestureDetector$OFFSET = $LAYOUT.byteOffset(groupElement("gestureDetector"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct GestureDetectorSt gestureDetector
+     * }
+     */
+    public static final long gestureDetector$offset() {
+        return gestureDetector$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct GestureDetectorSt gestureDetector
+     * }
+     */
+    public static MemorySegment gestureDetector(MemorySegment struct) {
+        return struct.asSlice(gestureDetector$OFFSET, gestureDetector$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct GestureDetectorSt gestureDetector
+     * }
+     */
+    public static void gestureDetector(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, gestureDetector$OFFSET, gestureDetector$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct ListTileSt {
+     *     ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *);
+     * }
+     * }
+     */
+    public static class ListTileSt {
+
+        ListTileSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("listTile")
+        ).withName("ListTileSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *)
+         * }
+         */
+        public final static class listTile {
+
+            private listTile() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                ListTileObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(listTile.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(listTile.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18, MemorySegment _x19, MemorySegment _x20, MemorySegment _x21, MemorySegment _x22, MemorySegment _x23, MemorySegment _x24, MemorySegment _x25, MemorySegment _x26, MemorySegment _x27, MemorySegment _x28, MemorySegment _x29, MemorySegment _x30, MemorySegment _x31, MemorySegment _x32, MemorySegment _x33) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24, _x25, _x26, _x27, _x28, _x29, _x30, _x31, _x32, _x33);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout listTile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("listTile"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *)
+         * }
+         */
+        public static final AddressLayout listTile$layout() {
+            return listTile$LAYOUT;
+        }
+
+        private static final long listTile$OFFSET = $LAYOUT.byteOffset(groupElement("listTile"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *)
+         * }
+         */
+        public static final long listTile$offset() {
+            return listTile$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *)
+         * }
+         */
+        public static MemorySegment listTile(MemorySegment struct) {
+            return struct.get(listTile$LAYOUT, listTile$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * ListTileObjSt (*listTile)(DartObj *, DartObj *, DartObj *, DartObj *, int *, int *, DartObj *, DartObj *, int *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, int *, GestureTapCallbackFFI *, GestureLongPressCallbackFFI *, ValueChangedForBoolFFI *, int *, DartObj *, DartObj *, DartObj *, int *, DartObj *, DartObj *, int *, double *, double *, double *, double *, int *, int *)
+         * }
+         */
+        public static void listTile(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(listTile$LAYOUT, listTile$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout listTile$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("listTile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct ListTileSt listTile
+     * }
+     */
+    public static final GroupLayout listTile$layout() {
+        return listTile$LAYOUT;
+    }
+
+    private static final long listTile$OFFSET = $LAYOUT.byteOffset(groupElement("listTile"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct ListTileSt listTile
+     * }
+     */
+    public static final long listTile$offset() {
+        return listTile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct ListTileSt listTile
+     * }
+     */
+    public static MemorySegment listTile(MemorySegment struct) {
+        return struct.asSlice(listTile$OFFSET, listTile$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct ListTileSt listTile
+     * }
+     */
+    public static void listTile(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, listTile$OFFSET, listTile$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct WrapSt {
+     *     WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *);
+     * }
+     * }
+     */
+    public static class WrapSt {
+
+        WrapSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("wrap")
+        ).withName("WrapSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *)
+         * }
+         */
+        public final static class wrap {
+
+            private wrap() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                WrapObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(wrap.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(wrap.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout wrap$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("wrap"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *)
+         * }
+         */
+        public static final AddressLayout wrap$layout() {
+            return wrap$LAYOUT;
+        }
+
+        private static final long wrap$OFFSET = $LAYOUT.byteOffset(groupElement("wrap"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *)
+         * }
+         */
+        public static final long wrap$offset() {
+            return wrap$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *)
+         * }
+         */
+        public static MemorySegment wrap(MemorySegment struct) {
+            return struct.get(wrap$LAYOUT, wrap$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * WrapObjSt (*wrap)(int *, int *, double *, int *, double *, int *, int *, int *, int *, ArrayC *)
+         * }
+         */
+        public static void wrap(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(wrap$LAYOUT, wrap$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout wrap$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("wrap"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct WrapSt wrap
+     * }
+     */
+    public static final GroupLayout wrap$layout() {
+        return wrap$LAYOUT;
+    }
+
+    private static final long wrap$OFFSET = $LAYOUT.byteOffset(groupElement("wrap"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct WrapSt wrap
+     * }
+     */
+    public static final long wrap$offset() {
+        return wrap$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct WrapSt wrap
+     * }
+     */
+    public static MemorySegment wrap(MemorySegment struct) {
+        return struct.asSlice(wrap$OFFSET, wrap$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct WrapSt wrap
+     * }
+     */
+    public static void wrap(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, wrap$OFFSET, wrap$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct SingleChildScrollViewSt {
+     *     SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *);
+     * }
+     * }
+     */
+    public static class SingleChildScrollViewSt {
+
+        SingleChildScrollViewSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("singleChildScrollView")
+        ).withName("SingleChildScrollViewSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *)
+         * }
+         */
+        public final static class singleChildScrollView {
+
+            private singleChildScrollView() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                SingleChildScrollViewObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(singleChildScrollView.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(singleChildScrollView.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout singleChildScrollView$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("singleChildScrollView"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *)
+         * }
+         */
+        public static final AddressLayout singleChildScrollView$layout() {
+            return singleChildScrollView$LAYOUT;
+        }
+
+        private static final long singleChildScrollView$OFFSET = $LAYOUT.byteOffset(groupElement("singleChildScrollView"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *)
+         * }
+         */
+        public static final long singleChildScrollView$offset() {
+            return singleChildScrollView$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *)
+         * }
+         */
+        public static MemorySegment singleChildScrollView(MemorySegment struct) {
+            return struct.get(singleChildScrollView$LAYOUT, singleChildScrollView$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *)
+         * }
+         */
+        public static void singleChildScrollView(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(singleChildScrollView$LAYOUT, singleChildScrollView$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout singleChildScrollView$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("singleChildScrollView"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct SingleChildScrollViewSt singleChildScrollView
+     * }
+     */
+    public static final GroupLayout singleChildScrollView$layout() {
+        return singleChildScrollView$LAYOUT;
+    }
+
+    private static final long singleChildScrollView$OFFSET = $LAYOUT.byteOffset(groupElement("singleChildScrollView"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct SingleChildScrollViewSt singleChildScrollView
+     * }
+     */
+    public static final long singleChildScrollView$offset() {
+        return singleChildScrollView$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct SingleChildScrollViewSt singleChildScrollView
+     * }
+     */
+    public static MemorySegment singleChildScrollView(MemorySegment struct) {
+        return struct.asSlice(singleChildScrollView$OFFSET, singleChildScrollView$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct SingleChildScrollViewSt singleChildScrollView
+     * }
+     */
+    public static void singleChildScrollView(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, singleChildScrollView$OFFSET, singleChildScrollView$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct CircularProgressIndicatorSt {
+     *     CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *);
+     *     CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *);
+     * }
+     * }
+     */
+    public static class CircularProgressIndicatorSt {
+
+        CircularProgressIndicatorSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("circularProgressIndicator"),
+            StarterBridge.C_POINTER.withName("adaptive")
+        ).withName("CircularProgressIndicatorSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public final static class circularProgressIndicator {
+
+            private circularProgressIndicator() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                CircularProgressIndicatorObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(circularProgressIndicator.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(circularProgressIndicator.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout circularProgressIndicator$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("circularProgressIndicator"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static final AddressLayout circularProgressIndicator$layout() {
+            return circularProgressIndicator$LAYOUT;
+        }
+
+        private static final long circularProgressIndicator$OFFSET = $LAYOUT.byteOffset(groupElement("circularProgressIndicator"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static final long circularProgressIndicator$offset() {
+            return circularProgressIndicator$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static MemorySegment circularProgressIndicator(MemorySegment struct) {
+            return struct.get(circularProgressIndicator$LAYOUT, circularProgressIndicator$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static void circularProgressIndicator(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(circularProgressIndicator$LAYOUT, circularProgressIndicator$OFFSET, fieldValue);
+        }
+
+        /**
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public final static class adaptive {
+
+            private adaptive() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                CircularProgressIndicatorObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(adaptive.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(adaptive.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout adaptive$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("adaptive"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static final AddressLayout adaptive$layout() {
+            return adaptive$LAYOUT;
+        }
+
+        private static final long adaptive$OFFSET = $LAYOUT.byteOffset(groupElement("adaptive"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static final long adaptive$offset() {
+            return adaptive$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static MemorySegment adaptive(MemorySegment struct) {
+            return struct.get(adaptive$LAYOUT, adaptive$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *, DartObj *)
+         * }
+         */
+        public static void adaptive(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(adaptive$LAYOUT, adaptive$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout circularProgressIndicator$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("circularProgressIndicator"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct CircularProgressIndicatorSt circularProgressIndicator
+     * }
+     */
+    public static final GroupLayout circularProgressIndicator$layout() {
+        return circularProgressIndicator$LAYOUT;
+    }
+
+    private static final long circularProgressIndicator$OFFSET = $LAYOUT.byteOffset(groupElement("circularProgressIndicator"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct CircularProgressIndicatorSt circularProgressIndicator
+     * }
+     */
+    public static final long circularProgressIndicator$offset() {
+        return circularProgressIndicator$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct CircularProgressIndicatorSt circularProgressIndicator
+     * }
+     */
+    public static MemorySegment circularProgressIndicator(MemorySegment struct) {
+        return struct.asSlice(circularProgressIndicator$OFFSET, circularProgressIndicator$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct CircularProgressIndicatorSt circularProgressIndicator
+     * }
+     */
+    public static void circularProgressIndicator(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, circularProgressIndicator$OFFSET, circularProgressIndicator$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct LinearProgressIndicatorSt {
+     *     LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *);
+     * }
+     * }
+     */
+    public static class LinearProgressIndicatorSt {
+
+        LinearProgressIndicatorSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("linearProgressIndicator")
+        ).withName("LinearProgressIndicatorSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *)
+         * }
+         */
+        public final static class linearProgressIndicator {
+
+            private linearProgressIndicator() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                LinearProgressIndicatorObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(linearProgressIndicator.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(linearProgressIndicator.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout linearProgressIndicator$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("linearProgressIndicator"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *)
+         * }
+         */
+        public static final AddressLayout linearProgressIndicator$layout() {
+            return linearProgressIndicator$LAYOUT;
+        }
+
+        private static final long linearProgressIndicator$OFFSET = $LAYOUT.byteOffset(groupElement("linearProgressIndicator"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *)
+         * }
+         */
+        public static final long linearProgressIndicator$offset() {
+            return linearProgressIndicator$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *)
+         * }
+         */
+        public static MemorySegment linearProgressIndicator(MemorySegment struct) {
+            return struct.get(linearProgressIndicator$LAYOUT, linearProgressIndicator$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * LinearProgressIndicatorObjSt (*linearProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, char *, char *, DartObj *, DartObj *, double *, double *, int *, DartObj *)
+         * }
+         */
+        public static void linearProgressIndicator(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(linearProgressIndicator$LAYOUT, linearProgressIndicator$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout linearProgressIndicator$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("linearProgressIndicator"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct LinearProgressIndicatorSt linearProgressIndicator
+     * }
+     */
+    public static final GroupLayout linearProgressIndicator$layout() {
+        return linearProgressIndicator$LAYOUT;
+    }
+
+    private static final long linearProgressIndicator$OFFSET = $LAYOUT.byteOffset(groupElement("linearProgressIndicator"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct LinearProgressIndicatorSt linearProgressIndicator
+     * }
+     */
+    public static final long linearProgressIndicator$offset() {
+        return linearProgressIndicator$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct LinearProgressIndicatorSt linearProgressIndicator
+     * }
+     */
+    public static MemorySegment linearProgressIndicator(MemorySegment struct) {
+        return struct.asSlice(linearProgressIndicator$OFFSET, linearProgressIndicator$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct LinearProgressIndicatorSt linearProgressIndicator
+     * }
+     */
+    public static void linearProgressIndicator(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, linearProgressIndicator$OFFSET, linearProgressIndicator$LAYOUT.byteSize());
     }
 
     /**

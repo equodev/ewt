@@ -440,6 +440,13 @@ class WidgetGen implements AGen {
       return 'Map.ofEntries(${e.elements.whereType<MapLiteralEntry>().map((e) => 'Map.entry(${e.key}, ${dartExptrToJava(e.value)})').join(', ')})';
     }
     else if (e is SimpleIdentifier) {
+      var el = e.staticElement;
+      if (el is VariableElement && el.isConst && el.isPrivate) {
+        var val = el.computeConstantValue();
+        if (val?.toIntValue() != null) return val!.toIntValue().toString();
+        if (val?.toDoubleValue() != null) return val!.toDoubleValue().toString();
+        if (val?.toStringValue() != null) return '"${val!.toStringValue()}"';
+      }
       return '$e()';
     }
     else if (e is PrefixedIdentifier) {
@@ -733,7 +740,7 @@ class SubclassGen extends ObjStGen {
     
     for (var m in callableMethods()) {
       dartFns
-        ..writeln('  final ${m.name}Fn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.${m.name}(cb.asFunction()));')
+        ..writeln('  final ${m.name}Fn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.listener((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.${m.name}(cb.asFunction()));')
         ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
     }
     

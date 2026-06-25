@@ -134,17 +134,20 @@ class NativeLibLoader {
         for (String name : libNames) {
             // name may contain path separators (e.g. "FlutterMacOS.framework/FlutterMacOS")
             Path target = targetDir.resolve(name.replace("/", java.io.File.separator));
-            if (!Files.exists(target)) {
+            String resourcePath = prefix + name;
+            URL resourceUrl = NativeLibLoader.class.getClassLoader().getResource(resourcePath);
+            if (resourceUrl == null) {
+                throw new RuntimeException("Resource not found: " + resourcePath);
+            }
+            long jarSize = resourceUrl.openConnection().getContentLengthLong();
+            boolean needsExtract = !Files.exists(target) || (jarSize > 0 && Files.size(target) != jarSize);
+            if (needsExtract) {
                 Files.createDirectories(target.getParent());
-                try (InputStream in = NativeLibLoader.class.getClassLoader()
-                        .getResourceAsStream(prefix + name)) {
-                    if (in == null) {
-                        throw new RuntimeException("Resource not found: " + prefix + name);
-                    }
+                try (InputStream in = resourceUrl.openStream()) {
                     Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
                 }
-                target.toFile().setExecutable(true, false);
             }
+            target.toFile().setExecutable(true, false);
             result.add(target);
         }
         return result;
