@@ -5,7 +5,7 @@ let package = Package(
     name: "widgets",
     platforms: [.macOS("10.15")],
     products: [
-        .library(name: "widgets", targets: ["widgets"])
+        .library(name: "widgets", type: .dynamic, targets: ["widgets"])
     ],
     targets: [
         .target(
