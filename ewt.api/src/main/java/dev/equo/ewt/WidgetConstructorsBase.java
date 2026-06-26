@@ -50,6 +50,16 @@ class WidgetConstructorsBase {
   MemorySegment ptrObj(Widget opt) {
     return arena.allocateFrom(StarterBridge.C_INT, opt.getId());
   }
+  // Optional callback params are emitted as ffi.Pointer<FFI> (Type*) in C, so they
+  // expect an 8-byte holder that contains the stub's address, not the stub address
+  // itself. Passing the stub directly makes Dart dereference its code bytes -> SIGSEGV.
+  // Use JAVA_LONG (raw address); C_POINTER's target layout misbehaves with upcall
+  // stubs on JDK 23.
+  MemorySegment ptrHolder(MemorySegment stub) {
+    MemorySegment h = arena.allocate(8, 8);
+    h.set(ValueLayout.JAVA_LONG, 0, stub.address());
+    return h;
+  }
   <T extends NativeObj> MemorySegment ptrList(Optional<List<T>> opt) {
     if (opt.isPresent()) {
       List<T> list = opt.get();

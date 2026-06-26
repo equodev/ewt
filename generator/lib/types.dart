@@ -580,7 +580,9 @@ class FunctionHandler with TypeHandler {
     var value = Params.escape4J(types, param);
     final t = param.type as FunctionType;
     if (param.isOptional) {
-      final fn = 'ptr${getAliasName(t)}Fn($value.get())';
+      // Optional callbacks are emitted as ffi.Pointer<FFI> (Type*) in C, so the
+      // stub address must be wrapped in an 8-byte holder (see ptrHolder).
+      final fn = 'ptrHolder(ptr${getAliasName(t)}Fn($value.get()))';
       value = '$value.isPresent() ? $fn : MemorySegment.NULL';
     } else {
       value = 'ptr${getAliasName(t)}Fn($value)';
