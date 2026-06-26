@@ -107,7 +107,7 @@ flutter:macos:
       optional: true
   script:
     - rm -rf widgets/example/build/macos
-    - cd widgets/example && flutter pub get && flutter build macos --release
+    - cd widgets/example && flutter pub get && flutter build macos --release --no-tree-shake-icons
   artifacts:
     paths:
       - widgets/example/build/macos/
