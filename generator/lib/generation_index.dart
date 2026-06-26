@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
 import 'subwidgets.dart' as s;
+import 'animated_wrapper.dart' as a;
 
 w.Widget? widget;
 // w.StatefulWidget? statefulWidget;
@@ -106,6 +107,8 @@ m.LinearProgressIndicator? linearProgressIndicator;
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;
+
+a.AnimatedWrapper? animatedWrapper;
 
 const showDialog = m.showDialog;
 

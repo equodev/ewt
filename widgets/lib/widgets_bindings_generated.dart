@@ -312,6 +312,8 @@ final class WidgetFactories extends ffi.Struct {
   external SubStatefulWidgetSt subStatefulWidget;
 
   external SubStatelessWidgetSt subStatelessWidget;
+
+  external AnimatedWrapperSt animatedWrapper;
 }
 
 typedef DartObj = ffi.Int;
@@ -5227,3 +5229,47 @@ final class SubStatelessWidgetObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
 }
+
+final class AnimatedWrapperSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AnimatedWrapperObjSt Function(VoidCallbackintFFI initAnimationFn,
+              WidgetCallbackFFI buildAnimatedFn)>> animatedWrapper;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
+      forward;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
+      reverse;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
+      stop;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
+      repeat;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
+      reset;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl, DartObj d)>>
+      setDuration;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl, DartObj d)>>
+      setReverseDuration;
+}
+
+final class AnimatedWrapperObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+typedef VoidCallbackintFFI
+    = ffi.Pointer<ffi.NativeFunction<VoidCallbackintFFIFunction>>;
+typedef VoidCallbackintFFIFunction = ffi.Void Function(ffi.Int ctrlId);
+typedef DartVoidCallbackintFFIFunction = void Function(int ctrlId);
+typedef WidgetCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<WidgetCallbackFFIFunction>>;
+typedef WidgetCallbackFFIFunction = DartObj Function();
+typedef DartWidgetCallbackFFIFunction = DartDartObj Function();

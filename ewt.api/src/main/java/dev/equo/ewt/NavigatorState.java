@@ -8,6 +8,7 @@ public class NavigatorState extends State<Navigator> implements NavigatorStateI 
   NavigatorState(int id) {
     this.id = id;
   }
+  public static NavigatorState byId(int id) { return new NavigatorState(id); }
   @Builder.Factory
   static NavigatorState navigatorStateNavigatorState() {
     int id = factories.navigatorStateNavigatorState();

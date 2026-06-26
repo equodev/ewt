@@ -1005,3 +1005,7 @@ typedef struct {
   int id;
 } SubStatelessWidgetObjSt;
 
+typedef struct {
+  int id;
+} AnimatedWrapperObjSt;
+

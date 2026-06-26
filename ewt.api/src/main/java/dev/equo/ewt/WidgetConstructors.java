@@ -2560,6 +2560,50 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrDartObjCallbackDartObjFn(buildFn));
   }
 
+  MemorySegment animatedWrapperAnimatedWrapper(Consumer<Integer> initAnimationFn, Supplier<Widget> buildAnimatedFn) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.animatedWrapper(st);
+    return WidgetFactories.AnimatedWrapperSt.animatedWrapper.invoke(fn, arena, ptrVoidCallbackintFn(initAnimationFn),
+      ptrWidgetCallbackFn(buildAnimatedFn));
+  }
+  void animatedWrapperForward(AnimationController ctrl) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.forward(st);
+    WidgetFactories.AnimatedWrapperSt.forward.invoke(fn, ctrl.build().getId());
+  }
+  void animatedWrapperReverse(AnimationController ctrl) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.reverse(st);
+    WidgetFactories.AnimatedWrapperSt.reverse.invoke(fn, ctrl.build().getId());
+  }
+  void animatedWrapperStop(AnimationController ctrl) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.stop(st);
+    WidgetFactories.AnimatedWrapperSt.stop.invoke(fn, ctrl.build().getId());
+  }
+  void animatedWrapperRepeat(AnimationController ctrl) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.repeat(st);
+    WidgetFactories.AnimatedWrapperSt.repeat.invoke(fn, ctrl.build().getId());
+  }
+  void animatedWrapperReset(AnimationController ctrl) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.reset(st);
+    WidgetFactories.AnimatedWrapperSt.reset.invoke(fn, ctrl.build().getId());
+  }
+  void animatedWrapperSetDuration(AnimationController ctrl, Duration d) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.setDuration(st);
+    WidgetFactories.AnimatedWrapperSt.setDuration.invoke(fn, ctrl.build().getId(),
+      d.build().getId());
+  }
+  void animatedWrapperSetReverseDuration(AnimationController ctrl, Duration d) {
+    var st = WidgetFactories.animatedWrapper(factories);
+    var fn = WidgetFactories.AnimatedWrapperSt.setReverseDuration(st);
+    WidgetFactories.AnimatedWrapperSt.setReverseDuration.invoke(fn, ctrl.build().getId(),
+      d.build().getId());
+  }
+
 MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {
   return WidgetBuilderFFI.allocate((context) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
@@ -2653,6 +2697,17 @@ MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {
 }
 MemorySegment ptrDartObjCallbackFn(Supplier<State> jFn) {
   return DartObjCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrVoidCallbackintFn(Consumer<Integer> jFn) {
+  return VoidCallbackintFFI.allocate((ctrlId) -> {
+    jFn.accept(ctrlId);
+  }, arena);
+}
+MemorySegment ptrWidgetCallbackFn(Supplier<Widget> jFn) {
+  return WidgetCallbackFFI.allocate(() -> {
     final var jFnRet = jFn.get();
     return jFnRet.build().getId();
   }, arena);

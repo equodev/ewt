@@ -502,4 +502,15 @@ typedef struct {
     SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI buildFn);
   } subStatelessWidget;
 
+  struct AnimatedWrapperSt {
+    AnimatedWrapperObjSt (*animatedWrapper)(VoidCallbackintFFI initAnimationFn, WidgetCallbackFFI buildAnimatedFn);
+    void (*forward)(DartObj ctrl);
+    void (*reverse)(DartObj ctrl);
+    void (*stop)(DartObj ctrl);
+    void (*repeat)(DartObj ctrl);
+    void (*reset)(DartObj ctrl);
+    void (*setDuration)(DartObj ctrl, DartObj d);
+    void (*setReverseDuration)(DartObj ctrl, DartObj d);
+  } animatedWrapper;
+
 } WidgetFactories;

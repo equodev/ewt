@@ -8,6 +8,7 @@ public class BoxParentData extends ParentData implements BoxParentDataI {
   BoxParentData(int id) {
     this.id = id;
   }
+  public static BoxParentData byId(int id) { return new BoxParentData(id); }
   @Builder.Factory
   static BoxParentData boxParentDataBoxParentData() {
     int id = factories.boxParentDataBoxParentData();

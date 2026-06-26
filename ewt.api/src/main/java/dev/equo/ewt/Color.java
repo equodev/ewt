@@ -8,6 +8,7 @@ public class Color extends NativeObj.Base implements ColorI {
   Color(int id) {
     this.id = id;
   }
+  public static Color byId(int id) { return new Color(id); }
   @Builder.Factory
   static Color colorColor(@Builder.Parameter int value) {
     int id = factories.colorColor(value);

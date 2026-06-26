@@ -8,6 +8,7 @@ public class Duration extends NativeObj.Base implements DurationI {
   Duration(int id) {
     this.id = id;
   }
+  public static Duration byId(int id) { return new Duration(id); }
   @Builder.Factory
   static Duration durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
     int id = factories.durationDuration(days,

@@ -3864,6 +3864,51 @@ SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDart
   return stObj;
 }
 
+void _setupAnimatedWrapper(WidgetFactories f) {
+  f.animatedWrapper.animatedWrapper = ffi.Pointer.fromFunction(animatedWrapperAnimatedWrapper);
+  f.animatedWrapper.forward = ffi.Pointer.fromFunction(animatedWrapperForward);
+  f.animatedWrapper.reverse = ffi.Pointer.fromFunction(animatedWrapperReverse);
+  f.animatedWrapper.stop = ffi.Pointer.fromFunction(animatedWrapperStop);
+  f.animatedWrapper.repeat = ffi.Pointer.fromFunction(animatedWrapperRepeat);
+  f.animatedWrapper.reset = ffi.Pointer.fromFunction(animatedWrapperReset);
+  f.animatedWrapper.setDuration = ffi.Pointer.fromFunction(animatedWrapperSetDuration);
+  f.animatedWrapper.setReverseDuration = ffi.Pointer.fromFunction(animatedWrapperSetReverseDuration);
+}
+AnimatedWrapperObjSt animatedWrapperAnimatedWrapper(VoidCallbackintFFI initAnimationFn, WidgetCallbackFFI buildAnimatedFn) {
+  final w = AnimatedWrapper(initAnimationFn: initAnimationFn.toVoidCallbackintFn(),
+      buildAnimatedFn: buildAnimatedFn.toWidgetCallbackFn());
+  return _createAnimatedWrapperObjSt(w);
+}
+void animatedWrapperForward(DartDartObj ctrl) {
+  AnimatedWrapper.forward(_widgetsMap[ctrl]! as AnimationController);
+}
+void animatedWrapperReverse(DartDartObj ctrl) {
+  AnimatedWrapper.reverse(_widgetsMap[ctrl]! as AnimationController);
+}
+void animatedWrapperStop(DartDartObj ctrl) {
+  AnimatedWrapper.stop(_widgetsMap[ctrl]! as AnimationController);
+}
+void animatedWrapperRepeat(DartDartObj ctrl) {
+  AnimatedWrapper.repeat(_widgetsMap[ctrl]! as AnimationController);
+}
+void animatedWrapperReset(DartDartObj ctrl) {
+  AnimatedWrapper.reset(_widgetsMap[ctrl]! as AnimationController);
+}
+void animatedWrapperSetDuration(DartDartObj ctrl, DartDartObj d) {
+  AnimatedWrapper.setDuration(_widgetsMap[ctrl]! as AnimationController,
+      _widgetsMap[d]! as Duration);
+}
+void animatedWrapperSetReverseDuration(DartDartObj ctrl, DartDartObj d) {
+  AnimatedWrapper.setReverseDuration(_widgetsMap[ctrl]! as AnimationController,
+      _widgetsMap[d]! as Duration);
+}
+AnimatedWrapperObjSt _createAnimatedWrapperObjSt(AnimatedWrapper? w) {
+  final AnimatedWrapperObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 ffi.Pointer<WidgetFactories> _setupFactories() {
   final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
   final f = fp.ref;
@@ -3954,6 +3999,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
+  _setupAnimatedWrapper(f);
   _setupAlign(f);
   _setupFlex(f);
   _setupBoxParentData(f);
@@ -4187,5 +4233,30 @@ extension on DartObjCallbackFFI {
 }
 extension on ffi.Pointer<DartObjCallbackFFI> {
   State<StatefulWidget> Function()? toDartObjCallbackFn() => (this != ffi.nullptr) ? this.value.toDartObjCallbackFn() : null;
+}
+
+extension on VoidCallbackintFFI {
+  void Function(int) toVoidCallbackintFn() {
+    return (int ctrlId) {
+      DartVoidCallbackintFFIFunction dFn = asFunction();
+      dFn(ctrlId);
+    };
+  }
+}
+extension on ffi.Pointer<VoidCallbackintFFI> {
+  void Function(int)? toVoidCallbackintFn() => (this != ffi.nullptr) ? this.value.toVoidCallbackintFn() : null;
+}
+
+extension on WidgetCallbackFFI {
+  WidgetCallback toWidgetCallbackFn() {
+    return () => _runBuildScope(() {
+      DartWidgetCallbackFFIFunction dFn = asFunction();
+      final dFnRet = dFn();
+      return _widgetsMap[dFnRet]! as Widget;
+    });
+  }
+}
+extension on ffi.Pointer<WidgetCallbackFFI> {
+  WidgetCallback? toWidgetCallbackFn() => (this != ffi.nullptr) ? this.value.toWidgetCallbackFn() : null;
 }
 

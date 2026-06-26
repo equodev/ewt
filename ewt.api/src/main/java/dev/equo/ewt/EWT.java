@@ -1,11 +1,6 @@
 package dev.equo.ewt;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.OptionalDouble;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 public class EWT {
   public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
     int id = WidgetConstructors.instance.dialogShowDialog(context.build(),
@@ -552,6 +547,10 @@ public class EWT {
 
   public static LinearProgressIndicatorLinearProgressIndicatorBuilder LinearProgressIndicator() {
     return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
+  }
+
+  public static AnimatedWrapperAnimatedWrapperBuilder AnimatedWrapper(Consumer<Integer> initAnimationFn, Supplier<Widget> buildAnimatedFn) {
+    return AnimatedWrapperAnimatedWrapperBuilder.animatedWrapperAnimatedWrapper(initAnimationFn, buildAnimatedFn);
   }
 
 }

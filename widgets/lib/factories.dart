@@ -13,6 +13,7 @@ import 'package:ffi/ffi.dart';
 import 'dart:ffi' as ffi;
 
 part 'factories_gen.dart';
+part 'animated_wrapper.dart';
 
 final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
