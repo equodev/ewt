@@ -1457,7 +1457,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1482,7 +1482,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1507,7 +1507,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1532,7 +1532,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(disabledColor),
       ptrVoidCallbackFn(onPressed),
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrStr(tooltip),
       ptrBool(enableFeedback),
@@ -1792,7 +1792,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.elevatedButton(st);
     return WidgetFactories.ElevatedButtonSt.elevatedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1803,7 +1803,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.icon(st);
     return WidgetFactories.ElevatedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1817,7 +1817,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.outlinedButton(factories);
     var fn = WidgetFactories.OutlinedButtonSt.outlinedButton(st);
     return WidgetFactories.OutlinedButtonSt.outlinedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1828,7 +1828,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.outlinedButton(factories);
     var fn = WidgetFactories.OutlinedButtonSt.icon(st);
     return WidgetFactories.OutlinedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1842,7 +1842,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.textButton(factories);
     var fn = WidgetFactories.TextButtonSt.textButton(st);
     return WidgetFactories.TextButtonSt.textButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -1854,7 +1854,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.textButton(factories);
     var fn = WidgetFactories.TextButtonSt.icon(st);
     return WidgetFactories.TextButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2135,7 +2135,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(maxLength),
       ptrEnum(maxLengthEnforcement),
       onChanged.isPresent() ? ptrValueChangedForStringFn(onChanged.get()) : MemorySegment.NULL,
-      onEditingComplete.isPresent() ? ptrVoidCallbackPtrFn(onEditingComplete.get()) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrVoidCallbackFn(onEditingComplete.get()) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrValueChangedForStringFn(onSubmitted.get()) : MemorySegment.NULL,
       ptrBool(enabled),
       ptrBool(ignorePointers),
@@ -2186,7 +2186,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.filledButton(st);
     return WidgetFactories.FilledButtonSt.filledButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2197,7 +2197,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.icon(st);
     return WidgetFactories.FilledButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2210,7 +2210,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.tonal(st);
     return WidgetFactories.FilledButtonSt.tonal.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2221,7 +2221,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.tonalIcon(st);
     return WidgetFactories.FilledButtonSt.tonalIcon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
-      onLongPress.isPresent() ? ptrVoidCallbackPtrFn(onLongPress.get()) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrVoidCallbackFn(onLongPress.get()) : MemorySegment.NULL,
       onHover.isPresent() ? ptrValueChangedForBoolFn(onHover.get()) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrValueChangedForBoolFn(onFocusChange.get()) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -2269,7 +2269,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(duration),
       ptrBool(persist),
       ptrObj(animation),
-      onVisible.isPresent() ? ptrVoidCallbackPtrFn(onVisible.get()) : MemorySegment.NULL,
+      onVisible.isPresent() ? ptrVoidCallbackFn(onVisible.get()) : MemorySegment.NULL,
       ptrEnum(dismissDirection),
       ptrEnum(clipBehavior));
   }
@@ -2338,7 +2338,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(labelStyle),
       ptrObj(labelPadding),
       ptrObj(deleteIcon),
-      onDeleted.isPresent() ? ptrVoidCallbackPtrFn(onDeleted.get()) : MemorySegment.NULL,
+      onDeleted.isPresent() ? ptrVoidCallbackFn(onDeleted.get()) : MemorySegment.NULL,
       ptrObj(deleteIconColor),
       ptrStr(deleteButtonTooltipMessage),
       ptrObj(side),
@@ -2551,23 +2551,15 @@ MemorySegment ptrVoidCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
-private MemorySegment ptrHolder(MemorySegment stub) {
-  var h = arena.allocate(8, 8);
-  h.set(ValueLayout.JAVA_LONG, 0, stub.address());
-  return h;
-}
-MemorySegment ptrVoidCallbackPtrFn(Runnable jFn) {
-  return ptrHolder(VoidCallbackFFI.allocate(() -> { jFn.run(); }, arena));
-}
 MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
-  return ptrHolder(ValueChangedForBoolFFI.allocate((value) -> {
+  return ValueChangedForBoolFFI.allocate((value) -> {
     jFn.accept(intToBool(value));
-  }, arena));
+  }, arena);
 }
 MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {
-  return ptrHolder(DrawerCallbackFFI.allocate((isOpened) -> {
+  return DrawerCallbackFFI.allocate((isOpened) -> {
     jFn.accept(intToBool(isOpened));
-  }, arena));
+  }, arena);
 }
 MemorySegment ptrDartObjCallbackDartObjDartObjFn(BiFunction<BuildContext, Animation, Widget> jFn) {
   return DartObjCallbackDartObjDartObjFFI.allocate((b, a) -> {
@@ -2582,14 +2574,14 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
   }, arena);
 }
 MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
-  return ptrHolder(ValueChangedForStringFFI.allocate((value) -> {
+  return ValueChangedForStringFFI.allocate((value) -> {
     jFn.accept(value.getString(0));
-  }, arena));
+  }, arena);
 }
 MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
-  return ptrHolder(GestureTapCallbackFFI.allocate(() -> {
+  return GestureTapCallbackFFI.allocate(() -> {
     jFn.run();
-  }, arena));
+  }, arena);
 }
 MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {
   return InputCounterWidgetBuilderFFI.allocate((context, currentLength, isFocused, maxLength) -> {
@@ -2598,19 +2590,29 @@ MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer,
   }, arena);
 }
 MemorySegment ptrGestureTapCancelCallbackFn(Runnable jFn) {
-  return ptrHolder(GestureTapCancelCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+  return GestureTapCancelCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
 }
 MemorySegment ptrGestureLongPressCancelCallbackFn(Runnable jFn) {
-  return ptrHolder(GestureLongPressCancelCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+  return GestureLongPressCancelCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
 }
 MemorySegment ptrGestureLongPressCallbackFn(Runnable jFn) {
-  return ptrHolder(GestureLongPressCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+  return GestureLongPressCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
 }
 MemorySegment ptrGestureLongPressUpCallbackFn(Runnable jFn) {
-  return ptrHolder(GestureLongPressUpCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+  return GestureLongPressUpCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
 }
 MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
-  return ptrHolder(GestureDragCancelCallbackFFI.allocate(() -> { jFn.run(); }, arena));
+  return GestureDragCancelCallbackFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {
   return VoidCallbackDartObjFFI.allocate((t) -> {

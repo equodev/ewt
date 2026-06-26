@@ -3911,11 +3911,11 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
 }
 extension on WidgetBuilderFFI {
   WidgetBuilder toWidgetBuilderFn() {
-    return (BuildContext context) {
+    return (BuildContext context) => _runBuildScope(() {
       DartWidgetBuilderFFIFunction dFn = asFunction();
       final dFnRet = dFn(_addWidget(context));
       return _widgetsMap[dFnRet]! as Widget;
-    };
+    });
   }
 }
 extension on ffi.Pointer<WidgetBuilderFFI> {
@@ -3924,11 +3924,11 @@ extension on ffi.Pointer<WidgetBuilderFFI> {
 
 extension on TransitionBuilderFFI {
   TransitionBuilder toTransitionBuilderFn() {
-    return (BuildContext context, Widget? child) {
+    return (BuildContext context, Widget? child) => _runBuildScope(() {
       DartTransitionBuilderFFIFunction dFn = asFunction();
       final dFnRet = dFn(_addWidget(context), _addWidget(child));
       return _widgetsMap[dFnRet]! as Widget;
-    };
+    });
   }
 }
 extension on ffi.Pointer<TransitionBuilderFFI> {
@@ -3973,11 +3973,11 @@ extension on ffi.Pointer<DrawerCallbackFFI> {
 
 extension on DartObjCallbackDartObjDartObjFFI {
   Widget? Function(BuildContext, Animation<double>) toDartObjCallbackDartObjDartObjFn() {
-    return (BuildContext b, Animation<double> a) {
+    return (BuildContext b, Animation<double> a) => _runBuildScope(() {
       DartDartObjCallbackDartObjDartObjFFIFunction dFn = asFunction();
       final dFnRet = dFn(_addWidget(b), _addWidget(a));
       return dFnRet.objOrNul();
-    };
+    });
   }
 }
 extension on ffi.Pointer<DartObjCallbackDartObjDartObjFFI> {
@@ -4023,11 +4023,11 @@ extension on ffi.Pointer<GestureTapCallbackFFI> {
 
 extension on InputCounterWidgetBuilderFFI {
   InputCounterWidgetBuilder toInputCounterWidgetBuilderFn() {
-    return (BuildContext context, {required int currentLength, required bool isFocused, required int? maxLength}) {
+    return (BuildContext context, {required int currentLength, required bool isFocused, required int? maxLength}) => _runBuildScope(() {
       DartInputCounterWidgetBuilderFFIFunction dFn = asFunction();
       final dFnRet = dFn(_addWidget(context), currentLength, isFocused.toInt(), maxLength!);
       return dFnRet.objOrNul();
-    };
+    });
   }
 }
 extension on ffi.Pointer<InputCounterWidgetBuilderFFI> {
@@ -4108,11 +4108,11 @@ extension on ffi.Pointer<VoidCallbackDartObjFFI> {
 
 extension on DartObjCallbackDartObjFFI {
   Widget Function(BuildContext) toDartObjCallbackDartObjFn() {
-    return (BuildContext b) {
+    return (BuildContext b) => _runBuildScope(() {
       DartDartObjCallbackDartObjFFIFunction dFn = asFunction();
       final dFnRet = dFn(_addWidget(b));
       return _widgetsMap[dFnRet]! as Widget;
-    };
+    });
   }
 }
 extension on ffi.Pointer<DartObjCallbackDartObjFFI> {
@@ -4121,11 +4121,11 @@ extension on ffi.Pointer<DartObjCallbackDartObjFFI> {
 
 extension on DartObjCallbackFFI {
   State<StatefulWidget> Function() toDartObjCallbackFn() {
-    return () {
+    return () => _runBuildScope(() {
       DartDartObjCallbackFFIFunction dFn = asFunction();
       final dFnRet = dFn();
       return _widgetsMap[dFnRet]! as State<StatefulWidget>;
-    };
+    });
   }
 }
 extension on ffi.Pointer<DartObjCallbackFFI> {

@@ -441,8 +441,14 @@ class WidgetGen implements AGen {
     }
     else if (e is SimpleIdentifier) {
       var el = e.staticElement;
-      if (el is VariableElement && el.isConst && el.isPrivate) {
-        var val = el.computeConstantValue();
+      TopLevelVariableElement? varEl;
+      if (el is TopLevelVariableElement) {
+        varEl = el;
+      } else if (el is PropertyAccessorElement && el.isGetter && el.variable2 is TopLevelVariableElement) {
+        varEl = el.variable2 as TopLevelVariableElement;
+      }
+      if (varEl != null && varEl.isConst && varEl.isPrivate) {
+        var val = varEl.computeConstantValue();
         if (val?.toIntValue() != null) return val!.toIntValue().toString();
         if (val?.toDoubleValue() != null) return val!.toDoubleValue().toString();
         if (val?.toStringValue() != null) return '"${val!.toStringValue()}"';
