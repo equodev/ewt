@@ -138,6 +138,9 @@ class WidgetGen implements AGen {
           .writeln('  protected $widgetClass() {}');
       javaFile..writeln('  $widgetClass(int id) {')..writeln(
           '    this.id = id;')..writeln('  }');
+      if (!dartClass.isAbstract) {
+        javaFile.writeln('  public static $widgetClass byId(int id) { return new $widgetClass(id); }');
+      }
     }
   }
 
@@ -915,13 +918,8 @@ class Generation {
     // ..writeln('  }');
     javaStatics
       ..writeln('package dev.equo.ewt;')
-      ..writeln('import java.util.List;')
-      ..writeln('import java.util.Map;')
-      ..writeln('import java.util.Optional;')
-      ..writeln('import java.util.OptionalInt;')
-      ..writeln('import java.util.OptionalDouble;')
-      ..writeln('import java.util.function.BiFunction;')
-      ..writeln('import java.util.function.Function;')
+      ..writeln('import java.util.*;')
+      ..writeln('import java.util.function.*;')
       ..writeln('public class EWT {');
 
     dartFactories.writeln('void _setupTopFunctions(WidgetFactories f) {');
