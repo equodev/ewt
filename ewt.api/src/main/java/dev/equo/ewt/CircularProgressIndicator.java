@@ -92,7 +92,7 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
     return 1.0;
   }
   public static Duration defaultAnimationDuration() {
-    return Duration.duration().milliseconds(1333 * 2222).build();
+    return Duration.duration().milliseconds(2961926).build();
   }
   @Override
   public CircularProgressIndicator build() {
