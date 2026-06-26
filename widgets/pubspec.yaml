@@ -1,5 +1,5 @@
 name: widgets
-description: "A new Flutter project."
+description: "EWT native layer: a Flutter FFI plugin exposing the Flutter engine to Java."
 version: 0.0.1
 homepage:
 

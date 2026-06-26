@@ -66,14 +66,9 @@ public class App {
     }
 
     private void run() {
-        System.out.println("Before startApp");
         MemorySegment ffmFn = buildWidgetTreeFn.allocate((MemorySegment widgetFactories)  -> {
             try {
-                System.out.println("In startApp$buildWidgetTree "+widgetFactories);
-                WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {
-                    System.out.println("CLEANUP");
-                }));
-//                WidgetConstructorsBase.instance.set(widgetFactories);
+                WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {}));
                 Widget w = builderFn.call().build();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {
@@ -81,7 +76,6 @@ public class App {
             }
         }, Arena.ofShared());
         int r = StarterBridge.startApp(ffmFn);
-        System.out.println("After startApp "+r);
         if (r != 0)
             throw new RuntimeException("Could not startup EWT app, error: "+r);
     }

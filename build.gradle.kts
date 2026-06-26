@@ -1,18 +1,4 @@
-plugins {
-    kotlin("jvm") version "2.0.20"
-}
-
+// Aggregate root build. Each module defines its own build script under its
+// subdirectory; this file only holds project-wide identity.
 group = "dev.equo"
 version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
