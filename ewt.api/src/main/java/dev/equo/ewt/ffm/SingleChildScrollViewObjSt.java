@@ -49,7 +49,7 @@ public class SingleChildScrollViewObjSt {
         StarterBridge.C_POINTER.withName("restorationId"),
         StarterBridge.C_INT.withName("keyboardDismissBehavior"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$931:9");
+    ).withName("$anon$955:9");
 
     /**
      * The layout of this struct

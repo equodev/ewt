@@ -119,7 +119,7 @@ public class TextFieldObjSt {
         StarterBridge.C_INT.withName("enableInlinePrediction"),
         StarterBridge.C_INT.withName("canRequestFocus"),
         StarterBridge.C_INT.withName("selectionEnabled")
-    ).withName("$anon$731:9");
+    ).withName("$anon$755:9");
 
     /**
      * The layout of this struct

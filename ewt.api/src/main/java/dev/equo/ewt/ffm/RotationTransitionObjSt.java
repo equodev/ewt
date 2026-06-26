@@ -16,18 +16,20 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     DartObj turns;
  * }
  * }
  */
-public class FilledButtonObjSt {
+public class RotationTransitionObjSt {
 
-    FilledButtonObjSt() {
+    RotationTransitionObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$813:9");
+        StarterBridge.C_INT.withName("id"),
+        StarterBridge.C_INT.withName("turns")
+    ).withName("$anon$337:9");
 
     /**
      * The layout of this struct
@@ -78,6 +80,50 @@ public class FilledButtonObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfInt turns$LAYOUT = (OfInt)$LAYOUT.select(groupElement("turns"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj turns
+     * }
+     */
+    public static final OfInt turns$layout() {
+        return turns$LAYOUT;
+    }
+
+    private static final long turns$OFFSET = $LAYOUT.byteOffset(groupElement("turns"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj turns
+     * }
+     */
+    public static final long turns$offset() {
+        return turns$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj turns
+     * }
+     */
+    public static int turns(MemorySegment struct) {
+        return struct.get(turns$LAYOUT, turns$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj turns
+     * }
+     */
+    public static void turns(MemorySegment struct, int fieldValue) {
+        struct.set(turns$LAYOUT, turns$OFFSET, fieldValue);
     }
 
     /**

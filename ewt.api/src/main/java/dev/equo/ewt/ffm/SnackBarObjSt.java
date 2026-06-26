@@ -66,7 +66,7 @@ public class SnackBarObjSt {
         StarterBridge.C_INT.withName("dismissDirection"),
         StarterBridge.C_INT.withName("clipBehavior"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$808:9");
+    ).withName("$anon$832:9");
 
     /**
      * The layout of this struct

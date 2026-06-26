@@ -85,7 +85,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("actionsPadding"),
         StarterBridge.C_INT.withName("animateColor"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$505:9");
+    ).withName("$anon$529:9");
 
     /**
      * The layout of this struct

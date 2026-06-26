@@ -318,6 +318,18 @@ public class EWT {
     return SafeAreaSafeAreaBuilder.safeAreaSafeArea();
   }
 
+  public static RotationTransitionRotationTransitionBuilder RotationTransition(AnimationI turns) {
+    return RotationTransitionRotationTransitionBuilder.rotationTransitionRotationTransition(turns);
+  }
+
+  public static FadeTransitionFadeTransitionBuilder FadeTransition(AnimationI opacity) {
+    return FadeTransitionFadeTransitionBuilder.fadeTransitionFadeTransition(opacity);
+  }
+
+  public static ScaleTransitionScaleTransitionBuilder ScaleTransition(AnimationI scale) {
+    return ScaleTransitionScaleTransitionBuilder.scaleTransitionScaleTransition(scale);
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

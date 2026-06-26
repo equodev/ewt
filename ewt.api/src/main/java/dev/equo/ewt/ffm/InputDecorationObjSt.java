@@ -151,7 +151,7 @@ public class InputDecorationObjSt {
         MemoryLayout.paddingLayout(4),
         BoxConstraintsObjSt.layout().withName("constraints"),
         VisualDensityObjSt.layout().withName("visualDensity")
-    ).withName("$anon$670:9");
+    ).withName("$anon$694:9");
 
     /**
      * The layout of this struct

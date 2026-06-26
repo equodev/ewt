@@ -328,6 +328,30 @@ typedef struct {
 
 typedef struct {
   int id;
+  AlignmentObjSt alignment;
+  int filterQuality;
+  DartObj child;
+  DartObj animation;
+} MatrixTransitionObjSt;
+
+typedef struct {
+  int id;
+  DartObj turns;
+} RotationTransitionObjSt;
+
+typedef struct {
+  int id;
+  DartObj opacity;
+  int alwaysIncludeSemantics;
+} FadeTransitionObjSt;
+
+typedef struct {
+  int id;
+  DartObj scale;
+} ScaleTransitionObjSt;
+
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;

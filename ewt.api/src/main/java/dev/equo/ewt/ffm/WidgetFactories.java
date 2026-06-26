@@ -236,6 +236,15 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     struct SafeAreaSt {
  *         SafeAreaObjSt (*safeArea)(int *, int *, int *, int *, DartObj *, int *, DartObj);
  *     } safeArea;
+ *     struct RotationTransitionSt {
+ *         RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *);
+ *     } rotationTransition;
+ *     struct FadeTransitionSt {
+ *         FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *);
+ *     } fadeTransition;
+ *     struct ScaleTransitionSt {
+ *         ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *);
+ *     } scaleTransition;
  *     struct ColorSchemeSt {
  *         ColorSchemeObjSt (*colorScheme)(int, DartObj, DartObj, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj, DartObj, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj, DartObj, DartObj *, DartObj *, DartObj, DartObj, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *);
  *         ColorSchemeObjSt (*fromSeed)(DartObj, int *, int *, double *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *, DartObj *);
@@ -479,6 +488,9 @@ public class WidgetFactories {
         WidgetFactories.ExpandedSt.layout().withName("expanded"),
         WidgetFactories.FlexibleSt.layout().withName("flexible"),
         WidgetFactories.SafeAreaSt.layout().withName("safeArea"),
+        WidgetFactories.RotationTransitionSt.layout().withName("rotationTransition"),
+        WidgetFactories.FadeTransitionSt.layout().withName("fadeTransition"),
+        WidgetFactories.ScaleTransitionSt.layout().withName("scaleTransition"),
         WidgetFactories.ColorSchemeSt.layout().withName("colorScheme"),
         WidgetFactories.MaterialColorSt.layout().withName("materialColor"),
         WidgetFactories.ColorSwatchSt.layout().withName("colorSwatch"),
@@ -17775,6 +17787,653 @@ public class WidgetFactories {
      */
     public static void safeArea(MemorySegment struct, MemorySegment fieldValue) {
         MemorySegment.copy(fieldValue, 0L, struct, safeArea$OFFSET, safeArea$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct RotationTransitionSt {
+     *     RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *);
+     * }
+     * }
+     */
+    public static class RotationTransitionSt {
+
+        RotationTransitionSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("rotationTransition")
+        ).withName("RotationTransitionSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public final static class rotationTransition {
+
+            private rotationTransition() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                RotationTransitionObjSt.layout(),
+                StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(rotationTransition.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(rotationTransition.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout rotationTransition$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rotationTransition"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static final AddressLayout rotationTransition$layout() {
+            return rotationTransition$LAYOUT;
+        }
+
+        private static final long rotationTransition$OFFSET = $LAYOUT.byteOffset(groupElement("rotationTransition"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static final long rotationTransition$offset() {
+            return rotationTransition$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static MemorySegment rotationTransition(MemorySegment struct) {
+            return struct.get(rotationTransition$LAYOUT, rotationTransition$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * RotationTransitionObjSt (*rotationTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static void rotationTransition(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(rotationTransition$LAYOUT, rotationTransition$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout rotationTransition$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("rotationTransition"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct RotationTransitionSt rotationTransition
+     * }
+     */
+    public static final GroupLayout rotationTransition$layout() {
+        return rotationTransition$LAYOUT;
+    }
+
+    private static final long rotationTransition$OFFSET = $LAYOUT.byteOffset(groupElement("rotationTransition"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct RotationTransitionSt rotationTransition
+     * }
+     */
+    public static final long rotationTransition$offset() {
+        return rotationTransition$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct RotationTransitionSt rotationTransition
+     * }
+     */
+    public static MemorySegment rotationTransition(MemorySegment struct) {
+        return struct.asSlice(rotationTransition$OFFSET, rotationTransition$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct RotationTransitionSt rotationTransition
+     * }
+     */
+    public static void rotationTransition(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, rotationTransition$OFFSET, rotationTransition$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct FadeTransitionSt {
+     *     FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *);
+     * }
+     * }
+     */
+    public static class FadeTransitionSt {
+
+        FadeTransitionSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("fadeTransition")
+        ).withName("FadeTransitionSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *)
+         * }
+         */
+        public final static class fadeTransition {
+
+            private fadeTransition() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(int _x0, MemorySegment _x1, MemorySegment _x2);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                FadeTransitionObjSt.layout(),
+                StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(fadeTransition.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(fadeTransition.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout fadeTransition$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("fadeTransition"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *)
+         * }
+         */
+        public static final AddressLayout fadeTransition$layout() {
+            return fadeTransition$LAYOUT;
+        }
+
+        private static final long fadeTransition$OFFSET = $LAYOUT.byteOffset(groupElement("fadeTransition"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *)
+         * }
+         */
+        public static final long fadeTransition$offset() {
+            return fadeTransition$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *)
+         * }
+         */
+        public static MemorySegment fadeTransition(MemorySegment struct) {
+            return struct.get(fadeTransition$LAYOUT, fadeTransition$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * FadeTransitionObjSt (*fadeTransition)(DartObj, int *, DartObj *)
+         * }
+         */
+        public static void fadeTransition(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(fadeTransition$LAYOUT, fadeTransition$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout fadeTransition$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("fadeTransition"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct FadeTransitionSt fadeTransition
+     * }
+     */
+    public static final GroupLayout fadeTransition$layout() {
+        return fadeTransition$LAYOUT;
+    }
+
+    private static final long fadeTransition$OFFSET = $LAYOUT.byteOffset(groupElement("fadeTransition"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct FadeTransitionSt fadeTransition
+     * }
+     */
+    public static final long fadeTransition$offset() {
+        return fadeTransition$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct FadeTransitionSt fadeTransition
+     * }
+     */
+    public static MemorySegment fadeTransition(MemorySegment struct) {
+        return struct.asSlice(fadeTransition$OFFSET, fadeTransition$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct FadeTransitionSt fadeTransition
+     * }
+     */
+    public static void fadeTransition(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, fadeTransition$OFFSET, fadeTransition$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct ScaleTransitionSt {
+     *     ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *);
+     * }
+     * }
+     */
+    public static class ScaleTransitionSt {
+
+        ScaleTransitionSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("scaleTransition")
+        ).withName("ScaleTransitionSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public final static class scaleTransition {
+
+            private scaleTransition() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                ScaleTransitionObjSt.layout(),
+                StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(scaleTransition.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(scaleTransition.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, int _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout scaleTransition$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("scaleTransition"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static final AddressLayout scaleTransition$layout() {
+            return scaleTransition$LAYOUT;
+        }
+
+        private static final long scaleTransition$OFFSET = $LAYOUT.byteOffset(groupElement("scaleTransition"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static final long scaleTransition$offset() {
+            return scaleTransition$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static MemorySegment scaleTransition(MemorySegment struct) {
+            return struct.get(scaleTransition$LAYOUT, scaleTransition$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * ScaleTransitionObjSt (*scaleTransition)(DartObj, DartObj *, int *, DartObj *)
+         * }
+         */
+        public static void scaleTransition(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(scaleTransition$LAYOUT, scaleTransition$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout scaleTransition$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("scaleTransition"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct ScaleTransitionSt scaleTransition
+     * }
+     */
+    public static final GroupLayout scaleTransition$layout() {
+        return scaleTransition$LAYOUT;
+    }
+
+    private static final long scaleTransition$OFFSET = $LAYOUT.byteOffset(groupElement("scaleTransition"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct ScaleTransitionSt scaleTransition
+     * }
+     */
+    public static final long scaleTransition$offset() {
+        return scaleTransition$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct ScaleTransitionSt scaleTransition
+     * }
+     */
+    public static MemorySegment scaleTransition(MemorySegment struct) {
+        return struct.asSlice(scaleTransition$OFFSET, scaleTransition$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct ScaleTransitionSt scaleTransition
+     * }
+     */
+    public static void scaleTransition(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, scaleTransition$OFFSET, scaleTransition$LAYOUT.byteSize());
     }
 
     /**

@@ -16,18 +16,22 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     DartObj opacity;
+ *     int alwaysIncludeSemantics;
  * }
  * }
  */
-public class FilledButtonObjSt {
+public class FadeTransitionObjSt {
 
-    FilledButtonObjSt() {
+    FadeTransitionObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$813:9");
+        StarterBridge.C_INT.withName("id"),
+        StarterBridge.C_INT.withName("opacity"),
+        StarterBridge.C_INT.withName("alwaysIncludeSemantics")
+    ).withName("$anon$342:9");
 
     /**
      * The layout of this struct
@@ -78,6 +82,94 @@ public class FilledButtonObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfInt opacity$LAYOUT = (OfInt)$LAYOUT.select(groupElement("opacity"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj opacity
+     * }
+     */
+    public static final OfInt opacity$layout() {
+        return opacity$LAYOUT;
+    }
+
+    private static final long opacity$OFFSET = $LAYOUT.byteOffset(groupElement("opacity"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj opacity
+     * }
+     */
+    public static final long opacity$offset() {
+        return opacity$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj opacity
+     * }
+     */
+    public static int opacity(MemorySegment struct) {
+        return struct.get(opacity$LAYOUT, opacity$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj opacity
+     * }
+     */
+    public static void opacity(MemorySegment struct, int fieldValue) {
+        struct.set(opacity$LAYOUT, opacity$OFFSET, fieldValue);
+    }
+
+    private static final OfInt alwaysIncludeSemantics$LAYOUT = (OfInt)$LAYOUT.select(groupElement("alwaysIncludeSemantics"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int alwaysIncludeSemantics
+     * }
+     */
+    public static final OfInt alwaysIncludeSemantics$layout() {
+        return alwaysIncludeSemantics$LAYOUT;
+    }
+
+    private static final long alwaysIncludeSemantics$OFFSET = $LAYOUT.byteOffset(groupElement("alwaysIncludeSemantics"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int alwaysIncludeSemantics
+     * }
+     */
+    public static final long alwaysIncludeSemantics$offset() {
+        return alwaysIncludeSemantics$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int alwaysIncludeSemantics
+     * }
+     */
+    public static int alwaysIncludeSemantics(MemorySegment struct) {
+        return struct.get(alwaysIncludeSemantics$LAYOUT, alwaysIncludeSemantics$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int alwaysIncludeSemantics
+     * }
+     */
+    public static void alwaysIncludeSemantics(MemorySegment struct, int fieldValue) {
+        struct.set(alwaysIncludeSemantics$LAYOUT, alwaysIncludeSemantics$OFFSET, fieldValue);
     }
 
     /**

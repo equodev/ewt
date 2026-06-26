@@ -39,7 +39,7 @@ public class GestureDetectorObjSt {
         StarterBridge.C_INT.withName("dragStartBehavior"),
         StarterBridge.C_INT.withName("trackpadScrollCausesScale"),
         StarterBridge.C_INT.withName("trackpadScrollToScaleFactor")
-    ).withName("$anon$873:9");
+    ).withName("$anon$897:9");
 
     /**
      * The layout of this struct

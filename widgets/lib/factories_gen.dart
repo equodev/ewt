@@ -1392,6 +1392,60 @@ SafeAreaObjSt _createSafeAreaObjSt(SafeArea? w) {
   return stObj;
 }
 
+void _setupRotationTransition(WidgetFactories f) {
+  f.rotationTransition.rotationTransition = ffi.Pointer.fromFunction(rotationTransitionRotationTransition);
+}
+RotationTransitionObjSt rotationTransitionRotationTransition(DartDartObj turns, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
+  final w = RotationTransition(turns: _widgetsMap[turns]! as Animation<double>,
+      alignment: alignment.objOr(Alignment.center),
+      filterQuality: filterQuality.enumOrNul(FilterQuality.values),
+      child: child.objOrNul());
+  return _createRotationTransitionObjSt(w);
+}
+RotationTransitionObjSt _createRotationTransitionObjSt(RotationTransition? w) {
+  final RotationTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.turns = _addWidget(w.turns);
+  return stObj;
+}
+
+void _setupFadeTransition(WidgetFactories f) {
+  f.fadeTransition.fadeTransition = ffi.Pointer.fromFunction(fadeTransitionFadeTransition);
+}
+FadeTransitionObjSt fadeTransitionFadeTransition(DartDartObj opacity, ffi.Pointer<ffi.Int> alwaysIncludeSemantics, ffi.Pointer<DartObj> child) {
+  final w = FadeTransition(opacity: _widgetsMap[opacity]! as Animation<double>,
+      alwaysIncludeSemantics: alwaysIncludeSemantics.boolOr(false),
+      child: child.objOrNul());
+  return _createFadeTransitionObjSt(w);
+}
+FadeTransitionObjSt _createFadeTransitionObjSt(FadeTransition? w) {
+  final FadeTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.opacity = _addWidget(w.opacity);
+  stObj.alwaysIncludeSemantics = w.alwaysIncludeSemantics.toInt();
+  return stObj;
+}
+
+void _setupScaleTransition(WidgetFactories f) {
+  f.scaleTransition.scaleTransition = ffi.Pointer.fromFunction(scaleTransitionScaleTransition);
+}
+ScaleTransitionObjSt scaleTransitionScaleTransition(DartDartObj scale, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
+  final w = ScaleTransition(scale: _widgetsMap[scale]! as Animation<double>,
+      alignment: alignment.objOr(Alignment.center),
+      filterQuality: filterQuality.enumOrNul(FilterQuality.values),
+      child: child.objOrNul());
+  return _createScaleTransitionObjSt(w);
+}
+ScaleTransitionObjSt _createScaleTransitionObjSt(ScaleTransition? w) {
+  final ScaleTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.scale = _addWidget(w.scale);
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -3858,6 +3912,9 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupDuration(f);
   _setupExpanded(f);
   _setupSafeArea(f);
+  _setupRotationTransition(f);
+  _setupFadeTransition(f);
+  _setupScaleTransition(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);

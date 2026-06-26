@@ -16,18 +16,20 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     DartObj scale;
  * }
  * }
  */
-public class FilledButtonObjSt {
+public class ScaleTransitionObjSt {
 
-    FilledButtonObjSt() {
+    ScaleTransitionObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$813:9");
+        StarterBridge.C_INT.withName("id"),
+        StarterBridge.C_INT.withName("scale")
+    ).withName("$anon$348:9");
 
     /**
      * The layout of this struct
@@ -78,6 +80,50 @@ public class FilledButtonObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfInt scale$LAYOUT = (OfInt)$LAYOUT.select(groupElement("scale"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj scale
+     * }
+     */
+    public static final OfInt scale$layout() {
+        return scale$LAYOUT;
+    }
+
+    private static final long scale$OFFSET = $LAYOUT.byteOffset(groupElement("scale"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj scale
+     * }
+     */
+    public static final long scale$offset() {
+        return scale$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj scale
+     * }
+     */
+    public static int scale(MemorySegment struct) {
+        return struct.get(scale$LAYOUT, scale$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj scale
+     * }
+     */
+    public static void scale(MemorySegment struct, int fieldValue) {
+        struct.set(scale$LAYOUT, scale$OFFSET, fieldValue);
     }
 
     /**

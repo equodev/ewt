@@ -56,6 +56,10 @@ w.FontWeight? fontWeight;
 Duration? duration;
 w.Expanded? expanded;
 w.SafeArea? safeArea;
+w.MatrixTransition? matrixTransition;
+w.RotationTransition? rotationTransition;
+w.FadeTransition? fadeTransition;
+w.ScaleTransition? scaleTransition;
 
 // w.FontWeight? fontWeight; constants accessing privates
 

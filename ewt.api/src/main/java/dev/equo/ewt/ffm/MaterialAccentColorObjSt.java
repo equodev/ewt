@@ -35,7 +35,7 @@ public class MaterialAccentColorObjSt {
         StarterBridge.C_INT.withName("shade200"),
         StarterBridge.C_INT.withName("shade400"),
         StarterBridge.C_INT.withName("shade700")
-    ).withName("$anon$458:9");
+    ).withName("$anon$482:9");
 
     /**
      * The layout of this struct

@@ -42,7 +42,7 @@ public class LinearProgressIndicatorObjSt {
         StarterBridge.C_DOUBLE.withName("trackGap"),
         StarterBridge.C_INT.withName("year2023"),
         StarterBridge.C_INT.withName("controller")
-    ).withName("$anon$957:9");
+    ).withName("$anon$981:9");
 
     /**
      * The layout of this struct

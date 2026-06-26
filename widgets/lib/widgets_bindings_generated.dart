@@ -227,6 +227,12 @@ final class WidgetFactories extends ffi.Struct {
 
   external SafeAreaSt safeArea;
 
+  external RotationTransitionSt rotationTransition;
+
+  external FadeTransitionSt fadeTransition;
+
+  external ScaleTransitionSt scaleTransition;
+
   external ColorSchemeSt colorScheme;
 
   external MaterialColorSt materialColor;
@@ -1847,6 +1853,62 @@ final class SafeAreaObjSt extends ffi.Struct {
 
   @DartObj()
   external int child;
+}
+
+final class RotationTransitionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          RotationTransitionObjSt Function(
+              DartObj turns,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> filterQuality,
+              ffi.Pointer<DartObj> child)>> rotationTransition;
+}
+
+final class RotationTransitionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int turns;
+}
+
+final class FadeTransitionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FadeTransitionObjSt Function(
+              DartObj opacity,
+              ffi.Pointer<ffi.Int> alwaysIncludeSemantics,
+              ffi.Pointer<DartObj> child)>> fadeTransition;
+}
+
+final class FadeTransitionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int opacity;
+
+  @ffi.Int()
+  external int alwaysIncludeSemantics;
+}
+
+final class ScaleTransitionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ScaleTransitionObjSt Function(
+              DartObj scale,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> filterQuality,
+              ffi.Pointer<DartObj> child)>> scaleTransition;
+}
+
+final class ScaleTransitionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int scale;
 }
 
 final class ColorSchemeSt extends ffi.Struct {

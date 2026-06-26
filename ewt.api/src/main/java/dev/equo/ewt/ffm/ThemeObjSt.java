@@ -33,7 +33,7 @@ public class ThemeObjSt {
         ThemeDataObjSt.layout().withName("data"),
         StarterBridge.C_INT.withName("child"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$611:9");
+    ).withName("$anon$635:9");
 
     /**
      * The layout of this struct

@@ -16,26 +16,28 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
- *     double horizontal;
- *     double vertical;
- *     DartObj baseSizeAdjustment;
+ *     AlignmentObjSt alignment;
+ *     int filterQuality;
+ *     DartObj child;
+ *     DartObj animation;
  * }
  * }
  */
-public class VisualDensityObjSt {
+public class MatrixTransitionObjSt {
 
-    VisualDensityObjSt() {
+    MatrixTransitionObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         MemoryLayout.paddingLayout(4),
-        StarterBridge.C_DOUBLE.withName("horizontal"),
-        StarterBridge.C_DOUBLE.withName("vertical"),
-        StarterBridge.C_INT.withName("baseSizeAdjustment"),
+        AlignmentObjSt.layout().withName("alignment"),
+        StarterBridge.C_INT.withName("filterQuality"),
+        StarterBridge.C_INT.withName("child"),
+        StarterBridge.C_INT.withName("animation"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$444:9");
+    ).withName("$anon$329:9");
 
     /**
      * The layout of this struct
@@ -88,136 +90,180 @@ public class VisualDensityObjSt {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
     }
 
-    private static final OfDouble horizontal$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("horizontal"));
+    private static final GroupLayout alignment$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("alignment"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double horizontal
+     * AlignmentObjSt alignment
      * }
      */
-    public static final OfDouble horizontal$layout() {
-        return horizontal$LAYOUT;
+    public static final GroupLayout alignment$layout() {
+        return alignment$LAYOUT;
     }
 
-    private static final long horizontal$OFFSET = $LAYOUT.byteOffset(groupElement("horizontal"));
+    private static final long alignment$OFFSET = $LAYOUT.byteOffset(groupElement("alignment"));
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double horizontal
+     * AlignmentObjSt alignment
      * }
      */
-    public static final long horizontal$offset() {
-        return horizontal$OFFSET;
+    public static final long alignment$offset() {
+        return alignment$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double horizontal
+     * AlignmentObjSt alignment
      * }
      */
-    public static double horizontal(MemorySegment struct) {
-        return struct.get(horizontal$LAYOUT, horizontal$OFFSET);
+    public static MemorySegment alignment(MemorySegment struct) {
+        return struct.asSlice(alignment$OFFSET, alignment$LAYOUT.byteSize());
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double horizontal
+     * AlignmentObjSt alignment
      * }
      */
-    public static void horizontal(MemorySegment struct, double fieldValue) {
-        struct.set(horizontal$LAYOUT, horizontal$OFFSET, fieldValue);
+    public static void alignment(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, alignment$OFFSET, alignment$LAYOUT.byteSize());
     }
 
-    private static final OfDouble vertical$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("vertical"));
+    private static final OfInt filterQuality$LAYOUT = (OfInt)$LAYOUT.select(groupElement("filterQuality"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * double vertical
+     * int filterQuality
      * }
      */
-    public static final OfDouble vertical$layout() {
-        return vertical$LAYOUT;
+    public static final OfInt filterQuality$layout() {
+        return filterQuality$LAYOUT;
     }
 
-    private static final long vertical$OFFSET = $LAYOUT.byteOffset(groupElement("vertical"));
+    private static final long filterQuality$OFFSET = $LAYOUT.byteOffset(groupElement("filterQuality"));
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * double vertical
+     * int filterQuality
      * }
      */
-    public static final long vertical$offset() {
-        return vertical$OFFSET;
+    public static final long filterQuality$offset() {
+        return filterQuality$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * double vertical
+     * int filterQuality
      * }
      */
-    public static double vertical(MemorySegment struct) {
-        return struct.get(vertical$LAYOUT, vertical$OFFSET);
+    public static int filterQuality(MemorySegment struct) {
+        return struct.get(filterQuality$LAYOUT, filterQuality$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * double vertical
+     * int filterQuality
      * }
      */
-    public static void vertical(MemorySegment struct, double fieldValue) {
-        struct.set(vertical$LAYOUT, vertical$OFFSET, fieldValue);
+    public static void filterQuality(MemorySegment struct, int fieldValue) {
+        struct.set(filterQuality$LAYOUT, filterQuality$OFFSET, fieldValue);
     }
 
-    private static final OfInt baseSizeAdjustment$LAYOUT = (OfInt)$LAYOUT.select(groupElement("baseSizeAdjustment"));
+    private static final OfInt child$LAYOUT = (OfInt)$LAYOUT.select(groupElement("child"));
 
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * DartObj child
      * }
      */
-    public static final OfInt baseSizeAdjustment$layout() {
-        return baseSizeAdjustment$LAYOUT;
+    public static final OfInt child$layout() {
+        return child$LAYOUT;
     }
 
-    private static final long baseSizeAdjustment$OFFSET = $LAYOUT.byteOffset(groupElement("baseSizeAdjustment"));
+    private static final long child$OFFSET = $LAYOUT.byteOffset(groupElement("child"));
 
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * DartObj child
      * }
      */
-    public static final long baseSizeAdjustment$offset() {
-        return baseSizeAdjustment$OFFSET;
+    public static final long child$offset() {
+        return child$OFFSET;
     }
 
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * DartObj child
      * }
      */
-    public static int baseSizeAdjustment(MemorySegment struct) {
-        return struct.get(baseSizeAdjustment$LAYOUT, baseSizeAdjustment$OFFSET);
+    public static int child(MemorySegment struct) {
+        return struct.get(child$LAYOUT, child$OFFSET);
     }
 
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * DartObj baseSizeAdjustment
+     * DartObj child
      * }
      */
-    public static void baseSizeAdjustment(MemorySegment struct, int fieldValue) {
-        struct.set(baseSizeAdjustment$LAYOUT, baseSizeAdjustment$OFFSET, fieldValue);
+    public static void child(MemorySegment struct, int fieldValue) {
+        struct.set(child$LAYOUT, child$OFFSET, fieldValue);
+    }
+
+    private static final OfInt animation$LAYOUT = (OfInt)$LAYOUT.select(groupElement("animation"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj animation
+     * }
+     */
+    public static final OfInt animation$layout() {
+        return animation$LAYOUT;
+    }
+
+    private static final long animation$OFFSET = $LAYOUT.byteOffset(groupElement("animation"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj animation
+     * }
+     */
+    public static final long animation$offset() {
+        return animation$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj animation
+     * }
+     */
+    public static int animation(MemorySegment struct) {
+        return struct.get(animation$LAYOUT, animation$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj animation
+     * }
+     */
+    public static void animation(MemorySegment struct, int fieldValue) {
+        struct.set(animation$LAYOUT, animation$OFFSET, fieldValue);
     }
 
     /**

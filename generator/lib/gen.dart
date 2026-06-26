@@ -76,6 +76,10 @@ class WidgetGen implements AGen {
   StringBuffer javaFactories = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
 
+  String? _pendingStructHeader;
+
+  bool hasMembers = false;
+
   bool _isInterface = false;
 
   WidgetGen(this.types, this.dartClass):
@@ -87,11 +91,18 @@ class WidgetGen implements AGen {
   @override
   String dartToC(String theVar) => '_addWidget($theVar)';
 
+  bool _isSupportedFactory(FunctionTypedElement n) =>
+      !n.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) &&
+      types.supportedType(n.returnType);
+
   @override
   void gen() {
     var constructors = dartClass.constructors.where((f) => f.isPublic);
+    var staticMethods = dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList);
     var consts = dartClass.fields.where((f) => f.isStatic && f.isConst).whereType<ConstFieldElementImpl>();
-    var hasMembers = (!dartClass.isAbstract && constructors.isNotEmpty) || (consts.where(isPrivateConst).isNotEmpty);
+    var hasSupportedFactory = !dartClass.isAbstract && (constructors.any(_isSupportedFactory) || staticMethods.any(_isSupportedFactory));
+    var hasPrivateConsts = consts.where(isPrivateConst).isNotEmpty;
+    hasMembers = hasSupportedFactory || hasPrivateConsts;
     writeHeaders(hasMembers);
     if (hasMembers) {
       dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
@@ -187,8 +198,7 @@ class WidgetGen implements AGen {
     }
     writeJavaDecl(extend, _isInterface);
     if (hasMembers) {
-      headerFile
-          .writeln('  struct ${widgetClass}St {');
+      _pendingStructHeader = '  struct ${widgetClass}St {';
     }
 
     builderFile
@@ -216,8 +226,16 @@ class WidgetGen implements AGen {
         '    return this;\n'
         '  }');
     javaFile.writeln('}');
-    if (hasMembers) {
+    if (hasMembers && _pendingStructHeader == null) {
       headerFile.writeln('  } $widgetField;');
+    }
+    _pendingStructHeader = null;
+  }
+
+  void _ensureStructOpened() {
+    if (_pendingStructHeader != null) {
+      headerFile.writeln(_pendingStructHeader);
+      _pendingStructHeader = null;
     }
   }
 
@@ -272,6 +290,7 @@ class WidgetGen implements AGen {
   }
 
   void writeCFactory(String factory, FunctionTypedElement node, String retType) {
+    _ensureStructOpened();
     headerFile.writeln('    ${CLang(types).field(factory, types.type4C(node.returnType), params: node.parameters)}');
   }
 
@@ -385,6 +404,7 @@ class WidgetGen implements AGen {
     if (initializer is InstanceCreationExpression) {
       String factoryName = '$widgetField${fld.name.firstUpper()}';
       if (isPrivateConst(fld)) {
+        _ensureStructOpened();
         headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
 
         dartAssigns
@@ -635,17 +655,19 @@ class ImmutableGen extends ObjStGen {
     
     writeStructFooter();
 
+    if (!hasMembers) return;
+
     dartFns
       ..writeln('$widgetSt _create$widgetSt($widgetClass? w) {');
-      
+
     writeDartStructCreation('w');
     dartFns.writeln('  if (w == null) return stObj;');
-    
+
     for (var m in callableFields()) {
       dartFns
           .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, paramElement('w.${m.name}', m.type))};');
     }
-    
+
     writeDartStructReturn();
   }
 
@@ -842,6 +864,8 @@ bool canBeImplInJava(m) => m.isAbstract || (m.hasMustCallSuper && m.hasProtected
 
 class Generation {
   Set<Element> processed = {};
+  Set<Element> classesWithSetup = {};
+  Set<ClassElement> droppedWidgets = {};
   StringBuffer headerFile = StringBuffer();
   StringBuffer objectsHFile = StringBuffer();
   StringBuffer typedefFile = StringBuffer();
@@ -944,10 +968,10 @@ class Generation {
       ..writeln('  final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();')
       ..writeln('  final f = fp.ref;');
     dartFactories.writeln('  _setupTopFunctions(f);');
-    for (var dartClass in widgets.where((t) => !t.isAbstract)) {
+    for (var dartClass in widgets.where((t) => !t.isAbstract && classesWithSetup.contains(t.thisType.element))) {
       dartFactories.writeln('  _setup${dartClass.name}(f);');
     }
-    for (var dartClass in types.requiredTypes.map((t) => t.element).whereType<ClassElement>().where((t) => !t.isAbstract).where((t) => !widgets.contains(t))) {
+    for (var dartClass in types.requiredTypes.map((t) => t.element).whereType<ClassElement>().where((t) => !t.isAbstract).where((t) => !widgets.contains(t)).where((t) => classesWithSetup.contains(t.thisType.element))) {
       dartFactories.writeln('  _setup${dartClass.name}(f);');
     }
     types.requiredTypes.clear();
@@ -1032,6 +1056,11 @@ class Generation {
     var widGen = (types.getGen(dartClass) as WidgetGen)..gen()
     // var widGen = WidgetGen(this, dartClass)
       ..genJavaClass()..write();
+    if (widGen.hasMembers) {
+      classesWithSetup.add(dartClass.thisType.element);
+    } else if (!dartClass.isAbstract) {
+      droppedWidgets.add(dartClass);
+    }
     if (widGen.headerFile.isNotEmpty) {
       headerFile.writeln(widGen.headerFile);
     }
@@ -1081,6 +1110,9 @@ class Generation {
 
     for (var t in types.unsupportedTypes) {
       print('Unsupported type $t');
+    }
+    for (var w in droppedWidgets) {
+      print('Widget ${w.name}: no factory emitted (all constructors have unsupported required params) — only Java class generated (used as parent type)');
     }
   }
 

@@ -915,6 +915,32 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
+  MemorySegment rotationTransitionRotationTransition(Animation turns, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
+    var st = WidgetFactories.rotationTransition(factories);
+    var fn = WidgetFactories.RotationTransitionSt.rotationTransition(st);
+    return WidgetFactories.RotationTransitionSt.rotationTransition.invoke(fn, arena, turns.build().getId(),
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(child));
+  }
+
+  MemorySegment fadeTransitionFadeTransition(Animation opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> child) {
+    var st = WidgetFactories.fadeTransition(factories);
+    var fn = WidgetFactories.FadeTransitionSt.fadeTransition(st);
+    return WidgetFactories.FadeTransitionSt.fadeTransition.invoke(fn, arena, opacity.build().getId(),
+      ptrBool(alwaysIncludeSemantics),
+      ptrObj(child));
+  }
+
+  MemorySegment scaleTransitionScaleTransition(Animation scale, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
+    var st = WidgetFactories.scaleTransition(factories);
+    var fn = WidgetFactories.ScaleTransitionSt.scaleTransition(st);
+    return WidgetFactories.ScaleTransitionSt.scaleTransition.invoke(fn, arena, scale.build().getId(),
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(child));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
