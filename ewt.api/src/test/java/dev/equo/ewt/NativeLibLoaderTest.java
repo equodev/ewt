@@ -31,11 +31,15 @@ class NativeLibLoaderTest {
     @Test
     void skipsExtractionWhenFileAlreadyExists() throws IOException {
         Path existing = tempDir.resolve("libdummy.so");
-        Files.writeString(existing, "PREEXISTING");
+        // Use the same byte length as the bundled resource ("DUMMY_LIB_CONTENT") so the
+        // size-based freshness check treats the file as already extracted and skips it.
+        // Distinct content lets us verify the file was left untouched.
+        String placeholder = "X".repeat("DUMMY_LIB_CONTENT".length());
+        Files.writeString(existing, placeholder);
 
         NativeLibLoader.extractToDir("native/test/", new String[]{"libdummy.so"}, tempDir);
 
-        assertThat(Files.readString(existing)).isEqualTo("PREEXISTING");
+        assertThat(Files.readString(existing)).isEqualTo(placeholder);
     }
 
     @Test
