@@ -1,5 +1,5 @@
 name: generator
-description: A sample command-line application with basic argument parsing.
+description: EWT code generator — emits Java widget builders and C headers from Flutter widget definitions.
 version: 0.0.1
 # repository: https://github.com/my_org/my_repo
 

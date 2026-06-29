@@ -5,11 +5,7 @@ build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/workspace.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -28,9 +24,9 @@ out/
 .settings
 .springBeans
 .sts4-cache
-#bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# Eclipse/JDT compiled output (the Dart generator's bin/ holds sources, so don't ignore it broadly)
+/bin/
+/annotation-processor/bin/
 
 ### NetBeans ###
 /nbproject/private/
