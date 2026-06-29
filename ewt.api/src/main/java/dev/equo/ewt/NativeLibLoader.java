@@ -48,9 +48,7 @@ class NativeLibLoader {
                 "libStarter.dylib"
             };
         } else {
-            throw new RuntimeException(
-                "Embedded native libs not supported on OS: " + os +
-                ". Set EWT_HOME to load from a local Flutter build.");
+            throw new RuntimeException("Embedded native libs not supported on OS: " + os);
         }
 
         try {

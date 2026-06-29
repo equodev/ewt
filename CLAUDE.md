@@ -83,10 +83,6 @@ public class MyWidget extends StatelessWidget {
 
 Stateful widgets extend `SubStatefulWidget` and implement `createState()` returning a `SubState` subclass that holds mutable fields and overrides `build`.
 
-### Native Library Loading
-
-`App.java` currently hard-codes macOS paths in a `static {}` block. When targeting a different platform or workspace, those paths must be updated before the app can launch. This is a known rough edge.
-
 ## Key Technologies
 
 - **JDK 21+** — required for the Foreign Function & Memory (Panama) API
