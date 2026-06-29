@@ -8,8 +8,13 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HexFormat;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -53,10 +58,19 @@ class NativeLibLoader {
                 .getCodeSource().getLocation();
             Path jarPath = Path.of(jarUrl.toURI());
             Path jarDir = jarPath.getParent();
+            Path cacheDir = jarDir.resolve("native").resolve(osDir);
+
+            // Wipe the on-disk extraction cache when the jar's bytes differ from the
+            // last extraction. The per-file freshness checks downstream are too weak
+            // on their own (libs compare size only, assets check dir existence only),
+            // so swapping in a different jar at the same path would otherwise reuse
+            // stale libs/assets that don't belong to the running jar.
+            String jarKey = computeJarSha256(jarPath);
+            invalidateCacheIfStale(cacheDir, jarKey);
 
             // Extract libs to native/<osDir>/lib/ — sibling to data/
             String libPrefix = "native/" + osDir + "/lib/";
-            Path libDir = jarDir.resolve("native").resolve(osDir).resolve("lib");
+            Path libDir = cacheDir.resolve("lib");
             List<Path> extracted = extractToDir(libPrefix, libs, libDir);
             for (Path p : extracted) {
                 System.load(p.toString());
@@ -65,8 +79,10 @@ class NativeLibLoader {
             // Extract flutter_assets/ and icudtl.dat (Linux/Windows) or App.framework (macOS)
             // to native/<osDir>/data/. Starter self-locates this dir via dladdr at runtime.
             String dataPrefix = "native/" + osDir + "/data/";
-            Path dataDir = jarDir.resolve("native").resolve(osDir).resolve("data");
+            Path dataDir = cacheDir.resolve("data");
             extractDirFromZip(jarPath, dataPrefix, dataDir);
+
+            writeCacheKey(cacheDir, jarKey);
 
             if (os.contains("mac")) {
                 // App.framework/App is a Mach-O dylib that Flutter loads via dlopen internally;
@@ -171,5 +187,41 @@ class NativeLibLoader {
                 zin.closeEntry();
             }
         }
+    }
+
+    static String computeJarSha256(Path jarPath) throws IOException {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 unavailable on this JDK", e);
+        }
+        try (InputStream in = Files.newInputStream(jarPath)) {
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = in.read(buf)) > 0) {
+                md.update(buf, 0, n);
+            }
+        }
+        return HexFormat.of().formatHex(md.digest());
+    }
+
+    static void invalidateCacheIfStale(Path cacheDir, String currentKey) throws IOException {
+        Path keyFile = cacheDir.resolve(".jar-key");
+        if (Files.exists(keyFile) && currentKey.equals(Files.readString(keyFile).trim())) {
+            return;
+        }
+        if (Files.exists(cacheDir)) {
+            try (Stream<Path> stream = Files.walk(cacheDir)) {
+                stream.sorted(Comparator.reverseOrder()).forEach(p -> {
+                    try { Files.delete(p); } catch (IOException ignored) {}
+                });
+            }
+        }
+    }
+
+    static void writeCacheKey(Path cacheDir, String currentKey) throws IOException {
+        Files.createDirectories(cacheDir);
+        Files.writeString(cacheDir.resolve(".jar-key"), currentKey);
     }
 }
