@@ -62,6 +62,12 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  # Force Swift Package Manager (and skip CocoaPods) for the Darwin example
+  # build. Project-level config overrides global/CI flutter config and keeps
+  # the build deterministic regardless of the runner's flutter settings.
+  config:
+    enable-swift-package-manager: true
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

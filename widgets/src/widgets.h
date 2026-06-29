@@ -17,7 +17,9 @@
 #if _WIN32
 #define FFI_PLUGIN_EXPORT __declspec(dllexport)
 #else
-#define FFI_PLUGIN_EXPORT
+// Force default visibility (and keep the symbol) so it is exported even when
+// the C sources are compiled with -fvisibility=hidden, as SwiftPM does.
+#define FFI_PLUGIN_EXPORT __attribute__((visibility("default"))) __attribute__((used))
 #endif
 
 #include "./common.h"

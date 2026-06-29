@@ -4,7 +4,6 @@ plugins {
 }
 
 group = "dev.equo"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -48,7 +47,11 @@ sourceSets {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (System.getProperty("skipNativeTests") != null) {
+            excludeTags("native")
+        }
+    }
 
     systemProperty("os.name", System.getProperty("os.name"))
 
@@ -57,17 +60,9 @@ tasks.test {
     }
 }
 
-fun nativeOsDir(): String {
-    val os = System.getProperty("os.name").lowercase()
-    return when {
-        os.contains("linux") -> "linux-x64"
-        os.contains("mac")   -> "macos-arm64"
-        os.contains("win")   -> "windows-x64"
-        else -> throw GradleException("Unsupported OS: $os")
-    }
-}
-
 fun flutterBuildTarget(): String {
+    val clf = project.findProperty("classifier")?.toString()
+    if (!clf.isNullOrEmpty()) return clf
     val os = System.getProperty("os.name").lowercase()
     return when {
         os.contains("linux") -> "linux"
@@ -76,6 +71,15 @@ fun flutterBuildTarget(): String {
         else -> throw GradleException("Unsupported OS: $os")
     }
 }
+
+fun nativeOsDir(): String = when (flutterBuildTarget()) {
+    "linux"   -> "linux-x64"
+    "macos"   -> "macos-arm64"
+    "windows" -> "windows-x64"
+    else -> throw GradleException("Unsupported platform: ${flutterBuildTarget()}")
+}
+
+val skipFlutter = System.getProperty("skipFlutterBuild") != null
 
 fun flutterExecutable(): String {
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
@@ -93,7 +97,7 @@ tasks.register<Exec>("buildFlutter") {
 tasks.register<Copy>("copyNativeLibs") {
     group = "native"
     description = "Copy platform native libs from Flutter build into jar resources"
-    dependsOn("buildFlutter")
+    if (!skipFlutter) dependsOn("buildFlutter")
     val releaseDir = when (flutterBuildTarget()) {
         "linux"   -> rootProject.file("widgets/example/build/linux/x64/release/bundle/lib")
         "windows" -> rootProject.file("widgets/example/build/windows/x64/runner/Release")
@@ -119,7 +123,7 @@ tasks.register<Copy>("copyMacOSFrameworkLibs") {
     group = "native"
     description = "Copy FlutterMacOS and widgets framework binaries for macOS JAR embedding"
     enabled = flutterBuildTarget() == "macos"
-    dependsOn("buildFlutter")
+    if (!skipFlutter) dependsOn("buildFlutter")
     val frameworksDir = rootProject.file(
         "widgets/example/build/macos/Build/Products/Release/" +
         "widgets_example.app/Contents/Frameworks")
@@ -139,7 +143,7 @@ tasks.named("processResources") {
 tasks.register<Copy>("copyFlutterData") {
     group = "native"
     description = "Copy Flutter data from Flutter build into jar resources"
-    dependsOn("buildFlutter")
+    if (!skipFlutter) dependsOn("buildFlutter")
     // macOS embeds Dart code and assets inside App.framework (a directory bundle), not a flat
     // data/ dir. We copy the entire framework so NativeLibLoader can pass it to FlutterDartProject.
     // Linux and Windows use a flat data/ dir with flutter_assets/ and icudtl.dat.
@@ -200,9 +204,42 @@ tasks.register<Exec>("jextract") {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("ewt") {
-            from(components["java"])
+    repositories {
+        maven {
+            name = "Gitlab"
+            url = uri(
+                "${System.getenv("CI_API_V4_URL") ?: "http://localhost"}" +
+                        "/projects/${System.getenv("CI_PROJECT_ID") ?: "0"}/packages/maven"
+            )
+            credentials(HttpHeaderCredentials::class) {
+                name = "Job-Token"
+                value = System.getenv("CI_JOB_TOKEN") ?: ""
+            }
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
         }
     }
+    publications {
+        listOf("linux", "macos", "windows").forEach { os ->
+            create<MavenPublication>("ewt-$os") {
+                groupId = "dev.equo"
+                artifactId = "ewt.api"
+                version = project.version.toString()
+                artifact(file("build/libs/ewt.api-${project.version}-${os}.jar")) {
+                    classifier = os
+                }
+                pom {
+                    name.set("EWT API ($os)")
+                    description.set("Equo Widget Toolkit — $os platform JAR")
+                }
+            }
+        }
+    }
+}
+
+tasks.register("publishAllPlatforms") {
+    group = "publishing"
+    description = "Publish all three platform JARs to the configured Maven repository"
+    dependsOn(tasks.withType<PublishToMavenRepository>())
 }

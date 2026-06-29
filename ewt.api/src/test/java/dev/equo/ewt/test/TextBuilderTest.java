@@ -2,10 +2,12 @@ package dev.equo.ewt.test;
 
 import dev.equo.ewt.InlineSpan;
 import dev.equo.ewt.Text;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Tag("native")
 public class TextBuilderTest {
 
     @Test

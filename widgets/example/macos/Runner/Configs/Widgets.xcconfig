@@ -1,0 +1,9 @@
+// Explicitly link and locate the widgets SwiftPM framework.
+//
+// widgets is an FFI plugin, so Flutter's generated plugin registrant never
+// references its module. Under Swift Package Manager that means the linker does
+// not pull widgets.framework into the host app, leaving the @_silgen_name
+// reference to setBuildWidgetTree (Runner/Starter.swift) undefined at link time.
+// CocoaPods used to add "-framework widgets" for us; replicate that for SPM.
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$(BUILT_PRODUCTS_DIR)/PackageFrameworks"
+OTHER_LDFLAGS = $(inherited) -framework widgets
