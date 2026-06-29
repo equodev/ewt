@@ -90,7 +90,7 @@ tasks.register<Exec>("buildFlutter") {
     group = "native"
     description = "Build Flutter widgets/example for the current platform (always re-runs)"
     workingDir = rootProject.file("widgets/example")
-    commandLine("${System.getProperty("user.home")}/bin/flutter/bin/flutter", "build", flutterBuildTarget(), "--release", "--no-tree-shake-icons")
+    commandLine(flutterExecutable(), "build", flutterBuildTarget(), "--release", "--no-tree-shake-icons")
     outputs.upToDateWhen { false }
 }
 
