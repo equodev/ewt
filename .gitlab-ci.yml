@@ -30,7 +30,7 @@ variables:
     -Dorg.gradle.console=plain
     -Dorg.gradle.vfs.watch=false
   FLUTTER_SDK: "3.44.1"
-  FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk23.flutter:linux
+  FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
 
 build_docker_image:
   stage: docker_build
@@ -41,6 +41,13 @@ build_docker_image:
     DOCKER_TLS_CERTDIR: "/certs"
   rules:
     - if: '$CI_IMAGE'
+    # Rebuild the image inside MRs that change the Dockerfile, so the MR validates
+    # the image (and bootstraps a new tag) instead of failing to pull a tag that
+    # only main would ever build.
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        paths:
+          - .docker/Dockerfile
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       changes:
         paths:

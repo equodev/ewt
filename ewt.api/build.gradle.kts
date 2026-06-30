@@ -5,6 +5,14 @@ plugins {
 
 group = "dev.equo"
 
+// Target JDK 22 bytecode (class file v66) so JDK 22 stays the minimum runtime requirement,
+// independent of which JDK runs the build (e.g. the CI image ships JDK 23). The FFM API used
+// by the jextract bindings was finalized in JDK 22, so 22 is the real floor. Using release
+// (instead of a toolchain) avoids requiring a JDK 22 install on every build machine/CI.
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(22)
+}
+
 repositories {
     mavenCentral()
 }
@@ -187,6 +195,22 @@ tasks.register<Exec>("jextract") {
     args("-t", "dev.equo.ewt.ffm", "--header-class-name", "StarterBridge", "--output", output, header)
     inputs.files(header, "../widgets/src/common.h", "../widgets/src/factories.h", "../widgets/src/objects.h")
     outputs.dir("$output/dev/equo/ewt/ffm")
+
+    doLast {
+        // jextract 25 emits SymbolLookup.findOrThrow(...), which only exists in JDK 23+.
+        // Rewrite it to the JDK 22-compatible find(...).orElseThrow() so the generated
+        // bindings keep JDK 22 as the minimum runtime requirement.
+        val ffmDir = file("$output/dev/equo/ewt/ffm")
+        val pattern = Regex("""\.findOrThrow\((.*?)\)""")
+        ffmDir.walkTopDown()
+            .filter { it.isFile && it.extension == "java" }
+            .forEach { f ->
+                val text = f.readText()
+                if (pattern.containsMatchIn(text)) {
+                    f.writeText(pattern.replace(text) { ".find(${it.groupValues[1]}).orElseThrow()" })
+                }
+            }
+    }
 
     doFirst {
         val versionOutput = ProcessBuilder(jextractBin, "--version")
