@@ -59,18 +59,18 @@ public class Demo {
       _newTag = "";
       showDialog(context(), ctx ->
           AlertDialog()
-              .title(Text("Nuevo tag"))
+              .title(Text("New tag"))
               .content(TextField()
                   .decoration(InputDecoration()
-                      .hintText("Ej: Android")
+                      .hintText("e.g. Android")
                       .border(OutlineInputBorder()))
                   .onChanged(v -> _newTag = v))
               .actions(List.of(
-                  TextButton(() -> Navigator.pop(ctx)).child(Text("Cancelar")),
+                  TextButton(() -> Navigator.pop(ctx)).child(Text("Cancel")),
                   FilledButton(() -> {
                     Navigator.pop(ctx);
                     if (!_newTag.isBlank()) setState(() -> _tags.add(_newTag));
-                  }).child(Text("Agregar"))
+                  }).child(Text("Add"))
               ))
       );
     }
@@ -78,8 +78,7 @@ public class Demo {
     @Override
     public Widget build(BuildContext context) {
       return switch (_page) {
-        case 1 -> _buildLoading();
-        case 2 -> _buildDashboard();
+        case 1 -> _buildDashboard();
         default -> _buildLogin();
       };
     }
@@ -115,7 +114,7 @@ public class Demo {
                                   .fontSize(26.0)
                                   .fontWeight(FontWeight.bold())),
                           SizedBox().height(4.0),
-                          Text("Ingresá para continuar")
+                          Text("Sign in to continue")
                               .style(TextStyle()
                                   .fontSize(14.0)
                                   .color(Colors.grey().shade600())),
@@ -128,23 +127,23 @@ public class Demo {
                           SizedBox().height(16.0),
                           TextField()
                               .decoration(InputDecoration()
-                                  .labelText("Contraseña")
+                                  .labelText("Password")
                                   .border(OutlineInputBorder()))
                               .obscureText(true)
                               .onChanged(v -> _password = v),
                           SizedBox().height(24.0),
                           FilledButton(this::_login)
-                              .child(Text("Ingresar")),
+                              .child(Text("Sign in")),
                           SizedBox().height(16.0),
                           Center().child(
                               GestureDetector()
                                   .onLongPress(this::_autofill)
                                   .child(_autofilled
-                                      ? Text("✓ demo@equo.dev cargado")
+                                      ? Text("✓ demo@equo.dev loaded")
                                           .style(TextStyle()
                                               .fontSize(12.0)
                                               .color(Colors.green()))
-                                      : Text("¿Usar cuenta demo? (mantener presionado)")
+                                      : Text("Use demo account? (long press)")
                                           .style(TextStyle()
                                               .fontSize(12.0)
                                               .color(Colors.indigo().shade400()))))
@@ -165,7 +164,7 @@ public class Demo {
                               .children(List.of(
                                   CircularProgressIndicator().color(Colors.indigo()),
                                   SizedBox().height(24.0),
-                                  Text("Iniciando sesión...")
+                                  Text("Signing in...")
                                       .style(TextStyle()
                                           .fontSize(16.0)
                                           .color(Colors.grey().shade600()))
@@ -185,11 +184,11 @@ public class Demo {
 
       return Scaffold()
           .appBar(AppBar()
-              .title(Text("Bienvenido"))
+              .title(Text("Welcome"))
               .backgroundColor(Theme.of(context()).colorScheme().primaryContainer()))
           .floatingActionButton(FloatingActionButton()
               .onPressed(this::_showAddTag)
-              .tooltip("Agregar tag")
+              .tooltip("Add tag")
               .child(Icon(Icons.add())))
           .body(SingleChildScrollView()
               .padding(EdgeInsets_all(16.0))
@@ -241,38 +240,38 @@ public class Demo {
                       SizedBox().height(16.0),
 
                       // Profile completion
-                      Text("Completitud del perfil")
+                      Text("Profile completion")
                           .style(TextStyle().fontWeight(FontWeight.bold())),
                       SizedBox().height(8.0),
                       LinearProgressIndicator()
                           .value(progress)
                           .color(Colors.indigo()),
                       SizedBox().height(4.0),
-                      Text(pct + "% — agregá tags con el botón +")
+                      Text(pct + "% — add tags with the + button")
                           .style(TextStyle()
                               .fontSize(12.0)
                               .color(Colors.grey().shade600())),
                       SizedBox().height(24.0),
 
                       // Recent activity
-                      Text("Actividad reciente")
+                      Text("Recent activity")
                           .style(TextStyle().fontWeight(FontWeight.bold())),
                       SizedBox().height(8.0),
                       Card().child(Column()
                           .children(List.of(
                               ListTile()
                                   .leading(Icon(Icons.done()).color(Colors.green()))
-                                  .title(Text("Login exitoso"))
-                                  .subtitle(Text("Hace un momento")),
+                                  .title(Text("Login successful"))
+                                  .subtitle(Text("Just now")),
                               Divider(),
                               ListTile()
                                   .leading(Icon(Icons.person()).color(Colors.indigo()))
-                                  .title(Text("Perfil creado"))
+                                  .title(Text("Profile created"))
                                   .subtitle(Text(displayEmail)),
                               Divider(),
                               ListTile()
                                   .leading(Icon(Icons.label()).color(Colors.orange()))
-                                  .title(Text("Tags activos"))
+                                  .title(Text("Active tags"))
                                   .subtitle(Text(_tags.size() + " tags"))
                           ))),
                       SizedBox().height(80.0)
