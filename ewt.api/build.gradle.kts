@@ -221,17 +221,21 @@ publishing {
         }
     }
     publications {
-        listOf("linux", "macos", "windows").forEach { os ->
-            create<MavenPublication>("ewt-$os") {
-                groupId = "dev.equo"
-                artifactId = "ewt.api"
-                version = project.version.toString()
+        // Single publication with three classifier-distinct artifacts so a single
+        // POM/module is published for dev.equo:ewt.api:VERSION. Three separate
+        // publications with the same GAV would trip Gradle's duplicate-coordinates
+        // warning and leave a non-deterministic POM (last-write-wins) in the registry.
+        create<MavenPublication>("ewtApi") {
+            groupId = "dev.equo"
+            artifactId = "ewt.api"
+            version = project.version.toString()
+            pom {
+                name.set("EWT API")
+                description.set("Equo Widget Toolkit — multi-platform JARs (linux/macos/windows classifiers)")
+            }
+            listOf("linux", "macos", "windows").forEach { os ->
                 artifact(file("build/libs/ewt.api-${project.version}-${os}.jar")) {
                     classifier = os
-                }
-                pom {
-                    name.set("EWT API ($os)")
-                    description.set("Equo Widget Toolkit — $os platform JAR")
                 }
             }
         }
