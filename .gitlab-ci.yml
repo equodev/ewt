@@ -30,7 +30,7 @@ variables:
     -Dorg.gradle.console=plain
     -Dorg.gradle.vfs.watch=false
   FLUTTER_SDK: "3.44.1"
-  FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk23.flutter:linux
+  FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
 
 build_docker_image:
   stage: docker_build

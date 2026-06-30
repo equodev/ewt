@@ -19,10 +19,11 @@ RUN apt-get update && apt-get install -y \
     liblzma-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# JDK 23 (Eclipse Temurin 23.0.2+7)
-RUN curl -L "https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2%2B7/OpenJDK23U-jdk_x64_linux_hotspot_23.0.2_7.tar.gz" \
+# JDK 22 (Eclipse Temurin 22.0.2+9) — matches the project's minimum runtime (options.release = 22),
+# so CI compiles and runs tests on the actual floor. release targeting works on any JDK >= 22.
+RUN curl -L "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_x64_linux_hotspot_22.0.2_9.tar.gz" \
     | tar xz -C /opt
-ENV JAVA_HOME=/opt/jdk-23.0.2+7
+ENV JAVA_HOME=/opt/jdk-22.0.2+9
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # Flutter SDK (version injected at build time)
