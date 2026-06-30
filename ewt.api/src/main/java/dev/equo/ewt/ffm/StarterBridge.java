@@ -36,7 +36,7 @@ public class StarterBridge extends StarterBridge$shared {
             StarterBridge.C_POINTER
         );
 
-        public static final MemorySegment ADDR = SYMBOL_LOOKUP.findOrThrow("startApp");
+        public static final MemorySegment ADDR = SYMBOL_LOOKUP.find("startApp").orElseThrow();
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
     }

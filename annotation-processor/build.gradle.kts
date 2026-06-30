@@ -5,6 +5,11 @@ plugins {
 group = "dev.equo"
 version = "1.0-SNAPSHOT"
 
+// Target JDK 22 bytecode so this build-time processor stays loadable on JDK 22 toolchains too.
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(22)
+}
+
 repositories {
     mavenCentral()
 }
