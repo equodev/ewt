@@ -13,7 +13,9 @@ import 'package:ffi/ffi.dart';
 import 'dart:ffi' as ffi;
 
 part 'factories_gen.dart';
-part 'animated_wrapper.dart';
+part 'sub_animated_state.dart';
+part 'sub_animated_state_methods.dart';
+part 'animation_controller_methods.dart';
 
 final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
@@ -27,9 +29,11 @@ int _addWidget(Object? w) {
   if (w == null) return 0;
   final id = _nextWidgetId++;
   _widgetsMap[id] = w;
-  // BuildContext is captured by button callbacks (e.g. Navigator.pop(ctx)) and must
-  // outlive the build scope that created it, so we never track it for cleanup.
-  if (_buildScopeStack.isNotEmpty && w is! BuildContext) {
+  // BuildContext and State outlive the build scope that created them: BuildContext
+  // is captured by button callbacks (e.g. Navigator.pop(ctx)); State is owned by
+  // Flutter and may be dispatched back to via id (e.g. animationController() on
+  // SubAnimatedState).
+  if (_buildScopeStack.isNotEmpty && w is! BuildContext && w is! State) {
     _buildScopeStack.last.add(id);
   }
   print('Added widget $w id: $id');

@@ -729,6 +729,43 @@ class WidgetConstructors extends WidgetConstructorsBase {
       vsync.build().getId(),
       ptrEnum(animationBehavior));
   }
+  void animationControllerForward(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.forward(st);
+    WidgetFactories.AnimationControllerSt.forward.invoke(fn, self.build().getId());
+  }
+  void animationControllerReverse(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.reverse(st);
+    WidgetFactories.AnimationControllerSt.reverse.invoke(fn, self.build().getId());
+  }
+  void animationControllerStop(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.stop(st);
+    WidgetFactories.AnimationControllerSt.stop.invoke(fn, self.build().getId());
+  }
+  void animationControllerRepeat(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.repeat(st);
+    WidgetFactories.AnimationControllerSt.repeat.invoke(fn, self.build().getId());
+  }
+  void animationControllerReset(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.reset(st);
+    WidgetFactories.AnimationControllerSt.reset.invoke(fn, self.build().getId());
+  }
+  void animationControllerSetDuration(AnimationController self, Duration d) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.setDuration(st);
+    WidgetFactories.AnimationControllerSt.setDuration.invoke(fn, self.build().getId(),
+      d.build().getId());
+  }
+  void animationControllerSetReverseDuration(AnimationController self, Duration d) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.setReverseDuration(st);
+    WidgetFactories.AnimationControllerSt.setReverseDuration.invoke(fn, self.build().getId(),
+      d.build().getId());
+  }
 
   int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
     var st = WidgetFactories.duration(factories);
@@ -2560,48 +2597,23 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrDartObjCallbackDartObjFn(buildFn));
   }
 
-  MemorySegment animatedWrapperAnimatedWrapper(Consumer<Integer> initAnimationFn, Supplier<Widget> buildAnimatedFn) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.animatedWrapper(st);
-    return WidgetFactories.AnimatedWrapperSt.animatedWrapper.invoke(fn, arena, ptrVoidCallbackintFn(initAnimationFn),
-      ptrWidgetCallbackFn(buildAnimatedFn));
+  <T extends StatefulWidget> MemorySegment subAnimatedStateSubAnimatedState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
+    var st = WidgetFactories.subAnimatedState(factories);
+    var fn = WidgetFactories.SubAnimatedStateSt.subAnimatedState(st);
+    return WidgetFactories.SubAnimatedStateSt.subAnimatedState.invoke(fn, arena, ptrVoidCallbackFn(initStateFn),
+      ptrVoidCallbackDartObjFn(didUpdateWidgetFn),
+      ptrVoidCallbackFn(reassembleFn),
+      ptrVoidCallbackFn(deactivateFn),
+      ptrVoidCallbackFn(activateFn),
+      ptrVoidCallbackFn(disposeFn),
+      ptrDartObjCallbackDartObjFn(buildFn),
+      ptrVoidCallbackFn(didChangeDependenciesFn));
   }
-  void animatedWrapperForward(AnimationController ctrl) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.forward(st);
-    WidgetFactories.AnimatedWrapperSt.forward.invoke(fn, ctrl.build().getId());
-  }
-  void animatedWrapperReverse(AnimationController ctrl) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.reverse(st);
-    WidgetFactories.AnimatedWrapperSt.reverse.invoke(fn, ctrl.build().getId());
-  }
-  void animatedWrapperStop(AnimationController ctrl) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.stop(st);
-    WidgetFactories.AnimatedWrapperSt.stop.invoke(fn, ctrl.build().getId());
-  }
-  void animatedWrapperRepeat(AnimationController ctrl) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.repeat(st);
-    WidgetFactories.AnimatedWrapperSt.repeat.invoke(fn, ctrl.build().getId());
-  }
-  void animatedWrapperReset(AnimationController ctrl) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.reset(st);
-    WidgetFactories.AnimatedWrapperSt.reset.invoke(fn, ctrl.build().getId());
-  }
-  void animatedWrapperSetDuration(AnimationController ctrl, Duration d) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.setDuration(st);
-    WidgetFactories.AnimatedWrapperSt.setDuration.invoke(fn, ctrl.build().getId(),
-      d.build().getId());
-  }
-  void animatedWrapperSetReverseDuration(AnimationController ctrl, Duration d) {
-    var st = WidgetFactories.animatedWrapper(factories);
-    var fn = WidgetFactories.AnimatedWrapperSt.setReverseDuration(st);
-    WidgetFactories.AnimatedWrapperSt.setReverseDuration.invoke(fn, ctrl.build().getId(),
-      d.build().getId());
+  int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
+    var st = WidgetFactories.subAnimatedState(factories);
+    var fn = WidgetFactories.SubAnimatedStateSt.animationController(st);
+    return WidgetFactories.SubAnimatedStateSt.animationController.invoke(fn, self.build().getId(),
+      duration.build().getId());
   }
 
 MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {
@@ -2697,17 +2709,6 @@ MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {
 }
 MemorySegment ptrDartObjCallbackFn(Supplier<State> jFn) {
   return DartObjCallbackFFI.allocate(() -> {
-    final var jFnRet = jFn.get();
-    return jFnRet.build().getId();
-  }, arena);
-}
-MemorySegment ptrVoidCallbackintFn(Consumer<Integer> jFn) {
-  return VoidCallbackintFFI.allocate((ctrlId) -> {
-    jFn.accept(ctrlId);
-  }, arena);
-}
-MemorySegment ptrWidgetCallbackFn(Supplier<Widget> jFn) {
-  return WidgetCallbackFFI.allocate(() -> {
     final var jFnRet = jFn.get();
     return jFnRet.build().getId();
   }, arena);

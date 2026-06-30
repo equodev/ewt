@@ -37,8 +37,14 @@ public class AnimatedCardDemo {
         }
     }
 
-    static class HomePageState extends SubState<HomePage> {
-        AnimationController ctrl;
+    static class HomePageState extends SubAnimatedState<HomePage> {
+        private AnimationController ctrl;
+
+        @Override
+        public void initState() {
+            super.initState();
+            ctrl = animationController(Duration().milliseconds(900));
+        }
 
         @Override
         public Widget build(BuildContext context) {
@@ -46,41 +52,56 @@ public class AnimatedCardDemo {
                     .appBar(AppBar()
                             .title(Text("Composed Transitions"))
                             .backgroundColor(Theme.of(context).colorScheme().inversePrimary()))
-                    .body(Center().child(
-                            AnimatedWrapper(
-                                    ctrlId -> {
-                                        ctrl = AnimationController.byId(ctrlId);
-                                        AnimatedWrapper.setDuration(ctrl, Duration().milliseconds(900));
-                                    },
-                                    () -> Column()
-                                            .mainAxisAlignment(MainAxisAlignment.center)
-                                            .children(List.of(
-                                                    // The same controller drives three transitions through
-                                                    // different curves so each property has its own feel.
-                                                    ScaleTransition(CurvedAnimation(ctrl, Curves.elasticOut()))
-                                                            .child(RotationTransition(CurvedAnimation(ctrl, Curves.easeOut()))
-                                                                    .child(FadeTransition(CurvedAnimation(ctrl, Curves.easeIn()))
-                                                                            .child(Card()
-                                                                                    .elevation(8.0)
-                                                                                    .child(Padding(EdgeInsets_all(32.0))
-                                                                                            .child(Icon(Icons.rocket())
-                                                                                                    .size(96.0)
-                                                                                                    .color(Colors.deepPurple())))))),
-                                                    SizedBox().height(48.0),
-                                                    Row().mainAxisAlignment(MainAxisAlignment.center)
-                                                            .children(List.of(
-                                                                    ElevatedButton(() -> AnimatedWrapper.forward(ctrl))
-                                                                            .child(Text("Reveal")),
-                                                                    SizedBox().width(12.0),
-                                                                    ElevatedButton(() -> AnimatedWrapper.reverse(ctrl))
-                                                                            .child(Text("Hide")),
-                                                                    SizedBox().width(12.0),
-                                                                    ElevatedButton(() -> AnimatedWrapper.repeat(ctrl))
-                                                                            .child(Text("Pulse")),
-                                                                    SizedBox().width(12.0),
-                                                                    ElevatedButton(() -> AnimatedWrapper.stop(ctrl))
-                                                                            .child(Text("Stop"))))))
-                                            .build())));
+                    .body(Center().child(body()));
+        }
+
+        private Widget body() {
+            return Column()
+                    .mainAxisAlignment(MainAxisAlignment.center)
+                    .children(List.of(
+                            revealableRocket(),
+                            SizedBox().height(48.0),
+                            controls()
+                    ));
+        }
+
+        // The same controller drives three transitions through different curves
+        // so each property (scale, rotation, opacity) has its own feel.
+        private Widget revealableRocket() {
+            return ScaleTransition(curved(Curves.elasticOut()))
+                    .child(RotationTransition(curved(Curves.easeOut()))
+                            .child(FadeTransition(curved(Curves.easeIn()))
+                                    .child(rocketCard())));
+        }
+
+        private Widget rocketCard() {
+            return Card()
+                    .elevation(8.0)
+                    .child(Padding(EdgeInsets_all(32.0))
+                            .child(Icon(Icons.rocket())
+                                    .size(96.0)
+                                    .color(Colors.deepPurple())));
+        }
+
+        private CurvedAnimation curved(Curve curve) {
+            return CurvedAnimation(ctrl, curve).build();
+        }
+
+        private Widget controls() {
+            return Row().mainAxisAlignment(MainAxisAlignment.center)
+                    .children(List.of(
+                            button("Reveal", ctrl::forward),
+                            SizedBox().width(12.0),
+                            button("Hide", ctrl::reverse),
+                            SizedBox().width(12.0),
+                            button("Pulse", ctrl::repeat),
+                            SizedBox().width(12.0),
+                            button("Stop", ctrl::stop)
+                    ));
+        }
+
+        private Widget button(String label, Runnable action) {
+            return ElevatedButton(action).child(Text(label));
         }
     }
 }

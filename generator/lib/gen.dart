@@ -82,6 +82,12 @@ class WidgetGen implements AGen {
 
   bool _isInterface = false;
 
+  /// Optional companion class (named `<TargetClass>Methods` in generation_index.dart).
+  /// Its public static methods whose first parameter is typed as the target class are
+  /// emitted as instance methods on this widget's Java file — first param becomes the
+  /// implicit receiver via `this.id`.
+  ClassElement? methodsCompanion;
+
   WidgetGen(this.types, this.dartClass):
         widgetClass = dartClass.name,
         widgetField = '${dartClass.name[0].toLowerCase()}${dartClass.name.substring(1)}';
@@ -100,9 +106,11 @@ class WidgetGen implements AGen {
     var constructors = dartClass.constructors.where((f) => f.isPublic);
     var staticMethods = dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList);
     var consts = dartClass.fields.where((f) => f.isStatic && f.isConst).whereType<ConstFieldElementImpl>();
+    var companionMethods = methodsCompanion?.methods.where((m) => m.isStatic && m.isPublic && _isCompanionInstanceMethod(m)) ?? const <MethodElement>[];
     var hasSupportedFactory = !dartClass.isAbstract && (constructors.any(_isSupportedFactory) || staticMethods.any(_isSupportedFactory));
     var hasPrivateConsts = consts.where(isPrivateConst).isNotEmpty;
-    hasMembers = hasSupportedFactory || hasPrivateConsts;
+    var hasCompanionMethods = companionMethods.any(_isSupportedFactory);
+    hasMembers = hasSupportedFactory || hasPrivateConsts || hasCompanionMethods;
     writeHeaders(hasMembers);
     if (hasMembers) {
       dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
@@ -114,6 +122,9 @@ class WidgetGen implements AGen {
       }
       for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList /*&& m.returnType == dartClass.thisType*/)) {
         writeFactory(constr);
+      }
+      for (var method in companionMethods) {
+        writeInstanceMethod(method, methodsCompanion!.name);
       }
     }
     writeMembers();
@@ -266,6 +277,70 @@ class WidgetGen implements AGen {
     // } else {
     writeDFactory(factory, factoryName, node);
     // }
+  }
+
+  /// A companion method qualifies as an instance method only if its first parameter
+  /// is typed exactly as the target class (the receiver).
+  bool _isCompanionInstanceMethod(MethodElement m) =>
+      m.parameters.isNotEmpty &&
+      m.parameters.first.type.element == dartClass.thisType.element;
+
+  /// Emits a static method from the methods-companion as an instance method on the
+  /// target class. First parameter (the receiver) is consumed: it does not appear
+  /// in the Java signature and is replaced by `this.id` in the FFM call.
+  void writeInstanceMethod(FunctionTypedElement node, String companionClassName) {
+    if (!_isCompanionInstanceMethod(node as MethodElement)) return;
+    if (node.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) || !types.supportedType(node.returnType)) {
+      return;
+    }
+    String factory = node.name!;
+    String factoryName = '$widgetField${factory.firstUpper()}';
+    writeJavaInstanceMethod(node, factoryName, factory);
+    writeCFactory(factory, node, 'int');
+    writeDInstanceMethod(factory, factoryName, node, companionClassName);
+  }
+
+  void writeJavaInstanceMethod(FunctionTypedElement node, String factoryName, String factory) {
+    final restParams = node.parameters.skip(1).toList();
+    final restRequired = restParams.where((p) => !p.isOptional).toList();
+    final jParamsDecl = Params(types, restRequired, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
+    final jParamsValuesOpt = Params(types, restParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
+    final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+
+    javaFile
+        .writeln('  public ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
+    final restCallNames = jParamsValuesOpt.names;
+    final callArgs = restCallNames.isEmpty ? 'this' : 'this,\n      $restCallNames';
+    if (node.returnType is VoidType) {
+      javaFile.writeln('    factories.$factoryName($callArgs);');
+    } else {
+      final retType = types.type4FFMRet(node.returnType);
+      javaFile.writeln('    $retType id = factories.$factoryName($callArgs);');
+      if (retType == 'int') {
+        javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
+      }
+      javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+    }
+    javaFile.writeln('  }');
+    writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
+  }
+
+  void writeDInstanceMethod(String factory, String factoryName, FunctionTypedElement node, String companionClassName) {
+    var gen = node.returnType is! VoidType ? types.getGen(node.returnType.element!) : null;
+    final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
+    dartAssigns
+        .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen == null || node.returnType.isDartCoreString || gen.objType().endsWith('ObjSt') ? '' : ', ${exception(node.returnType)}'});');
+    dartFns
+      ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
+      ..writeln('  ${gen == null ? '' : 'final w = '}$companionClassName.$factory(${dartParams.names});');
+    if (gen == null) {
+    } else if (gen.objType().endsWith('ObjSt')) {
+      dartFns.writeln('  return _create${gen.objType()}(w);');
+    } else {
+      dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
+    }
+    dartFns.writeln('}');
   }
 
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
@@ -879,10 +954,19 @@ class Generation {
   List<ClassElement> widgets;
   Iterable<PrefixedIdentifier> topFunctions;
   Types types;
+  Map<String, ClassElement> methodsCompanions = {};
 
   Generation(Iterable<ClassElement> widgets, Iterable<PrefixedIdentifier> this.topFunctions) :
         widgets = widgets.skip(1).toList(),
-        types = Types(widgets);
+        types = Types(widgets) {
+    for (final w in this.widgets.where((w) => w.name.endsWith('Methods'))) {
+      final target = w.name.substring(0, w.name.length - 'Methods'.length);
+      methodsCompanions[target] = w;
+    }
+    // Companions are processed indirectly via their target — drop them from the
+    // main list so processWidget doesn't try to emit a standalone Java class.
+    this.widgets.removeWhere((w) => w.name.endsWith('Methods'));
+  }
 
   void gen() {
     // headerFile.writeln('typedef int DartObj;');
@@ -1051,8 +1135,10 @@ class Generation {
       return;
     }
     processed.add(dartClass.thisType.element);
-    var widGen = (types.getGen(dartClass) as WidgetGen)..gen()
-    // var widGen = WidgetGen(this, dartClass)
+    var widGen = (types.getGen(dartClass) as WidgetGen);
+    widGen.methodsCompanion = methodsCompanions[dartClass.name];
+    widGen
+      ..gen()
       ..genJavaClass()..write();
     if (widGen.hasMembers) {
       classesWithSetup.add(dartClass.thisType.element);

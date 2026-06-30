@@ -1051,6 +1051,13 @@ RoundedRectangleBorderObjSt _createRoundedRectangleBorderObjSt(RoundedRectangleB
 void _setupAnimationController(WidgetFactories f) {
   f.animationController.animationController = ffi.Pointer.fromFunction(animationControllerAnimationController, exception);
   f.animationController.unbounded = ffi.Pointer.fromFunction(animationControllerUnbounded, exception);
+  f.animationController.forward = ffi.Pointer.fromFunction(animationControllerForward);
+  f.animationController.reverse = ffi.Pointer.fromFunction(animationControllerReverse);
+  f.animationController.stop = ffi.Pointer.fromFunction(animationControllerStop);
+  f.animationController.repeat = ffi.Pointer.fromFunction(animationControllerRepeat);
+  f.animationController.reset = ffi.Pointer.fromFunction(animationControllerReset);
+  f.animationController.setDuration = ffi.Pointer.fromFunction(animationControllerSetDuration);
+  f.animationController.setReverseDuration = ffi.Pointer.fromFunction(animationControllerSetReverseDuration);
 }
 int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Double> lowerBound, ffi.Pointer<ffi.Double> upperBound, ffi.Pointer<ffi.Int> animationBehavior, DartDartObj vsync) {
   final w = AnimationController(value: value.doubleOrNul(),
@@ -1071,6 +1078,29 @@ int animationControllerUnbounded(ffi.Pointer<ffi.Double> value, ffi.Pointer<Dart
       vsync: _widgetsMap[vsync]! as TickerProvider,
       animationBehavior: animationBehavior.enumOr(AnimationBehavior.values, AnimationBehavior.preserve));
   return _addWidget(w);
+}
+void animationControllerForward(DartDartObj self) {
+  AnimationControllerMethods.forward(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerReverse(DartDartObj self) {
+  AnimationControllerMethods.reverse(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerStop(DartDartObj self) {
+  AnimationControllerMethods.stop(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerRepeat(DartDartObj self) {
+  AnimationControllerMethods.repeat(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerReset(DartDartObj self) {
+  AnimationControllerMethods.reset(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerSetDuration(DartDartObj self, DartDartObj d) {
+  AnimationControllerMethods.setDuration(_widgetsMap[self]! as AnimationController,
+      _widgetsMap[d]! as Duration);
+}
+void animationControllerSetReverseDuration(DartDartObj self, DartDartObj d) {
+  AnimationControllerMethods.setReverseDuration(_widgetsMap[self]! as AnimationController,
+      _widgetsMap[d]! as Duration);
 }
 
 void _setupDuration(WidgetFactories f) {
@@ -3864,49 +3894,35 @@ SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDart
   return stObj;
 }
 
-void _setupAnimatedWrapper(WidgetFactories f) {
-  f.animatedWrapper.animatedWrapper = ffi.Pointer.fromFunction(animatedWrapperAnimatedWrapper);
-  f.animatedWrapper.forward = ffi.Pointer.fromFunction(animatedWrapperForward);
-  f.animatedWrapper.reverse = ffi.Pointer.fromFunction(animatedWrapperReverse);
-  f.animatedWrapper.stop = ffi.Pointer.fromFunction(animatedWrapperStop);
-  f.animatedWrapper.repeat = ffi.Pointer.fromFunction(animatedWrapperRepeat);
-  f.animatedWrapper.reset = ffi.Pointer.fromFunction(animatedWrapperReset);
-  f.animatedWrapper.setDuration = ffi.Pointer.fromFunction(animatedWrapperSetDuration);
-  f.animatedWrapper.setReverseDuration = ffi.Pointer.fromFunction(animatedWrapperSetReverseDuration);
+void _setupSubAnimatedState(WidgetFactories f) {
+  f.subAnimatedState.subAnimatedState = ffi.Pointer.fromFunction(subAnimatedStateSubAnimatedState);
+  f.subAnimatedState.animationController = ffi.Pointer.fromFunction(subAnimatedStateAnimationController, exception);
 }
-AnimatedWrapperObjSt animatedWrapperAnimatedWrapper(VoidCallbackintFFI initAnimationFn, WidgetCallbackFFI buildAnimatedFn) {
-  final w = AnimatedWrapper(initAnimationFn: initAnimationFn.toVoidCallbackintFn(),
-      buildAnimatedFn: buildAnimatedFn.toWidgetCallbackFn());
-  return _createAnimatedWrapperObjSt(w);
-}
-void animatedWrapperForward(DartDartObj ctrl) {
-  AnimatedWrapper.forward(_widgetsMap[ctrl]! as AnimationController);
-}
-void animatedWrapperReverse(DartDartObj ctrl) {
-  AnimatedWrapper.reverse(_widgetsMap[ctrl]! as AnimationController);
-}
-void animatedWrapperStop(DartDartObj ctrl) {
-  AnimatedWrapper.stop(_widgetsMap[ctrl]! as AnimationController);
-}
-void animatedWrapperRepeat(DartDartObj ctrl) {
-  AnimatedWrapper.repeat(_widgetsMap[ctrl]! as AnimationController);
-}
-void animatedWrapperReset(DartDartObj ctrl) {
-  AnimatedWrapper.reset(_widgetsMap[ctrl]! as AnimationController);
-}
-void animatedWrapperSetDuration(DartDartObj ctrl, DartDartObj d) {
-  AnimatedWrapper.setDuration(_widgetsMap[ctrl]! as AnimationController,
-      _widgetsMap[d]! as Duration);
-}
-void animatedWrapperSetReverseDuration(DartDartObj ctrl, DartDartObj d) {
-  AnimatedWrapper.setReverseDuration(_widgetsMap[ctrl]! as AnimationController,
-      _widgetsMap[d]! as Duration);
-}
-AnimatedWrapperObjSt _createAnimatedWrapperObjSt(AnimatedWrapper? w) {
-  final AnimatedWrapperObjSt stObj = ffi.Struct.create();
+SubAnimatedStateObjSt subAnimatedStateSubAnimatedState(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn) {
+  final w = SubAnimatedState(initStateFn: initStateFn.toVoidCallbackFn(),
+      didUpdateWidgetFn: didUpdateWidgetFn.toVoidCallbackDartObjFn(),
+      reassembleFn: reassembleFn.toVoidCallbackFn(),
+      deactivateFn: deactivateFn.toVoidCallbackFn(),
+      activateFn: activateFn.toVoidCallbackFn(),
+      disposeFn: disposeFn.toVoidCallbackFn(),
+      buildFn: buildFn.toDartObjCallbackDartObjFn(),
+      didChangeDependenciesFn: didChangeDependenciesFn.toVoidCallbackFn());
+  final SubAnimatedStateObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
-  if (w == null) return stObj;
+  final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.listener((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
+  stObj.setState = setStateFn.nativeFunction;
+  final widgetFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.widget), exceptionalReturn: exception);
+  stObj.widget = widgetFn.nativeFunction;
+  final contextFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.context), exceptionalReturn: exception);
+  stObj.context = contextFn.nativeFunction;
+  final mountedFn = ffi.NativeCallable<ffi.Int Function()>.isolateLocal(() => w.mounted.toInt(), exceptionalReturn: exception);
+  stObj.mounted = mountedFn.nativeFunction;
   return stObj;
+}
+int subAnimatedStateAnimationController(DartDartObj self, DartDartObj duration) {
+  final w = SubAnimatedStateMethods.animationController(_widgetsMap[self]! as SubAnimatedState<StatefulWidget>,
+      _widgetsMap[duration]! as Duration);
+  return _addWidget(w);
 }
 
 ffi.Pointer<WidgetFactories> _setupFactories() {
@@ -3999,7 +4015,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
-  _setupAnimatedWrapper(f);
+  _setupSubAnimatedState(f);
   _setupAlign(f);
   _setupFlex(f);
   _setupBoxParentData(f);
@@ -4233,30 +4249,5 @@ extension on DartObjCallbackFFI {
 }
 extension on ffi.Pointer<DartObjCallbackFFI> {
   State<StatefulWidget> Function()? toDartObjCallbackFn() => (this != ffi.nullptr) ? this.value.toDartObjCallbackFn() : null;
-}
-
-extension on VoidCallbackintFFI {
-  void Function(int) toVoidCallbackintFn() {
-    return (int ctrlId) {
-      DartVoidCallbackintFFIFunction dFn = asFunction();
-      dFn(ctrlId);
-    };
-  }
-}
-extension on ffi.Pointer<VoidCallbackintFFI> {
-  void Function(int)? toVoidCallbackintFn() => (this != ffi.nullptr) ? this.value.toVoidCallbackintFn() : null;
-}
-
-extension on WidgetCallbackFFI {
-  WidgetCallback toWidgetCallbackFn() {
-    return () => _runBuildScope(() {
-      DartWidgetCallbackFFIFunction dFn = asFunction();
-      final dFnRet = dFn();
-      return _widgetsMap[dFnRet]! as Widget;
-    });
-  }
-}
-extension on ffi.Pointer<WidgetCallbackFFI> {
-  WidgetCallback? toWidgetCallbackFn() => (this != ffi.nullptr) ? this.value.toWidgetCallbackFn() : null;
 }
 

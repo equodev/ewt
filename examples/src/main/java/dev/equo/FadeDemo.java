@@ -26,31 +26,38 @@ public class FadeDemo {
         }
     }
 
-    static class FadePageState extends SubState<FadePage> {
-        AnimationController ctrl;
+    static class FadePageState extends SubAnimatedState<FadePage> {
+        private AnimationController ctrl;
+
+        @Override
+        public void initState() {
+            super.initState();
+            ctrl = animationController(Duration().milliseconds(500));
+        }
 
         @Override
         public Widget build(BuildContext context) {
             return Scaffold()
                     .appBar(AppBar().title(Text("Fade Demo")))
-                    .body(Center().child(
-                            AnimatedWrapper(
-                                    ctrlId -> {
-                                        ctrl = AnimationController.byId(ctrlId);
-                                        AnimatedWrapper.setDuration(ctrl, Duration().milliseconds(500));
-                                    },
-                                    () -> Column()
-                                            .mainAxisAlignment(MainAxisAlignment.center)
-                                            .children(List.of(
-                                                    FadeTransition(ctrl).child(Text("Hola, EWT")),
-                                                    ElevatedButton(() -> AnimatedWrapper.forward(ctrl))
-                                                            .child(Text("Mostrar")),
-                                                    ElevatedButton(() -> AnimatedWrapper.reverse(ctrl))
-                                                            .child(Text("Ocultar"))
-                                            ))
-                                            .build()
-                            )
+                    .body(Center().child(body()));
+        }
+
+        private Widget body() {
+            return Column()
+                    .mainAxisAlignment(MainAxisAlignment.center)
+                    .children(List.of(
+                            fadingText(),
+                            button("Mostrar", ctrl::forward),
+                            button("Ocultar", ctrl::reverse)
                     ));
+        }
+
+        private Widget fadingText() {
+            return FadeTransition(ctrl).child(Text("Hola, EWT"));
+        }
+
+        private Widget button(String label, Runnable action) {
+            return ElevatedButton(action).child(Text(label));
         }
     }
 }

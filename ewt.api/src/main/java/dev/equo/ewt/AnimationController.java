@@ -41,6 +41,29 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   public static AnimationControllerUnboundedBuilder unbounded() {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
   }
+  public void forward() {
+    factories.animationControllerForward(this);
+  }
+  public void reverse() {
+    factories.animationControllerReverse(this);
+  }
+  public void stop() {
+    factories.animationControllerStop(this);
+  }
+  public void repeat() {
+    factories.animationControllerRepeat(this);
+  }
+  public void reset() {
+    factories.animationControllerReset(this);
+  }
+  public void setDuration(DurationI d) {
+    factories.animationControllerSetDuration(this,
+      d.build());
+  }
+  public void setReverseDuration(DurationI d) {
+    factories.animationControllerSetReverseDuration(this,
+      d.build());
+  }
   @Override
   public AnimationController build() {
     return this;

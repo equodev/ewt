@@ -16,5 +16,3 @@ typedef void (*GestureDragCancelCallbackFFI)(void);
 typedef void (*VoidCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackFFI)(void);
-typedef void (*VoidCallbackintFFI)(int ctrlId);
-typedef DartObj (*WidgetCallbackFFI)(void);

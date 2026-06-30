@@ -41,14 +41,17 @@ public class AnimationPlaygroundDemo {
         }
     }
 
-    static class HomePageState extends SubState<HomePage> {
-        // Main controller (composed card)
-        AnimationController mainCtrl;
-        // Remembers the last direction so "Resume" continues toward the same bound
-        boolean lastDirectionForward = true;
+    static class HomePageState extends SubAnimatedState<HomePage> {
+        private AnimationController mainCtrl;
+        private AnimationController holdCtrl;
+        private boolean lastDirectionForward = true;
 
-        // Second controller (hold-to-spin)
-        AnimationController holdCtrl;
+        @Override
+        public void initState() {
+            super.initState();
+            mainCtrl = animationController(Duration().milliseconds(900));
+            holdCtrl = animationController(Duration().milliseconds(700));
+        }
 
         @Override
         public Widget build(BuildContext context) {
@@ -57,112 +60,142 @@ public class AnimationPlaygroundDemo {
                             .title(Text("Animation Playground"))
                             .backgroundColor(Theme.of(context).colorScheme().inversePrimary()))
                     .body(SingleChildScrollView().child(
-                            Padding(EdgeInsets_all(24.0)).child(
-                                    Column().mainAxisAlignment(MainAxisAlignment.center)
-                                            .children(List.of(
-                                                    composedCardSection(),
-                                                    SizedBox().height(48.0),
-                                                    Divider(),
-                                                    SizedBox().height(24.0),
-                                                    holdToSpinSection()
-                                            )).build())));
+                            Padding(EdgeInsets_all(24.0)).child(body())));
         }
+
+        private Widget body() {
+            return Column().mainAxisAlignment(MainAxisAlignment.center)
+                    .children(List.of(
+                            composedCardSection(),
+                            SizedBox().height(48.0),
+                            Divider(),
+                            SizedBox().height(24.0),
+                            holdToSpinSection()
+                    ));
+        }
+
+        // ----- Composed card section ------------------------------------------------
 
         private Widget composedCardSection() {
-            return AnimatedWrapper(
-                    ctrlId -> {
-                        mainCtrl = AnimationController.byId(ctrlId);
-                        AnimatedWrapper.setDuration(mainCtrl, Duration().milliseconds(900));
-                    },
-                    () -> Column().children(List.of(
-                            Text("Composed transitions").style(TextStyle().fontSize(20.0).fontWeight(FontWeight.bold())),
-                            SizedBox().height(16.0),
-                            // The same controller drives three transitions each through a
-                            // different curve.
-                            ScaleTransition(CurvedAnimation(mainCtrl, Curves.elasticOut()))
-                                    .child(RotationTransition(CurvedAnimation(mainCtrl, Curves.easeOut()))
-                                            .child(FadeTransition(CurvedAnimation(mainCtrl, Curves.easeIn()))
-                                                    .child(Card()
-                                                            .elevation(8.0)
-                                                            .child(Padding(EdgeInsets_all(32.0))
-                                                                    .child(Icon(Icons.rocket())
-                                                                            .size(96.0)
-                                                                            .color(Colors.teal())))))),
-                            SizedBox().height(32.0),
-                            // Action row
-                            Wrap()
-                                    .spacing(8.0)
-                                    .runSpacing(8.0)
-                                    .alignment(WrapAlignment.center)
-                                    .children(List.of(
-                                            FilledButton(this::doForward).child(Text("Reveal")),
-                                            FilledButton_tonal(this::doReverse).child(Text("Hide")),
-                                            OutlinedButton(() -> AnimatedWrapper.stop(mainCtrl)).child(Text("Stop")),
-                                            OutlinedButton(this::doResume).child(Text("Resume")),
-                                            ElevatedButton(() -> AnimatedWrapper.repeat(mainCtrl)).child(Text("Pulse"))
-                                    )),
-                            SizedBox().height(16.0),
-                            // Speed row — swaps controller duration on the fly
-                            Text("Speed").style(TextStyle().fontSize(14.0).color(Colors.black54())),
-                            SizedBox().height(8.0),
-                            Wrap()
-                                    .spacing(8.0)
-                                    .alignment(WrapAlignment.center)
-                                    .children(List.of(
-                                            OutlinedButton(() -> AnimatedWrapper.setDuration(mainCtrl, Duration().milliseconds(1800)))
-                                                    .child(Text("Slow")),
-                                            OutlinedButton(() -> AnimatedWrapper.setDuration(mainCtrl, Duration().milliseconds(900)))
-                                                    .child(Text("Normal")),
-                                            OutlinedButton(() -> AnimatedWrapper.setDuration(mainCtrl, Duration().milliseconds(300)))
-                                                    .child(Text("Fast"))
-                                    ))
-                    )).build());
+            return Column().children(List.of(
+                    sectionTitle("Composed transitions"),
+                    SizedBox().height(16.0),
+                    revealableRocket(),
+                    SizedBox().height(32.0),
+                    actionButtons(),
+                    SizedBox().height(16.0),
+                    captionLabel("Speed"),
+                    SizedBox().height(8.0),
+                    speedButtons()
+            ));
         }
 
-        private Widget holdToSpinSection() {
-            return AnimatedWrapper(
-                    ctrlId -> {
-                        holdCtrl = AnimationController.byId(ctrlId);
-                        AnimatedWrapper.setDuration(holdCtrl, Duration().milliseconds(700));
-                    },
-                    () -> Column().children(List.of(
-                            Text("Hold to spin")
-                                    .style(TextStyle().fontSize(20.0).fontWeight(FontWeight.bold())),
-                            SizedBox().height(4.0),
-                            Text("Long-press the badge to play it forward. Release to reverse it.")
-                                    .style(TextStyle().fontSize(13.0).color(Colors.black54())),
-                            SizedBox().height(24.0),
-                            GestureDetector()
-                                    .onLongPress(() -> AnimatedWrapper.forward(holdCtrl))
-                                    .onLongPressUp(() -> AnimatedWrapper.reverse(holdCtrl))
-                                    .child(RotationTransition(holdCtrl)
-                                            .child(Container()
-                                                    .width(140.0)
-                                                    .height(140.0)
-                                                    .decoration(BoxDecoration()
-                                                            .color(Colors.teal())
-                                                            .borderRadius(BorderRadius_circular(70.0)))
-                                                    .child(Center().child(Icon(Icons.star())
-                                                            .size(72.0)
-                                                            .color(Colors.white())))))
-                    )).build());
+        // Three transitions stacked over the same card, each driven by mainCtrl
+        // through a different curve so scale/rotation/opacity feel distinct.
+        private Widget revealableRocket() {
+            return ScaleTransition(curved(Curves.elasticOut()))
+                    .child(RotationTransition(curved(Curves.easeOut()))
+                            .child(FadeTransition(curved(Curves.easeIn()))
+                                    .child(rocketCard())));
         }
 
-        // --- Main controller actions with direction tracking for Resume ---
+        private Widget rocketCard() {
+            return Card()
+                    .elevation(8.0)
+                    .child(Padding(EdgeInsets_all(32.0))
+                            .child(Icon(Icons.rocket())
+                                    .size(96.0)
+                                    .color(Colors.teal())));
+        }
+
+        private CurvedAnimation curved(Curve curve) {
+            return CurvedAnimation(mainCtrl, curve).build();
+        }
+
+        private Widget actionButtons() {
+            return Wrap()
+                    .spacing(8.0)
+                    .runSpacing(8.0)
+                    .alignment(WrapAlignment.center)
+                    .children(List.of(
+                            FilledButton(this::doForward).child(Text("Reveal")),
+                            FilledButton_tonal(this::doReverse).child(Text("Hide")),
+                            OutlinedButton(mainCtrl::stop).child(Text("Stop")),
+                            OutlinedButton(this::doResume).child(Text("Resume")),
+                            ElevatedButton(mainCtrl::repeat).child(Text("Pulse"))
+                    ));
+        }
+
+        private Widget speedButtons() {
+            return Wrap()
+                    .spacing(8.0)
+                    .alignment(WrapAlignment.center)
+                    .children(List.of(
+                            speedButton("Slow", 1800),
+                            speedButton("Normal", 900),
+                            speedButton("Fast", 300)
+                    ));
+        }
+
+        private Widget speedButton(String label, int millis) {
+            return OutlinedButton(() -> mainCtrl.setDuration(Duration().milliseconds(millis)))
+                    .child(Text(label));
+        }
 
         private void doForward() {
             lastDirectionForward = true;
-            AnimatedWrapper.forward(mainCtrl);
+            mainCtrl.forward();
         }
 
         private void doReverse() {
             lastDirectionForward = false;
-            AnimatedWrapper.reverse(mainCtrl);
+            mainCtrl.reverse();
         }
 
         private void doResume() {
-            if (lastDirectionForward) AnimatedWrapper.forward(mainCtrl);
-            else AnimatedWrapper.reverse(mainCtrl);
+            if (lastDirectionForward) mainCtrl.forward();
+            else mainCtrl.reverse();
+        }
+
+        // ----- Hold-to-spin section -------------------------------------------------
+
+        private Widget holdToSpinSection() {
+            return Column().children(List.of(
+                    sectionTitle("Hold to spin"),
+                    SizedBox().height(4.0),
+                    captionLabel("Long-press the badge to play it forward. Release to reverse it."),
+                    SizedBox().height(24.0),
+                    holdBadge()
+            ));
+        }
+
+        private Widget holdBadge() {
+            return GestureDetector()
+                    .onLongPress(holdCtrl::forward)
+                    .onLongPressUp(holdCtrl::reverse)
+                    .child(RotationTransition(holdCtrl).child(badgeCircle()));
+        }
+
+        private Widget badgeCircle() {
+            return Container()
+                    .width(140.0)
+                    .height(140.0)
+                    .decoration(BoxDecoration()
+                            .color(Colors.teal())
+                            .borderRadius(BorderRadius_circular(70.0)))
+                    .child(Center().child(Icon(Icons.star())
+                            .size(72.0)
+                            .color(Colors.white())));
+        }
+
+        // ----- Shared text helpers --------------------------------------------------
+
+        private Widget sectionTitle(String text) {
+            return Text(text).style(TextStyle().fontSize(20.0).fontWeight(FontWeight.bold()));
+        }
+
+        private Widget captionLabel(String text) {
+            return Text(text).style(TextStyle().fontSize(13.0).color(Colors.black54()));
         }
     }
 }

@@ -2,7 +2,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
 import 'subwidgets.dart' as s;
-import 'animated_wrapper.dart' as a;
+import 'sub_animated_state.dart' as sas;
+import 'animation_controller_methods.dart' as acm;
+import 'sub_animated_state_methods.dart' as sasm;
 
 w.Widget? widget;
 // w.StatefulWidget? statefulWidget;
@@ -107,8 +109,10 @@ m.LinearProgressIndicator? linearProgressIndicator;
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;
+sas.SubAnimatedState? subAnimatedState;
 
-a.AnimatedWrapper? animatedWrapper;
+acm.AnimationControllerMethods? animationControllerMethods;
+sasm.SubAnimatedStateMethods? subAnimatedStateMethods;
 
 const showDialog = m.showDialog;
 

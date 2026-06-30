@@ -549,8 +549,4 @@ public class EWT {
     return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
   }
 
-  public static AnimatedWrapperAnimatedWrapperBuilder AnimatedWrapper(Consumer<Integer> initAnimationFn, Supplier<Widget> buildAnimatedFn) {
-    return AnimatedWrapperAnimatedWrapperBuilder.animatedWrapperAnimatedWrapper(initAnimationFn, buildAnimatedFn);
-  }
-
 }

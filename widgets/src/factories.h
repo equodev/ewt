@@ -194,6 +194,13 @@ typedef struct {
   struct AnimationControllerSt {
     DartObj (*animationController)(double* value, DartObj* duration, DartObj* reverseDuration, char* debugLabel, double* lowerBound, double* upperBound, int* animationBehavior, DartObj vsync);
     DartObj (*unbounded)(double* value, DartObj* duration, DartObj* reverseDuration, char* debugLabel, DartObj vsync, int* animationBehavior);
+    void (*forward)(DartObj self);
+    void (*reverse)(DartObj self);
+    void (*stop)(DartObj self);
+    void (*repeat)(DartObj self);
+    void (*reset)(DartObj self);
+    void (*setDuration)(DartObj self, DartObj d);
+    void (*setReverseDuration)(DartObj self, DartObj d);
   } animationController;
 
   struct DurationSt {
@@ -502,15 +509,9 @@ typedef struct {
     SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI buildFn);
   } subStatelessWidget;
 
-  struct AnimatedWrapperSt {
-    AnimatedWrapperObjSt (*animatedWrapper)(VoidCallbackintFFI initAnimationFn, WidgetCallbackFFI buildAnimatedFn);
-    void (*forward)(DartObj ctrl);
-    void (*reverse)(DartObj ctrl);
-    void (*stop)(DartObj ctrl);
-    void (*repeat)(DartObj ctrl);
-    void (*reset)(DartObj ctrl);
-    void (*setDuration)(DartObj ctrl, DartObj d);
-    void (*setReverseDuration)(DartObj ctrl, DartObj d);
-  } animatedWrapper;
+  struct SubAnimatedStateSt {
+    SubAnimatedStateObjSt (*subAnimatedState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
+    DartObj (*animationController)(DartObj self, DartObj duration);
+  } subAnimatedState;
 
 } WidgetFactories;

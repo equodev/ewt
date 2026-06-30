@@ -1007,5 +1007,9 @@ typedef struct {
 
 typedef struct {
   int id;
-} AnimatedWrapperObjSt;
+  DartObj (*widget)(void);
+  DartObj (*context)(void);
+  int (*mounted)(void);
+  void (*setState)(VoidCallbackFFI fn);
+} SubAnimatedStateObjSt;
 

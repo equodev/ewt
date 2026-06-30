@@ -313,7 +313,7 @@ final class WidgetFactories extends ffi.Struct {
 
   external SubStatelessWidgetSt subStatelessWidget;
 
-  external AnimatedWrapperSt animatedWrapper;
+  external SubAnimatedStateSt subAnimatedState;
 }
 
 typedef DartObj = ffi.Int;
@@ -1509,6 +1509,29 @@ final class AnimationControllerSt extends ffi.Struct {
               ffi.Pointer<ffi.Char> debugLabel,
               DartObj vsync,
               ffi.Pointer<ffi.Int> animationBehavior)>> unbounded;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      forward;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      reverse;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      stop;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      repeat;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      reset;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self, DartObj d)>>
+      setDuration;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self, DartObj d)>>
+      setReverseDuration;
 }
 
 final class DurationSt extends ffi.Struct {
@@ -5230,46 +5253,35 @@ final class SubStatelessWidgetObjSt extends ffi.Struct {
   external int id;
 }
 
-final class AnimatedWrapperSt extends ffi.Struct {
+final class SubAnimatedStateSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
-          AnimatedWrapperObjSt Function(VoidCallbackintFFI initAnimationFn,
-              WidgetCallbackFFI buildAnimatedFn)>> animatedWrapper;
+          SubAnimatedStateObjSt Function(
+              VoidCallbackFFI initStateFn,
+              VoidCallbackDartObjFFI didUpdateWidgetFn,
+              VoidCallbackFFI reassembleFn,
+              VoidCallbackFFI deactivateFn,
+              VoidCallbackFFI activateFn,
+              VoidCallbackFFI disposeFn,
+              DartObjCallbackDartObjFFI buildFn,
+              VoidCallbackFFI didChangeDependenciesFn)>> subAnimatedState;
 
-  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
-      forward;
-
-  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
-      reverse;
-
-  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
-      stop;
-
-  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
-      repeat;
-
-  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl)>>
-      reset;
-
-  external ffi
-      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl, DartObj d)>>
-      setDuration;
-
-  external ffi
-      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj ctrl, DartObj d)>>
-      setReverseDuration;
+  external ffi.Pointer<
+          ffi.NativeFunction<DartObj Function(DartObj self, DartObj duration)>>
+      animationController;
 }
 
-final class AnimatedWrapperObjSt extends ffi.Struct {
+final class SubAnimatedStateObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
-}
 
-typedef VoidCallbackintFFI
-    = ffi.Pointer<ffi.NativeFunction<VoidCallbackintFFIFunction>>;
-typedef VoidCallbackintFFIFunction = ffi.Void Function(ffi.Int ctrlId);
-typedef DartVoidCallbackintFFIFunction = void Function(int ctrlId);
-typedef WidgetCallbackFFI
-    = ffi.Pointer<ffi.NativeFunction<WidgetCallbackFFIFunction>>;
-typedef WidgetCallbackFFIFunction = DartObj Function();
-typedef DartWidgetCallbackFFIFunction = DartDartObj Function();
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> widget;
+
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> context;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>> mounted;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(VoidCallbackFFI fn)>>
+      setState;
+}
