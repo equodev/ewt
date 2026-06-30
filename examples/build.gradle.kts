@@ -46,9 +46,14 @@ tasks.test {
 
 application {
     mainClass = providers.gradleProperty("mainClass").getOrElse("dev.equo.Counter")
-    applicationDefaultJvmArgs = listOf(
-        "--enable-native-access=ALL-UNNAMED"
-    )
+    applicationDefaultJvmArgs = buildList {
+        add("--enable-native-access=ALL-UNNAMED")
+        // macOS requires the Flutter/Cocoa run loop to own the first thread,
+        // otherwise startApp crashes because it is not running on the main thread.
+        if (System.getProperty("os.name").lowercase().contains("mac")) {
+            add("-XstartOnFirstThread")
+        }
+    }
 }
 
 tasks.named<JavaExec>("run") {
