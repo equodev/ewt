@@ -21,14 +21,21 @@ final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;
 const exceptionDouble = -1.0;
 Map<int, Object> _widgetsMap = {};
+// Identity-keyed reverse map so _addWidget can dedup by reference: the same
+// Dart object passed in twice gets the same id, so the Java SubclassedInJava
+// registry (keyed on the original construction-time id) keeps resolving.
+final Map<Object, int> _widgetIdByRef = Map.identity();
 final _buildScopeStack = <Set<int>>[];
 var _nextWidgetId = 1;
 
 Object getWidget(int id) => _widgetsMap[id]!;
 int _addWidget(Object? w) {
   if (w == null) return 0;
+  final existing = _widgetIdByRef[w];
+  if (existing != null) return existing;
   final id = _nextWidgetId++;
   _widgetsMap[id] = w;
+  _widgetIdByRef[w] = id;
   // BuildContext and State outlive the build scope that created them: BuildContext
   // is captured by button callbacks (e.g. Navigator.pop(ctx)); State is owned by
   // Flutter and may be dispatched back to via id (e.g. animationController() on
@@ -45,7 +52,11 @@ T _runBuildScope<T>(T Function() fn) {
     return fn();
   } finally {
     final scope = _buildScopeStack.removeLast();
-    _widgetsMap.removeWhere((k, _) => scope.contains(k));
+    _widgetsMap.removeWhere((k, v) {
+      if (!scope.contains(k)) return false;
+      _widgetIdByRef.remove(v);
+      return true;
+    });
   }
 }
 extension on int {
