@@ -227,6 +227,12 @@ final class WidgetFactories extends ffi.Struct {
 
   external SafeAreaSt safeArea;
 
+  external RotationTransitionSt rotationTransition;
+
+  external FadeTransitionSt fadeTransition;
+
+  external ScaleTransitionSt scaleTransition;
+
   external ColorSchemeSt colorScheme;
 
   external MaterialColorSt materialColor;
@@ -306,6 +312,8 @@ final class WidgetFactories extends ffi.Struct {
   external SubStatefulWidgetSt subStatefulWidget;
 
   external SubStatelessWidgetSt subStatelessWidget;
+
+  external SubAnimatedStateSt subAnimatedState;
 }
 
 typedef DartObj = ffi.Int;
@@ -1501,6 +1509,29 @@ final class AnimationControllerSt extends ffi.Struct {
               ffi.Pointer<ffi.Char> debugLabel,
               DartObj vsync,
               ffi.Pointer<ffi.Int> animationBehavior)>> unbounded;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      forward;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      reverse;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      stop;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      repeat;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self)>>
+      reset;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self, DartObj d)>>
+      setDuration;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(DartObj self, DartObj d)>>
+      setReverseDuration;
 }
 
 final class DurationSt extends ffi.Struct {
@@ -1847,6 +1878,62 @@ final class SafeAreaObjSt extends ffi.Struct {
 
   @DartObj()
   external int child;
+}
+
+final class RotationTransitionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          RotationTransitionObjSt Function(
+              DartObj turns,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> filterQuality,
+              ffi.Pointer<DartObj> child)>> rotationTransition;
+}
+
+final class RotationTransitionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int turns;
+}
+
+final class FadeTransitionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FadeTransitionObjSt Function(
+              DartObj opacity,
+              ffi.Pointer<ffi.Int> alwaysIncludeSemantics,
+              ffi.Pointer<DartObj> child)>> fadeTransition;
+}
+
+final class FadeTransitionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int opacity;
+
+  @ffi.Int()
+  external int alwaysIncludeSemantics;
+}
+
+final class ScaleTransitionSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ScaleTransitionObjSt Function(
+              DartObj scale,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> filterQuality,
+              ffi.Pointer<DartObj> child)>> scaleTransition;
+}
+
+final class ScaleTransitionObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int scale;
 }
 
 final class ColorSchemeSt extends ffi.Struct {
@@ -5164,4 +5251,37 @@ final class SubStatelessWidgetSt extends ffi.Struct {
 final class SubStatelessWidgetObjSt extends ffi.Struct {
   @ffi.Int()
   external int id;
+}
+
+final class SubAnimatedStateSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SubAnimatedStateObjSt Function(
+              VoidCallbackFFI initStateFn,
+              VoidCallbackDartObjFFI didUpdateWidgetFn,
+              VoidCallbackFFI reassembleFn,
+              VoidCallbackFFI deactivateFn,
+              VoidCallbackFFI activateFn,
+              VoidCallbackFFI disposeFn,
+              DartObjCallbackDartObjFFI buildFn,
+              VoidCallbackFFI didChangeDependenciesFn)>> subAnimatedState;
+
+  external ffi.Pointer<
+          ffi.NativeFunction<DartObj Function(DartObj self, DartObj duration)>>
+      animationController;
+}
+
+final class SubAnimatedStateObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> widget;
+
+  external ffi.Pointer<ffi.NativeFunction<DartObj Function()>> context;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>> mounted;
+
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(VoidCallbackFFI fn)>>
+      setState;
 }

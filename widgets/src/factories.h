@@ -194,6 +194,13 @@ typedef struct {
   struct AnimationControllerSt {
     DartObj (*animationController)(double* value, DartObj* duration, DartObj* reverseDuration, char* debugLabel, double* lowerBound, double* upperBound, int* animationBehavior, DartObj vsync);
     DartObj (*unbounded)(double* value, DartObj* duration, DartObj* reverseDuration, char* debugLabel, DartObj vsync, int* animationBehavior);
+    void (*forward)(DartObj self);
+    void (*reverse)(DartObj self);
+    void (*stop)(DartObj self);
+    void (*repeat)(DartObj self);
+    void (*reset)(DartObj self);
+    void (*setDuration)(DartObj self, DartObj d);
+    void (*setReverseDuration)(DartObj self, DartObj d);
   } animationController;
 
   struct DurationSt {
@@ -273,6 +280,18 @@ typedef struct {
   struct SafeAreaSt {
     SafeAreaObjSt (*safeArea)(int* left, int* top, int* right, int* bottom, DartObj* minimum, int* maintainBottomViewPadding, DartObj child);
   } safeArea;
+
+  struct RotationTransitionSt {
+    RotationTransitionObjSt (*rotationTransition)(DartObj turns, DartObj* alignment, int* filterQuality, DartObj* child);
+  } rotationTransition;
+
+  struct FadeTransitionSt {
+    FadeTransitionObjSt (*fadeTransition)(DartObj opacity, int* alwaysIncludeSemantics, DartObj* child);
+  } fadeTransition;
+
+  struct ScaleTransitionSt {
+    ScaleTransitionObjSt (*scaleTransition)(DartObj scale, DartObj* alignment, int* filterQuality, DartObj* child);
+  } scaleTransition;
 
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
@@ -489,5 +508,10 @@ typedef struct {
   struct SubStatelessWidgetSt {
     SubStatelessWidgetObjSt (*subStatelessWidget)(DartObjCallbackDartObjFFI buildFn);
   } subStatelessWidget;
+
+  struct SubAnimatedStateSt {
+    SubAnimatedStateObjSt (*subAnimatedState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
+    DartObj (*animationController)(DartObj self, DartObj duration);
+  } subAnimatedState;
 
 } WidgetFactories;

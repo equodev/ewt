@@ -8,6 +8,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   AnimationController(int id) {
     this.id = id;
   }
+  public static AnimationController byId(int id) { return new AnimationController(id); }
   @Builder.Factory
   static AnimationController animationControllerAnimationController(OptionalDouble value, Optional<DurationI> duration, Optional<DurationI> reverseDuration, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProviderI vsync) {
     int id = factories.animationControllerAnimationController(value,
@@ -39,6 +40,29 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   }
   public static AnimationControllerUnboundedBuilder unbounded() {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
+  }
+  public void forward() {
+    factories.animationControllerForward(this);
+  }
+  public void reverse() {
+    factories.animationControllerReverse(this);
+  }
+  public void stop() {
+    factories.animationControllerStop(this);
+  }
+  public void repeat() {
+    factories.animationControllerRepeat(this);
+  }
+  public void reset() {
+    factories.animationControllerReset(this);
+  }
+  public void setDuration(DurationI d) {
+    factories.animationControllerSetDuration(this,
+      d.build());
+  }
+  public void setReverseDuration(DurationI d) {
+    factories.animationControllerSetReverseDuration(this,
+      d.build());
   }
   @Override
   public AnimationController build() {

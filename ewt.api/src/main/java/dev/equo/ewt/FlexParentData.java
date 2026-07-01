@@ -8,6 +8,7 @@ public class FlexParentData extends ContainerBoxParentData<RenderBox> implements
   FlexParentData(int id) {
     this.id = id;
   }
+  public static FlexParentData byId(int id) { return new FlexParentData(id); }
   @Builder.Factory
   static FlexParentData flexParentDataFlexParentData() {
     int id = factories.flexParentDataFlexParentData();

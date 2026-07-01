@@ -8,6 +8,7 @@ public class StackParentData extends ContainerBoxParentData<RenderBox> implement
   StackParentData(int id) {
     this.id = id;
   }
+  public static StackParentData byId(int id) { return new StackParentData(id); }
   @Builder.Factory
   static StackParentData stackParentDataStackParentData() {
     int id = factories.stackParentDataStackParentData();

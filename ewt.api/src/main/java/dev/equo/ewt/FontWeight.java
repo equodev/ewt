@@ -8,6 +8,7 @@ public class FontWeight extends NativeObj.Base implements FontWeightI {
   FontWeight(int id) {
     this.id = id;
   }
+  public static FontWeight byId(int id) { return new FontWeight(id); }
   @Builder.Factory
   static FontWeight fontWeightFontWeight(@Builder.Parameter int value) {
     int id = factories.fontWeightFontWeight(value);

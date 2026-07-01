@@ -729,6 +729,43 @@ class WidgetConstructors extends WidgetConstructorsBase {
       vsync.build().getId(),
       ptrEnum(animationBehavior));
   }
+  void animationControllerForward(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.forward(st);
+    WidgetFactories.AnimationControllerSt.forward.invoke(fn, self.build().getId());
+  }
+  void animationControllerReverse(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.reverse(st);
+    WidgetFactories.AnimationControllerSt.reverse.invoke(fn, self.build().getId());
+  }
+  void animationControllerStop(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.stop(st);
+    WidgetFactories.AnimationControllerSt.stop.invoke(fn, self.build().getId());
+  }
+  void animationControllerRepeat(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.repeat(st);
+    WidgetFactories.AnimationControllerSt.repeat.invoke(fn, self.build().getId());
+  }
+  void animationControllerReset(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.reset(st);
+    WidgetFactories.AnimationControllerSt.reset.invoke(fn, self.build().getId());
+  }
+  void animationControllerSetDuration(AnimationController self, Duration d) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.setDuration(st);
+    WidgetFactories.AnimationControllerSt.setDuration.invoke(fn, self.build().getId(),
+      d.build().getId());
+  }
+  void animationControllerSetReverseDuration(AnimationController self, Duration d) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.setReverseDuration(st);
+    WidgetFactories.AnimationControllerSt.setReverseDuration.invoke(fn, self.build().getId(),
+      d.build().getId());
+  }
 
   int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
     var st = WidgetFactories.duration(factories);
@@ -913,6 +950,32 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(minimum),
       ptrBool(maintainBottomViewPadding),
       child.build().getId());
+  }
+
+  MemorySegment rotationTransitionRotationTransition(Animation turns, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
+    var st = WidgetFactories.rotationTransition(factories);
+    var fn = WidgetFactories.RotationTransitionSt.rotationTransition(st);
+    return WidgetFactories.RotationTransitionSt.rotationTransition.invoke(fn, arena, turns.build().getId(),
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(child));
+  }
+
+  MemorySegment fadeTransitionFadeTransition(Animation opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> child) {
+    var st = WidgetFactories.fadeTransition(factories);
+    var fn = WidgetFactories.FadeTransitionSt.fadeTransition(st);
+    return WidgetFactories.FadeTransitionSt.fadeTransition.invoke(fn, arena, opacity.build().getId(),
+      ptrBool(alwaysIncludeSemantics),
+      ptrObj(child));
+  }
+
+  MemorySegment scaleTransitionScaleTransition(Animation scale, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
+    var st = WidgetFactories.scaleTransition(factories);
+    var fn = WidgetFactories.ScaleTransitionSt.scaleTransition(st);
+    return WidgetFactories.ScaleTransitionSt.scaleTransition.invoke(fn, arena, scale.build().getId(),
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(child));
   }
 
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
@@ -2532,6 +2595,25 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.subStatelessWidget(factories);
     var fn = WidgetFactories.SubStatelessWidgetSt.subStatelessWidget(st);
     return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrDartObjCallbackDartObjFn(buildFn));
+  }
+
+  <T extends StatefulWidget> MemorySegment subAnimatedStateSubAnimatedState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
+    var st = WidgetFactories.subAnimatedState(factories);
+    var fn = WidgetFactories.SubAnimatedStateSt.subAnimatedState(st);
+    return WidgetFactories.SubAnimatedStateSt.subAnimatedState.invoke(fn, arena, ptrVoidCallbackFn(initStateFn),
+      ptrVoidCallbackDartObjFn(didUpdateWidgetFn),
+      ptrVoidCallbackFn(reassembleFn),
+      ptrVoidCallbackFn(deactivateFn),
+      ptrVoidCallbackFn(activateFn),
+      ptrVoidCallbackFn(disposeFn),
+      ptrDartObjCallbackDartObjFn(buildFn),
+      ptrVoidCallbackFn(didChangeDependenciesFn));
+  }
+  int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
+    var st = WidgetFactories.subAnimatedState(factories);
+    var fn = WidgetFactories.SubAnimatedStateSt.animationController(st);
+    return WidgetFactories.SubAnimatedStateSt.animationController.invoke(fn, self.build().getId(),
+      duration.build().getId());
   }
 
 MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {

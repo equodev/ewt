@@ -8,6 +8,7 @@ public class Offset extends OffsetBase implements OffsetI {
   Offset(int id) {
     this.id = id;
   }
+  public static Offset byId(int id) { return new Offset(id); }
   @Builder.Factory
   static Offset offsetOffset(@Builder.Parameter double dx, @Builder.Parameter double dy) {
     int id = factories.offsetOffset(dx,

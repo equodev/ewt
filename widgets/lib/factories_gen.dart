@@ -1051,6 +1051,13 @@ RoundedRectangleBorderObjSt _createRoundedRectangleBorderObjSt(RoundedRectangleB
 void _setupAnimationController(WidgetFactories f) {
   f.animationController.animationController = ffi.Pointer.fromFunction(animationControllerAnimationController, exception);
   f.animationController.unbounded = ffi.Pointer.fromFunction(animationControllerUnbounded, exception);
+  f.animationController.forward = ffi.Pointer.fromFunction(animationControllerForward);
+  f.animationController.reverse = ffi.Pointer.fromFunction(animationControllerReverse);
+  f.animationController.stop = ffi.Pointer.fromFunction(animationControllerStop);
+  f.animationController.repeat = ffi.Pointer.fromFunction(animationControllerRepeat);
+  f.animationController.reset = ffi.Pointer.fromFunction(animationControllerReset);
+  f.animationController.setDuration = ffi.Pointer.fromFunction(animationControllerSetDuration);
+  f.animationController.setReverseDuration = ffi.Pointer.fromFunction(animationControllerSetReverseDuration);
 }
 int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Double> lowerBound, ffi.Pointer<ffi.Double> upperBound, ffi.Pointer<ffi.Int> animationBehavior, DartDartObj vsync) {
   final w = AnimationController(value: value.doubleOrNul(),
@@ -1071,6 +1078,29 @@ int animationControllerUnbounded(ffi.Pointer<ffi.Double> value, ffi.Pointer<Dart
       vsync: _widgetsMap[vsync]! as TickerProvider,
       animationBehavior: animationBehavior.enumOr(AnimationBehavior.values, AnimationBehavior.preserve));
   return _addWidget(w);
+}
+void animationControllerForward(DartDartObj self) {
+  AnimationControllerMethods.forward(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerReverse(DartDartObj self) {
+  AnimationControllerMethods.reverse(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerStop(DartDartObj self) {
+  AnimationControllerMethods.stop(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerRepeat(DartDartObj self) {
+  AnimationControllerMethods.repeat(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerReset(DartDartObj self) {
+  AnimationControllerMethods.reset(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerSetDuration(DartDartObj self, DartDartObj d) {
+  AnimationControllerMethods.setDuration(_widgetsMap[self]! as AnimationController,
+      _widgetsMap[d]! as Duration);
+}
+void animationControllerSetReverseDuration(DartDartObj self, DartDartObj d) {
+  AnimationControllerMethods.setReverseDuration(_widgetsMap[self]! as AnimationController,
+      _widgetsMap[d]! as Duration);
 }
 
 void _setupDuration(WidgetFactories f) {
@@ -1389,6 +1419,60 @@ SafeAreaObjSt _createSafeAreaObjSt(SafeArea? w) {
   stObj.minimum = _createEdgeInsetsObjSt(w.minimum);
   stObj.maintainBottomViewPadding = w.maintainBottomViewPadding.toInt();
   stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupRotationTransition(WidgetFactories f) {
+  f.rotationTransition.rotationTransition = ffi.Pointer.fromFunction(rotationTransitionRotationTransition);
+}
+RotationTransitionObjSt rotationTransitionRotationTransition(DartDartObj turns, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
+  final w = RotationTransition(turns: _widgetsMap[turns]! as Animation<double>,
+      alignment: alignment.objOr(Alignment.center),
+      filterQuality: filterQuality.enumOrNul(FilterQuality.values),
+      child: child.objOrNul());
+  return _createRotationTransitionObjSt(w);
+}
+RotationTransitionObjSt _createRotationTransitionObjSt(RotationTransition? w) {
+  final RotationTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.turns = _addWidget(w.turns);
+  return stObj;
+}
+
+void _setupFadeTransition(WidgetFactories f) {
+  f.fadeTransition.fadeTransition = ffi.Pointer.fromFunction(fadeTransitionFadeTransition);
+}
+FadeTransitionObjSt fadeTransitionFadeTransition(DartDartObj opacity, ffi.Pointer<ffi.Int> alwaysIncludeSemantics, ffi.Pointer<DartObj> child) {
+  final w = FadeTransition(opacity: _widgetsMap[opacity]! as Animation<double>,
+      alwaysIncludeSemantics: alwaysIncludeSemantics.boolOr(false),
+      child: child.objOrNul());
+  return _createFadeTransitionObjSt(w);
+}
+FadeTransitionObjSt _createFadeTransitionObjSt(FadeTransition? w) {
+  final FadeTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.opacity = _addWidget(w.opacity);
+  stObj.alwaysIncludeSemantics = w.alwaysIncludeSemantics.toInt();
+  return stObj;
+}
+
+void _setupScaleTransition(WidgetFactories f) {
+  f.scaleTransition.scaleTransition = ffi.Pointer.fromFunction(scaleTransitionScaleTransition);
+}
+ScaleTransitionObjSt scaleTransitionScaleTransition(DartDartObj scale, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<DartObj> child) {
+  final w = ScaleTransition(scale: _widgetsMap[scale]! as Animation<double>,
+      alignment: alignment.objOr(Alignment.center),
+      filterQuality: filterQuality.enumOrNul(FilterQuality.values),
+      child: child.objOrNul());
+  return _createScaleTransitionObjSt(w);
+}
+ScaleTransitionObjSt _createScaleTransitionObjSt(ScaleTransition? w) {
+  final ScaleTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.scale = _addWidget(w.scale);
   return stObj;
 }
 
@@ -3810,6 +3894,37 @@ SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDart
   return stObj;
 }
 
+void _setupSubAnimatedState(WidgetFactories f) {
+  f.subAnimatedState.subAnimatedState = ffi.Pointer.fromFunction(subAnimatedStateSubAnimatedState);
+  f.subAnimatedState.animationController = ffi.Pointer.fromFunction(subAnimatedStateAnimationController, exception);
+}
+SubAnimatedStateObjSt subAnimatedStateSubAnimatedState(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn) {
+  final w = SubAnimatedState(initStateFn: initStateFn.toVoidCallbackFn(),
+      didUpdateWidgetFn: didUpdateWidgetFn.toVoidCallbackDartObjFn(),
+      reassembleFn: reassembleFn.toVoidCallbackFn(),
+      deactivateFn: deactivateFn.toVoidCallbackFn(),
+      activateFn: activateFn.toVoidCallbackFn(),
+      disposeFn: disposeFn.toVoidCallbackFn(),
+      buildFn: buildFn.toDartObjCallbackDartObjFn(),
+      didChangeDependenciesFn: didChangeDependenciesFn.toVoidCallbackFn());
+  final SubAnimatedStateObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  final setStateFn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.listener((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.setState(cb.asFunction()));
+  stObj.setState = setStateFn.nativeFunction;
+  final widgetFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.widget), exceptionalReturn: exception);
+  stObj.widget = widgetFn.nativeFunction;
+  final contextFn = ffi.NativeCallable<DartObj Function()>.isolateLocal(() => _addWidget(w.context), exceptionalReturn: exception);
+  stObj.context = contextFn.nativeFunction;
+  final mountedFn = ffi.NativeCallable<ffi.Int Function()>.isolateLocal(() => w.mounted.toInt(), exceptionalReturn: exception);
+  stObj.mounted = mountedFn.nativeFunction;
+  return stObj;
+}
+int subAnimatedStateAnimationController(DartDartObj self, DartDartObj duration) {
+  final w = SubAnimatedStateMethods.animationController(_widgetsMap[self]! as SubAnimatedState<StatefulWidget>,
+      _widgetsMap[duration]! as Duration);
+  return _addWidget(w);
+}
+
 ffi.Pointer<WidgetFactories> _setupFactories() {
   final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();
   final f = fp.ref;
@@ -3858,6 +3973,9 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupDuration(f);
   _setupExpanded(f);
   _setupSafeArea(f);
+  _setupRotationTransition(f);
+  _setupFadeTransition(f);
+  _setupScaleTransition(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);
@@ -3897,6 +4015,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
+  _setupSubAnimatedState(f);
   _setupAlign(f);
   _setupFlex(f);
   _setupBoxParentData(f);

@@ -1,11 +1,6 @@
 package dev.equo.ewt;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.OptionalDouble;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 public class EWT {
   public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
     int id = WidgetConstructors.instance.dialogShowDialog(context.build(),
@@ -316,6 +311,18 @@ public class EWT {
 
   public static SafeAreaSafeAreaBuilder SafeArea() {
     return SafeAreaSafeAreaBuilder.safeAreaSafeArea();
+  }
+
+  public static RotationTransitionRotationTransitionBuilder RotationTransition(AnimationI turns) {
+    return RotationTransitionRotationTransitionBuilder.rotationTransitionRotationTransition(turns);
+  }
+
+  public static FadeTransitionFadeTransitionBuilder FadeTransition(AnimationI opacity) {
+    return FadeTransitionFadeTransitionBuilder.fadeTransitionFadeTransition(opacity);
+  }
+
+  public static ScaleTransitionScaleTransitionBuilder ScaleTransition(AnimationI scale) {
+    return ScaleTransitionScaleTransitionBuilder.scaleTransitionScaleTransition(scale);
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {

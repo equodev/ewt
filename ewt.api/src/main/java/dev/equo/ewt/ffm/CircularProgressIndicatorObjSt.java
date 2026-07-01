@@ -46,7 +46,7 @@ public class CircularProgressIndicatorObjSt {
         StarterBridge.C_INT.withName("padding"),
         StarterBridge.C_INT.withName("controller"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$945:9");
+    ).withName("$anon$969:9");
 
     /**
      * The layout of this struct

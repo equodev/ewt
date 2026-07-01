@@ -52,9 +52,17 @@ class SubState<T extends StatefulWidget> extends State<T> {
 
 class SubStatefulWidget extends StatefulWidget {
   final State<StatefulWidget> Function() createStateFn;
-  SubStatefulWidget({super.key, required this.createStateFn});
+  // Default to a UniqueKey so two SubStatefulWidget instances are never
+  // considered the same widget by Flutter's reconciliation. Without this,
+  // every SubStatefulWidget shares runtimeType (`SubStatefulWidget`) and a
+  // null key, so Widget.canUpdate returns true between e.g. HomePage and
+  // AnimationLabPage on navigation, and Flutter would reuse the old State
+  // (whose buildFn is bound to the previous Java widget) instead of
+  // creating a fresh State for the new page.
+  SubStatefulWidget({Key? key, required this.createStateFn})
+      : super(key: key ?? UniqueKey());
   @override
-  State<StatefulWidget> createState() { 
+  State<StatefulWidget> createState() {
     return createStateFn();
   }
 }

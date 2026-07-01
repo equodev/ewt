@@ -2,6 +2,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
 import 'subwidgets.dart' as s;
+import 'sub_animated_state.dart' as sas;
+import 'animation_controller_methods.dart' as acm;
+import 'sub_animated_state_methods.dart' as sasm;
 
 w.Widget? widget;
 // w.StatefulWidget? statefulWidget;
@@ -56,6 +59,10 @@ w.FontWeight? fontWeight;
 Duration? duration;
 w.Expanded? expanded;
 w.SafeArea? safeArea;
+w.MatrixTransition? matrixTransition;
+w.RotationTransition? rotationTransition;
+w.FadeTransition? fadeTransition;
+w.ScaleTransition? scaleTransition;
 
 // w.FontWeight? fontWeight; constants accessing privates
 
@@ -102,6 +109,10 @@ m.LinearProgressIndicator? linearProgressIndicator;
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;
+sas.SubAnimatedState? subAnimatedState;
+
+acm.AnimationControllerMethods? animationControllerMethods;
+sasm.SubAnimatedStateMethods? subAnimatedStateMethods;
 
 const showDialog = m.showDialog;
 
