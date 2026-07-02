@@ -80,25 +80,15 @@ Beyond static layouts, EWT supports rich animations for polished, modern UIs:
 
 ## Getting started
 
-You don't need to clone this repository to build an app with EWT, just add the
-published artifact to your own Gradle or Maven project. Both distribution
-channels below are **public to all users**.
+Add EWT to your Gradle or Maven project. EWT ships as platform-specific JARs,
+so pick the classifier for your target platform: `linux`, `macos`, or `windows`.
+The current release is **`0.1.3`**.
 
-EWT ships as platform-specific JARs, so pick the classifier for your target
-platform: `linux`, `macos`, or `windows`. The current release is **`0.1.1`**.
-
-### Option 1: GitLab Maven registry (recommended)
-
-The GitLab Maven registry serves the JARs as regular Maven artifacts, so
-Gradle and Maven resolve `dev.equo:ewt.api` like any other dependency.
-
-Registry URL: `https://gitlab.com/api/v4/projects/67882950/packages/maven`
-
-#### Gradle (Kotlin DSL)
+### Gradle (Kotlin DSL)
 
 ```kotlin
 repositories {
-    maven { url = uri("https://gitlab.com/api/v4/projects/67882950/packages/maven") }
+    maven(url = "https://gitlab.com/api/v4/projects/67882950/packages/maven")
 }
 
 val ewtOs = when {
@@ -108,17 +98,16 @@ val ewtOs = when {
 }
 
 dependencies {
-    // `+` pulls the latest release; pin a version (e.g. 0.1.1) for reproducible builds
-    implementation("dev.equo:ewt.api:+:$ewtOs@jar")
+    implementation("dev.equo:ewt.api:0.1.3:$ewtOs@jar")
 }
 ```
 
-#### Maven
+### Maven
 
 ```xml
 <repositories>
   <repository>
-    <id>ewt</id>
+    <id>equo</id>
     <url>https://gitlab.com/api/v4/projects/67882950/packages/maven</url>
   </repository>
 </repositories>
@@ -127,48 +116,20 @@ dependencies {
   <dependency>
     <groupId>dev.equo</groupId>
     <artifactId>ewt.api</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.3</version>
     <classifier>linux</classifier> <!-- or macos / windows -->
   </dependency>
 </dependencies>
 ```
 
-### Option 2 — Google Cloud Storage (direct download)
+### JAR Files
 
-Every release is also mirrored to a public Google Cloud Storage bucket as
-plain JAR files. This is not a Maven repository, so it's most useful for CI
-pipelines, install scripts, or projects that don't go through a Maven resolver.
+- Linux: https://dl.equo.dev/ewt/ewt.api/latest/ewt.api-latest-linux.jar
+- macOS: https://dl.equo.dev/ewt/ewt.api/latest/ewt.api-latest-macos.jar
+- Windows: https://dl.equo.dev/ewt/ewt.api/latest/ewt.api-latest-windows.jar
 
-Each release is published under `ewt.api/<version>/`:
-
-```
-https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-linux.jar
-https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-macos.jar
-https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-windows.jar
-```
-
-A `latest/` pointer always tracks the most recent release, so you can hardcode
-these URLs without knowing the version:
-
-```
-https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-linux.jar
-https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-macos.jar
-https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-windows.jar
-```
-
-Download the JAR for your platform and wire it in as a local file dependency,
-e.g. in Gradle:
-
-```kotlin
-dependencies {
-    implementation(files("libs/ewt.api-0.1.1-linux.jar"))
-}
-```
-
-### Running your app
-
-Once the dependency is in place, write your UI (see the Counter example above) and
-start it with `App.runApp(...)`.
+Then write your UI (see the Counter example above) and start it with
+`App.runApp(...)`.
 
 ## Running the example demos
 
