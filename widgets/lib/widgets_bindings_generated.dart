@@ -473,13 +473,37 @@ final class OffsetSt extends ffi.Struct {
 }
 
 final class FontWeightSt extends ffi.Struct {
-  external ffi.Pointer<ffi.NativeFunction<DartObj Function(ffi.Int value)>>
-      fontWeight;
-
   external ffi.Pointer<
           ffi
           .NativeFunction<DartObj Function(DartObj a, DartObj b, ffi.Double t)>>
       lerp;
+
+  @DartObj()
+  external int w100;
+
+  @DartObj()
+  external int w200;
+
+  @DartObj()
+  external int w300;
+
+  @DartObj()
+  external int w400;
+
+  @DartObj()
+  external int w500;
+
+  @DartObj()
+  external int w600;
+
+  @DartObj()
+  external int w700;
+
+  @DartObj()
+  external int w800;
+
+  @DartObj()
+  external int w900;
 }
 
 final class TextDecorationSt extends ffi.Struct {
@@ -1034,7 +1058,6 @@ final class ContainerSt extends ffi.Struct {
               ffi.Pointer<DartObj> alignment,
               ffi.Pointer<DartObj> padding,
               ffi.Pointer<DartObj> color,
-              ffi.Pointer<ffi.Int> isAntiAlias,
               ffi.Pointer<DartObj> decoration,
               ffi.Pointer<DartObj> foregroundDecoration,
               ffi.Pointer<ffi.Double> width,
@@ -1061,9 +1084,6 @@ final class ContainerObjSt extends ffi.Struct {
 
   @DartObj()
   external int color;
-
-  @ffi.Int()
-  external int isAntiAlias;
 
   @DartObj()
   external int decoration;
@@ -3019,7 +3039,6 @@ final class AppBarSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> automaticallyImplyLeading,
               ffi.Pointer<DartObj> title,
               ffi.Pointer<ArrayC> actions,
-              ffi.Pointer<ffi.Int> automaticallyImplyActions,
               ffi.Pointer<DartObj> flexibleSpace,
               ffi.Pointer<DartObj> bottom,
               ffi.Pointer<ffi.Double> elevation,
@@ -3058,9 +3077,6 @@ final class AppBarObjSt extends ffi.Struct {
 
   @DartObj()
   external int title;
-
-  @ffi.Int()
-  external int automaticallyImplyActions;
 
   @DartObj()
   external int flexibleSpace;
@@ -3925,7 +3941,6 @@ final class InputDecorationSt extends ffi.Struct {
               ffi.Pointer<DartObj> hintFadeDuration,
               ffi.Pointer<ffi.Int> maintainHintHeight,
               ffi.Pointer<ffi.Int> maintainHintSize,
-              ffi.Pointer<ffi.Int> maintainLabelSize,
               ffi.Pointer<DartObj> error,
               ffi.Pointer<ffi.Char> errorText,
               ffi.Pointer<DartObj> errorStyle,
@@ -3977,7 +3992,6 @@ final class InputDecorationSt extends ffi.Struct {
               ffi.Pointer<DartObj> hintFadeDuration,
               ffi.Pointer<ffi.Int> maintainHintHeight,
               ffi.Pointer<ffi.Int> maintainHintSize,
-              ffi.Pointer<ffi.Int> maintainLabelSize,
               ffi.Pointer<ffi.Int> filled,
               ffi.Pointer<DartObj> fillColor,
               ffi.Pointer<DartObj> focusColor,
@@ -4037,9 +4051,6 @@ final class InputDecorationObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int maintainHintSize;
-
-  @ffi.Int()
-  external int maintainLabelSize;
 
   @DartObj()
   external int error;
@@ -4199,7 +4210,6 @@ final class TextFieldSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> scribbleEnabled,
               ffi.Pointer<ffi.Int> stylusHandwritingEnabled,
               ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning,
-              ffi.Pointer<ffi.Int> enableInlinePrediction,
               ffi.Pointer<ffi.Int> canRequestFocus)>> textField;
 }
 
@@ -4324,9 +4334,6 @@ final class TextFieldObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int enableIMEPersonalizedLearning;
-
-  @ffi.Int()
-  external int enableInlinePrediction;
 
   @ffi.Int()
   external int canRequestFocus;
@@ -4515,7 +4522,6 @@ final class SnackBarSt extends ffi.Struct {
               ffi.Pointer<ffi.Int> showCloseIcon,
               ffi.Pointer<DartObj> closeIconColor,
               ffi.Pointer<DartObj> duration,
-              ffi.Pointer<ffi.Int> persist,
               ffi.Pointer<DartObj> animation,
               ffi.Pointer<VoidCallbackFFI> onVisible,
               ffi.Pointer<ffi.Int> dismissDirection,
@@ -4571,9 +4577,6 @@ final class SnackBarObjSt extends ffi.Struct {
 
   @DartObj()
   external int duration;
-
-  @ffi.Int()
-  external int persist;
 
   @DartObj()
   external int animation;
@@ -5091,8 +5094,7 @@ final class CircularProgressIndicatorSt extends ffi.Struct {
               ffi.Pointer<DartObj> constraints,
               ffi.Pointer<ffi.Double> trackGap,
               ffi.Pointer<ffi.Int> year2023,
-              ffi.Pointer<DartObj> padding,
-              ffi.Pointer<DartObj> controller)>> circularProgressIndicator;
+              ffi.Pointer<DartObj> padding)>> circularProgressIndicator;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -5108,8 +5110,7 @@ final class CircularProgressIndicatorSt extends ffi.Struct {
               ffi.Pointer<DartObj> constraints,
               ffi.Pointer<ffi.Double> trackGap,
               ffi.Pointer<ffi.Int> year2023,
-              ffi.Pointer<DartObj> padding,
-              ffi.Pointer<DartObj> controller)>> adaptive;
+              ffi.Pointer<DartObj> padding)>> adaptive;
 }
 
 final class CircularProgressIndicatorObjSt extends ffi.Struct {
@@ -5135,9 +5136,6 @@ final class CircularProgressIndicatorObjSt extends ffi.Struct {
 
   @DartObj()
   external int padding;
-
-  @DartObj()
-  external int controller;
 }
 
 final class LinearProgressIndicatorSt extends ffi.Struct {
@@ -5155,8 +5153,7 @@ final class LinearProgressIndicatorSt extends ffi.Struct {
               ffi.Pointer<DartObj> stopIndicatorColor,
               ffi.Pointer<ffi.Double> stopIndicatorRadius,
               ffi.Pointer<ffi.Double> trackGap,
-              ffi.Pointer<ffi.Int> year2023,
-              ffi.Pointer<DartObj> controller)>> linearProgressIndicator;
+              ffi.Pointer<ffi.Int> year2023)>> linearProgressIndicator;
 }
 
 final class LinearProgressIndicatorObjSt extends ffi.Struct {
@@ -5180,9 +5177,6 @@ final class LinearProgressIndicatorObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int year2023;
-
-  @DartObj()
-  external int controller;
 }
 
 final class SubStateSt extends ffi.Struct {

@@ -16,7 +16,7 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
     System.out.println("New LinearProgressIndicator id:"+id);
   }
   @Builder.Factory
-  static LinearProgressIndicator linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<AnimationControllerI> controller) {
+  static LinearProgressIndicator linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023) {
     var st = factories.linearProgressIndicatorLinearProgressIndicator(value,
       backgroundColor.map(ColorI::build),
       color.map(ColorI::build),
@@ -28,8 +28,7 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
       stopIndicatorColor.map(ColorI::build),
       stopIndicatorRadius,
       trackGap,
-      year2023,
-      controller.map(AnimationControllerI::build));
+      year2023);
     if (st == null) throw new RuntimeException("Failed to created widget LinearProgressIndicator");
     return new LinearProgressIndicator(st);
   }
@@ -53,12 +52,6 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
   }
   public boolean year2023() {
     return intToBool(LinearProgressIndicatorObjSt.year2023(st));
-  }
-  public AnimationController controller() {
-    return new AnimationController(LinearProgressIndicatorObjSt.controller(st));
-  }
-  public static Duration defaultAnimationDuration() {
-    return Duration.duration().milliseconds(1800).build();
   }
   @Override
   public LinearProgressIndicator build() {

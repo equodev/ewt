@@ -29,7 +29,7 @@ public class ScaleTransitionObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("scale")
-    ).withName("$anon$348:9");
+    ).withName("$anon$347:9");
 
     /**
      * The layout of this struct

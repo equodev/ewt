@@ -36,7 +36,7 @@ public class SubAnimatedStateObjSt {
         StarterBridge.C_POINTER.withName("context"),
         StarterBridge.C_POINTER.withName("mounted"),
         StarterBridge.C_POINTER.withName("setState")
-    ).withName("$anon$1008:9");
+    ).withName("$anon$1001:9");
 
     /**
      * The layout of this struct

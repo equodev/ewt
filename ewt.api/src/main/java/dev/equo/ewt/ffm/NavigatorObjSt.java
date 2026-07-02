@@ -43,7 +43,7 @@ public class NavigatorObjSt {
         StarterBridge.C_INT.withName("clipBehavior"),
         StarterBridge.C_INT.withName("requestFocus"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$653:9");
+    ).withName("$anon$651:9");
 
     /**
      * The layout of this struct

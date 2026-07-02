@@ -22,7 +22,6 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double stopIndicatorRadius;
  *     double trackGap;
  *     int year2023;
- *     DartObj controller;
  * }
  * }
  */
@@ -41,8 +40,8 @@ public class LinearProgressIndicatorObjSt {
         StarterBridge.C_DOUBLE.withName("stopIndicatorRadius"),
         StarterBridge.C_DOUBLE.withName("trackGap"),
         StarterBridge.C_INT.withName("year2023"),
-        StarterBridge.C_INT.withName("controller")
-    ).withName("$anon$981:9");
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$975:9");
 
     /**
      * The layout of this struct
@@ -357,50 +356,6 @@ public class LinearProgressIndicatorObjSt {
      */
     public static void year2023(MemorySegment struct, int fieldValue) {
         struct.set(year2023$LAYOUT, year2023$OFFSET, fieldValue);
-    }
-
-    private static final OfInt controller$LAYOUT = (OfInt)$LAYOUT.select(groupElement("controller"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static final OfInt controller$layout() {
-        return controller$LAYOUT;
-    }
-
-    private static final long controller$OFFSET = $LAYOUT.byteOffset(groupElement("controller"));
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static final long controller$offset() {
-        return controller$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static int controller(MemorySegment struct) {
-        return struct.get(controller$LAYOUT, controller$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static void controller(MemorySegment struct, int fieldValue) {
-        struct.set(controller$LAYOUT, controller$OFFSET, fieldValue);
     }
 
     /**

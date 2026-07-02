@@ -29,7 +29,7 @@ public class RotationTransitionObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("turns")
-    ).withName("$anon$337:9");
+    ).withName("$anon$336:9");
 
     /**
      * The layout of this struct

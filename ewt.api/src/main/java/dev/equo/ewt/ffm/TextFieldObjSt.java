@@ -57,7 +57,6 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     int scribbleEnabled;
  *     int stylusHandwritingEnabled;
  *     int enableIMEPersonalizedLearning;
- *     int enableInlinePrediction;
  *     int canRequestFocus;
  *     int selectionEnabled;
  * }
@@ -116,10 +115,10 @@ public class TextFieldObjSt {
         StarterBridge.C_INT.withName("scribbleEnabled"),
         StarterBridge.C_INT.withName("stylusHandwritingEnabled"),
         StarterBridge.C_INT.withName("enableIMEPersonalizedLearning"),
-        StarterBridge.C_INT.withName("enableInlinePrediction"),
         StarterBridge.C_INT.withName("canRequestFocus"),
-        StarterBridge.C_INT.withName("selectionEnabled")
-    ).withName("$anon$755:9");
+        StarterBridge.C_INT.withName("selectionEnabled"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$752:9");
 
     /**
      * The layout of this struct
@@ -1974,50 +1973,6 @@ public class TextFieldObjSt {
      */
     public static void enableIMEPersonalizedLearning(MemorySegment struct, int fieldValue) {
         struct.set(enableIMEPersonalizedLearning$LAYOUT, enableIMEPersonalizedLearning$OFFSET, fieldValue);
-    }
-
-    private static final OfInt enableInlinePrediction$LAYOUT = (OfInt)$LAYOUT.select(groupElement("enableInlinePrediction"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * int enableInlinePrediction
-     * }
-     */
-    public static final OfInt enableInlinePrediction$layout() {
-        return enableInlinePrediction$LAYOUT;
-    }
-
-    private static final long enableInlinePrediction$OFFSET = $LAYOUT.byteOffset(groupElement("enableInlinePrediction"));
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * int enableInlinePrediction
-     * }
-     */
-    public static final long enableInlinePrediction$offset() {
-        return enableInlinePrediction$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * int enableInlinePrediction
-     * }
-     */
-    public static int enableInlinePrediction(MemorySegment struct) {
-        return struct.get(enableInlinePrediction$LAYOUT, enableInlinePrediction$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * int enableInlinePrediction
-     * }
-     */
-    public static void enableInlinePrediction(MemorySegment struct, int fieldValue) {
-        struct.set(enableInlinePrediction$LAYOUT, enableInlinePrediction$OFFSET, fieldValue);
     }
 
     private static final OfInt canRequestFocus$LAYOUT = (OfInt)$LAYOUT.select(groupElement("canRequestFocus"));

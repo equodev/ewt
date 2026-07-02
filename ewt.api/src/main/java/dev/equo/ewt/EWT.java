@@ -42,10 +42,6 @@ public class EWT {
     return OffsetFromDirectionBuilder.offsetFromDirection(direction);
   }
 
-  public static FontWeightFontWeightBuilder FontWeight(int value) {
-    return FontWeightFontWeightBuilder.fontWeightFontWeight(value);
-  }
-
   public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
     return TextDecorationCombineBuilder.textDecorationCombine(decorations);
   }

@@ -71,7 +71,7 @@ public class ScaffoldObjSt {
         StarterBridge.C_INT.withName("drawerEnableOpenDragGesture"),
         StarterBridge.C_INT.withName("endDrawerEnableOpenDragGesture"),
         StarterBridge.C_POINTER.withName("restorationId")
-    ).withName("$anon$561:9");
+    ).withName("$anon$559:9");
 
     /**
      * The layout of this struct

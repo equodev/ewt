@@ -31,7 +31,7 @@ public class FadeTransitionObjSt {
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("opacity"),
         StarterBridge.C_INT.withName("alwaysIncludeSemantics")
-    ).withName("$anon$342:9");
+    ).withName("$anon$341:9");
 
     /**
      * The layout of this struct
