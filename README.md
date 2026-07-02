@@ -1,18 +1,17 @@
 # EWT — Equo Widget Toolkit
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
-![JDK](https://img.shields.io/badge/JDK-21%2B-orange)
+![JDK](https://img.shields.io/badge/JDK-22%2B-orange)
 ![macOS](https://img.shields.io/badge/macOS-Supported-green) ![Windows](https://img.shields.io/badge/Windows-Supported-green) ![Linux](https://img.shields.io/badge/Linux-Supported-green)
 
-**Build Flutter UIs in pure Java.**
+**Build modern desktop UIs on the JVM.**
 
-EWT lets Java developers create native, cross-platform Flutter user interfaces
-without writing a line of Dart. It bridges the JVM and the Flutter engine through
-the JDK 21 [Foreign Function & Memory API](https://openjdk.org/jeps/454), so your
-Java code drives a real Flutter render pipeline.
+EWT lets JVM developers create native, cross-platform desktop user interfaces —
+in Java, Kotlin, or any JVM language, with no Dart required. You get modern,
+fluid interfaces using the languages, tools, and IDE you already work with.
 
 <p align="center">
-  <img src="docs/demo.gif" alt="EWT demo — a Flutter UI driven from Java" width="800">
+  <img src="docs/pics/demo.gif" alt="EWT demo — a desktop UI built in Java" width="800">
 </p>
 
 ```java
@@ -32,17 +31,20 @@ public class HelloWorld {
 
 ## Why EWT
 
-- **One UI codebase, every desktop platform** — Linux, macOS, and Windows from the
-  same Java sources, rendered by Flutter.
-- **Java-native API** — fluent, type-safe builders generated directly from the
-  Flutter widget catalog. `Center`, `Column`, `Container`, `Scaffold`,
-  `MaterialApp`, and many more map one-to-one to their Flutter counterparts.
-- **Stateful widgets you already know** — the familiar `StatefulWidget` /
-  `setState` model, expressed in Java.
-- **No FFI boilerplate** — the C and FFM bindings are generated; you write
-  application code, not glue.
+- **One codebase, every desktop platform** — run the same UI on Linux, macOS,
+  and Windows.
+- **Any JVM language** — write your UI in Java, Kotlin, or any language that runs
+  on the JVM.
+- **Modern, fluid interfaces** — smooth, GPU-accelerated rendering with crisp
+  fonts and sharp icons.
+- **A fluent, type-safe API** — compose your UI from familiar building blocks
+  like `Center`, `Column`, `Container`, `Scaffold`, and `MaterialApp`.
+- **Reactive by design** — build dynamic UIs that update automatically as your
+  data changes.
 
-## A stateful example
+## Example: an interactive counter
+
+This counter rebuilds its UI every time the button is tapped:
 
 ```java
 class Counter extends SubStatefulWidget {
@@ -66,82 +68,154 @@ class CounterState extends SubState<Counter> {
 }
 ```
 
-See [`examples/`](examples/src/main/java/dev/equo) for full, runnable apps:
-`HelloWorld`, `Counter`, `LoginForm`, `ProfileCard`, and a `WidgetGallery`.
+Beyond static layouts, EWT supports rich animations for polished, modern UIs:
 
-## How it works
-
-EWT is a four-layer stack. Java widget calls are translated into a widget tree
-that the Flutter engine renders; events flow back through C function pointers.
-
-```
-Java user code        (ewt.api + examples)
-      │  JDK 21 FFM (Project Panama)
-C native bridge       (widgets/ — exports startApp + widget factories)
-      │  function pointers / callbacks
-Flutter / Dart        (widgets FFI plugin)
-```
-
-| Module                 | Language | Role                                                                   |
-|------------------------|----------|------------------------------------------------------------------------|
-| `ewt.api`              | Java     | Public API: widget base classes, generated builders, the FFM bridge    |
-| `examples`             | Java     | Runnable example applications                                          |
-| `generator`            | Dart     | Reads the Flutter widget catalog, emits Java builders and C headers     |
-| `annotation-processor` | Java     | Patches Immutables-generated builders to extend `Widget`               |
-| `widgets`              | Dart + C | Flutter FFI plugin; the native side the Java layer calls into          |
-
-The Java builders are **generated** from Flutter's own widget definitions, so the
-API tracks Flutter closely and grows by regenerating rather than hand-writing.
+<p align="center">
+  <img src="docs/pics/animations.gif" alt="An animated EWT desktop app" width="800">
+</p>
 
 ## Requirements
 
-- **JDK 21+** (required for the Foreign Function & Memory API)
-- **Flutter SDK** (to build the native `widgets` plugin)
-- Gradle (via the bundled wrapper, `./gradlew`)
+- **JDK 22 or newer**
 
-## Quick start
+## Getting started
 
-```bash
-# Build the API: compiles Java, builds the Flutter native libraries
-# (runs `flutter build`) and packages them into the jar.
-./gradlew :ewt.api:build
+You don't need to clone this repository to build an app with EWT, just add the
+published artifact to your own Gradle or Maven project. Both distribution
+channels below are **public to all users**.
 
-# Run the test suite
-./gradlew :ewt.api:test
+EWT ships as platform-specific JARs, so pick the classifier for your target
+platform: `linux`, `macos`, or `windows`. The current release is **`0.1.1`**.
+
+### Option 1: GitLab Maven registry (recommended)
+
+The GitLab Maven registry serves the JARs as regular Maven artifacts, so
+Gradle and Maven resolve `dev.equo:ewt.api` like any other dependency.
+
+Registry URL: `https://gitlab.com/api/v4/projects/67882950/packages/maven`
+
+#### Gradle (Kotlin DSL)
+
+```kotlin
+repositories {
+    maven { url = uri("https://gitlab.com/api/v4/projects/67882950/packages/maven") }
+}
+
+val ewtOs = when {
+    org.gradle.internal.os.OperatingSystem.current().isWindows -> "windows"
+    org.gradle.internal.os.OperatingSystem.current().isMacOsX  -> "macos"
+    else                                                       -> "linux"
+}
+
+dependencies {
+    // `+` pulls the latest release; pin a version (e.g. 0.1.1) for reproducible builds
+    implementation("dev.equo:ewt.api:+:$ewtOs@jar")
+}
 ```
 
-The generated Java builders and FFM bindings are committed, so a fresh checkout
-builds without regenerating. A plain `./gradlew build` builds every module but
-does **not** run the code generator, so it will not pick up changes to the
-Flutter widget set — regenerate first (see below) when you change them.
+#### Maven
 
-Point EWT at the built native libraries with the `EWT_HOME` environment variable
-(or the `ewt.home` system property) before launching an example; loading falls
-back to a bundled loader when unset.
+```xml
+<repositories>
+  <repository>
+    <id>ewt</id>
+    <url>https://gitlab.com/api/v4/projects/67882950/packages/maven</url>
+  </repository>
+</repositories>
 
-## Project tooling
-
-When you change the widget set, regenerate everything in one step:
-
-```bash
-./gradlew :generator:generator   # regenerate Java builders + C headers,
-                                 # then ffigen (Dart FFI) and jextract (Java FFM)
+<dependencies>
+  <dependency>
+    <groupId>dev.equo</groupId>
+    <artifactId>ewt.api</artifactId>
+    <version>0.1.1</version>
+    <classifier>linux</classifier> <!-- or macos / windows -->
+  </dependency>
+</dependencies>
 ```
 
-`:generator:generator` also runs `:widgets:ffigen` and `:ewt.api:jextract`
-automatically. Then rebuild the API to compile the regenerated sources:
+### Option 2 — Google Cloud Storage (direct download)
 
-```bash
-./gradlew :ewt.api:build
+Every release is also mirrored to a public Google Cloud Storage bucket as
+plain JAR files. This is not a Maven repository, so it's most useful for CI
+pipelines, install scripts, or projects that don't go through a Maven resolver.
+
+Each release is published under `ewt.api/<version>/`:
+
+```
+https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-linux.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-macos.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-windows.jar
 ```
 
-`jextract` (v25) must be installed at `~/bin/jextract-25/bin/jextract`, and
-Flutter must be available for the native build.
+A `latest/` pointer always tracks the most recent release, so you can hardcode
+these URLs without knowing the version:
 
-## Status
+```
+https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-linux.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-macos.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-windows.jar
+```
 
-EWT is under active development. The widget catalog and platform packaging are
-expanding; APIs may still change.
+Download the JAR for your platform and wire it in as a local file dependency,
+e.g. in Gradle:
+
+```kotlin
+dependencies {
+    implementation(files("libs/ewt.api-0.1.1-linux.jar"))
+}
+```
+
+### Running your app
+
+Once the dependency is in place, write your UI (see the Counter example above) and
+start it with `App.runApp(...)`.
+
+## Running the example demos
+
+The possibilities are endless — here are a few visual samples of what you can
+build with EWT:
+
+<p align="center">
+  <img src="docs/pics/ide.png" alt="IDE demo built with EWT" width="800"><br>
+  <sub><em>An IDE-style layout with panels, tabs and a code editor — built entirely in Java on EWT.</em></sub>
+</p>
+
+<p align="center">
+  <img src="docs/pics/analytics_board.png" alt="Analytics dashboard demo built with EWT" width="800"><br>
+  <sub><em>A data-dense analytics dashboard with charts and KPI cards, rendered natively via EWT.</em></sub>
+</p>
+
+To browse the bundled sample apps, clone the repo and run one directly:
+
+```bash
+./gradlew :examples:run -PmainClass=dev.equo.WidgetGallery
+```
+
+Switch `mainClass` to try others — `dev.equo.Demo`,
+`dev.equo.AnimationWidgetsDemo`, `dev.equo.MusicPlayer`,
+`dev.equo.AnalyticsDashboard`, `dev.equo.Calculator`, and more in
+[`examples/`](examples/src/main/java/dev/equo).
+
+## Roadmap
+
+EWT is under active, fast-moving development. Here's where we're headed:
+
+**Coming soon**
+
+- **Web support** — run the same EWT codebase in the browser. One UI, desktop and
+  web, no rewrite.
+- **Animations** — a full `AnimationController` API for building fluid, animated
+  interfaces.
+- **Complete widget coverage** — full support for Flutter's entire Material and
+  foundational widget sets, plus Cupertino (iOS-style) components, so you can
+  build in whatever design language your product needs.
+
+**On the horizon**
+
+- **[SWT Evolve](https://equo.dev/swt) integration** — drop brand-new EWT
+  components straight into modernized SWT / Eclipse RCP applications, mixing fresh
+  EWT screens with your existing UI in the same window — feature by feature, at
+  your pace.
 
 ## License
 

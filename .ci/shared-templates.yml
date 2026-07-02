@@ -3,11 +3,17 @@
   variables:
     GCS_BUCKET: "gs://ewt-gallery"
     FOLDER_TO_UPLOAD: "ewt.api/build/libs"
+    GCS_PREFIX: "ewt.api"
   before_script:
     - echo ${service_account} | base64 -d > gcp-key.json
     - gcloud auth activate-service-account --key-file=gcp-key.json
   script:
-    - gsutil -m -h "Cache-Control:public, max-age=3600" cp -r $FOLDER_TO_UPLOAD/* $GCS_BUCKET/
+    # RELEASE_NEXT comes from ewt_build's dotenv artifact; fail fast if it didn't propagate.
+    - test -n "$RELEASE_NEXT"
+    # Immutable per-version folder: gs://ewt-gallery/ewt.api/<version>/ewt.api-<version>-<os>.jar
+    - gsutil -m -h "Cache-Control:public, max-age=3600" cp -r $FOLDER_TO_UPLOAD/* "$GCS_BUCKET/$GCS_PREFIX/$RELEASE_NEXT/"
+    # Rolling "latest" pointer with -latest- filenames so consumers can hardcode the URL.
+    - for os in linux macos windows; do gsutil -h "Cache-Control:no-cache" cp "$FOLDER_TO_UPLOAD/ewt.api-$RELEASE_NEXT-$os.jar" "$GCS_BUCKET/$GCS_PREFIX/latest/ewt.api-latest-$os.jar"; done
 
 # Downloads Flutter SDK and enables macOS desktop support.
 # The widgets plugin uses SPM — no CocoaPods needed.
