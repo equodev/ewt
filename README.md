@@ -11,7 +11,7 @@ in Java, Kotlin, or any JVM language, with no Dart required. You get modern,
 fluid interfaces using the languages, tools, and IDE you already work with.
 
 <p align="center">
-  <img src="docs/demo.gif" alt="EWT demo — a desktop UI built in Java" width="800">
+  <img src="docs/pics/demo.gif" alt="EWT demo — a desktop UI built in Java" width="800">
 </p>
 
 ```java
@@ -71,7 +71,7 @@ class CounterState extends SubState<Counter> {
 Beyond static layouts, EWT supports rich animations for polished, modern UIs:
 
 <p align="center">
-  <img src="docs/animations.gif" alt="An animated EWT desktop app" width="800">
+  <img src="docs/pics/animations.gif" alt="An animated EWT desktop app" width="800">
 </p>
 
 ## Requirements
@@ -80,13 +80,21 @@ Beyond static layouts, EWT supports rich animations for polished, modern UIs:
 
 ## Getting started
 
-You don't clone this repository to build an app with EWT — add the published
-artifact to your own Gradle or Maven project.
+You don't need to clone this repository to build an app with EWT, just add the
+published artifact to your own Gradle or Maven project. Both distribution
+channels below are **public to all users**.
 
 EWT ships as platform-specific JARs, so pick the classifier for your target
-platform: `linux`, `macos`, or `windows`.
+platform: `linux`, `macos`, or `windows`. The current release is **`0.1.1`**.
 
-### Gradle (Kotlin DSL)
+### Option 1: GitLab Maven registry (recommended)
+
+The GitLab Maven registry serves the JARs as regular Maven artifacts, so
+Gradle and Maven resolve `dev.equo:ewt.api` like any other dependency.
+
+Registry URL: `https://gitlab.com/api/v4/projects/67882950/packages/maven`
+
+#### Gradle (Kotlin DSL)
 
 ```kotlin
 repositories {
@@ -100,12 +108,12 @@ val ewtOs = when {
 }
 
 dependencies {
-    // `+` pulls the latest release; pin a version (e.g. 0.1.0) for reproducible builds
+    // `+` pulls the latest release; pin a version (e.g. 0.1.1) for reproducible builds
     implementation("dev.equo:ewt.api:+:$ewtOs@jar")
 }
 ```
 
-### Maven
+#### Maven
 
 ```xml
 <repositories>
@@ -119,17 +127,63 @@ dependencies {
   <dependency>
     <groupId>dev.equo</groupId>
     <artifactId>ewt.api</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <classifier>linux</classifier> <!-- or macos / windows -->
   </dependency>
 </dependencies>
 ```
 
-Then write your UI (see the example above) and start it with `App.runApp(...)`.
-EWT calls into native code, so run your app with
-`--enable-native-access=ALL-UNNAMED` (and `-XstartOnFirstThread` on macOS).
+### Option 2 — Google Cloud Storage (direct download)
 
-### Explore the examples
+Every release is also mirrored to a public Google Cloud Storage bucket as
+plain JAR files. This is not a Maven repository, so it's most useful for CI
+pipelines, install scripts, or projects that don't go through a Maven resolver.
+
+Each release is published under `ewt.api/<version>/`:
+
+```
+https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-linux.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-macos.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/0.1.1/ewt.api-0.1.1-windows.jar
+```
+
+A `latest/` pointer always tracks the most recent release, so you can hardcode
+these URLs without knowing the version:
+
+```
+https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-linux.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-macos.jar
+https://storage.googleapis.com/ewt-gallery/ewt.api/latest/ewt.api-latest-windows.jar
+```
+
+Download the JAR for your platform and wire it in as a local file dependency,
+e.g. in Gradle:
+
+```kotlin
+dependencies {
+    implementation(files("libs/ewt.api-0.1.1-linux.jar"))
+}
+```
+
+### Running your app
+
+Once the dependency is in place, write your UI (see the Counter example above) and
+start it with `App.runApp(...)`.
+
+## Running the example demos
+
+The possibilities are endless — here are a few visual samples of what you can
+build with EWT:
+
+<p align="center">
+  <img src="docs/pics/ide.png" alt="IDE demo built with EWT" width="800"><br>
+  <sub><em>An IDE-style layout with panels, tabs and a code editor — built entirely in Java on EWT.</em></sub>
+</p>
+
+<p align="center">
+  <img src="docs/pics/analytics_board.png" alt="Analytics dashboard demo built with EWT" width="800"><br>
+  <sub><em>A data-dense analytics dashboard with charts and KPI cards, rendered natively via EWT.</em></sub>
+</p>
 
 To browse the bundled sample apps, clone the repo and run one directly:
 
