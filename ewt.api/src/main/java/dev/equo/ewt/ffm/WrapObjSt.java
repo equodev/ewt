@@ -47,7 +47,7 @@ public class WrapObjSt {
         StarterBridge.C_INT.withName("textDirection"),
         StarterBridge.C_INT.withName("verticalDirection"),
         StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$942:9");
+    ).withName("$anon$937:9");
 
     /**
      * The layout of this struct

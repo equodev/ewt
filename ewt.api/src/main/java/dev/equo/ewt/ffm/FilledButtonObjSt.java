@@ -27,7 +27,7 @@ public class FilledButtonObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$813:9");
+    ).withName("$anon$809:9");
 
     /**
      * The layout of this struct

@@ -40,7 +40,7 @@ public class PositionedObjSt {
         StarterBridge.C_DOUBLE.withName("bottom"),
         StarterBridge.C_DOUBLE.withName("width"),
         StarterBridge.C_DOUBLE.withName("height")
-    ).withName("$anon$168:9");
+    ).withName("$anon$167:9");
 
     /**
      * The layout of this struct

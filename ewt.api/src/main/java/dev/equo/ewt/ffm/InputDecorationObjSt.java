@@ -34,7 +34,6 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj hintFadeDuration;
  *     int maintainHintHeight;
  *     int maintainHintSize;
- *     int maintainLabelSize;
  *     DartObj error;
  *     char *errorText;
  *     TextStyleObjSt errorStyle;
@@ -105,9 +104,7 @@ public class InputDecorationObjSt {
         StarterBridge.C_INT.withName("hintFadeDuration"),
         StarterBridge.C_INT.withName("maintainHintHeight"),
         StarterBridge.C_INT.withName("maintainHintSize"),
-        StarterBridge.C_INT.withName("maintainLabelSize"),
         StarterBridge.C_INT.withName("error"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("errorText"),
         TextStyleObjSt.layout().withName("errorStyle"),
         StarterBridge.C_INT.withName("errorMaxLines"),
@@ -151,7 +148,7 @@ public class InputDecorationObjSt {
         MemoryLayout.paddingLayout(4),
         BoxConstraintsObjSt.layout().withName("constraints"),
         VisualDensityObjSt.layout().withName("visualDensity")
-    ).withName("$anon$694:9");
+    ).withName("$anon$692:9");
 
     /**
      * The layout of this struct
@@ -994,50 +991,6 @@ public class InputDecorationObjSt {
      */
     public static void maintainHintSize(MemorySegment struct, int fieldValue) {
         struct.set(maintainHintSize$LAYOUT, maintainHintSize$OFFSET, fieldValue);
-    }
-
-    private static final OfInt maintainLabelSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("maintainLabelSize"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * int maintainLabelSize
-     * }
-     */
-    public static final OfInt maintainLabelSize$layout() {
-        return maintainLabelSize$LAYOUT;
-    }
-
-    private static final long maintainLabelSize$OFFSET = $LAYOUT.byteOffset(groupElement("maintainLabelSize"));
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * int maintainLabelSize
-     * }
-     */
-    public static final long maintainLabelSize$offset() {
-        return maintainLabelSize$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * int maintainLabelSize
-     * }
-     */
-    public static int maintainLabelSize(MemorySegment struct) {
-        return struct.get(maintainLabelSize$LAYOUT, maintainLabelSize$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * int maintainLabelSize
-     * }
-     */
-    public static void maintainLabelSize(MemorySegment struct, int fieldValue) {
-        struct.set(maintainLabelSize$LAYOUT, maintainLabelSize$OFFSET, fieldValue);
     }
 
     private static final OfInt error$LAYOUT = (OfInt)$LAYOUT.select(groupElement("error"));

@@ -19,7 +19,6 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     DartObj leading;
  *     int automaticallyImplyLeading;
  *     DartObj title;
- *     int automaticallyImplyActions;
  *     DartObj flexibleSpace;
  *     DartObj bottom;
  *     double elevation;
@@ -58,10 +57,8 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("leading"),
         StarterBridge.C_INT.withName("automaticallyImplyLeading"),
         StarterBridge.C_INT.withName("title"),
-        StarterBridge.C_INT.withName("automaticallyImplyActions"),
         StarterBridge.C_INT.withName("flexibleSpace"),
         StarterBridge.C_INT.withName("bottom"),
-        MemoryLayout.paddingLayout(4),
         StarterBridge.C_DOUBLE.withName("elevation"),
         StarterBridge.C_DOUBLE.withName("scrolledUnderElevation"),
         StarterBridge.C_INT.withName("shadowColor"),
@@ -85,7 +82,7 @@ public class AppBarObjSt {
         StarterBridge.C_INT.withName("actionsPadding"),
         StarterBridge.C_INT.withName("animateColor"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$529:9");
+    ).withName("$anon$528:9");
 
     /**
      * The layout of this struct
@@ -268,50 +265,6 @@ public class AppBarObjSt {
      */
     public static void title(MemorySegment struct, int fieldValue) {
         struct.set(title$LAYOUT, title$OFFSET, fieldValue);
-    }
-
-    private static final OfInt automaticallyImplyActions$LAYOUT = (OfInt)$LAYOUT.select(groupElement("automaticallyImplyActions"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * int automaticallyImplyActions
-     * }
-     */
-    public static final OfInt automaticallyImplyActions$layout() {
-        return automaticallyImplyActions$LAYOUT;
-    }
-
-    private static final long automaticallyImplyActions$OFFSET = $LAYOUT.byteOffset(groupElement("automaticallyImplyActions"));
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * int automaticallyImplyActions
-     * }
-     */
-    public static final long automaticallyImplyActions$offset() {
-        return automaticallyImplyActions$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * int automaticallyImplyActions
-     * }
-     */
-    public static int automaticallyImplyActions(MemorySegment struct) {
-        return struct.get(automaticallyImplyActions$LAYOUT, automaticallyImplyActions$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * int automaticallyImplyActions
-     * }
-     */
-    public static void automaticallyImplyActions(MemorySegment struct, int fieldValue) {
-        struct.set(automaticallyImplyActions$LAYOUT, automaticallyImplyActions$OFFSET, fieldValue);
     }
 
     private static final OfInt flexibleSpace$LAYOUT = (OfInt)$LAYOUT.select(groupElement("flexibleSpace"));

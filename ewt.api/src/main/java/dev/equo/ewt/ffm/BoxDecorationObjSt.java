@@ -37,7 +37,7 @@ public class BoxDecorationObjSt {
         StarterBridge.C_INT.withName("borderRadius"),
         StarterBridge.C_INT.withName("backgroundBlendMode"),
         StarterBridge.C_INT.withName("shape")
-    ).withName("$anon$178:9");
+    ).withName("$anon$177:9");
 
     /**
      * The layout of this struct

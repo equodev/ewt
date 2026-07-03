@@ -23,7 +23,6 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     double trackGap;
  *     int year2023;
  *     DartObj padding;
- *     DartObj controller;
  * }
  * }
  */
@@ -43,10 +42,8 @@ public class CircularProgressIndicatorObjSt {
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_DOUBLE.withName("trackGap"),
         StarterBridge.C_INT.withName("year2023"),
-        StarterBridge.C_INT.withName("padding"),
-        StarterBridge.C_INT.withName("controller"),
-        MemoryLayout.paddingLayout(4)
-    ).withName("$anon$969:9");
+        StarterBridge.C_INT.withName("padding")
+    ).withName("$anon$964:9");
 
     /**
      * The layout of this struct
@@ -405,50 +402,6 @@ public class CircularProgressIndicatorObjSt {
      */
     public static void padding(MemorySegment struct, int fieldValue) {
         struct.set(padding$LAYOUT, padding$OFFSET, fieldValue);
-    }
-
-    private static final OfInt controller$LAYOUT = (OfInt)$LAYOUT.select(groupElement("controller"));
-
-    /**
-     * Layout for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static final OfInt controller$layout() {
-        return controller$LAYOUT;
-    }
-
-    private static final long controller$OFFSET = $LAYOUT.byteOffset(groupElement("controller"));
-
-    /**
-     * Offset for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static final long controller$offset() {
-        return controller$OFFSET;
-    }
-
-    /**
-     * Getter for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static int controller(MemorySegment struct) {
-        return struct.get(controller$LAYOUT, controller$OFFSET);
-    }
-
-    /**
-     * Setter for field:
-     * {@snippet lang=c :
-     * DartObj controller
-     * }
-     */
-    public static void controller(MemorySegment struct, int fieldValue) {
-        struct.set(controller$LAYOUT, controller$OFFSET, fieldValue);
     }
 
     /**

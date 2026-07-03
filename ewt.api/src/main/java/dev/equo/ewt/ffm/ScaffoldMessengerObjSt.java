@@ -29,7 +29,7 @@ public class ScaffoldMessengerObjSt {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id"),
         StarterBridge.C_INT.withName("child")
-    ).withName("$anon$854:9");
+    ).withName("$anon$849:9");
 
     /**
      * The layout of this struct

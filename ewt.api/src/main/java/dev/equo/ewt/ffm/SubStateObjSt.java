@@ -36,7 +36,7 @@ public class SubStateObjSt {
         StarterBridge.C_POINTER.withName("context"),
         StarterBridge.C_POINTER.withName("mounted"),
         StarterBridge.C_POINTER.withName("setState")
-    ).withName("$anon$992:9");
+    ).withName("$anon$985:9");
 
     /**
      * The layout of this struct

@@ -91,7 +91,7 @@ public class ListTileObjSt {
         StarterBridge.C_DOUBLE.withName("minTileHeight"),
         StarterBridge.C_INT.withName("titleAlignment"),
         StarterBridge.C_INT.withName("internalAddSemanticForOnTap")
-    ).withName("$anon$907:9");
+    ).withName("$anon$902:9");
 
     /**
      * The layout of this struct

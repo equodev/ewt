@@ -84,7 +84,7 @@ public class ThemeDataObjSt {
         StarterBridge.C_INT.withName("indicatorColor"),
         StarterBridge.C_INT.withName("brightness"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$451:9");
+    ).withName("$anon$450:9");
 
     /**
      * The layout of this struct

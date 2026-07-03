@@ -37,7 +37,7 @@ public class MatrixTransitionObjSt {
         StarterBridge.C_INT.withName("child"),
         StarterBridge.C_INT.withName("animation"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$329:9");
+    ).withName("$anon$328:9");
 
     /**
      * The layout of this struct

@@ -156,7 +156,6 @@ typedef struct {
   DartObj alignment;
   DartObj padding;
   DartObj color;
-  int isAntiAlias;
   DartObj decoration;
   DartObj foregroundDecoration;
   BoxConstraintsObjSt constraints;
@@ -531,7 +530,6 @@ typedef struct {
   DartObj leading;
   int automaticallyImplyLeading;
   DartObj title;
-  int automaticallyImplyActions;
   DartObj flexibleSpace;
   DartObj bottom;
   double elevation;
@@ -711,7 +709,6 @@ typedef struct {
   DartObj hintFadeDuration;
   int maintainHintHeight;
   int maintainHintSize;
-  int maintainLabelSize;
   DartObj error;
   char* errorText;
   TextStyleObjSt errorStyle;
@@ -795,7 +792,6 @@ typedef struct {
   int scribbleEnabled;
   int stylusHandwritingEnabled;
   int enableIMEPersonalizedLearning;
-  int enableInlinePrediction;
   int canRequestFocus;
   int selectionEnabled;
 } TextFieldObjSt;
@@ -845,7 +841,6 @@ typedef struct {
   int showCloseIcon;
   DartObj closeIconColor;
   DartObj duration;
-  int persist;
   DartObj animation;
   int dismissDirection;
   int clipBehavior;
@@ -975,7 +970,6 @@ typedef struct {
   double trackGap;
   int year2023;
   DartObj padding;
-  DartObj controller;
 } CircularProgressIndicatorObjSt;
 
 typedef struct {
@@ -986,7 +980,6 @@ typedef struct {
   double stopIndicatorRadius;
   double trackGap;
   int year2023;
-  DartObj controller;
 } LinearProgressIndicatorObjSt;
 
 typedef struct {

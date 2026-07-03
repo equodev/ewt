@@ -65,7 +65,7 @@ public class IconButtonObjSt {
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("isSelected"),
         StarterBridge.C_INT.withName("selectedIcon")
-    ).withName("$anon$507:9");
+    ).withName("$anon$506:9");
 
     /**
      * The layout of this struct
