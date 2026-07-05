@@ -3,18 +3,20 @@
 Java examples for the Equo Widget Toolkit.
 
 ## Requirements
-- JDK 21+
-- Linux, macOS, or Windows
+- JDK 23+
 
 ## Run an example
+
+From this folder run:
 ```
-./gradlew :examples:run                              # default: dev.equo.Counter
-./gradlew :examples:run -PmainClass=dev.equo.HelloWorld
-./gradlew :examples:run -PewtApiVersion=0.1.0        # pin a specific version
+../gradlew :examples:run                              # default: dev.equo.ide.IdeApp
+../gradlew :examples:run -PmainClass=dev.equo.WidgetGallery
+../gradlew :examples:run -PmainClass=dev.equo.AnimationPlaygroundDemo
+../gradlew :examples:run -PmainClass=dev.equo.AnalyticsDashboard
+../gradlew :examples:run -PmainClass=dev.equo.ProfileCard
 ```
 
-The example downloads the latest published `ewt.api` JAR from GitLab Packages —
-no local Flutter/Dart build required.
+The example downloads the latest published `ewt.api` JAR from a maven repository
 
 ## Developing against local `ewt.api`
 ```

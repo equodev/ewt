@@ -45,7 +45,7 @@ tasks.test {
 }
 
 application {
-    mainClass = providers.gradleProperty("mainClass").getOrElse("dev.equo.Counter")
+    mainClass = providers.gradleProperty("mainClass").getOrElse("dev.equo.ide.IdeApp")
     applicationDefaultJvmArgs = buildList {
         add("--enable-native-access=ALL-UNNAMED")
         // macOS requires the Flutter/Cocoa run loop to own the first thread,
