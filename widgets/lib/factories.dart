@@ -39,8 +39,10 @@ int _addWidget(Object? w) {
   // BuildContext and State outlive the build scope that created them: BuildContext
   // is captured by button callbacks (e.g. Navigator.pop(ctx)); State is owned by
   // Flutter and may be dispatched back to via id (e.g. animationController() on
-  // SubAnimatedState).
-  if (_buildScopeStack.isNotEmpty && w is! BuildContext && w is! State) {
+  // SubAnimatedState). SubStateful/StatelessWidget are held by Flutter's Element
+  // tree past the build scope and are looked up again by identity from state.widget().
+  if (_buildScopeStack.isNotEmpty && w is! BuildContext && w is! State
+      && w is! SubStatefulWidget && w is! SubStatelessWidget) {
     _buildScopeStack.last.add(id);
   }
   print('Added widget $w id: $id');
