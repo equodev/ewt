@@ -210,6 +210,20 @@ tasks.register<Exec>("jextract") {
                     f.writeText(pattern.replace(text) { ".find(${it.groupValues[1]}).orElseThrow()" })
                 }
             }
+
+        // jextract hardcodes C_LONG as a cast to ValueLayout.OfLong, assuming the 8-byte
+        // "long" of LP64 (Linux/macOS). On Windows (LLP64), native "long" is 4 bytes, so
+        // canonicalLayouts().get("long") returns an OfInt at runtime and the cast throws
+        // ClassCastException during class init. Starter.h never actually uses C `long`,
+        // so declare the field as the common MemoryLayout supertype instead of casting.
+        val sharedFile = file("$output/dev/equo/ewt/ffm/StarterBridge\$shared.java")
+        if (sharedFile.exists()) {
+            val longPattern = Regex("""ValueLayout\.OfLong C_LONG = \(ValueLayout\.OfLong\) (Linker\.nativeLinker\(\)\.canonicalLayouts\(\)\.get\("long"\));""")
+            val text = sharedFile.readText()
+            if (longPattern.containsMatchIn(text)) {
+                sharedFile.writeText(longPattern.replace(text) { "MemoryLayout C_LONG = ${it.groupValues[1]};" })
+            }
+        }
     }
 
     doFirst {
