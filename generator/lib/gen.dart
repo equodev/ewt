@@ -353,9 +353,16 @@ class WidgetGen implements AGen {
     // returns T?) is absorbed here rather than surfacing as a nullable return:
     // _create*ObjSt(null) yields an empty struct (id 0) and paramValueDtoC
     // falls back to 0 / nullptr for a null value.
+    // For SubStateful/SubStatelessWidget the factory instantiates a private
+    // _Tracked variant (hand-written in factories.dart) that overrides
+    // createElement() to hook Flutter's Element lifecycle. Without this,
+    // widgets never leave the identity registry after Flutter unmounts them.
+    final ctorClass = (widgetClass == 'SubStatefulWidget' || widgetClass == 'SubStatelessWidget')
+        ? '_Tracked$widgetClass'
+        : widgetClass;
     dartFns
       ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
-      ..writeln('  ${gen == null ? '' : 'final w = '}$widgetClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
+      ..writeln('  ${gen == null ? '' : 'final w = '}$ctorClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
     if (gen == null) {
     }
     else if (gen.objType().endsWith('ObjSt')) {
@@ -838,9 +845,15 @@ class SubclassGen extends ObjStGen {
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName);');
+    // For SubStateful/SubStatelessWidget the factory instantiates a private
+    // _Tracked variant (hand-written in factories.dart) that overrides
+    // createElement() to clean the identity registry on unmount/update.
+    final ctorClass = (widgetClass == 'SubStatefulWidget' || widgetClass == 'SubStatelessWidget')
+        ? '_Tracked${node.displayName}'
+        : node.displayName;
     dartFns
       ..writeln('$widgetSt $factoryName(${dartParams.decl}) {')
-      ..writeln('  final w = ${node.displayName}(${dartParams.names});');
+      ..writeln('  final w = $ctorClass(${dartParams.names});');
     
     writeDartStructCreation('w');
     

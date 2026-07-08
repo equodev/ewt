@@ -3866,7 +3866,7 @@ void _setupSubStatefulWidget(WidgetFactories f) {
   f.subStatefulWidget.subStatefulWidget = ffi.Pointer.fromFunction(subStatefulWidgetSubStatefulWidget);
 }
 SubStatefulWidgetObjSt subStatefulWidgetSubStatefulWidget(DartObjCallbackFFI createStateFn) {
-  final w = SubStatefulWidget(createStateFn: createStateFn.toDartObjCallbackFn());
+  final w = _TrackedSubStatefulWidget(createStateFn: createStateFn.toDartObjCallbackFn());
   final SubStatefulWidgetObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   return stObj;
@@ -3876,7 +3876,7 @@ void _setupSubStatelessWidget(WidgetFactories f) {
   f.subStatelessWidget.subStatelessWidget = ffi.Pointer.fromFunction(subStatelessWidgetSubStatelessWidget);
 }
 SubStatelessWidgetObjSt subStatelessWidgetSubStatelessWidget(DartObjCallbackDartObjFFI buildFn) {
-  final w = SubStatelessWidget(buildFn: buildFn.toDartObjCallbackDartObjFn());
+  final w = _TrackedSubStatelessWidget(buildFn: buildFn.toDartObjCallbackDartObjFn());
   final SubStatelessWidgetObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   return stObj;
