@@ -20,11 +20,26 @@ import java.util.zip.ZipInputStream;
 
 class NativeLibLoader {
 
+    // Evolve's build-dir contract (dev.equo.swt.FlutterLibraryLoader reads the same
+    // property). In the EWT↔Evolve integration it points at the EWT-owned combined
+    // Flutter build/ dir; its presence is also how EWT knows it is in attach mode.
+    private static final String EVOLVE_BUILD_DIR = "dev.equo.swt.flutterBuildDir";
+
     static void load() {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("mac")) {
             ensureMacOSMainThread();
+        }
+
+        // Attach mode (EWT↔Evolve same-surface): Evolve owns and already loaded the
+        // Flutter engine. We load ONLY the combined bundle's libwidgets — the SAME copy
+        // the engine runs — so its setBuildWidgetTree/callToBuildWidgetTree symbols
+        // resolve to one instance and the FFM callback connects. No engine/window libs.
+        Path attachLib = attachModeLibwidgets(os);
+        if (attachLib != null) {
+            System.load(attachLib.toString());
+            return;
         }
 
         String osDir;
@@ -108,6 +123,40 @@ class NativeLibLoader {
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException("Failed to extract EWT native libraries", e);
         }
+    }
+
+    /**
+     * Resolves the combined bundle's {@code libwidgets} for attach mode, or {@code null}
+     * when not in attach mode (standalone EWT — load the full lib set from the jar).
+     *
+     * <p>Attach mode is signalled by {@code dev.equo.swt.flutterBuildDir} — the same
+     * property Evolve's loader uses to find the EWT-owned combined binary. The lib lives
+     * inside that build dir, at the per-OS location Flutter emits it, mirroring how the
+     * standalone path names libs per-OS above. Only the Linux location is verified live;
+     * the macOS/Windows combined runners are still a pending workstream.
+     */
+    private static Path attachModeLibwidgets(String os) {
+        String buildDir = System.getProperty(EVOLVE_BUILD_DIR);
+        if (buildDir == null || buildDir.isBlank()) {
+            return null;
+        }
+        Path bundle = Path.of(buildDir);
+        Path lib;
+        if (os.contains("linux")) {
+            lib = bundle.resolve("linux/x64/release/bundle/lib/libwidgets.so");
+        } else if (os.contains("win")) {
+            lib = bundle.resolve("windows/x64/runner/Release/widgets.dll");
+        } else if (os.contains("mac")) {
+            lib = bundle.resolve(
+                "macos/Build/Products/Release/swtflutter.app/Contents/Frameworks/widgets.framework/widgets");
+        } else {
+            throw new RuntimeException("Attach mode not supported on OS: " + os);
+        }
+        if (!Files.exists(lib)) {
+            throw new RuntimeException("Attach mode: combined libwidgets not found at " + lib
+                + " (from " + EVOLVE_BUILD_DIR + "=" + buildDir + "). Build the combined binary first.");
+        }
+        return lib;
     }
 
     private static void ensureMacOSMainThread() {

@@ -13,17 +13,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class App {
     static {
-        // Attach mode (EWT↔Evolve same-surface): Evolve owns and already loaded the
-        // Flutter engine (libflutter_linux_gtk + bridge). We load ONLY the combined
-        // bundle's libwidgets.so — the SAME copy the engine runs — so its
-        // setBuildWidgetTree/callToBuildWidgetTree symbols resolve to one instance and
-        // the FFM callback connects. No libStarter (no engine/window spawn here).
-        String attachLibwidgets = System.getProperty("ewt.attach.libwidgets");
-        if (attachLibwidgets != null) {
-            System.load(attachLibwidgets);
-        } else {
-            NativeLibLoader.load();
-        }
+        // NativeLibLoader picks the right libraries per-OS: the full EWT set for a
+        // standalone app, or — in EWT↔Evolve attach mode — ONLY the combined bundle's
+        // libwidgets (the copy Evolve's engine runs). See NativeLibLoader.load().
+        NativeLibLoader.load();
     }
 
     private final Callable<Widget> builderFn;
