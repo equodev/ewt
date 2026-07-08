@@ -12,8 +12,10 @@ import 'package:widgets/factories.dart' as ewtf;
 
 /// Registers EWT as the provider for Evolve's EwtWidget region.
 void installEwtRegion() {
-  evolve.ewtRegionBuilder = () {
-    final int rootId = ewt.callToBuildWidgetTree(ewtf.factories);
+  // id is the Evolve region's value.id; pass it to native so the Java side dispatches
+  // to the builder that this region's EwtWidget registered (one builder per region).
+  evolve.ewtRegionBuilder = (int id) {
+    final int rootId = ewt.callToBuildWidgetTree(ewtf.factories, id);
     return ewtf.getWidget(rootId) as Widget;
   };
 }

@@ -24,6 +24,9 @@ typedef struct {
 #include "objects.h"
 #include "factories.h"
 
-typedef int (*buildWidgetTreeFn)(WidgetFactories*);
+// regionId threads a per-EwtWidget id through the build callback so N regions map
+// to N Java builders. A single global builder let regions overwrite each other
+// (last one wins); the id is the SWT widget id of the hosting EwtWidget.
+typedef int (*buildWidgetTreeFn)(WidgetFactories*, int regionId);
 
 #endif /* Common_h */

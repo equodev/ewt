@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef int (*buildWidgetTreeFn)(WidgetFactories *)
+ * typedef int (*buildWidgetTreeFn)(WidgetFactories *, int)
  * }
  */
 public final class buildWidgetTreeFn {
@@ -27,12 +27,13 @@ public final class buildWidgetTreeFn {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        int apply(MemorySegment _x0);
+        int apply(MemorySegment _x0, int regionId);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
         StarterBridge.C_INT,
-        StarterBridge.C_POINTER
+        StarterBridge.C_POINTER,
+        StarterBridge.C_INT
     );
 
     /**
@@ -57,9 +58,9 @@ public final class buildWidgetTreeFn {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static int invoke(MemorySegment funcPtr, MemorySegment _x0) {
+    public static int invoke(MemorySegment funcPtr, MemorySegment _x0, int regionId) {
         try {
-            return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            return (int) DOWN$MH.invokeExact(funcPtr, _x0, regionId);
         } catch (Error | RuntimeException ex) {
             throw ex;
         } catch (Throwable ex$) {

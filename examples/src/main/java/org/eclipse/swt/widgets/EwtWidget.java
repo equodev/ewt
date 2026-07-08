@@ -26,10 +26,29 @@ public class EwtWidget extends Composite {
 
     public EwtWidget(Composite parent, int style) {
         super(parent, style);
+        // Drop this region's builder when the widget goes away, so a disposed region
+        // leaves no stale entry in App's builder registry (keyed by this same id).
+        addDisposeListener(e -> App.unregisterBuilder(hashCode()));
     }
 
-    /** Registers the EWT widget builder (via FFM) that fills this region. */
+    /**
+     * Registers the EWT widget builder (via FFM) that fills this region.
+     *
+     * Keyed by this widget's id so multiple EwtWidget regions coexist without
+     * overwriting each other. The key must equal the Dart region's {@code value.id};
+     * Evolve serializes that id as {@code getApi().hashCode()}, and this EwtWidget IS
+     * the api Composite, so {@code hashCode()} is exactly that id.
+     */
     public void setWidget(Callable<Widget> builder) {
-        App.registerBuilder(builder);
+        App.registerBuilder(hashCode(), builder);
+    }
+
+    /**
+     * Declares the region's natural size for SWT layout. An EWT region hosts a Flutter
+     * subtree whose size is not knowable in Java, so without this a plain composite
+     * collapses to the default 64x64. Either dimension may be {@code SWT.DEFAULT}.
+     */
+    public void setPreferredSize(int width, int height) {
+        ((DartEwtWidget) getImpl()).setPreferredSize(width, height);
     }
 }

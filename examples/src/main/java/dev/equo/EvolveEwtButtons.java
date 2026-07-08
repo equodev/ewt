@@ -29,7 +29,7 @@ public class EvolveEwtButtons {
         Display display = new Display();
         Shell shell = new Shell(display);
         shell.setText("Evolve + EWT — same surface");
-        shell.setSize(780, 560);
+        shell.setSize(780, 760);
         shell.setLayout(new GridLayout(2, false));
 
         // ── Left: native Evolve controls (plain SWT, rendered by Evolve) ──
@@ -44,10 +44,35 @@ public class EvolveEwtButtons {
         makeButton(left, "Message", () -> System.out.println("[Evolve] Message"));
         makeButton(left, "Reset", () -> System.out.println("[Evolve] Reset"));
 
-        // ── Right: EWT profile card (a Flutter widget built in Java) ──
-        EwtWidget card = new EwtWidget(shell, SWT.NONE);
+        // ── Right: THREE distinct EWT regions stacked (multi-region check) ──
+        // Each EwtWidget registers its own builder keyed by its widget id. Because the
+        // three regions render different content, per-id dispatch works; if they showed
+        // the SAME subtree, the builder registry would have collapsed to a global singleton.
+        //
+        // Sizing note: an EwtWidget mounts a Flutter subtree whose height SWT cannot know,
+        // so each region declares its natural size via setPreferredSize (fed into
+        // computeSize). The profile card GRABS the extra vertical space and keeps its
+        // content centered, so it follows the window on resize; the region also clips, so
+        // if the window shrinks below the card it is trimmed, never overlapping neighbours.
+        // The stats + actions bars keep their natural height, pinned to the top.
+        Composite right = new Composite(shell, SWT.NONE);
+        right.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        right.setLayout(new GridLayout(1, false));
+
+        EwtWidget card = new EwtWidget(right, SWT.NONE);
+        card.setPreferredSize(SWT.DEFAULT, 430);
         card.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         card.setWidget(profileCard());
+
+        EwtWidget stats = new EwtWidget(right, SWT.NONE);
+        stats.setPreferredSize(SWT.DEFAULT, 130);
+        stats.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+        stats.setWidget(statsCard());
+
+        EwtWidget actions = new EwtWidget(right, SWT.NONE);
+        actions.setPreferredSize(SWT.DEFAULT, 130);
+        actions.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+        actions.setWidget(quickActions());
 
         shell.open();
         while (!shell.isDisposed()) {
@@ -138,6 +163,79 @@ public class EvolveEwtButtons {
                                 IconButton()
                                     .onPressed(() -> System.out.println("[EWT] more"))
                                     .icon(Icon(Icons.more_horiz()).color(Colors.grey().shade600()))))))));
+    }
+
+    /**
+     * A SECOND, deliberately different EWT subtree for the multi-region check: a dark
+     * stats banner. It must render its own content in its own region — not a copy of
+     * {@link #profileCard()}.
+     */
+    private static Callable<Widget> statsCard() {
+        return () -> Center().child(
+            Container()
+                .width(360.0)
+                .padding(EdgeInsets_all(24.0))
+                .decoration(BoxDecoration()
+                    .color(Color_fromRGBO(17, 24, 39, 1.0))
+                    .borderRadius(BorderRadius_circular(24.0)))
+                .child(Row()
+                    .mainAxisAlignment(MainAxisAlignment.spaceAround)
+                    .crossAxisAlignment(CrossAxisAlignment.center)
+                    .children(List.of(
+                        stat("128", "Repos"),
+                        stat("4.9k", "Followers"),
+                        stat("312", "Stars")))));
+    }
+
+    private static Widget stat(String value, String label) {
+        return Column()
+            .mainAxisSize(MainAxisSize.min)
+            .children(List.of(
+                Text(value)
+                    .style(TextStyle().fontSize(24.0).fontWeight(FontWeight.bold()).color(Colors.white())),
+                SizedBox().height(4.0),
+                Text(label)
+                    .style(TextStyle().fontSize(12.0).color(Colors.grey().shade400()))));
+    }
+
+    /**
+     * A THIRD, distinct EWT subtree for the multi-region check: a teal quick-actions
+     * bar (rounded tiles with an icon + label). It shares no distinctive widget with
+     * {@link #profileCard()} or {@link #statsCard()}, so seeing all three at once
+     * confirms each region builds its own tree.
+     */
+    private static Callable<Widget> quickActions() {
+        return () -> Center().child(
+            Container()
+                .width(360.0)
+                .padding(EdgeInsets_all(20.0))
+                .decoration(BoxDecoration()
+                    .color(Color_fromRGBO(13, 148, 136, 1.0))
+                    .borderRadius(BorderRadius_circular(24.0)))
+                .child(Row()
+                    .mainAxisAlignment(MainAxisAlignment.spaceAround)
+                    .children(List.of(
+                        action(Icons.call(), "Call"),
+                        action(Icons.mail(), "Mail"),
+                        action(Icons.event(), "Meet"),
+                        action(Icons.more_horiz(), "More")))));
+    }
+
+    private static Widget action(IconData icon, String label) {
+        return Column()
+            .mainAxisSize(MainAxisSize.min)
+            .children(List.of(
+                Container()
+                    .width(48.0)
+                    .height(48.0)
+                    .alignment(Alignment.center())
+                    .decoration(BoxDecoration()
+                        .shape(BoxShape.circle)
+                        .color(Color_fromRGBO(255, 255, 255, 0.18)))
+                    .child(Icon(icon).size(22.0).color(Colors.white())),
+                SizedBox().height(8.0),
+                Text(label)
+                    .style(TextStyle().fontSize(12.0).color(Colors.white()))));
     }
 
     private static Widget star(boolean filled) {
