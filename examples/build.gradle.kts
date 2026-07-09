@@ -100,15 +100,63 @@ tasks.named<JavaExec>("run") {
     }
 }
 
+// Builds the EWT-owned combined bundle WITHOUT any per-platform runner: `flutter assemble`
+// emits the merged libapp.so + flutter_assets; libwidgets.so is built directly from
+// widgets/src; the two are arranged into the loader-expected bundle/{lib,data} layout.
+// Evolve supplies the native bridge/engine at runtime (see design §5/§6).
+tasks.register<Exec>("buildCombinedBundle") {
+    group = "examples"
+    description = "Assemble the EWT+Evolve combined Dart bundle (no runner)."
+    val appDir = rootProject.projectDir.resolve("evolve-app")
+    workingDir = appDir
+    // 1) merged Dart snapshot + assets (no runner/CMake)
+    commandLine(
+        "bash", "-lc",
+        "flutter pub get && flutter assemble --no-version-check --output=build " +
+        "-dTargetPlatform=linux-x64 -dBuildMode=release " +
+        "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
+        "release_bundle_linux-x64_assets"
+    )
+    doLast {
+        // 2) libwidgets.so (standalone C lib, no engine/runner)
+        val widgetsSrc = rootProject.projectDir.resolve("widgets/src")
+        val widgetsBuild = rootProject.projectDir.resolve("widgets/build/native")
+        exec { commandLine("cmake", "-S", widgetsSrc, "-B", widgetsBuild, "-DCMAKE_BUILD_TYPE=Release") }
+        exec { commandLine("cmake", "--build", widgetsBuild) }
+        // 3) arrange the loader-expected layout: evolve-app/build/linux/x64/release/bundle/{lib,data}
+        val release = appDir.resolve("build/linux/x64/release")
+        val libDir = release.resolve("bundle/lib").apply { mkdirs() }
+        val dataDir = release.resolve("bundle/data").apply { mkdirs() }
+        // Real assemble output paths, confirmed by Task 1 (task-1-report.md):
+        //  - libapp.so lands in build/lib/ (NOT build/)
+        //  - flutter_assets lands in build/flutter_assets/
+        //  - icudtl.dat is NOT emitted by assemble; source it from the engine cache
+        copy { from(appDir.resolve("build/lib/libapp.so")); into(libDir) }
+        copy { from(widgetsBuild.resolve("libwidgets.so")); into(libDir) }
+        copy { from(appDir.resolve("build/flutter_assets")); into(dataDir.resolve("flutter_assets")) }
+        val flutterRoot = System.getenv("FLUTTER_ROOT")
+            ?: file(System.getProperty("user.home")).resolve("flutter").absolutePath
+        copy {
+            from(file(flutterRoot).resolve("bin/cache/artifacts/engine/linux-x64/icudtl.dat"))
+            into(dataDir)
+        }
+    }
+}
+
 // EWT ↔ Evolve same-surface demo: an EWT profile card rendered inside an Evolve window,
 // one shared Flutter engine. Runs the EWT-authored sample against Evolve (the jar) with
-// the EWT-owned combined binary. Prereqs (see spec paso 4.5):
-//   1. build the combined binary:  (cd evolve-app && flutter build linux --release)
-//   2. build the Evolve jar:       (swt-evolve) ./gradlew :swt_native:linux-x86_64Jar -DskipFlutterLib
+// the EWT-owned combined binary. Prereqs (see spec step 4.5):
+//   1. build the combined bundle:  ./gradlew :examples:buildCombinedBundle -PuseLocal=true
+//   2. build the FULL Evolve jar (with its own native bridge/engine, NOT -DskipFlutterLib):
+//                                  (swt-evolve) ./gradlew :swt_native:linux-x86_64Jar
+//      Evolve now loads its OWN bridge/engine from that jar and is pointed at EWT's external
+//      combined bundle via dev.equo.swt.flutterBuildDir (design §6.1). The old -DskipFlutterLib
+//      dev-mode path no longer applies: flutterBuildDir names the external bundle, not Evolve's natives.
 //   3. build the local ewt.api jar and run with -PuseLocal=true
 tasks.register<JavaExec>("runEvolveEwt") {
     group = "examples"
     description = "EWT ↔ Evolve same-surface: an EWT card inside an Evolve window."
+    dependsOn("buildCombinedBundle")
     classpath = sourceSets["main"].runtimeClasspath
     mainClass.set("dev.equo.EvolveEwtButtons")
     doFirst {
