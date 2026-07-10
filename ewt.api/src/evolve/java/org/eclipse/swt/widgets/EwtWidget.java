@@ -12,15 +12,16 @@ import dev.equo.ewt.Widget;
  * dependency direction EWT -> Evolve. It is a split-package class in
  * {@code org.eclipse.swt.widgets} so it can subclass Evolve's {@code Composite}.
  *
+ * Ships in the EWT↔Evolve integration jar (the {@code evolve-bundle} classifier of
+ * {@code ewt.api}) alongside the SPI provider and the combined bundle, so an integrator
+ * consumes it as a plain library class.
+ *
  * Wiring: because this class is named "EwtWidget", Evolve's
  * {@code Config.getCompositeImpl} routes it to {@code DartEwtWidget}, which
  * serializes as an "EwtWidget" node. On the Dart side that node calls the
  * {@code ewtRegionBuilder} hook, which the EWT glue fills with a call to
  * {@code callToBuildWidgetTree}. {@link #setWidget} registers the Java builder that
  * {@code callToBuildWidgetTree} ultimately invokes (via {@code App.registerBuilder}).
- *
- * NOTE: does not build until the examples module depends on Evolve (swt_native) and
- * the combined EWT-root build is set up (spec §10 / Decision Log 2026-07-01, paso 4).
  */
 public class EwtWidget extends Composite {
 

@@ -45,6 +45,13 @@ val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
 // of a cryptic compile error.
 val evolveAvailable = evolveJar.exists()
 
+// EwtWidget lives in ewt.api's `evolve` source set (it ships in the evolve-bundle classifier
+// jar). These are its compiled classes — used to compile EvolveEwtButtons and to run the dev
+// demo, WITHOUT pulling the Flutter combined-bundle build that the classifier jar requires.
+val evolveClasses = if (evolveAvailable)
+    files(rootProject.file("ewt.api/build/classes/java/evolve")) { builtBy(":ewt.api:compileEvolveJava") }
+else files()
+
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -58,6 +65,10 @@ dependencies {
     // EwtWidget routing + the loader override). Wired only when the sibling build is present.
     if (evolveAvailable) {
         implementation(files(evolveJar))
+        // EwtWidget now lives in ewt.api's evolve source set (ships in the evolve-bundle
+        // classifier jar). Compile EvolveEwtButtons against those classes; the bundle-carrying
+        // jar itself is only needed at run time (see the run tasks).
+        compileOnly(evolveClasses)
     }
 }
 
@@ -65,7 +76,6 @@ dependencies {
 // examples still compile (these two extend/import Evolve's org.eclipse.swt.* types).
 if (!evolveAvailable) {
     sourceSets["main"].java.exclude(
-        "org/eclipse/swt/widgets/EwtWidget.java",
         "dev/equo/EvolveEwtButtons.java"
     )
 }
@@ -157,7 +167,9 @@ tasks.register<JavaExec>("runEvolveEwt") {
     group = "examples"
     description = "EWT ↔ Evolve same-surface: an EWT card inside an Evolve window."
     dependsOn("buildCombinedBundle")
-    classpath = sourceSets["main"].runtimeClasspath
+    // EwtWidget at run time comes from the evolve classes (dev demo uses the dev build dir for
+    // the bundle, so it does not need the heavier classifier jar).
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
     mainClass.set("dev.equo.EvolveEwtButtons")
     doFirst {
         if (!evolveAvailable) {
