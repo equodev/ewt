@@ -13,7 +13,7 @@ import java.nio.file.Path;
  * resource tree in {@code ewt.api-<ver>-evolve-bundle-<os>.jar} — to {@code ~/.equo/ewt},
  * so Evolve's engine and EWT's NativeLibLoader can open real files on disk. Idempotent,
  * invalidated by the shipping jar's SHA-256 (reusing NativeLibLoader's cache helpers).
- * The returned base is the {@code dev.equo.swt.flutterBuildDir} value, such that
+ * The returned base is the {@code dev.equo.ewt.bundleDir} value, such that
  * {@code <base>/linux/x64/release/bundle/lib/libapp.so} exists.
  */
 public final class EvolveBundleExtractor {

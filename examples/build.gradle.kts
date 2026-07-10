@@ -31,9 +31,9 @@ val ewtApiJar = rootProject.file("ewt.api/build/libs/ewt.api-${rootProject.versi
 
 // EWT ↔ Evolve integration (dependency direction EWT → Evolve). Paths to the sibling
 // swt-evolve repo + the EWT-owned combined binary (built from ../evolve-app).
-// NOTE: the integration sources (EwtWidget, EvolveEwtButtons) call App.registerBuilder,
-// which only exists in the LOCAL ewt.api on this branch — build examples with
-// -PuseLocal=true until ewt.api republishes.
+// NOTE: the integration sample (EvolveEwtButtons) uses API that only exists in the LOCAL
+// ewt.api on this branch — build with -PuseLocal=true until ewt.api republishes. The
+// integration is fail-safe: without swt-evolve it is dropped (see evolveAvailable below).
 val evolveRepo = rootProject.projectDir.resolve("../../swt-evolve").normalize()
 val evolveJar = evolveRepo.resolve("swt_native/build/libs/swt_evolve-linux-x86_64.jar")
 val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
@@ -113,7 +113,7 @@ tasks.named<JavaExec>("run") {
 // Builds the EWT-owned combined bundle WITHOUT any per-platform runner: `flutter assemble`
 // emits the merged libapp.so + flutter_assets; libwidgets.so is built directly from
 // widgets/src; the two are arranged into the loader-expected bundle/{lib,data} layout.
-// Evolve supplies the native bridge/engine at runtime (see design §5/§6).
+// Evolve supplies the native bridge/engine at runtime.
 tasks.register<Exec>("buildCombinedBundle") {
     group = "examples"
     description = "Assemble the EWT+Evolve combined Dart bundle (no runner)."
@@ -137,7 +137,7 @@ tasks.register<Exec>("buildCombinedBundle") {
         val release = appDir.resolve("build/linux/x64/release")
         val libDir = release.resolve("bundle/lib").apply { mkdirs() }
         val dataDir = release.resolve("bundle/data").apply { mkdirs() }
-        // Real assemble output paths, confirmed by Task 1 (task-1-report.md):
+        // Real assemble output paths (verified on Linux):
         //  - libapp.so lands in build/lib/ (NOT build/)
         //  - flutter_assets lands in build/flutter_assets/
         //  - icudtl.dat is NOT emitted by assemble; source it from the engine cache
@@ -155,13 +155,13 @@ tasks.register<Exec>("buildCombinedBundle") {
 
 // EWT ↔ Evolve same-surface demo: an EWT profile card rendered inside an Evolve window,
 // one shared Flutter engine. Runs the EWT-authored sample against Evolve (the jar) with
-// the EWT-owned combined binary. Prereqs (see spec step 4.5):
+// the EWT-owned combined binary. Prereqs:
 //   1. build the combined bundle:  ./gradlew :examples:buildCombinedBundle -PuseLocal=true
 //   2. build the FULL Evolve jar (with its own native bridge/engine, NOT -DskipFlutterLib):
 //                                  (swt-evolve) ./gradlew :swt_native:linux-x86_64Jar
 //      Evolve now loads its OWN bridge/engine from that jar and is pointed at EWT's external
-//      combined bundle via dev.equo.swt.flutterBuildDir (design §6.1). The old -DskipFlutterLib
-//      dev-mode path no longer applies: flutterBuildDir names the external bundle, not Evolve's natives.
+//      combined bundle via dev.equo.ewt.bundleDir. The old -DskipFlutterLib dev-mode path no
+//      longer applies: the property names the external bundle, not Evolve's own natives.
 //   3. build the local ewt.api jar and run with -PuseLocal=true
 tasks.register<JavaExec>("runEvolveEwt") {
     group = "examples"
@@ -183,15 +183,17 @@ tasks.register<JavaExec>("runEvolveEwt") {
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
     // Point Evolve's loader at the EWT-owned combined binary (dependency EWT → Evolve).
     // EWT's NativeLibLoader reads this SAME property to attach-load the combined bundle's
-    // libwidgets per-OS — no separate hardcoded lib path needed (boss review ②).
-    systemProperty("dev.equo.swt.flutterBuildDir", combinedBuild.absolutePath)
+    // libwidgets per-OS — no separate hardcoded lib path needed.
+    systemProperty("dev.equo.ewt.bundleDir", combinedBuild.absolutePath)
     // No real SWT native needed: DeskDisplayBridge is 100% Flutter — it creates the toplevel
     // window via FlutterNative (JNI), and the tree is all Dart* widgets, so libswt-gtk is never
     // loaded (verified: runs with an empty swt.library.path). Hence no swt.library.path here.
+    // EWT calls libwidgets via the JDK FFM (Panama) API; this flag grants the native-access
+    // permission it requires (else a restricted-method warning now, a hard error in future JDKs).
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
 
-// Packaged-mode acceptance: proves the PRODUCTION path (no dev build dir, no flutterBuildDir).
+// Packaged-mode acceptance: proves the PRODUCTION path (no dev build dir, no property set).
 // The combined bundle is discovered via SPI from the evolve-bundle classifier jar and extracted
 // to ~/.equo/ewt. Distinct from runEvolveEwt, which points at the dev build dir via the property.
 val evolveBundleJar = rootProject.file(
@@ -200,7 +202,8 @@ val evolveBundleJar = rootProject.file(
 tasks.register<JavaExec>("runEvolveEwtPackaged") {
     group = "examples"
     description = "EWT ↔ Evolve packaged-mode: bundle discovered via SPI, extracted to ~/.equo/ewt."
-    dependsOn(":ewt.api:evolveBundleJar")
+    // Guarded: the evolveBundleJar task only exists when swt-evolve is present (fail-safe).
+    if (evolveAvailable) dependsOn(":ewt.api:evolveBundleJar")
     // The lean base ewt.api + the classifier jar + Evolve jar + examples classes.
     classpath = sourceSets["main"].runtimeClasspath + files(evolveBundleJar)
     mainClass.set("dev.equo.EvolveEwtButtons")
@@ -214,6 +217,6 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
     }
     systemProperty("dev.equo.swt.mode", "desktop")
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
-    // NOTE: intentionally NO dev.equo.swt.flutterBuildDir — the SPI provider supplies it.
+    // NOTE: intentionally NO dev.equo.ewt.bundleDir — the SPI provider supplies it.
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }

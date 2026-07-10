@@ -23,6 +23,12 @@ public final class EmbedBridge {
                     () -> new UnsatisfiedLinkError("Native symbol not found: setBuildWidgetTree")),
             SET_DESC);
 
+    /**
+     * Installs the ONE native build callback for the whole process. The callback carries the
+     * region id — {@code buildWidgetTreeFn} is {@code int(WidgetFactories*, int regionId)} —
+     * so a single dispatcher serves every region; per-region routing is by that id (see
+     * {@code App.registerBuilder(int, ...)}), not by a per-widget setter. Install once.
+     */
     public static void setBuildWidgetTree(MemorySegment buildWidgetTreeFn) {
         try {
             SET.invokeExact(buildWidgetTreeFn);

@@ -20,10 +20,10 @@ import java.util.zip.ZipInputStream;
 
 public class NativeLibLoader {
 
-    // Evolve's build-dir contract (dev.equo.swt.FlutterLibraryLoader reads the same
-    // property). In the EWT↔Evolve integration it points at the EWT-owned combined
-    // Flutter build/ dir; its presence is also how EWT knows it is in attach mode.
-    private static final String EVOLVE_BUILD_DIR = "dev.equo.swt.flutterBuildDir";
+    // The EWT-owned combined bundle dir (Evolve's FlutterLibraryLoader reads the same
+    // property). Its presence is how EWT knows it is in attach mode: load only the
+    // combined libwidgets, not the full standalone EWT native set.
+    private static final String EWT_BUNDLE_DIR = "dev.equo.ewt.bundleDir";
 
     static void load() {
         String os = System.getProperty("os.name").toLowerCase();
@@ -129,14 +129,13 @@ public class NativeLibLoader {
      * Resolves the combined bundle's {@code libwidgets} for attach mode, or {@code null}
      * when not in attach mode (standalone EWT — load the full lib set from the jar).
      *
-     * <p>Attach mode is signalled by {@code dev.equo.swt.flutterBuildDir} — the same
-     * property Evolve's loader uses to find the EWT-owned combined binary. The lib lives
-     * inside that build dir, at the per-OS location Flutter emits it, mirroring how the
-     * standalone path names libs per-OS above. Only the Linux location is verified live;
-     * the macOS/Windows combined runners are still a pending workstream.
+     * <p>Attach mode is signalled by {@code dev.equo.ewt.bundleDir} — the same property
+     * Evolve's loader uses to find the EWT-owned combined bundle. The lib lives inside that
+     * dir, at the per-OS location Flutter emits it, mirroring how the standalone path names
+     * libs per-OS above. Only the Linux location is wired; macOS/Windows are not built yet.
      */
     private static Path attachModeLibwidgets(String os) {
-        String buildDir = System.getProperty(EVOLVE_BUILD_DIR);
+        String buildDir = System.getProperty(EWT_BUNDLE_DIR);
         if (buildDir == null || buildDir.isBlank()) {
             return null;
         }
@@ -154,7 +153,7 @@ public class NativeLibLoader {
         }
         if (!Files.exists(lib)) {
             throw new RuntimeException("Attach mode: combined libwidgets not found at " + lib
-                + " (from " + EVOLVE_BUILD_DIR + "=" + buildDir + "). Build the combined binary first.");
+                + " (from " + EWT_BUNDLE_DIR + "=" + buildDir + "). Build the combined binary first.");
         }
         return lib;
     }
