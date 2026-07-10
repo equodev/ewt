@@ -178,3 +178,30 @@ tasks.register<JavaExec>("runEvolveEwt") {
     // loaded (verified: runs with an empty swt.library.path). Hence no swt.library.path here.
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
+
+// Packaged-mode acceptance: proves the PRODUCTION path (no dev build dir, no flutterBuildDir).
+// The combined bundle is discovered via SPI from the evolve-bundle classifier jar and extracted
+// to ~/.equo/ewt. Distinct from runEvolveEwt, which points at the dev build dir via the property.
+val evolveBundleJar = rootProject.file(
+    "ewt.api/build/libs/ewt.api-${rootProject.version}-evolve-bundle-linux.jar")
+
+tasks.register<JavaExec>("runEvolveEwtPackaged") {
+    group = "examples"
+    description = "EWT ↔ Evolve packaged-mode: bundle discovered via SPI, extracted to ~/.equo/ewt."
+    dependsOn(":ewt.api:evolveBundleJar")
+    // The lean base ewt.api + the classifier jar + Evolve jar + examples classes.
+    classpath = sourceSets["main"].runtimeClasspath + files(evolveBundleJar)
+    mainClass.set("dev.equo.EvolveEwtButtons")
+    doFirst {
+        if (!evolveAvailable) {
+            throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        }
+        if (!evolveBundleJar.exists()) {
+            throw GradleException("evolve-bundle jar not found: build :ewt.api:evolveBundleJar first.")
+        }
+    }
+    systemProperty("dev.equo.swt.mode", "desktop")
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    // NOTE: intentionally NO dev.equo.swt.flutterBuildDir — the SPI provider supplies it.
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}

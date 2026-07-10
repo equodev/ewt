@@ -54,6 +54,43 @@ sourceSets {
     }
 }
 
+// Integration-only source set: the SPI provider that hands Evolve the combined-bundle base.
+// Gated on the sibling swt-evolve jar (compileOnly), so base ewt.api still builds without it.
+val evolveJar = rootProject.projectDir.resolve("../../swt-evolve/swt_native/build/libs/swt_evolve-linux-x86_64.jar")
+val evolveAvailable = evolveJar.exists()
+
+if (evolveAvailable) {
+    val evolve by sourceSets.creating {
+        compileClasspath += sourceSets.main.get().output + files(evolveJar)
+        runtimeClasspath += sourceSets.main.get().output + files(evolveJar)
+    }
+    tasks.named<JavaCompile>("compileEvolveJava") {
+        dependsOn("compileJava")
+        options.release.set(22)
+    }
+
+    // The EWT-owned combined bundle produced by :examples:buildCombinedBundle.
+    val combinedBundleDir = rootProject.projectDir.resolve("evolve-app/build/linux/x64/release/bundle")
+
+    tasks.register<Jar>("evolveBundleJar") {
+        group = "native"
+        description = "Package the combined bundle + SPI provider as the evolve-bundle classifier jar."
+        archiveClassifier.set("evolve-bundle-linux")
+        dependsOn(":examples:buildCombinedBundle", "compileEvolveJava")
+        // Provider classes + META-INF/services.
+        from(sourceSets["evolve"].output)
+        // The combined bundle as a resource tree mirroring the property contract.
+        from(combinedBundleDir) { into("evolve-bundle/linux/x64/release/bundle") }
+        doFirst {
+            if (!combinedBundleDir.resolve("lib/libapp.so").exists()) {
+                throw GradleException(
+                    "Combined bundle missing at ${combinedBundleDir}. " +
+                    "Run :examples:buildCombinedBundle first (needs the sibling swt-evolve).")
+            }
+        }
+    }
+}
+
 tasks.test {
     useJUnitPlatform {
         if (System.getProperty("skipNativeTests") != null) {

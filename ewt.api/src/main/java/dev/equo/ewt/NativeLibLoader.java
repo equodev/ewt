@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-class NativeLibLoader {
+public class NativeLibLoader {
 
     // Evolve's build-dir contract (dev.equo.swt.FlutterLibraryLoader reads the same
     // property). In the EWT↔Evolve integration it points at the EWT-owned combined
@@ -216,7 +216,7 @@ class NativeLibLoader {
         return result;
     }
 
-    static void extractDirFromZip(Path zipPath, String prefix, Path targetDir)
+    public static void extractDirFromZip(Path zipPath, String prefix, Path targetDir)
             throws IOException {
         if (Files.exists(targetDir)) return;
         Files.createDirectories(targetDir);
@@ -236,7 +236,7 @@ class NativeLibLoader {
         }
     }
 
-    static String computeJarSha256(Path jarPath) throws IOException {
+    public static String computeJarSha256(Path jarPath) throws IOException {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -253,7 +253,7 @@ class NativeLibLoader {
         return HexFormat.of().formatHex(md.digest());
     }
 
-    static void invalidateCacheIfStale(Path cacheDir, String currentKey) throws IOException {
+    public static void invalidateCacheIfStale(Path cacheDir, String currentKey) throws IOException {
         Path keyFile = cacheDir.resolve(".jar-key");
         if (Files.exists(keyFile) && currentKey.equals(Files.readString(keyFile).trim())) {
             return;
@@ -267,7 +267,7 @@ class NativeLibLoader {
         }
     }
 
-    static void writeCacheKey(Path cacheDir, String currentKey) throws IOException {
+    public static void writeCacheKey(Path cacheDir, String currentKey) throws IOException {
         Files.createDirectories(cacheDir);
         Files.writeString(cacheDir.resolve(".jar-key"), currentKey);
     }
