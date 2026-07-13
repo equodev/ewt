@@ -1,3 +1,11 @@
+pluginManagement {
+    includeBuild("hot-reload-plugin")
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "ewt"
 include("annotation-processor")
 include("ewt.api")

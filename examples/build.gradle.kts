@@ -1,6 +1,7 @@
 plugins {
     id("java")
     application
+    id("dev.equo.ewt.hot-reload")
 }
 
 group = "dev.equo"
