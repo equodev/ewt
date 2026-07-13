@@ -8,8 +8,18 @@ import 'dart:isolate';
 import 'package:flutter/widgets.dart';
 
 import 'widgets_bindings_generated.dart';
+import 'hot_reload.dart';
 
-int callToBuildWidgetTree(ffi.Pointer<WidgetFactories> factories) => _bindings.callToBuildWidgetTree(factories);
+bool _hotReloadInitTriggered = false;
+
+int callToBuildWidgetTree(ffi.Pointer<WidgetFactories> factories) {
+  if (!_hotReloadInitTriggered) {
+    _hotReloadInitTriggered = true;
+    // Fire-and-forget: do not block the initial build waiting for the bind.
+    initHotReloadServer();
+  }
+  return _bindings.callToBuildWidgetTree(factories);
+}
 
 /// A very short-lived native function.
 ///
