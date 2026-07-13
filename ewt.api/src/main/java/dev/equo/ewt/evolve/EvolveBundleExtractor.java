@@ -10,7 +10,7 @@ import java.nio.file.Path;
 
 /**
  * Extracts the EWT-owned combined app bundle — packaged as the {@code evolve-bundle/}
- * resource tree in {@code ewt.api-<ver>-evolve-bundle-<os>.jar} — to {@code ~/.equo/ewt},
+ * resource tree in the {@code dev.equo:ewt-evolve} jar — to {@code ~/.equo/ewt},
  * so Evolve's engine and EWT's NativeLibLoader can open real files on disk. Idempotent,
  * invalidated by the shipping jar's SHA-256 (reusing NativeLibLoader's cache helpers).
  * The returned base is the {@code dev.equo.ewt.bundleDir} value, such that
@@ -42,8 +42,8 @@ public final class EvolveBundleExtractor {
 
     /**
      * Extracts the shipped bundle to {@code ~/.equo/ewt} and returns the base, or
-     * {@code null} when no bundle is on the classpath (lean base jar without the
-     * evolve-bundle classifier, or running from a classes dir).
+     * {@code null} when no bundle is on the classpath (the standalone base jar without the
+     * bundle resources, or running from a classes dir).
      */
     public static String extractAndGetBase() {
         Path bundleJar = locateBundleJar();
@@ -58,12 +58,12 @@ public final class EvolveBundleExtractor {
     }
 
     /**
-     * Locates the jar that actually SHIPS the bundle resources — the evolve-bundle
-     * classifier jar — which is NOT the (base) jar this class is compiled into. The
-     * extractor class and the bundle resources live in different jars, so the jar is
-     * derived from the probe resource's URL ({@code jar:file:/…-evolve-bundle-<os>.jar!/…}),
-     * not from {@code getProtectionDomain()}. Returns {@code null} when the resource is
-     * absent (lean jar) or is not inside a jar (e.g. a classes dir during tests).
+     * Locates the jar that actually SHIPS the bundle resources by resolving the probe
+     * resource's URL ({@code jar:file:/…!/…}) via {@code JarURLConnection}, not from
+     * {@code getProtectionDomain()}. This is robust whether the bundle resources sit in the
+     * same jar as this class (the self-contained {@code ewt-evolve} jar) or in a separate
+     * one. Returns {@code null} when the resource is absent (standalone base jar) or is not
+     * inside a jar (e.g. a classes dir during tests).
      */
     static Path locateBundleJar() {
         URL res = EvolveBundleExtractor.class.getClassLoader().getResource(PROBE_RESOURCE);

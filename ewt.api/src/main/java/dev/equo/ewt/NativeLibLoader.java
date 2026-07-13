@@ -1,5 +1,7 @@
 package dev.equo.ewt;
 
+import dev.equo.ewt.evolve.EvolveBundleExtractor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
@@ -130,12 +132,21 @@ public class NativeLibLoader {
      * when not in attach mode (standalone EWT — load the full lib set from the jar).
      *
      * <p>Attach mode is signalled by {@code dev.equo.ewt.bundleDir} — the same property
-     * Evolve's loader uses to find the EWT-owned combined bundle. The lib lives inside that
-     * dir, at the per-OS location Flutter emits it, mirroring how the standalone path names
-     * libs per-OS above. Only the Linux location is wired; macOS/Windows are not built yet.
+     * Evolve's loader uses to find the EWT-owned combined bundle. When that property is not
+     * set (the host publishes it from its own bundle discovery, which need not precede this
+     * static init), we fall back to locating our OWN shipped combined bundle: the ewt-evolve
+     * jar carries the {@code evolve-bundle/} resources plus the extractor, so EWT can resolve
+     * the base itself and attach mode does not depend on the host's timing. That fallback
+     * returns {@code null} for the standalone base jar (no bundle on the classpath), leaving
+     * this method to signal the full standalone lib set. The lib lives inside the base dir,
+     * at the per-OS location Flutter emits it, mirroring how the standalone path names libs
+     * per-OS above. Only the Linux location is wired; macOS/Windows are not built yet.
      */
     private static Path attachModeLibwidgets(String os) {
         String buildDir = System.getProperty(EWT_BUNDLE_DIR);
+        if (buildDir == null || buildDir.isBlank()) {
+            buildDir = EvolveBundleExtractor.extractAndGetBase();
+        }
         if (buildDir == null || buildDir.isBlank()) {
             return null;
         }

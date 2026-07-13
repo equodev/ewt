@@ -29,13 +29,16 @@ repositories {
 
 val ewtApiJar = rootProject.file("ewt.api/build/libs/ewt.api-${rootProject.version}.jar")
 
-// EWT ↔ Evolve integration (dependency direction EWT → Evolve). Paths to the sibling
-// swt-evolve repo + the EWT-owned combined binary (built from ../evolve-app).
+// EWT ↔ Evolve integration (dependency direction EWT → Evolve). Location of the sibling
+// swt-evolve repo (defaults to the conventional sibling layout; override with
+// -PevolveHome=<path>) + the EWT-owned combined binary (built from ../evolve-app).
 // NOTE: the integration sample (EvolveEwtButtons) uses API that only exists in the LOCAL
 // ewt.api on this branch — build with -PuseLocal=true until ewt.api republishes. The
 // integration is fail-safe: without swt-evolve it is dropped (see evolveAvailable below).
-val evolveRepo = rootProject.projectDir.resolve("../../swt-evolve").normalize()
-val evolveJar = evolveRepo.resolve("swt_native/build/libs/swt_evolve-linux-x86_64.jar")
+val evolveHome = ((project.findProperty("evolveHome") as String?)
+    ?.let { rootProject.projectDir.resolve(it) }
+    ?: rootProject.projectDir.resolve("../../swt-evolve")).normalize()
+val evolveJar = evolveHome.resolve("swt_native/build/libs/swt_evolve-linux-x86_64.jar")
 val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
 
 // The integration is optional: the sibling swt-evolve build may not be checked out. When
@@ -45,9 +48,9 @@ val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
 // of a cryptic compile error.
 val evolveAvailable = evolveJar.exists()
 
-// EwtWidget lives in ewt.api's `evolve` source set (it ships in the evolve-bundle classifier
-// jar). These are its compiled classes — used to compile EvolveEwtButtons and to run the dev
-// demo, WITHOUT pulling the Flutter combined-bundle build that the classifier jar requires.
+// EwtWidget lives in ewt.api's `evolve` source set (it ships in the ewt-evolve jar). These are
+// its compiled classes — used to compile EvolveEwtButtons and to run the dev demo, WITHOUT
+// pulling the Flutter combined-bundle build that the ewt-evolve jar requires.
 val evolveClasses = if (evolveAvailable)
     files(rootProject.file("ewt.api/build/classes/java/evolve")) { builtBy(":ewt.api:compileEvolveJava") }
 else files()
@@ -65,9 +68,9 @@ dependencies {
     // EwtWidget routing + the loader override). Wired only when the sibling build is present.
     if (evolveAvailable) {
         implementation(files(evolveJar))
-        // EwtWidget now lives in ewt.api's evolve source set (ships in the evolve-bundle
-        // classifier jar). Compile EvolveEwtButtons against those classes; the bundle-carrying
-        // jar itself is only needed at run time (see the run tasks).
+        // EwtWidget now lives in ewt.api's evolve source set (ships in the ewt-evolve jar).
+        // Compile EvolveEwtButtons against those classes; the bundle-carrying jar itself is only
+        // needed at run time (see the run tasks).
         compileOnly(evolveClasses)
     }
 }
@@ -194,25 +197,27 @@ tasks.register<JavaExec>("runEvolveEwt") {
 }
 
 // Packaged-mode acceptance: proves the PRODUCTION path (no dev build dir, no property set).
-// The combined bundle is discovered via SPI from the evolve-bundle classifier jar and extracted
+// The combined bundle is discovered via SPI from the self-contained ewt-evolve jar and extracted
 // to ~/.equo/ewt. Distinct from runEvolveEwt, which points at the dev build dir via the property.
-val evolveBundleJar = rootProject.file(
-    "ewt.api/build/libs/ewt.api-${rootProject.version}-evolve-bundle-linux.jar")
+val ewtEvolveJar = rootProject.file(
+    "ewt.api/build/libs/ewt-evolve-${rootProject.version}.jar")
 
 tasks.register<JavaExec>("runEvolveEwtPackaged") {
     group = "examples"
     description = "EWT ↔ Evolve packaged-mode: bundle discovered via SPI, extracted to ~/.equo/ewt."
-    // Guarded: the evolveBundleJar task only exists when swt-evolve is present (fail-safe).
-    if (evolveAvailable) dependsOn(":ewt.api:evolveBundleJar")
-    // The lean base ewt.api + the classifier jar + Evolve jar + examples classes.
-    classpath = sourceSets["main"].runtimeClasspath + files(evolveBundleJar)
+    // Guarded: the ewtEvolveJar task only exists when swt-evolve is present (fail-safe).
+    if (evolveAvailable) dependsOn(":ewt.api:ewtEvolveJar")
+    // The RCP contract: exactly the two library jars (ewt-evolve + Evolve) plus the example
+    // classes. Deliberately NOT the base ewt.api — ewt-evolve carries the EWT toolkit itself,
+    // and the two must not share a classpath (both define dev.equo.ewt.*).
+    classpath = sourceSets["main"].output + files(evolveJar) + files(ewtEvolveJar)
     mainClass.set("dev.equo.EvolveEwtButtons")
     doFirst {
         if (!evolveAvailable) {
             throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
         }
-        if (!evolveBundleJar.exists()) {
-            throw GradleException("evolve-bundle jar not found: build :ewt.api:evolveBundleJar first.")
+        if (!ewtEvolveJar.exists()) {
+            throw GradleException("ewt-evolve jar not found: build :ewt.api:ewtEvolveJar first.")
         }
     }
     systemProperty("dev.equo.swt.mode", "desktop")

@@ -56,7 +56,13 @@ sourceSets {
 
 // Integration-only source set: the SPI provider that hands Evolve the combined-bundle base.
 // Gated on the sibling swt-evolve jar (compileOnly), so base ewt.api still builds without it.
-val evolveJar = rootProject.projectDir.resolve("../../swt-evolve/swt_native/build/libs/swt_evolve-linux-x86_64.jar")
+// The swt-evolve checkout defaults to the conventional sibling layout; override its location
+// with -PevolveHome=<path> (absolute, or relative to this repo root) — e.g. the CI passes the
+// path it cloned to instead of relying on the implicit ../../ .
+val evolveHome = (project.findProperty("evolveHome") as String?)
+    ?.let { rootProject.projectDir.resolve(it) }
+    ?: rootProject.projectDir.resolve("../../swt-evolve")
+val evolveJar = evolveHome.resolve("swt_native/build/libs/swt_evolve-linux-x86_64.jar")
 val evolveAvailable = evolveJar.exists()
 
 if (evolveAvailable) {
@@ -72,12 +78,22 @@ if (evolveAvailable) {
     // The EWT-owned combined bundle produced by :examples:buildCombinedBundle.
     val combinedBundleDir = rootProject.projectDir.resolve("evolve-app/build/linux/x64/release/bundle")
 
-    tasks.register<Jar>("evolveBundleJar") {
+    // Self-contained integration artifact (dev.equo:ewt-evolve). A consumer that already ships
+    // Evolve (as its swt.jar replacement) adds only this jar + the Evolve jar — no separate base
+    // ewt.api. It bundles the whole EWT toolkit, EwtWidget, the SPI provider and the combined
+    // Flutter bundle, minus the standalone native resources (dead weight in attach mode).
+    tasks.register<Jar>("ewtEvolveJar") {
         group = "native"
-        description = "Package the combined bundle + SPI provider as the evolve-bundle classifier jar."
-        archiveClassifier.set("evolve-bundle-linux")
+        description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve)."
+        archiveBaseName.set("ewt-evolve")
         dependsOn(":examples:buildCombinedBundle", "compileEvolveJava")
-        // Provider classes + META-INF/services.
+        // The EWT toolkit classes (EWT.*, App, NativeLibLoader, EvolveBundleExtractor, the
+        // generated builders and the ffm bindings). Taken straight from compileJava's output,
+        // NOT the main resources: those are just the standalone native libs under native/, which
+        // are dead weight in attach mode (EWT uses Evolve's engine and the combined libwidgets
+        // from the bundle). Keeping them out holds this jar to classes + the combined bundle.
+        from(tasks.named<JavaCompile>("compileJava").flatMap { it.destinationDirectory })
+        // Provider classes + META-INF/services + EwtWidget.
         from(sourceSets["evolve"].output)
         // The combined bundle as a resource tree mirroring the property contract.
         from(combinedBundleDir) { into("evolve-bundle/linux/x64/release/bundle") }
@@ -86,6 +102,29 @@ if (evolveAvailable) {
                 throw GradleException(
                     "Combined bundle missing at ${combinedBundleDir}. " +
                     "Run :examples:buildCombinedBundle first (needs the sibling swt-evolve).")
+            }
+        }
+    }
+
+    // Publish ewt-evolve as its own artifact (a real artifactId, not a classifier of ewt.api).
+    // Gated on Evolve availability, so base ewt.api still builds/publishes without swt-evolve.
+    publishing {
+        publications {
+            create<MavenPublication>("ewtEvolve") {
+                groupId = "dev.equo"
+                artifactId = "ewt-evolve"
+                version = project.version.toString()
+                // Reference the built file (as the ewtApi publication does) rather than the
+                // task, so publishing uploads an already-built jar without re-running the
+                // combined-bundle merge — the CI publish job restores the jar as an artifact.
+                artifact(file("build/libs/ewt-evolve-${project.version}.jar"))
+                pom {
+                    name.set("EWT ↔ Evolve integration")
+                    description.set(
+                        "Self-contained EWT toolkit + EwtWidget + SPI provider + combined " +
+                        "Flutter bundle for embedding EWT widgets in an SWT Evolve surface (Linux)."
+                    )
+                }
             }
         }
     }

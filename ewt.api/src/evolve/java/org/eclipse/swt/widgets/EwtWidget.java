@@ -12,9 +12,9 @@ import dev.equo.ewt.Widget;
  * dependency direction EWT -> Evolve. It is a split-package class in
  * {@code org.eclipse.swt.widgets} so it can subclass Evolve's {@code Composite}.
  *
- * Ships in the EWT↔Evolve integration jar (the {@code evolve-bundle} classifier of
- * {@code ewt.api}) alongside the SPI provider and the combined bundle, so an integrator
- * consumes it as a plain library class.
+ * Ships in the self-contained EWT↔Evolve integration jar ({@code dev.equo:ewt-evolve})
+ * alongside the SPI provider and the combined bundle, so an integrator consumes it as a
+ * plain library class.
  *
  * Wiring: because this class is named "EwtWidget", Evolve's
  * {@code Config.getCompositeImpl} routes it to {@code DartEwtWidget}, which
