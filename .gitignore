@@ -40,3 +40,8 @@ out/
 
 ### Mac OS ###
 .DS_Store
+
+### Flutter ###
+# Per-environment dependency redirect (e.g. CI points swtflutter at its swt-evolve clone).
+# The committed pubspec.yaml keeps the local default; overrides must never be committed.
+pubspec_overrides.yaml
