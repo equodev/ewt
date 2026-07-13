@@ -20,6 +20,19 @@ public final class Main {
     private static final int DART_TRIGGER_PORT = 5006;
 
     public static void main(String[] args) throws Exception {
+        // Accept `-Dkey=value` also as positional args, because Gradle's
+        // application-plugin launcher script forwards program args to the JVM
+        // as *application* args, not JVM system properties. Promoting them
+        // before we read the properties keeps invocation uniform (env var,
+        // JVM -D, or positional -D all work).
+        for (String a : args) {
+            if (a.startsWith("-D")) {
+                String kv = a.substring(2);
+                int eq = kv.indexOf('=');
+                if (eq > 0) System.setProperty(kv.substring(0, eq), kv.substring(eq + 1));
+            }
+        }
+
         String sourceDirsProp = System.getProperty("sourceDirs");
         String gradleTask = System.getProperty("gradleCompileTask", ":examples:classes");
         Path projectRoot = Paths.get(System.getProperty("projectRoot", ".")).toAbsolutePath();
