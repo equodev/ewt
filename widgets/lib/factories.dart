@@ -61,6 +61,60 @@ T _runBuildScope<T>(T Function() fn) {
     });
   }
 }
+void _cleanupFromRegistry(Object? w) {
+  if (w == null) return;
+  final id = _widgetIdByRef.remove(w);
+  if (id != null) _widgetsMap.remove(id);
+}
+
+// Tracked subclasses used by the generated factories for SubStateful/
+// SubStatelessWidget. Their sole purpose is to hook Flutter's Element
+// lifecycle: entries stay in the identity registry until Flutter itself
+// removes the widget from the tree (update() replaces the instance, or
+// unmount()), which is the only correct signal that state.widget() will
+// never be dispatched again.
+class _TrackedSubStatefulWidget extends SubStatefulWidget {
+  _TrackedSubStatefulWidget({required super.createStateFn});
+  @override
+  StatefulElement createElement() => _TrackedStatefulElement(this);
+}
+class _TrackedStatefulElement extends StatefulElement {
+  _TrackedStatefulElement(SubStatefulWidget super.widget);
+  @override
+  void update(covariant SubStatefulWidget newWidget) {
+    final old = widget;
+    super.update(newWidget);
+    if (!identical(old, newWidget)) _cleanupFromRegistry(old);
+  }
+  @override
+  void unmount() {
+    final w = widget;
+    final s = state;
+    super.unmount();
+    _cleanupFromRegistry(w);
+    _cleanupFromRegistry(s);
+  }
+}
+class _TrackedSubStatelessWidget extends SubStatelessWidget {
+  _TrackedSubStatelessWidget({required super.buildFn});
+  @override
+  StatelessElement createElement() => _TrackedStatelessElement(this);
+}
+class _TrackedStatelessElement extends StatelessElement {
+  _TrackedStatelessElement(SubStatelessWidget super.widget);
+  @override
+  void update(covariant SubStatelessWidget newWidget) {
+    final old = widget;
+    super.update(newWidget);
+    if (!identical(old, newWidget)) _cleanupFromRegistry(old);
+  }
+  @override
+  void unmount() {
+    final w = widget;
+    super.unmount();
+    _cleanupFromRegistry(w);
+  }
+}
 extension on int {
   bool toBool() => this == 1 ? true : false;
   E toEnum<E extends Enum>(List<E> values) => values[this];
