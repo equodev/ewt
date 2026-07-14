@@ -6,10 +6,8 @@ plugins {
 group = "dev.equo"
 version = "1.0-SNAPSHOT"
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(22)
 }
 
 repositories {
