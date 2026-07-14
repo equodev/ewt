@@ -34,11 +34,13 @@ public final class Main {
         }
 
         String sourceDirsProp = System.getProperty("sourceDirs");
+        String classesOutputRootProp = System.getProperty("classesOutputRoot");
         String gradleTask = System.getProperty("gradleCompileTask", ":examples:classes");
         Path projectRoot = Paths.get(System.getProperty("projectRoot", ".")).toAbsolutePath();
 
-        if (sourceDirsProp == null || sourceDirsProp.isBlank()) {
-            System.err.println("Usage: -DsourceDirs=<path1,path2,...> -DprojectRoot=<ewt-root>");
+        if (sourceDirsProp == null || sourceDirsProp.isBlank()
+                || classesOutputRootProp == null || classesOutputRootProp.isBlank()) {
+            System.err.println("Usage: -DsourceDirs=<path1,path2,...> -DclassesOutputRoot=<absolute-path> -DprojectRoot=<ewt-root>");
             System.exit(2);
         }
 
@@ -53,7 +55,7 @@ public final class Main {
         Map<WatchKey, Path> keyRoots = new HashMap<>();
         for (Path root : sourceDirs) registerRecursive(root, watcher, keyRoots);
 
-        Path classesOutputRoot = projectRoot.resolve("examples/build/classes/java/main");
+        Path classesOutputRoot = Paths.get(classesOutputRootProp).toAbsolutePath();
         Map<Path, Long> classMtimes = snapshotMtimes(classesOutputRoot);
 
         while (true) {

@@ -56,6 +56,7 @@ class HotReloadPlugin : Plugin<Project> {
                 val pb = ProcessBuilder(
                     clientScript.absolutePath,
                     "-DsourceDirs=$sourceDirs",
+                    "-DclassesOutputRoot=${target.layout.buildDirectory.dir("classes/java/main").get().asFile.absolutePath}",
                     "-DprojectRoot=${target.rootProject.projectDir.absolutePath}",
                     "-DgradleCompileTask=$gradleCompileTask"
                 ).inheritIO()
