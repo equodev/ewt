@@ -38,7 +38,15 @@ val ewtApiJar = rootProject.file("ewt.api/build/libs/ewt.api-${rootProject.versi
 val evolveHome = ((project.findProperty("evolveHome") as String?)
     ?.let { rootProject.projectDir.resolve(it) }
     ?: rootProject.projectDir.resolve("../../swt-evolve")).normalize()
-val evolveJar = evolveHome.resolve("swt_native/build/libs/swt_evolve-linux-x86_64.jar")
+val evolvePlatform = System.getProperty("os.name").lowercase().let {
+    when {
+        it.contains("linux") -> "linux-x86_64"
+        it.contains("win")   -> "windows-x86_64"
+        it.contains("mac")   -> "macos-aarch64"
+        else -> throw GradleException("Unsupported OS: $it")
+    }
+}
+val evolveJar = evolveHome.resolve("swt_native/build/libs/swt_evolve-$evolvePlatform.jar")
 val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
 
 // The integration is optional: the sibling swt-evolve build may not be checked out. When
