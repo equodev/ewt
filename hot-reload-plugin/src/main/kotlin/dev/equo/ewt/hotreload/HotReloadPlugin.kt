@@ -4,7 +4,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.tasks.SourceSetContainer
 
 class HotReloadPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -19,15 +18,15 @@ class HotReloadPlugin : Plugin<Project> {
             doFirst {
                 // 1. Enable JDWP on the target JVM.
                 val jdwp = "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=localhost:5005"
-                val existingJvmArgs = runTask.jvmArgs.toMutableList()
+                val existingJvmArgs = (runTask.jvmArgs ?: emptyList()).toMutableList()
                 if (existingJvmArgs.none { it.startsWith("-agentlib:jdwp") }) {
                     existingJvmArgs.add(jdwp)
                     runTask.jvmArgs = existingJvmArgs
                 }
 
                 // 2. Auto-discover source dirs of the target module.
-                val sourceSets = target.extensions.getByType(JavaPluginExtension::class.java).sourceSets
-                val mainJava = sourceSets.getByName("main").java.srcDirs
+                val mainJava = target.extensions.getByType(JavaPluginExtension::class.java)
+                    .sourceSets.getByName("main").java.srcDirs
                     .filter { it.exists() }
                     .map { it.absolutePath }
                     .toMutableList()
