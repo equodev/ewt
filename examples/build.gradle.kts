@@ -44,7 +44,7 @@ val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
 // The integration is optional: the sibling swt-evolve build may not be checked out. When
 // its jar is absent, the plain (non-Evolve) examples must still build — so the integration
 // sources (which extend/import Evolve's org.eclipse.swt.* types) and the Evolve dependency
-// are wired in ONLY when the jar exists, and runEvolveEwt fails with a clear message instead
+// are wired in ONLY when the jar exists, and runEvolveEwtDev fails with a clear message instead
 // of a cryptic compile error.
 val evolveAvailable = evolveJar.exists()
 
@@ -156,9 +156,13 @@ tasks.register<Exec>("buildCombinedBundle") {
     }
 }
 
-// EWT ↔ Evolve same-surface demo: an EWT profile card rendered inside an Evolve window,
-// one shared Flutter engine. Runs the EWT-authored sample against Evolve (the jar) with
-// the EWT-owned combined binary. Prereqs:
+// EWT ↔ Evolve same-surface demo — DEV mode (fast local iteration). An EWT card inside an
+// Evolve window, one shared Flutter engine. The ONLY difference vs runEvolveEwtPackaged below
+// is where the combined bundle comes from: this task shortcuts straight to the dev build dir
+// (dev.equo.ewt.bundleDir=evolve-app/build) and runs against the compiled evolve classes, so
+// it needs NO ewt-evolve jar. runEvolveEwtPackaged is the PRODUCTION path: no property, the
+// bundle is discovered+extracted from the ewt-evolve jar via SPI (what a real RCP does).
+// Prereqs:
 //   1. build the combined bundle:  ./gradlew :examples:buildCombinedBundle -PuseLocal=true
 //   2. build the FULL Evolve jar (with its own native bridge/engine, NOT -DskipFlutterLib):
 //                                  (swt-evolve) ./gradlew :swt_native:linux-x86_64Jar
@@ -166,12 +170,12 @@ tasks.register<Exec>("buildCombinedBundle") {
 //      combined bundle via dev.equo.ewt.bundleDir. The old -DskipFlutterLib dev-mode path no
 //      longer applies: the property names the external bundle, not Evolve's own natives.
 //   3. build the local ewt.api jar and run with -PuseLocal=true
-tasks.register<JavaExec>("runEvolveEwt") {
+tasks.register<JavaExec>("runEvolveEwtDev") {
     group = "examples"
-    description = "EWT ↔ Evolve same-surface: an EWT card inside an Evolve window."
+    description = "EWT ↔ Evolve same-surface (DEV): bundle from the dev build dir via the property."
     dependsOn("buildCombinedBundle")
-    // EwtWidget at run time comes from the evolve classes (dev demo uses the dev build dir for
-    // the bundle, so it does not need the heavier classifier jar).
+    // EwtWidget at run time comes from the evolve classes (dev mode uses the dev build dir for
+    // the bundle, so it does not need the ewt-evolve jar).
     classpath = sourceSets["main"].runtimeClasspath + evolveClasses
     mainClass.set("dev.equo.EvolveEwtButtons")
     doFirst {
@@ -196,9 +200,10 @@ tasks.register<JavaExec>("runEvolveEwt") {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
 
-// Packaged-mode acceptance: proves the PRODUCTION path (no dev build dir, no property set).
-// The combined bundle is discovered via SPI from the self-contained ewt-evolve jar and extracted
-// to ~/.equo/ewt. Distinct from runEvolveEwt, which points at the dev build dir via the property.
+// EWT ↔ Evolve same-surface — PACKAGED (production) mode. Proves the real RCP path: no dev
+// build dir and no property set — the combined bundle is discovered via SPI from the
+// self-contained ewt-evolve jar and extracted to ~/.equo/ewt. Contrast runEvolveEwtDev above,
+// which shortcuts to the dev build dir via the property.
 val ewtEvolveJar = rootProject.file(
     "ewt.api/build/libs/ewt-evolve-${rootProject.version}.jar")
 
