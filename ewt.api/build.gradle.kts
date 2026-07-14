@@ -75,8 +75,27 @@ if (evolveAvailable) {
         options.release.set(22)
     }
 
-    // The EWT-owned combined bundle produced by :examples:buildCombinedBundle.
-    val combinedBundleDir = rootProject.projectDir.resolve("evolve-app/build/linux/x64/release/bundle")
+    // OS this ewt-evolve jar is built for. -Pclassifier=<os> overrides (CI); otherwise the
+    // current OS. The combined-bundle subpath mirrors Evolve's per-OS external-bundle
+    // constants (LINUX_X64_RELEASE / WIN_X64_RELEASE), so Evolve finds the bundle unchanged.
+    val ewtEvolveOs = (project.findProperty("classifier") as String?)?.takeIf { it.isNotEmpty() }
+        ?: System.getProperty("os.name").lowercase().let {
+            when {
+                it.contains("linux") -> "linux"
+                it.contains("win")   -> "windows"
+                it.contains("mac")   -> "macos"
+                else -> throw GradleException("Unsupported OS: $it")
+            }
+        }
+    val ewtEvolveBundleSubpath = when (ewtEvolveOs) {
+        "linux"   -> "linux/x64/release"
+        "windows" -> "windows/x64/runner/Release"
+        "macos"   -> "macos/Build/Products/Release/swtflutter.app/Contents"
+        else -> throw GradleException("Unsupported OS: $ewtEvolveOs")
+    }
+
+    // The EWT-owned combined bundle produced by :examples:buildCombinedBundle (per-OS layout).
+    val combinedBundleDir = rootProject.projectDir.resolve("evolve-app/build/$ewtEvolveBundleSubpath/bundle")
 
     // Self-contained integration artifact (dev.equo:ewt-evolve). A consumer that already ships
     // Evolve (as its swt.jar replacement) adds only this jar + the Evolve jar — no separate base
@@ -84,8 +103,9 @@ if (evolveAvailable) {
     // Flutter bundle, minus the standalone native resources (dead weight in attach mode).
     tasks.register<Jar>("ewtEvolveJar") {
         group = "native"
-        description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve)."
+        description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve, per-OS)."
         archiveBaseName.set("ewt-evolve")
+        archiveClassifier.set(ewtEvolveOs)
         dependsOn(":examples:buildCombinedBundle", "compileEvolveJava")
         // The EWT toolkit classes (EWT.*, App, NativeLibLoader, EvolveBundleExtractor, the
         // generated builders and the ffm bindings). Taken straight from compileJava's output,
@@ -96,7 +116,7 @@ if (evolveAvailable) {
         // Provider classes + META-INF/services + EwtWidget.
         from(sourceSets["evolve"].output)
         // The combined bundle as a resource tree mirroring the property contract.
-        from(combinedBundleDir) { into("evolve-bundle/linux/x64/release/bundle") }
+        from(combinedBundleDir) { into("evolve-bundle/$ewtEvolveBundleSubpath/bundle") }
         doFirst {
             if (!combinedBundleDir.resolve("lib/libapp.so").exists()) {
                 throw GradleException(
@@ -117,12 +137,14 @@ if (evolveAvailable) {
                 // Reference the built file (as the ewtApi publication does) rather than the
                 // task, so publishing uploads an already-built jar without re-running the
                 // combined-bundle merge — the CI publish job restores the jar as an artifact.
-                artifact(file("build/libs/ewt-evolve-${project.version}.jar"))
+                artifact(file("build/libs/ewt-evolve-${project.version}-${ewtEvolveOs}.jar")) {
+                    classifier = ewtEvolveOs
+                }
                 pom {
                     name.set("EWT ↔ Evolve integration")
                     description.set(
                         "Self-contained EWT toolkit + EwtWidget + SPI provider + combined " +
-                        "Flutter bundle for embedding EWT widgets in an SWT Evolve surface (Linux)."
+                        "Flutter bundle for embedding EWT widgets in an SWT Evolve surface (per-OS)."
                     )
                 }
             }

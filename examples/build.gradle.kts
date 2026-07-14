@@ -205,7 +205,7 @@ tasks.register<JavaExec>("runEvolveEwtDev") {
 // self-contained ewt-evolve jar and extracted to ~/.equo/ewt. Contrast runEvolveEwtDev above,
 // which shortcuts to the dev build dir via the property.
 val ewtEvolveJar = rootProject.file(
-    "ewt.api/build/libs/ewt-evolve-${rootProject.version}.jar")
+    "ewt.api/build/libs/ewt-evolve-${rootProject.version}-${currentOs}.jar")
 
 tasks.register<JavaExec>("runEvolveEwtPackaged") {
     group = "examples"

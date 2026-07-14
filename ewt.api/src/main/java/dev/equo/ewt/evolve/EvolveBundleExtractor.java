@@ -18,13 +18,23 @@ import java.nio.file.Path;
  */
 public final class EvolveBundleExtractor {
 
-    // Resource prefix inside the classifier jar. The tree under it mirrors the property
-    // contract, so extraction is a straight copy to <base>/linux/x64/release/bundle/... .
+    // Resource prefix inside the jar. The tree under it mirrors the property contract, so
+    // extraction is a straight copy to <base>/<osSubpath>/bundle/... .
     static final String RESOURCE_PREFIX = "evolve-bundle/";
 
-    // Cheapest proof the bundle is actually shipped in this jar (vs a lean/base jar).
+    // Per-OS subpath under the bundle root, mirroring Evolve's external-bundle constants
+    // (LINUX_X64_RELEASE / WIN_X64_RELEASE) so both sides resolve the same tree.
+    static String osSubpath() {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("linux")) return "linux/x64/release";
+        if (os.contains("win"))   return "windows/x64/runner/Release";
+        if (os.contains("mac"))   return "macos/Build/Products/Release/swtflutter.app/Contents";
+        throw new IllegalStateException("Unsupported OS: " + os);
+    }
+
+    // Cheapest proof the bundle for THIS OS is actually shipped in this jar (vs a lean/base jar).
     private static final String PROBE_RESOURCE =
-            RESOURCE_PREFIX + "linux/x64/release/bundle/lib/libapp.so";
+            RESOURCE_PREFIX + osSubpath() + "/bundle/lib/libapp.so";
 
     private EvolveBundleExtractor() {}
 

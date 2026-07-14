@@ -155,7 +155,7 @@ public class NativeLibLoader {
         if (os.contains("linux")) {
             lib = bundle.resolve("linux/x64/release/bundle/lib/libwidgets.so");
         } else if (os.contains("win")) {
-            lib = bundle.resolve("windows/x64/runner/Release/widgets.dll");
+            lib = bundle.resolve("windows/x64/runner/Release/bundle/lib/widgets.dll");
         } else if (os.contains("mac")) {
             lib = bundle.resolve(
                 "macos/Build/Products/Release/swtflutter.app/Contents/Frameworks/widgets.framework/widgets");
