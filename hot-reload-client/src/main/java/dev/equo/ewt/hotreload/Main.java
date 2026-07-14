@@ -19,6 +19,8 @@ public final class Main {
     private static final String DART_TRIGGER_HOST = "localhost";
     private static final int DART_TRIGGER_PORT = 5006;
 
+    private static volatile VirtualMachine VM;
+
     public static void main(String[] args) throws Exception {
         // Accept `-Dkey=value` also as positional args, because Gradle's
         // application-plugin launcher script forwards program args to the JVM
@@ -49,6 +51,13 @@ public final class Main {
 
         System.out.println("[hot-reload] Connecting to JDWP at " + JDWP_HOSTNAME + ":" + JDWP_PORT + " (retrying until ready)...");
         VirtualMachine vm = attachWithRetry();
+        VM = vm;
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            VirtualMachine v = VM;
+            if (v != null) {
+                try { v.dispose(); } catch (Exception ignored) {}
+            }
+        }));
         System.out.println("[hot-reload] Connected. Watching: " + sourceDirs);
 
         WatchService watcher = FileSystems.getDefault().newWatchService();
@@ -130,8 +139,11 @@ public final class Main {
                 continue;
             }
 
-            triggerDartReassemble();
-            System.out.println("[hot-reload] Reload applied.");
+            if (triggerDartReassemble()) {
+                System.out.println("[hot-reload] Reload applied.");
+            } else {
+                System.out.println("[hot-reload] Class redefinition applied; Dart reassemble not triggered.");
+            }
         }
     }
 
@@ -182,7 +194,6 @@ public final class Main {
     private static int runGradle(Path projectRoot, String task) throws Exception {
         ProcessBuilder pb = new ProcessBuilder("./gradlew", task, "--daemon", "-q")
                 .directory(projectRoot.toFile())
-                .redirectErrorStream(true)
                 .inheritIO();
         pb.environment().put("JAVA_HOME", System.getenv().getOrDefault("JAVA_HOME", System.getProperty("java.home")));
         Process p = pb.start();
@@ -193,12 +204,14 @@ public final class Main {
         return p.exitValue();
     }
 
-    private static void triggerDartReassemble() {
+    private static boolean triggerDartReassemble() {
         try (Socket s = new Socket(DART_TRIGGER_HOST, DART_TRIGGER_PORT)) {
             s.getOutputStream().write("reload\n".getBytes());
             s.getOutputStream().flush();
+            return true;
         } catch (IOException e) {
             System.err.println("[hot-reload] Could not connect to Dart at " + DART_TRIGGER_HOST + ":" + DART_TRIGGER_PORT + ": " + e.getMessage());
+            return false;
         }
     }
 }
