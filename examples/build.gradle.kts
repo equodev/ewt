@@ -35,14 +35,23 @@ val ewtApiJar = rootProject.file("ewt.api/build/libs/ewt.api-${rootProject.versi
 // NOTE: the integration sample (EvolveEwtButtons) uses API that only exists in the LOCAL
 // ewt.api on this branch — build with -PuseLocal=true until ewt.api republishes. The
 // integration is fail-safe: without swt-evolve it is dropped (see evolveAvailable below).
+// Locate the sibling swt-evolve repo. -PevolveHome wins; otherwise probe the conventional dev
+// layouts — a true sibling of this repo (../swt-evolve) or one level up (../../swt-evolve) —
+// picking the first that actually holds swt-evolve (swt_native/). Falls back to the sibling
+// location so the "not found" error points at the natural spot.
 val evolveHome = ((project.findProperty("evolveHome") as String?)
     ?.let { rootProject.projectDir.resolve(it) }
-    ?: rootProject.projectDir.resolve("../../swt-evolve")).normalize()
+    ?: listOf("../swt-evolve", "../../swt-evolve")
+        .map { rootProject.projectDir.resolve(it) }
+        .firstOrNull { it.resolve("swt_native").isDirectory }
+    ?: rootProject.projectDir.resolve("../swt-evolve")).normalize()
 val evolvePlatform = System.getProperty("os.name").lowercase().let {
     when {
         it.contains("linux") -> "linux-x86_64"
         it.contains("win")   -> "windows-x86_64"
-        it.contains("mac")   -> "macos-aarch64"
+        // Evolve's macOS jar is per-arch (macos-aarch64 / macos-x86_64); follow the host JVM.
+        it.contains("mac")   -> "macos-" +
+            (if (System.getProperty("os.arch").lowercase().contains("aarch64")) "aarch64" else "x86_64")
         else -> throw GradleException("Unsupported OS: $it")
     }
 }
@@ -130,36 +139,80 @@ tasks.register<Exec>("buildCombinedBundle") {
     description = "Assemble the EWT+Evolve combined Dart bundle (no runner)."
     val appDir = rootProject.projectDir.resolve("evolve-app")
     workingDir = appDir
-    // 1) merged Dart snapshot + assets (no runner/CMake)
-    commandLine(
-        "bash", "-lc",
-        "flutter pub get && flutter assemble --no-version-check --output=build " +
-        "-dTargetPlatform=linux-x64 -dBuildMode=release " +
-        "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
-        "release_bundle_linux-x64_assets"
-    )
-    doLast {
-        // 2) libwidgets.so (standalone C lib, no engine/runner)
-        val widgetsSrc = rootProject.projectDir.resolve("widgets/src")
-        val widgetsBuild = rootProject.projectDir.resolve("widgets/build/native")
-        exec { commandLine("cmake", "-S", widgetsSrc, "-B", widgetsBuild, "-DCMAKE_BUILD_TYPE=Release") }
-        exec { commandLine("cmake", "--build", widgetsBuild) }
-        // 3) arrange the loader-expected layout: evolve-app/build/linux/x64/release/bundle/{lib,data}
-        val release = appDir.resolve("build/linux/x64/release")
-        val libDir = release.resolve("bundle/lib").apply { mkdirs() }
-        val dataDir = release.resolve("bundle/data").apply { mkdirs() }
-        // Real assemble output paths (verified on Linux):
-        //  - libapp.so lands in build/lib/ (NOT build/)
-        //  - flutter_assets lands in build/flutter_assets/
-        //  - icudtl.dat is NOT emitted by assemble; source it from the engine cache
-        copy { from(appDir.resolve("build/lib/libapp.so")); into(libDir) }
-        copy { from(widgetsBuild.resolve("libwidgets.so")); into(libDir) }
-        copy { from(appDir.resolve("build/flutter_assets")); into(dataDir.resolve("flutter_assets")) }
-        val flutterRoot = System.getenv("FLUTTER_ROOT")
-            ?: file(System.getProperty("user.home")).resolve("flutter").absolutePath
-        copy {
-            from(file(flutterRoot).resolve("bin/cache/artifacts/engine/linux-x64/icudtl.dat"))
-            into(dataDir)
+    val widgetsSrc = rootProject.projectDir.resolve("widgets/src")
+    val widgetsBuild = rootProject.projectDir.resolve("widgets/build/native")
+    if (currentOs == "macos") {
+        // macOS does NOT use the Linux/Windows bundle/{lib,data} layout. Flutter emits the
+        // merged Dart AOT snapshot as the `App` binary inside App.framework, plus a separate
+        // FlutterMacOS.framework (engine + icudtl.dat). The Dart target that produces this
+        // framework layout is release_macos_bundle_flutter_assets. Arch follows the host JVM.
+        val darwinArch = if (System.getProperty("os.arch").lowercase().contains("aarch64")) "arm64" else "x86_64"
+        commandLine(
+            "bash", "-lc",
+            "flutter pub get && flutter assemble --no-version-check --output=build " +
+            "-dTargetPlatform=darwin -dDarwinArchs=$darwinArch -dBuildMode=release " +
+            "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
+            "release_macos_bundle_flutter_assets"
+        )
+        doLast {
+            // libwidgets.dylib (standalone C FFI lib, no engine/runner)
+            exec { commandLine("cmake", "-S", widgetsSrc, "-B", widgetsBuild, "-DCMAKE_BUILD_TYPE=Release") }
+            exec { commandLine("cmake", "--build", widgetsBuild) }
+            // Arrange the layout Evolve+EWT expect: everything under
+            // swtflutter.app/Contents/Frameworks, matching FlutterLibraryLoader.SWTFLUTTER_APP_CONTENTS
+            // and the native bridge's bundleBase() + "/Frameworks/App.framework".
+            val contents = appDir.resolve("build/macos/Build/Products/Release/swtflutter.app/Contents")
+            val frameworks = contents.resolve("Frameworks").apply { mkdirs() }
+            // App.framework (Dart AOT snapshot + flutter_assets) and FlutterMacOS.framework
+            // (engine + Resources/icudtl.dat) come straight from assemble's output root.
+            copy { from(appDir.resolve("build/App.framework")); into(frameworks.resolve("App.framework")) }
+            copy { from(appDir.resolve("build/FlutterMacOS.framework")); into(frameworks.resolve("FlutterMacOS.framework")) }
+            // The EWT FFI plugin: package the cmake dylib as widgets.framework/widgets — the path
+            // EWT's NativeLibLoader attach-loads and widgets.dart's DynamicLibrary.open resolves.
+            val widgetsFw = frameworks.resolve("widgets.framework").apply { mkdirs() }
+            copy { from(widgetsBuild.resolve("libwidgets.dylib")); into(widgetsFw); rename { "widgets" } }
+            // Set the install name (LC_ID_DYLIB) to the EXACT relative string widgets.dart opens
+            // ("widgets.framework/widgets"), NOT @rpath/…. NativeLibLoader preloads this dylib by
+            // absolute path; the embedded Evolve process has no cwd/rpath pointing at Frameworks/,
+            // so the later DynamicLibrary.open('widgets.framework/widgets') can only resolve by
+            // matching an already-loaded image's install name verbatim. Nothing links widgets via
+            // LC_LOAD_DYLIB (it is only ever dlopen'd), so a relative id is safe here.
+            exec {
+                commandLine(
+                    "install_name_tool", "-id", "widgets.framework/widgets",
+                    widgetsFw.resolve("widgets").absolutePath)
+            }
+        }
+    } else {
+        // 1) merged Dart snapshot + assets (no runner/CMake)
+        commandLine(
+            "bash", "-lc",
+            "flutter pub get && flutter assemble --no-version-check --output=build " +
+            "-dTargetPlatform=linux-x64 -dBuildMode=release " +
+            "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
+            "release_bundle_linux-x64_assets"
+        )
+        doLast {
+            // 2) libwidgets.so (standalone C lib, no engine/runner)
+            exec { commandLine("cmake", "-S", widgetsSrc, "-B", widgetsBuild, "-DCMAKE_BUILD_TYPE=Release") }
+            exec { commandLine("cmake", "--build", widgetsBuild) }
+            // 3) arrange the loader-expected layout: evolve-app/build/linux/x64/release/bundle/{lib,data}
+            val release = appDir.resolve("build/linux/x64/release")
+            val libDir = release.resolve("bundle/lib").apply { mkdirs() }
+            val dataDir = release.resolve("bundle/data").apply { mkdirs() }
+            // Real assemble output paths (verified on Linux):
+            //  - libapp.so lands in build/lib/ (NOT build/)
+            //  - flutter_assets lands in build/flutter_assets/
+            //  - icudtl.dat is NOT emitted by assemble; source it from the engine cache
+            copy { from(appDir.resolve("build/lib/libapp.so")); into(libDir) }
+            copy { from(widgetsBuild.resolve("libwidgets.so")); into(libDir) }
+            copy { from(appDir.resolve("build/flutter_assets")); into(dataDir.resolve("flutter_assets")) }
+            val flutterRoot = System.getenv("FLUTTER_ROOT")
+                ?: file(System.getProperty("user.home")).resolve("flutter").absolutePath
+            copy {
+                from(file(flutterRoot).resolve("bin/cache/artifacts/engine/linux-x64/icudtl.dat"))
+                into(dataDir)
+            }
         }
     }
 }
@@ -206,6 +259,15 @@ tasks.register<JavaExec>("runEvolveEwtDev") {
     // EWT calls libwidgets via the JDK FFM (Panama) API; this flag grants the native-access
     // permission it requires (else a restricted-method warning now, a hard error in future JDKs).
     jvmArgs("--enable-native-access=ALL-UNNAMED")
+    // macOS: Evolve's window controller bootstraps NSApp and sets the main menu, which Cocoa
+    // only allows on the first thread — so the JVM must own it (as the `run` task already does).
+    // We pass -XstartOnFirstThread here, so also signal NativeLibLoader that the first-thread
+    // requirement is already met: otherwise it self-relaunches a second JVM to add the flag
+    // itself, leaving a phantom waiter process and an unclean shutdown.
+    if (currentOs == "macos") {
+        jvmArgs("-XstartOnFirstThread")
+        environment("_EWT_MACOS_RELAUNCHED", "1")
+    }
 }
 
 // EWT ↔ Evolve same-surface — PACKAGED (production) mode. Proves the real RCP path: no dev
@@ -237,4 +299,13 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
     // NOTE: intentionally NO dev.equo.ewt.bundleDir — the SPI provider supplies it.
     jvmArgs("--enable-native-access=ALL-UNNAMED")
+    // macOS: Evolve's window controller bootstraps NSApp and sets the main menu, which Cocoa
+    // only allows on the first thread — so the JVM must own it (as the `run` task already does).
+    // We pass -XstartOnFirstThread here, so also signal NativeLibLoader that the first-thread
+    // requirement is already met: otherwise it self-relaunches a second JVM to add the flag
+    // itself, leaving a phantom waiter process and an unclean shutdown.
+    if (currentOs == "macos") {
+        jvmArgs("-XstartOnFirstThread")
+        environment("_EWT_MACOS_RELAUNCHED", "1")
+    }
 }

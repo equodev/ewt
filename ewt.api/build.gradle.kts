@@ -59,14 +59,23 @@ sourceSets {
 // The swt-evolve checkout defaults to the conventional sibling layout; override its location
 // with -PevolveHome=<path> (absolute, or relative to this repo root) — e.g. the CI passes the
 // path it cloned to instead of relying on the implicit ../../ .
+// Locate the sibling swt-evolve repo. -PevolveHome wins (the CI passes the path it cloned to);
+// otherwise probe the conventional dev layouts — a true sibling of this repo (../swt-evolve) or
+// one level up (../../swt-evolve) — picking the first that actually holds swt-evolve (swt_native/).
+// Falls back to the sibling location so the "not found" error points at the natural spot.
 val evolveHome = (project.findProperty("evolveHome") as String?)
     ?.let { rootProject.projectDir.resolve(it) }
-    ?: rootProject.projectDir.resolve("../../swt-evolve")
+    ?: listOf("../swt-evolve", "../../swt-evolve")
+        .map { rootProject.projectDir.resolve(it) }
+        .firstOrNull { it.resolve("swt_native").isDirectory }
+    ?: rootProject.projectDir.resolve("../swt-evolve")
 val evolvePlatform = System.getProperty("os.name").lowercase().let {
     when {
         it.contains("linux") -> "linux-x86_64"
         it.contains("win")   -> "windows-x86_64"
-        it.contains("mac")   -> "macos-aarch64"
+        // Evolve's macOS jar is per-arch (macos-aarch64 / macos-x86_64); follow the host JVM.
+        it.contains("mac")   -> "macos-" +
+            (if (System.getProperty("os.arch").lowercase().contains("aarch64")) "aarch64" else "x86_64")
         else -> throw GradleException("Unsupported OS: $it")
     }
 }
@@ -103,7 +112,18 @@ if (evolveAvailable) {
     }
 
     // The EWT-owned combined bundle produced by :examples:buildCombinedBundle (per-OS layout).
-    val combinedBundleDir = rootProject.projectDir.resolve("evolve-app/build/$ewtEvolveBundleSubpath/bundle")
+    // Linux/Windows nest the payload under a bundle/{lib,data} dir; macOS instead uses Flutter's
+    // .app/Contents/Frameworks/*.framework layout, so the subpath IS the bundle root (no /bundle).
+    val ewtEvolveIsMac = ewtEvolveOs == "macos"
+    val combinedBundleDir = rootProject.projectDir.resolve(
+        if (ewtEvolveIsMac) "evolve-app/build/$ewtEvolveBundleSubpath"
+        else "evolve-app/build/$ewtEvolveBundleSubpath/bundle")
+    // Where the bundle tree lands inside the jar (mirrors the property contract) and the cheapest
+    // proof the assemble ran, both per-OS to match the layout above.
+    val ewtEvolveIntoPath =
+        if (ewtEvolveIsMac) "evolve-bundle/$ewtEvolveBundleSubpath"
+        else "evolve-bundle/$ewtEvolveBundleSubpath/bundle"
+    val ewtEvolveProbe = if (ewtEvolveIsMac) "Frameworks/App.framework/App" else "lib/libapp.so"
 
     // Self-contained integration artifact (dev.equo:ewt-evolve). A consumer that already ships
     // Evolve (as its swt.jar replacement) adds only this jar + the Evolve jar — no separate base
@@ -124,9 +144,9 @@ if (evolveAvailable) {
         // Provider classes + META-INF/services + EwtWidget.
         from(sourceSets["evolve"].output)
         // The combined bundle as a resource tree mirroring the property contract.
-        from(combinedBundleDir) { into("evolve-bundle/$ewtEvolveBundleSubpath/bundle") }
+        from(combinedBundleDir) { into(ewtEvolveIntoPath) }
         doFirst {
-            if (!combinedBundleDir.resolve("lib/libapp.so").exists()) {
+            if (!combinedBundleDir.resolve(ewtEvolveProbe).exists()) {
                 throw GradleException(
                     "Combined bundle missing at ${combinedBundleDir}. " +
                     "Run :examples:buildCombinedBundle first (needs the sibling swt-evolve).")

@@ -33,8 +33,15 @@ public final class EvolveBundleExtractor {
     }
 
     // Cheapest proof the bundle for THIS OS is actually shipped in this jar (vs a lean/base jar).
-    private static final String PROBE_RESOURCE =
-            RESOURCE_PREFIX + osSubpath() + "/bundle/lib/libapp.so";
+    // Linux/Windows nest the merged snapshot at bundle/lib/libapp.so; macOS ships it as the App
+    // binary inside App.framework, so the probe differs per OS to match osSubpath()'s layout.
+    private static final String PROBE_RESOURCE = RESOURCE_PREFIX + osSubpath() + probeRelative();
+
+    private static String probeRelative() {
+        if (System.getProperty("os.name").toLowerCase().contains("mac"))
+            return "/Frameworks/App.framework/App";
+        return "/bundle/lib/libapp.so";
+    }
 
     private EvolveBundleExtractor() {}
 
@@ -46,6 +53,15 @@ public final class EvolveBundleExtractor {
         String key = NativeLibLoader.computeJarSha256(ownJar);
         NativeLibLoader.invalidateCacheIfStale(equoEwtRoot, key);
         NativeLibLoader.extractDirFromZip(ownJar, RESOURCE_PREFIX, equoEwtRoot);
+        // App.framework/App is a Mach-O dylib that Flutter opens via dlopen; the zip round-trip
+        // drops the executable bit, so FlutterDartProject fails to load it unless we restore it.
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            Path appBinary = Path.of(equoEwtRoot.toString(), osSubpath(),
+                    "Frameworks", "App.framework", "App");
+            if (Files.exists(appBinary)) {
+                appBinary.toFile().setExecutable(true, false);
+            }
+        }
         NativeLibLoader.writeCacheKey(equoEwtRoot, key);
         return equoEwtRoot.toString();
     }
