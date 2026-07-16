@@ -3,9 +3,13 @@ package dev.equo.ewt.evolve;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -15,6 +19,46 @@ class EvolveBundleExtractorTest {
 
     @TempDir
     Path tempDir;
+
+    private static EvolveBundleExtractor.IoSupplier bytes(String s) {
+        return () -> new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private record FakeSource(String key, Map<String, EvolveBundleExtractor.IoSupplier> map)
+            implements EvolveBundleExtractor.BundleSource {
+        @Override public String cacheKey() { return key; }
+        @Override public Map<String, EvolveBundleExtractor.IoSupplier> entries() { return map; }
+    }
+
+    @Test
+    void extractFrom_copiesEntries_writesKey_returnsRoot(@TempDir Path root) throws Exception {
+        var src = new FakeSource("k1", Map.of(
+                "linux/x64/release/bundle/lib/libapp.so", bytes("app"),
+                "linux/x64/release/bundle/data/flutter_assets/AssetManifest.json", bytes("{}")));
+
+        String base = EvolveBundleExtractor.extractFrom(src, root);
+
+        assertThat(base).isEqualTo(root.toString());
+        assertThat(Files.readString(root.resolve("linux/x64/release/bundle/lib/libapp.so"))).isEqualTo("app");
+        assertThat(Files.readString(root.resolve("linux/x64/release/bundle/data/flutter_assets/AssetManifest.json"))).isEqualTo("{}");
+        assertThat(Files.readString(root.resolve(".jar-key")).trim()).isEqualTo("k1");
+    }
+
+    @Test
+    void extractFrom_reextracts_whenKeyChanges(@TempDir Path root) throws Exception {
+        EvolveBundleExtractor.extractFrom(new FakeSource("k1", Map.of("a", bytes("1"))), root);
+        EvolveBundleExtractor.extractFrom(new FakeSource("k2", Map.of("a", bytes("2"))), root);
+
+        assertThat(Files.readString(root.resolve("a"))).isEqualTo("2");
+        assertThat(Files.readString(root.resolve(".jar-key")).trim()).isEqualTo("k2");
+    }
+
+    @Test
+    void isOsgi_falseForPlainClassLoader() throws Exception {
+        try (var cl = new java.net.URLClassLoader(new java.net.URL[0])) {
+            assertThat(EvolveBundleExtractor.isOsgi(cl)).isFalse();
+        }
+    }
 
     private Path makeBundleJar(String appContent) throws IOException {
         Path jar = tempDir.resolve("evolve-bundle.jar");

@@ -3,10 +3,14 @@ package dev.equo.ewt.evolve;
 import dev.equo.ewt.NativeLibLoader;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Extracts the EWT-owned combined app bundle — packaged as the {@code evolve-bundle/}
@@ -43,6 +47,121 @@ public final class EvolveBundleExtractor {
         return "/bundle/lib/libapp.so";
     }
 
+    /** A stream that may throw on open. */
+    @FunctionalInterface
+    interface IoSupplier {
+        InputStream open() throws IOException;
+    }
+
+    /**
+     * Source of the shipped {@code evolve-bundle/} tree. A seam so extraction is unit-testable
+     * with a fixed map, without a live OSGi framework. Keys are paths relative to
+     * {@code evolve-bundle/}; the cache key changes when the shipped bundle changes.
+     */
+    interface BundleSource {
+        String cacheKey() throws IOException;
+        Map<String, IoSupplier> entries() throws IOException;
+    }
+
+    /**
+     * Copies every entry of {@code src} into {@code equoEwtRoot} (once, cache-keyed by
+     * {@code src.cacheKey()} via NativeLibLoader's cache helpers) and returns the root as the
+     * bundle base — the {@code dev.equo.ewt.bundleDir} value.
+     */
+    static String extractFrom(BundleSource src, Path equoEwtRoot) throws IOException {
+        String key = src.cacheKey();
+        NativeLibLoader.invalidateCacheIfStale(equoEwtRoot, key);
+        for (Map.Entry<String, IoSupplier> e : src.entries().entrySet()) {
+            Path out = equoEwtRoot.resolve(e.getKey());
+            if (!Files.exists(out)) {
+                Files.createDirectories(out.getParent());
+                try (InputStream in = e.getValue().open()) {
+                    Files.copy(in, out, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        }
+        NativeLibLoader.writeCacheKey(equoEwtRoot, key);
+        return equoEwtRoot.toString();
+    }
+
+    /** True iff {@code cl} is loaded by an OSGi framework (an {@code org.osgi.framework.BundleReference}). */
+    static boolean isOsgi(ClassLoader cl) {
+        try {
+            Class<?> ref = Class.forName("org.osgi.framework.BundleReference");
+            return ref.isInstance(cl);
+        } catch (ClassNotFoundException notOsgi) {
+            return false;
+        }
+    }
+
+    /** An {@link BundleSource} backed by this class's OSGi {@code Bundle}, reached reflectively. */
+    static BundleSource osgiSourceOrNull() {
+        ClassLoader cl = EvolveBundleExtractor.class.getClassLoader();
+        if (!isOsgi(cl)) {
+            return null;
+        }
+        return new OsgiBundleSource();
+    }
+
+    private static final class OsgiBundleSource implements BundleSource {
+        private final Object bundle; // org.osgi.framework.Bundle
+
+        OsgiBundleSource() {
+            try {
+                Class<?> frameworkUtil = Class.forName("org.osgi.framework.FrameworkUtil");
+                this.bundle = frameworkUtil.getMethod("getBundle", Class.class)
+                        .invoke(null, EvolveBundleExtractor.class);
+                if (bundle == null) {
+                    throw new IllegalStateException("No OSGi bundle for " + EvolveBundleExtractor.class);
+                }
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("OSGi bundle lookup failed", e);
+            }
+        }
+
+        @Override
+        public String cacheKey() {
+            try {
+                long lastModified = (long) bundle.getClass().getMethod("getLastModified").invoke(bundle);
+                return Long.toString(lastModified);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("OSGi getLastModified failed", e);
+            }
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Map<String, IoSupplier> entries() throws IOException {
+            String dir = RESOURCE_PREFIX.substring(0, RESOURCE_PREFIX.length() - 1); // "evolve-bundle"
+            Enumeration<URL> found;
+            try {
+                found = (Enumeration<URL>) bundle.getClass()
+                        .getMethod("findEntries", String.class, String.class, boolean.class)
+                        .invoke(bundle, dir, "*", true);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("OSGi findEntries failed", e);
+            }
+            Map<String, IoSupplier> out = new LinkedHashMap<>();
+            if (found == null) {
+                return out;
+            }
+            while (found.hasMoreElements()) {
+                URL url = found.nextElement();
+                String path = url.getPath();
+                int at = path.indexOf(RESOURCE_PREFIX);
+                if (at < 0) {
+                    continue;
+                }
+                String rel = path.substring(at + RESOURCE_PREFIX.length());
+                if (rel.isEmpty() || rel.endsWith("/")) {
+                    continue; // directory entry
+                }
+                out.put(rel, url::openStream);
+            }
+            return out;
+        }
+    }
+
     private EvolveBundleExtractor() {}
 
     /**
@@ -70,8 +189,21 @@ public final class EvolveBundleExtractor {
      * Extracts the shipped bundle to {@code ~/.equo/ewt} and returns the base, or
      * {@code null} when no bundle is on the classpath (the standalone base jar without the
      * bundle resources, or running from a classes dir).
+     *
+     * <p>Under OSGi (e.g. Eclipse RCP / Equinox), the classloader is a
+     * {@code BundleReference} and resources use the {@code bundleresource://} protocol,
+     * not {@code jar:}. In that case the OSGi branch is used instead of the flat-classpath
+     * path, which is preserved as the fallback.
      */
     public static String extractAndGetBase() {
+        BundleSource osgi = osgiSourceOrNull();
+        if (osgi != null) {
+            try {
+                return extractFrom(osgi, defaultEquoEwtRoot());
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to extract the combined EWT bundle", e);
+            }
+        }
         Path bundleJar = locateBundleJar();
         if (bundleJar == null || !Files.isRegularFile(bundleJar)) {
             return null;

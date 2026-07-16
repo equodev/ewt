@@ -5,6 +5,15 @@ plugins {
 
 group = "dev.equo"
 
+// Map a Gradle version to a valid OSGi version: keep major.minor.micro, and turn any
+// trailing qualifier (e.g. "-SNAPSHOT") into an OSGi-legal ".SNAPSHOT". "0.1.4" stays as-is.
+fun osgiVersion(v: String): String {
+    val m = Regex("""^(\d+)\.(\d+)\.(\d+)(?:[.-](.+))?$""").find(v) ?: return v
+    val (maj, min, mic, q) = m.destructured
+    return if (q.isEmpty()) "$maj.$min.$mic"
+           else "$maj.$min.$mic." + q.replace(Regex("[^A-Za-z0-9_-]"), "_")
+}
+
 // Target JDK 22 bytecode (class file v66) so JDK 22 stays the minimum runtime requirement,
 // independent of which JDK runs the build (e.g. the CI image ships JDK 23). The FFM API used
 // by the jextract bindings was finalized in JDK 22, so 22 is the real floor. Using release
@@ -145,6 +154,30 @@ if (evolveAvailable) {
         from(sourceSets["evolve"].output)
         // The combined bundle as a resource tree mirroring the property contract.
         from(combinedBundleDir) { into(ewtEvolveIntoPath) }
+        manifest {
+            attributes(
+                "Bundle-ManifestVersion" to 2,
+                "Bundle-Name" to "EWT to Evolve integration",
+                "Bundle-Vendor" to "Equo Tech, Inc.",
+                "Bundle-SymbolicName" to "dev.equo.ewt.evolve",
+                "Bundle-Version" to osgiVersion(project.version.toString()),
+                // Attach to the org.eclipse.swt host Evolve provides, so EwtWidget joins the
+                // host-exported org.eclipse.swt.widgets package (host has Eclipse-ExtensibleAPI:true)
+                // and this fragment's META-INF/services is visible to the host classloader.
+                "Fragment-Host" to "org.eclipse.swt;bundle-version=\"[3.100,4.0.0)\"",
+                // Export only the EWT public API the integrator bundle imports. The jextract
+                // bindings (dev.equo.ewt.ffm) and the SPI internals (dev.equo.ewt.evolve) stay
+                // unexported. org.eclipse.swt.widgets is already exported by the host.
+                "Export-Package" to "dev.equo.ewt,dev.equo.ewt.util",
+                // Needed so the OSGi-aware bundle extraction can reach the framework API
+                // (BundleReference / FrameworkUtil / Bundle) reflectively: reflection still
+                // requires the classes to be visible, and the org.eclipse.swt host does not
+                // import them. The system bundle always exports this package under OSGi;
+                // on a flat classpath the whole manifest is ignored.
+                "Import-Package" to "org.osgi.framework",
+                "Automatic-Module-Name" to "dev.equo.ewt.evolve",
+            )
+        }
         doFirst {
             if (!combinedBundleDir.resolve(ewtEvolveProbe).exists()) {
                 throw GradleException(
