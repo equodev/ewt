@@ -931,8 +931,19 @@ class DartSubclassGen {
     }
     var params = dartClass.constructors.first.parameters.map((p) => '${p is SuperFormalParameterElement ? 'super.' : 'this.'}${p.name}').toList();
     var overrideable = methods.map((m) => 'required this.${m.name}Fn').toList();
+    // Force a UniqueKey by default on SubStatefulWidget so that navigating
+    // between two instances (which all share runtimeType `SubStatefulWidget`
+    // and would otherwise share a null key) does not make Flutter's
+    // reconciliation reuse the previous State — whose buildFn is still bound
+    // to the previous Java widget.
+    var initializer = '';
+    if (widgetClass == 'SubStatefulWidget') {
+      final keyIdx = params.indexOf('super.key');
+      if (keyIdx >= 0) params[keyIdx] = 'Key? key';
+      initializer = ' : super(key: key ?? UniqueKey())';
+    }
     dartSubclass
-        .writeln('  $widgetClass({${(params+overrideable).join(', ')}});');
+        .writeln('  $widgetClass({${(params+overrideable).join(', ')}})$initializer;');
     for (final method in methods) {
       dartSubclass.writeln('  @override');
       dartSubclass.writeln('  $method { ');
