@@ -52,7 +52,7 @@ class SubState<T extends StatefulWidget> extends State<T> {
 
 class SubStatefulWidget extends StatefulWidget {
   final State<StatefulWidget> Function() createStateFn;
-  SubStatefulWidget({super.key, required this.createStateFn});
+  SubStatefulWidget({Key? key, required this.createStateFn}) : super(key: key ?? UniqueKey());
   @override
   State<StatefulWidget> createState() { 
     return createStateFn();
