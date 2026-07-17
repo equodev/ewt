@@ -5,7 +5,7 @@ public interface NativeObj {
     int getId();
 
     abstract class Base implements NativeObj, I {
-        static final WidgetConstructors factories = WidgetConstructors.instance;
+        static WidgetConstructors factories = WidgetConstructorsBase.instance;
         int id;
 
         public int getId() {

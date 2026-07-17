@@ -3,7 +3,12 @@ package org.eclipse.swt.widgets;
 import java.util.concurrent.Callable;
 
 import dev.equo.ewt.App;
+import dev.equo.ewt.SerializingWidgetConstructors;
 import dev.equo.ewt.Widget;
+import dev.equo.ewt.evolve.EvolveComm;
+import dev.equo.ewt.web.EwtNode;
+import dev.equo.ewt.web.EwtNodeJson;
+import dev.equo.ewt.web.EwtWebTransport;
 
 /**
  * Public SWT-Evolve widget that hosts an EWT (Flutter) subtree in the SAME surface.
@@ -41,7 +46,27 @@ public class EwtWidget extends Composite {
      * the api Composite, so {@code hashCode()} is exactly that id.
      */
     public void setWidget(Callable<Widget> builder) {
-        App.registerBuilder(hashCode(), builder);
+        if (EwtWebTransport.isWebMode()) {
+            publishWebSubtree(builder);
+        } else {
+            App.registerBuilder(hashCode(), builder);
+        }
+    }
+
+    /**
+     * Web path: build the subtree eagerly, serialize it, and publish it over Evolve's comm keyed
+     * by this region's id. Desktop keeps using FFM via App's dispatcher (the branch above). The
+     * FFM/native path is deliberately not touched here, since no native engine runs on web.
+     */
+    private void publishWebSubtree(Callable<Widget> builder) {
+        try {
+            EwtNode root = SerializingWidgetConstructors.captureSubtree(builder);
+            String json = EwtNodeJson.encode(root);
+            EwtWebTransport.publish(hashCode(), json,
+                (event, payload) -> EvolveComm.send(getImpl(), event, payload));
+        } catch (Exception e) {
+            System.err.println("EWT web subtree publish failed: " + e);
+        }
     }
 
     /**
