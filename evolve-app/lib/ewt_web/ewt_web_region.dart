@@ -1,0 +1,50 @@
+// A comm-fed EWT region: subscribes to Evolve's per-region subtree channel and rebuilds
+// the EWT subtree from the serialized node tree. Contains failures to this region.
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:swtflutter/src/comm/comm.dart';
+
+import 'ewt_web_decode.dart';
+
+class EwtWebRegion extends StatefulWidget {
+  final int id;
+  const EwtWebRegion({super.key, required this.id});
+
+  @override
+  State<EwtWebRegion> createState() => _EwtWebRegionState();
+}
+
+class _EwtWebRegionState extends State<EwtWebRegion> {
+  Map<String, dynamic>? _root;
+  late final String _channel = 'EwtWidget/${widget.id}/subtree';
+
+  @override
+  void initState() {
+    super.initState();
+    EquoCommService.onBytes(_channel, _onSubtree);
+  }
+
+  void _onSubtree(Uint8List bytes) {
+    try {
+      final decoded = json.decode(utf8.decode(bytes)) as Map<String, dynamic>;
+      setState(() => _root = decoded);
+    } catch (e, st) {
+      debugPrint('EWT web region ${widget.id} decode failed: $e\n$st');
+    }
+  }
+
+  @override
+  void dispose() {
+    EquoCommService.remove(_channel);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final root = _root;
+    if (root == null) return const SizedBox.shrink();
+    return ClipRect(child: decodeEwtNode(root));
+  }
+}
