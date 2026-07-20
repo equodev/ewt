@@ -157,6 +157,46 @@ Switch `mainClass` to try others — `dev.equo.Demo`,
 `dev.equo.AnalyticsDashboard`, `dev.equo.Calculator`, and more in
 [`examples/`](examples/src/main/java/dev/equo).
 
+## Hot-Reload (Experimental, MVP)
+
+In any EWT consumer module, apply the plugin:
+
+```kotlin
+plugins {
+    application
+    id("dev.equo.ewt.hot-reload")
+}
+
+application {
+    mainClass = "com.mycompany.MyApp"
+}
+```
+
+Run with hot-reload enabled:
+
+```bash
+./gradlew hotRun
+```
+
+Edit any `.java` under the module's `src/main/java`. On save, the client:
+1. Recompiles via `./gradlew :<module>:classes` (module is auto-discovered).
+2. Redefines the bytecode in the running JVM through JDWP (`localhost:5005`).
+3. Triggers `WidgetsBinding.reassembleApplication()` on the Dart side (over `localhost:5006`).
+
+**MVP limitations:**
+- Method-body changes only. Signature changes, new fields, or new classes require a restart.
+- State is not preserved (counters reset to 0). This is a consequence of the `UniqueKey` used by `SubStatefulWidget`.
+- Debug port is bound to `localhost:5005` only. Do not expose to public interfaces; avoid containerized images that expose it without changes.
+
+**Troubleshooting:**
+- `Address already in use` on startup means a previous run left the JDWP port bound. Kill leftover JVMs and stop the Gradle daemon:
+  ```bash
+  lsof -ti:5005 | xargs -r kill -9
+  lsof -ti:5006 | xargs -r kill -9
+  ./gradlew --stop
+  ```
+- If the client logs `<class> not loaded yet in target VM, skipping.` for every changed class, JDWP is attached to the wrong JVM. Ensure you are launching through the `hotRun` task, not by manually setting `org.gradle.jvmargs`.
+
 ## Roadmap
 
 EWT is under active, fast-moving development. Here's where we're headed:

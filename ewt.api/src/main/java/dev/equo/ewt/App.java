@@ -29,10 +29,11 @@ public class App {
     }
 
     private void run() {
-        MemorySegment ffmFn = buildWidgetTreeFn.allocate((MemorySegment widgetFactories)  -> {
+        Callable<Widget> wrappedBuilder = () -> new dev.equo.ewt.internal.HotReloadRoot(builderFn);
+        MemorySegment ffmFn = buildWidgetTreeFn.allocate((MemorySegment widgetFactories) -> {
             try {
                 WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {}));
-                Widget w = builderFn.call().build();
+                Widget w = wrappedBuilder.call().build();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -40,6 +41,6 @@ public class App {
         }, Arena.ofShared());
         int r = StarterBridge.startApp(ffmFn);
         if (r != 0)
-            throw new RuntimeException("Could not startup EWT app, error: "+r);
+            throw new RuntimeException("Could not startup EWT app, error: " + r);
     }
 }
