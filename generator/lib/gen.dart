@@ -1103,6 +1103,21 @@ class DartSubclassGen {
 
 bool canBeImplInJava(m) => m.isAbstract || (m.hasMustCallSuper && m.hasProtected);
 
+// A callback param is "zero-arg" when its function type takes no parameters
+// (Runnable / VoidCallback). Such callbacks can be fired from Java with no argument,
+// so Phase 2 wires them. Arg-carrying callbacks (Consumer<Boolean>, gesture details)
+// return false and stay inert. Resolves through a typedef alias when present.
+bool _isZeroArgCallback(DartType t) {
+  FunctionType? ft;
+  if (t is FunctionType) {
+    ft = t;
+  } else if (t.alias != null && t.alias!.element.aliasedType is FunctionType) {
+    ft = t.alias!.element.aliasedType as FunctionType;
+  }
+  if (ft == null) return false;
+  return ft.parameters.isEmpty;
+}
+
 class Generation {
   Set<Element> processed = {};
   Set<Element> classesWithSetup = {};
@@ -1403,6 +1418,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' show ColorSpace;
 import 'decode.dart';
+import 'callbacks.dart';
 
 final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
 $entries};
@@ -1751,6 +1767,11 @@ class Params {
     // Callbacks are inert in this phase: a void closure that accepts any arity (optional
     // positional Object? params make it assignable to VoidCallback / ValueChanged / etc.).
     if (h != null) {
+      // Zero-arg callbacks send their reserved id over the comm at click time (Phase 2).
+      // Arg-carrying callbacks stay inert (Phase 3).
+      if (_isZeroArgCallback(t)) {
+        return "ewtWireCallback(p['$key'])";
+      }
       return '([Object? a, Object? b, Object? c]) {}';
     }
     if (t is InterfaceType) {
