@@ -14,7 +14,17 @@ class WidgetConstructorsBase {
   }
 
   static boolean intToBool(int i) {
-    return i == 0;
+    // The Dart side marshals with `this == true ? 1 : 0` (factories.dart), so
+    // non-zero is true.
+    return i != 0;
+  }
+
+  /// Reads an `int*` carrying a nullable bool, as the Dart `boolOrNul()` does.
+  static Boolean memToBool(MemorySegment ptr) {
+    if (ptr == null || MemorySegment.NULL.equals(ptr)) {
+      return null;
+    }
+    return intToBool(ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0));
   }
 
   static List<String> memToStrList(MemorySegment ptr) {

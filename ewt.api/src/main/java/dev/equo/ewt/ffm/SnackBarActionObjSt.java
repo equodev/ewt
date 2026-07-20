@@ -38,7 +38,7 @@ public class SnackBarActionObjSt {
         StarterBridge.C_INT.withName("disabledBackgroundColor"),
         MemoryLayout.paddingLayout(4),
         StarterBridge.C_POINTER.withName("label")
-    ).withName("$anon$819:9");
+    ).withName("$anon$991:9");
 
     /**
      * The layout of this struct

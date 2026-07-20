@@ -239,6 +239,56 @@ final class WidgetFactories extends ffi.Struct {
 
   external ScaleTransitionSt scaleTransition;
 
+  external AspectRatioSt aspectRatio;
+
+  external ClipOvalSt clipOval;
+
+  external ClipRRectSt clipRRect;
+
+  external ClipRectSt clipRect;
+
+  external ColoredBoxSt coloredBox;
+
+  external ConstrainedBoxSt constrainedBox;
+
+  external DecoratedBoxSt decoratedBox;
+
+  external FittedBoxSt fittedBox;
+
+  external FractionallySizedBoxSt fractionallySizedBox;
+
+  external IntrinsicHeightSt intrinsicHeight;
+
+  external IntrinsicWidthSt intrinsicWidth;
+
+  external LimitedBoxSt limitedBox;
+
+  external PlaceholderSt placeholder;
+
+  external SpacerSt spacer;
+
+  external VisibilitySt visibility;
+
+  external RotatedBoxSt rotatedBox;
+
+  external BaselineSt baseline;
+
+  external OverflowBoxSt overflowBox;
+
+  external AnimatedContainerSt animatedContainer;
+
+  external AnimatedOpacitySt animatedOpacity;
+
+  external AnimatedPaddingSt animatedPadding;
+
+  external AnimatedAlignSt animatedAlign;
+
+  external ListViewSt listView;
+
+  external GridViewSt gridView;
+
+  external PageViewSt pageView;
+
   external ColorSchemeSt colorScheme;
 
   external MaterialColorSt materialColor;
@@ -312,6 +362,30 @@ final class WidgetFactories extends ffi.Struct {
   external CircularProgressIndicatorSt circularProgressIndicator;
 
   external LinearProgressIndicatorSt linearProgressIndicator;
+
+  external CheckboxSt checkbox;
+
+  external SwitchSt switch_;
+
+  external SliderSt slider;
+
+  external DrawerSt drawer;
+
+  external TooltipSt tooltip;
+
+  external TabSt tab;
+
+  external TabBarSt tabBar;
+
+  external TabBarViewSt tabBarView;
+
+  external DefaultTabControllerSt defaultTabController;
+
+  external CheckboxListTileSt checkboxListTile;
+
+  external SwitchListTileSt switchListTile;
+
+  external BadgeSt badge;
 
   external SubStateSt subState;
 
@@ -1962,6 +2036,740 @@ final class ScaleTransitionObjSt extends ffi.Struct {
   external int scale;
 }
 
+final class AspectRatioSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AspectRatioObjSt Function(
+              ffi.Double aspectRatio, ffi.Pointer<DartObj> child)>> aspectRatio;
+}
+
+final class AspectRatioObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double aspectRatio;
+}
+
+final class ClipOvalSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ClipOvalObjSt Function(ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> child)>> clipOval;
+}
+
+final class ClipOvalObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class ClipRRectSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ClipRRectObjSt Function(
+              ffi.Pointer<DartObj> borderRadius,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> child)>> clipRRect;
+}
+
+final class ClipRRectObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int borderRadius;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class ClipRectSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ClipRectObjSt Function(ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> child)>> clipRect;
+}
+
+final class ClipRectObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class ColoredBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ColoredBoxObjSt Function(
+              DartObj color, ffi.Pointer<DartObj> child)>> coloredBox;
+}
+
+final class ColoredBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int color;
+}
+
+final class ConstrainedBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ConstrainedBoxObjSt Function(
+              DartObj constraints, ffi.Pointer<DartObj> child)>> constrainedBox;
+}
+
+final class ConstrainedBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external BoxConstraintsObjSt constraints;
+}
+
+final class DecoratedBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DecoratedBoxObjSt Function(
+              DartObj decoration,
+              ffi.Pointer<ffi.Int> position,
+              ffi.Pointer<DartObj> child)>> decoratedBox;
+}
+
+final class DecoratedBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int decoration;
+
+  @ffi.Int()
+  external int position;
+}
+
+final class FittedBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FittedBoxObjSt Function(
+              ffi.Pointer<ffi.Int> fit,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> child)>> fittedBox;
+}
+
+final class FittedBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int fit;
+
+  @DartObj()
+  external int alignment;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class FractionallySizedBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          FractionallySizedBoxObjSt Function(
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Double> widthFactor,
+              ffi.Pointer<ffi.Double> heightFactor,
+              ffi.Pointer<DartObj> child)>> fractionallySizedBox;
+}
+
+final class FractionallySizedBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double widthFactor;
+
+  @ffi.Double()
+  external double heightFactor;
+
+  @DartObj()
+  external int alignment;
+}
+
+final class IntrinsicHeightSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              IntrinsicHeightObjSt Function(ffi.Pointer<DartObj> child)>>
+      intrinsicHeight;
+}
+
+final class IntrinsicHeightObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+final class IntrinsicWidthSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          IntrinsicWidthObjSt Function(
+              ffi.Pointer<ffi.Double> stepWidth,
+              ffi.Pointer<ffi.Double> stepHeight,
+              ffi.Pointer<DartObj> child)>> intrinsicWidth;
+}
+
+final class IntrinsicWidthObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double stepWidth;
+
+  @ffi.Double()
+  external double stepHeight;
+}
+
+final class LimitedBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          LimitedBoxObjSt Function(
+              ffi.Pointer<ffi.Double> maxWidth,
+              ffi.Pointer<ffi.Double> maxHeight,
+              ffi.Pointer<DartObj> child)>> limitedBox;
+}
+
+final class LimitedBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double maxWidth;
+
+  @ffi.Double()
+  external double maxHeight;
+}
+
+final class PlaceholderSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          PlaceholderObjSt Function(
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<ffi.Double> strokeWidth,
+              ffi.Pointer<ffi.Double> fallbackWidth,
+              ffi.Pointer<ffi.Double> fallbackHeight,
+              ffi.Pointer<DartObj> child)>> placeholder;
+}
+
+final class PlaceholderObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int color;
+
+  @ffi.Double()
+  external double strokeWidth;
+
+  @ffi.Double()
+  external double fallbackWidth;
+
+  @ffi.Double()
+  external double fallbackHeight;
+
+  @DartObj()
+  external int child;
+}
+
+final class SpacerSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<SpacerObjSt Function(ffi.Pointer<ffi.Int> flex)>>
+      spacer;
+}
+
+final class SpacerObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int flex;
+}
+
+final class VisibilitySt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          VisibilityObjSt Function(
+              DartObj child,
+              ffi.Pointer<DartObj> replacement,
+              ffi.Pointer<ffi.Int> visible,
+              ffi.Pointer<ffi.Int> maintainState,
+              ffi.Pointer<ffi.Int> maintainAnimation,
+              ffi.Pointer<ffi.Int> maintainSize,
+              ffi.Pointer<ffi.Int> maintainSemantics,
+              ffi.Pointer<ffi.Int> maintainInteractivity,
+              ffi.Pointer<ffi.Int> maintainFocusability)>> visibility;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          VisibilityObjSt Function(
+              DartObj child, ffi.Pointer<ffi.Int> visible)>> maintain;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(DartObj context)>>
+      of;
+}
+
+final class VisibilityObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int child;
+
+  @DartObj()
+  external int replacement;
+
+  @ffi.Int()
+  external int visible;
+
+  @ffi.Int()
+  external int maintainState;
+
+  @ffi.Int()
+  external int maintainAnimation;
+
+  @ffi.Int()
+  external int maintainSize;
+
+  @ffi.Int()
+  external int maintainSemantics;
+
+  @ffi.Int()
+  external int maintainInteractivity;
+
+  @ffi.Int()
+  external int maintainFocusability;
+}
+
+final class RotatedBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          RotatedBoxObjSt Function(
+              ffi.Int quarterTurns, ffi.Pointer<DartObj> child)>> rotatedBox;
+}
+
+final class RotatedBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int quarterTurns;
+}
+
+final class BaselineSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BaselineObjSt Function(ffi.Double baseline, ffi.Int baselineType,
+              ffi.Pointer<DartObj> child)>> baseline;
+}
+
+final class BaselineObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double baseline;
+
+  @ffi.Int()
+  external int baselineType;
+}
+
+final class OverflowBoxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          OverflowBoxObjSt Function(
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<ffi.Double> minWidth,
+              ffi.Pointer<ffi.Double> maxWidth,
+              ffi.Pointer<ffi.Double> minHeight,
+              ffi.Pointer<ffi.Double> maxHeight,
+              ffi.Pointer<ffi.Int> fit,
+              ffi.Pointer<DartObj> child)>> overflowBox;
+}
+
+final class OverflowBoxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int alignment;
+
+  @ffi.Double()
+  external double minWidth;
+
+  @ffi.Double()
+  external double maxWidth;
+
+  @ffi.Double()
+  external double minHeight;
+
+  @ffi.Double()
+  external double maxHeight;
+
+  @ffi.Int()
+  external int fit;
+}
+
+final class AnimatedContainerSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AnimatedContainerObjSt Function(
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> color,
+              ffi.Pointer<DartObj> decoration,
+              ffi.Pointer<DartObj> foregroundDecoration,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<ffi.Double> height,
+              ffi.Pointer<DartObj> constraints,
+              ffi.Pointer<DartObj> margin,
+              ffi.Pointer<DartObj> transformAlignment,
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<DartObj> curve,
+              DartObj duration,
+              ffi.Pointer<VoidCallbackFFI> onEnd)>> animatedContainer;
+}
+
+final class AnimatedContainerObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int child;
+
+  @DartObj()
+  external int alignment;
+
+  @DartObj()
+  external int padding;
+
+  @DartObj()
+  external int decoration;
+
+  @DartObj()
+  external int foregroundDecoration;
+
+  external BoxConstraintsObjSt constraints;
+
+  @DartObj()
+  external int margin;
+
+  @DartObj()
+  external int transformAlignment;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+typedef VoidCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<VoidCallbackFFIFunction>>;
+typedef VoidCallbackFFIFunction = ffi.Void Function();
+typedef DartVoidCallbackFFIFunction = void Function();
+
+final class AnimatedOpacitySt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AnimatedOpacityObjSt Function(
+              ffi.Pointer<DartObj> child,
+              ffi.Double opacity,
+              ffi.Pointer<DartObj> curve,
+              DartObj duration,
+              ffi.Pointer<VoidCallbackFFI> onEnd,
+              ffi.Pointer<ffi.Int> alwaysIncludeSemantics)>> animatedOpacity;
+}
+
+final class AnimatedOpacityObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int child;
+
+  @ffi.Double()
+  external double opacity;
+
+  @ffi.Int()
+  external int alwaysIncludeSemantics;
+}
+
+final class AnimatedPaddingSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AnimatedPaddingObjSt Function(
+              DartObj padding,
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<DartObj> curve,
+              DartObj duration,
+              ffi.Pointer<VoidCallbackFFI> onEnd)>> animatedPadding;
+}
+
+final class AnimatedPaddingObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int padding;
+
+  @DartObj()
+  external int child;
+}
+
+final class AnimatedAlignSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          AnimatedAlignObjSt Function(
+              DartObj alignment,
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<ffi.Double> heightFactor,
+              ffi.Pointer<ffi.Double> widthFactor,
+              ffi.Pointer<DartObj> curve,
+              DartObj duration,
+              ffi.Pointer<VoidCallbackFFI> onEnd)>> animatedAlign;
+}
+
+final class AnimatedAlignObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int alignment;
+
+  @DartObj()
+  external int child;
+
+  @ffi.Double()
+  external double heightFactor;
+
+  @ffi.Double()
+  external double widthFactor;
+}
+
+final class ListViewSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ListViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Double> itemExtent,
+              ffi.Pointer<DartObj> prototypeItem,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ArrayC> children,
+              ffi.Pointer<ffi.Int> semanticChildCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> listView;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ListViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Double> itemExtent,
+              ffi.Pointer<DartObj> prototypeItem,
+              NullableIndexedWidgetBuilderFFI itemBuilder,
+              ffi.Pointer<ffi.Int> itemCount,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ffi.Int> semanticChildCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> builder;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ListViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              NullableIndexedWidgetBuilderFFI itemBuilder,
+              IndexedWidgetBuilderFFI separatorBuilder,
+              ffi.Int itemCount,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> separated;
+}
+
+final class ListViewObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double itemExtent;
+
+  @DartObj()
+  external int prototypeItem;
+}
+
+typedef NullableIndexedWidgetBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<NullableIndexedWidgetBuilderFFIFunction>>;
+typedef NullableIndexedWidgetBuilderFFIFunction = DartObj Function(
+    DartObj context, ffi.Int index);
+typedef DartNullableIndexedWidgetBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context, int index);
+typedef IndexedWidgetBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<IndexedWidgetBuilderFFIFunction>>;
+typedef IndexedWidgetBuilderFFIFunction = DartObj Function(
+    DartObj context, ffi.Int index);
+typedef DartIndexedWidgetBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context, int index);
+
+final class GridViewSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          GridViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              ffi.Int crossAxisCount,
+              ffi.Pointer<ffi.Double> mainAxisSpacing,
+              ffi.Pointer<ffi.Double> crossAxisSpacing,
+              ffi.Pointer<ffi.Double> childAspectRatio,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ArrayC> children,
+              ffi.Pointer<ffi.Int> semanticChildCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> count;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          GridViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              ffi.Double maxCrossAxisExtent,
+              ffi.Pointer<ffi.Double> mainAxisSpacing,
+              ffi.Pointer<ffi.Double> crossAxisSpacing,
+              ffi.Pointer<ffi.Double> childAspectRatio,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ArrayC> children,
+              ffi.Pointer<ffi.Int> semanticChildCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> extent;
+}
+
+final class GridViewObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+}
+
+final class PageViewSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          PageViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> pageSnapping,
+              ffi.Pointer<ValueChangedForIntFFI> onPageChanged,
+              ffi.Pointer<ArrayC> children,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> allowImplicitScrolling,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior,
+              ffi.Pointer<ffi.Int> padEnds)>> pageView;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          PageViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> pageSnapping,
+              ffi.Pointer<ValueChangedForIntFFI> onPageChanged,
+              NullableIndexedWidgetBuilderFFI itemBuilder,
+              ffi.Pointer<ffi.Int> itemCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> allowImplicitScrolling,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior,
+              ffi.Pointer<ffi.Int> padEnds)>> builder;
+}
+
+final class PageViewObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int allowImplicitScrolling;
+
+  external ffi.Pointer<ffi.Char> restorationId;
+
+  @ffi.Int()
+  external int scrollDirection;
+
+  @ffi.Int()
+  external int reverse;
+
+  @ffi.Int()
+  external int pageSnapping;
+
+  @ffi.Int()
+  external int dragStartBehavior;
+
+  @ffi.Int()
+  external int clipBehavior;
+
+  @ffi.Int()
+  external int hitTestBehavior;
+
+  @ffi.Int()
+  external int padEnds;
+}
+
+typedef ValueChangedForIntFFI
+    = ffi.Pointer<ffi.NativeFunction<ValueChangedForIntFFIFunction>>;
+typedef ValueChangedForIntFFIFunction = ffi.Void Function(ffi.Int value);
+typedef DartValueChangedForIntFFIFunction = void Function(int value);
+
 final class ColorSchemeSt extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -3028,10 +3836,6 @@ final class IconButtonObjSt extends ffi.Struct {
   external int selectedIcon;
 }
 
-typedef VoidCallbackFFI
-    = ffi.Pointer<ffi.NativeFunction<VoidCallbackFFIFunction>>;
-typedef VoidCallbackFFIFunction = ffi.Void Function();
-typedef DartVoidCallbackFFIFunction = void Function();
 typedef ValueChangedForBoolFFI
     = ffi.Pointer<ffi.NativeFunction<ValueChangedForBoolFFIFunction>>;
 typedef ValueChangedForBoolFFIFunction = ffi.Void Function(ffi.Int value);
@@ -5183,6 +5987,1022 @@ final class LinearProgressIndicatorObjSt extends ffi.Struct {
 
   @ffi.Int()
   external int year2023;
+}
+
+final class CheckboxSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          CheckboxObjSt Function(
+              ffi.Int value,
+              ffi.Pointer<ffi.Int> tristate,
+              ValueChangedForBoolOptFFI onChanged,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> checkColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Double> splashRadius,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<DartObj> visualDensity,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<DartObj> side,
+              ffi.Pointer<ffi.Int> isError,
+              ffi.Pointer<ffi.Char> semanticLabel)>> checkbox;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          CheckboxObjSt Function(
+              ffi.Int value,
+              ffi.Pointer<ffi.Int> tristate,
+              ValueChangedForBoolOptFFI onChanged,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> checkColor,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Double> splashRadius,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<DartObj> visualDensity,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<DartObj> side,
+              ffi.Pointer<ffi.Int> isError,
+              ffi.Pointer<ffi.Char> semanticLabel)>> adaptive;
+}
+
+final class CheckboxObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int value;
+
+  @DartObj()
+  external int activeColor;
+
+  @DartObj()
+  external int checkColor;
+
+  @ffi.Int()
+  external int tristate;
+
+  @ffi.Int()
+  external int materialTapTargetSize;
+
+  external VisualDensityObjSt visualDensity;
+
+  @DartObj()
+  external int focusColor;
+
+  @DartObj()
+  external int hoverColor;
+
+  @ffi.Double()
+  external double splashRadius;
+
+  @ffi.Int()
+  external int autofocus;
+
+  @DartObj()
+  external int shape;
+
+  external BorderSideObjSt side;
+
+  @ffi.Int()
+  external int isError;
+
+  external ffi.Pointer<ffi.Char> semanticLabel;
+}
+
+typedef ValueChangedForBoolOptFFI
+    = ffi.Pointer<ffi.NativeFunction<ValueChangedForBoolOptFFIFunction>>;
+typedef ValueChangedForBoolOptFFIFunction = ffi.Void Function(
+    ffi.Pointer<ffi.Int> value);
+typedef DartValueChangedForBoolOptFFIFunction = void Function(
+    ffi.Pointer<ffi.Int> value);
+
+final class SwitchSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SwitchObjSt Function(
+              ffi.Int value,
+              ValueChangedForBoolFFI onChanged,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> activeThumbColor,
+              ffi.Pointer<DartObj> activeTrackColor,
+              ffi.Pointer<DartObj> inactiveThumbColor,
+              ffi.Pointer<DartObj> inactiveTrackColor,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Double> splashRadius,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<DartObj> padding)>> switch_;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SwitchObjSt Function(
+              ffi.Int value,
+              ValueChangedForBoolFFI onChanged,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> activeThumbColor,
+              ffi.Pointer<DartObj> activeTrackColor,
+              ffi.Pointer<DartObj> inactiveThumbColor,
+              ffi.Pointer<DartObj> inactiveTrackColor,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<DartObj> focusColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Double> splashRadius,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Int> applyCupertinoTheme)>> adaptive;
+}
+
+final class SwitchObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int value;
+
+  @DartObj()
+  external int activeColor;
+
+  @DartObj()
+  external int activeThumbColor;
+
+  @DartObj()
+  external int activeTrackColor;
+
+  @DartObj()
+  external int inactiveThumbColor;
+
+  @DartObj()
+  external int inactiveTrackColor;
+
+  @ffi.Int()
+  external int materialTapTargetSize;
+
+  @ffi.Int()
+  external int applyCupertinoTheme;
+
+  @ffi.Int()
+  external int dragStartBehavior;
+
+  @DartObj()
+  external int focusColor;
+
+  @DartObj()
+  external int hoverColor;
+
+  @ffi.Double()
+  external double splashRadius;
+
+  @ffi.Int()
+  external int autofocus;
+
+  @DartObj()
+  external int padding;
+}
+
+final class SliderSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SliderObjSt Function(
+              ffi.Double value,
+              ffi.Pointer<ffi.Double> secondaryTrackValue,
+              ValueChangedForDoubleFFI onChanged,
+              ffi.Pointer<ValueChangedForDoubleFFI> onChangeStart,
+              ffi.Pointer<ValueChangedForDoubleFFI> onChangeEnd,
+              ffi.Pointer<ffi.Double> min,
+              ffi.Pointer<ffi.Double> max,
+              ffi.Pointer<ffi.Int> divisions,
+              ffi.Pointer<ffi.Char> label,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> inactiveColor,
+              ffi.Pointer<DartObj> secondaryActiveColor,
+              ffi.Pointer<DartObj> thumbColor,
+              ffi.Pointer<SemanticFormatterCallbackFFI>
+                  semanticFormatterCallback,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> allowedInteraction,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Int> year2023)>> slider;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SliderObjSt Function(
+              ffi.Double value,
+              ffi.Pointer<ffi.Double> secondaryTrackValue,
+              ValueChangedForDoubleFFI onChanged,
+              ffi.Pointer<ValueChangedForDoubleFFI> onChangeStart,
+              ffi.Pointer<ValueChangedForDoubleFFI> onChangeEnd,
+              ffi.Pointer<ffi.Double> min,
+              ffi.Pointer<ffi.Double> max,
+              ffi.Pointer<ffi.Int> divisions,
+              ffi.Pointer<ffi.Char> label,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> inactiveColor,
+              ffi.Pointer<DartObj> secondaryActiveColor,
+              ffi.Pointer<DartObj> thumbColor,
+              ffi.Pointer<SemanticFormatterCallbackFFI>
+                  semanticFormatterCallback,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> allowedInteraction,
+              ffi.Pointer<ffi.Int> year2023)>> adaptive;
+}
+
+final class SliderObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double value;
+
+  @ffi.Double()
+  external double secondaryTrackValue;
+
+  @ffi.Double()
+  external double min;
+
+  @ffi.Double()
+  external double max;
+
+  @ffi.Int()
+  external int divisions;
+
+  external ffi.Pointer<ffi.Char> label;
+
+  @DartObj()
+  external int activeColor;
+
+  @DartObj()
+  external int inactiveColor;
+
+  @DartObj()
+  external int secondaryActiveColor;
+
+  @DartObj()
+  external int thumbColor;
+
+  @ffi.Int()
+  external int autofocus;
+
+  @ffi.Int()
+  external int allowedInteraction;
+
+  @DartObj()
+  external int padding;
+
+  @ffi.Int()
+  external int year2023;
+}
+
+typedef ValueChangedForDoubleFFI
+    = ffi.Pointer<ffi.NativeFunction<ValueChangedForDoubleFFIFunction>>;
+typedef ValueChangedForDoubleFFIFunction = ffi.Void Function(ffi.Double value);
+typedef DartValueChangedForDoubleFFIFunction = void Function(double value);
+typedef SemanticFormatterCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<SemanticFormatterCallbackFFIFunction>>;
+typedef SemanticFormatterCallbackFFIFunction = ffi.Pointer<ffi.Char> Function(
+    ffi.Double value);
+typedef DartSemanticFormatterCallbackFFIFunction = ffi.Pointer<ffi.Char>
+    Function(double value);
+
+final class DrawerSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DrawerObjSt Function(
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<ffi.Double> elevation,
+              ffi.Pointer<DartObj> shadowColor,
+              ffi.Pointer<DartObj> surfaceTintColor,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<ffi.Double> width,
+              ffi.Pointer<DartObj> child,
+              ffi.Pointer<ffi.Char> semanticLabel,
+              ffi.Pointer<ffi.Int> clipBehavior)>> drawer;
+}
+
+final class DrawerObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int backgroundColor;
+
+  @ffi.Double()
+  external double elevation;
+
+  @DartObj()
+  external int shadowColor;
+
+  @DartObj()
+  external int surfaceTintColor;
+
+  @DartObj()
+  external int shape;
+
+  @ffi.Double()
+  external double width;
+
+  @DartObj()
+  external int child;
+
+  external ffi.Pointer<ffi.Char> semanticLabel;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class TooltipSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TooltipObjSt Function(
+              ffi.Pointer<ffi.Char> message,
+              ffi.Pointer<DartObj> richMessage,
+              ffi.Pointer<ffi.Double> height,
+              ffi.Pointer<DartObj> constraints,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> margin,
+              ffi.Pointer<ffi.Double> verticalOffset,
+              ffi.Pointer<ffi.Int> preferBelow,
+              ffi.Pointer<ffi.Int> excludeFromSemantics,
+              ffi.Pointer<DartObj> decoration,
+              ffi.Pointer<DartObj> textStyle,
+              ffi.Pointer<ffi.Int> textAlign,
+              ffi.Pointer<DartObj> waitDuration,
+              ffi.Pointer<DartObj> showDuration,
+              ffi.Pointer<DartObj> exitDuration,
+              ffi.Pointer<ffi.Int> enableTapToDismiss,
+              ffi.Pointer<ffi.Int> triggerMode,
+              ffi.Pointer<ffi.Int> enableFeedback,
+              ffi.Pointer<TooltipTriggeredCallbackFFI> onTriggered,
+              ffi.Pointer<ffi.Int> ignorePointer,
+              ffi.Pointer<DartObj> child)>> tooltip;
+
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function()>>
+      dismissAllToolTips;
+}
+
+final class TooltipObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external ffi.Pointer<ffi.Char> message;
+
+  @DartObj()
+  external int richMessage;
+
+  @ffi.Double()
+  external double height;
+
+  external BoxConstraintsObjSt constraints;
+
+  @DartObj()
+  external int padding;
+
+  @DartObj()
+  external int margin;
+
+  @ffi.Double()
+  external double verticalOffset;
+
+  @ffi.Int()
+  external int preferBelow;
+
+  @ffi.Int()
+  external int excludeFromSemantics;
+
+  @DartObj()
+  external int child;
+
+  @DartObj()
+  external int decoration;
+
+  external TextStyleObjSt textStyle;
+
+  @ffi.Int()
+  external int textAlign;
+
+  @DartObj()
+  external int waitDuration;
+
+  @DartObj()
+  external int showDuration;
+
+  @DartObj()
+  external int exitDuration;
+
+  @ffi.Int()
+  external int enableTapToDismiss;
+
+  @ffi.Int()
+  external int triggerMode;
+
+  @ffi.Int()
+  external int enableFeedback;
+
+  @ffi.Int()
+  external int ignorePointer;
+}
+
+typedef TooltipTriggeredCallbackFFI
+    = ffi.Pointer<ffi.NativeFunction<TooltipTriggeredCallbackFFIFunction>>;
+typedef TooltipTriggeredCallbackFFIFunction = ffi.Void Function();
+typedef DartTooltipTriggeredCallbackFFIFunction = void Function();
+
+final class TabSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TabObjSt Function(
+              ffi.Pointer<ffi.Char> text,
+              ffi.Pointer<DartObj> icon,
+              ffi.Pointer<DartObj> iconMargin,
+              ffi.Pointer<ffi.Double> height,
+              ffi.Pointer<DartObj> child)>> tab;
+}
+
+final class TabObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  external ffi.Pointer<ffi.Char> text;
+
+  @DartObj()
+  external int child;
+
+  @DartObj()
+  external int icon;
+
+  @DartObj()
+  external int iconMargin;
+
+  @ffi.Double()
+  external double height;
+}
+
+final class TabBarSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TabBarObjSt Function(
+              ArrayC tabs,
+              ffi.Pointer<ffi.Int> isScrollable,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> indicatorColor,
+              ffi.Pointer<ffi.Int> automaticIndicatorColorAdjustment,
+              ffi.Pointer<ffi.Double> indicatorWeight,
+              ffi.Pointer<DartObj> indicatorPadding,
+              ffi.Pointer<DartObj> indicator,
+              ffi.Pointer<ffi.Int> indicatorSize,
+              ffi.Pointer<DartObj> dividerColor,
+              ffi.Pointer<ffi.Double> dividerHeight,
+              ffi.Pointer<DartObj> labelColor,
+              ffi.Pointer<DartObj> labelStyle,
+              ffi.Pointer<DartObj> labelPadding,
+              ffi.Pointer<DartObj> unselectedLabelColor,
+              ffi.Pointer<DartObj> unselectedLabelStyle,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> enableFeedback,
+              ffi.Pointer<ValueChangedForIntFFI> onTap,
+              ffi.Pointer<TabValueChangedForBoolFFI> onHover,
+              ffi.Pointer<TabValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<DartObj> splashBorderRadius,
+              ffi.Pointer<ffi.Int> tabAlignment,
+              ffi.Pointer<ffi.Int> indicatorAnimation)>> tabBar;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TabBarObjSt Function(
+              ArrayC tabs,
+              ffi.Pointer<ffi.Int> isScrollable,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> indicatorColor,
+              ffi.Pointer<ffi.Int> automaticIndicatorColorAdjustment,
+              ffi.Pointer<ffi.Double> indicatorWeight,
+              ffi.Pointer<DartObj> indicatorPadding,
+              ffi.Pointer<DartObj> indicator,
+              ffi.Pointer<ffi.Int> indicatorSize,
+              ffi.Pointer<DartObj> dividerColor,
+              ffi.Pointer<ffi.Double> dividerHeight,
+              ffi.Pointer<DartObj> labelColor,
+              ffi.Pointer<DartObj> labelStyle,
+              ffi.Pointer<DartObj> labelPadding,
+              ffi.Pointer<DartObj> unselectedLabelColor,
+              ffi.Pointer<DartObj> unselectedLabelStyle,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> enableFeedback,
+              ffi.Pointer<ValueChangedForIntFFI> onTap,
+              ffi.Pointer<TabValueChangedForBoolFFI> onHover,
+              ffi.Pointer<TabValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<DartObj> splashBorderRadius,
+              ffi.Pointer<ffi.Int> tabAlignment,
+              ffi.Pointer<ffi.Int> indicatorAnimation)>> secondary;
+}
+
+final class TabBarObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int isScrollable;
+
+  @DartObj()
+  external int padding;
+
+  @DartObj()
+  external int indicatorColor;
+
+  @ffi.Double()
+  external double indicatorWeight;
+
+  @DartObj()
+  external int indicatorPadding;
+
+  @DartObj()
+  external int indicator;
+
+  @ffi.Int()
+  external int automaticIndicatorColorAdjustment;
+
+  @ffi.Int()
+  external int indicatorSize;
+
+  @DartObj()
+  external int dividerColor;
+
+  @ffi.Double()
+  external double dividerHeight;
+
+  @DartObj()
+  external int labelColor;
+
+  @DartObj()
+  external int unselectedLabelColor;
+
+  external TextStyleObjSt labelStyle;
+
+  external TextStyleObjSt unselectedLabelStyle;
+
+  @DartObj()
+  external int labelPadding;
+
+  @ffi.Int()
+  external int dragStartBehavior;
+
+  @ffi.Int()
+  external int enableFeedback;
+
+  external BorderRadiusObjSt splashBorderRadius;
+
+  @ffi.Int()
+  external int tabAlignment;
+
+  @ffi.Int()
+  external int indicatorAnimation;
+
+  @ffi.Int()
+  external int tabHasTextAndIcon;
+}
+
+typedef TabValueChangedForBoolFFI
+    = ffi.Pointer<ffi.NativeFunction<TabValueChangedForBoolFFIFunction>>;
+typedef TabValueChangedForBoolFFIFunction = ffi.Void Function(
+    ffi.Int value, ffi.Int index);
+typedef DartTabValueChangedForBoolFFIFunction = void Function(
+    int value, int index);
+
+final class TabBarViewSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          TabBarViewObjSt Function(
+              ArrayC children,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Double> viewportFraction,
+              ffi.Pointer<ffi.Int> clipBehavior)>> tabBarView;
+}
+
+final class TabBarViewObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int dragStartBehavior;
+
+  @ffi.Double()
+  external double viewportFraction;
+
+  @ffi.Int()
+  external int clipBehavior;
+}
+
+final class DefaultTabControllerSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          DefaultTabControllerObjSt Function(
+              ffi.Int length,
+              ffi.Pointer<ffi.Int> initialIndex,
+              DartObj child,
+              ffi.Pointer<DartObj> animationDuration)>> defaultTabController;
+}
+
+final class DefaultTabControllerObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int length;
+
+  @ffi.Int()
+  external int initialIndex;
+
+  @DartObj()
+  external int animationDuration;
+
+  @DartObj()
+  external int child;
+}
+
+final class CheckboxListTileSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              CheckboxListTileObjSt Function(
+                  ffi.Int value,
+                  ValueChangedForBoolOptFFI onChanged,
+                  ffi.Pointer<DartObj> activeColor,
+                  ffi.Pointer<DartObj> checkColor,
+                  ffi.Pointer<DartObj> hoverColor,
+                  ffi.Pointer<ffi.Double> splashRadius,
+                  ffi.Pointer<ffi.Int> materialTapTargetSize,
+                  ffi.Pointer<DartObj> visualDensity,
+                  ffi.Pointer<ffi.Int> autofocus,
+                  ffi.Pointer<DartObj> shape,
+                  ffi.Pointer<DartObj> side,
+                  ffi.Pointer<ffi.Int> isError,
+                  ffi.Pointer<ffi.Int> enabled,
+                  ffi.Pointer<DartObj> tileColor,
+                  ffi.Pointer<DartObj> title,
+                  ffi.Pointer<DartObj> subtitle,
+                  ffi.Pointer<ffi.Int> isThreeLine,
+                  ffi.Pointer<ffi.Int> dense,
+                  ffi.Pointer<DartObj> secondary,
+                  ffi.Pointer<ffi.Int> selected,
+                  ffi.Pointer<ffi.Int> controlAffinity,
+                  ffi.Pointer<DartObj> contentPadding,
+                  ffi.Pointer<ffi.Int> tristate,
+                  ffi.Pointer<DartObj> checkboxShape,
+                  ffi.Pointer<DartObj> selectedTileColor,
+                  ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+                  ffi.Pointer<ffi.Int> enableFeedback,
+                  ffi.Pointer<ffi.Char> checkboxSemanticLabel,
+                  ffi.Pointer<ffi.Double> checkboxScaleFactor,
+                  ffi.Pointer<ffi.Int> titleAlignment,
+                  ffi.Pointer<ffi.Int> internalAddSemanticForOnTap)>>
+      checkboxListTile;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          CheckboxListTileObjSt Function(
+              ffi.Int value,
+              ValueChangedForBoolOptFFI onChanged,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> checkColor,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Double> splashRadius,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<DartObj> visualDensity,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<DartObj> side,
+              ffi.Pointer<ffi.Int> isError,
+              ffi.Pointer<ffi.Int> enabled,
+              ffi.Pointer<DartObj> tileColor,
+              ffi.Pointer<DartObj> title,
+              ffi.Pointer<DartObj> subtitle,
+              ffi.Pointer<ffi.Int> isThreeLine,
+              ffi.Pointer<ffi.Int> dense,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<ffi.Int> selected,
+              ffi.Pointer<ffi.Int> controlAffinity,
+              ffi.Pointer<DartObj> contentPadding,
+              ffi.Pointer<ffi.Int> tristate,
+              ffi.Pointer<DartObj> checkboxShape,
+              ffi.Pointer<DartObj> selectedTileColor,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> enableFeedback,
+              ffi.Pointer<ffi.Char> checkboxSemanticLabel,
+              ffi.Pointer<ffi.Double> checkboxScaleFactor,
+              ffi.Pointer<ffi.Int> titleAlignment,
+              ffi.Pointer<ffi.Int> internalAddSemanticForOnTap)>> adaptive;
+}
+
+final class CheckboxListTileObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int value;
+
+  @DartObj()
+  external int activeColor;
+
+  @DartObj()
+  external int checkColor;
+
+  @DartObj()
+  external int hoverColor;
+
+  @ffi.Double()
+  external double splashRadius;
+
+  @ffi.Int()
+  external int materialTapTargetSize;
+
+  external VisualDensityObjSt visualDensity;
+
+  @ffi.Int()
+  external int autofocus;
+
+  @DartObj()
+  external int shape;
+
+  external BorderSideObjSt side;
+
+  @ffi.Int()
+  external int isError;
+
+  @DartObj()
+  external int tileColor;
+
+  @DartObj()
+  external int title;
+
+  @DartObj()
+  external int subtitle;
+
+  @DartObj()
+  external int secondary;
+
+  @ffi.Int()
+  external int isThreeLine;
+
+  @ffi.Int()
+  external int dense;
+
+  @ffi.Int()
+  external int selected;
+
+  @ffi.Int()
+  external int controlAffinity;
+
+  @DartObj()
+  external int contentPadding;
+
+  @ffi.Int()
+  external int tristate;
+
+  @DartObj()
+  external int checkboxShape;
+
+  @DartObj()
+  external int selectedTileColor;
+
+  @ffi.Int()
+  external int enableFeedback;
+
+  @ffi.Int()
+  external int enabled;
+
+  @ffi.Int()
+  external int titleAlignment;
+
+  @ffi.Int()
+  external int internalAddSemanticForOnTap;
+
+  @ffi.Double()
+  external double checkboxScaleFactor;
+
+  external ffi.Pointer<ffi.Char> checkboxSemanticLabel;
+}
+
+final class SwitchListTileSt extends ffi.Struct {
+  external ffi.Pointer<
+          ffi.NativeFunction<
+              SwitchListTileObjSt Function(
+                  ffi.Int value,
+                  ValueChangedForBoolFFI onChanged,
+                  ffi.Pointer<DartObj> activeColor,
+                  ffi.Pointer<DartObj> activeThumbColor,
+                  ffi.Pointer<DartObj> activeTrackColor,
+                  ffi.Pointer<DartObj> inactiveThumbColor,
+                  ffi.Pointer<DartObj> inactiveTrackColor,
+                  ffi.Pointer<ffi.Int> materialTapTargetSize,
+                  ffi.Pointer<ffi.Int> dragStartBehavior,
+                  ffi.Pointer<ffi.Double> splashRadius,
+                  ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+                  ffi.Pointer<ffi.Int> autofocus,
+                  ffi.Pointer<DartObj> tileColor,
+                  ffi.Pointer<DartObj> title,
+                  ffi.Pointer<DartObj> subtitle,
+                  ffi.Pointer<ffi.Int> isThreeLine,
+                  ffi.Pointer<ffi.Int> dense,
+                  ffi.Pointer<DartObj> contentPadding,
+                  ffi.Pointer<DartObj> secondary,
+                  ffi.Pointer<ffi.Int> selected,
+                  ffi.Pointer<ffi.Int> controlAffinity,
+                  ffi.Pointer<DartObj> shape,
+                  ffi.Pointer<DartObj> selectedTileColor,
+                  ffi.Pointer<DartObj> visualDensity,
+                  ffi.Pointer<ffi.Int> enableFeedback,
+                  ffi.Pointer<DartObj> hoverColor,
+                  ffi.Pointer<ffi.Int> internalAddSemanticForOnTap)>>
+      switchListTile;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          SwitchListTileObjSt Function(
+              ffi.Int value,
+              ValueChangedForBoolFFI onChanged,
+              ffi.Pointer<DartObj> activeColor,
+              ffi.Pointer<DartObj> activeThumbColor,
+              ffi.Pointer<DartObj> activeTrackColor,
+              ffi.Pointer<DartObj> inactiveThumbColor,
+              ffi.Pointer<DartObj> inactiveTrackColor,
+              ffi.Pointer<ffi.Int> materialTapTargetSize,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Double> splashRadius,
+              ffi.Pointer<ValueChangedForBoolFFI> onFocusChange,
+              ffi.Pointer<ffi.Int> autofocus,
+              ffi.Pointer<ffi.Int> applyCupertinoTheme,
+              ffi.Pointer<DartObj> tileColor,
+              ffi.Pointer<DartObj> title,
+              ffi.Pointer<DartObj> subtitle,
+              ffi.Pointer<ffi.Int> isThreeLine,
+              ffi.Pointer<ffi.Int> dense,
+              ffi.Pointer<DartObj> contentPadding,
+              ffi.Pointer<DartObj> secondary,
+              ffi.Pointer<ffi.Int> selected,
+              ffi.Pointer<ffi.Int> controlAffinity,
+              ffi.Pointer<DartObj> shape,
+              ffi.Pointer<DartObj> selectedTileColor,
+              ffi.Pointer<DartObj> visualDensity,
+              ffi.Pointer<ffi.Int> enableFeedback,
+              ffi.Pointer<DartObj> hoverColor,
+              ffi.Pointer<ffi.Int> internalAddSemanticForOnTap)>> adaptive;
+}
+
+final class SwitchListTileObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Int()
+  external int value;
+
+  @DartObj()
+  external int activeColor;
+
+  @DartObj()
+  external int activeThumbColor;
+
+  @DartObj()
+  external int activeTrackColor;
+
+  @DartObj()
+  external int inactiveThumbColor;
+
+  @DartObj()
+  external int inactiveTrackColor;
+
+  @ffi.Int()
+  external int materialTapTargetSize;
+
+  @ffi.Int()
+  external int dragStartBehavior;
+
+  @ffi.Double()
+  external double splashRadius;
+
+  @ffi.Int()
+  external int autofocus;
+
+  @DartObj()
+  external int tileColor;
+
+  @DartObj()
+  external int title;
+
+  @DartObj()
+  external int subtitle;
+
+  @DartObj()
+  external int secondary;
+
+  @ffi.Int()
+  external int isThreeLine;
+
+  @ffi.Int()
+  external int dense;
+
+  @DartObj()
+  external int contentPadding;
+
+  @ffi.Int()
+  external int selected;
+
+  @ffi.Int()
+  external int controlAffinity;
+
+  @DartObj()
+  external int shape;
+
+  @DartObj()
+  external int selectedTileColor;
+
+  external VisualDensityObjSt visualDensity;
+
+  @ffi.Int()
+  external int enableFeedback;
+
+  @DartObj()
+  external int hoverColor;
+
+  @ffi.Int()
+  external int applyCupertinoTheme;
+
+  @ffi.Int()
+  external int internalAddSemanticForOnTap;
+}
+
+final class BadgeSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BadgeObjSt Function(
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> textColor,
+              ffi.Pointer<ffi.Double> smallSize,
+              ffi.Pointer<ffi.Double> largeSize,
+              ffi.Pointer<DartObj> textStyle,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<DartObj> offset,
+              ffi.Pointer<DartObj> label,
+              ffi.Pointer<ffi.Int> isLabelVisible,
+              ffi.Pointer<DartObj> child)>> badge;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          BadgeObjSt Function(
+              ffi.Pointer<DartObj> backgroundColor,
+              ffi.Pointer<DartObj> textColor,
+              ffi.Pointer<ffi.Double> smallSize,
+              ffi.Pointer<ffi.Double> largeSize,
+              ffi.Pointer<DartObj> textStyle,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<DartObj> alignment,
+              ffi.Pointer<DartObj> offset,
+              ffi.Int count,
+              ffi.Pointer<ffi.Int> isLabelVisible,
+              ffi.Pointer<DartObj> child)>> count;
+}
+
+final class BadgeObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @DartObj()
+  external int backgroundColor;
+
+  @DartObj()
+  external int textColor;
+
+  @ffi.Double()
+  external double smallSize;
+
+  @ffi.Double()
+  external double largeSize;
+
+  external TextStyleObjSt textStyle;
+
+  @DartObj()
+  external int padding;
+
+  @DartObj()
+  external int alignment;
+
+  @DartObj()
+  external int offset;
+
+  @DartObj()
+  external int label;
+
+  @ffi.Int()
+  external int isLabelVisible;
+
+  @DartObj()
+  external int child;
 }
 
 final class SubStateSt extends ffi.Struct {

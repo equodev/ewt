@@ -43,7 +43,7 @@ public class CircularProgressIndicatorObjSt {
         StarterBridge.C_DOUBLE.withName("trackGap"),
         StarterBridge.C_INT.withName("year2023"),
         StarterBridge.C_INT.withName("padding")
-    ).withName("$anon$964:9");
+    ).withName("$anon$1136:9");
 
     /**
      * The layout of this struct

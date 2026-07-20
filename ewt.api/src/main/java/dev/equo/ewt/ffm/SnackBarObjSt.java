@@ -63,7 +63,7 @@ public class SnackBarObjSt {
         StarterBridge.C_INT.withName("animation"),
         StarterBridge.C_INT.withName("dismissDirection"),
         StarterBridge.C_INT.withName("clipBehavior")
-    ).withName("$anon$828:9");
+    ).withName("$anon$1000:9");
 
     /**
      * The layout of this struct

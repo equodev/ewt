@@ -47,7 +47,7 @@ public class CardObjSt {
         StarterBridge.C_INT.withName("margin"),
         StarterBridge.C_INT.withName("semanticContainer"),
         StarterBridge.C_INT.withName("child")
-    ).withName("$anon$854:9");
+    ).withName("$anon$1026:9");
 
     /**
      * The layout of this struct

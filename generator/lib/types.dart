@@ -314,6 +314,12 @@ class Types {
       //   value = '_widgetsMap[$value]! as $t';
       // }
     }
+    // C has no bool, so the bridge marshals one as int. Optionals reach the
+    // ptrBool branch below, but a required bool is passed by value and has to
+    // be widened here (Checkbox.value, Switch.value).
+    if (!param.isOptional && t.isDartCoreBool) {
+      return '($value ? 1 : 0)';
+    }
     if (param.isOptional) {
       if (t.isDartCoreString) {
         value = 'ptrStr($value)';
@@ -406,14 +412,21 @@ class Types {
     return value;
   }
 
-  String paramValueFFMtoJ(Types types, ParameterElement param) {
+  /// Converts an incoming FFM value to its Java form.
+  ///
+  /// [fromCallback] marks the upcall path, where a nullable bool is declared as
+  /// `int*` in the typedef and so arrives as a pointer. Struct field getters
+  /// read the same bool back as a plain int, hence the distinction.
+  String paramValueFFMtoJ(Types types, ParameterElement param, {bool fromCallback = false}) {
     var t = param.type;
     if (t is TypeParameterType) {
       t = t.bound;
     }
     var value = Params.escape4J(types, param);
     if (t.isDartCoreBool) {
-      return 'intToBool($value)';
+      return fromCallback && t.nullabilitySuffix == NullabilitySuffix.question
+          ? 'memToBool($value)'
+          : 'intToBool($value)';
     }
     else if (t.isDartCoreString) {
       return '$value.getString(0)';
@@ -529,7 +542,11 @@ class FunctionHandler with TypeHandler {
     return '$aliasName${withSuffix ? 'FFI' : ''}';
   }
   String getInstantiatedAliasName(InstantiatedTypeAliasElement alias, {bool withSuffix = false}) {
-    return '${alias.element.name}${alias.typeArguments.isEmpty ? '' : 'For${alias.typeArguments.map((t) => t.element!.name!.firstUpper()).join()}'}${withSuffix ? 'FFI' : ''}';
+    // Nullability is part of the identity: ValueChanged<bool> (Switch.onChanged)
+    // and ValueChanged<bool?> (Checkbox.onChanged, which is tristate) are kept as
+    // distinct typedefs, so dropping the `?` here would name both
+    // ValueChangedForBool and emit the same helper twice.
+    return '${alias.element.name}${alias.typeArguments.isEmpty ? '' : 'For${alias.typeArguments.map((t) => '${t.element!.name!.firstUpper()}${t.nullabilitySuffix == NullabilitySuffix.question ? 'Opt' : ''}').join()}'}${withSuffix ? 'FFI' : ''}';
   }
   @override
   String type4D(DartType t) {
@@ -544,7 +561,16 @@ class FunctionHandler with TypeHandler {
       if (fn.parameters.isEmpty) {
         return 'Runnable';
       }
-      return 'Consumer<$params>';
+      // Consumer only takes one type argument, so the arity has to pick the
+      // matching interface the same way the value-returning branch does.
+      final arity = switch(fn.parameters.length) {
+        1 => '',
+        2 => 'Bi',
+        3 => 'Tri',
+        4 => 'Quad',
+        var i => throw 'Unsupported $i args function',
+      };
+      return '${arity}Consumer<$params>';
     } else {
       var retType4j = types.type4J(fn.returnType);
       if (fn.parameters.isEmpty) {

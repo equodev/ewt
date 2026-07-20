@@ -47,7 +47,7 @@ public class MaterialColorObjSt {
         StarterBridge.C_INT.withName("shade700"),
         StarterBridge.C_INT.withName("shade800"),
         StarterBridge.C_INT.withName("shade900")
-    ).withName("$anon$406:9");
+    ).withName("$anon$578:9");
 
     /**
      * The layout of this struct

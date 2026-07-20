@@ -301,6 +301,112 @@ typedef struct {
     ScaleTransitionObjSt (*scaleTransition)(DartObj scale, DartObj* alignment, int* filterQuality, DartObj* child);
   } scaleTransition;
 
+  struct AspectRatioSt {
+    AspectRatioObjSt (*aspectRatio)(double aspectRatio, DartObj* child);
+  } aspectRatio;
+
+  struct ClipOvalSt {
+    ClipOvalObjSt (*clipOval)(int* clipBehavior, DartObj* child);
+  } clipOval;
+
+  struct ClipRRectSt {
+    ClipRRectObjSt (*clipRRect)(DartObj* borderRadius, int* clipBehavior, DartObj* child);
+  } clipRRect;
+
+  struct ClipRectSt {
+    ClipRectObjSt (*clipRect)(int* clipBehavior, DartObj* child);
+  } clipRect;
+
+  struct ColoredBoxSt {
+    ColoredBoxObjSt (*coloredBox)(DartObj color, DartObj* child);
+  } coloredBox;
+
+  struct ConstrainedBoxSt {
+    ConstrainedBoxObjSt (*constrainedBox)(DartObj constraints, DartObj* child);
+  } constrainedBox;
+
+  struct DecoratedBoxSt {
+    DecoratedBoxObjSt (*decoratedBox)(DartObj decoration, int* position, DartObj* child);
+  } decoratedBox;
+
+  struct FittedBoxSt {
+    FittedBoxObjSt (*fittedBox)(int* fit, DartObj* alignment, int* clipBehavior, DartObj* child);
+  } fittedBox;
+
+  struct FractionallySizedBoxSt {
+    FractionallySizedBoxObjSt (*fractionallySizedBox)(DartObj* alignment, double* widthFactor, double* heightFactor, DartObj* child);
+  } fractionallySizedBox;
+
+  struct IntrinsicHeightSt {
+    IntrinsicHeightObjSt (*intrinsicHeight)(DartObj* child);
+  } intrinsicHeight;
+
+  struct IntrinsicWidthSt {
+    IntrinsicWidthObjSt (*intrinsicWidth)(double* stepWidth, double* stepHeight, DartObj* child);
+  } intrinsicWidth;
+
+  struct LimitedBoxSt {
+    LimitedBoxObjSt (*limitedBox)(double* maxWidth, double* maxHeight, DartObj* child);
+  } limitedBox;
+
+  struct PlaceholderSt {
+    PlaceholderObjSt (*placeholder)(DartObj* color, double* strokeWidth, double* fallbackWidth, double* fallbackHeight, DartObj* child);
+  } placeholder;
+
+  struct SpacerSt {
+    SpacerObjSt (*spacer)(int* flex);
+  } spacer;
+
+  struct VisibilitySt {
+    VisibilityObjSt (*visibility)(DartObj child, DartObj* replacement, int* visible, int* maintainState, int* maintainAnimation, int* maintainSize, int* maintainSemantics, int* maintainInteractivity, int* maintainFocusability);
+    VisibilityObjSt (*maintain)(DartObj child, int* visible);
+    int (*of)(DartObj context);
+  } visibility;
+
+  struct RotatedBoxSt {
+    RotatedBoxObjSt (*rotatedBox)(int quarterTurns, DartObj* child);
+  } rotatedBox;
+
+  struct BaselineSt {
+    BaselineObjSt (*baseline)(double baseline, int baselineType, DartObj* child);
+  } baseline;
+
+  struct OverflowBoxSt {
+    OverflowBoxObjSt (*overflowBox)(DartObj* alignment, double* minWidth, double* maxWidth, double* minHeight, double* maxHeight, int* fit, DartObj* child);
+  } overflowBox;
+
+  struct AnimatedContainerSt {
+    AnimatedContainerObjSt (*animatedContainer)(DartObj* alignment, DartObj* padding, DartObj* color, DartObj* decoration, DartObj* foregroundDecoration, double* width, double* height, DartObj* constraints, DartObj* margin, DartObj* transformAlignment, DartObj* child, int* clipBehavior, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedContainer;
+
+  struct AnimatedOpacitySt {
+    AnimatedOpacityObjSt (*animatedOpacity)(DartObj* child, double opacity, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd, int* alwaysIncludeSemantics);
+  } animatedOpacity;
+
+  struct AnimatedPaddingSt {
+    AnimatedPaddingObjSt (*animatedPadding)(DartObj padding, DartObj* child, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedPadding;
+
+  struct AnimatedAlignSt {
+    AnimatedAlignObjSt (*animatedAlign)(DartObj alignment, DartObj* child, double* heightFactor, double* widthFactor, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedAlign;
+
+  struct ListViewSt {
+    ListViewObjSt (*listView)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, double* itemExtent, DartObj* prototypeItem, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, ArrayC* children, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+    ListViewObjSt (*builder)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, double* itemExtent, DartObj* prototypeItem, NullableIndexedWidgetBuilderFFI itemBuilder, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+    ListViewObjSt (*separated)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, NullableIndexedWidgetBuilderFFI itemBuilder, IndexedWidgetBuilderFFI separatorBuilder, int itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+  } listView;
+
+  struct GridViewSt {
+    GridViewObjSt (*count)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, int crossAxisCount, double* mainAxisSpacing, double* crossAxisSpacing, double* childAspectRatio, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, ArrayC* children, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+    GridViewObjSt (*extent)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, double maxCrossAxisExtent, double* mainAxisSpacing, double* crossAxisSpacing, double* childAspectRatio, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, ArrayC* children, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+  } gridView;
+
+  struct PageViewSt {
+    PageViewObjSt (*pageView)(int* scrollDirection, int* reverse, int* pageSnapping, ValueChangedForIntFFI* onPageChanged, ArrayC* children, int* dragStartBehavior, int* allowImplicitScrolling, char* restorationId, int* clipBehavior, int* hitTestBehavior, int* padEnds);
+    PageViewObjSt (*builder)(int* scrollDirection, int* reverse, int* pageSnapping, ValueChangedForIntFFI* onPageChanged, NullableIndexedWidgetBuilderFFI itemBuilder, int* itemCount, int* dragStartBehavior, int* allowImplicitScrolling, char* restorationId, int* clipBehavior, int* hitTestBehavior, int* padEnds);
+  } pageView;
+
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
     ColorSchemeObjSt (*fromSeed)(DartObj seedColor, int* brightness, int* dynamicSchemeVariant, double* contrastLevel, DartObj* primary, DartObj* onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj* secondary, DartObj* onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj* error, DartObj* onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj* outline, DartObj* outlineVariant, DartObj* surface, DartObj* onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* shadow, DartObj* scrim, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
@@ -504,6 +610,62 @@ typedef struct {
   struct LinearProgressIndicatorSt {
     LinearProgressIndicatorObjSt (*linearProgressIndicator)(double* value, DartObj* backgroundColor, DartObj* color, DartObj* valueColor, double* minHeight, char* semanticsLabel, char* semanticsValue, DartObj* borderRadius, DartObj* stopIndicatorColor, double* stopIndicatorRadius, double* trackGap, int* year2023);
   } linearProgressIndicator;
+
+  struct CheckboxSt {
+    CheckboxObjSt (*checkbox)(int value, int* tristate, ValueChangedForBoolOptFFI onChanged, DartObj* activeColor, DartObj* checkColor, DartObj* focusColor, DartObj* hoverColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, int* autofocus, DartObj* shape, DartObj* side, int* isError, char* semanticLabel);
+    CheckboxObjSt (*adaptive)(int value, int* tristate, ValueChangedForBoolOptFFI onChanged, DartObj* activeColor, DartObj* checkColor, DartObj* focusColor, DartObj* hoverColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, int* autofocus, DartObj* shape, DartObj* side, int* isError, char* semanticLabel);
+  } checkbox;
+
+  struct SwitchSt {
+    SwitchObjSt (*switch_)(int value, ValueChangedForBoolFFI onChanged, DartObj* activeColor, DartObj* activeThumbColor, DartObj* activeTrackColor, DartObj* inactiveThumbColor, DartObj* inactiveTrackColor, int* materialTapTargetSize, int* dragStartBehavior, DartObj* focusColor, DartObj* hoverColor, double* splashRadius, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* padding);
+    SwitchObjSt (*adaptive)(int value, ValueChangedForBoolFFI onChanged, DartObj* activeColor, DartObj* activeThumbColor, DartObj* activeTrackColor, DartObj* inactiveThumbColor, DartObj* inactiveTrackColor, int* materialTapTargetSize, int* dragStartBehavior, DartObj* focusColor, DartObj* hoverColor, double* splashRadius, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* padding, int* applyCupertinoTheme);
+  } switch_;
+
+  struct SliderSt {
+    SliderObjSt (*slider)(double value, double* secondaryTrackValue, ValueChangedForDoubleFFI onChanged, ValueChangedForDoubleFFI* onChangeStart, ValueChangedForDoubleFFI* onChangeEnd, double* min, double* max, int* divisions, char* label, DartObj* activeColor, DartObj* inactiveColor, DartObj* secondaryActiveColor, DartObj* thumbColor, SemanticFormatterCallbackFFI* semanticFormatterCallback, int* autofocus, int* allowedInteraction, DartObj* padding, int* year2023);
+    SliderObjSt (*adaptive)(double value, double* secondaryTrackValue, ValueChangedForDoubleFFI onChanged, ValueChangedForDoubleFFI* onChangeStart, ValueChangedForDoubleFFI* onChangeEnd, double* min, double* max, int* divisions, char* label, DartObj* activeColor, DartObj* inactiveColor, DartObj* secondaryActiveColor, DartObj* thumbColor, SemanticFormatterCallbackFFI* semanticFormatterCallback, int* autofocus, int* allowedInteraction, int* year2023);
+  } slider;
+
+  struct DrawerSt {
+    DrawerObjSt (*drawer)(DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, double* width, DartObj* child, char* semanticLabel, int* clipBehavior);
+  } drawer;
+
+  struct TooltipSt {
+    TooltipObjSt (*tooltip)(char* message, DartObj* richMessage, double* height, DartObj* constraints, DartObj* padding, DartObj* margin, double* verticalOffset, int* preferBelow, int* excludeFromSemantics, DartObj* decoration, DartObj* textStyle, int* textAlign, DartObj* waitDuration, DartObj* showDuration, DartObj* exitDuration, int* enableTapToDismiss, int* triggerMode, int* enableFeedback, TooltipTriggeredCallbackFFI* onTriggered, int* ignorePointer, DartObj* child);
+    int (*dismissAllToolTips)(void);
+  } tooltip;
+
+  struct TabSt {
+    TabObjSt (*tab)(char* text, DartObj* icon, DartObj* iconMargin, double* height, DartObj* child);
+  } tab;
+
+  struct TabBarSt {
+    TabBarObjSt (*tabBar)(ArrayC tabs, int* isScrollable, DartObj* padding, DartObj* indicatorColor, int* automaticIndicatorColorAdjustment, double* indicatorWeight, DartObj* indicatorPadding, DartObj* indicator, int* indicatorSize, DartObj* dividerColor, double* dividerHeight, DartObj* labelColor, DartObj* labelStyle, DartObj* labelPadding, DartObj* unselectedLabelColor, DartObj* unselectedLabelStyle, int* dragStartBehavior, int* enableFeedback, ValueChangedForIntFFI* onTap, TabValueChangedForBoolFFI* onHover, TabValueChangedForBoolFFI* onFocusChange, DartObj* splashBorderRadius, int* tabAlignment, int* indicatorAnimation);
+    TabBarObjSt (*secondary)(ArrayC tabs, int* isScrollable, DartObj* padding, DartObj* indicatorColor, int* automaticIndicatorColorAdjustment, double* indicatorWeight, DartObj* indicatorPadding, DartObj* indicator, int* indicatorSize, DartObj* dividerColor, double* dividerHeight, DartObj* labelColor, DartObj* labelStyle, DartObj* labelPadding, DartObj* unselectedLabelColor, DartObj* unselectedLabelStyle, int* dragStartBehavior, int* enableFeedback, ValueChangedForIntFFI* onTap, TabValueChangedForBoolFFI* onHover, TabValueChangedForBoolFFI* onFocusChange, DartObj* splashBorderRadius, int* tabAlignment, int* indicatorAnimation);
+  } tabBar;
+
+  struct TabBarViewSt {
+    TabBarViewObjSt (*tabBarView)(ArrayC children, int* dragStartBehavior, double* viewportFraction, int* clipBehavior);
+  } tabBarView;
+
+  struct DefaultTabControllerSt {
+    DefaultTabControllerObjSt (*defaultTabController)(int length, int* initialIndex, DartObj child, DartObj* animationDuration);
+  } defaultTabController;
+
+  struct CheckboxListTileSt {
+    CheckboxListTileObjSt (*checkboxListTile)(int value, ValueChangedForBoolOptFFI onChanged, DartObj* activeColor, DartObj* checkColor, DartObj* hoverColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, int* autofocus, DartObj* shape, DartObj* side, int* isError, int* enabled, DartObj* tileColor, DartObj* title, DartObj* subtitle, int* isThreeLine, int* dense, DartObj* secondary, int* selected, int* controlAffinity, DartObj* contentPadding, int* tristate, DartObj* checkboxShape, DartObj* selectedTileColor, ValueChangedForBoolFFI* onFocusChange, int* enableFeedback, char* checkboxSemanticLabel, double* checkboxScaleFactor, int* titleAlignment, int* internalAddSemanticForOnTap);
+    CheckboxListTileObjSt (*adaptive)(int value, ValueChangedForBoolOptFFI onChanged, DartObj* activeColor, DartObj* checkColor, DartObj* hoverColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, int* autofocus, DartObj* shape, DartObj* side, int* isError, int* enabled, DartObj* tileColor, DartObj* title, DartObj* subtitle, int* isThreeLine, int* dense, DartObj* secondary, int* selected, int* controlAffinity, DartObj* contentPadding, int* tristate, DartObj* checkboxShape, DartObj* selectedTileColor, ValueChangedForBoolFFI* onFocusChange, int* enableFeedback, char* checkboxSemanticLabel, double* checkboxScaleFactor, int* titleAlignment, int* internalAddSemanticForOnTap);
+  } checkboxListTile;
+
+  struct SwitchListTileSt {
+    SwitchListTileObjSt (*switchListTile)(int value, ValueChangedForBoolFFI onChanged, DartObj* activeColor, DartObj* activeThumbColor, DartObj* activeTrackColor, DartObj* inactiveThumbColor, DartObj* inactiveTrackColor, int* materialTapTargetSize, int* dragStartBehavior, double* splashRadius, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* tileColor, DartObj* title, DartObj* subtitle, int* isThreeLine, int* dense, DartObj* contentPadding, DartObj* secondary, int* selected, int* controlAffinity, DartObj* shape, DartObj* selectedTileColor, DartObj* visualDensity, int* enableFeedback, DartObj* hoverColor, int* internalAddSemanticForOnTap);
+    SwitchListTileObjSt (*adaptive)(int value, ValueChangedForBoolFFI onChanged, DartObj* activeColor, DartObj* activeThumbColor, DartObj* activeTrackColor, DartObj* inactiveThumbColor, DartObj* inactiveTrackColor, int* materialTapTargetSize, int* dragStartBehavior, double* splashRadius, ValueChangedForBoolFFI* onFocusChange, int* autofocus, int* applyCupertinoTheme, DartObj* tileColor, DartObj* title, DartObj* subtitle, int* isThreeLine, int* dense, DartObj* contentPadding, DartObj* secondary, int* selected, int* controlAffinity, DartObj* shape, DartObj* selectedTileColor, DartObj* visualDensity, int* enableFeedback, DartObj* hoverColor, int* internalAddSemanticForOnTap);
+  } switchListTile;
+
+  struct BadgeSt {
+    BadgeObjSt (*badge)(DartObj* backgroundColor, DartObj* textColor, double* smallSize, double* largeSize, DartObj* textStyle, DartObj* padding, DartObj* alignment, DartObj* offset, DartObj* label, int* isLabelVisible, DartObj* child);
+    BadgeObjSt (*count)(DartObj* backgroundColor, DartObj* textColor, double* smallSize, double* largeSize, DartObj* textStyle, DartObj* padding, DartObj* alignment, DartObj* offset, int count, int* isLabelVisible, DartObj* child);
+  } badge;
 
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
