@@ -17,4 +17,10 @@ public final class EvolveComm {
   public static void onEvent(Object regionImpl, String event, Runnable cb) {
     dev.equo.swt.FlutterBridge.commFor(regionImpl).on(event, byte[].class, p -> cb.run());
   }
+
+  /** Registers a payload-carrying handler on the region's comm (browser -> Java). The raw frame
+   *  bytes are delivered (byte[].class is a passthrough in CommService). */
+  public static void onPayload(Object regionImpl, String event, java.util.function.Consumer<byte[]> cb) {
+    dev.equo.swt.FlutterBridge.commFor(regionImpl).on(event, byte[].class, cb);
+  }
 }

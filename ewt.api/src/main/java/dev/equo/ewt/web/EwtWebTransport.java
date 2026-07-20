@@ -29,6 +29,11 @@ public final class EwtWebTransport {
     return subtreeEvent(regionId) + "/request";
   }
 
+  /** The per-region channel on which the browser reports a callback invocation (browser -> Java). */
+  public static String callbackEvent(int regionId) {
+    return "EwtWidget/" + regionId + "/callback";
+  }
+
   public static void publish(int regionId, String json, BiConsumer<String, byte[]> sink) {
     sink.accept(subtreeEvent(regionId), json.getBytes(StandardCharsets.UTF_8));
   }

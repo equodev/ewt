@@ -3,10 +3,10 @@ package org.eclipse.swt.widgets;
 import java.util.concurrent.Callable;
 
 import dev.equo.ewt.App;
+import dev.equo.ewt.EwtCapture;
 import dev.equo.ewt.EwtWebCapture;
 import dev.equo.ewt.Widget;
 import dev.equo.ewt.evolve.EvolveComm;
-import dev.equo.ewt.web.EwtNode;
 import dev.equo.ewt.web.EwtNodeJson;
 import dev.equo.ewt.web.EwtWebTransport;
 
@@ -54,6 +54,7 @@ public class EwtWidget extends Composite {
     }
 
     private volatile String webSubtreeJson;
+    private volatile java.util.Map<Integer, Object> webCallbacks;
 
     /**
      * Web path: build the subtree eagerly, serialize it, and publish it over Evolve's comm keyed
@@ -66,9 +67,11 @@ public class EwtWidget extends Composite {
      */
     private void publishWebSubtree(Callable<Widget> builder) {
         try {
-            EwtNode root = EwtWebCapture.captureSubtree(builder);
-            webSubtreeJson = EwtNodeJson.encode(root);
+            EwtCapture capture = EwtWebCapture.captureSubtree(builder);
+            webSubtreeJson = EwtNodeJson.encode(capture.root);
+            webCallbacks = capture.callbacks;
             EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendWebSubtree);
+            EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
             sendWebSubtree();
         } catch (Exception e) {
             System.err.println("EWT web subtree publish failed: " + e);
@@ -80,6 +83,26 @@ public class EwtWidget extends Composite {
         if (json == null) return;
         EwtWebTransport.publish(hashCode(), json,
             (event, payload) -> EvolveComm.send(getImpl(), event, payload));
+    }
+
+    /** Parses the callback id from the frame payload and returns the mapped Runnable, or null
+     *  (unknown/stale id, non-numeric payload, or no payload). Static so it can be tested
+     *  without a live Display or parent Composite. */
+    static Runnable resolveCallback(java.util.Map<Integer, Object> cbs, byte[] payload) {
+        if (payload == null || cbs == null) return null;
+        int id;
+        try {
+            id = Integer.parseInt(new String(payload, java.nio.charset.StandardCharsets.UTF_8).trim());
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        Object cb = cbs.get(id);
+        return cb instanceof Runnable ? (Runnable) cb : null;
+    }
+
+    private void fireCallback(byte[] payload) {
+        Runnable r = resolveCallback(webCallbacks, payload);
+        if (r != null) getDisplay().asyncExec(r);
     }
 
     /**
