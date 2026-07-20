@@ -53,20 +53,33 @@ public class EwtWidget extends Composite {
         }
     }
 
+    private volatile String webSubtreeJson;
+
     /**
      * Web path: build the subtree eagerly, serialize it, and publish it over Evolve's comm keyed
      * by this region's id. Desktop keeps using FFM via App's dispatcher (the branch above). The
      * FFM/native path is deliberately not touched here, since no native engine runs on web.
+     *
+     * The subtree is also resent on request: the browser region asks for it once its handler is
+     * registered, so a first frame flushed (from the comm buffer) before the region subscribed is
+     * not lost.
      */
     private void publishWebSubtree(Callable<Widget> builder) {
         try {
             EwtNode root = SerializingWidgetConstructors.captureSubtree(builder);
-            String json = EwtNodeJson.encode(root);
-            EwtWebTransport.publish(hashCode(), json,
-                (event, payload) -> EvolveComm.send(getImpl(), event, payload));
+            webSubtreeJson = EwtNodeJson.encode(root);
+            EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendWebSubtree);
+            sendWebSubtree();
         } catch (Exception e) {
             System.err.println("EWT web subtree publish failed: " + e);
         }
+    }
+
+    private void sendWebSubtree() {
+        String json = webSubtreeJson;
+        if (json == null) return;
+        EwtWebTransport.publish(hashCode(), json,
+            (event, payload) -> EvolveComm.send(getImpl(), event, payload));
     }
 
     /**

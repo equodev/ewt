@@ -309,3 +309,35 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
         environment("_EWT_MACOS_RELAUNCHED", "1")
     }
 }
+
+// EWT ↔ Evolve on the WEB surface (spike). Runs Evolve with the mode unset (=> web), which serves
+// the combined app's OWN Flutter web build (evolve-app/build/web, where the EWT region provider is
+// installed) via the dev.equo.swt.web.dir override, and opens the system browser. The EWT region's
+// subtree travels over the comm instead of FFM. Build the web bundle first:
+//   (cd evolve-app && flutter build web)
+// The spike tree uses only the Phase 0 widgets (Text, SizedBox).
+tasks.register<JavaExec>("runEvolveEwtWebSpike") {
+    group = "examples"
+    description = "EWT <-> Evolve same-surface on the WEB surface (Text/SizedBox spike)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.EvolveEwtWebSpike")
+    val webDir = combinedBuild.resolve("web")
+    doFirst {
+        if (!evolveAvailable) {
+            throw GradleException(
+                "swt-evolve build not found at ${evolveJar.absolutePath}. " +
+                "This demo needs the sibling swt-evolve repo built."
+            )
+        }
+        if (!webDir.resolve("index.html").exists()) {
+            throw GradleException(
+                "Combined web build not found at $webDir. " +
+                "Build it first:  (cd evolve-app && flutter build web)"
+            )
+        }
+    }
+    // Web surface: do NOT set dev.equo.swt.mode (unset => web). Serve the combined web build.
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}

@@ -19,7 +19,17 @@ public final class EwtWebTransport {
     return mode == null || mode.isBlank();
   }
 
+  /** The per-region channel carrying the serialized subtree (Java -> browser). */
+  public static String subtreeEvent(int regionId) {
+    return "EwtWidget/" + regionId + "/subtree";
+  }
+
+  /** The per-region channel on which the browser asks for a (re)send of its subtree. */
+  public static String requestEvent(int regionId) {
+    return subtreeEvent(regionId) + "/request";
+  }
+
   public static void publish(int regionId, String json, BiConsumer<String, byte[]> sink) {
-    sink.accept("EwtWidget/" + regionId + "/subtree", json.getBytes(StandardCharsets.UTF_8));
+    sink.accept(subtreeEvent(regionId), json.getBytes(StandardCharsets.UTF_8));
   }
 }

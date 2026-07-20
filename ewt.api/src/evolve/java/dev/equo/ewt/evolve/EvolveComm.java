@@ -12,4 +12,9 @@ public final class EvolveComm {
   public static void send(Object regionImpl, String event, byte[] payload) {
     dev.equo.swt.FlutterBridge.commFor(regionImpl).send(event, payload);
   }
+
+  /** Registers a no-payload handler on the region's comm (browser -> Java), e.g. a resend request. */
+  public static void onEvent(Object regionImpl, String event, Runnable cb) {
+    dev.equo.swt.FlutterBridge.commFor(regionImpl).on(event, byte[].class, p -> cb.run());
+  }
 }

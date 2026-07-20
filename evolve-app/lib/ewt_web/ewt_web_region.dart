@@ -24,6 +24,9 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
   void initState() {
     super.initState();
     EquoCommService.onBytes(_channel, _onSubtree);
+    // Ask the Java side to (re)send this region's subtree now that our handler is registered,
+    // so a first frame flushed from the comm buffer before we subscribed is not lost.
+    EquoCommService.send('$_channel/request');
   }
 
   void _onSubtree(Uint8List bytes) {

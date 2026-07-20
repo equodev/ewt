@@ -31,6 +31,17 @@
 
   <title>ewt_evolve_app</title>
   <link rel="manifest" href="manifest.json">
+  <script>
+    window.equoCommPort = {{EQUO_COMM_PORT}};
+    window.equoCommUrl = "{{EQUO_COMM_URL}}";
+    window.evolve = {};
+    window.evolve.widgetId = {{EQUO_WIDGETID}};
+    window.evolve.widgetName = "{{EQUO_WIDGETNAME}}";
+    window.evolve.browserProxy = {{EQUO_BROWSER_PROXY}};
+  </script>
+  <script>
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, true);
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
