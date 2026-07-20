@@ -1,0 +1,28 @@
+name: ewt_evolve_app
+description: "EWT-owned combined app for the EWT ↔ SWT Evolve same-surface integration."
+# The EWT-owned root of the combined Flutter binary (dependency direction EWT → Evolve):
+# it depends on Evolve's flutter-lib (package: swtflutter) AND EWT's widgets, so ONE binary
+# contains both Dart trees. Its main() installs the EWT region provider, then runs Evolve's
+# arg-driven main(). The Linux runner is Evolve's (flutter_bridge.cc → libflutter_bridge.so,
+# what Evolve's Java loads via JNI), copied under linux/.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+  flutter: "^3.35.7"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Evolve (the swt.jar replacement's Flutter side). EWT → Evolve.
+  swtflutter:
+    path: ../../../swt-evolve/flutter-lib
+
+  # EWT's Flutter widgets (the FFI plugin whose libwidgets.so hosts the build callback).
+  widgets:
+    path: ../widgets
+
+flutter:
+  uses-material-design: true

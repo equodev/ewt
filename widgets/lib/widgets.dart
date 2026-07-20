@@ -12,13 +12,16 @@ import 'hot_reload.dart';
 
 bool _hotReloadInitTriggered = false;
 
-int callToBuildWidgetTree(ffi.Pointer<WidgetFactories> factories) {
+// regionId identifies which EwtWidget region is being built, so N Evolve regions
+// map to N distinct Java builders. Defaults to 0 for the standalone EWT flow, which
+// registers a single builder and has no region concept.
+int callToBuildWidgetTree(ffi.Pointer<WidgetFactories> factories, [int regionId = 0]) {
   if (!_hotReloadInitTriggered) {
     _hotReloadInitTriggered = true;
     // Fire-and-forget: do not block the initial build waiting for the bind.
     initHotReloadServer();
   }
-  return _bindings.callToBuildWidgetTree(factories);
+  return _bindings.callToBuildWidgetTree(factories, regionId);
 }
 
 /// A very short-lived native function.
