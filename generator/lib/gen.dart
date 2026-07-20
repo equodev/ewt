@@ -1402,6 +1402,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   private int nextId = 1;
   private int nextCallbackId = 1;
   private final Map<Integer, EwtNode> byId = new HashMap<>();
+  private final Map<Integer, Object> callbacks = new HashMap<>();
+  public Map<Integer, Object> callbacks() { return callbacks; }
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
     if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
   private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
@@ -1872,8 +1874,17 @@ class Params {
     final t = param.type;
     final h = types.getHandler(t);
 
-    // Callback: reserve a numeric id without invoking it.
+    // Callback: reserve a numeric id and optionally store the Runnable.
     if (h != null) {
+      if (_isZeroArgCallback(t)) {
+        // Wire zero-arg callbacks: reserve the id, record it in the node, and keep the
+        // real Runnable so EwtWidget can fire it when the browser reports a click.
+        if (param.isOptional) {
+          return 'if ($name.isPresent()) { int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, $name.get()); }';
+        }
+        return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, $name);';
+      }
+      // Arg-carrying callbacks stay inert: reserve the id only (Phase 3).
       if (param.isOptional) {
         return 'if ($name != null) { p.put("$key", nextCallbackId++); }';
       }
