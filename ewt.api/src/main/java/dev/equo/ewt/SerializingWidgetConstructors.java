@@ -164,6 +164,69 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "fontWeightLerp", p);
     return id;
   }
+  @Override
+  int fontWeightW100() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW100", p);
+    return id;
+  }
+  @Override
+  int fontWeightW200() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW200", p);
+    return id;
+  }
+  @Override
+  int fontWeightW300() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW300", p);
+    return id;
+  }
+  @Override
+  int fontWeightW400() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW400", p);
+    return id;
+  }
+  @Override
+  int fontWeightW500() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW500", p);
+    return id;
+  }
+  @Override
+  int fontWeightW600() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW600", p);
+    return id;
+  }
+  @Override
+  int fontWeightW700() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW700", p);
+    return id;
+  }
+  @Override
+  int fontWeightW800() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW800", p);
+    return id;
+  }
+  @Override
+  int fontWeightW900() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "fontWeightW900", p);
+    return id;
+  }
 
   @Override
   int textDecorationCombine(List<TextDecoration> decorations) {
@@ -171,6 +234,34 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("decorations", decorations.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     record(id, "textDecorationCombine", p);
+    return id;
+  }
+  @Override
+  int textDecorationNone() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "textDecorationNone", p);
+    return id;
+  }
+  @Override
+  int textDecorationUnderline() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "textDecorationUnderline", p);
+    return id;
+  }
+  @Override
+  int textDecorationOverline() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "textDecorationOverline", p);
+    return id;
+  }
+  @Override
+  int textDecorationLineThrough() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "textDecorationLineThrough", p);
     return id;
   }
 
@@ -541,6 +632,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     MemorySegment st = ContainerObjSt.allocate(arena);
     ContainerObjSt.id(st, id);
     return st;
+  }
+
+  @Override
+  int edgeInsetsGeometryInfinity() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "edgeInsetsGeometryInfinity", p);
+    return id;
   }
 
   @Override
@@ -1133,6 +1232,42 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     MemorySegment st = ElasticInOutCurveObjSt.allocate(arena);
     ElasticInOutCurveObjSt.id(st, id);
     return st;
+  }
+
+  @Override
+  int curvesLinear() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "curvesLinear", p);
+    return id;
+  }
+  @Override
+  int curvesDecelerate() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "curvesDecelerate", p);
+    return id;
+  }
+  @Override
+  int curvesBounceIn() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "curvesBounceIn", p);
+    return id;
+  }
+  @Override
+  int curvesBounceOut() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "curvesBounceOut", p);
+    return id;
+  }
+  @Override
+  int curvesBounceInOut() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "curvesBounceInOut", p);
+    return id;
   }
 
   @Override
@@ -2808,6 +2943,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     MemorySegment st = InputDecorationObjSt.allocate(arena);
     InputDecorationObjSt.id(st, id);
     return st;
+  }
+
+  @Override
+  int inputBorderNone() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "inputBorderNone", p);
+    return id;
   }
 
   @Override

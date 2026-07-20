@@ -63,8 +63,21 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'fontWeightLerp': (p) => FontWeight.lerp(decodeEwtNode(p['a'] as Map<String,dynamic>) as FontWeight,
       decodeEwtNode(p['b'] as Map<String,dynamic>) as FontWeight,
       (p['t'] as num).toDouble()),
+  'fontWeightW100': (p) => FontWeight.w100,
+  'fontWeightW200': (p) => FontWeight.w200,
+  'fontWeightW300': (p) => FontWeight.w300,
+  'fontWeightW400': (p) => FontWeight.w400,
+  'fontWeightW500': (p) => FontWeight.w500,
+  'fontWeightW600': (p) => FontWeight.w600,
+  'fontWeightW700': (p) => FontWeight.w700,
+  'fontWeightW800': (p) => FontWeight.w800,
+  'fontWeightW900': (p) => FontWeight.w900,
 
   'textDecorationCombine': (p) => TextDecoration.combine(((p['decorations'] as List?) ?? const []).map((e) => decodeEwtNode(e as Map<String,dynamic>) as TextDecoration).toList()),
+  'textDecorationNone': (p) => TextDecoration.none,
+  'textDecorationUnderline': (p) => TextDecoration.underline,
+  'textDecorationOverline': (p) => TextDecoration.overline,
+  'textDecorationLineThrough': (p) => TextDecoration.lineThrough,
 
   'textText': (p) => Text(p['data'] as String,
       style: p['style'] == null ? null : decodeEwtNode(p['style'] as Map<String,dynamic>) as TextStyle,
@@ -228,6 +241,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       child: p['child'] == null ? null : decodeEwtNode(p['child'] as Map<String,dynamic>) as Widget,
       clipBehavior: p['clipBehavior'] == null ? Clip.none : Clip.values[p['clipBehavior'] as int]),
 
+  'edgeInsetsGeometryInfinity': (p) => EdgeInsetsGeometry.infinity,
+
   'positionedPositioned': (p) => Positioned(left: (p['left'] as num?)?.toDouble(),
       top: (p['top'] as num?)?.toDouble(),
       right: (p['right'] as num?)?.toDouble(),
@@ -385,6 +400,12 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'elasticInCurveElasticInCurve': (p) => ElasticInCurve(((p['period'] as num?)?.toDouble()) ?? 0.4),
 
   'elasticInOutCurveElasticInOutCurve': (p) => ElasticInOutCurve(((p['period'] as num?)?.toDouble()) ?? 0.4),
+
+  'curvesLinear': (p) => Curves.linear,
+  'curvesDecelerate': (p) => Curves.decelerate,
+  'curvesBounceIn': (p) => Curves.bounceIn,
+  'curvesBounceOut': (p) => Curves.bounceOut,
+  'curvesBounceInOut': (p) => Curves.bounceInOut,
 
   'sizedBoxSizedBox': (p) => SizedBox(width: (p['width'] as num?)?.toDouble(),
       height: (p['height'] as num?)?.toDouble(),
@@ -739,6 +760,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       decodeEwtNode(p['b'] as Map<String,dynamic>) as ColorScheme,
       (p['t'] as num).toDouble()),
   'colorSchemeOf': (p) => ColorScheme.of(decodeEwtNode(p['context'] as Map<String,dynamic>) as BuildContext),
+
+  'materialColorMaterialColor': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),
 
   'colorSwatchLerp': (p) => ColorSwatch.lerp(decodeEwtNode(p['a'] as Map<String,dynamic>) as ColorSwatch,
       decodeEwtNode(p['b'] as Map<String,dynamic>) as ColorSwatch,
@@ -1205,6 +1228,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       border: p['border'] == null ? null : decodeEwtNode(p['border'] as Map<String,dynamic>) as InputBorder,
       enabled: (p['enabled'] as bool?) ?? true,
       constraints: p['constraints'] == null ? null : decodeEwtNode(p['constraints'] as Map<String,dynamic>) as BoxConstraints),
+
+  'inputBorderNone': (p) => InputBorder.none,
 
   'dividerDivider': (p) => Divider(height: (p['height'] as num?)?.toDouble(),
       thickness: (p['thickness'] as num?)?.toDouble(),

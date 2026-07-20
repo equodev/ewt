@@ -341,3 +341,22 @@ tasks.register<JavaExec>("runEvolveEwtWebSpike") {
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
+
+// EvolveEwtButtons (the rich north-star sample) on the WEB surface. Same wiring as
+// runEvolveEwtWebSpike but the full sample. Build the web bundle with:
+//   (cd evolve-app && flutter build web --no-tree-shake-icons)   # icons decode dynamically
+tasks.register<JavaExec>("runEvolveEwtButtonsWeb") {
+    group = "examples"
+    description = "EWT <-> Evolve north-star sample on the WEB surface (Phase 1)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.EvolveEwtButtons")
+    val webDir = combinedBuild.resolve("web")
+    doFirst {
+        if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        if (!webDir.resolve("index.html").exists()) throw GradleException(
+            "Combined web build not found at $webDir. Build:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+    }
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}

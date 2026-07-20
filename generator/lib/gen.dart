@@ -513,6 +513,17 @@ class WidgetGen implements AGen {
   /// call with the paramValueJson strategy). Skips void factories (no value to build).
   void writeWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
     if (node.returnType is VoidType) return;
+    // MaterialColor (Colors.indigo(), Colors.amber(), ...) is a Color subclass built from a
+    // primary ARGB int plus a swatch Map. The Map param makes it non-web-decodable, but the
+    // swatch is never needed off-native: shadeXXX() accessors are pre-resolved to concrete Color
+    // nodes at serialize time (see the materialColorMaterialColor special-case in
+    // writeJavaSerializer), so a MaterialColor is only ever consumed AS a Color on web. Rebuild
+    // it from primary with an empty swatch. Without this, using a MaterialColor directly as a
+    // color yields a null-decoded param and the enclosing decoder's `as Color` cast throws.
+    if (factoryName == 'materialColorMaterialColor') {
+      dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
+      return;
+    }
     if (!_webDecodable(node)) return;
     final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
     final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';
@@ -582,6 +593,39 @@ class WidgetGen implements AGen {
       ..writeln('  }');
   }
 
+  /// Web-mode support for a private-const accessor (family B: static const value
+  /// objects backed by a native struct field, e.g. FontWeight.w700, Curves.linear,
+  /// TextDecoration.underline). The FFM const method reads a native table
+  /// (a WidgetFactories struct field) which is null off-native -> NPE. So:
+  ///   (a) override it in SerializingWidgetConstructors to record a node keyed by
+  ///       factoryName and return the node id (no native call), and
+  ///   (b) emit a web decoder mapping factoryName to the matching Flutter const,
+  ///       which is exactly `WidgetClass.fieldName` (the field is a public
+  ///       const of the Flutter class; only its initializer's constructor is private).
+  void writeConstSerializerAndDecoder(ConstFieldElementImpl fld, String factoryName) {
+    var gen = types.getGen(fld.type.element!);
+    final isObjSt = gen.objType().endsWith('ObjSt');
+    final retType = isObjSt ? 'MemorySegment' : 'int';
+    javaSerializer
+      ..writeln('  @Override')
+      ..writeln('  $retType $factoryName() {')
+      ..writeln('    int id = nextId++;')
+      ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();')
+      ..writeln('    record(id, "$factoryName", p);');
+    if (isObjSt) {
+      final objStClass = gen.objType();
+      javaSerializer
+        ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
+        ..writeln('    $objStClass.id(st, id);')
+        ..writeln('    return st;');
+    } else {
+      javaSerializer.writeln('    return id;');
+    }
+    javaSerializer.writeln('  }');
+
+    dartWebDecoders.writeln("  '$factoryName': (p) => $widgetClass.${fld.name},");
+  }
+
   bool isPrivateConst(ConstFieldElementImpl fld) {
     var initializer = fld.constantInitializer;
     if (initializer is InstanceCreationExpression) {
@@ -612,6 +656,7 @@ class WidgetGen implements AGen {
           ..writeln('    System.out.println("Const $factory id:"+id);')
           ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
         writeJavaConstMethod(factoryName, factory, fld);
+        writeConstSerializerAndDecoder(fld, factoryName);
       } else {
         javaFile.writeln(
             '    return ${dartExptrToJava(initializer as Expression)};');
