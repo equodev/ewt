@@ -40,4 +40,4 @@ FFI_PLUGIN_EXPORT int sum_long_running(int a, int b);
 
 FFI_PLUGIN_EXPORT void setBuildWidgetTree(buildWidgetTreeFn fn);
 
-FFI_PLUGIN_EXPORT int callToBuildWidgetTree(WidgetFactories* factories);
+FFI_PLUGIN_EXPORT int callToBuildWidgetTree(WidgetFactories* factories, int regionId);

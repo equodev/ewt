@@ -31,6 +31,17 @@ variables:
     -Dorg.gradle.vfs.watch=false
   FLUTTER_SDK: "3.35.7"
   FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
+  # --- EWT ↔ Evolve integration (ewt-evolve jar) ---
+  # The combined bundle merges Evolve's Dart (swtflutter) with EWT's into ONE snapshot, so the
+  # ewt-evolve jar is tied to a SPECIFIC swt-evolve version: the consumer must run that same
+  # swt-evolve jar at runtime. We PIN to a swt-evolve GitHub release tag so every pipeline bakes
+  # the identical Evolve Dart (reproducible). Bump deliberately when adopting a newer release —
+  # verify the tag builds at FLUTTER_SDK above. The release tags live on GitHub (equodev/swt-evolve),
+  # NOT the GitLab dev repo (which carries different versioning), so CI clones GitHub below.
+  EVOLVE_REF: "v0.312.0"
+  # Public GitHub repo that publishes swt-evolve releases — cloned anonymously over HTTPS (no
+  # token, no allowlist). Also a full source mirror (flutter-lib + swt_native), so it builds.
+  EVOLVE_PROJECT_PATH: "equodev/swt-evolve"
 
 build_docker_image:
   stage: docker_build
@@ -171,6 +182,88 @@ ewt_build:
       dotenv: build/published/version.env
     expire_in: 1 week
 
+# Builds the self-contained ewt-evolve jar (EWT toolkit + EwtWidget + SPI provider + the
+# combined Evolve/EWT Dart bundle). Needs the sibling swt-evolve at the PINNED EVOLVE_REF:
+# its flutter-lib (Dart, merged into libapp.so) and its full jar (compiled against + shipped
+# to the consumer). Also builds the standalone ewt.api jar + compiles the examples so the
+# smoke job can run the packaged app from artifacts alone (no clone, no gradle).
+ewt_evolve_build:
+  stage: build
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  # On MRs this is an opt-in manual button (non-blocking) — the integration is heavy and rarely
+  # what an MR touches. On main it follows the release_gate button (manual after merge, like
+  # ewt_build); on the scheduled release pipeline (NEED_RELEASE) it runs automatically.
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  script:
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    # Clone swt-evolve as a clean sibling (../swt-evolve, same parent as this repo). CI is not
+    # bound to the local ../../swt-evolve convention: it points both build sides at the clone
+    # explicitly — gradle via -PevolveHome, and the Dart via a generated pubspec_overrides.yaml
+    # (so the committed evolve-app/pubspec.yaml keeps its local-friendly default untouched).
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    # Fetch tags so a tag EVOLVE_REF resolves; two-step (clone + checkout) also supports a SHA.
+    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
+    - git -C ../swt-evolve checkout "$EVOLVE_REF"
+    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
+    # Point the evolve-app Dart at the clone without touching the committed pubspec.yaml.
+    - >-
+      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
+      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    # Build the FULL swt-evolve jar (with its native bridge/engine — NOT -DskipFlutterLib).
+    - (cd ../swt-evolve && ./gradlew :swt_native:linux-x86_64Jar --no-daemon)
+    # Build the standalone ewt.api jar (so the examples compile via -PuseLocal), the
+    # self-contained ewt-evolve jar, and the example classes used by the smoke job.
+    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar :examples:compileJava -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
+    # Stage the swt-evolve jar next to the ewt-evolve jar so both travel as artifacts.
+    - cp ../swt-evolve/swt_native/build/libs/swt_evolve-linux-x86_64.jar ewt.api/build/libs/
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt-evolve-*.jar
+      - ewt.api/build/libs/swt_evolve-linux-x86_64.jar
+      - examples/build/classes/java/main/
+    expire_in: 1 week
+
+# Headless smoke of the PRODUCTION 2-jar path: only ewt-evolve + swt-evolve on the classpath,
+# no dev.equo.ewt.bundleDir, no Flutter, no clone — the SPI extracts the bundle from the jar.
+# Catches silent same-surface drift (a mismatched Evolve version renders nothing, not an error).
+# This is a hard gate: publish_ewt_evolve needs it, so a broken integration jar never reaches
+# Maven. If the runner's headless GTK/xvfb turns out flaky, revert to allow_failure until fixed.
+ewt_evolve_smoke:
+  stage: build
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - ewt_evolve_build
+  script:
+    - command -v xvfb-run >/dev/null || (apt-get update && apt-get install -y xvfb) || true
+    - rm -rf "$HOME/.equo/ewt"
+    - EWT_EVOLVE_JAR=$(ls ewt.api/build/libs/ewt-evolve-*.jar | head -n1)
+    - CP="examples/build/classes/java/main:ewt.api/build/libs/swt_evolve-linux-x86_64.jar:${EWT_EVOLVE_JAR}"
+    # timeout closes the window → a non-zero exit here is expected; assert on the log instead.
+    - >-
+      xvfb-run -a timeout 60 java --enable-native-access=ALL-UNNAMED
+      -Ddev.equo.swt.mode=desktop -Ddev.equo.swt.crashReport.disabled=true
+      -cp "$CP" dev.equo.EvolveEwtButtons > smoke.log 2>&1 || true
+    - tail -n 30 smoke.log || true
+    - 'grep -q "external app bundle base" smoke.log || { echo "SMOKE FAILED - SPI bundle base line missing"; exit 1; }'
+    - >-
+      grep -qE "Resource not found|No builder|Invalid ELF|SIGSEGV|ExceptionInInit|combined libwidgets not found|FATAL:|Check failed:|Aborted" smoke.log
+      && { echo "SMOKE FAILED - crash marker in log"; exit 1; } || true
+    - 'echo "SMOKE OK - bundle discovered via SPI, no crash markers."'
+  artifacts:
+    when: always
+    paths:
+      - smoke.log
+    expire_in: 1 week
+
 # =============================================================================
 # DEPLOY STAGE
 # =============================================================================
@@ -182,6 +275,24 @@ publish_to_mvn:
     - ewt_build
   script:
     - ./gradlew :ewt.api:publishAllPlatforms --no-daemon
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
+# Publishes dev.equo:ewt-evolve from the jar built by ewt_evolve_build (no rebuild). The
+# publication is registered only when the swt-evolve jar is present, so restore it to the
+# sibling path first to satisfy the evolveAvailable gate at configuration time; the file-based
+# artifact then uploads the restored ewt-evolve jar without re-running the bundle merge.
+publish_ewt_evolve:
+  stage: deploy
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - ewt_evolve_build
+    - ewt_evolve_smoke
+  script:
+    - mkdir -p ../swt-evolve/swt_native/build/libs
+    - cp ewt.api/build/libs/swt_evolve-linux-x86_64.jar ../swt-evolve/swt_native/build/libs/
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -PevolveHome=../swt-evolve --no-daemon
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'

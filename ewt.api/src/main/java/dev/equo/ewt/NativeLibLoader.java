@@ -1,5 +1,7 @@
 package dev.equo.ewt;
 
+import dev.equo.ewt.evolve.EvolveBundleExtractor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
@@ -18,13 +20,28 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-class NativeLibLoader {
+public class NativeLibLoader {
+
+    // The EWT-owned combined bundle dir (Evolve's FlutterLibraryLoader reads the same
+    // property). Its presence is how EWT knows it is in attach mode: load only the
+    // combined libwidgets, not the full standalone EWT native set.
+    private static final String EWT_BUNDLE_DIR = "dev.equo.ewt.bundleDir";
 
     static void load() {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("mac")) {
             ensureMacOSMainThread();
+        }
+
+        // Attach mode (EWT↔Evolve same-surface): Evolve owns and already loaded the
+        // Flutter engine. We load ONLY the combined bundle's libwidgets — the SAME copy
+        // the engine runs — so its setBuildWidgetTree/callToBuildWidgetTree symbols
+        // resolve to one instance and the FFM callback connects. No engine/window libs.
+        Path attachLib = attachModeLibwidgets(os);
+        if (attachLib != null) {
+            System.load(attachLib.toString());
+            return;
         }
 
         String osDir;
@@ -110,6 +127,50 @@ class NativeLibLoader {
         }
     }
 
+    /**
+     * Resolves the combined bundle's {@code libwidgets} for attach mode, or {@code null}
+     * when not in attach mode (standalone EWT — load the full lib set from the jar).
+     *
+     * <p>Attach mode is signalled by {@code dev.equo.ewt.bundleDir} — the same property
+     * Evolve's loader uses to find the EWT-owned combined bundle. When that property is not
+     * set (the host publishes it from its own bundle discovery, which need not precede this
+     * static init), we fall back to locating our OWN shipped combined bundle: the ewt-evolve
+     * jar carries the {@code evolve-bundle/} resources plus the extractor, so EWT can resolve
+     * the base itself and attach mode does not depend on the host's timing. That fallback
+     * returns {@code null} for the standalone base jar (no bundle on the classpath), leaving
+     * this method to signal the full standalone lib set. The lib lives inside the base dir,
+     * at the per-OS location Flutter emits it, mirroring how the standalone path names libs
+     * per-OS above. Linux and Windows are wired; macOS is not built yet.
+     */
+    private static Path attachModeLibwidgets(String os) {
+        String buildDir = System.getProperty(EWT_BUNDLE_DIR);
+        if (buildDir == null || buildDir.isBlank()) {
+            buildDir = EvolveBundleExtractor.extractAndGetBase();
+        }
+        if (buildDir == null || buildDir.isBlank()) {
+            return null;
+        }
+        Path bundle = Path.of(buildDir);
+        Path lib;
+        if (os.contains("linux")) {
+            lib = bundle.resolve("linux/x64/release/bundle/lib/libwidgets.so");
+        } else if (os.contains("win")) {
+            // Windows follows the Flutter-Windows shape: the whole combined payload lives under
+            // <Release>/data (no bundle/ wrapper). widgets.dll sits there beside app.so.
+            lib = bundle.resolve("windows/x64/runner/Release/data/widgets.dll");
+        } else if (os.contains("mac")) {
+            lib = bundle.resolve(
+                "macos/Build/Products/Release/swtflutter.app/Contents/Frameworks/widgets.framework/widgets");
+        } else {
+            throw new RuntimeException("Attach mode not supported on OS: " + os);
+        }
+        if (!Files.exists(lib)) {
+            throw new RuntimeException("Attach mode: combined libwidgets not found at " + lib
+                + " (from " + EWT_BUNDLE_DIR + "=" + buildDir + "). Build the combined binary first.");
+        }
+        return lib;
+    }
+
     private static void ensureMacOSMainThread() {
         // -XstartOnFirstThread is consumed by the macOS JVM launcher before the runtime
         // initialises; it never appears in getRuntimeMXBean().getInputArguments(), so we
@@ -167,7 +228,7 @@ class NativeLibLoader {
         return result;
     }
 
-    static void extractDirFromZip(Path zipPath, String prefix, Path targetDir)
+    public static void extractDirFromZip(Path zipPath, String prefix, Path targetDir)
             throws IOException {
         if (Files.exists(targetDir)) return;
         Files.createDirectories(targetDir);
@@ -187,7 +248,7 @@ class NativeLibLoader {
         }
     }
 
-    static String computeJarSha256(Path jarPath) throws IOException {
+    public static String computeJarSha256(Path jarPath) throws IOException {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -204,7 +265,7 @@ class NativeLibLoader {
         return HexFormat.of().formatHex(md.digest());
     }
 
-    static void invalidateCacheIfStale(Path cacheDir, String currentKey) throws IOException {
+    public static void invalidateCacheIfStale(Path cacheDir, String currentKey) throws IOException {
         Path keyFile = cacheDir.resolve(".jar-key");
         if (Files.exists(keyFile) && currentKey.equals(Files.readString(keyFile).trim())) {
             return;
@@ -218,7 +279,7 @@ class NativeLibLoader {
         }
     }
 
-    static void writeCacheKey(Path cacheDir, String currentKey) throws IOException {
+    public static void writeCacheKey(Path cacheDir, String currentKey) throws IOException {
         Files.createDirectories(cacheDir);
         Files.writeString(cacheDir.resolve(".jar-key"), currentKey);
     }

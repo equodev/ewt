@@ -14,9 +14,11 @@ RUN apt-get update && apt-get install -y \
     ninja-build \
     pkg-config \
     libgtk-3-dev \
+    libwebkit2gtk-4.1-dev \
     clang \
     libblkid-dev \
     liblzma-dev \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 # JDK 22 (Eclipse Temurin 22.0.2+9) — matches the project's minimum runtime (options.release = 22),
@@ -31,6 +33,9 @@ ARG FLUTTER_VERSION
 RUN curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz" \
     | tar xJ -C /opt
 ENV PATH="/opt/flutter/bin:${PATH}"
+# The combined-bundle build sources icudtl.dat from $FLUTTER_ROOT's engine cache; without this
+# it falls back to ~/flutter (absent here) and silently ships a bundle that aborts on ICU init.
+ENV FLUTTER_ROOT="/opt/flutter"
 ENV CXXFLAGS="-std=c++17"
 
 # Flutter refuses to run as root. Create a non-root user, transfer Flutter ownership,

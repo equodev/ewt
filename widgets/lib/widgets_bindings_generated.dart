@@ -83,25 +83,31 @@ class WidgetsBindings {
 
   int callToBuildWidgetTree(
     ffi.Pointer<WidgetFactories> factories,
+    int regionId,
   ) {
     return _callToBuildWidgetTree(
       factories,
+      regionId,
     );
   }
 
   late final _callToBuildWidgetTreePtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<WidgetFactories>)>>(
-      'callToBuildWidgetTree');
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<WidgetFactories>, ffi.Int)>>('callToBuildWidgetTree');
   late final _callToBuildWidgetTree = _callToBuildWidgetTreePtr
-      .asFunction<int Function(ffi.Pointer<WidgetFactories>)>();
+      .asFunction<int Function(ffi.Pointer<WidgetFactories>, int)>();
 }
 
+/// regionId threads a per-EwtWidget id through the build callback so N regions map
+/// to N Java builders. A single global builder let regions overwrite each other
+/// (last one wins); the id is the SWT widget id of the hosting EwtWidget.
 typedef buildWidgetTreeFn
     = ffi.Pointer<ffi.NativeFunction<buildWidgetTreeFnFunction>>;
 typedef buildWidgetTreeFnFunction = ffi.Int Function(
-    ffi.Pointer<WidgetFactories>);
+    ffi.Pointer<WidgetFactories>, ffi.Int);
 typedef DartbuildWidgetTreeFnFunction = int Function(
-    ffi.Pointer<WidgetFactories>);
+    ffi.Pointer<WidgetFactories>, int);
 
 final class WidgetFactories extends ffi.Struct {
   external ffi.Pointer<
