@@ -74,6 +74,8 @@ class WidgetGen implements AGen {
   StringBuffer dartAssigns = StringBuffer();
   StringBuffer dartFns = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaSerializer = StringBuffer();
+  StringBuffer dartWebDecoders = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
 
   String? _pendingStructHeader;
@@ -265,6 +267,8 @@ class WidgetGen implements AGen {
     } else {
       writeJavaFactoryForStatic(node, factoryName, factory);
     }
+    writeJavaSerializer(node, factoryName, factory);
+    writeWebDecoder(factory, factoryName, node);
     // headerFile
     // .writeln("    int (*$factory)(${cParams.decl});");
     // CLang(generation).writeField(headerFile, factory, 'int', params: node.parameters);
@@ -296,8 +300,26 @@ class WidgetGen implements AGen {
     String factory = node.name!;
     String factoryName = '$widgetField${factory.firstUpper()}';
     writeJavaInstanceMethod(node, factoryName, factory);
+    writeJavaSerializer(node, factoryName, factory);
     writeCFactory(factory, node, 'int');
     writeDInstanceMethod(factory, factoryName, node, companionClassName);
+    writeWebInstanceDecoder(factory, factoryName, node);
+  }
+
+  /// Web decoder for a companion instance method: `receiver.method(args)`. The receiver is the
+  /// first companion param (a recorded node); remaining params decode from JSON. A method with no
+  /// extra args is emitted as a getter access (matches Flutter getters like MaterialColor.shade600).
+  void writeWebInstanceDecoder(String factory, String factoryName, FunctionTypedElement node) {
+    if (node.returnType is VoidType) return;
+    if (!_webDecodable(node)) return;
+    final recv = node.parameters.first;
+    final recvType = recv.type is InterfaceType ? (recv.type as InterfaceType).element.name : 'dynamic';
+    final recvExpr = "decodeEwtNode(p['${recv.name}'] as Map<String,dynamic>) as $recvType";
+    final rest = node.parameters.skip(1).toList();
+    final call = rest.isEmpty
+        ? '.$factory'
+        : '.$factory(${Params(types, rest, Params.paramDef4D, paramValue: Params.paramValueJson).names})';
+    dartWebDecoders.writeln("  '$factoryName': (p) => ($recvExpr)$call,");
   }
 
   void writeJavaInstanceMethod(FunctionTypedElement node, String factoryName, String factory) {
@@ -424,6 +446,102 @@ class WidgetGen implements AGen {
     javaFile
         .writeln('  }');
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
+  }
+
+  /// Emits one @Override into [javaSerializer] that records the factory call
+  /// as an EwtNode and returns an id-only *ObjSt (or an int id for plain
+  /// DartObj returns). The signature matches the WidgetConstructors method
+  /// exactly so @Override resolves at compile time.
+  void writeJavaSerializer(FunctionTypedElement node, String factoryName, String factory) {
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    final retType = types.type4FFMRet(node.returnType);
+    final isObjSt = retType == 'MemorySegment';
+    // Build the return ObjSt class name: e.g. MemorySegment textText(...) uses TextObjSt.
+    String? objStClass;
+    if (isObjSt) {
+      var gen = types.getGen(node.returnType.element!);
+      objStClass = gen.objType(); // e.g. TextObjSt
+    }
+
+    // Skip factories that do not produce a serializable widget/value node: void returns, and
+    // opaque native objects (a MemorySegment whose backing type is not an *ObjSt struct we can
+    // allocate an id into). These stay inherited from WidgetConstructors (FFM); they are never
+    // called when rendering a static subtree on web.
+    if (retType == 'void') return;
+    if (isObjSt && !(objStClass?.endsWith('ObjSt') ?? false)) return;
+
+    // Match the FFM method's own type parameters (e.g. <T extends StatefulWidget>) so the
+    // @Override resolves for generic factories.
+    final jtp = JLang().methodTypeParameters(node.type);
+    javaSerializer
+      ..writeln('  @Override')
+      ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
+      ..writeln('    int id = nextId++;')
+      ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
+
+    for (final param in node.parameters.where((p) => types.supportedType(p.type))) {
+      final stmt = Params.paramValueSerialize(types, param);
+      if (stmt.isNotEmpty) {
+        javaSerializer.writeln('    $stmt');
+      }
+    }
+
+    javaSerializer
+      ..writeln('    record(id, "$factoryName", p);');
+
+    if (isObjSt && objStClass != null) {
+      javaSerializer
+        ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
+        ..writeln('    $objStClass.id(st, id);');
+      // MaterialColor's shadeXXX() getters read native int fields (a color id). Populate them
+      // from the swatch so those getters return the right color off-native (each swatch color
+      // is itself a recorded node). The struct fields are ints, so we store the color's id.
+      if (factoryName == 'materialColorMaterialColor') {
+        for (final k in const [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]) {
+          javaSerializer.writeln('    $objStClass.shade$k(st, swatch.get($k) != null ? swatch.get($k).getId() : 0);');
+        }
+      }
+      javaSerializer.writeln('    return st;');
+    } else {
+      javaSerializer.writeln('    return id;');
+    }
+    javaSerializer.writeln('  }');
+  }
+
+  /// Emits one entry into [dartWebDecoders]: `'factoryName': (p) => WidgetClass[.factory](args)`,
+  /// where each arg is decoded from the node's JSON params (mirrors writeDFactory's construction
+  /// call with the paramValueJson strategy). Skips void factories (no value to build).
+  void writeWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
+    if (node.returnType is VoidType) return;
+    if (!_webDecodable(node)) return;
+    final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
+    final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';
+    dartWebDecoders.writeln("  '$factoryName': (p) => $ctor(${jsonParams.names}),");
+  }
+
+  /// Whether a factory can be rebuilt from a serialized JSON tree in pure Dart. Excludes
+  /// out-of-scope constructions that need live runtime objects or non-inert callbacks:
+  /// EWT state wrappers (Sub*), render-layer internals (*ParentData), Animation/CurvedAnimation
+  /// params, Map params, and builder callbacks that return a value (an inert closure can't stand
+  /// in for a widget-returning builder). These fall back to "no decoder" (logged) at runtime.
+  bool _webDecodable(FunctionTypedElement node) {
+    if (widgetClass.startsWith('Sub') || widgetClass.endsWith('ParentData')) return false;
+    // Dialogs are shown imperatively (showDialog + BuildContext), not placed in a static tree.
+    if (widgetClass.endsWith('Dialog')) return false;
+    for (final p in node.parameters.where((p) => types.supportedType(p.type))) {
+      final t = p.type;
+      if (t is InterfaceType) {
+        final n = t.element.name;
+        if (n == 'Animation' || n == 'CurvedAnimation' || t.isDartCoreMap) return false;
+      }
+      if (t is FunctionType && t.returnType is! VoidType) return false;
+      final alias = t.alias;
+      if (alias != null) {
+        final at = alias.element.aliasedType;
+        if (at is FunctionType && at.returnType is! VoidType) return false;
+      }
+    }
+    return true;
   }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
@@ -949,6 +1067,8 @@ class Generation {
   StringBuffer typedefFile = StringBuffer();
   StringBuffer dartFactories = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaSerializer = StringBuffer();
+  StringBuffer dartWebDecoders = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
 
   List<ClassElement> widgets;
@@ -1157,6 +1277,12 @@ class Generation {
     if (widGen.javaFactories.isNotEmpty) {
       javaFactories.writeln(widGen.javaFactories);
     }
+    if (widGen.javaSerializer.isNotEmpty) {
+      javaSerializer.writeln(widGen.javaSerializer);
+    }
+    if (widGen.dartWebDecoders.isNotEmpty) {
+      dartWebDecoders.writeln(widGen.dartWebDecoders);
+    }
     if (widGen.javaStatics.isNotEmpty) {
       javaStatics.writeln(widGen.javaStatics);
     }
@@ -1191,6 +1317,8 @@ class Generation {
     _writeD('factories_gen.dart', dartFactories.toString());
     _writeJ('WidgetConstructors', javaFactories.toString());
     _writeJ('EWT', javaStatics.toString());
+    _writeJ('SerializingWidgetConstructors', _buildSerializingClass(javaSerializer.toString()));
+    _writeWW('factories_web_gen.dart', _buildWebDecoders(dartWebDecoders.toString()));
 
     for (var t in types.unsupportedTypes) {
       print('Unsupported type $t');
@@ -1198,6 +1326,44 @@ class Generation {
     for (var w in droppedWidgets) {
       print('Widget ${w.name}: no factory emitted (all constructors have unsupported required params) — only Java class generated (used as parent type)');
     }
+  }
+
+  /// Wraps the accumulated per-factory override snippets in the
+  /// SerializingWidgetConstructors class shell (package, imports, core fields).
+  String _buildSerializingClass(String overrides) {
+    return '''package dev.equo.ewt;
+import dev.equo.ewt.ffm.*;
+import dev.equo.ewt.util.*;
+import dev.equo.ewt.web.EwtNode;
+import java.lang.foreign.MemorySegment;
+import java.util.*;
+import java.util.function.*;
+public class SerializingWidgetConstructors extends WidgetConstructors {
+  private int nextId = 1;
+  private int nextCallbackId = 1;
+  private final Map<Integer, EwtNode> byId = new HashMap<>();
+  public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
+    if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
+  private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
+$overrides}
+''';
+  }
+
+  /// Wraps the accumulated per-factory decoder entries in the generated web-factories map. Pure
+  /// Dart (no dart:ffi). Circular import with decode.dart (for decodeEwtNode) is fine for libraries.
+  String _buildWebDecoders(String entries) {
+    return '''// GENERATED by generator/lib/gen.dart. Do not edit by hand.
+import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
+import 'dart:ui' show ColorSpace;
+import 'decode.dart';
+
+final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
+$entries};
+
+final Set<String> unsupportedFactories = {};
+''';
   }
 
   String genCFactories() {
@@ -1519,6 +1685,176 @@ class Params {
     return value;
   }
 
+  /// Returns a Java statement (no leading indent, with trailing semicolon) that
+  /// records [param] into the local Map<String,Object> variable named {@code p}.
+  /// Mirrors the type dispatch of [paramValue4D] but targets Java serialization
+  /// rather than Dart FFI bridge calls.
+  /// Returns a Dart expression that decodes [param] from the local `Map<String,dynamic> p`
+  /// (the node's params), mirroring the type dispatch of [paramValue4D] but reading JSON values
+  /// instead of FFI pointers. Object-refs and list elements recurse through `decodeEwtNode`.
+  static String paramValueJson(Types types, ParameterElement param) {
+    final value = _paramValueJsonRaw(types, param);
+    // Named constructor params must carry their name (mirrors paramValue4D); positional don't.
+    return param.isNamed ? '${param.name}: $value' : value;
+  }
+
+  static String _paramValueJsonRaw(Types types, ParameterElement param) {
+    final key = param.name;
+    final t = param.type;
+    final read = "p['$key']";
+    final h = types.getHandler(t);
+    // Callbacks are inert in this phase: a void closure that accepts any arity (optional
+    // positional Object? params make it assignable to VoidCallback / ValueChanged / etc.).
+    if (h != null) {
+      return '([Object? a, Object? b, Object? c]) {}';
+    }
+    if (t is InterfaceType) {
+      final elemName = t.element.name;
+      if (param.isOptional) {
+        // A non-nullable optional param carries a default (mirrors paramValue4D's .xOr(default));
+        // a nullable one may be left null.
+        final nonNull = t.nullabilitySuffix == NullabilitySuffix.none;
+        if (t.isDartCoreString) return nonNull ? '($read as String?) ?? ${param.defaultValueCode}' : '$read as String?';
+        if (t.isDartCoreBool) return nonNull ? '($read as bool?) ?? ${param.defaultValueCode ?? 'false'}' : '$read as bool?';
+        if (t.isDartCoreInt) return nonNull ? '($read as int?) ?? ${param.defaultValueCode}' : '$read as int?';
+        if (t.isDartCoreDouble) return nonNull ? '(($read as num?)?.toDouble()) ?? ${defaultDoubleCode(param)}' : '($read as num?)?.toDouble()';
+        if (t.isDartCoreList) return _listDecodeJson(read, t);
+        if (t.isDartCoreMap) return _mapDecodeJson(read, t);
+        if (t.element is EnumElement) return nonNull ? '$read == null ? ${defaultEnumCode(param)} : $elemName.values[$read as int]' : '$read == null ? null : $elemName.values[$read as int]';
+        return nonNull ? '$read == null ? ${defaultObjCode(param)} : decodeEwtNode($read as Map<String,dynamic>) as $elemName' : '$read == null ? null : decodeEwtNode($read as Map<String,dynamic>) as $elemName';
+      } else {
+        if (t.isDartCoreString) return '$read as String';
+        if (t.isDartCoreBool) return '$read as bool';
+        if (t.isDartCoreInt) return '$read as int';
+        if (t.isDartCoreDouble) return '($read as num).toDouble()';
+        if (t.isDartCoreList) return _listDecodeJson(read, t);
+        if (t.isDartCoreMap) return _mapDecodeJson(read, t);
+        if (t.element is EnumElement) return '$elemName.values[$read as int]';
+        return 'decodeEwtNode($read as Map<String,dynamic>) as $elemName';
+      }
+    }
+    return read;
+  }
+
+  /// Decodes a List param from JSON: scalars/Strings cast element-wise; enums via values[i];
+  /// object-refs/Widgets via decodeEwtNode.
+  static String _listDecodeJson(String read, InterfaceType listType) {
+    final elem = listType.typeArguments.isNotEmpty ? listType.typeArguments.first : null;
+    final base = "(($read as List?) ?? const [])";
+    if (elem is InterfaceType && elem.element is EnumElement) {
+      return '$base.map((e) => ${elem.element.name}.values[e as int]).toList()';
+    }
+    if (elem == null || isPrimitive(elem)) {
+      return '$base.cast<${elem?.getDisplayString() ?? 'dynamic'}>().toList()';
+    }
+    if (elem is InterfaceType && elem.isDartCoreString) {
+      return '$base.cast<String>().toList()';
+    }
+    final elemName = (elem is InterfaceType) ? elem.element.name : 'dynamic';
+    return '$base.map((e) => decodeEwtNode(e as Map<String,dynamic>) as $elemName).toList()';
+  }
+
+  /// Decodes a Map param from JSON (string keys). Int keys are parsed back; values follow the
+  /// same scalar/enum/object rules as list elements. Used e.g. for MaterialColor's swatch.
+  static String _mapDecodeJson(String read, InterfaceType mapType) {
+    final kt = mapType.typeArguments.isNotEmpty ? mapType.typeArguments.first : null;
+    final vt = mapType.typeArguments.length > 1 ? mapType.typeArguments[1] : null;
+    final keyName = (kt is InterfaceType) ? kt.element.name : 'dynamic';
+    final valName = (vt is InterfaceType) ? vt.element.name : 'dynamic';
+    final keyConv = (kt is InterfaceType && kt.isDartCoreInt)
+        ? 'int.parse(k as String)'
+        : (kt is InterfaceType && kt.isDartCoreString) ? 'k as String' : 'k';
+    String valConv;
+    if (vt is InterfaceType && vt.element is EnumElement) {
+      valConv = '$valName.values[v as int]';
+    } else if (vt == null || isPrimitive(vt) || (vt is InterfaceType && vt.isDartCoreString)) {
+      valConv = 'v as $valName';
+    } else {
+      valConv = 'decodeEwtNode(v as Map<String,dynamic>) as $valName';
+    }
+    return '(($read as Map?) ?? const {}).map((k, v) => MapEntry($keyConv, $valConv)).cast<$keyName, $valName>()';
+  }
+
+  /// The per-element map expression for a List param being serialized (variable {@code e}).
+  /// Scalars/Strings are recorded as-is; enums as their ordinal; object-refs/Widgets via the
+  /// recorded-node lookup, matching how single object-ref params are serialized.
+  /// Serializes a Map param to a Map with String keys: values follow the same scalar/enum/object
+  /// rules as list elements. Used e.g. for MaterialColor's swatch (Map&lt;int, Color&gt;).
+  static String _mapSerialize(String varName, InterfaceType mapType) {
+    final vt = mapType.typeArguments.length > 1 ? mapType.typeArguments[1] : null;
+    String valExpr;
+    if (vt is InterfaceType && vt.element is EnumElement) {
+      valExpr = 'en.getValue().ordinal()';
+    } else if (vt == null || isPrimitive(vt) || (vt is InterfaceType && vt.isDartCoreString)) {
+      valExpr = 'en.getValue()';
+    } else {
+      valExpr = 'byId.get(en.getValue().getId())';
+    }
+    return '$varName.entrySet().stream().collect(java.util.stream.Collectors.toMap(en -> String.valueOf(en.getKey()), en -> $valExpr))';
+  }
+
+  static String _listElemSerialize(InterfaceType listType) {
+    final elem = listType.typeArguments.isNotEmpty ? listType.typeArguments.first : null;
+    if (elem is InterfaceType && elem.element is EnumElement) return 'e.ordinal()';
+    if (elem == null || isPrimitive(elem) || (elem is InterfaceType && elem.isDartCoreString)) return 'e';
+    return 'byId.get(e.getId())';
+  }
+
+  static String paramValueSerialize(Types types, ParameterElement param) {
+    final name = Params.escape4J(types, param);
+    final key = param.name;
+    final t = param.type;
+    final h = types.getHandler(t);
+
+    // Callback: reserve a numeric id without invoking it.
+    if (h != null) {
+      if (param.isOptional) {
+        return 'if ($name != null) { p.put("$key", nextCallbackId++); }';
+      }
+      return 'p.put("$key", nextCallbackId++);';
+    }
+
+    if (t is InterfaceType) {
+      if (param.isOptional) {
+        if (t.isDartCoreString || t.isDartCoreBool) {
+          // Optional<String> / Optional<Boolean> — use ifPresent lambda
+          return '$name.ifPresent(v -> p.put("$key", v));';
+        } else if (t.isDartCoreInt) {
+          // OptionalInt
+          return 'if ($name.isPresent()) { p.put("$key", $name.getAsInt()); }';
+        } else if (t.isDartCoreDouble) {
+          // OptionalDouble
+          return 'if ($name.isPresent()) { p.put("$key", $name.getAsDouble()); }';
+        } else if (t.isDartCoreList) {
+          return '$name.ifPresent(v -> p.put("$key", v.stream().map(e -> ${_listElemSerialize(t)}).collect(java.util.stream.Collectors.toList())));';
+        } else if (t.isDartCoreMap) {
+          return '$name.ifPresent(v -> p.put("$key", ${_mapSerialize('v', t)}));';
+        } else if (t.element is EnumElement) {
+          return '$name.ifPresent(v -> p.put("$key", v.ordinal()));';
+        } else {
+          // Optional<Widget/object>
+          return '$name.ifPresent(v -> p.put("$key", byId.get(v.getId())));';
+        }
+      } else {
+        // Required params
+        if (t.isDartCoreString || t.isDartCoreBool || t.isDartCoreInt || t.isDartCoreDouble) {
+          return 'p.put("$key", $name);';
+        } else if (t.isDartCoreList) {
+          return 'p.put("$key", $name.stream().map(e -> ${_listElemSerialize(t)}).collect(java.util.stream.Collectors.toList()));';
+        } else if (t.isDartCoreMap) {
+          return 'p.put("$key", ${_mapSerialize(name, t)});';
+        } else if (t.element is EnumElement) {
+          return 'p.put("$key", $name.ordinal());';
+        } else {
+          // Required object/Widget
+          return 'p.put("$key", byId.get($name.getId()));';
+        }
+      }
+    }
+    // Fallback for primitives / other types: record as-is
+    return 'p.put("$key", $name);';
+  }
+
   static String? defaultEnumCode(ParameterElement param) {
     var defaultValue = param.defaultValueCode!;
     return defaultValue.replaceFirst('ui.', '');
@@ -1770,4 +2106,9 @@ void _writeD(String file, String content) {
 void _writeDCopy(String file, String content) {
   print('Generating $file');
   File('./lib/$file').writeAsStringSync(content);
+}
+
+void _writeWW(String file, String content) {
+  print('Generating $file');
+  File('../widgets_web/lib/$file').writeAsStringSync(content);
 }

@@ -42,8 +42,29 @@ public final class EwtNodeJson {
 
   private static void writeValue(StringBuilder sb, Object v) {
     if (v instanceof String s) writeString(sb, s);
-    else if (v instanceof Boolean || v instanceof Integer || v instanceof Double) sb.append(v);
-    else throw new IllegalArgumentException("Unsupported param value type: " + v.getClass());
+    else if (v instanceof Boolean || v instanceof Integer || v instanceof Double || v instanceof Long) sb.append(v);
+    else if (v instanceof EwtNode n) write(sb, n);
+    else if (v instanceof java.util.List<?> list) {
+      sb.append('[');
+      for (int i = 0; i < list.size(); i++) {
+        if (i > 0) sb.append(',');
+        writeValue(sb, list.get(i));
+      }
+      sb.append(']');
+    } else if (v instanceof java.util.Map<?, ?> map) {
+      sb.append('{');
+      boolean first = true;
+      for (java.util.Map.Entry<?, ?> e : map.entrySet()) {
+        if (!first) sb.append(',');
+        first = false;
+        writeString(sb, String.valueOf(e.getKey()));
+        sb.append(':');
+        writeValue(sb, e.getValue());
+      }
+      sb.append('}');
+    } else {
+      throw new IllegalArgumentException("Unsupported param value type: " + v.getClass());
+    }
   }
 
   private static void writeString(StringBuilder sb, String s) {

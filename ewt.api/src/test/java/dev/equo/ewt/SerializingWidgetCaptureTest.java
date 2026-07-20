@@ -9,12 +9,12 @@ class SerializingWidgetCaptureTest {
   @Test
   void capturesSubtreeAndRestoresFactories() throws Exception {
     WidgetConstructors before = NativeObj.Base.factories;
-    EwtNode node = SerializingWidgetConstructors.captureSubtree(
+    EwtNode node = EwtWebCapture.captureSubtree(
         () -> EWT.SizedBox().child(EWT.Text("x")).build());
-    assertEquals("SizedBox", node.type());
-    assertEquals(1, node.children().size());
-    assertEquals("Text", node.children().get(0).type());
-    assertEquals("x", node.children().get(0).params().get("data"));
+    assertEquals("sizedBoxSizedBox", node.type());
+    EwtNode child = (EwtNode) node.params().get("child");
+    assertEquals("textText", child.type());
+    assertEquals("x", child.params().get("data"));
     assertSame(before, NativeObj.Base.factories, "factories must be restored after capture");
   }
 }

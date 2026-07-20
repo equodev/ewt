@@ -5,8 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:swtflutter/src/comm/comm.dart';
-
-import 'ewt_web_decode.dart';
+import 'package:widgets_web/widgets_web.dart';
 
 class EwtWebRegion extends StatefulWidget {
   final int id;
@@ -48,6 +47,6 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
   Widget build(BuildContext context) {
     final root = _root;
     if (root == null) return const SizedBox.shrink();
-    return ClipRect(child: decodeEwtNode(root));
+    return ClipRect(child: decodeEwtWidget(root));
   }
 }

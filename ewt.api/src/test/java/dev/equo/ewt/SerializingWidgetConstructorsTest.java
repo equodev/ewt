@@ -28,19 +28,19 @@ class SerializingWidgetConstructorsTest {
   void recordsTextLeaf() {
     var text = EWT.Text("hola").build();
     var node = serializing.rootNode(text.getId());
-    assertEquals("Text", node.type());
+    // t is the factory name; child(ren) live in params, not the children list.
+    assertEquals("textText", node.type());
     assertEquals("hola", node.params().get("data"));
-    assertTrue(node.children().isEmpty());
   }
 
   @Test
   void recordsSizedBoxWithTextChild() {
     var box = EWT.SizedBox().child(EWT.Text("inner")).width(30.0).build();
     var node = serializing.rootNode(box.getId());
-    assertEquals("SizedBox", node.type());
+    assertEquals("sizedBoxSizedBox", node.type());
     assertEquals(30.0, node.params().get("width"));
-    assertEquals(1, node.children().size());
-    assertEquals("Text", node.children().get(0).type());
-    assertEquals("inner", node.children().get(0).params().get("data"));
+    EwtNode child = (EwtNode) node.params().get("child");
+    assertEquals("textText", child.type());
+    assertEquals("inner", child.params().get("data"));
   }
 }

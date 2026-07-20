@@ -3,7 +3,7 @@ package org.eclipse.swt.widgets;
 import java.util.concurrent.Callable;
 
 import dev.equo.ewt.App;
-import dev.equo.ewt.SerializingWidgetConstructors;
+import dev.equo.ewt.EwtWebCapture;
 import dev.equo.ewt.Widget;
 import dev.equo.ewt.evolve.EvolveComm;
 import dev.equo.ewt.web.EwtNode;
@@ -66,7 +66,7 @@ public class EwtWidget extends Composite {
      */
     private void publishWebSubtree(Callable<Widget> builder) {
         try {
-            EwtNode root = SerializingWidgetConstructors.captureSubtree(builder);
+            EwtNode root = EwtWebCapture.captureSubtree(builder);
             webSubtreeJson = EwtNodeJson.encode(root);
             EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendWebSubtree);
             sendWebSubtree();
