@@ -6,7 +6,8 @@ import java.util.Map;
 /** Web-mode state manager: links a SubState to its owning region's rebuild hook, so a web-mode
  *  setState can trigger a re-flatten + republish without the native engine. */
 public final class EwtWebState {
-  private static final Map<SubState<?>, Runnable> REBUILD_HOOKS = new IdentityHashMap<>();
+  private static final Map<SubState<?>, Runnable> REBUILD_HOOKS =
+      java.util.Collections.synchronizedMap(new java.util.IdentityHashMap<>());
 
   private EwtWebState() {}
 

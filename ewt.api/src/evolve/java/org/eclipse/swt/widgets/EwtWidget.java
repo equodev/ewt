@@ -73,6 +73,7 @@ public class EwtWidget extends Composite {
             EwtCapture capture = EwtWebCapture.captureSubtree(builder);
             webSubtreeJson = EwtNodeJson.encode(capture.root);
             webCallbacks = capture.callbacks;
+            if (webState != null) EwtWebState.unregister(webState);
             webState = capture.state;
             if (webState != null) EwtWebState.register(webState, this::rebuild);
             EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendWebSubtree);
