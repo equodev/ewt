@@ -7,9 +7,12 @@ import java.util.Map;
 public final class EwtCapture {
   public final EwtNode root;
   public final Map<Integer, Object> callbacks;
+  /** Non-null when the region root is a SubStatefulWidget; null for stateless roots. */
+  public final SubState<?> state;
 
-  public EwtCapture(EwtNode root, Map<Integer, Object> callbacks) {
+  public EwtCapture(EwtNode root, Map<Integer, Object> callbacks, SubState<?> state) {
     this.root = root;
     this.callbacks = callbacks;
+    this.state = state;
   }
 }
