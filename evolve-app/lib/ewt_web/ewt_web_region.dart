@@ -47,6 +47,12 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
   Widget build(BuildContext context) {
     final root = _root;
     if (root == null) return const SizedBox.shrink();
-    return ClipRect(child: decodeEwtWidget(root));
+    // Bind this region's callback sink for the duration of the (synchronous) decode, so every
+    // wired closure in the built tree forwards its id to THIS region's channel.
+    ewtActiveCallbackSink =
+        (cid) => EquoCommService.sendPayload('EwtWidget/${widget.id}/callback', cid);
+    final decoded = decodeEwtWidget(root);
+    ewtActiveCallbackSink = null;
+    return ClipRect(child: decoded);
   }
 }
