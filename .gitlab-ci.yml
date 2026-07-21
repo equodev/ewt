@@ -381,6 +381,18 @@ publish_ewt_evolve:
     # the linux swt-evolve jar satisfies the evolveAvailable gate for all three publishes.
     # -Pclassifier only selects which per-OS ewt-evolve jar (already built as artifacts) uploads.
     - cp ewt.api/build/libs/swt_evolve-linux-x86_64.jar ../swt-evolve/swt_native/build/libs/
+    # Sign each per-OS ewt-evolve jar with EQUO's code-signing cert (alias EQUOOVCO — GlobalSign OV,
+    # SHA256withRSA, timestamped) via the SAME remote signing service swt-evolve uses: POST the jar
+    # to $JAR_SIGN_URL and overwrite it with the signed bytes, so the published Maven artifact is
+    # signed. Skips gracefully when the URL isn't set (mirrors swt-flutter's signJars), so dev/MR
+    # pipelines without the secret still publish. Requires $JAR_SIGN_URL in this project's CI vars.
+    - >-
+      if [ -n "$JAR_SIGN_URL" ] && [ "$SKIP_SIGN" != "true" ]; then
+        for jar in ewt.api/build/libs/ewt-evolve-*.jar; do
+          echo "Signing $jar via signing service...";
+          curl -fsS -F "file=@${jar}" "$JAR_SIGN_URL" -o "${jar}.signed" && mv "${jar}.signed" "$jar";
+        done;
+      else echo "Skipping JAR signing (JAR_SIGN_URL not set or SKIP_SIGN=true)"; fi
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -PevolveHome=../swt-evolve --no-daemon
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=macos -PevolveHome=../swt-evolve --no-daemon
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=windows -PevolveHome=../swt-evolve --no-daemon
