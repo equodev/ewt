@@ -32,6 +32,20 @@ public final class EwtWebCapture {
     }
   }
 
+  /** Re-flatten a retained state under a fresh serializer (new node ids + new callback ids), reusing
+   *  the SAME state instance so its fields persist. Used by a region on web-mode setState. */
+  public static EwtCapture rebuild(SubState<?> state) {
+    WidgetConstructors previous = NativeObj.Base.factories;
+    SerializingWidgetConstructors serializing = new SerializingWidgetConstructors();
+    NativeObj.Base.factories = serializing;
+    try {
+      EwtNode root = flatten(state, serializing);
+      return new EwtCapture(root, serializing.callbacks(), state);
+    } finally {
+      NativeObj.Base.factories = previous;
+    }
+  }
+
   /** Runs the state's build() under the active serializer and returns the built root node. */
   static EwtNode flatten(SubState<?> state, SerializingWidgetConstructors serializing) {
     Widget built = state.buildFn(stubContext());

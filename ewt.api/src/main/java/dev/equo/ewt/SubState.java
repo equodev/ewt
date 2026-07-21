@@ -67,6 +67,11 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
     return intToBool(SubStateObjSt.mounted.invoke(funcPtr));
   }
   protected void setState(Runnable fn) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      fn.run();
+      EwtWebState.requestRebuild(this);
+      return;
+    }
     MemorySegment funcPtr = SubStateObjSt.setState(st);
     SubStateObjSt.setState.invoke(funcPtr, factories.ptrVoidCallbackFn(fn));
   }

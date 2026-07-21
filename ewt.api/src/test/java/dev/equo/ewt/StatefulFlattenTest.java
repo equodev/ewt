@@ -15,6 +15,8 @@ class StatefulFlattenTest {
       @Override public Widget build(BuildContext context) {
         return Center().child(Text("Count: " + n)).build();
       }
+      /** Triggers a setState mutation so tests can exercise the web branch. */
+      public void bump() { setState(() -> n++); }
     }
   }
 
@@ -28,5 +30,34 @@ class StatefulFlattenTest {
     // The state's field is readable and the tree reflects it.
     String json = dev.equo.ewt.web.EwtNodeJson.encode(cap.root);
     assertTrue(json.contains("Count: 0"), "built tree contains the state-derived text");
+  }
+
+  @Test
+  void rebuildReusesStateSoFieldPersists() throws Exception {
+    EwtCapture first = EwtWebCapture.captureSubtree(TestCounter::new);
+    TestCounter.S state = (TestCounter.S) first.state;
+    state.n = 5; // simulate a mutation
+    EwtCapture again = EwtWebCapture.rebuild(state);
+    String json = dev.equo.ewt.web.EwtNodeJson.encode(again.root);
+    assertTrue(json.contains("Count: 5"), "rebuild re-runs build() on the SAME state");
+    assertEquals("centerCenter", again.root.type());
+  }
+
+  @Test
+  void webSetStateRunsFnAndRequestsRebuild() throws Exception {
+    // Capture so the state exists and is registered by a fake region hook.
+    EwtCapture cap = EwtWebCapture.captureSubtree(TestCounter::new);
+    TestCounter.S state = (TestCounter.S) cap.state;
+    boolean[] rebuilt = {false};
+    EwtWebState.register(state, () -> rebuilt[0] = true);
+    try {
+      // Force web mode for this call.
+      System.setProperty("dev.equo.swt.mode", ""); // unset == web (matches EwtWebTransport.isWebMode)
+      state.bump(); // calls setState(() -> n++)
+      assertEquals(1, state.n, "setState ran the mutation");
+      assertTrue(rebuilt[0], "setState requested a region rebuild");
+    } finally {
+      EwtWebState.unregister(state);
+    }
   }
 }

@@ -5,6 +5,8 @@ import java.util.concurrent.Callable;
 import dev.equo.ewt.App;
 import dev.equo.ewt.EwtCapture;
 import dev.equo.ewt.EwtWebCapture;
+import dev.equo.ewt.EwtWebState;
+import dev.equo.ewt.SubState;
 import dev.equo.ewt.Widget;
 import dev.equo.ewt.evolve.EvolveComm;
 import dev.equo.ewt.web.EwtNodeJson;
@@ -34,7 +36,7 @@ public class EwtWidget extends Composite {
         super(parent, style);
         // Drop this region's builder when the widget goes away, so a disposed region
         // leaves no stale entry in App's builder registry (keyed by this same id).
-        addDisposeListener(e -> App.unregisterBuilder(hashCode()));
+        addDisposeListener(e -> { App.unregisterBuilder(hashCode()); if (webState != null) EwtWebState.unregister(webState); });
     }
 
     /**
@@ -55,6 +57,7 @@ public class EwtWidget extends Composite {
 
     private volatile String webSubtreeJson;
     private volatile java.util.Map<Integer, Object> webCallbacks;
+    private volatile SubState<?> webState;
 
     /**
      * Web path: build the subtree eagerly, serialize it, and publish it over Evolve's comm keyed
@@ -70,11 +73,27 @@ public class EwtWidget extends Composite {
             EwtCapture capture = EwtWebCapture.captureSubtree(builder);
             webSubtreeJson = EwtNodeJson.encode(capture.root);
             webCallbacks = capture.callbacks;
+            webState = capture.state;
+            if (webState != null) EwtWebState.register(webState, this::rebuild);
             EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendWebSubtree);
             EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
             sendWebSubtree();
         } catch (Exception e) {
             System.err.println("EWT web subtree publish failed: " + e);
+        }
+    }
+
+    /** Web-mode rebuild: re-flatten the retained state (new field values), refresh callbacks, republish. */
+    private void rebuild() {
+        SubState<?> s = webState;
+        if (s == null) return;
+        try {
+            EwtCapture capture = EwtWebCapture.rebuild(s);
+            webSubtreeJson = EwtNodeJson.encode(capture.root);
+            webCallbacks = capture.callbacks;
+            sendWebSubtree();
+        } catch (Exception e) {
+            System.err.println("EWT web rebuild failed: " + e);
         }
     }
 
