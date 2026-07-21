@@ -2171,7 +2171,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     tooltip.ifPresent(v -> p.put("tooltip", v));
@@ -2201,7 +2201,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     tooltip.ifPresent(v -> p.put("tooltip", v));
@@ -2231,7 +2231,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     tooltip.ifPresent(v -> p.put("tooltip", v));
@@ -2261,7 +2261,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     tooltip.ifPresent(v -> p.put("tooltip", v));
@@ -2325,9 +2325,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     persistentFooterAlignment.ifPresent(v -> p.put("persistentFooterAlignment", byId.get(v.getId())));
     persistentFooterDecoration.ifPresent(v -> p.put("persistentFooterDecoration", byId.get(v.getId())));
     drawer.ifPresent(v -> p.put("drawer", byId.get(v.getId())));
-    if (onDrawerChanged != null) { p.put("onDrawerChanged", nextCallbackId++); }
+    if (onDrawerChanged.isPresent()) { int __cb_onDrawerChanged = nextCallbackId++; p.put("onDrawerChanged", __cb_onDrawerChanged); java.util.function.Consumer<Boolean> __h_onDrawerChanged = onDrawerChanged.get(); callbacks.put(__cb_onDrawerChanged, (java.util.function.Consumer<Object>)(v -> __h_onDrawerChanged.accept((Boolean) v))); }
     endDrawer.ifPresent(v -> p.put("endDrawer", byId.get(v.getId())));
-    if (onEndDrawerChanged != null) { p.put("onEndDrawerChanged", nextCallbackId++); }
+    if (onEndDrawerChanged.isPresent()) { int __cb_onEndDrawerChanged = nextCallbackId++; p.put("onEndDrawerChanged", __cb_onEndDrawerChanged); java.util.function.Consumer<Boolean> __h_onEndDrawerChanged = onEndDrawerChanged.get(); callbacks.put(__cb_onEndDrawerChanged, (java.util.function.Consumer<Object>)(v -> __h_onEndDrawerChanged.accept((Boolean) v))); }
     bottomNavigationBar.ifPresent(v -> p.put("bottomNavigationBar", byId.get(v.getId())));
     bottomSheet.ifPresent(v -> p.put("bottomSheet", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
@@ -2589,8 +2589,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     p.put("child", byId.get(child.getId()));
@@ -2605,8 +2605,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
@@ -2624,8 +2624,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     p.put("child", byId.get(child.getId()));
@@ -2640,8 +2640,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
@@ -2659,8 +2659,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     isSemanticButton.ifPresent(v -> p.put("isSemanticButton", v));
@@ -2676,8 +2676,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
@@ -2980,9 +2980,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     expands.ifPresent(v -> p.put("expands", v));
     if (maxLength.isPresent()) { p.put("maxLength", maxLength.getAsInt()); }
     maxLengthEnforcement.ifPresent(v -> p.put("maxLengthEnforcement", v.ordinal()));
-    if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
-    if (onSubmitted != null) { p.put("onSubmitted", nextCallbackId++); }
+    if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
     enabled.ifPresent(v -> p.put("enabled", v));
     ignorePointers.ifPresent(v -> p.put("ignorePointers", v));
     if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
@@ -3047,8 +3047,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     p.put("child", byId.get(child.getId()));
@@ -3063,8 +3063,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
@@ -3081,8 +3081,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     p.put("child", byId.get(child.getId()));
@@ -3097,8 +3097,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onHover != null) { p.put("onHover", nextCallbackId++); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
@@ -3335,7 +3335,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     enabled.ifPresent(v -> p.put("enabled", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
-    if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     selected.ifPresent(v -> p.put("selected", v));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));

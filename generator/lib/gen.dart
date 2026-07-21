@@ -1907,7 +1907,16 @@ class Params {
         }
         return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, $name);';
       }
-      // Arg-carrying callbacks stay inert: reserve the id only (Phase 3).
+      final vt = _valueCallbackJavaType(t);
+      if (vt != null) {
+        // Value callback: store a Consumer<Object> that coerces the JSON arg to the known Java
+        // type and calls the real Consumer, so EwtWidget can invoke it with the browser's value.
+        if (param.isOptional) {
+          return 'if ($name.isPresent()) { int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); java.util.function.Consumer<$vt> __h_$key = $name.get(); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> __h_$key.accept(($vt) v))); }';
+        }
+        return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> $name.accept(($vt) v)));';
+      }
+      // Remaining arg-carrying callbacks stay inert: reserve the id only (future phase).
       if (param.isOptional) {
         return 'if ($name != null) { p.put("$key", nextCallbackId++); }';
       }

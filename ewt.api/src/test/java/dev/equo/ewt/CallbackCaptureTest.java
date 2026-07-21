@@ -26,4 +26,32 @@ class CallbackCaptureTest {
       NativeObj.Base.factories = previous;
     }
   }
+
+  @Test
+  @SuppressWarnings("unchecked")
+  void valueCallbackStoresACoercingConsumer() throws Exception {
+    WidgetConstructors previous = NativeObj.Base.factories;
+    SerializingWidgetConstructors s = new SerializingWidgetConstructors();
+    NativeObj.Base.factories = s;
+    try {
+      Boolean[] got = {null};
+      // FilledButton(onPressed).onHover(bool).child(Text) — onHover is a Consumer<Boolean>.
+      EWT.FilledButton(() -> {})
+          .onHover(v -> got[0] = v)
+          .child(EWT.Text("Follow"))
+          .build();
+      // Find the Consumer stored for onHover (the only Consumer among the callbacks).
+      java.util.function.Consumer<Object> stored = null;
+      for (Object cb : s.callbacks().values()) {
+        if (cb instanceof java.util.function.Consumer) {
+          stored = (java.util.function.Consumer<Object>) cb;
+        }
+      }
+      assertNotNull(stored, "onHover Consumer stored");
+      stored.accept(Boolean.TRUE);
+      assertEquals(Boolean.TRUE, got[0], "adapter calls the original Consumer<Boolean> with the value");
+    } finally {
+      NativeObj.Base.factories = previous;
+    }
+  }
 }
