@@ -232,6 +232,90 @@ ewt_evolve_build:
       - examples/build/classes/java/main/
     expire_in: 1 week
 
+# macOS variant of the ewt-evolve build. Same combined-bundle merge, on a macOS runner, producing
+# the `macos` classifier jar. The vm-runner ships Flutter (via .flutter:macos) but no guaranteed
+# JDK, so install Temurin 22 for the arch the runner reports; gradle derives the swt-evolve jar
+# arch from the JVM, so the arch we build here matches the evolveAvailable gate automatically.
+ewt_evolve_build:macos:
+  extends: .flutter:macos
+  stage: build
+  needs:
+    - job: release_gate
+      optional: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  before_script:
+    - !reference [.flutter:macos, before_script]
+    - JDK_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x64)
+    - curl -L "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_${JDK_ARCH}_mac_hotspot_22.0.2_9.tar.gz" | tar xz
+    - export JAVA_HOME="$PWD/jdk-22.0.2+9/Contents/Home"
+    - export PATH="$JAVA_HOME/bin:$PATH"
+    # macOS sources icudtl.dat from FlutterMacOS.framework (assemble output), so FLUTTER_ROOT is
+    # not strictly needed for it, but set it for parity with the other OSes.
+    - export FLUTTER_ROOT="$HOME/flutter"
+  script:
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
+    - git -C ../swt-evolve checkout "$EVOLVE_REF"
+    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
+    - >-
+      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
+      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    - MAC_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x86_64)
+    - (cd ../swt-evolve && ./gradlew ":swt_native:macos-${MAC_ARCH}Jar" --no-daemon)
+    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=macos -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
+    - cp "../swt-evolve/swt_native/build/libs/swt_evolve-macos-${MAC_ARCH}.jar" ewt.api/build/libs/
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt-evolve-*-macos.jar
+      - ewt.api/build/libs/swt_evolve-macos-*.jar
+    expire_in: 1 week
+
+# Windows variant. Runner shell is Git Bash; Flutter and gradle run via powershell.exe with PATH
+# set (mirrors flutter:windows). Installs Temurin 22 and points FLUTTER_ROOT at c:\flutter so the
+# combined bundle sources icudtl.dat from the engine cache (Windows, unlike macOS, needs it).
+ewt_evolve_build:windows:
+  extends: .flutter:windows
+  stage: build
+  needs:
+    - job: release_gate
+      optional: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  before_script:
+    - !reference [.flutter:windows, before_script]
+    - curl -L -o jdk.zip "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_x64_windows_hotspot_22.0.2_9.zip"
+    - powershell.exe -C "Expand-Archive -Force jdk.zip -DestinationPath C:\\jdk"
+  script:
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
+    - git -C ../swt-evolve checkout "$EVOLVE_REF"
+    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
+    - >-
+      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
+      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    # JAVA_HOME + FLUTTER_ROOT + PATH set inline per powershell call (each -C is a fresh shell).
+    - >-
+      powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
+      cd ..\\swt-evolve; .\\gradlew.bat :swt_native:windows-x86_64Jar --no-daemon"
+    - >-
+      powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
+      .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon"
+    - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt-evolve-*-windows.jar
+      - ewt.api/build/libs/swt_evolve-windows-*.jar
+    expire_in: 1 week
+
 # Headless smoke of the PRODUCTION 2-jar path: only ewt-evolve + swt-evolve on the classpath,
 # no dev.equo.ewt.bundleDir, no Flutter, no clone — the SPI extracts the bundle from the jar.
 # Catches silent same-surface drift (a mismatched Evolve version renders nothing, not an error).
@@ -288,11 +372,18 @@ publish_ewt_evolve:
   image: $FLUTTER_IMAGE_TAG
   needs:
     - ewt_evolve_build
+    - ewt_evolve_build:macos
+    - ewt_evolve_build:windows
     - ewt_evolve_smoke
   script:
     - mkdir -p ../swt-evolve/swt_native/build/libs
+    # evolvePlatform is derived from THIS (linux) runner's JVM → always linux-x86_64, so staging
+    # the linux swt-evolve jar satisfies the evolveAvailable gate for all three publishes.
+    # -Pclassifier only selects which per-OS ewt-evolve jar (already built as artifacts) uploads.
     - cp ewt.api/build/libs/swt_evolve-linux-x86_64.jar ../swt-evolve/swt_native/build/libs/
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=macos -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=windows -PevolveHome=../swt-evolve --no-daemon
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
