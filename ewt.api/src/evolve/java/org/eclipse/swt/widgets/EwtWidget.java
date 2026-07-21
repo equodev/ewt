@@ -85,22 +85,26 @@ public class EwtWidget extends Composite {
             (event, payload) -> EvolveComm.send(getImpl(), event, payload));
     }
 
-    /** Parses the callback id from the frame payload and returns the mapped Runnable, or null
-     *  (unknown/stale id, non-numeric payload, or no payload). Static so it can be tested
-     *  without a live Display or parent Composite. */
-    static Runnable resolveCallback(java.util.Map<Integer, Object> cbs, byte[] payload) {
-        if (payload == null || cbs == null) return null;
-        int id;
-        try {
-            id = Integer.parseInt(new String(payload, java.nio.charset.StandardCharsets.UTF_8).trim());
-        } catch (NumberFormatException e) {
-            return null;
+    /** Resolves a callback payload (a JSON array [id] or [id, arg]) to the work to run, or null
+     *  (unknown/stale id, wrong shape, non-list payload). Static so it can be tested without a live
+     *  Display or parent Composite. Zero-arg -> the stored Runnable; value -> a Runnable that calls
+     *  the stored Consumer with the arg. */
+    @SuppressWarnings("unchecked")
+    static Runnable resolveCallback(java.util.Map<Integer, Object> cbs, Object payload) {
+        if (cbs == null || !(payload instanceof java.util.List<?> list) || list.isEmpty()) return null;
+        if (!(list.get(0) instanceof Number n)) return null;
+        Object cb = cbs.get(n.intValue());
+        if (list.size() == 1) {
+            return cb instanceof Runnable ? (Runnable) cb : null;
         }
-        Object cb = cbs.get(id);
-        return cb instanceof Runnable ? (Runnable) cb : null;
+        if (cb instanceof java.util.function.Consumer) {
+            Object arg = list.get(1);
+            return () -> ((java.util.function.Consumer<Object>) cb).accept(arg);
+        }
+        return null;
     }
 
-    private void fireCallback(byte[] payload) {
+    private void fireCallback(Object payload) {
         Runnable r = resolveCallback(webCallbacks, payload);
         if (r != null) getDisplay().asyncExec(r);
     }

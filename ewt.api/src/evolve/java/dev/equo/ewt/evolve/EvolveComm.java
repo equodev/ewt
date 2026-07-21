@@ -18,9 +18,9 @@ public final class EvolveComm {
     dev.equo.swt.FlutterBridge.commFor(regionImpl).on(event, byte[].class, p -> cb.run());
   }
 
-  /** Registers a payload-carrying handler on the region's comm (browser -> Java). The raw frame
-   *  bytes are delivered (byte[].class is a passthrough in CommService). */
-  public static void onPayload(Object regionImpl, String event, java.util.function.Consumer<byte[]> cb) {
-    dev.equo.swt.FlutterBridge.commFor(regionImpl).on(event, byte[].class, cb);
+  /** Registers a payload-carrying handler on the region's comm (browser -> Java). The JSON body is
+   *  deserialized to an Object (a List for the callback arrays [id] / [id, arg]). */
+  public static void onPayload(Object regionImpl, String event, java.util.function.Consumer<Object> cb) {
+    dev.equo.swt.FlutterBridge.commFor(regionImpl).on(event, Object.class, cb);
   }
 }

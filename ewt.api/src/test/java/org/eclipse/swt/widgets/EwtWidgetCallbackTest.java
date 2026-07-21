@@ -1,27 +1,36 @@
 package org.eclipse.swt.widgets;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 
-/** Tests EwtWidget.resolveCallback (static) without requiring a live Display or native engine. */
 class EwtWidgetCallbackTest {
-
   @Test
-  void resolveCallbackParsesIdAndReturnsTheMappedRunnable() {
+  void resolveDispatchesZeroArgAndValueCallbacks() {
     boolean[] ran = {false};
-    Runnable r = () -> ran[0] = true;
+    Object[] got = {null};
+    Runnable zero = () -> ran[0] = true;
+    Consumer<Object> value = v -> got[0] = v;
+    Map<Integer, Object> cbs = Map.of(5, zero, 7, value);
 
-    Runnable resolved = EwtWidget.resolveCallback(Map.of(5, r), "5".getBytes(StandardCharsets.UTF_8));
-    assertNotNull(resolved, "id 5 must resolve to the registered Runnable");
-    resolved.run();
-    assertTrue(ran[0], "resolved Runnable must execute the original lambda");
+    // zero-arg: [5] -> runs the Runnable
+    Runnable r0 = EwtWidget.resolveCallback(cbs, List.of(5));
+    assertNotNull(r0);
+    r0.run();
+    assertTrue(ran[0]);
 
-    assertNull(EwtWidget.resolveCallback(Map.of(5, r), "99".getBytes(StandardCharsets.UTF_8)),
-        "unknown id -> null");
-    assertNull(EwtWidget.resolveCallback(Map.of(5, r), "x".getBytes(StandardCharsets.UTF_8)),
-        "non-numeric -> null");
-    assertNull(EwtWidget.resolveCallback(Map.of(5, r), null), "no payload -> null");
+    // value: [7, true] -> Consumer.accept(true)
+    Runnable r1 = EwtWidget.resolveCallback(cbs, List.of(7, true));
+    assertNotNull(r1);
+    r1.run();
+    assertEquals(Boolean.TRUE, got[0]);
+
+    // unknown id, wrong shape, non-list -> null
+    assertNull(EwtWidget.resolveCallback(cbs, List.of(99)));
+    assertNull(EwtWidget.resolveCallback(cbs, List.of()));
+    assertNull(EwtWidget.resolveCallback(cbs, "nope"));
+    assertNull(EwtWidget.resolveCallback(null, List.of(5)));
   }
 }
