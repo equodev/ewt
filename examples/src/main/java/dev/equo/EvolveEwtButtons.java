@@ -74,6 +74,12 @@ public class EvolveEwtButtons {
         actions.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
         actions.setWidget(quickActions());
 
+        // A stateful region: pressing + re-renders the number over the comm (Phase 4).
+        EwtWidget counter = new EwtWidget(right, SWT.NONE);
+        counter.setPreferredSize(SWT.DEFAULT, 140);
+        counter.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+        counter.setWidget(EwtCounter::new);
+
         shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) display.sleep();
