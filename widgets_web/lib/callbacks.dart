@@ -1,18 +1,24 @@
-// EWT web callback wiring. Pure Dart, comm-free: the region injects a sink that
-// forwards a callback id over the Evolve comm; generated decoders call ewtWireCallback.
+// EWT web callback wiring. Pure Dart, comm-free: the region injects a sink that forwards a
+// callback id (and any value arg) over the Evolve comm; generated decoders call these helpers.
 import 'package:flutter/widgets.dart';
 
-typedef EwtCallbackSink = void Function(int callbackId);
+typedef EwtCallbackSink = void Function(int callbackId, List<Object?> args);
 
 // Set by the region immediately before decoding its subtree, cleared after. Decode is
 // synchronous, so each wired closure captures its own region's sink.
 EwtCallbackSink? ewtActiveCallbackSink;
 
-// Binds the sink active at decode time to the recorded callback id. Always returns a
-// non-null VoidCallback (assignable to both VoidCallback and VoidCallback?); a no-op when
-// there is no id (e.g. an unprovided optional callback) or no active sink.
+// Zero-arg callback: sends [id] (no args). Always non-null; a no-op when there is no id or sink.
 VoidCallback ewtWireCallback(Object? id) {
   final sink = ewtActiveCallbackSink;
   if (id is! int || sink == null) return () {};
-  return () => sink(id);
+  return () => sink(id, const []);
+}
+
+// Value callback (bool/String): sends [id, value]. Typed as void Function(dynamic) so it is
+// assignable to ValueChanged<bool> and ValueChanged<String>. A no-op when there is no id or sink.
+void Function(dynamic) ewtWireValueCallback(Object? id) {
+  final sink = ewtActiveCallbackSink;
+  if (id is! int || sink == null) return (_) {};
+  return (v) => sink(id, [v]);
 }

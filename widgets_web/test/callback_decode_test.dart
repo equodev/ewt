@@ -5,10 +5,9 @@ import 'package:widgets_web/widgets_web.dart';
 void main() {
   tearDown(() => ewtActiveCallbackSink = null);
 
-  test('FilledButton onPressed decodes to a wired closure that sends its id', () {
-    final fired = <int>[];
-    ewtActiveCallbackSink = fired.add;
-    // A minimal filledButtonFilledButton node: onPressed id 5, a Text child.
+  test('FilledButton onPressed decodes to a wired closure that sends [id]', () {
+    final calls = <List<Object?>>[];
+    ewtActiveCallbackSink = (id, args) => calls.add([id, args]);
     final node = {
       't': 'filledButtonFilledButton',
       'id': 1,
@@ -20,6 +19,6 @@ void main() {
     final w = decodeEwtNode(node) as FilledButton;
     expect(w.onPressed, isNotNull);
     w.onPressed!();
-    expect(fired, [5]);
+    expect(calls, [[5, const []]]);
   });
 }

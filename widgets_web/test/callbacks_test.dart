@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgets_web/widgets_web.dart';
@@ -6,25 +5,34 @@ import 'package:widgets_web/widgets_web.dart';
 void main() {
   tearDown(() => ewtActiveCallbackSink = null);
 
-  test('ewtWireCallback binds the active sink and forwards the id', () {
-    final fired = <int>[];
-    ewtActiveCallbackSink = fired.add;
-    final VoidCallback cb = ewtWireCallback(7);
-    cb();
-    expect(fired, [7]);
+  test('ewtWireCallback sends the id with no args', () {
+    final calls = <List<Object?>>[];
+    ewtActiveCallbackSink = (id, args) => calls.add([id, args]);
+    ewtWireCallback(7)();
+    expect(calls, [[7, const []]]);
   });
 
-  test('ewtWireCallback captures the sink at wire time, not call time', () {
-    final a = <int>[];
-    ewtActiveCallbackSink = a.add;
-    final VoidCallback cb = ewtWireCallback(3);
-    ewtActiveCallbackSink = null; // region finished decoding
-    cb();
-    expect(a, [3]); // still delivered to the sink captured during decode
+  test('ewtWireValueCallback sends the id with the value arg', () {
+    final calls = <List<Object?>>[];
+    ewtActiveCallbackSink = (id, args) => calls.add([id, args]);
+    ewtWireValueCallback(3)(true);
+    expect(calls, [[3, [true]]]);
   });
 
-  test('non-int id yields an inert no-op (no throw)', () {
-    ewtActiveCallbackSink = (_) => fail('must not fire');
+  test('helpers capture the sink at wire time, not call time', () {
+    final calls = <Object?>[];
+    ewtActiveCallbackSink = (id, args) => calls.add(args);
+    final z = ewtWireCallback(1);
+    final v = ewtWireValueCallback(2);
+    ewtActiveCallbackSink = null;
+    z();
+    v('hi');
+    expect(calls, [const [], ['hi']]);
+  });
+
+  test('non-int id yields inert no-ops (no throw)', () {
+    ewtActiveCallbackSink = (_, __) => fail('must not fire');
     expect(() => ewtWireCallback(null)(), returnsNormally);
+    expect(() => ewtWireValueCallback(null)('x'), returnsNormally);
   });
 }

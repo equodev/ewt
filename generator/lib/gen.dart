@@ -1118,6 +1118,25 @@ bool _isZeroArgCallback(DartType t) {
   return ft.parameters.isEmpty;
 }
 
+// A value callback carries a single scalar arg the generator can coerce on the Java side.
+// Returns the Java boxed type ('Boolean' / 'String') for a one-parameter bool/String callback,
+// else null. Resolves through a typedef alias when present.
+String? _valueCallbackJavaType(DartType t) {
+  FunctionType? ft;
+  if (t is FunctionType) {
+    ft = t;
+  } else if (t.alias != null && t.alias!.element.aliasedType is FunctionType) {
+    ft = t.alias!.element.aliasedType as FunctionType;
+  }
+  if (ft == null || ft.parameters.length != 1) return null;
+  final at = ft.parameters.first.type;
+  if (at is InterfaceType) {
+    if (at.isDartCoreBool) return 'Boolean';
+    if (at.isDartCoreString) return 'String';
+  }
+  return null;
+}
+
 class Generation {
   Set<Element> processed = {};
   Set<Element> classesWithSetup = {};
@@ -1769,10 +1788,14 @@ class Params {
     // Callbacks are inert in this phase: a void closure that accepts any arity (optional
     // positional Object? params make it assignable to VoidCallback / ValueChanged / etc.).
     if (h != null) {
-      // Zero-arg callbacks send their reserved id over the comm at click time (Phase 2).
-      // Arg-carrying callbacks stay inert (Phase 3).
+      // Zero-arg callbacks send their id with no args (Phase 2).
+      // Value callbacks (bool/String) send their id with the scalar arg (Phase 3).
+      // All other arg-carrying callbacks stay inert.
       if (_isZeroArgCallback(t)) {
         return "ewtWireCallback(p['$key'])";
+      }
+      if (_valueCallbackJavaType(t) != null) {
+        return "ewtWireValueCallback(p['$key'])";
       }
       return '([Object? a, Object? b, Object? c]) {}';
     }
