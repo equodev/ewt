@@ -684,15 +684,25 @@ class WidgetGen implements AGen {
     // Dialogs are shown imperatively (showDialog + BuildContext), not placed in a static tree.
     if (widgetClass.endsWith('Dialog')) return false;
     for (final p in node.parameters.where((p) => types.supportedType(p.type))) {
+      // Optional params that can't cross the wire are omitted from the decoder (the widget uses
+      // its default), so they don't disqualify the widget — see _webSkippable / _paramValueJsonRaw.
+      if (_webSkippable(p)) continue;
       final t = p.type;
       if (t is InterfaceType) {
         final n = t.element.name;
         if (n == 'Animation' || n == 'CurvedAnimation' || t.isDartCoreMap) return false;
-        // OverflowBoxFit lives in Flutter's private src/rendering and is not re-exported by
-        // any public library, so the web decoder file cannot import it. Skip OverflowBox on web.
+        // OverflowBoxFit lives in Flutter's private src/rendering and is not re-exported by any
+        // public library, so the decoder file cannot import it. Only reachable here when it is a
+        // required param (the optional case is omitted by _webSkippable, e.g. OverflowBox).
         if (n == 'OverflowBoxFit') return false;
+        // BoxWidthStyle/BoxHeightStyle (TextField.selection*Style) are likewise not importable in
+        // the pure-Dart decoder file; blocking them keeps TextField out of scope until the text-
+        // input round-trip lands (a separate effort) rather than half-enabling an inert field.
+        if (n == 'BoxWidthStyle' || n == 'BoxHeightStyle') return false;
       }
-      if (t is FunctionType && t.returnType is! VoidType && !p.isOptional) return false;
+      // A value-returning callback can't be stood in for by an inert closure; only reachable when
+      // required (optional ones are omitted by _webSkippable, e.g. Slider.semanticFormatterCallback).
+      if (t is FunctionType && t.returnType is! VoidType) return false;
       final alias = t.alias;
       if (alias != null) {
         final at = alias.element.aliasedType;
@@ -700,6 +710,25 @@ class WidgetGen implements AGen {
       }
     }
     return true;
+  }
+
+  /// An optional param that cannot be represented in the pure-Dart web decoder, so the decoder
+  /// omits it and the widget falls back to its own default. Two kinds of blocker qualify — both
+  /// only ever optional in practice: value-returning callbacks (inline or via a typedef alias,
+  /// e.g. SemanticFormatterCallback = String Function(double)), which an inert closure can't
+  /// stand in for; and the private, non-importable OverflowBoxFit enum. Keeps a widget
+  /// web-decodable when such a param is its only blocker (Slider, OverflowBox).
+  static bool _webSkippable(ParameterElement p) {
+    if (!p.isOptional) return false;
+    final t = p.type;
+    final ft = t is FunctionType
+        ? t
+        : (t.alias?.element.aliasedType is FunctionType
+            ? t.alias!.element.aliasedType as FunctionType
+            : null);
+    if (ft != null && ft.returnType is! VoidType) return true;
+    if (t is InterfaceType && t.element.name == 'OverflowBoxFit') return true;
+    return false;
   }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
@@ -1435,13 +1464,33 @@ String? _valueCallbackJavaType(DartType t) {
   } else if (t.alias != null && t.alias!.element.aliasedType is FunctionType) {
     ft = t.alias!.element.aliasedType as FunctionType;
   }
-  if (ft == null || ft.parameters.length != 1) return null;
+  // A value callback (ValueChanged<T>) takes one arg and returns void; a value-RETURNING function
+  // (e.g. SemanticFormatterCallback = String Function(double)) is not one — it can't be reduced to
+  // an id + arg round-trip and must not be wired as a Consumer.
+  if (ft == null || ft.parameters.length != 1 || ft.returnType is! VoidType) return null;
   final at = ft.parameters.first.type;
   if (at is InterfaceType) {
     if (at.isDartCoreBool) return 'Boolean';
     if (at.isDartCoreString) return 'String';
+    if (at.isDartCoreDouble) return 'Double';
+    if (at.isDartCoreInt) return 'Integer';
   }
   return null;
+}
+
+/// Coerces the browser-supplied callback arg (an Object read off the JSON payload) to the known
+/// Java value type. Bool/String arrive as their boxed type and cast directly; a JSON number can
+/// arrive as any Number subtype (Integer, Long, Double, BigDecimal depending on the parser), so
+/// numeric callbacks go through Number.xValue() rather than a brittle direct cast.
+String _valueCallbackCoerce(String vt, String v) {
+  switch (vt) {
+    case 'Double':
+      return '((Number) $v).doubleValue()';
+    case 'Integer':
+      return '((Number) $v).intValue()';
+    default:
+      return '($vt) $v';
+  }
 }
 
 class Generation {
@@ -2132,6 +2181,9 @@ class Params {
   }
 
   static String _paramValueJsonRaw(Types types, ParameterElement param) {
+    // Optional un-crossable params are omitted from the constructor call (empty "skip" sentinel,
+    // filtered by Params.names); the widget uses its own default. See WidgetGen._webSkippable.
+    if (WidgetGen._webSkippable(param)) return '';
     final key = param.name;
     final t = param.type;
     final read = "p['$key']";
@@ -2148,13 +2200,8 @@ class Params {
       if (_valueCallbackJavaType(t) != null) {
         return "ewtWireValueCallback(p['$key'])";
       }
-      // Optional value-returning fn params (e.g. Scaffold.bottomSheetScrimBuilder) have a
-      // non-nullable function type with a default; passing null would fail the type checker.
-      // Return empty string as a "skip" sentinel — paramValueJson propagates it unchanged,
-      // and Params.names filters it out so the widget constructor uses its own default.
-      if (t is FunctionType && t.returnType is! VoidType && param.isOptional) {
-        return '';
-      }
+      // Optional value-returning fn params are already omitted above (see _webSkippable); any
+      // remaining callback here is inert — a void closure that accepts any arity.
       return '([Object? a, Object? b, Object? c]) {}';
     }
     if (t is InterfaceType && t.element.name == 'BuildContext') {
@@ -2173,7 +2220,7 @@ class Params {
         if (t.isDartCoreList) return _listDecodeJson(read, t);
         if (t.isDartCoreMap) return _mapDecodeJson(read, t);
         if (t.element is EnumElement) return nonNull ? '$read == null ? ${defaultEnumCode(param)} : $elemName.values[$read as int]' : '$read == null ? null : $elemName.values[$read as int]';
-        return nonNull ? '$read == null ? ${defaultObjCode(param)} : decodeEwtNode($read as Map<String,dynamic>) as $elemName' : '$read == null ? null : decodeEwtNode($read as Map<String,dynamic>) as $elemName';
+        return nonNull ? '$read == null ? ${defaultObjCode(param)} : ${_decodeObjJson(read, elemName)}' : '$read == null ? null : ${_decodeObjJson(read, elemName)}';
       } else {
         if (t.isDartCoreString) return '$read as String';
         if (t.isDartCoreBool) return '$read as bool';
@@ -2182,7 +2229,7 @@ class Params {
         if (t.isDartCoreList) return _listDecodeJson(read, t);
         if (t.isDartCoreMap) return _mapDecodeJson(read, t);
         if (t.element is EnumElement) return '$elemName.values[$read as int]';
-        return 'decodeEwtNode($read as Map<String,dynamic>) as $elemName';
+        return _decodeObjJson(read, elemName);
       }
     }
     return read;
@@ -2203,8 +2250,17 @@ class Params {
       return '$base.cast<String>().toList()';
     }
     final elemName = (elem is InterfaceType) ? elem.element.name : 'dynamic';
-    return '$base.map((e) => decodeEwtNode(e as Map<String,dynamic>) as $elemName).toList()';
+    return '$base.map((e) => ${_decodeObjJson('e', elemName)}).toList()';
   }
+
+  /// A single object-ref decode expression from a JSON node. Widget children route through
+  /// decodeEwtWidget so a missing/failed child decoder degrades to SizedBox.shrink instead of
+  /// throwing `null as Widget` and taking down the whole parent subtree (per-node fault
+  /// isolation). Non-widget value objects keep the plain cast — no placeholder of their type
+  /// exists, and a missing value-object decoder is a genuine break, not a renderable gap.
+  static String _decodeObjJson(String read, String elemName) => elemName == 'Widget'
+      ? 'decodeEwtWidget($read as Map<String,dynamic>)'
+      : 'decodeEwtNode($read as Map<String,dynamic>) as $elemName';
 
   /// Decodes a Map param from JSON (string keys). Int keys are parsed back; values follow the
   /// same scalar/enum/object rules as list elements. Used e.g. for MaterialColor's swatch.
@@ -2272,10 +2328,11 @@ class Params {
       if (vt != null) {
         // Value callback: store a Consumer<Object> that coerces the JSON arg to the known Java
         // type and calls the real Consumer, so EwtWidget can invoke it with the browser's value.
+        final coerce = _valueCallbackCoerce(vt, 'v');
         if (param.isOptional) {
-          return 'if ($name.isPresent()) { int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); java.util.function.Consumer<$vt> __h_$key = $name.get(); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> __h_$key.accept(($vt) v))); }';
+          return 'if ($name.isPresent()) { int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); java.util.function.Consumer<$vt> __h_$key = $name.get(); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> __h_$key.accept($coerce))); }';
         }
-        return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> $name.accept(($vt) v)));';
+        return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> $name.accept($coerce)));';
       }
       // Remaining arg-carrying callbacks stay inert: reserve the id only (future phase).
       if (param.isOptional) {

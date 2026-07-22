@@ -18,4 +18,22 @@ class SerializingWidgetCaptureTest {
     assertEquals("x", child.params().get("data"));
     assertSame(before, NativeObj.Base.factories, "factories must be restored after capture");
   }
+
+  // A SubStatelessWidget region root must be flattened to its built tree (like SubStatefulWidget),
+  // so the browser never sees a subStatelessWidgetSubStatelessWidget node (which has no decoder).
+  static class SlwProbe extends SubStatelessWidget {
+    @Override
+    protected Widget build(BuildContext context) {
+      return EWT.Text("hi").build();
+    }
+  }
+
+  @Test
+  void flattensSubStatelessWidgetRoot() throws Exception {
+    EwtCapture capture = EwtWebCapture.captureSubtree(() -> new SlwProbe());
+    EwtNode node = capture.root;
+    assertEquals("textText", node.type(),
+        "SubStatelessWidget root must flatten to its built tree, not a Sub node");
+    assertEquals("hi", node.params().get("data"));
+  }
 }

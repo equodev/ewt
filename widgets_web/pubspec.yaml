@@ -1,0 +1,15 @@
+name: widgets_web
+description: "Pure-Dart web decoders for EWT node trees (no dart:ffi)."
+publish_to: 'none'
+version: 1.0.0
+environment:
+  sdk: ^3.9.0
+  flutter: "^3.35.7"
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

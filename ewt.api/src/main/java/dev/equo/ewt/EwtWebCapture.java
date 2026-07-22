@@ -27,6 +27,12 @@ public final class EwtWebCapture {
         EwtNode root = flatten(state, serializing);
         return new EwtCapture(root, serializing.callbacks(), state);
       }
+      if (rootWidget instanceof SubStatelessWidget slw) {
+        // Flatten: run build() in Java and serialize the built tree. No retained state (stateless),
+        // so no setState/rebuild path — just like SubStatefulWidget, the browser never sees a Sub* node.
+        Widget built = slw.buildFn(stubContext());
+        return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), null);
+      }
       return new EwtCapture(serializing.rootNode(rootWidget.getId()), serializing.callbacks(), null);
     } finally {
       NativeObj.Base.factories = previous;

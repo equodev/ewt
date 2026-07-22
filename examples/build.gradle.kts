@@ -403,3 +403,45 @@ tasks.register<JavaExec>("runEvolveEwtButtonsWeb") {
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
+
+// WEB GAP-ANALYSIS harness: mounts ONE gallery family's page as a single EwtWidget web
+// region. Pick the family with -Pgallery=Layout|Material|Animations|Scroll|Tabs (default
+// Layout). Same web wiring as runEvolveEwtButtonsWeb. Build the web bundle first with:
+//   (cd evolve-app && flutter build web --no-tree-shake-icons)
+tasks.register<JavaExec>("runGalleriesWeb") {
+    group = "examples"
+    description = "Mount one gallery family on the WEB surface for the gap-analysis (-Pgallery=Layout|Material|Animations|Scroll|Tabs)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.gallery.EvolveGalleries")
+    val webDir = combinedBuild.resolve("web")
+    val family = (project.findProperty("gallery") as String?) ?: "Layout"
+    doFirst {
+        if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        if (!webDir.resolve("index.html").exists()) throw GradleException(
+            "Combined web build not found at $webDir. Build:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+    }
+    systemProperty("dev.equo.gallery.family", family)
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
+
+// WEB GAP-ANALYSIS harness for the standalone samples. Pick with -Psample=Calculator|Fade
+// (default Calculator). Same web wiring as runGalleriesWeb.
+tasks.register<JavaExec>("runSamplesWeb") {
+    group = "examples"
+    description = "Mount one standalone sample on the WEB surface for the gap-analysis (-Psample=Calculator|Fade)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.EvolveSamples")
+    val webDir = combinedBuild.resolve("web")
+    val sample = (project.findProperty("sample") as String?) ?: "Calculator"
+    doFirst {
+        if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        if (!webDir.resolve("index.html").exists()) throw GradleException(
+            "Combined web build not found at $webDir. Build:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+    }
+    systemProperty("dev.equo.sample", sample)
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}

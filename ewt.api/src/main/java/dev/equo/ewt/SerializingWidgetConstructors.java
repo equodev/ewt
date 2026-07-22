@@ -1975,7 +1975,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
     reverse.ifPresent(v -> p.put("reverse", v));
     pageSnapping.ifPresent(v -> p.put("pageSnapping", v));
-    if (onPageChanged != null) { p.put("onPageChanged", nextCallbackId++); }
+    if (onPageChanged.isPresent()) { int __cb_onPageChanged = nextCallbackId++; p.put("onPageChanged", __cb_onPageChanged); java.util.function.Consumer<Integer> __h_onPageChanged = onPageChanged.get(); callbacks.put(__cb_onPageChanged, (java.util.function.Consumer<Object>)(v -> __h_onPageChanged.accept(((Number) v).intValue()))); }
     children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
     allowImplicitScrolling.ifPresent(v -> p.put("allowImplicitScrolling", v));
@@ -1995,7 +1995,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
     reverse.ifPresent(v -> p.put("reverse", v));
     pageSnapping.ifPresent(v -> p.put("pageSnapping", v));
-    if (onPageChanged != null) { p.put("onPageChanged", nextCallbackId++); }
+    if (onPageChanged.isPresent()) { int __cb_onPageChanged = nextCallbackId++; p.put("onPageChanged", __cb_onPageChanged); java.util.function.Consumer<Integer> __h_onPageChanged = onPageChanged.get(); callbacks.put(__cb_onPageChanged, (java.util.function.Consumer<Object>)(v -> __h_onPageChanged.accept(((Number) v).intValue()))); }
     p.put("itemBuilder", nextCallbackId++);
     if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
@@ -4096,9 +4096,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
     if (secondaryTrackValue.isPresent()) { p.put("secondaryTrackValue", secondaryTrackValue.getAsDouble()); }
-    p.put("onChanged", nextCallbackId++);
-    if (onChangeStart != null) { p.put("onChangeStart", nextCallbackId++); }
-    if (onChangeEnd != null) { p.put("onChangeEnd", nextCallbackId++); }
+    int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept(((Number) v).doubleValue())));
+    if (onChangeStart.isPresent()) { int __cb_onChangeStart = nextCallbackId++; p.put("onChangeStart", __cb_onChangeStart); java.util.function.Consumer<Double> __h_onChangeStart = onChangeStart.get(); callbacks.put(__cb_onChangeStart, (java.util.function.Consumer<Object>)(v -> __h_onChangeStart.accept(((Number) v).doubleValue()))); }
+    if (onChangeEnd.isPresent()) { int __cb_onChangeEnd = nextCallbackId++; p.put("onChangeEnd", __cb_onChangeEnd); java.util.function.Consumer<Double> __h_onChangeEnd = onChangeEnd.get(); callbacks.put(__cb_onChangeEnd, (java.util.function.Consumer<Object>)(v -> __h_onChangeEnd.accept(((Number) v).doubleValue()))); }
     if (min.isPresent()) { p.put("min", min.getAsDouble()); }
     if (max.isPresent()) { p.put("max", max.getAsDouble()); }
     if (divisions.isPresent()) { p.put("divisions", divisions.getAsInt()); }
@@ -4123,9 +4123,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
     if (secondaryTrackValue.isPresent()) { p.put("secondaryTrackValue", secondaryTrackValue.getAsDouble()); }
-    p.put("onChanged", nextCallbackId++);
-    if (onChangeStart != null) { p.put("onChangeStart", nextCallbackId++); }
-    if (onChangeEnd != null) { p.put("onChangeEnd", nextCallbackId++); }
+    int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept(((Number) v).doubleValue())));
+    if (onChangeStart.isPresent()) { int __cb_onChangeStart = nextCallbackId++; p.put("onChangeStart", __cb_onChangeStart); java.util.function.Consumer<Double> __h_onChangeStart = onChangeStart.get(); callbacks.put(__cb_onChangeStart, (java.util.function.Consumer<Object>)(v -> __h_onChangeStart.accept(((Number) v).doubleValue()))); }
+    if (onChangeEnd.isPresent()) { int __cb_onChangeEnd = nextCallbackId++; p.put("onChangeEnd", __cb_onChangeEnd); java.util.function.Consumer<Double> __h_onChangeEnd = onChangeEnd.get(); callbacks.put(__cb_onChangeEnd, (java.util.function.Consumer<Object>)(v -> __h_onChangeEnd.accept(((Number) v).doubleValue()))); }
     if (min.isPresent()) { p.put("min", min.getAsDouble()); }
     if (max.isPresent()) { p.put("max", max.getAsDouble()); }
     if (divisions.isPresent()) { p.put("divisions", divisions.getAsInt()); }
@@ -4238,7 +4238,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     unselectedLabelStyle.ifPresent(v -> p.put("unselectedLabelStyle", byId.get(v.getId())));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
-    if (onTap != null) { p.put("onTap", nextCallbackId++); }
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
     if (onHover != null) { p.put("onHover", nextCallbackId++); }
     if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
     splashBorderRadius.ifPresent(v -> p.put("splashBorderRadius", byId.get(v.getId())));
@@ -4271,7 +4271,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     unselectedLabelStyle.ifPresent(v -> p.put("unselectedLabelStyle", byId.get(v.getId())));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
-    if (onTap != null) { p.put("onTap", nextCallbackId++); }
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
     if (onHover != null) { p.put("onHover", nextCallbackId++); }
     if (onFocusChange != null) { p.put("onFocusChange", nextCallbackId++); }
     splashBorderRadius.ifPresent(v -> p.put("splashBorderRadius", byId.get(v.getId())));
