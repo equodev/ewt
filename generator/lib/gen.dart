@@ -473,6 +473,44 @@ class WidgetGen implements AGen {
     // Match the FFM method's own type parameters (e.g. <T extends StatefulWidget>) so the
     // @Override resolves for generic factories.
     final jtp = JLang().methodTypeParameters(node.type);
+
+    // ListView.builder special-case: eager-expand itemBuilder into a plain listViewListView node.
+    // Instead of recording an inert callback id, we call itemBuilder for each index and collect
+    // the resulting widget nodes as children, then record a listViewListView node. This lets the
+    // browser decode it with the existing plain ListView decoder without any builder callback.
+    if (factoryName == 'listViewBuilder') {
+      javaSerializer
+        ..writeln('  @Override')
+        ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
+        ..writeln('    int id = nextId++;')
+        ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
+      // Emit eager children expansion in place of itemBuilder/itemCount serialization.
+      javaSerializer
+        ..writeln('    if (itemCount.isPresent()) {')
+        ..writeln('      java.util.List<Object> __children = new java.util.ArrayList<>();')
+        ..writeln('      BuildContext __ctx = EwtWebCapture.stubContext();')
+        ..writeln('      for (int __i = 0; __i < itemCount.getAsInt(); __i++) {')
+        ..writeln('        Widget __w = itemBuilder.apply(__ctx, __i);')
+        ..writeln('        if (__w == null) break;')
+        ..writeln('        __children.add(byId.get(__w.getId()));')
+        ..writeln('      }')
+        ..writeln('      p.put("children", __children);')
+        ..writeln('    }');
+      // Serialize every other supported param except itemBuilder and itemCount.
+      for (final param in node.parameters.where((p) => types.supportedType(p.type))) {
+        if (param.name == 'itemBuilder' || param.name == 'itemCount') continue;
+        final stmt = Params.paramValueSerialize(types, param);
+        if (stmt.isNotEmpty) javaSerializer.writeln('    $stmt');
+      }
+      javaSerializer
+        ..writeln('    record(id, "listViewListView", p);')
+        ..writeln('    MemorySegment st = ${objStClass!}.allocate(arena);')
+        ..writeln('    $objStClass.id(st, id);')
+        ..writeln('    return st;')
+        ..writeln('  }');
+      return;
+    }
+
     javaSerializer
       ..writeln('  @Override')
       ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
@@ -524,6 +562,8 @@ class WidgetGen implements AGen {
       dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
       return;
     }
+    // ListView.builder is eager-expanded to listViewListView at serialize time; no builder decoder.
+    if (factoryName == 'listViewBuilder') return;
     if (!_webDecodable(node)) return;
     final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
     final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';

@@ -3435,6 +3435,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   MemorySegment listViewBuilder(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, OptionalDouble itemExtent, Optional<Widget> prototypeItem, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (itemCount.isPresent()) {
+      java.util.List<Object> __children = new java.util.ArrayList<>();
+      BuildContext __ctx = EwtWebCapture.stubContext();
+      for (int __i = 0; __i < itemCount.getAsInt(); __i++) {
+        Widget __w = itemBuilder.apply(__ctx, __i);
+        if (__w == null) break;
+        __children.add(byId.get(__w.getId()));
+      }
+      p.put("children", __children);
+    }
     scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
     reverse.ifPresent(v -> p.put("reverse", v));
     primary.ifPresent(v -> p.put("primary", v));
@@ -3442,8 +3452,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
     if (itemExtent.isPresent()) { p.put("itemExtent", itemExtent.getAsDouble()); }
     prototypeItem.ifPresent(v -> p.put("prototypeItem", byId.get(v.getId())));
-    p.put("itemBuilder", nextCallbackId++);
-    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
     addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
     addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
     addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
@@ -3454,7 +3462,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     restorationId.ifPresent(v -> p.put("restorationId", v));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
-    record(id, "listViewBuilder", p);
+    record(id, "listViewListView", p);
     MemorySegment st = ListViewObjSt.allocate(arena);
     ListViewObjSt.id(st, id);
     return st;
