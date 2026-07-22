@@ -825,8 +825,16 @@ abstract class ObjStGen extends WidgetGen {
 
     javaFile.writeln('  public $retJ ${field.name}() {');
 
+    // MaterialColor shade accessors (shade50..shade900) keep the NATIVE struct read: the
+    // materialColorMaterialColor serializer already populates the shade struct fields from the
+    // swatch (a family-A special-case), so the native branch works off-native and each shade
+    // resolves to its concrete swatch color node. The generic accessor-node web branch would
+    // instead decode `.shadeXXX` on a browser MaterialColor with an EMPTY swatch -> null-check
+    // crash. So skip the web branch for MaterialColor and let the native read fire.
+    final skipWebBranch = widgetClass == 'MaterialColor';
+
     // Web branch: record the accessor as a node chained off this receiver, return a node-backed value.
-    if (isObjSt || isIntBackedObj) {
+    if (!skipWebBranch && (isObjSt || isIntBackedObj)) {
       javaFile
         ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
         ..writeln('      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;')
@@ -846,7 +854,7 @@ abstract class ObjStGen extends WidgetGen {
       if (_isValueObject) {
         dartWebDecoders.writeln("  '$factoryName': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as $widgetClass).${field.name},");
       }
-    } else {
+    } else if (!skipWebBranch) {
       // Enum/primitive/String/abstract accessor: value is only known to Flutter, not serializable as a node.
       javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("$factoryName not supported on web");');
     }

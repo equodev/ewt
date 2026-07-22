@@ -838,16 +838,6 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'colorSchemeOnBackground': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as ColorScheme).onBackground,
 
   'materialColorMaterialColor': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),
-  'materialColorShade50': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade50,
-  'materialColorShade100': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade100,
-  'materialColorShade200': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade200,
-  'materialColorShade300': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade300,
-  'materialColorShade400': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade400,
-  'materialColorShade500': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade500,
-  'materialColorShade600': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade600,
-  'materialColorShade700': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade700,
-  'materialColorShade800': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade800,
-  'materialColorShade900': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade900,
 
   'colorSwatchLerp': (p) => ColorSwatch.lerp(decodeEwtNode(p['a'] as Map<String,dynamic>) as ColorSwatch,
       decodeEwtNode(p['b'] as Map<String,dynamic>) as ColorSwatch,
