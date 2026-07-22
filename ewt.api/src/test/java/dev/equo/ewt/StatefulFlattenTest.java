@@ -43,6 +43,25 @@ class StatefulFlattenTest {
     assertEquals("centerCenter", again.root.type());
   }
 
+  // A stateful widget carrying a prop read via widget() in build().
+  static class TitledCounter extends SubStatefulWidget {
+    final String title;
+    TitledCounter(String title) { this.title = title; }
+    @Override protected State<TitledCounter> createState() { return new S(); }
+    static class S extends SubState<TitledCounter> {
+      @Override public Widget build(BuildContext context) {
+        return Center().child(Text("T:" + widget().title)).build();
+      }
+    }
+  }
+
+  @Test
+  void widgetAccessorReturnsTheOwningWidgetOnWeb() throws Exception {
+    EwtCapture cap = EwtWebCapture.captureSubtree(() -> new TitledCounter("Home"));
+    String json = dev.equo.ewt.web.EwtNodeJson.encode(cap.root);
+    assertTrue(json.contains("T:Home"), "build() read widget().title via the web widget()");
+  }
+
   @Test
   void webSetStateRunsFnAndRequestsRebuild() throws Exception {
     // Capture so the state exists and is registered by a fake region hook.

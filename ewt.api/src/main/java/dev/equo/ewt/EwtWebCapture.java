@@ -23,6 +23,7 @@ public final class EwtWebCapture {
         // Flatten: run the state's build() in Java (post-construction, fields initialized) and
         // serialize the built tree. The browser never sees a Sub* node.
         SubState<?> state = (SubState<?>) sw.createStateFn();
+        state.setWebWidget(sw);
         EwtNode root = flatten(state, serializing);
         return new EwtCapture(root, serializing.callbacks(), state);
       }
