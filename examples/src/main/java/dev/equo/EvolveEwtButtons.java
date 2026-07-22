@@ -79,7 +79,7 @@ public class EvolveEwtButtons {
         EwtWidget counter = new EwtWidget(right, SWT.NONE);
         counter.setPreferredSize(SWT.DEFAULT, 220);
         counter.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-        counter.setWidget(() -> new EwtThemedCounter("EWT Themed"));
+        counter.setWidget(() -> new EwtListDemo());
 
         shell.open();
         while (!shell.isDisposed()) {
