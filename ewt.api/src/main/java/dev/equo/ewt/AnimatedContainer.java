@@ -40,30 +40,45 @@ public class AnimatedContainer extends ImplicitlyAnimatedWidget implements Anima
     return AnimatedContainerAnimatedContainerBuilder.animatedContainerAnimatedContainer();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerChild not supported on web");
     return new Widget(AnimatedContainerObjSt.child(st)) {};
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerAlignment not supported on web");
     return new AlignmentGeometry(AnimatedContainerObjSt.alignment(st)) {};
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerPadding not supported on web");
     return new EdgeInsetsGeometry(AnimatedContainerObjSt.padding(st)) {};
   }
   public Decoration decoration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerDecoration not supported on web");
     return new Decoration(AnimatedContainerObjSt.decoration(st)) {};
   }
   public Decoration foregroundDecoration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerForegroundDecoration not supported on web");
     return new Decoration(AnimatedContainerObjSt.foregroundDecoration(st)) {};
   }
   public BoxConstraints constraints() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedContainerConstraints", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
+      return new BoxConstraints(__st);
+    }
     return new BoxConstraints(AnimatedContainerObjSt.constraints(st));
   }
   public EdgeInsetsGeometry margin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerMargin not supported on web");
     return new EdgeInsetsGeometry(AnimatedContainerObjSt.margin(st)) {};
   }
   public AlignmentGeometry transformAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerTransformAlignment not supported on web");
     return new AlignmentGeometry(AnimatedContainerObjSt.transformAlignment(st)) {};
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedContainerClipBehavior not supported on web");
     return Clip.values()[AnimatedContainerObjSt.clipBehavior(st)];
   }
   @Override

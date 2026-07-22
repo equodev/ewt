@@ -30,15 +30,19 @@ public class Stack extends MultiChildRenderObjectWidget implements StackI {
     return StackStackBuilder.stackStack();
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stackAlignment not supported on web");
     return new AlignmentGeometry(StackObjSt.alignment(st)) {};
   }
   public TextDirection textDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stackTextDirection not supported on web");
     return TextDirection.values()[StackObjSt.textDirection(st)];
   }
   public StackFit fit() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stackFit not supported on web");
     return StackFit.values()[StackObjSt.fit(st)];
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stackClipBehavior not supported on web");
     return Clip.values()[StackObjSt.clipBehavior(st)];
   }
   @Override

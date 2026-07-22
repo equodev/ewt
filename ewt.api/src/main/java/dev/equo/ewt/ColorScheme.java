@@ -394,153 +394,399 @@ public class ColorScheme extends NativeObj.Base implements ColorSchemeI {
     return new ColorScheme(st);
   }
   public Brightness brightness() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("colorSchemeBrightness not supported on web");
     return Brightness.values()[ColorSchemeObjSt.brightness(st)];
   }
   public Color primary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemePrimary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.primary(st));
   }
   public Color onPrimary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnPrimary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onPrimary(st));
   }
   public Color secondary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSecondary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.secondary(st));
   }
   public Color onSecondary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnSecondary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onSecondary(st));
   }
   public Color error() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeError", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.error(st));
   }
   public Color onError() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnError", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onError(st));
   }
   public Color surface() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurface", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surface(st));
   }
   public Color onSurface() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnSurface", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onSurface(st));
   }
   public Color primaryContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemePrimaryContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.primaryContainer(st));
   }
   public Color onPrimaryContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnPrimaryContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onPrimaryContainer(st));
   }
   public Color primaryFixed() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemePrimaryFixed", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.primaryFixed(st));
   }
   public Color primaryFixedDim() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemePrimaryFixedDim", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.primaryFixedDim(st));
   }
   public Color onPrimaryFixed() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnPrimaryFixed", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onPrimaryFixed(st));
   }
   public Color onPrimaryFixedVariant() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnPrimaryFixedVariant", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onPrimaryFixedVariant(st));
   }
   public Color secondaryContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSecondaryContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.secondaryContainer(st));
   }
   public Color onSecondaryContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnSecondaryContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onSecondaryContainer(st));
   }
   public Color secondaryFixed() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSecondaryFixed", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.secondaryFixed(st));
   }
   public Color secondaryFixedDim() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSecondaryFixedDim", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.secondaryFixedDim(st));
   }
   public Color onSecondaryFixed() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnSecondaryFixed", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onSecondaryFixed(st));
   }
   public Color onSecondaryFixedVariant() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnSecondaryFixedVariant", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onSecondaryFixedVariant(st));
   }
   public Color tertiary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeTertiary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.tertiary(st));
   }
   public Color onTertiary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnTertiary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onTertiary(st));
   }
   public Color tertiaryContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeTertiaryContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.tertiaryContainer(st));
   }
   public Color onTertiaryContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnTertiaryContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onTertiaryContainer(st));
   }
   public Color tertiaryFixed() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeTertiaryFixed", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.tertiaryFixed(st));
   }
   public Color tertiaryFixedDim() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeTertiaryFixedDim", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.tertiaryFixedDim(st));
   }
   public Color onTertiaryFixed() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnTertiaryFixed", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onTertiaryFixed(st));
   }
   public Color onTertiaryFixedVariant() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnTertiaryFixedVariant", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onTertiaryFixedVariant(st));
   }
   public Color errorContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeErrorContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.errorContainer(st));
   }
   public Color onErrorContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnErrorContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onErrorContainer(st));
   }
   public Color surfaceVariant() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceVariant", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceVariant(st));
   }
   public Color surfaceDim() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceDim", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceDim(st));
   }
   public Color surfaceBright() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceBright", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceBright(st));
   }
   public Color surfaceContainerLowest() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceContainerLowest", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceContainerLowest(st));
   }
   public Color surfaceContainerLow() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceContainerLow", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceContainerLow(st));
   }
   public Color surfaceContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceContainer", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceContainer(st));
   }
   public Color surfaceContainerHigh() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceContainerHigh", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceContainerHigh(st));
   }
   public Color surfaceContainerHighest() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceContainerHighest", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceContainerHighest(st));
   }
   public Color onSurfaceVariant() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnSurfaceVariant", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onSurfaceVariant(st));
   }
   public Color outline() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOutline", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.outline(st));
   }
   public Color outlineVariant() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOutlineVariant", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.outlineVariant(st));
   }
   public Color shadow() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeShadow", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.shadow(st));
   }
   public Color scrim() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeScrim", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.scrim(st));
   }
   public Color inverseSurface() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeInverseSurface", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.inverseSurface(st));
   }
   public Color onInverseSurface() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnInverseSurface", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onInverseSurface(st));
   }
   public Color inversePrimary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeInversePrimary", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.inversePrimary(st));
   }
   public Color surfaceTint() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeSurfaceTint", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.surfaceTint(st));
   }
   public Color background() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeBackground", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.background(st));
   }
   public Color onBackground() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorSchemeOnBackground", getId());
+      return new Color(__nid);
+    }
     return new Color(ColorSchemeObjSt.onBackground(st));
   }
   @Override

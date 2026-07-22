@@ -81,66 +81,121 @@ public class TabBar extends StatefulWidget implements PreferredSizeWidget, TabBa
     return TabBarSecondaryBuilder.tabBarSecondary(tabs);
   }
   public boolean isScrollable() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarIsScrollable not supported on web");
     return intToBool(TabBarObjSt.isScrollable(st));
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarPadding not supported on web");
     return new EdgeInsetsGeometry(TabBarObjSt.padding(st)) {};
   }
   public Color indicatorColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarIndicatorColor", getId());
+      return new Color(__nid);
+    }
     return new Color(TabBarObjSt.indicatorColor(st));
   }
   public double indicatorWeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarIndicatorWeight not supported on web");
     return TabBarObjSt.indicatorWeight(st);
   }
   public EdgeInsetsGeometry indicatorPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarIndicatorPadding not supported on web");
     return new EdgeInsetsGeometry(TabBarObjSt.indicatorPadding(st)) {};
   }
   public Decoration indicator() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarIndicator not supported on web");
     return new Decoration(TabBarObjSt.indicator(st)) {};
   }
   public boolean automaticIndicatorColorAdjustment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarAutomaticIndicatorColorAdjustment not supported on web");
     return intToBool(TabBarObjSt.automaticIndicatorColorAdjustment(st));
   }
   public TabBarIndicatorSize indicatorSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarIndicatorSize not supported on web");
     return TabBarIndicatorSize.values()[TabBarObjSt.indicatorSize(st)];
   }
   public Color dividerColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarDividerColor", getId());
+      return new Color(__nid);
+    }
     return new Color(TabBarObjSt.dividerColor(st));
   }
   public double dividerHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarDividerHeight not supported on web");
     return TabBarObjSt.dividerHeight(st);
   }
   public Color labelColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarLabelColor", getId());
+      return new Color(__nid);
+    }
     return new Color(TabBarObjSt.labelColor(st));
   }
   public Color unselectedLabelColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarUnselectedLabelColor", getId());
+      return new Color(__nid);
+    }
     return new Color(TabBarObjSt.unselectedLabelColor(st));
   }
   public TextStyle labelStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarLabelStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
     return new TextStyle(TabBarObjSt.labelStyle(st));
   }
   public TextStyle unselectedLabelStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarUnselectedLabelStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
     return new TextStyle(TabBarObjSt.unselectedLabelStyle(st));
   }
   public EdgeInsetsGeometry labelPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarLabelPadding not supported on web");
     return new EdgeInsetsGeometry(TabBarObjSt.labelPadding(st)) {};
   }
   public DragStartBehavior dragStartBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarDragStartBehavior not supported on web");
     return DragStartBehavior.values()[TabBarObjSt.dragStartBehavior(st)];
   }
   public boolean enableFeedback() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarEnableFeedback not supported on web");
     return intToBool(TabBarObjSt.enableFeedback(st));
   }
   public BorderRadius splashBorderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarSplashBorderRadius", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderRadiusObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderRadiusObjSt.id(__st, __nid);
+      return new BorderRadius(__st);
+    }
     return new BorderRadius(TabBarObjSt.splashBorderRadius(st));
   }
   public TabAlignment tabAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarTabAlignment not supported on web");
     return TabAlignment.values()[TabBarObjSt.tabAlignment(st)];
   }
   public TabIndicatorAnimation indicatorAnimation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarIndicatorAnimation not supported on web");
     return TabIndicatorAnimation.values()[TabBarObjSt.indicatorAnimation(st)];
   }
   public boolean tabHasTextAndIcon() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarTabHasTextAndIcon not supported on web");
     return intToBool(TabBarObjSt.tabHasTextAndIcon(st));
   }
   @Override

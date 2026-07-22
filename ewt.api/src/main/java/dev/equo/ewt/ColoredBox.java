@@ -27,6 +27,11 @@ public class ColoredBox extends SingleChildRenderObjectWidget implements Colored
     return ColoredBoxColoredBoxBuilder.coloredBoxColoredBox(color);
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("coloredBoxColor", getId());
+      return new Color(__nid);
+    }
     return new Color(ColoredBoxObjSt.color(st));
   }
   @Override

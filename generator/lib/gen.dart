@@ -74,6 +74,8 @@ class WidgetGen implements AGen {
   StringBuffer dartAssigns = StringBuffer();
   StringBuffer dartFns = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaSerializer = StringBuffer();
+  StringBuffer dartWebDecoders = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
 
   String? _pendingStructHeader;
@@ -360,6 +362,8 @@ class WidgetGen implements AGen {
     } else {
       writeJavaFactoryForStatic(node, factoryName, factory);
     }
+    writeJavaSerializer(node, factoryName, factory);
+    writeWebDecoder(factory, factoryName, node);
     // headerFile
     // .writeln("    int (*$factory)(${cParams.decl});");
     // CLang(generation).writeField(headerFile, factory, 'int', params: node.parameters);
@@ -391,8 +395,26 @@ class WidgetGen implements AGen {
     String factory = node.name!;
     String factoryName = '$widgetField${factory.firstUpper()}';
     writeJavaInstanceMethod(node, factoryName, factory);
+    writeJavaSerializer(node, factoryName, factory);
     writeCFactory(factory, node, 'int');
     writeDInstanceMethod(factory, factoryName, node, companionClassName);
+    writeWebInstanceDecoder(factory, factoryName, node);
+  }
+
+  /// Web decoder for a companion instance method: `receiver.method(args)`. The receiver is the
+  /// first companion param (a recorded node); remaining params decode from JSON. A method with no
+  /// extra args is emitted as a getter access (matches Flutter getters like MaterialColor.shade600).
+  void writeWebInstanceDecoder(String factory, String factoryName, FunctionTypedElement node) {
+    if (node.returnType is VoidType) return;
+    if (!_webDecodable(node)) return;
+    final recv = node.parameters.first;
+    final recvType = recv.type is InterfaceType ? (recv.type as InterfaceType).element.name : 'dynamic';
+    final recvExpr = "decodeEwtNode(p['${recv.name}'] as Map<String,dynamic>) as $recvType";
+    final rest = node.parameters.skip(1).toList();
+    final call = rest.isEmpty
+        ? '.$factory'
+        : '.$factory(${Params(types, rest, Params.paramDef4D, paramValue: Params.paramValueJson).names})';
+    dartWebDecoders.writeln("  '$factoryName': (p) => ($recvExpr)$call,");
   }
 
   void writeJavaInstanceMethod(FunctionTypedElement node, String factoryName, String factory) {
@@ -530,6 +552,156 @@ class WidgetGen implements AGen {
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
   }
 
+  /// Emits one @Override into [javaSerializer] that records the factory call
+  /// as an EwtNode and returns an id-only *ObjSt (or an int id for plain
+  /// DartObj returns). The signature matches the WidgetConstructors method
+  /// exactly so @Override resolves at compile time.
+  void writeJavaSerializer(FunctionTypedElement node, String factoryName, String factory) {
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    final retType = types.type4FFMRet(node.returnType);
+    final isObjSt = retType == 'MemorySegment';
+    // Build the return ObjSt class name: e.g. MemorySegment textText(...) uses TextObjSt.
+    String? objStClass;
+    if (isObjSt) {
+      var gen = types.getGen(node.returnType.element!);
+      objStClass = gen.objType(); // e.g. TextObjSt
+    }
+
+    // Skip factories that do not produce a serializable widget/value node: void returns, and
+    // opaque native objects (a MemorySegment whose backing type is not an *ObjSt struct we can
+    // allocate an id into). These stay inherited from WidgetConstructors (FFM); they are never
+    // called when rendering a static subtree on web.
+    if (retType == 'void') return;
+    if (isObjSt && !(objStClass?.endsWith('ObjSt') ?? false)) return;
+
+    // Match the FFM method's own type parameters (e.g. <T extends StatefulWidget>) so the
+    // @Override resolves for generic factories.
+    final jtp = JLang().methodTypeParameters(node.type);
+
+    // ListView.builder special-case: eager-expand itemBuilder into a plain listViewListView node.
+    // Instead of recording an inert callback id, we call itemBuilder for each index and collect
+    // the resulting widget nodes as children, then record a listViewListView node. This lets the
+    // browser decode it with the existing plain ListView decoder without any builder callback.
+    if (factoryName == 'listViewBuilder') {
+      javaSerializer
+        ..writeln('  @Override')
+        ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
+        ..writeln('    int id = nextId++;')
+        ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
+      // Emit eager children expansion in place of itemBuilder/itemCount serialization.
+      javaSerializer
+        ..writeln('    if (itemCount.isPresent()) {')
+        ..writeln('      java.util.List<Object> __children = new java.util.ArrayList<>();')
+        ..writeln('      BuildContext __ctx = EwtWebCapture.stubContext();')
+        ..writeln('      for (int __i = 0; __i < itemCount.getAsInt(); __i++) {')
+        ..writeln('        Widget __w = itemBuilder.apply(__ctx, __i);')
+        ..writeln('        if (__w == null) break;')
+        ..writeln('        __children.add(byId.get(__w.getId()));')
+        ..writeln('      }')
+        ..writeln('      p.put("children", __children);')
+        ..writeln('    }');
+      // Serialize every other supported param except itemBuilder and itemCount.
+      for (final param in node.parameters.where((p) => types.supportedType(p.type))) {
+        if (param.name == 'itemBuilder' || param.name == 'itemCount') continue;
+        final stmt = Params.paramValueSerialize(types, param);
+        if (stmt.isNotEmpty) javaSerializer.writeln('    $stmt');
+      }
+      javaSerializer
+        ..writeln('    record(id, "listViewListView", p);')
+        ..writeln('    MemorySegment st = ${objStClass!}.allocate(arena);')
+        ..writeln('    $objStClass.id(st, id);')
+        ..writeln('    return st;')
+        ..writeln('  }');
+      return;
+    }
+
+    javaSerializer
+      ..writeln('  @Override')
+      ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
+      ..writeln('    int id = nextId++;')
+      ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
+
+    for (final param in node.parameters.where((p) => types.supportedType(p.type))) {
+      final stmt = Params.paramValueSerialize(types, param);
+      if (stmt.isNotEmpty) {
+        javaSerializer.writeln('    $stmt');
+      }
+    }
+
+    javaSerializer
+      ..writeln('    record(id, "$factoryName", p);');
+
+    if (isObjSt && objStClass != null) {
+      javaSerializer
+        ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
+        ..writeln('    $objStClass.id(st, id);');
+      // MaterialColor's shadeXXX() getters read native int fields (a color id). Populate them
+      // from the swatch so those getters return the right color off-native (each swatch color
+      // is itself a recorded node). The struct fields are ints, so we store the color's id.
+      if (factoryName == 'materialColorMaterialColor') {
+        for (final k in const [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]) {
+          javaSerializer.writeln('    $objStClass.shade$k(st, swatch.get($k) != null ? swatch.get($k).getId() : 0);');
+        }
+      }
+      javaSerializer.writeln('    return st;');
+    } else {
+      javaSerializer.writeln('    return id;');
+    }
+    javaSerializer.writeln('  }');
+  }
+
+  /// Emits one entry into [dartWebDecoders]: `'factoryName': (p) => WidgetClass[.factory](args)`,
+  /// where each arg is decoded from the node's JSON params (mirrors writeDFactory's construction
+  /// call with the paramValueJson strategy). Skips void factories (no value to build).
+  void writeWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
+    if (node.returnType is VoidType) return;
+    // MaterialColor (Colors.indigo(), Colors.amber(), ...) is a Color subclass built from a
+    // primary ARGB int plus a swatch Map. The Map param makes it non-web-decodable, but the
+    // swatch is never needed off-native: shadeXXX() accessors are pre-resolved to concrete Color
+    // nodes at serialize time (see the materialColorMaterialColor special-case in
+    // writeJavaSerializer), so a MaterialColor is only ever consumed AS a Color on web. Rebuild
+    // it from primary with an empty swatch. Without this, using a MaterialColor directly as a
+    // color yields a null-decoded param and the enclosing decoder's `as Color` cast throws.
+    if (factoryName == 'materialColorMaterialColor') {
+      dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
+      return;
+    }
+    // ListView.builder is eager-expanded to listViewListView at serialize time; no builder decoder.
+    if (factoryName == 'listViewBuilder') return;
+    if (!_webDecodable(node)) return;
+    final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
+    final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';
+    dartWebDecoders.writeln("  '$factoryName': (p) => $ctor(${jsonParams.names}),");
+  }
+
+  /// Whether a factory can be rebuilt from a serialized JSON tree in pure Dart. Excludes
+  /// out-of-scope constructions that need live runtime objects or non-inert callbacks:
+  /// EWT state wrappers (Sub*), render-layer internals (*ParentData), Animation/CurvedAnimation
+  /// params, Map params, and builder callbacks that return a value (an inert closure can't stand
+  /// in for a widget-returning builder). These fall back to "no decoder" (logged) at runtime.
+  bool _webDecodable(FunctionTypedElement node) {
+    if (widgetClass.startsWith('Sub') || widgetClass.endsWith('ParentData')) return false;
+    // Dialogs are shown imperatively (showDialog + BuildContext), not placed in a static tree.
+    if (widgetClass.endsWith('Dialog')) return false;
+    for (final p in node.parameters.where((p) => types.supportedType(p.type))) {
+      final t = p.type;
+      if (t is InterfaceType) {
+        final n = t.element.name;
+        if (n == 'Animation' || n == 'CurvedAnimation' || t.isDartCoreMap) return false;
+        // OverflowBoxFit lives in Flutter's private src/rendering and is not re-exported by
+        // any public library, so the web decoder file cannot import it. Skip OverflowBox on web.
+        if (n == 'OverflowBoxFit') return false;
+      }
+      if (t is FunctionType && t.returnType is! VoidType && !p.isOptional) return false;
+      final alias = t.alias;
+      if (alias != null) {
+        final at = alias.element.aliasedType;
+        if (at is FunctionType && at.returnType is! VoidType) return false;
+      }
+    }
+    return true;
+  }
+
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
     final retType = types.type4FFMRet(node.returnType);
     if (node.returnType is VoidType) {
@@ -568,6 +740,39 @@ class WidgetGen implements AGen {
       ..writeln('  }');
   }
 
+  /// Web-mode support for a private-const accessor (family B: static const value
+  /// objects backed by a native struct field, e.g. FontWeight.w700, Curves.linear,
+  /// TextDecoration.underline). The FFM const method reads a native table
+  /// (a WidgetFactories struct field) which is null off-native -> NPE. So:
+  ///   (a) override it in SerializingWidgetConstructors to record a node keyed by
+  ///       factoryName and return the node id (no native call), and
+  ///   (b) emit a web decoder mapping factoryName to the matching Flutter const,
+  ///       which is exactly `WidgetClass.fieldName` (the field is a public
+  ///       const of the Flutter class; only its initializer's constructor is private).
+  void writeConstSerializerAndDecoder(ConstFieldElementImpl fld, String factoryName) {
+    var gen = types.getGen(fld.type.element!);
+    final isObjSt = gen.objType().endsWith('ObjSt');
+    final retType = isObjSt ? 'MemorySegment' : 'int';
+    javaSerializer
+      ..writeln('  @Override')
+      ..writeln('  $retType $factoryName() {')
+      ..writeln('    int id = nextId++;')
+      ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();')
+      ..writeln('    record(id, "$factoryName", p);');
+    if (isObjSt) {
+      final objStClass = gen.objType();
+      javaSerializer
+        ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
+        ..writeln('    $objStClass.id(st, id);')
+        ..writeln('    return st;');
+    } else {
+      javaSerializer.writeln('    return id;');
+    }
+    javaSerializer.writeln('  }');
+
+    dartWebDecoders.writeln("  '$factoryName': (p) => $widgetClass.${fld.name},");
+  }
+
   bool isPrivateConst(ConstFieldElementImpl fld) {
     var initializer = fld.constantInitializer;
     if (initializer is InstanceCreationExpression) {
@@ -598,6 +803,7 @@ class WidgetGen implements AGen {
           ..writeln('    System.out.println("Const $factory id:"+id);')
           ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
         writeJavaConstMethod(factoryName, factory, fld);
+        writeConstSerializerAndDecoder(fld, factoryName);
       } else {
         javaFile.writeln(
             '    return ${dartExptrToJava(initializer as Expression)};');
@@ -739,20 +945,75 @@ abstract class ObjStGen extends WidgetGen {
     objectsHFile.writeln('} $widgetSt;');
   }
 
-  /// Generates a field accessor for java
+  /// True when this class is a pure value-object (not a Flutter Widget subclass).
+  /// Widget classes (Icon, Container, …) already have constructor factory decoders in the web
+  /// map; emitting accessor decoders for them would create duplicate keys. Value-objects
+  /// (ColorScheme, TextStyle, TextTheme, …) have no constructor factory decoder, so accessor
+  /// decoders are safe.
+  bool get _isValueObject => !dartClass.allSupertypes.any(
+      (s) => s.element.name == 'StatelessWidget' || s.element.name == 'StatefulWidget');
+
+  /// Generates a field accessor for java.
+  /// On web: ObjSt-backed returns record a {t, receiver} node and return a node-backed value-object;
+  /// int-backed concrete (Color) similarly. Enum/primitive/String/abstract accessors throw on web.
   void writeJavaFieldAccessor(FieldElement field, {bool useInvoke = false}) {
-    javaFile
-      ..writeln('  public ${types.type4J(field.type)} ${field.name}() {');
-    
+    final retJ = types.type4J(field.type);
+    final factoryName = '$widgetField${field.name.firstUpper()}';
+    final gen = types.getGen(field.type.element!);
+    final objType = gen.objType();
+    final isObjSt = objType.endsWith('ObjSt');
+    // Concrete (non-abstract) DartObj-backed value-objects with a (int id) ctor, e.g. Color.
+    final isIntBackedObj = objType == 'DartObj'
+        && field.type.element is! EnumElement
+        && !isPrimitive(field.type)
+        && !field.type.isDartCoreString
+        && field.type.element is ClassElement
+        && !(field.type.element as ClassElement).isAbstract;
+
+    javaFile.writeln('  public $retJ ${field.name}() {');
+
+    // MaterialColor shade accessors (shade50..shade900) keep the NATIVE struct read: the
+    // materialColorMaterialColor serializer already populates the shade struct fields from the
+    // swatch (a family-A special-case), so the native branch works off-native and each shade
+    // resolves to its concrete swatch color node. The generic accessor-node web branch would
+    // instead decode `.shadeXXX` on a browser MaterialColor with an EMPTY swatch -> null-check
+    // crash. So skip the web branch for MaterialColor and let the native read fire.
+    final skipWebBranch = widgetClass == 'MaterialColor';
+
+    // Web branch: record the accessor as a node chained off this receiver, return a node-backed value.
+    if (!skipWebBranch && (isObjSt || isIntBackedObj)) {
+      javaFile
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
+        ..writeln('      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;')
+        ..writeln('      int __nid = __s.recordAccessor("$factoryName", getId());');
+      if (isObjSt) {
+        // Use fully-qualified ObjSt name: each class only imports its own ObjSt.
+        javaFile
+          ..writeln('      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.$objType.allocate(__s.arena);')
+          ..writeln('      dev.equo.ewt.ffm.$objType.id(__st, __nid);')
+          ..writeln('      return new $retJ(__st);');
+      } else {
+        javaFile.writeln('      return new $retJ(__nid);');
+      }
+      javaFile.writeln('    }');
+      // Web decoder: only for value-objects — widget classes already have constructor factory
+      // decoders with the same name, so accessor decoders would create duplicate map keys.
+      if (_isValueObject) {
+        dartWebDecoders.writeln("  '$factoryName': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as $widgetClass).${field.name},");
+      }
+    } else if (!skipWebBranch) {
+      // Enum/primitive/String/abstract accessor: value is only known to Flutter, not serializable as a node.
+      javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("$factoryName not supported on web");');
+    }
+
+    // Native branch (unchanged).
     if (useInvoke) {
       javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
         ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}.invoke(funcPtr)', field.type))};');
     } else {
-      javaFile
-        .writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
+      javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
     }
-    
     javaFile.writeln('  }');
   }
 
@@ -898,23 +1159,54 @@ class SubclassGen extends ObjStGen {
     }
     
     writeStructHeader();
-    
+
     for (final field in callableFields()) {
       objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
-      writeJavaFieldAccessor(field, useInvoke: true);
+      // SubState.widget(): on web, return the owning widget stored by setWebWidget during flatten.
+      if (widgetClass == 'SubState' && field.name == 'widget') {
+        final retJ = types.type4J(field.type);
+        javaFile
+          ..writeln('  @SuppressWarnings("unchecked")')
+          ..writeln('  public $retJ ${field.name}() {')
+          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
+          ..writeln('      return ($retJ) webWidget;')
+          ..writeln('    }')
+          ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
+          ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.${field.name}.invoke(funcPtr));')
+          ..writeln('  }');
+      } else {
+        writeJavaFieldAccessor(field, useInvoke: true);
+      }
     }
     
     for (final method in callableMethods()) {
       objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
       javaFile
-        ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {')
+        ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
+      // Web-mode setState: run the mutation locally and request a rebuild via EwtWebState.
+      if (widgetClass == 'SubState' && method.name == 'setState') {
+        javaFile
+          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
+          ..writeln('      fn.run();')
+          ..writeln('      EwtWebState.requestRebuild(this);')
+          ..writeln('      return;')
+          ..writeln('    }');
+      }
+      javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${method.name}(st);')
         ..writeln('    $widgetSt.${method.name}.invoke(funcPtr, factories.${jParams.names});')
         ..writeln('  }');
     }
-    
+
     writeStructFooter();
+
+    // SubState needs a web-mode widget() that returns the owning widget stored during flatten.
+    if (widgetClass == 'SubState') {
+      javaFile
+        ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
+        ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
+    }
   }
 
   Iterable<FieldElement> callableFields() {
@@ -1118,6 +1410,40 @@ bool hasPrivateDefault(ParameterElement p) {
   return resolved == null || _privateSymbol.hasMatch(resolved);
 }
 
+// A callback param is "zero-arg" when its function type takes no parameters
+// (Runnable / VoidCallback). Such callbacks can be fired from Java with no argument,
+// so Phase 2 wires them. Arg-carrying callbacks (Consumer<Boolean>, gesture details)
+// return false and stay inert. Resolves through a typedef alias when present.
+bool _isZeroArgCallback(DartType t) {
+  FunctionType? ft;
+  if (t is FunctionType) {
+    ft = t;
+  } else if (t.alias != null && t.alias!.element.aliasedType is FunctionType) {
+    ft = t.alias!.element.aliasedType as FunctionType;
+  }
+  if (ft == null) return false;
+  return ft.parameters.isEmpty;
+}
+
+// A value callback carries a single scalar arg the generator can coerce on the Java side.
+// Returns the Java boxed type ('Boolean' / 'String') for a one-parameter bool/String callback,
+// else null. Resolves through a typedef alias when present.
+String? _valueCallbackJavaType(DartType t) {
+  FunctionType? ft;
+  if (t is FunctionType) {
+    ft = t;
+  } else if (t.alias != null && t.alias!.element.aliasedType is FunctionType) {
+    ft = t.alias!.element.aliasedType as FunctionType;
+  }
+  if (ft == null || ft.parameters.length != 1) return null;
+  final at = ft.parameters.first.type;
+  if (at is InterfaceType) {
+    if (at.isDartCoreBool) return 'Boolean';
+    if (at.isDartCoreString) return 'String';
+  }
+  return null;
+}
+
 class Generation {
   Set<Element> processed = {};
   Set<Element> classesWithSetup = {};
@@ -1127,6 +1453,8 @@ class Generation {
   StringBuffer typedefFile = StringBuffer();
   StringBuffer dartFactories = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaSerializer = StringBuffer();
+  StringBuffer dartWebDecoders = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
 
   List<ClassElement> widgets;
@@ -1359,6 +1687,12 @@ class Generation {
     if (widGen.javaFactories.isNotEmpty) {
       javaFactories.writeln(widGen.javaFactories);
     }
+    if (widGen.javaSerializer.isNotEmpty) {
+      javaSerializer.writeln(widGen.javaSerializer);
+    }
+    if (widGen.dartWebDecoders.isNotEmpty) {
+      dartWebDecoders.writeln(widGen.dartWebDecoders);
+    }
     if (widGen.javaStatics.isNotEmpty) {
       javaStatics.writeln(widGen.javaStatics);
     }
@@ -1393,6 +1727,8 @@ class Generation {
     _writeD('factories_gen.dart', dartFactories.toString());
     _writeJ('WidgetConstructors', javaFactories.toString());
     _writeJ('EWT', javaStatics.toString());
+    _writeJ('SerializingWidgetConstructors', _buildSerializingClass(javaSerializer.toString()));
+    _writeWW('factories_web_gen.dart', _buildWebDecoders(dartWebDecoders.toString()));
 
     for (var t in types.unsupportedTypes) {
       print('Unsupported type $t');
@@ -1400,6 +1736,55 @@ class Generation {
     for (var w in droppedWidgets) {
       print('Widget ${w.name}: no factory emitted (all constructors have unsupported required params) — only Java class generated (used as parent type)');
     }
+  }
+
+  /// Wraps the accumulated per-factory override snippets in the
+  /// SerializingWidgetConstructors class shell (package, imports, core fields).
+  String _buildSerializingClass(String overrides) {
+    return '''package dev.equo.ewt;
+import dev.equo.ewt.ffm.*;
+import dev.equo.ewt.util.*;
+import dev.equo.ewt.web.EwtNode;
+import java.lang.foreign.MemorySegment;
+import java.util.*;
+import java.util.function.*;
+public class SerializingWidgetConstructors extends WidgetConstructors {
+  private int nextId = 1;
+  private int nextCallbackId = 1;
+  private final Map<Integer, EwtNode> byId = new HashMap<>();
+  private final Map<Integer, Object> callbacks = new HashMap<>();
+  public Map<Integer, Object> callbacks() { return callbacks; }
+  public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
+    if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
+  private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
+  public int recordAccessor(String type, int receiverId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    EwtNode recv = byId.get(receiverId);
+    if (recv != null) p.put("receiver", recv);
+    record(id, type, p);
+    return id;
+  }
+$overrides}
+''';
+  }
+
+  /// Wraps the accumulated per-factory decoder entries in the generated web-factories map. Pure
+  /// Dart (no dart:ffi). Circular import with decode.dart (for decodeEwtNode) is fine for libraries.
+  String _buildWebDecoders(String entries) {
+    return '''// GENERATED by generator/lib/gen.dart. Do not edit by hand.
+import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
+import 'dart:ui' show ColorSpace;
+import 'decode.dart';
+import 'callbacks.dart';
+
+final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
+$entries};
+
+final Set<String> unsupportedFactories = {};
+''';
   }
 
   String genCFactories() {
@@ -1521,7 +1906,9 @@ class Params {
       {this.allTypes = false, String Function(Types, ParameterElement) paramValue = _paramName, String Function(Types, ParameterElement) escape = _paramName}) {
     var filtered = (allTypes ? parameters : parameters.where((p) => types.supportedType(p.type)))
         .where((p) => !hasPrivateDefault(p));
-    names = filtered.map((p) => paramValue(types, p)).join(',\n      ');
+    // Empty string is the "skip" sentinel (see paramValueJson / _paramValueJsonRaw); filter out
+    // so that optional value-returning fn params are omitted from the constructor call entirely.
+    names = filtered.map((p) => paramValue(types, p)).where((v) => v.isNotEmpty).join(',\n      ');
     var mandatory = filtered.takeWhile((p) => p.isRequired);
     builderDecl = filtered.map((p) => '${paramDef(types, p, annotated: mandatory.contains(p), wrap: p.isOptional)} ${escape(types, p)}').join(', ');
     decl = filtered.map((p) => '${paramDef(types, p, wrap: p.isOptional)} ${escape(types, p)}').join(', ');
@@ -1726,6 +2113,216 @@ class Params {
       value = '${param.name}: $value';
     }
     return value;
+  }
+
+  /// Returns a Java statement (no leading indent, with trailing semicolon) that
+  /// records [param] into the local Map<String,Object> variable named {@code p}.
+  /// Mirrors the type dispatch of [paramValue4D] but targets Java serialization
+  /// rather than Dart FFI bridge calls.
+  /// Returns a Dart expression that decodes [param] from the local `Map<String,dynamic> p`
+  /// (the node's params), mirroring the type dispatch of [paramValue4D] but reading JSON values
+  /// instead of FFI pointers. Object-refs and list elements recurse through `decodeEwtNode`.
+  static String paramValueJson(Types types, ParameterElement param) {
+    final value = _paramValueJsonRaw(types, param);
+    // Empty string is the "skip" sentinel (e.g. optional value-returning fn params) — propagate
+    // it as-is so Params.names can filter it out; avoid emitting "name: " for skipped params.
+    if (value.isEmpty) return '';
+    // Named constructor params must carry their name (mirrors paramValue4D); positional don't.
+    return param.isNamed ? '${param.name}: $value' : value;
+  }
+
+  static String _paramValueJsonRaw(Types types, ParameterElement param) {
+    final key = param.name;
+    final t = param.type;
+    final read = "p['$key']";
+    final h = types.getHandler(t);
+    // Callbacks are inert in this phase: a void closure that accepts any arity (optional
+    // positional Object? params make it assignable to VoidCallback / ValueChanged / etc.).
+    if (h != null) {
+      // Zero-arg callbacks send their id with no args (Phase 2).
+      // Value callbacks (bool/String) send their id with the scalar arg (Phase 3).
+      // All other arg-carrying callbacks stay inert.
+      if (_isZeroArgCallback(t)) {
+        return "ewtWireCallback(p['$key'])";
+      }
+      if (_valueCallbackJavaType(t) != null) {
+        return "ewtWireValueCallback(p['$key'])";
+      }
+      // Optional value-returning fn params (e.g. Scaffold.bottomSheetScrimBuilder) have a
+      // non-nullable function type with a default; passing null would fail the type checker.
+      // Return empty string as a "skip" sentinel — paramValueJson propagates it unchanged,
+      // and Params.names filters it out so the widget constructor uses its own default.
+      if (t is FunctionType && t.returnType is! VoidType && param.isOptional) {
+        return '';
+      }
+      return '([Object? a, Object? b, Object? c]) {}';
+    }
+    if (t is InterfaceType && t.element.name == 'BuildContext') {
+      return 'ewtActiveBuildContext!';
+    }
+    if (t is InterfaceType) {
+      final elemName = t.element.name;
+      if (param.isOptional) {
+        // A non-nullable optional param carries a default (mirrors paramValue4D's .xOr(default));
+        // a nullable one may be left null.
+        final nonNull = t.nullabilitySuffix == NullabilitySuffix.none;
+        if (t.isDartCoreString) return nonNull ? '($read as String?) ?? ${param.defaultValueCode}' : '$read as String?';
+        if (t.isDartCoreBool) return nonNull ? '($read as bool?) ?? ${param.defaultValueCode ?? 'false'}' : '$read as bool?';
+        if (t.isDartCoreInt) return nonNull ? '($read as int?) ?? ${param.defaultValueCode}' : '$read as int?';
+        if (t.isDartCoreDouble) return nonNull ? '(($read as num?)?.toDouble()) ?? ${defaultDoubleCode(param)}' : '($read as num?)?.toDouble()';
+        if (t.isDartCoreList) return _listDecodeJson(read, t);
+        if (t.isDartCoreMap) return _mapDecodeJson(read, t);
+        if (t.element is EnumElement) return nonNull ? '$read == null ? ${defaultEnumCode(param)} : $elemName.values[$read as int]' : '$read == null ? null : $elemName.values[$read as int]';
+        return nonNull ? '$read == null ? ${defaultObjCode(param)} : decodeEwtNode($read as Map<String,dynamic>) as $elemName' : '$read == null ? null : decodeEwtNode($read as Map<String,dynamic>) as $elemName';
+      } else {
+        if (t.isDartCoreString) return '$read as String';
+        if (t.isDartCoreBool) return '$read as bool';
+        if (t.isDartCoreInt) return '$read as int';
+        if (t.isDartCoreDouble) return '($read as num).toDouble()';
+        if (t.isDartCoreList) return _listDecodeJson(read, t);
+        if (t.isDartCoreMap) return _mapDecodeJson(read, t);
+        if (t.element is EnumElement) return '$elemName.values[$read as int]';
+        return 'decodeEwtNode($read as Map<String,dynamic>) as $elemName';
+      }
+    }
+    return read;
+  }
+
+  /// Decodes a List param from JSON: scalars/Strings cast element-wise; enums via values[i];
+  /// object-refs/Widgets via decodeEwtNode.
+  static String _listDecodeJson(String read, InterfaceType listType) {
+    final elem = listType.typeArguments.isNotEmpty ? listType.typeArguments.first : null;
+    final base = "(($read as List?) ?? const [])";
+    if (elem is InterfaceType && elem.element is EnumElement) {
+      return '$base.map((e) => ${elem.element.name}.values[e as int]).toList()';
+    }
+    if (elem == null || isPrimitive(elem)) {
+      return '$base.cast<${elem?.getDisplayString() ?? 'dynamic'}>().toList()';
+    }
+    if (elem is InterfaceType && elem.isDartCoreString) {
+      return '$base.cast<String>().toList()';
+    }
+    final elemName = (elem is InterfaceType) ? elem.element.name : 'dynamic';
+    return '$base.map((e) => decodeEwtNode(e as Map<String,dynamic>) as $elemName).toList()';
+  }
+
+  /// Decodes a Map param from JSON (string keys). Int keys are parsed back; values follow the
+  /// same scalar/enum/object rules as list elements. Used e.g. for MaterialColor's swatch.
+  static String _mapDecodeJson(String read, InterfaceType mapType) {
+    final kt = mapType.typeArguments.isNotEmpty ? mapType.typeArguments.first : null;
+    final vt = mapType.typeArguments.length > 1 ? mapType.typeArguments[1] : null;
+    final keyName = (kt is InterfaceType) ? kt.element.name : 'dynamic';
+    final valName = (vt is InterfaceType) ? vt.element.name : 'dynamic';
+    final keyConv = (kt is InterfaceType && kt.isDartCoreInt)
+        ? 'int.parse(k as String)'
+        : (kt is InterfaceType && kt.isDartCoreString) ? 'k as String' : 'k';
+    String valConv;
+    if (vt is InterfaceType && vt.element is EnumElement) {
+      valConv = '$valName.values[v as int]';
+    } else if (vt == null || isPrimitive(vt) || (vt is InterfaceType && vt.isDartCoreString)) {
+      valConv = 'v as $valName';
+    } else {
+      valConv = 'decodeEwtNode(v as Map<String,dynamic>) as $valName';
+    }
+    return '(($read as Map?) ?? const {}).map((k, v) => MapEntry($keyConv, $valConv)).cast<$keyName, $valName>()';
+  }
+
+  /// The per-element map expression for a List param being serialized (variable {@code e}).
+  /// Scalars/Strings are recorded as-is; enums as their ordinal; object-refs/Widgets via the
+  /// recorded-node lookup, matching how single object-ref params are serialized.
+  /// Serializes a Map param to a Map with String keys: values follow the same scalar/enum/object
+  /// rules as list elements. Used e.g. for MaterialColor's swatch (Map&lt;int, Color&gt;).
+  static String _mapSerialize(String varName, InterfaceType mapType) {
+    final vt = mapType.typeArguments.length > 1 ? mapType.typeArguments[1] : null;
+    String valExpr;
+    if (vt is InterfaceType && vt.element is EnumElement) {
+      valExpr = 'en.getValue().ordinal()';
+    } else if (vt == null || isPrimitive(vt) || (vt is InterfaceType && vt.isDartCoreString)) {
+      valExpr = 'en.getValue()';
+    } else {
+      valExpr = 'byId.get(en.getValue().getId())';
+    }
+    return '$varName.entrySet().stream().collect(java.util.stream.Collectors.toMap(en -> String.valueOf(en.getKey()), en -> $valExpr))';
+  }
+
+  static String _listElemSerialize(InterfaceType listType) {
+    final elem = listType.typeArguments.isNotEmpty ? listType.typeArguments.first : null;
+    if (elem is InterfaceType && elem.element is EnumElement) return 'e.ordinal()';
+    if (elem == null || isPrimitive(elem) || (elem is InterfaceType && elem.isDartCoreString)) return 'e';
+    return 'byId.get(e.getId())';
+  }
+
+  static String paramValueSerialize(Types types, ParameterElement param) {
+    final name = Params.escape4J(types, param);
+    final key = param.name;
+    final t = param.type;
+    final h = types.getHandler(t);
+
+    // Callback: reserve a numeric id and optionally store the Runnable.
+    if (h != null) {
+      if (_isZeroArgCallback(t)) {
+        // Wire zero-arg callbacks: reserve the id, record it in the node, and keep the
+        // real Runnable so EwtWidget can fire it when the browser reports a click.
+        if (param.isOptional) {
+          return 'if ($name.isPresent()) { int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, $name.get()); }';
+        }
+        return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, $name);';
+      }
+      final vt = _valueCallbackJavaType(t);
+      if (vt != null) {
+        // Value callback: store a Consumer<Object> that coerces the JSON arg to the known Java
+        // type and calls the real Consumer, so EwtWidget can invoke it with the browser's value.
+        if (param.isOptional) {
+          return 'if ($name.isPresent()) { int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); java.util.function.Consumer<$vt> __h_$key = $name.get(); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> __h_$key.accept(($vt) v))); }';
+        }
+        return 'int __cb_$key = nextCallbackId++; p.put("$key", __cb_$key); callbacks.put(__cb_$key, (java.util.function.Consumer<Object>)(v -> $name.accept(($vt) v)));';
+      }
+      // Remaining arg-carrying callbacks stay inert: reserve the id only (future phase).
+      if (param.isOptional) {
+        return 'if ($name != null) { p.put("$key", nextCallbackId++); }';
+      }
+      return 'p.put("$key", nextCallbackId++);';
+    }
+
+    if (t is InterfaceType) {
+      if (param.isOptional) {
+        if (t.isDartCoreString || t.isDartCoreBool) {
+          // Optional<String> / Optional<Boolean> — use ifPresent lambda
+          return '$name.ifPresent(v -> p.put("$key", v));';
+        } else if (t.isDartCoreInt) {
+          // OptionalInt
+          return 'if ($name.isPresent()) { p.put("$key", $name.getAsInt()); }';
+        } else if (t.isDartCoreDouble) {
+          // OptionalDouble
+          return 'if ($name.isPresent()) { p.put("$key", $name.getAsDouble()); }';
+        } else if (t.isDartCoreList) {
+          return '$name.ifPresent(v -> p.put("$key", v.stream().map(e -> ${_listElemSerialize(t)}).collect(java.util.stream.Collectors.toList())));';
+        } else if (t.isDartCoreMap) {
+          return '$name.ifPresent(v -> p.put("$key", ${_mapSerialize('v', t)}));';
+        } else if (t.element is EnumElement) {
+          return '$name.ifPresent(v -> p.put("$key", v.ordinal()));';
+        } else {
+          // Optional<Widget/object>
+          return '$name.ifPresent(v -> p.put("$key", byId.get(v.getId())));';
+        }
+      } else {
+        // Required params
+        if (t.isDartCoreString || t.isDartCoreBool || t.isDartCoreInt || t.isDartCoreDouble) {
+          return 'p.put("$key", $name);';
+        } else if (t.isDartCoreList) {
+          return 'p.put("$key", $name.stream().map(e -> ${_listElemSerialize(t)}).collect(java.util.stream.Collectors.toList()));';
+        } else if (t.isDartCoreMap) {
+          return 'p.put("$key", ${_mapSerialize(name, t)});';
+        } else if (t.element is EnumElement) {
+          return 'p.put("$key", $name.ordinal());';
+        } else {
+          // Required object/Widget
+          return 'p.put("$key", byId.get($name.getId()));';
+        }
+      }
+    }
+    // Fallback for primitives / other types: record as-is
+    return 'p.put("$key", $name);';
   }
 
   static String? defaultEnumCode(ParameterElement param) {
@@ -2066,4 +2663,9 @@ void _writeD(String file, String content) {
 void _writeDCopy(String file, String content) {
   print('Generating $file');
   File('./lib/$file').writeAsStringSync(content);
+}
+
+void _writeWW(String file, String content) {
+  print('Generating $file');
+  File('../widgets_web/lib/$file').writeAsStringSync(content);
 }

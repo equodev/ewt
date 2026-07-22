@@ -27,6 +27,7 @@ public class RotatedBox extends SingleChildRenderObjectWidget implements Rotated
     return RotatedBoxRotatedBoxBuilder.rotatedBoxRotatedBox(quarterTurns);
   }
   public int quarterTurns() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rotatedBoxQuarterTurns not supported on web");
     return RotatedBoxObjSt.quarterTurns(st);
   }
   @Override

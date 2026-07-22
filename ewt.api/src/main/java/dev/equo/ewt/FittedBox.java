@@ -29,12 +29,15 @@ public class FittedBox extends SingleChildRenderObjectWidget implements FittedBo
     return FittedBoxFittedBoxBuilder.fittedBoxFittedBox();
   }
   public BoxFit fit() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fittedBoxFit not supported on web");
     return BoxFit.values()[FittedBoxObjSt.fit(st)];
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fittedBoxAlignment not supported on web");
     return new AlignmentGeometry(FittedBoxObjSt.alignment(st)) {};
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fittedBoxClipBehavior not supported on web");
     return Clip.values()[FittedBoxObjSt.clipBehavior(st)];
   }
   @Override

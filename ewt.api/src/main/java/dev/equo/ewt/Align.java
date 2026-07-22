@@ -29,12 +29,15 @@ public class Align extends SingleChildRenderObjectWidget implements AlignI {
     return AlignAlignBuilder.alignAlign();
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignAlignment not supported on web");
     return new AlignmentGeometry(AlignObjSt.alignment(st)) {};
   }
   public double widthFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignWidthFactor not supported on web");
     return AlignObjSt.widthFactor(st);
   }
   public double heightFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignHeightFactor not supported on web");
     return AlignObjSt.heightFactor(st);
   }
   @Override

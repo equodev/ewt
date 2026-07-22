@@ -27,6 +27,7 @@ public class RoundedRectangleBorder extends OutlinedBorder implements RoundedRec
     return RoundedRectangleBorderRoundedRectangleBorderBuilder.roundedRectangleBorderRoundedRectangleBorder();
   }
   public BorderRadiusGeometry borderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("roundedRectangleBorderBorderRadius not supported on web");
     return new BorderRadiusGeometry(RoundedRectangleBorderObjSt.borderRadius(st)) {};
   }
   @Override

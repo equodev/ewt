@@ -28,9 +28,11 @@ public class Opacity extends SingleChildRenderObjectWidget implements OpacityI {
     return OpacityOpacityBuilder.opacityOpacity(opacity);
   }
   public double opacity() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("opacityOpacity not supported on web");
     return OpacityObjSt.opacity(st);
   }
   public boolean alwaysIncludeSemantics() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("opacityAlwaysIncludeSemantics not supported on web");
     return intToBool(OpacityObjSt.alwaysIncludeSemantics(st));
   }
   @Override

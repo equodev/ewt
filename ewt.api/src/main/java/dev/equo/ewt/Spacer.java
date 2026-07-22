@@ -26,6 +26,7 @@ public class Spacer extends StatelessWidget implements SpacerI {
     return SpacerSpacerBuilder.spacerSpacer();
   }
   public int flex() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("spacerFlex not supported on web");
     return SpacerObjSt.flex(st);
   }
   @Override

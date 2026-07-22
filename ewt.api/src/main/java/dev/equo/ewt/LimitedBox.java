@@ -28,9 +28,11 @@ public class LimitedBox extends SingleChildRenderObjectWidget implements Limited
     return LimitedBoxLimitedBoxBuilder.limitedBoxLimitedBox();
   }
   public double maxWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("limitedBoxMaxWidth not supported on web");
     return LimitedBoxObjSt.maxWidth(st);
   }
   public double maxHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("limitedBoxMaxHeight not supported on web");
     return LimitedBoxObjSt.maxHeight(st);
   }
   @Override

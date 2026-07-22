@@ -29,6 +29,7 @@ public class RotationTransition extends MatrixTransition implements RotationTran
     return RotationTransitionRotationTransitionBuilder.rotationTransitionRotationTransition(turns);
   }
   public Animation turns() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rotationTransitionTurns not supported on web");
     return new Animation() { public int getId() { return RotationTransitionObjSt.turns(st); } };
   }
   @Override

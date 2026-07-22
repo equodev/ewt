@@ -29,15 +29,19 @@ public class Cubic extends Curve implements CubicI {
     return CubicCubicBuilder.cubicCubic(a, b, c, d);
   }
   public double a() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cubicA not supported on web");
     return CubicObjSt.a(st);
   }
   public double b() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cubicB not supported on web");
     return CubicObjSt.b(st);
   }
   public double c() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cubicC not supported on web");
     return CubicObjSt.c(st);
   }
   public double d() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cubicD not supported on web");
     return CubicObjSt.d(st);
   }
   private static double _cubicErrorBound() {

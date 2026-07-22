@@ -61,21 +61,27 @@ public class Positioned extends ParentDataWidget<StackParentData> implements Pos
     return PositionedDirectionalBuilder.positionedDirectional(textDirection);
   }
   public double left() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedLeft not supported on web");
     return PositionedObjSt.left(st);
   }
   public double top() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedTop not supported on web");
     return PositionedObjSt.top(st);
   }
   public double right() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedRight not supported on web");
     return PositionedObjSt.right(st);
   }
   public double bottom() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedBottom not supported on web");
     return PositionedObjSt.bottom(st);
   }
   public double width() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedWidth not supported on web");
     return PositionedObjSt.width(st);
   }
   public double height() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedHeight not supported on web");
     return PositionedObjSt.height(st);
   }
   @Override

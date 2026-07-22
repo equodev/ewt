@@ -28,9 +28,11 @@ public class Baseline extends SingleChildRenderObjectWidget implements BaselineI
     return BaselineBaselineBuilder.baselineBaseline(baseline, baselineType);
   }
   public double baseline() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("baselineBaseline not supported on web");
     return BaselineObjSt.baseline(st);
   }
   public TextBaseline baselineType() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("baselineBaselineType not supported on web");
     return TextBaseline.values()[BaselineObjSt.baselineType(st)];
   }
   @Override

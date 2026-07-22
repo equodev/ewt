@@ -29,12 +29,15 @@ public class FractionallySizedBox extends SingleChildRenderObjectWidget implemen
     return FractionallySizedBoxFractionallySizedBoxBuilder.fractionallySizedBoxFractionallySizedBox();
   }
   public double widthFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fractionallySizedBoxWidthFactor not supported on web");
     return FractionallySizedBoxObjSt.widthFactor(st);
   }
   public double heightFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fractionallySizedBoxHeightFactor not supported on web");
     return FractionallySizedBoxObjSt.heightFactor(st);
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fractionallySizedBoxAlignment not supported on web");
     return new AlignmentGeometry(FractionallySizedBoxObjSt.alignment(st)) {};
   }
   @Override

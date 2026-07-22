@@ -68,45 +68,75 @@ public class Slider extends StatefulWidget implements SliderI {
     return SliderAdaptiveBuilder.sliderAdaptive(value);
   }
   public double value() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderValue not supported on web");
     return SliderObjSt.value(st);
   }
   public double secondaryTrackValue() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderSecondaryTrackValue not supported on web");
     return SliderObjSt.secondaryTrackValue(st);
   }
   public double min() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderMin not supported on web");
     return SliderObjSt.min(st);
   }
   public double max() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderMax not supported on web");
     return SliderObjSt.max(st);
   }
   public int divisions() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderDivisions not supported on web");
     return SliderObjSt.divisions(st);
   }
   public String label() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderLabel not supported on web");
     return SliderObjSt.label(st).getString(0);
   }
   public Color activeColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("sliderActiveColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SliderObjSt.activeColor(st));
   }
   public Color inactiveColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("sliderInactiveColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SliderObjSt.inactiveColor(st));
   }
   public Color secondaryActiveColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("sliderSecondaryActiveColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SliderObjSt.secondaryActiveColor(st));
   }
   public Color thumbColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("sliderThumbColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SliderObjSt.thumbColor(st));
   }
   public boolean autofocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderAutofocus not supported on web");
     return intToBool(SliderObjSt.autofocus(st));
   }
   public SliderInteraction allowedInteraction() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderAllowedInteraction not supported on web");
     return SliderInteraction.values()[SliderObjSt.allowedInteraction(st)];
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderPadding not supported on web");
     return new EdgeInsetsGeometry(SliderObjSt.padding(st)) {};
   }
   public boolean year2023() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderYear2023 not supported on web");
     return intToBool(SliderObjSt.year2023(st));
   }
   @Override

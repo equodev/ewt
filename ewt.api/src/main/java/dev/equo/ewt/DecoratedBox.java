@@ -28,9 +28,11 @@ public class DecoratedBox extends SingleChildRenderObjectWidget implements Decor
     return DecoratedBoxDecoratedBoxBuilder.decoratedBoxDecoratedBox(decoration);
   }
   public Decoration decoration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("decoratedBoxDecoration not supported on web");
     return new Decoration(DecoratedBoxObjSt.decoration(st)) {};
   }
   public DecorationPosition position() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("decoratedBoxPosition not supported on web");
     return DecorationPosition.values()[DecoratedBoxObjSt.position(st)];
   }
   @Override

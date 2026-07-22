@@ -27,6 +27,7 @@ public class Padding extends SingleChildRenderObjectWidget implements PaddingI {
     return PaddingPaddingBuilder.paddingPadding(padding);
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("paddingPadding not supported on web");
     return new EdgeInsetsGeometry(PaddingObjSt.padding(st)) {};
   }
   @Override

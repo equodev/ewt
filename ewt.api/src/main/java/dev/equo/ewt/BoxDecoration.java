@@ -38,18 +38,27 @@ public class BoxDecoration extends Decoration implements BoxDecorationI {
     return new BoxDecoration(st);
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("boxDecorationColor", getId());
+      return new Color(__nid);
+    }
     return new Color(BoxDecorationObjSt.color(st));
   }
   public BoxBorder border() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxDecorationBorder not supported on web");
     return new BoxBorder(BoxDecorationObjSt.border(st)) {};
   }
   public BorderRadiusGeometry borderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxDecorationBorderRadius not supported on web");
     return new BorderRadiusGeometry(BoxDecorationObjSt.borderRadius(st)) {};
   }
   public BlendMode backgroundBlendMode() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxDecorationBackgroundBlendMode not supported on web");
     return BlendMode.values()[BoxDecorationObjSt.backgroundBlendMode(st)];
   }
   public BoxShape shape() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxDecorationShape not supported on web");
     return BoxShape.values()[BoxDecorationObjSt.shape(st)];
   }
   @Override

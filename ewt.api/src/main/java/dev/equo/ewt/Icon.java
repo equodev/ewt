@@ -38,39 +38,65 @@ public class Icon extends StatelessWidget implements IconI {
     return IconIconBuilder.iconIcon(icon);
   }
   public IconData icon() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconIcon", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconDataObjSt.id(__st, __nid);
+      return new IconData(__st);
+    }
     return new IconData(IconObjSt.icon(st));
   }
   public double size() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconSize not supported on web");
     return IconObjSt.size(st);
   }
   public double fill() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconFill not supported on web");
     return IconObjSt.fill(st);
   }
   public double weight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconWeight not supported on web");
     return IconObjSt.weight(st);
   }
   public double grade() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconGrade not supported on web");
     return IconObjSt.grade(st);
   }
   public double opticalSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconOpticalSize not supported on web");
     return IconObjSt.opticalSize(st);
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconObjSt.color(st));
   }
   public String semanticLabel() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconSemanticLabel not supported on web");
     return IconObjSt.semanticLabel(st).getString(0);
   }
   public TextDirection textDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconTextDirection not supported on web");
     return TextDirection.values()[IconObjSt.textDirection(st)];
   }
   public boolean applyTextScaling() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconApplyTextScaling not supported on web");
     return intToBool(IconObjSt.applyTextScaling(st));
   }
   public BlendMode blendMode() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconBlendMode not supported on web");
     return BlendMode.values()[IconObjSt.blendMode(st)];
   }
   public FontWeight fontWeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconFontWeight", getId());
+      return new FontWeight(__nid);
+    }
     return new FontWeight(IconObjSt.fontWeight(st));
   }
   @Override

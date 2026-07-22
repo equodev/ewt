@@ -27,6 +27,7 @@ public class AspectRatio extends SingleChildRenderObjectWidget implements Aspect
     return AspectRatioAspectRatioBuilder.aspectRatioAspectRatio(aspectRatio);
   }
   public double aspectRatio() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("aspectRatioAspectRatio not supported on web");
     return AspectRatioObjSt.aspectRatio(st);
   }
   @Override

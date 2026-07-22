@@ -74,6 +74,13 @@ public class EvolveEwtButtons {
         actions.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
         actions.setWidget(quickActions());
 
+        // A stateful region with real app chrome: Scaffold + AppBar (title from widget()) +
+        // FloatingActionButton; pressing + re-renders the number over the comm (Phase 5).
+        EwtWidget counter = new EwtWidget(right, SWT.NONE);
+        counter.setPreferredSize(SWT.DEFAULT, 220);
+        counter.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+        counter.setWidget(() -> new EwtListDemo());
+
         shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) display.sleep();
@@ -152,6 +159,7 @@ public class EvolveEwtButtons {
                             .crossAxisAlignment(CrossAxisAlignment.center)
                             .children(List.of(
                                 FilledButton(() -> System.out.println("[EWT] Follow"))
+                                    .onHover(v -> System.out.println("[EWT] hover Follow: " + v))
                                     .child(Text("Follow")),
                                 SizedBox().width(8.0),
                                 IconButton()

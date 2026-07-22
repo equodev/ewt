@@ -29,15 +29,23 @@ public class DefaultTabController extends StatefulWidget implements DefaultTabCo
     return DefaultTabControllerDefaultTabControllerBuilder.defaultTabControllerDefaultTabController(length);
   }
   public int length() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("defaultTabControllerLength not supported on web");
     return DefaultTabControllerObjSt.length(st);
   }
   public int initialIndex() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("defaultTabControllerInitialIndex not supported on web");
     return DefaultTabControllerObjSt.initialIndex(st);
   }
   public Duration animationDuration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("defaultTabControllerAnimationDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(DefaultTabControllerObjSt.animationDuration(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("defaultTabControllerChild not supported on web");
     return new Widget(DefaultTabControllerObjSt.child(st)) {};
   }
   @Override

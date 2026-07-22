@@ -30,9 +30,11 @@ public class AnimatedPadding extends ImplicitlyAnimatedWidget implements Animate
     return AnimatedPaddingAnimatedPaddingBuilder.animatedPaddingAnimatedPadding(padding);
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPaddingPadding not supported on web");
     return new EdgeInsetsGeometry(AnimatedPaddingObjSt.padding(st)) {};
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPaddingChild not supported on web");
     return new Widget(AnimatedPaddingObjSt.child(st)) {};
   }
   @Override

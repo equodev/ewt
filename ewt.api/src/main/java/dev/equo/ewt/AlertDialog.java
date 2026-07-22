@@ -89,81 +89,147 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
     return AlertDialogAdaptiveBuilder.alertDialogAdaptive();
   }
   public Widget icon() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogIcon not supported on web");
     return new Widget(AlertDialogObjSt.icon(st)) {};
   }
   public Color iconColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogIconColor", getId());
+      return new Color(__nid);
+    }
     return new Color(AlertDialogObjSt.iconColor(st));
   }
   public EdgeInsetsGeometry iconPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogIconPadding not supported on web");
     return new EdgeInsetsGeometry(AlertDialogObjSt.iconPadding(st)) {};
   }
   public Widget title() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogTitle not supported on web");
     return new Widget(AlertDialogObjSt.title(st)) {};
   }
   public EdgeInsetsGeometry titlePadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogTitlePadding not supported on web");
     return new EdgeInsetsGeometry(AlertDialogObjSt.titlePadding(st)) {};
   }
   public TextStyle titleTextStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogTitleTextStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
     return new TextStyle(AlertDialogObjSt.titleTextStyle(st));
   }
   public Widget content() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogContent not supported on web");
     return new Widget(AlertDialogObjSt.content(st)) {};
   }
   public EdgeInsetsGeometry contentPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogContentPadding not supported on web");
     return new EdgeInsetsGeometry(AlertDialogObjSt.contentPadding(st)) {};
   }
   public TextStyle contentTextStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogContentTextStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
     return new TextStyle(AlertDialogObjSt.contentTextStyle(st));
   }
   public EdgeInsetsGeometry actionsPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogActionsPadding not supported on web");
     return new EdgeInsetsGeometry(AlertDialogObjSt.actionsPadding(st)) {};
   }
   public MainAxisAlignment actionsAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogActionsAlignment not supported on web");
     return MainAxisAlignment.values()[AlertDialogObjSt.actionsAlignment(st)];
   }
   public OverflowBarAlignment actionsOverflowAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogActionsOverflowAlignment not supported on web");
     return OverflowBarAlignment.values()[AlertDialogObjSt.actionsOverflowAlignment(st)];
   }
   public VerticalDirection actionsOverflowDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogActionsOverflowDirection not supported on web");
     return VerticalDirection.values()[AlertDialogObjSt.actionsOverflowDirection(st)];
   }
   public double actionsOverflowButtonSpacing() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogActionsOverflowButtonSpacing not supported on web");
     return AlertDialogObjSt.actionsOverflowButtonSpacing(st);
   }
   public EdgeInsetsGeometry buttonPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogButtonPadding not supported on web");
     return new EdgeInsetsGeometry(AlertDialogObjSt.buttonPadding(st)) {};
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(AlertDialogObjSt.backgroundColor(st));
   }
   public double elevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogElevation not supported on web");
     return AlertDialogObjSt.elevation(st);
   }
   public Color shadowColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogShadowColor", getId());
+      return new Color(__nid);
+    }
     return new Color(AlertDialogObjSt.shadowColor(st));
   }
   public Color surfaceTintColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogSurfaceTintColor", getId());
+      return new Color(__nid);
+    }
     return new Color(AlertDialogObjSt.surfaceTintColor(st));
   }
   public String semanticLabel() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogSemanticLabel not supported on web");
     return AlertDialogObjSt.semanticLabel(st).getString(0);
   }
   public EdgeInsets insetPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogInsetPadding", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
+      return new EdgeInsets(__st);
+    }
     return new EdgeInsets(AlertDialogObjSt.insetPadding(st));
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogClipBehavior not supported on web");
     return Clip.values()[AlertDialogObjSt.clipBehavior(st)];
   }
   public ShapeBorder shape() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogShape not supported on web");
     return new ShapeBorder(AlertDialogObjSt.shape(st)) {};
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogAlignment not supported on web");
     return new AlignmentGeometry(AlertDialogObjSt.alignment(st)) {};
   }
   public BoxConstraints constraints() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("alertDialogConstraints", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
+      return new BoxConstraints(__st);
+    }
     return new BoxConstraints(AlertDialogObjSt.constraints(st));
   }
   public boolean scrollable() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alertDialogScrollable not supported on web");
     return intToBool(AlertDialogObjSt.scrollable(st));
   }
   @Override

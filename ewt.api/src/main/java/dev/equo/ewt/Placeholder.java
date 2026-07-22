@@ -30,18 +30,27 @@ public class Placeholder extends StatelessWidget implements PlaceholderI {
     return PlaceholderPlaceholderBuilder.placeholderPlaceholder();
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("placeholderColor", getId());
+      return new Color(__nid);
+    }
     return new Color(PlaceholderObjSt.color(st));
   }
   public double strokeWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("placeholderStrokeWidth not supported on web");
     return PlaceholderObjSt.strokeWidth(st);
   }
   public double fallbackWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("placeholderFallbackWidth not supported on web");
     return PlaceholderObjSt.fallbackWidth(st);
   }
   public double fallbackHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("placeholderFallbackHeight not supported on web");
     return PlaceholderObjSt.fallbackHeight(st);
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("placeholderChild not supported on web");
     return new Widget(PlaceholderObjSt.child(st)) {};
   }
   @Override

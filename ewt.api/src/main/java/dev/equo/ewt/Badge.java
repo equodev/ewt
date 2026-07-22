@@ -55,36 +55,65 @@ public class Badge extends StatelessWidget implements BadgeI {
     return BadgeCountBuilder.badgeCount();
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("badgeBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(BadgeObjSt.backgroundColor(st));
   }
   public Color textColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("badgeTextColor", getId());
+      return new Color(__nid);
+    }
     return new Color(BadgeObjSt.textColor(st));
   }
   public double smallSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeSmallSize not supported on web");
     return BadgeObjSt.smallSize(st);
   }
   public double largeSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeLargeSize not supported on web");
     return BadgeObjSt.largeSize(st);
   }
   public TextStyle textStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("badgeTextStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
     return new TextStyle(BadgeObjSt.textStyle(st));
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgePadding not supported on web");
     return new EdgeInsetsGeometry(BadgeObjSt.padding(st)) {};
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeAlignment not supported on web");
     return new AlignmentGeometry(BadgeObjSt.alignment(st)) {};
   }
   public Offset offset() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("badgeOffset", getId());
+      return new Offset(__nid);
+    }
     return new Offset(BadgeObjSt.offset(st));
   }
   public Widget label() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeLabel not supported on web");
     return new Widget(BadgeObjSt.label(st)) {};
   }
   public boolean isLabelVisible() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeIsLabelVisible not supported on web");
     return intToBool(BadgeObjSt.isLabelVisible(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeChild not supported on web");
     return new Widget(BadgeObjSt.child(st)) {};
   }
   @Override

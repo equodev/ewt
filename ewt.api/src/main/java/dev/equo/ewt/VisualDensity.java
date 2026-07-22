@@ -39,12 +39,19 @@ public class VisualDensity extends NativeObj.Base implements VisualDensityI {
     return new VisualDensity(st);
   }
   public double horizontal() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("visualDensityHorizontal not supported on web");
     return VisualDensityObjSt.horizontal(st);
   }
   public double vertical() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("visualDensityVertical not supported on web");
     return VisualDensityObjSt.vertical(st);
   }
   public Offset baseSizeAdjustment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("visualDensityBaseSizeAdjustment", getId());
+      return new Offset(__nid);
+    }
     return new Offset(VisualDensityObjSt.baseSizeAdjustment(st));
   }
   public static double minimumDensity() {

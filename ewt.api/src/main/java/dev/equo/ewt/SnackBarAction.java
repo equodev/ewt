@@ -31,18 +31,39 @@ public class SnackBarAction extends StatefulWidget implements SnackBarActionI {
     return SnackBarActionSnackBarActionBuilder.snackBarActionSnackBarAction();
   }
   public Color textColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("snackBarActionTextColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SnackBarActionObjSt.textColor(st));
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("snackBarActionBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SnackBarActionObjSt.backgroundColor(st));
   }
   public Color disabledTextColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("snackBarActionDisabledTextColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SnackBarActionObjSt.disabledTextColor(st));
   }
   public Color disabledBackgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("snackBarActionDisabledBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(SnackBarActionObjSt.disabledBackgroundColor(st));
   }
   public String label() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarActionLabel not supported on web");
     return SnackBarActionObjSt.label(st).getString(0);
   }
   @Override

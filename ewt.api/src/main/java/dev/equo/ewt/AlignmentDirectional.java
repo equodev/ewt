@@ -34,9 +34,11 @@ public class AlignmentDirectional extends AlignmentGeometry implements Alignment
     return new AlignmentDirectional(st);
   }
   public double start() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignmentDirectionalStart not supported on web");
     return AlignmentDirectionalObjSt.start(st);
   }
   public double y() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignmentDirectionalY not supported on web");
     return AlignmentDirectionalObjSt.y(st);
   }
   public static AlignmentDirectional topStart() {

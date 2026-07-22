@@ -38,21 +38,31 @@ public class Divider extends StatelessWidget implements DividerI {
     return new BorderSide(st);
   }
   public double height() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerHeight not supported on web");
     return DividerObjSt.height(st);
   }
   public double thickness() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerThickness not supported on web");
     return DividerObjSt.thickness(st);
   }
   public double indent() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerIndent not supported on web");
     return DividerObjSt.indent(st);
   }
   public double endIndent() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerEndIndent not supported on web");
     return DividerObjSt.endIndent(st);
   }
   public BorderRadiusGeometry radius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerRadius not supported on web");
     return new BorderRadiusGeometry(DividerObjSt.radius(st)) {};
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("dividerColor", getId());
+      return new Color(__nid);
+    }
     return new Color(DividerObjSt.color(st));
   }
   @Override

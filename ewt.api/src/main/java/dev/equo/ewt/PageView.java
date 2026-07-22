@@ -56,30 +56,39 @@ public class PageView extends StatefulWidget implements PageViewI {
     return PageViewBuilderBuilder.pageViewBuilder();
   }
   public boolean allowImplicitScrolling() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewAllowImplicitScrolling not supported on web");
     return intToBool(PageViewObjSt.allowImplicitScrolling(st));
   }
   public String restorationId() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewRestorationId not supported on web");
     return PageViewObjSt.restorationId(st).getString(0);
   }
   public Axis scrollDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewScrollDirection not supported on web");
     return Axis.values()[PageViewObjSt.scrollDirection(st)];
   }
   public boolean reverse() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewReverse not supported on web");
     return intToBool(PageViewObjSt.reverse(st));
   }
   public boolean pageSnapping() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewPageSnapping not supported on web");
     return intToBool(PageViewObjSt.pageSnapping(st));
   }
   public DragStartBehavior dragStartBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewDragStartBehavior not supported on web");
     return DragStartBehavior.values()[PageViewObjSt.dragStartBehavior(st)];
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewClipBehavior not supported on web");
     return Clip.values()[PageViewObjSt.clipBehavior(st)];
   }
   public HitTestBehavior hitTestBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewHitTestBehavior not supported on web");
     return HitTestBehavior.values()[PageViewObjSt.hitTestBehavior(st)];
   }
   public boolean padEnds() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewPadEnds not supported on web");
     return intToBool(PageViewObjSt.padEnds(st));
   }
   @Override

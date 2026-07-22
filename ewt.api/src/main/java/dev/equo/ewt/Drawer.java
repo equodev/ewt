@@ -34,30 +34,51 @@ public class Drawer extends StatelessWidget implements DrawerI {
     return DrawerDrawerBuilder.drawerDrawer();
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("drawerBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(DrawerObjSt.backgroundColor(st));
   }
   public double elevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerElevation not supported on web");
     return DrawerObjSt.elevation(st);
   }
   public Color shadowColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("drawerShadowColor", getId());
+      return new Color(__nid);
+    }
     return new Color(DrawerObjSt.shadowColor(st));
   }
   public Color surfaceTintColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("drawerSurfaceTintColor", getId());
+      return new Color(__nid);
+    }
     return new Color(DrawerObjSt.surfaceTintColor(st));
   }
   public ShapeBorder shape() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerShape not supported on web");
     return new ShapeBorder(DrawerObjSt.shape(st)) {};
   }
   public double width() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerWidth not supported on web");
     return DrawerObjSt.width(st);
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerChild not supported on web");
     return new Widget(DrawerObjSt.child(st)) {};
   }
   public String semanticLabel() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerSemanticLabel not supported on web");
     return DrawerObjSt.semanticLabel(st).getString(0);
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerClipBehavior not supported on web");
     return Clip.values()[DrawerObjSt.clipBehavior(st)];
   }
   @Override

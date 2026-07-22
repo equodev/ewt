@@ -26,6 +26,7 @@ public class ScaffoldMessenger extends StatefulWidget implements ScaffoldMesseng
     return ScaffoldMessengerScaffoldMessengerBuilder.scaffoldMessengerScaffoldMessenger(child);
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("scaffoldMessengerChild not supported on web");
     return new Widget(ScaffoldMessengerObjSt.child(st)) {};
   }
   @Override

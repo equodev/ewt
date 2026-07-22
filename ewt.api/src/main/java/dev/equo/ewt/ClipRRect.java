@@ -28,9 +28,11 @@ public class ClipRRect extends SingleChildRenderObjectWidget implements ClipRRec
     return ClipRRectClipRRectBuilder.clipRRectClipRRect();
   }
   public BorderRadiusGeometry borderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("clipRRectBorderRadius not supported on web");
     return new BorderRadiusGeometry(ClipRRectObjSt.borderRadius(st)) {};
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("clipRRectClipBehavior not supported on web");
     return Clip.values()[ClipRRectObjSt.clipBehavior(st)];
   }
   @Override

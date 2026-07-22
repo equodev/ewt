@@ -27,6 +27,7 @@ public class ClipRect extends SingleChildRenderObjectWidget implements ClipRectI
     return ClipRectClipRectBuilder.clipRectClipRect();
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("clipRectClipBehavior not supported on web");
     return Clip.values()[ClipRectObjSt.clipBehavior(st)];
   }
   @Override

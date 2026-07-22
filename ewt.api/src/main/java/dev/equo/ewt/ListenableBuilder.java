@@ -28,6 +28,7 @@ public class ListenableBuilder extends AnimatedWidget implements ListenableBuild
     return ListenableBuilderListenableBuilderBuilder.listenableBuilderListenableBuilder(listenable, builder);
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listenableBuilderChild not supported on web");
     return new Widget(ListenableBuilderObjSt.child(st)) {};
   }
   @Override

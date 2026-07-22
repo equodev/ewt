@@ -32,21 +32,27 @@ public class OverflowBox extends SingleChildRenderObjectWidget implements Overfl
     return OverflowBoxOverflowBoxBuilder.overflowBoxOverflowBox();
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBoxAlignment not supported on web");
     return new AlignmentGeometry(OverflowBoxObjSt.alignment(st)) {};
   }
   public double minWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBoxMinWidth not supported on web");
     return OverflowBoxObjSt.minWidth(st);
   }
   public double maxWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBoxMaxWidth not supported on web");
     return OverflowBoxObjSt.maxWidth(st);
   }
   public double minHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBoxMinHeight not supported on web");
     return OverflowBoxObjSt.minHeight(st);
   }
   public double maxHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBoxMaxHeight not supported on web");
     return OverflowBoxObjSt.maxHeight(st);
   }
   public OverflowBoxFit fit() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBoxFit not supported on web");
     return OverflowBoxFit.values()[OverflowBoxObjSt.fit(st)];
   }
   @Override
