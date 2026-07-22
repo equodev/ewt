@@ -309,6 +309,8 @@ final class WidgetFactories extends ffi.Struct {
 
   external SingleChildScrollViewSt singleChildScrollView;
 
+  external ListViewSt listView;
+
   external CircularProgressIndicatorSt circularProgressIndicator;
 
   external LinearProgressIndicatorSt linearProgressIndicator;
@@ -5083,6 +5085,98 @@ final class SingleChildScrollViewObjSt extends ffi.Struct {
   @ffi.Int()
   external int keyboardDismissBehavior;
 }
+
+final class ListViewSt extends ffi.Struct {
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ListViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Double> itemExtent,
+              ffi.Pointer<DartObj> prototypeItem,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ArrayC> children,
+              ffi.Pointer<ffi.Int> semanticChildCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> listView;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ListViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              ffi.Pointer<ffi.Double> itemExtent,
+              ffi.Pointer<DartObj> prototypeItem,
+              NullableIndexedWidgetBuilderFFI itemBuilder,
+              ffi.Pointer<ffi.Int> itemCount,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ffi.Int> semanticChildCount,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> builder;
+
+  external ffi.Pointer<
+      ffi.NativeFunction<
+          ListViewObjSt Function(
+              ffi.Pointer<ffi.Int> scrollDirection,
+              ffi.Pointer<ffi.Int> reverse,
+              ffi.Pointer<ffi.Int> primary,
+              ffi.Pointer<ffi.Int> shrinkWrap,
+              ffi.Pointer<DartObj> padding,
+              NullableIndexedWidgetBuilderFFI itemBuilder,
+              IndexedWidgetBuilderFFI separatorBuilder,
+              ffi.Int itemCount,
+              ffi.Pointer<ffi.Int> addAutomaticKeepAlives,
+              ffi.Pointer<ffi.Int> addRepaintBoundaries,
+              ffi.Pointer<ffi.Int> addSemanticIndexes,
+              ffi.Pointer<ffi.Double> cacheExtent,
+              ffi.Pointer<ffi.Int> dragStartBehavior,
+              ffi.Pointer<ffi.Int> keyboardDismissBehavior,
+              ffi.Pointer<ffi.Char> restorationId,
+              ffi.Pointer<ffi.Int> clipBehavior,
+              ffi.Pointer<ffi.Int> hitTestBehavior)>> separated;
+}
+
+final class ListViewObjSt extends ffi.Struct {
+  @ffi.Int()
+  external int id;
+
+  @ffi.Double()
+  external double itemExtent;
+
+  @DartObj()
+  external int prototypeItem;
+}
+
+typedef NullableIndexedWidgetBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<NullableIndexedWidgetBuilderFFIFunction>>;
+typedef NullableIndexedWidgetBuilderFFIFunction = DartObj Function(
+    DartObj context, ffi.Int index);
+typedef DartNullableIndexedWidgetBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context, int index);
+typedef IndexedWidgetBuilderFFI
+    = ffi.Pointer<ffi.NativeFunction<IndexedWidgetBuilderFFIFunction>>;
+typedef IndexedWidgetBuilderFFIFunction = DartObj Function(
+    DartObj context, ffi.Int index);
+typedef DartIndexedWidgetBuilderFFIFunction = DartDartObj Function(
+    DartDartObj context, int index);
 
 final class CircularProgressIndicatorSt extends ffi.Struct {
   external ffi.Pointer<
