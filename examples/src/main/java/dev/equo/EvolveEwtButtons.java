@@ -74,11 +74,12 @@ public class EvolveEwtButtons {
         actions.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
         actions.setWidget(quickActions());
 
-        // A stateful region: pressing + re-renders the number over the comm (Phase 4).
+        // A stateful region with real app chrome: Scaffold + AppBar (title from widget()) +
+        // FloatingActionButton; pressing + re-renders the number over the comm (Phase 5).
         EwtWidget counter = new EwtWidget(right, SWT.NONE);
-        counter.setPreferredSize(SWT.DEFAULT, 140);
+        counter.setPreferredSize(SWT.DEFAULT, 220);
         counter.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-        counter.setWidget(EwtCounter::new);
+        counter.setWidget(() -> new EwtScaffoldCounter("EWT App"));
 
         shell.open();
         while (!shell.isDisposed()) {
