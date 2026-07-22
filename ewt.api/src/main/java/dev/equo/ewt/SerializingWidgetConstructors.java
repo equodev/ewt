@@ -3405,6 +3405,88 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment listViewListView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, OptionalDouble itemExtent, Optional<Widget> prototypeItem, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<Widget>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    primary.ifPresent(v -> p.put("primary", v));
+    shrinkWrap.ifPresent(v -> p.put("shrinkWrap", v));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    if (itemExtent.isPresent()) { p.put("itemExtent", itemExtent.getAsDouble()); }
+    prototypeItem.ifPresent(v -> p.put("prototypeItem", byId.get(v.getId())));
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    if (cacheExtent.isPresent()) { p.put("cacheExtent", cacheExtent.getAsDouble()); }
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    if (semanticChildCount.isPresent()) { p.put("semanticChildCount", semanticChildCount.getAsInt()); }
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    keyboardDismissBehavior.ifPresent(v -> p.put("keyboardDismissBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    record(id, "listViewListView", p);
+    MemorySegment st = ListViewObjSt.allocate(arena);
+    ListViewObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment listViewBuilder(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, OptionalDouble itemExtent, Optional<Widget> prototypeItem, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    primary.ifPresent(v -> p.put("primary", v));
+    shrinkWrap.ifPresent(v -> p.put("shrinkWrap", v));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    if (itemExtent.isPresent()) { p.put("itemExtent", itemExtent.getAsDouble()); }
+    prototypeItem.ifPresent(v -> p.put("prototypeItem", byId.get(v.getId())));
+    p.put("itemBuilder", nextCallbackId++);
+    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    if (cacheExtent.isPresent()) { p.put("cacheExtent", cacheExtent.getAsDouble()); }
+    if (semanticChildCount.isPresent()) { p.put("semanticChildCount", semanticChildCount.getAsInt()); }
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    keyboardDismissBehavior.ifPresent(v -> p.put("keyboardDismissBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    record(id, "listViewBuilder", p);
+    MemorySegment st = ListViewObjSt.allocate(arena);
+    ListViewObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment listViewSeparated(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, BiFunction<BuildContext, Integer, Widget> itemBuilder, BiFunction<BuildContext, Integer, Widget> separatorBuilder, int itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    primary.ifPresent(v -> p.put("primary", v));
+    shrinkWrap.ifPresent(v -> p.put("shrinkWrap", v));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    p.put("itemBuilder", nextCallbackId++);
+    p.put("separatorBuilder", nextCallbackId++);
+    p.put("itemCount", itemCount);
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    if (cacheExtent.isPresent()) { p.put("cacheExtent", cacheExtent.getAsDouble()); }
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    keyboardDismissBehavior.ifPresent(v -> p.put("keyboardDismissBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    record(id, "listViewSeparated", p);
+    MemorySegment st = ListViewObjSt.allocate(arena);
+    ListViewObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

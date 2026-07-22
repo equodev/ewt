@@ -420,6 +420,11 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     struct SingleChildScrollViewSt {
  *         SingleChildScrollViewObjSt (*singleChildScrollView)(int *, int *, DartObj *, int *, DartObj *, int *, int *, int *, char *, int *);
  *     } singleChildScrollView;
+ *     struct ListViewSt {
+ *         ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *);
+ *         ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *);
+ *         ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *);
+ *     } listView;
  *     struct CircularProgressIndicatorSt {
  *         CircularProgressIndicatorObjSt (*circularProgressIndicator)(double *, DartObj *, DartObj *, DartObj *, double *, double *, char *, char *, int *, DartObj *, double *, int *, DartObj *);
  *         CircularProgressIndicatorObjSt (*adaptive)(double *, DartObj *, DartObj *, double *, char *, char *, int *, double *, DartObj *, double *, int *, DartObj *);
@@ -546,6 +551,7 @@ public class WidgetFactories {
         WidgetFactories.ListTileSt.layout().withName("listTile"),
         WidgetFactories.WrapSt.layout().withName("wrap"),
         WidgetFactories.SingleChildScrollViewSt.layout().withName("singleChildScrollView"),
+        WidgetFactories.ListViewSt.layout().withName("listView"),
         WidgetFactories.CircularProgressIndicatorSt.layout().withName("circularProgressIndicator"),
         WidgetFactories.LinearProgressIndicatorSt.layout().withName("linearProgressIndicator"),
         WidgetFactories.SubStateSt.layout().withName("subState"),
@@ -33532,6 +33538,474 @@ public class WidgetFactories {
      */
     public static void singleChildScrollView(MemorySegment struct, MemorySegment fieldValue) {
         MemorySegment.copy(fieldValue, 0L, struct, singleChildScrollView$OFFSET, singleChildScrollView$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct ListViewSt {
+     *     ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *);
+     *     ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *);
+     *     ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *);
+     * }
+     * }
+     */
+    public static class ListViewSt {
+
+        ListViewSt() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            StarterBridge.C_POINTER.withName("listView"),
+            StarterBridge.C_POINTER.withName("builder"),
+            StarterBridge.C_POINTER.withName("separated")
+        ).withName("ListViewSt");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
+         * ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public final static class listView {
+
+            private listView() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                ListViewObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(listView.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(listView.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout listView$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("listView"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static final AddressLayout listView$layout() {
+            return listView$LAYOUT;
+        }
+
+        private static final long listView$OFFSET = $LAYOUT.byteOffset(groupElement("listView"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static final long listView$offset() {
+            return listView$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static MemorySegment listView(MemorySegment struct) {
+            return struct.get(listView$LAYOUT, listView$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*listView)(int *, int *, int *, int *, DartObj *, double *, DartObj *, int *, int *, int *, double *, ArrayC *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static void listView(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(listView$LAYOUT, listView$OFFSET, fieldValue);
+        }
+
+        /**
+         * {@snippet lang=c :
+         * ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public final static class builder {
+
+            private builder() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                ListViewObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(builder.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(builder.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, MemorySegment _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16, MemorySegment _x17, MemorySegment _x18) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout builder$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("builder"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static final AddressLayout builder$layout() {
+            return builder$LAYOUT;
+        }
+
+        private static final long builder$OFFSET = $LAYOUT.byteOffset(groupElement("builder"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static final long builder$offset() {
+            return builder$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static MemorySegment builder(MemorySegment struct) {
+            return struct.get(builder$LAYOUT, builder$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*builder)(int *, int *, int *, int *, DartObj *, double *, DartObj *, NullableIndexedWidgetBuilderFFI, int *, int *, int *, int *, double *, int *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static void builder(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(builder$LAYOUT, builder$OFFSET, fieldValue);
+        }
+
+        /**
+         * {@snippet lang=c :
+         * ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public final static class separated {
+
+            private separated() {
+                // Should not be called directly
+            }
+
+            /**
+             * The function pointer signature, expressed as a functional interface
+             */
+            public interface Function {
+                MemorySegment apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16);
+            }
+
+            private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+                ListViewObjSt.layout(),
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_INT,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER,
+                StarterBridge.C_POINTER
+            );
+
+            /**
+             * The descriptor of this function pointer
+             */
+            public static FunctionDescriptor descriptor() {
+                return $DESC;
+            }
+
+            private static final MethodHandle UP$MH = StarterBridge.upcallHandle(separated.Function.class, "apply", $DESC);
+
+            /**
+             * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+             * The lifetime of the returned segment is managed by {@code arena}
+             */
+            public static MemorySegment allocate(separated.Function fi, Arena arena) {
+                return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+            }
+
+            private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+            /**
+             * Invoke the upcall stub {@code funcPtr}, with given parameters
+             */
+            public static MemorySegment invoke(MemorySegment funcPtr, SegmentAllocator alloc, MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, MemorySegment _x5, MemorySegment _x6, int _x7, MemorySegment _x8, MemorySegment _x9, MemorySegment _x10, MemorySegment _x11, MemorySegment _x12, MemorySegment _x13, MemorySegment _x14, MemorySegment _x15, MemorySegment _x16) {
+                try {
+                    return (MemorySegment) DOWN$MH.invokeExact(funcPtr, alloc, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10, _x11, _x12, _x13, _x14, _x15, _x16);
+                } catch (Error | RuntimeException ex) {
+                    throw ex;
+                } catch (Throwable ex$) {
+                    throw new AssertionError("should not reach here", ex$);
+                }
+            }
+        }
+
+        private static final AddressLayout separated$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("separated"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static final AddressLayout separated$layout() {
+            return separated$LAYOUT;
+        }
+
+        private static final long separated$OFFSET = $LAYOUT.byteOffset(groupElement("separated"));
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static final long separated$offset() {
+            return separated$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static MemorySegment separated(MemorySegment struct) {
+            return struct.get(separated$LAYOUT, separated$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * ListViewObjSt (*separated)(int *, int *, int *, int *, DartObj *, NullableIndexedWidgetBuilderFFI, IndexedWidgetBuilderFFI, int, int *, int *, int *, double *, int *, int *, char *, int *, int *)
+         * }
+         */
+        public static void separated(MemorySegment struct, MemorySegment fieldValue) {
+            struct.set(separated$LAYOUT, separated$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction} (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout listView$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("listView"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct ListViewSt listView
+     * }
+     */
+    public static final GroupLayout listView$layout() {
+        return listView$LAYOUT;
+    }
+
+    private static final long listView$OFFSET = $LAYOUT.byteOffset(groupElement("listView"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct ListViewSt listView
+     * }
+     */
+    public static final long listView$offset() {
+        return listView$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct ListViewSt listView
+     * }
+     */
+    public static MemorySegment listView(MemorySegment struct) {
+        return struct.asSlice(listView$OFFSET, listView$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct ListViewSt listView
+     * }
+     */
+    public static void listView(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, listView$OFFSET, listView$LAYOUT.byteSize());
     }
 
     /**

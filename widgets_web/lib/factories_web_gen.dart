@@ -1590,6 +1590,25 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       restorationId: p['restorationId'] as String?,
       keyboardDismissBehavior: p['keyboardDismissBehavior'] == null ? null : ScrollViewKeyboardDismissBehavior.values[p['keyboardDismissBehavior'] as int]),
 
+  'listViewListView': (p) => ListView(scrollDirection: p['scrollDirection'] == null ? Axis.vertical : Axis.values[p['scrollDirection'] as int],
+      reverse: (p['reverse'] as bool?) ?? false,
+      primary: p['primary'] as bool?,
+      shrinkWrap: (p['shrinkWrap'] as bool?) ?? false,
+      padding: p['padding'] == null ? null : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      itemExtent: (p['itemExtent'] as num?)?.toDouble(),
+      prototypeItem: p['prototypeItem'] == null ? null : decodeEwtNode(p['prototypeItem'] as Map<String,dynamic>) as Widget,
+      addAutomaticKeepAlives: (p['addAutomaticKeepAlives'] as bool?) ?? true,
+      addRepaintBoundaries: (p['addRepaintBoundaries'] as bool?) ?? true,
+      addSemanticIndexes: (p['addSemanticIndexes'] as bool?) ?? true,
+      cacheExtent: (p['cacheExtent'] as num?)?.toDouble(),
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtNode(e as Map<String,dynamic>) as Widget).toList(),
+      semanticChildCount: p['semanticChildCount'] as int?,
+      dragStartBehavior: p['dragStartBehavior'] == null ? DragStartBehavior.start : DragStartBehavior.values[p['dragStartBehavior'] as int],
+      keyboardDismissBehavior: p['keyboardDismissBehavior'] == null ? null : ScrollViewKeyboardDismissBehavior.values[p['keyboardDismissBehavior'] as int],
+      restorationId: p['restorationId'] as String?,
+      clipBehavior: p['clipBehavior'] == null ? Clip.hardEdge : Clip.values[p['clipBehavior'] as int],
+      hitTestBehavior: p['hitTestBehavior'] == null ? HitTestBehavior.opaque : HitTestBehavior.values[p['hitTestBehavior'] as int]),
+
 };
 
 final Set<String> unsupportedFactories = {};

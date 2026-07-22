@@ -3757,6 +3757,83 @@ SingleChildScrollViewObjSt _createSingleChildScrollViewObjSt(SingleChildScrollVi
   return stObj;
 }
 
+void _setupListView(WidgetFactories f) {
+  f.listView.listView = ffi.Pointer.fromFunction(listViewListView);
+  f.listView.builder = ffi.Pointer.fromFunction(listViewBuilder);
+  f.listView.separated = ffi.Pointer.fromFunction(listViewSeparated);
+}
+ListViewObjSt listViewListView(ffi.Pointer<ffi.Int> scrollDirection, ffi.Pointer<ffi.Int> reverse, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> shrinkWrap, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> itemExtent, ffi.Pointer<DartObj> prototypeItem, ffi.Pointer<ffi.Int> addAutomaticKeepAlives, ffi.Pointer<ffi.Int> addRepaintBoundaries, ffi.Pointer<ffi.Int> addSemanticIndexes, ffi.Pointer<ffi.Double> cacheExtent, ffi.Pointer<ArrayC> children, ffi.Pointer<ffi.Int> semanticChildCount, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> keyboardDismissBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> hitTestBehavior) {
+  final w = ListView(scrollDirection: scrollDirection.enumOr(Axis.values, Axis.vertical),
+      reverse: reverse.boolOr(false),
+      primary: primary.boolOrNul(),
+      shrinkWrap: shrinkWrap.boolOr(false),
+      padding: padding.objOrNul(),
+      itemExtent: itemExtent.doubleOrNul(),
+      prototypeItem: prototypeItem.objOrNul(),
+      addAutomaticKeepAlives: addAutomaticKeepAlives.boolOr(true),
+      addRepaintBoundaries: addRepaintBoundaries.boolOr(true),
+      addSemanticIndexes: addSemanticIndexes.boolOr(true),
+      cacheExtent: cacheExtent.doubleOrNul(),
+      children: children.listOrEmpty(),
+      semanticChildCount: semanticChildCount.intOrNul(),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      keyboardDismissBehavior: keyboardDismissBehavior.enumOrNul(ScrollViewKeyboardDismissBehavior.values),
+      restorationId: restorationId.strOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.opaque));
+  return _createListViewObjSt(w);
+}
+ListViewObjSt listViewBuilder(ffi.Pointer<ffi.Int> scrollDirection, ffi.Pointer<ffi.Int> reverse, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> shrinkWrap, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> itemExtent, ffi.Pointer<DartObj> prototypeItem, NullableIndexedWidgetBuilderFFI itemBuilder, ffi.Pointer<ffi.Int> itemCount, ffi.Pointer<ffi.Int> addAutomaticKeepAlives, ffi.Pointer<ffi.Int> addRepaintBoundaries, ffi.Pointer<ffi.Int> addSemanticIndexes, ffi.Pointer<ffi.Double> cacheExtent, ffi.Pointer<ffi.Int> semanticChildCount, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> keyboardDismissBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> hitTestBehavior) {
+  final w = ListView.builder(scrollDirection: scrollDirection.enumOr(Axis.values, Axis.vertical),
+      reverse: reverse.boolOr(false),
+      primary: primary.boolOrNul(),
+      shrinkWrap: shrinkWrap.boolOr(false),
+      padding: padding.objOrNul(),
+      itemExtent: itemExtent.doubleOrNul(),
+      prototypeItem: prototypeItem.objOrNul(),
+      itemBuilder: itemBuilder.toNullableIndexedWidgetBuilderFn(),
+      itemCount: itemCount.intOrNul(),
+      addAutomaticKeepAlives: addAutomaticKeepAlives.boolOr(true),
+      addRepaintBoundaries: addRepaintBoundaries.boolOr(true),
+      addSemanticIndexes: addSemanticIndexes.boolOr(true),
+      cacheExtent: cacheExtent.doubleOrNul(),
+      semanticChildCount: semanticChildCount.intOrNul(),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      keyboardDismissBehavior: keyboardDismissBehavior.enumOrNul(ScrollViewKeyboardDismissBehavior.values),
+      restorationId: restorationId.strOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.opaque));
+  return _createListViewObjSt(w);
+}
+ListViewObjSt listViewSeparated(ffi.Pointer<ffi.Int> scrollDirection, ffi.Pointer<ffi.Int> reverse, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> shrinkWrap, ffi.Pointer<DartObj> padding, NullableIndexedWidgetBuilderFFI itemBuilder, IndexedWidgetBuilderFFI separatorBuilder, int itemCount, ffi.Pointer<ffi.Int> addAutomaticKeepAlives, ffi.Pointer<ffi.Int> addRepaintBoundaries, ffi.Pointer<ffi.Int> addSemanticIndexes, ffi.Pointer<ffi.Double> cacheExtent, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> keyboardDismissBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> hitTestBehavior) {
+  final w = ListView.separated(scrollDirection: scrollDirection.enumOr(Axis.values, Axis.vertical),
+      reverse: reverse.boolOr(false),
+      primary: primary.boolOrNul(),
+      shrinkWrap: shrinkWrap.boolOr(false),
+      padding: padding.objOrNul(),
+      itemBuilder: itemBuilder.toNullableIndexedWidgetBuilderFn(),
+      separatorBuilder: separatorBuilder.toIndexedWidgetBuilderFn(),
+      itemCount: itemCount,
+      addAutomaticKeepAlives: addAutomaticKeepAlives.boolOr(true),
+      addRepaintBoundaries: addRepaintBoundaries.boolOr(true),
+      addSemanticIndexes: addSemanticIndexes.boolOr(true),
+      cacheExtent: cacheExtent.doubleOrNul(),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      keyboardDismissBehavior: keyboardDismissBehavior.enumOrNul(ScrollViewKeyboardDismissBehavior.values),
+      restorationId: restorationId.strOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.opaque));
+  return _createListViewObjSt(w);
+}
+ListViewObjSt _createListViewObjSt(ListView? w) {
+  final ListViewObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.itemExtent = (w.itemExtent != null) ? w.itemExtent! : 0;
+  stObj.prototypeItem = _addWidget(w.prototypeItem);
+  return stObj;
+}
+
 void _setupCircularProgressIndicator(WidgetFactories f) {
   f.circularProgressIndicator.circularProgressIndicator = ffi.Pointer.fromFunction(circularProgressIndicatorCircularProgressIndicator);
   f.circularProgressIndicator.adaptive = ffi.Pointer.fromFunction(circularProgressIndicatorAdaptive);
@@ -3998,6 +4075,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupListTile(f);
   _setupWrap(f);
   _setupSingleChildScrollView(f);
+  _setupListView(f);
   _setupCircularProgressIndicator(f);
   _setupLinearProgressIndicator(f);
   _setupSubState(f);
@@ -4199,6 +4277,32 @@ extension on GestureDragCancelCallbackFFI {
 }
 extension on ffi.Pointer<GestureDragCancelCallbackFFI> {
   GestureDragCancelCallback? toGestureDragCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragCancelCallbackFn() : null;
+}
+
+extension on NullableIndexedWidgetBuilderFFI {
+  NullableIndexedWidgetBuilder toNullableIndexedWidgetBuilderFn() {
+    return (BuildContext context, int index) => _runBuildScope(() {
+      DartNullableIndexedWidgetBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), index);
+      return dFnRet.objOrNul();
+    });
+  }
+}
+extension on ffi.Pointer<NullableIndexedWidgetBuilderFFI> {
+  NullableIndexedWidgetBuilder? toNullableIndexedWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toNullableIndexedWidgetBuilderFn() : null;
+}
+
+extension on IndexedWidgetBuilderFFI {
+  IndexedWidgetBuilder toIndexedWidgetBuilderFn() {
+    return (BuildContext context, int index) => _runBuildScope(() {
+      DartIndexedWidgetBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), index);
+      return _widgetsMap[dFnRet]! as Widget;
+    });
+  }
+}
+extension on ffi.Pointer<IndexedWidgetBuilderFFI> {
+  IndexedWidgetBuilder? toIndexedWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toIndexedWidgetBuilderFn() : null;
 }
 
 extension on VoidCallbackDartObjFFI {

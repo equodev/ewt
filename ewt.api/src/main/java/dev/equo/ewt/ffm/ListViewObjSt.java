@@ -16,18 +16,24 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * {@snippet lang=c :
  * struct {
  *     int id;
+ *     double itemExtent;
+ *     DartObj prototypeItem;
  * }
  * }
  */
-public class SubStatefulWidgetObjSt {
+public class ListViewObjSt {
 
-    SubStatefulWidgetObjSt() {
+    ListViewObjSt() {
         // Should not be called directly
     }
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
-        StarterBridge.C_INT.withName("id")
-    ).withName("$anon$999:9");
+        StarterBridge.C_INT.withName("id"),
+        MemoryLayout.paddingLayout(4),
+        StarterBridge.C_DOUBLE.withName("itemExtent"),
+        StarterBridge.C_INT.withName("prototypeItem"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$964:9");
 
     /**
      * The layout of this struct
@@ -78,6 +84,94 @@ public class SubStatefulWidgetObjSt {
      */
     public static void id(MemorySegment struct, int fieldValue) {
         struct.set(id$LAYOUT, id$OFFSET, fieldValue);
+    }
+
+    private static final OfDouble itemExtent$LAYOUT = (OfDouble)$LAYOUT.select(groupElement("itemExtent"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * double itemExtent
+     * }
+     */
+    public static final OfDouble itemExtent$layout() {
+        return itemExtent$LAYOUT;
+    }
+
+    private static final long itemExtent$OFFSET = $LAYOUT.byteOffset(groupElement("itemExtent"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * double itemExtent
+     * }
+     */
+    public static final long itemExtent$offset() {
+        return itemExtent$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * double itemExtent
+     * }
+     */
+    public static double itemExtent(MemorySegment struct) {
+        return struct.get(itemExtent$LAYOUT, itemExtent$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * double itemExtent
+     * }
+     */
+    public static void itemExtent(MemorySegment struct, double fieldValue) {
+        struct.set(itemExtent$LAYOUT, itemExtent$OFFSET, fieldValue);
+    }
+
+    private static final OfInt prototypeItem$LAYOUT = (OfInt)$LAYOUT.select(groupElement("prototypeItem"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DartObj prototypeItem
+     * }
+     */
+    public static final OfInt prototypeItem$layout() {
+        return prototypeItem$LAYOUT;
+    }
+
+    private static final long prototypeItem$OFFSET = $LAYOUT.byteOffset(groupElement("prototypeItem"));
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DartObj prototypeItem
+     * }
+     */
+    public static final long prototypeItem$offset() {
+        return prototypeItem$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DartObj prototypeItem
+     * }
+     */
+    public static int prototypeItem(MemorySegment struct) {
+        return struct.get(prototypeItem$LAYOUT, prototypeItem$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DartObj prototypeItem
+     * }
+     */
+    public static void prototypeItem(MemorySegment struct, int fieldValue) {
+        struct.set(prototypeItem$LAYOUT, prototypeItem$OFFSET, fieldValue);
     }
 
     /**

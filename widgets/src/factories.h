@@ -496,6 +496,12 @@ typedef struct {
     SingleChildScrollViewObjSt (*singleChildScrollView)(int* scrollDirection, int* reverse, DartObj* padding, int* primary, DartObj* child, int* dragStartBehavior, int* clipBehavior, int* hitTestBehavior, char* restorationId, int* keyboardDismissBehavior);
   } singleChildScrollView;
 
+  struct ListViewSt {
+    ListViewObjSt (*listView)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, double* itemExtent, DartObj* prototypeItem, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, ArrayC* children, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+    ListViewObjSt (*builder)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, double* itemExtent, DartObj* prototypeItem, NullableIndexedWidgetBuilderFFI itemBuilder, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+    ListViewObjSt (*separated)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, DartObj* padding, NullableIndexedWidgetBuilderFFI itemBuilder, IndexedWidgetBuilderFFI separatorBuilder, int itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes, double* cacheExtent, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+  } listView;
+
   struct CircularProgressIndicatorSt {
     CircularProgressIndicatorObjSt (*circularProgressIndicator)(double* value, DartObj* backgroundColor, DartObj* color, DartObj* valueColor, double* strokeWidth, double* strokeAlign, char* semanticsLabel, char* semanticsValue, int* strokeCap, DartObj* constraints, double* trackGap, int* year2023, DartObj* padding);
     CircularProgressIndicatorObjSt (*adaptive)(double* value, DartObj* backgroundColor, DartObj* valueColor, double* strokeWidth, char* semanticsLabel, char* semanticsValue, int* strokeCap, double* strokeAlign, DartObj* constraints, double* trackGap, int* year2023, DartObj* padding);

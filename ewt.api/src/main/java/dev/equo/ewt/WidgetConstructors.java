@@ -2543,6 +2543,73 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(keyboardDismissBehavior));
   }
 
+  MemorySegment listViewListView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, OptionalDouble itemExtent, Optional<Widget> prototypeItem, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<Widget>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    var st = WidgetFactories.listView(factories);
+    var fn = WidgetFactories.ListViewSt.listView(st);
+    return WidgetFactories.ListViewSt.listView.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrBool(primary),
+      ptrBool(shrinkWrap),
+      ptrObj(padding),
+      ptr(itemExtent),
+      ptrObj(prototypeItem),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes),
+      ptr(cacheExtent),
+      ptrList(children),
+      ptr(semanticChildCount),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(keyboardDismissBehavior),
+      ptrStr(restorationId),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior));
+  }
+  MemorySegment listViewBuilder(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, OptionalDouble itemExtent, Optional<Widget> prototypeItem, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    var st = WidgetFactories.listView(factories);
+    var fn = WidgetFactories.ListViewSt.builder(st);
+    return WidgetFactories.ListViewSt.builder.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrBool(primary),
+      ptrBool(shrinkWrap),
+      ptrObj(padding),
+      ptr(itemExtent),
+      ptrObj(prototypeItem),
+      ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      ptr(itemCount),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes),
+      ptr(cacheExtent),
+      ptr(semanticChildCount),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(keyboardDismissBehavior),
+      ptrStr(restorationId),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior));
+  }
+  MemorySegment listViewSeparated(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, BiFunction<BuildContext, Integer, Widget> itemBuilder, BiFunction<BuildContext, Integer, Widget> separatorBuilder, int itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    var st = WidgetFactories.listView(factories);
+    var fn = WidgetFactories.ListViewSt.separated(st);
+    return WidgetFactories.ListViewSt.separated.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrBool(primary),
+      ptrBool(shrinkWrap),
+      ptrObj(padding),
+      ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      ptrIndexedWidgetBuilderFn(separatorBuilder),
+      itemCount,
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes),
+      ptr(cacheExtent),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(keyboardDismissBehavior),
+      ptrStr(restorationId),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior));
+  }
+
   MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
     var st = WidgetFactories.circularProgressIndicator(factories);
     var fn = WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator(st);
@@ -2716,6 +2783,18 @@ MemorySegment ptrGestureLongPressUpCallbackFn(Runnable jFn) {
 MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
   return GestureDragCancelCallbackFFI.allocate(() -> {
     jFn.run();
+  }, arena);
+}
+MemorySegment ptrNullableIndexedWidgetBuilderFn(BiFunction<BuildContext, Integer, Widget> jFn) {
+  return NullableIndexedWidgetBuilderFFI.allocate((context, index) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, index);
+    return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrIndexedWidgetBuilderFn(BiFunction<BuildContext, Integer, Widget> jFn) {
+  return IndexedWidgetBuilderFFI.allocate((context, index) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, index);
+    return jFnRet.build().getId();
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {

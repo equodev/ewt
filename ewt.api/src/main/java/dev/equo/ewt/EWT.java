@@ -534,6 +534,16 @@ public class EWT {
     return SingleChildScrollViewSingleChildScrollViewBuilder.singleChildScrollViewSingleChildScrollView();
   }
 
+  public static ListViewListViewBuilder ListView() {
+    return ListViewListViewBuilder.listViewListView();
+  }
+  public static ListViewBuilderBuilder ListView_builder() {
+    return ListViewBuilderBuilder.listViewBuilder();
+  }
+  public static ListViewSeparatedBuilder ListView_separated() {
+    return ListViewSeparatedBuilder.listViewSeparated();
+  }
+
   public static CircularProgressIndicatorCircularProgressIndicatorBuilder CircularProgressIndicator() {
     return CircularProgressIndicatorCircularProgressIndicatorBuilder.circularProgressIndicatorCircularProgressIndicator();
   }

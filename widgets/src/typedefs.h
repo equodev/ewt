@@ -13,6 +13,8 @@ typedef void (*GestureLongPressCancelCallbackFFI)(void);
 typedef void (*GestureLongPressCallbackFFI)(void);
 typedef void (*GestureLongPressUpCallbackFFI)(void);
 typedef void (*GestureDragCancelCallbackFFI)(void);
+typedef DartObj (*NullableIndexedWidgetBuilderFFI)(DartObj context, int index);
+typedef DartObj (*IndexedWidgetBuilderFFI)(DartObj context, int index);
 typedef void (*VoidCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackFFI)(void);

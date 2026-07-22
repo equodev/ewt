@@ -963,6 +963,12 @@ typedef struct {
 
 typedef struct {
   int id;
+  double itemExtent;
+  DartObj prototypeItem;
+} ListViewObjSt;
+
+typedef struct {
+  int id;
   double strokeWidth;
   double strokeAlign;
   int strokeCap;
