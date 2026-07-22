@@ -545,7 +545,7 @@ class WidgetGen implements AGen {
         final n = t.element.name;
         if (n == 'Animation' || n == 'CurvedAnimation' || t.isDartCoreMap) return false;
       }
-      if (t is FunctionType && t.returnType is! VoidType) return false;
+      if (t is FunctionType && t.returnType is! VoidType && !p.isOptional) return false;
       final alias = t.alias;
       if (alias != null) {
         final at = alias.element.aliasedType;
@@ -1566,7 +1566,9 @@ class Params {
       String Function(Types, ParameterElement, {bool annotated, bool wrap}) paramDef,
       {this.allTypes = false, String Function(Types, ParameterElement) paramValue = _paramName, String Function(Types, ParameterElement) escape = _paramName}) {
     var filtered = allTypes ? parameters : parameters.where((p) => types.supportedType(p.type));
-    names = filtered.map((p) => paramValue(types, p)).join(',\n      ');
+    // Empty string is the "skip" sentinel (see paramValueJson / _paramValueJsonRaw); filter out
+    // so that optional value-returning fn params are omitted from the constructor call entirely.
+    names = filtered.map((p) => paramValue(types, p)).where((v) => v.isNotEmpty).join(',\n      ');
     var mandatory = filtered.takeWhile((p) => p.isRequired);
     builderDecl = filtered.map((p) => '${paramDef(types, p, annotated: mandatory.contains(p), wrap: p.isOptional)} ${escape(types, p)}').join(', ');
     decl = filtered.map((p) => '${paramDef(types, p, wrap: p.isOptional)} ${escape(types, p)}').join(', ');
@@ -1776,6 +1778,9 @@ class Params {
   /// instead of FFI pointers. Object-refs and list elements recurse through `decodeEwtNode`.
   static String paramValueJson(Types types, ParameterElement param) {
     final value = _paramValueJsonRaw(types, param);
+    // Empty string is the "skip" sentinel (e.g. optional value-returning fn params) — propagate
+    // it as-is so Params.names can filter it out; avoid emitting "name: " for skipped params.
+    if (value.isEmpty) return '';
     // Named constructor params must carry their name (mirrors paramValue4D); positional don't.
     return param.isNamed ? '${param.name}: $value' : value;
   }
@@ -1796,6 +1801,13 @@ class Params {
       }
       if (_valueCallbackJavaType(t) != null) {
         return "ewtWireValueCallback(p['$key'])";
+      }
+      // Optional value-returning fn params (e.g. Scaffold.bottomSheetScrimBuilder) have a
+      // non-nullable function type with a default; passing null would fail the type checker.
+      // Return empty string as a "skip" sentinel — paramValueJson propagates it unchanged,
+      // and Params.names filters it out so the widget constructor uses its own default.
+      if (t is FunctionType && t.returnType is! VoidType && param.isOptional) {
+        return '';
       }
       return '([Object? a, Object? b, Object? c]) {}';
     }
