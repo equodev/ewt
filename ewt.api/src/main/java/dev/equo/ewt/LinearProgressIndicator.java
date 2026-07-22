@@ -36,21 +36,31 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
     return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
   }
   public double minHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorMinHeight not supported on web");
     return LinearProgressIndicatorObjSt.minHeight(st);
   }
   public BorderRadiusGeometry borderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorBorderRadius not supported on web");
     return new BorderRadiusGeometry(LinearProgressIndicatorObjSt.borderRadius(st)) {};
   }
   public Color stopIndicatorColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("linearProgressIndicatorStopIndicatorColor", getId());
+      return new Color(__nid);
+    }
     return new Color(LinearProgressIndicatorObjSt.stopIndicatorColor(st));
   }
   public double stopIndicatorRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorStopIndicatorRadius not supported on web");
     return LinearProgressIndicatorObjSt.stopIndicatorRadius(st);
   }
   public double trackGap() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorTrackGap not supported on web");
     return LinearProgressIndicatorObjSt.trackGap(st);
   }
   public boolean year2023() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorYear2023 not supported on web");
     return intToBool(LinearProgressIndicatorObjSt.year2023(st));
   }
   @Override

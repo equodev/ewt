@@ -65,33 +65,43 @@ public class BoxConstraints extends Constraints implements BoxConstraintsI {
     return new BoxConstraints(st);
   }
   public double minWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMinWidth not supported on web");
     return BoxConstraintsObjSt.minWidth(st);
   }
   public double maxWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMaxWidth not supported on web");
     return BoxConstraintsObjSt.maxWidth(st);
   }
   public double minHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMinHeight not supported on web");
     return BoxConstraintsObjSt.minHeight(st);
   }
   public double maxHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMaxHeight not supported on web");
     return BoxConstraintsObjSt.maxHeight(st);
   }
   public boolean hasTightWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasTightWidth not supported on web");
     return intToBool(BoxConstraintsObjSt.hasTightWidth(st));
   }
   public boolean hasTightHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasTightHeight not supported on web");
     return intToBool(BoxConstraintsObjSt.hasTightHeight(st));
   }
   public boolean hasBoundedWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasBoundedWidth not supported on web");
     return intToBool(BoxConstraintsObjSt.hasBoundedWidth(st));
   }
   public boolean hasBoundedHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasBoundedHeight not supported on web");
     return intToBool(BoxConstraintsObjSt.hasBoundedHeight(st));
   }
   public boolean hasInfiniteWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasInfiniteWidth not supported on web");
     return intToBool(BoxConstraintsObjSt.hasInfiniteWidth(st));
   }
   public boolean hasInfiniteHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasInfiniteHeight not supported on web");
     return intToBool(BoxConstraintsObjSt.hasInfiniteHeight(st));
   }
   @Override

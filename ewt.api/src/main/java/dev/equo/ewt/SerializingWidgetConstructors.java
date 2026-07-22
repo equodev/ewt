@@ -14,6 +14,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
     if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
   private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
+  public int recordAccessor(String type, int receiverId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    EwtNode recv = byId.get(receiverId);
+    if (recv != null) p.put("receiver", recv);
+    record(id, type, p);
+    return id;
+  }
   @Override
   MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<TextDecoration> decoration, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     int id = nextId++;

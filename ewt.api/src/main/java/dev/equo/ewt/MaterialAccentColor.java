@@ -26,15 +26,35 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
     return MaterialAccentColorMaterialAccentColorBuilder.materialAccentColorMaterialAccentColor(primary, swatch);
   }
   public Color shade100() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAccentColorShade100", getId());
+      return new Color(__nid);
+    }
     return new Color(MaterialAccentColorObjSt.shade100(st));
   }
   public Color shade200() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAccentColorShade200", getId());
+      return new Color(__nid);
+    }
     return new Color(MaterialAccentColorObjSt.shade200(st));
   }
   public Color shade400() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAccentColorShade400", getId());
+      return new Color(__nid);
+    }
     return new Color(MaterialAccentColorObjSt.shade400(st));
   }
   public Color shade700() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAccentColorShade700", getId());
+      return new Color(__nid);
+    }
     return new Color(MaterialAccentColorObjSt.shade700(st));
   }
   @Override

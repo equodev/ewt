@@ -66,27 +66,51 @@ public class EdgeInsets extends EdgeInsetsGeometry implements EdgeInsetsI {
     return new EdgeInsets(st);
   }
   public double left() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("edgeInsetsLeft not supported on web");
     return EdgeInsetsObjSt.left(st);
   }
   public double top() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("edgeInsetsTop not supported on web");
     return EdgeInsetsObjSt.top(st);
   }
   public double right() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("edgeInsetsRight not supported on web");
     return EdgeInsetsObjSt.right(st);
   }
   public double bottom() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("edgeInsetsBottom not supported on web");
     return EdgeInsetsObjSt.bottom(st);
   }
   public Offset topLeft() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("edgeInsetsTopLeft", getId());
+      return new Offset(__nid);
+    }
     return new Offset(EdgeInsetsObjSt.topLeft(st));
   }
   public Offset topRight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("edgeInsetsTopRight", getId());
+      return new Offset(__nid);
+    }
     return new Offset(EdgeInsetsObjSt.topRight(st));
   }
   public Offset bottomLeft() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("edgeInsetsBottomLeft", getId());
+      return new Offset(__nid);
+    }
     return new Offset(EdgeInsetsObjSt.bottomLeft(st));
   }
   public Offset bottomRight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("edgeInsetsBottomRight", getId());
+      return new Offset(__nid);
+    }
     return new Offset(EdgeInsetsObjSt.bottomRight(st));
   }
   public static EdgeInsets zero() {

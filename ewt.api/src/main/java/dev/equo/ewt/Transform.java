@@ -72,15 +72,23 @@ public class Transform extends SingleChildRenderObjectWidget implements Transfor
     return TransformFlipBuilder.transformFlip();
   }
   public Offset origin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("transformOrigin", getId());
+      return new Offset(__nid);
+    }
     return new Offset(TransformObjSt.origin(st));
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("transformAlignment not supported on web");
     return new AlignmentGeometry(TransformObjSt.alignment(st)) {};
   }
   public boolean transformHitTests() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("transformTransformHitTests not supported on web");
     return intToBool(TransformObjSt.transformHitTests(st));
   }
   public FilterQuality filterQuality() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("transformFilterQuality not supported on web");
     return FilterQuality.values()[TransformObjSt.filterQuality(st)];
   }
   @Override

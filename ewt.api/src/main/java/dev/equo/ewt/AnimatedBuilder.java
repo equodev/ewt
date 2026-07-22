@@ -27,6 +27,7 @@ public class AnimatedBuilder extends ListenableBuilder implements AnimatedBuilde
     return AnimatedBuilderAnimatedBuilderBuilder.animatedBuilderAnimatedBuilder(animation, builder);
   }
   public Listenable animation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedBuilderAnimation not supported on web");
     return new Listenable() { public int getId() { return AnimatedBuilderObjSt.animation(st); } };
   }
   @Override

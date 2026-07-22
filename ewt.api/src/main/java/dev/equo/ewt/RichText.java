@@ -33,30 +33,43 @@ public class RichText extends MultiChildRenderObjectWidget implements RichTextI 
     return RichTextRichTextBuilder.richTextRichText(text);
   }
   public InlineSpan text() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextText not supported on web");
     return new InlineSpan(RichTextObjSt.text(st)) {};
   }
   public TextAlign textAlign() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextAlign not supported on web");
     return TextAlign.values()[RichTextObjSt.textAlign(st)];
   }
   public TextDirection textDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextDirection not supported on web");
     return TextDirection.values()[RichTextObjSt.textDirection(st)];
   }
   public boolean softWrap() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextSoftWrap not supported on web");
     return intToBool(RichTextObjSt.softWrap(st));
   }
   public TextOverflow overflow() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextOverflow not supported on web");
     return TextOverflow.values()[RichTextObjSt.overflow(st)];
   }
   public int maxLines() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextMaxLines not supported on web");
     return RichTextObjSt.maxLines(st);
   }
   public TextWidthBasis textWidthBasis() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextWidthBasis not supported on web");
     return TextWidthBasis.values()[RichTextObjSt.textWidthBasis(st)];
   }
   public Color selectionColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("richTextSelectionColor", getId());
+      return new Color(__nid);
+    }
     return new Color(RichTextObjSt.selectionColor(st));
   }
   public double textScaleFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextScaleFactor not supported on web");
     return RichTextObjSt.textScaleFactor(st);
   }
   @Override

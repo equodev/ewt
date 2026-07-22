@@ -64,9 +64,11 @@ public class SizedBox extends SingleChildRenderObjectWidget implements SizedBoxI
     return SizedBoxSquareBuilder.sizedBoxSquare();
   }
   public double width() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizedBoxWidth not supported on web");
     return SizedBoxObjSt.width(st);
   }
   public double height() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizedBoxHeight not supported on web");
     return SizedBoxObjSt.height(st);
   }
   @Override

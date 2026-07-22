@@ -25,6 +25,7 @@ public final class EwtNodeJson {
     sb.append(",\"p\":{");
     boolean first = true;
     for (Map.Entry<String, Object> e : n.params().entrySet()) {
+      if (e.getValue() == null) continue; // skip null params (e.g. unresolved node refs)
       if (!first) sb.append(',');
       first = false;
       writeString(sb, e.getKey());

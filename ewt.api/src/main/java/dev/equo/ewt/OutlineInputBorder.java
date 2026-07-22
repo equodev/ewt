@@ -27,9 +27,17 @@ public class OutlineInputBorder extends InputBorder implements OutlineInputBorde
     return OutlineInputBorderOutlineInputBorderBuilder.outlineInputBorderOutlineInputBorder();
   }
   public double gapPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("outlineInputBorderGapPadding not supported on web");
     return OutlineInputBorderObjSt.gapPadding(st);
   }
   public BorderRadius borderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("outlineInputBorderBorderRadius", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderRadiusObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderRadiusObjSt.id(__st, __nid);
+      return new BorderRadius(__st);
+    }
     return new BorderRadius(OutlineInputBorderObjSt.borderRadius(st));
   }
   @Override

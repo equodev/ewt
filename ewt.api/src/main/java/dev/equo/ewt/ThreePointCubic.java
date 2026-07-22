@@ -29,18 +29,43 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
     return ThreePointCubicThreePointCubicBuilder.threePointCubicThreePointCubic(a1, b1, midpoint, a2, b2);
   }
   public Offset a1() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("threePointCubicA1", getId());
+      return new Offset(__nid);
+    }
     return new Offset(ThreePointCubicObjSt.a1(st));
   }
   public Offset b1() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("threePointCubicB1", getId());
+      return new Offset(__nid);
+    }
     return new Offset(ThreePointCubicObjSt.b1(st));
   }
   public Offset midpoint() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("threePointCubicMidpoint", getId());
+      return new Offset(__nid);
+    }
     return new Offset(ThreePointCubicObjSt.midpoint(st));
   }
   public Offset a2() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("threePointCubicA2", getId());
+      return new Offset(__nid);
+    }
     return new Offset(ThreePointCubicObjSt.a2(st));
   }
   public Offset b2() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("threePointCubicB2", getId());
+      return new Offset(__nid);
+    }
     return new Offset(ThreePointCubicObjSt.b2(st));
   }
   @Override

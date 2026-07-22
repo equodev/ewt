@@ -34,33 +34,43 @@ public class SingleChildScrollView extends StatelessWidget implements SingleChil
     return SingleChildScrollViewSingleChildScrollViewBuilder.singleChildScrollViewSingleChildScrollView();
   }
   public Axis scrollDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewScrollDirection not supported on web");
     return Axis.values()[SingleChildScrollViewObjSt.scrollDirection(st)];
   }
   public boolean reverse() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewReverse not supported on web");
     return intToBool(SingleChildScrollViewObjSt.reverse(st));
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewPadding not supported on web");
     return new EdgeInsetsGeometry(SingleChildScrollViewObjSt.padding(st)) {};
   }
   public boolean primary() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewPrimary not supported on web");
     return intToBool(SingleChildScrollViewObjSt.primary(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewChild not supported on web");
     return new Widget(SingleChildScrollViewObjSt.child(st)) {};
   }
   public DragStartBehavior dragStartBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewDragStartBehavior not supported on web");
     return DragStartBehavior.values()[SingleChildScrollViewObjSt.dragStartBehavior(st)];
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewClipBehavior not supported on web");
     return Clip.values()[SingleChildScrollViewObjSt.clipBehavior(st)];
   }
   public HitTestBehavior hitTestBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewHitTestBehavior not supported on web");
     return HitTestBehavior.values()[SingleChildScrollViewObjSt.hitTestBehavior(st)];
   }
   public String restorationId() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewRestorationId not supported on web");
     return SingleChildScrollViewObjSt.restorationId(st).getString(0);
   }
   public ScrollViewKeyboardDismissBehavior keyboardDismissBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewKeyboardDismissBehavior not supported on web");
     return ScrollViewKeyboardDismissBehavior.values()[SingleChildScrollViewObjSt.keyboardDismissBehavior(st)];
   }
   @Override

@@ -61,14 +61,17 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     didChangeDependencies();
   }
   public T widget() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");
     MemorySegment funcPtr = SubAnimatedStateObjSt.widget(st);
     return SubclassedInJava.getSubNatObj(SubAnimatedStateObjSt.widget.invoke(funcPtr));
   }
   public BuildContext context() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateContext not supported on web");
     MemorySegment funcPtr = SubAnimatedStateObjSt.context(st);
     return new BuildContext() { public int getId() { return SubAnimatedStateObjSt.context.invoke(funcPtr); } };
   }
   public boolean mounted() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateMounted not supported on web");
     MemorySegment funcPtr = SubAnimatedStateObjSt.mounted(st);
     return intToBool(SubAnimatedStateObjSt.mounted.invoke(funcPtr));
   }

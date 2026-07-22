@@ -798,20 +798,67 @@ abstract class ObjStGen extends WidgetGen {
     objectsHFile.writeln('} $widgetSt;');
   }
 
-  /// Generates a field accessor for java
+  /// True when this class is a pure value-object (not a Flutter Widget subclass).
+  /// Widget classes (Icon, Container, …) already have constructor factory decoders in the web
+  /// map; emitting accessor decoders for them would create duplicate keys. Value-objects
+  /// (ColorScheme, TextStyle, TextTheme, …) have no constructor factory decoder, so accessor
+  /// decoders are safe.
+  bool get _isValueObject => !dartClass.allSupertypes.any(
+      (s) => s.element.name == 'StatelessWidget' || s.element.name == 'StatefulWidget');
+
+  /// Generates a field accessor for java.
+  /// On web: ObjSt-backed returns record a {t, receiver} node and return a node-backed value-object;
+  /// int-backed concrete (Color) similarly. Enum/primitive/String/abstract accessors throw on web.
   void writeJavaFieldAccessor(FieldElement field, {bool useInvoke = false}) {
-    javaFile
-      ..writeln('  public ${types.type4J(field.type)} ${field.name}() {');
-    
+    final retJ = types.type4J(field.type);
+    final factoryName = '$widgetField${field.name.firstUpper()}';
+    final gen = types.getGen(field.type.element!);
+    final objType = gen.objType();
+    final isObjSt = objType.endsWith('ObjSt');
+    // Concrete (non-abstract) DartObj-backed value-objects with a (int id) ctor, e.g. Color.
+    final isIntBackedObj = objType == 'DartObj'
+        && field.type.element is! EnumElement
+        && !isPrimitive(field.type)
+        && !field.type.isDartCoreString
+        && field.type.element is ClassElement
+        && !(field.type.element as ClassElement).isAbstract;
+
+    javaFile.writeln('  public $retJ ${field.name}() {');
+
+    // Web branch: record the accessor as a node chained off this receiver, return a node-backed value.
+    if (isObjSt || isIntBackedObj) {
+      javaFile
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
+        ..writeln('      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;')
+        ..writeln('      int __nid = __s.recordAccessor("$factoryName", getId());');
+      if (isObjSt) {
+        // Use fully-qualified ObjSt name: each class only imports its own ObjSt.
+        javaFile
+          ..writeln('      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.$objType.allocate(__s.arena);')
+          ..writeln('      dev.equo.ewt.ffm.$objType.id(__st, __nid);')
+          ..writeln('      return new $retJ(__st);');
+      } else {
+        javaFile.writeln('      return new $retJ(__nid);');
+      }
+      javaFile.writeln('    }');
+      // Web decoder: only for value-objects — widget classes already have constructor factory
+      // decoders with the same name, so accessor decoders would create duplicate map keys.
+      if (_isValueObject) {
+        dartWebDecoders.writeln("  '$factoryName': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as $widgetClass).${field.name},");
+      }
+    } else {
+      // Enum/primitive/String/abstract accessor: value is only known to Flutter, not serializable as a node.
+      javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("$factoryName not supported on web");');
+    }
+
+    // Native branch (unchanged).
     if (useInvoke) {
       javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
         ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}.invoke(funcPtr)', field.type))};');
     } else {
-      javaFile
-        .writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
+      javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
     }
-    
     javaFile.writeln('  }');
   }
 
@@ -952,23 +999,54 @@ class SubclassGen extends ObjStGen {
     }
     
     writeStructHeader();
-    
+
     for (final field in callableFields()) {
       objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
-      writeJavaFieldAccessor(field, useInvoke: true);
+      // SubState.widget(): on web, return the owning widget stored by setWebWidget during flatten.
+      if (widgetClass == 'SubState' && field.name == 'widget') {
+        final retJ = types.type4J(field.type);
+        javaFile
+          ..writeln('  @SuppressWarnings("unchecked")')
+          ..writeln('  public $retJ ${field.name}() {')
+          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
+          ..writeln('      return ($retJ) webWidget;')
+          ..writeln('    }')
+          ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
+          ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.${field.name}.invoke(funcPtr));')
+          ..writeln('  }');
+      } else {
+        writeJavaFieldAccessor(field, useInvoke: true);
+      }
     }
     
     for (final method in callableMethods()) {
       objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
       javaFile
-        ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {')
+        ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
+      // Web-mode setState: run the mutation locally and request a rebuild via EwtWebState.
+      if (widgetClass == 'SubState' && method.name == 'setState') {
+        javaFile
+          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
+          ..writeln('      fn.run();')
+          ..writeln('      EwtWebState.requestRebuild(this);')
+          ..writeln('      return;')
+          ..writeln('    }');
+      }
+      javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${method.name}(st);')
         ..writeln('    $widgetSt.${method.name}.invoke(funcPtr, factories.${jParams.names});')
         ..writeln('  }');
     }
-    
+
     writeStructFooter();
+
+    // SubState needs a web-mode widget() that returns the owning widget stored during flatten.
+    if (widgetClass == 'SubState') {
+      javaFile
+        ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
+        ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
+    }
   }
 
   Iterable<FieldElement> callableFields() {
@@ -1426,6 +1504,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
     if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
   private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
+  public int recordAccessor(String type, int receiverId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    EwtNode recv = byId.get(receiverId);
+    if (recv != null) p.put("receiver", recv);
+    record(id, type, p);
+    return id;
+  }
 $overrides}
 ''';
   }

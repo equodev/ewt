@@ -33,9 +33,11 @@ public class Alignment extends AlignmentGeometry implements AlignmentI {
     return new Alignment(st);
   }
   public double x() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignmentX not supported on web");
     return AlignmentObjSt.x(st);
   }
   public double y() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignmentY not supported on web");
     return AlignmentObjSt.y(st);
   }
   public static Alignment topLeft() {

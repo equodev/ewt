@@ -73,15 +73,35 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
     return new BorderRadius(st);
   }
   public Radius topLeft() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderRadiusTopLeft", getId());
+      return new Radius(__nid);
+    }
     return new Radius(BorderRadiusObjSt.topLeft(st));
   }
   public Radius topRight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderRadiusTopRight", getId());
+      return new Radius(__nid);
+    }
     return new Radius(BorderRadiusObjSt.topRight(st));
   }
   public Radius bottomLeft() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderRadiusBottomLeft", getId());
+      return new Radius(__nid);
+    }
     return new Radius(BorderRadiusObjSt.bottomLeft(st));
   }
   public Radius bottomRight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderRadiusBottomRight", getId());
+      return new Radius(__nid);
+    }
     return new Radius(BorderRadiusObjSt.bottomRight(st));
   }
   public static BorderRadius zero() {

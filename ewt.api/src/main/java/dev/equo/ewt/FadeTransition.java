@@ -27,9 +27,11 @@ public class FadeTransition extends SingleChildRenderObjectWidget implements Fad
     return FadeTransitionFadeTransitionBuilder.fadeTransitionFadeTransition(opacity);
   }
   public Animation opacity() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeTransitionOpacity not supported on web");
     return new Animation() { public int getId() { return FadeTransitionObjSt.opacity(st); } };
   }
   public boolean alwaysIncludeSemantics() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeTransitionAlwaysIncludeSemantics not supported on web");
     return intToBool(FadeTransitionObjSt.alwaysIncludeSemantics(st));
   }
   @Override

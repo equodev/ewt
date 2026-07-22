@@ -27,9 +27,11 @@ public class Flexible extends ParentDataWidget<FlexParentData> implements Flexib
     return FlexibleFlexibleBuilder.flexibleFlexible();
   }
   public int flex() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexibleFlex not supported on web");
     return FlexibleObjSt.flex(st);
   }
   public FlexFit fit() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexibleFit not supported on web");
     return FlexFit.values()[FlexibleObjSt.fit(st)];
   }
   @Override

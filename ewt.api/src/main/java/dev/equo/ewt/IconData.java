@@ -29,15 +29,19 @@ public class IconData extends NativeObj.Base implements IconDataI {
     return IconDataIconDataBuilder.iconDataIconData(codePoint);
   }
   public int codePoint() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconDataCodePoint not supported on web");
     return IconDataObjSt.codePoint(st);
   }
   public String fontFamily() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconDataFontFamily not supported on web");
     return IconDataObjSt.fontFamily(st).getString(0);
   }
   public String fontPackage() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconDataFontPackage not supported on web");
     return IconDataObjSt.fontPackage(st).getString(0);
   }
   public boolean matchTextDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconDataMatchTextDirection not supported on web");
     return intToBool(IconDataObjSt.matchTextDirection(st));
   }
   @Override

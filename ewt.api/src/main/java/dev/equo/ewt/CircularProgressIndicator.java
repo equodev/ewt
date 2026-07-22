@@ -57,24 +57,37 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
     return CircularProgressIndicatorAdaptiveBuilder.circularProgressIndicatorAdaptive();
   }
   public double strokeWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorStrokeWidth not supported on web");
     return CircularProgressIndicatorObjSt.strokeWidth(st);
   }
   public double strokeAlign() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorStrokeAlign not supported on web");
     return CircularProgressIndicatorObjSt.strokeAlign(st);
   }
   public StrokeCap strokeCap() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorStrokeCap not supported on web");
     return StrokeCap.values()[CircularProgressIndicatorObjSt.strokeCap(st)];
   }
   public BoxConstraints constraints() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("circularProgressIndicatorConstraints", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
+      return new BoxConstraints(__st);
+    }
     return new BoxConstraints(CircularProgressIndicatorObjSt.constraints(st));
   }
   public double trackGap() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorTrackGap not supported on web");
     return CircularProgressIndicatorObjSt.trackGap(st);
   }
   public boolean year2023() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorYear2023 not supported on web");
     return intToBool(CircularProgressIndicatorObjSt.year2023(st));
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorPadding not supported on web");
     return new EdgeInsetsGeometry(CircularProgressIndicatorObjSt.padding(st)) {};
   }
   public static double strokeAlignInside() {

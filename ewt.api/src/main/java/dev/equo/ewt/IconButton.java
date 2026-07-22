@@ -132,57 +132,111 @@ public class IconButton extends StatelessWidget implements IconButtonI {
     return IconButtonOutlinedBuilder.iconButtonOutlined();
   }
   public double iconSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonIconSize not supported on web");
     return IconButtonObjSt.iconSize(st);
   }
   public VisualDensity visualDensity() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonVisualDensity", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
+      return new VisualDensity(__st);
+    }
     return new VisualDensity(IconButtonObjSt.visualDensity(st));
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonPadding not supported on web");
     return new EdgeInsetsGeometry(IconButtonObjSt.padding(st)) {};
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonAlignment not supported on web");
     return new AlignmentGeometry(IconButtonObjSt.alignment(st)) {};
   }
   public double splashRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonSplashRadius not supported on web");
     return IconButtonObjSt.splashRadius(st);
   }
   public Widget icon() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonIcon not supported on web");
     return new Widget(IconButtonObjSt.icon(st)) {};
   }
   public Color focusColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonFocusColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconButtonObjSt.focusColor(st));
   }
   public Color hoverColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonHoverColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconButtonObjSt.hoverColor(st));
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconButtonObjSt.color(st));
   }
   public Color splashColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonSplashColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconButtonObjSt.splashColor(st));
   }
   public Color highlightColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonHighlightColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconButtonObjSt.highlightColor(st));
   }
   public Color disabledColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonDisabledColor", getId());
+      return new Color(__nid);
+    }
     return new Color(IconButtonObjSt.disabledColor(st));
   }
   public boolean autofocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonAutofocus not supported on web");
     return intToBool(IconButtonObjSt.autofocus(st));
   }
   public String tooltip() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonTooltip not supported on web");
     return IconButtonObjSt.tooltip(st).getString(0);
   }
   public boolean enableFeedback() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonEnableFeedback not supported on web");
     return intToBool(IconButtonObjSt.enableFeedback(st));
   }
   public BoxConstraints constraints() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("iconButtonConstraints", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
+      return new BoxConstraints(__st);
+    }
     return new BoxConstraints(IconButtonObjSt.constraints(st));
   }
   public boolean isSelected() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonIsSelected not supported on web");
     return intToBool(IconButtonObjSt.isSelected(st));
   }
   public Widget selectedIcon() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("iconButtonSelectedIcon not supported on web");
     return new Widget(IconButtonObjSt.selectedIcon(st)) {};
   }
   @Override

@@ -30,15 +30,19 @@ public class TextSpan extends InlineSpan implements TextSpanI {
     return TextSpanTextSpanBuilder.textSpanTextSpan();
   }
   public String text() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanText not supported on web");
     return TextSpanObjSt.text(st).getString(0);
   }
   public String semanticsLabel() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanSemanticsLabel not supported on web");
     return TextSpanObjSt.semanticsLabel(st).getString(0);
   }
   public String semanticsIdentifier() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanSemanticsIdentifier not supported on web");
     return TextSpanObjSt.semanticsIdentifier(st).getString(0);
   }
   public boolean spellOut() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanSpellOut not supported on web");
     return intToBool(TextSpanObjSt.spellOut(st));
   }
   @Override

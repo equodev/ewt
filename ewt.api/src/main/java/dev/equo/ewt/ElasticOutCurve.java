@@ -25,6 +25,7 @@ public class ElasticOutCurve extends Curve implements ElasticOutCurveI {
     return ElasticOutCurveElasticOutCurveBuilder.elasticOutCurveElasticOutCurve();
   }
   public double period() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("elasticOutCurvePeriod not supported on web");
     return ElasticOutCurveObjSt.period(st);
   }
   @Override

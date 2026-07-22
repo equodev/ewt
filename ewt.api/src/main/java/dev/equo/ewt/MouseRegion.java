@@ -27,9 +27,11 @@ public class MouseRegion extends SingleChildRenderObjectWidget implements MouseR
     return MouseRegionMouseRegionBuilder.mouseRegionMouseRegion();
   }
   public boolean opaque() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("mouseRegionOpaque not supported on web");
     return intToBool(MouseRegionObjSt.opaque(st));
   }
   public HitTestBehavior hitTestBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("mouseRegionHitTestBehavior not supported on web");
     return HitTestBehavior.values()[MouseRegionObjSt.hitTestBehavior(st)];
   }
   @Override

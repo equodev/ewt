@@ -49,21 +49,31 @@ public class GestureDetector extends StatelessWidget implements GestureDetectorI
     return GestureDetectorGestureDetectorBuilder.gestureDetectorGestureDetector();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gestureDetectorChild not supported on web");
     return new Widget(GestureDetectorObjSt.child(st)) {};
   }
   public HitTestBehavior behavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gestureDetectorBehavior not supported on web");
     return HitTestBehavior.values()[GestureDetectorObjSt.behavior(st)];
   }
   public boolean excludeFromSemantics() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gestureDetectorExcludeFromSemantics not supported on web");
     return intToBool(GestureDetectorObjSt.excludeFromSemantics(st));
   }
   public DragStartBehavior dragStartBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gestureDetectorDragStartBehavior not supported on web");
     return DragStartBehavior.values()[GestureDetectorObjSt.dragStartBehavior(st)];
   }
   public boolean trackpadScrollCausesScale() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gestureDetectorTrackpadScrollCausesScale not supported on web");
     return intToBool(GestureDetectorObjSt.trackpadScrollCausesScale(st));
   }
   public Offset trackpadScrollToScaleFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("gestureDetectorTrackpadScrollToScaleFactor", getId());
+      return new Offset(__nid);
+    }
     return new Offset(GestureDetectorObjSt.trackpadScrollToScaleFactor(st));
   }
   @Override

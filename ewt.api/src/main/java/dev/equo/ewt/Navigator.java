@@ -111,24 +111,31 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     return new NavigatorState(id);
   }
   public String initialRoute() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorInitialRoute not supported on web");
     return NavigatorObjSt.initialRoute(st).getString(0);
   }
   public String restorationScopeId() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRestorationScopeId not supported on web");
     return NavigatorObjSt.restorationScopeId(st).getString(0);
   }
   public TraversalEdgeBehavior routeTraversalEdgeBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRouteTraversalEdgeBehavior not supported on web");
     return TraversalEdgeBehavior.values()[NavigatorObjSt.routeTraversalEdgeBehavior(st)];
   }
   public TraversalEdgeBehavior routeDirectionalTraversalEdgeBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRouteDirectionalTraversalEdgeBehavior not supported on web");
     return TraversalEdgeBehavior.values()[NavigatorObjSt.routeDirectionalTraversalEdgeBehavior(st)];
   }
   public boolean reportsRouteUpdateToEngine() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorReportsRouteUpdateToEngine not supported on web");
     return intToBool(NavigatorObjSt.reportsRouteUpdateToEngine(st));
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorClipBehavior not supported on web");
     return Clip.values()[NavigatorObjSt.clipBehavior(st)];
   }
   public boolean requestFocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRequestFocus not supported on web");
     return intToBool(NavigatorObjSt.requestFocus(st));
   }
   public static String defaultRouteName() {

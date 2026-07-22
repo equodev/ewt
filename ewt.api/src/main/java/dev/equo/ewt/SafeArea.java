@@ -31,24 +31,37 @@ public class SafeArea extends StatelessWidget implements SafeAreaI {
     return SafeAreaSafeAreaBuilder.safeAreaSafeArea();
   }
   public boolean left() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("safeAreaLeft not supported on web");
     return intToBool(SafeAreaObjSt.left(st));
   }
   public boolean top() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("safeAreaTop not supported on web");
     return intToBool(SafeAreaObjSt.top(st));
   }
   public boolean right() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("safeAreaRight not supported on web");
     return intToBool(SafeAreaObjSt.right(st));
   }
   public boolean bottom() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("safeAreaBottom not supported on web");
     return intToBool(SafeAreaObjSt.bottom(st));
   }
   public EdgeInsets minimum() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("safeAreaMinimum", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
+      return new EdgeInsets(__st);
+    }
     return new EdgeInsets(SafeAreaObjSt.minimum(st));
   }
   public boolean maintainBottomViewPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("safeAreaMaintainBottomViewPadding not supported on web");
     return intToBool(SafeAreaObjSt.maintainBottomViewPadding(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("safeAreaChild not supported on web");
     return new Widget(SafeAreaObjSt.child(st)) {};
   }
   @Override
