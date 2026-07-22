@@ -40,7 +40,7 @@ public class DividerObjSt {
         StarterBridge.C_DOUBLE.withName("endIndent"),
         StarterBridge.C_INT.withName("radius"),
         StarterBridge.C_INT.withName("color")
-    ).withName("$anon$799:9");
+    ).withName("$anon$971:9");
 
     /**
      * The layout of this struct

@@ -351,6 +351,178 @@ typedef struct {
 
 typedef struct {
   int id;
+  double aspectRatio;
+} AspectRatioObjSt;
+
+typedef struct {
+  int id;
+  int clipBehavior;
+} ClipOvalObjSt;
+
+typedef struct {
+  int id;
+  DartObj borderRadius;
+  int clipBehavior;
+} ClipRRectObjSt;
+
+typedef struct {
+  int id;
+  int clipBehavior;
+} ClipRectObjSt;
+
+typedef struct {
+  int id;
+  DartObj color;
+} ColoredBoxObjSt;
+
+typedef struct {
+  int id;
+  BoxConstraintsObjSt constraints;
+} ConstrainedBoxObjSt;
+
+typedef struct {
+  int id;
+  DartObj decoration;
+  int position;
+} DecoratedBoxObjSt;
+
+typedef struct {
+  int id;
+  int fit;
+  DartObj alignment;
+  int clipBehavior;
+} FittedBoxObjSt;
+
+typedef struct {
+  int id;
+  double widthFactor;
+  double heightFactor;
+  DartObj alignment;
+} FractionallySizedBoxObjSt;
+
+typedef struct {
+  int id;
+} IntrinsicHeightObjSt;
+
+typedef struct {
+  int id;
+  double stepWidth;
+  double stepHeight;
+} IntrinsicWidthObjSt;
+
+typedef struct {
+  int id;
+  double maxWidth;
+  double maxHeight;
+} LimitedBoxObjSt;
+
+typedef struct {
+  int id;
+  DartObj color;
+  double strokeWidth;
+  double fallbackWidth;
+  double fallbackHeight;
+  DartObj child;
+} PlaceholderObjSt;
+
+typedef struct {
+  int id;
+  int flex;
+} SpacerObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj replacement;
+  int visible;
+  int maintainState;
+  int maintainAnimation;
+  int maintainSize;
+  int maintainSemantics;
+  int maintainInteractivity;
+  int maintainFocusability;
+} VisibilityObjSt;
+
+typedef struct {
+  int id;
+  int quarterTurns;
+} RotatedBoxObjSt;
+
+typedef struct {
+  int id;
+  double baseline;
+  int baselineType;
+} BaselineObjSt;
+
+typedef struct {
+  int id;
+  DartObj alignment;
+  double minWidth;
+  double maxWidth;
+  double minHeight;
+  double maxHeight;
+  int fit;
+} OverflowBoxObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj alignment;
+  DartObj padding;
+  DartObj decoration;
+  DartObj foregroundDecoration;
+  BoxConstraintsObjSt constraints;
+  DartObj margin;
+  DartObj transformAlignment;
+  int clipBehavior;
+} AnimatedContainerObjSt;
+
+typedef struct {
+  int id;
+  DartObj child;
+  double opacity;
+  int alwaysIncludeSemantics;
+} AnimatedOpacityObjSt;
+
+typedef struct {
+  int id;
+  DartObj padding;
+  DartObj child;
+} AnimatedPaddingObjSt;
+
+typedef struct {
+  int id;
+  DartObj alignment;
+  DartObj child;
+  double heightFactor;
+  double widthFactor;
+} AnimatedAlignObjSt;
+
+typedef struct {
+  int id;
+  double itemExtent;
+  DartObj prototypeItem;
+} ListViewObjSt;
+
+typedef struct {
+  int id;
+} GridViewObjSt;
+
+typedef struct {
+  int id;
+  int allowImplicitScrolling;
+  char* restorationId;
+  int scrollDirection;
+  int reverse;
+  int pageSnapping;
+  int dragStartBehavior;
+  int clipBehavior;
+  int hitTestBehavior;
+  int padEnds;
+} PageViewObjSt;
+
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;
@@ -981,6 +1153,224 @@ typedef struct {
   double trackGap;
   int year2023;
 } LinearProgressIndicatorObjSt;
+
+typedef struct {
+  int id;
+  int value;
+  DartObj activeColor;
+  DartObj checkColor;
+  int tristate;
+  int materialTapTargetSize;
+  VisualDensityObjSt visualDensity;
+  DartObj focusColor;
+  DartObj hoverColor;
+  double splashRadius;
+  int autofocus;
+  DartObj shape;
+  BorderSideObjSt side;
+  int isError;
+  char* semanticLabel;
+} CheckboxObjSt;
+
+typedef struct {
+  int id;
+  int value;
+  DartObj activeColor;
+  DartObj activeThumbColor;
+  DartObj activeTrackColor;
+  DartObj inactiveThumbColor;
+  DartObj inactiveTrackColor;
+  int materialTapTargetSize;
+  int applyCupertinoTheme;
+  int dragStartBehavior;
+  DartObj focusColor;
+  DartObj hoverColor;
+  double splashRadius;
+  int autofocus;
+  DartObj padding;
+} SwitchObjSt;
+
+typedef struct {
+  int id;
+  double value;
+  double secondaryTrackValue;
+  double min;
+  double max;
+  int divisions;
+  char* label;
+  DartObj activeColor;
+  DartObj inactiveColor;
+  DartObj secondaryActiveColor;
+  DartObj thumbColor;
+  int autofocus;
+  int allowedInteraction;
+  DartObj padding;
+  int year2023;
+} SliderObjSt;
+
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj shape;
+  double width;
+  DartObj child;
+  char* semanticLabel;
+  int clipBehavior;
+} DrawerObjSt;
+
+typedef struct {
+  int id;
+  char* message;
+  DartObj richMessage;
+  double height;
+  BoxConstraintsObjSt constraints;
+  DartObj padding;
+  DartObj margin;
+  double verticalOffset;
+  int preferBelow;
+  int excludeFromSemantics;
+  DartObj child;
+  DartObj decoration;
+  TextStyleObjSt textStyle;
+  int textAlign;
+  DartObj waitDuration;
+  DartObj showDuration;
+  DartObj exitDuration;
+  int enableTapToDismiss;
+  int triggerMode;
+  int enableFeedback;
+  int ignorePointer;
+} TooltipObjSt;
+
+typedef struct {
+  int id;
+  char* text;
+  DartObj child;
+  DartObj icon;
+  DartObj iconMargin;
+  double height;
+} TabObjSt;
+
+typedef struct {
+  int id;
+  int isScrollable;
+  DartObj padding;
+  DartObj indicatorColor;
+  double indicatorWeight;
+  DartObj indicatorPadding;
+  DartObj indicator;
+  int automaticIndicatorColorAdjustment;
+  int indicatorSize;
+  DartObj dividerColor;
+  double dividerHeight;
+  DartObj labelColor;
+  DartObj unselectedLabelColor;
+  TextStyleObjSt labelStyle;
+  TextStyleObjSt unselectedLabelStyle;
+  DartObj labelPadding;
+  int dragStartBehavior;
+  int enableFeedback;
+  BorderRadiusObjSt splashBorderRadius;
+  int tabAlignment;
+  int indicatorAnimation;
+  int tabHasTextAndIcon;
+} TabBarObjSt;
+
+typedef struct {
+  int id;
+  int dragStartBehavior;
+  double viewportFraction;
+  int clipBehavior;
+} TabBarViewObjSt;
+
+typedef struct {
+  int id;
+  int length;
+  int initialIndex;
+  DartObj animationDuration;
+  DartObj child;
+} DefaultTabControllerObjSt;
+
+typedef struct {
+  int id;
+  int value;
+  DartObj activeColor;
+  DartObj checkColor;
+  DartObj hoverColor;
+  double splashRadius;
+  int materialTapTargetSize;
+  VisualDensityObjSt visualDensity;
+  int autofocus;
+  DartObj shape;
+  BorderSideObjSt side;
+  int isError;
+  DartObj tileColor;
+  DartObj title;
+  DartObj subtitle;
+  DartObj secondary;
+  int isThreeLine;
+  int dense;
+  int selected;
+  int controlAffinity;
+  DartObj contentPadding;
+  int tristate;
+  DartObj checkboxShape;
+  DartObj selectedTileColor;
+  int enableFeedback;
+  int enabled;
+  int titleAlignment;
+  int internalAddSemanticForOnTap;
+  double checkboxScaleFactor;
+  char* checkboxSemanticLabel;
+} CheckboxListTileObjSt;
+
+typedef struct {
+  int id;
+  int value;
+  DartObj activeColor;
+  DartObj activeThumbColor;
+  DartObj activeTrackColor;
+  DartObj inactiveThumbColor;
+  DartObj inactiveTrackColor;
+  int materialTapTargetSize;
+  int dragStartBehavior;
+  double splashRadius;
+  int autofocus;
+  DartObj tileColor;
+  DartObj title;
+  DartObj subtitle;
+  DartObj secondary;
+  int isThreeLine;
+  int dense;
+  DartObj contentPadding;
+  int selected;
+  int controlAffinity;
+  DartObj shape;
+  DartObj selectedTileColor;
+  VisualDensityObjSt visualDensity;
+  int enableFeedback;
+  DartObj hoverColor;
+  int applyCupertinoTheme;
+  int internalAddSemanticForOnTap;
+} SwitchListTileObjSt;
+
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  DartObj textColor;
+  double smallSize;
+  double largeSize;
+  TextStyleObjSt textStyle;
+  DartObj padding;
+  DartObj alignment;
+  DartObj offset;
+  DartObj label;
+  int isLabelVisible;
+  DartObj child;
+} BadgeObjSt;
 
 typedef struct {
   int id;

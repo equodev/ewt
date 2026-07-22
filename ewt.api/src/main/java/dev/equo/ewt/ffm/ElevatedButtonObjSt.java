@@ -27,7 +27,7 @@ public class ElevatedButtonObjSt {
 
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         StarterBridge.C_INT.withName("id")
-    ).withName("$anon$639:9");
+    ).withName("$anon$811:9");
 
     /**
      * The layout of this struct

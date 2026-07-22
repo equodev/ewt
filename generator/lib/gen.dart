@@ -90,7 +90,7 @@ class WidgetGen implements AGen {
 
   WidgetGen(this.types, this.dartClass):
         widgetClass = dartClass.name,
-        widgetField = '${dartClass.name[0].toLowerCase()}${dartClass.name.substring(1)}';
+        widgetField = escapeReserved('${dartClass.name[0].toLowerCase()}${dartClass.name.substring(1)}');
 
   String objType() => 'DartObj';
 
@@ -259,7 +259,11 @@ class WidgetGen implements AGen {
     }
     String factory = (node.name!.isEmpty) ? widgetField : node.name!;
     String factoryName = '$widgetField${factory.firstUpper()}';
-    String builderClass = '$widgetClass${factory.firstUpper()}Builder';
+    // Immutables derives the builder name from the @Builder.Factory method, so
+    // it has to be built from factoryName rather than from widgetClass. The two
+    // only agree while widgetField.firstUpper() == widgetClass, which stops
+    // holding once widgetField is escaped (Switch -> switch_).
+    String builderClass = '${factoryName.firstUpper()}Builder';
     if (node is ConstructorElement) {
       writeJavaFactory(node, factoryName, builderClass, factory);
     } else {
@@ -962,6 +966,34 @@ class DartSubclassGen {
   }
 }
 
+/// Identifiers reserved in Java, C or Dart.
+///
+/// A widget's field name is emitted verbatim into all three layers (Java
+/// factory methods, C struct fields, Dart factory lookups), so a clash in any
+/// one language has to be escaped in all of them to keep the name identical
+/// across the bridge. `Switch` is the case that hits every language at once.
+const reservedIdentifiers = {
+  // Java
+  'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char',
+  'class', 'const', 'continue', 'default', 'do', 'double', 'else', 'enum',
+  'extends', 'final', 'finally', 'float', 'for', 'goto', 'if', 'implements',
+  'import', 'instanceof', 'int', 'interface', 'long', 'native', 'new',
+  'package', 'private', 'protected', 'public', 'return', 'short', 'static',
+  'strictfp', 'super', 'switch', 'synchronized', 'this', 'throw', 'throws',
+  'transient', 'try', 'void', 'volatile', 'while',
+  // C (adds to the Java list)
+  'auto', 'extern', 'inline', 'register', 'restrict', 'signed', 'sizeof',
+  'struct', 'typedef', 'union', 'unsigned',
+  // Dart (adds to the lists above)
+  'covariant', 'deferred', 'dynamic', 'export', 'factory', 'in', 'is',
+  'library', 'mixin', 'operator', 'part', 'rethrow', 'set', 'var', 'with',
+  'yield',
+};
+
+/// Suffixes [name] when it would collide with a keyword in any target language.
+String escapeReserved(String name) =>
+    reservedIdentifiers.contains(name) ? '${name}_' : name;
+
 bool canBeImplInJava(m) => m.isAbstract || (m.hasMustCallSuper && m.hasProtected);
 
 class Generation {
@@ -1123,7 +1155,7 @@ class Generation {
                   // '    return (${boundParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
                   '    return (${boundPositionalParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${p.type} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
                   '      Dart${aliasName}FFIFunction dFn = asFunction();\n'
-                  '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p)).join(', ')});');
+                  '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p, fromCallback: true)).join(', ')});');
           if (fnType.returnType is! VoidType) {
             dartFactories.writeln(
                   '      return ${Params.paramValue4D(types, paramElement('dFnRet', fnType.returnType))};');
@@ -1140,7 +1172,7 @@ class Generation {
         String jtp = isFlutterAlias ? '' : JLang().methodTypeParameters(fnType);
         javaFactories.writeln('${jtp}MemorySegment ptr${aliasName}Fn(${h.type4J(fnType, td.typeArguments)} jFn) {\n'
             '  return $ourName.allocate((${allParams.map((p) => ensureName(p)).join(', ')}) -> {\n'
-            '    ${fnType.returnType is! VoidType ? 'final var jFnRet = ' : ''}jFn.${h.functionMethod(fnType)}(${allParams.map((p) => types.paramValueFFMtoJ(types, p)).join(', ')});');
+            '    ${fnType.returnType is! VoidType ? 'final var jFnRet = ' : ''}jFn.${h.functionMethod(fnType)}(${allParams.map((p) => types.paramValueFFMtoJ(types, p, fromCallback: true)).join(', ')});');
         if (fnType.returnType is! VoidType) {
           javaFactories.writeln(
             '    return ${types.paramValue4FFM(types, paramElement('jFnRet', fnType.returnType, ParameterKind.REQUIRED))};');
@@ -1521,6 +1553,12 @@ class Params {
           //   value = '${param.name}.listOrNull()';
           // }
         }
+        else if (t.element is EnumElement) {
+          // A required enum arrives as its raw int index, so decode it from the
+          // enum's values. Without this it falls through to the _widgetsMap
+          // lookup below and is wrongly treated as a widget id (Flex.direction).
+          value = '${t.element.name}.values[${param.name}]';
+        }
         else if (!isPrimitive(t)) {
           if (t.typeArguments.isNotEmpty) {
             value = '_widgetsMap[$value]! as ${t.typeArguments.any((p) => p is TypeParameterType) ? t.element.name : t}';
@@ -1590,7 +1628,7 @@ class Params {
     return defaultValue;
   }
 
-  static String paramValueDtoC(Types ctx, ParameterElement param) {
+  static String paramValueDtoC(Types ctx, ParameterElement param, {bool fromCallback = false}) {
     var t = param.type;
     if (t is TypeParameterType) {
       t = t.bound;
@@ -1598,6 +1636,13 @@ class Params {
     var value = ensureName(param);
     var nul = '0';
     var exclam = '';
+    // A nullable bool crossing back through a callback is typed `int*` in C
+    // (typedefs.h), so it must be marshalled as a pointer: allocate an int for
+    // a real value, or nullptr for null. The Java side reads it with memToBool.
+    // Matches the leak-on-pass convention already used for the string callback.
+    if (fromCallback && t.isDartCoreBool && t.nullabilitySuffix == NullabilitySuffix.question) {
+      return '($value != null) ? (calloc<ffi.Int>()..value = ($value! ? 1 : 0)) : ffi.nullptr';
+    }
     if (t is InterfaceType) {
       // if (param.isOptional) {
       //   value = '$value?';

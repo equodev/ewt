@@ -33,7 +33,7 @@ public class OutlineInputBorderObjSt {
         StarterBridge.C_DOUBLE.withName("gapPadding"),
         BorderRadiusObjSt.layout().withName("borderRadius"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$813:9");
+    ).withName("$anon$985:9");
 
     /**
      * The layout of this struct

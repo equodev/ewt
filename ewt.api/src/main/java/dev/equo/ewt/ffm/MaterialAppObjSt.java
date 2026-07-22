@@ -66,7 +66,7 @@ public class MaterialAppObjSt {
         StarterBridge.C_POINTER.withName("restorationScopeId"),
         StarterBridge.C_INT.withName("debugShowMaterialGrid"),
         StarterBridge.C_INT.withName("useInheritedMediaQuery")
-    ).withName("$anon$584:9");
+    ).withName("$anon$756:9");
 
     /**
      * The layout of this struct

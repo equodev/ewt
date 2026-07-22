@@ -55,7 +55,7 @@ public class MaterialObjSt {
         StarterBridge.C_INT.withName("animationDuration"),
         StarterBridge.C_INT.withName("borderRadius"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$489:9");
+    ).withName("$anon$661:9");
 
     /**
      * The layout of this struct

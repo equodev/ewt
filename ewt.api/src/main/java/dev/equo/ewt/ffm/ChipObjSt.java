@@ -71,7 +71,7 @@ public class ChipObjSt {
         StarterBridge.C_INT.withName("surfaceTintColor"),
         BoxConstraintsObjSt.layout().withName("avatarBoxConstraints"),
         BoxConstraintsObjSt.layout().withName("deleteIconBoxConstraints")
-    ).withName("$anon$868:9");
+    ).withName("$anon$1040:9");
 
     /**
      * The layout of this struct

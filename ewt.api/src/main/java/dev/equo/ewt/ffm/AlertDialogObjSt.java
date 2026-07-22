@@ -81,7 +81,7 @@ public class AlertDialogObjSt {
         BoxConstraintsObjSt.layout().withName("constraints"),
         StarterBridge.C_INT.withName("scrollable"),
         MemoryLayout.paddingLayout(4)
-    ).withName("$anon$662:9");
+    ).withName("$anon$834:9");
 
     /**
      * The layout of this struct

@@ -321,6 +321,121 @@ public class EWT {
     return ScaleTransitionScaleTransitionBuilder.scaleTransitionScaleTransition(scale);
   }
 
+  public static AspectRatioAspectRatioBuilder AspectRatio(double aspectRatio) {
+    return AspectRatioAspectRatioBuilder.aspectRatioAspectRatio(aspectRatio);
+  }
+
+  public static ClipOvalClipOvalBuilder ClipOval() {
+    return ClipOvalClipOvalBuilder.clipOvalClipOval();
+  }
+
+  public static ClipRRectClipRRectBuilder ClipRRect() {
+    return ClipRRectClipRRectBuilder.clipRRectClipRRect();
+  }
+
+  public static ClipRectClipRectBuilder ClipRect() {
+    return ClipRectClipRectBuilder.clipRectClipRect();
+  }
+
+  public static ColoredBoxColoredBoxBuilder ColoredBox(ColorI color) {
+    return ColoredBoxColoredBoxBuilder.coloredBoxColoredBox(color);
+  }
+
+  public static ConstrainedBoxConstrainedBoxBuilder ConstrainedBox(BoxConstraintsI constraints) {
+    return ConstrainedBoxConstrainedBoxBuilder.constrainedBoxConstrainedBox(constraints);
+  }
+
+  public static DecoratedBoxDecoratedBoxBuilder DecoratedBox(DecorationI decoration) {
+    return DecoratedBoxDecoratedBoxBuilder.decoratedBoxDecoratedBox(decoration);
+  }
+
+  public static FittedBoxFittedBoxBuilder FittedBox() {
+    return FittedBoxFittedBoxBuilder.fittedBoxFittedBox();
+  }
+
+  public static FractionallySizedBoxFractionallySizedBoxBuilder FractionallySizedBox() {
+    return FractionallySizedBoxFractionallySizedBoxBuilder.fractionallySizedBoxFractionallySizedBox();
+  }
+
+  public static IntrinsicHeightIntrinsicHeightBuilder IntrinsicHeight() {
+    return IntrinsicHeightIntrinsicHeightBuilder.intrinsicHeightIntrinsicHeight();
+  }
+
+  public static IntrinsicWidthIntrinsicWidthBuilder IntrinsicWidth() {
+    return IntrinsicWidthIntrinsicWidthBuilder.intrinsicWidthIntrinsicWidth();
+  }
+
+  public static LimitedBoxLimitedBoxBuilder LimitedBox() {
+    return LimitedBoxLimitedBoxBuilder.limitedBoxLimitedBox();
+  }
+
+  public static PlaceholderPlaceholderBuilder Placeholder() {
+    return PlaceholderPlaceholderBuilder.placeholderPlaceholder();
+  }
+
+  public static SpacerSpacerBuilder Spacer() {
+    return SpacerSpacerBuilder.spacerSpacer();
+  }
+
+  public static VisibilityVisibilityBuilder Visibility(WidgetI child) {
+    return VisibilityVisibilityBuilder.visibilityVisibility(child);
+  }
+  public static VisibilityMaintainBuilder Visibility_maintain(WidgetI child) {
+    return VisibilityMaintainBuilder.visibilityMaintain(child);
+  }
+
+  public static RotatedBoxRotatedBoxBuilder RotatedBox(int quarterTurns) {
+    return RotatedBoxRotatedBoxBuilder.rotatedBoxRotatedBox(quarterTurns);
+  }
+
+  public static BaselineBaselineBuilder Baseline(double baseline, TextBaseline baselineType) {
+    return BaselineBaselineBuilder.baselineBaseline(baseline, baselineType);
+  }
+
+  public static OverflowBoxOverflowBoxBuilder OverflowBox() {
+    return OverflowBoxOverflowBoxBuilder.overflowBoxOverflowBox();
+  }
+
+  public static AnimatedContainerAnimatedContainerBuilder AnimatedContainer() {
+    return AnimatedContainerAnimatedContainerBuilder.animatedContainerAnimatedContainer();
+  }
+
+  public static AnimatedOpacityAnimatedOpacityBuilder AnimatedOpacity() {
+    return AnimatedOpacityAnimatedOpacityBuilder.animatedOpacityAnimatedOpacity();
+  }
+
+  public static AnimatedPaddingAnimatedPaddingBuilder AnimatedPadding(EdgeInsetsGeometryI padding) {
+    return AnimatedPaddingAnimatedPaddingBuilder.animatedPaddingAnimatedPadding(padding);
+  }
+
+  public static AnimatedAlignAnimatedAlignBuilder AnimatedAlign(AlignmentGeometryI alignment) {
+    return AnimatedAlignAnimatedAlignBuilder.animatedAlignAnimatedAlign(alignment);
+  }
+
+  public static ListViewListViewBuilder ListView() {
+    return ListViewListViewBuilder.listViewListView();
+  }
+  public static ListViewBuilderBuilder ListView_builder() {
+    return ListViewBuilderBuilder.listViewBuilder();
+  }
+  public static ListViewSeparatedBuilder ListView_separated() {
+    return ListViewSeparatedBuilder.listViewSeparated();
+  }
+
+  public static GridViewCountBuilder GridView_count() {
+    return GridViewCountBuilder.gridViewCount();
+  }
+  public static GridViewExtentBuilder GridView_extent() {
+    return GridViewExtentBuilder.gridViewExtent();
+  }
+
+  public static PageViewPageViewBuilder PageView() {
+    return PageViewPageViewBuilder.pageViewPageView();
+  }
+  public static PageViewBuilderBuilder PageView_builder() {
+    return PageViewBuilderBuilder.pageViewBuilder();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
@@ -543,6 +658,75 @@ public class EWT {
 
   public static LinearProgressIndicatorLinearProgressIndicatorBuilder LinearProgressIndicator() {
     return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
+  }
+
+  public static CheckboxCheckboxBuilder Checkbox(boolean value) {
+    return CheckboxCheckboxBuilder.checkboxCheckbox(value);
+  }
+  public static CheckboxAdaptiveBuilder Checkbox_adaptive(boolean value) {
+    return CheckboxAdaptiveBuilder.checkboxAdaptive(value);
+  }
+
+  public static Switch_Switch_Builder Switch(boolean value, Consumer<Boolean> onChanged) {
+    return Switch_Switch_Builder.switch_Switch_(value, onChanged);
+  }
+  public static Switch_AdaptiveBuilder Switch_adaptive(boolean value, Consumer<Boolean> onChanged) {
+    return Switch_AdaptiveBuilder.switch_Adaptive(value, onChanged);
+  }
+
+  public static SliderSliderBuilder Slider(double value) {
+    return SliderSliderBuilder.sliderSlider(value);
+  }
+  public static SliderAdaptiveBuilder Slider_adaptive(double value) {
+    return SliderAdaptiveBuilder.sliderAdaptive(value);
+  }
+
+  public static DrawerDrawerBuilder Drawer() {
+    return DrawerDrawerBuilder.drawerDrawer();
+  }
+
+  public static TooltipTooltipBuilder Tooltip() {
+    return TooltipTooltipBuilder.tooltipTooltip();
+  }
+
+  public static TabTabBuilder Tab() {
+    return TabTabBuilder.tabTab();
+  }
+
+  public static TabBarTabBarBuilder TabBar(List<WidgetI> tabs) {
+    return TabBarTabBarBuilder.tabBarTabBar(tabs);
+  }
+  public static TabBarSecondaryBuilder TabBar_secondary(List<WidgetI> tabs) {
+    return TabBarSecondaryBuilder.tabBarSecondary(tabs);
+  }
+
+  public static TabBarViewTabBarViewBuilder TabBarView(List<WidgetI> children) {
+    return TabBarViewTabBarViewBuilder.tabBarViewTabBarView(children);
+  }
+
+  public static DefaultTabControllerDefaultTabControllerBuilder DefaultTabController(int length) {
+    return DefaultTabControllerDefaultTabControllerBuilder.defaultTabControllerDefaultTabController(length);
+  }
+
+  public static CheckboxListTileCheckboxListTileBuilder CheckboxListTile(boolean value, Consumer<Boolean> onChanged) {
+    return CheckboxListTileCheckboxListTileBuilder.checkboxListTileCheckboxListTile(value, onChanged);
+  }
+  public static CheckboxListTileAdaptiveBuilder CheckboxListTile_adaptive(boolean value, Consumer<Boolean> onChanged) {
+    return CheckboxListTileAdaptiveBuilder.checkboxListTileAdaptive(value, onChanged);
+  }
+
+  public static SwitchListTileSwitchListTileBuilder SwitchListTile(boolean value, Consumer<Boolean> onChanged) {
+    return SwitchListTileSwitchListTileBuilder.switchListTileSwitchListTile(value, onChanged);
+  }
+  public static SwitchListTileAdaptiveBuilder SwitchListTile_adaptive(boolean value, Consumer<Boolean> onChanged) {
+    return SwitchListTileAdaptiveBuilder.switchListTileAdaptive(value, onChanged);
+  }
+
+  public static BadgeBadgeBuilder Badge() {
+    return BadgeBadgeBuilder.badgeBadge();
+  }
+  public static BadgeCountBuilder Badge_count() {
+    return BadgeCountBuilder.badgeCount();
   }
 
 }
