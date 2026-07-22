@@ -1811,6 +1811,9 @@ class Params {
       }
       return '([Object? a, Object? b, Object? c]) {}';
     }
+    if (t is InterfaceType && t.element.name == 'BuildContext') {
+      return 'ewtActiveBuildContext!';
+    }
     if (t is InterfaceType) {
       final elemName = t.element.name;
       if (param.isOptional) {

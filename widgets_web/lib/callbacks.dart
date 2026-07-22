@@ -22,3 +22,7 @@ void Function(dynamic) ewtWireValueCallback(Object? id) {
   if (id is! int || sink == null) return (_) {};
   return (v) => sink(id, [v]);
 }
+
+// The region's BuildContext, bound during the synchronous decode so context-resolving decoders
+// (e.g. themeOf -> Theme.of(context)) resolve against the real widget tree.
+BuildContext? ewtActiveBuildContext;
