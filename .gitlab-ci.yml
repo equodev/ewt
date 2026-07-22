@@ -254,6 +254,9 @@ ewt_evolve_build:macos:
     # which we deliberately don't install — and fails. (widgets/example sets this in its pubspec;
     # the projects this job builds don't, so enable it at the config level.)
     - flutter config --enable-swift-package-manager
+    # buildCombinedBundle compiles libwidgets.dylib with cmake; the runner has Xcode (flutter
+    # macOS builds work) but not cmake — install it if missing.
+    - command -v cmake >/dev/null || brew install cmake
     - JDK_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x64)
     - curl -L "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_${JDK_ARCH}_mac_hotspot_22.0.2_9.tar.gz" | tar xz
     - export JAVA_HOME="$PWD/jdk-22.0.2+9/Contents/Home"
@@ -313,10 +316,10 @@ ewt_evolve_build:windows:
     # Stdout is a console"). Propagate gradle's exit code so a real failure still fails the job.
     - >-
       powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
-      cd ..\\swt-evolve; .\\gradlew.bat :swt_native:windows-x86_64Jar --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+      cd ..\\swt-evolve; \$null | .\\gradlew.bat :swt_native:windows-x86_64Jar --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - >-
       powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
-      .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
     paths:
