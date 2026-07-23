@@ -1368,6 +1368,97 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(padEnds));
   }
 
+  MemorySegment animatedSizeAnimatedSize(Optional<Widget> child, Optional<AlignmentGeometry> alignment, Optional<Curve> curve, Duration duration, Optional<Duration> reverseDuration, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedSize(factories);
+    var fn = WidgetFactories.AnimatedSizeSt.animatedSize(st);
+    return WidgetFactories.AnimatedSizeSt.animatedSize.invoke(fn, arena, ptrObj(child),
+      ptrObj(alignment),
+      ptrObj(curve),
+      duration.build().getId(),
+      ptrObj(reverseDuration),
+      ptrEnum(clipBehavior),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedScaleAnimatedScale(Optional<Widget> child, double scale, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedScale(factories);
+    var fn = WidgetFactories.AnimatedScaleSt.animatedScale(st);
+    return WidgetFactories.AnimatedScaleSt.animatedScale.invoke(fn, arena, ptrObj(child),
+      scale,
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedRotationAnimatedRotation(Optional<Widget> child, double turns, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedRotation(factories);
+    var fn = WidgetFactories.AnimatedRotationSt.animatedRotation(st);
+    return WidgetFactories.AnimatedRotationSt.animatedRotation.invoke(fn, arena, ptrObj(child),
+      turns,
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedSlideAnimatedSlide(Optional<Widget> child, Offset offset, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedSlide(factories);
+    var fn = WidgetFactories.AnimatedSlideSt.animatedSlide(st);
+    return WidgetFactories.AnimatedSlideSt.animatedSlide.invoke(fn, arena, ptrObj(child),
+      offset.build().getId(),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus) {
+    var st = WidgetFactories.animatedCrossFade(factories);
+    var fn = WidgetFactories.AnimatedCrossFadeSt.animatedCrossFade(st);
+    return WidgetFactories.AnimatedCrossFadeSt.animatedCrossFade.invoke(fn, arena, firstChild.build().getId(),
+      secondChild.build().getId(),
+      ptrObj(firstCurve),
+      ptrObj(secondCurve),
+      ptrObj(sizeCurve),
+      ptrObj(alignment),
+      crossFadeState.ordinal(),
+      duration.build().getId(),
+      ptrObj(reverseDuration),
+      ptrBool(excludeBottomFocus));
+  }
+
+  MemorySegment slideTransitionSlideTransition(Animation position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<Widget> child) {
+    var st = WidgetFactories.slideTransition(factories);
+    var fn = WidgetFactories.SlideTransitionSt.slideTransition(st);
+    return WidgetFactories.SlideTransitionSt.slideTransition.invoke(fn, arena, position.build().getId(),
+      ptrBool(transformHitTests),
+      ptrEnum(textDirection),
+      ptrObj(child));
+  }
+
+  MemorySegment sizeTransitionSizeTransition(Optional<Axis> axis, Animation sizeFactor, OptionalDouble axisAlignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<Widget> child) {
+    var st = WidgetFactories.sizeTransition(factories);
+    var fn = WidgetFactories.SizeTransitionSt.sizeTransition(st);
+    return WidgetFactories.SizeTransitionSt.sizeTransition.invoke(fn, arena, ptrEnum(axis),
+      sizeFactor.build().getId(),
+      ptr(axisAlignment),
+      ptr(fixedCrossAxisSizeFactor),
+      ptrObj(child));
+  }
+
+  MemorySegment indexedStackIndexedStack(Optional<AlignmentGeometry> alignment, Optional<TextDirection> textDirection, Optional<Clip> clipBehavior, Optional<StackFit> sizing, OptionalInt index, Optional<List<Widget>> children) {
+    var st = WidgetFactories.indexedStack(factories);
+    var fn = WidgetFactories.IndexedStackSt.indexedStack(st);
+    return WidgetFactories.IndexedStackSt.indexedStack.invoke(fn, arena, ptrObj(alignment),
+      ptrEnum(textDirection),
+      ptrEnum(clipBehavior),
+      ptrEnum(sizing),
+      ptr(index),
+      ptrList(children));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);

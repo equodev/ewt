@@ -436,6 +436,38 @@ public class EWT {
     return PageViewBuilderBuilder.pageViewBuilder();
   }
 
+  public static AnimatedSizeAnimatedSizeBuilder AnimatedSize() {
+    return AnimatedSizeAnimatedSizeBuilder.animatedSizeAnimatedSize();
+  }
+
+  public static AnimatedScaleAnimatedScaleBuilder AnimatedScale() {
+    return AnimatedScaleAnimatedScaleBuilder.animatedScaleAnimatedScale();
+  }
+
+  public static AnimatedRotationAnimatedRotationBuilder AnimatedRotation() {
+    return AnimatedRotationAnimatedRotationBuilder.animatedRotationAnimatedRotation();
+  }
+
+  public static AnimatedSlideAnimatedSlideBuilder AnimatedSlide() {
+    return AnimatedSlideAnimatedSlideBuilder.animatedSlideAnimatedSlide();
+  }
+
+  public static AnimatedCrossFadeAnimatedCrossFadeBuilder AnimatedCrossFade(WidgetI firstChild, WidgetI secondChild) {
+    return AnimatedCrossFadeAnimatedCrossFadeBuilder.animatedCrossFadeAnimatedCrossFade(firstChild, secondChild);
+  }
+
+  public static SlideTransitionSlideTransitionBuilder SlideTransition(AnimationI position) {
+    return SlideTransitionSlideTransitionBuilder.slideTransitionSlideTransition(position);
+  }
+
+  public static SizeTransitionSizeTransitionBuilder SizeTransition() {
+    return SizeTransitionSizeTransitionBuilder.sizeTransitionSizeTransition();
+  }
+
+  public static IndexedStackIndexedStackBuilder IndexedStack() {
+    return IndexedStackIndexedStackBuilder.indexedStackIndexedStack();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

@@ -1,28 +1,33 @@
 # EWT — Flutter widget coverage
 
-Flutter 3.35.7 · generated on 2026-07-20
+Flutter 3.35.7 · generated on 2026-07-23
 
 ## Summary
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 52 | 291 | 17% |
+| Basic widgets | 61 | 291 | 20% |
 | Material | 34 | 187 | 18% |
 | Cupertino | 0 | 53 | 0% |
-| **Total** | **86** | **531** | **16%** |
+| **Total** | **95** | **531** | **17%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**52 of 291 supported**
+**61 of 291 supported**
 
 - [x] Align
 - [x] AnimatedAlign
 - [x] AnimatedBuilder
 - [x] AnimatedContainer
+- [x] AnimatedCrossFade
 - [x] AnimatedOpacity
 - [x] AnimatedPadding
+- [x] AnimatedRotation
+- [x] AnimatedScale
+- [x] AnimatedSize
+- [x] AnimatedSlide
 - [x] AspectRatio
 - [x] Baseline
 - [x] Center
@@ -38,10 +43,12 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] FadeTransition
 - [x] FittedBox
 - [x] Flex
+- [x] Flexible
 - [x] FractionallySizedBox
 - [x] GestureDetector
 - [x] GridView
 - [x] Icon
+- [x] IndexedStack
 - [x] IntrinsicHeight
 - [x] IntrinsicWidth
 - [x] LimitedBox
@@ -62,7 +69,9 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] SafeArea
 - [x] ScaleTransition
 - [x] SingleChildScrollView
+- [x] SizeTransition
 - [x] SizedBox
+- [x] SlideTransition
 - [x] Spacer
 - [x] Stack
 - [x] Text
@@ -75,7 +84,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AlignTransition
 - [ ] AndroidView
 - [ ] AndroidViewSurface
-- [ ] AnimatedCrossFade
 - [ ] AnimatedDefaultTextStyle
 - [ ] AnimatedFractionallySizedBox
 - [ ] AnimatedGrid
@@ -84,10 +92,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AnimatedPhysicalModel
 - [ ] AnimatedPositioned
 - [ ] AnimatedPositionedDirectional
-- [ ] AnimatedRotation
-- [ ] AnimatedScale
-- [ ] AnimatedSize
-- [ ] AnimatedSlide
 - [ ] AnimatedSwitcher
 - [ ] AnnotatedRegion
 - [ ] AppKitView
@@ -138,7 +142,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] ExcludeSemantics
 - [ ] Expansible
 - [ ] FadeInImage
-- [ ] Flexible
 - [ ] Flow
 - [ ] FlutterLogo
 - [ ] Focus
@@ -163,7 +166,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] ImageFiltered
 - [ ] ImageIcon
 - [ ] IndexedSemantics
-- [ ] IndexedStack
 - [ ] InteractiveViewer
 - [ ] KeepAlive
 - [ ] KeyboardListener
@@ -244,9 +246,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] Shortcuts
 - [ ] ShrinkWrappingViewport
 - [ ] SizeChangedLayoutNotifier
-- [ ] SizeTransition
 - [ ] SizedOverflowBox
-- [ ] SlideTransition
 - [ ] SliverAnimatedGrid
 - [ ] SliverAnimatedList
 - [ ] SliverAnimatedOpacity

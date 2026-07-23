@@ -91,6 +91,18 @@ w.GridView? gridView;
 w.PageView? pageView;
 w.Flex? flex;
 
+w.AnimatedSize? animatedSize;
+w.AnimatedScale? animatedScale;
+w.AnimatedRotation? animatedRotation;
+w.AnimatedSlide? animatedSlide;
+w.AnimatedCrossFade? animatedCrossFade;
+
+w.SlideTransition? slideTransition;
+w.SizeTransition? sizeTransition;
+
+w.IndexedStack? indexedStack;
+w.Flexible? flexible;
+
 // w.FontWeight? fontWeight; constants accessing privates
 
 m.Durations? durations;
