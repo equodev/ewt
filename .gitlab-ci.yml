@@ -31,6 +31,7 @@ variables:
     -Dorg.gradle.vfs.watch=false
   FLUTTER_SDK: "3.35.7"
   FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
+  JEXTRACT_URL: "https://download.java.net/java/early_access/jextract/25/2/openjdk-25-jextract+2-4_linux-x64_bin.tar.gz"
   # --- EWT ↔ Evolve integration (ewt-evolve jar) ---
   # The combined bundle merges Evolve's Dart (swtflutter) with EWT's into ONE snapshot, so the
   # ewt-evolve jar is tied to a SPECIFIC swt-evolve version: the consumer must run that same
@@ -71,7 +72,7 @@ build_docker_image:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build --pull --build-arg FLUTTER_VERSION=$FLUTTER_SDK -f .docker/Dockerfile -t "$FLUTTER_IMAGE_TAG" .
+    - docker build --pull --build-arg FLUTTER_VERSION=$FLUTTER_SDK --build-arg JEXTRACT_URL=$JEXTRACT_URL -f .docker/Dockerfile -t "$FLUTTER_IMAGE_TAG" .
     - docker push "$FLUTTER_IMAGE_TAG"
 
 # Runs on every push to main. Records that a release is pending so the next
@@ -105,10 +106,42 @@ release_gate:
       when: manual
       allow_failure: true
 
+# Regenerates all gitignored monolithic artifacts from generation_index.dart.
+# flutter:* and ewt_build download these artifacts via `needs` so they never
+# need the generator toolchain themselves (critical for macOS/Windows VM runners).
+generate:
+  stage: flutter
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  script:
+    # subwidgets.dart is gitignored but imported by generation_index.dart; the pregeneration
+    # step that writes it is cached against pregeneration_index.dart.ts. Delete the cache so
+    # it always regenerates subwidgets.dart before the main generator run.
+    - rm -f generator/build/pregeneration_index.dart.ts
+    # finalizedBy in generator/build.gradle.kts automatically runs :widgets:ffigen and
+    # :ewt.api:jextract after the generator finishes — no need to call them separately.
+    - ./gradlew :generator:generator
+  artifacts:
+    paths:
+      - widgets/src/factories.h
+      - widgets/src/objects.h
+      - widgets/src/typedefs.h
+      - widgets/lib/factories_gen.dart
+      - widgets/lib/subwidgets.dart
+      - generator/lib/subwidgets.dart
+      - widgets/lib/widgets_bindings_generated.dart
+      - ewt.api/src/main/java/dev/equo/ewt/ffm/
+    expire_in: 1 week
+
 flutter:linux:
   stage: flutter
   image: $FLUTTER_IMAGE_TAG
   needs:
+    - generate
     - job: build_docker_image
       optional: true
     - job: release_gate
@@ -125,6 +158,7 @@ flutter:macos:
   extends: .flutter:macos
   stage: flutter
   needs:
+    - generate
     - job: release_gate
       optional: true
   script:
@@ -139,6 +173,7 @@ flutter:windows:
   extends: .flutter:windows
   stage: flutter
   needs:
+    - generate
     - job: release_gate
       optional: true
   script:
@@ -160,6 +195,7 @@ ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
   needs:
+    - generate
     - flutter:linux
     - flutter:macos
     - flutter:windows
@@ -191,6 +227,7 @@ ewt_evolve_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
   needs:
+    - generate
     - job: build_docker_image
       optional: true
     - job: release_gate

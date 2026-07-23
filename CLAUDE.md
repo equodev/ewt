@@ -36,14 +36,27 @@ EWT (Equo Widget Toolkit) is a framework that lets Java developers build Flutter
 | JDK | 23 | The build sets `options.release = 22`, but `./gradlew` itself needs 23. Set `JAVA_HOME` if your shell default is older. |
 | jextract | 25 | Must be at `~/bin/jextract-25/bin/jextract` (see the `jextract` task in `ewt.api/build.gradle.kts`). Download from https://jdk.java.net/jextract/ and untar into `~/bin`. |
 
-### Adding a widget
+### First-time setup / fresh checkout
 
-Declare it in `generator/lib/generation_index.dart` (one line, e.g. `m.Drawer? drawer;`), then run the three generation steps in order — the last two are what turn the emitted C headers into callable bindings, so skipping them fails with missing `*ObjSt` symbols:
+The monolithic generated files are gitignored. After cloning or switching to a branch that changes
+`generation_index.dart`, regenerate everything before building:
 
 ```bash
-./gradlew :generator:generator   # Java builders + C headers + Dart factories
-./gradlew :ewt.api:jextract      # C headers -> Java FFM bindings
-./gradlew :widgets:ffigen        # C headers -> Dart FFI bindings
+rm -f generator/build/pregeneration_index.dart.ts   # force pregeneration of subwidgets.dart
+JAVA_HOME=~/bin/jdk-22 ./gradlew :generator:generator  # also runs ffigen + jextract via finalizedBy
+```
+
+The pregeneration cache must be deleted because `generator/lib/subwidgets.dart` is gitignored but
+is imported by `generation_index.dart`. Without this step, jextract skips the SubState-related
+structs and the Java build fails with missing `*ObjSt` symbols.
+
+### Adding a widget
+
+Declare it in `generator/lib/generation_index.dart` (one line, e.g. `m.Drawer? drawer;`), then run:
+
+```bash
+rm -f generator/build/pregeneration_index.dart.ts
+JAVA_HOME=~/bin/jdk-22 ./gradlew :generator:generator   # Java builders + C headers + Dart factories + ffigen + jextract
 ```
 
 The generator does not delete output for widgets removed from the index; stale `*.java` left behind will break the build, so remove them by hand.

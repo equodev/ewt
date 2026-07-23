@@ -47,3 +47,13 @@ ENV HOME=/home/ci
 RUN git config --global --add safe.directory /opt/flutter \
     && flutter config --enable-linux-desktop \
     && flutter precache --linux
+
+# jextract 25 — needed by :ewt.api:jextract to regenerate the Java FFM bindings from C headers.
+# Pass the Linux x64 tarball URL as a build arg; the arg is optional so images built without it
+# still work for flutter-only tasks (e.g. local dev). CI sets JEXTRACT_URL in project variables.
+# The tarball must unpack to a directory named jextract-25/ (matching the path in build.gradle.kts).
+ARG JEXTRACT_URL
+RUN if [ -n "$JEXTRACT_URL" ]; then \
+      mkdir -p $HOME/bin && \
+      curl -L "$JEXTRACT_URL" | tar xz -C $HOME/bin; \
+    fi
