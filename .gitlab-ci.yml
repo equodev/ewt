@@ -290,6 +290,10 @@ ewt_evolve_build:macos:
 ewt_evolve_build:windows:
   extends: .flutter:windows
   stage: build
+  # The ephemeral runner reinstalls VS Build Tools (~3.2GB) every run before_script, then this
+  # job builds swt-evolve's jar + the combined bundle on top — well past the default 1h. Give it
+  # room (capped by the runner's own max_timeout if lower).
+  timeout: 3h
   needs:
     - job: release_gate
       optional: true
