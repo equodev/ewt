@@ -255,8 +255,9 @@ ewt_evolve_build:macos:
     # the projects this job builds don't, so enable it at the config level.)
     - flutter config --enable-swift-package-manager
     # buildCombinedBundle compiles libwidgets.dylib with cmake; the runner has Xcode (flutter
-    # macOS builds work) but not cmake — install it if missing.
-    - command -v cmake >/dev/null || brew install cmake
+    # macOS builds work) but not cmake and no Homebrew — fetch the Kitware universal build.
+    - command -v cmake >/dev/null || { curl -L -o cmake.tar.gz "https://github.com/Kitware/CMake/releases/download/v3.30.5/cmake-3.30.5-macos-universal.tar.gz" && tar xzf cmake.tar.gz; }
+    - export PATH="$PWD/cmake-3.30.5-macos-universal/CMake.app/Contents/bin:$PATH"
     - JDK_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x64)
     - curl -L "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_${JDK_ARCH}_mac_hotspot_22.0.2_9.tar.gz" | tar xz
     - export JAVA_HOME="$PWD/jdk-22.0.2+9/Contents/Home"
@@ -317,9 +318,14 @@ ewt_evolve_build:windows:
     - >-
       powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
       cd ..\\swt-evolve; \$null | .\\gradlew.bat :swt_native:windows-x86_64Jar --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+    # Diagnostic + pass evolveHome as an ABSOLUTE Windows path: the relative "../swt-evolve" made
+    # gradle's evolveAvailable probe miss the just-built swt-evolve jar on Windows (ewtEvolveJar
+    # then isn't registered). pwd -W yields the C:/ form gradle (Java) resolves reliably.
+    - ls -la ../swt-evolve/swt_native/build/libs/ || true
+    - EVOLVE_WIN="$(cd ../swt-evolve && pwd -W)"
     - >-
       powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
-      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=$EVOLVE_WIN --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
     paths:
