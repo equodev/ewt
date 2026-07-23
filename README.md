@@ -4,11 +4,13 @@
 ![JDK](https://img.shields.io/badge/JDK-22%2B-orange)
 ![macOS](https://img.shields.io/badge/macOS-Supported-green) ![Windows](https://img.shields.io/badge/Windows-Supported-green) ![Linux](https://img.shields.io/badge/Linux-Supported-green)
 
-**Build modern desktop UIs on the JVM.**
+**A modern desktop UI toolkit for the JVM.**
 
-EWT lets JVM developers create native, cross-platform desktop user interfaces —
-in Java, Kotlin, or any JVM language, with no Dart required. You get modern,
-fluid interfaces using the languages, tools, and IDE you already work with.
+EWT lets you build native desktop applications entirely in Java (or any
+JVM language) with a fluid, GPU-accelerated front-end. You compose your UI from
+a fluent, type-safe widget API, run it natively on Linux, macOS, and Windows
+from a single codebase, and get reactive rendering that updates automatically
+as your data changes.
 
 <p align="center">
   <img src="docs/pics/demo.gif" alt="EWT demo — a desktop UI built in Java" width="800">
@@ -31,16 +33,32 @@ public class HelloWorld {
 
 ## Why EWT
 
-- **One codebase, every desktop platform** — run the same UI on Linux, macOS,
+- **Pure Java stack** — write, debug, and ship your entire UI in Java (or any
+  JVM language) using the tools and IDE you already use.
+- **One codebase, every desktop platform** — the same UI runs on Linux, macOS,
   and Windows.
-- **Any JVM language** — write your UI in Java, Kotlin, or any language that runs
-  on the JVM.
-- **Modern, fluid interfaces** — smooth, GPU-accelerated rendering with crisp
-  fonts and sharp icons.
-- **A fluent, type-safe API** — compose your UI from familiar building blocks
-  like `Center`, `Column`, `Container`, `Scaffold`, and `MaterialApp`.
+- **Fluid, GPU-accelerated rendering** — smooth animations, crisp fonts, sharp
+  icons, and a contemporary look out of the box.
 - **Reactive by design** — build dynamic UIs that update automatically as your
   data changes.
+
+## Works with SWT Evolve
+
+[SWT Evolve](https://www.equo.dev/swt) is a separate Equo product that
+modernizes existing SWT and Eclipse RCP applications, keeping their current UI
+functional as it is.
+
+EWT integrates with SWT Evolve, so an SWT/RCP application running on Evolve can
+host EWT-built views inside the same window as its existing SWT widgets. Where
+Evolve refreshes and preserves the SWT surface teams already have, EWT brings
+capabilities the SWT widget set simply doesn't offer: a full modern widget
+vocabulary (Scaffold, Material and — coming soon — Cupertino components), fluid
+GPU-accelerated rendering, rich animations, and a reactive rendering model that
+updates the UI automatically as your data changes.
+
+The result: teams on Evolve keep the SWT/RCP application they already ship,
+and reach for EWT whenever they need to build new screens that go beyond what
+SWT can express — without adopting a second UI stack outside the JVM.
 
 ## Example: an interactive counter
 
@@ -82,7 +100,7 @@ Beyond static layouts, EWT supports rich animations for polished, modern UIs:
 
 Add EWT to your Gradle or Maven project. EWT ships as platform-specific JARs,
 so pick the classifier for your target platform: `linux`, `macos`, or `windows`.
-The current release is **`0.1.3`**.
+The current release is **`0.1.4`**.
 
 ### Gradle (Kotlin DSL)
 
@@ -98,7 +116,7 @@ val ewtOs = when {
 }
 
 dependencies {
-    implementation("dev.equo:ewt.api:0.1.3:$ewtOs@jar")
+    implementation("dev.equo:ewt.api:0.1.4:$ewtOs@jar")
 }
 ```
 
@@ -116,7 +134,7 @@ dependencies {
   <dependency>
     <groupId>dev.equo</groupId>
     <artifactId>ewt.api</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
     <classifier>linux</classifier> <!-- or macos / windows -->
   </dependency>
 </dependencies>
@@ -131,7 +149,7 @@ dependencies {
 Then write your UI (see the Counter example above) and start it with
 `App.runApp(...)`.
 
-## Running the example demos
+## What you can build
 
 The possibilities are endless — here are a few visual samples of what you can
 build with EWT:
@@ -203,20 +221,14 @@ EWT is under active, fast-moving development. Here's where we're headed:
 
 **Coming soon**
 
-- **Web support** — run the same EWT codebase in the browser. One UI, desktop and
-  web, no rewrite.
-- **Animations** — a full `AnimationController` API for building fluid, animated
-  interfaces.
-- **Complete widget coverage** — full support for Flutter's entire Material and
-  foundational widget sets, plus Cupertino (iOS-style) components, so you can
-  build in whatever design language your product needs.
+- **Web support** — run the same EWT codebase in the browser. One UI, desktop
+  and web, no rewrite.
 
 **On the horizon**
 
-- **[SWT Evolve](https://equo.dev/swt) integration** — drop brand-new EWT
-  components straight into modernized SWT / Eclipse RCP applications, mixing fresh
-  EWT screens with your existing UI in the same window — feature by feature, at
-  your pace.
+- **Expanded widget coverage** — a broader Material widget set plus Cupertino
+  (iOS-style) components, so you can build in whatever design language your
+  product needs.
 
 ## License
 
