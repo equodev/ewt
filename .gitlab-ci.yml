@@ -322,10 +322,13 @@ ewt_evolve_build:windows:
     # gradle's evolveAvailable probe miss the just-built swt-evolve jar on Windows (ewtEvolveJar
     # then isn't registered). pwd -W yields the C:/ form gradle (Java) resolves reliably.
     - ls -la ../swt-evolve/swt_native/build/libs/ || true
-    - EVOLVE_WIN="$(cygpath -m "$(cd ../swt-evolve && pwd)")"
+    # Resolve the clone's absolute Windows path INSIDE powershell (the job's bash lacks MSYS
+    # cygpath / pwd -W). The relative '../swt-evolve' missed gradle's evolveAvailable probe on
+    # Windows (mixed \ and / with ..), which left ewtEvolveJar unregistered.
     - >-
       powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
-      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=$EVOLVE_WIN --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+      \$evolveHome=(Resolve-Path ..\\swt-evolve).Path;
+      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=\$evolveHome --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
     paths:
