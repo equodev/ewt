@@ -1,6 +1,6 @@
 package dev.equo.ewt;
 
-import dev.equo.ewt.ffm.EmbedBridge;
+import dev.equo.ewt.internal.EmbedBridge;
 import dev.equo.ewt.ffm.StarterBridge;
 import dev.equo.ewt.ffm.WidgetFactories;
 import dev.equo.ewt.ffm.buildWidgetTreeFn;
