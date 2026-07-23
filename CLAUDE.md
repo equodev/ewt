@@ -84,7 +84,17 @@ list of the widgets it demonstrates.
 
 ### Generated files — do not edit
 
-`widgets/lib/subwidgets.dart` **and** `generator/lib/subwidgets.dart` are both generated (`PreGeneration.write` in `generator/lib/gen.dart` writes both). Editing either one is silently reverted the next time anyone runs the generator. Change the emitting code in `DartSubclassGen` instead.
+The following files are **gitignored** because they are monolithic artifacts that change entirely when any widget is added, causing unavoidable merge conflicts when multiple developers add widgets in parallel. They must be regenerated locally before building — the three-step pipeline above handles this.
+
+| File | Generator step |
+|---|---|
+| `widgets/src/factories.h`, `objects.h`, `typedefs.h` | `:generator:generator` |
+| `widgets/lib/factories_gen.dart` | `:generator:generator` |
+| `widgets/lib/subwidgets.dart`, `generator/lib/subwidgets.dart` | `:generator:generator` |
+| `widgets/lib/widgets_bindings_generated.dart` | `:widgets:ffigen` |
+| `ewt.api/src/main/java/dev/equo/ewt/ffm/` | `:ewt.api:jextract` |
+
+`widgets/lib/subwidgets.dart` **and** `generator/lib/subwidgets.dart` are written by `PreGeneration.write` in `generator/lib/gen.dart`. Editing either one is silently reverted the next time anyone runs the generator. Change the emitting code in `DartSubclassGen` instead.
 
 `PreGeneration` is cached against the timestamp of `pregeneration_index.dart`, so edits to the generator's own code do not invalidate it. Delete `generator/build/pregeneration_index.dart.ts` to force a re-run.
 
