@@ -1,4 +1,4 @@
-package dev.equo.ewt.ffm;
+package dev.equo.ewt.internal;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
