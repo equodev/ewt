@@ -15,6 +15,7 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     if (id <= 0) throw new RuntimeException("Failed to created widget FloatingActionButton");
     System.out.println("New FloatingActionButton id:"+id);
   }
+  FloatingActionButton(int id) { this.id = id; }
   @Builder.Factory
   static FloatingActionButton floatingActionButtonFloatingActionButton(Optional<WidgetI> child, Optional<String> tooltip, Optional<ColorI> foregroundColor, Optional<ColorI> backgroundColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<NativeObj.I> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<ShapeBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = factories.floatingActionButtonFloatingActionButton(child.map(WidgetI::build),

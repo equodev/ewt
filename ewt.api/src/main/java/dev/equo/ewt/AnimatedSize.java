@@ -15,6 +15,7 @@ public class AnimatedSize extends StatefulWidget implements AnimatedSizeI {
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedSize");
     System.out.println("New AnimatedSize id:"+id);
   }
+  AnimatedSize(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedSize animatedSizeAnimatedSize(Optional<WidgetI> child, Optional<AlignmentGeometryI> alignment, Optional<CurveI> curve, DurationI duration, Optional<DurationI> reverseDuration, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     var st = factories.animatedSizeAnimatedSize(child.map(WidgetI::build),

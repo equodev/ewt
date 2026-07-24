@@ -9,7 +9,7 @@ import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
-  int dialogShowDialog(BuildContext context, Function<BuildContext, Widget> builder, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useSafeArea, Optional<Boolean> useRootNavigator, Optional<Offset> anchorPoint, Optional<TraversalEdgeBehavior> traversalEdgeBehavior, Optional<Boolean> fullscreenDialog, Optional<Boolean> requestFocus) {
+  <T> int dialogShowDialog(BuildContext context, Function<BuildContext, Widget> builder, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useSafeArea, Optional<Boolean> useRootNavigator, Optional<Offset> anchorPoint, Optional<TraversalEdgeBehavior> traversalEdgeBehavior, Optional<Boolean> fullscreenDialog, Optional<Boolean> requestFocus) {
     var fn = WidgetFactories.showDialog(factories);
     return WidgetFactories.showDialog.invoke(fn, context.build().getId(),
       ptrWidgetBuilderFn(builder),
@@ -167,6 +167,26 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int fontWeightW900() {
     var st = WidgetFactories.fontWeight(factories);
     return WidgetFactories.FontWeightSt.w900(st);
+  }
+
+  int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.shadow(st);
+    return WidgetFactories.ShadowSt.shadow.invoke(fn, ptrObj(color),
+      ptrObj(offset),
+      ptr(blurRadius));
+  }
+  double shadowConvertRadiusToSigma(double radius) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.convertRadiusToSigma(st);
+    return WidgetFactories.ShadowSt.convertRadiusToSigma.invoke(fn, radius);
+  }
+  int shadowLerp(Shadow a, Shadow b, double t) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.lerp(st);
+    return WidgetFactories.ShadowSt.lerp.invoke(fn, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
   }
 
   int textDecorationCombine(List<TextDecoration> decorations) {
@@ -525,6 +545,23 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  MemorySegment boxShadowBoxShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
+    var st = WidgetFactories.boxShadow(factories);
+    var fn = WidgetFactories.BoxShadowSt.boxShadow(st);
+    return WidgetFactories.BoxShadowSt.boxShadow.invoke(fn, arena, ptrObj(color),
+      ptrObj(offset),
+      ptr(blurRadius),
+      ptr(spreadRadius),
+      ptrEnum(blurStyle));
+  }
+  MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
+    var st = WidgetFactories.boxShadow(factories);
+    var fn = WidgetFactories.BoxShadowSt.lerp(st);
+    return WidgetFactories.BoxShadowSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
   int radiusCircular(double radius) {
     var st = WidgetFactories.radius(factories);
     var fn = WidgetFactories.RadiusSt.circular(st);
@@ -578,43 +615,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.borderRadius(factories);
     var fn = WidgetFactories.BorderRadiusSt.lerp(st);
     return WidgetFactories.BorderRadiusSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
-      b != null ? b.build().getId() : null,
-      t);
-  }
-
-  MemorySegment boxShadowBoxShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
-    var st = WidgetFactories.boxShadow(factories);
-    var fn = WidgetFactories.BoxShadowSt.boxShadow(st);
-    return WidgetFactories.BoxShadowSt.boxShadow.invoke(fn, arena, ptrObj(color),
-      ptrObj(offset),
-      ptr(blurRadius),
-      ptr(spreadRadius),
-      ptrEnum(blurStyle));
-  }
-  MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
-    var st = WidgetFactories.boxShadow(factories);
-    var fn = WidgetFactories.BoxShadowSt.lerp(st);
-    return WidgetFactories.BoxShadowSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
-      b != null ? b.build().getId() : null,
-      t);
-  }
-
-  int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
-    var st = WidgetFactories.shadow(factories);
-    var fn = WidgetFactories.ShadowSt.shadow(st);
-    return WidgetFactories.ShadowSt.shadow.invoke(fn, ptrObj(color),
-      ptrObj(offset),
-      ptr(blurRadius));
-  }
-  double shadowConvertRadiusToSigma(double radius) {
-    var st = WidgetFactories.shadow(factories);
-    var fn = WidgetFactories.ShadowSt.convertRadiusToSigma(st);
-    return WidgetFactories.ShadowSt.convertRadiusToSigma.invoke(fn, radius);
-  }
-  int shadowLerp(Shadow a, Shadow b, double t) {
-    var st = WidgetFactories.shadow(factories);
-    var fn = WidgetFactories.ShadowSt.lerp(st);
-    return WidgetFactories.ShadowSt.lerp.invoke(fn, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
       t);
   }
@@ -1816,7 +1816,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrMap(swatch));
   }
 
-  MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
+  <T> MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
     var st = WidgetFactories.colorSwatch(factories);
     var fn = WidgetFactories.ColorSwatchSt.lerp(st);
     return WidgetFactories.ColorSwatchSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
@@ -2424,7 +2424,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(routeTraversalEdgeBehavior),
       ptrEnum(routeDirectionalTraversalEdgeBehavior));
   }
-  int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
+  <T extends NativeObj> int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pushNamed(st);
     return WidgetFactories.NavigatorSt.pushNamed.invoke(fn, context.build().getId(),
@@ -2438,7 +2438,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       arena.allocateFrom(routeName),
       ptrObj(arguments));
   }
-  <TO extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pushReplacementNamed(st);
     return WidgetFactories.NavigatorSt.pushReplacementNamed.invoke(fn, context.build().getId(),
@@ -2454,7 +2454,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(result),
       ptrObj(arguments));
   }
-  <TO extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.popAndPushNamed(st);
     return WidgetFactories.NavigatorSt.popAndPushNamed.invoke(fn, context.build().getId(),
@@ -3537,12 +3537,12 @@ MemorySegment ptrIndexedWidgetBuilderFn(BiFunction<BuildContext, Integer, Widget
     return jFnRet.build().getId();
   }, arena);
 }
-MemorySegment ptrValueChangedForIntFn(Consumer<Integer> jFn) {
+<T> MemorySegment ptrValueChangedForIntFn(Consumer<Integer> jFn) {
   return ValueChangedForIntFFI.allocate((value) -> {
     jFn.accept(value);
   }, arena);
 }
-MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
+<T> MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
   return ValueChangedForBoolFFI.allocate((value) -> {
     jFn.accept(intToBool(value));
   }, arena);
@@ -3564,7 +3564,7 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
     return arena.allocateFrom(jFnRet);
   }, arena);
 }
-MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
+<T> MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
   return ValueChangedForStringFFI.allocate((value) -> {
     jFn.accept(value.getString(0));
   }, arena);
@@ -3605,12 +3605,12 @@ MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
-MemorySegment ptrValueChangedForBoolOptFn(Consumer<Boolean> jFn) {
+<T> MemorySegment ptrValueChangedForBoolOptFn(Consumer<Boolean> jFn) {
   return ValueChangedForBoolOptFFI.allocate((value) -> {
     jFn.accept(memToBool(value));
   }, arena);
 }
-MemorySegment ptrValueChangedForDoubleFn(Consumer<Double> jFn) {
+<T> MemorySegment ptrValueChangedForDoubleFn(Consumer<Double> jFn) {
   return ValueChangedForDoubleFFI.allocate((value) -> {
     jFn.accept(value);
   }, arena);
@@ -3626,14 +3626,14 @@ MemorySegment ptrTooltipTriggeredCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
-MemorySegment ptrTabValueChangedForBoolFn(BiConsumer<Boolean, Integer> jFn) {
+<T> MemorySegment ptrTabValueChangedForBoolFn(BiConsumer<Boolean, Integer> jFn) {
   return TabValueChangedForBoolFFI.allocate((value, index) -> {
     jFn.accept(intToBool(value), index);
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {
   return VoidCallbackDartObjFFI.allocate((t) -> {
-    jFn.accept(SubclassedInJava.getSubNatObj(t));
+    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = t; }});
   }, arena);
 }
 MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {

@@ -15,6 +15,7 @@ public class Divider extends StatelessWidget implements DividerI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Divider");
     System.out.println("New Divider id:"+id);
   }
+  Divider(int id) { this.id = id; }
   @Builder.Factory
   static Divider dividerDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<ColorI> color, Optional<BorderRadiusGeometryI> radius) {
     var st = factories.dividerDivider(height,

@@ -15,6 +15,7 @@ public class ListTile extends StatelessWidget implements ListTileI {
     if (id <= 0) throw new RuntimeException("Failed to created widget ListTile");
     System.out.println("New ListTile id:"+id);
   }
+  ListTile(int id) { this.id = id; }
   @Builder.Factory
   static ListTile listTileListTile(Optional<WidgetI> leading, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<WidgetI> trailing, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<VisualDensityI> visualDensity, Optional<ShapeBorderI> shape, Optional<ListTileStyle> style, Optional<ColorI> selectedColor, Optional<ColorI> iconColor, Optional<ColorI> textColor, Optional<TextStyleI> titleTextStyle, Optional<TextStyleI> subtitleTextStyle, Optional<TextStyleI> leadingAndTrailingTextStyle, Optional<EdgeInsetsGeometryI> contentPadding, Optional<Boolean> enabled, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> selected, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<Boolean> autofocus, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.listTileListTile(leading.map(WidgetI::build),

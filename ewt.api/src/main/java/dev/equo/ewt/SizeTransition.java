@@ -15,6 +15,7 @@ public class SizeTransition extends AnimatedWidget implements SizeTransitionI {
     if (id <= 0) throw new RuntimeException("Failed to created widget SizeTransition");
     System.out.println("New SizeTransition id:"+id);
   }
+  SizeTransition(int id) { this.id = id; }
   @Builder.Factory
   static SizeTransition sizeTransitionSizeTransition(Optional<Axis> axis, AnimationI sizeFactor, OptionalDouble axisAlignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<WidgetI> child) {
     var st = factories.sizeTransitionSizeTransition(axis,

@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 public class EWT {
   public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
     int id = WidgetConstructors.instance.dialogShowDialog(context.build(),
@@ -40,6 +41,10 @@ public class EWT {
   }
   public static OffsetFromDirectionBuilder Offset_fromDirection(double direction) {
     return OffsetFromDirectionBuilder.offsetFromDirection(direction);
+  }
+
+  public static ShadowShadowBuilder Shadow() {
+    return ShadowShadowBuilder.shadowShadow();
   }
 
   public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
@@ -157,6 +162,10 @@ public class EWT {
     return BoxDecorationBoxDecorationBuilder.boxDecorationBoxDecoration();
   }
 
+  public static BoxShadowBoxShadowBuilder BoxShadow() {
+    return BoxShadowBoxShadowBuilder.boxShadowBoxShadow();
+  }
+
   public static RadiusCircularBuilder Radius_circular(double radius) {
     return RadiusCircularBuilder.radiusCircular(radius);
   }
@@ -178,14 +187,6 @@ public class EWT {
   }
   public static BorderRadiusOnlyBuilder BorderRadius_only() {
     return BorderRadiusOnlyBuilder.borderRadiusOnly();
-  }
-
-  public static BoxShadowBoxShadowBuilder BoxShadow() {
-    return BoxShadowBoxShadowBuilder.boxShadowBoxShadow();
-  }
-
-  public static ShadowShadowBuilder Shadow() {
-    return ShadowShadowBuilder.shadowShadow();
   }
 
   public static PaddingPaddingBuilder Padding(EdgeInsetsGeometryI padding) {

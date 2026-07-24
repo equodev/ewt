@@ -15,6 +15,7 @@ public class FadeTransition extends SingleChildRenderObjectWidget implements Fad
     if (id <= 0) throw new RuntimeException("Failed to created widget FadeTransition");
     System.out.println("New FadeTransition id:"+id);
   }
+  FadeTransition(int id) { this.id = id; }
   @Builder.Factory
   static FadeTransition fadeTransitionFadeTransition(@Builder.Parameter AnimationI opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<WidgetI> child) {
     var st = factories.fadeTransitionFadeTransition(opacity.build(),

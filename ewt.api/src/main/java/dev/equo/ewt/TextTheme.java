@@ -15,6 +15,7 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
     if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
     System.out.println("New TextTheme id:"+id);
   }
+  TextTheme(int id) { this.id = id; }
   @Builder.Factory
   static TextTheme textThemeTextTheme(Optional<TextStyleI> displayLarge, Optional<TextStyleI> displayMedium, Optional<TextStyleI> displaySmall, Optional<TextStyleI> headlineLarge, Optional<TextStyleI> headlineMedium, Optional<TextStyleI> headlineSmall, Optional<TextStyleI> titleLarge, Optional<TextStyleI> titleMedium, Optional<TextStyleI> titleSmall, Optional<TextStyleI> bodyLarge, Optional<TextStyleI> bodyMedium, Optional<TextStyleI> bodySmall, Optional<TextStyleI> labelLarge, Optional<TextStyleI> labelMedium, Optional<TextStyleI> labelSmall) {
     var st = factories.textThemeTextTheme(displayLarge.map(TextStyleI::build),

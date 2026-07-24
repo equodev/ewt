@@ -15,6 +15,7 @@ public class AnimatedScale extends ImplicitlyAnimatedWidget implements AnimatedS
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedScale");
     System.out.println("New AnimatedScale id:"+id);
   }
+  AnimatedScale(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedScale animatedScaleAnimatedScale(Optional<WidgetI> child, double scale, Optional<AlignmentI> alignment, Optional<FilterQuality> filterQuality, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
     var st = factories.animatedScaleAnimatedScale(child.map(WidgetI::build),

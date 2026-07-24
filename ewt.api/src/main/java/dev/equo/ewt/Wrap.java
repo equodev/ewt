@@ -15,6 +15,7 @@ public class Wrap extends MultiChildRenderObjectWidget implements WrapI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Wrap");
     System.out.println("New Wrap id:"+id);
   }
+  Wrap(int id) { this.id = id; }
   @Builder.Factory
   static Wrap wrapWrap(Optional<Axis> direction, Optional<WrapAlignment> alignment, OptionalDouble spacing, Optional<WrapAlignment> runAlignment, OptionalDouble runSpacing, Optional<WrapCrossAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<Clip> clipBehavior, Optional<List<WidgetI>> children) {
     var st = factories.wrapWrap(direction,

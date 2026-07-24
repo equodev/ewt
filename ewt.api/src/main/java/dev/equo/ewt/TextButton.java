@@ -15,6 +15,7 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
     if (id <= 0) throw new RuntimeException("Failed to created widget TextButton");
     System.out.println("New TextButton id:"+id);
   }
+  TextButton(int id) { this.id = id; }
   @Builder.Factory
   static TextButton textButtonTextButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Boolean> isSemanticButton, WidgetI child) {
     var st = factories.textButtonTextButton(onPressed,

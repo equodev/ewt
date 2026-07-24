@@ -15,6 +15,7 @@ public class PageView extends StatefulWidget implements PageViewI {
     if (id <= 0) throw new RuntimeException("Failed to created widget PageView");
     System.out.println("New PageView id:"+id);
   }
+  PageView(int id) { this.id = id; }
   @Builder.Factory
   static PageView pageViewPageView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> pageSnapping, Optional<Consumer<Integer>> onPageChanged, Optional<List<WidgetI>> children, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> allowImplicitScrolling, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<Boolean> padEnds) {
     var st = factories.pageViewPageView(scrollDirection,

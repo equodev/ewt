@@ -15,6 +15,7 @@ public class RichText extends MultiChildRenderObjectWidget implements RichTextI 
     if (id <= 0) throw new RuntimeException("Failed to created widget RichText");
     System.out.println("New RichText id:"+id);
   }
+  RichText(int id) { this.id = id; }
   @Builder.Factory
   static RichText richTextRichText(@Builder.Parameter InlineSpanI text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
     var st = factories.richTextRichText(text.build(),

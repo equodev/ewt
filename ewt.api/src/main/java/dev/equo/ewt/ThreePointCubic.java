@@ -15,6 +15,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
     if (id <= 0) throw new RuntimeException("Failed to created widget ThreePointCubic");
     System.out.println("New ThreePointCubic id:"+id);
   }
+  ThreePointCubic(int id) { this.id = id; }
   @Builder.Factory
   static ThreePointCubic threePointCubicThreePointCubic(@Builder.Parameter OffsetI a1, @Builder.Parameter OffsetI b1, @Builder.Parameter OffsetI midpoint, @Builder.Parameter OffsetI a2, @Builder.Parameter OffsetI b2) {
     var st = factories.threePointCubicThreePointCubic(a1.build(),

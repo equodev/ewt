@@ -15,6 +15,7 @@ public class IndexedStack extends StatelessWidget implements IndexedStackI {
     if (id <= 0) throw new RuntimeException("Failed to created widget IndexedStack");
     System.out.println("New IndexedStack id:"+id);
   }
+  IndexedStack(int id) { this.id = id; }
   @Builder.Factory
   static IndexedStack indexedStackIndexedStack(Optional<AlignmentGeometryI> alignment, Optional<TextDirection> textDirection, Optional<Clip> clipBehavior, Optional<StackFit> sizing, OptionalInt index, Optional<List<WidgetI>> children) {
     var st = factories.indexedStackIndexedStack(alignment.map(AlignmentGeometryI::build),

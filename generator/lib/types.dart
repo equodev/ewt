@@ -74,6 +74,11 @@ class Types {
     if (t.element is EnumElement) {
       return true;
     }
+    // Treat `dynamic` as `Object` (→ NativeObj) so callback params typed
+    // `List<dynamic>` (e.g. DragTarget.builder's rejectedData) are marshalable.
+    if (t is DynamicType || t.isDartCoreObject) {
+      return true;
+    }
     if (t.isDartCoreList && supportedType((t as InterfaceType).typeArguments[0])) {
       return true;
     }
@@ -149,6 +154,12 @@ class Types {
     if (!isPrimitive(namedType) && supportedType(namedType)) {
       addRequiredType(namedType);
     }
+    // `dynamic` isn't an InterfaceType — treat it as Object (→ NativeObj) so
+    // callback params like `List<dynamic>` (DragTarget.builder rejectedData)
+    // map to `List<NativeObj>` in Java.
+    if (namedType is DynamicType) {
+      return 'NativeObj';
+    }
     var h = getHandler(namedType);
     if (h != null) {
       return h.type4J(namedType);
@@ -159,7 +170,8 @@ class Types {
       }
       else if (namedType.isDartCoreList) {
         final arrayType = (namedType).typeArguments[0];
-        return 'List<$arrayType>';
+        // Java generics reject primitives — `List<double>` must be `List<Double>`.
+        return 'List<${boxedType(type4J(arrayType).firstUpper())}>';
       }
       else if (namedType.isDartCoreObject) {
         return 'NativeObj';
@@ -196,6 +208,9 @@ class Types {
     var h = getHandler(namedType);
     if (h != null) {
       return h.type4C(namedType);
+    }
+    if (namedType is DynamicType) {
+      return 'DartObj';
     }
     if (namedType is VoidType) {
       return 'void';
@@ -260,6 +275,9 @@ class Types {
     var h = getHandler(namedType);
     if (h != null) {
       return h.type4D(namedType);
+    }
+    if (namedType is DynamicType) {
+      return 'DartObj';
     }
     // if (namedType is InterfaceType) {
     if (namedType.isDartCoreString) {
@@ -419,10 +437,19 @@ class Types {
   /// read the same bool back as a plain int, hence the distinction.
   String paramValueFFMtoJ(Types types, ParameterElement param, {bool fromCallback = false}) {
     var t = param.type;
+    // Field getters typed as a type parameter `T` come back as an int id from
+    // the struct. We can't marshall arbitrary values so — with `_sanitizeTypeParam`
+    // constraining `T extends NativeObj` — the only viable value is a NativeObj
+    // wrapper cast to T so Java's return-type check is satisfied.
+    String? tpCast;
     if (t is TypeParameterType) {
+      tpCast = '(${t.getDisplayString(withNullability: false)}) (NativeObj) ';
       t = t.bound;
     }
     var value = Params.escape4J(types, param);
+    if (tpCast != null) {
+      return '${tpCast}new NativeObj.Base() {{ this.id = $value; }}';
+    }
     if (t.isDartCoreBool) {
       return fromCallback && t.nullabilitySuffix == NullabilitySuffix.question
           ? 'memToBool($value)'
@@ -438,6 +465,18 @@ class Types {
       final arrayType = (t as InterfaceType).typeArguments[0];
       if (arrayType.isDartCoreString) {
         return 'memToStrList($value)';
+      } else if (types.isWidget(arrayType.element)) {
+        // On the callback upcall path, Flutter hands back an ArrayC struct
+        // (see WidgetConstructorsBase.memToWidgetList) holding the ids of the
+        // widgets. Unmarshal each id back into a Widget wrapper.
+        return 'memToWidgetList($value)';
+      } else if (arrayType is TypeParameterType || arrayType is DynamicType ||
+          arrayType.isDartCoreObject) {
+        // `List<T>`, `List<dynamic>`, `List<Object>` — treat as an ArrayC of
+        // ids and coerce to the target type (unchecked). Used by e.g.
+        // DragTarget.builder's candidateData / rejectedData.
+        final targetJava = types.type4J(t);
+        return '(($targetJava) (List) memToWidgetList($value))';
       } else {
         // value = 'ptrList($value)';
       }
@@ -568,11 +607,14 @@ class FunctionHandler with TypeHandler {
         2 => 'Bi',
         3 => 'Tri',
         4 => 'Quad',
+        5 => 'Penta',
         var i => throw 'Unsupported $i args function',
       };
       return '${arity}Consumer<$params>';
     } else {
-      var retType4j = types.type4J(fn.returnType);
+      // Return type also has to be boxed when it sits inside Function<>,
+      // otherwise a bool return leaks as `boolean` — invalid inside generics.
+      var retType4j = boxedType(types.type4J(fn.returnType).firstUpper());
       if (fn.parameters.isEmpty) {
         return 'Supplier<$retType4j>';
       }
@@ -581,6 +623,7 @@ class FunctionHandler with TypeHandler {
         2 => 'Bi',
         3 => 'Tri',
         4 => 'Quad',
+        5 => 'Penta',
         var i => throw 'Unsupported $i args function',
       };
       return '${arity}Function<$params, $retType4j>';
@@ -596,8 +639,30 @@ class FunctionHandler with TypeHandler {
     // default value), fall back to a no-op builder so the value stays
     // assignable. Builder-style callbacks return Widget?/void, so => null fits.
     if (param.isOptional && t.nullabilitySuffix != NullabilitySuffix.question) {
-      final lambdaParams = List.generate(t.parameters.length, (i) => 'p$i').join(', ');
-      value = '($value ?? ($lambdaParams) => null)';
+      // Flutter treats these callbacks as non-nullable — it INVOKES them itself
+      // (e.g. AnimatedSwitcher.layoutBuilder is called every rebuild, Draggable
+      // .dragAnchorStrategy every drag start). If the Java caller didn't supply
+      // one, fall back to Flutter's declared default (`param.defaultValueCode`)
+      // so behaviour matches what a plain-Flutter user would see. Only if
+      // there's no default (rare) do we synthesize a lambda that returns null —
+      // acceptable for Widget?-returning builders but wrong for value-returning
+      // ones. `throw` would compile as Never but bombs at first invocation.
+      final defaultCode = param.defaultValueCode;
+      // Skip defaults that reference private identifiers (Flutter's
+      // `_defaultBottomSheetScrimBuilder`, etc.) — they aren't visible from our
+      // widgets library, so we can't emit them. Fall back to a null-returning
+      // lambda; that's safe for Widget?-returning builders (Flutter usually
+      // treats null as "use the framework default").
+      final usableDefault = defaultCode != null &&
+          defaultCode.isNotEmpty &&
+          defaultCode != 'null' &&
+          !RegExp(r'\b_[A-Za-z]').hasMatch(defaultCode);
+      if (usableDefault) {
+        value = '($value ?? $defaultCode)';
+      } else {
+        final lambdaParams = List.generate(t.parameters.length, (i) => 'p$i').join(', ');
+        value = '($value ?? ($lambdaParams) => null)';
+      }
     }
     return value;
   }
@@ -645,7 +710,15 @@ List<ParameterElement> bindTypeParameters(List<ParameterElement> parameters, Lis
   for (var i=0; i < parameters.length; i++) {
     var parameter = parameters[i];
     if (parameter.type is TypeParameterType && tpi < typeArguments.length) {
-      newParams[i] = paramElement(parameter.name, typeArguments[tpi]);
+      final arg = typeArguments[tpi];
+      // If we'd be substituting T → T (same type-parameter element), skip:
+      // the substitution is a no-op that also loses the original param's
+      // nullability suffix (e.g. `T?` becomes `T`). Only substitute when arg
+      // is a concrete instantiation.
+      if (arg is TypeParameterType && arg.element == (parameter.type as TypeParameterType).element) {
+        continue;
+      }
+      newParams[i] = paramElement(parameter.name, arg);
     }
   }
   return newParams;

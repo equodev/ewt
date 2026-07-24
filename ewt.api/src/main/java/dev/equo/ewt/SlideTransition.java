@@ -15,6 +15,7 @@ public class SlideTransition extends AnimatedWidget implements SlideTransitionI 
     if (id <= 0) throw new RuntimeException("Failed to created widget SlideTransition");
     System.out.println("New SlideTransition id:"+id);
   }
+  SlideTransition(int id) { this.id = id; }
   @Builder.Factory
   static SlideTransition slideTransitionSlideTransition(@Builder.Parameter AnimationI position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<WidgetI> child) {
     var st = factories.slideTransitionSlideTransition(position.build(),

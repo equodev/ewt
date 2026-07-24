@@ -15,6 +15,7 @@ public class Expanded extends Flexible implements ExpandedI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Expanded");
     System.out.println("New Expanded id:"+id);
   }
+  Expanded(int id) { this.id = id; }
   @Builder.Factory
   static Expanded expandedExpanded(OptionalInt flex, WidgetI child) {
     var st = factories.expandedExpanded(flex,

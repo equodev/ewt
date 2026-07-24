@@ -15,6 +15,7 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
     if (id <= 0) throw new RuntimeException("Failed to created widget MaterialApp");
     System.out.println("New MaterialApp id:"+id);
   }
+  MaterialApp(int id) { this.id = id; }
   @Builder.Factory
   static MaterialApp materialAppMaterialApp(Optional<WidgetI> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<ThemeDataI> theme, Optional<ThemeDataI> darkTheme, Optional<ThemeDataI> highContrastTheme, Optional<ThemeDataI> highContrastDarkTheme, Optional<ThemeMode> themeMode, Optional<DurationI> themeAnimationDuration, Optional<CurveI> themeAnimationCurve, Optional<Boolean> debugShowMaterialGrid, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = factories.materialAppMaterialApp(home.map(WidgetI::build),

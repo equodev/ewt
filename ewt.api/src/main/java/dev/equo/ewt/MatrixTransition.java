@@ -15,6 +15,7 @@ public class MatrixTransition extends AnimatedWidget implements MatrixTransition
     if (id <= 0) throw new RuntimeException("Failed to created widget MatrixTransition");
     System.out.println("New MatrixTransition id:"+id);
   }
+  MatrixTransition(int id) { this.id = id; }
   public Alignment alignment() {
     return new Alignment(MatrixTransitionObjSt.alignment(st));
   }

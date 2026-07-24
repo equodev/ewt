@@ -15,6 +15,7 @@ public class BorderSide extends NativeObj.Base implements BorderSideI {
     if (id <= 0) throw new RuntimeException("Failed to created widget BorderSide");
     System.out.println("New BorderSide id:"+id);
   }
+  BorderSide(int id) { this.id = id; }
   @Builder.Factory
   static BorderSide borderSideBorderSide(Optional<ColorI> color, OptionalDouble width, Optional<BorderStyle> style, OptionalDouble strokeAlign) {
     var st = factories.borderSideBorderSide(color.map(ColorI::build),

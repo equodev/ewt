@@ -15,6 +15,7 @@ public class SnackBarAction extends StatefulWidget implements SnackBarActionI {
     if (id <= 0) throw new RuntimeException("Failed to created widget SnackBarAction");
     System.out.println("New SnackBarAction id:"+id);
   }
+  SnackBarAction(int id) { this.id = id; }
   @Builder.Factory
   static SnackBarAction snackBarActionSnackBarAction(Optional<ColorI> textColor, Optional<ColorI> disabledTextColor, Optional<ColorI> backgroundColor, Optional<ColorI> disabledBackgroundColor, String label, Runnable onPressed) {
     var st = factories.snackBarActionSnackBarAction(textColor.map(ColorI::build),

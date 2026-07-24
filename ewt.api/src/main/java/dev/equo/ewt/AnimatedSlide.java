@@ -15,6 +15,7 @@ public class AnimatedSlide extends ImplicitlyAnimatedWidget implements AnimatedS
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedSlide");
     System.out.println("New AnimatedSlide id:"+id);
   }
+  AnimatedSlide(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedSlide animatedSlideAnimatedSlide(Optional<WidgetI> child, OffsetI offset, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
     var st = factories.animatedSlideAnimatedSlide(child.map(WidgetI::build),

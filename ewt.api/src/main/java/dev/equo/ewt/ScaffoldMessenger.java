@@ -15,6 +15,7 @@ public class ScaffoldMessenger extends StatefulWidget implements ScaffoldMesseng
     if (id <= 0) throw new RuntimeException("Failed to created widget ScaffoldMessenger");
     System.out.println("New ScaffoldMessenger id:"+id);
   }
+  ScaffoldMessenger(int id) { this.id = id; }
   @Builder.Factory
   static ScaffoldMessenger scaffoldMessengerScaffoldMessenger(@Builder.Parameter WidgetI child) {
     var st = factories.scaffoldMessengerScaffoldMessenger(child.build());

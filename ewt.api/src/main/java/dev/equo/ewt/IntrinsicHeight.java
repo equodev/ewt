@@ -15,6 +15,7 @@ public class IntrinsicHeight extends SingleChildRenderObjectWidget implements In
     if (id <= 0) throw new RuntimeException("Failed to created widget IntrinsicHeight");
     System.out.println("New IntrinsicHeight id:"+id);
   }
+  IntrinsicHeight(int id) { this.id = id; }
   @Builder.Factory
   static IntrinsicHeight intrinsicHeightIntrinsicHeight(Optional<WidgetI> child) {
     var st = factories.intrinsicHeightIntrinsicHeight(child.map(WidgetI::build));

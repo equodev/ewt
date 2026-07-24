@@ -15,6 +15,7 @@ public class AnimatedRotation extends ImplicitlyAnimatedWidget implements Animat
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedRotation");
     System.out.println("New AnimatedRotation id:"+id);
   }
+  AnimatedRotation(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedRotation animatedRotationAnimatedRotation(Optional<WidgetI> child, double turns, Optional<AlignmentI> alignment, Optional<FilterQuality> filterQuality, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
     var st = factories.animatedRotationAnimatedRotation(child.map(WidgetI::build),

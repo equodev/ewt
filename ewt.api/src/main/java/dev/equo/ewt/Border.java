@@ -15,6 +15,7 @@ public class Border extends BoxBorder implements BorderI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Border");
     System.out.println("New Border id:"+id);
   }
+  Border(int id) { this.id = id; }
   @Builder.Factory
   static Border borderBorder(Optional<BorderSideI> top, Optional<BorderSideI> right, Optional<BorderSideI> bottom, Optional<BorderSideI> left) {
     var st = factories.borderBorder(top.map(BorderSideI::build),

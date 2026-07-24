@@ -15,6 +15,7 @@ public class RotationTransition extends MatrixTransition implements RotationTran
     if (id <= 0) throw new RuntimeException("Failed to created widget RotationTransition");
     System.out.println("New RotationTransition id:"+id);
   }
+  RotationTransition(int id) { this.id = id; }
   @Builder.Factory
   static RotationTransition rotationTransitionRotationTransition(@Builder.Parameter AnimationI turns, Optional<AlignmentI> alignment, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
     var st = factories.rotationTransitionRotationTransition(turns.build(),

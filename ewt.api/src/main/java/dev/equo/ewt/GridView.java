@@ -15,6 +15,7 @@ public class GridView extends BoxScrollView implements GridViewI {
     if (id <= 0) throw new RuntimeException("Failed to created widget GridView");
     System.out.println("New GridView id:"+id);
   }
+  GridView(int id) { this.id = id; }
   @Builder.Factory
   static GridView gridViewCount(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometryI> padding, int crossAxisCount, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<WidgetI>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
     var st = factories.gridViewCount(scrollDirection,

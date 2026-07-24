@@ -15,6 +15,7 @@ public class AlertDialog extends StatelessWidget implements AlertDialogI {
     if (id <= 0) throw new RuntimeException("Failed to created widget AlertDialog");
     System.out.println("New AlertDialog id:"+id);
   }
+  AlertDialog(int id) { this.id = id; }
   @Builder.Factory
   static AlertDialog alertDialogAlertDialog(Optional<WidgetI> icon, Optional<EdgeInsetsGeometryI> iconPadding, Optional<ColorI> iconColor, Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<WidgetI> content, Optional<EdgeInsetsGeometryI> contentPadding, Optional<TextStyleI> contentTextStyle, Optional<List<WidgetI>> actions, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<MainAxisAlignment> actionsAlignment, Optional<OverflowBarAlignment> actionsOverflowAlignment, Optional<VerticalDirection> actionsOverflowDirection, OptionalDouble actionsOverflowButtonSpacing, Optional<EdgeInsetsGeometryI> buttonPadding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<BoxConstraintsI> constraints, Optional<Boolean> scrollable) {
     var st = factories.alertDialogAlertDialog(icon.map(WidgetI::build),

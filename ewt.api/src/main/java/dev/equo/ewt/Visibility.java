@@ -15,6 +15,7 @@ public class Visibility extends StatelessWidget implements VisibilityI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Visibility");
     System.out.println("New Visibility id:"+id);
   }
+  Visibility(int id) { this.id = id; }
   @Builder.Factory
   static Visibility visibilityVisibility(@Builder.Parameter WidgetI child, Optional<WidgetI> replacement, Optional<Boolean> visible, Optional<Boolean> maintainState, Optional<Boolean> maintainAnimation, Optional<Boolean> maintainSize, Optional<Boolean> maintainSemantics, Optional<Boolean> maintainInteractivity, Optional<Boolean> maintainFocusability) {
     var st = factories.visibilityVisibility(child.build(),

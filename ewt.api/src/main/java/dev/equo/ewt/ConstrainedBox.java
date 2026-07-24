@@ -15,6 +15,7 @@ public class ConstrainedBox extends SingleChildRenderObjectWidget implements Con
     if (id <= 0) throw new RuntimeException("Failed to created widget ConstrainedBox");
     System.out.println("New ConstrainedBox id:"+id);
   }
+  ConstrainedBox(int id) { this.id = id; }
   @Builder.Factory
   static ConstrainedBox constrainedBoxConstrainedBox(@Builder.Parameter BoxConstraintsI constraints, Optional<WidgetI> child) {
     var st = factories.constrainedBoxConstrainedBox(constraints.build(),

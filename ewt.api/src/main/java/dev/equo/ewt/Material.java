@@ -15,6 +15,7 @@ public class Material extends StatefulWidget implements MaterialI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Material");
     System.out.println("New Material id:"+id);
   }
+  Material(int id) { this.id = id; }
   @Builder.Factory
   static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<DurationI> animationDuration, Optional<WidgetI> child, Optional<Boolean> animateColor) {
     var st = factories.materialMaterial(type,

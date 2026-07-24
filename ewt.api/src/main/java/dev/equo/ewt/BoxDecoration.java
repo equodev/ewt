@@ -15,6 +15,7 @@ public class BoxDecoration extends Decoration implements BoxDecorationI {
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxDecoration");
     System.out.println("New BoxDecoration id:"+id);
   }
+  BoxDecoration(int id) { this.id = id; }
   @Builder.Factory
   static BoxDecoration boxDecorationBoxDecoration(Optional<ColorI> color, Optional<BoxBorderI> border, Optional<BorderRadiusGeometryI> borderRadius, Optional<List<BoxShadowI>> boxShadow, Optional<BlendMode> backgroundBlendMode, Optional<BoxShape> shape) {
     var st = factories.boxDecorationBoxDecoration(color.map(ColorI::build),

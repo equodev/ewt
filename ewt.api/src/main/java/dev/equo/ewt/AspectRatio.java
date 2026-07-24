@@ -15,6 +15,7 @@ public class AspectRatio extends SingleChildRenderObjectWidget implements Aspect
     if (id <= 0) throw new RuntimeException("Failed to created widget AspectRatio");
     System.out.println("New AspectRatio id:"+id);
   }
+  AspectRatio(int id) { this.id = id; }
   @Builder.Factory
   static AspectRatio aspectRatioAspectRatio(@Builder.Parameter double aspectRatio, Optional<WidgetI> child) {
     var st = factories.aspectRatioAspectRatio(aspectRatio,

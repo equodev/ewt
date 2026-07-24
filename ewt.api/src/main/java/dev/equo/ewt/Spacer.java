@@ -15,6 +15,7 @@ public class Spacer extends StatelessWidget implements SpacerI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Spacer");
     System.out.println("New Spacer id:"+id);
   }
+  Spacer(int id) { this.id = id; }
   @Builder.Factory
   static Spacer spacerSpacer(OptionalInt flex) {
     var st = factories.spacerSpacer(flex);

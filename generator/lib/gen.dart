@@ -101,6 +101,35 @@ class WidgetGen implements AGen {
       !n.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) &&
       types.supportedType(n.returnType);
 
+  /// Java rejects `<T extends Object?>`; strip nullable / Object bounds so
+  /// generic widgets (Draggable, TweenAnimationBuilder, etc.) emit valid Java.
+  /// Kept naked on the class declaration to preserve compatibility with existing
+  /// consumers (e.g. `AnimationController extends Animation<Double>`, which
+  /// would not satisfy a `T extends NativeObj` constraint).
+  String _sanitizeTypeParam(TypeParameterElement tp) {
+    final bound = tp.bound;
+    if (bound == null || bound.isDartCoreObject) return tp.name;
+    return '${tp.name} extends ${types.type4J(bound)}';
+  }
+
+  /// Type-parameter prefix for static factory methods on generic widgets.
+  /// Constrains unbounded params to `T extends NativeObj` so marshaling through
+  /// `ptrObj(Optional<T>)` compiles at the call site.
+  String get _factoryTypeParamPrefix {
+    if (dartClass.typeParameters.isEmpty) return '';
+    final decl = dartClass.typeParameters.map((tp) {
+      final bound = tp.bound;
+      if (bound == null || bound.isDartCoreObject) return '${tp.name} extends NativeObj';
+      return '${tp.name} extends ${types.type4J(bound)}';
+    }).join(', ');
+    return '<$decl>';
+  }
+
+  /// Naked type parameters (no bound), used when emitting the `<T>` prefix on
+  /// static factory methods that must propagate the containing class's generics.
+  String get _typeParamPrefix =>
+      dartClass.typeParameters.isEmpty ? '' : '<${dartClass.typeParameters.map((t) => t.name).join(', ')}>';
+
   @override
   void gen() {
     var constructors = dartClass.constructors.where((f) => f.isPublic);
@@ -173,7 +202,7 @@ class WidgetGen implements AGen {
         .writeln('package dev.equo.ewt;');
     _isInterface = isInterface(dartClass);
     // var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
-    var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
+    var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map(_sanitizeTypeParam).join(', ')}>' : '';
     List<String> builderExtend = [];
     List<InterfaceType> trulyInterfaces = [];
     if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
@@ -235,6 +264,12 @@ class WidgetGen implements AGen {
   }
 
   void writeFooter(bool hasMembers) {
+    // Note: return type is intentionally raw for generic widgets. Parametrizing
+    // it (e.g. `State<T> build()`) breaks `SubclassGen`'s hand-emitted
+    // `createState(...).build()` chain in `SubStatefulWidget.createStateFn`
+    // (S from the enclosing method vs T inferred from State — Java refuses to
+    // unify). The raw-type warning on Draggable.build()/DragTarget.build() is
+    // the tolerable cost.
     javaFile.writeln('  @Override\n'
         '  ${_isInterface ? 'default' : 'public'} $widgetClass build() {\n'
         '    return this;\n'
@@ -388,10 +423,12 @@ class WidgetGen implements AGen {
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsDecl = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    final tpp = _factoryTypeParamPrefix.isEmpty ? '' : '${_factoryTypeParamPrefix} ';
+    final retTpp = _typeParamPrefix; // <T> for return-type parameterization (raw class name would be a raw type).
     if (node is ConstructorElement) {
       javaFile
         ..writeln('  @Builder.Factory')
-        ..writeln('  static $widgetClass $factoryName(${jParamsDecl.builderDecl}) {');
+        ..writeln('  static $tpp$widgetClass$retTpp $factoryName(${jParamsDecl.builderDecl}) {');
     }
     var gen = types.getGen(node.returnType.element!);
     if (gen is WidgetGen) {
@@ -404,14 +441,14 @@ class WidgetGen implements AGen {
         .writeln('  }');
     if (node is ConstructorElement) {
       javaFile
-        ..writeln('  public static $builderClass $factory(${jParamsDecl.required}) {')
+        ..writeln('  public static $tpp$builderClass$retTpp $factory(${jParamsDecl.required}) {')
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
     }
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
     if (node is ConstructorElement) {
       javaStatics
-        ..writeln('  public static $builderClass $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParamsDecl.required}) {')
+        ..writeln('  public static $tpp$builderClass$retTpp $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParamsDecl.required}) {')
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
     }
@@ -711,6 +748,11 @@ class ImmutableGen extends ObjStGen {
         ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget $widgetClass");')
         ..writeln('    System.out.println("New $widgetClass id:"+id);')
         ..writeln('  }');
+      // Shadow int-ctor for the callback path: when this widget appears as a
+      // callback parameter, the FFM side only has the id. The struct-backed
+      // getters will NPE, but constructing a reference to the widget works.
+      javaFile
+        ..writeln('  $widgetClass(int id) { this.id = id; }');
     }
   }
 
@@ -1060,6 +1102,7 @@ class Generation {
       ..writeln('package dev.equo.ewt;')
       ..writeln('import java.util.*;')
       ..writeln('import java.util.function.*;')
+      ..writeln('import dev.equo.ewt.util.*;')
       ..writeln('public class EWT {');
 
     dartFactories.writeln('void _setupTopFunctions(WidgetFactories f) {');
@@ -1139,7 +1182,24 @@ class Generation {
         var allParams = boundPositionalParams+boundNamedParams;
         typedefFile.writeln('typedef ${CLang(types).field(ourName, types.type4C(fnType.returnType), params: allParams)}');
         // if (!aliasedType.boundParams.any((p) => p.type.isDartCoreBool || !isPrimitive(p.type))) { // we need to wrap from int to bool
-        var tp = (allParams).map((p) => p.type).whereType<TypeParameterType>().join(', ');
+        // Collect type parameters recursively so `List<T>`, `Map<K,V>`, and
+        // nested function types all contribute their `T` to the extension's
+        // generic prefix.
+        final _seenTp = <Element>{};
+        final _tpList = <DartType>[];
+        void _collectTp(DartType t) {
+          if (t is TypeParameterType) {
+            if (_seenTp.add(t.element)) _tpList.add(t);
+          } else if (t is InterfaceType) {
+            for (final ta in t.typeArguments) _collectTp(ta);
+          } else if (t is FunctionType) {
+            for (final pp in t.parameters) _collectTp(pp.type);
+            _collectTp(t.returnType);
+          }
+        }
+        for (final p in allParams) _collectTp(p.type);
+        _collectTp(fnType.returnType);
+        var tp = _tpList.map((t) => t.getDisplayString(withNullability: false)).join(', ');
         var rtp = td.typeArguments.isEmpty ? '' : '<${td.typeArguments.join(', ')}>';
         tp = tp.isEmpty ? '' : '<$tp>';
           var isFlutterAlias = td.element.aliasedElement != null;
@@ -1153,7 +1213,7 @@ class Generation {
                   '  $retType to${aliasName}Fn$tp() {\n'
                   // '    return (${fnType}) {\n'
                   // '    return (${boundParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
-                  '    return (${boundPositionalParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${p.type} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
+                  '    return (${boundPositionalParams.map((p) => '${_dartTypeStr(p.type)} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${_dartTypeStr(p.type)} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
                   '      Dart${aliasName}FFIFunction dFn = asFunction();\n'
                   '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p, fromCallback: true)).join(', ')});');
           if (fnType.returnType is! VoidType) {
@@ -1169,7 +1229,10 @@ class Generation {
                   '}\n'
           );
         // }
-        String jtp = isFlutterAlias ? '' : JLang().methodTypeParameters(fnType);
+        // Always emit `<T…>` when the signature carries type parameters —
+        // Flutter-aliased typedefs (e.g. `DragTargetBuilder<T>`) still need
+        // them at the Java method level for T inside `Function<T, …>`.
+        String jtp = JLang().methodTypeParameters(fnType);
         javaFactories.writeln('${jtp}MemorySegment ptr${aliasName}Fn(${h.type4J(fnType, td.typeArguments)} jFn) {\n'
             '  return $ourName.allocate((${allParams.map((p) => ensureName(p)).join(', ')}) -> {\n'
             '    ${fnType.returnType is! VoidType ? 'final var jFnRet = ' : ''}jFn.${h.functionMethod(fnType)}(${allParams.map((p) => types.paramValueFFMtoJ(types, p, fromCallback: true)).join(', ')});');
@@ -1717,6 +1780,13 @@ class Params {
         value = '$value$exclam.index';
       }
       else if (!isPrimitive(t)) {
+        // On the callback path, C hands us a plain int id (per the C typedef
+        // signature — see FunctionHandler.type4C which maps everything through
+        // `DartObj`). Emitting `_create<Widget>ObjSt(value)` would push a struct
+        // through an int-typed slot; register the widget by id and pass that.
+        if (fromCallback) {
+          return '_addWidget($value)';
+        }
         return ctx.getGen(t.element).dartToC(value);
         // value = '${param.name}.hashCode';
       }
@@ -1809,6 +1879,28 @@ extension Case on String {
 }
 
 String ensureName(ParameterElement param) => param.name.isNotEmpty ? param.name : param.type.element!.name![0].toLowerCase();
+
+/// Renders a Dart type preserving nullability. Necessary because
+/// `DartType.toString()` and `getDisplayString(withNullability: true)` both
+/// occasionally drop the `?` for TypeParameterType (analyzer quirk), which
+/// breaks generated lambdas whose param typedefs declare nullable T (e.g.
+/// `DragTargetWillAccept<T> = bool Function(T? data)`).
+///
+/// For TypeParameterType params where the analyzer strips `?`, defensively
+/// widen to nullable: DragTarget's onWillAccept/onAccept/onLeave all pass
+/// `T?` (Flutter can invoke them with `null` for rejected data), so a
+/// nullable declaration is always safe and matches the typedef contract.
+String _dartTypeStr(DartType t) {
+  final s = t.getDisplayString(withNullability: true);
+  if (t is TypeParameterType) {
+    if (s.endsWith('?')) return s;
+    return '$s?';
+  }
+  if (t.nullabilitySuffix == NullabilitySuffix.question && !s.endsWith('?')) {
+    return '$s?';
+  }
+  return s;
+}
 
 String _escape4D(String id) => switch (id) {
   'extension' => 'extension_',

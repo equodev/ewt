@@ -15,6 +15,7 @@ public class ElevatedButton extends ButtonStyleButton implements ElevatedButtonI
     if (id <= 0) throw new RuntimeException("Failed to created widget ElevatedButton");
     System.out.println("New ElevatedButton id:"+id);
   }
+  ElevatedButton(int id) { this.id = id; }
   @Builder.Factory
   static ElevatedButton elevatedButtonElevatedButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
     var st = factories.elevatedButtonElevatedButton(onPressed,

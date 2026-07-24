@@ -15,6 +15,7 @@ public class Stack extends MultiChildRenderObjectWidget implements StackI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Stack");
     System.out.println("New Stack id:"+id);
   }
+  Stack(int id) { this.id = id; }
   @Builder.Factory
   static Stack stackStack(Optional<AlignmentGeometryI> alignment, Optional<TextDirection> textDirection, Optional<StackFit> fit, Optional<Clip> clipBehavior, Optional<List<WidgetI>> children) {
     var st = factories.stackStack(alignment.map(AlignmentGeometryI::build),

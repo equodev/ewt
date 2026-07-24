@@ -15,6 +15,7 @@ public class DecoratedBox extends SingleChildRenderObjectWidget implements Decor
     if (id <= 0) throw new RuntimeException("Failed to created widget DecoratedBox");
     System.out.println("New DecoratedBox id:"+id);
   }
+  DecoratedBox(int id) { this.id = id; }
   @Builder.Factory
   static DecoratedBox decoratedBoxDecoratedBox(@Builder.Parameter DecorationI decoration, Optional<DecorationPosition> position, Optional<WidgetI> child) {
     var st = factories.decoratedBoxDecoratedBox(decoration.build(),

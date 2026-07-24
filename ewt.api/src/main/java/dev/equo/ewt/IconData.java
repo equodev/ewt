@@ -15,6 +15,7 @@ public class IconData extends NativeObj.Base implements IconDataI {
     if (id <= 0) throw new RuntimeException("Failed to created widget IconData");
     System.out.println("New IconData id:"+id);
   }
+  IconData(int id) { this.id = id; }
   @Builder.Factory
   static IconData iconDataIconData(@Builder.Parameter int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
     var st = factories.iconDataIconData(codePoint,

@@ -15,6 +15,7 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
     if (id <= 0) throw new RuntimeException("Failed to created widget LinearProgressIndicator");
     System.out.println("New LinearProgressIndicator id:"+id);
   }
+  LinearProgressIndicator(int id) { this.id = id; }
   @Builder.Factory
   static LinearProgressIndicator linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023) {
     var st = factories.linearProgressIndicatorLinearProgressIndicator(value,

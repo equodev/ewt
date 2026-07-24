@@ -15,6 +15,7 @@ public class VisualDensity extends NativeObj.Base implements VisualDensityI {
     if (id <= 0) throw new RuntimeException("Failed to created widget VisualDensity");
     System.out.println("New VisualDensity id:"+id);
   }
+  VisualDensity(int id) { this.id = id; }
   @Builder.Factory
   static VisualDensity visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
     var st = factories.visualDensityVisualDensity(horizontal,

@@ -15,6 +15,7 @@ public class Badge extends StatelessWidget implements BadgeI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Badge");
     System.out.println("New Badge id:"+id);
   }
+  Badge(int id) { this.id = id; }
   @Builder.Factory
   static Badge badgeBadge(Optional<ColorI> backgroundColor, Optional<ColorI> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyleI> textStyle, Optional<EdgeInsetsGeometryI> padding, Optional<AlignmentGeometryI> alignment, Optional<OffsetI> offset, Optional<WidgetI> label, Optional<Boolean> isLabelVisible, Optional<WidgetI> child) {
     var st = factories.badgeBadge(backgroundColor.map(ColorI::build),

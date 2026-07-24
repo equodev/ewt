@@ -15,6 +15,7 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
     if (id <= 0) throw new RuntimeException("Failed to created widget SnackBar");
     System.out.println("New SnackBar id:"+id);
   }
+  SnackBar(int id) { this.id = id; }
   @Builder.Factory
   static SnackBar snackBarSnackBar(@Builder.Parameter WidgetI content, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<EdgeInsetsGeometryI> padding, OptionalDouble width, Optional<ShapeBorderI> shape, Optional<HitTestBehavior> hitTestBehavior, Optional<SnackBarBehavior> behavior, Optional<SnackBarActionI> action, OptionalDouble actionOverflowThreshold, Optional<Boolean> showCloseIcon, Optional<ColorI> closeIconColor, Optional<DurationI> duration, Optional<AnimationI> animation, Optional<Runnable> onVisible, Optional<DismissDirection> dismissDirection, Optional<Clip> clipBehavior) {
     var st = factories.snackBarSnackBar(content.build(),

@@ -15,6 +15,7 @@ public class FractionallySizedBox extends SingleChildRenderObjectWidget implemen
     if (id <= 0) throw new RuntimeException("Failed to created widget FractionallySizedBox");
     System.out.println("New FractionallySizedBox id:"+id);
   }
+  FractionallySizedBox(int id) { this.id = id; }
   @Builder.Factory
   static FractionallySizedBox fractionallySizedBoxFractionallySizedBox(Optional<AlignmentGeometryI> alignment, OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<WidgetI> child) {
     var st = factories.fractionallySizedBoxFractionallySizedBox(alignment.map(AlignmentGeometryI::build),

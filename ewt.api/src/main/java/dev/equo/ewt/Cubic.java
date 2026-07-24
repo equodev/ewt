@@ -15,6 +15,7 @@ public class Cubic extends Curve implements CubicI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Cubic");
     System.out.println("New Cubic id:"+id);
   }
+  Cubic(int id) { this.id = id; }
   @Builder.Factory
   static Cubic cubicCubic(@Builder.Parameter double a, @Builder.Parameter double b, @Builder.Parameter double c, @Builder.Parameter double d) {
     var st = factories.cubicCubic(a,

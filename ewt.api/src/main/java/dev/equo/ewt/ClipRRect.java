@@ -15,6 +15,7 @@ public class ClipRRect extends SingleChildRenderObjectWidget implements ClipRRec
     if (id <= 0) throw new RuntimeException("Failed to created widget ClipRRect");
     System.out.println("New ClipRRect id:"+id);
   }
+  ClipRRect(int id) { this.id = id; }
   @Builder.Factory
   static ClipRRect clipRRectClipRRect(Optional<BorderRadiusGeometryI> borderRadius, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.clipRRectClipRRect(borderRadius.map(BorderRadiusGeometryI::build),

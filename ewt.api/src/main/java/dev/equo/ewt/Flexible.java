@@ -15,6 +15,7 @@ public class Flexible extends ParentDataWidget<FlexParentData> implements Flexib
     if (id <= 0) throw new RuntimeException("Failed to created widget Flexible");
     System.out.println("New Flexible id:"+id);
   }
+  Flexible(int id) { this.id = id; }
   @Builder.Factory
   static Flexible flexibleFlexible(OptionalInt flex, Optional<FlexFit> fit, WidgetI child) {
     var st = factories.flexibleFlexible(flex,

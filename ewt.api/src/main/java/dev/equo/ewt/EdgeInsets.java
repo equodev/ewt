@@ -15,6 +15,7 @@ public class EdgeInsets extends EdgeInsetsGeometry implements EdgeInsetsI {
     if (id <= 0) throw new RuntimeException("Failed to created widget EdgeInsets");
     System.out.println("New EdgeInsets id:"+id);
   }
+  EdgeInsets(int id) { this.id = id; }
   @Builder.Factory
   static EdgeInsets edgeInsetsFromLTRB(@Builder.Parameter double left, @Builder.Parameter double top, @Builder.Parameter double right, @Builder.Parameter double bottom) {
     var st = factories.edgeInsetsFromLTRB(left,

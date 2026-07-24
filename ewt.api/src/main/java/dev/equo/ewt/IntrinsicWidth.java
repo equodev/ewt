@@ -15,6 +15,7 @@ public class IntrinsicWidth extends SingleChildRenderObjectWidget implements Int
     if (id <= 0) throw new RuntimeException("Failed to created widget IntrinsicWidth");
     System.out.println("New IntrinsicWidth id:"+id);
   }
+  IntrinsicWidth(int id) { this.id = id; }
   @Builder.Factory
   static IntrinsicWidth intrinsicWidthIntrinsicWidth(OptionalDouble stepWidth, OptionalDouble stepHeight, Optional<WidgetI> child) {
     var st = factories.intrinsicWidthIntrinsicWidth(stepWidth,

@@ -15,6 +15,7 @@ public class ClipOval extends SingleChildRenderObjectWidget implements ClipOvalI
     if (id <= 0) throw new RuntimeException("Failed to created widget ClipOval");
     System.out.println("New ClipOval id:"+id);
   }
+  ClipOval(int id) { this.id = id; }
   @Builder.Factory
   static ClipOval clipOvalClipOval(Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.clipOvalClipOval(clipBehavior,

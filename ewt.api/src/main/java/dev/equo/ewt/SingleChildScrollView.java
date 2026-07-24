@@ -15,6 +15,7 @@ public class SingleChildScrollView extends StatelessWidget implements SingleChil
     if (id <= 0) throw new RuntimeException("Failed to created widget SingleChildScrollView");
     System.out.println("New SingleChildScrollView id:"+id);
   }
+  SingleChildScrollView(int id) { this.id = id; }
   @Builder.Factory
   static SingleChildScrollView singleChildScrollViewSingleChildScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> primary, Optional<WidgetI> child, Optional<DragStartBehavior> dragStartBehavior, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior) {
     var st = factories.singleChildScrollViewSingleChildScrollView(scrollDirection,

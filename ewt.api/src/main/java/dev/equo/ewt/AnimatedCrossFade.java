@@ -15,6 +15,7 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedCrossFade");
     System.out.println("New AnimatedCrossFade id:"+id);
   }
+  AnimatedCrossFade(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedCrossFade animatedCrossFadeAnimatedCrossFade(@Builder.Parameter WidgetI firstChild, @Builder.Parameter WidgetI secondChild, Optional<CurveI> firstCurve, Optional<CurveI> secondCurve, Optional<CurveI> sizeCurve, Optional<AlignmentGeometryI> alignment, CrossFadeState crossFadeState, DurationI duration, Optional<DurationI> reverseDuration, Optional<Boolean> excludeBottomFocus) {
     var st = factories.animatedCrossFadeAnimatedCrossFade(firstChild.build(),

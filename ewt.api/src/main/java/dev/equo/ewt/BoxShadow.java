@@ -15,6 +15,7 @@ public class BoxShadow extends Shadow implements BoxShadowI {
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxShadow");
     System.out.println("New BoxShadow id:"+id);
   }
+  BoxShadow(int id) { this.id = id; }
   @Builder.Factory
   static BoxShadow boxShadowBoxShadow(Optional<ColorI> color, Optional<OffsetI> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
     var st = factories.boxShadowBoxShadow(color.map(ColorI::build),

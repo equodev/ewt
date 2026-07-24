@@ -15,6 +15,7 @@ public class SizedBox extends SingleChildRenderObjectWidget implements SizedBoxI
     if (id <= 0) throw new RuntimeException("Failed to created widget SizedBox");
     System.out.println("New SizedBox id:"+id);
   }
+  SizedBox(int id) { this.id = id; }
   @Builder.Factory
   static SizedBox sizedBoxSizedBox(OptionalDouble width, OptionalDouble height, Optional<WidgetI> child) {
     var st = factories.sizedBoxSizedBox(width,

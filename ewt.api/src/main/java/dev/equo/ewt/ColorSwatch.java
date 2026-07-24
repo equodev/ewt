@@ -15,6 +15,7 @@ public class ColorSwatch<T> extends Color implements ColorSwatchI {
     if (id <= 0) throw new RuntimeException("Failed to created widget ColorSwatch");
     System.out.println("New ColorSwatch id:"+id);
   }
+  ColorSwatch(int id) { this.id = id; }
   public static ColorSwatch lerp(ColorSwatchI a, ColorSwatchI b, double t) {
     var st = factories.colorSwatchLerp(a.build(),
       b.build(),
