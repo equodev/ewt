@@ -80,6 +80,16 @@ class Types {
       return true;
     }
     if (t.isDartCoreList && supportedType((t as InterfaceType).typeArguments[0])) {
+      // Numeric primitive lists (List<double>, List<int>) have no length prefix
+      // on the Dart side to unmarshal them back into a Dart List — so the
+      // enclosing factory won't compile. Mark unsupported to skip such factories
+      // (e.g. `ColorFilter.matrix(Float64List)`) while keeping the sibling
+      // factories (`.mode`, `.linearToSrgbGamma`, …) generatable.
+      final at = (t).typeArguments[0];
+      if (at.isDartCoreDouble || at.isDartCoreInt) {
+        unsupportedTypes.add(t);
+        return false;
+      }
       return true;
     }
     // if (t is FunctionType) {
@@ -356,6 +366,8 @@ class Types {
         if (arrayType.isDartCoreString) {
           value = 'ptrStrList($value)';
         } else {
+          // Primitive-double / primitive-int lists are filtered out upstream
+          // (see supportedType), so `ptrList` here always sees NativeObj Ts.
           value = 'ptrList($value)';
         }
       }
@@ -406,6 +418,8 @@ class Types {
         if (arrayType.isDartCoreString) {
           value = 'ptrStrList($value)';
         } else {
+          // Primitive-double / primitive-int lists are filtered out upstream
+          // (see supportedType), so `ptrList` here always sees NativeObj Ts.
           value = 'ptrList($value)';
         }
       }
