@@ -61,8 +61,18 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
     private boolean showWarnings = true;
     private boolean showInfo = true;
 
-    private final ProjectNode projectRoot = SampleProject.root();
+    // mutableRoot(): each folder's children list is an ArrayList so the
+    // Explorer's drag-and-drop can reorder siblings in place.
+    private final ProjectNode projectRoot = SampleProject.mutableRoot();
     private final List<Problem> problems = SampleProject.problems();
+
+    // Drag-and-drop pending state. The Draggable's onDragStarted records
+    // the source (tab index / node path); the DragTarget's onAccept fires
+    // the actual move using the recorded source. Kept in state — no need
+    // to marshal typed payloads across the Draggable/DragTarget generic.
+    private int pendingDragTabIdx = -1;
+    private String pendingDragNodePath = null;
+    private String pendingDragParentPath = null;
 
     private AnimationController entryCtrl;
     private AnimationController pulseCtrl;
@@ -152,6 +162,70 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
         });
     }
 
+    // ── Drag-and-drop reordering ─────────────────────────────────────────────
+
+    private void beginDragTab(int i) { pendingDragTabIdx = i; }
+
+    private void dropOnTab(int targetIdx) {
+        int from = pendingDragTabIdx;
+        pendingDragTabIdx = -1;
+        if (from < 0 || from == targetIdx || from >= tabs.size()) return;
+        setState(() -> {
+            EditorTab moving = tabs.remove(from);
+            // dropping "on" targetIdx means "before" it — adjust for the removal.
+            int insertAt = from < targetIdx ? targetIdx - 1 : targetIdx;
+            tabs.add(insertAt, moving);
+            if (activeTabIndex == from)                    activeTabIndex = insertAt;
+            else if (from < activeTabIndex && activeTabIndex <= insertAt) activeTabIndex--;
+            else if (insertAt <= activeTabIndex && activeTabIndex < from) activeTabIndex++;
+        });
+    }
+
+    private void beginDragNode(ProjectNode node, String parentPath) {
+        pendingDragNodePath = node.path();
+        pendingDragParentPath = parentPath;
+    }
+
+    private void dropOnSibling(ProjectNode target, String parentPath) {
+        String movingPath = pendingDragNodePath;
+        String movingParent = pendingDragParentPath;
+        pendingDragNodePath = null;
+        pendingDragParentPath = null;
+        // Same-folder reorder only for now — cross-folder moves need a mutable
+        // parent-of relationship the record tree doesn't expose.
+        if (movingPath == null || movingParent == null || !movingParent.equals(parentPath)) return;
+        if (movingPath.equals(target.path())) return;
+        List<ProjectNode> siblings = findChildrenOf(parentPath);
+        if (siblings == null) return;
+        int fromIdx = -1, toIdx = -1;
+        for (int i = 0; i < siblings.size(); i++) {
+            if (siblings.get(i).path().equals(movingPath)) fromIdx = i;
+            if (siblings.get(i).path().equals(target.path())) toIdx = i;
+        }
+        if (fromIdx < 0 || toIdx < 0 || fromIdx == toIdx) return;
+        final int finalFrom = fromIdx;
+        final int finalTo = toIdx;
+        setState(() -> {
+            ProjectNode moving = siblings.remove(finalFrom);
+            int insertAt = finalFrom < finalTo ? finalTo - 1 : finalTo;
+            siblings.add(insertAt, moving);
+        });
+    }
+
+    private List<ProjectNode> findChildrenOf(String path) {
+        return findByPath(projectRoot, path);
+    }
+
+    private static List<ProjectNode> findByPath(ProjectNode node, String path) {
+        if (node.path().equals(path)) return node.children();
+        if (!node.isBranch()) return null;
+        for (ProjectNode c : node.children()) {
+            var r = findByPath(c, path);
+            if (r != null) return r;
+        }
+        return null;
+    }
+
     // ── Build ────────────────────────────────────────────────────────────────
 
     @Override
@@ -216,14 +290,23 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
                                 expanded::contains,
                                 p -> p != null && p.equals(activePath),
                                 this::toggleFolder,
-                                this::openFile),
+                                this::openFile,
+                                this::beginDragNode,
+                                this::dropOnSibling),
                         Expanded().child(new EditorArea2(dark, List.copyOf(tabs), activeTabIndex,
-                                editorCtrl, lineNumbers, wordWrap, this::selectTab, this::closeTab)),
+                                editorCtrl, lineNumbers, wordWrap, this::selectTab, this::closeTab,
+                                this::beginDragTab, this::dropOnTab)),
                         new OutlinePanel(dark, activePath)
                 ));
     }
 
-    /** Settings panel that animates its width from 0 to WIDTH as it opens. */
+    /**
+     * Settings panel slide-in. The outer AnimatedContainer snaps the row slot
+     * open almost instantly (80ms); the inner AnimatedSlide is the star of the
+     * show, sliding the panel in from off-screen right over 380ms with an
+     * easeOutCubic curve so the slide is clearly visible instead of racing
+     * the container growth.
+     */
     private Widget settingsSlide() {
         SettingsPanel2 panel = new SettingsPanel2(dark, wordWrap, lineNumbers,
                 panelVisible, panelHeight, showErrors, showWarnings, showInfo,
@@ -231,15 +314,21 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
                 this::setPanelVisible, this::setPanelHeight,
                 this::setShowErrors, this::setShowWarnings, this::setShowInfo,
                 this::closeSettings);
+        Widget slidingPanel = AnimatedSlide()
+                .duration(Duration().milliseconds(380))
+                .curve(Curves.easeOutCubic())
+                .offset(Offset(settingsOpen ? 0.0 : 1.0, 0.0))
+                .child(panel)
+                .build();
         return ClipRect().child(AnimatedContainer()
-                .duration(Duration().milliseconds(220))
+                .duration(Duration().milliseconds(80))
                 .curve(Curves.easeOut())
                 .width(settingsOpen ? SettingsPanel2.WIDTH : 0.0)
                 .child(OverflowBox()
                         .minWidth(SettingsPanel2.WIDTH)
                         .maxWidth(SettingsPanel2.WIDTH)
                         .alignment(Alignment.centerRight())
-                        .child(panel)));
+                        .child(slidingPanel)));
     }
 
     private void setTheme(boolean v) { setState(() -> dark = v); }

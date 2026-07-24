@@ -94,10 +94,18 @@ public class Toolbar2 extends SubStatelessWidget {
                                         .color(Colors.white()))
                         ))));
 
-        return running
+        // AnimatedScale grows the pill noticeably on Run press with a bounce.
+        // The ScaleTransition on top keeps the pulsing motion while running.
+        Widget inner = running
                 ? ScaleTransition(CurvedAnimation(pulseCtrl, Curves.easeInOut()).build())
-                        .child(Transform_scale().scale(1.02).child(pill))
+                        .child(pill)
                 : pill;
+        return AnimatedScale()
+                .scale(running ? 1.18 : 1.0)
+                .duration(Duration().milliseconds(260))
+                .curve(Curves.easeOutBack())
+                .child(inner)
+                .build();
     }
 
     private Widget rightCluster() {
@@ -118,19 +126,33 @@ public class Toolbar2 extends SubStatelessWidget {
         ));
     }
 
-    /** The Debug icon with a Badge carrying the live error count. */
+    /**
+     * The Debug icon always renders a Badge; AnimatedScale pops the badge
+     * in/out with a bounce as the live error count crosses zero.
+     */
     private Widget debugButton() {
         Widget button = IconButton()
                 .icon(Icon(Icons.bug_report_rounded()).color(IdePalette.textPrimary(dark)).size(18.0))
                 .tooltip(errorCount + " problem(s)")
                 .hoverColor(IdePalette.hoverOverlay(dark))
                 .onPressed(() -> {});
-        if (errorCount <= 0) return button;
-        return Badge()
-                .label(Text(String.valueOf(errorCount)))
-                .backgroundColor(IdePalette.accentError())
-                .textColor(Colors.white())
-                .child(button);
+        Widget scaledBadge = AnimatedScale()
+                .scale(errorCount > 0 ? 1.0 : 0.0)
+                .duration(Duration().milliseconds(260))
+                .curve(Curves.easeOutBack())
+                .child(Container()
+                        .padding(EdgeInsets_symmetric().horizontal(6.0).vertical(1.0).build())
+                        .decoration(BoxDecoration()
+                                .color(IdePalette.accentError())
+                                .borderRadius(BorderRadius_circular(10.0)))
+                        .child(Text(String.valueOf(Math.max(errorCount, 0)))
+                                .style(TextStyle().color(Colors.white())
+                                        .fontSize(10.0).fontWeight(FontWeight.w700()))))
+                .build();
+        return Stack().alignment(Alignment.topRight()).children(List.of(
+                button,
+                Positioned().right(2.0).top(2.0).child(scaledBadge)
+        ));
     }
 
     private Widget iconBtn(Supplier<IconDataI> icon, String tooltip) {

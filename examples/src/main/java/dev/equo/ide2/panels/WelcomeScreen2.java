@@ -153,12 +153,16 @@ class WelcomeState extends SubState<WelcomeScreen2> {
 
     private Widget dot(int i) {
         boolean on = i == page;
-        return AnimatedContainer()
-                .duration(Duration().milliseconds(200))
-                .width(on ? 20.0 : 7.0).height(7.0)
-                .margin(EdgeInsets_symmetric().horizontal(3.0).build())
-                .decoration(BoxDecoration()
-                        .color(on ? IdePalette.accent(dark) : IdePalette.divider(dark))
-                        .borderRadius(BorderRadius_circular(4.0)));
+        // Big active/inactive contrast so the AnimatedSize is obvious: the
+        // selected dot is 4x wider and almost 2x taller than the others.
+        return Padding(EdgeInsets_symmetric().horizontal(4.0).build())
+                .child(AnimatedSize()
+                        .duration(Duration().milliseconds(280))
+                        .curve(Curves.easeOutBack())
+                        .child(Container()
+                                .width(on ? 32.0 : 8.0).height(on ? 14.0 : 8.0)
+                                .decoration(BoxDecoration()
+                                        .color(on ? IdePalette.accent(dark) : IdePalette.divider(dark))
+                                        .borderRadius(BorderRadius_circular(8.0)))));
     }
 }

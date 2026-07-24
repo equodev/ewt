@@ -1,5 +1,6 @@
 package dev.equo.ide;
 
+import java.util.ArrayList;
 import java.util.List;
 import dev.equo.ide.model.ConsoleLine;
 import dev.equo.ide.model.NodeKind;
@@ -25,6 +26,26 @@ public final class SampleProject {
                 ProjectNode.file("build.gradle",  "build.gradle",  NodeKind.RESOURCE),
                 ProjectNode.file(".gitignore",    ".gitignore",    NodeKind.RESOURCE)
         ));
+    }
+
+    /** Same as {@link #root()} but every branch's {@code children} is a mutable
+     * {@link ArrayList}, so the v2 IDE demo can reorder files in place via
+     * drag-and-drop without rebuilding the whole tree. */
+    public static ProjectNode mutableRoot() {
+        return ProjectNode.project("sample-app", "sample-app", new ArrayList<>(List.of(
+                ProjectNode.folder("sample-app/src", "src", new ArrayList<>(List.of(
+                        ProjectNode.file("src/Main.java",   "Main.java",   NodeKind.JAVA),
+                        ProjectNode.file("src/Utils.java",  "Utils.java",  NodeKind.JAVA),
+                        ProjectNode.file("src/Config.java", "Config.java", NodeKind.JAVA)
+                ))),
+                ProjectNode.folder("sample-app/resources", "resources", new ArrayList<>(List.of(
+                        ProjectNode.file("resources/app.properties", "app.properties", NodeKind.RESOURCE),
+                        ProjectNode.file("resources/logo.svg",       "logo.svg",       NodeKind.RESOURCE)
+                ))),
+                ProjectNode.file("README.md",     "README.md",     NodeKind.MARKDOWN),
+                ProjectNode.file("build.gradle",  "build.gradle",  NodeKind.RESOURCE),
+                ProjectNode.file(".gitignore",    ".gitignore",    NodeKind.RESOURCE)
+        )));
     }
 
     public static List<Problem> problems() {
