@@ -1,21 +1,21 @@
 # EWT — Flutter widget coverage
 
-Flutter 3.35.7 · generated on 2026-07-23
+Flutter 3.35.7 · generated on 2026-07-24
 
 ## Summary
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 61 | 291 | 20% |
+| Basic widgets | 69 | 291 | 23% |
 | Material | 34 | 187 | 18% |
 | Cupertino | 0 | 53 | 0% |
-| **Total** | **95** | **531** | **17%** |
+| **Total** | **103** | **531** | **19%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**61 of 291 supported**
+**69 of 291 supported**
 
 - [x] Align
 - [x] AnimatedAlign
@@ -28,17 +28,22 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] AnimatedScale
 - [x] AnimatedSize
 - [x] AnimatedSlide
+- [x] AnimatedSwitcher
 - [x] AspectRatio
+- [x] BackdropFilter
 - [x] Baseline
 - [x] Center
 - [x] ClipOval
 - [x] ClipRRect
 - [x] ClipRect
+- [x] ColorFiltered
 - [x] ColoredBox
 - [x] Column
 - [x] ConstrainedBox
 - [x] Container
 - [x] DecoratedBox
+- [x] DragTarget
+- [x] Draggable
 - [x] Expanded
 - [x] FadeTransition
 - [x] FittedBox
@@ -47,8 +52,11 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] FractionallySizedBox
 - [x] GestureDetector
 - [x] GridView
+- [x] Hero
 - [x] Icon
+- [x] ImageFiltered
 - [x] IndexedStack
+- [x] InteractiveViewer
 - [x] IntrinsicHeight
 - [x] IntrinsicWidth
 - [x] LimitedBox
@@ -92,14 +100,12 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AnimatedPhysicalModel
 - [ ] AnimatedPositioned
 - [ ] AnimatedPositionedDirectional
-- [ ] AnimatedSwitcher
 - [ ] AnnotatedRegion
 - [ ] AppKitView
 - [ ] AutocompleteHighlightedOption
 - [ ] AutofillGroup
 - [ ] AutomaticKeepAlive
 - [ ] BackButtonListener
-- [ ] BackdropFilter
 - [ ] BackdropGroup
 - [ ] Banner
 - [ ] BlockSemantics
@@ -108,7 +114,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] CheckedModeBanner
 - [ ] ClipPath
 - [ ] ClipRSuperellipse
-- [ ] ColorFiltered
 - [ ] CompositedTransformFollower
 - [ ] CompositedTransformTarget
 - [ ] ConstraintsTransformBox
@@ -129,8 +134,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] Dismissible
 - [ ] DisplayFeatureSubScreen
 - [ ] DragBoundary
-- [ ] DragTarget
-- [ ] Draggable
 - [ ] DraggableScrollableActuator
 - [ ] DraggableScrollableSheet
 - [ ] DualTransitionBuilder
@@ -155,7 +158,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] FutureBuilder
 - [ ] GlowingOverscrollIndicator
 - [ ] GridPaper
-- [ ] Hero
 - [ ] HeroControllerScope
 - [ ] HeroMode
 - [ ] HtmlElementView
@@ -163,10 +165,8 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] IgnoreBaseline
 - [ ] IgnorePointer
 - [ ] Image
-- [ ] ImageFiltered
 - [ ] ImageIcon
 - [ ] IndexedSemantics
-- [ ] InteractiveViewer
 - [ ] KeepAlive
 - [ ] KeyboardListener
 - [ ] KeyedSubtree

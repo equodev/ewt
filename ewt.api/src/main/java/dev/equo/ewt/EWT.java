@@ -469,6 +469,64 @@ public class EWT {
     return IndexedStackIndexedStackBuilder.indexedStackIndexedStack();
   }
 
+  public static InteractiveViewerInteractiveViewerBuilder InteractiveViewer() {
+    return InteractiveViewerInteractiveViewerBuilder.interactiveViewerInteractiveViewer();
+  }
+
+  public static <T extends NativeObj> DraggableDraggableBuilder<T> Draggable(WidgetI child, WidgetI feedback) {
+    return DraggableDraggableBuilder.draggableDraggable(child, feedback);
+  }
+
+  public static <T extends NativeObj> DragTargetDragTargetBuilder<T> DragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder) {
+    return DragTargetDragTargetBuilder.dragTargetDragTarget(builder);
+  }
+
+  public static HeroHeroBuilder Hero(NativeObj.I tag) {
+    return HeroHeroBuilder.heroHero(tag);
+  }
+
+  public static AnimatedSwitcherAnimatedSwitcherBuilder AnimatedSwitcher() {
+    return AnimatedSwitcherAnimatedSwitcherBuilder.animatedSwitcherAnimatedSwitcher();
+  }
+
+  public static ColorFilterModeBuilder ColorFilter_mode(ColorI color, BlendMode blendMode) {
+    return ColorFilterModeBuilder.colorFilterMode(color, blendMode);
+  }
+  public static ColorFilterLinearToSrgbGammaBuilder ColorFilter_linearToSrgbGamma() {
+    return ColorFilterLinearToSrgbGammaBuilder.colorFilterLinearToSrgbGamma();
+  }
+  public static ColorFilterSrgbToLinearGammaBuilder ColorFilter_srgbToLinearGamma() {
+    return ColorFilterSrgbToLinearGammaBuilder.colorFilterSrgbToLinearGamma();
+  }
+
+  public static BackdropFilterBackdropFilterBuilder BackdropFilter(ImageFilterI filter) {
+    return BackdropFilterBackdropFilterBuilder.backdropFilterBackdropFilter(filter);
+  }
+  public static BackdropFilterGroupedBuilder BackdropFilter_grouped(ImageFilterI filter) {
+    return BackdropFilterGroupedBuilder.backdropFilterGrouped(filter);
+  }
+
+  public static ImageFilterBlurBuilder ImageFilter_blur() {
+    return ImageFilterBlurBuilder.imageFilterBlur();
+  }
+  public static ImageFilterDilateBuilder ImageFilter_dilate() {
+    return ImageFilterDilateBuilder.imageFilterDilate();
+  }
+  public static ImageFilterErodeBuilder ImageFilter_erode() {
+    return ImageFilterErodeBuilder.imageFilterErode();
+  }
+  public static ImageFilterComposeBuilder ImageFilter_compose(ImageFilterI outer, ImageFilterI inner) {
+    return ImageFilterComposeBuilder.imageFilterCompose(outer, inner);
+  }
+
+  public static ColorFilteredColorFilteredBuilder ColorFiltered(ColorFilterI colorFilter) {
+    return ColorFilteredColorFilteredBuilder.colorFilteredColorFiltered(colorFilter);
+  }
+
+  public static ImageFilteredImageFilteredBuilder ImageFiltered(ImageFilterI imageFilter) {
+    return ImageFilteredImageFilteredBuilder.imageFilteredImageFiltered(imageFilter);
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
