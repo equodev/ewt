@@ -290,10 +290,20 @@ ewt_evolve_build:macos:
 ewt_evolve_build:windows:
   extends: .flutter:windows
   stage: build
-  # The ephemeral runner reinstalls VS Build Tools (~3.2GB) every run before_script, then this
-  # job builds swt-evolve's jar + the combined bundle on top — well past the default 1h. Give it
-  # room (capped by the runner's own max_timeout if lower).
-  timeout: 3h
+  # This is a long job (rebuilds swt-evolve's flutter-lib + the combined bundle), and the Windows
+  # vm-runners are ephemeral/spot: a 60m+ job often has its VM reclaimed mid-run (no_updates_running).
+  # resource_group serializes it; retry re-runs it when the VM (not the build) is what failed.
+  # Proper fix mirrors swt-flutter: build the flutter-lib once as an artifact, then package with
+  # -DskipFlutterLib on a light JDK-only runner so no single Windows job is huge.
+  resource_group: windows-ewt-evolve
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+      - unknown_failure
+      - api_failure
+      - scheduler_failure
   needs:
     - job: release_gate
       optional: true
