@@ -20,12 +20,20 @@ public final class EwtWebCapture {
     try {
       Widget rootWidget = builder.call().build();
       if (rootWidget instanceof SubStatefulWidget sw) {
-        // Flatten: run the state's build() in Java (post-construction, fields initialized) and
-        // serialize the built tree. The browser never sees a Sub* node.
-        SubState<?> state = (SubState<?>) sw.createStateFn();
-        state.setWebWidget(sw);
-        EwtNode root = flatten(state, serializing);
-        return new EwtCapture(root, serializing.callbacks(), state);
+        Object stateObj = sw.createStateFn();
+        if (stateObj instanceof SubState<?> state) {
+          // Flatten: run the state's build() in Java (post-construction, fields initialized) and
+          // serialize the built tree. The browser never sees a Sub* node.
+          state.setWebWidget(sw);
+          EwtNode root = flatten(state, serializing);
+          return new EwtCapture(root, serializing.callbacks(), state);
+        }
+        // SubAnimatedState or other non-SubState: AnimationController requires Flutter's
+        // ticker loop at 60fps, which cannot run on web (async comm, no frame callbacks).
+        // initState() is not called here so animation fields are uninitialized; build()
+        // would NPE. Fall through to the generic path so the region renders cleanly
+        // (no decoder for Sub* nodes → SizedBox.shrink via fault isolation) instead of
+        // crashing with ClassCastException and greying every other region in the window.
       }
       if (rootWidget instanceof SubStatelessWidget slw) {
         // Flatten: run build() in Java and serialize the built tree. No retained state (stateless),
