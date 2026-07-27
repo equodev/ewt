@@ -239,7 +239,10 @@ if (!evolveAvailable) {
 
 tasks.test {
     useJUnitPlatform {
-        if (System.getProperty("skipNativeTests") != null) {
+        // @Tag("native") tests need a live Flutter runtime and the shared
+        // FFM MemorySegment initialised by App.runApp — excluded by default
+        // so `./gradlew test` stays green. Opt in with -DrunNativeTests.
+        if (System.getProperty("runNativeTests") == null) {
             excludeTags("native")
         }
     }
