@@ -52,9 +52,11 @@ public class EvolveSamples {
         switch (sample) {
             case "Calculator": return () -> new Calculator.CalculatorPage();
             case "Fade":       return () -> new FadeDemo.FadePage();
+            case "TextInput":  return EwtTextInput::new;
+            case "Login":      return () -> new LoginForm.LoginPage();
             default:
                 throw new IllegalArgumentException(
-                    "Unknown sample '" + sample + "'. Use one of: Calculator, Fade.");
+                    "Unknown sample '" + sample + "'. Use one of: Calculator, Fade, TextInput, Login.");
         }
     }
 }

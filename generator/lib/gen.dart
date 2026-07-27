@@ -728,6 +728,11 @@ class WidgetGen implements AGen {
             : null);
     if (ft != null && ft.returnType is! VoidType) return true;
     if (t is InterfaceType && t.element.name == 'OverflowBoxFit') return true;
+    // TextField.selectionWidthStyle/selectionHeightStyle (BoxWidthStyle/BoxHeightStyle,
+    // from dart:ui) are cosmetic and not importable in the pure-Dart decoder; omit the
+    // optional param and let the field use its Flutter default.
+    if (t is InterfaceType &&
+        (t.element.name == 'BoxWidthStyle' || t.element.name == 'BoxHeightStyle')) return true;
     return false;
   }
 
