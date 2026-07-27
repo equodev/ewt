@@ -4,7 +4,7 @@ import dev.equo.ewt.ffm.*;
 import java.util.*;
 import java.lang.foreign.*;
 
-class WidgetConstructorsBase {
+class WidgetConstructorsBase implements AutoCloseable {
   static WidgetConstructors instance = new WidgetConstructors();
   MemorySegment factories;
   Arena arena = Arena.ofShared();
@@ -148,4 +148,10 @@ class WidgetConstructorsBase {
 //    }
 //    return MemorySegment.NULL;
 //  }
+
+  /** Releases the off-heap arena used for optional-param pointer allocations. */
+  @Override
+  public void close() {
+    arena.close();
+  }
 }

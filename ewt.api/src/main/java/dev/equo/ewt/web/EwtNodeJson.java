@@ -78,7 +78,14 @@ public final class EwtNodeJson {
         case '\n' -> sb.append("\\n");
         case '\r' -> sb.append("\\r");
         case '\t' -> sb.append("\\t");
-        default -> sb.append(c);
+        default -> {
+          if (c < 0x20) {
+            // Escape all other control characters as a JSON Unicode escape sequence.
+            sb.append(String.format("\\u%04X", (int) c));
+          } else {
+            sb.append(c);
+          }
+        }
       }
     }
     sb.append('"');

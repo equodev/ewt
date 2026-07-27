@@ -39,7 +39,12 @@ public class EwtWidget extends Composite {
         super(parent, style);
         // Drop this region's builder when the widget goes away, so a disposed region
         // leaves no stale entry in App's builder registry (keyed by this same id).
-        addDisposeListener(e -> { App.unregisterBuilder(hashCode()); if (webState != null) EwtWebState.unregister(webState); });
+        addDisposeListener(e -> {
+            App.unregisterBuilder(hashCode());
+            if (webState != null) EwtWebState.unregister(webState);
+            // Reset handler guard so a hypothetical future reuse of this instance doesn't skip registration.
+            webHandlersRegistered = false;
+        });
     }
 
     /**
@@ -61,6 +66,8 @@ public class EwtWidget extends Composite {
     private volatile EwtNode lastTree;
     private volatile java.util.Map<Integer, Object> webCallbacks;
     private volatile SubState<?> webState;
+    /** Guards against registering the same EvolveComm handlers more than once across repeated setWidget calls. */
+    private boolean webHandlersRegistered = false;
 
     /**
      * Web path: build the subtree eagerly, serialize it, and publish it over Evolve's comm keyed
@@ -78,12 +85,20 @@ public class EwtWidget extends Composite {
             if (webState != null) EwtWebState.unregister(webState);
             webState = capture.state;
             if (webState != null) EwtWebState.register(webState, this::rebuild);
-            EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
-            EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
+            if (!webHandlersRegistered) {
+                EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
+                EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
+                webHandlersRegistered = true;
+            }
             lastTree = capture.root;
             publish(EwtPatchJson.encodeFull(capture.root));
         } catch (Exception e) {
-            System.err.println("EWT web subtree publish failed: " + e);
+            System.out.println("EWT web subtree publish failed: " + e);
+            e.printStackTrace();
+            // Reset to clean state so the next rebuild does a fresh capture rather than
+            // diffing against a partially-constructed baseline.
+            lastTree = null;
+            webCallbacks = null;
         }
     }
 
@@ -100,7 +115,11 @@ public class EwtWidget extends Composite {
             String json = encodeUpdate(prev, capture.root);
             if (json != null) publish(json);
         } catch (Exception e) {
-            System.err.println("EWT web rebuild failed: " + e);
+            System.out.println("EWT web rebuild failed: " + e);
+            e.printStackTrace();
+            // Reset to clean state so the next rebuild starts from scratch.
+            lastTree = null;
+            webCallbacks = null;
         }
     }
 
@@ -116,6 +135,7 @@ public class EwtWidget extends Composite {
 
     /** The /request handler: the browser (re)subscribed, so resend a full snapshot of current state. */
     private void sendFull() {
+        if (isDisposed()) return;
         EwtNode tree = lastTree;
         if (tree != null) publish(EwtPatchJson.encodeFull(tree));
     }
@@ -145,6 +165,7 @@ public class EwtWidget extends Composite {
     }
 
     private void fireCallback(Object payload) {
+        if (isDisposed()) return;
         Runnable r = resolveCallback(webCallbacks, payload);
         if (r != null) getDisplay().asyncExec(r);
     }

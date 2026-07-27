@@ -76,12 +76,17 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
     if (root == null) return const SizedBox.shrink();
     // Bind this region's callback sink for the duration of the (synchronous) decode, so every
     // wired closure in the built tree forwards its id to THIS region's channel.
+    // Use try/finally so the globals are always cleared even if decodeEwtWidget throws.
     ewtActiveBuildContext = context;
     ewtActiveCallbackSink = (cid, args) =>
         EquoCommService.sendPayload('EwtWidget/${widget.id}/callback', [cid, ...args]);
-    final decoded = decodeEwtWidget(root);
-    ewtActiveCallbackSink = null;
-    ewtActiveBuildContext = null;
+    final Widget decoded;
+    try {
+      decoded = decodeEwtWidget(root);
+    } finally {
+      ewtActiveCallbackSink = null;
+      ewtActiveBuildContext = null;
+    }
     return ClipRect(child: decoded);
   }
 }

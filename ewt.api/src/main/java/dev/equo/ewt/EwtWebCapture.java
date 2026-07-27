@@ -25,6 +25,8 @@ public final class EwtWebCapture {
           // Flatten: run the state's build() in Java (post-construction, fields initialized) and
           // serialize the built tree. The browser never sees a Sub* node.
           state.setWebWidget(sw);
+          // Match Flutter's lifecycle: initState() runs before the first build().
+          state.initStateFn();
           EwtNode root = flatten(state, serializing);
           return new EwtCapture(root, serializing.callbacks(), state);
         }
@@ -44,6 +46,7 @@ public final class EwtWebCapture {
       return new EwtCapture(serializing.rootNode(rootWidget.getId()), serializing.callbacks(), null);
     } finally {
       NativeObj.Base.factories = previous;
+      serializing.close();
     }
   }
 
@@ -58,6 +61,7 @@ public final class EwtWebCapture {
       return new EwtCapture(root, serializing.callbacks(), state);
     } finally {
       NativeObj.Base.factories = previous;
+      serializing.close();
     }
   }
 
