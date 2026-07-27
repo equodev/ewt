@@ -7,6 +7,27 @@ import 'package:flutter/material.dart';
 import 'package:swtflutter/src/comm/comm.dart';
 import 'package:widgets_web/widgets_web.dart';
 
+/// Outcome of applying one transport envelope: the new retained root, and whether the region
+/// must ask Java for a full resend (patch arrived with no base, or a path failed to resolve).
+class EnvelopeOutcome {
+  final Map<String, dynamic>? root;
+  final bool requestFull;
+  const EnvelopeOutcome(this.root, this.requestFull);
+}
+
+EnvelopeOutcome applyEnvelope(
+    Map<String, dynamic>? root, Map<String, dynamic> env) {
+  final kind = env['kind'];
+  if (kind == 'full') {
+    return EnvelopeOutcome((env['node'] as Map).cast<String, dynamic>(), false);
+  }
+  if (kind == 'patch') {
+    if (root == null) return EnvelopeOutcome(null, true);
+    return EnvelopeOutcome(applyPatch(root, env['ops'] as List<dynamic>), false);
+  }
+  return EnvelopeOutcome(root, true); // unknown kind -> desync, request a full snapshot
+}
+
 class EwtWebRegion extends StatefulWidget {
   final int id;
   const EwtWebRegion({super.key, required this.id});
@@ -30,10 +51,16 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
 
   void _onSubtree(Uint8List bytes) {
     try {
-      final decoded = json.decode(utf8.decode(bytes)) as Map<String, dynamic>;
-      setState(() => _root = decoded);
+      final env = json.decode(utf8.decode(bytes)) as Map<String, dynamic>;
+      final outcome = applyEnvelope(_root, env);
+      if (outcome.requestFull) {
+        EquoCommService.send('$_channel/request');
+        return;
+      }
+      setState(() => _root = outcome.root);
     } catch (e, st) {
-      debugPrint('EWT web region ${widget.id} decode failed: $e\n$st');
+      debugPrint('EWT web region ${widget.id} subtree failed: $e\n$st');
+      EquoCommService.send('$_channel/request'); // desync -> ask for a fresh full snapshot
     }
   }
 

@@ -41,7 +41,7 @@ public final class EwtNodeJson {
     sb.append("]}");
   }
 
-  private static void writeValue(StringBuilder sb, Object v) {
+  static void writeValue(StringBuilder sb, Object v) {
     if (v instanceof String s) writeString(sb, s);
     else if (v instanceof Boolean || v instanceof Integer || v instanceof Double || v instanceof Long) sb.append(v);
     else if (v instanceof EwtNode n) write(sb, n);
@@ -68,7 +68,7 @@ public final class EwtNodeJson {
     }
   }
 
-  private static void writeString(StringBuilder sb, String s) {
+  static void writeString(StringBuilder sb, String s) {
     sb.append('"');
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);

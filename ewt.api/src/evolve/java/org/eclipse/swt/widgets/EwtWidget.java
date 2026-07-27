@@ -9,8 +9,11 @@ import dev.equo.ewt.EwtWebState;
 import dev.equo.ewt.SubState;
 import dev.equo.ewt.Widget;
 import dev.equo.ewt.evolve.EvolveComm;
-import dev.equo.ewt.web.EwtNodeJson;
+import dev.equo.ewt.web.EwtDiff;
+import dev.equo.ewt.web.EwtNode;
+import dev.equo.ewt.web.EwtPatchJson;
 import dev.equo.ewt.web.EwtWebTransport;
+import dev.equo.ewt.web.Patch;
 
 /**
  * Public SWT-Evolve widget that hosts an EWT (Flutter) subtree in the SAME surface.
@@ -55,7 +58,7 @@ public class EwtWidget extends Composite {
         }
     }
 
-    private volatile String webSubtreeJson;
+    private volatile EwtNode lastTree;
     private volatile java.util.Map<Integer, Object> webCallbacks;
     private volatile SubState<?> webState;
 
@@ -71,36 +74,53 @@ public class EwtWidget extends Composite {
     private void publishWebSubtree(Callable<Widget> builder) {
         try {
             EwtCapture capture = EwtWebCapture.captureSubtree(builder);
-            webSubtreeJson = EwtNodeJson.encode(capture.root);
             webCallbacks = capture.callbacks;
             if (webState != null) EwtWebState.unregister(webState);
             webState = capture.state;
             if (webState != null) EwtWebState.register(webState, this::rebuild);
-            EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendWebSubtree);
+            EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
             EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
-            sendWebSubtree();
+            lastTree = capture.root;
+            publish(EwtPatchJson.encodeFull(capture.root));
         } catch (Exception e) {
             System.err.println("EWT web subtree publish failed: " + e);
         }
     }
 
-    /** Web-mode rebuild: re-flatten the retained state (new field values), refresh callbacks, republish. */
+    /** Web-mode rebuild: re-flatten the retained state, refresh callbacks, publish a diff (or a full
+     *  snapshot on a structural change / first frame). */
     private void rebuild() {
         SubState<?> s = webState;
         if (s == null) return;
         try {
             EwtCapture capture = EwtWebCapture.rebuild(s);
-            webSubtreeJson = EwtNodeJson.encode(capture.root);
             webCallbacks = capture.callbacks;
-            sendWebSubtree();
+            EwtNode prev = lastTree;
+            lastTree = capture.root;
+            String json = encodeUpdate(prev, capture.root);
+            if (json != null) publish(json);
         } catch (Exception e) {
             System.err.println("EWT web rebuild failed: " + e);
         }
     }
 
-    private void sendWebSubtree() {
-        String json = webSubtreeJson;
-        if (json == null) return;
+    /** Decide what to publish for a rebuild: full on first frame / structural change, a patch for a
+     *  value-only change, or null (nothing) when nothing changed. Static + SWT-free for unit testing. */
+    static String encodeUpdate(EwtNode prev, EwtNode next) {
+        if (prev == null) return EwtPatchJson.encodeFull(next);
+        Patch patch = EwtDiff.diff(prev, next);
+        if (patch.structural()) return EwtPatchJson.encodeFull(next);
+        if (patch.ops().isEmpty()) return null;
+        return EwtPatchJson.encodePatch(patch);
+    }
+
+    /** The /request handler: the browser (re)subscribed, so resend a full snapshot of current state. */
+    private void sendFull() {
+        EwtNode tree = lastTree;
+        if (tree != null) publish(EwtPatchJson.encodeFull(tree));
+    }
+
+    private void publish(String json) {
         EwtWebTransport.publish(hashCode(), json,
             (event, payload) -> EvolveComm.send(getImpl(), event, payload));
     }
