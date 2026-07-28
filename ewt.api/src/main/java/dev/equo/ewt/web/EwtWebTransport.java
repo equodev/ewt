@@ -37,4 +37,13 @@ public final class EwtWebTransport {
   public static void publish(int regionId, String json, BiConsumer<String, byte[]> sink) {
     sink.accept(subtreeEvent(regionId), json.getBytes(StandardCharsets.UTF_8));
   }
+
+  /** The per-region channel on which Java sends animation commands (forward/reverse/etc.) to the browser. */
+  public static String animEvent(int regionId) {
+    return "EwtWidget/" + regionId + "/anim";
+  }
+
+  public static void publishAnim(int regionId, String json, BiConsumer<String, byte[]> sink) {
+    sink.accept(animEvent(regionId), json.getBytes(StandardCharsets.UTF_8));
+  }
 }

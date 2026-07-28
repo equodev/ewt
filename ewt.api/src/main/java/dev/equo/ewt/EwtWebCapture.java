@@ -2,6 +2,7 @@ package dev.equo.ewt;
 
 import dev.equo.ewt.web.EwtNode;
 import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 /**
  * Web path: build a subtree through a fresh SerializingWidgetConstructors installed as the active
@@ -14,6 +15,10 @@ public final class EwtWebCapture {
   private EwtWebCapture() {}
 
   public static EwtCapture captureSubtree(Callable<Widget> builder) throws Exception {
+    return captureSubtree(builder, null);
+  }
+
+  public static EwtCapture captureSubtree(Callable<Widget> builder, Consumer<String> animSink) throws Exception {
     WidgetConstructors previous = NativeObj.Base.factories;
     SerializingWidgetConstructors serializing = new SerializingWidgetConstructors();
     NativeObj.Base.factories = serializing;
@@ -30,12 +35,19 @@ public final class EwtWebCapture {
           EwtNode root = flatten(state, serializing);
           return new EwtCapture(root, serializing.callbacks(), state);
         }
-        // SubAnimatedState or other non-SubState: AnimationController requires Flutter's
-        // ticker loop at 60fps, which cannot run on web (async comm, no frame callbacks).
-        // initState() is not called here so animation fields are uninitialized; build()
-        // would NPE. Fall through to the generic path so the region renders cleanly
-        // (no decoder for Sub* nodes → SizedBox.shrink via fault isolation) instead of
-        // crashing with ClassCastException and greying every other region in the window.
+        if (stateObj instanceof SubAnimatedState<?> animState) {
+          // Same flattening as SubState but with AnimationController support: initState() creates
+          // controllers (recorded as subAnimatedStateAnimationController nodes), then build()
+          // references them. The Dart side owns the ticker and drives animation at 60fps; Java
+          // sends imperative commands (forward/reverse/etc.) via the anim comm channel.
+          // The sink must be set BEFORE initStateFn() so any initial commands (e.g. ctrl.forward()
+          // in initState) are not silently dropped.
+          animState.setWebWidget(sw);
+          if (animSink != null) animState.setWebAnimCommandSink(animSink);
+          animState.initStateFn();
+          EwtNode root = flattenAnimated(animState, serializing);
+          return new EwtCapture(root, serializing.callbacks(), animState);
+        }
       }
       if (rootWidget instanceof SubStatelessWidget slw) {
         // Flatten: run build() in Java and serialize the built tree. No retained state (stateless),
@@ -50,7 +62,7 @@ public final class EwtWebCapture {
     }
   }
 
-  /** Re-flatten a retained state under a fresh serializer (new node ids + new callback ids), reusing
+  /** Re-flatten a retained SubState under a fresh serializer (new node ids + new callback ids), reusing
    *  the SAME state instance so its fields persist. Used by a region on web-mode setState. */
   public static EwtCapture rebuild(SubState<?> state) {
     WidgetConstructors previous = NativeObj.Base.factories;
@@ -65,10 +77,48 @@ public final class EwtWebCapture {
     }
   }
 
-  /** Runs the state's build() under the active serializer and returns the built root node. */
+  /** Re-flatten a retained SubAnimatedState under a fresh serializer. Controller instances persist
+   *  in the state's fields; the Dart side matches by ctrlId and reuses existing AnimationControllers. */
+  public static EwtCapture rebuildAnimated(SubAnimatedState<?> state) {
+    WidgetConstructors previous = NativeObj.Base.factories;
+    SerializingWidgetConstructors serializing = new SerializingWidgetConstructors();
+    NativeObj.Base.factories = serializing;
+    try {
+      EwtNode root = flattenAnimated(state, serializing);
+      return new EwtCapture(root, serializing.callbacks(), state);
+    } finally {
+      NativeObj.Base.factories = previous;
+      serializing.close();
+    }
+  }
+
+  /** Runs a SubState's build() under the active serializer and returns the built root node. */
   static EwtNode flatten(SubState<?> state, SerializingWidgetConstructors serializing) {
     Widget built = state.buildFn(stubContext());
     return serializing.rootNode(built.getId());
+  }
+
+  /** Runs a SubAnimatedState's build() under the active serializer and returns the built root node. */
+  static EwtNode flattenAnimated(SubAnimatedState<?> state, SerializingWidgetConstructors serializing) {
+    Widget built = state.buildFn(stubContext());
+    return serializing.rootNode(built.getId());
+  }
+
+  /**
+   * Builds a Duration using a temporary SerializingWidgetConstructors so the native FFM factory
+   * is never called. Safe to use in web-mode callbacks where {@code factories} is uninitialized.
+   * Returns {@code d.webMillis} (≥0) or -1 if not computable.
+   */
+  public static long buildDurationMillis(DurationI d) {
+    WidgetConstructors prev = NativeObj.Base.factories;
+    SerializingWidgetConstructors ser = new SerializingWidgetConstructors();
+    NativeObj.Base.factories = ser;
+    try {
+      return d.build().webMillis;
+    } finally {
+      NativeObj.Base.factories = prev;
+      ser.close();
+    }
   }
 
   /** A no-op BuildContext for web-mode builds (inherited-widget lookups are out of scope). */

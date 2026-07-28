@@ -26,3 +26,11 @@ void Function(dynamic) ewtWireValueCallback(Object? id) {
 // The region's BuildContext, bound during the synchronous decode so context-resolving decoders
 // (e.g. themeOf -> Theme.of(context)) resolve against the real widget tree.
 BuildContext? ewtActiveBuildContext;
+
+// Set by EwtWebRegion before decoding an animated subtree so subAnimatedStateAnimationController
+// nodes can create AnimationControllers with a real vsync. Cleared after decode.
+TickerProvider? ewtActiveTickerProvider;
+
+// Shared controller registry for the region being decoded: maps Java-assigned ctrlId to the
+// live Dart AnimationController. Persists across rebuilds so controllers are not recreated.
+Map<int, AnimationController>? ewtActiveControllerRegistry;

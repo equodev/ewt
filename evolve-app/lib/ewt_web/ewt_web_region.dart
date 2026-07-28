@@ -36,17 +36,23 @@ class EwtWebRegion extends StatefulWidget {
   State<EwtWebRegion> createState() => _EwtWebRegionState();
 }
 
-class _EwtWebRegionState extends State<EwtWebRegion> {
+class _EwtWebRegionState extends State<EwtWebRegion>
+    with TickerProviderStateMixin {
   Map<String, dynamic>? _root;
-  late final String _channel = 'EwtWidget/${widget.id}/subtree';
+  late final String _subtreeChannel = 'EwtWidget/${widget.id}/subtree';
+  late final String _animChannel = 'EwtWidget/${widget.id}/anim';
+
+  /// Persists across rebuilds: maps Java ctrlId → live Dart AnimationController.
+  final Map<int, AnimationController> _controllers = {};
 
   @override
   void initState() {
     super.initState();
-    EquoCommService.onBytes(_channel, _onSubtree);
+    EquoCommService.onBytes(_subtreeChannel, _onSubtree);
+    EquoCommService.onBytes(_animChannel, _onAnimCommand);
     // Ask the Java side to (re)send this region's subtree now that our handler is registered,
     // so a first frame flushed from the comm buffer before we subscribed is not lost.
-    EquoCommService.send('$_channel/request');
+    EquoCommService.send('$_subtreeChannel/request');
   }
 
   void _onSubtree(Uint8List bytes) {
@@ -54,19 +60,61 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
       final env = json.decode(utf8.decode(bytes)) as Map<String, dynamic>;
       final outcome = applyEnvelope(_root, env);
       if (outcome.requestFull) {
-        EquoCommService.send('$_channel/request');
+        EquoCommService.send('$_subtreeChannel/request');
         return;
       }
       setState(() => _root = outcome.root);
     } catch (e, st) {
       debugPrint('EWT web region ${widget.id} subtree failed: $e\n$st');
-      EquoCommService.send('$_channel/request'); // desync -> ask for a fresh full snapshot
+      EquoCommService.send('$_subtreeChannel/request');
     }
+  }
+
+  void _onAnimCommand(Uint8List bytes) {
+    try {
+      final cmd = json.decode(utf8.decode(bytes)) as Map<String, dynamic>;
+      final ctrlId = cmd['ctrlId'] as int;
+      final action = cmd['action'] as String;
+      final ctrl = _controllers[ctrlId];
+      if (ctrl == null) {
+        debugPrint('EWT web anim: unknown ctrlId=$ctrlId action=$action');
+        return;
+      }
+      if (action.startsWith('setDuration:')) {
+        final ms = int.parse(action.substring('setDuration:'.length));
+        ctrl.duration = Duration(milliseconds: ms);
+      } else if (action.startsWith('setReverseDuration:')) {
+        final ms = int.parse(action.substring('setReverseDuration:'.length));
+        ctrl.reverseDuration = Duration(milliseconds: ms);
+      } else switch (action) {
+        case 'forward': ctrl.forward();
+        case 'reverse': ctrl.reverse();
+        case 'repeat':         ctrl.repeat();
+        case 'repeat:reverse': ctrl.repeat(reverse: true);
+        case 'stop':           ctrl.stop();
+        case 'reset':   ctrl.reset();
+        default: debugPrint('EWT web anim: unknown action=$action');
+      }
+    } catch (e, st) {
+      debugPrint('EWT web region ${widget.id} anim command failed: $e\n$st');
+    }
+  }
+
+  /// Returns the existing controller for [ctrlId], or creates one with [duration].
+  /// Called from the subAnimatedStateAnimationController factory during decode.
+  AnimationController getOrCreateController(int ctrlId, Duration duration) {
+    return _controllers.putIfAbsent(
+      ctrlId, () => AnimationController(vsync: this, duration: duration));
   }
 
   @override
   void dispose() {
-    EquoCommService.remove(_channel);
+    EquoCommService.remove(_subtreeChannel);
+    EquoCommService.remove(_animChannel);
+    for (final c in _controllers.values) {
+      c.dispose();
+    }
+    _controllers.clear();
     super.dispose();
   }
 
@@ -74,18 +122,21 @@ class _EwtWebRegionState extends State<EwtWebRegion> {
   Widget build(BuildContext context) {
     final root = _root;
     if (root == null) return const SizedBox.shrink();
-    // Bind this region's callback sink for the duration of the (synchronous) decode, so every
-    // wired closure in the built tree forwards its id to THIS region's channel.
-    // Use try/finally so the globals are always cleared even if decodeEwtWidget throws.
+    // Bind region globals for the synchronous decode: callback sink, build context,
+    // and the animated-state ticker/registry so controller factories can wire up.
     ewtActiveBuildContext = context;
     ewtActiveCallbackSink = (cid, args) =>
         EquoCommService.sendPayload('EwtWidget/${widget.id}/callback', [cid, ...args]);
+    ewtActiveTickerProvider = this;
+    ewtActiveControllerRegistry = _controllers;
     final Widget decoded;
     try {
       decoded = decodeEwtWidget(root);
     } finally {
       ewtActiveCallbackSink = null;
       ewtActiveBuildContext = null;
+      ewtActiveTickerProvider = null;
+      ewtActiveControllerRegistry = null;
     }
     return ClipRect(child: decoded);
   }

@@ -5538,6 +5538,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", id);
     p.put("self", byId.get(self.getId()));
     p.put("duration", byId.get(duration.getId()));
     record(id, "subAnimatedStateAnimationController", p);
