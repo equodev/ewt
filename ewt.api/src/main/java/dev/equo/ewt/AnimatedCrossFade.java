@@ -35,33 +35,51 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
     return AnimatedCrossFadeAnimatedCrossFadeBuilder.animatedCrossFadeAnimatedCrossFade(firstChild, secondChild);
   }
   public Widget firstChild() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeFirstChild not supported on web");
     return new Widget(AnimatedCrossFadeObjSt.firstChild(st)) {};
   }
   public Widget secondChild() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeSecondChild not supported on web");
     return new Widget(AnimatedCrossFadeObjSt.secondChild(st)) {};
   }
   public CrossFadeState crossFadeState() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeCrossFadeState not supported on web");
     return CrossFadeState.values()[AnimatedCrossFadeObjSt.crossFadeState(st)];
   }
   public Duration duration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedCrossFadeDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(AnimatedCrossFadeObjSt.duration(st));
   }
   public Duration reverseDuration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedCrossFadeReverseDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(AnimatedCrossFadeObjSt.reverseDuration(st));
   }
   public Curve firstCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeFirstCurve not supported on web");
     return new Curve(AnimatedCrossFadeObjSt.firstCurve(st)) {};
   }
   public Curve secondCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeSecondCurve not supported on web");
     return new Curve(AnimatedCrossFadeObjSt.secondCurve(st)) {};
   }
   public Curve sizeCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeSizeCurve not supported on web");
     return new Curve(AnimatedCrossFadeObjSt.sizeCurve(st)) {};
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeAlignment not supported on web");
     return new AlignmentGeometry(AnimatedCrossFadeObjSt.alignment(st)) {};
   }
   public boolean excludeBottomFocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeExcludeBottomFocus not supported on web");
     return intToBool(AnimatedCrossFadeObjSt.excludeBottomFocus(st));
   }
   @Override

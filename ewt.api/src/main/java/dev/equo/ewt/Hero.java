@@ -29,9 +29,11 @@ public class Hero extends StatefulWidget implements HeroI {
     return HeroHeroBuilder.heroHero(tag);
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroChild not supported on web");
     return new Widget(HeroObjSt.child(st)) {};
   }
   public boolean transitionOnUserGestures() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroTransitionOnUserGestures not supported on web");
     return intToBool(HeroObjSt.transitionOnUserGestures(st));
   }
   @Override

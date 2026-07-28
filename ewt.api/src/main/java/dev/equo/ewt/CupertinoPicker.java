@@ -57,30 +57,43 @@ public class CupertinoPicker extends StatefulWidget implements CupertinoPickerI 
     return CupertinoPickerBuilderBuilder.cupertinoPickerBuilder();
   }
   public double diameterRatio() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerDiameterRatio not supported on web");
     return CupertinoPickerObjSt.diameterRatio(st);
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoPickerBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoPickerObjSt.backgroundColor(st));
   }
   public double offAxisFraction() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerOffAxisFraction not supported on web");
     return CupertinoPickerObjSt.offAxisFraction(st);
   }
   public boolean useMagnifier() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerUseMagnifier not supported on web");
     return intToBool(CupertinoPickerObjSt.useMagnifier(st));
   }
   public double magnification() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerMagnification not supported on web");
     return CupertinoPickerObjSt.magnification(st);
   }
   public double itemExtent() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerItemExtent not supported on web");
     return CupertinoPickerObjSt.itemExtent(st);
   }
   public double squeeze() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerSqueeze not supported on web");
     return CupertinoPickerObjSt.squeeze(st);
   }
   public ChangeReportingBehavior changeReportingBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerChangeReportingBehavior not supported on web");
     return ChangeReportingBehavior.values()[CupertinoPickerObjSt.changeReportingBehavior(st)];
   }
   public Widget selectionOverlay() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoPickerSelectionOverlay not supported on web");
     return new Widget(CupertinoPickerObjSt.selectionOverlay(st)) {};
   }
   @Override

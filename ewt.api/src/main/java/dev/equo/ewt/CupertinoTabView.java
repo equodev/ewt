@@ -28,9 +28,11 @@ public class CupertinoTabView extends StatefulWidget implements CupertinoTabView
     return CupertinoTabViewCupertinoTabViewBuilder.cupertinoTabViewCupertinoTabView();
   }
   public String defaultTitle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTabViewDefaultTitle not supported on web");
     return CupertinoTabViewObjSt.defaultTitle(st).getString(0);
   }
   public String restorationScopeId() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTabViewRestorationScopeId not supported on web");
     return CupertinoTabViewObjSt.restorationScopeId(st).getString(0);
   }
   @Override

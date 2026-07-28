@@ -4,6 +4,8 @@ import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
 public class Duration extends NativeObj.Base implements DurationI {
+  /** Total milliseconds, populated in web mode so setDuration can send the value imperatively. -1 if unknown. */
+  long webMillis = -1;
   protected Duration() {}
   Duration(int id) {
     this.id = id;
@@ -19,7 +21,16 @@ public class Duration extends NativeObj.Base implements DurationI {
       microseconds);
     if (id <= 0) throw new RuntimeException("Failed to created widget Duration");
     System.out.println("New Duration id:"+id);
-    return new Duration(id);
+    Duration d = new Duration(id);
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      d.webMillis = (long) days.orElse(0) * millisecondsPerDay()
+          + (long) hours.orElse(0) * millisecondsPerHour()
+          + (long) minutes.orElse(0) * millisecondsPerMinute()
+          + (long) seconds.orElse(0) * millisecondsPerSecond()
+          + milliseconds.orElse(0)
+          + microseconds.orElse(0) / 1000;
+    }
+    return d;
   }
   public static DurationDurationBuilder duration() {
     return DurationDurationBuilder.durationDuration();

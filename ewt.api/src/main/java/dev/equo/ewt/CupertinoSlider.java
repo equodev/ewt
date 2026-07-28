@@ -34,21 +34,35 @@ public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI 
     return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value, onChanged);
   }
   public double value() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderValue not supported on web");
     return CupertinoSliderObjSt.value(st);
   }
   public double min() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderMin not supported on web");
     return CupertinoSliderObjSt.min(st);
   }
   public double max() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderMax not supported on web");
     return CupertinoSliderObjSt.max(st);
   }
   public int divisions() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderDivisions not supported on web");
     return CupertinoSliderObjSt.divisions(st);
   }
   public Color activeColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSliderActiveColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSliderObjSt.activeColor(st));
   }
   public Color thumbColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSliderThumbColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSliderObjSt.thumbColor(st));
   }
   @Override

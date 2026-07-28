@@ -30,9 +30,15 @@ public class AnimatedSlide extends ImplicitlyAnimatedWidget implements AnimatedS
     return AnimatedSlideAnimatedSlideBuilder.animatedSlideAnimatedSlide();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSlideChild not supported on web");
     return new Widget(AnimatedSlideObjSt.child(st)) {};
   }
   public Offset offset() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedSlideOffset", getId());
+      return new Offset(__nid);
+    }
     return new Offset(AnimatedSlideObjSt.offset(st));
   }
   @Override

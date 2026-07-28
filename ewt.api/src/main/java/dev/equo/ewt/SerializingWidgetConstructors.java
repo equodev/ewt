@@ -239,6 +239,35 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    offset.ifPresent(v -> p.put("offset", byId.get(v.getId())));
+    if (blurRadius.isPresent()) { p.put("blurRadius", blurRadius.getAsDouble()); }
+    record(id, "shadowShadow", p);
+    return id;
+  }
+  @Override
+  double shadowConvertRadiusToSigma(double radius) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("radius", radius);
+    record(id, "shadowConvertRadiusToSigma", p);
+    return id;
+  }
+  @Override
+  int shadowLerp(Shadow a, Shadow b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "shadowLerp", p);
+    return id;
+  }
+
+  @Override
   int textDecorationCombine(List<TextDecoration> decorations) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -761,6 +790,33 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment boxShadowBoxShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    offset.ifPresent(v -> p.put("offset", byId.get(v.getId())));
+    if (blurRadius.isPresent()) { p.put("blurRadius", blurRadius.getAsDouble()); }
+    if (spreadRadius.isPresent()) { p.put("spreadRadius", spreadRadius.getAsDouble()); }
+    blurStyle.ifPresent(v -> p.put("blurStyle", v.ordinal()));
+    record(id, "boxShadowBoxShadow", p);
+    MemorySegment st = BoxShadowObjSt.allocate(arena);
+    BoxShadowObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "boxShadowLerp", p);
+    MemorySegment st = BoxShadowObjSt.allocate(arena);
+    BoxShadowObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   int radiusCircular(double radius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -854,62 +910,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     MemorySegment st = BorderRadiusObjSt.allocate(arena);
     BorderRadiusObjSt.id(st, id);
     return st;
-  }
-
-  @Override
-  MemorySegment boxShadowBoxShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
-    offset.ifPresent(v -> p.put("offset", byId.get(v.getId())));
-    if (blurRadius.isPresent()) { p.put("blurRadius", blurRadius.getAsDouble()); }
-    if (spreadRadius.isPresent()) { p.put("spreadRadius", spreadRadius.getAsDouble()); }
-    blurStyle.ifPresent(v -> p.put("blurStyle", v.ordinal()));
-    record(id, "boxShadowBoxShadow", p);
-    MemorySegment st = BoxShadowObjSt.allocate(arena);
-    BoxShadowObjSt.id(st, id);
-    return st;
-  }
-  @Override
-  MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("a", byId.get(a.getId()));
-    p.put("b", byId.get(b.getId()));
-    p.put("t", t);
-    record(id, "boxShadowLerp", p);
-    MemorySegment st = BoxShadowObjSt.allocate(arena);
-    BoxShadowObjSt.id(st, id);
-    return st;
-  }
-
-  @Override
-  int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
-    offset.ifPresent(v -> p.put("offset", byId.get(v.getId())));
-    if (blurRadius.isPresent()) { p.put("blurRadius", blurRadius.getAsDouble()); }
-    record(id, "shadowShadow", p);
-    return id;
-  }
-  @Override
-  double shadowConvertRadiusToSigma(double radius) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("radius", radius);
-    record(id, "shadowConvertRadiusToSigma", p);
-    return id;
-  }
-  @Override
-  int shadowLerp(Shadow a, Shadow b, double t) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("a", byId.get(a.getId()));
-    p.put("b", byId.get(b.getId()));
-    p.put("t", t);
-    record(id, "shadowLerp", p);
-    return id;
   }
 
   @Override
@@ -2011,6 +2011,364 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment animatedSizeAnimatedSize(Optional<Widget> child, Optional<AlignmentGeometry> alignment, Optional<Curve> curve, Duration duration, Optional<Duration> reverseDuration, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    reverseDuration.ifPresent(v -> p.put("reverseDuration", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedSizeAnimatedSize", p);
+    MemorySegment st = AnimatedSizeObjSt.allocate(arena);
+    AnimatedSizeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedScaleAnimatedScale(Optional<Widget> child, double scale, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    p.put("scale", scale);
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    filterQuality.ifPresent(v -> p.put("filterQuality", v.ordinal()));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedScaleAnimatedScale", p);
+    MemorySegment st = AnimatedScaleObjSt.allocate(arena);
+    AnimatedScaleObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedRotationAnimatedRotation(Optional<Widget> child, double turns, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    p.put("turns", turns);
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    filterQuality.ifPresent(v -> p.put("filterQuality", v.ordinal()));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedRotationAnimatedRotation", p);
+    MemorySegment st = AnimatedRotationObjSt.allocate(arena);
+    AnimatedRotationObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedSlideAnimatedSlide(Optional<Widget> child, Offset offset, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    p.put("offset", byId.get(offset.getId()));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedSlideAnimatedSlide", p);
+    MemorySegment st = AnimatedSlideObjSt.allocate(arena);
+    AnimatedSlideObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("firstChild", byId.get(firstChild.getId()));
+    p.put("secondChild", byId.get(secondChild.getId()));
+    firstCurve.ifPresent(v -> p.put("firstCurve", byId.get(v.getId())));
+    secondCurve.ifPresent(v -> p.put("secondCurve", byId.get(v.getId())));
+    sizeCurve.ifPresent(v -> p.put("sizeCurve", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    p.put("crossFadeState", crossFadeState.ordinal());
+    p.put("duration", byId.get(duration.getId()));
+    reverseDuration.ifPresent(v -> p.put("reverseDuration", byId.get(v.getId())));
+    excludeBottomFocus.ifPresent(v -> p.put("excludeBottomFocus", v));
+    record(id, "animatedCrossFadeAnimatedCrossFade", p);
+    MemorySegment st = AnimatedCrossFadeObjSt.allocate(arena);
+    AnimatedCrossFadeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment slideTransitionSlideTransition(Animation position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("position", byId.get(position.getId()));
+    transformHitTests.ifPresent(v -> p.put("transformHitTests", v));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "slideTransitionSlideTransition", p);
+    MemorySegment st = SlideTransitionObjSt.allocate(arena);
+    SlideTransitionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sizeTransitionSizeTransition(Optional<Axis> axis, Animation sizeFactor, OptionalDouble axisAlignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    axis.ifPresent(v -> p.put("axis", v.ordinal()));
+    p.put("sizeFactor", byId.get(sizeFactor.getId()));
+    if (axisAlignment.isPresent()) { p.put("axisAlignment", axisAlignment.getAsDouble()); }
+    if (fixedCrossAxisSizeFactor.isPresent()) { p.put("fixedCrossAxisSizeFactor", fixedCrossAxisSizeFactor.getAsDouble()); }
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "sizeTransitionSizeTransition", p);
+    MemorySegment st = SizeTransitionObjSt.allocate(arena);
+    SizeTransitionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment indexedStackIndexedStack(Optional<AlignmentGeometry> alignment, Optional<TextDirection> textDirection, Optional<Clip> clipBehavior, Optional<StackFit> sizing, OptionalInt index, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    sizing.ifPresent(v -> p.put("sizing", v.ordinal()));
+    if (index.isPresent()) { p.put("index", index.getAsInt()); }
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "indexedStackIndexedStack", p);
+    MemorySegment st = IndexedStackObjSt.allocate(arena);
+    IndexedStackObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    panAxis.ifPresent(v -> p.put("panAxis", v.ordinal()));
+    boundaryMargin.ifPresent(v -> p.put("boundaryMargin", byId.get(v.getId())));
+    constrained.ifPresent(v -> p.put("constrained", v));
+    if (maxScale.isPresent()) { p.put("maxScale", maxScale.getAsDouble()); }
+    if (minScale.isPresent()) { p.put("minScale", minScale.getAsDouble()); }
+    if (interactionEndFrictionCoefficient.isPresent()) { p.put("interactionEndFrictionCoefficient", interactionEndFrictionCoefficient.getAsDouble()); }
+    panEnabled.ifPresent(v -> p.put("panEnabled", v));
+    scaleEnabled.ifPresent(v -> p.put("scaleEnabled", v));
+    if (scaleFactor.isPresent()) { p.put("scaleFactor", scaleFactor.getAsDouble()); }
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    trackpadScrollCausesScale.ifPresent(v -> p.put("trackpadScrollCausesScale", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "interactiveViewerInteractiveViewer", p);
+    MemorySegment st = InteractiveViewerObjSt.allocate(arena);
+    InteractiveViewerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<T> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    p.put("feedback", byId.get(feedback.getId()));
+    p.put("data", data);
+    axis.ifPresent(v -> p.put("axis", v.ordinal()));
+    childWhenDragging.ifPresent(v -> p.put("childWhenDragging", byId.get(v.getId())));
+    feedbackOffset.ifPresent(v -> p.put("feedbackOffset", byId.get(v.getId())));
+    if (dragAnchorStrategy != null) { p.put("dragAnchorStrategy", nextCallbackId++); }
+    affinity.ifPresent(v -> p.put("affinity", v.ordinal()));
+    if (maxSimultaneousDrags.isPresent()) { p.put("maxSimultaneousDrags", maxSimultaneousDrags.getAsInt()); }
+    if (onDragStarted.isPresent()) { int __cb_onDragStarted = nextCallbackId++; p.put("onDragStarted", __cb_onDragStarted); callbacks.put(__cb_onDragStarted, onDragStarted.get()); }
+    if (onDragCompleted.isPresent()) { int __cb_onDragCompleted = nextCallbackId++; p.put("onDragCompleted", __cb_onDragCompleted); callbacks.put(__cb_onDragCompleted, onDragCompleted.get()); }
+    ignoringFeedbackSemantics.ifPresent(v -> p.put("ignoringFeedbackSemantics", v));
+    ignoringFeedbackPointer.ifPresent(v -> p.put("ignoringFeedbackPointer", v));
+    rootOverlay.ifPresent(v -> p.put("rootOverlay", v));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    if (allowedButtonsFilter != null) { p.put("allowedButtonsFilter", nextCallbackId++); }
+    record(id, "draggableDraggable", p);
+    MemorySegment st = DraggableObjSt.allocate(arena);
+    DraggableObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder, Optional<Function<T, Boolean>> onWillAccept, Optional<Consumer<T>> onAccept, Optional<Consumer<T>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("builder", nextCallbackId++);
+    if (onWillAccept != null) { p.put("onWillAccept", nextCallbackId++); }
+    if (onAccept != null) { p.put("onAccept", nextCallbackId++); }
+    if (onLeave != null) { p.put("onLeave", nextCallbackId++); }
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    record(id, "dragTargetDragTarget", p);
+    MemorySegment st = DragTargetObjSt.allocate(arena);
+    DragTargetObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment heroHero(NativeObj tag, Optional<PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget>> flightShuttleBuilder, Optional<Boolean> transitionOnUserGestures, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("tag", byId.get(tag.getId()));
+    if (flightShuttleBuilder != null) { p.put("flightShuttleBuilder", nextCallbackId++); }
+    transitionOnUserGestures.ifPresent(v -> p.put("transitionOnUserGestures", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "heroHero", p);
+    MemorySegment st = HeroObjSt.allocate(arena);
+    HeroObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedSwitcherAnimatedSwitcher(Optional<Widget> child, Duration duration, Optional<Duration> reverseDuration, Optional<Curve> switchInCurve, Optional<Curve> switchOutCurve, Optional<BiFunction<Widget, Animation, Widget>> transitionBuilder, Optional<BiFunction<Widget, List<Widget>, Widget>> layoutBuilder) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    reverseDuration.ifPresent(v -> p.put("reverseDuration", byId.get(v.getId())));
+    switchInCurve.ifPresent(v -> p.put("switchInCurve", byId.get(v.getId())));
+    switchOutCurve.ifPresent(v -> p.put("switchOutCurve", byId.get(v.getId())));
+    if (transitionBuilder != null) { p.put("transitionBuilder", nextCallbackId++); }
+    if (layoutBuilder != null) { p.put("layoutBuilder", nextCallbackId++); }
+    record(id, "animatedSwitcherAnimatedSwitcher", p);
+    MemorySegment st = AnimatedSwitcherObjSt.allocate(arena);
+    AnimatedSwitcherObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int animatedSwitcherDefaultTransitionBuilder(Widget child, Animation animation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    p.put("animation", byId.get(animation.getId()));
+    record(id, "animatedSwitcherDefaultTransitionBuilder", p);
+    return id;
+  }
+  @Override
+  int animatedSwitcherDefaultLayoutBuilder(Widget currentChild, List<Widget> previousChildren) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("currentChild", byId.get(currentChild.getId()));
+    p.put("previousChildren", previousChildren.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    record(id, "animatedSwitcherDefaultLayoutBuilder", p);
+    return id;
+  }
+
+  @Override
+  int colorFilterMode(Color color, BlendMode blendMode) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("color", byId.get(color.getId()));
+    p.put("blendMode", blendMode.ordinal());
+    record(id, "colorFilterMode", p);
+    return id;
+  }
+  @Override
+  int colorFilterLinearToSrgbGamma() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "colorFilterLinearToSrgbGamma", p);
+    return id;
+  }
+  @Override
+  int colorFilterSrgbToLinearGamma() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "colorFilterSrgbToLinearGamma", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment backdropFilterBackdropFilter(ImageFilter filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("filter", byId.get(filter.getId()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    blendMode.ifPresent(v -> p.put("blendMode", v.ordinal()));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "backdropFilterBackdropFilter", p);
+    MemorySegment st = BackdropFilterObjSt.allocate(arena);
+    BackdropFilterObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment backdropFilterGrouped(ImageFilter filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("filter", byId.get(filter.getId()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    blendMode.ifPresent(v -> p.put("blendMode", v.ordinal()));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "backdropFilterGrouped", p);
+    MemorySegment st = BackdropFilterObjSt.allocate(arena);
+    BackdropFilterObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int imageFilterBlur(OptionalDouble sigmaX, OptionalDouble sigmaY, Optional<TileMode> tileMode) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (sigmaX.isPresent()) { p.put("sigmaX", sigmaX.getAsDouble()); }
+    if (sigmaY.isPresent()) { p.put("sigmaY", sigmaY.getAsDouble()); }
+    tileMode.ifPresent(v -> p.put("tileMode", v.ordinal()));
+    record(id, "imageFilterBlur", p);
+    return id;
+  }
+  @Override
+  int imageFilterDilate(OptionalDouble radiusX, OptionalDouble radiusY) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (radiusX.isPresent()) { p.put("radiusX", radiusX.getAsDouble()); }
+    if (radiusY.isPresent()) { p.put("radiusY", radiusY.getAsDouble()); }
+    record(id, "imageFilterDilate", p);
+    return id;
+  }
+  @Override
+  int imageFilterErode(OptionalDouble radiusX, OptionalDouble radiusY) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (radiusX.isPresent()) { p.put("radiusX", radiusX.getAsDouble()); }
+    if (radiusY.isPresent()) { p.put("radiusY", radiusY.getAsDouble()); }
+    record(id, "imageFilterErode", p);
+    return id;
+  }
+  @Override
+  int imageFilterCompose(ImageFilter outer, ImageFilter inner) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("outer", byId.get(outer.getId()));
+    p.put("inner", byId.get(inner.getId()));
+    record(id, "imageFilterCompose", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment colorFilteredColorFiltered(ColorFilter colorFilter, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("colorFilter", byId.get(colorFilter.getId()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "colorFilteredColorFiltered", p);
+    MemorySegment st = ColorFilteredObjSt.allocate(arena);
+    ColorFilteredObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment imageFilteredImageFiltered(ImageFilter imageFilter, Optional<Widget> child, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("imageFilter", byId.get(imageFilter.getId()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "imageFilteredImageFiltered", p);
+    MemorySegment st = ImageFilteredObjSt.allocate(arena);
+    ImageFilteredObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -2428,7 +2786,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
+  <T> MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("a", byId.get(a.getId()));
@@ -4508,6 +4866,618 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    home.ifPresent(v -> p.put("home", byId.get(v.getId())));
+    initialRoute.ifPresent(v -> p.put("initialRoute", v));
+    if (builder != null) { p.put("builder", nextCallbackId++); }
+    title.ifPresent(v -> p.put("title", v));
+    if (onGenerateTitle != null) { p.put("onGenerateTitle", nextCallbackId++); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    showPerformanceOverlay.ifPresent(v -> p.put("showPerformanceOverlay", v));
+    checkerboardRasterCacheImages.ifPresent(v -> p.put("checkerboardRasterCacheImages", v));
+    checkerboardOffscreenLayers.ifPresent(v -> p.put("checkerboardOffscreenLayers", v));
+    showSemanticsDebugger.ifPresent(v -> p.put("showSemanticsDebugger", v));
+    debugShowCheckedModeBanner.ifPresent(v -> p.put("debugShowCheckedModeBanner", v));
+    restorationScopeId.ifPresent(v -> p.put("restorationScopeId", v));
+    useInheritedMediaQuery.ifPresent(v -> p.put("useInheritedMediaQuery", v));
+    record(id, "cupertinoAppCupertinoApp", p);
+    MemorySegment st = CupertinoAppObjSt.allocate(arena);
+    CupertinoAppObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (builder != null) { p.put("builder", nextCallbackId++); }
+    title.ifPresent(v -> p.put("title", v));
+    if (onGenerateTitle != null) { p.put("onGenerateTitle", nextCallbackId++); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    showPerformanceOverlay.ifPresent(v -> p.put("showPerformanceOverlay", v));
+    checkerboardRasterCacheImages.ifPresent(v -> p.put("checkerboardRasterCacheImages", v));
+    checkerboardOffscreenLayers.ifPresent(v -> p.put("checkerboardOffscreenLayers", v));
+    showSemanticsDebugger.ifPresent(v -> p.put("showSemanticsDebugger", v));
+    debugShowCheckedModeBanner.ifPresent(v -> p.put("debugShowCheckedModeBanner", v));
+    restorationScopeId.ifPresent(v -> p.put("restorationScopeId", v));
+    useInheritedMediaQuery.ifPresent(v -> p.put("useInheritedMediaQuery", v));
+    record(id, "cupertinoAppRouter", p);
+    MemorySegment st = CupertinoAppObjSt.allocate(arena);
+    CupertinoAppObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoPageScaffoldCupertinoPageScaffold(Optional<ObstructingPreferredSizeWidget> navigationBar, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    navigationBar.ifPresent(v -> p.put("navigationBar", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    resizeToAvoidBottomInset.ifPresent(v -> p.put("resizeToAvoidBottomInset", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "cupertinoPageScaffoldCupertinoPageScaffold", p);
+    MemorySegment st = CupertinoPageScaffoldObjSt.allocate(arena);
+    CupertinoPageScaffoldObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoNavigationBarCupertinoNavigationBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyMiddle, Optional<String> previousPageTitle, Optional<Widget> middle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<PreferredSizeWidget> bottom) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    automaticallyImplyMiddle.ifPresent(v -> p.put("automaticallyImplyMiddle", v));
+    previousPageTitle.ifPresent(v -> p.put("previousPageTitle", v));
+    middle.ifPresent(v -> p.put("middle", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    automaticBackgroundVisibility.ifPresent(v -> p.put("automaticBackgroundVisibility", v));
+    enableBackgroundFilterBlur.ifPresent(v -> p.put("enableBackgroundFilterBlur", v));
+    brightness.ifPresent(v -> p.put("brightness", v.ordinal()));
+    transitionBetweenRoutes.ifPresent(v -> p.put("transitionBetweenRoutes", v));
+    bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
+    record(id, "cupertinoNavigationBarCupertinoNavigationBar", p);
+    MemorySegment st = CupertinoNavigationBarObjSt.allocate(arena);
+    CupertinoNavigationBarObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoNavigationBarLarge(Optional<Widget> largeTitle, Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<String> previousPageTitle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<PreferredSizeWidget> bottom) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    largeTitle.ifPresent(v -> p.put("largeTitle", byId.get(v.getId())));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    automaticallyImplyTitle.ifPresent(v -> p.put("automaticallyImplyTitle", v));
+    previousPageTitle.ifPresent(v -> p.put("previousPageTitle", v));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    automaticBackgroundVisibility.ifPresent(v -> p.put("automaticBackgroundVisibility", v));
+    enableBackgroundFilterBlur.ifPresent(v -> p.put("enableBackgroundFilterBlur", v));
+    brightness.ifPresent(v -> p.put("brightness", v.ordinal()));
+    transitionBetweenRoutes.ifPresent(v -> p.put("transitionBetweenRoutes", v));
+    bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
+    record(id, "cupertinoNavigationBarLarge", p);
+    MemorySegment st = CupertinoNavigationBarObjSt.allocate(arena);
+    CupertinoNavigationBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoSliverNavigationBarCupertinoSliverNavigationBar(Optional<Widget> largeTitle, Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<Boolean> alwaysShowMiddle, Optional<String> previousPageTitle, Optional<Widget> middle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<Boolean> stretch, Optional<PreferredSizeWidget> bottom, Optional<NavigationBarBottomMode> bottomMode) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    largeTitle.ifPresent(v -> p.put("largeTitle", byId.get(v.getId())));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    automaticallyImplyTitle.ifPresent(v -> p.put("automaticallyImplyTitle", v));
+    alwaysShowMiddle.ifPresent(v -> p.put("alwaysShowMiddle", v));
+    previousPageTitle.ifPresent(v -> p.put("previousPageTitle", v));
+    middle.ifPresent(v -> p.put("middle", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    automaticBackgroundVisibility.ifPresent(v -> p.put("automaticBackgroundVisibility", v));
+    enableBackgroundFilterBlur.ifPresent(v -> p.put("enableBackgroundFilterBlur", v));
+    brightness.ifPresent(v -> p.put("brightness", v.ordinal()));
+    transitionBetweenRoutes.ifPresent(v -> p.put("transitionBetweenRoutes", v));
+    stretch.ifPresent(v -> p.put("stretch", v));
+    bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
+    bottomMode.ifPresent(v -> p.put("bottomMode", v.ordinal()));
+    record(id, "cupertinoSliverNavigationBarCupertinoSliverNavigationBar", p);
+    MemorySegment st = CupertinoSliverNavigationBarObjSt.allocate(arena);
+    CupertinoSliverNavigationBarObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoSliverNavigationBarSearch(Widget searchField, Optional<Widget> largeTitle, Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<Boolean> alwaysShowMiddle, Optional<String> previousPageTitle, Optional<Widget> middle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<Boolean> stretch, Optional<NavigationBarBottomMode> bottomMode, Optional<Consumer<Boolean>> onSearchableBottomTap) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("searchField", byId.get(searchField.getId()));
+    largeTitle.ifPresent(v -> p.put("largeTitle", byId.get(v.getId())));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    automaticallyImplyTitle.ifPresent(v -> p.put("automaticallyImplyTitle", v));
+    alwaysShowMiddle.ifPresent(v -> p.put("alwaysShowMiddle", v));
+    previousPageTitle.ifPresent(v -> p.put("previousPageTitle", v));
+    middle.ifPresent(v -> p.put("middle", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    automaticBackgroundVisibility.ifPresent(v -> p.put("automaticBackgroundVisibility", v));
+    enableBackgroundFilterBlur.ifPresent(v -> p.put("enableBackgroundFilterBlur", v));
+    brightness.ifPresent(v -> p.put("brightness", v.ordinal()));
+    transitionBetweenRoutes.ifPresent(v -> p.put("transitionBetweenRoutes", v));
+    stretch.ifPresent(v -> p.put("stretch", v));
+    bottomMode.ifPresent(v -> p.put("bottomMode", v.ordinal()));
+    if (onSearchableBottomTap.isPresent()) { int __cb_onSearchableBottomTap = nextCallbackId++; p.put("onSearchableBottomTap", __cb_onSearchableBottomTap); java.util.function.Consumer<Boolean> __h_onSearchableBottomTap = onSearchableBottomTap.get(); callbacks.put(__cb_onSearchableBottomTap, (java.util.function.Consumer<Object>)(v -> __h_onSearchableBottomTap.accept((Boolean) v))); }
+    record(id, "cupertinoSliverNavigationBarSearch", p);
+    MemorySegment st = CupertinoSliverNavigationBarObjSt.allocate(arena);
+    CupertinoSliverNavigationBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoTabViewCupertinoTabView(Optional<Function<BuildContext, Widget>> builder, Optional<String> defaultTitle, Optional<String> restorationScopeId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (builder != null) { p.put("builder", nextCallbackId++); }
+    defaultTitle.ifPresent(v -> p.put("defaultTitle", v));
+    restorationScopeId.ifPresent(v -> p.put("restorationScopeId", v));
+    record(id, "cupertinoTabViewCupertinoTabView", p);
+    MemorySegment st = CupertinoTabViewObjSt.allocate(arena);
+    CupertinoTabViewObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoButtonCupertinoButton(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    sizeStyle.ifPresent(v -> p.put("sizeStyle", v.ordinal()));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    if (minSize.isPresent()) { p.put("minSize", minSize.getAsDouble()); }
+    if (pressedOpacity.isPresent()) { p.put("pressedOpacity", pressedOpacity.getAsDouble()); }
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
+    record(id, "cupertinoButtonCupertinoButton", p);
+    MemorySegment st = CupertinoButtonObjSt.allocate(arena);
+    CupertinoButtonObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoButtonTinted(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    sizeStyle.ifPresent(v -> p.put("sizeStyle", v.ordinal()));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    if (minSize.isPresent()) { p.put("minSize", minSize.getAsDouble()); }
+    if (pressedOpacity.isPresent()) { p.put("pressedOpacity", pressedOpacity.getAsDouble()); }
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
+    record(id, "cupertinoButtonTinted", p);
+    MemorySegment st = CupertinoButtonObjSt.allocate(arena);
+    CupertinoButtonObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoButtonFilled(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> foregroundColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    sizeStyle.ifPresent(v -> p.put("sizeStyle", v.ordinal()));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    if (minSize.isPresent()) { p.put("minSize", minSize.getAsDouble()); }
+    if (pressedOpacity.isPresent()) { p.put("pressedOpacity", pressedOpacity.getAsDouble()); }
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
+    record(id, "cupertinoButtonFilled", p);
+    MemorySegment st = CupertinoButtonObjSt.allocate(arena);
+    CupertinoButtonObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  double cupertinoButtonTapMoveSlop() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "cupertinoButtonTapMoveSlop", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment cupertinoSwitchCupertinoSwitch(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> trackColor, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<Color> focusColor, Optional<Color> onLabelColor, Optional<Color> offLabelColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("value", value);
+    int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
+    activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    trackColor.ifPresent(v -> p.put("trackColor", byId.get(v.getId())));
+    activeTrackColor.ifPresent(v -> p.put("activeTrackColor", byId.get(v.getId())));
+    inactiveTrackColor.ifPresent(v -> p.put("inactiveTrackColor", byId.get(v.getId())));
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    inactiveThumbColor.ifPresent(v -> p.put("inactiveThumbColor", byId.get(v.getId())));
+    applyTheme.ifPresent(v -> p.put("applyTheme", v));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    onLabelColor.ifPresent(v -> p.put("onLabelColor", byId.get(v.getId())));
+    offLabelColor.ifPresent(v -> p.put("offLabelColor", byId.get(v.getId())));
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    record(id, "cupertinoSwitchCupertinoSwitch", p);
+    MemorySegment st = CupertinoSwitchObjSt.allocate(arena);
+    CupertinoSwitchObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoSliderCupertinoSlider(double value, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<Color> activeColor, Optional<Color> thumbColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("value", value);
+    int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept(((Number) v).doubleValue())));
+    if (onChangeStart.isPresent()) { int __cb_onChangeStart = nextCallbackId++; p.put("onChangeStart", __cb_onChangeStart); java.util.function.Consumer<Double> __h_onChangeStart = onChangeStart.get(); callbacks.put(__cb_onChangeStart, (java.util.function.Consumer<Object>)(v -> __h_onChangeStart.accept(((Number) v).doubleValue()))); }
+    if (onChangeEnd.isPresent()) { int __cb_onChangeEnd = nextCallbackId++; p.put("onChangeEnd", __cb_onChangeEnd); java.util.function.Consumer<Double> __h_onChangeEnd = onChangeEnd.get(); callbacks.put(__cb_onChangeEnd, (java.util.function.Consumer<Object>)(v -> __h_onChangeEnd.accept(((Number) v).doubleValue()))); }
+    if (min.isPresent()) { p.put("min", min.getAsDouble()); }
+    if (max.isPresent()) { p.put("max", max.getAsDouble()); }
+    if (divisions.isPresent()) { p.put("divisions", divisions.getAsInt()); }
+    activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    record(id, "cupertinoSliderCupertinoSlider", p);
+    MemorySegment st = CupertinoSliderObjSt.allocate(arena);
+    CupertinoSliderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoSearchTextFieldCupertinoSearchTextField(Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<TextStyle> style, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<BoxDecoration> decoration, Optional<Color> backgroundColor, Optional<BorderRadius> borderRadius, Optional<EdgeInsetsGeometry> padding, Optional<Color> itemColor, OptionalDouble itemSize, Optional<EdgeInsetsGeometry> prefixInsets, Optional<Widget> prefixIcon, Optional<EdgeInsetsGeometry> suffixInsets, Optional<Icon> suffixIcon, Optional<OverlayVisibilityMode> suffixMode, Optional<Runnable> onSuffixTap, Optional<String> restorationId, Optional<SmartQuotesType> smartQuotesType, Optional<SmartDashesType> smartDashesType, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> autofocus, Optional<Runnable> onTap, Optional<Boolean> autocorrect, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
+    if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    placeholder.ifPresent(v -> p.put("placeholder", v));
+    placeholderStyle.ifPresent(v -> p.put("placeholderStyle", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    itemColor.ifPresent(v -> p.put("itemColor", byId.get(v.getId())));
+    if (itemSize.isPresent()) { p.put("itemSize", itemSize.getAsDouble()); }
+    prefixInsets.ifPresent(v -> p.put("prefixInsets", byId.get(v.getId())));
+    prefixIcon.ifPresent(v -> p.put("prefixIcon", byId.get(v.getId())));
+    suffixInsets.ifPresent(v -> p.put("suffixInsets", byId.get(v.getId())));
+    suffixIcon.ifPresent(v -> p.put("suffixIcon", byId.get(v.getId())));
+    suffixMode.ifPresent(v -> p.put("suffixMode", v.ordinal()));
+    if (onSuffixTap.isPresent()) { int __cb_onSuffixTap = nextCallbackId++; p.put("onSuffixTap", __cb_onSuffixTap); callbacks.put(__cb_onSuffixTap, onSuffixTap.get()); }
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    smartQuotesType.ifPresent(v -> p.put("smartQuotesType", v.ordinal()));
+    smartDashesType.ifPresent(v -> p.put("smartDashesType", v.ordinal()));
+    enableIMEPersonalizedLearning.ifPresent(v -> p.put("enableIMEPersonalizedLearning", v));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    autocorrect.ifPresent(v -> p.put("autocorrect", v));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
+    if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }
+    cursorRadius.ifPresent(v -> p.put("cursorRadius", byId.get(v.getId())));
+    cursorOpacityAnimates.ifPresent(v -> p.put("cursorOpacityAnimates", v));
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    record(id, "cupertinoSearchTextFieldCupertinoSearchTextField", p);
+    MemorySegment st = CupertinoSearchTextFieldObjSt.allocate(arena);
+    CupertinoSearchTextFieldObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoActivityIndicatorCupertinoActivityIndicator(Optional<Color> color, Optional<Boolean> animating, OptionalDouble radius) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    animating.ifPresent(v -> p.put("animating", v));
+    if (radius.isPresent()) { p.put("radius", radius.getAsDouble()); }
+    record(id, "cupertinoActivityIndicatorCupertinoActivityIndicator", p);
+    MemorySegment st = CupertinoActivityIndicatorObjSt.allocate(arena);
+    CupertinoActivityIndicatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoActivityIndicatorPartiallyRevealed(Optional<Color> color, OptionalDouble radius, OptionalDouble progress) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (radius.isPresent()) { p.put("radius", radius.getAsDouble()); }
+    if (progress.isPresent()) { p.put("progress", progress.getAsDouble()); }
+    record(id, "cupertinoActivityIndicatorPartiallyRevealed", p);
+    MemorySegment st = CupertinoActivityIndicatorObjSt.allocate(arena);
+    CupertinoActivityIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoListSectionCupertinoListSection(Optional<List<Widget>> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior, OptionalDouble dividerMargin, OptionalDouble additionalDividerMargin, OptionalDouble topMargin, Optional<Boolean> hasLeading, Optional<Color> separatorColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    header.ifPresent(v -> p.put("header", byId.get(v.getId())));
+    footer.ifPresent(v -> p.put("footer", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    if (dividerMargin.isPresent()) { p.put("dividerMargin", dividerMargin.getAsDouble()); }
+    if (additionalDividerMargin.isPresent()) { p.put("additionalDividerMargin", additionalDividerMargin.getAsDouble()); }
+    if (topMargin.isPresent()) { p.put("topMargin", topMargin.getAsDouble()); }
+    hasLeading.ifPresent(v -> p.put("hasLeading", v));
+    separatorColor.ifPresent(v -> p.put("separatorColor", byId.get(v.getId())));
+    record(id, "cupertinoListSectionCupertinoListSection", p);
+    MemorySegment st = CupertinoListSectionObjSt.allocate(arena);
+    CupertinoListSectionObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoListSectionInsetGrouped(Optional<List<Widget>> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior, OptionalDouble dividerMargin, OptionalDouble additionalDividerMargin, OptionalDouble topMargin, Optional<Boolean> hasLeading, Optional<Color> separatorColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    header.ifPresent(v -> p.put("header", byId.get(v.getId())));
+    footer.ifPresent(v -> p.put("footer", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    if (dividerMargin.isPresent()) { p.put("dividerMargin", dividerMargin.getAsDouble()); }
+    if (additionalDividerMargin.isPresent()) { p.put("additionalDividerMargin", additionalDividerMargin.getAsDouble()); }
+    if (topMargin.isPresent()) { p.put("topMargin", topMargin.getAsDouble()); }
+    hasLeading.ifPresent(v -> p.put("hasLeading", v));
+    separatorColor.ifPresent(v -> p.put("separatorColor", byId.get(v.getId())));
+    record(id, "cupertinoListSectionInsetGrouped", p);
+    MemorySegment st = CupertinoListSectionObjSt.allocate(arena);
+    CupertinoListSectionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoListTileCupertinoListTile(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("title", byId.get(title.getId()));
+    subtitle.ifPresent(v -> p.put("subtitle", byId.get(v.getId())));
+    additionalInfo.ifPresent(v -> p.put("additionalInfo", byId.get(v.getId())));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    backgroundColorActivated.ifPresent(v -> p.put("backgroundColorActivated", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    if (leadingSize.isPresent()) { p.put("leadingSize", leadingSize.getAsDouble()); }
+    if (leadingToTitle.isPresent()) { p.put("leadingToTitle", leadingToTitle.getAsDouble()); }
+    record(id, "cupertinoListTileCupertinoListTile", p);
+    MemorySegment st = CupertinoListTileObjSt.allocate(arena);
+    CupertinoListTileObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoListTileNotched(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("title", byId.get(title.getId()));
+    subtitle.ifPresent(v -> p.put("subtitle", byId.get(v.getId())));
+    additionalInfo.ifPresent(v -> p.put("additionalInfo", byId.get(v.getId())));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    backgroundColorActivated.ifPresent(v -> p.put("backgroundColorActivated", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    if (leadingSize.isPresent()) { p.put("leadingSize", leadingSize.getAsDouble()); }
+    if (leadingToTitle.isPresent()) { p.put("leadingToTitle", leadingToTitle.getAsDouble()); }
+    record(id, "cupertinoListTileNotched", p);
+    MemorySegment st = CupertinoListTileObjSt.allocate(arena);
+    CupertinoListTileObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoListTileChevronCupertinoListTileChevron() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "cupertinoListTileChevronCupertinoListTileChevron", p);
+    MemorySegment st = CupertinoListTileChevronObjSt.allocate(arena);
+    CupertinoListTileChevronObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoFormSectionCupertinoFormSection(List<Widget> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    header.ifPresent(v -> p.put("header", byId.get(v.getId())));
+    footer.ifPresent(v -> p.put("footer", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    record(id, "cupertinoFormSectionCupertinoFormSection", p);
+    MemorySegment st = CupertinoFormSectionObjSt.allocate(arena);
+    CupertinoFormSectionObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoFormSectionInsetGrouped(List<Widget> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    header.ifPresent(v -> p.put("header", byId.get(v.getId())));
+    footer.ifPresent(v -> p.put("footer", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    record(id, "cupertinoFormSectionInsetGrouped", p);
+    MemorySegment st = CupertinoFormSectionObjSt.allocate(arena);
+    CupertinoFormSectionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoFormRowCupertinoFormRow(Widget child, Optional<Widget> prefix, Optional<EdgeInsetsGeometry> padding, Optional<Widget> helper, Optional<Widget> error) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    prefix.ifPresent(v -> p.put("prefix", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    helper.ifPresent(v -> p.put("helper", byId.get(v.getId())));
+    error.ifPresent(v -> p.put("error", byId.get(v.getId())));
+    record(id, "cupertinoFormRowCupertinoFormRow", p);
+    MemorySegment st = CupertinoFormRowObjSt.allocate(arena);
+    CupertinoFormRowObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoPickerCupertinoPicker(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, List<Widget> children, Optional<Widget> selectionOverlay, Optional<Boolean> looping) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (diameterRatio.isPresent()) { p.put("diameterRatio", diameterRatio.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (offAxisFraction.isPresent()) { p.put("offAxisFraction", offAxisFraction.getAsDouble()); }
+    useMagnifier.ifPresent(v -> p.put("useMagnifier", v));
+    if (magnification.isPresent()) { p.put("magnification", magnification.getAsDouble()); }
+    if (squeeze.isPresent()) { p.put("squeeze", squeeze.getAsDouble()); }
+    changeReportingBehavior.ifPresent(v -> p.put("changeReportingBehavior", v.ordinal()));
+    p.put("itemExtent", itemExtent);
+    int __cb_onSelectedItemChanged = nextCallbackId++; p.put("onSelectedItemChanged", __cb_onSelectedItemChanged); callbacks.put(__cb_onSelectedItemChanged, (java.util.function.Consumer<Object>)(v -> onSelectedItemChanged.accept(((Number) v).intValue())));
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    selectionOverlay.ifPresent(v -> p.put("selectionOverlay", byId.get(v.getId())));
+    looping.ifPresent(v -> p.put("looping", v));
+    record(id, "cupertinoPickerCupertinoPicker", p);
+    MemorySegment st = CupertinoPickerObjSt.allocate(arena);
+    CupertinoPickerObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoPickerBuilder(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt childCount, Optional<Widget> selectionOverlay) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (diameterRatio.isPresent()) { p.put("diameterRatio", diameterRatio.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (offAxisFraction.isPresent()) { p.put("offAxisFraction", offAxisFraction.getAsDouble()); }
+    useMagnifier.ifPresent(v -> p.put("useMagnifier", v));
+    if (magnification.isPresent()) { p.put("magnification", magnification.getAsDouble()); }
+    if (squeeze.isPresent()) { p.put("squeeze", squeeze.getAsDouble()); }
+    changeReportingBehavior.ifPresent(v -> p.put("changeReportingBehavior", v.ordinal()));
+    p.put("itemExtent", itemExtent);
+    int __cb_onSelectedItemChanged = nextCallbackId++; p.put("onSelectedItemChanged", __cb_onSelectedItemChanged); callbacks.put(__cb_onSelectedItemChanged, (java.util.function.Consumer<Object>)(v -> onSelectedItemChanged.accept(((Number) v).intValue())));
+    p.put("itemBuilder", nextCallbackId++);
+    if (childCount.isPresent()) { p.put("childCount", childCount.getAsInt()); }
+    selectionOverlay.ifPresent(v -> p.put("selectionOverlay", byId.get(v.getId())));
+    record(id, "cupertinoPickerBuilder", p);
+    MemorySegment st = CupertinoPickerObjSt.allocate(arena);
+    CupertinoPickerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoAlertDialogCupertinoAlertDialog(Optional<Widget> title, Optional<Widget> content, Optional<List<Widget>> actions, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    content.ifPresent(v -> p.put("content", byId.get(v.getId())));
+    actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    insetAnimationDuration.ifPresent(v -> p.put("insetAnimationDuration", byId.get(v.getId())));
+    insetAnimationCurve.ifPresent(v -> p.put("insetAnimationCurve", byId.get(v.getId())));
+    record(id, "cupertinoAlertDialogCupertinoAlertDialog", p);
+    MemorySegment st = CupertinoAlertDialogObjSt.allocate(arena);
+    CupertinoAlertDialogObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoActionSheetCupertinoActionSheet(Optional<Widget> title, Optional<Widget> message, Optional<List<Widget>> actions, Optional<Widget> cancelButton) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    message.ifPresent(v -> p.put("message", byId.get(v.getId())));
+    actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    cancelButton.ifPresent(v -> p.put("cancelButton", byId.get(v.getId())));
+    record(id, "cupertinoActionSheetCupertinoActionSheet", p);
+    MemorySegment st = CupertinoActionSheetObjSt.allocate(arena);
+    CupertinoActionSheetObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoDialogActionCupertinoDialogAction(Optional<Runnable> onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Optional<TextStyle> textStyle, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    isDefaultAction.ifPresent(v -> p.put("isDefaultAction", v));
+    isDestructiveAction.ifPresent(v -> p.put("isDestructiveAction", v));
+    textStyle.ifPresent(v -> p.put("textStyle", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "cupertinoDialogActionCupertinoDialogAction", p);
+    MemorySegment st = CupertinoDialogActionObjSt.allocate(arena);
+    CupertinoDialogActionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoActionSheetActionCupertinoActionSheetAction(Runnable onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
+    isDefaultAction.ifPresent(v -> p.put("isDefaultAction", v));
+    isDestructiveAction.ifPresent(v -> p.put("isDestructiveAction", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "cupertinoActionSheetActionCupertinoActionSheetAction", p);
+    MemorySegment st = CupertinoActionSheetActionObjSt.allocate(arena);
+    CupertinoActionSheetActionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int bottomNavigationBarItemBottomNavigationBarItem(Widget icon, Optional<String> label, Optional<Widget> activeIcon, Optional<Color> backgroundColor, Optional<String> tooltip) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("icon", byId.get(icon.getId()));
+    label.ifPresent(v -> p.put("label", v));
+    activeIcon.ifPresent(v -> p.put("activeIcon", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    record(id, "bottomNavigationBarItemBottomNavigationBarItem", p);
+    return id;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -4568,6 +5538,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", id);
     p.put("self", byId.get(self.getId()));
     p.put("duration", byId.get(duration.getId()));
     record(id, "subAnimatedStateAnimationController", p);

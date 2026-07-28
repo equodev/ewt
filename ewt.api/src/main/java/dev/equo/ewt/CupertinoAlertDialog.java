@@ -30,15 +30,23 @@ public class CupertinoAlertDialog extends StatefulWidget implements CupertinoAle
     return CupertinoAlertDialogCupertinoAlertDialogBuilder.cupertinoAlertDialogCupertinoAlertDialog();
   }
   public Widget title() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAlertDialogTitle not supported on web");
     return new Widget(CupertinoAlertDialogObjSt.title(st)) {};
   }
   public Widget content() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAlertDialogContent not supported on web");
     return new Widget(CupertinoAlertDialogObjSt.content(st)) {};
   }
   public Duration insetAnimationDuration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoAlertDialogInsetAnimationDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(CupertinoAlertDialogObjSt.insetAnimationDuration(st));
   }
   public Curve insetAnimationCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAlertDialogInsetAnimationCurve not supported on web");
     return new Curve(CupertinoAlertDialogObjSt.insetAnimationCurve(st)) {};
   }
   @Override
