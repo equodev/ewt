@@ -15,6 +15,7 @@ public class FilledButton extends ButtonStyleButton implements FilledButtonI {
     if (id <= 0) throw new RuntimeException("Failed to created widget FilledButton");
     System.out.println("New FilledButton id:"+id);
   }
+  FilledButton(int id) { this.id = id; }
   @Builder.Factory
   static FilledButton filledButtonFilledButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
     var st = factories.filledButtonFilledButton(onPressed,

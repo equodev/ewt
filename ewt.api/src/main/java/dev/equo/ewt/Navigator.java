@@ -15,6 +15,7 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Navigator");
     System.out.println("New Navigator id:"+id);
   }
+  Navigator(int id) { this.id = id; }
   @Builder.Factory
   static Navigator navigatorNavigator(Optional<String> initialRoute, Optional<Boolean> reportsRouteUpdateToEngine, Optional<Clip> clipBehavior, Optional<Boolean> requestFocus, Optional<String> restorationScopeId, Optional<TraversalEdgeBehavior> routeTraversalEdgeBehavior, Optional<TraversalEdgeBehavior> routeDirectionalTraversalEdgeBehavior) {
     var st = factories.navigatorNavigator(initialRoute,

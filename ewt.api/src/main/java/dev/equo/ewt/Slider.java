@@ -15,6 +15,7 @@ public class Slider extends StatefulWidget implements SliderI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Slider");
     System.out.println("New Slider id:"+id);
   }
+  Slider(int id) { this.id = id; }
   @Builder.Factory
   static Slider sliderSlider(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> year2023) {
     var st = factories.sliderSlider(value,

@@ -1,47 +1,62 @@
 # EWT — Flutter widget coverage
 
-Flutter 3.35.7 · generated on 2026-07-20
+Flutter 3.35.7 · generated on 2026-07-24
 
 ## Summary
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 52 | 291 | 17% |
+| Basic widgets | 69 | 291 | 23% |
 | Material | 34 | 187 | 18% |
 | Cupertino | 0 | 53 | 0% |
-| **Total** | **86** | **531** | **16%** |
+| **Total** | **103** | **531** | **19%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**52 of 291 supported**
+**69 of 291 supported**
 
 - [x] Align
 - [x] AnimatedAlign
 - [x] AnimatedBuilder
 - [x] AnimatedContainer
+- [x] AnimatedCrossFade
 - [x] AnimatedOpacity
 - [x] AnimatedPadding
+- [x] AnimatedRotation
+- [x] AnimatedScale
+- [x] AnimatedSize
+- [x] AnimatedSlide
+- [x] AnimatedSwitcher
 - [x] AspectRatio
+- [x] BackdropFilter
 - [x] Baseline
 - [x] Center
 - [x] ClipOval
 - [x] ClipRRect
 - [x] ClipRect
+- [x] ColorFiltered
 - [x] ColoredBox
 - [x] Column
 - [x] ConstrainedBox
 - [x] Container
 - [x] DecoratedBox
+- [x] DragTarget
+- [x] Draggable
 - [x] Expanded
 - [x] FadeTransition
 - [x] FittedBox
 - [x] Flex
+- [x] Flexible
 - [x] FractionallySizedBox
 - [x] GestureDetector
 - [x] GridView
+- [x] Hero
 - [x] Icon
+- [x] ImageFiltered
+- [x] IndexedStack
+- [x] InteractiveViewer
 - [x] IntrinsicHeight
 - [x] IntrinsicWidth
 - [x] LimitedBox
@@ -62,7 +77,9 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] SafeArea
 - [x] ScaleTransition
 - [x] SingleChildScrollView
+- [x] SizeTransition
 - [x] SizedBox
+- [x] SlideTransition
 - [x] Spacer
 - [x] Stack
 - [x] Text
@@ -75,7 +92,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AlignTransition
 - [ ] AndroidView
 - [ ] AndroidViewSurface
-- [ ] AnimatedCrossFade
 - [ ] AnimatedDefaultTextStyle
 - [ ] AnimatedFractionallySizedBox
 - [ ] AnimatedGrid
@@ -84,18 +100,12 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AnimatedPhysicalModel
 - [ ] AnimatedPositioned
 - [ ] AnimatedPositionedDirectional
-- [ ] AnimatedRotation
-- [ ] AnimatedScale
-- [ ] AnimatedSize
-- [ ] AnimatedSlide
-- [ ] AnimatedSwitcher
 - [ ] AnnotatedRegion
 - [ ] AppKitView
 - [ ] AutocompleteHighlightedOption
 - [ ] AutofillGroup
 - [ ] AutomaticKeepAlive
 - [ ] BackButtonListener
-- [ ] BackdropFilter
 - [ ] BackdropGroup
 - [ ] Banner
 - [ ] BlockSemantics
@@ -104,7 +114,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] CheckedModeBanner
 - [ ] ClipPath
 - [ ] ClipRSuperellipse
-- [ ] ColorFiltered
 - [ ] CompositedTransformFollower
 - [ ] CompositedTransformTarget
 - [ ] ConstraintsTransformBox
@@ -125,8 +134,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] Dismissible
 - [ ] DisplayFeatureSubScreen
 - [ ] DragBoundary
-- [ ] DragTarget
-- [ ] Draggable
 - [ ] DraggableScrollableActuator
 - [ ] DraggableScrollableSheet
 - [ ] DualTransitionBuilder
@@ -138,7 +145,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] ExcludeSemantics
 - [ ] Expansible
 - [ ] FadeInImage
-- [ ] Flexible
 - [ ] Flow
 - [ ] FlutterLogo
 - [ ] Focus
@@ -152,7 +158,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] FutureBuilder
 - [ ] GlowingOverscrollIndicator
 - [ ] GridPaper
-- [ ] Hero
 - [ ] HeroControllerScope
 - [ ] HeroMode
 - [ ] HtmlElementView
@@ -160,11 +165,8 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] IgnoreBaseline
 - [ ] IgnorePointer
 - [ ] Image
-- [ ] ImageFiltered
 - [ ] ImageIcon
 - [ ] IndexedSemantics
-- [ ] IndexedStack
-- [ ] InteractiveViewer
 - [ ] KeepAlive
 - [ ] KeyboardListener
 - [ ] KeyedSubtree
@@ -244,9 +246,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] Shortcuts
 - [ ] ShrinkWrappingViewport
 - [ ] SizeChangedLayoutNotifier
-- [ ] SizeTransition
 - [ ] SizedOverflowBox
-- [ ] SlideTransition
 - [ ] SliverAnimatedGrid
 - [ ] SliverAnimatedList
 - [ ] SliverAnimatedOpacity

@@ -15,6 +15,7 @@ public class AnimatedContainer extends ImplicitlyAnimatedWidget implements Anima
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedContainer");
     System.out.println("New AnimatedContainer id:"+id);
   }
+  AnimatedContainer(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedContainer animatedContainerAnimatedContainer(Optional<AlignmentGeometryI> alignment, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<DecorationI> decoration, Optional<DecorationI> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> margin, Optional<AlignmentGeometryI> transformAlignment, Optional<WidgetI> child, Optional<Clip> clipBehavior, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
     var st = factories.animatedContainerAnimatedContainer(alignment.map(AlignmentGeometryI::build),

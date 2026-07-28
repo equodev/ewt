@@ -15,6 +15,7 @@ public class OutlineInputBorder extends InputBorder implements OutlineInputBorde
     if (id <= 0) throw new RuntimeException("Failed to created widget OutlineInputBorder");
     System.out.println("New OutlineInputBorder id:"+id);
   }
+  OutlineInputBorder(int id) { this.id = id; }
   @Builder.Factory
   static OutlineInputBorder outlineInputBorderOutlineInputBorder(Optional<BorderSideI> borderSide, Optional<BorderRadiusI> borderRadius, OptionalDouble gapPadding) {
     var st = factories.outlineInputBorderOutlineInputBorder(borderSide.map(BorderSideI::build),

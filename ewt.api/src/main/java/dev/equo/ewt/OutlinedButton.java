@@ -15,6 +15,7 @@ public class OutlinedButton extends ButtonStyleButton implements OutlinedButtonI
     if (id <= 0) throw new RuntimeException("Failed to created widget OutlinedButton");
     System.out.println("New OutlinedButton id:"+id);
   }
+  OutlinedButton(int id) { this.id = id; }
   @Builder.Factory
   static OutlinedButton outlinedButtonOutlinedButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
     var st = factories.outlinedButtonOutlinedButton(onPressed,

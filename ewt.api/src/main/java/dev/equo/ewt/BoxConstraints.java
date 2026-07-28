@@ -15,6 +15,7 @@ public class BoxConstraints extends Constraints implements BoxConstraintsI {
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
     System.out.println("New BoxConstraints id:"+id);
   }
+  BoxConstraints(int id) { this.id = id; }
   @Builder.Factory
   static BoxConstraints boxConstraintsBoxConstraints(OptionalDouble minWidth, OptionalDouble maxWidth, OptionalDouble minHeight, OptionalDouble maxHeight) {
     var st = factories.boxConstraintsBoxConstraints(minWidth,

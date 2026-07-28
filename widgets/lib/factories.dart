@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:isolate';
 import 'dart:ui' hide VoidCallback;
 
@@ -145,6 +146,30 @@ extension ObjPtr<T> on ffi.Pointer<ffi.Int> {
   T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T;
   T objOr(T def) => this == ffi.nullptr ? def : _widgetsMap[value]! as T;
 }
+/// Serializes a `List<Widget>` into a heap-allocated ArrayC value so it can be
+/// passed by value across an FFI callback (e.g. AnimatedSwitcher.layoutBuilder,
+/// which hands Flutter's list of previous children to the Java layout builder).
+///
+/// The struct is marshaled by value across the FFI boundary — C copies it into
+/// its own frame before the call returns — so freeing after the current
+/// microtask is safe and prevents per-frame native-memory growth.
+extension WidgetListToArrayC on List<Object?> {
+  ArrayC toArrayC() {
+    final ptr = calloc<ArrayC>();
+    final ids = calloc<DartObj>(length);
+    ptr.ref.size = length;
+    for (var i = 0; i < length; i++) {
+      ids[i] = _addWidget(this[i]);
+    }
+    ptr.ref.list = ids;
+    scheduleMicrotask(() {
+      calloc.free(ids);
+      calloc.free(ptr);
+    });
+    return ptr.ref;
+  }
+}
+
 extension on ArrayC {
   List<T> listOrEmpty<T>() {
     final List<T> list = List.empty(growable: true);

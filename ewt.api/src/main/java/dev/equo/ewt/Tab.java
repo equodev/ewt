@@ -15,6 +15,7 @@ public class Tab extends StatelessWidget implements PreferredSizeWidget, TabI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Tab");
     System.out.println("New Tab id:"+id);
   }
+  Tab(int id) { this.id = id; }
   @Builder.Factory
   static Tab tabTab(Optional<String> text, Optional<WidgetI> icon, Optional<EdgeInsetsGeometryI> iconMargin, OptionalDouble height, Optional<WidgetI> child) {
     var st = factories.tabTab(text,

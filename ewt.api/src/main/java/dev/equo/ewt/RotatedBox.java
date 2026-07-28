@@ -15,6 +15,7 @@ public class RotatedBox extends SingleChildRenderObjectWidget implements Rotated
     if (id <= 0) throw new RuntimeException("Failed to created widget RotatedBox");
     System.out.println("New RotatedBox id:"+id);
   }
+  RotatedBox(int id) { this.id = id; }
   @Builder.Factory
   static RotatedBox rotatedBoxRotatedBox(@Builder.Parameter int quarterTurns, Optional<WidgetI> child) {
     var st = factories.rotatedBoxRotatedBox(quarterTurns,

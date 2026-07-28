@@ -15,6 +15,7 @@ public class RoundedRectangleBorder extends OutlinedBorder implements RoundedRec
     if (id <= 0) throw new RuntimeException("Failed to created widget RoundedRectangleBorder");
     System.out.println("New RoundedRectangleBorder id:"+id);
   }
+  RoundedRectangleBorder(int id) { this.id = id; }
   @Builder.Factory
   static RoundedRectangleBorder roundedRectangleBorderRoundedRectangleBorder(Optional<BorderSideI> side, Optional<BorderRadiusGeometryI> borderRadius) {
     var st = factories.roundedRectangleBorderRoundedRectangleBorder(side.map(BorderSideI::build),

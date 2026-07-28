@@ -15,6 +15,7 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
     if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
     System.out.println("New BorderRadius id:"+id);
   }
+  BorderRadius(int id) { this.id = id; }
   @Builder.Factory
   static BorderRadius borderRadiusAll(@Builder.Parameter RadiusI radius) {
     var st = factories.borderRadiusAll(radius.build());

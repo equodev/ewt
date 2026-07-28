@@ -15,6 +15,7 @@ public class TabBarView extends StatefulWidget implements TabBarViewI {
     if (id <= 0) throw new RuntimeException("Failed to created widget TabBarView");
     System.out.println("New TabBarView id:"+id);
   }
+  TabBarView(int id) { this.id = id; }
   @Builder.Factory
   static TabBarView tabBarViewTabBarView(@Builder.Parameter List<WidgetI> children, Optional<DragStartBehavior> dragStartBehavior, OptionalDouble viewportFraction, Optional<Clip> clipBehavior) {
     var st = factories.tabBarViewTabBarView(children.stream().map(WidgetI::build).toList(),

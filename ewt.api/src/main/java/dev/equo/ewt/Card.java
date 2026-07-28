@@ -15,6 +15,7 @@ public class Card extends StatelessWidget implements CardI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Card");
     System.out.println("New Card id:"+id);
   }
+  Card(int id) { this.id = id; }
   @Builder.Factory
   static Card cardCard(Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometryI> margin, Optional<Clip> clipBehavior, Optional<WidgetI> child, Optional<Boolean> semanticContainer) {
     var st = factories.cardCard(color.map(ColorI::build),

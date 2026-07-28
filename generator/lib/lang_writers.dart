@@ -27,12 +27,36 @@ class CLang {
 class JLang {
 
   String methodTypeParameters(FunctionType fnType) {
-    List<DartType> tp = fnType.parameters.map((p) => p.type).whereType<TypeParameterType>().toList();
-    for (var param in fnType.parameters) {
-      if (param.type is FunctionType) {
-        tp.addAll((param.type as FunctionType).parameters.map((p) => p.type).whereType<TypeParameterType>());
+    List<DartType> tp = [];
+    void collect(DartType t) {
+      if (t is TypeParameterType) {
+        tp.add(t);
+      } else if (t is InterfaceType) {
+        for (final ta in t.typeArguments) {
+          collect(ta);
+        }
+      } else if (t is FunctionType) {
+        for (final p in t.parameters) {
+          collect(p.type);
+        }
+        collect(t.returnType);
       }
     }
-    return tp.isEmpty ? '' : '<${tp.map((t) => t.element.toString().replaceAll('Object?', 'NativeObj')).join(', ')}> ';
+    for (var p in fnType.parameters) {
+      collect(p.type);
+    }
+    collect(fnType.returnType);
+    // A `T` referenced in multiple params (e.g. `DragTarget<T>.builder` +
+    // `.onAccept`) collects as duplicates — de-dup by TypeParameterElement so we
+    // don't emit `<T extends NativeObj, T extends NativeObj>`.
+    final seen = <Element>{};
+    tp = tp.where((t) => seen.add((t as TypeParameterType).element)).toList();
+    // A bare `T` or `T extends Object[?]` widens to `T extends NativeObj` so
+    // marshaling via `ptrObj(Optional<T>)` (which requires NativeObj) compiles.
+    // Also strip Dart variance markers (`in`, `out`) — Java has no equivalent.
+    return tp.isEmpty ? '' : '<${tp.map((t) => t.element.toString()
+        .replaceAll('Object?', 'NativeObj')
+        .replaceAll(RegExp(r'\bextends Object\b'), 'extends NativeObj')
+        .replaceAll(RegExp(r'^\s*(in|out|inout)\s+'), '')).join(', ')}> ';
   }
 }

@@ -15,6 +15,7 @@ public class IconButton extends StatelessWidget implements IconButtonI {
     if (id <= 0) throw new RuntimeException("Failed to created widget IconButton");
     System.out.println("New IconButton id:"+id);
   }
+  IconButton(int id) { this.id = id; }
   @Builder.Factory
   static IconButton iconButtonIconButton(OptionalDouble iconSize, Optional<VisualDensityI> visualDensity, Optional<EdgeInsetsGeometryI> padding, Optional<AlignmentGeometryI> alignment, OptionalDouble splashRadius, Optional<ColorI> color, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> highlightColor, Optional<ColorI> splashColor, Optional<ColorI> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraintsI> constraints, Optional<Boolean> isSelected, Optional<WidgetI> selectedIcon, WidgetI icon) {
     var st = factories.iconButtonIconButton(iconSize,

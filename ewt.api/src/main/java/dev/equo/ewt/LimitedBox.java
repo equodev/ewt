@@ -15,6 +15,7 @@ public class LimitedBox extends SingleChildRenderObjectWidget implements Limited
     if (id <= 0) throw new RuntimeException("Failed to created widget LimitedBox");
     System.out.println("New LimitedBox id:"+id);
   }
+  LimitedBox(int id) { this.id = id; }
   @Builder.Factory
   static LimitedBox limitedBoxLimitedBox(OptionalDouble maxWidth, OptionalDouble maxHeight, Optional<WidgetI> child) {
     var st = factories.limitedBoxLimitedBox(maxWidth,

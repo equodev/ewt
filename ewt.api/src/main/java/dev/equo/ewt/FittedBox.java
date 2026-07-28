@@ -15,6 +15,7 @@ public class FittedBox extends SingleChildRenderObjectWidget implements FittedBo
     if (id <= 0) throw new RuntimeException("Failed to created widget FittedBox");
     System.out.println("New FittedBox id:"+id);
   }
+  FittedBox(int id) { this.id = id; }
   @Builder.Factory
   static FittedBox fittedBoxFittedBox(Optional<BoxFit> fit, Optional<AlignmentGeometryI> alignment, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.fittedBoxFittedBox(fit,

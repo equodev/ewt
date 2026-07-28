@@ -15,6 +15,7 @@ public class AnimatedPadding extends ImplicitlyAnimatedWidget implements Animate
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedPadding");
     System.out.println("New AnimatedPadding id:"+id);
   }
+  AnimatedPadding(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedPadding animatedPaddingAnimatedPadding(@Builder.Parameter EdgeInsetsGeometryI padding, Optional<WidgetI> child, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
     var st = factories.animatedPaddingAnimatedPadding(padding.build(),

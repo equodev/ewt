@@ -15,6 +15,7 @@ public class Drawer extends StatelessWidget implements DrawerI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Drawer");
     System.out.println("New Drawer id:"+id);
   }
+  Drawer(int id) { this.id = id; }
   @Builder.Factory
   static Drawer drawerDrawer(Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, OptionalDouble width, Optional<WidgetI> child, Optional<String> semanticLabel, Optional<Clip> clipBehavior) {
     var st = factories.drawerDrawer(backgroundColor.map(ColorI::build),

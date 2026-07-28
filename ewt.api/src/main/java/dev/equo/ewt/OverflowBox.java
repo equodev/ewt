@@ -15,6 +15,7 @@ public class OverflowBox extends SingleChildRenderObjectWidget implements Overfl
     if (id <= 0) throw new RuntimeException("Failed to created widget OverflowBox");
     System.out.println("New OverflowBox id:"+id);
   }
+  OverflowBox(int id) { this.id = id; }
   @Builder.Factory
   static OverflowBox overflowBoxOverflowBox(Optional<AlignmentGeometryI> alignment, OptionalDouble minWidth, OptionalDouble maxWidth, OptionalDouble minHeight, OptionalDouble maxHeight, Optional<OverflowBoxFit> fit, Optional<WidgetI> child) {
     var st = factories.overflowBoxOverflowBox(alignment.map(AlignmentGeometryI::build),

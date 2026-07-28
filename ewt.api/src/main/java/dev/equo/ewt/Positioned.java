@@ -15,6 +15,7 @@ public class Positioned extends ParentDataWidget<StackParentData> implements Pos
     if (id <= 0) throw new RuntimeException("Failed to created widget Positioned");
     System.out.println("New Positioned id:"+id);
   }
+  Positioned(int id) { this.id = id; }
   @Builder.Factory
   static Positioned positionedPositioned(OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, WidgetI child) {
     var st = factories.positionedPositioned(left,

@@ -15,6 +15,7 @@ public class ScaleTransition extends MatrixTransition implements ScaleTransition
     if (id <= 0) throw new RuntimeException("Failed to created widget ScaleTransition");
     System.out.println("New ScaleTransition id:"+id);
   }
+  ScaleTransition(int id) { this.id = id; }
   @Builder.Factory
   static ScaleTransition scaleTransitionScaleTransition(@Builder.Parameter AnimationI scale, Optional<AlignmentI> alignment, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
     var st = factories.scaleTransitionScaleTransition(scale.build(),

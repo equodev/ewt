@@ -15,6 +15,7 @@ public class ColoredBox extends SingleChildRenderObjectWidget implements Colored
     if (id <= 0) throw new RuntimeException("Failed to created widget ColoredBox");
     System.out.println("New ColoredBox id:"+id);
   }
+  ColoredBox(int id) { this.id = id; }
   @Builder.Factory
   static ColoredBox coloredBoxColoredBox(@Builder.Parameter ColorI color, Optional<WidgetI> child) {
     var st = factories.coloredBoxColoredBox(color.build(),

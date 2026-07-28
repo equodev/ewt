@@ -91,6 +91,40 @@ w.GridView? gridView;
 w.PageView? pageView;
 w.Flex? flex;
 
+w.AnimatedSize? animatedSize;
+w.AnimatedScale? animatedScale;
+w.AnimatedRotation? animatedRotation;
+w.AnimatedSlide? animatedSlide;
+w.AnimatedCrossFade? animatedCrossFade;
+
+w.SlideTransition? slideTransition;
+w.SizeTransition? sizeTransition;
+
+w.IndexedStack? indexedStack;
+w.Flexible? flexible;
+
+w.InteractiveViewer? interactiveViewer;
+
+w.Draggable? draggable;
+w.DragTarget? dragTarget;
+// TweenAnimationBuilder skipped: requires Tween<T> (unsupported abstract).
+// Emits Java shell but no factory — advertises unusable widget. Add once
+// Tween<T> marshaling lands.
+
+w.Hero? hero;
+
+w.AnimatedSwitcher? animatedSwitcher;
+
+// Abstract dart:ui types + widgets that need them. The abstract classes emit as
+// interfaces + their factory ctors give concrete instances (blur, mode, matrix).
+w.ImageFilter? imageFilter;
+w.ColorFilter? colorFilter;
+w.BackdropFilter? backdropFilter;
+w.ColorFiltered? colorFiltered;
+w.ImageFiltered? imageFiltered;
+// Dismissible skipped: constructor requires `Key` (unsupported required type),
+// no factory emitted — advertising it in coverage would lie about capability.
+
 // w.FontWeight? fontWeight; constants accessing privates
 
 m.Durations? durations;

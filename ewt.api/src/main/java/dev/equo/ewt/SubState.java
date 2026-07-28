@@ -56,7 +56,7 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
   }
   public T widget() {
     MemorySegment funcPtr = SubStateObjSt.widget(st);
-    return SubclassedInJava.getSubNatObj(SubStateObjSt.widget.invoke(funcPtr));
+    return (T) (NativeObj) new NativeObj.Base() {{ this.id = SubStateObjSt.widget.invoke(funcPtr); }};
   }
   public BuildContext context() {
     MemorySegment funcPtr = SubStateObjSt.context(st);

@@ -3,6 +3,7 @@ package dev.equo.ide2.panels;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 import java.util.function.Supplier;
 import dev.equo.ewt.*;
 import static dev.equo.ewt.EWT.*;
@@ -27,6 +28,8 @@ public class EditorArea2 extends SubStatelessWidget {
     private final boolean wordWrap;
     private final Consumer<Integer> onSelectTab;
     private final Consumer<Integer> onCloseTab;
+    private final IntConsumer onBeginDragTab;
+    private final IntConsumer onDropOnTab;
 
     public EditorArea2(boolean dark,
                        List<EditorTab> tabs,
@@ -35,7 +38,9 @@ public class EditorArea2 extends SubStatelessWidget {
                        boolean showGutter,
                        boolean wordWrap,
                        Consumer<Integer> onSelectTab,
-                       Consumer<Integer> onCloseTab) {
+                       Consumer<Integer> onCloseTab,
+                       IntConsumer onBeginDragTab,
+                       IntConsumer onDropOnTab) {
         this.dark = dark;
         this.tabs = tabs;
         this.activeIndex = activeIndex;
@@ -44,6 +49,8 @@ public class EditorArea2 extends SubStatelessWidget {
         this.wordWrap = wordWrap;
         this.onSelectTab = onSelectTab;
         this.onCloseTab = onCloseTab;
+        this.onBeginDragTab = onBeginDragTab;
+        this.onDropOnTab = onDropOnTab;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class EditorArea2 extends SubStatelessWidget {
     private Widget tabStrip() {
         List<WidgetI> tabWidgets = new ArrayList<>();
         tabWidgets.add(Center().child(homeButton()));
-        for (int i = 0; i < tabs.size(); i++) tabWidgets.add(tabPill(i));
+        for (int i = 0; i < tabs.size(); i++) tabWidgets.add(draggableTab(i));
         tabWidgets.add(Expanded().child(SizedBox()));
         return Container()
                 .height(38.0)
@@ -71,10 +78,14 @@ public class EditorArea2 extends SubStatelessWidget {
                 .child(Row().crossAxisAlignment(CrossAxisAlignment.stretch).children(tabWidgets));
     }
 
-    private Widget tabPill(int i) {
+    private Widget tabPill(int i, boolean dropHover) {
         EditorTab t = tabs.get(i);
         boolean active = i == activeIndex;
         Color bg = active ? IdePalette.bgActiveTab(dark) : IdePalette.bgInactiveTab(dark);
+        // dropHover: a Draggable is currently over this tab — render a thicker
+        // accent left-border so the user sees the pending insert position.
+        Color leftColor = dropHover ? IdePalette.accent(dark) : IdePalette.divider(dark);
+        double leftWidth = dropHover ? 3.0 : 0.0;
         BorderSideI topBorder = active
                 ? BorderSide().color(IdePalette.accent(dark)).width(2.0).build()
                 : BorderSide().color(bg).width(2.0).build();
@@ -86,6 +97,7 @@ public class EditorArea2 extends SubStatelessWidget {
                 .decoration(BoxDecoration()
                         .color(bg)
                         .border(Border()
+                                .left(BorderSide().color(leftColor).width(leftWidth).build())
                                 .right(BorderSide().color(IdePalette.divider(dark)).width(1.0).build())
                                 .top(topBorder)))
                 .padding(EdgeInsets_symmetric().horizontal(14.0).build())
@@ -99,6 +111,44 @@ public class EditorArea2 extends SubStatelessWidget {
                                 : IdePalette.tabLabelInactive(dark)),
                         SizedBox().width(10.0),
                         closeBtn(i)
+                )))));
+    }
+
+    /**
+     * D&D wrapper for a tab. The tab pill is both a {@link EWT#Draggable} (drag
+     * it to another position) and the child of a {@link EWT#DragTarget} (drop
+     * another tab on it to insert BEFORE this one). When candidateData is
+     * non-empty we thicken the accent top-border so the user sees where the
+     * drop will land.
+     */
+    private Widget draggableTab(int i) {
+        final int idx = i;
+        return DragTarget((ctx, candidateData, rejectedData) -> {
+            boolean hovering = !candidateData.isEmpty();
+            Widget pill = tabPill(idx, hovering);
+            return Draggable(pill, pillFeedback(idx))
+                    .onDragStarted(() -> onBeginDragTab.accept(idx))
+                    .maxSimultaneousDrags(1)
+                    .build();
+        }).onAccept(_data -> onDropOnTab.accept(idx)).build();
+    }
+
+    /** A shrunken, opaque copy of the tab shown at the drag pointer. */
+    private Widget pillFeedback(int i) {
+        EditorTab t = tabs.get(i);
+        return Material().color(Colors.transparent()).child(Container()
+                .height(30.0)
+                .padding(EdgeInsets_symmetric().horizontal(12.0).build())
+                .decoration(BoxDecoration()
+                        .color(IdePalette.bgActiveTab(dark))
+                        .borderRadius(BorderRadius_circular(6.0))
+                        .boxShadow(List.of(BoxShadow()
+                                .color(Color.fromARGB(90, 0, 0, 0))
+                                .blurRadius(10.0).offset(Offset(0.0, 3.0)))))
+                .child(Center().child(Row().mainAxisSize(MainAxisSize.min).children(List.of(
+                        Icon(fileIcon(t).get()).color(IdePalette.accent(dark)).size(14.0),
+                        SizedBox().width(6.0),
+                        Text(t.fileName()).style(IdePalette.tabLabelActive(dark))
                 )))));
     }
 
@@ -134,13 +184,26 @@ public class EditorArea2 extends SubStatelessWidget {
     }
 
     private Widget animatedViewer() {
+        // AnimatedCrossFade swaps Welcome ↔ Editor with a long, obvious
+        // crossfade whenever tabs are opened/closed or Home is pressed.
+        // The outer FadeTransition drives the per-tab fade-in via editorCtrl.
+        boolean showEditor = !(tabs.isEmpty() || activeIndex < 0 || activeIndex >= tabs.size());
+        Widget swap = AnimatedCrossFade(new WelcomeScreen2(dark), editorViewer())
+                .crossFadeState(showEditor ? CrossFadeState.showSecond : CrossFadeState.showFirst)
+                .duration(Duration().milliseconds(520))
+                .firstCurve(Curves.easeOut())
+                .secondCurve(Curves.easeIn())
+                .sizeCurve(Curves.easeOutCubic())
+                .build();
         return FadeTransition(CurvedAnimation(editorCtrl, Curves.easeOutCubic()).build())
-                .child(viewer());
+                .child(swap);
     }
 
-    private Widget viewer() {
+    private Widget editorViewer() {
+        // AnimatedCrossFade always builds both children, so return an empty
+        // editor surface when there is no active tab — the crossfade hides it.
         if (tabs.isEmpty() || activeIndex < 0 || activeIndex >= tabs.size()) {
-            return new WelcomeScreen2(dark);
+            return Container().color(IdePalette.bgEditor(dark));
         }
         EditorTab active = tabs.get(activeIndex);
         List<WidgetI> row = new ArrayList<>();

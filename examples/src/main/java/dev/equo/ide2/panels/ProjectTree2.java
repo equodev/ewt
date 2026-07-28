@@ -2,6 +2,7 @@ package dev.equo.ide2.panels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -12,10 +13,9 @@ import dev.equo.ide.IdePalette;
 import dev.equo.ide.model.ProjectNode;
 
 /**
- * v2 Explorer. Same as v1's ProjectTree, with one fix: the folder chevron is an
- * icon swap (chevron_right → expand_more) instead of a rotated chevron. v1
- * rotated a single chevron with Transform, which shifted the glyph off its box
- * and made it poke out of the row when open.
+ * v2 Explorer. The folder chevron is a single {@code chevron_right} glyph wrapped
+ * in an {@link AnimatedRotation}: it rotates a quarter turn as folders open and
+ * close instead of jumping between two icons.
  */
 public class ProjectTree2 extends SubStatelessWidget {
 
@@ -25,19 +25,25 @@ public class ProjectTree2 extends SubStatelessWidget {
     private final Predicate<String> isActive;
     private final Consumer<String> onToggleFolder;
     private final Consumer<ProjectNode> onOpenFile;
+    private final BiConsumer<ProjectNode, String> onBeginDragNode;
+    private final BiConsumer<ProjectNode, String> onDropOnSibling;
 
     public ProjectTree2(boolean dark,
                         ProjectNode root,
                         Predicate<String> isExpanded,
                         Predicate<String> isActive,
                         Consumer<String> onToggleFolder,
-                        Consumer<ProjectNode> onOpenFile) {
+                        Consumer<ProjectNode> onOpenFile,
+                        BiConsumer<ProjectNode, String> onBeginDragNode,
+                        BiConsumer<ProjectNode, String> onDropOnSibling) {
         this.dark = dark;
         this.root = root;
         this.isExpanded = isExpanded;
         this.isActive = isActive;
         this.onToggleFolder = onToggleFolder;
         this.onOpenFile = onOpenFile;
+        this.onBeginDragNode = onBeginDragNode;
+        this.onDropOnSibling = onDropOnSibling;
     }
 
     @Override
@@ -80,21 +86,59 @@ public class ProjectTree2 extends SubStatelessWidget {
                 Padding(EdgeInsets_only().top(6.0).bottom(10.0).build())
                         .child(Column()
                                 .crossAxisAlignment(CrossAxisAlignment.stretch)
-                                .children(rows(root, 0))));
+                                // Root node has no parent to reorder within → null parentPath.
+                                .children(rows(root, 0, null))));
     }
 
-    private List<WidgetI> rows(ProjectNode node, int depth) {
+    private List<WidgetI> rows(ProjectNode node, int depth, String parentPath) {
         List<WidgetI> out = new ArrayList<>();
-        out.add(row(node, depth));
+        out.add(draggableRow(node, depth, parentPath));
         if (node.isBranch() && isExpanded.test(node.path())) {
             for (ProjectNode child : node.children()) {
-                out.addAll(rows(child, depth + 1));
+                out.addAll(rows(child, depth + 1, node.path()));
             }
         }
         return out;
     }
 
-    private Widget row(ProjectNode node, int depth) {
+    /**
+     * Wraps {@link #row} in a {@link EWT#Draggable} (so the user can drag a
+     * node) and a {@link EWT#DragTarget} (so dropping one node onto another
+     * within the same parent triggers a reorder). Root itself and the top-level
+     * project row are non-reorderable (parentPath == null).
+     */
+    private Widget draggableRow(ProjectNode node, int depth, String parentPath) {
+        if (parentPath == null) {
+            return row(node, depth, false);
+        }
+        return DragTarget((ctx, candidateData, rejectedData) -> {
+            boolean hovering = !candidateData.isEmpty();
+            Widget r = row(node, depth, hovering);
+            return Draggable(r, rowFeedback(node))
+                    .onDragStarted(() -> onBeginDragNode.accept(node, parentPath))
+                    .maxSimultaneousDrags(1)
+                    .build();
+        }).onAccept(_data -> onDropOnSibling.accept(node, parentPath)).build();
+    }
+
+    /** Compact ghost shown at the drag pointer. */
+    private Widget rowFeedback(ProjectNode node) {
+        return Material().color(Colors.transparent()).child(Container()
+                .padding(EdgeInsets_symmetric().horizontal(10.0).vertical(4.0).build())
+                .decoration(BoxDecoration()
+                        .color(IdePalette.selectionRow(dark))
+                        .borderRadius(BorderRadius_circular(4.0))
+                        .boxShadow(List.of(BoxShadow()
+                                .color(Color.fromARGB(120, 0, 0, 0))
+                                .blurRadius(8.0).offset(Offset(0.0, 2.0)))))
+                .child(Row().mainAxisSize(MainAxisSize.min).children(List.of(
+                        Icon(iconFor(node).get()).color(iconColor(node)).size(14.0),
+                        SizedBox().width(6.0),
+                        Text(node.name()).style(IdePalette.uiStrong(dark))
+                ))));
+    }
+
+    private Widget row(ProjectNode node, int depth, boolean dropHover) {
         boolean active = isActive.test(node.path()) && !node.isBranch();
         Runnable onTap = node.isBranch()
                 ? () -> onToggleFolder.accept(node.path())
@@ -106,30 +150,43 @@ public class ProjectTree2 extends SubStatelessWidget {
                 Icon(iconFor(node).get()).color(iconColor(node)).size(16.0)
         ));
 
-        return ListTile()
-                .dense(true)
-                .selected(active)
-                .selectedTileColor(IdePalette.selectionRow(dark))
-                .hoverColor(IdePalette.hoverOverlay(dark))
-                .contentPadding(EdgeInsets_only()
-                        .left(10.0 + depth * 14.0).right(10.0).build())
-                .minVerticalPadding(0.0)
-                .horizontalTitleGap(8.0)
-                .minLeadingWidth(38.0)
-                .visualDensity(VisualDensity().horizontal(-4.0).vertical(-4.0).build())
-                .leading(leadingRow)
-                .title(Text(node.name())
-                        .style(active ? IdePalette.uiStrong(dark) : IdePalette.ui(dark))
-                        .overflow(TextOverflow.ellipsis))
-                .onTap(onTap);
+        // dropHover highlight: a thin accent line at the top of the row shows
+        // where a dropped sibling will land.
+        Color hoverColor = dropHover ? IdePalette.accent(dark) : IdePalette.hoverOverlay(dark);
+        return Container()
+                .decoration(dropHover
+                        ? BoxDecoration().border(Border().top(BorderSide()
+                                .color(IdePalette.accent(dark)).width(2.0).build()))
+                        : BoxDecoration())
+                .child(ListTile()
+                        .dense(true)
+                        .selected(active)
+                        .selectedTileColor(IdePalette.selectionRow(dark))
+                        .hoverColor(hoverColor)
+                        .contentPadding(EdgeInsets_only()
+                                .left(10.0 + depth * 14.0).right(10.0).build())
+                        .minVerticalPadding(0.0)
+                        .horizontalTitleGap(8.0)
+                        .minLeadingWidth(38.0)
+                        .visualDensity(VisualDensity().horizontal(-4.0).vertical(-4.0).build())
+                        .leading(leadingRow)
+                        .title(Text(node.name())
+                                .style(active ? IdePalette.uiStrong(dark) : IdePalette.ui(dark))
+                                .overflow(TextOverflow.ellipsis))
+                        .onTap(onTap));
     }
 
-    /** Icon-swap chevron: right when collapsed, down when expanded. */
+    /** Rotating chevron with a satisfying bounce on open/close. */
     private Widget caret(ProjectNode node) {
         if (!node.isBranch()) return SizedBox().width(16.0);
         boolean open = isExpanded.test(node.path());
-        return Icon(open ? Icons.expand_more_rounded() : Icons.chevron_right_rounded())
-                .color(IdePalette.textMuted(dark)).size(16.0);
+        return AnimatedRotation()
+                .turns(open ? 0.25 : 0.0)
+                .duration(Duration().milliseconds(320))
+                .curve(Curves.easeOutBack())
+                .child(Icon(Icons.chevron_right_rounded())
+                        .color(IdePalette.textMuted(dark)).size(16.0))
+                .build();
     }
 
     private Supplier<IconDataI> iconFor(ProjectNode node) {

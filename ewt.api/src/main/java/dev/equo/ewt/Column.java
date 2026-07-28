@@ -15,6 +15,7 @@ public class Column extends Flex implements ColumnI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Column");
     System.out.println("New Column id:"+id);
   }
+  Column(int id) { this.id = id; }
   @Builder.Factory
   static Column columnColumn(Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, OptionalDouble spacing, Optional<List<WidgetI>> children) {
     var st = factories.columnColumn(mainAxisAlignment,

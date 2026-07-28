@@ -15,6 +15,7 @@ public class Transform extends SingleChildRenderObjectWidget implements Transfor
     if (id <= 0) throw new RuntimeException("Failed to created widget Transform");
     System.out.println("New Transform id:"+id);
   }
+  Transform(int id) { this.id = id; }
   @Builder.Factory
   static Transform transformRotate(@Builder.Parameter double angle, Optional<OffsetI> origin, Optional<AlignmentGeometryI> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<WidgetI> child) {
     var st = factories.transformRotate(angle,

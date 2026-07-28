@@ -15,6 +15,7 @@ public class AnimatedAlign extends ImplicitlyAnimatedWidget implements AnimatedA
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedAlign");
     System.out.println("New AnimatedAlign id:"+id);
   }
+  AnimatedAlign(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedAlign animatedAlignAnimatedAlign(@Builder.Parameter AlignmentGeometryI alignment, Optional<WidgetI> child, OptionalDouble heightFactor, OptionalDouble widthFactor, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
     var st = factories.animatedAlignAnimatedAlign(alignment.build(),

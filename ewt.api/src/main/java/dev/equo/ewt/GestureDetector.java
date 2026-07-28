@@ -15,6 +15,7 @@ public class GestureDetector extends StatelessWidget implements GestureDetectorI
     if (id <= 0) throw new RuntimeException("Failed to created widget GestureDetector");
     System.out.println("New GestureDetector id:"+id);
   }
+  GestureDetector(int id) { this.id = id; }
   @Builder.Factory
   static GestureDetector gestureDetectorGestureDetector(Optional<WidgetI> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Runnable> onTertiaryTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<OffsetI> trackpadScrollToScaleFactor) {
     var st = factories.gestureDetectorGestureDetector(child.map(WidgetI::build),

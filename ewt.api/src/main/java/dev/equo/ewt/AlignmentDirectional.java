@@ -15,6 +15,7 @@ public class AlignmentDirectional extends AlignmentGeometry implements Alignment
     if (id <= 0) throw new RuntimeException("Failed to created widget AlignmentDirectional");
     System.out.println("New AlignmentDirectional id:"+id);
   }
+  AlignmentDirectional(int id) { this.id = id; }
   @Builder.Factory
   static AlignmentDirectional alignmentDirectionalAlignmentDirectional(@Builder.Parameter double start, @Builder.Parameter double y) {
     var st = factories.alignmentDirectionalAlignmentDirectional(start,

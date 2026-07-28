@@ -15,6 +15,7 @@ public class DefaultTabController extends StatefulWidget implements DefaultTabCo
     if (id <= 0) throw new RuntimeException("Failed to created widget DefaultTabController");
     System.out.println("New DefaultTabController id:"+id);
   }
+  DefaultTabController(int id) { this.id = id; }
   @Builder.Factory
   static DefaultTabController defaultTabControllerDefaultTabController(@Builder.Parameter int length, OptionalInt initialIndex, WidgetI child, Optional<DurationI> animationDuration) {
     var st = factories.defaultTabControllerDefaultTabController(length,

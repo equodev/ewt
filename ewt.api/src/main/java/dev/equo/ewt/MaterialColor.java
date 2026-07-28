@@ -15,6 +15,7 @@ public class MaterialColor extends ColorSwatch<Integer> implements MaterialColor
     if (id <= 0) throw new RuntimeException("Failed to created widget MaterialColor");
     System.out.println("New MaterialColor id:"+id);
   }
+  MaterialColor(int id) { this.id = id; }
   @Builder.Factory
   static MaterialColor materialColorMaterialColor(@Builder.Parameter int primary, @Builder.Parameter Map<Integer, Color> swatch) {
     var st = factories.materialColorMaterialColor(primary,

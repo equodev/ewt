@@ -15,6 +15,7 @@ public class ListenableBuilder extends AnimatedWidget implements ListenableBuild
     if (id <= 0) throw new RuntimeException("Failed to created widget ListenableBuilder");
     System.out.println("New ListenableBuilder id:"+id);
   }
+  ListenableBuilder(int id) { this.id = id; }
   @Builder.Factory
   static ListenableBuilder listenableBuilderListenableBuilder(@Builder.Parameter ListenableI listenable, @Builder.Parameter BiFunction<BuildContext, Widget, Widget> builder, Optional<WidgetI> child) {
     var st = factories.listenableBuilderListenableBuilder(listenable.build(),

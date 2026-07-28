@@ -15,6 +15,7 @@ public class Text extends StatelessWidget implements TextI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Text");
     System.out.println("New Text id:"+id);
   }
+  Text(int id) { this.id = id; }
   @Builder.Factory
   static Text textText(@Builder.Parameter String data, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
     var st = factories.textText(data,

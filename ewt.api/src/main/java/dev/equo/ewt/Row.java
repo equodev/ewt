@@ -15,6 +15,7 @@ public class Row extends Flex implements RowI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Row");
     System.out.println("New Row id:"+id);
   }
+  Row(int id) { this.id = id; }
   @Builder.Factory
   static Row rowRow(Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, OptionalDouble spacing, Optional<List<WidgetI>> children) {
     var st = factories.rowRow(mainAxisAlignment,

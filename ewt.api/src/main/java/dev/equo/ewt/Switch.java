@@ -15,6 +15,7 @@ public class Switch extends StatelessWidget implements SwitchI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Switch");
     System.out.println("New Switch id:"+id);
   }
+  Switch(int id) { this.id = id; }
   @Builder.Factory
   static Switch switch_Switch_(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding) {
     var st = factories.switch_Switch_(value,

@@ -101,13 +101,72 @@ class WidgetGen implements AGen {
       !n.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) &&
       types.supportedType(n.returnType);
 
+  /// True for abstract *classes* (not interfaces) that expose Dart `factory`
+  /// constructors we can generate — like `ImageFilter`, `ColorFilter`.
+  ///
+  /// Skips (a) abstract classes that Java would emit as interfaces (Animation,
+  /// Future, EdgeInsetsGeometry) since interfaces can't hold `static factories`
+  /// nor Immutables `@Builder.Factory`; and (b) abstract classes that already
+  /// have a concrete subclass in the widget set (e.g. `BorderRadiusGeometry` has
+  /// `BorderRadius` — emitting factories on both would produce Java-illegal
+  /// covariant static-hiding).
+  /// Names of abstract classes whose Dart `factory` constructors should be
+  /// exposed as static Java factories. This is an explicit allowlist because
+  /// the general heuristic (any abstract class with factory ctors) collides
+  /// with widgets that inherit from it (BorderRadiusGeometry, Animation…) —
+  /// their Java files were already emitted as interfaces or concrete subclasses.
+  static const _abstractFactoryAllowlist = {'ImageFilter', 'ColorFilter'};
+
+  bool get _hasAbstractFactoryCtors {
+    if (!dartClass.isAbstract) return false;
+    if (!_abstractFactoryAllowlist.contains(dartClass.name)) return false;
+    return dartClass.constructors.where((f) => f.isPublic && f.isFactory)
+        .any(_isSupportedFactory);
+  }
+
+  /// Java rejects `<T extends Object?>`; strip nullable / Object bounds so
+  /// generic widgets (Draggable, TweenAnimationBuilder, etc.) emit valid Java.
+  /// Kept naked on the class declaration to preserve compatibility with existing
+  /// consumers (e.g. `AnimationController extends Animation<Double>`, which
+  /// would not satisfy a `T extends NativeObj` constraint).
+  String _sanitizeTypeParam(TypeParameterElement tp) {
+    final bound = tp.bound;
+    if (bound == null || bound.isDartCoreObject) return tp.name;
+    return '${tp.name} extends ${types.type4J(bound)}';
+  }
+
+  /// Type-parameter prefix for static factory methods on generic widgets.
+  /// Constrains unbounded params to `T extends NativeObj` so marshaling through
+  /// `ptrObj(Optional<T>)` compiles at the call site.
+  String get _factoryTypeParamPrefix {
+    if (dartClass.typeParameters.isEmpty) return '';
+    final decl = dartClass.typeParameters.map((tp) {
+      final bound = tp.bound;
+      if (bound == null || bound.isDartCoreObject) return '${tp.name} extends NativeObj';
+      return '${tp.name} extends ${types.type4J(bound)}';
+    }).join(', ');
+    return '<$decl>';
+  }
+
+  /// Naked type parameters (no bound), used when emitting the `<T>` prefix on
+  /// static factory methods that must propagate the containing class's generics.
+  String get _typeParamPrefix =>
+      dartClass.typeParameters.isEmpty ? '' : '<${dartClass.typeParameters.map((t) => t.name).join(', ')}>';
+
   @override
   void gen() {
     var constructors = dartClass.constructors.where((f) => f.isPublic);
     var staticMethods = dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList);
     var consts = dartClass.fields.where((f) => f.isStatic && f.isConst).whereType<ConstFieldElementImpl>();
     var companionMethods = methodsCompanion?.methods.where((m) => m.isStatic && m.isPublic && _isCompanionInstanceMethod(m)) ?? const <MethodElement>[];
-    var hasSupportedFactory = !dartClass.isAbstract && (constructors.any(_isSupportedFactory) || staticMethods.any(_isSupportedFactory));
+    // Abstract classes can still expose Dart `factory` constructors (e.g.
+    // `ImageFilter.blur(...)` is a factory on the abstract `ImageFilter`);
+    // treat those as generatable so callers get concrete instances.
+    var abstractFactoryConstructors = _hasAbstractFactoryCtors
+        ? constructors.where((c) => c.isFactory)
+        : const <ConstructorElement>[];
+    var hasSupportedFactory = (!dartClass.isAbstract && (constructors.any(_isSupportedFactory) || staticMethods.any(_isSupportedFactory)))
+        || abstractFactoryConstructors.any(_isSupportedFactory);
     var hasPrivateConsts = consts.where(isPrivateConst).isNotEmpty;
     var hasCompanionMethods = companionMethods.any(_isSupportedFactory);
     hasMembers = hasSupportedFactory || hasPrivateConsts || hasCompanionMethods;
@@ -125,6 +184,10 @@ class WidgetGen implements AGen {
       }
       for (var method in companionMethods) {
         writeInstanceMethod(method, methodsCompanion!.name);
+      }
+    } else {
+      for (var constr in abstractFactoryConstructors) {
+        writeFactory(constr);
       }
     }
     writeMembers();
@@ -172,8 +235,12 @@ class WidgetGen implements AGen {
     javaFile
         .writeln('package dev.equo.ewt;');
     _isInterface = isInterface(dartClass);
+    // Abstract classes with factory ctors we plan to emit must NOT be Java
+    // interfaces (interfaces can't hold @Builder.Factory static methods that
+    // reference `factories`). See _hasAbstractFactoryCtors.
+    if (_isInterface && _hasAbstractFactoryCtors) _isInterface = false;
     // var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
-    var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
+    var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map(_sanitizeTypeParam).join(', ')}>' : '';
     List<String> builderExtend = [];
     List<InterfaceType> trulyInterfaces = [];
     if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
@@ -200,7 +267,9 @@ class WidgetGen implements AGen {
       builderExtend += trulyInterfaces.map((i) => '${toJavaClassUngeneric(i)}I').toList();
     } else if (!_isInterface) {
       extend += ' implements ${widgetClass}I';
-    } if (!dartClass.isAbstract) {
+    } if (!dartClass.isAbstract || _hasAbstractFactoryCtors) {
+      // Abstract classes that expose Dart `factory` constructors emit Immutables
+      // @Builder.Factory methods too, so they need the same imports.
       javaFile
         ..writeln('import java.util.*;')
         ..writeln('import java.util.function.*;')
@@ -235,6 +304,12 @@ class WidgetGen implements AGen {
   }
 
   void writeFooter(bool hasMembers) {
+    // Note: return type is intentionally raw for generic widgets. Parametrizing
+    // it (e.g. `State<T> build()`) breaks `SubclassGen`'s hand-emitted
+    // `createState(...).build()` chain in `SubStatefulWidget.createStateFn`
+    // (S from the enclosing method vs T inferred from State — Java refuses to
+    // unify). The raw-type warning on Draggable.build()/DragTarget.build() is
+    // the tolerable cost.
     javaFile.writeln('  @Override\n'
         '  ${_isInterface ? 'default' : 'public'} $widgetClass build() {\n'
         '    return this;\n'
@@ -388,10 +463,12 @@ class WidgetGen implements AGen {
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsDecl = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    final tpp = _factoryTypeParamPrefix.isEmpty ? '' : '${_factoryTypeParamPrefix} ';
+    final retTpp = _typeParamPrefix; // <T> for return-type parameterization (raw class name would be a raw type).
     if (node is ConstructorElement) {
       javaFile
         ..writeln('  @Builder.Factory')
-        ..writeln('  static $widgetClass $factoryName(${jParamsDecl.builderDecl}) {');
+        ..writeln('  static $tpp$widgetClass$retTpp $factoryName(${jParamsDecl.builderDecl}) {');
     }
     var gen = types.getGen(node.returnType.element!);
     if (gen is WidgetGen) {
@@ -404,14 +481,14 @@ class WidgetGen implements AGen {
         .writeln('  }');
     if (node is ConstructorElement) {
       javaFile
-        ..writeln('  public static $builderClass $factory(${jParamsDecl.required}) {')
+        ..writeln('  public static $tpp$builderClass$retTpp $factory(${jParamsDecl.required}) {')
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
     }
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
     if (node is ConstructorElement) {
       javaStatics
-        ..writeln('  public static $builderClass $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParamsDecl.required}) {')
+        ..writeln('  public static $tpp$builderClass$retTpp $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParamsDecl.required}) {')
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
     }
@@ -711,6 +788,11 @@ class ImmutableGen extends ObjStGen {
         ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget $widgetClass");')
         ..writeln('    System.out.println("New $widgetClass id:"+id);')
         ..writeln('  }');
+      // Shadow int-ctor for the callback path: when this widget appears as a
+      // callback parameter, the FFM side only has the id. The struct-backed
+      // getters will NPE, but constructing a reference to the widget works.
+      javaFile
+        ..writeln('  $widgetClass(int id) { this.id = id; }');
     }
   }
 
@@ -1060,6 +1142,7 @@ class Generation {
       ..writeln('package dev.equo.ewt;')
       ..writeln('import java.util.*;')
       ..writeln('import java.util.function.*;')
+      ..writeln('import dev.equo.ewt.util.*;')
       ..writeln('public class EWT {');
 
     dartFactories.writeln('void _setupTopFunctions(WidgetFactories f) {');
@@ -1106,10 +1189,13 @@ class Generation {
       ..writeln('  final ffi.Pointer<WidgetFactories> fp = calloc<WidgetFactories>();')
       ..writeln('  final f = fp.ref;');
     dartFactories.writeln('  _setupTopFunctions(f);');
-    for (var dartClass in widgets.where((t) => !t.isAbstract && classesWithSetup.contains(t.thisType.element))) {
+    // Abstract classes that emit setup functions (e.g. ImageFilter with its
+    // factory ctors) still need to be wired up — otherwise the C function
+    // pointers are NULL and calling e.g. ImageFilter.blur throws at runtime.
+    for (var dartClass in widgets.where((t) => classesWithSetup.contains(t.thisType.element))) {
       dartFactories.writeln('  _setup${dartClass.name}(f);');
     }
-    for (var dartClass in types.requiredTypes.map((t) => t.element).whereType<ClassElement>().where((t) => !t.isAbstract).where((t) => !widgets.contains(t)).where((t) => classesWithSetup.contains(t.thisType.element))) {
+    for (var dartClass in types.requiredTypes.map((t) => t.element).whereType<ClassElement>().where((t) => !widgets.contains(t)).where((t) => classesWithSetup.contains(t.thisType.element))) {
       dartFactories.writeln('  _setup${dartClass.name}(f);');
     }
     types.requiredTypes.clear();
@@ -1139,7 +1225,24 @@ class Generation {
         var allParams = boundPositionalParams+boundNamedParams;
         typedefFile.writeln('typedef ${CLang(types).field(ourName, types.type4C(fnType.returnType), params: allParams)}');
         // if (!aliasedType.boundParams.any((p) => p.type.isDartCoreBool || !isPrimitive(p.type))) { // we need to wrap from int to bool
-        var tp = (allParams).map((p) => p.type).whereType<TypeParameterType>().join(', ');
+        // Collect type parameters recursively so `List<T>`, `Map<K,V>`, and
+        // nested function types all contribute their `T` to the extension's
+        // generic prefix.
+        final _seenTp = <Element>{};
+        final _tpList = <DartType>[];
+        void _collectTp(DartType t) {
+          if (t is TypeParameterType) {
+            if (_seenTp.add(t.element)) _tpList.add(t);
+          } else if (t is InterfaceType) {
+            for (final ta in t.typeArguments) _collectTp(ta);
+          } else if (t is FunctionType) {
+            for (final pp in t.parameters) _collectTp(pp.type);
+            _collectTp(t.returnType);
+          }
+        }
+        for (final p in allParams) _collectTp(p.type);
+        _collectTp(fnType.returnType);
+        var tp = _tpList.map((t) => t.getDisplayString(withNullability: false)).join(', ');
         var rtp = td.typeArguments.isEmpty ? '' : '<${td.typeArguments.join(', ')}>';
         tp = tp.isEmpty ? '' : '<$tp>';
           var isFlutterAlias = td.element.aliasedElement != null;
@@ -1153,7 +1256,7 @@ class Generation {
                   '  $retType to${aliasName}Fn$tp() {\n'
                   // '    return (${fnType}) {\n'
                   // '    return (${boundParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
-                  '    return (${boundPositionalParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${p.type} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
+                  '    return (${boundPositionalParams.map((p) => '${_dartTypeStr(p.type)} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${_dartTypeStr(p.type)} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
                   '      Dart${aliasName}FFIFunction dFn = asFunction();\n'
                   '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p, fromCallback: true)).join(', ')});');
           if (fnType.returnType is! VoidType) {
@@ -1169,7 +1272,10 @@ class Generation {
                   '}\n'
           );
         // }
-        String jtp = isFlutterAlias ? '' : JLang().methodTypeParameters(fnType);
+        // Always emit `<T…>` when the signature carries type parameters —
+        // Flutter-aliased typedefs (e.g. `DragTargetBuilder<T>`) still need
+        // them at the Java method level for T inside `Function<T, …>`.
+        String jtp = JLang().methodTypeParameters(fnType);
         javaFactories.writeln('${jtp}MemorySegment ptr${aliasName}Fn(${h.type4J(fnType, td.typeArguments)} jFn) {\n'
             '  return $ourName.allocate((${allParams.map((p) => ensureName(p)).join(', ')}) -> {\n'
             '    ${fnType.returnType is! VoidType ? 'final var jFnRet = ' : ''}jFn.${h.functionMethod(fnType)}(${allParams.map((p) => types.paramValueFFMtoJ(types, p, fromCallback: true)).join(', ')});');
@@ -1586,10 +1692,72 @@ class Params {
     return defaultValue.replaceFirst('ui.', '');
   }
 
+  /// Replaces private identifiers (`_kFoo`) in [defaultValue] with the source
+  /// text of their initializer. Returns null if any private identifier can't be
+  /// resolved to a const value — the caller should fall back to omitting the
+  /// default so the param becomes an unset optional at the Java layer.
+  static String? _inlinePrivateRefs(ParameterElement param, String defaultValue) {
+    if (!defaultValue.contains('_')) return defaultValue;
+    var out = defaultValue;
+    var targetParam = (param is SuperFormalParameterElement) ? param.superConstructorParameter! : param;
+    var owner = targetParam.thisOrAncestorOfType<ClassElement>();
+    // Match private identifiers as whole tokens (`\b_` won't help because `_`
+    // is a word char, so use a manual boundary via lookahead/behind on
+    // non-identifier chars or start/end). We walk matches once and rebuild the
+    // string with a StringBuffer so `_k` doesn't corrupt `_kMore`.
+    final pattern = RegExp(r'(?<![A-Za-z0-9_])_[A-Za-z0-9_]+');
+    final buf = StringBuffer();
+    var lastEnd = 0;
+    for (final match in pattern.allMatches(defaultValue)) {
+      final name = match.group(0)!;
+      String? replacement;
+      final field = owner?.getField(name);
+      if (field is ConstFieldElementImpl && field.constantInitializer != null) {
+        replacement = field.constantInitializer.toString();
+      } else {
+        final top = targetParam.library2?.getTopLevelVariable(name);
+        if (top != null && top.firstFragment is ConstTopLevelVariableElementImpl) {
+          final init = (top.firstFragment as ConstTopLevelVariableElementImpl).constantInitializer;
+          if (init != null) replacement = init.toString();
+        }
+      }
+      if (replacement == null) return null;
+      buf.write(defaultValue.substring(lastEnd, match.start));
+      buf.write(replacement);
+      lastEnd = match.end;
+    }
+    buf.write(defaultValue.substring(lastEnd));
+    out = buf.toString();
+    return out;
+  }
+
   static String? defaultDoubleCode(ParameterElement param) {
+    if (param.defaultValueCode == null) {
+      // No source default — some factory ctors leave optionals bare; caller
+      // handles null by leaving the param unset at the Java layer.
+      final val = param.computeConstantValue()?.toDoubleValue();
+      return val?.toString();
+    }
     var defaultValue = param.defaultValueCode!;
     if (double.tryParse(defaultValue) != null) {
       return param.defaultValueCode;
+    }
+    if (defaultValue.contains('_')) {
+      final inlined = _inlinePrivateRefs(param, defaultValue);
+      if (inlined != null) return inlined;
+      // Private ref we couldn't resolve — fall through the analyzer const
+      // evaluator (may still yield a numeric literal). If that also fails,
+      // return null so the caller emits an unset optional rather than pasting
+      // an unresolved `_foo` into Dart source.
+      final val = param.computeConstantValue()?.toDoubleValue();
+      return val?.toString();
+    }
+    // Bare identifier (top-level from another library, class-scope public const,
+    // etc.) — try the analyzer's constant evaluator before falling back to a
+    // qualified name that may not be reachable from the widgets library.
+    if (!defaultValue.contains('.')) {
+      final val = param.computeConstantValue()?.toDoubleValue();
+      if (val != null) return val.toString();
     }
     if (defaultValue.contains('.')) {
       return defaultValue;
@@ -1606,21 +1774,10 @@ class Params {
       return defaultValue;
     }
     if (defaultValue.contains('_')) {
-      RegExp pattern = RegExp(r"_\w+");
-      Match? match = pattern.firstMatch(defaultValue);
-      if (match != null) {
-        var targetParam = (param is SuperFormalParameterElement) ? param.superConstructorParameter! : param ;
-        String? result = match.group(0);
-        var field = targetParam.thisOrAncestorOfType<ClassElement>()!.getField(result!);
-        if (field == null) {
-          var top = targetParam.library2!.getTopLevelVariable(result);
-          return defaultValue.replaceAll(result, (top!.firstFragment as ConstTopLevelVariableElementImpl).constantInitializer.toString());
-        }
-        else if (field is ConstFieldElementImpl) {
-          return defaultValue.replaceAll(result, field.constantInitializer.toString());
-        }
-        return field!.toString();
-      }
+      final inlined = _inlinePrivateRefs(param, defaultValue);
+      if (inlined != null) return inlined;
+      // Unresolved private ref — bail rather than paste `_foo` into Dart.
+      return null;
     }
     if (!defaultValue.startsWith('const')) {
       // return '${param.thisOrAncestorOfType<ClassElement>()!.name}.$defaultValue';
@@ -1717,6 +1874,13 @@ class Params {
         value = '$value$exclam.index';
       }
       else if (!isPrimitive(t)) {
+        // On the callback path, C hands us a plain int id (per the C typedef
+        // signature — see FunctionHandler.type4C which maps everything through
+        // `DartObj`). Emitting `_create<Widget>ObjSt(value)` would push a struct
+        // through an int-typed slot; register the widget by id and pass that.
+        if (fromCallback) {
+          return '_addWidget($value)';
+        }
         return ctx.getGen(t.element).dartToC(value);
         // value = '${param.name}.hashCode';
       }
@@ -1809,6 +1973,28 @@ extension Case on String {
 }
 
 String ensureName(ParameterElement param) => param.name.isNotEmpty ? param.name : param.type.element!.name![0].toLowerCase();
+
+/// Renders a Dart type preserving nullability. Necessary because
+/// `DartType.toString()` and `getDisplayString(withNullability: true)` both
+/// occasionally drop the `?` for TypeParameterType (analyzer quirk), which
+/// breaks generated lambdas whose param typedefs declare nullable T (e.g.
+/// `DragTargetWillAccept<T> = bool Function(T? data)`).
+///
+/// For TypeParameterType params where the analyzer strips `?`, defensively
+/// widen to nullable: DragTarget's onWillAccept/onAccept/onLeave all pass
+/// `T?` (Flutter can invoke them with `null` for rejected data), so a
+/// nullable declaration is always safe and matches the typedef contract.
+String _dartTypeStr(DartType t) {
+  final s = t.getDisplayString(withNullability: true);
+  if (t is TypeParameterType) {
+    if (s.endsWith('?')) return s;
+    return '$s?';
+  }
+  if (t.nullabilitySuffix == NullabilitySuffix.question && !s.endsWith('?')) {
+    return '$s?';
+  }
+  return s;
+}
 
 String _escape4D(String id) => switch (id) {
   'extension' => 'extension_',

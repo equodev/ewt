@@ -15,6 +15,7 @@ public class SwitchListTile extends StatelessWidget implements SwitchListTileI {
     if (id <= 0) throw new RuntimeException("Failed to created widget SwitchListTile");
     System.out.println("New SwitchListTile id:"+id);
   }
+  SwitchListTile(int id) { this.id = id; }
   @Builder.Factory
   static SwitchListTile switchListTileSwitchListTile(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorderI> shape, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Boolean> enableFeedback, Optional<ColorI> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.switchListTileSwitchListTile(value,

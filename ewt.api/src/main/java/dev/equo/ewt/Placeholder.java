@@ -15,6 +15,7 @@ public class Placeholder extends StatelessWidget implements PlaceholderI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Placeholder");
     System.out.println("New Placeholder id:"+id);
   }
+  Placeholder(int id) { this.id = id; }
   @Builder.Factory
   static Placeholder placeholderPlaceholder(Optional<ColorI> color, OptionalDouble strokeWidth, OptionalDouble fallbackWidth, OptionalDouble fallbackHeight, Optional<WidgetI> child) {
     var st = factories.placeholderPlaceholder(color.map(ColorI::build),

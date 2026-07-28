@@ -15,6 +15,7 @@ public class Center extends Align implements CenterI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Center");
     System.out.println("New Center id:"+id);
   }
+  Center(int id) { this.id = id; }
   @Builder.Factory
   static Center centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<WidgetI> child) {
     var st = factories.centerCenter(widthFactor,

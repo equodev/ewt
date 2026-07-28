@@ -15,6 +15,7 @@ public class Scaffold extends StatefulWidget implements ScaffoldI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Scaffold");
     System.out.println("New Scaffold id:"+id);
   }
+  Scaffold(int id) { this.id = id; }
   @Builder.Factory
   static Scaffold scaffoldScaffold(Optional<PreferredSizeWidgetI> appBar, Optional<WidgetI> body, Optional<WidgetI> floatingActionButton, Optional<List<WidgetI>> persistentFooterButtons, Optional<AlignmentDirectionalI> persistentFooterAlignment, Optional<BoxDecorationI> persistentFooterDecoration, Optional<WidgetI> drawer, Optional<Consumer<Boolean>> onDrawerChanged, Optional<WidgetI> endDrawer, Optional<Consumer<Boolean>> onEndDrawerChanged, Optional<WidgetI> bottomNavigationBar, Optional<WidgetI> bottomSheet, Optional<ColorI> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<Boolean> primary, Optional<DragStartBehavior> drawerDragStartBehavior, Optional<Boolean> extendBody, Optional<Boolean> drawerBarrierDismissible, Optional<Boolean> extendBodyBehindAppBar, Optional<ColorI> drawerScrimColor, Optional<BiFunction<BuildContext, Animation, Widget>> bottomSheetScrimBuilder, OptionalDouble drawerEdgeDragWidth, Optional<Boolean> drawerEnableOpenDragGesture, Optional<Boolean> endDrawerEnableOpenDragGesture, Optional<String> restorationId) {
     var st = factories.scaffoldScaffold(appBar.map(PreferredSizeWidgetI::build),

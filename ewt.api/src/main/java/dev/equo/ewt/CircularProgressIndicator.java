@@ -15,6 +15,7 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
     if (id <= 0) throw new RuntimeException("Failed to created widget CircularProgressIndicator");
     System.out.println("New CircularProgressIndicator id:"+id);
   }
+  CircularProgressIndicator(int id) { this.id = id; }
   @Builder.Factory
   static CircularProgressIndicator circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometryI> padding) {
     var st = factories.circularProgressIndicatorCircularProgressIndicator(value,

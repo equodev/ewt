@@ -15,6 +15,7 @@ public class Alignment extends AlignmentGeometry implements AlignmentI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Alignment");
     System.out.println("New Alignment id:"+id);
   }
+  Alignment(int id) { this.id = id; }
   @Builder.Factory
   static Alignment alignmentAlignment(@Builder.Parameter double x, @Builder.Parameter double y) {
     var st = factories.alignmentAlignment(x,

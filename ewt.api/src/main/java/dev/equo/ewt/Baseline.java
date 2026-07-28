@@ -15,6 +15,7 @@ public class Baseline extends SingleChildRenderObjectWidget implements BaselineI
     if (id <= 0) throw new RuntimeException("Failed to created widget Baseline");
     System.out.println("New Baseline id:"+id);
   }
+  Baseline(int id) { this.id = id; }
   @Builder.Factory
   static Baseline baselineBaseline(@Builder.Parameter double baseline, @Builder.Parameter TextBaseline baselineType, Optional<WidgetI> child) {
     var st = factories.baselineBaseline(baseline,

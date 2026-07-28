@@ -9,7 +9,7 @@ import java.util.OptionalDouble;
 import java.lang.foreign.*;
 import java.util.function.*;
 class WidgetConstructors extends WidgetConstructorsBase {
-  int dialogShowDialog(BuildContext context, Function<BuildContext, Widget> builder, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useSafeArea, Optional<Boolean> useRootNavigator, Optional<Offset> anchorPoint, Optional<TraversalEdgeBehavior> traversalEdgeBehavior, Optional<Boolean> fullscreenDialog, Optional<Boolean> requestFocus) {
+  <T> int dialogShowDialog(BuildContext context, Function<BuildContext, Widget> builder, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useSafeArea, Optional<Boolean> useRootNavigator, Optional<Offset> anchorPoint, Optional<TraversalEdgeBehavior> traversalEdgeBehavior, Optional<Boolean> fullscreenDialog, Optional<Boolean> requestFocus) {
     var fn = WidgetFactories.showDialog(factories);
     return WidgetFactories.showDialog.invoke(fn, context.build().getId(),
       ptrWidgetBuilderFn(builder),
@@ -167,6 +167,26 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int fontWeightW900() {
     var st = WidgetFactories.fontWeight(factories);
     return WidgetFactories.FontWeightSt.w900(st);
+  }
+
+  int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.shadow(st);
+    return WidgetFactories.ShadowSt.shadow.invoke(fn, ptrObj(color),
+      ptrObj(offset),
+      ptr(blurRadius));
+  }
+  double shadowConvertRadiusToSigma(double radius) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.convertRadiusToSigma(st);
+    return WidgetFactories.ShadowSt.convertRadiusToSigma.invoke(fn, radius);
+  }
+  int shadowLerp(Shadow a, Shadow b, double t) {
+    var st = WidgetFactories.shadow(factories);
+    var fn = WidgetFactories.ShadowSt.lerp(st);
+    return WidgetFactories.ShadowSt.lerp.invoke(fn, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
   }
 
   int textDecorationCombine(List<TextDecoration> decorations) {
@@ -525,6 +545,23 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  MemorySegment boxShadowBoxShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
+    var st = WidgetFactories.boxShadow(factories);
+    var fn = WidgetFactories.BoxShadowSt.boxShadow(st);
+    return WidgetFactories.BoxShadowSt.boxShadow.invoke(fn, arena, ptrObj(color),
+      ptrObj(offset),
+      ptr(blurRadius),
+      ptr(spreadRadius),
+      ptrEnum(blurStyle));
+  }
+  MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
+    var st = WidgetFactories.boxShadow(factories);
+    var fn = WidgetFactories.BoxShadowSt.lerp(st);
+    return WidgetFactories.BoxShadowSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
   int radiusCircular(double radius) {
     var st = WidgetFactories.radius(factories);
     var fn = WidgetFactories.RadiusSt.circular(st);
@@ -578,43 +615,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.borderRadius(factories);
     var fn = WidgetFactories.BorderRadiusSt.lerp(st);
     return WidgetFactories.BorderRadiusSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
-      b != null ? b.build().getId() : null,
-      t);
-  }
-
-  MemorySegment boxShadowBoxShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
-    var st = WidgetFactories.boxShadow(factories);
-    var fn = WidgetFactories.BoxShadowSt.boxShadow(st);
-    return WidgetFactories.BoxShadowSt.boxShadow.invoke(fn, arena, ptrObj(color),
-      ptrObj(offset),
-      ptr(blurRadius),
-      ptr(spreadRadius),
-      ptrEnum(blurStyle));
-  }
-  MemorySegment boxShadowLerp(BoxShadow a, BoxShadow b, double t) {
-    var st = WidgetFactories.boxShadow(factories);
-    var fn = WidgetFactories.BoxShadowSt.lerp(st);
-    return WidgetFactories.BoxShadowSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
-      b != null ? b.build().getId() : null,
-      t);
-  }
-
-  int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
-    var st = WidgetFactories.shadow(factories);
-    var fn = WidgetFactories.ShadowSt.shadow(st);
-    return WidgetFactories.ShadowSt.shadow.invoke(fn, ptrObj(color),
-      ptrObj(offset),
-      ptr(blurRadius));
-  }
-  double shadowConvertRadiusToSigma(double radius) {
-    var st = WidgetFactories.shadow(factories);
-    var fn = WidgetFactories.ShadowSt.convertRadiusToSigma(st);
-    return WidgetFactories.ShadowSt.convertRadiusToSigma.invoke(fn, radius);
-  }
-  int shadowLerp(Shadow a, Shadow b, double t) {
-    var st = WidgetFactories.shadow(factories);
-    var fn = WidgetFactories.ShadowSt.lerp(st);
-    return WidgetFactories.ShadowSt.lerp.invoke(fn, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
       t);
   }
@@ -1368,6 +1368,254 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(padEnds));
   }
 
+  MemorySegment animatedSizeAnimatedSize(Optional<Widget> child, Optional<AlignmentGeometry> alignment, Optional<Curve> curve, Duration duration, Optional<Duration> reverseDuration, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedSize(factories);
+    var fn = WidgetFactories.AnimatedSizeSt.animatedSize(st);
+    return WidgetFactories.AnimatedSizeSt.animatedSize.invoke(fn, arena, ptrObj(child),
+      ptrObj(alignment),
+      ptrObj(curve),
+      duration.build().getId(),
+      ptrObj(reverseDuration),
+      ptrEnum(clipBehavior),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedScaleAnimatedScale(Optional<Widget> child, double scale, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedScale(factories);
+    var fn = WidgetFactories.AnimatedScaleSt.animatedScale(st);
+    return WidgetFactories.AnimatedScaleSt.animatedScale.invoke(fn, arena, ptrObj(child),
+      scale,
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedRotationAnimatedRotation(Optional<Widget> child, double turns, Optional<Alignment> alignment, Optional<FilterQuality> filterQuality, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedRotation(factories);
+    var fn = WidgetFactories.AnimatedRotationSt.animatedRotation(st);
+    return WidgetFactories.AnimatedRotationSt.animatedRotation.invoke(fn, arena, ptrObj(child),
+      turns,
+      ptrObj(alignment),
+      ptrEnum(filterQuality),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedSlideAnimatedSlide(Optional<Widget> child, Offset offset, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedSlide(factories);
+    var fn = WidgetFactories.AnimatedSlideSt.animatedSlide(st);
+    return WidgetFactories.AnimatedSlideSt.animatedSlide.invoke(fn, arena, ptrObj(child),
+      offset.build().getId(),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus) {
+    var st = WidgetFactories.animatedCrossFade(factories);
+    var fn = WidgetFactories.AnimatedCrossFadeSt.animatedCrossFade(st);
+    return WidgetFactories.AnimatedCrossFadeSt.animatedCrossFade.invoke(fn, arena, firstChild.build().getId(),
+      secondChild.build().getId(),
+      ptrObj(firstCurve),
+      ptrObj(secondCurve),
+      ptrObj(sizeCurve),
+      ptrObj(alignment),
+      crossFadeState.ordinal(),
+      duration.build().getId(),
+      ptrObj(reverseDuration),
+      ptrBool(excludeBottomFocus));
+  }
+
+  MemorySegment slideTransitionSlideTransition(Animation position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<Widget> child) {
+    var st = WidgetFactories.slideTransition(factories);
+    var fn = WidgetFactories.SlideTransitionSt.slideTransition(st);
+    return WidgetFactories.SlideTransitionSt.slideTransition.invoke(fn, arena, position.build().getId(),
+      ptrBool(transformHitTests),
+      ptrEnum(textDirection),
+      ptrObj(child));
+  }
+
+  MemorySegment sizeTransitionSizeTransition(Optional<Axis> axis, Animation sizeFactor, OptionalDouble axisAlignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<Widget> child) {
+    var st = WidgetFactories.sizeTransition(factories);
+    var fn = WidgetFactories.SizeTransitionSt.sizeTransition(st);
+    return WidgetFactories.SizeTransitionSt.sizeTransition.invoke(fn, arena, ptrEnum(axis),
+      sizeFactor.build().getId(),
+      ptr(axisAlignment),
+      ptr(fixedCrossAxisSizeFactor),
+      ptrObj(child));
+  }
+
+  MemorySegment indexedStackIndexedStack(Optional<AlignmentGeometry> alignment, Optional<TextDirection> textDirection, Optional<Clip> clipBehavior, Optional<StackFit> sizing, OptionalInt index, Optional<List<Widget>> children) {
+    var st = WidgetFactories.indexedStack(factories);
+    var fn = WidgetFactories.IndexedStackSt.indexedStack(st);
+    return WidgetFactories.IndexedStackSt.indexedStack.invoke(fn, arena, ptrObj(alignment),
+      ptrEnum(textDirection),
+      ptrEnum(clipBehavior),
+      ptrEnum(sizing),
+      ptr(index),
+      ptrList(children));
+  }
+
+  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
+    var st = WidgetFactories.interactiveViewer(factories);
+    var fn = WidgetFactories.InteractiveViewerSt.interactiveViewer(st);
+    return WidgetFactories.InteractiveViewerSt.interactiveViewer.invoke(fn, arena, ptrEnum(clipBehavior),
+      ptrEnum(panAxis),
+      ptrObj(boundaryMargin),
+      ptrBool(constrained),
+      ptr(maxScale),
+      ptr(minScale),
+      ptr(interactionEndFrictionCoefficient),
+      ptrBool(panEnabled),
+      ptrBool(scaleEnabled),
+      ptr(scaleFactor),
+      ptrObj(alignment),
+      ptrBool(trackpadScrollCausesScale),
+      child.build().getId());
+  }
+
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<T> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+    var st = WidgetFactories.draggable(factories);
+    var fn = WidgetFactories.DraggableSt.draggable(st);
+    return WidgetFactories.DraggableSt.draggable.invoke(fn, arena, child.build().getId(),
+      feedback.build().getId(),
+      ptrObj(data),
+      ptrEnum(axis),
+      ptrObj(childWhenDragging),
+      ptrObj(feedbackOffset),
+      dragAnchorStrategy.isPresent() ? ptrHolder(ptrDragAnchorStrategyFn(dragAnchorStrategy.get())) : MemorySegment.NULL,
+      ptrEnum(affinity),
+      ptr(maxSimultaneousDrags),
+      onDragStarted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragStarted.get())) : MemorySegment.NULL,
+      onDragCompleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragCompleted.get())) : MemorySegment.NULL,
+      ptrBool(ignoringFeedbackSemantics),
+      ptrBool(ignoringFeedbackPointer),
+      ptrBool(rootOverlay),
+      ptrEnum(hitTestBehavior),
+      allowedButtonsFilter.isPresent() ? ptrHolder(ptrAllowedButtonsFilterFn(allowedButtonsFilter.get())) : MemorySegment.NULL);
+  }
+
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder, Optional<Function<T, Boolean>> onWillAccept, Optional<Consumer<T>> onAccept, Optional<Consumer<T>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+    var st = WidgetFactories.dragTarget(factories);
+    var fn = WidgetFactories.DragTargetSt.dragTarget(st);
+    return WidgetFactories.DragTargetSt.dragTarget.invoke(fn, arena, ptrDragTargetBuilderForTFn(builder),
+      onWillAccept.isPresent() ? ptrHolder(ptrDragTargetWillAcceptForTFn(onWillAccept.get())) : MemorySegment.NULL,
+      onAccept.isPresent() ? ptrHolder(ptrDragTargetAcceptForTFn(onAccept.get())) : MemorySegment.NULL,
+      onLeave.isPresent() ? ptrHolder(ptrDragTargetLeaveForTFn(onLeave.get())) : MemorySegment.NULL,
+      ptrEnum(hitTestBehavior));
+  }
+
+  MemorySegment heroHero(NativeObj tag, Optional<PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget>> flightShuttleBuilder, Optional<Boolean> transitionOnUserGestures, Widget child) {
+    var st = WidgetFactories.hero(factories);
+    var fn = WidgetFactories.HeroSt.hero(st);
+    return WidgetFactories.HeroSt.hero.invoke(fn, arena, tag.build().getId(),
+      flightShuttleBuilder.isPresent() ? ptrHolder(ptrHeroFlightShuttleBuilderFn(flightShuttleBuilder.get())) : MemorySegment.NULL,
+      ptrBool(transitionOnUserGestures),
+      child.build().getId());
+  }
+
+  MemorySegment animatedSwitcherAnimatedSwitcher(Optional<Widget> child, Duration duration, Optional<Duration> reverseDuration, Optional<Curve> switchInCurve, Optional<Curve> switchOutCurve, Optional<BiFunction<Widget, Animation, Widget>> transitionBuilder, Optional<BiFunction<Widget, List<Widget>, Widget>> layoutBuilder) {
+    var st = WidgetFactories.animatedSwitcher(factories);
+    var fn = WidgetFactories.AnimatedSwitcherSt.animatedSwitcher(st);
+    return WidgetFactories.AnimatedSwitcherSt.animatedSwitcher.invoke(fn, arena, ptrObj(child),
+      duration.build().getId(),
+      ptrObj(reverseDuration),
+      ptrObj(switchInCurve),
+      ptrObj(switchOutCurve),
+      transitionBuilder.isPresent() ? ptrHolder(ptrAnimatedSwitcherTransitionBuilderFn(transitionBuilder.get())) : MemorySegment.NULL,
+      layoutBuilder.isPresent() ? ptrHolder(ptrAnimatedSwitcherLayoutBuilderFn(layoutBuilder.get())) : MemorySegment.NULL);
+  }
+  int animatedSwitcherDefaultTransitionBuilder(Widget child, Animation animation) {
+    var st = WidgetFactories.animatedSwitcher(factories);
+    var fn = WidgetFactories.AnimatedSwitcherSt.defaultTransitionBuilder(st);
+    return WidgetFactories.AnimatedSwitcherSt.defaultTransitionBuilder.invoke(fn, child.build().getId(),
+      animation.build().getId());
+  }
+  int animatedSwitcherDefaultLayoutBuilder(Widget currentChild, List<Widget> previousChildren) {
+    var st = WidgetFactories.animatedSwitcher(factories);
+    var fn = WidgetFactories.AnimatedSwitcherSt.defaultLayoutBuilder(st);
+    return WidgetFactories.AnimatedSwitcherSt.defaultLayoutBuilder.invoke(fn, currentChild != null ? currentChild.build().getId() : null,
+      ptrList(previousChildren));
+  }
+
+  int colorFilterMode(Color color, BlendMode blendMode) {
+    var st = WidgetFactories.colorFilter(factories);
+    var fn = WidgetFactories.ColorFilterSt.mode(st);
+    return WidgetFactories.ColorFilterSt.mode.invoke(fn, color.build().getId(),
+      blendMode.ordinal());
+  }
+  int colorFilterLinearToSrgbGamma() {
+    var st = WidgetFactories.colorFilter(factories);
+    var fn = WidgetFactories.ColorFilterSt.linearToSrgbGamma(st);
+    return WidgetFactories.ColorFilterSt.linearToSrgbGamma.invoke(fn);
+  }
+  int colorFilterSrgbToLinearGamma() {
+    var st = WidgetFactories.colorFilter(factories);
+    var fn = WidgetFactories.ColorFilterSt.srgbToLinearGamma(st);
+    return WidgetFactories.ColorFilterSt.srgbToLinearGamma.invoke(fn);
+  }
+
+  MemorySegment backdropFilterBackdropFilter(ImageFilter filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+    var st = WidgetFactories.backdropFilter(factories);
+    var fn = WidgetFactories.BackdropFilterSt.backdropFilter(st);
+    return WidgetFactories.BackdropFilterSt.backdropFilter.invoke(fn, arena, filter.build().getId(),
+      ptrObj(child),
+      ptrEnum(blendMode),
+      ptrBool(enabled));
+  }
+  MemorySegment backdropFilterGrouped(ImageFilter filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+    var st = WidgetFactories.backdropFilter(factories);
+    var fn = WidgetFactories.BackdropFilterSt.grouped(st);
+    return WidgetFactories.BackdropFilterSt.grouped.invoke(fn, arena, filter.build().getId(),
+      ptrObj(child),
+      ptrEnum(blendMode),
+      ptrBool(enabled));
+  }
+
+  int imageFilterBlur(OptionalDouble sigmaX, OptionalDouble sigmaY, Optional<TileMode> tileMode) {
+    var st = WidgetFactories.imageFilter(factories);
+    var fn = WidgetFactories.ImageFilterSt.blur(st);
+    return WidgetFactories.ImageFilterSt.blur.invoke(fn, ptr(sigmaX),
+      ptr(sigmaY),
+      ptrEnum(tileMode));
+  }
+  int imageFilterDilate(OptionalDouble radiusX, OptionalDouble radiusY) {
+    var st = WidgetFactories.imageFilter(factories);
+    var fn = WidgetFactories.ImageFilterSt.dilate(st);
+    return WidgetFactories.ImageFilterSt.dilate.invoke(fn, ptr(radiusX),
+      ptr(radiusY));
+  }
+  int imageFilterErode(OptionalDouble radiusX, OptionalDouble radiusY) {
+    var st = WidgetFactories.imageFilter(factories);
+    var fn = WidgetFactories.ImageFilterSt.erode(st);
+    return WidgetFactories.ImageFilterSt.erode.invoke(fn, ptr(radiusX),
+      ptr(radiusY));
+  }
+  int imageFilterCompose(ImageFilter outer, ImageFilter inner) {
+    var st = WidgetFactories.imageFilter(factories);
+    var fn = WidgetFactories.ImageFilterSt.compose(st);
+    return WidgetFactories.ImageFilterSt.compose.invoke(fn, outer.build().getId(),
+      inner.build().getId());
+  }
+
+  MemorySegment colorFilteredColorFiltered(ColorFilter colorFilter, Optional<Widget> child) {
+    var st = WidgetFactories.colorFiltered(factories);
+    var fn = WidgetFactories.ColorFilteredSt.colorFiltered(st);
+    return WidgetFactories.ColorFilteredSt.colorFiltered.invoke(fn, arena, colorFilter.build().getId(),
+      ptrObj(child));
+  }
+
+  MemorySegment imageFilteredImageFiltered(ImageFilter imageFilter, Optional<Widget> child, Optional<Boolean> enabled) {
+    var st = WidgetFactories.imageFiltered(factories);
+    var fn = WidgetFactories.ImageFilteredSt.imageFiltered(st);
+    return WidgetFactories.ImageFilteredSt.imageFiltered.invoke(fn, arena, imageFilter.build().getId(),
+      ptrObj(child),
+      ptrBool(enabled));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -1725,7 +1973,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrMap(swatch));
   }
 
-  MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
+  <T> MemorySegment colorSwatchLerp(ColorSwatch a, ColorSwatch b, double t) {
     var st = WidgetFactories.colorSwatch(factories);
     var fn = WidgetFactories.ColorSwatchSt.lerp(st);
     return WidgetFactories.ColorSwatchSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
@@ -2333,7 +2581,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(routeTraversalEdgeBehavior),
       ptrEnum(routeDirectionalTraversalEdgeBehavior));
   }
-  int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
+  <T extends NativeObj> int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pushNamed(st);
     return WidgetFactories.NavigatorSt.pushNamed.invoke(fn, context.build().getId(),
@@ -2347,7 +2595,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       arena.allocateFrom(routeName),
       ptrObj(arguments));
   }
-  <TO extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pushReplacementNamed(st);
     return WidgetFactories.NavigatorSt.pushReplacementNamed.invoke(fn, context.build().getId(),
@@ -2363,7 +2611,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(result),
       ptrObj(arguments));
   }
-  <TO extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.popAndPushNamed(st);
     return WidgetFactories.NavigatorSt.popAndPushNamed.invoke(fn, context.build().getId(),
@@ -3446,12 +3694,64 @@ MemorySegment ptrIndexedWidgetBuilderFn(BiFunction<BuildContext, Integer, Widget
     return jFnRet.build().getId();
   }, arena);
 }
-MemorySegment ptrValueChangedForIntFn(Consumer<Integer> jFn) {
+<T> MemorySegment ptrValueChangedForIntFn(Consumer<Integer> jFn) {
   return ValueChangedForIntFFI.allocate((value) -> {
     jFn.accept(value);
   }, arena);
 }
-MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
+MemorySegment ptrDragAnchorStrategyFn(TriFunction<Draggable, BuildContext, Offset, Offset> jFn) {
+  return DragAnchorStrategyFFI.allocate((draggable, context, position) -> {
+    final var jFnRet = jFn.apply(new Draggable(draggable), new BuildContext() { public int getId() { return context; } }, new Offset(position));
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
+  return AllowedButtonsFilterFFI.allocate((buttons) -> {
+    final var jFnRet = jFn.apply(buttons);
+    return (jFnRet ? 1 : 0);
+  }, arena);
+}
+<T> MemorySegment ptrDragTargetBuilderForTFn(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> jFn) {
+  return DragTargetBuilderForTFFI.allocate((context, candidateData, rejectedData) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, ((List<T>) (List) memToWidgetList(candidateData)), ((List<NativeObj>) (List) memToWidgetList(rejectedData)));
+    return jFnRet.build().getId();
+  }, arena);
+}
+<T> MemorySegment ptrDragTargetWillAcceptForTFn(Function<T, Boolean> jFn) {
+  return DragTargetWillAcceptForTFFI.allocate((data) -> {
+    final var jFnRet = jFn.apply((T) (NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    return (jFnRet ? 1 : 0);
+  }, arena);
+}
+<T> MemorySegment ptrDragTargetAcceptForTFn(Consumer<T> jFn) {
+  return DragTargetAcceptForTFFI.allocate((data) -> {
+    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = data; }});
+  }, arena);
+}
+<T> MemorySegment ptrDragTargetLeaveForTFn(Consumer<T> jFn) {
+  return DragTargetLeaveForTFFI.allocate((data) -> {
+    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = data; }});
+  }, arena);
+}
+MemorySegment ptrHeroFlightShuttleBuilderFn(PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget> jFn) {
+  return HeroFlightShuttleBuilderFFI.allocate((flightContext, animation, flightDirection, fromHeroContext, toHeroContext) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return flightContext; } }, new Animation() { public int getId() { return animation; } }, HeroFlightDirection.values()[flightDirection], new BuildContext() { public int getId() { return fromHeroContext; } }, new BuildContext() { public int getId() { return toHeroContext; } });
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrAnimatedSwitcherTransitionBuilderFn(BiFunction<Widget, Animation, Widget> jFn) {
+  return AnimatedSwitcherTransitionBuilderFFI.allocate((child, animation) -> {
+    final var jFnRet = jFn.apply(new Widget(child) {}, new Animation() { public int getId() { return animation; } });
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrAnimatedSwitcherLayoutBuilderFn(BiFunction<Widget, List<Widget>, Widget> jFn) {
+  return AnimatedSwitcherLayoutBuilderFFI.allocate((currentChild, previousChildren) -> {
+    final var jFnRet = jFn.apply(new Widget(currentChild) {}, memToWidgetList(previousChildren));
+    return jFnRet.build().getId();
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
   return ValueChangedForBoolFFI.allocate((value) -> {
     jFn.accept(intToBool(value));
   }, arena);
@@ -3473,7 +3773,7 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
     return arena.allocateFrom(jFnRet);
   }, arena);
 }
-MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
+<T> MemorySegment ptrValueChangedForStringFn(Consumer<String> jFn) {
   return ValueChangedForStringFFI.allocate((value) -> {
     jFn.accept(value.getString(0));
   }, arena);
@@ -3514,12 +3814,12 @@ MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
-MemorySegment ptrValueChangedForBoolOptFn(Consumer<Boolean> jFn) {
+<T> MemorySegment ptrValueChangedForBoolOptFn(Consumer<Boolean> jFn) {
   return ValueChangedForBoolOptFFI.allocate((value) -> {
     jFn.accept(memToBool(value));
   }, arena);
 }
-MemorySegment ptrValueChangedForDoubleFn(Consumer<Double> jFn) {
+<T> MemorySegment ptrValueChangedForDoubleFn(Consumer<Double> jFn) {
   return ValueChangedForDoubleFFI.allocate((value) -> {
     jFn.accept(value);
   }, arena);
@@ -3535,14 +3835,14 @@ MemorySegment ptrTooltipTriggeredCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
-MemorySegment ptrTabValueChangedForBoolFn(BiConsumer<Boolean, Integer> jFn) {
+<T> MemorySegment ptrTabValueChangedForBoolFn(BiConsumer<Boolean, Integer> jFn) {
   return TabValueChangedForBoolFFI.allocate((value, index) -> {
     jFn.accept(intToBool(value), index);
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {
   return VoidCallbackDartObjFFI.allocate((t) -> {
-    jFn.accept(SubclassedInJava.getSubNatObj(t));
+    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = t; }});
   }, arena);
 }
 MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {

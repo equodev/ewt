@@ -15,6 +15,7 @@ public class TextSpan extends InlineSpan implements TextSpanI {
     if (id <= 0) throw new RuntimeException("Failed to created widget TextSpan");
     System.out.println("New TextSpan id:"+id);
   }
+  TextSpan(int id) { this.id = id; }
   @Builder.Factory
   static TextSpan textSpanTextSpan(Optional<String> text, Optional<List<InlineSpanI>> children, Optional<TextStyleI> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     var st = factories.textSpanTextSpan(text,

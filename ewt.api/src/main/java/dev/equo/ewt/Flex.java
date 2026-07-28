@@ -15,6 +15,7 @@ public class Flex extends MultiChildRenderObjectWidget implements FlexI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Flex");
     System.out.println("New Flex id:"+id);
   }
+  Flex(int id) { this.id = id; }
   @Builder.Factory
   static Flex flexFlex(@Builder.Parameter Axis direction, Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, Optional<Clip> clipBehavior, OptionalDouble spacing, Optional<List<WidgetI>> children) {
     var st = factories.flexFlex(direction,

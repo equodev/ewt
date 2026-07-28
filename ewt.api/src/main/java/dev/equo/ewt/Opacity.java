@@ -15,6 +15,7 @@ public class Opacity extends SingleChildRenderObjectWidget implements OpacityI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Opacity");
     System.out.println("New Opacity id:"+id);
   }
+  Opacity(int id) { this.id = id; }
   @Builder.Factory
   static Opacity opacityOpacity(@Builder.Parameter double opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<WidgetI> child) {
     var st = factories.opacityOpacity(opacity,

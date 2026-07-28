@@ -27,6 +27,26 @@ class WidgetConstructorsBase {
     return intToBool(ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0));
   }
 
+  /// Reads an {@link ArrayC} struct (size + int* of widget ids) back into a
+  /// {@code List<Widget>}. Used on the callback upcall path when Flutter hands us
+  /// a list of widgets (e.g. {@code AnimatedSwitcher.layoutBuilder}).
+  static List<Widget> memToWidgetList(MemorySegment ptr) {
+    if (ptr == null || MemorySegment.NULL.equals(ptr)) return List.of();
+    MemorySegment struct = ptr.byteSize() == 0
+        ? ptr.reinterpret(ArrayC.layout().byteSize())
+        : ptr;
+    int size = ArrayC.size(struct);
+    MemorySegment list = ArrayC.list(struct);
+    if (size == 0 || MemorySegment.NULL.equals(list)) return List.of();
+    MemorySegment ids = list.reinterpret((long) size * StarterBridge.C_INT.byteSize());
+    List<Widget> out = new ArrayList<>(size);
+    for (int i = 0; i < size; i++) {
+      int id = ids.getAtIndex(StarterBridge.C_INT, i);
+      out.add(new Widget(id) {});
+    }
+    return out;
+  }
+
   static List<String> memToStrList(MemorySegment ptr) {
     List<String> list = new ArrayList<>();
     for (int i = 0; ; i++) {

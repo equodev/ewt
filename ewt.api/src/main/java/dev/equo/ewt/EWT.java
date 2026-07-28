@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import dev.equo.ewt.util.*;
 public class EWT {
   public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
     int id = WidgetConstructors.instance.dialogShowDialog(context.build(),
@@ -40,6 +41,10 @@ public class EWT {
   }
   public static OffsetFromDirectionBuilder Offset_fromDirection(double direction) {
     return OffsetFromDirectionBuilder.offsetFromDirection(direction);
+  }
+
+  public static ShadowShadowBuilder Shadow() {
+    return ShadowShadowBuilder.shadowShadow();
   }
 
   public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
@@ -157,6 +162,10 @@ public class EWT {
     return BoxDecorationBoxDecorationBuilder.boxDecorationBoxDecoration();
   }
 
+  public static BoxShadowBoxShadowBuilder BoxShadow() {
+    return BoxShadowBoxShadowBuilder.boxShadowBoxShadow();
+  }
+
   public static RadiusCircularBuilder Radius_circular(double radius) {
     return RadiusCircularBuilder.radiusCircular(radius);
   }
@@ -178,14 +187,6 @@ public class EWT {
   }
   public static BorderRadiusOnlyBuilder BorderRadius_only() {
     return BorderRadiusOnlyBuilder.borderRadiusOnly();
-  }
-
-  public static BoxShadowBoxShadowBuilder BoxShadow() {
-    return BoxShadowBoxShadowBuilder.boxShadowBoxShadow();
-  }
-
-  public static ShadowShadowBuilder Shadow() {
-    return ShadowShadowBuilder.shadowShadow();
   }
 
   public static PaddingPaddingBuilder Padding(EdgeInsetsGeometryI padding) {
@@ -434,6 +435,96 @@ public class EWT {
   }
   public static PageViewBuilderBuilder PageView_builder() {
     return PageViewBuilderBuilder.pageViewBuilder();
+  }
+
+  public static AnimatedSizeAnimatedSizeBuilder AnimatedSize() {
+    return AnimatedSizeAnimatedSizeBuilder.animatedSizeAnimatedSize();
+  }
+
+  public static AnimatedScaleAnimatedScaleBuilder AnimatedScale() {
+    return AnimatedScaleAnimatedScaleBuilder.animatedScaleAnimatedScale();
+  }
+
+  public static AnimatedRotationAnimatedRotationBuilder AnimatedRotation() {
+    return AnimatedRotationAnimatedRotationBuilder.animatedRotationAnimatedRotation();
+  }
+
+  public static AnimatedSlideAnimatedSlideBuilder AnimatedSlide() {
+    return AnimatedSlideAnimatedSlideBuilder.animatedSlideAnimatedSlide();
+  }
+
+  public static AnimatedCrossFadeAnimatedCrossFadeBuilder AnimatedCrossFade(WidgetI firstChild, WidgetI secondChild) {
+    return AnimatedCrossFadeAnimatedCrossFadeBuilder.animatedCrossFadeAnimatedCrossFade(firstChild, secondChild);
+  }
+
+  public static SlideTransitionSlideTransitionBuilder SlideTransition(AnimationI position) {
+    return SlideTransitionSlideTransitionBuilder.slideTransitionSlideTransition(position);
+  }
+
+  public static SizeTransitionSizeTransitionBuilder SizeTransition() {
+    return SizeTransitionSizeTransitionBuilder.sizeTransitionSizeTransition();
+  }
+
+  public static IndexedStackIndexedStackBuilder IndexedStack() {
+    return IndexedStackIndexedStackBuilder.indexedStackIndexedStack();
+  }
+
+  public static InteractiveViewerInteractiveViewerBuilder InteractiveViewer() {
+    return InteractiveViewerInteractiveViewerBuilder.interactiveViewerInteractiveViewer();
+  }
+
+  public static <T extends NativeObj> DraggableDraggableBuilder<T> Draggable(WidgetI child, WidgetI feedback) {
+    return DraggableDraggableBuilder.draggableDraggable(child, feedback);
+  }
+
+  public static <T extends NativeObj> DragTargetDragTargetBuilder<T> DragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder) {
+    return DragTargetDragTargetBuilder.dragTargetDragTarget(builder);
+  }
+
+  public static HeroHeroBuilder Hero(NativeObj.I tag) {
+    return HeroHeroBuilder.heroHero(tag);
+  }
+
+  public static AnimatedSwitcherAnimatedSwitcherBuilder AnimatedSwitcher() {
+    return AnimatedSwitcherAnimatedSwitcherBuilder.animatedSwitcherAnimatedSwitcher();
+  }
+
+  public static ColorFilterModeBuilder ColorFilter_mode(ColorI color, BlendMode blendMode) {
+    return ColorFilterModeBuilder.colorFilterMode(color, blendMode);
+  }
+  public static ColorFilterLinearToSrgbGammaBuilder ColorFilter_linearToSrgbGamma() {
+    return ColorFilterLinearToSrgbGammaBuilder.colorFilterLinearToSrgbGamma();
+  }
+  public static ColorFilterSrgbToLinearGammaBuilder ColorFilter_srgbToLinearGamma() {
+    return ColorFilterSrgbToLinearGammaBuilder.colorFilterSrgbToLinearGamma();
+  }
+
+  public static BackdropFilterBackdropFilterBuilder BackdropFilter(ImageFilterI filter) {
+    return BackdropFilterBackdropFilterBuilder.backdropFilterBackdropFilter(filter);
+  }
+  public static BackdropFilterGroupedBuilder BackdropFilter_grouped(ImageFilterI filter) {
+    return BackdropFilterGroupedBuilder.backdropFilterGrouped(filter);
+  }
+
+  public static ImageFilterBlurBuilder ImageFilter_blur() {
+    return ImageFilterBlurBuilder.imageFilterBlur();
+  }
+  public static ImageFilterDilateBuilder ImageFilter_dilate() {
+    return ImageFilterDilateBuilder.imageFilterDilate();
+  }
+  public static ImageFilterErodeBuilder ImageFilter_erode() {
+    return ImageFilterErodeBuilder.imageFilterErode();
+  }
+  public static ImageFilterComposeBuilder ImageFilter_compose(ImageFilterI outer, ImageFilterI inner) {
+    return ImageFilterComposeBuilder.imageFilterCompose(outer, inner);
+  }
+
+  public static ColorFilteredColorFilteredBuilder ColorFiltered(ColorFilterI colorFilter) {
+    return ColorFilteredColorFilteredBuilder.colorFilteredColorFiltered(colorFilter);
+  }
+
+  public static ImageFilteredImageFilteredBuilder ImageFiltered(ImageFilterI imageFilter) {
+    return ImageFilteredImageFilteredBuilder.imageFilteredImageFiltered(imageFilter);
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {

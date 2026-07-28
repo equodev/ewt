@@ -15,6 +15,7 @@ public class Tooltip extends StatefulWidget implements TooltipI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Tooltip");
     System.out.println("New Tooltip id:"+id);
   }
+  Tooltip(int id) { this.id = id; }
   @Builder.Factory
   static Tooltip tooltipTooltip(Optional<String> message, Optional<InlineSpanI> richMessage, OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> padding, Optional<EdgeInsetsGeometryI> margin, OptionalDouble verticalOffset, Optional<Boolean> preferBelow, Optional<Boolean> excludeFromSemantics, Optional<DecorationI> decoration, Optional<TextStyleI> textStyle, Optional<TextAlign> textAlign, Optional<DurationI> waitDuration, Optional<DurationI> showDuration, Optional<DurationI> exitDuration, Optional<Boolean> enableTapToDismiss, Optional<TooltipTriggerMode> triggerMode, Optional<Boolean> enableFeedback, Optional<Runnable> onTriggered, Optional<Boolean> ignorePointer, Optional<WidgetI> child) {
     var st = factories.tooltipTooltip(message,

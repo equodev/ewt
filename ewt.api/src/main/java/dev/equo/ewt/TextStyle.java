@@ -15,6 +15,7 @@ public class TextStyle extends NativeObj.Base implements TextStyleI {
     if (id <= 0) throw new RuntimeException("Failed to created widget TextStyle");
     System.out.println("New TextStyle id:"+id);
   }
+  TextStyle(int id) { this.id = id; }
   @Builder.Factory
   static TextStyle textStyleTextStyle(Optional<Boolean> inherit, Optional<ColorI> color, Optional<ColorI> backgroundColor, OptionalDouble fontSize, Optional<FontWeightI> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<ShadowI>> shadows, Optional<TextDecorationI> decoration, Optional<ColorI> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = factories.textStyleTextStyle(inherit,

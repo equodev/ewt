@@ -15,6 +15,7 @@ public class Theme extends StatelessWidget implements ThemeI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Theme");
     System.out.println("New Theme id:"+id);
   }
+  Theme(int id) { this.id = id; }
   @Builder.Factory
   static Theme themeTheme(@Builder.Parameter ThemeDataI data, @Builder.Parameter WidgetI child) {
     var st = factories.themeTheme(data.build(),

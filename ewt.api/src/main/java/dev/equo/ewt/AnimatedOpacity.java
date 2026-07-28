@@ -15,6 +15,7 @@ public class AnimatedOpacity extends ImplicitlyAnimatedWidget implements Animate
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedOpacity");
     System.out.println("New AnimatedOpacity id:"+id);
   }
+  AnimatedOpacity(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedOpacity animatedOpacityAnimatedOpacity(Optional<WidgetI> child, double opacity, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd, Optional<Boolean> alwaysIncludeSemantics) {
     var st = factories.animatedOpacityAnimatedOpacity(child.map(WidgetI::build),

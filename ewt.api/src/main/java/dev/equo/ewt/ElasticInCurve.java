@@ -15,6 +15,7 @@ public class ElasticInCurve extends Curve implements ElasticInCurveI {
     if (id <= 0) throw new RuntimeException("Failed to created widget ElasticInCurve");
     System.out.println("New ElasticInCurve id:"+id);
   }
+  ElasticInCurve(int id) { this.id = id; }
   @Builder.Factory
   static ElasticInCurve elasticInCurveElasticInCurve(OptionalDouble period) {
     var st = factories.elasticInCurveElasticInCurve(period);

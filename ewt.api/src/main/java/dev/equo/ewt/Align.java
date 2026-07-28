@@ -15,6 +15,7 @@ public class Align extends SingleChildRenderObjectWidget implements AlignI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Align");
     System.out.println("New Align id:"+id);
   }
+  Align(int id) { this.id = id; }
   @Builder.Factory
   static Align alignAlign(Optional<AlignmentGeometryI> alignment, OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<WidgetI> child) {
     var st = factories.alignAlign(alignment.map(AlignmentGeometryI::build),
