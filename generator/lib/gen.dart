@@ -262,10 +262,26 @@ class WidgetGen implements AGen {
     }
     trulyInterfaces += dartClass.interfaces.where((i) =>
         i.interfaces.any((i) => i.element is ClassElement)).toList();
-    if (trulyInterfaces.isNotEmpty) {
+    if (_isInterface) {
+      // A Java interface lists every supertype after a single `extends` — it
+      // never uses `implements`. Fold the interface list into the extends
+      // clause, keeping NativeObj and the `I` marker present exactly once.
+      final iName = '${widgetClass}I';
+      final supers = <String>[];
+      if (!extend.contains(' extends ')) supers.add('NativeObj');
+      supers.addAll(trulyInterfaces.map((i) => toJavaClass(i)));
+      if (extend.contains(' extends ')) {
+        if (supers.isNotEmpty) extend += ', ${supers.join(', ')}';
+        if (!RegExp('\\b$iName\\b').hasMatch(extend)) extend += ', $iName';
+      } else {
+        supers.add(iName);
+        extend += ' extends ${supers.join(', ')}';
+      }
+      builderExtend += trulyInterfaces.map((i) => '${toJavaClassUngeneric(i)}I').toList();
+    } else if (trulyInterfaces.isNotEmpty) {
       extend += ' implements ${trulyInterfaces.map((i) => toJavaClass(i)).join(', ')}, ${widgetClass}I';
       builderExtend += trulyInterfaces.map((i) => '${toJavaClassUngeneric(i)}I').toList();
-    } else if (!_isInterface) {
+    } else {
       extend += ' implements ${widgetClass}I';
     } if (!dartClass.isAbstract || _hasAbstractFactoryCtors) {
       // Abstract classes that expose Dart `factory` constructors emit Immutables
@@ -1078,6 +1094,30 @@ String escapeReserved(String name) =>
 
 bool canBeImplInJava(m) => m.isAbstract || (m.hasMustCallSuper && m.hasProtected);
 
+/// A non-nullable optional param whose default is a private symbol we can't
+/// inline to a literal (e.g. `const _HeroTag(...)`, a private class) has no
+/// value we can emit into Dart — pasting the private name breaks compilation.
+/// Such params are dropped from the builder. Resolvable private constants
+/// (e.g. `const Color(_kColorDefault)`) are inlined by [Params._inlinePrivateRefs]
+/// and stay settable. Common across Cupertino widgets (CupertinoNavigationBar's
+/// non-null `heroTag`, etc.).
+final _privateSymbol = RegExp(r'(^|[^A-Za-z0-9_])_[A-Za-z0-9_]');
+bool hasPrivateDefault(ParameterElement p) {
+  final code = p.defaultValueCode;
+  if (code == null || !_privateSymbol.hasMatch(code)) return false;
+  // Function params are marshalled as function pointers, not value defaults, so
+  // a private default is never emitted for them (e.g. Scaffold's non-null
+  // bottomSheetScrimBuilder). Keep the param.
+  if (p.type is FunctionType) return false;
+  // Nullable params marshal null via `.objOrNul()` and let Flutter apply its own
+  // default — the default value is never emitted, so a private default there is
+  // harmless (e.g. the nullable heroTag on FloatingActionButton). Only
+  // non-nullable params emit the default.
+  if (p.type.nullabilitySuffix != NullabilitySuffix.none) return false;
+  final resolved = Params._inlinePrivateRefs(p, code);
+  return resolved == null || _privateSymbol.hasMatch(resolved);
+}
+
 class Generation {
   Set<Element> processed = {};
   Set<Element> classesWithSetup = {};
@@ -1479,7 +1519,8 @@ class Params {
   Params(this.types, this.parameters,
       String Function(Types, ParameterElement, {bool annotated, bool wrap}) paramDef,
       {this.allTypes = false, String Function(Types, ParameterElement) paramValue = _paramName, String Function(Types, ParameterElement) escape = _paramName}) {
-    var filtered = allTypes ? parameters : parameters.where((p) => types.supportedType(p.type));
+    var filtered = (allTypes ? parameters : parameters.where((p) => types.supportedType(p.type)))
+        .where((p) => !hasPrivateDefault(p));
     names = filtered.map((p) => paramValue(types, p)).join(',\n      ');
     var mandatory = filtered.takeWhile((p) => p.isRequired);
     builderDecl = filtered.map((p) => '${paramDef(types, p, annotated: mandatory.contains(p), wrap: p.isOptional)} ${escape(types, p)}').join(', ');
