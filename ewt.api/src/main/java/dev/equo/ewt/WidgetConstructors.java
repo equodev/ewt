@@ -3621,6 +3621,464 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
+  MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    var st = WidgetFactories.cupertinoApp(factories);
+    var fn = WidgetFactories.CupertinoAppSt.cupertinoApp(st);
+    return WidgetFactories.CupertinoAppSt.cupertinoApp.invoke(fn, arena, ptrObj(home),
+      ptrStr(initialRoute),
+      builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
+      ptrStr(title),
+      onGenerateTitle.isPresent() ? ptrHolder(ptrGenerateAppTitleFn(onGenerateTitle.get())) : MemorySegment.NULL,
+      ptrObj(color),
+      ptrBool(showPerformanceOverlay),
+      ptrBool(checkerboardRasterCacheImages),
+      ptrBool(checkerboardOffscreenLayers),
+      ptrBool(showSemanticsDebugger),
+      ptrBool(debugShowCheckedModeBanner),
+      ptrStr(restorationScopeId),
+      ptrBool(useInheritedMediaQuery));
+  }
+  MemorySegment cupertinoAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    var st = WidgetFactories.cupertinoApp(factories);
+    var fn = WidgetFactories.CupertinoAppSt.router(st);
+    return WidgetFactories.CupertinoAppSt.router.invoke(fn, arena, builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
+      ptrStr(title),
+      onGenerateTitle.isPresent() ? ptrHolder(ptrGenerateAppTitleFn(onGenerateTitle.get())) : MemorySegment.NULL,
+      ptrObj(color),
+      ptrBool(showPerformanceOverlay),
+      ptrBool(checkerboardRasterCacheImages),
+      ptrBool(checkerboardOffscreenLayers),
+      ptrBool(showSemanticsDebugger),
+      ptrBool(debugShowCheckedModeBanner),
+      ptrStr(restorationScopeId),
+      ptrBool(useInheritedMediaQuery));
+  }
+
+  MemorySegment cupertinoPageScaffoldCupertinoPageScaffold(Optional<ObstructingPreferredSizeWidget> navigationBar, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Widget child) {
+    var st = WidgetFactories.cupertinoPageScaffold(factories);
+    var fn = WidgetFactories.CupertinoPageScaffoldSt.cupertinoPageScaffold(st);
+    return WidgetFactories.CupertinoPageScaffoldSt.cupertinoPageScaffold.invoke(fn, arena, ptrObj(navigationBar),
+      ptrObj(backgroundColor),
+      ptrBool(resizeToAvoidBottomInset),
+      child.build().getId());
+  }
+
+  MemorySegment cupertinoNavigationBarCupertinoNavigationBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyMiddle, Optional<String> previousPageTitle, Optional<Widget> middle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<PreferredSizeWidget> bottom) {
+    var st = WidgetFactories.cupertinoNavigationBar(factories);
+    var fn = WidgetFactories.CupertinoNavigationBarSt.cupertinoNavigationBar(st);
+    return WidgetFactories.CupertinoNavigationBarSt.cupertinoNavigationBar.invoke(fn, arena, ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrBool(automaticallyImplyMiddle),
+      ptrStr(previousPageTitle),
+      ptrObj(middle),
+      ptrObj(trailing),
+      ptrObj(border),
+      ptrObj(backgroundColor),
+      ptrBool(automaticBackgroundVisibility),
+      ptrBool(enableBackgroundFilterBlur),
+      ptrEnum(brightness),
+      ptrBool(transitionBetweenRoutes),
+      ptrObj(bottom));
+  }
+  MemorySegment cupertinoNavigationBarLarge(Optional<Widget> largeTitle, Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<String> previousPageTitle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<PreferredSizeWidget> bottom) {
+    var st = WidgetFactories.cupertinoNavigationBar(factories);
+    var fn = WidgetFactories.CupertinoNavigationBarSt.large(st);
+    return WidgetFactories.CupertinoNavigationBarSt.large.invoke(fn, arena, ptrObj(largeTitle),
+      ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrBool(automaticallyImplyTitle),
+      ptrStr(previousPageTitle),
+      ptrObj(trailing),
+      ptrObj(border),
+      ptrObj(backgroundColor),
+      ptrBool(automaticBackgroundVisibility),
+      ptrBool(enableBackgroundFilterBlur),
+      ptrEnum(brightness),
+      ptrBool(transitionBetweenRoutes),
+      ptrObj(bottom));
+  }
+
+  MemorySegment cupertinoSliverNavigationBarCupertinoSliverNavigationBar(Optional<Widget> largeTitle, Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<Boolean> alwaysShowMiddle, Optional<String> previousPageTitle, Optional<Widget> middle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<Boolean> stretch, Optional<PreferredSizeWidget> bottom, Optional<NavigationBarBottomMode> bottomMode) {
+    var st = WidgetFactories.cupertinoSliverNavigationBar(factories);
+    var fn = WidgetFactories.CupertinoSliverNavigationBarSt.cupertinoSliverNavigationBar(st);
+    return WidgetFactories.CupertinoSliverNavigationBarSt.cupertinoSliverNavigationBar.invoke(fn, arena, ptrObj(largeTitle),
+      ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrBool(automaticallyImplyTitle),
+      ptrBool(alwaysShowMiddle),
+      ptrStr(previousPageTitle),
+      ptrObj(middle),
+      ptrObj(trailing),
+      ptrObj(border),
+      ptrObj(backgroundColor),
+      ptrBool(automaticBackgroundVisibility),
+      ptrBool(enableBackgroundFilterBlur),
+      ptrEnum(brightness),
+      ptrBool(transitionBetweenRoutes),
+      ptrBool(stretch),
+      ptrObj(bottom),
+      ptrEnum(bottomMode));
+  }
+  MemorySegment cupertinoSliverNavigationBarSearch(Widget searchField, Optional<Widget> largeTitle, Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<Boolean> alwaysShowMiddle, Optional<String> previousPageTitle, Optional<Widget> middle, Optional<Widget> trailing, Optional<Border> border, Optional<Color> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<Boolean> stretch, Optional<NavigationBarBottomMode> bottomMode, Optional<Consumer<Boolean>> onSearchableBottomTap) {
+    var st = WidgetFactories.cupertinoSliverNavigationBar(factories);
+    var fn = WidgetFactories.CupertinoSliverNavigationBarSt.search(st);
+    return WidgetFactories.CupertinoSliverNavigationBarSt.search.invoke(fn, arena, searchField.build().getId(),
+      ptrObj(largeTitle),
+      ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrBool(automaticallyImplyTitle),
+      ptrBool(alwaysShowMiddle),
+      ptrStr(previousPageTitle),
+      ptrObj(middle),
+      ptrObj(trailing),
+      ptrObj(border),
+      ptrObj(backgroundColor),
+      ptrBool(automaticBackgroundVisibility),
+      ptrBool(enableBackgroundFilterBlur),
+      ptrEnum(brightness),
+      ptrBool(transitionBetweenRoutes),
+      ptrBool(stretch),
+      ptrEnum(bottomMode),
+      onSearchableBottomTap.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSearchableBottomTap.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment cupertinoTabViewCupertinoTabView(Optional<Function<BuildContext, Widget>> builder, Optional<String> defaultTitle, Optional<String> restorationScopeId) {
+    var st = WidgetFactories.cupertinoTabView(factories);
+    var fn = WidgetFactories.CupertinoTabViewSt.cupertinoTabView(st);
+    return WidgetFactories.CupertinoTabViewSt.cupertinoTabView.invoke(fn, arena, builder.isPresent() ? ptrHolder(ptrWidgetBuilderFn(builder.get())) : MemorySegment.NULL,
+      ptrStr(defaultTitle),
+      ptrStr(restorationScopeId));
+  }
+
+  MemorySegment cupertinoButtonCupertinoButton(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+    var st = WidgetFactories.cupertinoButton(factories);
+    var fn = WidgetFactories.CupertinoButtonSt.cupertinoButton(st);
+    return WidgetFactories.CupertinoButtonSt.cupertinoButton.invoke(fn, arena, child.build().getId(),
+      ptrEnum(sizeStyle),
+      ptrObj(padding),
+      ptrObj(color),
+      ptrObj(foregroundColor),
+      ptrObj(disabledColor),
+      ptr(minSize),
+      ptr(pressedOpacity),
+      ptrObj(borderRadius),
+      ptrObj(alignment),
+      ptrObj(focusColor),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      ptrVoidCallbackFn(onPressed));
+  }
+  MemorySegment cupertinoButtonTinted(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+    var st = WidgetFactories.cupertinoButton(factories);
+    var fn = WidgetFactories.CupertinoButtonSt.tinted(st);
+    return WidgetFactories.CupertinoButtonSt.tinted.invoke(fn, arena, child.build().getId(),
+      ptrEnum(sizeStyle),
+      ptrObj(padding),
+      ptrObj(color),
+      ptrObj(foregroundColor),
+      ptrObj(disabledColor),
+      ptr(minSize),
+      ptr(pressedOpacity),
+      ptrObj(borderRadius),
+      ptrObj(alignment),
+      ptrObj(focusColor),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      ptrVoidCallbackFn(onPressed));
+  }
+  MemorySegment cupertinoButtonFilled(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> foregroundColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+    var st = WidgetFactories.cupertinoButton(factories);
+    var fn = WidgetFactories.CupertinoButtonSt.filled(st);
+    return WidgetFactories.CupertinoButtonSt.filled.invoke(fn, arena, child.build().getId(),
+      ptrEnum(sizeStyle),
+      ptrObj(padding),
+      ptrObj(color),
+      ptrObj(disabledColor),
+      ptrObj(foregroundColor),
+      ptr(minSize),
+      ptr(pressedOpacity),
+      ptrObj(borderRadius),
+      ptrObj(alignment),
+      ptrObj(focusColor),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      ptrVoidCallbackFn(onPressed));
+  }
+  double cupertinoButtonTapMoveSlop() {
+    var st = WidgetFactories.cupertinoButton(factories);
+    var fn = WidgetFactories.CupertinoButtonSt.tapMoveSlop(st);
+    return WidgetFactories.CupertinoButtonSt.tapMoveSlop.invoke(fn);
+  }
+
+  MemorySegment cupertinoSwitchCupertinoSwitch(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> trackColor, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<Color> focusColor, Optional<Color> onLabelColor, Optional<Color> offLabelColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
+    var st = WidgetFactories.cupertinoSwitch(factories);
+    var fn = WidgetFactories.CupertinoSwitchSt.cupertinoSwitch(st);
+    return WidgetFactories.CupertinoSwitchSt.cupertinoSwitch.invoke(fn, arena, (value ? 1 : 0),
+      ptrValueChangedForBoolFn(onChanged),
+      ptrObj(activeColor),
+      ptrObj(trackColor),
+      ptrObj(activeTrackColor),
+      ptrObj(inactiveTrackColor),
+      ptrObj(thumbColor),
+      ptrObj(inactiveThumbColor),
+      ptrBool(applyTheme),
+      ptrObj(focusColor),
+      ptrObj(onLabelColor),
+      ptrObj(offLabelColor),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrEnum(dragStartBehavior));
+  }
+
+  MemorySegment cupertinoSliderCupertinoSlider(double value, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<Color> activeColor, Optional<Color> thumbColor) {
+    var st = WidgetFactories.cupertinoSlider(factories);
+    var fn = WidgetFactories.CupertinoSliderSt.cupertinoSlider(st);
+    return WidgetFactories.CupertinoSliderSt.cupertinoSlider.invoke(fn, arena, value,
+      ptrValueChangedForDoubleFn(onChanged),
+      onChangeStart.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeStart.get())) : MemorySegment.NULL,
+      onChangeEnd.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeEnd.get())) : MemorySegment.NULL,
+      ptr(min),
+      ptr(max),
+      ptr(divisions),
+      ptrObj(activeColor),
+      ptrObj(thumbColor));
+  }
+
+  MemorySegment cupertinoSearchTextFieldCupertinoSearchTextField(Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<TextStyle> style, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<BoxDecoration> decoration, Optional<Color> backgroundColor, Optional<BorderRadius> borderRadius, Optional<EdgeInsetsGeometry> padding, Optional<Color> itemColor, OptionalDouble itemSize, Optional<EdgeInsetsGeometry> prefixInsets, Optional<Widget> prefixIcon, Optional<EdgeInsetsGeometry> suffixInsets, Optional<Icon> suffixIcon, Optional<OverlayVisibilityMode> suffixMode, Optional<Runnable> onSuffixTap, Optional<String> restorationId, Optional<SmartQuotesType> smartQuotesType, Optional<SmartDashesType> smartDashesType, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> autofocus, Optional<Runnable> onTap, Optional<Boolean> autocorrect, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor) {
+    var st = WidgetFactories.cupertinoSearchTextField(factories);
+    var fn = WidgetFactories.CupertinoSearchTextFieldSt.cupertinoSearchTextField(st);
+    return WidgetFactories.CupertinoSearchTextFieldSt.cupertinoSearchTextField.invoke(fn, arena, onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      ptrObj(style),
+      ptrStr(placeholder),
+      ptrObj(placeholderStyle),
+      ptrObj(decoration),
+      ptrObj(backgroundColor),
+      ptrObj(borderRadius),
+      ptrObj(padding),
+      ptrObj(itemColor),
+      ptr(itemSize),
+      ptrObj(prefixInsets),
+      ptrObj(prefixIcon),
+      ptrObj(suffixInsets),
+      ptrObj(suffixIcon),
+      ptrEnum(suffixMode),
+      onSuffixTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onSuffixTap.get())) : MemorySegment.NULL,
+      ptrStr(restorationId),
+      ptrEnum(smartQuotesType),
+      ptrEnum(smartDashesType),
+      ptrBool(enableIMEPersonalizedLearning),
+      ptrBool(autofocus),
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrBool(autocorrect),
+      ptrBool(enabled),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorRadius),
+      ptrBool(cursorOpacityAnimates),
+      ptrObj(cursorColor));
+  }
+
+  MemorySegment cupertinoActivityIndicatorCupertinoActivityIndicator(Optional<Color> color, Optional<Boolean> animating, OptionalDouble radius) {
+    var st = WidgetFactories.cupertinoActivityIndicator(factories);
+    var fn = WidgetFactories.CupertinoActivityIndicatorSt.cupertinoActivityIndicator(st);
+    return WidgetFactories.CupertinoActivityIndicatorSt.cupertinoActivityIndicator.invoke(fn, arena, ptrObj(color),
+      ptrBool(animating),
+      ptr(radius));
+  }
+  MemorySegment cupertinoActivityIndicatorPartiallyRevealed(Optional<Color> color, OptionalDouble radius, OptionalDouble progress) {
+    var st = WidgetFactories.cupertinoActivityIndicator(factories);
+    var fn = WidgetFactories.CupertinoActivityIndicatorSt.partiallyRevealed(st);
+    return WidgetFactories.CupertinoActivityIndicatorSt.partiallyRevealed.invoke(fn, arena, ptrObj(color),
+      ptr(radius),
+      ptr(progress));
+  }
+
+  MemorySegment cupertinoListSectionCupertinoListSection(Optional<List<Widget>> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior, OptionalDouble dividerMargin, OptionalDouble additionalDividerMargin, OptionalDouble topMargin, Optional<Boolean> hasLeading, Optional<Color> separatorColor) {
+    var st = WidgetFactories.cupertinoListSection(factories);
+    var fn = WidgetFactories.CupertinoListSectionSt.cupertinoListSection(st);
+    return WidgetFactories.CupertinoListSectionSt.cupertinoListSection.invoke(fn, arena, ptrList(children),
+      ptrObj(header),
+      ptrObj(footer),
+      ptrObj(margin),
+      ptrObj(backgroundColor),
+      ptrObj(decoration),
+      ptrEnum(clipBehavior),
+      ptr(dividerMargin),
+      ptr(additionalDividerMargin),
+      ptr(topMargin),
+      ptrBool(hasLeading),
+      ptrObj(separatorColor));
+  }
+  MemorySegment cupertinoListSectionInsetGrouped(Optional<List<Widget>> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior, OptionalDouble dividerMargin, OptionalDouble additionalDividerMargin, OptionalDouble topMargin, Optional<Boolean> hasLeading, Optional<Color> separatorColor) {
+    var st = WidgetFactories.cupertinoListSection(factories);
+    var fn = WidgetFactories.CupertinoListSectionSt.insetGrouped(st);
+    return WidgetFactories.CupertinoListSectionSt.insetGrouped.invoke(fn, arena, ptrList(children),
+      ptrObj(header),
+      ptrObj(footer),
+      ptrObj(margin),
+      ptrObj(backgroundColor),
+      ptrObj(decoration),
+      ptrEnum(clipBehavior),
+      ptr(dividerMargin),
+      ptr(additionalDividerMargin),
+      ptr(topMargin),
+      ptrBool(hasLeading),
+      ptrObj(separatorColor));
+  }
+
+  MemorySegment cupertinoListTileCupertinoListTile(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+    var st = WidgetFactories.cupertinoListTile(factories);
+    var fn = WidgetFactories.CupertinoListTileSt.cupertinoListTile(st);
+    return WidgetFactories.CupertinoListTileSt.cupertinoListTile.invoke(fn, arena, title.build().getId(),
+      ptrObj(subtitle),
+      ptrObj(additionalInfo),
+      ptrObj(leading),
+      ptrObj(trailing),
+      ptrObj(backgroundColor),
+      ptrObj(backgroundColorActivated),
+      ptrObj(padding),
+      ptr(leadingSize),
+      ptr(leadingToTitle));
+  }
+  MemorySegment cupertinoListTileNotched(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+    var st = WidgetFactories.cupertinoListTile(factories);
+    var fn = WidgetFactories.CupertinoListTileSt.notched(st);
+    return WidgetFactories.CupertinoListTileSt.notched.invoke(fn, arena, title.build().getId(),
+      ptrObj(subtitle),
+      ptrObj(additionalInfo),
+      ptrObj(leading),
+      ptrObj(trailing),
+      ptrObj(backgroundColor),
+      ptrObj(backgroundColorActivated),
+      ptrObj(padding),
+      ptr(leadingSize),
+      ptr(leadingToTitle));
+  }
+
+  MemorySegment cupertinoListTileChevronCupertinoListTileChevron() {
+    var st = WidgetFactories.cupertinoListTileChevron(factories);
+    var fn = WidgetFactories.CupertinoListTileChevronSt.cupertinoListTileChevron(st);
+    return WidgetFactories.CupertinoListTileChevronSt.cupertinoListTileChevron.invoke(fn, arena);
+  }
+
+  MemorySegment cupertinoFormSectionCupertinoFormSection(List<Widget> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.cupertinoFormSection(factories);
+    var fn = WidgetFactories.CupertinoFormSectionSt.cupertinoFormSection(st);
+    return WidgetFactories.CupertinoFormSectionSt.cupertinoFormSection.invoke(fn, arena, ptrList(children),
+      ptrObj(header),
+      ptrObj(footer),
+      ptrObj(margin),
+      ptrObj(backgroundColor),
+      ptrObj(decoration),
+      ptrEnum(clipBehavior));
+  }
+  MemorySegment cupertinoFormSectionInsetGrouped(List<Widget> children, Optional<Widget> header, Optional<Widget> footer, Optional<EdgeInsetsGeometry> margin, Optional<Color> backgroundColor, Optional<BoxDecoration> decoration, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.cupertinoFormSection(factories);
+    var fn = WidgetFactories.CupertinoFormSectionSt.insetGrouped(st);
+    return WidgetFactories.CupertinoFormSectionSt.insetGrouped.invoke(fn, arena, ptrList(children),
+      ptrObj(header),
+      ptrObj(footer),
+      ptrObj(margin),
+      ptrObj(backgroundColor),
+      ptrObj(decoration),
+      ptrEnum(clipBehavior));
+  }
+
+  MemorySegment cupertinoFormRowCupertinoFormRow(Widget child, Optional<Widget> prefix, Optional<EdgeInsetsGeometry> padding, Optional<Widget> helper, Optional<Widget> error) {
+    var st = WidgetFactories.cupertinoFormRow(factories);
+    var fn = WidgetFactories.CupertinoFormRowSt.cupertinoFormRow(st);
+    return WidgetFactories.CupertinoFormRowSt.cupertinoFormRow.invoke(fn, arena, child.build().getId(),
+      ptrObj(prefix),
+      ptrObj(padding),
+      ptrObj(helper),
+      ptrObj(error));
+  }
+
+  MemorySegment cupertinoPickerCupertinoPicker(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, List<Widget> children, Optional<Widget> selectionOverlay, Optional<Boolean> looping) {
+    var st = WidgetFactories.cupertinoPicker(factories);
+    var fn = WidgetFactories.CupertinoPickerSt.cupertinoPicker(st);
+    return WidgetFactories.CupertinoPickerSt.cupertinoPicker.invoke(fn, arena, ptr(diameterRatio),
+      ptrObj(backgroundColor),
+      ptr(offAxisFraction),
+      ptrBool(useMagnifier),
+      ptr(magnification),
+      ptr(squeeze),
+      ptrEnum(changeReportingBehavior),
+      itemExtent,
+      ptrValueChangedForIntFn(onSelectedItemChanged),
+      ptrList(children),
+      ptrObj(selectionOverlay),
+      ptrBool(looping));
+  }
+  MemorySegment cupertinoPickerBuilder(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt childCount, Optional<Widget> selectionOverlay) {
+    var st = WidgetFactories.cupertinoPicker(factories);
+    var fn = WidgetFactories.CupertinoPickerSt.builder(st);
+    return WidgetFactories.CupertinoPickerSt.builder.invoke(fn, arena, ptr(diameterRatio),
+      ptrObj(backgroundColor),
+      ptr(offAxisFraction),
+      ptrBool(useMagnifier),
+      ptr(magnification),
+      ptr(squeeze),
+      ptrEnum(changeReportingBehavior),
+      itemExtent,
+      ptrValueChangedForIntFn(onSelectedItemChanged),
+      ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      ptr(childCount),
+      ptrObj(selectionOverlay));
+  }
+
+  MemorySegment cupertinoAlertDialogCupertinoAlertDialog(Optional<Widget> title, Optional<Widget> content, Optional<List<Widget>> actions, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve) {
+    var st = WidgetFactories.cupertinoAlertDialog(factories);
+    var fn = WidgetFactories.CupertinoAlertDialogSt.cupertinoAlertDialog(st);
+    return WidgetFactories.CupertinoAlertDialogSt.cupertinoAlertDialog.invoke(fn, arena, ptrObj(title),
+      ptrObj(content),
+      ptrList(actions),
+      ptrObj(insetAnimationDuration),
+      ptrObj(insetAnimationCurve));
+  }
+
+  MemorySegment cupertinoActionSheetCupertinoActionSheet(Optional<Widget> title, Optional<Widget> message, Optional<List<Widget>> actions, Optional<Widget> cancelButton) {
+    var st = WidgetFactories.cupertinoActionSheet(factories);
+    var fn = WidgetFactories.CupertinoActionSheetSt.cupertinoActionSheet(st);
+    return WidgetFactories.CupertinoActionSheetSt.cupertinoActionSheet.invoke(fn, arena, ptrObj(title),
+      ptrObj(message),
+      ptrList(actions),
+      ptrObj(cancelButton));
+  }
+
+  MemorySegment cupertinoDialogActionCupertinoDialogAction(Optional<Runnable> onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Optional<TextStyle> textStyle, Widget child) {
+    var st = WidgetFactories.cupertinoDialogAction(factories);
+    var fn = WidgetFactories.CupertinoDialogActionSt.cupertinoDialogAction(st);
+    return WidgetFactories.CupertinoDialogActionSt.cupertinoDialogAction.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptrBool(isDefaultAction),
+      ptrBool(isDestructiveAction),
+      ptrObj(textStyle),
+      child.build().getId());
+  }
+
+  MemorySegment cupertinoActionSheetActionCupertinoActionSheetAction(Runnable onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Widget child) {
+    var st = WidgetFactories.cupertinoActionSheetAction(factories);
+    var fn = WidgetFactories.CupertinoActionSheetActionSt.cupertinoActionSheetAction(st);
+    return WidgetFactories.CupertinoActionSheetActionSt.cupertinoActionSheetAction.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+      ptrBool(isDefaultAction),
+      ptrBool(isDestructiveAction),
+      child.build().getId());
+  }
+
+  int bottomNavigationBarItemBottomNavigationBarItem(Widget icon, Optional<String> label, Optional<Widget> activeIcon, Optional<Color> backgroundColor, Optional<String> tooltip) {
+    var st = WidgetFactories.bottomNavigationBarItem(factories);
+    var fn = WidgetFactories.BottomNavigationBarItemSt.bottomNavigationBarItem(st);
+    return WidgetFactories.BottomNavigationBarItemSt.bottomNavigationBarItem.invoke(fn, icon.build().getId(),
+      ptrStr(label),
+      ptrObj(activeIcon),
+      ptrObj(backgroundColor),
+      ptrStr(tooltip));
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);

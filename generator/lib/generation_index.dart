@@ -1,6 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
+import 'package:flutter/cupertino.dart' as c;
 import 'subwidgets.dart' as s;
 import 'sub_animated_state.dart' as sas;
 import 'animation_controller_methods.dart' as acm;
@@ -178,6 +179,29 @@ m.DefaultTabController? defaultTabController;
 m.CheckboxListTile? checkboxListTile;
 m.SwitchListTile? switchListTile;
 m.Badge? badge;
+
+c.CupertinoApp? cupertinoApp;
+c.CupertinoPageScaffold? cupertinoPageScaffold;
+c.CupertinoNavigationBar? cupertinoNavigationBar;
+c.CupertinoSliverNavigationBar? cupertinoSliverNavigationBar;
+c.CupertinoTabView? cupertinoTabView;
+c.CupertinoButton? cupertinoButton;
+c.CupertinoSwitch? cupertinoSwitch;
+c.CupertinoSlider? cupertinoSlider;
+c.CupertinoSearchTextField? cupertinoSearchTextField;
+c.CupertinoActivityIndicator? cupertinoActivityIndicator;
+c.CupertinoListSection? cupertinoListSection;
+c.CupertinoListTile? cupertinoListTile;
+c.CupertinoListTileChevron? cupertinoListTileChevron;
+c.CupertinoFormSection? cupertinoFormSection;
+c.CupertinoFormRow? cupertinoFormRow;
+c.CupertinoPicker? cupertinoPicker;
+c.CupertinoAlertDialog? cupertinoAlertDialog;
+c.CupertinoActionSheet? cupertinoActionSheet;
+c.CupertinoDialogAction? cupertinoDialogAction;
+c.CupertinoActionSheetAction? cupertinoActionSheetAction;
+c.CupertinoIcons? cupertinoIcons;
+w.BottomNavigationBarItem? bottomNavigationBarItem;
 
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;

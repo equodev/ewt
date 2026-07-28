@@ -820,4 +820,118 @@ public class EWT {
     return BadgeCountBuilder.badgeCount();
   }
 
+  public static CupertinoAppCupertinoAppBuilder CupertinoApp() {
+    return CupertinoAppCupertinoAppBuilder.cupertinoAppCupertinoApp();
+  }
+  public static CupertinoAppRouterBuilder CupertinoApp_router() {
+    return CupertinoAppRouterBuilder.cupertinoAppRouter();
+  }
+
+  public static CupertinoPageScaffoldCupertinoPageScaffoldBuilder CupertinoPageScaffold() {
+    return CupertinoPageScaffoldCupertinoPageScaffoldBuilder.cupertinoPageScaffoldCupertinoPageScaffold();
+  }
+
+  public static CupertinoNavigationBarCupertinoNavigationBarBuilder CupertinoNavigationBar() {
+    return CupertinoNavigationBarCupertinoNavigationBarBuilder.cupertinoNavigationBarCupertinoNavigationBar();
+  }
+  public static CupertinoNavigationBarLargeBuilder CupertinoNavigationBar_large() {
+    return CupertinoNavigationBarLargeBuilder.cupertinoNavigationBarLarge();
+  }
+
+  public static CupertinoSliverNavigationBarCupertinoSliverNavigationBarBuilder CupertinoSliverNavigationBar() {
+    return CupertinoSliverNavigationBarCupertinoSliverNavigationBarBuilder.cupertinoSliverNavigationBarCupertinoSliverNavigationBar();
+  }
+  public static CupertinoSliverNavigationBarSearchBuilder CupertinoSliverNavigationBar_search(WidgetI searchField) {
+    return CupertinoSliverNavigationBarSearchBuilder.cupertinoSliverNavigationBarSearch(searchField);
+  }
+
+  public static CupertinoTabViewCupertinoTabViewBuilder CupertinoTabView() {
+    return CupertinoTabViewCupertinoTabViewBuilder.cupertinoTabViewCupertinoTabView();
+  }
+
+  public static CupertinoButtonCupertinoButtonBuilder CupertinoButton(WidgetI child) {
+    return CupertinoButtonCupertinoButtonBuilder.cupertinoButtonCupertinoButton(child);
+  }
+  public static CupertinoButtonTintedBuilder CupertinoButton_tinted(WidgetI child) {
+    return CupertinoButtonTintedBuilder.cupertinoButtonTinted(child);
+  }
+  public static CupertinoButtonFilledBuilder CupertinoButton_filled(WidgetI child) {
+    return CupertinoButtonFilledBuilder.cupertinoButtonFilled(child);
+  }
+
+  public static CupertinoSwitchCupertinoSwitchBuilder CupertinoSwitch(boolean value, Consumer<Boolean> onChanged) {
+    return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value, onChanged);
+  }
+
+  public static CupertinoSliderCupertinoSliderBuilder CupertinoSlider(double value, Consumer<Double> onChanged) {
+    return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value, onChanged);
+  }
+
+  public static CupertinoSearchTextFieldCupertinoSearchTextFieldBuilder CupertinoSearchTextField() {
+    return CupertinoSearchTextFieldCupertinoSearchTextFieldBuilder.cupertinoSearchTextFieldCupertinoSearchTextField();
+  }
+
+  public static CupertinoActivityIndicatorCupertinoActivityIndicatorBuilder CupertinoActivityIndicator() {
+    return CupertinoActivityIndicatorCupertinoActivityIndicatorBuilder.cupertinoActivityIndicatorCupertinoActivityIndicator();
+  }
+  public static CupertinoActivityIndicatorPartiallyRevealedBuilder CupertinoActivityIndicator_partiallyRevealed() {
+    return CupertinoActivityIndicatorPartiallyRevealedBuilder.cupertinoActivityIndicatorPartiallyRevealed();
+  }
+
+  public static CupertinoListSectionCupertinoListSectionBuilder CupertinoListSection() {
+    return CupertinoListSectionCupertinoListSectionBuilder.cupertinoListSectionCupertinoListSection();
+  }
+  public static CupertinoListSectionInsetGroupedBuilder CupertinoListSection_insetGrouped() {
+    return CupertinoListSectionInsetGroupedBuilder.cupertinoListSectionInsetGrouped();
+  }
+
+  public static CupertinoListTileCupertinoListTileBuilder CupertinoListTile(WidgetI title) {
+    return CupertinoListTileCupertinoListTileBuilder.cupertinoListTileCupertinoListTile(title);
+  }
+  public static CupertinoListTileNotchedBuilder CupertinoListTile_notched(WidgetI title) {
+    return CupertinoListTileNotchedBuilder.cupertinoListTileNotched(title);
+  }
+
+  public static CupertinoListTileChevronCupertinoListTileChevronBuilder CupertinoListTileChevron() {
+    return CupertinoListTileChevronCupertinoListTileChevronBuilder.cupertinoListTileChevronCupertinoListTileChevron();
+  }
+
+  public static CupertinoFormSectionCupertinoFormSectionBuilder CupertinoFormSection(List<WidgetI> children) {
+    return CupertinoFormSectionCupertinoFormSectionBuilder.cupertinoFormSectionCupertinoFormSection(children);
+  }
+  public static CupertinoFormSectionInsetGroupedBuilder CupertinoFormSection_insetGrouped(List<WidgetI> children) {
+    return CupertinoFormSectionInsetGroupedBuilder.cupertinoFormSectionInsetGrouped(children);
+  }
+
+  public static CupertinoFormRowCupertinoFormRowBuilder CupertinoFormRow(WidgetI child) {
+    return CupertinoFormRowCupertinoFormRowBuilder.cupertinoFormRowCupertinoFormRow(child);
+  }
+
+  public static CupertinoPickerCupertinoPickerBuilder CupertinoPicker() {
+    return CupertinoPickerCupertinoPickerBuilder.cupertinoPickerCupertinoPicker();
+  }
+  public static CupertinoPickerBuilderBuilder CupertinoPicker_builder() {
+    return CupertinoPickerBuilderBuilder.cupertinoPickerBuilder();
+  }
+
+  public static CupertinoAlertDialogCupertinoAlertDialogBuilder CupertinoAlertDialog() {
+    return CupertinoAlertDialogCupertinoAlertDialogBuilder.cupertinoAlertDialogCupertinoAlertDialog();
+  }
+
+  public static CupertinoActionSheetCupertinoActionSheetBuilder CupertinoActionSheet() {
+    return CupertinoActionSheetCupertinoActionSheetBuilder.cupertinoActionSheetCupertinoActionSheet();
+  }
+
+  public static CupertinoDialogActionCupertinoDialogActionBuilder CupertinoDialogAction() {
+    return CupertinoDialogActionCupertinoDialogActionBuilder.cupertinoDialogActionCupertinoDialogAction();
+  }
+
+  public static CupertinoActionSheetActionCupertinoActionSheetActionBuilder CupertinoActionSheetAction(Runnable onPressed) {
+    return CupertinoActionSheetActionCupertinoActionSheetActionBuilder.cupertinoActionSheetActionCupertinoActionSheetAction(onPressed);
+  }
+
+  public static BottomNavigationBarItemBottomNavigationBarItemBuilder BottomNavigationBarItem(WidgetI icon) {
+    return BottomNavigationBarItemBottomNavigationBarItemBuilder.bottomNavigationBarItemBottomNavigationBarItem(icon);
+  }
+
 }
