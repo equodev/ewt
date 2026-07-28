@@ -342,7 +342,9 @@ ewt_evolve_build:windows:
     - >-
       powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
       \$evolveHome=(Resolve-Path ..\\swt-evolve).Path;
-      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true -PevolveHome=\$evolveHome --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+      Write-Host ('DIAG evolveHome=' + \$evolveHome + ' jarExists=' + (Test-Path (Join-Path \$evolveHome 'swt_native\\build\\libs\\swt_evolve-windows-x86_64.jar')));
+      \$env:ORG_GRADLE_PROJECT_evolveHome=\$evolveHome;
+      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
     paths:
