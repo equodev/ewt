@@ -15,10 +15,11 @@ void main() {
 
   test('setParams into a nested child param', () {
     final root = {'t': 'centerCenter', 'id': 1, 'p': {'child': _leaf(2, 'old')}, 'c': []};
-    applyPatch(root, [
+    final patched = applyPatch(root, [
       {'path': ['child'], 'set': {'data': 'new'}}
     ]);
-    expect(((root['p'] as Map)['child'] as Map)['p']['data'], 'new');
+    expect(((patched['p'] as Map)['child'] as Map)['p']['data'], 'new');
+    expect(((root['p'] as Map)['child'] as Map)['p']['data'], 'old');
   });
 
   test('setParams into a list element by index', () {
@@ -26,11 +27,12 @@ void main() {
       't': 'columnColumn', 'id': 1,
       'p': {'children': [_leaf(2, 'a'), _leaf(3, 'b')]}, 'c': []
     };
-    applyPatch(root, [
+    final patched = applyPatch(root, [
       {'path': ['children', 1], 'set': {'data': 'B'}}
     ]);
-    expect((((root['p'] as Map)['children'] as List)[1] as Map)['p']['data'], 'B');
-    expect((((root['p'] as Map)['children'] as List)[0] as Map)['p']['data'], 'a');
+    expect((((patched['p'] as Map)['children'] as List)[1] as Map)['p']['data'], 'B');
+    expect((((patched['p'] as Map)['children'] as List)[0] as Map)['p']['data'], 'a');
+    expect((((root['p'] as Map)['children'] as List)[1] as Map)['p']['data'], 'b');
   });
 
   test('unresolvable path throws', () {

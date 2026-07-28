@@ -228,11 +228,12 @@ if (evolveAvailable) {
     }
 }
 
-// Evolve not available: exclude tests that reference EwtWidget (evolve source set only) so
+// Evolve not available: exclude tests that reference Evolve types (EwtWidget, Serializer) so
 // compileTestJava succeeds on a plain ewt.api build without swt-evolve on the classpath.
 if (!evolveAvailable) {
     tasks.named<JavaCompile>("compileTestJava") {
         exclude("org/eclipse/swt/widgets/EwtWidget*Test.java")
+        exclude("dev/equo/ewt/evolve/SerializerArrayParseTest.java")
     }
 }
 
