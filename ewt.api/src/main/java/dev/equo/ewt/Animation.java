@@ -1,6 +1,6 @@
 package dev.equo.ewt;
 import java.util.*;
-public interface Animation<T> extends Listenable {
+public interface Animation<T> extends Listenable, AnimationI {
   @Override
   default Animation build() {
     return this;
