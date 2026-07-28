@@ -2,6 +2,7 @@ stages:
   - docker_build
   - check
   - flutter
+  - test
   - build
   - deploy
   - release
@@ -227,6 +228,72 @@ flutter:windows:
     expire_in: 1 week
 
 # =============================================================================
+# TEST STAGE
+# =============================================================================
+
+# Hermetic Dart tests for the generator (WidgetGen/EnumGen/Params + Dart→Java
+# snapshot transpiler). Uses the minimal fixture in test/fixtures/index_min.dart,
+# so it does NOT depend on `generate` — dart test runs the unit suite directly,
+# never invoking `dart run bin/generator.dart`.
+generator_tests:
+  stage: test
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  script:
+    - cd generator
+    - dart pub get
+    # junitreport converts `dart test`'s JSON reporter into JUnit XML for the
+    # GitLab "Tests" tab. If the runner can't reach pub.dev, drop the pipe and
+    # run `dart test --reporter expanded` — the exit code still gates the job.
+    - dart pub global activate junitreport
+    - export PATH="$PATH:$HOME/.pub-cache/bin"
+    - dart test --reporter json | tojunit --output test-results.xml
+  artifacts:
+    when: always
+    reports:
+      junit: generator/test-results.xml
+    paths:
+      - generator/test-results.xml
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
+# JUnit 5 tests for ewt.api (non-native only — @Tag("native") is excluded by
+# default; opt in with -DrunNativeTests, see ewt.api/build.gradle.kts). Covers
+# NativeLibLoaderTest + EvolveBundleExtractorTest. Needs `generate` for the
+# jextract'd FFM sources under ewt.api/src/main/java/dev/equo/ewt/ffm/.
+# NOTE: :ewt.api:test does NOT trigger :generator:generator (no dependsOn wire),
+# so `generate` still runs exactly once per pipeline — shared with ewt_build.
+ewt_api_tests:linux:
+  stage: test
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - generate
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  script:
+    - ./gradlew :ewt.api:test --no-daemon
+  artifacts:
+    when: always
+    reports:
+      junit: ewt.api/build/test-results/test/*.xml
+    paths:
+      - ewt.api/build/reports/tests/test/
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
+# =============================================================================
 # BUILD STAGE
 # =============================================================================
 
@@ -235,11 +302,14 @@ flutter:windows:
 ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
+  # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
   needs:
     - generate
     - flutter:linux
     - flutter:macos
     - flutter:windows
+    - generator_tests
+    - ewt_api_tests:linux
     - job: build_docker_image
       optional: true
     - job: release_gate
@@ -267,8 +337,11 @@ ewt_build:
 ewt_evolve_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
+  # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
   needs:
     - generate
+    - generator_tests
+    - ewt_api_tests:linux
     - job: build_docker_image
       optional: true
     - job: release_gate
