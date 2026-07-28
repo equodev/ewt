@@ -240,6 +240,8 @@ ewt_evolve_build:macos:
   extends: .flutter:macos
   stage: build
   needs:
+    - job: generate
+      optional: true
     - job: release_gate
       optional: true
   rules:
@@ -305,6 +307,8 @@ ewt_evolve_build:windows:
       - api_failure
       - scheduler_failure
   needs:
+    - job: generate
+      optional: true
     - job: release_gate
       optional: true
   rules:
@@ -321,7 +325,10 @@ ewt_evolve_build:windows:
     - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
     - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
     - git -C ../swt-evolve checkout "$EVOLVE_REF"
-    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
+    # The runner's shell is WSL (paths like /mnt/c/...). pubspec_overrides is read by the Windows
+    # flutter, which can't resolve a /mnt/c path, so convert it to a Windows path with wslpath -m
+    # (C:/...). (evolveHome, resolved via powershell Resolve-Path, is already a Windows path.)
+    - EVOLVE_ABS="$(wslpath -m "$(cd ../swt-evolve && pwd)")"
     - >-
       printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
       "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
@@ -344,6 +351,10 @@ ewt_evolve_build:windows:
       \$evolveHome=(Resolve-Path ..\\swt-evolve).Path;
       Write-Host ('DIAG evolveHome=' + \$evolveHome + ' jarExists=' + (Test-Path (Join-Path \$evolveHome 'swt_native\\build\\libs\\swt_evolve-windows-x86_64.jar')));
       \$env:ORG_GRADLE_PROJECT_evolveHome=\$evolveHome;
+      \$vswhere='C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe';
+      \$vsPath=if(Test-Path \$vswhere){(& \$vswhere -latest -products * -property installationPath 2>\$null)}else{\$null};
+      \$cmakeBin=\$vsPath+'\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin';
+      if(\$vsPath -and (Test-Path (\$cmakeBin+'\\cmake.exe'))){\$env:PATH=\$cmakeBin+';'+\$env:PATH; Write-Host ('DIAG cmake: '+\$cmakeBin)}else{Write-Host 'DIAG cmake not found via vsWhere'};
       \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
