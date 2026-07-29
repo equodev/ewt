@@ -220,6 +220,8 @@ m.DateRangePickerDialog? dateRangePickerDialog;
 m.YearPicker? yearPicker;
 m.InputDatePickerFormField? inputDatePickerFormField;
 
+m.SearchBar? searchBar;
+
 c.CupertinoApp? cupertinoApp;
 c.CupertinoPageScaffold? cupertinoPageScaffold;
 c.CupertinoNavigationBar? cupertinoNavigationBar;
