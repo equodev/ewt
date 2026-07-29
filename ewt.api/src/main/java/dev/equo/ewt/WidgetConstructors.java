@@ -4306,22 +4306,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child != null ? child.build().getId() : null);
   }
 
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
-    var st = WidgetFactories.searchBar(factories);
-    var fn = WidgetFactories.SearchBarSt.searchBar(st);
-    return WidgetFactories.SearchBarSt.searchBar.invoke(fn, arena, ptrStr(hintText),
-      ptrObj(leading),
-      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
-      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
-      onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
-      ptrObj(constraints),
-      ptrEnum(textCapitalization),
-      ptrBool(enabled),
-      ptrBool(autoFocus),
-      ptrEnum(textInputAction),
-      ptrObj(scrollPadding));
-  }
-
   MemorySegment datePickerDialogDatePickerDialog(Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<DatePickerMode> initialCalendarMode, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<String> restorationId, Optional<Consumer<DatePickerEntryMode>> onDatePickerModeChange, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon, Optional<EdgeInsets> insetPadding) {
     var st = WidgetFactories.datePickerDialog(factories);
     var fn = WidgetFactories.DatePickerDialogSt.datePickerDialog(st);
@@ -4428,6 +4412,22 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(fieldLabelText),
       ptrBool(autofocus),
       ptrBool(acceptEmptyDate));
+  }
+
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+    var st = WidgetFactories.searchBar(factories);
+    var fn = WidgetFactories.SearchBarSt.searchBar(st);
+    return WidgetFactories.SearchBarSt.searchBar.invoke(fn, arena, ptrStr(hintText),
+      ptrObj(leading),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      ptrObj(constraints),
+      ptrEnum(textCapitalization),
+      ptrBool(enabled),
+      ptrBool(autoFocus),
+      ptrEnum(textInputAction),
+      ptrObj(scrollPadding));
   }
 
   MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {

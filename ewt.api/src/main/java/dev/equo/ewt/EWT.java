@@ -1062,10 +1062,6 @@ public class EWT {
     return RadioMenuButtonRadioMenuButtonBuilder.radioMenuButtonRadioMenuButton(value, groupValue, onChanged);
   }
 
-  public static SearchBarSearchBarBuilder SearchBar() {
-    return SearchBarSearchBarBuilder.searchBarSearchBar();
-  }
-
   public static DatePickerDialogDatePickerDialogBuilder DatePickerDialog() {
     return DatePickerDialogDatePickerDialogBuilder.datePickerDialogDatePickerDialog();
   }
@@ -1088,6 +1084,10 @@ public class EWT {
 
   public static InputDatePickerFormFieldInputDatePickerFormFieldBuilder InputDatePickerFormField() {
     return InputDatePickerFormFieldInputDatePickerFormFieldBuilder.inputDatePickerFormFieldInputDatePickerFormField();
+  }
+
+  public static SearchBarSearchBarBuilder SearchBar() {
+    return SearchBarSearchBarBuilder.searchBarSearchBar();
   }
 
   public static CupertinoAppCupertinoAppBuilder CupertinoApp() {

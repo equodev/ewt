@@ -5669,27 +5669,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    hintText.ifPresent(v -> p.put("hintText", v));
-    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
-    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
-    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
-    if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
-    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
-    textCapitalization.ifPresent(v -> p.put("textCapitalization", v.ordinal()));
-    enabled.ifPresent(v -> p.put("enabled", v));
-    autoFocus.ifPresent(v -> p.put("autoFocus", v));
-    textInputAction.ifPresent(v -> p.put("textInputAction", v.ordinal()));
-    scrollPadding.ifPresent(v -> p.put("scrollPadding", byId.get(v.getId())));
-    record(id, "searchBarSearchBar", p);
-    MemorySegment st = SearchBarObjSt.allocate(arena);
-    SearchBarObjSt.id(st, id);
-    return st;
-  }
-
-  @Override
   MemorySegment datePickerDialogDatePickerDialog(Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<DatePickerMode> initialCalendarMode, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<String> restorationId, Optional<Consumer<DatePickerEntryMode>> onDatePickerModeChange, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon, Optional<EdgeInsets> insetPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -5824,6 +5803,27 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "inputDatePickerFormFieldInputDatePickerFormField", p);
     MemorySegment st = InputDatePickerFormFieldObjSt.allocate(arena);
     InputDatePickerFormFieldObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    hintText.ifPresent(v -> p.put("hintText", v));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
+    if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    textCapitalization.ifPresent(v -> p.put("textCapitalization", v.ordinal()));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    autoFocus.ifPresent(v -> p.put("autoFocus", v));
+    textInputAction.ifPresent(v -> p.put("textInputAction", v.ordinal()));
+    scrollPadding.ifPresent(v -> p.put("scrollPadding", byId.get(v.getId())));
+    record(id, "searchBarSearchBar", p);
+    MemorySegment st = SearchBarObjSt.allocate(arena);
+    SearchBarObjSt.id(st, id);
     return st;
   }
 
