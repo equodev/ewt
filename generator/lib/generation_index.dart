@@ -204,6 +204,13 @@ m.CheckedPopupMenuItem? checkedPopupMenuItem;
 m.CircleAvatar? circleAvatar;
 m.Scrollbar? scrollbar;
 
+m.MenuBar? menuBar;
+m.MenuAnchor? menuAnchor;
+m.SubmenuButton? submenuButton;
+m.MenuItemButton? menuItemButton;
+m.CheckboxMenuButton? checkboxMenuButton;
+m.RadioMenuButton? radioMenuButton;
+
 c.CupertinoApp? cupertinoApp;
 c.CupertinoPageScaffold? cupertinoPageScaffold;
 c.CupertinoNavigationBar? cupertinoNavigationBar;
