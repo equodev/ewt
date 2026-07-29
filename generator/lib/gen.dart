@@ -861,6 +861,20 @@ class WidgetGen implements AGen {
   void writeConst(ConstFieldElementImpl fld, int constId) {
     String factory = _escape4D(fld.name);
     var initializer = fld.constantInitializer;
+    // Dart `int` is unbounded but Java `int` is 32-bit; large numeric consts
+    // (e.g. DateTime._maxMillisecondsSinceEpoch = 8640000000000000) overflow
+    // as decimal literals. Java hex literals up to 0xFFFFFFFF do fit in int
+    // (with sign wrap), so only skip when the Dart source form is decimal
+    // (not hex) AND the value can't fit even with unsigned wrap. Skips only
+    // private consts so no public API is dropped.
+    if (!fld.isPublic && fld.type.isDartCoreInt) {
+      final v = fld.computeConstantValue()?.toIntValue();
+      final src = fld.constantInitializer?.toString() ?? '';
+      final isHex = src.trimLeft().startsWith('0x') || src.trimLeft().startsWith('0X');
+      if (v != null && !isHex && (v > 2147483647 || v < -2147483648)) {
+        return;
+      }
+    }
     javaFile
         .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
@@ -963,6 +977,16 @@ class WidgetGen implements AGen {
       return 'Double';
     } else if (dartType.isDartCoreBool) {
       return 'Boolean';
+    }
+    else if (dartType is NeverType) {
+      // Dart `Never` (bottom type, used e.g. in PopupMenuDivider extends PopupMenuEntry<Never>)
+      // has no Java equivalent — use Object as a safe stand-in.
+      return 'Object';
+    }
+    else if (dartType is TypeParameterType) {
+      // Unbound type parameter (e.g. T) — use its name directly so generic class
+      // declarations like `class Radio<T> extends StatefulWidget` render correctly.
+      return dartType.element.name;
     }
     else if (dartType is InterfaceType) {
       var s = dartType.element.name;
@@ -1110,7 +1134,8 @@ abstract class ObjStGen extends WidgetGen {
   Iterable<FieldElement> getCallableFields(ClassElement sourceClass) =>
       sourceClass.fields.where((f) =>
           !f.getter!.hasOverride && f.isPublic && !f.isStatic
-          && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
+          && f.type is! FunctionType && f.type is! TypeParameterType
+          && !f.type.isDartCoreList && !f.type.isDartCoreObject
           /*&& !isInterface(f.type.element)*/ && types.supportedType(f.type) && f.type != sourceClass.thisType);
 }
 
@@ -1833,6 +1858,52 @@ class Generation {
     }
   }
 
+  /// objects.h emits struct definitions in widget-discovery order, which is
+  /// not topological — a struct field of type `FooObjSt` can precede
+  /// `} FooObjSt;` by hundreds of lines. Since C requires a complete type for
+  /// by-value struct fields, reorder the definitions so each struct is
+  /// preceded by every struct it depends on.
+  String _prependForwardDecls(String body) {
+    final defRe = RegExp(r'typedef struct \{([\s\S]*?)\}\s+([A-Za-z_][A-Za-z0-9_]*ObjSt)\s*;');
+    final defs = <String, String>{}; // name -> full definition text
+    final deps = <String, Set<String>>{}; // name -> set of ObjSt names it embeds
+    for (final m in defRe.allMatches(body)) {
+      final name = m.group(2)!;
+      final block = m.group(0)!;
+      final fieldsBody = m.group(1)!;
+      defs[name] = block;
+      final embedded = <String>{};
+      for (final f in RegExp(r'\b([A-Za-z_][A-Za-z0-9_]*ObjSt)\b').allMatches(fieldsBody)) {
+        final n = f.group(1)!;
+        if (n != name) embedded.add(n);
+      }
+      deps[name] = embedded;
+    }
+    if (defs.isEmpty) return body;
+    final order = <String>[];
+    final seen = <String>{};
+    void visit(String n) {
+      if (seen.contains(n)) return;
+      seen.add(n);
+      for (final d in deps[n] ?? const <String>{}) {
+        if (defs.containsKey(d)) visit(d);
+      }
+      order.add(n);
+    }
+    for (final n in defs.keys) visit(n);
+    final buf = StringBuffer();
+    for (final n in order) {
+      buf.writeln(defs[n]);
+    }
+    // Preserve any non-struct content (there shouldn't be much, but keep it safe).
+    final withoutDefs = body.replaceAll(defRe, '');
+    if (withoutDefs.trim().isNotEmpty) {
+      buf.writeln();
+      buf.write(withoutDefs);
+    }
+    return buf.toString();
+  }
+
   void processEnum(EnumElement dartClass) {
     processed.add(dartClass);
     EnumGen(types, dartClass)
@@ -1841,7 +1912,7 @@ class Generation {
 
   void write() {
     _writeC('factories.h', headerFile.toString());
-    _writeC('objects.h', objectsHFile.toString());
+    _writeC('objects.h', _prependForwardDecls(objectsHFile.toString()));
     _writeC('typedefs.h', typedefFile.toString());
     _writeD('factories_gen.dart', dartFactories.toString());
     _writeJ('WidgetConstructors', javaFactories.toString());
@@ -2624,6 +2695,17 @@ class Params {
   static String paramValueDtoC(Types ctx, ParameterElement param, {bool fromCallback = false}) {
     var t = param.type;
     if (t is TypeParameterType) {
+      final value = ensureName(param);
+      if (fromCallback) {
+        // TypeParameterType params in callbacks: the C typedef alternates between
+        //   - `DartObj` (int by value) when the source param is non-nullable T
+        //   - `DartObj*` (pointer) when the source param is nullable T? (isOptional=true)
+        // Mirrors the Java-side dispatch in paramValueFFMtoJ (see types.dart:497).
+        if (param.isOptional) {
+          return '($value != null) ? (calloc<ffi.Int>()..value = _addWidget($value)) : ffi.nullptr';
+        }
+        return '_addWidget($value)';
+      }
       t = t.bound;
     }
     var value = ensureName(param);
