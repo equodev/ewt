@@ -31,12 +31,15 @@ public class AnimatedOpacity extends ImplicitlyAnimatedWidget implements Animate
     return AnimatedOpacityAnimatedOpacityBuilder.animatedOpacityAnimatedOpacity();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedOpacityChild not supported on web");
     return new Widget(AnimatedOpacityObjSt.child(st)) {};
   }
   public double opacity() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedOpacityOpacity not supported on web");
     return AnimatedOpacityObjSt.opacity(st);
   }
   public boolean alwaysIncludeSemantics() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedOpacityAlwaysIncludeSemantics not supported on web");
     return intToBool(AnimatedOpacityObjSt.alwaysIncludeSemantics(st));
   }
   @Override

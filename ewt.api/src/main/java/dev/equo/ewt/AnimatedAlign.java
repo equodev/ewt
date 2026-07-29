@@ -32,15 +32,19 @@ public class AnimatedAlign extends ImplicitlyAnimatedWidget implements AnimatedA
     return AnimatedAlignAnimatedAlignBuilder.animatedAlignAnimatedAlign(alignment);
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedAlignAlignment not supported on web");
     return new AlignmentGeometry(AnimatedAlignObjSt.alignment(st)) {};
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedAlignChild not supported on web");
     return new Widget(AnimatedAlignObjSt.child(st)) {};
   }
   public double heightFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedAlignHeightFactor not supported on web");
     return AnimatedAlignObjSt.heightFactor(st);
   }
   public double widthFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedAlignWidthFactor not supported on web");
     return AnimatedAlignObjSt.widthFactor(st);
   }
   @Override

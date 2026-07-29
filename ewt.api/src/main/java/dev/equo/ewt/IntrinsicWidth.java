@@ -28,9 +28,11 @@ public class IntrinsicWidth extends SingleChildRenderObjectWidget implements Int
     return IntrinsicWidthIntrinsicWidthBuilder.intrinsicWidthIntrinsicWidth();
   }
   public double stepWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("intrinsicWidthStepWidth not supported on web");
     return IntrinsicWidthObjSt.stepWidth(st);
   }
   public double stepHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("intrinsicWidthStepHeight not supported on web");
     return IntrinsicWidthObjSt.stepHeight(st);
   }
   @Override

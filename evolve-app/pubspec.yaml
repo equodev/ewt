@@ -24,5 +24,13 @@ dependencies:
   widgets:
     path: ../widgets
 
+  # Pure-Dart web decoders (no ffi) for the EWT web path.
+  widgets_web:
+    path: ../widgets_web
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
 flutter:
   uses-material-design: true

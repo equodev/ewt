@@ -35,30 +35,39 @@ public class Flex extends MultiChildRenderObjectWidget implements FlexI {
     return FlexFlexBuilder.flexFlex(direction);
   }
   public Axis direction() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexDirection not supported on web");
     return Axis.values()[FlexObjSt.direction(st)];
   }
   public MainAxisAlignment mainAxisAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexMainAxisAlignment not supported on web");
     return MainAxisAlignment.values()[FlexObjSt.mainAxisAlignment(st)];
   }
   public MainAxisSize mainAxisSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexMainAxisSize not supported on web");
     return MainAxisSize.values()[FlexObjSt.mainAxisSize(st)];
   }
   public CrossAxisAlignment crossAxisAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexCrossAxisAlignment not supported on web");
     return CrossAxisAlignment.values()[FlexObjSt.crossAxisAlignment(st)];
   }
   public TextDirection textDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexTextDirection not supported on web");
     return TextDirection.values()[FlexObjSt.textDirection(st)];
   }
   public VerticalDirection verticalDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexVerticalDirection not supported on web");
     return VerticalDirection.values()[FlexObjSt.verticalDirection(st)];
   }
   public TextBaseline textBaseline() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexTextBaseline not supported on web");
     return TextBaseline.values()[FlexObjSt.textBaseline(st)];
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexClipBehavior not supported on web");
     return Clip.values()[FlexObjSt.clipBehavior(st)];
   }
   public double spacing() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexSpacing not supported on web");
     return FlexObjSt.spacing(st);
   }
   @Override

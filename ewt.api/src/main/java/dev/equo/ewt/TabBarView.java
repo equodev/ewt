@@ -29,12 +29,15 @@ public class TabBarView extends StatefulWidget implements TabBarViewI {
     return TabBarViewTabBarViewBuilder.tabBarViewTabBarView(children);
   }
   public DragStartBehavior dragStartBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarViewDragStartBehavior not supported on web");
     return DragStartBehavior.values()[TabBarViewObjSt.dragStartBehavior(st)];
   }
   public double viewportFraction() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarViewViewportFraction not supported on web");
     return TabBarViewObjSt.viewportFraction(st);
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarViewClipBehavior not supported on web");
     return Clip.values()[TabBarViewObjSt.clipBehavior(st)];
   }
   @Override

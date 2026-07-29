@@ -37,9 +37,11 @@ public class BoxShadow extends Shadow implements BoxShadowI {
     return new BoxShadow(st);
   }
   public double spreadRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxShadowSpreadRadius not supported on web");
     return BoxShadowObjSt.spreadRadius(st);
   }
   public BlurStyle blurStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxShadowBlurStyle not supported on web");
     return BlurStyle.values()[BoxShadowObjSt.blurStyle(st)];
   }
   @Override

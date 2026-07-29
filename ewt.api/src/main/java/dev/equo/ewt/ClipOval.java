@@ -27,6 +27,7 @@ public class ClipOval extends SingleChildRenderObjectWidget implements ClipOvalI
     return ClipOvalClipOvalBuilder.clipOvalClipOval();
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("clipOvalClipBehavior not supported on web");
     return Clip.values()[ClipOvalObjSt.clipBehavior(st)];
   }
   @Override

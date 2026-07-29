@@ -49,24 +49,35 @@ public class BorderSide extends NativeObj.Base implements BorderSideI {
     return new BorderSide(st);
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderSideColor", getId());
+      return new Color(__nid);
+    }
     return new Color(BorderSideObjSt.color(st));
   }
   public double width() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("borderSideWidth not supported on web");
     return BorderSideObjSt.width(st);
   }
   public BorderStyle style() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("borderSideStyle not supported on web");
     return BorderStyle.values()[BorderSideObjSt.style(st)];
   }
   public double strokeAlign() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("borderSideStrokeAlign not supported on web");
     return BorderSideObjSt.strokeAlign(st);
   }
   public double strokeInset() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("borderSideStrokeInset not supported on web");
     return BorderSideObjSt.strokeInset(st);
   }
   public double strokeOutset() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("borderSideStrokeOutset not supported on web");
     return BorderSideObjSt.strokeOutset(st);
   }
   public double strokeOffset() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("borderSideStrokeOffset not supported on web");
     return BorderSideObjSt.strokeOffset(st);
   }
   public static BorderSide none() {

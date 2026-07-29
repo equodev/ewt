@@ -54,22 +54,35 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
   void didChangeDependenciesFn() {
     didChangeDependencies();
   }
+  @SuppressWarnings("unchecked")
   public T widget() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {
+      return (T) webWidget;
+    }
     MemorySegment funcPtr = SubStateObjSt.widget(st);
     return (T) (NativeObj) new NativeObj.Base() {{ this.id = SubStateObjSt.widget.invoke(funcPtr); }};
   }
   public BuildContext context() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subStateContext not supported on web");
     MemorySegment funcPtr = SubStateObjSt.context(st);
     return new BuildContext() { public int getId() { return SubStateObjSt.context.invoke(funcPtr); } };
   }
   public boolean mounted() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subStateMounted not supported on web");
     MemorySegment funcPtr = SubStateObjSt.mounted(st);
     return intToBool(SubStateObjSt.mounted.invoke(funcPtr));
   }
   protected void setState(Runnable fn) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      fn.run();
+      EwtWebState.requestRebuild(this);
+      return;
+    }
     MemorySegment funcPtr = SubStateObjSt.setState(st);
     SubStateObjSt.setState.invoke(funcPtr, factories.ptrVoidCallbackFn(fn));
   }
+  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten
+  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }
   @Override
   public SubState build() {
     return this;

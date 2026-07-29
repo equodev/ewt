@@ -132,69 +132,117 @@ public class FloatingActionButton extends StatelessWidget implements FloatingAct
     return FloatingActionButtonExtendedBuilder.floatingActionButtonExtended();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonChild not supported on web");
     return new Widget(FloatingActionButtonObjSt.child(st)) {};
   }
   public String tooltip() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonTooltip not supported on web");
     return FloatingActionButtonObjSt.tooltip(st).getString(0);
   }
   public Color foregroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("floatingActionButtonForegroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(FloatingActionButtonObjSt.foregroundColor(st));
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("floatingActionButtonBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(FloatingActionButtonObjSt.backgroundColor(st));
   }
   public Color focusColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("floatingActionButtonFocusColor", getId());
+      return new Color(__nid);
+    }
     return new Color(FloatingActionButtonObjSt.focusColor(st));
   }
   public Color hoverColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("floatingActionButtonHoverColor", getId());
+      return new Color(__nid);
+    }
     return new Color(FloatingActionButtonObjSt.hoverColor(st));
   }
   public Color splashColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("floatingActionButtonSplashColor", getId());
+      return new Color(__nid);
+    }
     return new Color(FloatingActionButtonObjSt.splashColor(st));
   }
   public double elevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonElevation not supported on web");
     return FloatingActionButtonObjSt.elevation(st);
   }
   public double focusElevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonFocusElevation not supported on web");
     return FloatingActionButtonObjSt.focusElevation(st);
   }
   public double hoverElevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonHoverElevation not supported on web");
     return FloatingActionButtonObjSt.hoverElevation(st);
   }
   public double highlightElevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonHighlightElevation not supported on web");
     return FloatingActionButtonObjSt.highlightElevation(st);
   }
   public double disabledElevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonDisabledElevation not supported on web");
     return FloatingActionButtonObjSt.disabledElevation(st);
   }
   public boolean mini() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonMini not supported on web");
     return intToBool(FloatingActionButtonObjSt.mini(st));
   }
   public ShapeBorder shape() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonShape not supported on web");
     return new ShapeBorder(FloatingActionButtonObjSt.shape(st)) {};
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonClipBehavior not supported on web");
     return Clip.values()[FloatingActionButtonObjSt.clipBehavior(st)];
   }
   public boolean isExtended() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonIsExtended not supported on web");
     return intToBool(FloatingActionButtonObjSt.isExtended(st));
   }
   public boolean autofocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonAutofocus not supported on web");
     return intToBool(FloatingActionButtonObjSt.autofocus(st));
   }
   public MaterialTapTargetSize materialTapTargetSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonMaterialTapTargetSize not supported on web");
     return MaterialTapTargetSize.values()[FloatingActionButtonObjSt.materialTapTargetSize(st)];
   }
   public boolean enableFeedback() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonEnableFeedback not supported on web");
     return intToBool(FloatingActionButtonObjSt.enableFeedback(st));
   }
   public double extendedIconLabelSpacing() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonExtendedIconLabelSpacing not supported on web");
     return FloatingActionButtonObjSt.extendedIconLabelSpacing(st);
   }
   public EdgeInsetsGeometry extendedPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("floatingActionButtonExtendedPadding not supported on web");
     return new EdgeInsetsGeometry(FloatingActionButtonObjSt.extendedPadding(st)) {};
   }
   public TextStyle extendedTextStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("floatingActionButtonExtendedTextStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
     return new TextStyle(FloatingActionButtonObjSt.extendedTextStyle(st));
   }
   @Override

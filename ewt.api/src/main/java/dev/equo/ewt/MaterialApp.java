@@ -73,60 +73,111 @@ public class MaterialApp extends StatefulWidget implements MaterialAppI {
     return MaterialAppRouterBuilder.materialAppRouter();
   }
   public Widget home() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppHome not supported on web");
     return new Widget(MaterialAppObjSt.home(st)) {};
   }
   public String initialRoute() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppInitialRoute not supported on web");
     return MaterialAppObjSt.initialRoute(st).getString(0);
   }
   public String title() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppTitle not supported on web");
     return MaterialAppObjSt.title(st).getString(0);
   }
   public ThemeData theme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAppTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ThemeDataObjSt.id(__st, __nid);
+      return new ThemeData(__st);
+    }
     return new ThemeData(MaterialAppObjSt.theme(st));
   }
   public ThemeData darkTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAppDarkTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ThemeDataObjSt.id(__st, __nid);
+      return new ThemeData(__st);
+    }
     return new ThemeData(MaterialAppObjSt.darkTheme(st));
   }
   public ThemeData highContrastTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAppHighContrastTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ThemeDataObjSt.id(__st, __nid);
+      return new ThemeData(__st);
+    }
     return new ThemeData(MaterialAppObjSt.highContrastTheme(st));
   }
   public ThemeData highContrastDarkTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAppHighContrastDarkTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ThemeDataObjSt.id(__st, __nid);
+      return new ThemeData(__st);
+    }
     return new ThemeData(MaterialAppObjSt.highContrastDarkTheme(st));
   }
   public ThemeMode themeMode() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppThemeMode not supported on web");
     return ThemeMode.values()[MaterialAppObjSt.themeMode(st)];
   }
   public Duration themeAnimationDuration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAppThemeAnimationDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(MaterialAppObjSt.themeAnimationDuration(st));
   }
   public Curve themeAnimationCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppThemeAnimationCurve not supported on web");
     return new Curve(MaterialAppObjSt.themeAnimationCurve(st)) {};
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialAppColor", getId());
+      return new Color(__nid);
+    }
     return new Color(MaterialAppObjSt.color(st));
   }
   public boolean showPerformanceOverlay() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppShowPerformanceOverlay not supported on web");
     return intToBool(MaterialAppObjSt.showPerformanceOverlay(st));
   }
   public boolean checkerboardRasterCacheImages() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppCheckerboardRasterCacheImages not supported on web");
     return intToBool(MaterialAppObjSt.checkerboardRasterCacheImages(st));
   }
   public boolean checkerboardOffscreenLayers() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppCheckerboardOffscreenLayers not supported on web");
     return intToBool(MaterialAppObjSt.checkerboardOffscreenLayers(st));
   }
   public boolean showSemanticsDebugger() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppShowSemanticsDebugger not supported on web");
     return intToBool(MaterialAppObjSt.showSemanticsDebugger(st));
   }
   public boolean debugShowCheckedModeBanner() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppDebugShowCheckedModeBanner not supported on web");
     return intToBool(MaterialAppObjSt.debugShowCheckedModeBanner(st));
   }
   public String restorationScopeId() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppRestorationScopeId not supported on web");
     return MaterialAppObjSt.restorationScopeId(st).getString(0);
   }
   public boolean debugShowMaterialGrid() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppDebugShowMaterialGrid not supported on web");
     return intToBool(MaterialAppObjSt.debugShowMaterialGrid(st));
   }
   public boolean useInheritedMediaQuery() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAppUseInheritedMediaQuery not supported on web");
     return intToBool(MaterialAppObjSt.useInheritedMediaQuery(st));
   }
   @Override

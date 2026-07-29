@@ -73,15 +73,43 @@ public class Border extends BoxBorder implements BorderI {
     return new Border(st);
   }
   public BorderSide top() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderTop", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
+      return new BorderSide(__st);
+    }
     return new BorderSide(BorderObjSt.top(st));
   }
   public BorderSide right() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderRight", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
+      return new BorderSide(__st);
+    }
     return new BorderSide(BorderObjSt.right(st));
   }
   public BorderSide bottom() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderBottom", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
+      return new BorderSide(__st);
+    }
     return new BorderSide(BorderObjSt.bottom(st));
   }
   public BorderSide left() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("borderLeft", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
+      return new BorderSide(__st);
+    }
     return new BorderSide(BorderObjSt.left(st));
   }
   @Override

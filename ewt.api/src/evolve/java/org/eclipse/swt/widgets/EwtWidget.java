@@ -3,7 +3,17 @@ package org.eclipse.swt.widgets;
 import java.util.concurrent.Callable;
 
 import dev.equo.ewt.App;
+import dev.equo.ewt.EwtCapture;
+import dev.equo.ewt.EwtWebCapture;
+import dev.equo.ewt.EwtWebState;
+import dev.equo.ewt.SubState;
 import dev.equo.ewt.Widget;
+import dev.equo.ewt.evolve.EvolveComm;
+import dev.equo.ewt.web.EwtDiff;
+import dev.equo.ewt.web.EwtNode;
+import dev.equo.ewt.web.EwtPatchJson;
+import dev.equo.ewt.web.EwtWebTransport;
+import dev.equo.ewt.web.Patch;
 
 /**
  * Public SWT-Evolve widget that hosts an EWT (Flutter) subtree in the SAME surface.
@@ -29,7 +39,12 @@ public class EwtWidget extends Composite {
         super(parent, style);
         // Drop this region's builder when the widget goes away, so a disposed region
         // leaves no stale entry in App's builder registry (keyed by this same id).
-        addDisposeListener(e -> App.unregisterBuilder(hashCode()));
+        addDisposeListener(e -> {
+            App.unregisterBuilder(hashCode());
+            if (webState != null) EwtWebState.unregister(webState);
+            // Reset handler guard so a hypothetical future reuse of this instance doesn't skip registration.
+            webHandlersRegistered = false;
+        });
     }
 
     /**
@@ -41,7 +56,118 @@ public class EwtWidget extends Composite {
      * the api Composite, so {@code hashCode()} is exactly that id.
      */
     public void setWidget(Callable<Widget> builder) {
-        App.registerBuilder(hashCode(), builder);
+        if (EwtWebTransport.isWebMode()) {
+            publishWebSubtree(builder);
+        } else {
+            App.registerBuilder(hashCode(), builder);
+        }
+    }
+
+    private volatile EwtNode lastTree;
+    private volatile java.util.Map<Integer, Object> webCallbacks;
+    private volatile SubState<?> webState;
+    /** Guards against registering the same EvolveComm handlers more than once across repeated setWidget calls. */
+    private boolean webHandlersRegistered = false;
+
+    /**
+     * Web path: build the subtree eagerly, serialize it, and publish it over Evolve's comm keyed
+     * by this region's id. Desktop keeps using FFM via App's dispatcher (the branch above). The
+     * FFM/native path is deliberately not touched here, since no native engine runs on web.
+     *
+     * The subtree is also resent on request: the browser region asks for it once its handler is
+     * registered, so a first frame flushed (from the comm buffer) before the region subscribed is
+     * not lost.
+     */
+    private void publishWebSubtree(Callable<Widget> builder) {
+        try {
+            EwtCapture capture = EwtWebCapture.captureSubtree(builder);
+            webCallbacks = capture.callbacks;
+            if (webState != null) EwtWebState.unregister(webState);
+            webState = capture.state;
+            if (webState != null) EwtWebState.register(webState, this::rebuild);
+            if (!webHandlersRegistered) {
+                EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
+                EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
+                webHandlersRegistered = true;
+            }
+            lastTree = capture.root;
+            publish(EwtPatchJson.encodeFull(capture.root));
+        } catch (Exception e) {
+            System.out.println("EWT web subtree publish failed: " + e);
+            e.printStackTrace();
+            // Reset to clean state so the next rebuild does a fresh capture rather than
+            // diffing against a partially-constructed baseline.
+            lastTree = null;
+            webCallbacks = null;
+        }
+    }
+
+    /** Web-mode rebuild: re-flatten the retained state, refresh callbacks, publish a diff (or a full
+     *  snapshot on a structural change / first frame). */
+    private void rebuild() {
+        SubState<?> s = webState;
+        if (s == null) return;
+        try {
+            EwtCapture capture = EwtWebCapture.rebuild(s);
+            webCallbacks = capture.callbacks;
+            EwtNode prev = lastTree;
+            lastTree = capture.root;
+            String json = encodeUpdate(prev, capture.root);
+            if (json != null) publish(json);
+        } catch (Exception e) {
+            System.out.println("EWT web rebuild failed: " + e);
+            e.printStackTrace();
+            // Reset to clean state so the next rebuild starts from scratch.
+            lastTree = null;
+            webCallbacks = null;
+        }
+    }
+
+    /** Decide what to publish for a rebuild: full on first frame / structural change, a patch for a
+     *  value-only change, or null (nothing) when nothing changed. Static + SWT-free for unit testing. */
+    static String encodeUpdate(EwtNode prev, EwtNode next) {
+        if (prev == null) return EwtPatchJson.encodeFull(next);
+        Patch patch = EwtDiff.diff(prev, next);
+        if (patch.structural()) return EwtPatchJson.encodeFull(next);
+        if (patch.ops().isEmpty()) return null;
+        return EwtPatchJson.encodePatch(patch);
+    }
+
+    /** The /request handler: the browser (re)subscribed, so resend a full snapshot of current state. */
+    private void sendFull() {
+        if (isDisposed()) return;
+        EwtNode tree = lastTree;
+        if (tree != null) publish(EwtPatchJson.encodeFull(tree));
+    }
+
+    private void publish(String json) {
+        EwtWebTransport.publish(hashCode(), json,
+            (event, payload) -> EvolveComm.send(getImpl(), event, payload));
+    }
+
+    /** Resolves a callback payload (a JSON array [id] or [id, arg]) to the work to run, or null
+     *  (unknown/stale id, wrong shape, non-list payload). Static so it can be tested without a live
+     *  Display or parent Composite. Zero-arg -> the stored Runnable; value -> a Runnable that calls
+     *  the stored Consumer with the arg. */
+    @SuppressWarnings("unchecked")
+    static Runnable resolveCallback(java.util.Map<Integer, Object> cbs, Object payload) {
+        if (cbs == null || !(payload instanceof java.util.List<?> list) || list.isEmpty()) return null;
+        if (!(list.get(0) instanceof Number n)) return null;
+        Object cb = cbs.get(n.intValue());
+        if (list.size() == 1) {
+            return cb instanceof Runnable ? (Runnable) cb : null;
+        }
+        if (cb instanceof java.util.function.Consumer) {
+            Object arg = list.get(1);
+            return () -> ((java.util.function.Consumer<Object>) cb).accept(arg);
+        }
+        return null;
+    }
+
+    private void fireCallback(Object payload) {
+        if (isDisposed()) return;
+        Runnable r = resolveCallback(webCallbacks, payload);
+        if (r != null) getDisplay().asyncExec(r);
     }
 
     /**

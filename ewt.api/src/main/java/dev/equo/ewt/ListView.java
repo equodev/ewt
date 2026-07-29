@@ -95,9 +95,11 @@ public class ListView extends BoxScrollView implements ListViewI {
     return ListViewSeparatedBuilder.listViewSeparated();
   }
   public double itemExtent() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listViewItemExtent not supported on web");
     return ListViewObjSt.itemExtent(st);
   }
   public Widget prototypeItem() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listViewPrototypeItem not supported on web");
     return new Widget(ListViewObjSt.prototypeItem(st)) {};
   }
   @Override

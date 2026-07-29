@@ -44,9 +44,17 @@ public class Theme extends StatelessWidget implements ThemeI {
     return Brightness.values()[id];
   }
   public ThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ThemeDataObjSt.id(__st, __nid);
+      return new ThemeData(__st);
+    }
     return new ThemeData(ThemeObjSt.data(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("themeChild not supported on web");
     return new Widget(ThemeObjSt.child(st)) {};
   }
   @Override

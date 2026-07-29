@@ -39,7 +39,7 @@ variables:
   # the identical Evolve Dart (reproducible). Bump deliberately when adopting a newer release —
   # verify the tag builds at FLUTTER_SDK above. The release tags live on GitHub (equodev/swt-evolve),
   # NOT the GitLab dev repo (which carries different versioning), so CI clones GitHub below.
-  EVOLVE_REF: "v0.312.0"
+  EVOLVE_REF: "2cf56e6b274dfb5cb4ff3cdd92b9158e1bf7ed31"
   # Public GitHub repo that publishes swt-evolve releases — cloned anonymously over HTTPS (no
   # token, no allowlist). Also a full source mirror (flutter-lib + swt_native), so it builds.
   EVOLVE_PROJECT_PATH: "equodev/swt-evolve"
@@ -136,6 +136,20 @@ generate:
       - widgets/lib/widgets_bindings_generated.dart
       - ewt.api/src/main/java/dev/equo/ewt/ffm/
     expire_in: 1 week
+
+# Pure-Dart web decoders: no swt-evolve needed, so this runs on the same Linux image
+# alongside the native flutter builds. factories_web_gen.dart is committed (not gitignored)
+# so no generate artifact is required.
+flutter:test:web:
+  stage: flutter
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  script:
+    - cd widgets_web && flutter pub get && flutter test
 
 flutter:linux:
   stage: flutter

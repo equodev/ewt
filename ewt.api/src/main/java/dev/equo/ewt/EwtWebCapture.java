@@ -1,0 +1,78 @@
+package dev.equo.ewt;
+
+import dev.equo.ewt.web.EwtNode;
+import java.util.concurrent.Callable;
+
+/**
+ * Web path: build a subtree through a fresh SerializingWidgetConstructors installed as the active
+ * constructors, and return an EwtCapture with its root node and callback registry. Lives outside
+ * SerializingWidgetConstructors (which is generated and overwritten by the generator). No native
+ * call is made.
+ */
+public final class EwtWebCapture {
+
+  private EwtWebCapture() {}
+
+  public static EwtCapture captureSubtree(Callable<Widget> builder) throws Exception {
+    WidgetConstructors previous = NativeObj.Base.factories;
+    SerializingWidgetConstructors serializing = new SerializingWidgetConstructors();
+    NativeObj.Base.factories = serializing;
+    try {
+      Widget rootWidget = builder.call().build();
+      if (rootWidget instanceof SubStatefulWidget sw) {
+        Object stateObj = sw.createStateFn();
+        if (stateObj instanceof SubState<?> state) {
+          // Flatten: run the state's build() in Java (post-construction, fields initialized) and
+          // serialize the built tree. The browser never sees a Sub* node.
+          state.setWebWidget(sw);
+          // Match Flutter's lifecycle: initState() runs before the first build().
+          state.initStateFn();
+          EwtNode root = flatten(state, serializing);
+          return new EwtCapture(root, serializing.callbacks(), state);
+        }
+        // SubAnimatedState or other non-SubState: AnimationController requires Flutter's
+        // ticker loop at 60fps, which cannot run on web (async comm, no frame callbacks).
+        // initState() is not called here so animation fields are uninitialized; build()
+        // would NPE. Fall through to the generic path so the region renders cleanly
+        // (no decoder for Sub* nodes → SizedBox.shrink via fault isolation) instead of
+        // crashing with ClassCastException and greying every other region in the window.
+      }
+      if (rootWidget instanceof SubStatelessWidget slw) {
+        // Flatten: run build() in Java and serialize the built tree. No retained state (stateless),
+        // so no setState/rebuild path — just like SubStatefulWidget, the browser never sees a Sub* node.
+        Widget built = slw.buildFn(stubContext());
+        return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), null);
+      }
+      return new EwtCapture(serializing.rootNode(rootWidget.getId()), serializing.callbacks(), null);
+    } finally {
+      NativeObj.Base.factories = previous;
+      serializing.close();
+    }
+  }
+
+  /** Re-flatten a retained state under a fresh serializer (new node ids + new callback ids), reusing
+   *  the SAME state instance so its fields persist. Used by a region on web-mode setState. */
+  public static EwtCapture rebuild(SubState<?> state) {
+    WidgetConstructors previous = NativeObj.Base.factories;
+    SerializingWidgetConstructors serializing = new SerializingWidgetConstructors();
+    NativeObj.Base.factories = serializing;
+    try {
+      EwtNode root = flatten(state, serializing);
+      return new EwtCapture(root, serializing.callbacks(), state);
+    } finally {
+      NativeObj.Base.factories = previous;
+      serializing.close();
+    }
+  }
+
+  /** Runs the state's build() under the active serializer and returns the built root node. */
+  static EwtNode flatten(SubState<?> state, SerializingWidgetConstructors serializing) {
+    Widget built = state.buildFn(stubContext());
+    return serializing.rootNode(built.getId());
+  }
+
+  /** A no-op BuildContext for web-mode builds (inherited-widget lookups are out of scope). */
+  static BuildContext stubContext() {
+    return new BuildContext() { public int getId() { return 0; } };
+  }
+}

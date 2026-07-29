@@ -13,7 +13,7 @@ public interface NativeObj {
     default NativeObj build() { return this; }
 
     abstract class Base implements NativeObj, I {
-        static final WidgetConstructors factories = WidgetConstructors.instance;
+        static volatile WidgetConstructors factories = WidgetConstructorsBase.instance;
         int id;
 
         public int getId() {

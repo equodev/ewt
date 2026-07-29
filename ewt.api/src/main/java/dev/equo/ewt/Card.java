@@ -71,33 +71,55 @@ public class Card extends StatelessWidget implements CardI {
     return CardOutlinedBuilder.cardOutlined();
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cardColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CardObjSt.color(st));
   }
   public Color shadowColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cardShadowColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CardObjSt.shadowColor(st));
   }
   public Color surfaceTintColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cardSurfaceTintColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CardObjSt.surfaceTintColor(st));
   }
   public double elevation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardElevation not supported on web");
     return CardObjSt.elevation(st);
   }
   public ShapeBorder shape() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardShape not supported on web");
     return new ShapeBorder(CardObjSt.shape(st)) {};
   }
   public boolean borderOnForeground() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardBorderOnForeground not supported on web");
     return intToBool(CardObjSt.borderOnForeground(st));
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardClipBehavior not supported on web");
     return Clip.values()[CardObjSt.clipBehavior(st)];
   }
   public EdgeInsetsGeometry margin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardMargin not supported on web");
     return new EdgeInsetsGeometry(CardObjSt.margin(st)) {};
   }
   public boolean semanticContainer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardSemanticContainer not supported on web");
     return intToBool(CardObjSt.semanticContainer(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardChild not supported on web");
     return new Widget(CardObjSt.child(st)) {};
   }
   @Override

@@ -29,6 +29,7 @@ public class ScaleTransition extends MatrixTransition implements ScaleTransition
     return ScaleTransitionScaleTransitionBuilder.scaleTransitionScaleTransition(scale);
   }
   public Animation scale() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("scaleTransitionScale not supported on web");
     return new Animation() { public int getId() { return ScaleTransitionObjSt.scale(st); } };
   }
   @Override

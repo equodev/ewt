@@ -101,6 +101,13 @@ if (evolveAvailable) {
         options.release.set(22)
     }
 
+    // Make EwtWidget (evolve source set) visible to unit tests so EwtWidgetCallbackTest can
+    // call EwtWidget.resolveCallback without instantiating a live Display. The evolve jar
+    // itself is added compileOnly so tests that do not touch Evolve types are unaffected.
+    sourceSets.test.get().compileClasspath += sourceSets["evolve"].output + files(evolveJar)
+    sourceSets.test.get().runtimeClasspath += sourceSets["evolve"].output + files(evolveJar)
+    tasks.named("compileTestJava") { dependsOn("compileEvolveJava") }
+
     // OS this ewt-evolve jar is built for. -Pclassifier=<os> overrides (CI); otherwise the
     // current OS. The combined-bundle subpath mirrors Evolve's per-OS external-bundle
     // constants (LINUX_X64_RELEASE / WIN_X64_RELEASE), so Evolve finds the bundle unchanged.
@@ -218,6 +225,15 @@ if (evolveAvailable) {
                 }
             }
         }
+    }
+}
+
+// Evolve not available: exclude tests that reference Evolve types (EwtWidget, Serializer) so
+// compileTestJava succeeds on a plain ewt.api build without swt-evolve on the classpath.
+if (!evolveAvailable) {
+    tasks.named<JavaCompile>("compileTestJava") {
+        exclude("org/eclipse/swt/widgets/EwtWidget*Test.java")
+        exclude("dev/equo/ewt/evolve/SerializerArrayParseTest.java")
     }
 }
 
