@@ -2668,6 +2668,16 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       axisAlignment: ((p['axisAlignment'] as num?)?.toDouble()) ?? 0.0,
       fixedCrossAxisSizeFactor: (p['fixedCrossAxisSizeFactor'] as num?)?.toDouble(),
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+  // Animation<Offset> — wraps a parent Animation<double> with begin/end offsets via Tween<Offset>.
+  'offsetTween': (p) => Tween<Offset>(
+      begin: p['begin'] == null ? null : decodeEwtNode(p['begin'] as Map<String, dynamic>) as Offset,
+      end: p['end'] == null ? null : decodeEwtNode(p['end'] as Map<String, dynamic>) as Offset,
+    ).animate(decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>),
+  'slideTransitionSlideTransition': (p) => SlideTransition(
+      position: decodeEwtNode(p['position'] as Map<String, dynamic>) as Animation<Offset>,
+      transformHitTests: (p['transformHitTests'] as bool?) ?? true,
+      textDirection: p['textDirection'] == null ? null : TextDirection.values[p['textDirection'] as int],
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
 
 };
 

@@ -46,7 +46,7 @@ class AnimationPlaygroundPageState extends SubAnimatedState<AnimationPlaygroundP
     @Override
     public Widget build(BuildContext context) {
         return Scaffold()
-                .backgroundColor(Palette.bgLab())
+                .backgroundColor(Colors.white())
                 .appBar(AppBar()
                         .title(Text("Animation Playground"))
                         .backgroundColor(Palette.accentTeal())
@@ -168,4 +168,5 @@ class AnimationPlaygroundPageState extends SubAnimatedState<AnimationPlaygroundP
                 .child(Center().child(
                         Icon(Icons.star()).color(Colors.white()).size(72.0)));
     }
+
 }

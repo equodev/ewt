@@ -1629,6 +1629,11 @@ class Generation {
 
     javaStatics.writeln('}');
 
+    // offsetTween is web-only (Animation<T> params cannot be auto-generated); native stub throws.
+    javaFactories.writeln('  int offsetTween(Offset begin, Offset end, Animation parent) {');
+    javaFactories.writeln('    throw new UnsupportedOperationException("offsetTween is web-only; use OffsetAnimation.create() or EWT.OffsetTween() in web mode");');
+    javaFactories.writeln('  }');
+
     addTypeDefs();
     javaFactories.writeln('}');
   }
@@ -1831,6 +1836,16 @@ $overrides
     record(id, "subAnimatedStateAnimationController", p);
     return id;
   }
+  // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
+  int offsetTween(Offset begin, Offset end, Animation parent) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("begin", byId.get(begin.getId()));
+    p.put("end", byId.get(end.getId()));
+    p.put("parent", byId.get(parent.getId()));
+    record(id, "offsetTween", p);
+    return id;
+  }
 }
 ''';
   }
@@ -1884,6 +1899,16 @@ $entries
       axis: p['axis'] == null ? Axis.vertical : Axis.values[p['axis'] as int],
       axisAlignment: ((p['axisAlignment'] as num?)?.toDouble()) ?? 0.0,
       fixedCrossAxisSizeFactor: (p['fixedCrossAxisSizeFactor'] as num?)?.toDouble(),
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+  // Animation<Offset> — wraps a parent Animation<double> with begin/end offsets via Tween<Offset>.
+  'offsetTween': (p) => Tween<Offset>(
+      begin: p['begin'] == null ? null : decodeEwtNode(p['begin'] as Map<String, dynamic>) as Offset,
+      end: p['end'] == null ? null : decodeEwtNode(p['end'] as Map<String, dynamic>) as Offset,
+    ).animate(decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>),
+  'slideTransitionSlideTransition': (p) => SlideTransition(
+      position: decodeEwtNode(p['position'] as Map<String, dynamic>) as Animation<Offset>,
+      transformHitTests: (p['transformHitTests'] as bool?) ?? true,
+      textDirection: p['textDirection'] == null ? null : TextDirection.values[p['textDirection'] as int],
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
 };
 
