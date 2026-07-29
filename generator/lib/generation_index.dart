@@ -7,8 +7,10 @@ import 'sub_animated_state.dart' as sas;
 import 'animation_controller_methods.dart' as acm;
 import 'sub_animated_state_methods.dart' as sasm;
 
+// Index of Dart types the generator emits Java + FFI code for.
+// See docs/gen_structure.md for the deferred-widgets list and the reasons —
+// don't re-add commented-out widgets without checking that doc first.
 w.Widget? widget;
-// w.StatefulWidget? statefulWidget;
 w.TextStyle? textStyle;
 w.Text? text;
 w.InlineSpan? inlineSpan;
