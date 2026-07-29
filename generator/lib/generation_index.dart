@@ -211,6 +211,15 @@ m.MenuItemButton? menuItemButton;
 m.CheckboxMenuButton? checkboxMenuButton;
 m.RadioMenuButton? radioMenuButton;
 
+DateTime? dateTime;
+m.TimeOfDay? timeOfDay;
+m.DatePickerDialog? datePickerDialog;
+m.CalendarDatePicker? calendarDatePicker;
+m.TimePickerDialog? timePickerDialog;
+m.DateRangePickerDialog? dateRangePickerDialog;
+m.YearPicker? yearPicker;
+m.InputDatePickerFormField? inputDatePickerFormField;
+
 c.CupertinoApp? cupertinoApp;
 c.CupertinoPageScaffold? cupertinoPageScaffold;
 c.CupertinoNavigationBar? cupertinoNavigationBar;
@@ -255,6 +264,9 @@ acm.AnimationControllerMethods? animationControllerMethods;
 sasm.SubAnimatedStateMethods? subAnimatedStateMethods;
 
 const showDialog = m.showDialog;
+const showDatePicker = m.showDatePicker;
+const showTimePicker = m.showTimePicker;
+const showDateRangePicker = m.showDateRangePicker;
 
 void main() {
   //print('I am an index with the widgets to generate');
