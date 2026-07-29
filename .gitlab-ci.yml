@@ -39,7 +39,7 @@ variables:
   # the identical Evolve Dart (reproducible). Bump deliberately when adopting a newer release —
   # verify the tag builds at FLUTTER_SDK above. The release tags live on GitHub (equodev/swt-evolve),
   # NOT the GitLab dev repo (which carries different versioning), so CI clones GitHub below.
-  EVOLVE_REF: "v0.312.0"
+  EVOLVE_REF: "2cf56e6b274dfb5cb4ff3cdd92b9158e1bf7ed31"
   # Public GitHub repo that publishes swt-evolve releases — cloned anonymously over HTTPS (no
   # token, no allowlist). Also a full source mirror (flutter-lib + swt_native), so it builds.
   EVOLVE_PROJECT_PATH: "equodev/swt-evolve"
