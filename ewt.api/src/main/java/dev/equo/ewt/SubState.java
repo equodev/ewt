@@ -26,8 +26,8 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
   void initStateFn() {
     initState();
   }
-  protected void didUpdateWidget(T oldWidget) {}
-  void didUpdateWidgetFn(T oldWidget) {
+  protected void didUpdateWidget(NativeObj oldWidget) {}
+  void didUpdateWidgetFn(NativeObj oldWidget) {
     didUpdateWidget(oldWidget);
   }
   protected void reassemble() {}
@@ -53,14 +53,6 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
   protected void didChangeDependencies() {}
   void didChangeDependenciesFn() {
     didChangeDependencies();
-  }
-  @SuppressWarnings("unchecked")
-  public T widget() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {
-      return (T) webWidget;
-    }
-    MemorySegment funcPtr = SubStateObjSt.widget(st);
-    return SubclassedInJava.getSubNatObj(SubStateObjSt.widget.invoke(funcPtr));
   }
   public BuildContext context() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subStateContext not supported on web");

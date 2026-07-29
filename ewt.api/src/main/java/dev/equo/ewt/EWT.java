@@ -19,6 +19,91 @@ public class EWT {
     System.out.println("New Future<T?> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
+  public static Future showDatePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
+    int id = WidgetConstructors.instance.date_pickerShowDatePicker(context.build(),
+      Optional.empty(),
+      firstDate.build(),
+      lastDate.build(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget Future<DateTime?>");
+    System.out.println("New Future<DateTime?> id:"+id);
+    return new Future() { public int getId() { return id; } };
+  }
+  public static Future showTimePicker(BuildContextI context, TimeOfDayI initialTime) {
+    int id = WidgetConstructors.instance.time_pickerShowTimePicker(context.build(),
+      initialTime.build(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget Future<TimeOfDay?>");
+    System.out.println("New Future<TimeOfDay?> id:"+id);
+    return new Future() { public int getId() { return id; } };
+  }
+  public static Future showDateRangePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
+    int id = WidgetConstructors.instance.date_pickerShowDateRangePicker(context.build(),
+      firstDate.build(),
+      lastDate.build(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget Future<DateTimeRange<DateTime>?>");
+    System.out.println("New Future<DateTimeRange<DateTime>?> id:"+id);
+    return new Future() { public int getId() { return id; } };
+  }
   public static TextStyleTextStyleBuilder TextStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();
   }
@@ -43,12 +128,49 @@ public class EWT {
     return OffsetFromDirectionBuilder.offsetFromDirection(direction);
   }
 
+  public static DateTimeDateTimeBuilder DateTime(int year) {
+    return DateTimeDateTimeBuilder.dateTimeDateTime(year);
+  }
+  public static DateTimeUtcBuilder DateTime_utc(int year) {
+    return DateTimeUtcBuilder.dateTimeUtc(year);
+  }
+  public static DateTimeNowBuilder DateTime_now() {
+    return DateTimeNowBuilder.dateTimeNow();
+  }
+  public static DateTimeTimestampBuilder DateTime_timestamp() {
+    return DateTimeTimestampBuilder.dateTimeTimestamp();
+  }
+  public static DateTimeFromMillisecondsSinceEpochBuilder DateTime_fromMillisecondsSinceEpoch(int millisecondsSinceEpoch) {
+    return DateTimeFromMillisecondsSinceEpochBuilder.dateTimeFromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+  }
+  public static DateTimeFromMicrosecondsSinceEpochBuilder DateTime_fromMicrosecondsSinceEpoch(int microsecondsSinceEpoch) {
+    return DateTimeFromMicrosecondsSinceEpochBuilder.dateTimeFromMicrosecondsSinceEpoch(microsecondsSinceEpoch);
+  }
+
+  public static IconIconBuilder Icon(IconDataI icon) {
+    return IconIconBuilder.iconIcon(icon);
+  }
+
+  public static TimeOfDayTimeOfDayBuilder TimeOfDay(int hour, int minute) {
+    return TimeOfDayTimeOfDayBuilder.timeOfDayTimeOfDay(hour, minute);
+  }
+  public static TimeOfDayFromDateTimeBuilder TimeOfDay_fromDateTime(DateTimeI time) {
+    return TimeOfDayFromDateTimeBuilder.timeOfDayFromDateTime(time);
+  }
+  public static TimeOfDayNowBuilder TimeOfDay_now() {
+    return TimeOfDayNowBuilder.timeOfDayNow();
+  }
+
   public static ShadowShadowBuilder Shadow() {
     return ShadowShadowBuilder.shadowShadow();
   }
 
   public static TextDecorationCombineBuilder TextDecoration_combine(List<TextDecorationI> decorations) {
     return TextDecorationCombineBuilder.textDecorationCombine(decorations);
+  }
+
+  public static IconDataIconDataBuilder IconData(int codePoint) {
+    return IconDataIconDataBuilder.iconDataIconData(codePoint);
   }
 
   public static TextTextBuilder Text(String data) {
@@ -84,14 +206,6 @@ public class EWT {
 
   public static RowRowBuilder Row() {
     return RowRowBuilder.rowRow();
-  }
-
-  public static IconDataIconDataBuilder IconData(int codePoint) {
-    return IconDataIconDataBuilder.iconDataIconData(codePoint);
-  }
-
-  public static IconIconBuilder Icon(IconDataI icon) {
-    return IconIconBuilder.iconIcon(icon);
   }
 
   public static TransformRotateBuilder Transform_rotate(double angle) {
@@ -477,7 +591,7 @@ public class EWT {
     return DraggableDraggableBuilder.draggableDraggable(child, feedback);
   }
 
-  public static <T extends NativeObj> DragTargetDragTargetBuilder<T> DragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder) {
+  public static <T extends NativeObj> DragTargetDragTargetBuilder<T> DragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder) {
     return DragTargetDragTargetBuilder.dragTargetDragTarget(builder);
   }
 
@@ -818,6 +932,162 @@ public class EWT {
   }
   public static BadgeCountBuilder Badge_count() {
     return BadgeCountBuilder.badgeCount();
+  }
+
+  public static DataTableDataTableBuilder DataTable(List<DataColumnI> columns) {
+    return DataTableDataTableBuilder.dataTableDataTable(columns);
+  }
+
+  public static DataColumnDataColumnBuilder DataColumn(WidgetI label) {
+    return DataColumnDataColumnBuilder.dataColumnDataColumn(label);
+  }
+
+  public static DataRowDataRowBuilder DataRow() {
+    return DataRowDataRowBuilder.dataRowDataRow();
+  }
+  public static DataRowByIndexBuilder DataRow_byIndex() {
+    return DataRowByIndexBuilder.dataRowByIndex();
+  }
+
+  public static DataCellDataCellBuilder DataCell(WidgetI child) {
+    return DataCellDataCellBuilder.dataCellDataCell(child);
+  }
+
+  public static <T extends NativeObj> DropdownMenuEntryDropdownMenuEntryBuilder<T> DropdownMenuEntry(NativeObj value, String label) {
+    return DropdownMenuEntryDropdownMenuEntryBuilder.dropdownMenuEntryDropdownMenuEntry(value, label);
+  }
+
+  public static <T extends NativeObj> RadioRadioBuilder<T> Radio(NativeObj value) {
+    return RadioRadioBuilder.radioRadio(value);
+  }
+  public static <T extends NativeObj> RadioAdaptiveBuilder<T> Radio_adaptive(NativeObj value) {
+    return RadioAdaptiveBuilder.radioAdaptive(value);
+  }
+
+  public static <T extends NativeObj> RadioListTileRadioListTileBuilder<T> RadioListTile(NativeObj value) {
+    return RadioListTileRadioListTileBuilder.radioListTileRadioListTile(value);
+  }
+  public static <T extends NativeObj> RadioListTileAdaptiveBuilder<T> RadioListTile_adaptive(NativeObj value) {
+    return RadioListTileAdaptiveBuilder.radioListTileAdaptive(value);
+  }
+
+  public static ExpansionTileExpansionTileBuilder ExpansionTile() {
+    return ExpansionTileExpansionTileBuilder.expansionTileExpansionTile();
+  }
+
+  public static ExpansionPanelExpansionPanelBuilder ExpansionPanel(BiFunction<BuildContext, Boolean, Widget> headerBuilder, WidgetI body) {
+    return ExpansionPanelExpansionPanelBuilder.expansionPanelExpansionPanel(headerBuilder, body);
+  }
+
+  public static ExpansionPanelListExpansionPanelListBuilder ExpansionPanelList() {
+    return ExpansionPanelListExpansionPanelListBuilder.expansionPanelListExpansionPanelList();
+  }
+  public static ExpansionPanelListRadioBuilder ExpansionPanelList_radio() {
+    return ExpansionPanelListRadioBuilder.expansionPanelListRadio();
+  }
+
+  public static ExpansionPanelRadioExpansionPanelRadioBuilder ExpansionPanelRadio(NativeObj.I value, BiFunction<BuildContext, Boolean, Widget> headerBuilder, WidgetI body) {
+    return ExpansionPanelRadioExpansionPanelRadioBuilder.expansionPanelRadioExpansionPanelRadio(value, headerBuilder, body);
+  }
+
+  public static NavigationRailNavigationRailBuilder NavigationRail() {
+    return NavigationRailNavigationRailBuilder.navigationRailNavigationRail();
+  }
+
+  public static NavigationRailDestinationNavigationRailDestinationBuilder NavigationRailDestination(WidgetI icon) {
+    return NavigationRailDestinationNavigationRailDestinationBuilder.navigationRailDestinationNavigationRailDestination(icon);
+  }
+
+  public static NavigationBarNavigationBarBuilder NavigationBar() {
+    return NavigationBarNavigationBarBuilder.navigationBarNavigationBar();
+  }
+
+  public static NavigationDestinationNavigationDestinationBuilder NavigationDestination(WidgetI icon) {
+    return NavigationDestinationNavigationDestinationBuilder.navigationDestinationNavigationDestination(icon);
+  }
+
+  public static NavigationDrawerNavigationDrawerBuilder NavigationDrawer(List<WidgetI> children) {
+    return NavigationDrawerNavigationDrawerBuilder.navigationDrawerNavigationDrawer(children);
+  }
+
+  public static NavigationDrawerDestinationNavigationDrawerDestinationBuilder NavigationDrawerDestination() {
+    return NavigationDrawerDestinationNavigationDrawerDestinationBuilder.navigationDrawerDestinationNavigationDrawerDestination();
+  }
+
+  public static <T extends NativeObj> PopupMenuButtonPopupMenuButtonBuilder<T> PopupMenuButton(Function<BuildContext, List<PopupMenuEntry>> itemBuilder) {
+    return PopupMenuButtonPopupMenuButtonBuilder.popupMenuButtonPopupMenuButton(itemBuilder);
+  }
+
+  public static <T extends NativeObj> PopupMenuItemPopupMenuItemBuilder<T> PopupMenuItem() {
+    return PopupMenuItemPopupMenuItemBuilder.popupMenuItemPopupMenuItem();
+  }
+
+  public static PopupMenuDividerPopupMenuDividerBuilder PopupMenuDivider() {
+    return PopupMenuDividerPopupMenuDividerBuilder.popupMenuDividerPopupMenuDivider();
+  }
+
+  public static <T extends NativeObj> CheckedPopupMenuItemCheckedPopupMenuItemBuilder<T> CheckedPopupMenuItem() {
+    return CheckedPopupMenuItemCheckedPopupMenuItemBuilder.checkedPopupMenuItemCheckedPopupMenuItem();
+  }
+
+  public static CircleAvatarCircleAvatarBuilder CircleAvatar() {
+    return CircleAvatarCircleAvatarBuilder.circleAvatarCircleAvatar();
+  }
+
+  public static ScrollbarScrollbarBuilder Scrollbar(WidgetI child) {
+    return ScrollbarScrollbarBuilder.scrollbarScrollbar(child);
+  }
+
+  public static MenuBarMenuBarBuilder MenuBar() {
+    return MenuBarMenuBarBuilder.menuBarMenuBar();
+  }
+
+  public static MenuAnchorMenuAnchorBuilder MenuAnchor() {
+    return MenuAnchorMenuAnchorBuilder.menuAnchorMenuAnchor();
+  }
+
+  public static SubmenuButtonSubmenuButtonBuilder SubmenuButton() {
+    return SubmenuButtonSubmenuButtonBuilder.submenuButtonSubmenuButton();
+  }
+
+  public static MenuItemButtonMenuItemButtonBuilder MenuItemButton() {
+    return MenuItemButtonMenuItemButtonBuilder.menuItemButtonMenuItemButton();
+  }
+
+  public static CheckboxMenuButtonCheckboxMenuButtonBuilder CheckboxMenuButton(boolean value) {
+    return CheckboxMenuButtonCheckboxMenuButtonBuilder.checkboxMenuButtonCheckboxMenuButton(value);
+  }
+
+  public static <T extends NativeObj> RadioMenuButtonRadioMenuButtonBuilder<T> RadioMenuButton(NativeObj value, NativeObj groupValue, Consumer<NativeObj> onChanged) {
+    return RadioMenuButtonRadioMenuButtonBuilder.radioMenuButtonRadioMenuButton(value, groupValue, onChanged);
+  }
+
+  public static SearchBarSearchBarBuilder SearchBar() {
+    return SearchBarSearchBarBuilder.searchBarSearchBar();
+  }
+
+  public static DatePickerDialogDatePickerDialogBuilder DatePickerDialog() {
+    return DatePickerDialogDatePickerDialogBuilder.datePickerDialogDatePickerDialog();
+  }
+
+  public static CalendarDatePickerCalendarDatePickerBuilder CalendarDatePicker(DateTimeI initialDate, DateTimeI firstDate, DateTimeI lastDate) {
+    return CalendarDatePickerCalendarDatePickerBuilder.calendarDatePickerCalendarDatePicker(initialDate, firstDate, lastDate);
+  }
+
+  public static TimePickerDialogTimePickerDialogBuilder TimePickerDialog(TimeOfDayI initialTime) {
+    return TimePickerDialogTimePickerDialogBuilder.timePickerDialogTimePickerDialog(initialTime);
+  }
+
+  public static DateRangePickerDialogDateRangePickerDialogBuilder DateRangePickerDialog(DateTimeI firstDate, DateTimeI lastDate) {
+    return DateRangePickerDialogDateRangePickerDialogBuilder.dateRangePickerDialogDateRangePickerDialog(firstDate, lastDate);
+  }
+
+  public static YearPickerYearPickerBuilder YearPicker() {
+    return YearPickerYearPickerBuilder.yearPickerYearPicker();
+  }
+
+  public static InputDatePickerFormFieldInputDatePickerFormFieldBuilder InputDatePickerFormField() {
+    return InputDatePickerFormFieldInputDatePickerFormFieldBuilder.inputDatePickerFormFieldInputDatePickerFormField();
   }
 
   public static CupertinoAppCupertinoAppBuilder CupertinoApp() {

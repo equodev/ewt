@@ -17,7 +17,7 @@ public class DragTarget<T> extends StatefulWidget implements DragTargetI {
   }
   DragTarget(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> DragTarget<T> dragTargetDragTarget(@Builder.Parameter TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder, Optional<Function<T, Boolean>> onWillAccept, Optional<Consumer<T>> onAccept, Optional<Consumer<T>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  static <T extends NativeObj> DragTarget<T> dragTargetDragTarget(@Builder.Parameter TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
     var st = factories.dragTargetDragTarget(builder,
       onWillAccept,
       onAccept,
@@ -26,7 +26,7 @@ public class DragTarget<T> extends StatefulWidget implements DragTargetI {
     if (st == null) throw new RuntimeException("Failed to created widget DragTarget");
     return new DragTarget(st);
   }
-  public static <T extends NativeObj> DragTargetDragTargetBuilder<T> dragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder) {
+  public static <T extends NativeObj> DragTargetDragTargetBuilder<T> dragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder) {
     return DragTargetDragTargetBuilder.dragTargetDragTarget(builder);
   }
   public HitTestBehavior hitTestBehavior() {

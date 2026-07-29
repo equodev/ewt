@@ -34,8 +34,8 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
   void initStateFn() {
     initState();
   }
-  protected void didUpdateWidget(T oldWidget) {}
-  void didUpdateWidgetFn(T oldWidget) {
+  protected void didUpdateWidget(NativeObj oldWidget) {}
+  void didUpdateWidgetFn(NativeObj oldWidget) {
     didUpdateWidget(oldWidget);
   }
   protected void reassemble() {}
@@ -61,11 +61,6 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
   protected void didChangeDependencies() {}
   void didChangeDependenciesFn() {
     didChangeDependencies();
-  }
-  public T widget() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");
-    MemorySegment funcPtr = SubAnimatedStateObjSt.widget(st);
-    return (T) (NativeObj) new NativeObj.Base() {{ this.id = SubAnimatedStateObjSt.widget.invoke(funcPtr); }};
   }
   public BuildContext context() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateContext not supported on web");
