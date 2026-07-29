@@ -269,6 +269,137 @@ ewt_evolve_build:
       - examples/build/classes/java/main/
     expire_in: 1 week
 
+# macOS variant of the ewt-evolve build. Same combined-bundle merge, on a macOS runner, producing
+# the `macos` classifier jar. The vm-runner ships Flutter (via .flutter:macos) but no guaranteed
+# JDK, so install Temurin 22 for the arch the runner reports; gradle derives the swt-evolve jar
+# arch from the JVM, so the arch we build here matches the evolveAvailable gate automatically.
+ewt_evolve_build:macos:
+  extends: .flutter:macos
+  stage: build
+  needs:
+    - job: generate
+      optional: true
+    - job: release_gate
+      optional: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  before_script:
+    - !reference [.flutter:macos, before_script]
+    # Force SPM globally: swt-evolve and evolve-app link Darwin plugins via Swift Package Manager
+    # (swt-evolve dropped CocoaPods). Without this the flutter build falls back to CocoaPods —
+    # which we deliberately don't install — and fails. (widgets/example sets this in its pubspec;
+    # the projects this job builds don't, so enable it at the config level.)
+    - flutter config --enable-swift-package-manager
+    # buildCombinedBundle compiles libwidgets.dylib with cmake; the runner has Xcode (flutter
+    # macOS builds work) but not cmake and no Homebrew — fetch the Kitware universal build.
+    - command -v cmake >/dev/null || { curl -L -o cmake.tar.gz "https://github.com/Kitware/CMake/releases/download/v3.30.5/cmake-3.30.5-macos-universal.tar.gz" && tar xzf cmake.tar.gz; }
+    - export PATH="$PWD/cmake-3.30.5-macos-universal/CMake.app/Contents/bin:$PATH"
+    - JDK_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x64)
+    - curl -L "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_${JDK_ARCH}_mac_hotspot_22.0.2_9.tar.gz" | tar xz
+    - export JAVA_HOME="$PWD/jdk-22.0.2+9/Contents/Home"
+    - export PATH="$JAVA_HOME/bin:$PATH"
+    # macOS sources icudtl.dat from FlutterMacOS.framework (assemble output), so FLUTTER_ROOT is
+    # not strictly needed for it, but set it for parity with the other OSes.
+    - export FLUTTER_ROOT="$HOME/flutter"
+  script:
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
+    - git -C ../swt-evolve checkout "$EVOLVE_REF"
+    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
+    - >-
+      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
+      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    - MAC_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x86_64)
+    - (cd ../swt-evolve && ./gradlew ":swt_native:macos-${MAC_ARCH}Jar" --no-daemon)
+    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=macos -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
+    - cp "../swt-evolve/swt_native/build/libs/swt_evolve-macos-${MAC_ARCH}.jar" ewt.api/build/libs/
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt-evolve-*-macos.jar
+      - ewt.api/build/libs/swt_evolve-macos-*.jar
+    expire_in: 1 week
+
+# Windows variant. Runner shell is Git Bash; Flutter and gradle run via powershell.exe with PATH
+# set (mirrors flutter:windows). Installs Temurin 22 and points FLUTTER_ROOT at c:\flutter so the
+# combined bundle sources icudtl.dat from the engine cache (Windows, unlike macOS, needs it).
+ewt_evolve_build:windows:
+  extends: .flutter:windows
+  stage: build
+  # This is a long job (rebuilds swt-evolve's flutter-lib + the combined bundle), and the Windows
+  # vm-runners are ephemeral/spot: a 60m+ job often has its VM reclaimed mid-run (no_updates_running).
+  # resource_group serializes it; retry re-runs it when the VM (not the build) is what failed.
+  # Proper fix mirrors swt-flutter: build the flutter-lib once as an artifact, then package with
+  # -DskipFlutterLib on a light JDK-only runner so no single Windows job is huge.
+  resource_group: windows-ewt-evolve
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+      - unknown_failure
+      - api_failure
+      - scheduler_failure
+  needs:
+    - job: generate
+      optional: true
+    - job: release_gate
+      optional: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  before_script:
+    - !reference [.flutter:windows, before_script]
+    - curl -L -o jdk.zip "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_x64_windows_hotspot_22.0.2_9.zip"
+    - powershell.exe -C "Expand-Archive -Force jdk.zip -DestinationPath C:\\jdk"
+  script:
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
+    - git -C ../swt-evolve checkout "$EVOLVE_REF"
+    # The runner's shell is WSL (paths like /mnt/c/...). pubspec_overrides is read by the Windows
+    # flutter, which can't resolve a /mnt/c path, so convert it to a Windows path with wslpath -m
+    # (C:/...). (evolveHome, resolved via powershell Resolve-Path, is already a Windows path.)
+    - EVOLVE_ABS="$(wslpath -m "$(cd ../swt-evolve && pwd)")"
+    - >-
+      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
+      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    # JAVA_HOME + FLUTTER_ROOT + PATH set inline per powershell call (each -C is a fresh shell).
+    # Pipe gradle through Out-Host so its stdout is a pipe, not a console: run under powershell
+    # launched from Git Bash, gradle's native console-handle probe fails ("could not determine if
+    # Stdout is a console"). Propagate gradle's exit code so a real failure still fails the job.
+    - >-
+      powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
+      cd ..\\swt-evolve; \$null | .\\gradlew.bat :swt_native:windows-x86_64Jar --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+    # Diagnostic + pass evolveHome as an ABSOLUTE Windows path: the relative "../swt-evolve" made
+    # gradle's evolveAvailable probe miss the just-built swt-evolve jar on Windows (ewtEvolveJar
+    # then isn't registered). pwd -W yields the C:/ form gradle (Java) resolves reliably.
+    - ls -la ../swt-evolve/swt_native/build/libs/ || true
+    # Resolve the clone's absolute Windows path INSIDE powershell (the job's bash lacks MSYS
+    # cygpath / pwd -W). The relative '../swt-evolve' missed gradle's evolveAvailable probe on
+    # Windows (mixed \ and / with ..), which left ewtEvolveJar unregistered.
+    - >-
+      powershell.exe -C "\$env:JAVA_HOME='C:\\jdk\\jdk-22.0.2+9'; \$env:FLUTTER_ROOT='c:\\flutter'; \$env:PATH='c:\\flutter\\bin;'+\$env:JAVA_HOME+'\\bin;'+\$env:PATH;
+      \$evolveHome=(Resolve-Path ..\\swt-evolve).Path;
+      Write-Host ('DIAG evolveHome=' + \$evolveHome + ' jarExists=' + (Test-Path (Join-Path \$evolveHome 'swt_native\\build\\libs\\swt_evolve-windows-x86_64.jar')));
+      \$env:ORG_GRADLE_PROJECT_evolveHome=\$evolveHome;
+      \$vswhere='C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe';
+      \$vsPath=if(Test-Path \$vswhere){(& \$vswhere -latest -products * -property installationPath 2>\$null)}else{\$null};
+      \$cmakeBin=\$vsPath+'\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin';
+      if(\$vsPath -and (Test-Path (\$cmakeBin+'\\cmake.exe'))){\$env:PATH=\$cmakeBin+';'+\$env:PATH; Write-Host ('DIAG cmake: '+\$cmakeBin)}else{Write-Host 'DIAG cmake not found via vsWhere'};
+      \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
+    - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt-evolve-*-windows.jar
+      - ewt.api/build/libs/swt_evolve-windows-*.jar
+    expire_in: 1 week
+
 # Headless smoke of the PRODUCTION 2-jar path: only ewt-evolve + swt-evolve on the classpath,
 # no dev.equo.ewt.bundleDir, no Flutter, no clone — the SPI extracts the bundle from the jar.
 # Catches silent same-surface drift (a mismatched Evolve version renders nothing, not an error).
@@ -325,11 +456,30 @@ publish_ewt_evolve:
   image: $FLUTTER_IMAGE_TAG
   needs:
     - ewt_evolve_build
+    - ewt_evolve_build:macos
+    - ewt_evolve_build:windows
     - ewt_evolve_smoke
   script:
     - mkdir -p ../swt-evolve/swt_native/build/libs
+    # evolvePlatform is derived from THIS (linux) runner's JVM → always linux-x86_64, so staging
+    # the linux swt-evolve jar satisfies the evolveAvailable gate for all three publishes.
+    # -Pclassifier only selects which per-OS ewt-evolve jar (already built as artifacts) uploads.
     - cp ewt.api/build/libs/swt_evolve-linux-x86_64.jar ../swt-evolve/swt_native/build/libs/
+    # Sign each per-OS ewt-evolve jar with EQUO's code-signing cert (alias EQUOOVCO — GlobalSign OV,
+    # SHA256withRSA, timestamped) via the SAME remote signing service swt-evolve uses: POST the jar
+    # to $JAR_SIGN_URL and overwrite it with the signed bytes, so the published Maven artifact is
+    # signed. Skips gracefully when the URL isn't set (mirrors swt-flutter's signJars), so dev/MR
+    # pipelines without the secret still publish. Requires $JAR_SIGN_URL in this project's CI vars.
+    - >-
+      if [ -n "$JAR_SIGN_URL" ] && [ "$SKIP_SIGN" != "true" ]; then
+        for jar in ewt.api/build/libs/ewt-evolve-*.jar; do
+          echo "Signing $jar via signing service...";
+          curl -fsS -F "file=@${jar}" "$JAR_SIGN_URL" -o "${jar}.signed" && mv "${jar}.signed" "$jar";
+        done;
+      else echo "Skipping JAR signing (JAR_SIGN_URL not set or SKIP_SIGN=true)"; fi
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=macos -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=windows -PevolveHome=../swt-evolve --no-daemon
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
