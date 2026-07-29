@@ -57,36 +57,61 @@ public class CupertinoListSection extends StatelessWidget implements CupertinoLi
     return CupertinoListSectionInsetGroupedBuilder.cupertinoListSectionInsetGrouped();
   }
   public CupertinoListSectionType type() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionType not supported on web");
     return CupertinoListSectionType.values()[CupertinoListSectionObjSt.type(st)];
   }
   public Widget header() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionHeader not supported on web");
     return new Widget(CupertinoListSectionObjSt.header(st)) {};
   }
   public Widget footer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionFooter not supported on web");
     return new Widget(CupertinoListSectionObjSt.footer(st)) {};
   }
   public EdgeInsetsGeometry margin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionMargin not supported on web");
     return new EdgeInsetsGeometry(CupertinoListSectionObjSt.margin(st)) {};
   }
   public BoxDecoration decoration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoListSectionDecoration", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxDecorationObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BoxDecorationObjSt.id(__st, __nid);
+      return new BoxDecoration(__st);
+    }
     return new BoxDecoration(CupertinoListSectionObjSt.decoration(st));
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoListSectionBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoListSectionObjSt.backgroundColor(st));
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionClipBehavior not supported on web");
     return Clip.values()[CupertinoListSectionObjSt.clipBehavior(st)];
   }
   public double dividerMargin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionDividerMargin not supported on web");
     return CupertinoListSectionObjSt.dividerMargin(st);
   }
   public double additionalDividerMargin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionAdditionalDividerMargin not supported on web");
     return CupertinoListSectionObjSt.additionalDividerMargin(st);
   }
   public double topMargin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionTopMargin not supported on web");
     return CupertinoListSectionObjSt.topMargin(st);
   }
   public Color separatorColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoListSectionSeparatorColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoListSectionObjSt.separatorColor(st));
   }
   @Override

@@ -39,15 +39,23 @@ public class CupertinoActivityIndicator extends StatefulWidget implements Cupert
     return CupertinoActivityIndicatorPartiallyRevealedBuilder.cupertinoActivityIndicatorPartiallyRevealed();
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoActivityIndicatorColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoActivityIndicatorObjSt.color(st));
   }
   public boolean animating() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActivityIndicatorAnimating not supported on web");
     return intToBool(CupertinoActivityIndicatorObjSt.animating(st));
   }
   public double radius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActivityIndicatorRadius not supported on web");
     return CupertinoActivityIndicatorObjSt.radius(st);
   }
   public double progress() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActivityIndicatorProgress not supported on web");
     return CupertinoActivityIndicatorObjSt.progress(st);
   }
   @Override

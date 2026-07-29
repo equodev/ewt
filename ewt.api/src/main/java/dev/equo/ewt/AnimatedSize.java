@@ -32,21 +32,35 @@ public class AnimatedSize extends StatefulWidget implements AnimatedSizeI {
     return AnimatedSizeAnimatedSizeBuilder.animatedSizeAnimatedSize();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSizeChild not supported on web");
     return new Widget(AnimatedSizeObjSt.child(st)) {};
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSizeAlignment not supported on web");
     return new AlignmentGeometry(AnimatedSizeObjSt.alignment(st)) {};
   }
   public Curve curve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSizeCurve not supported on web");
     return new Curve(AnimatedSizeObjSt.curve(st)) {};
   }
   public Duration duration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedSizeDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(AnimatedSizeObjSt.duration(st));
   }
   public Duration reverseDuration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedSizeReverseDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(AnimatedSizeObjSt.reverseDuration(st));
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSizeClipBehavior not supported on web");
     return Clip.values()[AnimatedSizeObjSt.clipBehavior(st)];
   }
   @Override

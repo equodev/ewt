@@ -30,18 +30,23 @@ public class CupertinoFormRow extends StatelessWidget implements CupertinoFormRo
     return CupertinoFormRowCupertinoFormRowBuilder.cupertinoFormRowCupertinoFormRow(child);
   }
   public Widget prefix() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowPrefix not supported on web");
     return new Widget(CupertinoFormRowObjSt.prefix(st)) {};
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowPadding not supported on web");
     return new EdgeInsetsGeometry(CupertinoFormRowObjSt.padding(st)) {};
   }
   public Widget helper() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowHelper not supported on web");
     return new Widget(CupertinoFormRowObjSt.helper(st)) {};
   }
   public Widget error() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowError not supported on web");
     return new Widget(CupertinoFormRowObjSt.error(st)) {};
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowChild not supported on web");
     return new Widget(CupertinoFormRowObjSt.child(st)) {};
   }
   @Override

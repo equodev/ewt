@@ -60,7 +60,7 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
       return (T) webWidget;
     }
     MemorySegment funcPtr = SubStateObjSt.widget(st);
-    return (T) (NativeObj) new NativeObj.Base() {{ this.id = SubStateObjSt.widget.invoke(funcPtr); }};
+    return SubclassedInJava.getSubNatObj(SubStateObjSt.widget.invoke(funcPtr));
   }
   public BuildContext context() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subStateContext not supported on web");

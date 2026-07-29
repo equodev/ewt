@@ -40,42 +40,91 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
     return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value, onChanged);
   }
   public boolean value() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchValue not supported on web");
     return intToBool(CupertinoSwitchObjSt.value(st));
   }
   public Color activeTrackColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchActiveTrackColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.activeTrackColor(st));
   }
   public Color inactiveTrackColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchInactiveTrackColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.inactiveTrackColor(st));
   }
   public Color thumbColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchThumbColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.thumbColor(st));
   }
   public Color inactiveThumbColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchInactiveThumbColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.inactiveThumbColor(st));
   }
   public Color focusColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchFocusColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.focusColor(st));
   }
   public Color onLabelColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchOnLabelColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.onLabelColor(st));
   }
   public Color offLabelColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchOffLabelColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.offLabelColor(st));
   }
   public boolean autofocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchAutofocus not supported on web");
     return intToBool(CupertinoSwitchObjSt.autofocus(st));
   }
   public boolean applyTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchApplyTheme not supported on web");
     return intToBool(CupertinoSwitchObjSt.applyTheme(st));
   }
   public DragStartBehavior dragStartBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchDragStartBehavior not supported on web");
     return DragStartBehavior.values()[CupertinoSwitchObjSt.dragStartBehavior(st)];
   }
   public Color activeColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchActiveColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.activeColor(st));
   }
   public Color trackColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSwitchTrackColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSwitchObjSt.trackColor(st));
   }
   @Override

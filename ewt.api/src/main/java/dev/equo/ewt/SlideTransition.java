@@ -29,15 +29,19 @@ public class SlideTransition extends AnimatedWidget implements SlideTransitionI 
     return SlideTransitionSlideTransitionBuilder.slideTransitionSlideTransition(position);
   }
   public TextDirection textDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionTextDirection not supported on web");
     return TextDirection.values()[SlideTransitionObjSt.textDirection(st)];
   }
   public boolean transformHitTests() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionTransformHitTests not supported on web");
     return intToBool(SlideTransitionObjSt.transformHitTests(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionChild not supported on web");
     return new Widget(SlideTransitionObjSt.child(st)) {};
   }
   public Animation position() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionPosition not supported on web");
     return new Animation() { public int getId() { return SlideTransitionObjSt.position(st); } };
   }
   @Override

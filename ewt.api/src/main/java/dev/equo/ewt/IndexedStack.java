@@ -31,18 +31,23 @@ public class IndexedStack extends StatelessWidget implements IndexedStackI {
     return IndexedStackIndexedStackBuilder.indexedStackIndexedStack();
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("indexedStackAlignment not supported on web");
     return new AlignmentGeometry(IndexedStackObjSt.alignment(st)) {};
   }
   public TextDirection textDirection() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("indexedStackTextDirection not supported on web");
     return TextDirection.values()[IndexedStackObjSt.textDirection(st)];
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("indexedStackClipBehavior not supported on web");
     return Clip.values()[IndexedStackObjSt.clipBehavior(st)];
   }
   public StackFit sizing() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("indexedStackSizing not supported on web");
     return StackFit.values()[IndexedStackObjSt.sizing(st)];
   }
   public int index() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("indexedStackIndex not supported on web");
     return IndexedStackObjSt.index(st);
   }
   @Override

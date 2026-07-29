@@ -32,15 +32,25 @@ public class AnimatedScale extends ImplicitlyAnimatedWidget implements AnimatedS
     return AnimatedScaleAnimatedScaleBuilder.animatedScaleAnimatedScale();
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedScaleChild not supported on web");
     return new Widget(AnimatedScaleObjSt.child(st)) {};
   }
   public double scale() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedScaleScale not supported on web");
     return AnimatedScaleObjSt.scale(st);
   }
   public Alignment alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedScaleAlignment", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.AlignmentObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.AlignmentObjSt.id(__st, __nid);
+      return new Alignment(__st);
+    }
     return new Alignment(AnimatedScaleObjSt.alignment(st));
   }
   public FilterQuality filterQuality() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedScaleFilterQuality not supported on web");
     return FilterQuality.values()[AnimatedScaleObjSt.filterQuality(st)];
   }
   @Override

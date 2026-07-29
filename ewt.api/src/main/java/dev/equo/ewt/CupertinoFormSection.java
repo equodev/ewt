@@ -47,21 +47,37 @@ public class CupertinoFormSection extends StatelessWidget implements CupertinoFo
     return CupertinoFormSectionInsetGroupedBuilder.cupertinoFormSectionInsetGrouped(children);
   }
   public Widget header() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionHeader not supported on web");
     return new Widget(CupertinoFormSectionObjSt.header(st)) {};
   }
   public Widget footer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionFooter not supported on web");
     return new Widget(CupertinoFormSectionObjSt.footer(st)) {};
   }
   public EdgeInsetsGeometry margin() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionMargin not supported on web");
     return new EdgeInsetsGeometry(CupertinoFormSectionObjSt.margin(st)) {};
   }
   public BoxDecoration decoration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoFormSectionDecoration", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxDecorationObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BoxDecorationObjSt.id(__st, __nid);
+      return new BoxDecoration(__st);
+    }
     return new BoxDecoration(CupertinoFormSectionObjSt.decoration(st));
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoFormSectionBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoFormSectionObjSt.backgroundColor(st));
   }
   public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionClipBehavior not supported on web");
     return Clip.values()[CupertinoFormSectionObjSt.clipBehavior(st)];
   }
   @Override

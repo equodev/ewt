@@ -29,12 +29,15 @@ public class CupertinoActionSheet extends StatefulWidget implements CupertinoAct
     return CupertinoActionSheetCupertinoActionSheetBuilder.cupertinoActionSheetCupertinoActionSheet();
   }
   public Widget title() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetTitle not supported on web");
     return new Widget(CupertinoActionSheetObjSt.title(st)) {};
   }
   public Widget message() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetMessage not supported on web");
     return new Widget(CupertinoActionSheetObjSt.message(st)) {};
   }
   public Widget cancelButton() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetCancelButton not supported on web");
     return new Widget(CupertinoActionSheetObjSt.cancelButton(st)) {};
   }
   @Override

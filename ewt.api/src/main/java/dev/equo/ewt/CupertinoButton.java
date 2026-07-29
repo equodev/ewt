@@ -91,42 +91,77 @@ public class CupertinoButton extends StatefulWidget implements CupertinoButtonI 
     return id;
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonChild not supported on web");
     return new Widget(CupertinoButtonObjSt.child(st)) {};
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonPadding not supported on web");
     return new EdgeInsetsGeometry(CupertinoButtonObjSt.padding(st)) {};
   }
   public Color color() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoButtonColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoButtonObjSt.color(st));
   }
   public Color disabledColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoButtonDisabledColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoButtonObjSt.disabledColor(st));
   }
   public Color foregroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoButtonForegroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoButtonObjSt.foregroundColor(st));
   }
   public double minSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonMinSize not supported on web");
     return CupertinoButtonObjSt.minSize(st);
   }
   public double pressedOpacity() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonPressedOpacity not supported on web");
     return CupertinoButtonObjSt.pressedOpacity(st);
   }
   public BorderRadius borderRadius() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoButtonBorderRadius", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderRadiusObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderRadiusObjSt.id(__st, __nid);
+      return new BorderRadius(__st);
+    }
     return new BorderRadius(CupertinoButtonObjSt.borderRadius(st));
   }
   public CupertinoButtonSize sizeStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonSizeStyle not supported on web");
     return CupertinoButtonSize.values()[CupertinoButtonObjSt.sizeStyle(st)];
   }
   public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonAlignment not supported on web");
     return new AlignmentGeometry(CupertinoButtonObjSt.alignment(st)) {};
   }
   public Color focusColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoButtonFocusColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoButtonObjSt.focusColor(st));
   }
   public boolean autofocus() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonAutofocus not supported on web");
     return intToBool(CupertinoButtonObjSt.autofocus(st));
   }
   public boolean enabled() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoButtonEnabled not supported on web");
     return intToBool(CupertinoButtonObjSt.enabled(st));
   }
   @Override

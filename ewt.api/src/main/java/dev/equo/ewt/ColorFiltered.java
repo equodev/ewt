@@ -27,6 +27,11 @@ public class ColorFiltered extends SingleChildRenderObjectWidget implements Colo
     return ColorFilteredColorFilteredBuilder.colorFilteredColorFiltered(colorFilter);
   }
   public ColorFilter colorFilter() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("colorFilteredColorFilter", getId());
+      return new ColorFilter(__nid);
+    }
     return new ColorFilter(ColorFilteredObjSt.colorFilter(st));
   }
   @Override
