@@ -601,7 +601,7 @@ class WidgetGen implements AGen {
         ..writeln('      p.put("children", __children);')
         ..writeln('    }');
       // Serialize every other supported param except itemBuilder and itemCount.
-      for (final param in node.parameters.where((p) => types.supportedType(p.type))) {
+      for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
         if (param.name == 'itemBuilder' || param.name == 'itemCount') continue;
         final stmt = Params.paramValueSerialize(types, param);
         if (stmt.isNotEmpty) javaSerializer.writeln('    $stmt');
@@ -621,7 +621,7 @@ class WidgetGen implements AGen {
       ..writeln('    int id = nextId++;')
       ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
 
-    for (final param in node.parameters.where((p) => types.supportedType(p.type))) {
+    for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
       final stmt = Params.paramValueSerialize(types, param);
       if (stmt.isNotEmpty) {
         javaSerializer.writeln('    $stmt');
