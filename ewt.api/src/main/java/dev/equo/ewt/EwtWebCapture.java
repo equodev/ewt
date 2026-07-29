@@ -110,14 +110,16 @@ public final class EwtWebCapture {
    * Returns {@code d.webMillis} (≥0) or -1 if not computable.
    */
   public static long buildDurationMillis(DurationI d) {
-    WidgetConstructors prev = NativeObj.Base.factories;
-    SerializingWidgetConstructors ser = new SerializingWidgetConstructors();
-    NativeObj.Base.factories = ser;
-    try {
-      return d.build().webMillis;
-    } finally {
-      NativeObj.Base.factories = prev;
-      ser.close();
+    synchronized (EwtWebCapture.class) {
+      WidgetConstructors prev = NativeObj.Base.factories;
+      SerializingWidgetConstructors ser = new SerializingWidgetConstructors();
+      NativeObj.Base.factories = ser;
+      try {
+        return d.build().webMillis;
+      } finally {
+        NativeObj.Base.factories = prev;
+        ser.close();
+      }
     }
   }
 

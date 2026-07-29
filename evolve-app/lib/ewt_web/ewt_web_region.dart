@@ -100,13 +100,6 @@ class _EwtWebRegionState extends State<EwtWebRegion>
     }
   }
 
-  /// Returns the existing controller for [ctrlId], or creates one with [duration].
-  /// Called from the subAnimatedStateAnimationController factory during decode.
-  AnimationController getOrCreateController(int ctrlId, Duration duration) {
-    return _controllers.putIfAbsent(
-      ctrlId, () => AnimationController(vsync: this, duration: duration));
-  }
-
   @override
   void dispose() {
     EquoCommService.remove(_subtreeChannel);

@@ -66,6 +66,8 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   }
   public void repeat(boolean reverse) {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand(reverse ? "repeat:reverse" : "repeat"); return; }
+    if (reverse) throw new UnsupportedOperationException(
+        "repeat(reverse=true) is not yet supported on the native path; call repeat() instead");
     factories.animationControllerRepeat(this);
   }
   public void reset() {

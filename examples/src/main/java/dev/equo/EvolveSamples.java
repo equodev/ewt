@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import dev.equo.showcase.AnimationPlaygroundPage;
+import dev.equo.showcase.SlideTransitionPage;
 
 /**
  * Web launcher for EWT web-path demos. Mounts a single EwtWidget region inside an Evolve window;
@@ -25,6 +26,7 @@ public class EvolveSamples {
     private static final String[] DEMO_NAMES = {
         "EWT Web Showcase",
         "Animation Playground",
+        "Slide Transition",
     };
 
     public static void main(String[] args) {
@@ -53,6 +55,7 @@ public class EvolveSamples {
             switch (combo.getSelectionIndex()) {
                 case 0 -> region.setWidget(EwtWebShowcase.ShowcasePage::new);
                 case 1 -> region.setWidget(() -> new AnimationPlaygroundPage(() -> {}));
+                case 2 -> region.setWidget(() -> new SlideTransitionPage(() -> {}));
             }
         });
 

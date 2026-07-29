@@ -46,7 +46,7 @@ class AnimationLabPageState extends SubAnimatedState<AnimationLabPage> {
     @Override
     public Widget build(BuildContext context) {
         return Scaffold()
-                .backgroundColor(Palette.bgLab())
+                .backgroundColor(Colors.white())
                 .appBar(appBar(context))
                 .body(SafeArea().child(SingleChildScrollView().child(
                         Padding(EdgeInsets_all(24.0)).child(content())
