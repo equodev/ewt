@@ -126,6 +126,7 @@ void main() {
   });
 
   group('Dart to Java Fragments', () {
+    setUpAll(() => Directory('build').createSync(recursive: true));
     final imports = '''
         import static dev.equo.ewt.EWT.*;
         import dev.equo.ewt.*;''';
