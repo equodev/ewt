@@ -46,18 +46,31 @@ public class AnimatedSwitcher extends StatefulWidget implements AnimatedSwitcher
     return new Widget(id) {};
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSwitcherChild not supported on web");
     return new Widget(AnimatedSwitcherObjSt.child(st)) {};
   }
   public Duration duration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedSwitcherDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(AnimatedSwitcherObjSt.duration(st));
   }
   public Duration reverseDuration() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("animatedSwitcherReverseDuration", getId());
+      return new Duration(__nid);
+    }
     return new Duration(AnimatedSwitcherObjSt.reverseDuration(st));
   }
   public Curve switchInCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSwitcherSwitchInCurve not supported on web");
     return new Curve(AnimatedSwitcherObjSt.switchInCurve(st)) {};
   }
   public Curve switchOutCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSwitcherSwitchOutCurve not supported on web");
     return new Curve(AnimatedSwitcherObjSt.switchOutCurve(st)) {};
   }
   @Override

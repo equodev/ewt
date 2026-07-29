@@ -68,60 +68,89 @@ public class CupertinoSliverNavigationBar extends StatefulWidget implements Cupe
     return CupertinoSliverNavigationBarSearchBuilder.cupertinoSliverNavigationBarSearch(searchField);
   }
   public Widget largeTitle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarLargeTitle not supported on web");
     return new Widget(CupertinoSliverNavigationBarObjSt.largeTitle(st)) {};
   }
   public Widget leading() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarLeading not supported on web");
     return new Widget(CupertinoSliverNavigationBarObjSt.leading(st)) {};
   }
   public boolean automaticallyImplyLeading() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarAutomaticallyImplyLeading not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.automaticallyImplyLeading(st));
   }
   public boolean automaticallyImplyTitle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarAutomaticallyImplyTitle not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.automaticallyImplyTitle(st));
   }
   public boolean alwaysShowMiddle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarAlwaysShowMiddle not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.alwaysShowMiddle(st));
   }
   public String previousPageTitle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarPreviousPageTitle not supported on web");
     return CupertinoSliverNavigationBarObjSt.previousPageTitle(st).getString(0);
   }
   public Widget middle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarMiddle not supported on web");
     return new Widget(CupertinoSliverNavigationBarObjSt.middle(st)) {};
   }
   public Widget trailing() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarTrailing not supported on web");
     return new Widget(CupertinoSliverNavigationBarObjSt.trailing(st)) {};
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSliverNavigationBarBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoSliverNavigationBarObjSt.backgroundColor(st));
   }
   public boolean automaticBackgroundVisibility() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarAutomaticBackgroundVisibility not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.automaticBackgroundVisibility(st));
   }
   public boolean enableBackgroundFilterBlur() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarEnableBackgroundFilterBlur not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.enableBackgroundFilterBlur(st));
   }
   public Brightness brightness() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarBrightness not supported on web");
     return Brightness.values()[CupertinoSliverNavigationBarObjSt.brightness(st)];
   }
   public Border border() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoSliverNavigationBarBorder", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderObjSt.id(__st, __nid);
+      return new Border(__st);
+    }
     return new Border(CupertinoSliverNavigationBarObjSt.border(st));
   }
   public boolean transitionBetweenRoutes() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarTransitionBetweenRoutes not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.transitionBetweenRoutes(st));
   }
   public PreferredSizeWidget bottom() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarBottom not supported on web");
     return new PreferredSizeWidget() { public int getId() { return CupertinoSliverNavigationBarObjSt.bottom(st); } };
   }
   public NavigationBarBottomMode bottomMode() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarBottomMode not supported on web");
     return NavigationBarBottomMode.values()[CupertinoSliverNavigationBarObjSt.bottomMode(st)];
   }
   public boolean stretch() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarStretch not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.stretch(st));
   }
   public Widget searchField() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarSearchField not supported on web");
     return new Widget(CupertinoSliverNavigationBarObjSt.searchField(st)) {};
   }
   public boolean opaque() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliverNavigationBarOpaque not supported on web");
     return intToBool(CupertinoSliverNavigationBarObjSt.opaque(st));
   }
   @Override

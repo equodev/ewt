@@ -41,12 +41,15 @@ public class BackdropFilter extends SingleChildRenderObjectWidget implements Bac
     return BackdropFilterGroupedBuilder.backdropFilterGrouped(filter);
   }
   public ImageFilter filter() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("backdropFilterFilter not supported on web");
     return new ImageFilter(BackdropFilterObjSt.filter(st)) {};
   }
   public BlendMode blendMode() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("backdropFilterBlendMode not supported on web");
     return BlendMode.values()[BackdropFilterObjSt.blendMode(st)];
   }
   public boolean enabled() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("backdropFilterEnabled not supported on web");
     return intToBool(BackdropFilterObjSt.enabled(st));
   }
   @Override

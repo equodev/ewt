@@ -30,6 +30,7 @@ public class DragTarget<T> extends StatefulWidget implements DragTargetI {
     return DragTargetDragTargetBuilder.dragTargetDragTarget(builder);
   }
   public HitTestBehavior hitTestBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dragTargetHitTestBehavior not supported on web");
     return HitTestBehavior.values()[DragTargetObjSt.hitTestBehavior(st)];
   }
   @Override

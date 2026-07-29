@@ -30,18 +30,23 @@ public class SizeTransition extends AnimatedWidget implements SizeTransitionI {
     return SizeTransitionSizeTransitionBuilder.sizeTransitionSizeTransition();
   }
   public Axis axis() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionAxis not supported on web");
     return Axis.values()[SizeTransitionObjSt.axis(st)];
   }
   public double axisAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionAxisAlignment not supported on web");
     return SizeTransitionObjSt.axisAlignment(st);
   }
   public double fixedCrossAxisSizeFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionFixedCrossAxisSizeFactor not supported on web");
     return SizeTransitionObjSt.fixedCrossAxisSizeFactor(st);
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionChild not supported on web");
     return new Widget(SizeTransitionObjSt.child(st)) {};
   }
   public Animation sizeFactor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionSizeFactor not supported on web");
     return new Animation() { public int getId() { return SizeTransitionObjSt.sizeFactor(st); } };
   }
   @Override

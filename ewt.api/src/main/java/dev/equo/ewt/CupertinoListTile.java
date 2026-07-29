@@ -53,33 +53,51 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
     return CupertinoListTileNotchedBuilder.cupertinoListTileNotched(title);
   }
   public Widget title() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileTitle not supported on web");
     return new Widget(CupertinoListTileObjSt.title(st)) {};
   }
   public Widget subtitle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileSubtitle not supported on web");
     return new Widget(CupertinoListTileObjSt.subtitle(st)) {};
   }
   public Widget additionalInfo() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileAdditionalInfo not supported on web");
     return new Widget(CupertinoListTileObjSt.additionalInfo(st)) {};
   }
   public Widget leading() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileLeading not supported on web");
     return new Widget(CupertinoListTileObjSt.leading(st)) {};
   }
   public Widget trailing() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileTrailing not supported on web");
     return new Widget(CupertinoListTileObjSt.trailing(st)) {};
   }
   public Color backgroundColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoListTileBackgroundColor", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoListTileObjSt.backgroundColor(st));
   }
   public Color backgroundColorActivated() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoListTileBackgroundColorActivated", getId());
+      return new Color(__nid);
+    }
     return new Color(CupertinoListTileObjSt.backgroundColorActivated(st));
   }
   public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTilePadding not supported on web");
     return new EdgeInsetsGeometry(CupertinoListTileObjSt.padding(st)) {};
   }
   public double leadingSize() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileLeadingSize not supported on web");
     return CupertinoListTileObjSt.leadingSize(st);
   }
   public double leadingToTitle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileLeadingToTitle not supported on web");
     return CupertinoListTileObjSt.leadingToTitle(st);
   }
   @Override

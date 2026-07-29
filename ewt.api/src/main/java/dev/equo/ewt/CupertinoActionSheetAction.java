@@ -29,12 +29,15 @@ public class CupertinoActionSheetAction extends StatefulWidget implements Cupert
     return CupertinoActionSheetActionCupertinoActionSheetActionBuilder.cupertinoActionSheetActionCupertinoActionSheetAction(onPressed);
   }
   public boolean isDefaultAction() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetActionIsDefaultAction not supported on web");
     return intToBool(CupertinoActionSheetActionObjSt.isDefaultAction(st));
   }
   public boolean isDestructiveAction() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetActionIsDestructiveAction not supported on web");
     return intToBool(CupertinoActionSheetActionObjSt.isDestructiveAction(st));
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetActionChild not supported on web");
     return new Widget(CupertinoActionSheetActionObjSt.child(st)) {};
   }
   @Override

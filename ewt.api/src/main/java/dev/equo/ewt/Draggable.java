@@ -41,39 +41,55 @@ public class Draggable<T> extends StatefulWidget implements DraggableI {
     return DraggableDraggableBuilder.draggableDraggable(child, feedback);
   }
   public T data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableData not supported on web");
     return (T) (NativeObj) new NativeObj.Base() {{ this.id = DraggableObjSt.data(st); }};
   }
   public Axis axis() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableAxis not supported on web");
     return Axis.values()[DraggableObjSt.axis(st)];
   }
   public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableChild not supported on web");
     return new Widget(DraggableObjSt.child(st)) {};
   }
   public Widget childWhenDragging() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableChildWhenDragging not supported on web");
     return new Widget(DraggableObjSt.childWhenDragging(st)) {};
   }
   public Widget feedback() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableFeedback not supported on web");
     return new Widget(DraggableObjSt.feedback(st)) {};
   }
   public Offset feedbackOffset() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("draggableFeedbackOffset", getId());
+      return new Offset(__nid);
+    }
     return new Offset(DraggableObjSt.feedbackOffset(st));
   }
   public boolean ignoringFeedbackSemantics() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableIgnoringFeedbackSemantics not supported on web");
     return intToBool(DraggableObjSt.ignoringFeedbackSemantics(st));
   }
   public boolean ignoringFeedbackPointer() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableIgnoringFeedbackPointer not supported on web");
     return intToBool(DraggableObjSt.ignoringFeedbackPointer(st));
   }
   public Axis affinity() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableAffinity not supported on web");
     return Axis.values()[DraggableObjSt.affinity(st)];
   }
   public int maxSimultaneousDrags() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableMaxSimultaneousDrags not supported on web");
     return DraggableObjSt.maxSimultaneousDrags(st);
   }
   public boolean rootOverlay() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableRootOverlay not supported on web");
     return intToBool(DraggableObjSt.rootOverlay(st));
   }
   public HitTestBehavior hitTestBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableHitTestBehavior not supported on web");
     return HitTestBehavior.values()[DraggableObjSt.hitTestBehavior(st)];
   }
   @Override

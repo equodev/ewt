@@ -28,9 +28,11 @@ public class ImageFiltered extends SingleChildRenderObjectWidget implements Imag
     return ImageFilteredImageFilteredBuilder.imageFilteredImageFiltered(imageFilter);
   }
   public ImageFilter imageFilter() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("imageFilteredImageFilter not supported on web");
     return new ImageFilter(ImageFilteredObjSt.imageFilter(st)) {};
   }
   public boolean enabled() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("imageFilteredEnabled not supported on web");
     return intToBool(ImageFilteredObjSt.enabled(st));
   }
   @Override
