@@ -3243,7 +3243,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
+  <T extends NativeObj> int navigatorPushNamed(BuildContext context, String routeName, Optional<NativeObj> arguments) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("context", byId.get(context.getId()));
@@ -3253,7 +3253,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return id;
   }
   @Override
-  <TO extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("context", byId.get(context.getId()));
@@ -3264,7 +3264,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return id;
   }
   @Override
-  <TO extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("context", byId.get(context.getId()));
