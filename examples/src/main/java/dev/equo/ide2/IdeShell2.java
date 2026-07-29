@@ -9,8 +9,8 @@ import static dev.equo.ewt.EWT.*;
 
 import dev.equo.ide.IdePalette;
 import dev.equo.ide.SampleProject;
-import dev.equo.ide.chrome.MenuBar;
 import dev.equo.ide.model.ConsoleLine;
+import dev.equo.ide2.chrome.IdeMenuBar2;
 import dev.equo.ide.model.EditorTab;
 import dev.equo.ide.model.NodeKind;
 import dev.equo.ide.model.Problem;
@@ -52,6 +52,7 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
     private final Set<String> expanded = new HashSet<>();
 
     // v2 settings state
+    private String perspective = "Development";
     private boolean settingsOpen = false;
     private boolean wordWrap = false;
     private boolean lineNumbers = true;
@@ -102,6 +103,7 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
 
     private void toggleTheme()      { setState(() -> dark = !dark); }
     private void toggleRun()        { setState(() -> running = !running); }
+    private void setPerspective(String p) { setState(() -> perspective = p); }
     private void openSettings()     { setState(() -> settingsOpen = true); }
     private void closeSettings()    { setState(() -> settingsOpen = false); }
     private void setWordWrap(boolean v)     { setState(() -> wordWrap = v); }
@@ -116,6 +118,10 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
         setState(() -> {
             if (!expanded.add(path)) expanded.remove(path);
         });
+    }
+
+    private void collapseAllFolders() {
+        setState(expanded::clear);
     }
 
     private void openFile(ProjectNode node) {
@@ -250,7 +256,8 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
         }).toList();
 
         List<WidgetI> shellChildren = new ArrayList<>();
-        shellChildren.add(new MenuBar(dark, entryCtrl));
+        shellChildren.add(new IdeMenuBar2(dark, entryCtrl,
+                this::toggleTheme, this::toggleRun, this::openSettings, this::setPerspective));
         shellChildren.add(new Toolbar2(dark, running, errorCount, pulseCtrl,
                 this::toggleTheme, this::toggleRun, this::openSettings));
         shellChildren.add(Expanded().child(mainRow(activePath)));
@@ -292,7 +299,8 @@ class IdeShell2State extends SubAnimatedState<IdeShell2> {
                                 this::toggleFolder,
                                 this::openFile,
                                 this::beginDragNode,
-                                this::dropOnSibling),
+                                this::dropOnSibling,
+                                this::collapseAllFolders),
                         Expanded().child(new EditorArea2(dark, List.copyOf(tabs), activeTabIndex,
                                 editorCtrl, lineNumbers, wordWrap, this::selectTab, this::closeTab,
                                 this::beginDragTab, this::dropOnTab)),

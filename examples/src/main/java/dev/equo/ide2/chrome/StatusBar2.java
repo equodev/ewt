@@ -71,17 +71,16 @@ public class StatusBar2 extends SubStatelessWidget {
         ));
     }
 
-    /** A circular avatar (ClipRRect) with initials, inside a Tooltip. */
+    /** Material CircleAvatar with initials, inside a Tooltip. */
     private Widget avatarChip() {
-        Widget avatar = ClipRRect()
-                .borderRadius(BorderRadius_circular(9.0))
-                .child(Container()
-                        .width(18.0).height(18.0)
-                        .color(IdePalette.accent2(dark))
-                        .child(Center().child(Text("EG").style(TextStyle()
-                                .fontSize(9.0)
-                                .fontWeight(FontWeight.w700())
-                                .color(Colors.white())))));
+        Widget avatar = CircleAvatar()
+                .radius(9.0)
+                .backgroundColor(IdePalette.accent2(dark))
+                .child(Text("EG").style(TextStyle()
+                        .fontSize(9.0)
+                        .fontWeight(FontWeight.w700())
+                        .color(Colors.white())))
+                .build();
         return Tooltip().message("Signed in as EstebanGL").child(avatar);
     }
 

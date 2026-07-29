@@ -27,6 +27,7 @@ public class ProjectTree2 extends SubStatelessWidget {
     private final Consumer<ProjectNode> onOpenFile;
     private final BiConsumer<ProjectNode, String> onBeginDragNode;
     private final BiConsumer<ProjectNode, String> onDropOnSibling;
+    private final Runnable onCollapseAll;
 
     public ProjectTree2(boolean dark,
                         ProjectNode root,
@@ -35,7 +36,8 @@ public class ProjectTree2 extends SubStatelessWidget {
                         Consumer<String> onToggleFolder,
                         Consumer<ProjectNode> onOpenFile,
                         BiConsumer<ProjectNode, String> onBeginDragNode,
-                        BiConsumer<ProjectNode, String> onDropOnSibling) {
+                        BiConsumer<ProjectNode, String> onDropOnSibling,
+                        Runnable onCollapseAll) {
         this.dark = dark;
         this.root = root;
         this.isExpanded = isExpanded;
@@ -44,6 +46,7 @@ public class ProjectTree2 extends SubStatelessWidget {
         this.onOpenFile = onOpenFile;
         this.onBeginDragNode = onBeginDragNode;
         this.onDropOnSibling = onDropOnSibling;
+        this.onCollapseAll = onCollapseAll;
     }
 
     @Override
@@ -76,8 +79,21 @@ public class ProjectTree2 extends SubStatelessWidget {
                         SizedBox().width(8.0),
                         Text("EXPLORER").style(IdePalette.sectionCaps(dark)),
                         Expanded().child(SizedBox().height(1.0)),
-                        Icon(Icons.more_horiz_rounded())
-                                .color(IdePalette.textMuted(dark)).size(16.0)
+                        // Real Material PopupMenuButton — click the trailing icon
+                        // to open a context menu with Explorer-scope actions.
+                        PopupMenuButton(ctx -> List.of(
+                                        PopupMenuItem().child(Text("Refresh")).build(),
+                                        PopupMenuItem().child(Text("New Folder…")).build(),
+                                        PopupMenuItem()
+                                                .onTap(onCollapseAll)
+                                                .child(Text("Collapse All")).build(),
+                                        PopupMenuDivider().build(),
+                                        PopupMenuItem().child(Text("Filter…")).build()))
+                                .icon(Icon(Icons.more_horiz_rounded())
+                                        .color(IdePalette.textMuted(dark)).size(16.0))
+                                .tooltip("Explorer actions")
+                                .padding(EdgeInsets_all(0.0).build())
+                                .build()
                 )));
     }
 
