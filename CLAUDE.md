@@ -72,7 +72,9 @@ cd generator && dart tool/coverage_audit.dart   # writes docs/coverage.md
 checkbox per widget in `widgets.dart`, `material.dart` and `cupertino.dart`,
 ticked for the ones already generated). It is generated — never edit it by hand.
 The tool resolves the libraries with the Dart analyzer, so it always reflects the
-installed Flutter version.
+installed Flutter version. It is committed to the repo, and the CI `coverage:commit`
+job regenerates it on `main` and commits any change automatically (with `[skip ci]`),
+so the committed checklist stays current without a manual step.
 
 ### Widget galleries
 
