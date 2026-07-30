@@ -144,8 +144,9 @@ coverage:commit:
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   script:
-    - (cd generator && flutter pub get && dart tool/coverage_audit.dart)
+    - (cd "$CI_PROJECT_DIR/generator" && flutter pub get && dart tool/coverage_audit.dart)
     - |
+      cd "$CI_PROJECT_DIR"
       if git diff --quiet -- docs/coverage.md; then
         echo "docs/coverage.md already up to date"
       else
