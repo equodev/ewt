@@ -1,6 +1,6 @@
 # EWT — Flutter widget coverage
 
-Flutter 3.35.7 · generated on 2026-07-24
+Flutter 3.35.7 · generated on 2026-07-30
 
 ## Summary
 
@@ -8,8 +8,8 @@ Flutter 3.35.7 · generated on 2026-07-24
 |---|---:|---:|---:|
 | Basic widgets | 69 | 291 | 23% |
 | Material | 34 | 187 | 18% |
-| Cupertino | 0 | 53 | 0% |
-| **Total** | **103** | **531** | **19%** |
+| Cupertino | 20 | 53 | 37% |
+| **Total** | **123** | **531** | **23%** |
 
 ## Basic widgets
 
@@ -507,52 +507,52 @@ _package:flutter/material.dart — Material Design components (Google)_
 
 _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 
-**0 of 53 supported**
+**20 of 53 supported**
 
-- [ ] CupertinoActionSheet
-- [ ] CupertinoActionSheetAction
-- [ ] CupertinoActivityIndicator
+- [x] CupertinoActionSheet
+- [x] CupertinoActionSheetAction
+- [x] CupertinoActivityIndicator
+- [x] CupertinoAlertDialog
+- [x] CupertinoApp
+- [x] CupertinoButton
+- [x] CupertinoDialogAction
+- [x] CupertinoFormRow
+- [x] CupertinoFormSection
+- [x] CupertinoListSection
+- [x] CupertinoListTile
+- [x] CupertinoListTileChevron
+- [x] CupertinoNavigationBar
+- [x] CupertinoPageScaffold
+- [x] CupertinoPicker
+- [x] CupertinoSearchTextField
+- [x] CupertinoSlider
+- [x] CupertinoSliverNavigationBar
+- [x] CupertinoSwitch
+- [x] CupertinoTabView
 - [ ] CupertinoAdaptiveTextSelectionToolbar
-- [ ] CupertinoAlertDialog
-- [ ] CupertinoApp
-- [ ] CupertinoButton
 - [ ] CupertinoCheckbox
 - [ ] CupertinoContextMenu
 - [ ] CupertinoContextMenuAction
 - [ ] CupertinoDatePicker
 - [ ] CupertinoDesktopTextSelectionToolbar
 - [ ] CupertinoDesktopTextSelectionToolbarButton
-- [ ] CupertinoDialogAction
 - [ ] CupertinoExpansionTile
-- [ ] CupertinoFormRow
-- [ ] CupertinoFormSection
 - [ ] CupertinoFullscreenDialogTransition
-- [ ] CupertinoListSection
-- [ ] CupertinoListTile
-- [ ] CupertinoListTileChevron
 - [ ] CupertinoMagnifier
-- [ ] CupertinoNavigationBar
 - [ ] CupertinoNavigationBarBackButton
-- [ ] CupertinoPageScaffold
 - [ ] CupertinoPageScaffoldBackgroundColor
 - [ ] CupertinoPageTransition
-- [ ] CupertinoPicker
 - [ ] CupertinoPickerDefaultSelectionOverlay
 - [ ] CupertinoPopupSurface
 - [ ] CupertinoRadio
 - [ ] CupertinoScrollbar
-- [ ] CupertinoSearchTextField
 - [ ] CupertinoSegmentedControl
 - [ ] CupertinoSheetTransition
-- [ ] CupertinoSlider
 - [ ] CupertinoSlidingSegmentedControl
-- [ ] CupertinoSliverNavigationBar
 - [ ] CupertinoSliverRefreshControl
 - [ ] CupertinoSpellCheckSuggestionsToolbar
-- [ ] CupertinoSwitch
 - [ ] CupertinoTabBar
 - [ ] CupertinoTabScaffold
-- [ ] CupertinoTabView
 - [ ] CupertinoTextField
 - [ ] CupertinoTextFormFieldRow
 - [ ] CupertinoTextMagnifier
