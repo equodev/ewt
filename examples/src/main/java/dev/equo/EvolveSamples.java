@@ -27,7 +27,6 @@ public class EvolveSamples {
         "EWT Web Showcase",
         "Animation Playground",
         "Slide Transition",
-        "Cupertino Widgets",
     };
 
     public static void main(String[] args) {
@@ -57,7 +56,6 @@ public class EvolveSamples {
                 case 0 -> region.setWidget(EwtWebShowcase.ShowcasePage::new);
                 case 1 -> region.setWidget(() -> new AnimationPlaygroundPage(() -> {}));
                 case 2 -> region.setWidget(() -> new SlideTransitionPage(() -> {}));
-                case 3 -> region.setWidget(CupertinoShowcase.ShowcasePage::new);
             }
         });
 

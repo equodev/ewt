@@ -930,13 +930,49 @@ public class EWT {
     return CupertinoActionSheetActionCupertinoActionSheetActionBuilder.cupertinoActionSheetActionCupertinoActionSheetAction(onPressed);
   }
 
+  public static CupertinoTextFieldCupertinoTextFieldBuilder CupertinoTextField() {
+    return CupertinoTextFieldCupertinoTextFieldBuilder.cupertinoTextFieldCupertinoTextField();
+  }
+  public static CupertinoTextFieldBorderlessBuilder CupertinoTextField_borderless() {
+    return CupertinoTextFieldBorderlessBuilder.cupertinoTextFieldBorderless();
+  }
+
+  public static CupertinoCheckboxCupertinoCheckboxBuilder CupertinoCheckbox(boolean value) {
+    return CupertinoCheckboxCupertinoCheckboxBuilder.cupertinoCheckboxCupertinoCheckbox(value);
+  }
+
+  public static CupertinoExpansionTileCupertinoExpansionTileBuilder CupertinoExpansionTile(WidgetI title, WidgetI child) {
+    return CupertinoExpansionTileCupertinoExpansionTileBuilder.cupertinoExpansionTileCupertinoExpansionTile(title, child);
+  }
+
+  public static CupertinoTimerPickerCupertinoTimerPickerBuilder CupertinoTimerPicker() {
+    return CupertinoTimerPickerCupertinoTimerPickerBuilder.cupertinoTimerPickerCupertinoTimerPicker();
+  }
+
+  public static CupertinoNavigationBarBackButtonCupertinoNavigationBarBackButtonBuilder CupertinoNavigationBarBackButton() {
+    return CupertinoNavigationBarBackButtonCupertinoNavigationBarBackButtonBuilder.cupertinoNavigationBarBackButtonCupertinoNavigationBarBackButton();
+  }
+
+  public static CupertinoTabBarCupertinoTabBarBuilder CupertinoTabBar(List<BottomNavigationBarItemI> items) {
+    return CupertinoTabBarCupertinoTabBarBuilder.cupertinoTabBarCupertinoTabBar(items);
+  }
+
   public static BottomNavigationBarItemBottomNavigationBarItemBuilder BottomNavigationBarItem(WidgetI icon) {
     return BottomNavigationBarItemBottomNavigationBarItemBuilder.bottomNavigationBarItemBottomNavigationBarItem(icon);
   }
 
-  /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
-   *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
-  public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {
-    return OffsetAnimation.create(begin.build(), end.build(), parent.build());
+  public static CupertinoTabScaffoldCupertinoTabScaffoldBuilder CupertinoTabScaffold(CupertinoTabBarI tabBar, BiFunction<BuildContext, Integer, Widget> tabBuilder) {
+    return CupertinoTabScaffoldCupertinoTabScaffoldBuilder.cupertinoTabScaffoldCupertinoTabScaffold(tabBar, tabBuilder);
+  }
+
+  public static CupertinoContextMenuCupertinoContextMenuBuilder CupertinoContextMenu(List<WidgetI> actions, WidgetI child) {
+    return CupertinoContextMenuCupertinoContextMenuBuilder.cupertinoContextMenuCupertinoContextMenu(actions, child);
+  }
+  public static CupertinoContextMenuBuilderBuilder CupertinoContextMenu_builder(List<WidgetI> actions, BiFunction<BuildContext, Animation, Widget> builder) {
+    return CupertinoContextMenuBuilderBuilder.cupertinoContextMenuBuilder(actions, builder);
+  }
+
+  public static CupertinoContextMenuActionCupertinoContextMenuActionBuilder CupertinoContextMenuAction(WidgetI child) {
+    return CupertinoContextMenuActionCupertinoContextMenuActionBuilder.cupertinoContextMenuActionCupertinoContextMenuAction(child);
   }
 }
