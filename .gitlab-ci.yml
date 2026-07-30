@@ -137,6 +137,25 @@ generate:
       - ewt.api/src/main/java/dev/equo/ewt/ffm/
     expire_in: 1 week
 
+coverage:commit:
+  stage: check
+  image: $FLUTTER_IMAGE_TAG
+  needs: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  script:
+    - (cd generator && flutter pub get && dart tool/coverage_audit.dart)
+    - |
+      if git diff --quiet -- docs/coverage.md; then
+        echo "docs/coverage.md already up to date"
+      else
+        git config user.name "EWT Coverage Bot"
+        git config user.email "ewt-ci@equo.dev"
+        git add docs/coverage.md
+        git commit -m "chore(coverage): refresh docs/coverage.md [skip ci]"
+        git push "https://oauth2:${GITLAB_PRIVATE_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "HEAD:${CI_DEFAULT_BRANCH}"
+      fi
+
 # Pure-Dart web decoders: no swt-evolve needed, so this runs on the same Linux image
 # alongside the native flutter builds. factories_web_gen.dart is committed (not gitignored)
 # so no generate artifact is required.
