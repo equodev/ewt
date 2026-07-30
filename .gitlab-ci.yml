@@ -143,18 +143,25 @@ coverage:commit:
   needs: []
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
     - (cd "$CI_PROJECT_DIR/generator" && flutter pub get && dart tool/coverage_audit.dart)
     - |
-      cd "$CI_PROJECT_DIR"
-      if git diff --quiet -- docs/coverage.md; then
+      GENERATED=$(cat "$CI_PROJECT_DIR/docs/coverage.md")
+      CURRENT=$(curl -sf --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/files/docs%2Fcoverage.md/raw?ref=$CI_DEFAULT_BRANCH")
+      if [ "$GENERATED" = "$CURRENT" ]; then
         echo "docs/coverage.md already up to date"
+      elif [ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]; then
+        echo "docs/coverage.md is out of date; it will be refreshed once this lands on $CI_DEFAULT_BRANCH"
       else
-        git config user.name "EWT Coverage Bot"
-        git config user.email "ewt-ci@equo.dev"
-        git add docs/coverage.md
-        git commit -m "chore(coverage): refresh docs/coverage.md [skip ci]"
-        git push "https://oauth2:${GITLAB_PRIVATE_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "HEAD:${CI_DEFAULT_BRANCH}"
+        ENCODED=$(printf '%s\n' "$GENERATED" | base64 -w 0)
+        curl -sf --request PUT \
+          --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
+          --header "Content-Type: application/json" \
+          "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/files/docs%2Fcoverage.md" \
+          --data "{\"branch\":\"$CI_DEFAULT_BRANCH\",\"content\":\"$ENCODED\",\"encoding\":\"base64\",\"commit_message\":\"chore(coverage): refresh docs/coverage.md [skip ci]\"}"
+        echo "Refreshed docs/coverage.md"
       fi
 
 # Pure-Dart web decoders: no swt-evolve needed, so this runs on the same Linux image
