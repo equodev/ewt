@@ -4069,6 +4069,182 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+    var st = WidgetFactories.cupertinoTextField(factories);
+    var fn = WidgetFactories.CupertinoTextFieldSt.cupertinoTextField(st);
+    return WidgetFactories.CupertinoTextFieldSt.cupertinoTextField.invoke(fn, arena, ptrObj(groupId),
+      ptrObj(decoration),
+      ptrObj(padding),
+      ptrStr(placeholder),
+      ptrObj(placeholderStyle),
+      ptrObj(prefix),
+      ptrEnum(prefixMode),
+      ptrObj(suffix),
+      ptrEnum(suffixMode),
+      ptrEnum(crossAxisAlignment),
+      ptrEnum(clearButtonMode),
+      ptrStr(clearButtonSemanticLabel),
+      ptrEnum(textInputAction),
+      ptrEnum(textCapitalization),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptrBool(readOnly),
+      ptrBool(showCursor),
+      ptrBool(autofocus),
+      ptrStr(obscuringCharacter),
+      ptrBool(obscureText),
+      ptrBool(autocorrect),
+      ptrEnum(smartDashesType),
+      ptrEnum(smartQuotesType),
+      ptrBool(enableSuggestions),
+      ptr(maxLines),
+      ptr(minLines),
+      ptrBool(expands),
+      ptr(maxLength),
+      ptrEnum(maxLengthEnforcement),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
+      onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      ptrBool(enabled),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorRadius),
+      ptrBool(cursorOpacityAnimates),
+      ptrObj(cursorColor),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrEnum(keyboardAppearance),
+      ptrObj(scrollPadding),
+      ptrEnum(dragStartBehavior),
+      ptrBool(enableInteractiveSelection),
+      ptrBool(selectAllOnFocus),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrEnum(clipBehavior),
+      ptrStr(restorationId),
+      ptrBool(scribbleEnabled),
+      ptrBool(stylusHandwritingEnabled),
+      ptrBool(enableIMEPersonalizedLearning));
+  }
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+    var st = WidgetFactories.cupertinoTextField(factories);
+    var fn = WidgetFactories.CupertinoTextFieldSt.borderless(st);
+    return WidgetFactories.CupertinoTextFieldSt.borderless.invoke(fn, arena, ptrObj(groupId),
+      ptrObj(decoration),
+      ptrObj(padding),
+      ptrStr(placeholder),
+      ptrObj(placeholderStyle),
+      ptrObj(prefix),
+      ptrEnum(prefixMode),
+      ptrObj(suffix),
+      ptrEnum(suffixMode),
+      ptrEnum(crossAxisAlignment),
+      ptrEnum(clearButtonMode),
+      ptrStr(clearButtonSemanticLabel),
+      ptrEnum(textInputAction),
+      ptrEnum(textCapitalization),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptrBool(readOnly),
+      ptrBool(showCursor),
+      ptrBool(autofocus),
+      ptrStr(obscuringCharacter),
+      ptrBool(obscureText),
+      ptrBool(autocorrect),
+      ptrEnum(smartDashesType),
+      ptrEnum(smartQuotesType),
+      ptrBool(enableSuggestions),
+      ptr(maxLines),
+      ptr(minLines),
+      ptrBool(expands),
+      ptr(maxLength),
+      ptrEnum(maxLengthEnforcement),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
+      onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      ptrBool(enabled),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorRadius),
+      ptrBool(cursorOpacityAnimates),
+      ptrObj(cursorColor),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrEnum(keyboardAppearance),
+      ptrObj(scrollPadding),
+      ptrEnum(dragStartBehavior),
+      ptrBool(enableInteractiveSelection),
+      ptrBool(selectAllOnFocus),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrEnum(clipBehavior),
+      ptrStr(restorationId),
+      ptrBool(scribbleEnabled),
+      ptrBool(stylusHandwritingEnabled),
+      ptrBool(enableIMEPersonalizedLearning));
+  }
+
+  MemorySegment cupertinoCheckboxCupertinoCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<String> semanticLabel) {
+    var st = WidgetFactories.cupertinoCheckbox(factories);
+    var fn = WidgetFactories.CupertinoCheckboxSt.cupertinoCheckbox(st);
+    return WidgetFactories.CupertinoCheckboxSt.cupertinoCheckbox.invoke(fn, arena, (value ? 1 : 0),
+      ptrBool(tristate),
+      ptrValueChangedForBoolOptFn(onChanged),
+      ptrObj(activeColor),
+      ptrObj(inactiveColor),
+      ptrObj(checkColor),
+      ptrObj(focusColor),
+      ptrBool(autofocus),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrStr(semanticLabel));
+  }
+
+  MemorySegment cupertinoExpansionTileCupertinoExpansionTile(Widget title, Widget child, Optional<ExpansionTileTransitionMode> transitionMode) {
+    var st = WidgetFactories.cupertinoExpansionTile(factories);
+    var fn = WidgetFactories.CupertinoExpansionTileSt.cupertinoExpansionTile(st);
+    return WidgetFactories.CupertinoExpansionTileSt.cupertinoExpansionTile.invoke(fn, arena, title.build().getId(),
+      child.build().getId(),
+      ptrEnum(transitionMode));
+  }
+
+  MemorySegment cupertinoTimerPickerCupertinoTimerPicker(Optional<CupertinoTimerPickerMode> mode, Optional<Duration> initialTimerDuration, OptionalInt minuteInterval, OptionalInt secondInterval, Optional<AlignmentGeometry> alignment, Optional<Color> backgroundColor, OptionalDouble itemExtent, Consumer<Duration> onTimerDurationChanged, Optional<ChangeReportingBehavior> changeReportingBehavior, Optional<TriFunction<BuildContext, Integer, Integer, Widget>> selectionOverlayBuilder) {
+    var st = WidgetFactories.cupertinoTimerPicker(factories);
+    var fn = WidgetFactories.CupertinoTimerPickerSt.cupertinoTimerPicker(st);
+    return WidgetFactories.CupertinoTimerPickerSt.cupertinoTimerPicker.invoke(fn, arena, ptrEnum(mode),
+      ptrObj(initialTimerDuration),
+      ptr(minuteInterval),
+      ptr(secondInterval),
+      ptrObj(alignment),
+      ptrObj(backgroundColor),
+      ptr(itemExtent),
+      ptrValueChangedForDurationFn(onTimerDurationChanged),
+      ptrEnum(changeReportingBehavior),
+      selectionOverlayBuilder.isPresent() ? ptrHolder(ptrSelectionOverlayBuilderFn(selectionOverlayBuilder.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment cupertinoNavigationBarBackButtonCupertinoNavigationBarBackButton(Optional<Color> color, Optional<String> previousPageTitle, Optional<Runnable> onPressed) {
+    var st = WidgetFactories.cupertinoNavigationBarBackButton(factories);
+    var fn = WidgetFactories.CupertinoNavigationBarBackButtonSt.cupertinoNavigationBarBackButton(st);
+    return WidgetFactories.CupertinoNavigationBarBackButtonSt.cupertinoNavigationBarBackButton.invoke(fn, arena, ptrObj(color),
+      ptrStr(previousPageTitle),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment cupertinoTabBarCupertinoTabBar(List<BottomNavigationBarItem> items, Optional<Consumer<Integer>> onTap, OptionalInt currentIndex, Optional<Color> backgroundColor, Optional<Color> activeColor, Optional<Color> inactiveColor, OptionalDouble iconSize, OptionalDouble height, Optional<Border> border) {
+    var st = WidgetFactories.cupertinoTabBar(factories);
+    var fn = WidgetFactories.CupertinoTabBarSt.cupertinoTabBar(st);
+    return WidgetFactories.CupertinoTabBarSt.cupertinoTabBar.invoke(fn, arena, ptrList(items),
+      onTap.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onTap.get())) : MemorySegment.NULL,
+      ptr(currentIndex),
+      ptrObj(backgroundColor),
+      ptrObj(activeColor),
+      ptrObj(inactiveColor),
+      ptr(iconSize),
+      ptr(height),
+      ptrObj(border));
+  }
+
   int bottomNavigationBarItemBottomNavigationBarItem(Widget icon, Optional<String> label, Optional<Widget> activeIcon, Optional<Color> backgroundColor, Optional<String> tooltip) {
     var st = WidgetFactories.bottomNavigationBarItem(factories);
     var fn = WidgetFactories.BottomNavigationBarItemSt.bottomNavigationBarItem(st);
@@ -4077,6 +4253,41 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(activeIcon),
       ptrObj(backgroundColor),
       ptrStr(tooltip));
+  }
+
+  MemorySegment cupertinoTabScaffoldCupertinoTabScaffold(CupertinoTabBar tabBar, BiFunction<BuildContext, Integer, Widget> tabBuilder, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<String> restorationId) {
+    var st = WidgetFactories.cupertinoTabScaffold(factories);
+    var fn = WidgetFactories.CupertinoTabScaffoldSt.cupertinoTabScaffold(st);
+    return WidgetFactories.CupertinoTabScaffoldSt.cupertinoTabScaffold.invoke(fn, arena, tabBar.build().getId(),
+      ptrIndexedWidgetBuilderFn(tabBuilder),
+      ptrObj(backgroundColor),
+      ptrBool(resizeToAvoidBottomInset),
+      ptrStr(restorationId));
+  }
+
+  MemorySegment cupertinoContextMenuCupertinoContextMenu(List<Widget> actions, Widget child, Optional<Boolean> enableHapticFeedback) {
+    var st = WidgetFactories.cupertinoContextMenu(factories);
+    var fn = WidgetFactories.CupertinoContextMenuSt.cupertinoContextMenu(st);
+    return WidgetFactories.CupertinoContextMenuSt.cupertinoContextMenu.invoke(fn, arena, ptrList(actions),
+      child.build().getId(),
+      ptrBool(enableHapticFeedback));
+  }
+  MemorySegment cupertinoContextMenuBuilder(List<Widget> actions, BiFunction<BuildContext, Animation, Widget> builder, Optional<Boolean> enableHapticFeedback) {
+    var st = WidgetFactories.cupertinoContextMenu(factories);
+    var fn = WidgetFactories.CupertinoContextMenuSt.builder(st);
+    return WidgetFactories.CupertinoContextMenuSt.builder.invoke(fn, arena, ptrList(actions),
+      ptrCupertinoContextMenuBuilderFn(builder),
+      ptrBool(enableHapticFeedback));
+  }
+
+  MemorySegment cupertinoContextMenuActionCupertinoContextMenuAction(Widget child, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Optional<Runnable> onPressed, Optional<IconData> trailingIcon) {
+    var st = WidgetFactories.cupertinoContextMenuAction(factories);
+    var fn = WidgetFactories.CupertinoContextMenuActionSt.cupertinoContextMenuAction(st);
+    return WidgetFactories.CupertinoContextMenuActionSt.cupertinoContextMenuAction.invoke(fn, arena, child.build().getId(),
+      ptrBool(isDefaultAction),
+      ptrBool(isDestructiveAction),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptrObj(trailingIcon));
   }
 
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
@@ -4122,10 +4333,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubAnimatedStateSt.animationController.invoke(fn, self.build().getId(),
       duration.build().getId());
   }
+
   int offsetTween(Offset begin, Offset end, Animation parent) {
     throw new UnsupportedOperationException("offsetTween is web-only; use OffsetAnimation.create() or EWT.OffsetTween() in web mode");
   }
-
 MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {
   return WidgetBuilderFFI.allocate((context) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
@@ -4299,6 +4510,23 @@ MemorySegment ptrTooltipTriggeredCallbackFn(Runnable jFn) {
 <T> MemorySegment ptrTabValueChangedForBoolFn(BiConsumer<Boolean, Integer> jFn) {
   return TabValueChangedForBoolFFI.allocate((value, index) -> {
     jFn.accept(intToBool(value), index);
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForDurationFn(Consumer<Duration> jFn) {
+  return ValueChangedForDurationFFI.allocate((value) -> {
+    jFn.accept(new Duration(value));
+  }, arena);
+}
+MemorySegment ptrSelectionOverlayBuilderFn(TriFunction<BuildContext, Integer, Integer, Widget> jFn) {
+  return SelectionOverlayBuilderFFI.allocate((context, columnCount, selectedIndex) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, columnCount, selectedIndex);
+    return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrCupertinoContextMenuBuilderFn(BiFunction<BuildContext, Animation, Widget> jFn) {
+  return CupertinoContextMenuBuilderFFI.allocate((context, animation) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Animation() { public int getId() { return animation; } });
+    return jFnRet.build().getId();
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {

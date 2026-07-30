@@ -1,6 +1,7 @@
 package dev.equo.ewt;
 
 import dev.equo.ewt.web.EwtNode;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
@@ -115,7 +116,18 @@ public final class EwtWebCapture {
       SerializingWidgetConstructors ser = new SerializingWidgetConstructors();
       NativeObj.Base.factories = ser;
       try {
-        return d.build().webMillis;
+        Duration built = d.build();
+        dev.equo.ewt.web.EwtNode node = ser.nodes().get(built.getId());
+        if (node == null) return -1;
+        Map<String, Object> p = node.params();
+        long ms = 0;
+        if (p.containsKey("days"))         ms += ((Number) p.get("days")).longValue() * 86400000L;
+        if (p.containsKey("hours"))        ms += ((Number) p.get("hours")).longValue() * 3600000L;
+        if (p.containsKey("minutes"))      ms += ((Number) p.get("minutes")).longValue() * 60000L;
+        if (p.containsKey("seconds"))      ms += ((Number) p.get("seconds")).longValue() * 1000L;
+        if (p.containsKey("milliseconds")) ms += ((Number) p.get("milliseconds")).longValue();
+        if (p.containsKey("microseconds")) ms += ((Number) p.get("microseconds")).longValue() / 1000L;
+        return ms;
       } finally {
         NativeObj.Base.factories = prev;
         ser.close();

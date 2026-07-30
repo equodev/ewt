@@ -16,6 +16,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  cupertino_icons: any
+
   # Evolve (the swt.jar replacement's Flutter side). EWT → Evolve.
   swtflutter:
     path: ../../../swt-evolve/flutter-lib
