@@ -120,6 +120,8 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
+    // Native desktop path: mark as non-web so isWebMode() returns false.
+    systemProperty("dev.equo.swt.mode", "desktop")
     if (useLocal) {
         doFirst {
             if (!ewtApiJar.exists()) {
