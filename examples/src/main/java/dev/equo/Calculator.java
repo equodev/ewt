@@ -144,10 +144,7 @@ public class Calculator {
                               .padding(EdgeInsets_symmetric().horizontal(12.0).vertical(24.0))
                               .child(Text(_display)
                                   .maxLines(1)
-                                  .style(TextStyle()
-                                      .fontSize(72.0)
-                                      .fontWeight(FontWeight.w300())
-                                      .color(Colors.white())))),
+                                  .style(ts(72).weight(FontWeight.w300()).color(Colors.white())))),
 
                           // Keypad
                           _row(List.of(
@@ -214,10 +211,7 @@ public class Calculator {
                           .borderRadius(BorderRadius_circular(20.0)))
                       .alignment(Alignment.center())
                       .child(Text(label)
-                          .style(TextStyle()
-                              .fontSize(28.0)
-                              .fontWeight(FontWeight.w500())
-                              .color(fg))))));
+                          .style(ts(28).weight(FontWeight.w500()).color(fg))))));
     }
   }
 }

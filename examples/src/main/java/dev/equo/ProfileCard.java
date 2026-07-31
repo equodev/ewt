@@ -13,12 +13,7 @@ public class ProfileCard {
   static class ProfileCardApp extends SubStatelessWidget {
     @Override
     protected Widget build(BuildContext context) {
-      return MaterialApp()
-          .title("Profile Card")
-          .theme(ThemeData()
-              .colorScheme(ColorScheme_fromSeed(Colors.indigo()))
-              .useMaterial3(true))
-          .home(new ProfileCardPage());
+      return materialApp("Profile Card", Colors.indigo(), new ProfileCardPage());
     }
   }
 
@@ -56,14 +51,10 @@ public class ProfileCard {
                                   .color(Colors.white())),
                           SizedBox().height(16.0),
                           Text("Jane Doe")
-                              .style(TextStyle()
-                                  .fontSize(22.0)
-                                  .fontWeight(FontWeight.bold())),
+                              .style(ts(22).bold()),
                           SizedBox().height(4.0),
                           Text("Flutter Developer")
-                              .style(TextStyle()
-                                  .fontSize(14.0)
-                                  .color(Colors.grey().shade600())),
+                              .style(ts(14).color(Colors.grey().shade600())),
                           SizedBox().height(20.0),
                           Divider(),
                           SizedBox().height(16.0),
@@ -75,7 +66,7 @@ public class ProfileCard {
                                       .color(Colors.indigo()),
                                   SizedBox().width(8.0),
                                   Text("jane.doe@example.com")
-                                      .style(TextStyle().fontSize(13.0))
+                                      .style(ts(13))
                               )),
                           SizedBox().height(10.0),
                           Row()
@@ -86,7 +77,7 @@ public class ProfileCard {
                                       .color(Colors.indigo()),
                                   SizedBox().width(8.0),
                                   Text("Equo Technologies")
-                                      .style(TextStyle().fontSize(13.0))
+                                      .style(ts(13))
                               ))
                       ))
               ))

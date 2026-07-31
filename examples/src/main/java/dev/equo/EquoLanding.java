@@ -188,9 +188,7 @@ public class EquoLanding {
         // Primary filled button (colored by Material 3 seed). On hover the icon
         // spins one full turn forward; on exit it rewinds.
         private Widget knowMoreButton() {
-            var label = Text("I want to know more!").style(TextStyle()
-                    .fontSize(16.0)
-                    .fontWeight(FontWeight.w600()));
+            var label = Text("I want to know more!").style(ts(16).weight(FontWeight.w600()));
             var spinningIcon = RotationTransition(rightIconCtrl)
                     .child(Icon(Icons.sentiment_very_satisfied_rounded()).size(20.0));
             var content = Padding(EdgeInsets_symmetric().horizontal(16.0).vertical(6.0)).child(
@@ -247,9 +245,7 @@ public class EquoLanding {
                                     .icon(Icon(Icons.arrow_back_rounded()))
                                     .color(Colors.grey().shade800())
                                     .onPressed(goBack))
-                            .title(Text("Join us").style(TextStyle()
-                                    .color(Colors.grey().shade900())
-                                    .fontWeight(FontWeight.w500()))))
+                            .title(Text("Join us").style(ts().weight(FontWeight.w500()).color(Colors.grey().shade900()))))
                     .body(Center().child(Padding(EdgeInsets_all(32.0)).child(
                             Column()
                                     .mainAxisAlignment(MainAxisAlignment.center)
@@ -269,15 +265,8 @@ public class EquoLanding {
             var rotateIn    = CurvedAnimation(entryCtrl, Curves.easeOut()).build();
             var heading = Text("What are you waiting to try EWT?")
                     .textAlign(TextAlign.center)
-                    .style(TextStyle()
-                            .fontSize(36.0)
-                            .fontWeight(FontWeight.bold())
-                            .color(Colors.grey().shade900())
-                            .letterSpacing(-0.5));
-            var join = Text("Join us!").style(TextStyle()
-                    .fontSize(32.0)
-                    .fontWeight(FontWeight.bold())
-                    .color(brandBlue()));
+                    .style(ts(36).bold().color(Colors.grey().shade900()).tracking(-0.5));
+            var join = Text("Join us!").style(ts(32).bold().color(brandBlue()));
             return Column().mainAxisSize(MainAxisSize.min).children(List.of(
                     // Heading enters with fade + scale so it feels like it "arrives".
                     FadeTransition(fadeIn).child(
@@ -302,10 +291,7 @@ public class EquoLanding {
                             Row().mainAxisSize(MainAxisSize.min).children(List.of(
                                     Icon(Icons.email_outlined()).size(22.0).color(iconColor),
                                     SizedBox().width(12.0),
-                                    Text("contact@equo.dev").style(TextStyle()
-                                            .fontSize(20.0)
-                                            .fontWeight(FontWeight.w500())
-                                            .color(Colors.grey().shade900()))
+                                    Text("contact@equo.dev").style(ts(20).weight(FontWeight.w500()).color(Colors.grey().shade900()))
                             ))
                     ));
             var hoverable = TextButton(() -> {})

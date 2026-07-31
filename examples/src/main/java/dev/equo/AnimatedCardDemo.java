@@ -21,12 +21,7 @@ public class AnimatedCardDemo {
     static class MyApp extends SubStatelessWidget {
         @Override
         protected Widget build(BuildContext context) {
-            return MaterialApp()
-                    .title("EWT Animation Demo")
-                    .theme(ThemeData()
-                            .colorScheme(ColorScheme_fromSeed(Colors.deepPurple()))
-                            .useMaterial3(true))
-                    .home(new HomePage());
+            return materialApp("EWT Animation Demo", Colors.deepPurple(), new HomePage());
         }
     }
 

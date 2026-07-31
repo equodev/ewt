@@ -23,6 +23,10 @@ public class EWT {
     return TextStyleTextStyleBuilder.textStyleTextStyle();
   }
 
+  public static EwtTextStyle ts() { return new EwtTextStyle(); }
+  public static EwtTextStyle ts(int fontSize) { return new EwtTextStyle().size(fontSize); }
+  public static EwtTextStyle ts(double fontSize) { return new EwtTextStyle().size(fontSize); }
+
   public static ColorColorBuilder Color(int value) {
     return ColorColorBuilder.colorColor(value);
   }
@@ -608,6 +612,19 @@ public class EWT {
 
   public static MaterialAppMaterialAppBuilder MaterialApp() {
     return MaterialAppMaterialAppBuilder.materialAppMaterialApp();
+  }
+
+  /**
+   * Shorthand for a Material 3 app with a seed-color theme.
+   * Equivalent to {@code MaterialApp().title(title).theme(ThemeData().colorScheme(ColorScheme_fromSeed(seedColor)).useMaterial3(true)).home(home)}.
+   */
+  public static MaterialAppMaterialAppBuilder materialApp(String title, ColorI seedColor, WidgetI home) {
+    return MaterialApp()
+        .title(title)
+        .theme(ThemeData()
+            .colorScheme(ColorScheme_fromSeed(seedColor))
+            .useMaterial3(true))
+        .home(home);
   }
   public static MaterialAppRouterBuilder MaterialApp_router() {
     return MaterialAppRouterBuilder.materialAppRouter();

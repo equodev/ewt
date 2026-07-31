@@ -25,12 +25,7 @@ public class AnimationPlaygroundDemo {
     static class MyApp extends SubStatelessWidget {
         @Override
         protected Widget build(BuildContext context) {
-            return MaterialApp()
-                    .title("EWT Animation Playground")
-                    .theme(ThemeData()
-                            .colorScheme(ColorScheme_fromSeed(Colors.teal()))
-                            .useMaterial3(true))
-                    .home(new HomePage());
+            return materialApp("EWT Animation Playground", Colors.teal(), new HomePage());
         }
     }
 
@@ -191,11 +186,11 @@ public class AnimationPlaygroundDemo {
         // ----- Shared text helpers --------------------------------------------------
 
         private Widget sectionTitle(String text) {
-            return Text(text).style(TextStyle().fontSize(20.0).fontWeight(FontWeight.bold()));
+            return Text(text).style(ts(20).bold());
         }
 
         private Widget captionLabel(String text) {
-            return Text(text).style(TextStyle().fontSize(13.0).color(Colors.black54()));
+            return Text(text).style(ts(13).color(Colors.black54()));
         }
     }
 }

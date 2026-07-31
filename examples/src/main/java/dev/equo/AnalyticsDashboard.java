@@ -81,14 +81,10 @@ public class AnalyticsDashboard {
 
                       // ── Header + range selector ───────────────────────────
                       Text("Overview")
-                          .style(TextStyle()
-                              .fontSize(22.0)
-                              .fontWeight(FontWeight.bold())),
+                          .style(ts(22).bold()),
                       SizedBox().height(4.0),
                       Text("Performance for the last " + _rangeLabels[_range])
-                          .style(TextStyle()
-                              .fontSize(13.0)
-                              .color(Colors.grey().shade600())),
+                          .style(ts(13).color(Colors.grey().shade600())),
                       SizedBox().height(16.0),
                       _rangeSelector(),
                       SizedBox().height(20.0),
@@ -120,9 +116,7 @@ public class AnalyticsDashboard {
                           .crossAxisAlignment(CrossAxisAlignment.start)
                           .children(List.of(
                               Text("Sales performance")
-                                  .style(TextStyle()
-                                      .fontSize(16.0)
-                                      .fontWeight(FontWeight.w600())),
+                                  .style(ts(16).weight(FontWeight.w600())),
                               SizedBox().height(20.0),
                               SizedBox().height(160.0).child(_barChart())
                           ))),
@@ -133,9 +127,7 @@ public class AnalyticsDashboard {
                           .crossAxisAlignment(CrossAxisAlignment.start)
                           .children(List.of(
                               Text("Traffic sources")
-                                  .style(TextStyle()
-                                      .fontSize(16.0)
-                                      .fontWeight(FontWeight.w600())),
+                                  .style(ts(16).weight(FontWeight.w600())),
                               SizedBox().height(16.0),
                               _trafficRow("Organic search", 0.52, Colors.indigo()),
                               SizedBox().height(14.0),
@@ -149,9 +141,7 @@ public class AnalyticsDashboard {
 
                       // ── Recent activity ───────────────────────────────────
                       Text("Recent activity")
-                          .style(TextStyle()
-                              .fontSize(16.0)
-                              .fontWeight(FontWeight.w600())),
+                          .style(ts(16).weight(FontWeight.w600())),
                       SizedBox().height(8.0),
                       _card(Column().children(List.of(
                           ListTile()
@@ -159,21 +149,21 @@ public class AnalyticsDashboard {
                               .title(Text("New subscription"))
                               .subtitle(Text("Acme Inc. upgraded to Pro"))
                               .trailing(Text("2m")
-                                  .style(TextStyle().fontSize(12.0).color(Colors.grey().shade500()))),
+                                  .style(ts(12).color(Colors.grey().shade500()))),
                           Divider().height(1.0),
                           ListTile()
                               .leading(_avatar(Icons.shopping_bag_outlined(), Colors.green()))
                               .title(Text("Order completed"))
                               .subtitle(Text("Order #10482 shipped"))
                               .trailing(Text("18m")
-                                  .style(TextStyle().fontSize(12.0).color(Colors.grey().shade500()))),
+                                  .style(ts(12).color(Colors.grey().shade500()))),
                           Divider().height(1.0),
                           ListTile()
                               .leading(_avatar(Icons.warning_amber(), Colors.orange()))
                               .title(Text("Payment failed"))
                               .subtitle(Text("Retry scheduled for tomorrow"))
                               .trailing(Text("1h")
-                                  .style(TextStyle().fontSize(12.0).color(Colors.grey().shade500())))
+                                  .style(ts(12).color(Colors.grey().shade500())))
                       ))),
                       SizedBox().height(32.0)
 
@@ -214,10 +204,7 @@ public class AnalyticsDashboard {
               .decoration(decoration)
               .alignment(Alignment.center())
               .child(Text(_rangeLabels[index])
-                  .style(TextStyle()
-                      .fontSize(13.0)
-                      .fontWeight(selected ? FontWeight.w600() : FontWeight.w400())
-                      .color(selected ? Colors.indigo() : Colors.grey().shade600()))));
+                  .style(ts(13).weight(selected ? FontWeight.w600() : FontWeight.w400()).color(selected ? Colors.indigo() : Colors.grey().shade600()))));
     }
 
     // ── Stat card ─────────────────────────────────────────────────────────────
@@ -240,14 +227,10 @@ public class AnalyticsDashboard {
                   )),
               SizedBox().height(14.0),
               Text(value)
-                  .style(TextStyle()
-                      .fontSize(22.0)
-                      .fontWeight(FontWeight.bold())),
+                  .style(ts(22).bold()),
               SizedBox().height(2.0),
               Text(label)
-                  .style(TextStyle()
-                      .fontSize(13.0)
-                      .color(Colors.grey().shade600())),
+                  .style(ts(13).color(Colors.grey().shade600())),
               SizedBox().height(10.0),
               Row().children(List.of(
                   Icon(positive ? Icons.trending_up() : Icons.trending_down())
@@ -255,13 +238,10 @@ public class AnalyticsDashboard {
                       .color(positive ? Colors.green() : Colors.red()),
                   SizedBox().width(4.0),
                   Text((positive ? "+" : "-") + delta + "%")
-                      .style(TextStyle()
-                          .fontSize(12.0)
-                          .fontWeight(FontWeight.w600())
-                          .color(positive ? Colors.green() : Colors.red())),
+                      .style(ts(12).weight(FontWeight.w600()).color(positive ? Colors.green() : Colors.red())),
                   SizedBox().width(4.0),
                   Text("vs prev")
-                      .style(TextStyle().fontSize(12.0).color(Colors.grey().shade500()))
+                      .style(ts(12).color(Colors.grey().shade500()))
               ))
           )));
     }
@@ -295,9 +275,7 @@ public class AnalyticsDashboard {
                       .borderRadius(BorderRadius_circular(6.0))),
               SizedBox().height(6.0),
               Text(label)
-                  .style(TextStyle()
-                      .fontSize(11.0)
-                      .color(Colors.grey().shade600()))
+                  .style(ts(11).color(Colors.grey().shade600()))
           ));
     }
 
@@ -311,9 +289,9 @@ public class AnalyticsDashboard {
               Row()
                   .mainAxisAlignment(MainAxisAlignment.spaceBetween)
                   .children(List.of(
-                      Text(label).style(TextStyle().fontSize(13.0)),
+                      Text(label).style(ts(13)),
                       Text(pct + "%")
-                          .style(TextStyle().fontSize(13.0).fontWeight(FontWeight.w600()))
+                          .style(ts(13).weight(FontWeight.w600()))
                   )),
               SizedBox().height(6.0),
               LinearProgressIndicator()

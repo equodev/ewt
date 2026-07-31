@@ -15,12 +15,7 @@ public class Demo {
   static class DemoApp extends SubStatelessWidget {
     @Override
     protected Widget build(BuildContext context) {
-      return MaterialApp()
-          .title("EWT Demo")
-          .theme(ThemeData()
-              .colorScheme(ColorScheme_fromSeed(Colors.indigo()))
-              .useMaterial3(true))
-          .home(new DemoRoot());
+      return materialApp("EWT Demo", Colors.indigo(), new DemoRoot());
     }
   }
 
@@ -104,20 +99,13 @@ public class Demo {
                                       .borderRadius(BorderRadius_circular(20.0)))
                                   .alignment(Alignment.center())
                                   .child(Text("EWT")
-                                      .style(TextStyle()
-                                          .fontSize(20.0)
-                                          .fontWeight(FontWeight.bold())
-                                          .color(Colors.white())))),
+                                      .style(ts(20).bold().color(Colors.white())))),
                           SizedBox().height(24.0),
                           Text("EWT Demo")
-                              .style(TextStyle()
-                                  .fontSize(26.0)
-                                  .fontWeight(FontWeight.bold())),
+                              .style(ts(26).bold()),
                           SizedBox().height(4.0),
                           Text("Sign in to continue")
-                              .style(TextStyle()
-                                  .fontSize(14.0)
-                                  .color(Colors.grey().shade600())),
+                              .style(ts(14).color(Colors.grey().shade600())),
                           SizedBox().height(28.0),
                           TextField()
                               .decoration(InputDecoration()
@@ -140,13 +128,9 @@ public class Demo {
                                   .onLongPress(this::_autofill)
                                   .child(_autofilled
                                       ? Text("✓ demo@equo.dev loaded")
-                                          .style(TextStyle()
-                                              .fontSize(12.0)
-                                              .color(Colors.green()))
+                                          .style(ts(12).color(Colors.green()))
                                       : Text("Use demo account? (long press)")
-                                          .style(TextStyle()
-                                              .fontSize(12.0)
-                                              .color(Colors.indigo().shade400()))))
+                                          .style(ts(12).color(Colors.indigo().shade400()))))
                       )))));
     }
 
@@ -165,9 +149,7 @@ public class Demo {
                                   CircularProgressIndicator().color(Colors.indigo()),
                                   SizedBox().height(24.0),
                                   Text("Signing in...")
-                                      .style(TextStyle()
-                                          .fontSize(16.0)
-                                          .color(Colors.grey().shade600()))
+                                      .style(ts(16).color(Colors.grey().shade600()))
                               ))))
               )));
     }
@@ -212,23 +194,16 @@ public class Demo {
                                                   .shape(BoxShape.circle))
                                               .alignment(Alignment.center())
                                               .child(Text("D")
-                                                  .style(TextStyle()
-                                                      .fontSize(24.0)
-                                                      .fontWeight(FontWeight.bold())
-                                                      .color(Colors.white()))),
+                                                  .style(ts(24).bold().color(Colors.white()))),
                                           SizedBox().width(16.0),
                                           Column()
                                               .crossAxisAlignment(CrossAxisAlignment.start)
                                               .mainAxisSize(MainAxisSize.min)
                                               .children(List.of(
                                                   Text("Demo User")
-                                                      .style(TextStyle()
-                                                          .fontSize(18.0)
-                                                          .fontWeight(FontWeight.bold())),
+                                                      .style(ts(18).bold()),
                                                   Text(displayEmail)
-                                                      .style(TextStyle()
-                                                          .fontSize(13.0)
-                                                          .color(Colors.grey().shade600()))
+                                                      .style(ts(13).color(Colors.grey().shade600()))
                                               ))
                                       )),
                                       SizedBox().height(16.0),
@@ -241,21 +216,19 @@ public class Demo {
 
                       // Profile completion
                       Text("Profile completion")
-                          .style(TextStyle().fontWeight(FontWeight.bold())),
+                          .style(ts().bold()),
                       SizedBox().height(8.0),
                       LinearProgressIndicator()
                           .value(progress)
                           .color(Colors.indigo()),
                       SizedBox().height(4.0),
                       Text(pct + "% — add tags with the + button")
-                          .style(TextStyle()
-                              .fontSize(12.0)
-                              .color(Colors.grey().shade600())),
+                          .style(ts(12).color(Colors.grey().shade600())),
                       SizedBox().height(24.0),
 
                       // Recent activity
                       Text("Recent activity")
-                          .style(TextStyle().fontWeight(FontWeight.bold())),
+                          .style(ts().bold()),
                       SizedBox().height(8.0),
                       Card().child(Column()
                           .children(List.of(

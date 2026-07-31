@@ -13,12 +13,7 @@ public class LoginForm {
   static class LoginFormApp extends SubStatelessWidget {
     @Override
     protected Widget build(BuildContext context) {
-      return MaterialApp()
-          .title("Login Form")
-          .theme(ThemeData()
-              .colorScheme(ColorScheme_fromSeed(Colors.deepPurple()))
-              .useMaterial3(true))
-          .home(new LoginPage());
+      return materialApp("Login Form", Colors.deepPurple(), new LoginPage());
     }
   }
 
@@ -69,14 +64,10 @@ public class LoginForm {
                       .crossAxisAlignment(CrossAxisAlignment.stretch)
                       .children(List.of(
                           Text("Welcome Back")
-                              .style(TextStyle()
-                                  .fontSize(28.0)
-                                  .fontWeight(FontWeight.bold())),
+                              .style(ts(28).bold()),
                           SizedBox().height(8.0),
                           Text("Sign in to continue")
-                              .style(TextStyle()
-                                  .fontSize(14.0)
-                                  .color(Colors.grey().shade600())),
+                              .style(ts(14).color(Colors.grey().shade600())),
                           SizedBox().height(32.0),
                           TextField()
                               .decoration(InputDecoration()

@@ -108,10 +108,7 @@ public class MusicPlayer {
                                       .color(Colors.white())
                                       .onPressed(() -> {}),
                                   Text("NOW PLAYING")
-                                      .style(TextStyle()
-                                          .fontSize(12.0)
-                                          .fontWeight(FontWeight.w600())
-                                          .color(Colors.white70())),
+                                      .style(ts(12).weight(FontWeight.w600()).color(Colors.white70())),
                                   IconButton()
                                       .icon(Icon(Icons.more_horiz()))
                                       .color(Colors.white())
@@ -145,15 +142,10 @@ public class MusicPlayer {
                                       .children(List.of(
                                           Text(_titles[_track])
                                               .maxLines(1)
-                                              .style(TextStyle()
-                                                  .fontSize(26.0)
-                                                  .fontWeight(FontWeight.bold())
-                                                  .color(Colors.white())),
+                                              .style(ts(26).bold().color(Colors.white())),
                                           SizedBox().height(6.0),
                                           Text(_artists[_track])
-                                              .style(TextStyle()
-                                                  .fontSize(16.0)
-                                                  .color(Colors.white70()))
+                                              .style(ts(16).color(Colors.white70()))
                                       ))),
                                   IconButton()
                                       .icon(Icon(_liked ? Icons.favorite() : Icons.favorite_border()))
@@ -175,9 +167,9 @@ public class MusicPlayer {
                               .mainAxisAlignment(MainAxisAlignment.spaceBetween)
                               .children(List.of(
                                   Text(_time(elapsed))
-                                      .style(TextStyle().fontSize(12.0).color(Colors.white54())),
+                                      .style(ts(12).color(Colors.white54())),
                                   Text(_time(total))
-                                      .style(TextStyle().fontSize(12.0).color(Colors.white54()))
+                                      .style(ts(12).color(Colors.white54()))
                               )),
                           SizedBox().height(20.0),
 
