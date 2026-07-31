@@ -322,6 +322,23 @@ class WidgetGen implements AGen {
   }
 
   void writeFooter(bool hasMembers) {
+    // AnimationController: web routing infrastructure and repeat(boolean) overload.
+    if (widgetClass == 'AnimationController') {
+      javaFile
+        ..writeln('  /** Set in web mode by SubAnimatedState.animationController() so commands can route back. */')
+        ..writeln('  private SubAnimatedState<?> webOwner;')
+        ..writeln('  void setWebOwner(SubAnimatedState<?> owner) { this.webOwner = owner; }')
+        ..writeln('  private void webCommand(String action) {')
+        ..writeln('    if (webOwner != null) webOwner.sendAnimCommand(this.id, action);')
+        ..writeln('    else System.out.println("EWT web: AnimationController " + id + " has no owner for action=" + action);')
+        ..writeln('  }')
+        ..writeln('  public void repeat(boolean reverse) {')
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand(reverse ? "repeat:reverse" : "repeat"); return; }')
+        ..writeln('    if (reverse) throw new UnsupportedOperationException(')
+        ..writeln('        "repeat(reverse=true) is not yet supported on the native path; call repeat() instead");')
+        ..writeln('    factories.animationControllerRepeat(this);')
+        ..writeln('  }');
+    }
     // Note: return type is intentionally raw for generic widgets. Parametrizing
     // it (e.g. `State<T> build()`) breaks `SubclassGen`'s hand-emitted
     // `createState(...).build()` chain in `SubStatefulWidget.createStateFn`
@@ -430,6 +447,19 @@ class WidgetGen implements AGen {
     final restCallNames = jParamsValuesOpt.names;
     final callArgs = restCallNames.isEmpty ? 'this' : 'this,\n      $restCallNames';
     if (node.returnType is VoidType) {
+      // AnimationController: route imperative commands to the Dart-side controller in web mode.
+      if (widgetClass == 'AnimationController') {
+        if (factory == 'setDuration' || factory == 'setReverseDuration') {
+          javaFile
+            ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
+            ..writeln('      long ms = EwtWebCapture.buildDurationMillis(d);')
+            ..writeln('      if (ms >= 0) webCommand("$factory:" + ms);')
+            ..writeln('      return;')
+            ..writeln('    }');
+        } else {
+          javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("$factory"); return; }');
+        }
+      }
       javaFile.writeln('    factories.$factoryName($callArgs);');
     } else {
       final retType = types.type4FFMRet(node.returnType);
@@ -437,7 +467,15 @@ class WidgetGen implements AGen {
       if (retType == 'int') {
         javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
-      javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+      // SubAnimatedState.animationController: wire the controller back to this state for web commands.
+      if (widgetClass == 'SubAnimatedState' && factory == 'animationController') {
+        javaFile
+          ..writeln('    AnimationController ctrl = new AnimationController(id);')
+          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);')
+          ..writeln('    return ctrl;');
+      } else {
+        javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+      }
     }
     javaFile.writeln('  }');
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
@@ -577,6 +615,9 @@ class WidgetGen implements AGen {
     // Match the FFM method's own type parameters (e.g. <T extends StatefulWidget>) so the
     // @Override resolves for generic factories.
     final jtp = JLang().methodTypeParameters(node.type);
+
+    // Hand-maintained in gen.dart with ctrlId tracking — skip auto-generation to avoid duplicate.
+    if (factoryName == 'subAnimatedStateAnimationController') return;
 
     // ListView.builder special-case: eager-expand itemBuilder into a plain listViewListView node.
     // Instead of recording an inert callback id, we call itemBuilder for each index and collect
@@ -1219,7 +1260,7 @@ class SubclassGen extends ObjStGen {
       javaFile
         ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
       // Web-mode setState: run the mutation locally and request a rebuild via EwtWebState.
-      if (widgetClass == 'SubState' && method.name == 'setState') {
+      if ((widgetClass == 'SubState' || widgetClass == 'SubAnimatedState') && method.name == 'setState') {
         javaFile
           ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
           ..writeln('      fn.run();')
@@ -1240,6 +1281,18 @@ class SubclassGen extends ObjStGen {
       javaFile
         ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
         ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
+    }
+    // SubAnimatedState: web identity + animation command channel.
+    if (widgetClass == 'SubAnimatedState') {
+      javaFile
+        ..writeln('  private SubStatefulWidget webWidget;')
+        ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }')
+        ..writeln('  private java.util.function.Consumer<String> webAnimCommandSink;')
+        ..writeln('  public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) { this.webAnimCommandSink = sink; }')
+        ..writeln('  void sendAnimCommand(int ctrlId, String action) {')
+        ..writeln('    if (webAnimCommandSink != null) webAnimCommandSink.accept("{\\"ctrlId\\":" + ctrlId + ",\\"action\\":\\"" + action + "\\"}");')
+        ..writeln('    else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);')
+        ..writeln('  }');
     }
   }
 
@@ -1627,6 +1680,13 @@ class Generation {
 
     headerFile.writeln('} WidgetFactories;');
 
+    // OffsetTween is web-only (Animation<T> params cannot be auto-generated).
+    javaStatics
+      ..writeln('  /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}')
+      ..writeln('   *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */')
+      ..writeln('  public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {')
+      ..writeln('    return OffsetAnimation.create(begin.build(), end.build(), parent.build());')
+      ..writeln('  }');
     javaStatics.writeln('}');
 
     // offsetTween is web-only (Animation<T> params cannot be auto-generated); native stub throws.
@@ -1811,6 +1871,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   private int nextId = 1;
   private int nextCallbackId = 1;
   private final Map<Integer, EwtNode> byId = new HashMap<>();
+  public Map<Integer, EwtNode> nodes() { return byId; }
   private final Map<Integer, Object> callbacks = new HashMap<>();
   public Map<Integer, Object> callbacks() { return callbacks; }
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);

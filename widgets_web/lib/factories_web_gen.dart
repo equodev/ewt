@@ -2628,7 +2628,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       backgroundColor: p['backgroundColor'] == null ? null : decodeEwtNode(p['backgroundColor'] as Map<String,dynamic>) as Color,
       tooltip: p['tooltip'] as String?),
 
-  // Animation factories: Animation<T> params are not auto-generated; these are hand-written.
+
+  // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   'subAnimatedStateAnimationController': (p) {
     final ctrlId = p['ctrlId'] as int;
     final registry = ewtActiveControllerRegistry;
@@ -2640,23 +2641,19 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
     final duration = decodeEwtNode(p['duration'] as Map<String, dynamic>) as Duration;
     return registry.putIfAbsent(ctrlId, () => AnimationController(vsync: vsync, duration: duration));
   },
-
   'curvedAnimationCurvedAnimation': (p) => CurvedAnimation(
       parent: decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>,
       curve: decodeEwtNode(p['curve'] as Map<String, dynamic>) as Curve,
       reverseCurve: p['reverseCurve'] == null ? null : decodeEwtNode(p['reverseCurve'] as Map<String, dynamic>) as Curve),
-
   'scaleTransitionScaleTransition': (p) => ScaleTransition(
       scale: decodeEwtNode(p['scale'] as Map<String, dynamic>) as Animation<double>,
       alignment: p['alignment'] == null ? Alignment.center : decodeEwtNode(p['alignment'] as Map<String, dynamic>) as Alignment,
       filterQuality: p['filterQuality'] == null ? null : FilterQuality.values[p['filterQuality'] as int],
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
-
   'fadeTransitionFadeTransition': (p) => FadeTransition(
       opacity: decodeEwtNode(p['opacity'] as Map<String, dynamic>) as Animation<double>,
       alwaysIncludeSemantics: (p['alwaysIncludeSemantics'] as bool?) ?? false,
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
-
   'rotationTransitionRotationTransition': (p) => RotationTransition(
       turns: decodeEwtNode(p['turns'] as Map<String, dynamic>) as Animation<double>,
       alignment: p['alignment'] == null ? Alignment.center : decodeEwtNode(p['alignment'] as Map<String, dynamic>) as Alignment,
@@ -2678,7 +2675,6 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       transformHitTests: (p['transformHitTests'] as bool?) ?? true,
       textDirection: p['textDirection'] == null ? null : TextDirection.values[p['textDirection'] as int],
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
-
 };
 
 final Set<String> unsupportedFactories = {};

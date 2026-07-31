@@ -9,6 +9,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   private int nextId = 1;
   private int nextCallbackId = 1;
   private final Map<Integer, EwtNode> byId = new HashMap<>();
+  public Map<Integer, EwtNode> nodes() { return byId; }
   private final Map<Integer, Object> callbacks = new HashMap<>();
   public Map<Integer, Object> callbacks() { return callbacks; }
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
@@ -5534,6 +5535,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     SubAnimatedStateObjSt.id(st, id);
     return st;
   }
+
+
+  // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   @Override
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
     int id = nextId++;
@@ -5554,5 +5558,4 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "offsetTween", p);
     return id;
   }
-
 }

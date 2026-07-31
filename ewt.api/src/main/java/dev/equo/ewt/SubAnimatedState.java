@@ -23,10 +23,10 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     System.out.println("New SubAnimatedState id:"+id);
   }
   public AnimationController animationController(DurationI duration) {
-    int ctrlId = factories.subAnimatedStateAnimationController(this,
+    int id = factories.subAnimatedStateAnimationController(this,
       duration.build());
-    if (ctrlId <= 0) throw new RuntimeException("Failed to call animationController");
-    AnimationController ctrl = new AnimationController(ctrlId);
+    if (id <= 0) throw new RuntimeException("Failed to call animationController");
+    AnimationController ctrl = new AnimationController(id);
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);
     return ctrl;
   }
@@ -86,17 +86,14 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     MemorySegment funcPtr = SubAnimatedStateObjSt.setState(st);
     SubAnimatedStateObjSt.setState.invoke(funcPtr, factories.ptrVoidCallbackFn(fn));
   }
-
   private SubStatefulWidget webWidget;
   void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }
-
-  private Consumer<String> webAnimCommandSink;
-  public void setWebAnimCommandSink(Consumer<String> sink) { this.webAnimCommandSink = sink; }
+  private java.util.function.Consumer<String> webAnimCommandSink;
+  public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) { this.webAnimCommandSink = sink; }
   void sendAnimCommand(int ctrlId, String action) {
     if (webAnimCommandSink != null) webAnimCommandSink.accept("{\"ctrlId\":" + ctrlId + ",\"action\":\"" + action + "\"}");
     else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);
   }
-
   @Override
   public SubAnimatedState build() {
     return this;

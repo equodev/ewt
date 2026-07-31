@@ -4122,10 +4122,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubAnimatedStateSt.animationController.invoke(fn, self.build().getId(),
       duration.build().getId());
   }
+
   int offsetTween(Offset begin, Offset end, Animation parent) {
     throw new UnsupportedOperationException("offsetTween is web-only; use OffsetAnimation.create() or EWT.OffsetTween() in web mode");
   }
-
 MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {
   return WidgetBuilderFFI.allocate((context) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });

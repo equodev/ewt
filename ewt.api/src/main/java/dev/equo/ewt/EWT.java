@@ -939,5 +939,4 @@ public class EWT {
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {
     return OffsetAnimation.create(begin.build(), end.build(), parent.build());
   }
-
 }
