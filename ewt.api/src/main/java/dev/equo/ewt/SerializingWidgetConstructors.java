@@ -5538,9 +5538,20 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", id);
     p.put("self", byId.get(self.getId()));
     p.put("duration", byId.get(duration.getId()));
     record(id, "subAnimatedStateAnimationController", p);
+    return id;
+  }
+  // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
+  int offsetTween(Offset begin, Offset end, Animation parent) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("begin", byId.get(begin.getId()));
+    p.put("end", byId.get(end.getId()));
+    p.put("parent", byId.get(parent.getId()));
+    record(id, "offsetTween", p);
     return id;
   }
 

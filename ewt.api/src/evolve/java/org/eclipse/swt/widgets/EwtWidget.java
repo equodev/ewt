@@ -1,11 +1,14 @@
 package org.eclipse.swt.widgets;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import dev.equo.ewt.App;
 import dev.equo.ewt.EwtCapture;
 import dev.equo.ewt.EwtWebCapture;
 import dev.equo.ewt.EwtWebState;
+import dev.equo.ewt.SubAnimatedState;
 import dev.equo.ewt.SubState;
 import dev.equo.ewt.Widget;
 import dev.equo.ewt.evolve.EvolveComm;
@@ -41,7 +44,7 @@ public class EwtWidget extends Composite {
         // leaves no stale entry in App's builder registry (keyed by this same id).
         addDisposeListener(e -> {
             App.unregisterBuilder(hashCode());
-            if (webState != null) EwtWebState.unregister(webState);
+            clearWebState();
             // Reset handler guard so a hypothetical future reuse of this instance doesn't skip registration.
             webHandlersRegistered = false;
         });
@@ -65,7 +68,8 @@ public class EwtWidget extends Composite {
 
     private volatile EwtNode lastTree;
     private volatile java.util.Map<Integer, Object> webCallbacks;
-    private volatile SubState<?> webState;
+    /** Either a SubState<?> or a SubAnimatedState<?>, or null for stateless roots. */
+    private volatile Object webState;
     /** Guards against registering the same EvolveComm handlers more than once across repeated setWidget calls. */
     private boolean webHandlersRegistered = false;
 
@@ -80,18 +84,32 @@ public class EwtWidget extends Composite {
      */
     private void publishWebSubtree(Callable<Widget> builder) {
         try {
-            EwtCapture capture = EwtWebCapture.captureSubtree(builder);
+            // Buffer initial anim commands (e.g. ctrl.forward() in initState) so they are
+            // replayed AFTER the subtree is published. The browser must decode the tree and
+            // create AnimationControllers before receiving forward/reverse/etc commands —
+            // if commands arrive first, _controllers[id] is null and they are silently dropped.
+            List<String> bufferedAnims = new ArrayList<>();
+            EwtCapture capture = EwtWebCapture.captureSubtree(builder, bufferedAnims::add);
             webCallbacks = capture.callbacks;
-            if (webState != null) EwtWebState.unregister(webState);
+            clearWebState();
             webState = capture.state;
-            if (webState != null) EwtWebState.register(webState, this::rebuild);
+            if (capture.state instanceof SubState<?> ss) {
+                EwtWebState.register(ss, this::rebuild);
+            } else if (capture.state instanceof SubAnimatedState<?> as) {
+                EwtWebState.register(as, this::rebuild);
+                as.setWebAnimCommandSink(this::sendAnimCommand);
+            }
             if (!webHandlersRegistered) {
                 EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
                 EvolveComm.onPayload(getImpl(), EwtWebTransport.callbackEvent(hashCode()), this::fireCallback);
+                EvolveComm.onPayload(getImpl(), EwtWebTransport.animEvent(hashCode()), this::handleAnimCommand);
                 webHandlersRegistered = true;
             }
             lastTree = capture.root;
             publish(EwtPatchJson.encodeFull(capture.root));
+            // Replay initial anim commands after publishing the subtree: the browser will
+            // decode the tree (creating AnimationControllers) before these arrive.
+            for (String cmd : bufferedAnims) sendAnimCommand(cmd);
         } catch (Exception e) {
             System.out.println("EWT web subtree publish failed: " + e);
             e.printStackTrace();
@@ -102,13 +120,29 @@ public class EwtWidget extends Composite {
         }
     }
 
+    /** Unregisters the current web state from EwtWebState and clears its anim sink. */
+    private void clearWebState() {
+        Object prev = webState;
+        if (prev instanceof SubState<?> ss) EwtWebState.unregister(ss);
+        else if (prev instanceof SubAnimatedState<?> as) {
+            EwtWebState.unregister(as);
+            as.setWebAnimCommandSink(null);
+        }
+        webState = null;
+    }
+
     /** Web-mode rebuild: re-flatten the retained state, refresh callbacks, publish a diff (or a full
      *  snapshot on a structural change / first frame). */
     private void rebuild() {
-        SubState<?> s = webState;
+        Object s = webState;
         if (s == null) return;
         try {
-            EwtCapture capture = EwtWebCapture.rebuild(s);
+            EwtCapture capture;
+            if (s instanceof SubState<?> ss) {
+                capture = EwtWebCapture.rebuild(ss);
+            } else if (s instanceof SubAnimatedState<?> as) {
+                capture = EwtWebCapture.rebuildAnimated(as);
+            } else return;
             webCallbacks = capture.callbacks;
             EwtNode prev = lastTree;
             lastTree = capture.root;
@@ -117,7 +151,6 @@ public class EwtWidget extends Composite {
         } catch (Exception e) {
             System.out.println("EWT web rebuild failed: " + e);
             e.printStackTrace();
-            // Reset to clean state so the next rebuild starts from scratch.
             lastTree = null;
             webCallbacks = null;
         }
@@ -143,6 +176,20 @@ public class EwtWidget extends Composite {
     private void publish(String json) {
         EwtWebTransport.publish(hashCode(), json,
             (event, payload) -> EvolveComm.send(getImpl(), event, payload));
+    }
+
+    /** Forwards an animation command JSON string to the browser via the anim channel. */
+    private void sendAnimCommand(String json) {
+        EwtWebTransport.publishAnim(hashCode(), json,
+            (event, payload) -> EvolveComm.send(getImpl(), event, payload));
+    }
+
+    /**
+     * The /anim handler: the browser should never send on this channel (it's Java→browser only),
+     * but the registration is a no-op guard against mis-wiring.
+     */
+    private void handleAnimCommand(Object payload) {
+        // Java→browser only; no-op on the receive side.
     }
 
     /** Resolves a callback payload (a JSON array [id] or [id, arg]) to the work to run, or null

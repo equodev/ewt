@@ -126,11 +126,11 @@ public class EwtWebShowcase {
                                             Text(title).style(TextStyle()
                                                     .fontSize(18.0)
                                                     .fontWeight(FontWeight.w700())
-                                                    .color(Colors.black87())),
+                                                    .color(Colors.white())),
                                             SizedBox().height(4.0),
                                             Text(subtitle).style(TextStyle()
                                                     .fontSize(13.0)
-                                                    .color(Colors.black54())),
+                                                    .color(Colors.white70())),
                                             SizedBox().height(16.0),
                                             body
                                     ))));
@@ -213,7 +213,7 @@ public class EwtWebShowcase {
                                     Padding(EdgeInsets_symmetric().horizontal(16.0))
                                             .child(Text("Volume: " + (int) sliderValue + " %").style(TextStyle()
                                                     .fontSize(13.0)
-                                                    .color(Colors.black54()))),
+                                                    .color(Colors.white70()))),
                                     Slider(sliderValue)
                                             .onChanged(v -> setState(() -> sliderValue = v))
                                             .min(0.0)
@@ -279,7 +279,7 @@ public class EwtWebShowcase {
                                                     .child(Text(_tileLabel(idx)).style(TextStyle()
                                                             .fontSize(11.0)
                                                             .fontWeight(FontWeight.w600())
-                                                            .color(sel ? Colors.white() : Colors.black54())))
+                                                            .color(sel ? Colors.white() : Colors.white70())))
                                     ))));
         }
 
@@ -339,22 +339,18 @@ public class EwtWebShowcase {
                                     Container()
                                             .padding(EdgeInsets_all(14.0))
                                             .decoration(BoxDecoration()
-                                                    .color(typedText.isEmpty()
-                                                            ? Colors.grey().shade100()
-                                                            : Colors.deepPurple().shade50())
+                                                    .color(Color_fromRGBO(255, 255, 255, 0.08))
                                                     .borderRadius(BorderRadius_circular(10.0))
                                                     .border(Border_all()
-                                                            .color(typedText.isEmpty()
-                                                                    ? Colors.grey().shade300()
-                                                                    : Colors.deepPurple().shade200())
+                                                            .color(Color_fromRGBO(255, 255, 255, typedText.isEmpty() ? 0.15 : 0.4))
                                                             .width(1.0)))
                                             .child(Text(typedText.isEmpty()
                                                     ? "Java will echo your text here…"
                                                     : "“" + typedText + "”").style(TextStyle()
                                                     .fontSize(15.0)
                                                     .color(typedText.isEmpty()
-                                                            ? Colors.black38()
-                                                            : Colors.deepPurple().shade700())))
+                                                            ? Colors.white38()
+                                                            : Colors.white())))
                             ))
             );
         }

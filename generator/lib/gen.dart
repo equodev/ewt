@@ -1629,6 +1629,11 @@ class Generation {
 
     javaStatics.writeln('}');
 
+    // offsetTween is web-only (Animation<T> params cannot be auto-generated); native stub throws.
+    javaFactories.writeln('  int offsetTween(Offset begin, Offset end, Animation parent) {');
+    javaFactories.writeln('    throw new UnsupportedOperationException("offsetTween is web-only; use OffsetAnimation.create() or EWT.OffsetTween() in web mode");');
+    javaFactories.writeln('  }');
+
     addTypeDefs();
     javaFactories.writeln('}');
   }
@@ -1819,7 +1824,29 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, type, p);
     return id;
   }
-$overrides}
+$overrides
+  // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
+  @Override
+  int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", id);
+    p.put("self", byId.get(self.getId()));
+    p.put("duration", byId.get(duration.getId()));
+    record(id, "subAnimatedStateAnimationController", p);
+    return id;
+  }
+  // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
+  int offsetTween(Offset begin, Offset end, Animation parent) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("begin", byId.get(begin.getId()));
+    p.put("end", byId.get(end.getId()));
+    p.put("parent", byId.get(parent.getId()));
+    record(id, "offsetTween", p);
+    return id;
+  }
+}
 ''';
   }
 
@@ -1836,7 +1863,54 @@ import 'decode.dart';
 import 'callbacks.dart';
 
 final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
-$entries};
+$entries
+  // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
+  'subAnimatedStateAnimationController': (p) {
+    final ctrlId = p['ctrlId'] as int;
+    final registry = ewtActiveControllerRegistry;
+    final vsync = ewtActiveTickerProvider;
+    if (registry == null || vsync == null) {
+      debugPrint('EWT: subAnimatedStateAnimationController outside animated region (ctrlId=\$ctrlId)');
+      return null;
+    }
+    final duration = decodeEwtNode(p['duration'] as Map<String, dynamic>) as Duration;
+    return registry.putIfAbsent(ctrlId, () => AnimationController(vsync: vsync, duration: duration));
+  },
+  'curvedAnimationCurvedAnimation': (p) => CurvedAnimation(
+      parent: decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>,
+      curve: decodeEwtNode(p['curve'] as Map<String, dynamic>) as Curve,
+      reverseCurve: p['reverseCurve'] == null ? null : decodeEwtNode(p['reverseCurve'] as Map<String, dynamic>) as Curve),
+  'scaleTransitionScaleTransition': (p) => ScaleTransition(
+      scale: decodeEwtNode(p['scale'] as Map<String, dynamic>) as Animation<double>,
+      alignment: p['alignment'] == null ? Alignment.center : decodeEwtNode(p['alignment'] as Map<String, dynamic>) as Alignment,
+      filterQuality: p['filterQuality'] == null ? null : FilterQuality.values[p['filterQuality'] as int],
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+  'fadeTransitionFadeTransition': (p) => FadeTransition(
+      opacity: decodeEwtNode(p['opacity'] as Map<String, dynamic>) as Animation<double>,
+      alwaysIncludeSemantics: (p['alwaysIncludeSemantics'] as bool?) ?? false,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+  'rotationTransitionRotationTransition': (p) => RotationTransition(
+      turns: decodeEwtNode(p['turns'] as Map<String, dynamic>) as Animation<double>,
+      alignment: p['alignment'] == null ? Alignment.center : decodeEwtNode(p['alignment'] as Map<String, dynamic>) as Alignment,
+      filterQuality: p['filterQuality'] == null ? null : FilterQuality.values[p['filterQuality'] as int],
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+  'sizeTransitionSizeTransition': (p) => SizeTransition(
+      sizeFactor: decodeEwtNode(p['sizeFactor'] as Map<String, dynamic>) as Animation<double>,
+      axis: p['axis'] == null ? Axis.vertical : Axis.values[p['axis'] as int],
+      axisAlignment: ((p['axisAlignment'] as num?)?.toDouble()) ?? 0.0,
+      fixedCrossAxisSizeFactor: (p['fixedCrossAxisSizeFactor'] as num?)?.toDouble(),
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+  // Animation<Offset> — wraps a parent Animation<double> with begin/end offsets via Tween<Offset>.
+  'offsetTween': (p) => Tween<Offset>(
+      begin: p['begin'] == null ? null : decodeEwtNode(p['begin'] as Map<String, dynamic>) as Offset,
+      end: p['end'] == null ? null : decodeEwtNode(p['end'] as Map<String, dynamic>) as Offset,
+    ).animate(decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>),
+  'slideTransitionSlideTransition': (p) => SlideTransition(
+      position: decodeEwtNode(p['position'] as Map<String, dynamic>) as Animation<Offset>,
+      transformHitTests: (p['transformHitTests'] as bool?) ?? true,
+      textDirection: p['textDirection'] == null ? null : TextDirection.values[p['textDirection'] as int],
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String, dynamic>)),
+};
 
 final Set<String> unsupportedFactories = {};
 ''';

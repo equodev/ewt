@@ -934,4 +934,10 @@ public class EWT {
     return BottomNavigationBarItemBottomNavigationBarItemBuilder.bottomNavigationBarItemBottomNavigationBarItem(icon);
   }
 
+  /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
+   *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
+  public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {
+    return OffsetAnimation.create(begin.build(), end.build(), parent.build());
+  }
+
 }
