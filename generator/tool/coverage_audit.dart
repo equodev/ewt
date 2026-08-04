@@ -83,7 +83,7 @@ Future<void> main() async {
   final flutterVersion = detectFlutterVersion();
   out.writeln('# EWT — Flutter widget coverage');
   out.writeln();
-  out.writeln('Flutter $flutterVersion · generated on ${DateTime.now().toIso8601String().split('T').first}');
+  out.writeln('Flutter $flutterVersion');
   out.writeln();
 
   out.writeln('## Summary');

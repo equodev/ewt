@@ -1,6 +1,6 @@
 # EWT — Flutter widget coverage
 
-Flutter 3.35.7 · generated on 2026-08-04
+Flutter 3.35.7
 
 ## Summary
 
