@@ -26,9 +26,10 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
   void initStateFn() {
     initState();
   }
-  protected void didUpdateWidget(NativeObj oldWidget) {}
+  protected void didUpdateWidget(T oldWidget) {}
+  @SuppressWarnings("unchecked")
   void didUpdateWidgetFn(NativeObj oldWidget) {
-    didUpdateWidget(oldWidget);
+    didUpdateWidget((T) oldWidget);
   }
   protected void reassemble() {}
   void reassembleFn() {
@@ -72,6 +73,14 @@ public abstract class SubState<T extends StatefulWidget> extends State<T> implem
     }
     MemorySegment funcPtr = SubStateObjSt.setState(st);
     SubStateObjSt.setState.invoke(funcPtr, factories.ptrVoidCallbackFn(fn));
+  }
+  @SuppressWarnings("unchecked")
+  public T widget() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {
+      return (T) webWidget;
+    }
+    MemorySegment funcPtr = SubStateObjSt.widget(st);
+    return SubclassedInJava.getSubNatObj(SubStateObjSt.widget.invoke(funcPtr));
   }
   private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten
   void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }

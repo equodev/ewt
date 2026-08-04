@@ -1248,12 +1248,37 @@ class SubclassGen extends ObjStGen {
         retBuilder = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
       }
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
-      javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}(${jParams.decl})${method.isAbstract ? ';' : ' {}'}');
+      // Preserve `T` on the *public* hook so `didUpdateWidget(T oldWidget)` gives user code
+      // the concrete widget type (needed for widget().<prop> access). Keep `NativeObj` on the
+      // `Fn` shim so its method reference matches the Consumer<NativeObj> parameter that
+      // WidgetConstructors emits (type4J widens TypeParameterType → NativeObj globally, and
+      // the shim must honor that contract — the cast is unchecked but safe under generic
+      // erasure since T extends StatefulWidget and NativeObj carries the id).
+      final publicDecl = method.parameters
+          .where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))
+          .map((p) {
+            final typeStr = p.type is TypeParameterType && !p.isOptional
+                ? (p.type as TypeParameterType).element.name
+                : Params.paramDef4J(types, p, wrap: p.isOptional);
+            return '$typeStr ${Params.escape4J(types, p)}';
+          }).join(', ');
+      final callArgs = method.parameters
+          .where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))
+          .map((p) => p.type is TypeParameterType && !p.isOptional
+              ? '(${(p.type as TypeParameterType).element.name}) ${Params.escape4J(types, p)}'
+              : Params.paramValue4JBuilder(types, p))
+          .where((v) => v.isNotEmpty)
+          .join(', ');
+      final hasTpParam = method.parameters.any((p) => p.type is TypeParameterType && !p.isOptional);
+      javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}($publicDecl)${method.isAbstract ? ';' : ' {}'}');
+      if (hasTpParam) {
+        javaFile.writeln('  @SuppressWarnings("unchecked")');
+      }
       javaFile.writeln('  ${ret} ${method.name}Fn(${jParams.decl}) {');
       if (returnType is VoidType) {
-        javaFile.writeln('    ${method.name}(${jParams.names});');
+        javaFile.writeln('    ${method.name}($callArgs);');
       } else {
-        javaFile.writeln('    return ${method.name}(${jParams.names}).build();');
+        javaFile.writeln('    return ${method.name}($callArgs).build();');
       }
       javaFile.writeln('  }');
     }
@@ -1262,21 +1287,7 @@ class SubclassGen extends ObjStGen {
 
     for (final field in callableFields()) {
       objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
-      // SubState.widget(): on web, return the owning widget stored by setWebWidget during flatten.
-      if (widgetClass == 'SubState' && field.name == 'widget') {
-        final retJ = types.type4J(field.type);
-        javaFile
-          ..writeln('  @SuppressWarnings("unchecked")')
-          ..writeln('  public $retJ ${field.name}() {')
-          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
-          ..writeln('      return ($retJ) webWidget;')
-          ..writeln('    }')
-          ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
-          ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.${field.name}.invoke(funcPtr));')
-          ..writeln('  }');
-      } else {
-        writeJavaFieldAccessor(field, useInvoke: true);
-      }
+      writeJavaFieldAccessor(field, useInvoke: true);
     }
     
     for (final method in callableMethods()) {
@@ -1299,15 +1310,40 @@ class SubclassGen extends ObjStGen {
         ..writeln('  }');
     }
 
+    // `State<T>.widget` is a TypeParameterType field, which getCallableFields intentionally
+    // filters out (so Radio<T>.value etc. don't blow up ImmutableGen). SubState/SubAnimatedState
+    // still need the accessor, so emit it here with `T` preserved as the return type — and add
+    // the matching struct field so jextract produces SubStateObjSt.widget.
+    if (widgetClass == 'SubState') {
+      objectsHFile.writeln('  DartObj (*widget)(void);');
+      javaFile
+        ..writeln('  @SuppressWarnings("unchecked")')
+        ..writeln('  public T widget() {')
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
+        ..writeln('      return (T) webWidget;')
+        ..writeln('    }')
+        ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
+        ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.widget.invoke(funcPtr));')
+        ..writeln('  }');
+    }
+    if (widgetClass == 'SubAnimatedState') {
+      objectsHFile.writeln('  DartObj (*widget)(void);');
+      javaFile
+        ..writeln('  @SuppressWarnings("unchecked")')
+        ..writeln('  public T widget() {')
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");')
+        ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
+        ..writeln('    return (T) (NativeObj) new NativeObj.Base() {{ this.id = $widgetSt.widget.invoke(funcPtr); }};')
+        ..writeln('  }');
+    }
+
     writeStructFooter();
 
-    // SubState needs a web-mode widget() that returns the owning widget stored during flatten.
     if (widgetClass == 'SubState') {
       javaFile
         ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
         ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
     }
-    // SubAnimatedState: web identity + animation command channel.
     if (widgetClass == 'SubAnimatedState') {
       javaFile
         ..writeln('  private SubStatefulWidget webWidget;')
