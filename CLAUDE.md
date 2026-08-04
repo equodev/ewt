@@ -61,20 +61,21 @@ JAVA_HOME=~/bin/jdk-22 ./gradlew :generator:generator   # Java builders + C head
 
 The generator does not delete output for widgets removed from the index; stale `*.java` left behind will break the build, so remove them by hand.
 
-**Whenever `generation_index.dart` changes, regenerate the coverage checklist** so
-`docs/coverage.md` keeps matching what is actually supported:
+`docs/coverage.md` is the tracking list for the widget-coverage effort (one
+checkbox per widget in `widgets.dart`, `material.dart` and `cupertino.dart`,
+ticked for the ones already generated).
+
+**Never edit or commit it by hand.** The CI `coverage:commit` job regenerates it
+on `main` after every change to `generation_index.dart` and commits the result
+itself (with `[skip ci]`), so it stays current on its own — committing it from a
+branch only creates conflicts. To see the current coverage locally:
 
 ```bash
 cd generator && dart tool/coverage_audit.dart   # writes docs/coverage.md
 ```
 
-`docs/coverage.md` is the tracking list for the widget-coverage effort (one
-checkbox per widget in `widgets.dart`, `material.dart` and `cupertino.dart`,
-ticked for the ones already generated). It is generated — never edit it by hand.
 The tool resolves the libraries with the Dart analyzer, so it always reflects the
-installed Flutter version. It is committed to the repo, and the CI `coverage:commit`
-job regenerates it on `main` and commits any change automatically (with `[skip ci]`),
-so the committed checklist stays current without a manual step.
+installed Flutter version.
 
 ### Widget galleries
 
