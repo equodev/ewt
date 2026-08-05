@@ -37,7 +37,7 @@ class SlideTransitionPageState extends SubAnimatedState<SlideTransitionPage> {
 
     @Override
     public Widget build(BuildContext context) {
-        var position = EWT.OffsetTween(Offset(0.0, 1.0), Offset(0.0, 0.0), ctrl);
+        var position = OffsetAnimation.create(Offset(0.0, 1.0).build(), Offset(0.0, 0.0).build(), ctrl);
         return Scaffold()
                 .backgroundColor(Colors.white())
                 .appBar(AppBar()
@@ -68,7 +68,7 @@ class SlideTransitionPageState extends SubAnimatedState<SlideTransitionPage> {
                                                         .children(List.of(
                                                                 FilledButton(ctrl::forward).child(Text("Slide In")),
                                                                 FilledButton_tonal(ctrl::reverse).child(Text("Slide Out")),
-                                                                OutlinedButton(() -> ctrl.repeat(false)).child(Text("Bounce")),
+                                                                OutlinedButton(ctrl::repeat).child(Text("Bounce")),
                                                                 OutlinedButton(ctrl::reset).child(Text("Reset"))
                                                         )),
                                                 SizedBox().height(24.0),

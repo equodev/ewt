@@ -5466,6 +5466,217 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    placeholder.ifPresent(v -> p.put("placeholder", v));
+    placeholderStyle.ifPresent(v -> p.put("placeholderStyle", byId.get(v.getId())));
+    prefix.ifPresent(v -> p.put("prefix", byId.get(v.getId())));
+    prefixMode.ifPresent(v -> p.put("prefixMode", v.ordinal()));
+    suffix.ifPresent(v -> p.put("suffix", byId.get(v.getId())));
+    suffixMode.ifPresent(v -> p.put("suffixMode", v.ordinal()));
+    crossAxisAlignment.ifPresent(v -> p.put("crossAxisAlignment", v.ordinal()));
+    clearButtonMode.ifPresent(v -> p.put("clearButtonMode", v.ordinal()));
+    clearButtonSemanticLabel.ifPresent(v -> p.put("clearButtonSemanticLabel", v));
+    textInputAction.ifPresent(v -> p.put("textInputAction", v.ordinal()));
+    textCapitalization.ifPresent(v -> p.put("textCapitalization", v.ordinal()));
+    style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    textAlign.ifPresent(v -> p.put("textAlign", v.ordinal()));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    readOnly.ifPresent(v -> p.put("readOnly", v));
+    showCursor.ifPresent(v -> p.put("showCursor", v));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    obscuringCharacter.ifPresent(v -> p.put("obscuringCharacter", v));
+    obscureText.ifPresent(v -> p.put("obscureText", v));
+    autocorrect.ifPresent(v -> p.put("autocorrect", v));
+    smartDashesType.ifPresent(v -> p.put("smartDashesType", v.ordinal()));
+    smartQuotesType.ifPresent(v -> p.put("smartQuotesType", v.ordinal()));
+    enableSuggestions.ifPresent(v -> p.put("enableSuggestions", v));
+    if (maxLines.isPresent()) { p.put("maxLines", maxLines.getAsInt()); }
+    if (minLines.isPresent()) { p.put("minLines", minLines.getAsInt()); }
+    expands.ifPresent(v -> p.put("expands", v));
+    if (maxLength.isPresent()) { p.put("maxLength", maxLength.getAsInt()); }
+    maxLengthEnforcement.ifPresent(v -> p.put("maxLengthEnforcement", v.ordinal()));
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
+    if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
+    if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    enabled.ifPresent(v -> p.put("enabled", v));
+    if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
+    if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }
+    cursorRadius.ifPresent(v -> p.put("cursorRadius", byId.get(v.getId())));
+    cursorOpacityAnimates.ifPresent(v -> p.put("cursorOpacityAnimates", v));
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    selectionHeightStyle.ifPresent(v -> p.put("selectionHeightStyle", v.ordinal()));
+    selectionWidthStyle.ifPresent(v -> p.put("selectionWidthStyle", v.ordinal()));
+    keyboardAppearance.ifPresent(v -> p.put("keyboardAppearance", v.ordinal()));
+    scrollPadding.ifPresent(v -> p.put("scrollPadding", byId.get(v.getId())));
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    enableInteractiveSelection.ifPresent(v -> p.put("enableInteractiveSelection", v));
+    selectAllOnFocus.ifPresent(v -> p.put("selectAllOnFocus", v));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    scribbleEnabled.ifPresent(v -> p.put("scribbleEnabled", v));
+    stylusHandwritingEnabled.ifPresent(v -> p.put("stylusHandwritingEnabled", v));
+    enableIMEPersonalizedLearning.ifPresent(v -> p.put("enableIMEPersonalizedLearning", v));
+    record(id, "cupertinoTextFieldCupertinoTextField", p);
+    MemorySegment st = CupertinoTextFieldObjSt.allocate(arena);
+    CupertinoTextFieldObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    placeholder.ifPresent(v -> p.put("placeholder", v));
+    placeholderStyle.ifPresent(v -> p.put("placeholderStyle", byId.get(v.getId())));
+    prefix.ifPresent(v -> p.put("prefix", byId.get(v.getId())));
+    prefixMode.ifPresent(v -> p.put("prefixMode", v.ordinal()));
+    suffix.ifPresent(v -> p.put("suffix", byId.get(v.getId())));
+    suffixMode.ifPresent(v -> p.put("suffixMode", v.ordinal()));
+    crossAxisAlignment.ifPresent(v -> p.put("crossAxisAlignment", v.ordinal()));
+    clearButtonMode.ifPresent(v -> p.put("clearButtonMode", v.ordinal()));
+    clearButtonSemanticLabel.ifPresent(v -> p.put("clearButtonSemanticLabel", v));
+    textInputAction.ifPresent(v -> p.put("textInputAction", v.ordinal()));
+    textCapitalization.ifPresent(v -> p.put("textCapitalization", v.ordinal()));
+    style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    textAlign.ifPresent(v -> p.put("textAlign", v.ordinal()));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    readOnly.ifPresent(v -> p.put("readOnly", v));
+    showCursor.ifPresent(v -> p.put("showCursor", v));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    obscuringCharacter.ifPresent(v -> p.put("obscuringCharacter", v));
+    obscureText.ifPresent(v -> p.put("obscureText", v));
+    autocorrect.ifPresent(v -> p.put("autocorrect", v));
+    smartDashesType.ifPresent(v -> p.put("smartDashesType", v.ordinal()));
+    smartQuotesType.ifPresent(v -> p.put("smartQuotesType", v.ordinal()));
+    enableSuggestions.ifPresent(v -> p.put("enableSuggestions", v));
+    if (maxLines.isPresent()) { p.put("maxLines", maxLines.getAsInt()); }
+    if (minLines.isPresent()) { p.put("minLines", minLines.getAsInt()); }
+    expands.ifPresent(v -> p.put("expands", v));
+    if (maxLength.isPresent()) { p.put("maxLength", maxLength.getAsInt()); }
+    maxLengthEnforcement.ifPresent(v -> p.put("maxLengthEnforcement", v.ordinal()));
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
+    if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
+    if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    enabled.ifPresent(v -> p.put("enabled", v));
+    if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
+    if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }
+    cursorRadius.ifPresent(v -> p.put("cursorRadius", byId.get(v.getId())));
+    cursorOpacityAnimates.ifPresent(v -> p.put("cursorOpacityAnimates", v));
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    selectionHeightStyle.ifPresent(v -> p.put("selectionHeightStyle", v.ordinal()));
+    selectionWidthStyle.ifPresent(v -> p.put("selectionWidthStyle", v.ordinal()));
+    keyboardAppearance.ifPresent(v -> p.put("keyboardAppearance", v.ordinal()));
+    scrollPadding.ifPresent(v -> p.put("scrollPadding", byId.get(v.getId())));
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    enableInteractiveSelection.ifPresent(v -> p.put("enableInteractiveSelection", v));
+    selectAllOnFocus.ifPresent(v -> p.put("selectAllOnFocus", v));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    scribbleEnabled.ifPresent(v -> p.put("scribbleEnabled", v));
+    stylusHandwritingEnabled.ifPresent(v -> p.put("stylusHandwritingEnabled", v));
+    enableIMEPersonalizedLearning.ifPresent(v -> p.put("enableIMEPersonalizedLearning", v));
+    record(id, "cupertinoTextFieldBorderless", p);
+    MemorySegment st = CupertinoTextFieldObjSt.allocate(arena);
+    CupertinoTextFieldObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoCheckboxCupertinoCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<String> semanticLabel) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("value", value);
+    tristate.ifPresent(v -> p.put("tristate", v));
+    int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
+    activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    inactiveColor.ifPresent(v -> p.put("inactiveColor", byId.get(v.getId())));
+    checkColor.ifPresent(v -> p.put("checkColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    semanticLabel.ifPresent(v -> p.put("semanticLabel", v));
+    record(id, "cupertinoCheckboxCupertinoCheckbox", p);
+    MemorySegment st = CupertinoCheckboxObjSt.allocate(arena);
+    CupertinoCheckboxObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoExpansionTileCupertinoExpansionTile(Widget title, Widget child, Optional<ExpansionTileTransitionMode> transitionMode) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("title", byId.get(title.getId()));
+    p.put("child", byId.get(child.getId()));
+    transitionMode.ifPresent(v -> p.put("transitionMode", v.ordinal()));
+    record(id, "cupertinoExpansionTileCupertinoExpansionTile", p);
+    MemorySegment st = CupertinoExpansionTileObjSt.allocate(arena);
+    CupertinoExpansionTileObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoTimerPickerCupertinoTimerPicker(Optional<CupertinoTimerPickerMode> mode, Optional<Duration> initialTimerDuration, OptionalInt minuteInterval, OptionalInt secondInterval, Optional<AlignmentGeometry> alignment, Optional<Color> backgroundColor, OptionalDouble itemExtent, Consumer<Duration> onTimerDurationChanged, Optional<ChangeReportingBehavior> changeReportingBehavior, Optional<TriFunction<BuildContext, Integer, Integer, Widget>> selectionOverlayBuilder) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    mode.ifPresent(v -> p.put("mode", v.ordinal()));
+    initialTimerDuration.ifPresent(v -> p.put("initialTimerDuration", byId.get(v.getId())));
+    if (minuteInterval.isPresent()) { p.put("minuteInterval", minuteInterval.getAsInt()); }
+    if (secondInterval.isPresent()) { p.put("secondInterval", secondInterval.getAsInt()); }
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (itemExtent.isPresent()) { p.put("itemExtent", itemExtent.getAsDouble()); }
+    p.put("onTimerDurationChanged", nextCallbackId++);
+    changeReportingBehavior.ifPresent(v -> p.put("changeReportingBehavior", v.ordinal()));
+    if (selectionOverlayBuilder != null) { p.put("selectionOverlayBuilder", nextCallbackId++); }
+    record(id, "cupertinoTimerPickerCupertinoTimerPicker", p);
+    MemorySegment st = CupertinoTimerPickerObjSt.allocate(arena);
+    CupertinoTimerPickerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoNavigationBarBackButtonCupertinoNavigationBarBackButton(Optional<Color> color, Optional<String> previousPageTitle, Optional<Runnable> onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    previousPageTitle.ifPresent(v -> p.put("previousPageTitle", v));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    record(id, "cupertinoNavigationBarBackButtonCupertinoNavigationBarBackButton", p);
+    MemorySegment st = CupertinoNavigationBarBackButtonObjSt.allocate(arena);
+    CupertinoNavigationBarBackButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoTabBarCupertinoTabBar(List<BottomNavigationBarItem> items, Optional<Consumer<Integer>> onTap, OptionalInt currentIndex, Optional<Color> backgroundColor, Optional<Color> activeColor, Optional<Color> inactiveColor, OptionalDouble iconSize, OptionalDouble height, Optional<Border> border) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("items", items.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
+    if (currentIndex.isPresent()) { p.put("currentIndex", currentIndex.getAsInt()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    inactiveColor.ifPresent(v -> p.put("inactiveColor", byId.get(v.getId())));
+    if (iconSize.isPresent()) { p.put("iconSize", iconSize.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    record(id, "cupertinoTabBarCupertinoTabBar", p);
+    MemorySegment st = CupertinoTabBarObjSt.allocate(arena);
+    CupertinoTabBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   int bottomNavigationBarItemBottomNavigationBarItem(Widget icon, Optional<String> label, Optional<Widget> activeIcon, Optional<Color> backgroundColor, Optional<String> tooltip) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -5476,6 +5687,61 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     tooltip.ifPresent(v -> p.put("tooltip", v));
     record(id, "bottomNavigationBarItemBottomNavigationBarItem", p);
     return id;
+  }
+
+  @Override
+  MemorySegment cupertinoTabScaffoldCupertinoTabScaffold(CupertinoTabBar tabBar, BiFunction<BuildContext, Integer, Widget> tabBuilder, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<String> restorationId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("tabBar", byId.get(tabBar.getId()));
+    p.put("tabBuilder", nextCallbackId++);
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    resizeToAvoidBottomInset.ifPresent(v -> p.put("resizeToAvoidBottomInset", v));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    record(id, "cupertinoTabScaffoldCupertinoTabScaffold", p);
+    MemorySegment st = CupertinoTabScaffoldObjSt.allocate(arena);
+    CupertinoTabScaffoldObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoContextMenuCupertinoContextMenu(List<Widget> actions, Widget child, Optional<Boolean> enableHapticFeedback) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("actions", actions.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    p.put("child", byId.get(child.getId()));
+    enableHapticFeedback.ifPresent(v -> p.put("enableHapticFeedback", v));
+    record(id, "cupertinoContextMenuCupertinoContextMenu", p);
+    MemorySegment st = CupertinoContextMenuObjSt.allocate(arena);
+    CupertinoContextMenuObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoContextMenuBuilder(List<Widget> actions, BiFunction<BuildContext, Animation, Widget> builder, Optional<Boolean> enableHapticFeedback) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("actions", actions.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    p.put("builder", nextCallbackId++);
+    enableHapticFeedback.ifPresent(v -> p.put("enableHapticFeedback", v));
+    record(id, "cupertinoContextMenuBuilder", p);
+    MemorySegment st = CupertinoContextMenuObjSt.allocate(arena);
+    CupertinoContextMenuObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoContextMenuActionCupertinoContextMenuAction(Widget child, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Optional<Runnable> onPressed, Optional<IconData> trailingIcon) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    isDefaultAction.ifPresent(v -> p.put("isDefaultAction", v));
+    isDestructiveAction.ifPresent(v -> p.put("isDestructiveAction", v));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    trailingIcon.ifPresent(v -> p.put("trailingIcon", byId.get(v.getId())));
+    record(id, "cupertinoContextMenuActionCupertinoContextMenuAction", p);
+    MemorySegment st = CupertinoContextMenuActionObjSt.allocate(arena);
+    CupertinoContextMenuActionObjSt.id(st, id);
+    return st;
   }
 
   @Override
@@ -5535,7 +5801,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     SubAnimatedStateObjSt.id(st, id);
     return st;
   }
-
 
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   @Override

@@ -8,8 +8,8 @@ Flutter 3.35.7
 |---|---:|---:|---:|
 | Basic widgets | 69 | 291 | 23% |
 | Material | 34 | 187 | 18% |
-| Cupertino | 20 | 53 | 37% |
-| **Total** | **123** | **531** | **23%** |
+| Cupertino | 29 | 53 | 54% |
+| **Total** | **132** | **531** | **24%** |
 
 ## Basic widgets
 
@@ -507,7 +507,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 
 _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 
-**20 of 53 supported**
+**29 of 53 supported**
 
 - [x] CupertinoActionSheet
 - [x] CupertinoActionSheetAction
@@ -515,31 +515,35 @@ _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 - [x] CupertinoAlertDialog
 - [x] CupertinoApp
 - [x] CupertinoButton
+- [x] CupertinoCheckbox
+- [x] CupertinoContextMenu
+- [x] CupertinoContextMenuAction
 - [x] CupertinoDialogAction
+- [x] CupertinoExpansionTile
 - [x] CupertinoFormRow
 - [x] CupertinoFormSection
 - [x] CupertinoListSection
 - [x] CupertinoListTile
 - [x] CupertinoListTileChevron
 - [x] CupertinoNavigationBar
+- [x] CupertinoNavigationBarBackButton
 - [x] CupertinoPageScaffold
 - [x] CupertinoPicker
 - [x] CupertinoSearchTextField
 - [x] CupertinoSlider
 - [x] CupertinoSliverNavigationBar
 - [x] CupertinoSwitch
+- [x] CupertinoTabBar
+- [x] CupertinoTabScaffold
 - [x] CupertinoTabView
+- [x] CupertinoTextField
+- [x] CupertinoTimerPicker
 - [ ] CupertinoAdaptiveTextSelectionToolbar
-- [ ] CupertinoCheckbox
-- [ ] CupertinoContextMenu
-- [ ] CupertinoContextMenuAction
 - [ ] CupertinoDatePicker
 - [ ] CupertinoDesktopTextSelectionToolbar
 - [ ] CupertinoDesktopTextSelectionToolbarButton
-- [ ] CupertinoExpansionTile
 - [ ] CupertinoFullscreenDialogTransition
 - [ ] CupertinoMagnifier
-- [ ] CupertinoNavigationBarBackButton
 - [ ] CupertinoPageScaffoldBackgroundColor
 - [ ] CupertinoPageTransition
 - [ ] CupertinoPickerDefaultSelectionOverlay
@@ -551,15 +555,11 @@ _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 - [ ] CupertinoSlidingSegmentedControl
 - [ ] CupertinoSliverRefreshControl
 - [ ] CupertinoSpellCheckSuggestionsToolbar
-- [ ] CupertinoTabBar
-- [ ] CupertinoTabScaffold
-- [ ] CupertinoTextField
 - [ ] CupertinoTextFormFieldRow
 - [ ] CupertinoTextMagnifier
 - [ ] CupertinoTextSelectionToolbar
 - [ ] CupertinoTextSelectionToolbarButton
 - [ ] CupertinoTheme
-- [ ] CupertinoTimerPicker
 - [ ] CupertinoUserInterfaceLevel
 - [ ] InheritedCupertinoTheme
 

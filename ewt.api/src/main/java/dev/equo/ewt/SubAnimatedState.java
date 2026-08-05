@@ -78,16 +78,11 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     return intToBool(SubAnimatedStateObjSt.mounted.invoke(funcPtr));
   }
   protected void setState(Runnable fn) {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
-      fn.run();
-      EwtWebState.requestRebuild(this);
-      return;
-    }
     MemorySegment funcPtr = SubAnimatedStateObjSt.setState(st);
     SubAnimatedStateObjSt.setState.invoke(funcPtr, factories.ptrVoidCallbackFn(fn));
   }
   private SubStatefulWidget webWidget;
-  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }
+  public void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }
   private java.util.function.Consumer<String> webAnimCommandSink;
   public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) { this.webAnimCommandSink = sink; }
   void sendAnimCommand(int ctrlId, String action) {

@@ -201,6 +201,18 @@ c.CupertinoActionSheet? cupertinoActionSheet;
 c.CupertinoDialogAction? cupertinoDialogAction;
 c.CupertinoActionSheetAction? cupertinoActionSheetAction;
 c.CupertinoIcons? cupertinoIcons;
+c.CupertinoTextField? cupertinoTextField;
+c.CupertinoCheckbox? cupertinoCheckbox;
+// CupertinoScrollbar skipped: references private constants (defaultRadius/defaultRadiusWhileDragging)
+c.CupertinoExpansionTile? cupertinoExpansionTile;
+// CupertinoDatePicker skipped: getColumnWidth requires list-of-string marshaling not yet supported; no widget constructor in C factories
+c.CupertinoTimerPicker? cupertinoTimerPicker;
+c.CupertinoNavigationBarBackButton? cupertinoNavigationBarBackButton;
+c.CupertinoTabBar? cupertinoTabBar;
+c.CupertinoTabScaffold? cupertinoTabScaffold;
+// CupertinoSliverRefreshControl skipped: RefreshCallback name collision between cupertino and material
+c.CupertinoContextMenu? cupertinoContextMenu;
+c.CupertinoContextMenuAction? cupertinoContextMenuAction;
 w.BottomNavigationBarItem? bottomNavigationBarItem;
 
 s.SubState? subState;
