@@ -366,9 +366,6 @@ public class CupertinoTextField extends StatefulWidget implements CupertinoTextF
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTextFieldSelectionEnabled not supported on web");
     return intToBool(CupertinoTextFieldObjSt.selectionEnabled(st));
   }
-  public static TextStyle cupertinoMisspelledTextStyle() {
-    return TextStyle.textStyle().decoration(TextDecoration.underline()).decorationColor(Color.color(0xFFFF3B30).build()).decorationStyle(TextDecorationStyle.dotted).build();
-  }
   public static Color kMisspelledSelectionColor() {
     return Color.color(0x62ff9699).build();
   }

@@ -148,13 +148,28 @@ public class BottomPanel2 extends SubStatelessWidget {
                             Text("No problems found.").style(IdePalette.uiMuted(dark))
                     ))));
         }
-        List<WidgetI> rows = new ArrayList<>();
-        for (Problem p : problems) rows.add(problemRow(p));
+        // Real Material DataTable: sortable severity + file/line/message columns.
+        // Wrapped in a Scrollbar + SingleChildScrollView so long lists still
+        // scroll and the desktop scrollbar is always visible.
+        List<DataRowI> rows = new ArrayList<>();
+        for (Problem p : problems) rows.add(problemDataRow(p));
+        Widget table = DataTable(List.of(
+                        DataColumn(Text("Severity").style(IdePalette.uiMuted(dark))).build(),
+                        DataColumn(Text("File").style(IdePalette.uiMuted(dark))).build(),
+                        DataColumn(Text("Line").style(IdePalette.uiMuted(dark))).numeric(true).build(),
+                        DataColumn(Text("Message").style(IdePalette.uiMuted(dark))).build()))
+                .headingRowHeight(28.0)
+                .dataRowMinHeight(24.0)
+                .dataRowMaxHeight(28.0)
+                .columnSpacing(24.0)
+                .horizontalMargin(14.0)
+                .addAllRows(rows)
+                .build();
         return Container().color(IdePalette.bgPanel(dark))
-                .child(ListView().children(rows));
+                .child(Scrollbar(SingleChildScrollView().child(table)).build());
     }
 
-    private Widget problemRow(Problem p) {
+    private DataRowI problemDataRow(Problem p) {
         Color color = switch (p.severity()) {
             case ERROR -> IdePalette.accentError();
             case WARN  -> IdePalette.accentWarn();
@@ -165,18 +180,15 @@ public class BottomPanel2 extends SubStatelessWidget {
             case WARN  -> Icons::warning_amber_rounded;
             case INFO  -> Icons::info_outline_rounded;
         };
-        return ListTile()
-                .dense(true)
-                .hoverColor(IdePalette.hoverOverlay(dark))
-                .contentPadding(EdgeInsets_symmetric().horizontal(14.0).build())
-                .minVerticalPadding(4.0)
-                .horizontalTitleGap(8.0)
-                .minLeadingWidth(24.0)
-                .visualDensity(VisualDensity().horizontal(-4.0).vertical(-2.0).build())
-                .leading(Icon(icon.get()).color(color).size(16.0))
-                .title(Text(p.message()).style(IdePalette.ui(dark)))
-                .subtitle(Text(p.file() + ":" + p.line()).style(IdePalette.uiMuted(dark)))
-                .onTap(() -> {});
+        return DataRow().addAllCells(List.of(
+                DataCell(Row().mainAxisSize(MainAxisSize.min).children(List.of(
+                        Icon(icon.get()).color(color).size(14.0),
+                        SizedBox().width(6.0),
+                        Text(p.severity().name()).style(IdePalette.ui(dark))))).build(),
+                DataCell(Text(p.file()).style(IdePalette.uiMuted(dark))).build(),
+                DataCell(Text(String.valueOf(p.line())).style(IdePalette.uiMuted(dark))).build(),
+                DataCell(Text(p.message()).style(IdePalette.ui(dark))).build()
+        )).build();
     }
 
     private Widget terminalView() {

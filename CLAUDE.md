@@ -77,6 +77,14 @@ cd generator && dart tool/coverage_audit.dart   # writes docs/coverage.md
 The tool resolves the libraries with the Dart analyzer, so it always reflects the
 installed Flutter version.
 
+**Companion doc — `docs/gen_structure.md`**: hand-maintained. Two sections:
+(1) which Java classes are generated vs. hand-written across the ewt.api
+source tree, and (2) the deferred-widgets list — for each widget the
+generator can't emit yet, the specific gap and the concrete work needed to
+close it. Read this BEFORE adding a widget to `generation_index.dart` that
+looks similar to a deferred one, and UPDATE this doc (not
+`generation_index.dart`) when deferring a new widget.
+
 ### Widget galleries
 
 Runnable examples live in `examples/src/main/java/dev/equo/gallery/`, one gallery

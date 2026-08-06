@@ -106,9 +106,49 @@ public class SettingsPanel2 extends SubStatelessWidget {
                                                 heightSlider(),
 
                                                 sectionCaps("PROBLEMS FILTER"),
-                                                filterRow()
+                                                filterRow(),
+
+                                                sectionCaps("LICENSE"),
+                                                licenseRow(context),
+
+                                                sectionCaps("ABOUT"),
+                                                aboutSection()
                                         ))))
                         )));
+    }
+
+    /**
+     * Real Material DatePicker demo. Clicking "Change…" calls
+     * EWT.showDatePicker with the outer build context — Flutter shows its
+     * standard calendar dialog on top of the app.
+     */
+    private Widget licenseRow(BuildContext ctx) {
+        return Padding(EdgeInsets_only().left(16.0).right(8.0).top(4.0).bottom(4.0).build())
+                .child(Row().children(List.of(
+                        Expanded().child(Text("License expiry: 2027-01-01")
+                                .style(IdePalette.uiMuted(dark))),
+                        TextButton(() -> showDatePicker(
+                                        ctx,
+                                        DateTime(2026).month(1).day(1).build(),
+                                        DateTime(2030).month(12).day(31).build()))
+                                .child(Text("Change…").style(TextStyle()
+                                        .color(IdePalette.accent(dark))
+                                        .fontWeight(FontWeight.w600())))
+                )));
+    }
+
+    /** Real Material ExpansionTile — replaces a hand-rolled collapsible section. */
+    private Widget aboutSection() {
+        return ExpansionTile()
+                .title(Text("Legal notices").style(IdePalette.ui(dark)))
+                .childrenPadding(EdgeInsets_symmetric().horizontal(16.0).vertical(4.0).build())
+                .children(List.of(
+                        Text("EWT is released under the EPL 2.0.")
+                                .style(IdePalette.uiMuted(dark)),
+                        SizedBox().height(6.0),
+                        Text("© Equo 2026. Bundled Flutter & Dart under BSD-3.")
+                                .style(IdePalette.uiMuted(dark))))
+                .build();
     }
 
     private Widget header() {

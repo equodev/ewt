@@ -35,8 +35,9 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     initState();
   }
   protected void didUpdateWidget(T oldWidget) {}
-  void didUpdateWidgetFn(T oldWidget) {
-    didUpdateWidget(oldWidget);
+  @SuppressWarnings("unchecked")
+  void didUpdateWidgetFn(NativeObj oldWidget) {
+    didUpdateWidget((T) oldWidget);
   }
   protected void reassemble() {}
   void reassembleFn() {
@@ -62,11 +63,6 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
   void didChangeDependenciesFn() {
     didChangeDependencies();
   }
-  public T widget() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");
-    MemorySegment funcPtr = SubAnimatedStateObjSt.widget(st);
-    return (T) (NativeObj) new NativeObj.Base() {{ this.id = SubAnimatedStateObjSt.widget.invoke(funcPtr); }};
-  }
   public BuildContext context() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateContext not supported on web");
     MemorySegment funcPtr = SubAnimatedStateObjSt.context(st);
@@ -78,11 +74,22 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     return intToBool(SubAnimatedStateObjSt.mounted.invoke(funcPtr));
   }
   protected void setState(Runnable fn) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      fn.run();
+      EwtWebState.requestRebuild(this);
+      return;
+    }
     MemorySegment funcPtr = SubAnimatedStateObjSt.setState(st);
     SubAnimatedStateObjSt.setState.invoke(funcPtr, factories.ptrVoidCallbackFn(fn));
   }
+  @SuppressWarnings("unchecked")
+  public T widget() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");
+    MemorySegment funcPtr = SubAnimatedStateObjSt.widget(st);
+    return (T) (NativeObj) new NativeObj.Base() {{ this.id = SubAnimatedStateObjSt.widget.invoke(funcPtr); }};
+  }
   private SubStatefulWidget webWidget;
-  public void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }
+  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }
   private java.util.function.Consumer<String> webAnimCommandSink;
   public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) { this.webAnimCommandSink = sink; }
   void sendAnimCommand(int ctrlId, String action) {

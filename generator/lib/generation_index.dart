@@ -7,8 +7,10 @@ import 'sub_animated_state.dart' as sas;
 import 'animation_controller_methods.dart' as acm;
 import 'sub_animated_state_methods.dart' as sasm;
 
+// Index of Dart types the generator emits Java + FFI code for.
+// See docs/gen_structure.md for the deferred-widgets list and the reasons —
+// don't re-add commented-out widgets without checking that doc first.
 w.Widget? widget;
-// w.StatefulWidget? statefulWidget;
 w.TextStyle? textStyle;
 w.Text? text;
 w.InlineSpan? inlineSpan;
@@ -108,25 +110,15 @@ w.InteractiveViewer? interactiveViewer;
 
 w.Draggable? draggable;
 w.DragTarget? dragTarget;
-// TweenAnimationBuilder skipped: requires Tween<T> (unsupported abstract).
-// Emits Java shell but no factory — advertises unusable widget. Add once
-// Tween<T> marshaling lands.
-
 w.Hero? hero;
 
 w.AnimatedSwitcher? animatedSwitcher;
 
-// Abstract dart:ui types + widgets that need them. The abstract classes emit as
-// interfaces + their factory ctors give concrete instances (blur, mode, matrix).
 w.ImageFilter? imageFilter;
 w.ColorFilter? colorFilter;
 w.BackdropFilter? backdropFilter;
 w.ColorFiltered? colorFiltered;
 w.ImageFiltered? imageFiltered;
-// Dismissible skipped: constructor requires `Key` (unsupported required type),
-// no factory emitted — advertising it in coverage would lie about capability.
-
-// w.FontWeight? fontWeight; constants accessing privates
 
 m.Durations? durations;
 m.ColorScheme? colorScheme;
@@ -180,6 +172,48 @@ m.CheckboxListTile? checkboxListTile;
 m.SwitchListTile? switchListTile;
 m.Badge? badge;
 
+m.DataTable? dataTable;
+m.DataColumn? dataColumn;
+m.DataRow? dataRow;
+m.DataCell? dataCell;
+m.DropdownMenuEntry? dropdownMenuEntry;
+m.Radio? radio;
+m.RadioListTile? radioListTile;
+m.ExpansionTile? expansionTile;
+m.ExpansionPanel? expansionPanel;
+m.ExpansionPanelList? expansionPanelList;
+m.ExpansionPanelRadio? expansionPanelRadio;
+m.NavigationRail? navigationRail;
+m.NavigationRailDestination? navigationRailDestination;
+m.NavigationBar? navigationBar;
+m.NavigationDestination? navigationDestination;
+m.NavigationDrawer? navigationDrawer;
+m.NavigationDrawerDestination? navigationDrawerDestination;
+m.PopupMenuButton? popupMenuButton;
+m.PopupMenuItem? popupMenuItem;
+m.PopupMenuDivider? popupMenuDivider;
+m.CheckedPopupMenuItem? checkedPopupMenuItem;
+m.CircleAvatar? circleAvatar;
+m.Scrollbar? scrollbar;
+
+m.MenuBar? menuBar;
+m.MenuAnchor? menuAnchor;
+m.SubmenuButton? submenuButton;
+m.MenuItemButton? menuItemButton;
+m.CheckboxMenuButton? checkboxMenuButton;
+m.RadioMenuButton? radioMenuButton;
+
+DateTime? dateTime;
+m.TimeOfDay? timeOfDay;
+m.DatePickerDialog? datePickerDialog;
+m.CalendarDatePicker? calendarDatePicker;
+m.TimePickerDialog? timePickerDialog;
+m.DateRangePickerDialog? dateRangePickerDialog;
+m.YearPicker? yearPicker;
+m.InputDatePickerFormField? inputDatePickerFormField;
+
+m.SearchBar? searchBar;
+
 c.CupertinoApp? cupertinoApp;
 c.CupertinoPageScaffold? cupertinoPageScaffold;
 c.CupertinoNavigationBar? cupertinoNavigationBar;
@@ -224,6 +258,9 @@ acm.AnimationControllerMethods? animationControllerMethods;
 sasm.SubAnimatedStateMethods? subAnimatedStateMethods;
 
 const showDialog = m.showDialog;
+const showDatePicker = m.showDatePicker;
+const showTimePicker = m.showTimePicker;
+const showDateRangePicker = m.showDateRangePicker;
 
 void main() {
   //print('I am an index with the widgets to generate');

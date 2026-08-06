@@ -17,6 +17,15 @@ class Types {
   ClassElement? widgetElement;
   late List<TypeHandler> handlers;
 
+  // Explicit allowlist of EWT-owned classes that use the "subclassed in Java"
+  // codegen path (abstract Java class + factory that dispatches to Java-side
+  // overrides). Using a name-prefix check here is unsafe because Flutter
+  // widgets like `SubmenuButton` also start with "Sub" but are normal factory
+  // widgets, not user-subclassable state holders.
+  static const _ewtSubclassNames = {
+    'SubState', 'SubStatefulWidget', 'SubStatelessWidget', 'SubAnimatedState',
+  };
+
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
@@ -24,7 +33,7 @@ class Types {
 
   AGen getGen(Element dartClass) {
     if (dartClass is ClassElement) {
-      if (dartClass.name.startsWith('Sub')) {
+      if (_ewtSubclassNames.contains(dartClass.name)) {
         return SubclassGen(this, dartClass);
       }
       else if ((dartClass.hasImmutable || dartClass.allSupertypes.any((s) => s.element.hasImmutable)) && !dartClass.isAbstract) {
@@ -46,10 +55,22 @@ class Types {
   void addTypeDef(InstantiatedTypeAliasElement t) {
     equals(InstantiatedTypeAliasElement d) =>
         d == t ||
-            (d.element.name == t.element.name && ListEquality().equals(d.typeArguments, t.typeArguments));
+            (d.element.name == t.element.name && ListEquality().equals(d.typeArguments, t.typeArguments)) ||
+            // Two entries with the same element name and same type-argument *names* (e.g. both T→T) are
+            // structurally identical even if the TypeParameterElement instances differ across generic widgets.
+            (d.element.name == t.element.name &&
+                d.typeArguments.length == t.typeArguments.length &&
+                _listsEqualByName(d.typeArguments, t.typeArguments));
     if (!typeDefs.any(equals)) {
       typeDefs.add(t);
     }
+  }
+
+  static bool _listsEqualByName(List<DartType> a, List<DartType> b) {
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].getDisplayString(withNullability: true) != b[i].getDisplayString(withNullability: true)) return false;
+    }
+    return true;
   }
 
   void addRequiredType(DartType requiredType) {
@@ -170,6 +191,11 @@ class Types {
     if (namedType is DynamicType) {
       return 'NativeObj';
     }
+    // Unbound type parameters (e.g. T in Radio<T>, DropdownButton<T>) have no concrete
+    // Java type — map to NativeObj so ptrObj(Optional<NativeObj>) resolves correctly.
+    if (namedType is TypeParameterType) {
+      return 'NativeObj';
+    }
     var h = getHandler(namedType);
     if (h != null) {
       return h.type4J(namedType);
@@ -220,6 +246,10 @@ class Types {
       return h.type4C(namedType);
     }
     if (namedType is DynamicType) {
+      return 'DartObj';
+    }
+    // Unbound type parameters (e.g. T in Radio<T>) have no concrete C type — treat as opaque.
+    if (namedType is TypeParameterType) {
       return 'DartObj';
     }
     if (namedType is VoidType) {
@@ -287,6 +317,11 @@ class Types {
       return h.type4D(namedType);
     }
     if (namedType is DynamicType) {
+      return 'DartObj';
+    }
+    // Unbound (or Object-bound) type parameters (e.g. T in Radio<T>, DropdownButton<T>)
+    // have no concrete Dart representation — treat as opaque DartObj.
+    if (namedType is TypeParameterType) {
       return 'DartObj';
     }
     // if (namedType is InterfaceType) {
@@ -457,12 +492,22 @@ class Types {
     // wrapper cast to T so Java's return-type check is satisfied.
     String? tpCast;
     if (t is TypeParameterType) {
-      tpCast = '(${t.getDisplayString(withNullability: false)}) (NativeObj) ';
+      tpCast = '(NativeObj) ';
       t = t.bound;
     }
     var value = Params.escape4J(types, param);
     if (tpCast != null) {
-      return '${tpCast}new NativeObj.Base() {{ this.id = $value; }}';
+      // On the callback upcall path, TypeParameterType params may arrive as either:
+      //   - DartObj (int) when non-nullable: wrap=false in paramDef4C → Java int param
+      //   - DartObj* (MemorySegment) when nullable/optional: wrap=true → Java MemorySegment param
+      // `_dartTypeStr` always widens TypeParameterType to nullable T?, so in practice
+      // callback TypeParameterType params are DartObj* (MemorySegment). We detect this
+      // by checking param.isOptional (nullable T → optional positional → isOptional=true).
+      if (fromCallback && param.isOptional) {
+        // `value` is MemorySegment (DartObj* pointer); dereference as C_INT to get the id.
+        return '(NativeObj) new NativeObj.Base() {{ this.id = $value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }}';
+      }
+      return '(NativeObj) new NativeObj.Base() {{ this.id = $value; }}';
     }
     if (t.isDartCoreBool) {
       return fromCallback && t.nullabilitySuffix == NullabilitySuffix.question

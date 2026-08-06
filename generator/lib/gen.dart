@@ -861,42 +861,85 @@ class WidgetGen implements AGen {
   void writeConst(ConstFieldElementImpl fld, int constId) {
     String factory = _escape4D(fld.name);
     var initializer = fld.constantInitializer;
+    // Dart `int` is unbounded but Java `int` is 32-bit; large numeric consts
+    // (e.g. DateTime._maxMillisecondsSinceEpoch = 8640000000000000) overflow
+    // as decimal literals. Java hex literals up to 0xFFFFFFFF do fit in int
+    // (with sign wrap), so only skip when the Dart source form is decimal
+    // (not hex) AND the value can't fit even with unsigned wrap. Skips only
+    // private consts so no public API is dropped.
+    if (!fld.isPublic && fld.type.isDartCoreInt) {
+      final v = fld.computeConstantValue()?.toIntValue();
+      final src = fld.constantInitializer?.toString() ?? '';
+      final isHex = src.trimLeft().startsWith('0x') || src.trimLeft().startsWith('0X');
+      if (v != null && !isHex && (v > 2147483647 || v < -2147483648)) {
+        return;
+      }
+    }
+    // Pre-check: SimpleIdentifier → private class-level field that can't be
+    // inlined as a primitive. Skip rather than calling a non-existent Java method.
+    if (initializer is SimpleIdentifier) {
+      final si = initializer as SimpleIdentifier;
+      var el = si.staticElement;
+      VariableElement? fieldEl;
+      if (el is FieldElement) { fieldEl = el; }
+      else if (el is PropertyAccessorElement && el.isGetter && el.variable2 is FieldElement) {
+        fieldEl = el.variable2 as FieldElement;
+      }
+      if (fieldEl != null && fieldEl.isConst && fieldEl.isPrivate) {
+        var val = fieldEl.computeConstantValue();
+        bool canInline = val?.toIntValue() != null || val?.toDoubleValue() != null ||
+            val?.toStringValue() != null || val?.getField('value')?.toIntValue() != null;
+        if (!canInline) return;
+      }
+    }
+
+    // For non-private InstanceCreationExpression and scalar else-branch: pre-evaluate
+    // body before writing the method header to avoid empty methods on unresolvable values.
+    if (initializer is InstanceCreationExpression && !isPrivateConst(fld)) {
+      var body = dartExptrToJava(initializer as Expression);
+      if (body.contains(_unresolvable)) return;
+      javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+      javaFile.writeln('    return $body;');
+      javaFile.writeln('  }');
+      return;
+    }
+    if (initializer != null && initializer is! InstanceCreationExpression && initializer is! ListLiteral) {
+      var body = dartExptrToJava(initializer);
+      if (body.contains(_unresolvable)) return;
+      javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+      javaFile.writeln('    return $body;');
+      javaFile.writeln('  }');
+      return;
+    }
+
     javaFile
         .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
+      // isPrivateConst must be true here (non-private was handled above)
       String factoryName = '$widgetField${fld.name.firstUpper()}';
-      if (isPrivateConst(fld)) {
-        _ensureStructOpened();
-        headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
-
-        dartAssigns
-            .writeln('  f.$widgetField.$factory = _addWidget($widgetClass.${fld.name});');
-
-        javaFile
-          ..writeln('    int id = factories.$factoryName();')
-          ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
-          ..writeln('    System.out.println("Const $factory id:"+id);')
-          ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
-        writeJavaConstMethod(factoryName, factory, fld);
-        writeConstSerializerAndDecoder(fld, factoryName);
-      } else {
-        javaFile.writeln(
-            '    return ${dartExptrToJava(initializer as Expression)};');
-      }
+      _ensureStructOpened();
+      headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
+      dartAssigns
+          .writeln('  f.$widgetField.$factory = _addWidget($widgetClass.${fld.name});');
+      javaFile
+        ..writeln('    int id = factories.$factoryName();')
+        ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
+        ..writeln('    System.out.println("Const $factory id:"+id);')
+        ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
+      writeJavaConstMethod(factoryName, factory, fld);
+      writeConstSerializerAndDecoder(fld, factoryName);
     }
     else if (initializer is ListLiteral) {
       javaFile
         .writeln('    return List.of(${(initializer as ListLiteral).elements.map((e) => '$e()').join(', ')});');
-    }
-    else {
-      javaFile
-          .writeln('    return ${dartExptrToJava(initializer!)};');
     }
     javaFile
       .writeln('  }');
   }
 
   void writeMembers() {}
+
+  static const String _unresolvable = '\x00UNRESOLVABLE\x00';
 
   String dartExptrToJava(Expression e) {
     if (e is InstanceCreationExpression) {
@@ -935,10 +978,60 @@ class WidgetGen implements AGen {
         if (val?.toIntValue() != null) return val!.toIntValue().toString();
         if (val?.toDoubleValue() != null) return val!.toDoubleValue().toString();
         if (val?.toStringValue() != null) return '"${val!.toStringValue()}"';
+        // Non-primitive private top-level var (e.g. Color in new Flutter API) — skip.
+        return _unresolvable;
+      }
+      // Class-level private const fields (FieldElement): only inline Color via ARGB int.
+      // Primitives (int/double/String) are already emitted as private Java methods by
+      // writeConst and are correctly called via _fieldName().
+      VariableElement? fieldEl;
+      if (el is FieldElement) { fieldEl = el; }
+      else if (el is PropertyAccessorElement && el.isGetter && el.variable2 is FieldElement) {
+        fieldEl = el.variable2 as FieldElement;
+      }
+      if (fieldEl != null && fieldEl.isConst && fieldEl.isPrivate) {
+        var val = fieldEl.computeConstantValue();
+        var colorArgb = val?.getField('value')?.toIntValue();
+        if (colorArgb != null) {
+          return 'Color.color(0x${colorArgb.toRadixString(16).toUpperCase().padLeft(8, '0')}).build()';
+        }
+        // Complex non-Color type (List, BoxShadow, etc.) — unresolvable.
+        if (val?.toIntValue() == null && val?.toDoubleValue() == null && val?.toStringValue() == null) {
+          return _unresolvable;
+        }
       }
       return '$e()';
     }
     else if (e is PrefixedIdentifier) {
+      // For statics on classes not in the generated set, try to inline the const value.
+      // Handles CupertinoColors.systemRed and similar cross-class references.
+      var prefixEl = e.prefix.staticElement;
+      if (prefixEl is ClassElement && types.widgets.every((w) => w.name != prefixEl.name)) {
+        var accessorEl = e.identifier.staticElement;
+        VariableElement? varEl;
+        if (accessorEl is PropertyAccessorElement && accessorEl.isGetter) {
+          varEl = accessorEl.variable2;
+        } else if (accessorEl is FieldElement) {
+          varEl = accessorEl as VariableElement;
+        }
+        if (varEl != null && varEl.isConst) {
+          var val = varEl.computeConstantValue();
+          if (val?.toIntValue() != null) return val!.toIntValue().toString();
+          if (val?.toDoubleValue() != null) {
+            var d = val!.toDoubleValue()!;
+            if (d.isInfinite) return d.isNegative ? 'Double.NEGATIVE_INFINITY' : 'Double.POSITIVE_INFINITY';
+            if (d.isNaN) return 'Double.NaN';
+            return d.toString();
+          }
+          if (val?.toStringValue() != null) return '"${val!.toStringValue()}"';
+          var colorArgb = val?.getField('value')?.toIntValue();
+          if (colorArgb != null) {
+            return 'Color.color(0x${colorArgb.toRadixString(16).toUpperCase().padLeft(8, '0')}).build()';
+          }
+          // Value not resolvable (e.g. new-API Color uses r/g/b/a doubles).
+          return _unresolvable;
+        }
+      }
       if (e.staticType != null && !isPrimitive(e.staticType!) && e.staticType!.element is! EnumElement) {
         return '${e.toString()}()';
       }
@@ -963,6 +1056,16 @@ class WidgetGen implements AGen {
       return 'Double';
     } else if (dartType.isDartCoreBool) {
       return 'Boolean';
+    }
+    else if (dartType is NeverType) {
+      // Dart `Never` (bottom type, used e.g. in PopupMenuDivider extends PopupMenuEntry<Never>)
+      // has no Java equivalent — use Object as a safe stand-in.
+      return 'Object';
+    }
+    else if (dartType is TypeParameterType) {
+      // Unbound type parameter (e.g. T) — use its name directly so generic class
+      // declarations like `class Radio<T> extends StatefulWidget` render correctly.
+      return dartType.element.name;
     }
     else if (dartType is InterfaceType) {
       var s = dartType.element.name;
@@ -1110,7 +1213,8 @@ abstract class ObjStGen extends WidgetGen {
   Iterable<FieldElement> getCallableFields(ClassElement sourceClass) =>
       sourceClass.fields.where((f) =>
           !f.getter!.hasOverride && f.isPublic && !f.isStatic
-          && f.type is! FunctionType && !f.type.isDartCoreList && !f.type.isDartCoreObject
+          && f.type is! FunctionType && f.type is! TypeParameterType
+          && !f.type.isDartCoreList && !f.type.isDartCoreObject
           /*&& !isInterface(f.type.element)*/ && types.supportedType(f.type) && f.type != sourceClass.thisType);
 }
 
@@ -1223,12 +1327,37 @@ class SubclassGen extends ObjStGen {
         retBuilder = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
       }
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
-      javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}(${jParams.decl})${method.isAbstract ? ';' : ' {}'}');
+      // Preserve `T` on the *public* hook so `didUpdateWidget(T oldWidget)` gives user code
+      // the concrete widget type (needed for widget().<prop> access). Keep `NativeObj` on the
+      // `Fn` shim so its method reference matches the Consumer<NativeObj> parameter that
+      // WidgetConstructors emits (type4J widens TypeParameterType → NativeObj globally, and
+      // the shim must honor that contract — the cast is unchecked but safe under generic
+      // erasure since T extends StatefulWidget and NativeObj carries the id).
+      final publicDecl = method.parameters
+          .where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))
+          .map((p) {
+            final typeStr = p.type is TypeParameterType && !p.isOptional
+                ? (p.type as TypeParameterType).element.name
+                : Params.paramDef4J(types, p, wrap: p.isOptional);
+            return '$typeStr ${Params.escape4J(types, p)}';
+          }).join(', ');
+      final callArgs = method.parameters
+          .where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))
+          .map((p) => p.type is TypeParameterType && !p.isOptional
+              ? '(${(p.type as TypeParameterType).element.name}) ${Params.escape4J(types, p)}'
+              : Params.paramValue4JBuilder(types, p))
+          .where((v) => v.isNotEmpty)
+          .join(', ');
+      final hasTpParam = method.parameters.any((p) => p.type is TypeParameterType && !p.isOptional);
+      javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}($publicDecl)${method.isAbstract ? ';' : ' {}'}');
+      if (hasTpParam) {
+        javaFile.writeln('  @SuppressWarnings("unchecked")');
+      }
       javaFile.writeln('  ${ret} ${method.name}Fn(${jParams.decl}) {');
       if (returnType is VoidType) {
-        javaFile.writeln('    ${method.name}(${jParams.names});');
+        javaFile.writeln('    ${method.name}($callArgs);');
       } else {
-        javaFile.writeln('    return ${method.name}(${jParams.names}).build();');
+        javaFile.writeln('    return ${method.name}($callArgs).build();');
       }
       javaFile.writeln('  }');
     }
@@ -1237,21 +1366,7 @@ class SubclassGen extends ObjStGen {
 
     for (final field in callableFields()) {
       objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
-      // SubState.widget(): on web, return the owning widget stored by setWebWidget during flatten.
-      if (widgetClass == 'SubState' && field.name == 'widget') {
-        final retJ = types.type4J(field.type);
-        javaFile
-          ..writeln('  @SuppressWarnings("unchecked")')
-          ..writeln('  public $retJ ${field.name}() {')
-          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
-          ..writeln('      return ($retJ) webWidget;')
-          ..writeln('    }')
-          ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
-          ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.${field.name}.invoke(funcPtr));')
-          ..writeln('  }');
-      } else {
-        writeJavaFieldAccessor(field, useInvoke: true);
-      }
+      writeJavaFieldAccessor(field, useInvoke: true);
     }
     
     for (final method in callableMethods()) {
@@ -1274,15 +1389,40 @@ class SubclassGen extends ObjStGen {
         ..writeln('  }');
     }
 
+    // `State<T>.widget` is a TypeParameterType field, which getCallableFields intentionally
+    // filters out (so Radio<T>.value etc. don't blow up ImmutableGen). SubState/SubAnimatedState
+    // still need the accessor, so emit it here with `T` preserved as the return type — and add
+    // the matching struct field so jextract produces SubStateObjSt.widget.
+    if (widgetClass == 'SubState') {
+      objectsHFile.writeln('  DartObj (*widget)(void);');
+      javaFile
+        ..writeln('  @SuppressWarnings("unchecked")')
+        ..writeln('  public T widget() {')
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
+        ..writeln('      return (T) webWidget;')
+        ..writeln('    }')
+        ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
+        ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.widget.invoke(funcPtr));')
+        ..writeln('  }');
+    }
+    if (widgetClass == 'SubAnimatedState') {
+      objectsHFile.writeln('  DartObj (*widget)(void);');
+      javaFile
+        ..writeln('  @SuppressWarnings("unchecked")')
+        ..writeln('  public T widget() {')
+        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");')
+        ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
+        ..writeln('    return (T) (NativeObj) new NativeObj.Base() {{ this.id = $widgetSt.widget.invoke(funcPtr); }};')
+        ..writeln('  }');
+    }
+
     writeStructFooter();
 
-    // SubState needs a web-mode widget() that returns the owning widget stored during flatten.
     if (widgetClass == 'SubState') {
       javaFile
         ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
         ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
     }
-    // SubAnimatedState: web identity + animation command channel.
     if (widgetClass == 'SubAnimatedState') {
       javaFile
         ..writeln('  private SubStatefulWidget webWidget;')
@@ -1833,6 +1973,52 @@ class Generation {
     }
   }
 
+  /// objects.h emits struct definitions in widget-discovery order, which is
+  /// not topological — a struct field of type `FooObjSt` can precede
+  /// `} FooObjSt;` by hundreds of lines. Since C requires a complete type for
+  /// by-value struct fields, reorder the definitions so each struct is
+  /// preceded by every struct it depends on.
+  String _prependForwardDecls(String body) {
+    final defRe = RegExp(r'typedef struct \{([\s\S]*?)\}\s+([A-Za-z_][A-Za-z0-9_]*ObjSt)\s*;');
+    final defs = <String, String>{}; // name -> full definition text
+    final deps = <String, Set<String>>{}; // name -> set of ObjSt names it embeds
+    for (final m in defRe.allMatches(body)) {
+      final name = m.group(2)!;
+      final block = m.group(0)!;
+      final fieldsBody = m.group(1)!;
+      defs[name] = block;
+      final embedded = <String>{};
+      for (final f in RegExp(r'\b([A-Za-z_][A-Za-z0-9_]*ObjSt)\b').allMatches(fieldsBody)) {
+        final n = f.group(1)!;
+        if (n != name) embedded.add(n);
+      }
+      deps[name] = embedded;
+    }
+    if (defs.isEmpty) return body;
+    final order = <String>[];
+    final seen = <String>{};
+    void visit(String n) {
+      if (seen.contains(n)) return;
+      seen.add(n);
+      for (final d in deps[n] ?? const <String>{}) {
+        if (defs.containsKey(d)) visit(d);
+      }
+      order.add(n);
+    }
+    for (final n in defs.keys) visit(n);
+    final buf = StringBuffer();
+    for (final n in order) {
+      buf.writeln(defs[n]);
+    }
+    // Preserve any non-struct content (there shouldn't be much, but keep it safe).
+    final withoutDefs = body.replaceAll(defRe, '');
+    if (withoutDefs.trim().isNotEmpty) {
+      buf.writeln();
+      buf.write(withoutDefs);
+    }
+    return buf.toString();
+  }
+
   void processEnum(EnumElement dartClass) {
     processed.add(dartClass);
     EnumGen(types, dartClass)
@@ -1841,7 +2027,7 @@ class Generation {
 
   void write() {
     _writeC('factories.h', headerFile.toString());
-    _writeC('objects.h', objectsHFile.toString());
+    _writeC('objects.h', _prependForwardDecls(objectsHFile.toString()));
     _writeC('typedefs.h', typedefFile.toString());
     _writeD('factories_gen.dart', dartFactories.toString());
     _writeJ('WidgetConstructors', javaFactories.toString());
@@ -2624,6 +2810,17 @@ class Params {
   static String paramValueDtoC(Types ctx, ParameterElement param, {bool fromCallback = false}) {
     var t = param.type;
     if (t is TypeParameterType) {
+      final value = ensureName(param);
+      if (fromCallback) {
+        // TypeParameterType params in callbacks: the C typedef alternates between
+        //   - `DartObj` (int by value) when the source param is non-nullable T
+        //   - `DartObj*` (pointer) when the source param is nullable T? (isOptional=true)
+        // Mirrors the Java-side dispatch in paramValueFFMtoJ (see types.dart:497).
+        if (param.isOptional) {
+          return '($value != null) ? (calloc<ffi.Int>()..value = _addWidget($value)) : ffi.nullptr';
+        }
+        return '_addWidget($value)';
+      }
       t = t.bound;
     }
     var value = ensureName(param);

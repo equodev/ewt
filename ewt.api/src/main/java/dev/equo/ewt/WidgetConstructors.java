@@ -23,6 +23,85 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(fullscreenDialog),
       ptrBool(requestFocus));
   }
+  int date_pickerShowDatePicker(BuildContext context, Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> helpText, Optional<String> cancelText, Optional<String> confirmText, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useRootNavigator, Optional<TextDirection> textDirection, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<DatePickerMode> initialDatePickerMode, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<Offset> anchorPoint, Optional<Consumer<DatePickerEntryMode>> onDatePickerModeChange, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon) {
+    var fn = WidgetFactories.showDatePicker(factories);
+    return WidgetFactories.showDatePicker.invoke(fn, context.build().getId(),
+      ptrObj(initialDate),
+      firstDate.build().getId(),
+      lastDate.build().getId(),
+      ptrObj(currentDate),
+      ptrEnum(initialEntryMode),
+      selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayPredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL,
+      ptrStr(helpText),
+      ptrStr(cancelText),
+      ptrStr(confirmText),
+      ptrBool(barrierDismissible),
+      ptrObj(barrierColor),
+      ptrStr(barrierLabel),
+      ptrBool(useRootNavigator),
+      ptrEnum(textDirection),
+      builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
+      ptrEnum(initialDatePickerMode),
+      ptrStr(errorFormatText),
+      ptrStr(errorInvalidText),
+      ptrStr(fieldHintText),
+      ptrStr(fieldLabelText),
+      ptrObj(anchorPoint),
+      onDatePickerModeChange.isPresent() ? ptrHolder(ptrValueChangedForDatePickerEntryModeFn(onDatePickerModeChange.get())) : MemorySegment.NULL,
+      ptrObj(switchToInputEntryModeIcon),
+      ptrObj(switchToCalendarEntryModeIcon));
+  }
+  int time_pickerShowTimePicker(BuildContext context, TimeOfDay initialTime, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useRootNavigator, Optional<TimePickerEntryMode> initialEntryMode, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<String> errorInvalidText, Optional<String> hourLabelText, Optional<String> minuteLabelText, Optional<Consumer<TimePickerEntryMode>> onEntryModeChanged, Optional<Offset> anchorPoint, Optional<Orientation> orientation, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToTimerEntryModeIcon) {
+    var fn = WidgetFactories.showTimePicker(factories);
+    return WidgetFactories.showTimePicker.invoke(fn, context.build().getId(),
+      initialTime.build().getId(),
+      builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
+      ptrBool(barrierDismissible),
+      ptrObj(barrierColor),
+      ptrStr(barrierLabel),
+      ptrBool(useRootNavigator),
+      ptrEnum(initialEntryMode),
+      ptrStr(cancelText),
+      ptrStr(confirmText),
+      ptrStr(helpText),
+      ptrStr(errorInvalidText),
+      ptrStr(hourLabelText),
+      ptrStr(minuteLabelText),
+      onEntryModeChanged.isPresent() ? ptrHolder(ptrEntryModeChangeCallbackFn(onEntryModeChanged.get())) : MemorySegment.NULL,
+      ptrObj(anchorPoint),
+      ptrEnum(orientation),
+      ptrObj(switchToInputEntryModeIcon),
+      ptrObj(switchToTimerEntryModeIcon));
+  }
+  int date_pickerShowDateRangePicker(BuildContext context, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<String> helpText, Optional<String> cancelText, Optional<String> confirmText, Optional<String> saveText, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> errorInvalidRangeText, Optional<String> fieldStartHintText, Optional<String> fieldEndHintText, Optional<String> fieldStartLabelText, Optional<String> fieldEndLabelText, Optional<Boolean> barrierDismissible, Optional<Color> barrierColor, Optional<String> barrierLabel, Optional<Boolean> useRootNavigator, Optional<TextDirection> textDirection, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<Offset> anchorPoint, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon, Optional<TriFunction<DateTime, DateTime, DateTime, Boolean>> selectableDayPredicate) {
+    var fn = WidgetFactories.showDateRangePicker(factories);
+    return WidgetFactories.showDateRangePicker.invoke(fn, context.build().getId(),
+      firstDate.build().getId(),
+      lastDate.build().getId(),
+      ptrObj(currentDate),
+      ptrEnum(initialEntryMode),
+      ptrStr(helpText),
+      ptrStr(cancelText),
+      ptrStr(confirmText),
+      ptrStr(saveText),
+      ptrStr(errorFormatText),
+      ptrStr(errorInvalidText),
+      ptrStr(errorInvalidRangeText),
+      ptrStr(fieldStartHintText),
+      ptrStr(fieldEndHintText),
+      ptrStr(fieldStartLabelText),
+      ptrStr(fieldEndLabelText),
+      ptrBool(barrierDismissible),
+      ptrObj(barrierColor),
+      ptrStr(barrierLabel),
+      ptrBool(useRootNavigator),
+      ptrEnum(textDirection),
+      builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
+      ptrObj(anchorPoint),
+      ptrObj(switchToInputEntryModeIcon),
+      ptrObj(switchToCalendarEntryModeIcon),
+      selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayForRangePredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL);
+  }
   MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<TextDecoration> decoration, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.textStyle(st);
@@ -125,6 +204,98 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  int dateTimeDateTime(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.dateTime(st);
+    return WidgetFactories.DateTimeSt.dateTime.invoke(fn, year,
+      ptr(month),
+      ptr(day),
+      ptr(hour),
+      ptr(minute),
+      ptr(second),
+      ptr(millisecond),
+      ptr(microsecond));
+  }
+  int dateTimeUtc(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.utc(st);
+    return WidgetFactories.DateTimeSt.utc.invoke(fn, year,
+      ptr(month),
+      ptr(day),
+      ptr(hour),
+      ptr(minute),
+      ptr(second),
+      ptr(millisecond),
+      ptr(microsecond));
+  }
+  int dateTimeNow() {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.now(st);
+    return WidgetFactories.DateTimeSt.now.invoke(fn);
+  }
+  int dateTimeTimestamp() {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.timestamp(st);
+    return WidgetFactories.DateTimeSt.timestamp.invoke(fn);
+  }
+  int dateTimeFromMillisecondsSinceEpoch(int millisecondsSinceEpoch, Optional<Boolean> isUtc) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.fromMillisecondsSinceEpoch(st);
+    return WidgetFactories.DateTimeSt.fromMillisecondsSinceEpoch.invoke(fn, millisecondsSinceEpoch,
+      ptrBool(isUtc));
+  }
+  int dateTimeFromMicrosecondsSinceEpoch(int microsecondsSinceEpoch, Optional<Boolean> isUtc) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.fromMicrosecondsSinceEpoch(st);
+    return WidgetFactories.DateTimeSt.fromMicrosecondsSinceEpoch.invoke(fn, microsecondsSinceEpoch,
+      ptrBool(isUtc));
+  }
+  int dateTimeParse(String formattedString) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.parse(st);
+    return WidgetFactories.DateTimeSt.parse.invoke(fn, arena.allocateFrom(formattedString));
+  }
+  int dateTimeTryParse(String formattedString) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.tryParse(st);
+    return WidgetFactories.DateTimeSt.tryParse.invoke(fn, arena.allocateFrom(formattedString));
+  }
+
+  MemorySegment iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<List<Shadow>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode, Optional<FontWeight> fontWeight) {
+    var st = WidgetFactories.icon(factories);
+    var fn = WidgetFactories.IconSt.icon(st);
+    return WidgetFactories.IconSt.icon.invoke(fn, arena, icon != null ? icon.build().getId() : null,
+      ptr(size),
+      ptr(fill),
+      ptr(weight),
+      ptr(grade),
+      ptr(opticalSize),
+      ptrObj(color),
+      ptrList(shadows),
+      ptrStr(semanticLabel),
+      ptrEnum(textDirection),
+      ptrBool(applyTextScaling),
+      ptrEnum(blendMode),
+      ptrObj(fontWeight));
+  }
+
+  MemorySegment timeOfDayTimeOfDay(int hour, int minute) {
+    var st = WidgetFactories.timeOfDay(factories);
+    var fn = WidgetFactories.TimeOfDaySt.timeOfDay(st);
+    return WidgetFactories.TimeOfDaySt.timeOfDay.invoke(fn, arena, hour,
+      minute);
+  }
+  MemorySegment timeOfDayFromDateTime(DateTime time) {
+    var st = WidgetFactories.timeOfDay(factories);
+    var fn = WidgetFactories.TimeOfDaySt.fromDateTime(st);
+    return WidgetFactories.TimeOfDaySt.fromDateTime.invoke(fn, arena, time.build().getId());
+  }
+  MemorySegment timeOfDayNow() {
+    var st = WidgetFactories.timeOfDay(factories);
+    var fn = WidgetFactories.TimeOfDaySt.now(st);
+    return WidgetFactories.TimeOfDaySt.now.invoke(fn, arena);
+  }
+
   int fontWeightLerp(FontWeight a, FontWeight b, double t) {
     var st = WidgetFactories.fontWeight(factories);
     var fn = WidgetFactories.FontWeightSt.lerp(st);
@@ -209,6 +380,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
   int textDecorationLineThrough() {
     var st = WidgetFactories.textDecoration(factories);
     return WidgetFactories.TextDecorationSt.lineThrough(st);
+  }
+
+  MemorySegment iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
+    var st = WidgetFactories.iconData(factories);
+    var fn = WidgetFactories.IconDataSt.iconData(st);
+    return WidgetFactories.IconDataSt.iconData.invoke(fn, arena, codePoint,
+      ptrStr(fontFamily),
+      ptrStr(fontPackage),
+      ptrBool(matchTextDirection),
+      ptrStrList(fontFamilyFallback));
   }
 
   MemorySegment textText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
@@ -325,34 +506,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(textBaseline),
       ptr(spacing),
       ptrList(children));
-  }
-
-  MemorySegment iconDataIconData(int codePoint, Optional<String> fontFamily, Optional<String> fontPackage, Optional<Boolean> matchTextDirection, Optional<List<String>> fontFamilyFallback) {
-    var st = WidgetFactories.iconData(factories);
-    var fn = WidgetFactories.IconDataSt.iconData(st);
-    return WidgetFactories.IconDataSt.iconData.invoke(fn, arena, codePoint,
-      ptrStr(fontFamily),
-      ptrStr(fontPackage),
-      ptrBool(matchTextDirection),
-      ptrStrList(fontFamilyFallback));
-  }
-
-  MemorySegment iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<List<Shadow>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode, Optional<FontWeight> fontWeight) {
-    var st = WidgetFactories.icon(factories);
-    var fn = WidgetFactories.IconSt.icon(st);
-    return WidgetFactories.IconSt.icon.invoke(fn, arena, icon != null ? icon.build().getId() : null,
-      ptr(size),
-      ptr(fill),
-      ptr(weight),
-      ptr(grade),
-      ptr(opticalSize),
-      ptrObj(color),
-      ptrList(shadows),
-      ptrStr(semanticLabel),
-      ptrEnum(textDirection),
-      ptrBool(applyTextScaling),
-      ptrEnum(blendMode),
-      ptrObj(fontWeight));
   }
 
   MemorySegment transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
@@ -1477,7 +1630,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<T> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     var st = WidgetFactories.draggable(factories);
     var fn = WidgetFactories.DraggableSt.draggable(st);
     return WidgetFactories.DraggableSt.draggable.invoke(fn, arena, child.build().getId(),
@@ -1498,7 +1651,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       allowedButtonsFilter.isPresent() ? ptrHolder(ptrAllowedButtonsFilterFn(allowedButtonsFilter.get())) : MemorySegment.NULL);
   }
 
-  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> builder, Optional<Function<T, Boolean>> onWillAccept, Optional<Consumer<T>> onAccept, Optional<Consumer<T>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
     var st = WidgetFactories.dragTarget(factories);
     var fn = WidgetFactories.DragTargetSt.dragTarget(st);
     return WidgetFactories.DragTargetSt.dragTarget.invoke(fn, arena, ptrDragTargetBuilderForTFn(builder),
@@ -2595,7 +2748,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       arena.allocateFrom(routeName),
       ptrObj(arguments));
   }
-  <TO extends NativeObj, T extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPushReplacementNamed(BuildContext context, String routeName, Optional<NativeObj> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pushReplacementNamed(st);
     return WidgetFactories.NavigatorSt.pushReplacementNamed.invoke(fn, context.build().getId(),
@@ -2603,7 +2756,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(result),
       ptrObj(arguments));
   }
-  <TO extends NativeObj> MemorySegment navigatorRestorablePushReplacementNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj> MemorySegment navigatorRestorablePushReplacementNamed(BuildContext context, String routeName, Optional<NativeObj> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.restorablePushReplacementNamed(st);
     return WidgetFactories.NavigatorSt.restorablePushReplacementNamed.invoke(fn, context.build().getId(),
@@ -2611,7 +2764,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(result),
       ptrObj(arguments));
   }
-  <TO extends NativeObj, T extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj, T extends NativeObj> int navigatorPopAndPushNamed(BuildContext context, String routeName, Optional<NativeObj> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.popAndPushNamed(st);
     return WidgetFactories.NavigatorSt.popAndPushNamed.invoke(fn, context.build().getId(),
@@ -2619,7 +2772,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(result),
       ptrObj(arguments));
   }
-  <TO extends NativeObj> MemorySegment navigatorRestorablePopAndPushNamed(BuildContext context, String routeName, Optional<TO> result, Optional<NativeObj> arguments) {
+  <TO extends NativeObj> MemorySegment navigatorRestorablePopAndPushNamed(BuildContext context, String routeName, Optional<NativeObj> result, Optional<NativeObj> arguments) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.restorablePopAndPushNamed(st);
     return WidgetFactories.NavigatorSt.restorablePopAndPushNamed.invoke(fn, context.build().getId(),
@@ -2632,13 +2785,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.NavigatorSt.canPop(st);
     return WidgetFactories.NavigatorSt.canPop.invoke(fn, context.build().getId());
   }
-  <T extends NativeObj> int navigatorMaybePop(BuildContext context, Optional<T> result) {
+  <T extends NativeObj> int navigatorMaybePop(BuildContext context, Optional<NativeObj> result) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.maybePop(st);
     return WidgetFactories.NavigatorSt.maybePop.invoke(fn, context.build().getId(),
       ptrObj(result));
   }
-  <T extends NativeObj> void navigatorPop(BuildContext context, Optional<T> result) {
+  <T extends NativeObj> void navigatorPop(BuildContext context, Optional<NativeObj> result) {
     var st = WidgetFactories.navigator(factories);
     var fn = WidgetFactories.NavigatorSt.pop(st);
     WidgetFactories.NavigatorSt.pop.invoke(fn, context.build().getId(),
@@ -3621,6 +3774,662 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
+  MemorySegment dataTableDataTable(List<DataColumn> columns, OptionalInt sortColumnIndex, Optional<Boolean> sortAscending, Optional<Consumer<Boolean>> onSelectAll, Optional<Decoration> decoration, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyle> dataTextStyle, OptionalDouble headingRowHeight, Optional<TextStyle> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, Optional<Boolean> showCheckboxColumn, Optional<Boolean> showBottomBorder, OptionalDouble dividerThickness, List<DataRow> rows, OptionalDouble checkboxHorizontalMargin, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.dataTable(factories);
+    var fn = WidgetFactories.DataTableSt.dataTable(st);
+    return WidgetFactories.DataTableSt.dataTable.invoke(fn, arena, ptrList(columns),
+      ptr(sortColumnIndex),
+      ptrBool(sortAscending),
+      onSelectAll.isPresent() ? ptrHolder(ptrValueSetterForBoolOptFn(onSelectAll.get())) : MemorySegment.NULL,
+      ptrObj(decoration),
+      ptr(dataRowHeight),
+      ptr(dataRowMinHeight),
+      ptr(dataRowMaxHeight),
+      ptrObj(dataTextStyle),
+      ptr(headingRowHeight),
+      ptrObj(headingTextStyle),
+      ptr(horizontalMargin),
+      ptr(columnSpacing),
+      ptrBool(showCheckboxColumn),
+      ptrBool(showBottomBorder),
+      ptr(dividerThickness),
+      ptrList(rows),
+      ptr(checkboxHorizontalMargin),
+      ptrEnum(clipBehavior));
+  }
+
+  MemorySegment dataColumnDataColumn(Widget label, Optional<String> tooltip, Optional<Boolean> numeric, Optional<BiConsumer<Integer, Boolean>> onSort, Optional<MainAxisAlignment> headingRowAlignment) {
+    var st = WidgetFactories.dataColumn(factories);
+    var fn = WidgetFactories.DataColumnSt.dataColumn(st);
+    return WidgetFactories.DataColumnSt.dataColumn.invoke(fn, arena, label.build().getId(),
+      ptrStr(tooltip),
+      ptrBool(numeric),
+      onSort.isPresent() ? ptrHolder(ptrDataColumnSortCallbackFn(onSort.get())) : MemorySegment.NULL,
+      ptrEnum(headingRowAlignment));
+  }
+
+  MemorySegment dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, List<DataCell> cells) {
+    var st = WidgetFactories.dataRow(factories);
+    var fn = WidgetFactories.DataRowSt.dataRow(st);
+    return WidgetFactories.DataRowSt.dataRow.invoke(fn, arena, ptrBool(selected),
+      onSelectChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onSelectChanged.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      ptrList(cells));
+  }
+  MemorySegment dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, List<DataCell> cells) {
+    var st = WidgetFactories.dataRow(factories);
+    var fn = WidgetFactories.DataRowSt.byIndex(st);
+    return WidgetFactories.DataRowSt.byIndex.invoke(fn, arena, ptr(index),
+      ptrBool(selected),
+      onSelectChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onSelectChanged.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      ptrList(cells));
+  }
+
+  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
+    var st = WidgetFactories.dataCell(factories);
+    var fn = WidgetFactories.DataCellSt.dataCell(st);
+    return WidgetFactories.DataCellSt.dataCell.invoke(fn, arena, child.build().getId(),
+      ptrBool(placeholder),
+      ptrBool(showEditIcon),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
+      onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTapCancel.get())) : MemorySegment.NULL);
+  }
+
+  <T> int dropdownMenuEntryDropdownMenuEntry(NativeObj value, String label, Optional<Widget> labelWidget, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Boolean> enabled) {
+    var st = WidgetFactories.dropdownMenuEntry(factories);
+    var fn = WidgetFactories.DropdownMenuEntrySt.dropdownMenuEntry(st);
+    return WidgetFactories.DropdownMenuEntrySt.dropdownMenuEntry.invoke(fn, value.build().getId(),
+      arena.allocateFrom(label),
+      ptrObj(labelWidget),
+      ptrObj(leadingIcon),
+      ptrObj(trailingIcon),
+      ptrBool(enabled));
+  }
+
+  <T> MemorySegment radioRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<BorderSide> side) {
+    var st = WidgetFactories.radio(factories);
+    var fn = WidgetFactories.RadioSt.radio(st);
+    return WidgetFactories.RadioSt.radio.invoke(fn, arena, value.build().getId(),
+      ptrObj(groupValue),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
+      ptrBool(toggleable),
+      ptrObj(activeColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptr(splashRadius),
+      ptrEnum(materialTapTargetSize),
+      ptrObj(visualDensity),
+      ptrBool(autofocus),
+      ptrBool(enabled),
+      ptrObj(side));
+  }
+  <T> MemorySegment radioAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<Boolean> enabled, Optional<BorderSide> side) {
+    var st = WidgetFactories.radio(factories);
+    var fn = WidgetFactories.RadioSt.adaptive(st);
+    return WidgetFactories.RadioSt.adaptive.invoke(fn, arena, value.build().getId(),
+      ptrObj(groupValue),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
+      ptrBool(toggleable),
+      ptrObj(activeColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptr(splashRadius),
+      ptrEnum(materialTapTargetSize),
+      ptrObj(visualDensity),
+      ptrBool(autofocus),
+      ptrBool(useCupertinoCheckmarkStyle),
+      ptrBool(enabled),
+      ptrObj(side));
+  }
+
+  <T> MemorySegment radioListTileRadioListTile(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<BorderSide> radioSide) {
+    var st = WidgetFactories.radioListTile(factories);
+    var fn = WidgetFactories.RadioListTileSt.radioListTile(st);
+    return WidgetFactories.RadioListTileSt.radioListTile.invoke(fn, arena, value.build().getId(),
+      ptrObj(groupValue),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
+      ptrBool(toggleable),
+      ptrObj(activeColor),
+      ptrObj(hoverColor),
+      ptr(splashRadius),
+      ptrEnum(materialTapTargetSize),
+      ptrObj(title),
+      ptrObj(subtitle),
+      ptrBool(isThreeLine),
+      ptrBool(dense),
+      ptrObj(secondary),
+      ptrBool(selected),
+      ptrEnum(controlAffinity),
+      ptrBool(autofocus),
+      ptrObj(contentPadding),
+      ptrObj(shape),
+      ptrObj(tileColor),
+      ptrObj(selectedTileColor),
+      ptrObj(visualDensity),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(enableFeedback),
+      ptr(radioScaleFactor),
+      ptrEnum(titleAlignment),
+      ptrBool(enabled),
+      ptrBool(internalAddSemanticForOnTap),
+      ptrObj(radioSide));
+  }
+  <T> MemorySegment radioListTileAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<BorderSide> radioSide) {
+    var st = WidgetFactories.radioListTile(factories);
+    var fn = WidgetFactories.RadioListTileSt.adaptive(st);
+    return WidgetFactories.RadioListTileSt.adaptive.invoke(fn, arena, value.build().getId(),
+      ptrObj(groupValue),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
+      ptrBool(toggleable),
+      ptrObj(activeColor),
+      ptrObj(hoverColor),
+      ptr(splashRadius),
+      ptrEnum(materialTapTargetSize),
+      ptrObj(title),
+      ptrObj(subtitle),
+      ptrBool(isThreeLine),
+      ptrBool(dense),
+      ptrObj(secondary),
+      ptrBool(selected),
+      ptrEnum(controlAffinity),
+      ptrBool(autofocus),
+      ptrObj(contentPadding),
+      ptrObj(shape),
+      ptrObj(tileColor),
+      ptrObj(selectedTileColor),
+      ptrObj(visualDensity),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(enableFeedback),
+      ptr(radioScaleFactor),
+      ptrBool(enabled),
+      ptrBool(useCupertinoCheckmarkStyle),
+      ptrEnum(titleAlignment),
+      ptrBool(internalAddSemanticForOnTap),
+      ptrObj(radioSide));
+  }
+
+  MemorySegment expansionTileExpansionTile(Optional<Widget> leading, Widget title, Optional<Widget> subtitle, Optional<Consumer<Boolean>> onExpansionChanged, Optional<List<Widget>> children, Optional<Widget> trailing, Optional<Boolean> showTrailingIcon, Optional<Boolean> initiallyExpanded, Optional<Boolean> maintainState, Optional<EdgeInsetsGeometry> tilePadding, Optional<CrossAxisAlignment> expandedCrossAxisAlignment, Optional<Alignment> expandedAlignment, Optional<EdgeInsetsGeometry> childrenPadding, Optional<Color> backgroundColor, Optional<Color> collapsedBackgroundColor, Optional<Color> textColor, Optional<Color> collapsedTextColor, Optional<Color> iconColor, Optional<Color> collapsedIconColor, Optional<ShapeBorder> shape, Optional<ShapeBorder> collapsedShape, Optional<Clip> clipBehavior, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> dense, Optional<VisualDensity> visualDensity, OptionalDouble minTileHeight, Optional<Boolean> enableFeedback, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap) {
+    var st = WidgetFactories.expansionTile(factories);
+    var fn = WidgetFactories.ExpansionTileSt.expansionTile(st);
+    return WidgetFactories.ExpansionTileSt.expansionTile.invoke(fn, arena, ptrObj(leading),
+      title.build().getId(),
+      ptrObj(subtitle),
+      onExpansionChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onExpansionChanged.get())) : MemorySegment.NULL,
+      ptrList(children),
+      ptrObj(trailing),
+      ptrBool(showTrailingIcon),
+      ptrBool(initiallyExpanded),
+      ptrBool(maintainState),
+      ptrObj(tilePadding),
+      ptrEnum(expandedCrossAxisAlignment),
+      ptrObj(expandedAlignment),
+      ptrObj(childrenPadding),
+      ptrObj(backgroundColor),
+      ptrObj(collapsedBackgroundColor),
+      ptrObj(textColor),
+      ptrObj(collapsedTextColor),
+      ptrObj(iconColor),
+      ptrObj(collapsedIconColor),
+      ptrObj(shape),
+      ptrObj(collapsedShape),
+      ptrEnum(clipBehavior),
+      ptrEnum(controlAffinity),
+      ptrBool(dense),
+      ptrObj(visualDensity),
+      ptr(minTileHeight),
+      ptrBool(enableFeedback),
+      ptrBool(enabled),
+      ptrBool(internalAddSemanticForOnTap));
+  }
+
+  int expansionPanelExpansionPanel(BiFunction<BuildContext, Boolean, Widget> headerBuilder, Widget body, Optional<Boolean> isExpanded, Optional<Boolean> canTapOnHeader, Optional<Color> backgroundColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
+    var st = WidgetFactories.expansionPanel(factories);
+    var fn = WidgetFactories.ExpansionPanelSt.expansionPanel(st);
+    return WidgetFactories.ExpansionPanelSt.expansionPanel.invoke(fn, ptrExpansionPanelHeaderBuilderFn(headerBuilder),
+      body.build().getId(),
+      ptrBool(isExpanded),
+      ptrBool(canTapOnHeader),
+      ptrObj(backgroundColor),
+      ptrObj(splashColor),
+      ptrObj(highlightColor));
+  }
+
+  MemorySegment expansionPanelListExpansionPanelList(Optional<List<ExpansionPanel>> children, Optional<BiConsumer<Integer, Boolean>> expansionCallback, Optional<Duration> animationDuration, Optional<Color> dividerColor, OptionalDouble elevation, Optional<Color> expandIconColor, OptionalDouble materialGapSize) {
+    var st = WidgetFactories.expansionPanelList(factories);
+    var fn = WidgetFactories.ExpansionPanelListSt.expansionPanelList(st);
+    return WidgetFactories.ExpansionPanelListSt.expansionPanelList.invoke(fn, arena, ptrList(children),
+      expansionCallback.isPresent() ? ptrHolder(ptrExpansionPanelCallbackFn(expansionCallback.get())) : MemorySegment.NULL,
+      ptrObj(animationDuration),
+      ptrObj(dividerColor),
+      ptr(elevation),
+      ptrObj(expandIconColor),
+      ptr(materialGapSize));
+  }
+  MemorySegment expansionPanelListRadio(Optional<List<ExpansionPanel>> children, Optional<BiConsumer<Integer, Boolean>> expansionCallback, Optional<Duration> animationDuration, Optional<NativeObj> initialOpenPanelValue, Optional<Color> dividerColor, OptionalDouble elevation, Optional<Color> expandIconColor, OptionalDouble materialGapSize) {
+    var st = WidgetFactories.expansionPanelList(factories);
+    var fn = WidgetFactories.ExpansionPanelListSt.radio(st);
+    return WidgetFactories.ExpansionPanelListSt.radio.invoke(fn, arena, ptrList(children),
+      expansionCallback.isPresent() ? ptrHolder(ptrExpansionPanelCallbackFn(expansionCallback.get())) : MemorySegment.NULL,
+      ptrObj(animationDuration),
+      ptrObj(initialOpenPanelValue),
+      ptrObj(dividerColor),
+      ptr(elevation),
+      ptrObj(expandIconColor),
+      ptr(materialGapSize));
+  }
+
+  int expansionPanelRadioExpansionPanelRadio(NativeObj value, BiFunction<BuildContext, Boolean, Widget> headerBuilder, Widget body, Optional<Boolean> canTapOnHeader, Optional<Color> backgroundColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
+    var st = WidgetFactories.expansionPanelRadio(factories);
+    var fn = WidgetFactories.ExpansionPanelRadioSt.expansionPanelRadio(st);
+    return WidgetFactories.ExpansionPanelRadioSt.expansionPanelRadio.invoke(fn, value.build().getId(),
+      ptrExpansionPanelHeaderBuilderFn(headerBuilder),
+      body.build().getId(),
+      ptrBool(canTapOnHeader),
+      ptrObj(backgroundColor),
+      ptrObj(splashColor),
+      ptrObj(highlightColor));
+  }
+
+  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, int selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+    var st = WidgetFactories.navigationRail(factories);
+    var fn = WidgetFactories.NavigationRailSt.navigationRail(st);
+    return WidgetFactories.NavigationRailSt.navigationRail.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrBool(extended),
+      ptrObj(leading),
+      ptrObj(trailing),
+      ptrList(destinations),
+      selectedIndex,
+      onDestinationSelected.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onDestinationSelected.get())) : MemorySegment.NULL,
+      ptr(elevation),
+      ptr(groupAlignment),
+      ptrEnum(labelType),
+      ptrObj(unselectedLabelTextStyle),
+      ptrObj(selectedLabelTextStyle),
+      ptr(minWidth),
+      ptr(minExtendedWidth),
+      ptrBool(useIndicator),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      ptrBool(leadingAtTop),
+      ptrBool(trailingAtBottom),
+      ptrBool(scrollable));
+  }
+  int navigationRailExtendedAnimation(BuildContext context) {
+    var st = WidgetFactories.navigationRail(factories);
+    var fn = WidgetFactories.NavigationRailSt.extendedAnimation(st);
+    return WidgetFactories.NavigationRailSt.extendedAnimation.invoke(fn, context.build().getId());
+  }
+
+  int navigationRailDestinationNavigationRailDestination(Widget icon, Optional<Widget> selectedIcon, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Widget label, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> disabled) {
+    var st = WidgetFactories.navigationRailDestination(factories);
+    var fn = WidgetFactories.NavigationRailDestinationSt.navigationRailDestination(st);
+    return WidgetFactories.NavigationRailDestinationSt.navigationRailDestination.invoke(fn, icon.build().getId(),
+      ptrObj(selectedIcon),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      label.build().getId(),
+      ptrObj(padding),
+      ptrBool(disabled));
+  }
+
+  MemorySegment navigationBarNavigationBar(Optional<Duration> animationDuration, OptionalInt selectedIndex, List<Widget> destinations, Optional<Consumer<Integer>> onDestinationSelected, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, OptionalDouble height, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> maintainBottomViewPadding) {
+    var st = WidgetFactories.navigationBar(factories);
+    var fn = WidgetFactories.NavigationBarSt.navigationBar(st);
+    return WidgetFactories.NavigationBarSt.navigationBar.invoke(fn, arena, ptrObj(animationDuration),
+      ptr(selectedIndex),
+      ptrList(destinations),
+      onDestinationSelected.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onDestinationSelected.get())) : MemorySegment.NULL,
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      ptr(height),
+      ptrEnum(labelBehavior),
+      ptrObj(labelPadding),
+      ptrBool(maintainBottomViewPadding));
+  }
+
+  MemorySegment navigationDestinationNavigationDestination(Widget icon, Optional<Widget> selectedIcon, String label, Optional<String> tooltip, Optional<Boolean> enabled) {
+    var st = WidgetFactories.navigationDestination(factories);
+    var fn = WidgetFactories.NavigationDestinationSt.navigationDestination(st);
+    return WidgetFactories.NavigationDestinationSt.navigationDestination.invoke(fn, arena, icon.build().getId(),
+      ptrObj(selectedIcon),
+      arena.allocateFrom(label),
+      ptrStr(tooltip),
+      ptrBool(enabled));
+  }
+
+  MemorySegment navigationDrawerNavigationDrawer(List<Widget> children, Optional<Widget> header, Optional<Widget> footer, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Consumer<Integer>> onDestinationSelected, OptionalInt selectedIndex, Optional<EdgeInsetsGeometry> tilePadding) {
+    var st = WidgetFactories.navigationDrawer(factories);
+    var fn = WidgetFactories.NavigationDrawerSt.navigationDrawer(st);
+    return WidgetFactories.NavigationDrawerSt.navigationDrawer.invoke(fn, arena, ptrList(children),
+      ptrObj(header),
+      ptrObj(footer),
+      ptrObj(backgroundColor),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptr(elevation),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      onDestinationSelected.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onDestinationSelected.get())) : MemorySegment.NULL,
+      ptr(selectedIndex),
+      ptrObj(tilePadding));
+  }
+
+  MemorySegment navigationDrawerDestinationNavigationDrawerDestination(Optional<Color> backgroundColor, Widget icon, Optional<Widget> selectedIcon, Widget label, Optional<Boolean> enabled) {
+    var st = WidgetFactories.navigationDrawerDestination(factories);
+    var fn = WidgetFactories.NavigationDrawerDestinationSt.navigationDrawerDestination(st);
+    return WidgetFactories.NavigationDrawerDestinationSt.navigationDrawerDestination.invoke(fn, arena, ptrObj(backgroundColor),
+      icon.build().getId(),
+      ptrObj(selectedIcon),
+      label.build().getId(),
+      ptrBool(enabled));
+  }
+
+  <T> MemorySegment popupMenuButtonPopupMenuButton(Function<BuildContext, List<PopupMenuEntry>> itemBuilder, Optional<NativeObj> initialValue, Optional<Runnable> onOpened, Optional<Consumer<NativeObj>> onSelected, Optional<Runnable> onCanceled, Optional<String> tooltip, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<EdgeInsetsGeometry> padding, Optional<EdgeInsetsGeometry> menuPadding, Optional<Widget> child, Optional<BorderRadius> borderRadius, OptionalDouble splashRadius, Optional<Widget> icon, OptionalDouble iconSize, Optional<Offset> offset, Optional<Boolean> enabled, Optional<ShapeBorder> shape, Optional<Color> color, Optional<Color> iconColor, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<PopupMenuPosition> position, Optional<Clip> clipBehavior, Optional<Boolean> useRootNavigator, Optional<Boolean> requestFocus) {
+    var st = WidgetFactories.popupMenuButton(factories);
+    var fn = WidgetFactories.PopupMenuButtonSt.popupMenuButton(st);
+    return WidgetFactories.PopupMenuButtonSt.popupMenuButton.invoke(fn, arena, ptrPopupMenuItemBuilderForTFn(itemBuilder),
+      ptrObj(initialValue),
+      onOpened.isPresent() ? ptrHolder(ptrVoidCallbackFn(onOpened.get())) : MemorySegment.NULL,
+      onSelected.isPresent() ? ptrHolder(ptrPopupMenuItemSelectedForTFn(onSelected.get())) : MemorySegment.NULL,
+      onCanceled.isPresent() ? ptrHolder(ptrPopupMenuCanceledFn(onCanceled.get())) : MemorySegment.NULL,
+      ptrStr(tooltip),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(padding),
+      ptrObj(menuPadding),
+      ptrObj(child),
+      ptrObj(borderRadius),
+      ptr(splashRadius),
+      ptrObj(icon),
+      ptr(iconSize),
+      ptrObj(offset),
+      ptrBool(enabled),
+      ptrObj(shape),
+      ptrObj(color),
+      ptrObj(iconColor),
+      ptrBool(enableFeedback),
+      ptrObj(constraints),
+      ptrEnum(position),
+      ptrEnum(clipBehavior),
+      ptrBool(useRootNavigator),
+      ptrBool(requestFocus));
+  }
+
+  <T> MemorySegment popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsets> padding, Optional<TextStyle> textStyle, Widget child) {
+    var st = WidgetFactories.popupMenuItem(factories);
+    var fn = WidgetFactories.PopupMenuItemSt.popupMenuItem(st);
+    return WidgetFactories.PopupMenuItemSt.popupMenuItem.invoke(fn, arena, ptrObj(value),
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrBool(enabled),
+      ptr(height),
+      ptrObj(padding),
+      ptrObj(textStyle),
+      child != null ? child.build().getId() : null);
+  }
+
+  MemorySegment popupMenuDividerPopupMenuDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<BorderRadiusGeometry> radius, Optional<Color> color) {
+    var st = WidgetFactories.popupMenuDivider(factories);
+    var fn = WidgetFactories.PopupMenuDividerSt.popupMenuDivider(st);
+    return WidgetFactories.PopupMenuDividerSt.popupMenuDivider.invoke(fn, arena, ptr(height),
+      ptr(thickness),
+      ptr(indent),
+      ptr(endIndent),
+      ptrObj(radius),
+      ptrObj(color));
+  }
+
+  <T> MemorySegment checkedPopupMenuItemCheckedPopupMenuItem(Optional<NativeObj> value, Optional<Boolean> checked, Optional<Boolean> enabled, Optional<EdgeInsets> padding, OptionalDouble height, Optional<Widget> child, Optional<Runnable> onTap) {
+    var st = WidgetFactories.checkedPopupMenuItem(factories);
+    var fn = WidgetFactories.CheckedPopupMenuItemSt.checkedPopupMenuItem(st);
+    return WidgetFactories.CheckedPopupMenuItemSt.checkedPopupMenuItem.invoke(fn, arena, ptrObj(value),
+      ptrBool(checked),
+      ptrBool(enabled),
+      ptrObj(padding),
+      ptr(height),
+      ptrObj(child),
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment circleAvatarCircleAvatar(Optional<Widget> child, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble radius, OptionalDouble minRadius, OptionalDouble maxRadius) {
+    var st = WidgetFactories.circleAvatar(factories);
+    var fn = WidgetFactories.CircleAvatarSt.circleAvatar(st);
+    return WidgetFactories.CircleAvatarSt.circleAvatar.invoke(fn, arena, ptrObj(child),
+      ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptr(radius),
+      ptr(minRadius),
+      ptr(maxRadius));
+  }
+
+  MemorySegment scrollbarScrollbar(Widget child, Optional<Boolean> thumbVisibility, Optional<Boolean> trackVisibility, OptionalDouble thickness, Optional<Radius> radius, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation) {
+    var st = WidgetFactories.scrollbar(factories);
+    var fn = WidgetFactories.ScrollbarSt.scrollbar(st);
+    return WidgetFactories.ScrollbarSt.scrollbar.invoke(fn, arena, child.build().getId(),
+      ptrBool(thumbVisibility),
+      ptrBool(trackVisibility),
+      ptr(thickness),
+      ptrObj(radius),
+      ptrBool(interactive),
+      ptrEnum(scrollbarOrientation));
+  }
+
+  MemorySegment menuBarMenuBar(Optional<Clip> clipBehavior, List<Widget> children) {
+    var st = WidgetFactories.menuBar(factories);
+    var fn = WidgetFactories.MenuBarSt.menuBar(st);
+    return WidgetFactories.MenuBarSt.menuBar.invoke(fn, arena, ptrEnum(clipBehavior),
+      ptrList(children));
+  }
+
+  MemorySegment menuAnchorMenuAnchor(Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Boolean> anchorTapClosesMenu, Optional<Boolean> consumeOutsideTap, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Boolean> crossAxisUnconstrained, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Optional<Widget> child) {
+    var st = WidgetFactories.menuAnchor(factories);
+    var fn = WidgetFactories.MenuAnchorSt.menuAnchor(st);
+    return WidgetFactories.MenuAnchorSt.menuAnchor.invoke(fn, arena, ptrObj(alignmentOffset),
+      ptrEnum(clipBehavior),
+      ptrBool(anchorTapClosesMenu),
+      ptrBool(consumeOutsideTap),
+      onOpen.isPresent() ? ptrHolder(ptrVoidCallbackFn(onOpen.get())) : MemorySegment.NULL,
+      onClose.isPresent() ? ptrHolder(ptrVoidCallbackFn(onClose.get())) : MemorySegment.NULL,
+      ptrBool(crossAxisUnconstrained),
+      ptrBool(useRootOverlay),
+      ptrList(menuChildren),
+      ptrObj(child));
+  }
+
+  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Widget child) {
+    var st = WidgetFactories.submenuButton(factories);
+    var fn = WidgetFactories.SubmenuButtonSt.submenuButton(st);
+    return WidgetFactories.SubmenuButtonSt.submenuButton.invoke(fn, arena, onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      onOpen.isPresent() ? ptrHolder(ptrVoidCallbackFn(onOpen.get())) : MemorySegment.NULL,
+      onClose.isPresent() ? ptrHolder(ptrVoidCallbackFn(onClose.get())) : MemorySegment.NULL,
+      ptrObj(alignmentOffset),
+      ptrEnum(clipBehavior),
+      ptrObj(leadingIcon),
+      ptrObj(trailingIcon),
+      ptrBool(useRootOverlay),
+      ptrList(menuChildren),
+      child != null ? child.build().getId() : null);
+  }
+
+  MemorySegment menuItemButtonMenuItemButton(Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Boolean> requestFocusOnHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<String> semanticsLabel, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Optional<Axis> overflowAxis, Optional<Widget> child) {
+    var st = WidgetFactories.menuItemButton(factories);
+    var fn = WidgetFactories.MenuItemButtonSt.menuItemButton(st);
+    return WidgetFactories.MenuItemButtonSt.menuItemButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
+      ptrBool(requestFocusOnHover),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrStr(semanticsLabel),
+      ptrEnum(clipBehavior),
+      ptrObj(leadingIcon),
+      ptrObj(trailingIcon),
+      ptrBool(closeOnActivate),
+      ptrEnum(overflowAxis),
+      ptrObj(child));
+  }
+
+  MemorySegment checkboxMenuButtonCheckboxMenuButton(boolean value, Optional<Boolean> tristate, Optional<Boolean> isError, Consumer<Boolean> onChanged, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Widget child) {
+    var st = WidgetFactories.checkboxMenuButton(factories);
+    var fn = WidgetFactories.CheckboxMenuButtonSt.checkboxMenuButton(st);
+    return WidgetFactories.CheckboxMenuButtonSt.checkboxMenuButton.invoke(fn, arena, (value ? 1 : 0),
+      ptrBool(tristate),
+      ptrBool(isError),
+      ptrValueChangedForBoolOptFn(onChanged),
+      onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrEnum(clipBehavior),
+      ptrObj(trailingIcon),
+      ptrBool(closeOnActivate),
+      child != null ? child.build().getId() : null);
+  }
+
+  <T> MemorySegment radioMenuButtonRadioMenuButton(NativeObj value, NativeObj groupValue, Consumer<NativeObj> onChanged, Optional<Boolean> toggleable, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Widget child) {
+    var st = WidgetFactories.radioMenuButton(factories);
+    var fn = WidgetFactories.RadioMenuButtonSt.radioMenuButton(st);
+    return WidgetFactories.RadioMenuButtonSt.radioMenuButton.invoke(fn, arena, value.build().getId(),
+      groupValue != null ? groupValue.build().getId() : null,
+      ptrValueChangedForTOptFn(onChanged),
+      ptrBool(toggleable),
+      onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrEnum(clipBehavior),
+      ptrObj(trailingIcon),
+      ptrBool(closeOnActivate),
+      child != null ? child.build().getId() : null);
+  }
+
+  MemorySegment datePickerDialogDatePickerDialog(Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<DatePickerMode> initialCalendarMode, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<String> restorationId, Optional<Consumer<DatePickerEntryMode>> onDatePickerModeChange, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon, Optional<EdgeInsets> insetPadding) {
+    var st = WidgetFactories.datePickerDialog(factories);
+    var fn = WidgetFactories.DatePickerDialogSt.datePickerDialog(st);
+    return WidgetFactories.DatePickerDialogSt.datePickerDialog.invoke(fn, arena, ptrObj(initialDate),
+      firstDate.build().getId(),
+      lastDate.build().getId(),
+      ptrObj(currentDate),
+      ptrEnum(initialEntryMode),
+      selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayPredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL,
+      ptrStr(cancelText),
+      ptrStr(confirmText),
+      ptrStr(helpText),
+      ptrEnum(initialCalendarMode),
+      ptrStr(errorFormatText),
+      ptrStr(errorInvalidText),
+      ptrStr(fieldHintText),
+      ptrStr(fieldLabelText),
+      ptrStr(restorationId),
+      onDatePickerModeChange.isPresent() ? ptrHolder(ptrValueChangedForDatePickerEntryModeFn(onDatePickerModeChange.get())) : MemorySegment.NULL,
+      ptrObj(switchToInputEntryModeIcon),
+      ptrObj(switchToCalendarEntryModeIcon),
+      ptrObj(insetPadding));
+  }
+
+  MemorySegment calendarDatePickerCalendarDatePicker(DateTime initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Consumer<DateTime> onDateChanged, Optional<Consumer<DateTime>> onDisplayedMonthChanged, Optional<DatePickerMode> initialCalendarMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate) {
+    var st = WidgetFactories.calendarDatePicker(factories);
+    var fn = WidgetFactories.CalendarDatePickerSt.calendarDatePicker(st);
+    return WidgetFactories.CalendarDatePickerSt.calendarDatePicker.invoke(fn, arena, initialDate != null ? initialDate.build().getId() : null,
+      firstDate.build().getId(),
+      lastDate.build().getId(),
+      ptrObj(currentDate),
+      ptrValueChangedForDateTimeFn(onDateChanged),
+      onDisplayedMonthChanged.isPresent() ? ptrHolder(ptrValueChangedForDateTimeFn(onDisplayedMonthChanged.get())) : MemorySegment.NULL,
+      ptrEnum(initialCalendarMode),
+      selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayPredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment timePickerDialogTimePickerDialog(TimeOfDay initialTime, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<String> errorInvalidText, Optional<String> hourLabelText, Optional<String> minuteLabelText, Optional<String> restorationId, Optional<TimePickerEntryMode> initialEntryMode, Optional<Orientation> orientation, Optional<Consumer<TimePickerEntryMode>> onEntryModeChanged, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToTimerEntryModeIcon) {
+    var st = WidgetFactories.timePickerDialog(factories);
+    var fn = WidgetFactories.TimePickerDialogSt.timePickerDialog(st);
+    return WidgetFactories.TimePickerDialogSt.timePickerDialog.invoke(fn, arena, initialTime.build().getId(),
+      ptrStr(cancelText),
+      ptrStr(confirmText),
+      ptrStr(helpText),
+      ptrStr(errorInvalidText),
+      ptrStr(hourLabelText),
+      ptrStr(minuteLabelText),
+      ptrStr(restorationId),
+      ptrEnum(initialEntryMode),
+      ptrEnum(orientation),
+      onEntryModeChanged.isPresent() ? ptrHolder(ptrEntryModeChangeCallbackFn(onEntryModeChanged.get())) : MemorySegment.NULL,
+      ptrObj(switchToInputEntryModeIcon),
+      ptrObj(switchToTimerEntryModeIcon));
+  }
+
+  MemorySegment dateRangePickerDialogDateRangePickerDialog(DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<String> helpText, Optional<String> cancelText, Optional<String> confirmText, Optional<String> saveText, Optional<String> errorInvalidRangeText, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldStartHintText, Optional<String> fieldEndHintText, Optional<String> fieldStartLabelText, Optional<String> fieldEndLabelText, Optional<String> restorationId, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon, Optional<TriFunction<DateTime, DateTime, DateTime, Boolean>> selectableDayPredicate) {
+    var st = WidgetFactories.dateRangePickerDialog(factories);
+    var fn = WidgetFactories.DateRangePickerDialogSt.dateRangePickerDialog(st);
+    return WidgetFactories.DateRangePickerDialogSt.dateRangePickerDialog.invoke(fn, arena, firstDate.build().getId(),
+      lastDate.build().getId(),
+      ptrObj(currentDate),
+      ptrEnum(initialEntryMode),
+      ptrStr(helpText),
+      ptrStr(cancelText),
+      ptrStr(confirmText),
+      ptrStr(saveText),
+      ptrStr(errorInvalidRangeText),
+      ptrStr(errorFormatText),
+      ptrStr(errorInvalidText),
+      ptrStr(fieldStartHintText),
+      ptrStr(fieldEndHintText),
+      ptrStr(fieldStartLabelText),
+      ptrStr(fieldEndLabelText),
+      ptrStr(restorationId),
+      ptrObj(switchToInputEntryModeIcon),
+      ptrObj(switchToCalendarEntryModeIcon),
+      selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayForRangePredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment yearPickerYearPicker(Optional<DateTime> currentDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> initialDate, DateTime selectedDate, Consumer<DateTime> onChanged, Optional<DragStartBehavior> dragStartBehavior) {
+    var st = WidgetFactories.yearPicker(factories);
+    var fn = WidgetFactories.YearPickerSt.yearPicker(st);
+    return WidgetFactories.YearPickerSt.yearPicker.invoke(fn, arena, ptrObj(currentDate),
+      firstDate.build().getId(),
+      lastDate.build().getId(),
+      ptrObj(initialDate),
+      selectedDate != null ? selectedDate.build().getId() : null,
+      ptrValueChangedForDateTimeFn(onChanged),
+      ptrEnum(dragStartBehavior));
+  }
+
+  MemorySegment inputDatePickerFormFieldInputDatePickerFormField(Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<Consumer<DateTime>> onDateSubmitted, Optional<Consumer<DateTime>> onDateSaved, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<Boolean> autofocus, Optional<Boolean> acceptEmptyDate) {
+    var st = WidgetFactories.inputDatePickerFormField(factories);
+    var fn = WidgetFactories.InputDatePickerFormFieldSt.inputDatePickerFormField(st);
+    return WidgetFactories.InputDatePickerFormFieldSt.inputDatePickerFormField.invoke(fn, arena, ptrObj(initialDate),
+      firstDate.build().getId(),
+      lastDate.build().getId(),
+      onDateSubmitted.isPresent() ? ptrHolder(ptrValueChangedForDateTimeFn(onDateSubmitted.get())) : MemorySegment.NULL,
+      onDateSaved.isPresent() ? ptrHolder(ptrValueChangedForDateTimeFn(onDateSaved.get())) : MemorySegment.NULL,
+      selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayPredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL,
+      ptrStr(errorFormatText),
+      ptrStr(errorInvalidText),
+      ptrStr(fieldHintText),
+      ptrStr(fieldLabelText),
+      ptrBool(autofocus),
+      ptrBool(acceptEmptyDate));
+  }
+
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+    var st = WidgetFactories.searchBar(factories);
+    var fn = WidgetFactories.SearchBarSt.searchBar(st);
+    return WidgetFactories.SearchBarSt.searchBar.invoke(fn, arena, ptrStr(hintText),
+      ptrObj(leading),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      ptrObj(constraints),
+      ptrEnum(textCapitalization),
+      ptrBool(enabled),
+      ptrBool(autoFocus),
+      ptrEnum(textInputAction),
+      ptrObj(scrollPadding));
+  }
+
   MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.cupertinoApp(factories);
     var fn = WidgetFactories.CupertinoAppSt.cupertinoApp(st);
@@ -4290,7 +5099,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(trailingIcon));
   }
 
-  <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
+  <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
     return WidgetFactories.SubStateSt.subState.invoke(fn, arena, ptrVoidCallbackFn(initStateFn),
@@ -4315,7 +5124,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SubStatelessWidgetSt.subStatelessWidget.invoke(fn, arena, ptrDartObjCallbackDartObjFn(buildFn));
   }
 
-  <T extends StatefulWidget> MemorySegment subAnimatedStateSubAnimatedState(Runnable initStateFn, Consumer<T> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
+  <T extends StatefulWidget> MemorySegment subAnimatedStateSubAnimatedState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subAnimatedState(factories);
     var fn = WidgetFactories.SubAnimatedStateSt.subAnimatedState(st);
     return WidgetFactories.SubAnimatedStateSt.subAnimatedState.invoke(fn, arena, ptrVoidCallbackFn(initStateFn),
@@ -4343,10 +5152,32 @@ MemorySegment ptrWidgetBuilderFn(Function<BuildContext, Widget> jFn) {
     return jFnRet.build().getId();
   }, arena);
 }
+MemorySegment ptrSelectableDayPredicateFn(Function<DateTime, Boolean> jFn) {
+  return SelectableDayPredicateFFI.allocate((day) -> {
+    final var jFnRet = jFn.apply(new DateTime(day));
+    return (jFnRet ? 1 : 0);
+  }, arena);
+}
 MemorySegment ptrTransitionBuilderFn(BiFunction<BuildContext, Widget, Widget> jFn) {
   return TransitionBuilderFFI.allocate((context, child) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Widget(child) {});
     return jFnRet.build().getId();
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForDatePickerEntryModeFn(Consumer<DatePickerEntryMode> jFn) {
+  return ValueChangedForDatePickerEntryModeFFI.allocate((value) -> {
+    jFn.accept(DatePickerEntryMode.values()[value]);
+  }, arena);
+}
+MemorySegment ptrEntryModeChangeCallbackFn(Consumer<TimePickerEntryMode> jFn) {
+  return EntryModeChangeCallbackFFI.allocate((mode) -> {
+    jFn.accept(TimePickerEntryMode.values()[mode]);
+  }, arena);
+}
+MemorySegment ptrSelectableDayForRangePredicateFn(TriFunction<DateTime, DateTime, DateTime, Boolean> jFn) {
+  return SelectableDayForRangePredicateFFI.allocate((day, selectedStartDay, selectedEndDay) -> {
+    final var jFnRet = jFn.apply(new DateTime(day), new DateTime(selectedStartDay), new DateTime(selectedEndDay));
+    return (jFnRet ? 1 : 0);
   }, arena);
 }
 MemorySegment ptrVoidCallbackFn(Runnable jFn) {
@@ -4383,26 +5214,26 @@ MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
     return (jFnRet ? 1 : 0);
   }, arena);
 }
-<T> MemorySegment ptrDragTargetBuilderForTFn(TriFunction<BuildContext, List<T>, List<NativeObj>, Widget> jFn) {
+<T> MemorySegment ptrDragTargetBuilderForTFn(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> jFn) {
   return DragTargetBuilderForTFFI.allocate((context, candidateData, rejectedData) -> {
-    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, ((List<T>) (List) memToWidgetList(candidateData)), ((List<NativeObj>) (List) memToWidgetList(rejectedData)));
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, ((List<NativeObj>) (List) memToWidgetList(candidateData)), ((List<NativeObj>) (List) memToWidgetList(rejectedData)));
     return jFnRet.build().getId();
   }, arena);
 }
-<T> MemorySegment ptrDragTargetWillAcceptForTFn(Function<T, Boolean> jFn) {
+<T> MemorySegment ptrDragTargetWillAcceptForTFn(Function<NativeObj, Boolean> jFn) {
   return DragTargetWillAcceptForTFFI.allocate((data) -> {
-    final var jFnRet = jFn.apply((T) (NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    final var jFnRet = jFn.apply((NativeObj) new NativeObj.Base() {{ this.id = data; }});
     return (jFnRet ? 1 : 0);
   }, arena);
 }
-<T> MemorySegment ptrDragTargetAcceptForTFn(Consumer<T> jFn) {
+<T> MemorySegment ptrDragTargetAcceptForTFn(Consumer<NativeObj> jFn) {
   return DragTargetAcceptForTFFI.allocate((data) -> {
-    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
   }, arena);
 }
-<T> MemorySegment ptrDragTargetLeaveForTFn(Consumer<T> jFn) {
+<T> MemorySegment ptrDragTargetLeaveForTFn(Consumer<NativeObj> jFn) {
   return DragTargetLeaveForTFFI.allocate((data) -> {
-    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
   }, arena);
 }
 MemorySegment ptrHeroFlightShuttleBuilderFn(PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget> jFn) {
@@ -4512,6 +5343,53 @@ MemorySegment ptrTooltipTriggeredCallbackFn(Runnable jFn) {
     jFn.accept(intToBool(value), index);
   }, arena);
 }
+<T> MemorySegment ptrValueSetterForBoolOptFn(Consumer<Boolean> jFn) {
+  return ValueSetterForBoolOptFFI.allocate((value) -> {
+    jFn.accept(memToBool(value));
+  }, arena);
+}
+MemorySegment ptrDataColumnSortCallbackFn(BiConsumer<Integer, Boolean> jFn) {
+  return DataColumnSortCallbackFFI.allocate((columnIndex, ascending) -> {
+    jFn.accept(columnIndex, intToBool(ascending));
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForTOptFn(Consumer<NativeObj> jFn) {
+  return ValueChangedForTOptFFI.allocate((value) -> {
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
+  }, arena);
+}
+MemorySegment ptrExpansionPanelHeaderBuilderFn(BiFunction<BuildContext, Boolean, Widget> jFn) {
+  return ExpansionPanelHeaderBuilderFFI.allocate((context, isExpanded) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, intToBool(isExpanded));
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrExpansionPanelCallbackFn(BiConsumer<Integer, Boolean> jFn) {
+  return ExpansionPanelCallbackFFI.allocate((panelIndex, isExpanded) -> {
+    jFn.accept(panelIndex, intToBool(isExpanded));
+  }, arena);
+}
+<T> MemorySegment ptrPopupMenuItemBuilderForTFn(Function<BuildContext, List<PopupMenuEntry>> jFn) {
+  return PopupMenuItemBuilderForTFFI.allocate((context) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
+    return ptrList(jFnRet);
+  }, arena);
+}
+<T> MemorySegment ptrPopupMenuItemSelectedForTFn(Consumer<NativeObj> jFn) {
+  return PopupMenuItemSelectedForTFFI.allocate((value) -> {
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = value; }});
+  }, arena);
+}
+MemorySegment ptrPopupMenuCanceledFn(Runnable jFn) {
+  return PopupMenuCanceledFFI.allocate(() -> {
+    jFn.run();
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForDateTimeFn(Consumer<DateTime> jFn) {
+  return ValueChangedForDateTimeFFI.allocate((value) -> {
+    jFn.accept(new DateTime(value));
+  }, arena);
+}
 <T> MemorySegment ptrValueChangedForDurationFn(Consumer<Duration> jFn) {
   return ValueChangedForDurationFFI.allocate((value) -> {
     jFn.accept(new Duration(value));
@@ -4529,9 +5407,9 @@ MemorySegment ptrCupertinoContextMenuBuilderFn(BiFunction<BuildContext, Animatio
     return jFnRet.build().getId();
   }, arena);
 }
-<T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<T> jFn) {
+<T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<NativeObj> jFn) {
   return VoidCallbackDartObjFFI.allocate((t) -> {
-    jFn.accept((T) (NativeObj) new NativeObj.Base() {{ this.id = t; }});
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = t; }});
   }, arena);
 }
 MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {

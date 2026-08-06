@@ -49,7 +49,6 @@ public class CupertinoContextMenu extends StatefulWidget implements CupertinoCon
   public static double kOpenBorderRadius() {
     return 12.0;
   }
-
   @Override
   public CupertinoContextMenu build() {
     return this;
