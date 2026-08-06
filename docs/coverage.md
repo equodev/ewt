@@ -7,9 +7,9 @@ Flutter 3.35.7
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
 | Basic widgets | 69 | 291 | 23% |
-| Material | 34 | 187 | 18% |
+| Material | 63 | 187 | 33% |
 | Cupertino | 29 | 53 | 54% |
-| **Total** | **132** | **531** | **24%** |
+| **Total** | **161** | **531** | **30%** |
 
 ## Basic widgets
 
@@ -313,33 +313,60 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**34 of 187 supported**
+**63 of 187 supported**
 
 - [x] AlertDialog
 - [x] AppBar
 - [x] Badge
+- [x] CalendarDatePicker
 - [x] Card
 - [x] Checkbox
 - [x] CheckboxListTile
+- [x] CheckboxMenuButton
+- [x] CheckedPopupMenuItem
 - [x] Chip
+- [x] CircleAvatar
 - [x] CircularProgressIndicator
+- [x] DataTable
+- [x] DatePickerDialog
+- [x] DateRangePickerDialog
 - [x] DefaultTabController
 - [x] Divider
 - [x] Drawer
 - [x] ElevatedButton
+- [x] ExpansionPanelList
+- [x] ExpansionTile
 - [x] FilledButton
 - [x] FloatingActionButton
 - [x] IconButton
+- [x] InputDatePickerFormField
 - [x] LinearProgressIndicator
 - [x] ListTile
 - [x] Material
 - [x] MaterialApp
+- [x] MenuAnchor
+- [x] MenuBar
+- [x] MenuItemButton
+- [x] NavigationBar
+- [x] NavigationDestination
+- [x] NavigationDrawer
+- [x] NavigationDrawerDestination
+- [x] NavigationRail
 - [x] OutlinedButton
+- [x] PopupMenuButton
+- [x] PopupMenuDivider
+- [x] PopupMenuItem
+- [x] Radio
+- [x] RadioListTile
+- [x] RadioMenuButton
 - [x] Scaffold
 - [x] ScaffoldMessenger
+- [x] Scrollbar
+- [x] SearchBar
 - [x] Slider
 - [x] SnackBar
 - [x] SnackBarAction
+- [x] SubmenuButton
 - [x] Switch
 - [x] SwitchListTile
 - [x] Tab
@@ -348,7 +375,9 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] TextButton
 - [x] TextField
 - [x] Theme
+- [x] TimePickerDialog
 - [x] Tooltip
+- [x] YearPicker
 - [ ] AboutDialog
 - [ ] AboutListTile
 - [ ] ActionChip
@@ -369,23 +398,16 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] ButtonBar
 - [ ] ButtonBarTheme
 - [ ] ButtonTheme
-- [ ] CalendarDatePicker
 - [ ] CardTheme
 - [ ] CarouselView
 - [ ] CarouselViewTheme
-- [ ] CheckboxMenuButton
 - [ ] CheckboxTheme
-- [ ] CheckedPopupMenuItem
 - [ ] ChipTheme
 - [ ] ChoiceChip
-- [ ] CircleAvatar
 - [ ] CloseButton
 - [ ] CloseButtonIcon
-- [ ] DataTable
 - [ ] DataTableTheme
-- [ ] DatePickerDialog
 - [ ] DatePickerTheme
-- [ ] DateRangePickerDialog
 - [ ] DesktopTextSelectionToolbar
 - [ ] DesktopTextSelectionToolbarButton
 - [ ] Dialog
@@ -407,8 +429,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] EndDrawerButton
 - [ ] EndDrawerButtonIcon
 - [ ] ExpandIcon
-- [ ] ExpansionPanelList
-- [ ] ExpansionTile
 - [ ] ExpansionTileTheme
 - [ ] FilledButtonTheme
 - [ ] FilterChip
@@ -421,7 +441,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] InkResponse
 - [ ] InkWell
 - [ ] InputChip
-- [ ] InputDatePickerFormField
 - [ ] InputDecorationTheme
 - [ ] InputDecorator
 - [ ] LicensePage
@@ -432,32 +451,18 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] MaterialButton
 - [ ] MenuAcceleratorCallbackBinding
 - [ ] MenuAcceleratorLabel
-- [ ] MenuAnchor
-- [ ] MenuBar
 - [ ] MenuBarTheme
 - [ ] MenuButtonTheme
-- [ ] MenuItemButton
 - [ ] MenuTheme
 - [ ] MergeableMaterial
-- [ ] NavigationBar
 - [ ] NavigationBarTheme
-- [ ] NavigationDestination
-- [ ] NavigationDrawer
-- [ ] NavigationDrawerDestination
 - [ ] NavigationDrawerTheme
 - [ ] NavigationIndicator
-- [ ] NavigationRail
 - [ ] NavigationRailTheme
 - [ ] OutlinedButtonTheme
 - [ ] PaginatedDataTable
-- [ ] PopupMenuButton
-- [ ] PopupMenuDivider
-- [ ] PopupMenuItem
 - [ ] PopupMenuTheme
 - [ ] ProgressIndicatorTheme
-- [ ] Radio
-- [ ] RadioListTile
-- [ ] RadioMenuButton
 - [ ] RadioTheme
 - [ ] RangeSlider
 - [ ] RawChip
@@ -465,10 +470,8 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] RefreshIndicator
 - [ ] RefreshProgressIndicator
 - [ ] ReorderableListView
-- [ ] Scrollbar
 - [ ] ScrollbarTheme
 - [ ] SearchAnchor
-- [ ] SearchBar
 - [ ] SearchBarTheme
 - [ ] SearchViewTheme
 - [ ] SegmentedButton
@@ -481,7 +484,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] SliverAppBar
 - [ ] SpellCheckSuggestionsToolbar
 - [ ] Stepper
-- [ ] SubmenuButton
 - [ ] SwitchTheme
 - [ ] TabBarTheme
 - [ ] TabPageSelector
@@ -493,7 +495,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] TextSelectionTheme
 - [ ] TextSelectionToolbar
 - [ ] TextSelectionToolbarTextButton
-- [ ] TimePickerDialog
 - [ ] TimePickerTheme
 - [ ] ToggleButtons
 - [ ] ToggleButtonsTheme
@@ -501,7 +502,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] TooltipVisibility
 - [ ] UserAccountsDrawerHeader
 - [ ] VerticalDivider
-- [ ] YearPicker
 
 ## Cupertino
 
