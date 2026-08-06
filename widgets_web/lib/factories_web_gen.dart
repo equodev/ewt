@@ -3191,6 +3191,7 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       onPressed: ewtWireCallback(p['onPressed']),
       trailingIcon: p['trailingIcon'] == null ? null : decodeEwtNode(p['trailingIcon'] as Map<String,dynamic>) as IconData),
 
+
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   'subAnimatedStateAnimationController': (p) {
     final ctrlId = p['ctrlId'] as int;

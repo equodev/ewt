@@ -49,7 +49,12 @@ public class CupertinoContextMenu extends StatefulWidget implements CupertinoCon
   public static double kOpenBorderRadius() {
     return 12.0;
   }
-
+  public static List<BoxShadow> kEndBoxShadow() {
+    return _endBoxShadow();
+  }
+  public static Color kBackgroundColor() {
+    return _kBackgroundColor();
+  }
   @Override
   public CupertinoContextMenu build() {
     return this;

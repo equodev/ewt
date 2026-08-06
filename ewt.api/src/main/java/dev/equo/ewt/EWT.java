@@ -1245,4 +1245,10 @@ public class EWT {
   public static CupertinoContextMenuActionCupertinoContextMenuActionBuilder CupertinoContextMenuAction(WidgetI child) {
     return CupertinoContextMenuActionCupertinoContextMenuActionBuilder.cupertinoContextMenuActionCupertinoContextMenuAction(child);
   }
+
+  /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
+   *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
+  public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {
+    return OffsetAnimation.create(begin.build(), end.build(), parent.build());
+  }
 }

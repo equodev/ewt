@@ -5343,23 +5343,6 @@ MemorySegment ptrTooltipTriggeredCallbackFn(Runnable jFn) {
     jFn.accept(intToBool(value), index);
   }, arena);
 }
-<T> MemorySegment ptrValueChangedForDurationFn(Consumer<Duration> jFn) {
-  return ValueChangedForDurationFFI.allocate((value) -> {
-    jFn.accept(new Duration(value));
-  }, arena);
-}
-MemorySegment ptrSelectionOverlayBuilderFn(TriFunction<BuildContext, Integer, Integer, Widget> jFn) {
-  return SelectionOverlayBuilderFFI.allocate((context, columnCount, selectedIndex) -> {
-    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, columnCount, selectedIndex);
-    return jFnRet != null ? jFnRet.build().getId() : null;
-  }, arena);
-}
-MemorySegment ptrCupertinoContextMenuBuilderFn(BiFunction<BuildContext, Animation, Widget> jFn) {
-  return CupertinoContextMenuBuilderFFI.allocate((context, animation) -> {
-    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Animation() { public int getId() { return animation; } });
-    return jFnRet.build().getId();
-  }, arena);
-}
 <T> MemorySegment ptrValueSetterForBoolOptFn(Consumer<Boolean> jFn) {
   return ValueSetterForBoolOptFFI.allocate((value) -> {
     jFn.accept(memToBool(value));
@@ -5405,6 +5388,23 @@ MemorySegment ptrPopupMenuCanceledFn(Runnable jFn) {
 <T> MemorySegment ptrValueChangedForDateTimeFn(Consumer<DateTime> jFn) {
   return ValueChangedForDateTimeFFI.allocate((value) -> {
     jFn.accept(new DateTime(value));
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForDurationFn(Consumer<Duration> jFn) {
+  return ValueChangedForDurationFFI.allocate((value) -> {
+    jFn.accept(new Duration(value));
+  }, arena);
+}
+MemorySegment ptrSelectionOverlayBuilderFn(TriFunction<BuildContext, Integer, Integer, Widget> jFn) {
+  return SelectionOverlayBuilderFFI.allocate((context, columnCount, selectedIndex) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, columnCount, selectedIndex);
+    return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrCupertinoContextMenuBuilderFn(BiFunction<BuildContext, Animation, Widget> jFn) {
+  return CupertinoContextMenuBuilderFFI.allocate((context, animation) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Animation() { public int getId() { return animation; } });
+    return jFnRet.build().getId();
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<NativeObj> jFn) {

@@ -6763,6 +6763,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
 
+
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   @Override
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
