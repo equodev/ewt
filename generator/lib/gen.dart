@@ -875,42 +875,71 @@ class WidgetGen implements AGen {
         return;
       }
     }
+    // Pre-check: SimpleIdentifier → private class-level field that can't be
+    // inlined as a primitive. Skip rather than calling a non-existent Java method.
+    if (initializer is SimpleIdentifier) {
+      final si = initializer as SimpleIdentifier;
+      var el = si.staticElement;
+      VariableElement? fieldEl;
+      if (el is FieldElement) { fieldEl = el; }
+      else if (el is PropertyAccessorElement && el.isGetter && el.variable2 is FieldElement) {
+        fieldEl = el.variable2 as FieldElement;
+      }
+      if (fieldEl != null && fieldEl.isConst && fieldEl.isPrivate) {
+        var val = fieldEl.computeConstantValue();
+        bool canInline = val?.toIntValue() != null || val?.toDoubleValue() != null ||
+            val?.toStringValue() != null || val?.getField('value')?.toIntValue() != null;
+        if (!canInline) return;
+      }
+    }
+
+    // For non-private InstanceCreationExpression and scalar else-branch: pre-evaluate
+    // body before writing the method header to avoid empty methods on unresolvable values.
+    if (initializer is InstanceCreationExpression && !isPrivateConst(fld)) {
+      var body = dartExptrToJava(initializer as Expression);
+      if (body.contains(_unresolvable)) return;
+      javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+      javaFile.writeln('    return $body;');
+      javaFile.writeln('  }');
+      return;
+    }
+    if (initializer != null && initializer is! InstanceCreationExpression && initializer is! ListLiteral) {
+      var body = dartExptrToJava(initializer);
+      if (body.contains(_unresolvable)) return;
+      javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+      javaFile.writeln('    return $body;');
+      javaFile.writeln('  }');
+      return;
+    }
+
     javaFile
         .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
+      // isPrivateConst must be true here (non-private was handled above)
       String factoryName = '$widgetField${fld.name.firstUpper()}';
-      if (isPrivateConst(fld)) {
-        _ensureStructOpened();
-        headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
-
-        dartAssigns
-            .writeln('  f.$widgetField.$factory = _addWidget($widgetClass.${fld.name});');
-
-        javaFile
-          ..writeln('    int id = factories.$factoryName();')
-          ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
-          ..writeln('    System.out.println("Const $factory id:"+id);')
-          ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
-        writeJavaConstMethod(factoryName, factory, fld);
-        writeConstSerializerAndDecoder(fld, factoryName);
-      } else {
-        javaFile.writeln(
-            '    return ${dartExptrToJava(initializer as Expression)};');
-      }
+      _ensureStructOpened();
+      headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
+      dartAssigns
+          .writeln('  f.$widgetField.$factory = _addWidget($widgetClass.${fld.name});');
+      javaFile
+        ..writeln('    int id = factories.$factoryName();')
+        ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
+        ..writeln('    System.out.println("Const $factory id:"+id);')
+        ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
+      writeJavaConstMethod(factoryName, factory, fld);
+      writeConstSerializerAndDecoder(fld, factoryName);
     }
     else if (initializer is ListLiteral) {
       javaFile
         .writeln('    return List.of(${(initializer as ListLiteral).elements.map((e) => '$e()').join(', ')});');
-    }
-    else {
-      javaFile
-          .writeln('    return ${dartExptrToJava(initializer!)};');
     }
     javaFile
       .writeln('  }');
   }
 
   void writeMembers() {}
+
+  static const String _unresolvable = '\x00UNRESOLVABLE\x00';
 
   String dartExptrToJava(Expression e) {
     if (e is InstanceCreationExpression) {
@@ -949,10 +978,60 @@ class WidgetGen implements AGen {
         if (val?.toIntValue() != null) return val!.toIntValue().toString();
         if (val?.toDoubleValue() != null) return val!.toDoubleValue().toString();
         if (val?.toStringValue() != null) return '"${val!.toStringValue()}"';
+        // Non-primitive private top-level var (e.g. Color in new Flutter API) — skip.
+        return _unresolvable;
+      }
+      // Class-level private const fields (FieldElement): only inline Color via ARGB int.
+      // Primitives (int/double/String) are already emitted as private Java methods by
+      // writeConst and are correctly called via _fieldName().
+      VariableElement? fieldEl;
+      if (el is FieldElement) { fieldEl = el; }
+      else if (el is PropertyAccessorElement && el.isGetter && el.variable2 is FieldElement) {
+        fieldEl = el.variable2 as FieldElement;
+      }
+      if (fieldEl != null && fieldEl.isConst && fieldEl.isPrivate) {
+        var val = fieldEl.computeConstantValue();
+        var colorArgb = val?.getField('value')?.toIntValue();
+        if (colorArgb != null) {
+          return 'Color.color(0x${colorArgb.toRadixString(16).toUpperCase().padLeft(8, '0')}).build()';
+        }
+        // Complex non-Color type (List, BoxShadow, etc.) — unresolvable.
+        if (val?.toIntValue() == null && val?.toDoubleValue() == null && val?.toStringValue() == null) {
+          return _unresolvable;
+        }
       }
       return '$e()';
     }
     else if (e is PrefixedIdentifier) {
+      // For statics on classes not in the generated set, try to inline the const value.
+      // Handles CupertinoColors.systemRed and similar cross-class references.
+      var prefixEl = e.prefix.staticElement;
+      if (prefixEl is ClassElement && types.widgets.every((w) => w.name != prefixEl.name)) {
+        var accessorEl = e.identifier.staticElement;
+        VariableElement? varEl;
+        if (accessorEl is PropertyAccessorElement && accessorEl.isGetter) {
+          varEl = accessorEl.variable2;
+        } else if (accessorEl is FieldElement) {
+          varEl = accessorEl as VariableElement;
+        }
+        if (varEl != null && varEl.isConst) {
+          var val = varEl.computeConstantValue();
+          if (val?.toIntValue() != null) return val!.toIntValue().toString();
+          if (val?.toDoubleValue() != null) {
+            var d = val!.toDoubleValue()!;
+            if (d.isInfinite) return d.isNegative ? 'Double.NEGATIVE_INFINITY' : 'Double.POSITIVE_INFINITY';
+            if (d.isNaN) return 'Double.NaN';
+            return d.toString();
+          }
+          if (val?.toStringValue() != null) return '"${val!.toStringValue()}"';
+          var colorArgb = val?.getField('value')?.toIntValue();
+          if (colorArgb != null) {
+            return 'Color.color(0x${colorArgb.toRadixString(16).toUpperCase().padLeft(8, '0')}).build()';
+          }
+          // Value not resolvable (e.g. new-API Color uses r/g/b/a doubles).
+          return _unresolvable;
+        }
+      }
       if (e.staticType != null && !isPrimitive(e.staticType!) && e.staticType!.element is! EnumElement) {
         return '${e.toString()}()';
       }
