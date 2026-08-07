@@ -92,6 +92,7 @@ w.AnimatedAlign? animatedAlign;
 w.ListView? listView;
 w.GridView? gridView;
 w.PageView? pageView;
+w.ListWheelScrollView? listWheelScrollView;
 w.Flex? flex;
 
 w.AnimatedSize? animatedSize;
@@ -171,6 +172,7 @@ m.DefaultTabController? defaultTabController;
 m.CheckboxListTile? checkboxListTile;
 m.SwitchListTile? switchListTile;
 m.Badge? badge;
+m.InkWell? inkWell;
 
 m.DataTable? dataTable;
 m.DataColumn? dataColumn;

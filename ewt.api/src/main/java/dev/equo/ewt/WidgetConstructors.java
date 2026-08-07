@@ -1521,6 +1521,27 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(padEnds));
   }
 
+  MemorySegment listWheelScrollViewListWheelScrollView(OptionalDouble diameterRatio, OptionalDouble perspective, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble overAndUnderCenterOpacity, double itemExtent, OptionalDouble squeeze, Optional<Consumer<Integer>> onSelectedItemChanged, Optional<Boolean> renderChildrenOutsideViewport, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId, Optional<DragStartBehavior> dragStartBehavior, Optional<ChangeReportingBehavior> changeReportingBehavior, List<Widget> children) {
+    var st = WidgetFactories.listWheelScrollView(factories);
+    var fn = WidgetFactories.ListWheelScrollViewSt.listWheelScrollView(st);
+    return WidgetFactories.ListWheelScrollViewSt.listWheelScrollView.invoke(fn, arena, ptr(diameterRatio),
+      ptr(perspective),
+      ptr(offAxisFraction),
+      ptrBool(useMagnifier),
+      ptr(magnification),
+      ptr(overAndUnderCenterOpacity),
+      itemExtent,
+      ptr(squeeze),
+      onSelectedItemChanged.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onSelectedItemChanged.get())) : MemorySegment.NULL,
+      ptrBool(renderChildrenOutsideViewport),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior),
+      ptrStr(restorationId),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(changeReportingBehavior),
+      ptrList(children));
+  }
+
   MemorySegment animatedSizeAnimatedSize(Optional<Widget> child, Optional<AlignmentGeometry> alignment, Optional<Curve> curve, Duration duration, Optional<Duration> reverseDuration, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     var st = WidgetFactories.animatedSize(factories);
     var fn = WidgetFactories.AnimatedSizeSt.animatedSize(st);
@@ -3772,6 +3793,62 @@ class WidgetConstructors extends WidgetConstructorsBase {
       count,
       ptrBool(isLabelVisible),
       ptrObj(child));
+  }
+
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+    var st = WidgetFactories.inkWell(factories);
+    var fn = WidgetFactories.InkWellSt.inkWell(st);
+    return WidgetFactories.InkWellSt.inkWell.invoke(fn, arena, ptrObj(child),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
+      onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
+      onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(highlightColor),
+      ptrObj(splashColor),
+      ptr(radius),
+      ptrObj(borderRadius),
+      ptrObj(customBorder),
+      ptrBool(enableFeedback),
+      ptrBool(excludeFromSemantics),
+      ptrBool(canRequestFocus),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrObj(hoverDuration));
+  }
+
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+    var st = WidgetFactories.inkResponse(factories);
+    var fn = WidgetFactories.InkResponseSt.inkResponse(st);
+    return WidgetFactories.InkResponseSt.inkResponse.invoke(fn, arena, ptrObj(child),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
+      onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
+      onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
+      ptrBool(containedInkWell),
+      ptrEnum(highlightShape),
+      ptr(radius),
+      ptrObj(borderRadius),
+      ptrObj(customBorder),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(highlightColor),
+      ptrObj(splashColor),
+      ptrBool(enableFeedback),
+      ptrBool(excludeFromSemantics),
+      ptrBool(canRequestFocus),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(autofocus),
+      ptrObj(hoverDuration));
   }
 
   MemorySegment dataTableDataTable(List<DataColumn> columns, OptionalInt sortColumnIndex, Optional<Boolean> sortAscending, Optional<Consumer<Boolean>> onSelectAll, Optional<Decoration> decoration, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyle> dataTextStyle, OptionalDouble headingRowHeight, Optional<TextStyle> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, Optional<Boolean> showCheckboxColumn, Optional<Boolean> showBottomBorder, OptionalDouble dividerThickness, List<DataRow> rows, OptionalDouble checkboxHorizontalMargin, Optional<Clip> clipBehavior) {
