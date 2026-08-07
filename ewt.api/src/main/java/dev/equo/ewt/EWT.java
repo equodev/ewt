@@ -551,6 +551,10 @@ public class EWT {
     return PageViewBuilderBuilder.pageViewBuilder();
   }
 
+  public static ListWheelScrollViewListWheelScrollViewBuilder ListWheelScrollView() {
+    return ListWheelScrollViewListWheelScrollViewBuilder.listWheelScrollViewListWheelScrollView();
+  }
+
   public static AnimatedSizeAnimatedSizeBuilder AnimatedSize() {
     return AnimatedSizeAnimatedSizeBuilder.animatedSizeAnimatedSize();
   }
@@ -932,6 +936,14 @@ public class EWT {
   }
   public static BadgeCountBuilder Badge_count() {
     return BadgeCountBuilder.badgeCount();
+  }
+
+  public static InkWellInkWellBuilder InkWell() {
+    return InkWellInkWellBuilder.inkWellInkWell();
+  }
+
+  public static InkResponseInkResponseBuilder InkResponse() {
+    return InkResponseInkResponseBuilder.inkResponseInkResponse();
   }
 
   public static DataTableDataTableBuilder DataTable(List<DataColumnI> columns) {

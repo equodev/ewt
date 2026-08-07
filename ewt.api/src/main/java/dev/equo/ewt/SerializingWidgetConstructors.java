@@ -2122,6 +2122,32 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment listWheelScrollViewListWheelScrollView(OptionalDouble diameterRatio, OptionalDouble perspective, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble overAndUnderCenterOpacity, double itemExtent, OptionalDouble squeeze, Optional<Consumer<Integer>> onSelectedItemChanged, Optional<Boolean> renderChildrenOutsideViewport, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId, Optional<DragStartBehavior> dragStartBehavior, Optional<ChangeReportingBehavior> changeReportingBehavior, List<Widget> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (diameterRatio.isPresent()) { p.put("diameterRatio", diameterRatio.getAsDouble()); }
+    if (perspective.isPresent()) { p.put("perspective", perspective.getAsDouble()); }
+    if (offAxisFraction.isPresent()) { p.put("offAxisFraction", offAxisFraction.getAsDouble()); }
+    useMagnifier.ifPresent(v -> p.put("useMagnifier", v));
+    if (magnification.isPresent()) { p.put("magnification", magnification.getAsDouble()); }
+    if (overAndUnderCenterOpacity.isPresent()) { p.put("overAndUnderCenterOpacity", overAndUnderCenterOpacity.getAsDouble()); }
+    p.put("itemExtent", itemExtent);
+    if (squeeze.isPresent()) { p.put("squeeze", squeeze.getAsDouble()); }
+    if (onSelectedItemChanged.isPresent()) { int __cb_onSelectedItemChanged = nextCallbackId++; p.put("onSelectedItemChanged", __cb_onSelectedItemChanged); java.util.function.Consumer<Integer> __h_onSelectedItemChanged = onSelectedItemChanged.get(); callbacks.put(__cb_onSelectedItemChanged, (java.util.function.Consumer<Object>)(v -> __h_onSelectedItemChanged.accept(((Number) v).intValue()))); }
+    renderChildrenOutsideViewport.ifPresent(v -> p.put("renderChildrenOutsideViewport", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    changeReportingBehavior.ifPresent(v -> p.put("changeReportingBehavior", v.ordinal()));
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    record(id, "listWheelScrollViewListWheelScrollView", p);
+    MemorySegment st = ListWheelScrollViewObjSt.allocate(arena);
+    ListWheelScrollViewObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment animatedSizeAnimatedSize(Optional<Widget> child, Optional<AlignmentGeometry> alignment, Optional<Curve> curve, Duration duration, Optional<Duration> reverseDuration, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -4973,6 +4999,72 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "badgeCount", p);
     MemorySegment st = BadgeObjSt.allocate(arena);
     BadgeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
+    if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
+    if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    if (radius.isPresent()) { p.put("radius", radius.getAsDouble()); }
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    customBorder.ifPresent(v -> p.put("customBorder", byId.get(v.getId())));
+    enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));
+    canRequestFocus.ifPresent(v -> p.put("canRequestFocus", v));
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    hoverDuration.ifPresent(v -> p.put("hoverDuration", byId.get(v.getId())));
+    record(id, "inkWellInkWell", p);
+    MemorySegment st = InkWellObjSt.allocate(arena);
+    InkWellObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
+    if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
+    if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
+    containedInkWell.ifPresent(v -> p.put("containedInkWell", v));
+    highlightShape.ifPresent(v -> p.put("highlightShape", v.ordinal()));
+    if (radius.isPresent()) { p.put("radius", radius.getAsDouble()); }
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    customBorder.ifPresent(v -> p.put("customBorder", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));
+    canRequestFocus.ifPresent(v -> p.put("canRequestFocus", v));
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    hoverDuration.ifPresent(v -> p.put("hoverDuration", byId.get(v.getId())));
+    record(id, "inkResponseInkResponse", p);
+    MemorySegment st = InkResponseObjSt.allocate(arena);
+    InkResponseObjSt.id(st, id);
     return st;
   }
 
