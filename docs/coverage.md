@@ -6,16 +6,16 @@ Flutter 3.35.7
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 69 | 291 | 23% |
-| Material | 63 | 187 | 33% |
+| Basic widgets | 70 | 291 | 24% |
+| Material | 64 | 187 | 34% |
 | Cupertino | 29 | 53 | 54% |
-| **Total** | **161** | **531** | **30%** |
+| **Total** | **163** | **531** | **30%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**69 of 291 supported**
+**70 of 291 supported**
 
 - [x] Align
 - [x] AnimatedAlign
@@ -61,6 +61,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] IntrinsicWidth
 - [x] LimitedBox
 - [x] ListView
+- [x] ListWheelScrollView
 - [x] MatrixTransition
 - [x] MouseRegion
 - [x] Navigator
@@ -173,7 +174,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] LayoutBuilder
 - [ ] LayoutId
 - [ ] ListBody
-- [ ] ListWheelScrollView
 - [ ] ListWheelViewport
 - [ ] ListenableBuilder
 - [ ] Listener
@@ -313,7 +313,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**63 of 187 supported**
+**64 of 187 supported**
 
 - [x] AlertDialog
 - [x] AppBar
@@ -339,6 +339,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] FilledButton
 - [x] FloatingActionButton
 - [x] IconButton
+- [x] InkWell
 - [x] InputDatePickerFormField
 - [x] LinearProgressIndicator
 - [x] ListTile
@@ -439,7 +440,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] IconButtonTheme
 - [ ] Ink
 - [ ] InkResponse
-- [ ] InkWell
 - [ ] InputChip
 - [ ] InputDecorationTheme
 - [ ] InputDecorator
