@@ -486,6 +486,8 @@ publish_to_mvn:
     - ./gradlew :ewt.api:publishAllPlatforms --no-daemon
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
 # Publishes dev.equo:ewt-evolve from the jar built by ewt_evolve_build (no rebuild). The
@@ -523,6 +525,8 @@ publish_ewt_evolve:
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=windows -PevolveHome=../swt-evolve --no-daemon
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
 upload_to_gcs:
@@ -532,6 +536,8 @@ upload_to_gcs:
     - ewt_build
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
 # =============================================================================
@@ -568,8 +574,8 @@ github_release:
        --form "value=false"'
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-      when: delayed
-      start_in: 5 minutes
+      when: manual
+      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
       when: delayed
       start_in: 5 minutes
@@ -606,5 +612,7 @@ bump_version:
       echo "Bumped $CURRENT_VERSION → $NEW_VERSION"
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
