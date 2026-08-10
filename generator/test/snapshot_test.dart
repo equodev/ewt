@@ -66,6 +66,17 @@ void main() {
             'Run `dart run tool/update_snapshots.dart` if the change is intentional.',
       );
     }
+
+    // Diagnostics smoke check: the generator must surface "silent skip"
+    // widgets (unsupported types, dropped widgets) via `warn:` on stderr.
+    // If this ever stops firing, either lib/diagnostics.dart got unwired
+    // or every widget in the index became supportable — in the second
+    // case, update this expectation.
+    expect(
+      result.stderr.toString(),
+      contains('warn:'),
+      reason: 'expected stderr to carry warn: lines from lib/diagnostics.dart',
+    );
   });
 
   test('committed generator outputs are unchanged (git diff)', () {

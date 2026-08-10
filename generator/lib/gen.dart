@@ -17,6 +17,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 
+import 'diagnostics.dart';
 import 'emit/emit_context.dart';
 import 'lang_writers.dart';
 import 'types.dart';
@@ -1688,10 +1689,10 @@ class Generation {
     _writeWW('factories_web_gen.dart', _buildWebDecoders(dartWebDecoders.toString()));
 
     for (var t in types.unsupportedTypes) {
-      print('Unsupported type $t');
+      warn('unsupported type: $t');
     }
     for (var w in droppedWidgets) {
-      print('Widget ${w.name}: no factory emitted (all constructors have unsupported required params) — only Java class generated (used as parent type)');
+      warn('${w.name}: no factory emitted (all constructors have unsupported required params) — only Java class generated (used as parent type)');
     }
   }
 
@@ -2170,6 +2171,13 @@ class Params {
   /// text of their initializer. Returns null if any private identifier can't be
   /// resolved to a const value — the caller should fall back to omitting the
   /// default so the param becomes an unset optional at the Java layer.
+  ///
+  /// Non-recursive: a replacement's own text (e.g. `_kA` → `_kB + 1`) is not
+  /// re-scanned, so nested private refs remain unresolved and either fall
+  /// through analyzer const-eval on the caller side or land in the emitted
+  /// source verbatim (a latent codegen bug for widgets that hit the pattern).
+  /// If this ever becomes recursive, add a `Set<String>` visited guard —
+  /// `_kA = _kB; _kB = _kA` would otherwise loop.
   static String? _inlinePrivateRefs(ParameterElement param, String defaultValue) {
     if (!defaultValue.contains('_')) return defaultValue;
     var out = defaultValue;
