@@ -21,7 +21,10 @@ import 'emit/emit_context.dart';
 import 'lang_writers.dart';
 import 'types.dart';
 
+part 'emit/c_emitter.dart';
+part 'emit/dart_emitter.dart';
 part 'emit/java_emitter.dart';
+part 'emit/web_emitter.dart';
 
 mixin AGen {
   String objType();
@@ -348,13 +351,6 @@ class WidgetGen implements AGen {
     ctx.pendingStructHeader = null;
   }
 
-  void _ensureStructOpened() {
-    if (ctx.pendingStructHeader != null) {
-      ctx.headerFile.writeln(ctx.pendingStructHeader);
-      ctx.pendingStructHeader = null;
-    }
-  }
-
   void writeFactory(FunctionTypedElement node) {
     if (node.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) || !types.supportedType(node.returnType)) {
       return;
@@ -410,39 +406,6 @@ class WidgetGen implements AGen {
     writeWebInstanceDecoder(factory, factoryName, node);
   }
 
-  /// Web decoder for a companion instance method: `receiver.method(args)`. The receiver is the
-  /// first companion param (a recorded node); remaining params decode from JSON. A method with no
-  /// extra args is emitted as a getter access (matches Flutter getters like MaterialColor.shade600).
-  void writeWebInstanceDecoder(String factory, String factoryName, FunctionTypedElement node) {
-    if (node.returnType is VoidType) return;
-    if (!_webDecodable(node)) return;
-    final recv = node.parameters.first;
-    final recvType = recv.type is InterfaceType ? (recv.type as InterfaceType).element.name : 'dynamic';
-    final recvExpr = "decodeEwtNode(p['${recv.name}'] as Map<String,dynamic>) as $recvType";
-    final rest = node.parameters.skip(1).toList();
-    final call = rest.isEmpty
-        ? '.$factory'
-        : '.$factory(${Params(types, rest, Params.paramDef4D, paramValue: Params.paramValueJson).names})';
-    ctx.dartWebDecoders.writeln("  '$factoryName': (p) => ($recvExpr)$call,");
-  }
-
-
-  void writeDInstanceMethod(String factory, String factoryName, FunctionTypedElement node, String companionClassName) {
-    var gen = node.returnType is! VoidType ? types.getGen(node.returnType.element!) : null;
-    final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
-    ctx.dartAssigns
-        .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen == null || node.returnType.isDartCoreString || gen.objType().endsWith('ObjSt') ? '' : ', ${exception(node.returnType)}'});');
-    ctx.dartFns
-      ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
-      ..writeln('  ${gen == null ? '' : 'final w = '}$companionClassName.$factory(${dartParams.names});');
-    if (gen == null) {
-    } else if (gen.objType().endsWith('ObjSt')) {
-      ctx.dartFns.writeln('  return _create${gen.objType()}(w);');
-    } else {
-      ctx.dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
-    }
-    ctx.dartFns.writeln('}');
-  }
 
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
     var gen = node.returnType is! VoidType ? types.getGen(node.returnType.element!) : null;
@@ -473,11 +436,6 @@ class WidgetGen implements AGen {
       ctx.dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
     }
     ctx.dartFns .writeln('}');
-  }
-
-  void writeCFactory(String factory, FunctionTypedElement node, String retType) {
-    _ensureStructOpened();
-    ctx.headerFile.writeln('    ${CLang(types).field(factory, types.type4C(node.returnType), params: node.parameters)}');
   }
 
   void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
@@ -517,92 +475,6 @@ class WidgetGen implements AGen {
   }
 
 
-
-  /// Emits one entry into [ctx.dartWebDecoders]: `'factoryName': (p) => WidgetClass[.factory](args)`,
-  /// where each arg is decoded from the node's JSON params (mirrors writeDFactory's construction
-  /// call with the paramValueJson strategy). Skips void factories (no value to build).
-  void writeWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
-    if (node.returnType is VoidType) return;
-    // MaterialColor (Colors.indigo(), Colors.amber(), ...) is a Color subclass built from a
-    // primary ARGB int plus a swatch Map. The Map param makes it non-web-decodable, but the
-    // swatch is never needed off-native: shadeXXX() accessors are pre-resolved to concrete Color
-    // nodes at serialize time (see the materialColorMaterialColor special-case in
-    // writeJavaSerializer), so a MaterialColor is only ever consumed AS a Color on web. Rebuild
-    // it from primary with an empty swatch. Without this, using a MaterialColor directly as a
-    // color yields a null-decoded param and the enclosing decoder's `as Color` cast throws.
-    if (factoryName == 'materialColorMaterialColor') {
-      ctx.dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
-      return;
-    }
-    // ListView.builder is eager-expanded to listViewListView at serialize time; no builder decoder.
-    if (factoryName == 'listViewBuilder') return;
-    if (!_webDecodable(node)) return;
-    final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
-    final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';
-    ctx.dartWebDecoders.writeln("  '$factoryName': (p) => $ctor(${jsonParams.names}),");
-  }
-
-  /// Whether a factory can be rebuilt from a serialized JSON tree in pure Dart. Excludes
-  /// out-of-scope constructions that need live runtime objects or non-inert callbacks:
-  /// EWT state wrappers (Sub*), render-layer internals (*ParentData), Animation/CurvedAnimation
-  /// params, Map params, and builder callbacks that return a value (an inert closure can't stand
-  /// in for a widget-returning builder). These fall back to "no decoder" (logged) at runtime.
-  bool _webDecodable(FunctionTypedElement node) {
-    if (widgetClass.startsWith('Sub') || widgetClass.endsWith('ParentData')) return false;
-    // Dialogs are shown imperatively (showDialog + BuildContext), not placed in a static tree.
-    if (widgetClass.endsWith('Dialog')) return false;
-    for (final p in node.parameters.where((p) => types.supportedType(p.type))) {
-      // Optional params that can't cross the wire are omitted from the decoder (the widget uses
-      // its default), so they don't disqualify the widget — see _webSkippable / _paramValueJsonRaw.
-      if (_webSkippable(p)) continue;
-      final t = p.type;
-      if (t is InterfaceType) {
-        final n = t.element.name;
-        if (n == 'Animation' || n == 'CurvedAnimation' || t.isDartCoreMap) return false;
-        // OverflowBoxFit lives in Flutter's private src/rendering and is not re-exported by any
-        // public library, so the decoder file cannot import it. Only reachable here when it is a
-        // required param (the optional case is omitted by _webSkippable, e.g. OverflowBox).
-        if (n == 'OverflowBoxFit') return false;
-        // BoxWidthStyle/BoxHeightStyle (TextField.selection*Style) are likewise not importable in
-        // the pure-Dart decoder file; blocking them keeps TextField out of scope until the text-
-        // input round-trip lands (a separate effort) rather than half-enabling an inert field.
-        if (n == 'BoxWidthStyle' || n == 'BoxHeightStyle') return false;
-      }
-      // A value-returning callback can't be stood in for by an inert closure; only reachable when
-      // required (optional ones are omitted by _webSkippable, e.g. Slider.semanticFormatterCallback).
-      if (t is FunctionType && t.returnType is! VoidType) return false;
-      final alias = t.alias;
-      if (alias != null) {
-        final at = alias.element.aliasedType;
-        if (at is FunctionType && at.returnType is! VoidType) return false;
-      }
-    }
-    return true;
-  }
-
-  /// An optional param that cannot be represented in the pure-Dart web decoder, so the decoder
-  /// omits it and the widget falls back to its own default. Two kinds of blocker qualify — both
-  /// only ever optional in practice: value-returning callbacks (inline or via a typedef alias,
-  /// e.g. SemanticFormatterCallback = String Function(double)), which an inert closure can't
-  /// stand in for; and the private, non-importable OverflowBoxFit enum. Keeps a widget
-  /// web-decodable when such a param is its only blocker (Slider, OverflowBox).
-  static bool _webSkippable(ParameterElement p) {
-    if (!p.isOptional) return false;
-    final t = p.type;
-    final ft = t is FunctionType
-        ? t
-        : (t.alias?.element.aliasedType is FunctionType
-            ? t.alias!.element.aliasedType as FunctionType
-            : null);
-    if (ft != null && ft.returnType is! VoidType) return true;
-    if (t is InterfaceType && t.element.name == 'OverflowBoxFit') return true;
-    // TextField.selectionWidthStyle/selectionHeightStyle (BoxWidthStyle/BoxHeightStyle,
-    // from dart:ui) are cosmetic and not importable in the pure-Dart decoder; omit the
-    // optional param and let the field use its Flutter default.
-    if (t is InterfaceType &&
-        (t.element.name == 'BoxWidthStyle' || t.element.name == 'BoxHeightStyle')) return true;
-    return false;
-  }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
     final retType = types.type4FFMRet(node.returnType);
@@ -888,17 +760,6 @@ abstract class ObjStGen extends WidgetGen {
     // Let concrete implementations finish the declaration
   }
 
-  /// Writes the structure header and id field to ctx.objectsHFile
-  void writeStructHeader() {
-    ctx.objectsHFile.writeln('typedef struct {');
-    ctx.objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
-  }
-
-  /// Writes the structure footer to ctx.objectsHFile
-  void writeStructFooter() {
-    ctx.objectsHFile.writeln('} $widgetSt;');
-  }
-
   /// True when this class is a pure value-object (not a Flutter Widget subclass).
   /// Widget classes (Icon, Container, …) already have constructor factory decoders in the web
   /// map; emitting accessor decoders for them would create duplicate keys. Value-objects
@@ -971,19 +832,6 @@ abstract class ObjStGen extends WidgetGen {
     ctx.javaFile.writeln('  }');
   }
 
-  /// Generates struct creation code for dart
-  void writeDartStructCreation(String widgetVar) {
-    ctx.dartFns
-      ..writeln('  final $widgetSt stObj = ffi.Struct.create();')
-      ..writeln('  stObj.id = _addWidget($widgetVar);');
-  }
-
-  /// Writes the _create function closing
-  void writeDartStructReturn() {
-    ctx.dartFns
-      ..writeln('  return stObj;')
-      ..writeln('}');
-  }
 
   /// Shared callable fields filter logic
   Iterable<FieldElement> getCallableFields(ClassElement sourceClass) =>
@@ -2287,7 +2135,7 @@ class Params {
   static String _paramValueJsonRaw(Types types, ParameterElement param) {
     // Optional un-crossable params are omitted from the constructor call (empty "skip" sentinel,
     // filtered by Params.names); the widget uses its own default. See WidgetGen._webSkippable.
-    if (WidgetGen._webSkippable(param)) return '';
+    if (_webSkippable(param)) return '';
     final key = param.name;
     final t = param.type;
     final read = "p['$key']";
