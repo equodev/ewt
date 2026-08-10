@@ -24,19 +24,7 @@ extension _JavaEmit on WidgetGen {
     final restCallNames = jParamsValuesOpt.names;
     final callArgs = restCallNames.isEmpty ? 'this' : 'this,\n      $restCallNames';
     if (node.returnType is VoidType) {
-      // AnimationController: route imperative commands to the Dart-side controller in web mode.
-      if (widgetClass == 'AnimationController') {
-        if (factory == 'setDuration' || factory == 'setReverseDuration') {
-          ctx.javaFile
-            ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
-            ..writeln('      long ms = EwtWebCapture.buildDurationMillis(d);')
-            ..writeln('      if (ms >= 0) webCommand("$factory:" + ms);')
-            ..writeln('      return;')
-            ..writeln('    }');
-        } else {
-          ctx.javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("$factory"); return; }');
-        }
-      }
+      writeVoidMethodWebPrelude(factory);
       ctx.javaFile.writeln('    factories.$factoryName($callArgs);');
     } else {
       final retType = types.type4FFMRet(node.returnType);

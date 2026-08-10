@@ -25,6 +25,7 @@ part 'emit/c_emitter.dart';
 part 'emit/dart_emitter.dart';
 part 'emit/java_emitter.dart';
 part 'emit/web_emitter.dart';
+part 'emit/special/animation_controller_gen.dart';
 
 mixin AGen {
   String objType();
@@ -149,6 +150,23 @@ class WidgetGen implements AGen {
   /// static factory methods that must propagate the containing class's generics.
   String get _typeParamPrefix =>
       dartClass.typeParameters.isEmpty ? '' : '<${dartClass.typeParameters.map((t) => t.name).join(', ')}>';
+
+  // ---------- Subclass extension points (see emit/special/*) ----------
+  //
+  // Widgets whose emitted shape diverges from the default flow subclass
+  // WidgetGen (via Types.getGen) and override one of these hooks instead of
+  // being handled with `if (widgetClass == 'X')` branches scattered across
+  // emitters. Add a hook rather than inlining a check.
+
+  /// Extra Java class body written before the synthetic `build()` method.
+  /// Default: no-op. Overridden by widgets that need extra Java members
+  /// (e.g. AnimationController's web-command routing infrastructure).
+  void writeExtraJavaClassBody() {}
+
+  /// Emitted at the start of the void-return branch in the Java instance
+  /// method wrapper, before the FFM call. Lets a widget short-circuit or
+  /// preroute the call in web mode. Default: no-op.
+  void writeVoidMethodWebPrelude(String factory) {}
 
   @override
   void gen() {
@@ -317,23 +335,7 @@ class WidgetGen implements AGen {
   }
 
   void writeFooter(bool hasMembers) {
-    // AnimationController: web routing infrastructure and repeat(boolean) overload.
-    if (widgetClass == 'AnimationController') {
-      ctx.javaFile
-        ..writeln('  /** Set in web mode by SubAnimatedState.animationController() so commands can route back. */')
-        ..writeln('  private SubAnimatedState<?> webOwner;')
-        ..writeln('  void setWebOwner(SubAnimatedState<?> owner) { this.webOwner = owner; }')
-        ..writeln('  private void webCommand(String action) {')
-        ..writeln('    if (webOwner != null) webOwner.sendAnimCommand(this.id, action);')
-        ..writeln('    else System.out.println("EWT web: AnimationController " + id + " has no owner for action=" + action);')
-        ..writeln('  }')
-        ..writeln('  public void repeat(boolean reverse) {')
-        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand(reverse ? "repeat:reverse" : "repeat"); return; }')
-        ..writeln('    if (reverse) throw new UnsupportedOperationException(')
-        ..writeln('        "repeat(reverse=true) is not yet supported on the native path; call repeat() instead");')
-        ..writeln('    factories.animationControllerRepeat(this);')
-        ..writeln('  }');
-    }
+    writeExtraJavaClassBody();
     // Note: return type is intentionally raw for generic widgets. Parametrizing
     // it (e.g. `State<T> build()`) breaks `SubclassGen`'s hand-emitted
     // `createState(...).build()` chain in `SubStatefulWidget.createStateFn`

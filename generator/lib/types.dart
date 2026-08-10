@@ -34,6 +34,13 @@ class Types {
 
   AGen getGen(Element dartClass) {
     if (dartClass is ClassElement) {
+      // Widgets with a divergent emission shape live in emit/special/*
+      // and are dispatched here by name. This is the single place where a
+      // class name maps to a concrete generator subclass; downstream code
+      // uses polymorphism via the returned generator.
+      if (dartClass.name == 'AnimationController') {
+        return AnimationControllerGen(this, dartClass);
+      }
       if (_ewtSubclassNames.contains(dartClass.name)) {
         return SubclassGen(this, dartClass);
       }
