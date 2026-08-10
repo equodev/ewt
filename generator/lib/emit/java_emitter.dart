@@ -93,40 +93,10 @@ extension _JavaEmit on WidgetGen {
     // widget's generator can opt out via skipJavaSerializer.
     if (skipJavaSerializer(factory)) return;
 
-    // ListView.builder special-case: eager-expand itemBuilder into a plain listViewListView node.
-    // Instead of recording an inert callback id, we call itemBuilder for each index and collect
-    // the resulting widget nodes as children, then record a listViewListView node. This lets the
-    // browser decode it with the existing plain ListView decoder without any builder callback.
-    if (factoryName == 'listViewBuilder') {
-      ctx.javaSerializer
-        ..writeln('  @Override')
-        ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
-        ..writeln('    int id = nextId++;')
-        ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
-      // Emit eager children expansion in place of itemBuilder/itemCount serialization.
-      ctx.javaSerializer
-        ..writeln('    if (itemCount.isPresent()) {')
-        ..writeln('      java.util.List<Object> __children = new java.util.ArrayList<>();')
-        ..writeln('      BuildContext __ctx = EwtWebCapture.stubContext();')
-        ..writeln('      for (int __i = 0; __i < itemCount.getAsInt(); __i++) {')
-        ..writeln('        Widget __w = itemBuilder.apply(__ctx, __i);')
-        ..writeln('        if (__w == null) break;')
-        ..writeln('        __children.add(byId.get(__w.getId()));')
-        ..writeln('      }')
-        ..writeln('      p.put("children", __children);')
-        ..writeln('    }');
-      // Serialize every other supported param except itemBuilder and itemCount.
-      for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
-        if (param.name == 'itemBuilder' || param.name == 'itemCount') continue;
-        final stmt = Params.paramValueSerialize(types, param);
-        if (stmt.isNotEmpty) ctx.javaSerializer.writeln('    $stmt');
-      }
-      ctx.javaSerializer
-        ..writeln('    record(id, "listViewListView", p);')
-        ..writeln('    MemorySegment st = ${objStClass!}.allocate(arena);')
-        ..writeln('    $objStClass.id(st, id);')
-        ..writeln('    return st;')
-        ..writeln('  }');
+    // Widgets whose serializer body is not a plain node record (e.g.
+    // ListView.builder eager-expands children) emit the whole @Override
+    // themselves via this hook.
+    if (tryEmitCustomJavaSerializer(node, factoryName, factory, jParamsFFM, jtp, objStClass)) {
       return;
     }
 
@@ -150,14 +120,7 @@ extension _JavaEmit on WidgetGen {
       ctx.javaSerializer
         ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
         ..writeln('    $objStClass.id(st, id);');
-      // MaterialColor's shadeXXX() getters read native int fields (a color id). Populate them
-      // from the swatch so those getters return the right color off-native (each swatch color
-      // is itself a recorded node). The struct fields are ints, so we store the color's id.
-      if (factoryName == 'materialColorMaterialColor') {
-        for (final k in const [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]) {
-          ctx.javaSerializer.writeln('    $objStClass.shade$k(st, swatch.get($k) != null ? swatch.get($k).getId() : 0);');
-        }
-      }
+      emitExtraJavaSerializerFields(factoryName, objStClass);
       ctx.javaSerializer.writeln('    return st;');
     } else {
       ctx.javaSerializer.writeln('    return id;');

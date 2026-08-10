@@ -26,6 +26,11 @@ part 'emit/dart_emitter.dart';
 part 'emit/java_emitter.dart';
 part 'emit/web_emitter.dart';
 part 'emit/special/animation_controller_gen.dart';
+part 'emit/special/color_filter_gen.dart';
+part 'emit/special/dart_sub_stateful_widget_gen.dart';
+part 'emit/special/image_filter_gen.dart';
+part 'emit/special/list_view_gen.dart';
+part 'emit/special/material_color_gen.dart';
 part 'emit/special/sub_animated_state_gen.dart';
 part 'emit/special/sub_state_gen.dart';
 part 'emit/special/sub_stateful_widget_gen.dart';
@@ -58,7 +63,7 @@ class PreGeneration {
     dartSubclasses.writeln('import \'package:flutter/widgets.dart\';');
     // dartSubclasses.writeln('typedef CreateStateFn = State<StatefulWidget> Function();');
     for (final widget in widgets) {
-      final clazz = DartSubclassGen(this, widget)
+      final clazz = DartSubclassGen.forWidget(this, widget)
         ..gen();
       dartSubclasses.writeln(clazz.genDartClass());
     }
@@ -104,24 +109,20 @@ class WidgetGen implements AGen {
       types.supportedType(n.returnType);
 
   /// True for abstract *classes* (not interfaces) that expose Dart `factory`
-  /// constructors we can generate — like `ImageFilter`, `ColorFilter`.
+  /// constructors we can generate — currently `ImageFilter` and `ColorFilter`
+  /// (see emit/special/image_filter_gen.dart / color_filter_gen.dart).
   ///
   /// Skips (a) abstract classes that Java would emit as interfaces (Animation,
   /// Future, EdgeInsetsGeometry) since interfaces can't hold `static factories`
   /// nor Immutables `@Builder.Factory`; and (b) abstract classes that already
-  /// have a concrete subclass in the widget set (e.g. `BorderRadiusGeometry` has
-  /// `BorderRadius` — emitting factories on both would produce Java-illegal
-  /// covariant static-hiding).
-  /// Names of abstract classes whose Dart `factory` constructors should be
-  /// exposed as static Java factories. This is an explicit allowlist because
-  /// the general heuristic (any abstract class with factory ctors) collides
-  /// with widgets that inherit from it (BorderRadiusGeometry, Animation…) —
-  /// their Java files were already emitted as interfaces or concrete subclasses.
-  static const _abstractFactoryAllowlist = {'ImageFilter', 'ColorFilter'};
-
+  /// have a concrete subclass in the widget set (e.g. `BorderRadiusGeometry`
+  /// has `BorderRadius` — emitting factories on both would produce
+  /// Java-illegal covariant static-hiding). The membership decision lives on
+  /// each generator subclass via [isAbstractFactoryHost] — no scattered
+  /// allowlist to keep in sync.
   bool get _hasAbstractFactoryCtors {
     if (!dartClass.isAbstract) return false;
-    if (!_abstractFactoryAllowlist.contains(dartClass.name)) return false;
+    if (!isAbstractFactoryHost) return false;
     return dartClass.constructors.where((f) => f.isPublic && f.isFactory)
         .any(_isSupportedFactory);
   }
@@ -189,6 +190,41 @@ class WidgetGen implements AGen {
   /// (to `node.displayName`) and SubStateful/SubStatelessWidgetGen
   /// (prefix with `_Tracked` — see factories.dart for the tracked variant).
   String dartFactoryCtorClass(FunctionTypedElement node) => widgetClass;
+
+  /// Custom writer for the whole `@Override ... $factoryName(...)` body in
+  /// [EmitContext.javaSerializer]. Return true to short-circuit the default
+  /// emission. Default: false. Used by widgets whose serializer body is not
+  /// a plain node record (e.g. ListView.builder eager-expands children).
+  bool tryEmitCustomJavaSerializer(
+    FunctionTypedElement node,
+    String factoryName,
+    String factory,
+    Params jParamsFFM,
+    String jtp,
+    String? objStClass,
+  ) => false;
+
+  /// Extra fields written into the just-allocated *ObjSt struct inside the
+  /// Java serializer. Called after `$objStClass.id(st, id)` and before
+  /// `return st`. Default: no-op. MaterialColorGen uses this to populate
+  /// the shadeXXX color-id fields from the swatch.
+  void emitExtraJavaSerializerFields(String factoryName, String objStClass) {}
+
+  /// Custom writer for the web decoder entry in
+  /// [EmitContext.dartWebDecoders]. Return true to short-circuit the default
+  /// emission (either because a bespoke entry was written or because the
+  /// factory has no useful web decoder). Default: false.
+  bool tryEmitCustomWebDecoder(String factory, String factoryName, FunctionTypedElement node) => false;
+
+  /// Whether to skip the "web mode" branch in [ObjStGen.writeJavaFieldAccessor].
+  /// True for widgets whose field accessors are pre-resolved at serialize
+  /// time (MaterialColor's shade fields). Default: false.
+  bool get skipWebFieldAccessor => false;
+
+  /// Whether this abstract class should emit factory constructors as static
+  /// Java factories (see [_hasAbstractFactoryCtors]). Default: false.
+  /// ImageFilterGen / ColorFilterGen override to true.
+  bool get isAbstractFactoryHost => false;
 
   @override
   void gen() {
@@ -811,7 +847,7 @@ abstract class ObjStGen extends WidgetGen {
     // resolves to its concrete swatch color node. The generic accessor-node web branch would
     // instead decode `.shadeXXX` on a browser MaterialColor with an EMPTY swatch -> null-check
     // crash. So skip the web branch for MaterialColor and let the native read fire.
-    final skipWebBranch = widgetClass == 'MaterialColor';
+    final skipWebBranch = skipWebFieldAccessor;
 
     // Web branch: record the accessor as a node chained off this receiver, return a node-backed value.
     if (!skipWebBranch && (isObjSt || isIntBackedObj)) {
@@ -1149,6 +1185,20 @@ class DartSubclassGen {
   DartSubclassGen(this.generation, this.dartClass):
         widgetClass = 'Sub${dartClass.name}';
 
+  /// Factory: dispatches by the underlying Flutter base class name to the
+  /// concrete subclass. Single point of name → generator mapping for the
+  /// pregeneration path (mirrors `Types.getGen` for the main generator).
+  factory DartSubclassGen.forWidget(PreGeneration g, ClassElement w) {
+    if (w.name == 'StatefulWidget') return DartSubStatefulWidgetGen(g, w);
+    return DartSubclassGen(g, w);
+  }
+
+  /// Extra ctor customization for the emitted Dart subclass. Mutates
+  /// [params] in-place if needed and returns the constructor initializer
+  /// clause (empty by default). Overridden by DartSubStatefulWidgetGen to
+  /// force a UniqueKey default.
+  String customizeCtor(List<String> params) => '';
+
   void gen() {
     final typeParam = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.join(', ')}>' : '';
     final superTypeParam = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map((t) => t.name).join(', ')}>' : '';
@@ -1160,17 +1210,7 @@ class DartSubclassGen {
     }
     var params = dartClass.constructors.first.parameters.map((p) => '${p is SuperFormalParameterElement ? 'super.' : 'this.'}${p.name}').toList();
     var overrideable = methods.map((m) => 'required this.${m.name}Fn').toList();
-    // Force a UniqueKey by default on SubStatefulWidget so that navigating
-    // between two instances (which all share runtimeType `SubStatefulWidget`
-    // and would otherwise share a null key) does not make Flutter's
-    // reconciliation reuse the previous State — whose buildFn is still bound
-    // to the previous Java widget.
-    var initializer = '';
-    if (widgetClass == 'SubStatefulWidget') {
-      final keyIdx = params.indexOf('super.key');
-      if (keyIdx >= 0) params[keyIdx] = 'Key? key';
-      initializer = ' : super(key: key ?? UniqueKey())';
-    }
+    final initializer = customizeCtor(params);
     dartSubclass
         .writeln('  $widgetClass({${(params+overrideable).join(', ')}})$initializer;');
     for (final method in methods) {

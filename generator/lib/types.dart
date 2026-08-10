@@ -29,10 +29,12 @@ class Types {
       // and are dispatched here by name. This is the single place where a
       // class name maps to a concrete generator subclass; downstream code
       // uses polymorphism via the returned generator.
-      if (dartClass.name == 'AnimationController') {
-        return AnimationControllerGen(this, dartClass);
-      }
       switch (dartClass.name) {
+        case 'AnimationController': return AnimationControllerGen(this, dartClass);
+        case 'ColorFilter': return ColorFilterGen(this, dartClass);
+        case 'ImageFilter': return ImageFilterGen(this, dartClass);
+        case 'ListView': return ListViewGen(this, dartClass);
+        case 'MaterialColor': return MaterialColorGen(this, dartClass);
         case 'SubState': return SubStateGen(this, dartClass);
         case 'SubStatefulWidget': return SubStatefulWidgetGen(this, dartClass);
         case 'SubStatelessWidget': return SubStatelessWidgetGen(this, dartClass);

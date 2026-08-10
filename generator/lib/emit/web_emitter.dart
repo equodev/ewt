@@ -11,19 +11,9 @@ extension _WebEmit on WidgetGen {
   /// to build).
   void writeWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
     if (node.returnType is VoidType) return;
-    // MaterialColor (Colors.indigo(), Colors.amber(), ...) is a Color subclass built from a
-    // primary ARGB int plus a swatch Map. The Map param makes it non-web-decodable, but the
-    // swatch is never needed off-native: shadeXXX() accessors are pre-resolved to concrete Color
-    // nodes at serialize time (see the materialColorMaterialColor special-case in
-    // writeJavaSerializer), so a MaterialColor is only ever consumed AS a Color on web. Rebuild
-    // it from primary with an empty swatch. Without this, using a MaterialColor directly as a
-    // color yields a null-decoded param and the enclosing decoder's `as Color` cast throws.
-    if (factoryName == 'materialColorMaterialColor') {
-      ctx.dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
-      return;
-    }
-    // ListView.builder is eager-expanded to listViewListView at serialize time; no builder decoder.
-    if (factoryName == 'listViewBuilder') return;
+    // Widgets with a bespoke web decoder (or that need to be skipped entirely
+    // because they're eager-expanded at serialize time) opt in here.
+    if (tryEmitCustomWebDecoder(factory, factoryName, node)) return;
     if (!_webDecodable(node)) return;
     final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
     final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';
