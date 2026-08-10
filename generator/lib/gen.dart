@@ -2038,16 +2038,17 @@ class Params {
   static String escape4J(Types types, ParameterElement param) => (param.name == 'package') ? '_package' : ensureName(param);
 
   /// Dart source expression for a factory param on the Dart side of the
-  /// bridge. Body lives in [ffiToDartParamValue] (emit/serialize/to_dart.dart).
+  /// bridge. Body lives in the [FfiToDart] strategy
+  /// (emit/serialize/to_dart.dart).
   static String paramValue4D(Types types, ParameterElement param) =>
-      ffiToDartParamValue(types, param);
+      const FfiToDart().apply(types, param);
 
   /// Dart source expression that decodes a param from the JSON node map.
-  /// Body lives in [jsonToDartParamValueRaw] (emit/serialize/to_json.dart).
+  /// Body lives in the [JsonToDart] strategy (emit/serialize/to_json.dart).
   /// Handles the "skip sentinel" for un-crossable optionals and the
-  /// named-param prefix; the raw decoder returns the bare expression.
+  /// named-param prefix; the strategy's apply() returns the bare expression.
   static String paramValueJson(Types types, ParameterElement param) {
-    final value = jsonToDartParamValueRaw(types, param);
+    final value = const JsonToDart().apply(types, param);
     // Empty string is the "skip" sentinel (e.g. optional value-returning fn
     // params) — propagate as-is so Params.names can filter it out; avoid
     // emitting "name: " for skipped params.
@@ -2056,9 +2057,9 @@ class Params {
   }
 
   /// Dart source expression that marshals a Dart param INTO C.
-  /// Body lives in [dartToCParamValue] (emit/serialize/to_c.dart).
+  /// Body lives in the [DartToC] strategy (emit/serialize/to_c.dart).
   static String paramValueDtoC(Types ctx, ParameterElement param, {bool fromCallback = false}) =>
-      dartToCParamValue(ctx, param, fromCallback: fromCallback);
+      DartToC(fromCallback: fromCallback).apply(ctx, param);
 
 
   /// The per-element map expression for a List param being serialized (variable {@code e}).
