@@ -25,6 +25,7 @@ import 'types.dart';
 part 'emit/c_emitter.dart';
 part 'emit/dart_emitter.dart';
 part 'emit/java_emitter.dart';
+part 'emit/member_emitter.dart';
 part 'emit/web_emitter.dart';
 part 'emit/serialize/serialize_strategy.dart';
 part 'emit/serialize/to_c.dart';
@@ -644,7 +645,13 @@ class WidgetGen implements AGen {
       .writeln('  }');
   }
 
-  void writeMembers() {}
+  /// Strategy for the per-widget "members" block (fields, struct headers,
+  /// override scaffolding). Default: emit nothing. Overridden by
+  /// [ImmutableGen] (→ [ImmutableMemberEmitter]) and [SubclassGen]
+  /// (→ [SubclassMemberEmitter]). See emit/member_emitter.dart.
+  MemberEmitter get memberEmitter => const NoneMemberEmitter();
+
+  void writeMembers() => memberEmitter.emit(this);
 
   static const String _unresolvable = '\x00UNRESOLVABLE\x00';
 
@@ -955,31 +962,7 @@ class ImmutableGen extends ObjStGen {
   }
 
   @override
-  void writeMembers() {
-    writeStructHeader();
-    
-    for (final field in callableFields()) {
-      ctx.objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type))}');
-      writeJavaFieldAccessor(field);
-    }
-    
-    writeStructFooter();
-
-    if (!hasMembers) return;
-
-    ctx.dartFns
-      ..writeln('$widgetSt _create$widgetSt($widgetClass? w) {');
-
-    writeDartStructCreation('w');
-    ctx.dartFns.writeln('  if (w == null) return stObj;');
-
-    for (var m in callableFields()) {
-      ctx.dartFns
-          .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, paramElement('w.${m.name}', m.type))};');
-    }
-
-    writeDartStructReturn();
-  }
+  MemberEmitter get memberEmitter => const ImmutableMemberEmitter();
 
   Iterable<FieldElement> callableFields() => getCallableFields(dartClass);
 }
@@ -1018,77 +1001,7 @@ class SubclassGen extends ObjStGen {
   String dartFactoryCtorClass(FunctionTypedElement node) => node.displayName;
 
   @override
-  void writeMembers() {
-    for (final method in dartClass.supertype!.element.methods.where(canBeImplInJava)) {
-      var returnType = method.returnType;
-      var ret = '${method.returnType}';
-      // var retBuilder = types.widgets.any((w) => w.name  == 'Sub${returnType.element!.name}') ? ret : '${method.returnType}';
-      var retBuilder = ret;
-      if (returnType is InterfaceType && returnType.typeArguments.isNotEmpty) {
-        ret = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
-        retBuilder = '<${returnType.typeArguments.map((p) => '${p.getDisplayString()[0]} extends ${p.getDisplayString()}').join(', ')}> ${returnType.element.name}<${returnType.typeArguments.map((p) => p.element?.name.toString()[0]).join(', ')}>';
-      }
-      final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
-      // Preserve `T` on the *public* hook so `didUpdateWidget(T oldWidget)` gives user code
-      // the concrete widget type (needed for widget().<prop> access). Keep `NativeObj` on the
-      // `Fn` shim so its method reference matches the Consumer<NativeObj> parameter that
-      // WidgetConstructors emits (type4J widens TypeParameterType → NativeObj globally, and
-      // the shim must honor that contract — the cast is unchecked but safe under generic
-      // erasure since T extends StatefulWidget and NativeObj carries the id).
-      final publicDecl = method.parameters
-          .where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))
-          .map((p) {
-            final typeStr = p.type is TypeParameterType && !p.isOptional
-                ? (p.type as TypeParameterType).element.name
-                : Params.paramDef4J(types, p, wrap: p.isOptional);
-            return '$typeStr ${Params.escape4J(types, p)}';
-          }).join(', ');
-      final callArgs = method.parameters
-          .where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))
-          .map((p) => p.type is TypeParameterType && !p.isOptional
-              ? '(${(p.type as TypeParameterType).element.name}) ${Params.escape4J(types, p)}'
-              : Params.paramValue4JBuilder(types, p))
-          .where((v) => v.isNotEmpty)
-          .join(', ');
-      final hasTpParam = method.parameters.any((p) => p.type is TypeParameterType && !p.isOptional);
-      ctx.javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}($publicDecl)${method.isAbstract ? ';' : ' {}'}');
-      if (hasTpParam) {
-        ctx.javaFile.writeln('  @SuppressWarnings("unchecked")');
-      }
-      ctx.javaFile.writeln('  ${ret} ${method.name}Fn(${jParams.decl}) {');
-      if (returnType is VoidType) {
-        ctx.javaFile.writeln('    ${method.name}($callArgs);');
-      } else {
-        ctx.javaFile.writeln('    return ${method.name}($callArgs).build();');
-      }
-      ctx.javaFile.writeln('  }');
-    }
-    
-    writeStructHeader();
-
-    for (final field in callableFields()) {
-      ctx.objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
-      writeJavaFieldAccessor(field, useInvoke: true);
-    }
-    
-    for (final method in callableMethods()) {
-      ctx.objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
-      final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
-      ctx.javaFile
-        ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
-      if (method.name == 'setState') emitSetStateWebPrelude();
-      ctx.javaFile
-        ..writeln('    MemorySegment funcPtr = $widgetSt.${method.name}(st);')
-        ..writeln('    $widgetSt.${method.name}.invoke(funcPtr, factories.${jParams.names});')
-        ..writeln('  }');
-    }
-
-    emitStateWidgetAccessor();
-
-    writeStructFooter();
-
-    emitExtraStateJavaMembers();
-  }
+  MemberEmitter get memberEmitter => const SubclassMemberEmitter();
 
   Iterable<FieldElement> callableFields() {
     final element = dartClass.supertype!.element;
