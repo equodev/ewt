@@ -3,18 +3,21 @@ package dev.equo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.EwtWidget;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import dev.equo.showcase.AnimationPlaygroundPage;
 import dev.equo.showcase.SlideTransitionPage;
 
 /**
- * Web launcher for EWT web-path demos. Mounts a single EwtWidget region inside an Evolve window;
- * a native SWT combo lets you switch between available demos without restarting.
+ * Web launcher for EWT web-path demos.
+ *
+ * <p>Two stacked EwtWidget regions:
+ * <ul>
+ *   <li>{@code navBar} — Flutter-rendered tab strip (always visible, never replaced)
+ *   <li>{@code content} — the active demo; switched via {@code setWidget()} when a tab is tapped
+ * </ul>
  *
  * <pre>
  *   (cd evolve-app && flutter build web --no-tree-shake-icons)
@@ -23,41 +26,34 @@ import dev.equo.showcase.SlideTransitionPage;
  */
 public class EvolveSamples {
 
-    private static final String[] DEMO_NAMES = {
-        "EWT Web Showcase",
-        "Animation Playground",
-        "Slide Transition",
-    };
-
     public static void main(String[] args) {
         Display display = new Display();
         Shell shell = new Shell(display);
         shell.setText("EWT Web Demos");
-        shell.setSize(760, 880);
-        shell.setLayout(new GridLayout(2, false));
+        shell.setSize(760, 900);
+        shell.setLayout(new GridLayout(1, false));
 
-        Label label = new Label(shell, SWT.NONE);
-        label.setText("Demo:");
+        // ---- nav strip (60 px tall, never replaced) ----
+        EwtWidget navBar = new EwtWidget(shell, SWT.NONE);
+        navBar.setPreferredSize(SWT.DEFAULT, 60);
+        GridData navData = new GridData(SWT.FILL, SWT.FILL, true, false);
+        navBar.setLayoutData(navData);
 
-        Combo combo = new Combo(shell, SWT.DROP_DOWN | SWT.READ_ONLY);
-        combo.setItems(DEMO_NAMES);
-        combo.select(0);
-        combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        // ---- demo content (fills remaining space, switched on tab tap) ----
+        EwtWidget content = new EwtWidget(shell, SWT.NONE);
+        content.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        content.setWidget(EwtWebShowcase.ShowcasePage::new);
 
-        EwtWidget region = new EwtWidget(shell, SWT.NONE);
-        region.setPreferredSize(SWT.DEFAULT, 820);
-        GridData rd = new GridData(SWT.FILL, SWT.FILL, true, true);
-        rd.horizontalSpan = 2;
-        region.setLayoutData(rd);
-        region.setWidget(EwtWebShowcase.ShowcasePage::new);
-
-        combo.addListener(SWT.Selection, e -> {
-            switch (combo.getSelectionIndex()) {
-                case 0 -> region.setWidget(EwtWebShowcase.ShowcasePage::new);
-                case 1 -> region.setWidget(() -> new AnimationPlaygroundPage(() -> {}));
-                case 2 -> region.setWidget(() -> new SlideTransitionPage(() -> {}));
-            }
-        });
+        // ---- wire the nav callbacks ----
+        navBar.setWidget(() -> new EvolveSamplesNav(idx ->
+                display.asyncExec(() -> content.setWidget(switch (idx) {
+                    case 0 -> EwtWebShowcase.ShowcasePage::new;
+                    case 1 -> () -> new AnimationPlaygroundPage(() -> {});
+                    case 2 -> () -> new SlideTransitionPage(() -> {});
+                    case 3 -> CupertinoMixPage.Page::new;
+                    default -> EwtWebShowcase.ShowcasePage::new;
+                }))
+        ));
 
         shell.open();
         while (!shell.isDisposed()) {
