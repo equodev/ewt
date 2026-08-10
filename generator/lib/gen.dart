@@ -17,6 +17,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 
+import 'emit/emit_context.dart';
 import 'lang_writers.dart';
 import 'types.dart';
 
@@ -67,18 +68,7 @@ class WidgetGen implements AGen {
   ClassElement dartClass;
   String widgetClass;
   String widgetField;
-  StringBuffer javaFile = StringBuffer();
-  StringBuffer builderFile = StringBuffer();
-  StringBuffer headerFile = StringBuffer();
-  StringBuffer objectsHFile = StringBuffer();
-  StringBuffer dartAssigns = StringBuffer();
-  StringBuffer dartFns = StringBuffer();
-  StringBuffer javaFactories = StringBuffer();
-  StringBuffer javaSerializer = StringBuffer();
-  StringBuffer dartWebDecoders = StringBuffer();
-  StringBuffer javaStatics = StringBuffer();
-
-  String? _pendingStructHeader;
+  final EmitContext ctx = EmitContext();
 
   bool hasMembers = false;
 
@@ -174,7 +164,7 @@ class WidgetGen implements AGen {
     hasMembers = hasSupportedFactory || hasPrivateConsts || hasCompanionMethods;
     writeHeaders(hasMembers);
     if (hasMembers) {
-      dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
+      ctx.dartAssigns.writeln('void _setup$widgetClass(WidgetFactories f) {');
     }
     writeJavaConstructors();
     if (!dartClass.isAbstract) {
@@ -200,7 +190,7 @@ class WidgetGen implements AGen {
       }
     }
     if (hasMembers) {
-      dartAssigns.writeln('}');
+      ctx.dartAssigns.writeln('}');
     }
     writeFooter(hasMembers);
     if (dartClass.supertype != null) {
@@ -210,31 +200,31 @@ class WidgetGen implements AGen {
 
   void writeJavaConstructors() {
     if (!_isInterface) {
-      javaFile
+      ctx.javaFile
           .writeln('  protected $widgetClass() {}');
-      javaFile..writeln('  $widgetClass(int id) {')..writeln(
+      ctx.javaFile..writeln('  $widgetClass(int id) {')..writeln(
           '    this.id = id;')..writeln('  }');
       if (!dartClass.isAbstract) {
-        javaFile.writeln('  public static $widgetClass byId(int id) { return new $widgetClass(id); }');
+        ctx.javaFile.writeln('  public static $widgetClass byId(int id) { return new $widgetClass(id); }');
       }
     }
   }
 
   String genJavaClass() {
-    return javaFile.toString();
+    return ctx.javaFile.toString();
   }
 
   String genDartFactories() {
-    return '$dartAssigns$dartFns';
+    return '${ctx.dartAssigns}${ctx.dartFns}';
   }
 
   void write() {
-    _writeJ(widgetClass, javaFile.toString());
-    _writeJ('${widgetClass}I', builderFile.toString());
+    _writeJ(widgetClass, ctx.javaFile.toString());
+    _writeJ('${widgetClass}I', ctx.builderFile.toString());
   }
 
   void writeHeaders(bool hasMembers) {
-    javaFile
+    ctx.javaFile
         .writeln('package dev.equo.ewt;');
     _isInterface = isInterface(dartClass);
     // Abstract classes with factory ctors we plan to emit must NOT be Java
@@ -288,21 +278,21 @@ class WidgetGen implements AGen {
     } if (!dartClass.isAbstract || _hasAbstractFactoryCtors) {
       // Abstract classes that expose Dart `factory` constructors emit Immutables
       // @Builder.Factory methods too, so they need the same imports.
-      javaFile
+      ctx.javaFile
         ..writeln('import java.util.*;')
         ..writeln('import java.util.function.*;')
         ..writeln('import dev.equo.ewt.util.*;')
         ..writeln('import org.immutables.builder.Builder;');
     } else {
-      javaFile
+      ctx.javaFile
         .writeln('import java.util.*;');
     }
     writeJavaDecl(extend, _isInterface);
     if (hasMembers) {
-      _pendingStructHeader = '  struct ${widgetClass}St {';
+      ctx.pendingStructHeader = '  struct ${widgetClass}St {';
     }
 
-    builderFile
+    ctx.builderFile
       ..writeln('package dev.equo.ewt;')
       ..writeln('public interface ${widgetClass}I extends ${builderExtend.join(', ')} {\n'
           '  @Override\n'
@@ -312,11 +302,11 @@ class WidgetGen implements AGen {
 
   void writeJavaDecl(String extend, bool isInterface) {
     if (!dartClass.isAbstract) {
-      javaFile
+      ctx.javaFile
           .writeln('public class $widgetClass$extend {');
       // ..writeln('  static final WidgetConstructors factories = WidgetConstructors.instance;');
     } else {
-      javaFile
+      ctx.javaFile
           .writeln('public ${isInterface ? 'interface' : 'abstract class'} $widgetClass$extend {');
     }
   }
@@ -324,7 +314,7 @@ class WidgetGen implements AGen {
   void writeFooter(bool hasMembers) {
     // AnimationController: web routing infrastructure and repeat(boolean) overload.
     if (widgetClass == 'AnimationController') {
-      javaFile
+      ctx.javaFile
         ..writeln('  /** Set in web mode by SubAnimatedState.animationController() so commands can route back. */')
         ..writeln('  private SubAnimatedState<?> webOwner;')
         ..writeln('  void setWebOwner(SubAnimatedState<?> owner) { this.webOwner = owner; }')
@@ -345,21 +335,21 @@ class WidgetGen implements AGen {
     // (S from the enclosing method vs T inferred from State — Java refuses to
     // unify). The raw-type warning on Draggable.build()/DragTarget.build() is
     // the tolerable cost.
-    javaFile.writeln('  @Override\n'
+    ctx.javaFile.writeln('  @Override\n'
         '  ${_isInterface ? 'default' : 'public'} $widgetClass build() {\n'
         '    return this;\n'
         '  }');
-    javaFile.writeln('}');
-    if (hasMembers && _pendingStructHeader == null) {
-      headerFile.writeln('  } $widgetField;');
+    ctx.javaFile.writeln('}');
+    if (hasMembers && ctx.pendingStructHeader == null) {
+      ctx.headerFile.writeln('  } $widgetField;');
     }
-    _pendingStructHeader = null;
+    ctx.pendingStructHeader = null;
   }
 
   void _ensureStructOpened() {
-    if (_pendingStructHeader != null) {
-      headerFile.writeln(_pendingStructHeader);
-      _pendingStructHeader = null;
+    if (ctx.pendingStructHeader != null) {
+      ctx.headerFile.writeln(ctx.pendingStructHeader);
+      ctx.pendingStructHeader = null;
     }
   }
 
@@ -381,15 +371,15 @@ class WidgetGen implements AGen {
     }
     writeJavaSerializer(node, factoryName, factory);
     writeWebDecoder(factory, factoryName, node);
-    // headerFile
+    // ctx.headerFile
     // .writeln("    int (*$factory)(${cParams.decl});");
-    // CLang(generation).writeField(headerFile, factory, 'int', params: node.parameters);
+    // CLang(generation).writeField(ctx.headerFile, factory, 'int', params: node.parameters);
     writeCFactory(factory, node, 'int');
     // var gen = generation.getGen(node.returnType.element!);
     // if (gen is WidgetGen) {
     //   gen.writeDFactory(factory, factoryName, node);
-    //   dartAssigns.write(gen.dartAssigns);
-    //   dartFns.write(gen.dartFns);
+    //   ctx.dartAssigns.write(gen.ctx.dartAssigns);
+    //   ctx.dartFns.write(gen.ctx.dartFns);
     // } else {
     writeDFactory(factory, factoryName, node);
     // }
@@ -431,7 +421,7 @@ class WidgetGen implements AGen {
     final call = rest.isEmpty
         ? '.$factory'
         : '.$factory(${Params(types, rest, Params.paramDef4D, paramValue: Params.paramValueJson).names})';
-    dartWebDecoders.writeln("  '$factoryName': (p) => ($recvExpr)$call,");
+    ctx.dartWebDecoders.writeln("  '$factoryName': (p) => ($recvExpr)$call,");
   }
 
   void writeJavaInstanceMethod(FunctionTypedElement node, String factoryName, String factory) {
@@ -442,7 +432,7 @@ class WidgetGen implements AGen {
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
 
-    javaFile
+    ctx.javaFile
         .writeln('  public ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
     final restCallNames = jParamsValuesOpt.names;
     final callArgs = restCallNames.isEmpty ? 'this' : 'this,\n      $restCallNames';
@@ -450,58 +440,58 @@ class WidgetGen implements AGen {
       // AnimationController: route imperative commands to the Dart-side controller in web mode.
       if (widgetClass == 'AnimationController') {
         if (factory == 'setDuration' || factory == 'setReverseDuration') {
-          javaFile
+          ctx.javaFile
             ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
             ..writeln('      long ms = EwtWebCapture.buildDurationMillis(d);')
             ..writeln('      if (ms >= 0) webCommand("$factory:" + ms);')
             ..writeln('      return;')
             ..writeln('    }');
         } else {
-          javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("$factory"); return; }');
+          ctx.javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("$factory"); return; }');
         }
       }
-      javaFile.writeln('    factories.$factoryName($callArgs);');
+      ctx.javaFile.writeln('    factories.$factoryName($callArgs);');
     } else {
       final retType = types.type4FFMRet(node.returnType);
-      javaFile.writeln('    $retType id = factories.$factoryName($callArgs);');
+      ctx.javaFile.writeln('    $retType id = factories.$factoryName($callArgs);');
       if (retType == 'int') {
-        javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
+        ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
       // SubAnimatedState.animationController: wire the controller back to this state for web commands.
       if (widgetClass == 'SubAnimatedState' && factory == 'animationController') {
-        javaFile
+        ctx.javaFile
           ..writeln('    AnimationController ctrl = new AnimationController(id);')
           ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);')
           ..writeln('    return ctrl;');
       } else {
-        javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+        ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
       }
     }
-    javaFile.writeln('  }');
+    ctx.javaFile.writeln('  }');
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
   }
 
   void writeDInstanceMethod(String factory, String factoryName, FunctionTypedElement node, String companionClassName) {
     var gen = node.returnType is! VoidType ? types.getGen(node.returnType.element!) : null;
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
-    dartAssigns
+    ctx.dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen == null || node.returnType.isDartCoreString || gen.objType().endsWith('ObjSt') ? '' : ', ${exception(node.returnType)}'});');
-    dartFns
+    ctx.dartFns
       ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
       ..writeln('  ${gen == null ? '' : 'final w = '}$companionClassName.$factory(${dartParams.names});');
     if (gen == null) {
     } else if (gen.objType().endsWith('ObjSt')) {
-      dartFns.writeln('  return _create${gen.objType()}(w);');
+      ctx.dartFns.writeln('  return _create${gen.objType()}(w);');
     } else {
-      dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
+      ctx.dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
     }
-    dartFns.writeln('}');
+    ctx.dartFns.writeln('}');
   }
 
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
     var gen = node.returnType is! VoidType ? types.getGen(node.returnType.element!) : null;
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
-    dartAssigns
+    ctx.dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${gen == null || node.returnType.isDartCoreString || gen.objType().endsWith('ObjSt') ? '' : ', ${exception(node.returnType)}'});');
     // Native callbacks wired through ffi.Pointer.fromFunction must return a
     // NON-nullable type. A nullable factory result (e.g. a static lerp() that
@@ -515,23 +505,23 @@ class WidgetGen implements AGen {
     final ctorClass = (widgetClass == 'SubStatefulWidget' || widgetClass == 'SubStatelessWidget')
         ? '_Tracked$widgetClass'
         : widgetClass;
-    dartFns
+    ctx.dartFns
       ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
       ..writeln('  ${gen == null ? '' : 'final w = '}$ctorClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
     if (gen == null) {
     }
     else if (gen.objType().endsWith('ObjSt')) {
-      dartFns.writeln('  return _create${gen.objType()}(w);');
+      ctx.dartFns.writeln('  return _create${gen.objType()}(w);');
     }
     else {
-      dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
+      ctx.dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', node.returnType))};');
     }
-    dartFns .writeln('}');
+    ctx.dartFns .writeln('}');
   }
 
   void writeCFactory(String factory, FunctionTypedElement node, String retType) {
     _ensureStructOpened();
-    headerFile.writeln('    ${CLang(types).field(factory, types.type4C(node.returnType), params: node.parameters)}');
+    ctx.headerFile.writeln('    ${CLang(types).field(factory, types.type4C(node.returnType), params: node.parameters)}');
   }
 
   void writeJavaFactory(FunctionTypedElement node, String factoryName, String builderClass, String factory) {
@@ -542,28 +532,28 @@ class WidgetGen implements AGen {
     final tpp = _factoryTypeParamPrefix.isEmpty ? '' : '${_factoryTypeParamPrefix} ';
     final retTpp = _typeParamPrefix; // <T> for return-type parameterization (raw class name would be a raw type).
     if (node is ConstructorElement) {
-      javaFile
+      ctx.javaFile
         ..writeln('  @Builder.Factory')
         ..writeln('  static $tpp$widgetClass$retTpp $factoryName(${jParamsDecl.builderDecl}) {');
     }
     var gen = types.getGen(node.returnType.element!);
     if (gen is WidgetGen) {
       gen.writeJavaInstanceBody(factoryName, jParamsDecl, node);
-      javaFile.write(gen.javaFile);
+      ctx.javaFile.write(gen.ctx.javaFile);
     } else {
       writeJavaInstanceBody(factoryName, jParamsDecl, node);
     }
-    javaFile
+    ctx.javaFile
         .writeln('  }');
     if (node is ConstructorElement) {
-      javaFile
+      ctx.javaFile
         ..writeln('  public static $tpp$builderClass$retTpp $factory(${jParamsDecl.required}) {')
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
     }
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
     if (node is ConstructorElement) {
-      javaStatics
+      ctx.javaStatics
         ..writeln('  public static $tpp$builderClass$retTpp $widgetClass${node.name.isEmpty ? '' : '_$factory'}(${jParamsDecl.required}) {')
         ..writeln('    return $builderClass.$builderFactory(${jParams.requiredNames});')
         ..writeln('  }');
@@ -576,21 +566,21 @@ class WidgetGen implements AGen {
     final jParamsDecl = Params(types, params, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsValuesOpt = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
-    javaFile
+    ctx.javaFile
         .writeln('  public static ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
     var gen = node.returnType is VoidType ? null : types.getGen(node.returnType.element!);
     if (gen is WidgetGen) {
       gen.writeJavaInstanceBody(factoryName, jParamsValuesOpt, node);
-      javaFile.write(gen.javaFile);
+      ctx.javaFile.write(gen.ctx.javaFile);
     } else {
       writeJavaInstanceBody(factoryName, jParamsValuesOpt, node);
     }
-    javaFile
+    ctx.javaFile
         .writeln('  }');
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
   }
 
-  /// Emits one @Override into [javaSerializer] that records the factory call
+  /// Emits one @Override into [ctx.javaSerializer] that records the factory call
   /// as an EwtNode and returns an id-only *ObjSt (or an int id for plain
   /// DartObj returns). The signature matches the WidgetConstructors method
   /// exactly so @Override resolves at compile time.
@@ -624,13 +614,13 @@ class WidgetGen implements AGen {
     // the resulting widget nodes as children, then record a listViewListView node. This lets the
     // browser decode it with the existing plain ListView decoder without any builder callback.
     if (factoryName == 'listViewBuilder') {
-      javaSerializer
+      ctx.javaSerializer
         ..writeln('  @Override')
         ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
         ..writeln('    int id = nextId++;')
         ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
       // Emit eager children expansion in place of itemBuilder/itemCount serialization.
-      javaSerializer
+      ctx.javaSerializer
         ..writeln('    if (itemCount.isPresent()) {')
         ..writeln('      java.util.List<Object> __children = new java.util.ArrayList<>();')
         ..writeln('      BuildContext __ctx = EwtWebCapture.stubContext();')
@@ -645,9 +635,9 @@ class WidgetGen implements AGen {
       for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
         if (param.name == 'itemBuilder' || param.name == 'itemCount') continue;
         final stmt = Params.paramValueSerialize(types, param);
-        if (stmt.isNotEmpty) javaSerializer.writeln('    $stmt');
+        if (stmt.isNotEmpty) ctx.javaSerializer.writeln('    $stmt');
       }
-      javaSerializer
+      ctx.javaSerializer
         ..writeln('    record(id, "listViewListView", p);')
         ..writeln('    MemorySegment st = ${objStClass!}.allocate(arena);')
         ..writeln('    $objStClass.id(st, id);')
@@ -656,7 +646,7 @@ class WidgetGen implements AGen {
       return;
     }
 
-    javaSerializer
+    ctx.javaSerializer
       ..writeln('  @Override')
       ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
       ..writeln('    int id = nextId++;')
@@ -665,15 +655,15 @@ class WidgetGen implements AGen {
     for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
       final stmt = Params.paramValueSerialize(types, param);
       if (stmt.isNotEmpty) {
-        javaSerializer.writeln('    $stmt');
+        ctx.javaSerializer.writeln('    $stmt');
       }
     }
 
-    javaSerializer
+    ctx.javaSerializer
       ..writeln('    record(id, "$factoryName", p);');
 
     if (isObjSt && objStClass != null) {
-      javaSerializer
+      ctx.javaSerializer
         ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
         ..writeln('    $objStClass.id(st, id);');
       // MaterialColor's shadeXXX() getters read native int fields (a color id). Populate them
@@ -681,17 +671,17 @@ class WidgetGen implements AGen {
       // is itself a recorded node). The struct fields are ints, so we store the color's id.
       if (factoryName == 'materialColorMaterialColor') {
         for (final k in const [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]) {
-          javaSerializer.writeln('    $objStClass.shade$k(st, swatch.get($k) != null ? swatch.get($k).getId() : 0);');
+          ctx.javaSerializer.writeln('    $objStClass.shade$k(st, swatch.get($k) != null ? swatch.get($k).getId() : 0);');
         }
       }
-      javaSerializer.writeln('    return st;');
+      ctx.javaSerializer.writeln('    return st;');
     } else {
-      javaSerializer.writeln('    return id;');
+      ctx.javaSerializer.writeln('    return id;');
     }
-    javaSerializer.writeln('  }');
+    ctx.javaSerializer.writeln('  }');
   }
 
-  /// Emits one entry into [dartWebDecoders]: `'factoryName': (p) => WidgetClass[.factory](args)`,
+  /// Emits one entry into [ctx.dartWebDecoders]: `'factoryName': (p) => WidgetClass[.factory](args)`,
   /// where each arg is decoded from the node's JSON params (mirrors writeDFactory's construction
   /// call with the paramValueJson strategy). Skips void factories (no value to build).
   void writeWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
@@ -704,7 +694,7 @@ class WidgetGen implements AGen {
     // it from primary with an empty swatch. Without this, using a MaterialColor directly as a
     // color yields a null-decoded param and the enclosing decoder's `as Color` cast throws.
     if (factoryName == 'materialColorMaterialColor') {
-      dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
+      ctx.dartWebDecoders.writeln("  '$factoryName': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),");
       return;
     }
     // ListView.builder is eager-expanded to listViewListView at serialize time; no builder decoder.
@@ -712,7 +702,7 @@ class WidgetGen implements AGen {
     if (!_webDecodable(node)) return;
     final jsonParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValueJson);
     final ctor = '$widgetClass${node.name!.isEmpty ? '' : '.$factory'}';
-    dartWebDecoders.writeln("  '$factoryName': (p) => $ctor(${jsonParams.names}),");
+    ctx.dartWebDecoders.writeln("  '$factoryName': (p) => $ctor(${jsonParams.names}),");
   }
 
   /// Whether a factory can be rebuilt from a serialized JSON tree in pure Dart. Excludes
@@ -780,16 +770,16 @@ class WidgetGen implements AGen {
   void writeJavaInstanceBody(String factoryName, Params jParams, FunctionTypedElement node) {
     final retType = types.type4FFMRet(node.returnType);
     if (node.returnType is VoidType) {
-      javaFile.writeln('    factories.$factoryName(${jParams.names});');
+      ctx.javaFile.writeln('    factories.$factoryName(${jParams.names});');
     } else {
-      javaFile.writeln('    $retType id = factories.$factoryName(${jParams.names});');
+      ctx.javaFile.writeln('    $retType id = factories.$factoryName(${jParams.names});');
     }
     if (retType == 'int') {
-      javaFile
+      ctx.javaFile
         .writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
     }
     if (node.returnType is! VoidType) {
-      javaFile
+      ctx.javaFile
         ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
         ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
     }
@@ -798,7 +788,7 @@ class WidgetGen implements AGen {
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, FunctionTypedElement node) {
     var type4ffmRet = types.type4FFMRet(node.returnType);
     var useArena = node.returnType is! VoidType && types.getGen(node.returnType.element!).objType().endsWith('ObjSt');
-    javaFactories
+    ctx.javaFactories
       ..writeln('  ${JLang().methodTypeParameters(node.type)}$type4ffmRet $factoryName(${jParams.decl}) {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
       ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
@@ -808,7 +798,7 @@ class WidgetGen implements AGen {
 
   void writeJavaConstMethod(String factoryName, String factory, ConstFieldElementImpl node) {
     var gen = types.getGen(node.type.element!);
-    javaFactories
+    ctx.javaFactories
       ..writeln('  ${gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int'} $factoryName() {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
       ..writeln('    return WidgetFactories.${widgetClass}St.$factory(st);')
@@ -828,7 +818,7 @@ class WidgetGen implements AGen {
     var gen = types.getGen(fld.type.element!);
     final isObjSt = gen.objType().endsWith('ObjSt');
     final retType = isObjSt ? 'MemorySegment' : 'int';
-    javaSerializer
+    ctx.javaSerializer
       ..writeln('  @Override')
       ..writeln('  $retType $factoryName() {')
       ..writeln('    int id = nextId++;')
@@ -836,16 +826,16 @@ class WidgetGen implements AGen {
       ..writeln('    record(id, "$factoryName", p);');
     if (isObjSt) {
       final objStClass = gen.objType();
-      javaSerializer
+      ctx.javaSerializer
         ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
         ..writeln('    $objStClass.id(st, id);')
         ..writeln('    return st;');
     } else {
-      javaSerializer.writeln('    return id;');
+      ctx.javaSerializer.writeln('    return id;');
     }
-    javaSerializer.writeln('  }');
+    ctx.javaSerializer.writeln('  }');
 
-    dartWebDecoders.writeln("  '$factoryName': (p) => $widgetClass.${fld.name},");
+    ctx.dartWebDecoders.writeln("  '$factoryName': (p) => $widgetClass.${fld.name},");
   }
 
   bool isPrivateConst(ConstFieldElementImpl fld) {
@@ -898,30 +888,30 @@ class WidgetGen implements AGen {
     if (initializer is InstanceCreationExpression && !isPrivateConst(fld)) {
       var body = dartExptrToJava(initializer as Expression);
       if (body.contains(_unresolvable)) return;
-      javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
-      javaFile.writeln('    return $body;');
-      javaFile.writeln('  }');
+      ctx.javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+      ctx.javaFile.writeln('    return $body;');
+      ctx.javaFile.writeln('  }');
       return;
     }
     if (initializer != null && initializer is! InstanceCreationExpression && initializer is! ListLiteral) {
       var body = dartExptrToJava(initializer);
       if (body.contains(_unresolvable)) return;
-      javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
-      javaFile.writeln('    return $body;');
-      javaFile.writeln('  }');
+      ctx.javaFile.writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
+      ctx.javaFile.writeln('    return $body;');
+      ctx.javaFile.writeln('  }');
       return;
     }
 
-    javaFile
+    ctx.javaFile
         .writeln('  ${fld.isPublic ? 'public' : 'private'} static ${fld.type} $factory() {');
     if (initializer is InstanceCreationExpression) {
       // isPrivateConst must be true here (non-private was handled above)
       String factoryName = '$widgetField${fld.name.firstUpper()}';
       _ensureStructOpened();
-      headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
-      dartAssigns
+      ctx.headerFile.writeln('    ${CLang(types).field(factory, types.getGen(fld.type.element!).objType())}');
+      ctx.dartAssigns
           .writeln('  f.$widgetField.$factory = _addWidget($widgetClass.${fld.name});');
-      javaFile
+      ctx.javaFile
         ..writeln('    int id = factories.$factoryName();')
         ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
         ..writeln('    System.out.println("Const $factory id:"+id);')
@@ -930,10 +920,10 @@ class WidgetGen implements AGen {
       writeConstSerializerAndDecoder(fld, factoryName);
     }
     else if (initializer is ListLiteral) {
-      javaFile
+      ctx.javaFile
         .writeln('    return List.of(${(initializer as ListLiteral).elements.map((e) => '$e()').join(', ')});');
     }
-    javaFile
+    ctx.javaFile
       .writeln('  }');
   }
 
@@ -1105,22 +1095,22 @@ abstract class ObjStGen extends WidgetGen {
 
   @override
   void writeJavaDecl(String extend, bool isInterface) {
-    javaFile
+    ctx.javaFile
       ..writeln('import java.lang.foreign.MemorySegment;')
       ..writeln('import dev.equo.ewt.ffm.$widgetSt;')
       ..writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;');
     // Let concrete implementations finish the declaration
   }
 
-  /// Writes the structure header and id field to objectsHFile
+  /// Writes the structure header and id field to ctx.objectsHFile
   void writeStructHeader() {
-    objectsHFile.writeln('typedef struct {');
-    objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
+    ctx.objectsHFile.writeln('typedef struct {');
+    ctx.objectsHFile.writeln('  ${CLang(types).field('id', 'int')}');
   }
 
-  /// Writes the structure footer to objectsHFile
+  /// Writes the structure footer to ctx.objectsHFile
   void writeStructFooter() {
-    objectsHFile.writeln('} $widgetSt;');
+    ctx.objectsHFile.writeln('} $widgetSt;');
   }
 
   /// True when this class is a pure value-object (not a Flutter Widget subclass).
@@ -1148,7 +1138,7 @@ abstract class ObjStGen extends WidgetGen {
         && field.type.element is ClassElement
         && !(field.type.element as ClassElement).isAbstract;
 
-    javaFile.writeln('  public $retJ ${field.name}() {');
+    ctx.javaFile.writeln('  public $retJ ${field.name}() {');
 
     // MaterialColor shade accessors (shade50..shade900) keep the NATIVE struct read: the
     // materialColorMaterialColor serializer already populates the shade struct fields from the
@@ -1160,51 +1150,51 @@ abstract class ObjStGen extends WidgetGen {
 
     // Web branch: record the accessor as a node chained off this receiver, return a node-backed value.
     if (!skipWebBranch && (isObjSt || isIntBackedObj)) {
-      javaFile
+      ctx.javaFile
         ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
         ..writeln('      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;')
         ..writeln('      int __nid = __s.recordAccessor("$factoryName", getId());');
       if (isObjSt) {
         // Use fully-qualified ObjSt name: each class only imports its own ObjSt.
-        javaFile
+        ctx.javaFile
           ..writeln('      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.$objType.allocate(__s.arena);')
           ..writeln('      dev.equo.ewt.ffm.$objType.id(__st, __nid);')
           ..writeln('      return new $retJ(__st);');
       } else {
-        javaFile.writeln('      return new $retJ(__nid);');
+        ctx.javaFile.writeln('      return new $retJ(__nid);');
       }
-      javaFile.writeln('    }');
+      ctx.javaFile.writeln('    }');
       // Web decoder: only for value-objects — widget classes already have constructor factory
       // decoders with the same name, so accessor decoders would create duplicate map keys.
       if (_isValueObject) {
-        dartWebDecoders.writeln("  '$factoryName': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as $widgetClass).${field.name},");
+        ctx.dartWebDecoders.writeln("  '$factoryName': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as $widgetClass).${field.name},");
       }
     } else if (!skipWebBranch) {
       // Enum/primitive/String/abstract accessor: value is only known to Flutter, not serializable as a node.
-      javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("$factoryName not supported on web");');
+      ctx.javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("$factoryName not supported on web");');
     }
 
     // Native branch (unchanged).
     if (useInvoke) {
-      javaFile
+      ctx.javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
         ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}.invoke(funcPtr)', field.type))};');
     } else {
-      javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
+      ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
     }
-    javaFile.writeln('  }');
+    ctx.javaFile.writeln('  }');
   }
 
   /// Generates struct creation code for dart
   void writeDartStructCreation(String widgetVar) {
-    dartFns
+    ctx.dartFns
       ..writeln('  final $widgetSt stObj = ffi.Struct.create();')
       ..writeln('  stObj.id = _addWidget($widgetVar);');
   }
 
   /// Writes the _create function closing
   void writeDartStructReturn() {
-    dartFns
+    ctx.dartFns
       ..writeln('  return stObj;')
       ..writeln('}');
   }
@@ -1226,18 +1216,18 @@ class ImmutableGen extends ObjStGen {
     // First call the base ObjStGen implementation for common imports
     super.writeJavaDecl(extend, isInterface);
     // Then complete with the class declaration that would normally be done in WidgetGen
-    javaFile.writeln(
+    ctx.javaFile.writeln(
         'public ${!dartClass.isAbstract ? 'class' : _isInterface ? 'interface' : 'abstract class'} $widgetClass$extend {');
   }
 
   @override
   void writeJavaConstructors() {
     if (!_isInterface) {
-      javaFile
+      ctx.javaFile
           .writeln('  private MemorySegment st;');
-      javaFile
+      ctx.javaFile
           .writeln('  protected $widgetClass() {}');
-      javaFile
+      ctx.javaFile
         ..writeln('  $widgetClass(MemorySegment st) {')
         ..writeln('    this.id = $widgetSt.id(st);')
         ..writeln('    this.st = st;')
@@ -1247,7 +1237,7 @@ class ImmutableGen extends ObjStGen {
       // Shadow int-ctor for the callback path: when this widget appears as a
       // callback parameter, the FFM side only has the id. The struct-backed
       // getters will NPE, but constructing a reference to the widget works.
-      javaFile
+      ctx.javaFile
         ..writeln('  $widgetClass(int id) { this.id = id; }');
     }
   }
@@ -1259,10 +1249,10 @@ class ImmutableGen extends ObjStGen {
       return;
     }
     if (node.returnType is VoidType) {
-      javaFile
+      ctx.javaFile
         .writeln('    factories.$factoryName(${jParams.names});');
     } else {
-      javaFile
+      ctx.javaFile
         ..writeln('    var st = factories.$factoryName(${jParams.names});')
         ..writeln(
             '    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
@@ -1276,7 +1266,7 @@ class ImmutableGen extends ObjStGen {
     writeStructHeader();
     
     for (final field in callableFields()) {
-      objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type))}');
+      ctx.objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type))}');
       writeJavaFieldAccessor(field);
     }
     
@@ -1284,14 +1274,14 @@ class ImmutableGen extends ObjStGen {
 
     if (!hasMembers) return;
 
-    dartFns
+    ctx.dartFns
       ..writeln('$widgetSt _create$widgetSt($widgetClass? w) {');
 
     writeDartStructCreation('w');
-    dartFns.writeln('  if (w == null) return stObj;');
+    ctx.dartFns.writeln('  if (w == null) return stObj;');
 
     for (var m in callableFields()) {
-      dartFns
+      ctx.dartFns
           .writeln('  stObj.${m.name} = ${Params.paramValueDtoC(types, paramElement('w.${m.name}', m.type))};');
     }
 
@@ -1307,7 +1297,7 @@ class SubclassGen extends ObjStGen {
   @override
   void writeJavaDecl(String extend, bool isInterface) {
     super.writeJavaDecl(extend, isInterface);
-    javaFile.writeln('public abstract class $widgetClass$extend, SubclassedInJava {');
+    ctx.javaFile.writeln('public abstract class $widgetClass$extend, SubclassedInJava {');
   }
 
   @override
@@ -1349,41 +1339,41 @@ class SubclassGen extends ObjStGen {
           .where((v) => v.isNotEmpty)
           .join(', ');
       final hasTpParam = method.parameters.any((p) => p.type is TypeParameterType && !p.isOptional);
-      javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}($publicDecl)${method.isAbstract ? ';' : ' {}'}');
+      ctx.javaFile.writeln('  protected ${method.isAbstract ? 'abstract ' : ''}$retBuilder ${method.name}($publicDecl)${method.isAbstract ? ';' : ' {}'}');
       if (hasTpParam) {
-        javaFile.writeln('  @SuppressWarnings("unchecked")');
+        ctx.javaFile.writeln('  @SuppressWarnings("unchecked")');
       }
-      javaFile.writeln('  ${ret} ${method.name}Fn(${jParams.decl}) {');
+      ctx.javaFile.writeln('  ${ret} ${method.name}Fn(${jParams.decl}) {');
       if (returnType is VoidType) {
-        javaFile.writeln('    ${method.name}($callArgs);');
+        ctx.javaFile.writeln('    ${method.name}($callArgs);');
       } else {
-        javaFile.writeln('    return ${method.name}($callArgs).build();');
+        ctx.javaFile.writeln('    return ${method.name}($callArgs).build();');
       }
-      javaFile.writeln('  }');
+      ctx.javaFile.writeln('  }');
     }
     
     writeStructHeader();
 
     for (final field in callableFields()) {
-      objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
+      ctx.objectsHFile.writeln('  ${CLang(types).field(field.name, types.type4C(field.type), params: [])}');
       writeJavaFieldAccessor(field, useInvoke: true);
     }
     
     for (final method in callableMethods()) {
-      objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
+      ctx.objectsHFile.writeln('  ${CLang(types).field(method.name, '${method.returnType}', params: method.parameters)}');
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
-      javaFile
+      ctx.javaFile
         ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
       // Web-mode setState: run the mutation locally and request a rebuild via EwtWebState.
       if ((widgetClass == 'SubState' || widgetClass == 'SubAnimatedState') && method.name == 'setState') {
-        javaFile
+        ctx.javaFile
           ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
           ..writeln('      fn.run();')
           ..writeln('      EwtWebState.requestRebuild(this);')
           ..writeln('      return;')
           ..writeln('    }');
       }
-      javaFile
+      ctx.javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${method.name}(st);')
         ..writeln('    $widgetSt.${method.name}.invoke(funcPtr, factories.${jParams.names});')
         ..writeln('  }');
@@ -1394,8 +1384,8 @@ class SubclassGen extends ObjStGen {
     // still need the accessor, so emit it here with `T` preserved as the return type — and add
     // the matching struct field so jextract produces SubStateObjSt.widget.
     if (widgetClass == 'SubState') {
-      objectsHFile.writeln('  DartObj (*widget)(void);');
-      javaFile
+      ctx.objectsHFile.writeln('  DartObj (*widget)(void);');
+      ctx.javaFile
         ..writeln('  @SuppressWarnings("unchecked")')
         ..writeln('  public T widget() {')
         ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
@@ -1406,8 +1396,8 @@ class SubclassGen extends ObjStGen {
         ..writeln('  }');
     }
     if (widgetClass == 'SubAnimatedState') {
-      objectsHFile.writeln('  DartObj (*widget)(void);');
-      javaFile
+      ctx.objectsHFile.writeln('  DartObj (*widget)(void);');
+      ctx.javaFile
         ..writeln('  @SuppressWarnings("unchecked")')
         ..writeln('  public T widget() {')
         ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");')
@@ -1419,12 +1409,12 @@ class SubclassGen extends ObjStGen {
     writeStructFooter();
 
     if (widgetClass == 'SubState') {
-      javaFile
+      ctx.javaFile
         ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
         ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
     }
     if (widgetClass == 'SubAnimatedState') {
-      javaFile
+      ctx.javaFile
         ..writeln('  private SubStatefulWidget webWidget;')
         ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }')
         ..writeln('  private java.util.function.Consumer<String> webAnimCommandSink;')
@@ -1449,7 +1439,7 @@ class SubclassGen extends ObjStGen {
     final fnParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4JCallback, escape: Params.escape4J);
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
-    javaFile
+    ctx.javaFile
       ..writeln('  private final MemorySegment st;')
       ..writeln('  protected $widgetClass() {')
       ..writeln('    st = factories.$factoryName(${fnParams.names});')
@@ -1464,7 +1454,7 @@ class SubclassGen extends ObjStGen {
   @override
   void writeDFactory(String factory, String factoryName, FunctionTypedElement node) {
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
-    dartAssigns
+    ctx.dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName);');
     // For SubStateful/SubStatelessWidget the factory instantiates a private
     // _Tracked variant (hand-written in factories.dart) that overrides
@@ -1472,20 +1462,20 @@ class SubclassGen extends ObjStGen {
     final ctorClass = (widgetClass == 'SubStatefulWidget' || widgetClass == 'SubStatelessWidget')
         ? '_Tracked${node.displayName}'
         : node.displayName;
-    dartFns
+    ctx.dartFns
       ..writeln('$widgetSt $factoryName(${dartParams.decl}) {')
       ..writeln('  final w = $ctorClass(${dartParams.names});');
     
     writeDartStructCreation('w');
     
     for (var m in callableMethods()) {
-      dartFns
+      ctx.dartFns
         ..writeln('  final ${m.name}Fn = ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.listener((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> cb) => w.${m.name}(cb.asFunction()));')
         ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
     }
     
     for (var m in callableFields()) {
-      dartFns
+      ctx.dartFns
         ..writeln('  final ${m.name}Fn = ffi.NativeCallable<${types.type4D(m.type)} Function()>.isolateLocal(() => ${Params.paramValueDtoC(types, paramElement('w.${m.name}', m.type))}, exceptionalReturn: exception);')
         ..writeln('  stObj.${m.name} = ${m.name}Fn.nativeFunction;');
     }
@@ -1934,26 +1924,26 @@ class Generation {
     } else if (!dartClass.isAbstract) {
       droppedWidgets.add(dartClass);
     }
-    if (widGen.headerFile.isNotEmpty) {
-      headerFile.writeln(widGen.headerFile);
+    if (widGen.ctx.headerFile.isNotEmpty) {
+      headerFile.writeln(widGen.ctx.headerFile);
     }
-    if (widGen.objectsHFile.isNotEmpty) {
-      objectsHFile.writeln(widGen.objectsHFile);
+    if (widGen.ctx.objectsHFile.isNotEmpty) {
+      objectsHFile.writeln(widGen.ctx.objectsHFile);
     }
     if (widGen.genDartFactories().isNotEmpty) {
       dartFactories.writeln(widGen.genDartFactories());
     }
-    if (widGen.javaFactories.isNotEmpty) {
-      javaFactories.writeln(widGen.javaFactories);
+    if (widGen.ctx.javaFactories.isNotEmpty) {
+      javaFactories.writeln(widGen.ctx.javaFactories);
     }
-    if (widGen.javaSerializer.isNotEmpty) {
-      javaSerializer.writeln(widGen.javaSerializer);
+    if (widGen.ctx.javaSerializer.isNotEmpty) {
+      javaSerializer.writeln(widGen.ctx.javaSerializer);
     }
-    if (widGen.dartWebDecoders.isNotEmpty) {
-      dartWebDecoders.writeln(widGen.dartWebDecoders);
+    if (widGen.ctx.dartWebDecoders.isNotEmpty) {
+      dartWebDecoders.writeln(widGen.ctx.dartWebDecoders);
     }
-    if (widGen.javaStatics.isNotEmpty) {
-      javaStatics.writeln(widGen.javaStatics);
+    if (widGen.ctx.javaStatics.isNotEmpty) {
+      javaStatics.writeln(widGen.ctx.javaStatics);
     }
 
     for (DartType requiredType in types.requiredTypes.toSet()) {
