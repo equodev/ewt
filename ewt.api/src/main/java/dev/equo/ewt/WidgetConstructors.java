@@ -1190,6 +1190,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
+  MemorySegment clipRSuperellipseClipRSuperellipse(Optional<BorderRadiusGeometry> borderRadius, Optional<Clip> clipBehavior, Optional<Widget> child) {
+    var st = WidgetFactories.clipRSuperellipse(factories);
+    var fn = WidgetFactories.ClipRSuperellipseSt.clipRSuperellipse(st);
+    return WidgetFactories.ClipRSuperellipseSt.clipRSuperellipse.invoke(fn, arena, ptrObj(borderRadius),
+      ptrEnum(clipBehavior),
+      ptrObj(child));
+  }
+
   MemorySegment coloredBoxColoredBox(Color color, Optional<Widget> child) {
     var st = WidgetFactories.coloredBox(factories);
     var fn = WidgetFactories.ColoredBoxSt.coloredBox(st);
@@ -1308,6 +1316,56 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
+  MemorySegment defaultTextStyleDefaultTextStyle(TextStyle style, Optional<TextAlign> textAlign, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Widget child) {
+    var st = WidgetFactories.defaultTextStyle(factories);
+    var fn = WidgetFactories.DefaultTextStyleSt.defaultTextStyle(st);
+    return WidgetFactories.DefaultTextStyleSt.defaultTextStyle.invoke(fn, arena, style.build().getId(),
+      ptrEnum(textAlign),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(maxLines),
+      ptrEnum(textWidthBasis),
+      child.build().getId());
+  }
+  MemorySegment defaultTextStyleFallback() {
+    var st = WidgetFactories.defaultTextStyle(factories);
+    var fn = WidgetFactories.DefaultTextStyleSt.fallback(st);
+    return WidgetFactories.DefaultTextStyleSt.fallback.invoke(fn, arena);
+  }
+  int defaultTextStyleMerge(Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Widget child) {
+    var st = WidgetFactories.defaultTextStyle(factories);
+    var fn = WidgetFactories.DefaultTextStyleSt.merge(st);
+    return WidgetFactories.DefaultTextStyleSt.merge.invoke(fn, ptrObj(style),
+      ptrEnum(textAlign),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(maxLines),
+      ptrEnum(textWidthBasis),
+      child.build().getId());
+  }
+  MemorySegment defaultTextStyleOf(BuildContext context) {
+    var st = WidgetFactories.defaultTextStyle(factories);
+    var fn = WidgetFactories.DefaultTextStyleSt.of(st);
+    return WidgetFactories.DefaultTextStyleSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment directionalityDirectionality(TextDirection textDirection, Widget child) {
+    var st = WidgetFactories.directionality(factories);
+    var fn = WidgetFactories.DirectionalitySt.directionality(st);
+    return WidgetFactories.DirectionalitySt.directionality.invoke(fn, arena, textDirection.ordinal(),
+      child.build().getId());
+  }
+  int directionalityOf(BuildContext context) {
+    var st = WidgetFactories.directionality(factories);
+    var fn = WidgetFactories.DirectionalitySt.of(st);
+    return WidgetFactories.DirectionalitySt.of.invoke(fn, context.build().getId());
+  }
+  int directionalityMaybeOf(BuildContext context) {
+    var st = WidgetFactories.directionality(factories);
+    var fn = WidgetFactories.DirectionalitySt.maybeOf(st);
+    return WidgetFactories.DirectionalitySt.maybeOf.invoke(fn, context.build().getId());
+  }
+
   MemorySegment overflowBoxOverflowBox(Optional<AlignmentGeometry> alignment, OptionalDouble minWidth, OptionalDouble maxWidth, OptionalDouble minHeight, OptionalDouble maxHeight, Optional<OverflowBoxFit> fit, Optional<Widget> child) {
     var st = WidgetFactories.overflowBox(factories);
     var fn = WidgetFactories.OverflowBoxSt.overflowBox(st);
@@ -1318,6 +1376,86 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(maxHeight),
       ptrEnum(fit),
       ptrObj(child));
+  }
+
+  MemorySegment absorbPointerAbsorbPointer(Optional<Boolean> absorbing, Optional<Boolean> ignoringSemantics, Optional<Widget> child) {
+    var st = WidgetFactories.absorbPointer(factories);
+    var fn = WidgetFactories.AbsorbPointerSt.absorbPointer(st);
+    return WidgetFactories.AbsorbPointerSt.absorbPointer.invoke(fn, arena, ptrBool(absorbing),
+      ptrBool(ignoringSemantics),
+      ptrObj(child));
+  }
+
+  MemorySegment ignorePointerIgnorePointer(Optional<Boolean> ignoring, Optional<Boolean> ignoringSemantics, Optional<Widget> child) {
+    var st = WidgetFactories.ignorePointer(factories);
+    var fn = WidgetFactories.IgnorePointerSt.ignorePointer(st);
+    return WidgetFactories.IgnorePointerSt.ignorePointer.invoke(fn, arena, ptrBool(ignoring),
+      ptrBool(ignoringSemantics),
+      ptrObj(child));
+  }
+
+  MemorySegment repaintBoundaryRepaintBoundary(Optional<Widget> child) {
+    var st = WidgetFactories.repaintBoundary(factories);
+    var fn = WidgetFactories.RepaintBoundarySt.repaintBoundary(st);
+    return WidgetFactories.RepaintBoundarySt.repaintBoundary.invoke(fn, arena, ptrObj(child));
+  }
+  MemorySegment repaintBoundaryWrap(Widget child, int childIndex) {
+    var st = WidgetFactories.repaintBoundary(factories);
+    var fn = WidgetFactories.RepaintBoundarySt.wrap(st);
+    return WidgetFactories.RepaintBoundarySt.wrap.invoke(fn, arena, child.build().getId(),
+      childIndex);
+  }
+
+  MemorySegment fractionalTranslationFractionalTranslation(Offset translation, Optional<Boolean> transformHitTests, Optional<Widget> child) {
+    var st = WidgetFactories.fractionalTranslation(factories);
+    var fn = WidgetFactories.FractionalTranslationSt.fractionalTranslation(st);
+    return WidgetFactories.FractionalTranslationSt.fractionalTranslation.invoke(fn, arena, translation.build().getId(),
+      ptrBool(transformHitTests),
+      ptrObj(child));
+  }
+
+  MemorySegment unconstrainedBoxUnconstrainedBox(Optional<Widget> child, Optional<TextDirection> textDirection, Optional<AlignmentGeometry> alignment, Optional<Axis> constrainedAxis, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.unconstrainedBox(factories);
+    var fn = WidgetFactories.UnconstrainedBoxSt.unconstrainedBox(st);
+    return WidgetFactories.UnconstrainedBoxSt.unconstrainedBox.invoke(fn, arena, ptrObj(child),
+      ptrEnum(textDirection),
+      ptrObj(alignment),
+      ptrEnum(constrainedAxis),
+      ptrEnum(clipBehavior));
+  }
+
+  MemorySegment flutterLogoFlutterLogo(OptionalDouble size, Optional<Color> textColor, Optional<FlutterLogoStyle> style, Optional<Duration> duration, Optional<Curve> curve) {
+    var st = WidgetFactories.flutterLogo(factories);
+    var fn = WidgetFactories.FlutterLogoSt.flutterLogo(st);
+    return WidgetFactories.FlutterLogoSt.flutterLogo.invoke(fn, arena, ptr(size),
+      ptrObj(textColor),
+      ptrEnum(style),
+      ptrObj(duration),
+      ptrObj(curve));
+  }
+
+  MemorySegment physicalModelPhysicalModel(Optional<BoxShape> shape, Optional<Clip> clipBehavior, Optional<BorderRadius> borderRadius, OptionalDouble elevation, Color color, Optional<Color> shadowColor, Optional<Widget> child) {
+    var st = WidgetFactories.physicalModel(factories);
+    var fn = WidgetFactories.PhysicalModelSt.physicalModel(st);
+    return WidgetFactories.PhysicalModelSt.physicalModel.invoke(fn, arena, ptrEnum(shape),
+      ptrEnum(clipBehavior),
+      ptrObj(borderRadius),
+      ptr(elevation),
+      color.build().getId(),
+      ptrObj(shadowColor),
+      ptrObj(child));
+  }
+
+  MemorySegment bannerBanner(Optional<Widget> child, String message, Optional<TextDirection> textDirection, BannerLocation location, Optional<TextDirection> layoutDirection, Optional<Color> color, Optional<BoxShadow> shadow) {
+    var st = WidgetFactories.banner(factories);
+    var fn = WidgetFactories.BannerSt.banner(st);
+    return WidgetFactories.BannerSt.banner.invoke(fn, arena, ptrObj(child),
+      arena.allocateFrom(message),
+      ptrEnum(textDirection),
+      location.ordinal(),
+      ptrEnum(layoutDirection),
+      ptrObj(color),
+      ptrObj(shadow));
   }
 
   MemorySegment animatedContainerAnimatedContainer(Optional<AlignmentGeometry> alignment, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, Optional<Decoration> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraints> constraints, Optional<EdgeInsetsGeometry> margin, Optional<AlignmentGeometry> transformAlignment, Optional<Widget> child, Optional<Clip> clipBehavior, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
@@ -3793,6 +3931,57 @@ class WidgetConstructors extends WidgetConstructorsBase {
       count,
       ptrBool(isLabelVisible),
       ptrObj(child));
+  }
+
+  MemorySegment selectableTextSelectableText(String data, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, OptionalDouble textScaleFactor, Optional<Boolean> showCursor, Optional<Boolean> autofocus, OptionalInt minLines, OptionalInt maxLines, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Color> cursorColor, Optional<Color> selectionColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis) {
+    var st = WidgetFactories.selectableText(factories);
+    var fn = WidgetFactories.SelectableTextSt.selectableText(st);
+    return WidgetFactories.SelectableTextSt.selectableText.invoke(fn, arena, arena.allocateFrom(data),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptr(textScaleFactor),
+      ptrBool(showCursor),
+      ptrBool(autofocus),
+      ptr(minLines),
+      ptr(maxLines),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorRadius),
+      ptrObj(cursorColor),
+      ptrObj(selectionColor),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrEnum(dragStartBehavior),
+      ptrBool(enableInteractiveSelection),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrStr(semanticsLabel),
+      ptrEnum(textWidthBasis));
+  }
+  MemorySegment selectableTextRich(TextSpan textSpan, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, OptionalDouble textScaleFactor, Optional<Boolean> showCursor, Optional<Boolean> autofocus, OptionalInt minLines, OptionalInt maxLines, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Color> cursorColor, Optional<Color> selectionColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis) {
+    var st = WidgetFactories.selectableText(factories);
+    var fn = WidgetFactories.SelectableTextSt.rich(st);
+    return WidgetFactories.SelectableTextSt.rich.invoke(fn, arena, textSpan.build().getId(),
+      ptrObj(style),
+      ptrEnum(textAlign),
+      ptrEnum(textDirection),
+      ptr(textScaleFactor),
+      ptrBool(showCursor),
+      ptrBool(autofocus),
+      ptr(minLines),
+      ptr(maxLines),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorRadius),
+      ptrObj(cursorColor),
+      ptrObj(selectionColor),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrEnum(dragStartBehavior),
+      ptrBool(enableInteractiveSelection),
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrStr(semanticsLabel),
+      ptrEnum(textWidthBasis));
   }
 
   MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {

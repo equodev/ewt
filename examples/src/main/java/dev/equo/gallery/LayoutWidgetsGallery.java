@@ -44,6 +44,7 @@ public class LayoutWidgetsGallery {
   static class GalleryState extends SubState<GalleryPage> {
     double _size = 60.0;
     boolean _visible = true;
+    int _normalTaps = 0;
 
     @Override
     public Widget build(BuildContext context) {
@@ -58,6 +59,9 @@ public class LayoutWidgetsGallery {
           tile("ClipRRect", ClipRRect().borderRadius(BorderRadius_circular(14.0))
               .child(rect(40.0, 40.0, Colors.indigo()))),
           tile("ClipRect", ClipRect().child(rect(40.0, 40.0, Colors.orange()))),
+          tile("ClipRSuperellipse (squircle)", ClipRSuperellipse()
+              .borderRadius(BorderRadius_circular(14.0))
+              .child(rect(40.0, 40.0, Colors.deepPurple()))),
 
           // ---- Sizing ----
           tile("AspectRatio 2:1",
@@ -104,7 +108,74 @@ public class LayoutWidgetsGallery {
           tile("Visibility (toggle below)",
               Visibility(rect(40.0, 40.0, Colors.deepPurple())).visible(_visible)),
           SwitchListTile(_visible, v -> setState(() -> _visible = v))
-              .title(Text("Visibility.visible"))
+              .title(Text("Visibility.visible")),
+          Divider(),
+
+          // ---- Pointer / hit-test ----
+          // AbsorbPointer: left button counts taps; right is wrapped — clicks never fire
+          Text("AbsorbPointer: left counts taps, right is absorbed"),
+          Padding(EdgeInsets_symmetric().vertical(8.0)).child(
+              Row().children(List.of(
+                  Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
+                      OutlinedButton(() -> setState(() -> _normalTaps++)).child(Text("tap me")),
+                      Text("taps: " + _normalTaps)
+                  )),
+                  SizedBox().width(48.0),
+                  Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
+                      AbsorbPointer().child(
+                          OutlinedButton(() -> setState(() -> _normalTaps++)).child(Text("absorbed"))
+                      ),
+                      Text("taps: 0 (blocked)")
+                  ))
+              ))
+          ),
+          // IgnorePointer: makes child invisible to hit-testing; events pass to widgets below
+          tile("IgnorePointer",
+              Stack().children(List.of(
+                  GestureDetector().onTap(() -> setState(() -> _normalTaps++))
+                      .child(rect(60.0, 40.0, Colors.green())),
+                  IgnorePointer().child(rect(60.0, 40.0, Colors.red()))
+              ))),
+          Divider(),
+
+          // ---- Layout helpers ----
+          // RepaintBoundary isolates repaint regions — no visual effect, it's a perf tool
+          tile("RepaintBoundary", RepaintBoundary().child(rect(48.0, 48.0, Colors.teal()))),
+          // UnconstrainedBox lets child ignore parent constraints — the 120px bar overflows 96px tile
+          tile("UnconstrainedBox (overflow)",
+              ClipRect().child(
+                  UnconstrainedBox().child(
+                      SizedBox().width(120.0).height(32.0).child(ColoredBox(Colors.orange()))
+                  ))),
+          tile("FractionalTranslation (+50% x)", stage(80.0, 56.0,
+              FractionalTranslation(Offset(0.5, 0.0)).child(dot(Colors.indigo())))),
+          Divider(),
+
+          // ---- Visual ----
+          tile("PhysicalModel (elev 8)", PhysicalModel()
+              .color(Colors.white())
+              .elevation(8.0)
+              .child(SizedBox().width(56.0).height(40.0))),
+          tile("Banner topEnd", SizedBox().width(72.0).height(56.0).child(
+              Banner().message("NEW").location(BannerLocation.topEnd).child(
+                  rect(72.0, 56.0, Colors.grey())))),
+          Divider(),
+
+          // ---- FlutterLogo ----
+          tile("FlutterLogo 24", FlutterLogo().size(24.0)),
+          tile("FlutterLogo 48", FlutterLogo().size(48.0)),
+          tile("FlutterLogo 72", FlutterLogo().size(72.0)),
+          Divider(),
+
+          // ---- Text / direction ----
+          // DefaultTextStyle: sets the inherited text style for the whole subtree
+          tile("DefaultTextStyle", DefaultTextStyle(
+                  TextStyle().fontSize(18.0).color(Colors.indigo()).fontWeight(FontWeight.bold()))
+              .child(Text("styled"))),
+          // Directionality: forces RTL — "Hello" text appears right-to-left
+          tile("Directionality RTL", Directionality(TextDirection.rtl,
+              Row().children(List.of(
+                  Text("A"), Text("B"), Text("C")))))
       ));
     }
   }

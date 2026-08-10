@@ -74,6 +74,20 @@ public class MaterialControlsGallery {
                       tile("Tooltip (hover me)", Tooltip().message("A helpful hint")
                           .child(Icon(Icons.favorite()))),
                       tile("Badge", Badge().label(Text("9+")).child(Icon(Icons.notifications()))),
+                      // SelectableText vs Text: click-drag to select the right column; left column is not selectable
+                      Row().children(List.of(
+                          Column().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
+                              Text("Text (not selectable)"),
+                              SizedBox().height(4.0),
+                              Text("copy me — you can't")
+                          )),
+                          SizedBox().width(32.0),
+                          Column().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
+                              Text("SelectableText"),
+                              SizedBox().height(4.0),
+                              SelectableText("copy me — you can!")
+                          ))
+                      )),
                       Divider(),
 
                       SwitchListTile(_switchOn, v -> setState(() -> _switchOn = v))

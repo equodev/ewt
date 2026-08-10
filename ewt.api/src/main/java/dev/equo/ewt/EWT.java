@@ -452,6 +452,10 @@ public class EWT {
     return ClipRectClipRectBuilder.clipRectClipRect();
   }
 
+  public static ClipRSuperellipseClipRSuperellipseBuilder ClipRSuperellipse() {
+    return ClipRSuperellipseClipRSuperellipseBuilder.clipRSuperellipseClipRSuperellipse();
+  }
+
   public static ColoredBoxColoredBoxBuilder ColoredBox(ColorI color) {
     return ColoredBoxColoredBoxBuilder.coloredBoxColoredBox(color);
   }
@@ -507,8 +511,54 @@ public class EWT {
     return BaselineBaselineBuilder.baselineBaseline(baseline, baselineType);
   }
 
+  public static DefaultTextStyleDefaultTextStyleBuilder DefaultTextStyle(TextStyleI style) {
+    return DefaultTextStyleDefaultTextStyleBuilder.defaultTextStyleDefaultTextStyle(style);
+  }
+  public static DefaultTextStyleFallbackBuilder DefaultTextStyle_fallback() {
+    return DefaultTextStyleFallbackBuilder.defaultTextStyleFallback();
+  }
+
+  public static DirectionalityDirectionalityBuilder Directionality(TextDirection textDirection, WidgetI child) {
+    return DirectionalityDirectionalityBuilder.directionalityDirectionality(textDirection, child);
+  }
+
   public static OverflowBoxOverflowBoxBuilder OverflowBox() {
     return OverflowBoxOverflowBoxBuilder.overflowBoxOverflowBox();
+  }
+
+  public static AbsorbPointerAbsorbPointerBuilder AbsorbPointer() {
+    return AbsorbPointerAbsorbPointerBuilder.absorbPointerAbsorbPointer();
+  }
+
+  public static IgnorePointerIgnorePointerBuilder IgnorePointer() {
+    return IgnorePointerIgnorePointerBuilder.ignorePointerIgnorePointer();
+  }
+
+  public static RepaintBoundaryRepaintBoundaryBuilder RepaintBoundary() {
+    return RepaintBoundaryRepaintBoundaryBuilder.repaintBoundaryRepaintBoundary();
+  }
+  public static RepaintBoundaryWrapBuilder RepaintBoundary_wrap(WidgetI child, int childIndex) {
+    return RepaintBoundaryWrapBuilder.repaintBoundaryWrap(child, childIndex);
+  }
+
+  public static FractionalTranslationFractionalTranslationBuilder FractionalTranslation(OffsetI translation) {
+    return FractionalTranslationFractionalTranslationBuilder.fractionalTranslationFractionalTranslation(translation);
+  }
+
+  public static UnconstrainedBoxUnconstrainedBoxBuilder UnconstrainedBox() {
+    return UnconstrainedBoxUnconstrainedBoxBuilder.unconstrainedBoxUnconstrainedBox();
+  }
+
+  public static FlutterLogoFlutterLogoBuilder FlutterLogo() {
+    return FlutterLogoFlutterLogoBuilder.flutterLogoFlutterLogo();
+  }
+
+  public static PhysicalModelPhysicalModelBuilder PhysicalModel() {
+    return PhysicalModelPhysicalModelBuilder.physicalModelPhysicalModel();
+  }
+
+  public static BannerBannerBuilder Banner() {
+    return BannerBannerBuilder.bannerBanner();
   }
 
   public static AnimatedContainerAnimatedContainerBuilder AnimatedContainer() {
@@ -936,6 +986,13 @@ public class EWT {
   }
   public static BadgeCountBuilder Badge_count() {
     return BadgeCountBuilder.badgeCount();
+  }
+
+  public static SelectableTextSelectableTextBuilder SelectableText(String data) {
+    return SelectableTextSelectableTextBuilder.selectableTextSelectableText(data);
+  }
+  public static SelectableTextRichBuilder SelectableText_rich(TextSpanI textSpan) {
+    return SelectableTextRichBuilder.selectableTextRich(textSpan);
   }
 
   public static InkWellInkWellBuilder InkWell() {
