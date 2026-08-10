@@ -6,17 +6,18 @@ Flutter 3.35.7
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 70 | 291 | 24% |
-| Material | 64 | 187 | 34% |
+| Basic widgets | 81 | 291 | 27% |
+| Material | 65 | 187 | 34% |
 | Cupertino | 29 | 53 | 54% |
-| **Total** | **163** | **531** | **30%** |
+| **Total** | **175** | **531** | **32%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**70 of 291 supported**
+**81 of 291 supported**
 
+- [x] AbsorbPointer
 - [x] Align
 - [x] AnimatedAlign
 - [x] AnimatedBuilder
@@ -31,10 +32,12 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] AnimatedSwitcher
 - [x] AspectRatio
 - [x] BackdropFilter
+- [x] Banner
 - [x] Baseline
 - [x] Center
 - [x] ClipOval
 - [x] ClipRRect
+- [x] ClipRSuperellipse
 - [x] ClipRect
 - [x] ColorFiltered
 - [x] ColoredBox
@@ -42,6 +45,8 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] ConstrainedBox
 - [x] Container
 - [x] DecoratedBox
+- [x] DefaultTextStyle
+- [x] Directionality
 - [x] DragTarget
 - [x] Draggable
 - [x] Expanded
@@ -49,11 +54,14 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] FittedBox
 - [x] Flex
 - [x] Flexible
+- [x] FlutterLogo
+- [x] FractionalTranslation
 - [x] FractionallySizedBox
 - [x] GestureDetector
 - [x] GridView
 - [x] Hero
 - [x] Icon
+- [x] IgnorePointer
 - [x] ImageFiltered
 - [x] IndexedStack
 - [x] InteractiveViewer
@@ -69,8 +77,10 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] OverflowBox
 - [x] Padding
 - [x] PageView
+- [x] PhysicalModel
 - [x] Placeholder
 - [x] Positioned
+- [x] RepaintBoundary
 - [x] RichText
 - [x] RotatedBox
 - [x] RotationTransition
@@ -85,9 +95,9 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] Stack
 - [x] Text
 - [x] Transform
+- [x] UnconstrainedBox
 - [x] Visibility
 - [x] Wrap
-- [ ] AbsorbPointer
 - [ ] ActionListener
 - [ ] Actions
 - [ ] AlignTransition
@@ -108,13 +118,11 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AutomaticKeepAlive
 - [ ] BackButtonListener
 - [ ] BackdropGroup
-- [ ] Banner
 - [ ] BlockSemantics
 - [ ] Builder
 - [ ] CallbackShortcuts
 - [ ] CheckedModeBanner
 - [ ] ClipPath
-- [ ] ClipRSuperellipse
 - [ ] CompositedTransformFollower
 - [ ] CompositedTransformTarget
 - [ ] ConstraintsTransformBox
@@ -128,9 +136,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] DefaultSelectionStyle
 - [ ] DefaultTextEditingShortcuts
 - [ ] DefaultTextHeightBehavior
-- [ ] DefaultTextStyle
 - [ ] DefaultTextStyleTransition
-- [ ] Directionality
 - [ ] DisableWidgetInspectorScope
 - [ ] Dismissible
 - [ ] DisplayFeatureSubScreen
@@ -147,7 +153,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] Expansible
 - [ ] FadeInImage
 - [ ] Flow
-- [ ] FlutterLogo
 - [ ] Focus
 - [ ] FocusScope
 - [ ] FocusTraversalGroup
@@ -155,7 +160,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] FocusableActionDetector
 - [ ] Form
 - [ ] FormField
-- [ ] FractionalTranslation
 - [ ] FutureBuilder
 - [ ] GlowingOverscrollIndicator
 - [ ] GridPaper
@@ -164,7 +168,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] HtmlElementView
 - [ ] IconTheme
 - [ ] IgnoreBaseline
-- [ ] IgnorePointer
 - [ ] Image
 - [ ] ImageIcon
 - [ ] IndexedSemantics
@@ -196,7 +199,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] OverlayPortal
 - [ ] PageStorage
 - [ ] PerformanceOverlay
-- [ ] PhysicalModel
 - [ ] PhysicalShape
 - [ ] PinnedHeaderSliver
 - [ ] PlatformMenuBar
@@ -224,7 +226,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] ReorderableDelayedDragStartListener
 - [ ] ReorderableDragStartListener
 - [ ] ReorderableList
-- [ ] RepaintBoundary
 - [ ] RestorationScope
 - [ ] RootRestorationScope
 - [ ] RootWidget
@@ -296,7 +297,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] TweenAnimationBuilder
 - [ ] TwoDimensionalScrollable
 - [ ] UiKitView
-- [ ] UnconstrainedBox
 - [ ] UndoHistory
 - [ ] UnmanagedRestorationScope
 - [ ] ValueListenableBuilder
@@ -313,7 +313,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**64 of 187 supported**
+**65 of 187 supported**
 
 - [x] AlertDialog
 - [x] AppBar
@@ -364,6 +364,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] ScaffoldMessenger
 - [x] Scrollbar
 - [x] SearchBar
+- [x] SelectableText
 - [x] Slider
 - [x] SnackBar
 - [x] SnackBarAction
@@ -476,7 +477,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] SearchViewTheme
 - [ ] SegmentedButton
 - [ ] SegmentedButtonTheme
-- [ ] SelectableText
 - [ ] SelectionArea
 - [ ] SimpleDialog
 - [ ] SimpleDialogOption
