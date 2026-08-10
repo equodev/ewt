@@ -25,6 +25,10 @@ part 'emit/c_emitter.dart';
 part 'emit/dart_emitter.dart';
 part 'emit/java_emitter.dart';
 part 'emit/web_emitter.dart';
+part 'emit/serialize/serialize_strategy.dart';
+part 'emit/serialize/to_c.dart';
+part 'emit/serialize/to_dart.dart';
+part 'emit/serialize/to_json.dart';
 part 'emit/special/animation_controller_gen.dart';
 part 'emit/special/color_filter_gen.dart';
 part 'emit/special/dart_sub_stateful_widget_gen.dart';
@@ -2033,231 +2037,29 @@ class Params {
 
   static String escape4J(Types types, ParameterElement param) => (param.name == 'package') ? '_package' : ensureName(param);
 
-  static String paramValue4D(Types types, ParameterElement param) {
-    final t = param.type;
-    var value = param.name;
-    final h = types.getHandler(t);
-    if (h != null) {
-      value = h.value4D(param);
-    }
-    else if (t is InterfaceType) {
-      if (param.isOptional) {
-        if (t.isDartCoreString) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.strOr(${param.defaultValueCode})';
-          } else {
-            value = '${param.name}.strOrNul()';
-          }
-        }
-        else if (t.isDartCoreBool) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.boolOr(${param.defaultValueCode ?? 'false'})';
-          } else {
-            value = '${param.name}.boolOrNul()';
-          }
-        }
-        else if (t.isDartCoreInt) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.intOr(${param.defaultValueCode})';
-          } else {
-            value = '${param.name}.intOrNul()';
-          }
-        }
-        else if (t.isDartCoreDouble) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.doubleOr(${defaultDoubleCode(param)})';
-          } else {
-            value = '${param.name}.doubleOrNul()';
-          }
-        }
-        else if (t.isDartCoreList) {
-          // final arrayType = t.typeArguments[0];
-          // if (isPrimitive(arrayType)) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.listOrEmpty()';
-          } else {
-            value = '${param.name}.listOrNul()';
-          }
-        }
-        else if (t.element is EnumElement) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.enumOr(${t.element.name}.values, ${defaultEnumCode(param)})';
-          } else {
-            value = '${param.name}.enumOrNul(${t.element.name}.values)';
-          }
-        }
-        else if (!isPrimitive(t)) {
-          if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.objOr(${defaultObjCode(param)})';
-          } else {
-            value = '${param.name}.objOrNul()';
-          }
-        }
-      } else {
-        if (t.isDartCoreBool) {
-          value = '${param.name}.toBool()';
-        }
-        else if (t.isDartCoreString) {
-          value = '${param.name}.cast<Utf8>().toDartString()';
-        }
-        // else if (t.isDartCoreMap) {
-        //   value = '${param.name}.toMap()';
-        // }
-        else if (t.isDartCoreList) {
-          // final arrayType = t.typeArguments[0];
-          // if (isPrimitive(arrayType)) {
-          // if (t.nullabilitySuffix == NullabilitySuffix.none) {
-            value = '${param.name}.listOrEmpty()';
-          // } else {
-          //   value = '${param.name}.listOrNull()';
-          // }
-        }
-        else if (t.element is EnumElement) {
-          // A required enum arrives as its raw int index, so decode it from the
-          // enum's values. Without this it falls through to the _widgetsMap
-          // lookup below and is wrongly treated as a widget id (Flex.direction).
-          value = '${t.element.name}.values[${param.name}]';
-        }
-        else if (!isPrimitive(t)) {
-          if (t.typeArguments.isNotEmpty) {
-            value = '_widgetsMap[$value]! as ${t.typeArguments.any((p) => p is TypeParameterType) ? t.element.name : t}';
-          } else {
-            value = '_widgetsMap[$value]! as $t';
-          }
-        }
-      }
-    }
-    // else if (t is FunctionType) {
-    //   if (t.alias != null) {
-    //     value = '$value.to${t.alias!.element.name}Fn()';
-    //   } else {
-    //     value = '$value.toFn()';
-    //   }
-    // }
-    if (param.isNamed) {
-      value = '${param.name}: $value';
-    }
-    return value;
-  }
+  /// Dart source expression for a factory param on the Dart side of the
+  /// bridge. Body lives in [ffiToDartParamValue] (emit/serialize/to_dart.dart).
+  static String paramValue4D(Types types, ParameterElement param) =>
+      ffiToDartParamValue(types, param);
 
-  /// Returns a Java statement (no leading indent, with trailing semicolon) that
-  /// records [param] into the local Map<String,Object> variable named {@code p}.
-  /// Mirrors the type dispatch of [paramValue4D] but targets Java serialization
-  /// rather than Dart FFI bridge calls.
-  /// Returns a Dart expression that decodes [param] from the local `Map<String,dynamic> p`
-  /// (the node's params), mirroring the type dispatch of [paramValue4D] but reading JSON values
-  /// instead of FFI pointers. Object-refs and list elements recurse through `decodeEwtNode`.
+  /// Dart source expression that decodes a param from the JSON node map.
+  /// Body lives in [jsonToDartParamValueRaw] (emit/serialize/to_json.dart).
+  /// Handles the "skip sentinel" for un-crossable optionals and the
+  /// named-param prefix; the raw decoder returns the bare expression.
   static String paramValueJson(Types types, ParameterElement param) {
-    final value = _paramValueJsonRaw(types, param);
-    // Empty string is the "skip" sentinel (e.g. optional value-returning fn params) — propagate
-    // it as-is so Params.names can filter it out; avoid emitting "name: " for skipped params.
+    final value = jsonToDartParamValueRaw(types, param);
+    // Empty string is the "skip" sentinel (e.g. optional value-returning fn
+    // params) — propagate as-is so Params.names can filter it out; avoid
+    // emitting "name: " for skipped params.
     if (value.isEmpty) return '';
-    // Named constructor params must carry their name (mirrors paramValue4D); positional don't.
     return param.isNamed ? '${param.name}: $value' : value;
   }
 
-  static String _paramValueJsonRaw(Types types, ParameterElement param) {
-    // Optional un-crossable params are omitted from the constructor call (empty "skip" sentinel,
-    // filtered by Params.names); the widget uses its own default. See WidgetGen._webSkippable.
-    if (_webSkippable(param)) return '';
-    final key = param.name;
-    final t = param.type;
-    final read = "p['$key']";
-    final h = types.getHandler(t);
-    // Callbacks are inert in this phase: a void closure that accepts any arity (optional
-    // positional Object? params make it assignable to VoidCallback / ValueChanged / etc.).
-    if (h != null) {
-      // Zero-arg callbacks send their id with no args (Phase 2).
-      // Value callbacks (bool/String) send their id with the scalar arg (Phase 3).
-      // All other arg-carrying callbacks stay inert.
-      if (_isZeroArgCallback(t)) {
-        return "ewtWireCallback(p['$key'])";
-      }
-      if (_valueCallbackJavaType(t) != null) {
-        return "ewtWireValueCallback(p['$key'])";
-      }
-      // Optional value-returning fn params are already omitted above (see _webSkippable); any
-      // remaining callback here is inert — a void closure that accepts any arity.
-      return '([Object? a, Object? b, Object? c]) {}';
-    }
-    if (t is InterfaceType && t.element.name == 'BuildContext') {
-      return 'ewtActiveBuildContext!';
-    }
-    if (t is InterfaceType) {
-      final elemName = t.element.name;
-      if (param.isOptional) {
-        // A non-nullable optional param carries a default (mirrors paramValue4D's .xOr(default));
-        // a nullable one may be left null.
-        final nonNull = t.nullabilitySuffix == NullabilitySuffix.none;
-        if (t.isDartCoreString) return nonNull ? '($read as String?) ?? ${param.defaultValueCode}' : '$read as String?';
-        if (t.isDartCoreBool) return nonNull ? '($read as bool?) ?? ${param.defaultValueCode ?? 'false'}' : '$read as bool?';
-        if (t.isDartCoreInt) return nonNull ? '($read as int?) ?? ${param.defaultValueCode}' : '$read as int?';
-        if (t.isDartCoreDouble) return nonNull ? '(($read as num?)?.toDouble()) ?? ${defaultDoubleCode(param)}' : '($read as num?)?.toDouble()';
-        if (t.isDartCoreList) return _listDecodeJson(read, t);
-        if (t.isDartCoreMap) return _mapDecodeJson(read, t);
-        if (t.element is EnumElement) return nonNull ? '$read == null ? ${defaultEnumCode(param)} : $elemName.values[$read as int]' : '$read == null ? null : $elemName.values[$read as int]';
-        return nonNull ? '$read == null ? ${defaultObjCode(param)} : ${_decodeObjJson(read, elemName)}' : '$read == null ? null : ${_decodeObjJson(read, elemName)}';
-      } else {
-        if (t.isDartCoreString) return '$read as String';
-        if (t.isDartCoreBool) return '$read as bool';
-        if (t.isDartCoreInt) return '$read as int';
-        if (t.isDartCoreDouble) return '($read as num).toDouble()';
-        if (t.isDartCoreList) return _listDecodeJson(read, t);
-        if (t.isDartCoreMap) return _mapDecodeJson(read, t);
-        if (t.element is EnumElement) return '$elemName.values[$read as int]';
-        return _decodeObjJson(read, elemName);
-      }
-    }
-    return read;
-  }
+  /// Dart source expression that marshals a Dart param INTO C.
+  /// Body lives in [dartToCParamValue] (emit/serialize/to_c.dart).
+  static String paramValueDtoC(Types ctx, ParameterElement param, {bool fromCallback = false}) =>
+      dartToCParamValue(ctx, param, fromCallback: fromCallback);
 
-  /// Decodes a List param from JSON: scalars/Strings cast element-wise; enums via values[i];
-  /// object-refs/Widgets via decodeEwtNode.
-  static String _listDecodeJson(String read, InterfaceType listType) {
-    final elem = listType.typeArguments.isNotEmpty ? listType.typeArguments.first : null;
-    final base = "(($read as List?) ?? const [])";
-    if (elem is InterfaceType && elem.element is EnumElement) {
-      return '$base.map((e) => ${elem.element.name}.values[e as int]).toList()';
-    }
-    if (elem == null || isPrimitive(elem)) {
-      return '$base.cast<${elem?.getDisplayString() ?? 'dynamic'}>().toList()';
-    }
-    if (elem is InterfaceType && elem.isDartCoreString) {
-      return '$base.cast<String>().toList()';
-    }
-    final elemName = (elem is InterfaceType) ? elem.element.name : 'dynamic';
-    return '$base.map((e) => ${_decodeObjJson('e', elemName)}).toList()';
-  }
-
-  /// A single object-ref decode expression from a JSON node. Widget children route through
-  /// decodeEwtWidget so a missing/failed child decoder degrades to SizedBox.shrink instead of
-  /// throwing `null as Widget` and taking down the whole parent subtree (per-node fault
-  /// isolation). Non-widget value objects keep the plain cast — no placeholder of their type
-  /// exists, and a missing value-object decoder is a genuine break, not a renderable gap.
-  static String _decodeObjJson(String read, String elemName) => elemName == 'Widget'
-      ? 'decodeEwtWidget($read as Map<String,dynamic>)'
-      : 'decodeEwtNode($read as Map<String,dynamic>) as $elemName';
-
-  /// Decodes a Map param from JSON (string keys). Int keys are parsed back; values follow the
-  /// same scalar/enum/object rules as list elements. Used e.g. for MaterialColor's swatch.
-  static String _mapDecodeJson(String read, InterfaceType mapType) {
-    final kt = mapType.typeArguments.isNotEmpty ? mapType.typeArguments.first : null;
-    final vt = mapType.typeArguments.length > 1 ? mapType.typeArguments[1] : null;
-    final keyName = (kt is InterfaceType) ? kt.element.name : 'dynamic';
-    final valName = (vt is InterfaceType) ? vt.element.name : 'dynamic';
-    final keyConv = (kt is InterfaceType && kt.isDartCoreInt)
-        ? 'int.parse(k as String)'
-        : (kt is InterfaceType && kt.isDartCoreString) ? 'k as String' : 'k';
-    String valConv;
-    if (vt is InterfaceType && vt.element is EnumElement) {
-      valConv = '$valName.values[v as int]';
-    } else if (vt == null || isPrimitive(vt) || (vt is InterfaceType && vt.isDartCoreString)) {
-      valConv = 'v as $valName';
-    } else {
-      valConv = 'decodeEwtNode(v as Map<String,dynamic>) as $valName';
-    }
-    return '(($read as Map?) ?? const {}).map((k, v) => MapEntry($keyConv, $valConv)).cast<$keyName, $valName>()';
-  }
 
   /// The per-element map expression for a List param being serialized (variable {@code e}).
   /// Scalars/Strings are recorded as-is; enums as their ordinal; object-refs/Widgets via the
@@ -2454,128 +2256,6 @@ class Params {
       // return '${param.thisOrAncestorOfType<ClassElement>()!.name}.$defaultValue';
     }
     return defaultValue;
-  }
-
-  static String paramValueDtoC(Types ctx, ParameterElement param, {bool fromCallback = false}) {
-    var t = param.type;
-    if (t is TypeParameterType) {
-      final value = ensureName(param);
-      if (fromCallback) {
-        // TypeParameterType params in callbacks: the C typedef alternates between
-        //   - `DartObj` (int by value) when the source param is non-nullable T
-        //   - `DartObj*` (pointer) when the source param is nullable T? (isOptional=true)
-        // Mirrors the Java-side dispatch in paramValueFFMtoJ (see types.dart:497).
-        if (param.isOptional) {
-          return '($value != null) ? (calloc<ffi.Int>()..value = _addWidget($value)) : ffi.nullptr';
-        }
-        return '_addWidget($value)';
-      }
-      t = t.bound;
-    }
-    var value = ensureName(param);
-    var nul = '0';
-    var exclam = '';
-    // A nullable bool crossing back through a callback is typed `int*` in C
-    // (typedefs.h), so it must be marshalled as a pointer: allocate an int for
-    // a real value, or nullptr for null. The Java side reads it with memToBool.
-    // Matches the leak-on-pass convention already used for the string callback.
-    if (fromCallback && t.isDartCoreBool && t.nullabilitySuffix == NullabilitySuffix.question) {
-      return '($value != null) ? (calloc<ffi.Int>()..value = ($value! ? 1 : 0)) : ffi.nullptr';
-    }
-    if (t is InterfaceType) {
-      // if (param.isOptional) {
-      //   value = '$value?';
-      // }
-      // if (t.isDartCoreString) {
-      //   value = '${param.name}.strOrNul()';
-      // }
-      // else if (t.isDartCoreBool) {
-      //   if (t.nullabilitySuffix == NullabilitySuffix.none) {
-      //     value = '${param.name}.boolOr(${param.defaultValueCode})';
-      //   } else {
-      //     value = '${param.name}.boolOrNul()';
-      //   }
-      // }
-      // else if (t.isDartCoreInt) {
-      //   value = '${param.name}.intOrNul()';
-      // }
-      // else if (t.isDartCoreDouble) {
-      //   if (t.nullabilitySuffix == NullabilitySuffix.none) {
-      //     value = '${param.name}.doubleOr(${param.defaultValueCode})';
-      //   } else {
-      //     value = '${param.name}.doubleOrNul()';
-      //   }
-      // }
-      // else if (t.isDartCoreList) {
-      //   final arrayType = t.typeArguments[0];
-      //   if (isPrimitive(arrayType)) {
-      //     value = '${param.name}.orEmpty()';
-      //   } else {
-      //     value = '${param.name}.orEmpty()';
-      //   }
-      // }
-      // else if (t.element is EnumElement) {
-      //   if (t.nullabilitySuffix == NullabilitySuffix.none) {
-      //     value = '${param.name}.enumOr(${t.element.name}.values, ${param.defaultValueCode})';
-      //   } else {
-      //     value = '${param.name}.enumOrNul(${t.element.name}.values)';
-      //   }
-      // }
-      // else if (!isPrimitive(t)) {
-      //   value = '${param.name}.objOrNul()';
-      // }
-      // } else {
-      if (param.isOptional || t.nullabilitySuffix == NullabilitySuffix.question) {
-        exclam = '!';
-      }
-
-      if (t.isDartCoreInt) {
-        value = '$value$exclam';
-      }
-      else if (t.isDartCoreBool) {
-        value = '$value$exclam.toInt()';
-      }
-      else if (t.isDartCoreDouble) {
-        value = '$value$exclam';
-      }
-      else if (t.isDartCoreString) {
-        //   value = '${param.name}.cast<Utf8>().toDartString()';
-        value = '$value$exclam.toNativeUtf8().cast<ffi.Char>()';
-        nul = 'ffi.nullptr';
-      }
-      else if (t.isDartCoreList) {
-        final arrayType = t.typeArguments[0];
-        if (isPrimitive(arrayType)) {
-          value = '$value$exclam.strListToC()';
-        } else {
-          value = '$value$exclam.toArrayC()';
-        }
-        nul = 'ffi.nullptr';
-      }
-      else if (t.element is EnumElement) {
-        value = '$value$exclam.index';
-      }
-      else if (!isPrimitive(t)) {
-        // On the callback path, C hands us a plain int id (per the C typedef
-        // signature — see FunctionHandler.type4C which maps everything through
-        // `DartObj`). Emitting `_create<Widget>ObjSt(value)` would push a struct
-        // through an int-typed slot; register the widget by id and pass that.
-        if (fromCallback) {
-          return '_addWidget($value)';
-        }
-        return ctx.getGen(t.element).dartToC(value);
-        // value = '${param.name}.hashCode';
-      }
-
-      if (param.isOptional) {
-        value = '(${param.name} != null) ? $value : $nul';
-      }
-      // }
-    }
-    // else if (t is FunctionType) {
-    //   value = '$value.toFn()';
-    // }
-    return value;
   }
 
   static String paramValue4JCallback(Types types, ParameterElement param) {
