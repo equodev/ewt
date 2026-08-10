@@ -18,15 +18,6 @@ class Types {
   ClassElement? widgetElement;
   late List<TypeHandler> handlers;
 
-  // Explicit allowlist of EWT-owned classes that use the "subclassed in Java"
-  // codegen path (abstract Java class + factory that dispatches to Java-side
-  // overrides). Using a name-prefix check here is unsafe because Flutter
-  // widgets like `SubmenuButton` also start with "Sub" but are normal factory
-  // widgets, not user-subclassable state holders.
-  static const _ewtSubclassNames = {
-    'SubState', 'SubStatefulWidget', 'SubStatelessWidget', 'SubAnimatedState',
-  };
-
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
@@ -41,15 +32,16 @@ class Types {
       if (dartClass.name == 'AnimationController') {
         return AnimationControllerGen(this, dartClass);
       }
-      if (_ewtSubclassNames.contains(dartClass.name)) {
-        return SubclassGen(this, dartClass);
+      switch (dartClass.name) {
+        case 'SubState': return SubStateGen(this, dartClass);
+        case 'SubStatefulWidget': return SubStatefulWidgetGen(this, dartClass);
+        case 'SubStatelessWidget': return SubStatelessWidgetGen(this, dartClass);
+        case 'SubAnimatedState': return SubAnimatedStateGen(this, dartClass);
       }
-      else if ((dartClass.hasImmutable || dartClass.allSupertypes.any((s) => s.element.hasImmutable)) && !dartClass.isAbstract) {
+      if ((dartClass.hasImmutable || dartClass.allSupertypes.any((s) => s.element.hasImmutable)) && !dartClass.isAbstract) {
         return ImmutableGen(this, dartClass);
       }
-      else {
-        return WidgetGen(this, dartClass);
-      }
+      return WidgetGen(this, dartClass);
     }
     else if (dartClass is EnumElement) {
       return EnumGen(this, dartClass);

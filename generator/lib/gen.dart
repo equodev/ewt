@@ -26,6 +26,10 @@ part 'emit/dart_emitter.dart';
 part 'emit/java_emitter.dart';
 part 'emit/web_emitter.dart';
 part 'emit/special/animation_controller_gen.dart';
+part 'emit/special/sub_animated_state_gen.dart';
+part 'emit/special/sub_state_gen.dart';
+part 'emit/special/sub_stateful_widget_gen.dart';
+part 'emit/special/sub_stateless_widget_gen.dart';
 
 mixin AGen {
   String objType();
@@ -167,6 +171,24 @@ class WidgetGen implements AGen {
   /// method wrapper, before the FFM call. Lets a widget short-circuit or
   /// preroute the call in web mode. Default: no-op.
   void writeVoidMethodWebPrelude(String factory) {}
+
+  /// Hook for the non-void return branch of the Java instance method wrapper.
+  /// Return true to indicate the return statement was emitted by the
+  /// override; return false to fall back to the standard
+  /// `return types.paramValueFFMtoJ(...)`. Default: false.
+  bool tryWriteCustomInstanceMethodReturn(String factory, DartType returnType) => false;
+
+  /// Whether to skip emitting a @Override into javaSerializer for this
+  /// factory. Used by widgets whose serializer form is hand-maintained
+  /// downstream (e.g. SubAnimatedState.animationController is threaded
+  /// through EwtWebCapture). Default: false.
+  bool skipJavaSerializer(String factory) => false;
+
+  /// The Dart-side constructor name emitted by writeDFactory for
+  /// `new $ctor(...)`. Default: [widgetClass]. Overridden by SubclassGen
+  /// (to `node.displayName`) and SubStateful/SubStatelessWidgetGen
+  /// (prefix with `_Tracked` — see factories.dart for the tracked variant).
+  String dartFactoryCtorClass(FunctionTypedElement node) => widgetClass;
 
   @override
   void gen() {
@@ -419,13 +441,7 @@ class WidgetGen implements AGen {
     // returns T?) is absorbed here rather than surfacing as a nullable return:
     // _create*ObjSt(null) yields an empty struct (id 0) and paramValueDtoC
     // falls back to 0 / nullptr for a null value.
-    // For SubStateful/SubStatelessWidget the factory instantiates a private
-    // _Tracked variant (hand-written in factories.dart) that overrides
-    // createElement() to hook Flutter's Element lifecycle. Without this,
-    // widgets never leave the identity registry after Flutter unmounts them.
-    final ctorClass = (widgetClass == 'SubStatefulWidget' || widgetClass == 'SubStatelessWidget')
-        ? '_Tracked$widgetClass'
-        : widgetClass;
+    final ctorClass = dartFactoryCtorClass(node);
     ctx.dartFns
       ..writeln('${types.type4DRet(node.returnType)} $factoryName(${dartParams.decl}) {')
       ..writeln('  ${gen == null ? '' : 'final w = '}$ctorClass${node.name!.isEmpty ? '' : '.$factory'}(${dartParams.names});');
@@ -941,6 +957,25 @@ class SubclassGen extends ObjStGen {
     // Empty implementation as in the original
   }
 
+  // ---------- SubclassGen extension points (see emit/special/sub_*.dart) ----------
+
+  /// Emitted inside the canBeImplInJava method loop when the method is
+  /// `setState`. Default: no-op. SubStateGen / SubAnimatedStateGen emit the
+  /// EwtWebState web-mode reroute here.
+  void emitSetStateWebPrelude() {}
+
+  /// Emitted after the canBeImplInJava method loop and before
+  /// [writeStructFooter], to synthesize the `T widget()` accessor and any
+  /// matching C struct field. Default: no-op.
+  void emitStateWidgetAccessor() {}
+
+  /// Emitted after [writeStructFooter], for extra Java members that hang off
+  /// the state (webWidget field, anim command sink, etc.). Default: no-op.
+  void emitExtraStateJavaMembers() {}
+
+  @override
+  String dartFactoryCtorClass(FunctionTypedElement node) => node.displayName;
+
   @override
   void writeMembers() {
     for (final method in dartClass.supertype!.element.methods.where(canBeImplInJava)) {
@@ -1000,66 +1035,18 @@ class SubclassGen extends ObjStGen {
       final jParams = Params(types, method.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
       ctx.javaFile
         ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
-      // Web-mode setState: run the mutation locally and request a rebuild via EwtWebState.
-      if ((widgetClass == 'SubState' || widgetClass == 'SubAnimatedState') && method.name == 'setState') {
-        ctx.javaFile
-          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
-          ..writeln('      fn.run();')
-          ..writeln('      EwtWebState.requestRebuild(this);')
-          ..writeln('      return;')
-          ..writeln('    }');
-      }
+      if (method.name == 'setState') emitSetStateWebPrelude();
       ctx.javaFile
         ..writeln('    MemorySegment funcPtr = $widgetSt.${method.name}(st);')
         ..writeln('    $widgetSt.${method.name}.invoke(funcPtr, factories.${jParams.names});')
         ..writeln('  }');
     }
 
-    // `State<T>.widget` is a TypeParameterType field, which getCallableFields intentionally
-    // filters out (so Radio<T>.value etc. don't blow up ImmutableGen). SubState/SubAnimatedState
-    // still need the accessor, so emit it here with `T` preserved as the return type — and add
-    // the matching struct field so jextract produces SubStateObjSt.widget.
-    if (widgetClass == 'SubState') {
-      ctx.objectsHFile.writeln('  DartObj (*widget)(void);');
-      ctx.javaFile
-        ..writeln('  @SuppressWarnings("unchecked")')
-        ..writeln('  public T widget() {')
-        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
-        ..writeln('      return (T) webWidget;')
-        ..writeln('    }')
-        ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
-        ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.widget.invoke(funcPtr));')
-        ..writeln('  }');
-    }
-    if (widgetClass == 'SubAnimatedState') {
-      ctx.objectsHFile.writeln('  DartObj (*widget)(void);');
-      ctx.javaFile
-        ..writeln('  @SuppressWarnings("unchecked")')
-        ..writeln('  public T widget() {')
-        ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");')
-        ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
-        ..writeln('    return (T) (NativeObj) new NativeObj.Base() {{ this.id = $widgetSt.widget.invoke(funcPtr); }};')
-        ..writeln('  }');
-    }
+    emitStateWidgetAccessor();
 
     writeStructFooter();
 
-    if (widgetClass == 'SubState') {
-      ctx.javaFile
-        ..writeln('  private SubStatefulWidget webWidget; // set by EwtWebCapture during web-mode flatten')
-        ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }');
-    }
-    if (widgetClass == 'SubAnimatedState') {
-      ctx.javaFile
-        ..writeln('  private SubStatefulWidget webWidget;')
-        ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }')
-        ..writeln('  private java.util.function.Consumer<String> webAnimCommandSink;')
-        ..writeln('  public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) { this.webAnimCommandSink = sink; }')
-        ..writeln('  void sendAnimCommand(int ctrlId, String action) {')
-        ..writeln('    if (webAnimCommandSink != null) webAnimCommandSink.accept("{\\"ctrlId\\":" + ctrlId + ",\\"action\\":\\"" + action + "\\"}");')
-        ..writeln('    else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);')
-        ..writeln('  }');
-    }
+    emitExtraStateJavaMembers();
   }
 
   Iterable<FieldElement> callableFields() {
@@ -1092,12 +1079,7 @@ class SubclassGen extends ObjStGen {
     final dartParams = Params(types, node.parameters, Params.paramDef4D, paramValue: Params.paramValue4D);
     ctx.dartAssigns
         .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName);');
-    // For SubStateful/SubStatelessWidget the factory instantiates a private
-    // _Tracked variant (hand-written in factories.dart) that overrides
-    // createElement() to clean the identity registry on unmount/update.
-    final ctorClass = (widgetClass == 'SubStatefulWidget' || widgetClass == 'SubStatelessWidget')
-        ? '_Tracked${node.displayName}'
-        : node.displayName;
+    final ctorClass = dartFactoryCtorClass(node);
     ctx.dartFns
       ..writeln('$widgetSt $factoryName(${dartParams.decl}) {')
       ..writeln('  final w = $ctorClass(${dartParams.names});');

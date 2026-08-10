@@ -32,13 +32,7 @@ extension _JavaEmit on WidgetGen {
       if (retType == 'int') {
         ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
-      // SubAnimatedState.animationController: wire the controller back to this state for web commands.
-      if (widgetClass == 'SubAnimatedState' && factory == 'animationController') {
-        ctx.javaFile
-          ..writeln('    AnimationController ctrl = new AnimationController(id);')
-          ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);')
-          ..writeln('    return ctrl;');
-      } else {
+      if (!tryWriteCustomInstanceMethodReturn(factory, node.returnType)) {
         ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
       }
     }
@@ -95,8 +89,9 @@ extension _JavaEmit on WidgetGen {
     // @Override resolves for generic factories.
     final jtp = JLang().methodTypeParameters(node.type);
 
-    // Hand-maintained in gen.dart with ctrlId tracking — skip auto-generation to avoid duplicate.
-    if (factoryName == 'subAnimatedStateAnimationController') return;
+    // Hand-maintained downstream (EwtWebCapture threads the ctrlId); the
+    // widget's generator can opt out via skipJavaSerializer.
+    if (skipJavaSerializer(factory)) return;
 
     // ListView.builder special-case: eager-expand itemBuilder into a plain listViewListView node.
     // Instead of recording an inert callback id, we call itemBuilder for each index and collect
