@@ -31,16 +31,14 @@ part 'emit/serialize/serialize_strategy.dart';
 part 'emit/serialize/to_c.dart';
 part 'emit/serialize/to_dart.dart';
 part 'emit/serialize/to_json.dart';
-part 'emit/special/animation_controller_gen.dart';
-part 'emit/special/color_filter_gen.dart';
-part 'emit/special/dart_sub_stateful_widget_gen.dart';
-part 'emit/special/image_filter_gen.dart';
-part 'emit/special/list_view_gen.dart';
-part 'emit/special/material_color_gen.dart';
-part 'emit/special/sub_animated_state_gen.dart';
-part 'emit/special/sub_state_gen.dart';
-part 'emit/special/sub_stateful_widget_gen.dart';
-part 'emit/special/sub_stateless_widget_gen.dart';
+part 'emit/shape/abstract_factory_host_gen.dart';
+part 'emit/shape/builder_expansion_gen.dart';
+part 'emit/shape/color_swatch_gen.dart';
+part 'emit/shape/imperative_controller_gen.dart';
+part 'emit/shape/sub_animated_state_gen.dart';
+part 'emit/shape/sub_state_gen.dart';
+part 'emit/shape/tracked_sub_widget_gen.dart';
+part 'emit/shape/unique_key_defaulter_gen.dart';
 
 mixin AGen {
   String objType();
@@ -1107,13 +1105,13 @@ class DartSubclassGen {
   /// concrete subclass. Single point of name → generator mapping for the
   /// pregeneration path (mirrors `Types.getGen` for the main generator).
   factory DartSubclassGen.forWidget(PreGeneration g, ClassElement w) {
-    if (w.name == 'StatefulWidget') return DartSubStatefulWidgetGen(g, w);
+    if (w.name == 'StatefulWidget') return UniqueKeyDefaulterGen(g, w);
     return DartSubclassGen(g, w);
   }
 
   /// Extra ctor customization for the emitted Dart subclass. Mutates
   /// [params] in-place if needed and returns the constructor initializer
-  /// clause (empty by default). Overridden by DartSubStatefulWidgetGen to
+  /// clause (empty by default). Overridden by [UniqueKeyDefaulterGen] to
   /// force a UniqueKey default.
   String customizeCtor(List<String> params) => '';
 

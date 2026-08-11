@@ -23,22 +23,38 @@ class Types {
         widgets = widgets.skip(1),
         handlers = [MapHandler(), FunctionHandler()];
 
+  /// Maps a Dart element to its generator. Single dispatch site: no
+  /// downstream code branches on class name; every emitter uses
+  /// polymorphism through the returned generator.
+  ///
+  /// Grouped by *behavior*, not by widget identity — the class hierarchy
+  /// in `emit/shape/*` captures divergent emission shapes (abstract
+  /// factory host, indexed builder expansion, imperative controller,
+  /// color swatch, tracked sub-widget, user-subclassable state). Adding a
+  /// new Flutter widget that fits an existing shape is just one line
+  /// here; a new shape is a new class + one line here.
   AGen getGen(Element dartClass) {
     if (dartClass is ClassElement) {
-      // Widgets with a divergent emission shape live in emit/special/*
-      // and are dispatched here by name. This is the single place where a
-      // class name maps to a concrete generator subclass; downstream code
-      // uses polymorphism via the returned generator.
       switch (dartClass.name) {
-        case 'AnimationController': return AnimationControllerGen(this, dartClass);
-        case 'ColorFilter': return ColorFilterGen(this, dartClass);
-        case 'ImageFilter': return ImageFilterGen(this, dartClass);
-        case 'ListView': return ListViewGen(this, dartClass);
-        case 'MaterialColor': return MaterialColorGen(this, dartClass);
+        // User-subclassable EWT bases.
         case 'SubState': return SubStateGen(this, dartClass);
-        case 'SubStatefulWidget': return SubStatefulWidgetGen(this, dartClass);
-        case 'SubStatelessWidget': return SubStatelessWidgetGen(this, dartClass);
         case 'SubAnimatedState': return SubAnimatedStateGen(this, dartClass);
+        case 'SubStatefulWidget':
+        case 'SubStatelessWidget':
+          return TrackedSubWidgetGen(this, dartClass);
+        // Imperative controller — the config lives on the class.
+        case 'AnimationController':
+          return ImperativeControllerGen.forAnimationController(this, dartClass);
+        // Color swatch (shade-field pre-resolution + custom web decoder).
+        case 'MaterialColor':
+          return ColorSwatchGen(this, dartClass);
+        // Indexed builder expansion (.builder with itemBuilder+itemCount).
+        case 'ListView':
+          return BuilderExpansionGen(this, dartClass);
+        // Abstract classes exposing factory ctors as static Java factories.
+        case 'ImageFilter':
+        case 'ColorFilter':
+          return AbstractFactoryHostGen(this, dartClass);
       }
       if ((dartClass.hasImmutable || dartClass.allSupertypes.any((s) => s.element.hasImmutable)) && !dartClass.isAbstract) {
         return ImmutableGen(this, dartClass);

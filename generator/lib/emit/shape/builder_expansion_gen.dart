@@ -1,19 +1,21 @@
 part of '../../gen.dart';
 
-/// Emitter for `ListView` — the base class is a stock widget, but the
-/// `.builder` named constructor eager-expands its `itemBuilder` into a
-/// plain `listViewListView` node at serialize time so the browser can
-/// decode it with the standard ListView decoder without ever seeing the
-/// builder callback.
+/// Emitter for widgets that expose a `.builder` factory constructor
+/// (`itemBuilder` + `itemCount`). Its Java serializer eager-expands the
+/// builder callback by walking `itemCount` and calling `itemBuilder(ctx, i)`
+/// for each index, collecting the resulting child node ids under the
+/// `"children"` key of a node record — the browser then decodes the
+/// result with the widget's plain (non-`.builder`) constructor decoder,
+/// bypassing the builder callback entirely.
 ///
-///   * [tryEmitCustomJavaSerializer] emits a bespoke @Override for
-///     `.builder` that iterates itemCount and calls itemBuilder, storing
-///     the resulting child ids under the "children" key.
-///   * [tryEmitCustomWebDecoder] returns true for `.builder` without
-///     writing anything — the eager-expanded node uses the ListView
-///     constructor decoder, so no builder-specific decoder is needed.
-class ListViewGen extends ImmutableGen {
-  ListViewGen(super.types, super.dartClass);
+/// Currently reached by `ListView`; the same shape applies to any Flutter
+/// widget with the (`.builder`, `itemBuilder`, `itemCount`) triplet —
+/// `GridView.builder`, `PageView.builder`, `SliverList.builder`,
+/// `ReorderableListView.builder`, `AnimatedList`, etc. Dispatch happens
+/// structurally in [Types.getGen] via [_hasIndexedBuilderFactory] so
+/// adding one of those to the index routes here for free.
+class BuilderExpansionGen extends ImmutableGen {
+  BuilderExpansionGen(super.types, super.dartClass);
 
   @override
   bool tryEmitCustomJavaSerializer(
@@ -25,6 +27,10 @@ class ListViewGen extends ImmutableGen {
     String? objStClass,
   ) {
     if (factory != 'builder') return false;
+    // The eager-expanded node uses the plain constructor's factory name,
+    // which is `${widgetField}${widgetClass}` — e.g. `listViewListView` for
+    // ListView, `gridViewGridView` for GridView.
+    final defaultFactoryName = '$widgetField$widgetClass';
     final retType = types.type4FFMRet(node.returnType);
     ctx.javaSerializer
       ..writeln('  @Override')
@@ -47,7 +53,7 @@ class ListViewGen extends ImmutableGen {
       if (stmt.isNotEmpty) ctx.javaSerializer.writeln('    $stmt');
     }
     ctx.javaSerializer
-      ..writeln('    record(id, "listViewListView", p);')
+      ..writeln('    record(id, "$defaultFactoryName", p);')
       ..writeln('    MemorySegment st = ${objStClass!}.allocate(arena);')
       ..writeln('    $objStClass.id(st, id);')
       ..writeln('    return st;')
