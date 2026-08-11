@@ -3121,7 +3121,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("primary", primary);
-    p.put("swatch", nextCallbackId++);
+    p.put("swatch", swatch.entrySet().stream().collect(java.util.stream.Collectors.toMap(en -> String.valueOf(en.getKey()), en -> byId.get(en.getValue().getId()))));
     record(id, "materialColorMaterialColor", p);
     MemorySegment st = MaterialColorObjSt.allocate(arena);
     MaterialColorObjSt.id(st, id);
@@ -3365,7 +3365,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("primary", primary);
-    p.put("swatch", nextCallbackId++);
+    p.put("swatch", swatch.entrySet().stream().collect(java.util.stream.Collectors.toMap(en -> String.valueOf(en.getKey()), en -> byId.get(en.getValue().getId()))));
     record(id, "materialAccentColorMaterialAccentColor", p);
     MemorySegment st = MaterialAccentColorObjSt.allocate(arena);
     MaterialAccentColorObjSt.id(st, id);
@@ -4487,7 +4487,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4502,6 +4502,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
@@ -4703,16 +4704,18 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment checkboxCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  MemorySegment checkboxCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
     tristate.ifPresent(v -> p.put("tristate", v));
     int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     checkColor.ifPresent(v -> p.put("checkColor", byId.get(v.getId())));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
@@ -4727,16 +4730,18 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment checkboxAdaptive(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  MemorySegment checkboxAdaptive(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
     tristate.ifPresent(v -> p.put("tristate", v));
     int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     checkColor.ifPresent(v -> p.put("checkColor", byId.get(v.getId())));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
@@ -4752,7 +4757,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment switch_Switch_(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding) {
+  MemorySegment switch_Switch_(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -4762,10 +4767,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     activeTrackColor.ifPresent(v -> p.put("activeTrackColor", byId.get(v.getId())));
     inactiveThumbColor.ifPresent(v -> p.put("inactiveThumbColor", byId.get(v.getId())));
     inactiveTrackColor.ifPresent(v -> p.put("inactiveTrackColor", byId.get(v.getId())));
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    trackColor.ifPresent(v -> p.put("trackColor", byId.get(v.getId())));
+    trackOutlineColor.ifPresent(v -> p.put("trackOutlineColor", byId.get(v.getId())));
+    if (trackOutlineWidth.isPresent()) { p.put("trackOutlineWidth", trackOutlineWidth.getAsDouble()); }
+    thumbIcon.ifPresent(v -> p.put("thumbIcon", byId.get(v.getId())));
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
@@ -4776,7 +4787,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment switch_Adaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> applyCupertinoTheme) {
+  MemorySegment switch_Adaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> applyCupertinoTheme) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -4787,9 +4798,15 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     inactiveThumbColor.ifPresent(v -> p.put("inactiveThumbColor", byId.get(v.getId())));
     inactiveTrackColor.ifPresent(v -> p.put("inactiveTrackColor", byId.get(v.getId())));
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    trackColor.ifPresent(v -> p.put("trackColor", byId.get(v.getId())));
+    trackOutlineColor.ifPresent(v -> p.put("trackOutlineColor", byId.get(v.getId())));
+    if (trackOutlineWidth.isPresent()) { p.put("trackOutlineWidth", trackOutlineWidth.getAsDouble()); }
+    thumbIcon.ifPresent(v -> p.put("thumbIcon", byId.get(v.getId())));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
@@ -4802,7 +4819,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliderSlider(double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> year2023) {
+  MemorySegment sliderSlider(double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> year2023) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -4818,6 +4835,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     inactiveColor.ifPresent(v -> p.put("inactiveColor", byId.get(v.getId())));
     secondaryActiveColor.ifPresent(v -> p.put("secondaryActiveColor", byId.get(v.getId())));
     thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (semanticFormatterCallback != null) { p.put("semanticFormatterCallback", nextCallbackId++); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     allowedInteraction.ifPresent(v -> p.put("allowedInteraction", v.ordinal()));
@@ -4829,7 +4847,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment sliderAdaptive(double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
+  MemorySegment sliderAdaptive(double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -4845,6 +4863,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     inactiveColor.ifPresent(v -> p.put("inactiveColor", byId.get(v.getId())));
     secondaryActiveColor.ifPresent(v -> p.put("secondaryActiveColor", byId.get(v.getId())));
     thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (semanticFormatterCallback != null) { p.put("semanticFormatterCallback", nextCallbackId++); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     allowedInteraction.ifPresent(v -> p.put("allowedInteraction", v.ordinal()));
@@ -4928,7 +4947,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment tabBarTabBar(List<Widget> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometry> padding, Optional<Color> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometry> indicatorPadding, Optional<Decoration> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<Color> dividerColor, OptionalDouble dividerHeight, Optional<Color> labelColor, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Color> unselectedLabelColor, Optional<TextStyle> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadius> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
+  MemorySegment tabBarTabBar(List<Widget> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometry> padding, Optional<Color> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometry> indicatorPadding, Optional<Decoration> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<Color> dividerColor, OptionalDouble dividerHeight, Optional<Color> labelColor, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Color> unselectedLabelColor, Optional<TextStyle> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadius> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("tabs", tabs.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
@@ -4948,6 +4967,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     unselectedLabelColor.ifPresent(v -> p.put("unselectedLabelColor", byId.get(v.getId())));
     unselectedLabelStyle.ifPresent(v -> p.put("unselectedLabelStyle", byId.get(v.getId())));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
     if (onHover != null) { p.put("onHover", nextCallbackId++); }
@@ -4961,7 +4981,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment tabBarSecondary(List<Widget> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometry> padding, Optional<Color> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometry> indicatorPadding, Optional<Decoration> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<Color> dividerColor, OptionalDouble dividerHeight, Optional<Color> labelColor, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Color> unselectedLabelColor, Optional<TextStyle> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadius> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
+  MemorySegment tabBarSecondary(List<Widget> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometry> padding, Optional<Color> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometry> indicatorPadding, Optional<Decoration> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<Color> dividerColor, OptionalDouble dividerHeight, Optional<Color> labelColor, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Color> unselectedLabelColor, Optional<TextStyle> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadius> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("tabs", tabs.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
@@ -4981,6 +5001,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     unselectedLabelColor.ifPresent(v -> p.put("unselectedLabelColor", byId.get(v.getId())));
     unselectedLabelStyle.ifPresent(v -> p.put("unselectedLabelStyle", byId.get(v.getId())));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
     if (onHover != null) { p.put("onHover", nextCallbackId++); }
@@ -5023,14 +5044,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment checkboxListTileCheckboxListTile(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> checkColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment checkboxListTileCheckboxListTile(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
     int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     checkColor.ifPresent(v -> p.put("checkColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
@@ -5063,14 +5086,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment checkboxListTileAdaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> checkColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment checkboxListTileAdaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
     int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     checkColor.ifPresent(v -> p.put("checkColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
@@ -5104,7 +5129,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment switchListTileSwitchListTile(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment switchListTileSwitchListTile(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5114,8 +5139,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     activeTrackColor.ifPresent(v -> p.put("activeTrackColor", byId.get(v.getId())));
     inactiveThumbColor.ifPresent(v -> p.put("inactiveThumbColor", byId.get(v.getId())));
     inactiveTrackColor.ifPresent(v -> p.put("inactiveTrackColor", byId.get(v.getId())));
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    trackColor.ifPresent(v -> p.put("trackColor", byId.get(v.getId())));
+    trackOutlineColor.ifPresent(v -> p.put("trackOutlineColor", byId.get(v.getId())));
+    thumbIcon.ifPresent(v -> p.put("thumbIcon", byId.get(v.getId())));
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
@@ -5140,7 +5170,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment switchListTileAdaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment switchListTileAdaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5150,8 +5180,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     activeTrackColor.ifPresent(v -> p.put("activeTrackColor", byId.get(v.getId())));
     inactiveThumbColor.ifPresent(v -> p.put("inactiveThumbColor", byId.get(v.getId())));
     inactiveTrackColor.ifPresent(v -> p.put("inactiveTrackColor", byId.get(v.getId())));
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    trackColor.ifPresent(v -> p.put("trackColor", byId.get(v.getId())));
+    trackOutlineColor.ifPresent(v -> p.put("trackOutlineColor", byId.get(v.getId())));
+    thumbIcon.ifPresent(v -> p.put("thumbIcon", byId.get(v.getId())));
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
@@ -5280,7 +5315,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -5295,6 +5330,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
     highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     if (radius.isPresent()) { p.put("radius", radius.getAsDouble()); }
     borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
@@ -5312,7 +5348,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -5332,6 +5368,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
     highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
     excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));
@@ -5346,7 +5383,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment dataTableDataTable(List<DataColumn> columns, OptionalInt sortColumnIndex, Optional<Boolean> sortAscending, Optional<Consumer<Boolean>> onSelectAll, Optional<Decoration> decoration, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyle> dataTextStyle, OptionalDouble headingRowHeight, Optional<TextStyle> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, Optional<Boolean> showCheckboxColumn, Optional<Boolean> showBottomBorder, OptionalDouble dividerThickness, List<DataRow> rows, OptionalDouble checkboxHorizontalMargin, Optional<Clip> clipBehavior) {
+  MemorySegment dataTableDataTable(List<DataColumn> columns, OptionalInt sortColumnIndex, Optional<Boolean> sortAscending, Optional<Consumer<Boolean>> onSelectAll, Optional<Decoration> decoration, Optional<Color> dataRowColor, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyle> dataTextStyle, Optional<Color> headingRowColor, OptionalDouble headingRowHeight, Optional<TextStyle> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, Optional<Boolean> showCheckboxColumn, Optional<Boolean> showBottomBorder, OptionalDouble dividerThickness, List<DataRow> rows, OptionalDouble checkboxHorizontalMargin, Optional<Clip> clipBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("columns", columns.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
@@ -5354,10 +5391,12 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     sortAscending.ifPresent(v -> p.put("sortAscending", v));
     if (onSelectAll.isPresent()) { int __cb_onSelectAll = nextCallbackId++; p.put("onSelectAll", __cb_onSelectAll); java.util.function.Consumer<Boolean> __h_onSelectAll = onSelectAll.get(); callbacks.put(__cb_onSelectAll, (java.util.function.Consumer<Object>)(v -> __h_onSelectAll.accept((Boolean) v))); }
     decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    dataRowColor.ifPresent(v -> p.put("dataRowColor", byId.get(v.getId())));
     if (dataRowHeight.isPresent()) { p.put("dataRowHeight", dataRowHeight.getAsDouble()); }
     if (dataRowMinHeight.isPresent()) { p.put("dataRowMinHeight", dataRowMinHeight.getAsDouble()); }
     if (dataRowMaxHeight.isPresent()) { p.put("dataRowMaxHeight", dataRowMaxHeight.getAsDouble()); }
     dataTextStyle.ifPresent(v -> p.put("dataTextStyle", byId.get(v.getId())));
+    headingRowColor.ifPresent(v -> p.put("headingRowColor", byId.get(v.getId())));
     if (headingRowHeight.isPresent()) { p.put("headingRowHeight", headingRowHeight.getAsDouble()); }
     headingTextStyle.ifPresent(v -> p.put("headingTextStyle", byId.get(v.getId())));
     if (horizontalMargin.isPresent()) { p.put("horizontalMargin", horizontalMargin.getAsDouble()); }
@@ -5390,12 +5429,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, List<DataCell> cells) {
+  MemorySegment dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Color> color, List<DataCell> cells) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     selected.ifPresent(v -> p.put("selected", v));
     if (onSelectChanged.isPresent()) { int __cb_onSelectChanged = nextCallbackId++; p.put("onSelectChanged", __cb_onSelectChanged); java.util.function.Consumer<Boolean> __h_onSelectChanged = onSelectChanged.get(); callbacks.put(__cb_onSelectChanged, (java.util.function.Consumer<Object>)(v -> __h_onSelectChanged.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
     p.put("cells", cells.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     record(id, "dataRowDataRow", p);
     MemorySegment st = DataRowObjSt.allocate(arena);
@@ -5403,13 +5443,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, List<DataCell> cells) {
+  MemorySegment dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Color> color, List<DataCell> cells) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (index.isPresent()) { p.put("index", index.getAsInt()); }
     selected.ifPresent(v -> p.put("selected", v));
     if (onSelectChanged.isPresent()) { int __cb_onSelectChanged = nextCallbackId++; p.put("onSelectChanged", __cb_onSelectChanged); java.util.function.Consumer<Boolean> __h_onSelectChanged = onSelectChanged.get(); callbacks.put(__cb_onSelectChanged, (java.util.function.Consumer<Object>)(v -> __h_onSelectChanged.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
     p.put("cells", cells.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     record(id, "dataRowByIndex", p);
     MemorySegment st = DataRowObjSt.allocate(arena);
@@ -5449,7 +5490,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T> MemorySegment radioRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<BorderSide> side) {
+  <T> MemorySegment radioRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<Color> backgroundColor, Optional<BorderSide> side, OptionalDouble innerRadius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5457,21 +5498,25 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
     toggleable.ifPresent(v -> p.put("toggleable", v));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     autofocus.ifPresent(v -> p.put("autofocus", v));
     enabled.ifPresent(v -> p.put("enabled", v));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (innerRadius.isPresent()) { p.put("innerRadius", innerRadius.getAsDouble()); }
     record(id, "radioRadio", p);
     MemorySegment st = RadioObjSt.allocate(arena);
     RadioObjSt.id(st, id);
     return st;
   }
   @Override
-  <T> MemorySegment radioAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> focusColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<Boolean> enabled, Optional<BorderSide> side) {
+  <T> MemorySegment radioAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<Boolean> enabled, Optional<Color> backgroundColor, Optional<BorderSide> side, OptionalDouble innerRadius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5479,15 +5524,19 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
     toggleable.ifPresent(v -> p.put("toggleable", v));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     autofocus.ifPresent(v -> p.put("autofocus", v));
     useCupertinoCheckmarkStyle.ifPresent(v -> p.put("useCupertinoCheckmarkStyle", v));
     enabled.ifPresent(v -> p.put("enabled", v));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (innerRadius.isPresent()) { p.put("innerRadius", innerRadius.getAsDouble()); }
     record(id, "radioAdaptive", p);
     MemorySegment st = RadioObjSt.allocate(arena);
     RadioObjSt.id(st, id);
@@ -5495,7 +5544,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T> MemorySegment radioListTileRadioListTile(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<BorderSide> radioSide) {
+  <T> MemorySegment radioListTileRadioListTile(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<Color> radioBackgroundColor, Optional<BorderSide> radioSide) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5503,7 +5552,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
     toggleable.ifPresent(v -> p.put("toggleable", v));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
@@ -5525,6 +5576,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     titleAlignment.ifPresent(v -> p.put("titleAlignment", v.ordinal()));
     enabled.ifPresent(v -> p.put("enabled", v));
     internalAddSemanticForOnTap.ifPresent(v -> p.put("internalAddSemanticForOnTap", v));
+    radioBackgroundColor.ifPresent(v -> p.put("radioBackgroundColor", byId.get(v.getId())));
     radioSide.ifPresent(v -> p.put("radioSide", byId.get(v.getId())));
     record(id, "radioListTileRadioListTile", p);
     MemorySegment st = RadioListTileObjSt.allocate(arena);
@@ -5532,7 +5584,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  <T> MemorySegment radioListTileAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<BorderSide> radioSide) {
+  <T> MemorySegment radioListTileAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<Color> radioBackgroundColor, Optional<BorderSide> radioSide) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5540,7 +5592,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
     toggleable.ifPresent(v -> p.put("toggleable", v));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     if (splashRadius.isPresent()) { p.put("splashRadius", splashRadius.getAsDouble()); }
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
@@ -5563,6 +5617,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     useCupertinoCheckmarkStyle.ifPresent(v -> p.put("useCupertinoCheckmarkStyle", v));
     titleAlignment.ifPresent(v -> p.put("titleAlignment", v.ordinal()));
     internalAddSemanticForOnTap.ifPresent(v -> p.put("internalAddSemanticForOnTap", v));
+    radioBackgroundColor.ifPresent(v -> p.put("radioBackgroundColor", byId.get(v.getId())));
     radioSide.ifPresent(v -> p.put("radioSide", byId.get(v.getId())));
     record(id, "radioListTileAdaptive", p);
     MemorySegment st = RadioListTileObjSt.allocate(arena);
@@ -5727,7 +5782,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment navigationBarNavigationBar(Optional<Duration> animationDuration, OptionalInt selectedIndex, List<Widget> destinations, Optional<Consumer<Integer>> onDestinationSelected, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, OptionalDouble height, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> maintainBottomViewPadding) {
+  MemorySegment navigationBarNavigationBar(Optional<Duration> animationDuration, OptionalInt selectedIndex, List<Widget> destinations, Optional<Consumer<Integer>> onDestinationSelected, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, OptionalDouble height, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<Color> overlayColor, Optional<TextStyle> labelTextStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> maintainBottomViewPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     animationDuration.ifPresent(v -> p.put("animationDuration", byId.get(v.getId())));
@@ -5742,6 +5797,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     indicatorShape.ifPresent(v -> p.put("indicatorShape", byId.get(v.getId())));
     if (height.isPresent()) { p.put("height", height.getAsDouble()); }
     labelBehavior.ifPresent(v -> p.put("labelBehavior", v.ordinal()));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
+    labelTextStyle.ifPresent(v -> p.put("labelTextStyle", byId.get(v.getId())));
     labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
     maintainBottomViewPadding.ifPresent(v -> p.put("maintainBottomViewPadding", v));
     record(id, "navigationBarNavigationBar", p);
@@ -5840,7 +5897,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T> MemorySegment popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsets> padding, Optional<TextStyle> textStyle, Widget child) {
+  <T> MemorySegment popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsets> padding, Optional<TextStyle> textStyle, Optional<TextStyle> labelTextStyle, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5849,6 +5906,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (height.isPresent()) { p.put("height", height.getAsDouble()); }
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
     textStyle.ifPresent(v -> p.put("textStyle", byId.get(v.getId())));
+    labelTextStyle.ifPresent(v -> p.put("labelTextStyle", byId.get(v.getId())));
     p.put("child", byId.get(child.getId()));
     record(id, "popupMenuItemPopupMenuItem", p);
     MemorySegment st = PopupMenuItemObjSt.allocate(arena);
@@ -5873,7 +5931,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T> MemorySegment checkedPopupMenuItemCheckedPopupMenuItem(Optional<NativeObj> value, Optional<Boolean> checked, Optional<Boolean> enabled, Optional<EdgeInsets> padding, OptionalDouble height, Optional<Widget> child, Optional<Runnable> onTap) {
+  <T> MemorySegment checkedPopupMenuItemCheckedPopupMenuItem(Optional<NativeObj> value, Optional<Boolean> checked, Optional<Boolean> enabled, Optional<EdgeInsets> padding, OptionalDouble height, Optional<TextStyle> labelTextStyle, Optional<Widget> child, Optional<Runnable> onTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -5881,6 +5939,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     enabled.ifPresent(v -> p.put("enabled", v));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
     if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    labelTextStyle.ifPresent(v -> p.put("labelTextStyle", byId.get(v.getId())));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     record(id, "checkedPopupMenuItemCheckedPopupMenuItem", p);
@@ -5955,7 +6014,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Widget child) {
+  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Widget> submenuIcon, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
@@ -5966,6 +6025,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     leadingIcon.ifPresent(v -> p.put("leadingIcon", byId.get(v.getId())));
     trailingIcon.ifPresent(v -> p.put("trailingIcon", byId.get(v.getId())));
+    submenuIcon.ifPresent(v -> p.put("submenuIcon", byId.get(v.getId())));
     useRootOverlay.ifPresent(v -> p.put("useRootOverlay", v));
     p.put("menuChildren", menuChildren.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     p.put("child", byId.get(child.getId()));
@@ -6176,7 +6236,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     hintText.ifPresent(v -> p.put("hintText", v));
@@ -6185,6 +6245,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
     constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    textStyle.ifPresent(v -> p.put("textStyle", byId.get(v.getId())));
+    hintStyle.ifPresent(v -> p.put("hintStyle", byId.get(v.getId())));
     textCapitalization.ifPresent(v -> p.put("textCapitalization", v.ordinal()));
     enabled.ifPresent(v -> p.put("enabled", v));
     autoFocus.ifPresent(v -> p.put("autoFocus", v));
@@ -6446,7 +6516,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoSwitchCupertinoSwitch(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> trackColor, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<Color> focusColor, Optional<Color> onLabelColor, Optional<Color> offLabelColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
+  MemorySegment cupertinoSwitchCupertinoSwitch(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> trackColor, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<Color> focusColor, Optional<Color> onLabelColor, Optional<Color> offLabelColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -6461,6 +6531,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     onLabelColor.ifPresent(v -> p.put("onLabelColor", byId.get(v.getId())));
     offLabelColor.ifPresent(v -> p.put("offLabelColor", byId.get(v.getId())));
+    trackOutlineColor.ifPresent(v -> p.put("trackOutlineColor", byId.get(v.getId())));
+    if (trackOutlineWidth.isPresent()) { p.put("trackOutlineWidth", trackOutlineWidth.getAsDouble()); }
+    thumbIcon.ifPresent(v -> p.put("thumbIcon", byId.get(v.getId())));
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
@@ -6921,7 +6994,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoCheckboxCupertinoCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<String> semanticLabel) {
+  MemorySegment cupertinoCheckboxCupertinoCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<String> semanticLabel) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -6929,6 +7002,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> onChanged.accept((Boolean) v)));
     activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
     inactiveColor.ifPresent(v -> p.put("inactiveColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     checkColor.ifPresent(v -> p.put("checkColor", byId.get(v.getId())));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     autofocus.ifPresent(v -> p.put("autofocus", v));

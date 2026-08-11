@@ -58,11 +58,19 @@ public class MaterialControlsGallery {
                   .children(List.of(
 
                       tile("Switch", Switch(_switchOn, v -> setState(() -> _switchOn = v))
-                          .activeColor(Colors.indigo())),
+                          .activeColor(Colors.indigo())
+                          // WidgetStateProperty<Color?>? — a single Color is wrapped as
+                          // WidgetStatePropertyAll(Color) on the Flutter side; visible
+                          // as the thumb / track / overlay shading across states.
+                          .thumbColor(Colors.orange())
+                          .trackColor(Colors.amber())
+                          .overlayColor(Colors.deepPurple())),
                       Text("Switch is " + (_switchOn ? "ON" : "OFF")),
                       Divider(),
 
-                      tile("Checkbox", Checkbox(_checked).onChanged(v -> setState(() -> _checked = v))),
+                      tile("Checkbox", Checkbox(_checked).onChanged(v -> setState(() -> _checked = v))
+                          .fillColor(Colors.teal())
+                          .overlayColor(Colors.teal())),
                       Text("Checkbox is " + (_checked ? "checked" : "unchecked")),
                       Divider(),
 

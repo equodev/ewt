@@ -17,20 +17,24 @@ public class Radio<T> extends StatefulWidget implements RadioI {
   }
   Radio(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> Radio<T> radioRadio(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<BorderSideI> side) {
+  static <T extends NativeObj> Radio<T> radioRadio(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<ColorI> backgroundColor, Optional<BorderSideI> side, OptionalDouble innerRadius) {
     var st = factories.radioRadio(value,
       groupValue,
       onChanged,
       toggleable,
       activeColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       focusColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       visualDensity.map(VisualDensityI::build),
       autofocus,
       enabled,
-      side.map(BorderSideI::build));
+      backgroundColor.map(ColorI::build),
+      side.map(BorderSideI::build),
+      innerRadius);
     if (st == null) throw new RuntimeException("Failed to created widget Radio");
     return new Radio(st);
   }
@@ -38,21 +42,25 @@ public class Radio<T> extends StatefulWidget implements RadioI {
     return RadioRadioBuilder.radioRadio(value);
   }
   @Builder.Factory
-  static <T extends NativeObj> Radio<T> radioAdaptive(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<Boolean> enabled, Optional<BorderSideI> side) {
+  static <T extends NativeObj> Radio<T> radioAdaptive(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<Boolean> enabled, Optional<ColorI> backgroundColor, Optional<BorderSideI> side, OptionalDouble innerRadius) {
     var st = factories.radioAdaptive(value,
       groupValue,
       onChanged,
       toggleable,
       activeColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       focusColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       visualDensity.map(VisualDensityI::build),
       autofocus,
       useCupertinoCheckmarkStyle,
       enabled,
-      side.map(BorderSideI::build));
+      backgroundColor.map(ColorI::build),
+      side.map(BorderSideI::build),
+      innerRadius);
     if (st == null) throw new RuntimeException("Failed to created widget Radio");
     return new Radio(st);
   }

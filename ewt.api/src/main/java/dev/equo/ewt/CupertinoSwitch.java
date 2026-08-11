@@ -17,7 +17,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
   }
   CupertinoSwitch(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoSwitch cupertinoSwitchCupertinoSwitch(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> trackColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<ColorI> focusColor, Optional<ColorI> onLabelColor, Optional<ColorI> offLabelColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
+  static CupertinoSwitch cupertinoSwitchCupertinoSwitch(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> trackColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<ColorI> focusColor, Optional<ColorI> onLabelColor, Optional<ColorI> offLabelColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
     var st = factories.cupertinoSwitchCupertinoSwitch(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -30,6 +30,9 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       focusColor.map(ColorI::build),
       onLabelColor.map(ColorI::build),
       offLabelColor.map(ColorI::build),
+      trackOutlineColor.map(ColorI::build),
+      trackOutlineWidth,
+      thumbIcon.map(IconI::build),
       onFocusChange,
       autofocus,
       dragStartBehavior);

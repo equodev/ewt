@@ -17,13 +17,23 @@ public class SearchBar extends StatefulWidget implements SearchBarI {
   }
   SearchBar(int id) { this.id = id; }
   @Builder.Factory
-  static SearchBar searchBarSearchBar(Optional<String> hintText, Optional<WidgetI> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraintsI> constraints, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsetsI> scrollPadding) {
+  static SearchBar searchBarSearchBar(Optional<String> hintText, Optional<WidgetI> leading, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraintsI> constraints, OptionalDouble elevation, Optional<ColorI> backgroundColor, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> overlayColor, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<EdgeInsetsGeometryI> padding, Optional<TextStyleI> textStyle, Optional<TextStyleI> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsetsI> scrollPadding) {
     var st = factories.searchBarSearchBar(hintText,
       leading.map(WidgetI::build),
       onTap,
       onChanged,
       onSubmitted,
       constraints.map(BoxConstraintsI::build),
+      elevation,
+      backgroundColor.map(ColorI::build),
+      shadowColor.map(ColorI::build),
+      surfaceTintColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
+      side.map(BorderSideI::build),
+      shape.map(OutlinedBorderI::build),
+      padding.map(EdgeInsetsGeometryI::build),
+      textStyle.map(TextStyleI::build),
+      hintStyle.map(TextStyleI::build),
       textCapitalization,
       enabled,
       autoFocus,

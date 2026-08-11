@@ -17,13 +17,15 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
   }
   RadioListTile(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> RadioListTile<T> radioListTileRadioListTile(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<BorderSideI> radioSide) {
+  static <T extends NativeObj> RadioListTile<T> radioListTileRadioListTile(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<ColorI> radioBackgroundColor, Optional<BorderSideI> radioSide) {
     var st = factories.radioListTileRadioListTile(value,
       groupValue,
       onChanged,
       toggleable,
       activeColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       title.map(WidgetI::build),
@@ -45,6 +47,7 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
       titleAlignment,
       enabled,
       internalAddSemanticForOnTap,
+      radioBackgroundColor.map(ColorI::build),
       radioSide.map(BorderSideI::build));
     if (st == null) throw new RuntimeException("Failed to created widget RadioListTile");
     return new RadioListTile(st);
@@ -53,13 +56,15 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
     return RadioListTileRadioListTileBuilder.radioListTileRadioListTile(value);
   }
   @Builder.Factory
-  static <T extends NativeObj> RadioListTile<T> radioListTileAdaptive(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<BorderSideI> radioSide) {
+  static <T extends NativeObj> RadioListTile<T> radioListTileAdaptive(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<ColorI> radioBackgroundColor, Optional<BorderSideI> radioSide) {
     var st = factories.radioListTileAdaptive(value,
       groupValue,
       onChanged,
       toggleable,
       activeColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       title.map(WidgetI::build),
@@ -82,6 +87,7 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
       useCupertinoCheckmarkStyle,
       titleAlignment,
       internalAddSemanticForOnTap,
+      radioBackgroundColor.map(ColorI::build),
       radioSide.map(BorderSideI::build));
     if (st == null) throw new RuntimeException("Failed to created widget RadioListTile");
     return new RadioListTile(st);

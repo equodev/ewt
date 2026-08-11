@@ -17,16 +17,18 @@ public class DataTable extends StatelessWidget implements DataTableI {
   }
   DataTable(int id) { this.id = id; }
   @Builder.Factory
-  static DataTable dataTableDataTable(@Builder.Parameter List<DataColumnI> columns, OptionalInt sortColumnIndex, Optional<Boolean> sortAscending, Optional<Consumer<Boolean>> onSelectAll, Optional<DecorationI> decoration, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyleI> dataTextStyle, OptionalDouble headingRowHeight, Optional<TextStyleI> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, Optional<Boolean> showCheckboxColumn, Optional<Boolean> showBottomBorder, OptionalDouble dividerThickness, List<DataRowI> rows, OptionalDouble checkboxHorizontalMargin, Optional<Clip> clipBehavior) {
+  static DataTable dataTableDataTable(@Builder.Parameter List<DataColumnI> columns, OptionalInt sortColumnIndex, Optional<Boolean> sortAscending, Optional<Consumer<Boolean>> onSelectAll, Optional<DecorationI> decoration, Optional<ColorI> dataRowColor, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyleI> dataTextStyle, Optional<ColorI> headingRowColor, OptionalDouble headingRowHeight, Optional<TextStyleI> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, Optional<Boolean> showCheckboxColumn, Optional<Boolean> showBottomBorder, OptionalDouble dividerThickness, List<DataRowI> rows, OptionalDouble checkboxHorizontalMargin, Optional<Clip> clipBehavior) {
     var st = factories.dataTableDataTable(columns.stream().map(DataColumnI::build).toList(),
       sortColumnIndex,
       sortAscending,
       onSelectAll,
       decoration.map(DecorationI::build),
+      dataRowColor.map(ColorI::build),
       dataRowHeight,
       dataRowMinHeight,
       dataRowMaxHeight,
       dataTextStyle.map(TextStyleI::build),
+      headingRowColor.map(ColorI::build),
       headingRowHeight,
       headingTextStyle.map(TextStyleI::build),
       horizontalMargin,

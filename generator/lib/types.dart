@@ -21,7 +21,7 @@ class Types {
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
-        handlers = [MapHandler(), FunctionHandler()];
+        handlers = [MapHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
 
   /// Maps a Dart element to its generator. Single dispatch site: no
   /// downstream code branches on class name; every emitter uses
@@ -342,6 +342,16 @@ class Types {
   /// `int*` in the typedef and so arrives as a pointer. Struct field getters
   /// read the same bool back as a plain int, hence the distinction.
   String paramValueFFMtoJ(Types types, ParameterElement param, {bool fromCallback = false}) {
+    // Value handlers that mirror an inner type on the Java surface
+    // (WidgetStatePropertyHandler) need this Java-side coercion to see the
+    // inner type — otherwise the field-accessor emitter constructs the outer
+    // wrapper class (`new WidgetStateProperty(...) {}`) and tries to return
+    // it as the unwrapped Java type, which won't type-check.
+    final h = getHandler(param.type);
+    if (h != null) {
+      final unwrapped = h.unwrapParam(param);
+      if (unwrapped != null) return paramValueFFMtoJ(types, unwrapped, fromCallback: fromCallback);
+    }
     var t = param.type;
     // Field getters typed as a type parameter `T` come back as an int id from
     // the struct. We can't marshall arbitrary values so — with `_sanitizeTypeParam`
@@ -453,6 +463,22 @@ mixin TypeHandler {
   String type4J(DartType t);
   String value4D(ParameterElement param);
   String value4FFM(ParameterElement param);
+
+  /// Web-decoder (`JsonToDart`) expression, or null to fall back to the
+  /// strategy's callback-shape defaults. Value-carrying handlers
+  /// (`WidgetStatePropertyHandler`) override this to decode the inner value
+  /// and wrap it; callback handlers (`FunctionHandler`) leave it null so the
+  /// strategy's `_isZeroArgCallback` / `_valueCallbackJavaType` dispatch keeps
+  /// producing the inert / wired closure shapes it always has.
+  String? value4Json(ParameterElement param) => null;
+
+  /// For handlers that mirror an inner type on the Java surface (aliases
+  /// like `WidgetStateProperty<T>` → `T`), return a synthetic parameter of
+  /// the inner type so upstream helpers that walk the Dart type — most
+  /// notably `Params.paramDef4JBuilder`, which extracts `type.element.name`
+  /// to build the `<Name>I` builder-interface — see the underlying type
+  /// rather than the wrapper. Callback handlers leave it null.
+  ParameterElement? unwrapParam(ParameterElement param) => null;
 }
 
 class MapHandler with TypeHandler {
@@ -468,6 +494,86 @@ class MapHandler with TypeHandler {
   String value4D(ParameterElement param) => '${param.name}.toMap()';
   @override
   String value4FFM(ParameterElement param) => 'ptrMap(${Params.escape4J(types, param)})';
+}
+
+/// `WidgetStateProperty<T>` is Flutter's way of letting a value vary by widget
+/// state (hovered, pressed, focused, …). From the Java surface we expose the
+/// inner `T` directly — same Java type, same FFM marshaling, same C typedef.
+/// The only divergence is on the Dart FFI side: the incoming value is wrapped
+/// with `WidgetStatePropertyAll<T>(...)` before it's handed to the Flutter
+/// constructor.
+///
+/// This is a lossy compression of the Flutter API (users can't set different
+/// values per state), but covers the overwhelmingly-common case of "one value
+/// applied uniformly" — `TextButton.styleFrom(backgroundColor: Colors.blue)`.
+/// Per-state support would require crossing `Set<WidgetState>` as a callback
+/// argument, which needs new FFI plumbing.
+///
+/// Only matches when the inner `T` is supported. `WidgetStateProperty<MouseCursor>?`
+/// stays unsupported because `MouseCursor` isn't in the widget index, so a
+/// Java caller could never populate it anyway.
+class WidgetStatePropertyHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (t.element?.name != 'WidgetStateProperty') return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is TypeParameterType) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  ParameterElement _synth(ParameterElement param) {
+    final inner = _inner(param.type);
+    // Preserve the ORIGINAL param's optionality so the synth flows through
+    // FfiToDart / paramValue4FFM as if it were a plain-T param.
+    final kind = param.isOptional
+        ? ParameterKind.POSITIONAL
+        : ParameterKind.REQUIRED;
+    return paramElement(param.name, inner, kind);
+  }
+
+  @override
+  String type4C(DartType t) => types.type4C(_inner(t));
+  @override
+  String type4D(DartType t) => types.type4D(_inner(t));
+  @override
+  String type4J(DartType t) => types.type4J(_inner(t));
+
+  @override
+  String value4D(ParameterElement param) {
+    final innerExpr = const FfiToDart().apply(types, _synth(param));
+    // Preserve the outer nullability on the generic argument so
+    // `WidgetStateProperty<Color?>?` reads back as `WidgetStatePropertyAll<Color?>`.
+    // `matches` already excludes TypeParameterType inners, so the analyzer
+    // quirk `_dartTypeStr` guards against doesn't apply here — the plain
+    // display string preserves the trailing `?` correctly.
+    final innerDisplay = _inner(param.type).getDisplayString(withNullability: true);
+    if (param.isOptional) {
+      return '_wspNul<$innerDisplay>($innerExpr)';
+    }
+    return 'WidgetStatePropertyAll<$innerDisplay>($innerExpr)';
+  }
+
+  @override
+  String value4FFM(ParameterElement param) =>
+      types.paramValue4FFM(types, _synth(param));
+
+  @override
+  ParameterElement? unwrapParam(ParameterElement param) => _synth(param);
+
+  @override
+  String value4Json(ParameterElement param) {
+    final innerExpr = const JsonToDart().apply(types, _synth(param));
+    final innerDisplay =
+        _inner(param.type).getDisplayString(withNullability: true);
+    if (param.isOptional) {
+      return '_wspNul<$innerDisplay>($innerExpr)';
+    }
+    return 'WidgetStatePropertyAll<$innerDisplay>($innerExpr)';
+  }
 }
 
 class FunctionHandler with TypeHandler {

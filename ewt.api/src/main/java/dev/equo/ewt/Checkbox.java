@@ -17,14 +17,16 @@ public class Checkbox extends StatefulWidget implements CheckboxI {
   }
   Checkbox(int id) { this.id = id; }
   @Builder.Factory
-  static Checkbox checkboxCheckbox(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  static Checkbox checkboxCheckbox(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     var st = factories.checkboxCheckbox(value,
       tristate,
       onChanged,
       activeColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       checkColor.map(ColorI::build),
       focusColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       visualDensity.map(VisualDensityI::build),
@@ -40,14 +42,16 @@ public class Checkbox extends StatefulWidget implements CheckboxI {
     return CheckboxCheckboxBuilder.checkboxCheckbox(value);
   }
   @Builder.Factory
-  static Checkbox checkboxAdaptive(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  static Checkbox checkboxAdaptive(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     var st = factories.checkboxAdaptive(value,
       tristate,
       onChanged,
       activeColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       checkColor.map(ColorI::build),
       focusColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       visualDensity.map(VisualDensityI::build),

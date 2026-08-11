@@ -17,7 +17,7 @@ public class TabBar extends StatefulWidget implements PreferredSizeWidget, TabBa
   }
   TabBar(int id) { this.id = id; }
   @Builder.Factory
-  static TabBar tabBarTabBar(@Builder.Parameter List<WidgetI> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometryI> indicatorPadding, Optional<DecorationI> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadiusI> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
+  static TabBar tabBarTabBar(@Builder.Parameter List<WidgetI> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometryI> indicatorPadding, Optional<DecorationI> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> overlayColor, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadiusI> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
     var st = factories.tabBarTabBar(tabs.stream().map(WidgetI::build).toList(),
       isScrollable,
       padding.map(EdgeInsetsGeometryI::build),
@@ -35,6 +35,7 @@ public class TabBar extends StatefulWidget implements PreferredSizeWidget, TabBa
       unselectedLabelColor.map(ColorI::build),
       unselectedLabelStyle.map(TextStyleI::build),
       dragStartBehavior,
+      overlayColor.map(ColorI::build),
       enableFeedback,
       onTap,
       onHover,
@@ -49,7 +50,7 @@ public class TabBar extends StatefulWidget implements PreferredSizeWidget, TabBa
     return TabBarTabBarBuilder.tabBarTabBar(tabs);
   }
   @Builder.Factory
-  static TabBar tabBarSecondary(@Builder.Parameter List<WidgetI> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometryI> indicatorPadding, Optional<DecorationI> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadiusI> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
+  static TabBar tabBarSecondary(@Builder.Parameter List<WidgetI> tabs, Optional<Boolean> isScrollable, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> indicatorColor, Optional<Boolean> automaticIndicatorColorAdjustment, OptionalDouble indicatorWeight, Optional<EdgeInsetsGeometryI> indicatorPadding, Optional<DecorationI> indicator, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> overlayColor, Optional<Boolean> enableFeedback, Optional<Consumer<Integer>> onTap, Optional<BiConsumer<Boolean, Integer>> onHover, Optional<BiConsumer<Boolean, Integer>> onFocusChange, Optional<BorderRadiusI> splashBorderRadius, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation) {
     var st = factories.tabBarSecondary(tabs.stream().map(WidgetI::build).toList(),
       isScrollable,
       padding.map(EdgeInsetsGeometryI::build),
@@ -67,6 +68,7 @@ public class TabBar extends StatefulWidget implements PreferredSizeWidget, TabBa
       unselectedLabelColor.map(ColorI::build),
       unselectedLabelStyle.map(TextStyleI::build),
       dragStartBehavior,
+      overlayColor.map(ColorI::build),
       enableFeedback,
       onTap,
       onHover,
