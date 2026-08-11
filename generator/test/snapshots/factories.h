@@ -1036,8 +1036,8 @@ typedef struct {
   } cupertinoListSection;
 
   struct CupertinoListTileSt {
-    CupertinoListTileObjSt (*cupertinoListTile)(DartObj title, DartObj* subtitle, DartObj* additionalInfo, DartObj* leading, DartObj* trailing, DartObj* backgroundColor, DartObj* backgroundColorActivated, DartObj* padding, double* leadingSize, double* leadingToTitle);
-    CupertinoListTileObjSt (*notched)(DartObj title, DartObj* subtitle, DartObj* additionalInfo, DartObj* leading, DartObj* trailing, DartObj* backgroundColor, DartObj* backgroundColorActivated, DartObj* padding, double* leadingSize, double* leadingToTitle);
+    CupertinoListTileObjSt (*cupertinoListTile)(DartObj title, DartObj* subtitle, DartObj* additionalInfo, DartObj* leading, DartObj* trailing, VoidCallbackFFI* onTap, DartObj* backgroundColor, DartObj* backgroundColorActivated, DartObj* padding, double* leadingSize, double* leadingToTitle);
+    CupertinoListTileObjSt (*notched)(DartObj title, DartObj* subtitle, DartObj* additionalInfo, DartObj* leading, DartObj* trailing, VoidCallbackFFI* onTap, DartObj* backgroundColor, DartObj* backgroundColorActivated, DartObj* padding, double* leadingSize, double* leadingToTitle);
   } cupertinoListTile;
 
   struct CupertinoListTileChevronSt {

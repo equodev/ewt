@@ -8079,12 +8079,13 @@ void _setupCupertinoListTile(WidgetFactories f) {
   f.cupertinoListTile.cupertinoListTile = ffi.Pointer.fromFunction(cupertinoListTileCupertinoListTile);
   f.cupertinoListTile.notched = ffi.Pointer.fromFunction(cupertinoListTileNotched);
 }
-CupertinoListTileObjSt cupertinoListTileCupertinoListTile(DartDartObj title, ffi.Pointer<DartObj> subtitle, ffi.Pointer<DartObj> additionalInfo, ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> trailing, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> backgroundColorActivated, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> leadingSize, ffi.Pointer<ffi.Double> leadingToTitle) {
+CupertinoListTileObjSt cupertinoListTileCupertinoListTile(DartDartObj title, ffi.Pointer<DartObj> subtitle, ffi.Pointer<DartObj> additionalInfo, ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> trailing, ffi.Pointer<VoidCallbackFFI> onTap, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> backgroundColorActivated, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> leadingSize, ffi.Pointer<ffi.Double> leadingToTitle) {
   final w = CupertinoListTile(title: _widgetsMap[title]! as Widget,
       subtitle: subtitle.objOrNul(),
       additionalInfo: additionalInfo.objOrNul(),
       leading: leading.objOrNul(),
       trailing: trailing.objOrNul(),
+      onTap: onTap.toVoidCallbackFn(),
       backgroundColor: backgroundColor.objOrNul(),
       backgroundColorActivated: backgroundColorActivated.objOrNul(),
       padding: padding.objOrNul(),
@@ -8092,12 +8093,13 @@ CupertinoListTileObjSt cupertinoListTileCupertinoListTile(DartDartObj title, ffi
       leadingToTitle: leadingToTitle.doubleOr(16.0));
   return _createCupertinoListTileObjSt(w);
 }
-CupertinoListTileObjSt cupertinoListTileNotched(DartDartObj title, ffi.Pointer<DartObj> subtitle, ffi.Pointer<DartObj> additionalInfo, ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> trailing, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> backgroundColorActivated, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> leadingSize, ffi.Pointer<ffi.Double> leadingToTitle) {
+CupertinoListTileObjSt cupertinoListTileNotched(DartDartObj title, ffi.Pointer<DartObj> subtitle, ffi.Pointer<DartObj> additionalInfo, ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> trailing, ffi.Pointer<VoidCallbackFFI> onTap, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> backgroundColorActivated, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> leadingSize, ffi.Pointer<ffi.Double> leadingToTitle) {
   final w = CupertinoListTile.notched(title: _widgetsMap[title]! as Widget,
       subtitle: subtitle.objOrNul(),
       additionalInfo: additionalInfo.objOrNul(),
       leading: leading.objOrNul(),
       trailing: trailing.objOrNul(),
+      onTap: onTap.toVoidCallbackFn(),
       backgroundColor: backgroundColor.objOrNul(),
       backgroundColorActivated: backgroundColorActivated.objOrNul(),
       padding: padding.objOrNul(),

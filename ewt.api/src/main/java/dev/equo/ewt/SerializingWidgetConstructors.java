@@ -6671,7 +6671,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoListTileCupertinoListTile(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+  MemorySegment cupertinoListTileCupertinoListTile(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Runnable> onTap, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("title", byId.get(title.getId()));
@@ -6679,6 +6679,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     additionalInfo.ifPresent(v -> p.put("additionalInfo", byId.get(v.getId())));
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     backgroundColorActivated.ifPresent(v -> p.put("backgroundColorActivated", byId.get(v.getId())));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
@@ -6690,7 +6691,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment cupertinoListTileNotched(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+  MemorySegment cupertinoListTileNotched(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Runnable> onTap, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("title", byId.get(title.getId()));
@@ -6698,6 +6699,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     additionalInfo.ifPresent(v -> p.put("additionalInfo", byId.get(v.getId())));
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     backgroundColorActivated.ifPresent(v -> p.put("backgroundColorActivated", byId.get(v.getId())));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));

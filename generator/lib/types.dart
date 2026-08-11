@@ -21,7 +21,7 @@ class Types {
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
-        handlers = [MapHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
+        handlers = [MapHandler(), FutureOrHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
 
   /// Maps a Dart element to its generator. Single dispatch site: no
   /// downstream code branches on class name; every emitter uses
@@ -496,6 +496,57 @@ class MapHandler with TypeHandler {
   String value4FFM(ParameterElement param) => 'ptrMap(${Params.escape4J(types, param)})';
 }
 
+/// `FutureOr<T>` is `dart:async`'s "T or Future<T>" union. From the Java side
+/// every call is synchronous — the Java caller can't return a Future — so
+/// treating `FutureOr<T>` as plain `T` is safe. This unlocks Flutter callback
+/// shapes like `optionsBuilder` on `Autocomplete<T>` (returns `FutureOr<Iterable<T>>`)
+/// and `onOpen` on menu widgets (returns `FutureOr<void>`) without any runtime
+/// bridge work.
+class FutureOrHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (t.element?.name != 'FutureOr') return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is VoidType) return true;
+    if (inner is TypeParameterType) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  ParameterElement _synth(ParameterElement param) {
+    final inner = _inner(param.type);
+    final kind = param.isOptional
+        ? ParameterKind.POSITIONAL
+        : ParameterKind.REQUIRED;
+    return paramElement(param.name, inner, kind);
+  }
+
+  @override
+  String type4C(DartType t) => types.type4C(_inner(t));
+  @override
+  String type4D(DartType t) => types.type4D(_inner(t));
+  @override
+  String type4J(DartType t) => types.type4J(_inner(t));
+
+  @override
+  String value4D(ParameterElement param) =>
+      const FfiToDart().apply(types, _synth(param));
+
+  @override
+  String value4FFM(ParameterElement param) =>
+      types.paramValue4FFM(types, _synth(param));
+
+  @override
+  String? value4Json(ParameterElement param) =>
+      const JsonToDart().apply(types, _synth(param));
+
+  @override
+  ParameterElement? unwrapParam(ParameterElement param) => _synth(param);
+}
+
 /// `WidgetStateProperty<T>` is Flutter's way of letting a value vary by widget
 /// state (hovered, pressed, focused, …). From the Java surface we expose the
 /// inner `T` directly — same Java type, same FFM marshaling, same C typedef.
@@ -577,6 +628,19 @@ class WidgetStatePropertyHandler with TypeHandler {
 }
 
 class FunctionHandler with TypeHandler {
+  /// A `FutureOr<T>` return type is treated as plain `T` — Java always returns
+  /// synchronously across the FFI boundary, so the union collapses to the
+  /// non-Future side and shape-picking (Runnable / Supplier<T> / …) works off
+  /// the same skeleton as a pure-T return.
+  DartType _effectiveReturn(DartType t) {
+    if (t is ParameterizedType
+        && t.element?.name == 'FutureOr'
+        && t.typeArguments.length == 1) {
+      return t.typeArguments[0];
+    }
+    return t;
+  }
+
   @override
   bool matches(DartType t) =>
       t is FunctionType && (t.parameters.isEmpty ||
@@ -598,7 +662,8 @@ class FunctionHandler with TypeHandler {
     if (alias != null) {
       return getInstantiatedAliasName(alias, withSuffix: withSuffix);
     }
-    final cbRet = (fn.returnType is VoidType) ? 'Void' : types.type4C(fn.returnType);
+    final ret = _effectiveReturn(fn.returnType);
+    final cbRet = (ret is VoidType) ? 'Void' : types.type4C(ret);
     final aliasName = '${cbRet}Callback${fn.parameters.map((p) => types.type4C(p.type)).join('')}';
     return '$aliasName${withSuffix ? 'FFI' : ''}';
   }
@@ -618,7 +683,8 @@ class FunctionHandler with TypeHandler {
   String type4J(DartType t, [List<DartType>? typeArguments]) {
     var fn = t as FunctionType;
     var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => boxedType(types.type4J(p.type).firstUpper())).join(', ');
-    if (fn.returnType is VoidType) {
+    final ret = _effectiveReturn(fn.returnType);
+    if (ret is VoidType) {
       if (fn.parameters.isEmpty) {
         return 'Runnable';
       }
@@ -636,7 +702,7 @@ class FunctionHandler with TypeHandler {
     } else {
       // Return type also has to be boxed when it sits inside Function<>,
       // otherwise a bool return leaks as `boolean` — invalid inside generics.
-      var retType4j = boxedType(types.type4J(fn.returnType).firstUpper());
+      var retType4j = boxedType(types.type4J(ret).firstUpper());
       if (fn.parameters.isEmpty) {
         return 'Supplier<$retType4j>';
       }

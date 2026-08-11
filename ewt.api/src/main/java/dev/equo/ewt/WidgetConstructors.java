@@ -5078,7 +5078,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(separatorColor));
   }
 
-  MemorySegment cupertinoListTileCupertinoListTile(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+  MemorySegment cupertinoListTileCupertinoListTile(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Runnable> onTap, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
     var st = WidgetFactories.cupertinoListTile(factories);
     var fn = WidgetFactories.CupertinoListTileSt.cupertinoListTile(st);
     return WidgetFactories.CupertinoListTileSt.cupertinoListTile.invoke(fn, arena, title.build().getId(),
@@ -5086,13 +5086,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(additionalInfo),
       ptrObj(leading),
       ptrObj(trailing),
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
       ptrObj(backgroundColor),
       ptrObj(backgroundColorActivated),
       ptrObj(padding),
       ptr(leadingSize),
       ptr(leadingToTitle));
   }
-  MemorySegment cupertinoListTileNotched(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+  MemorySegment cupertinoListTileNotched(Widget title, Optional<Widget> subtitle, Optional<Widget> additionalInfo, Optional<Widget> leading, Optional<Widget> trailing, Optional<Runnable> onTap, Optional<Color> backgroundColor, Optional<Color> backgroundColorActivated, Optional<EdgeInsetsGeometry> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
     var st = WidgetFactories.cupertinoListTile(factories);
     var fn = WidgetFactories.CupertinoListTileSt.notched(st);
     return WidgetFactories.CupertinoListTileSt.notched.invoke(fn, arena, title.build().getId(),
@@ -5100,6 +5101,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(additionalInfo),
       ptrObj(leading),
       ptrObj(trailing),
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
       ptrObj(backgroundColor),
       ptrObj(backgroundColorActivated),
       ptrObj(padding),
