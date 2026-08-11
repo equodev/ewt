@@ -21,7 +21,7 @@ class Types {
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
-        handlers = [MapHandler(), FutureOrHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
+        handlers = [MapHandler(), FutureOrHandler(), IterableHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
 
   /// Maps a Dart element to its generator. Single dispatch site: no
   /// downstream code branches on class name; every emitter uses
@@ -93,6 +93,15 @@ class Types {
 
   void addRequiredType(DartType requiredType) {
     if (requiredType.isDartCoreObject || requiredType.isDartCoreList || requiredType.isDartCoreMap || isPrimitive(requiredType)) {
+      return;
+    }
+    // Types owned by a value handler (Iterable<T>, FutureOr<T>,
+    // WidgetStateProperty<T>) are aliases onto their inner type — they never
+    // need their own emitted Java class. Emitting one is worse than useless:
+    // e.g. `dev.equo.ewt.Iterable` would shadow `java.lang.Iterable` for every
+    // file in the package and break every Immutables-generated builder that
+    // takes an `Iterable<? extends T>`.
+    if (getHandler(requiredType) != null) {
       return;
     }
     // if (processed.contains(requiredType.element)) {
@@ -530,6 +539,73 @@ class FutureOrHandler with TypeHandler {
   String type4D(DartType t) => types.type4D(_inner(t));
   @override
   String type4J(DartType t) => types.type4J(_inner(t));
+
+  @override
+  String value4D(ParameterElement param) =>
+      const FfiToDart().apply(types, _synth(param));
+
+  @override
+  String value4FFM(ParameterElement param) =>
+      types.paramValue4FFM(types, _synth(param));
+
+  @override
+  String? value4Json(ParameterElement param) =>
+      const JsonToDart().apply(types, _synth(param));
+
+  @override
+  ParameterElement? unwrapParam(ParameterElement param) => _synth(param);
+}
+
+/// `Iterable<T>` is `List<T>`'s supertype. Every Flutter constructor that
+/// declares one accepts a `List<T>` at runtime — the type annotation is
+/// documentation, not enforcement. So we hand the Java caller the same
+/// `List<T>` surface we'd emit for a `List<T>` param and let it flow through
+/// the standard list marshaling path unchanged.
+///
+/// Only matches when the inner type is supported *and* not numeric-primitive
+/// (`List<double>` / `List<int>` are deferred by the same FFI-protocol gap
+/// noted in `gen_structure.md` §4).
+class IterableHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (t.element?.name != 'Iterable') return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is TypeParameterType) return false;
+    if (inner.isDartCoreDouble || inner.isDartCoreInt) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  /// Synthesizes a `List<T>` `DartType` from the analyzer's core-lib type
+  /// provider so the returned `ParameterElement` can pass through code paths
+  /// that inspect `t.isDartCoreList` (paramValueSerialize, paramValue4JBuilder,
+  /// FfiToDart.dispatchInterface, DartToC.dispatchInterface, …) as if the
+  /// original Flutter param had been typed `List<T>` all along.
+  ParameterElement _synth(ParameterElement param) {
+    final inner = _inner(param.type);
+    final tp = types.widgetElement!.library!.typeProvider;
+    final listT = tp.listType(inner);
+    final kind = param.isOptional
+        ? ParameterKind.POSITIONAL
+        : ParameterKind.REQUIRED;
+    return paramElement(
+      param.name,
+      param.type.nullabilitySuffix == NullabilitySuffix.question
+          ? (listT as InterfaceTypeImpl).withNullability(NullabilitySuffix.question)
+          : listT,
+      kind,
+    );
+  }
+
+  @override
+  String type4C(DartType t) => types.type4C(_synth(paramElement('', t)).type);
+  @override
+  String type4D(DartType t) => types.type4D(_synth(paramElement('', t)).type);
+  @override
+  String type4J(DartType t) => types.type4J(_synth(paramElement('', t)).type);
 
   @override
   String value4D(ParameterElement param) =>
