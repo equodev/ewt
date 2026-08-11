@@ -8,6 +8,7 @@ import 'package:analyzer/src/utilities/extensions/string.dart';
 import 'package:collection/collection.dart';
 
 import 'gen.dart';
+import 'type_mapping.dart';
 
 class Types {
   Set<DartType> unsupportedTypes = {};
@@ -17,31 +18,48 @@ class Types {
   ClassElement? widgetElement;
   late List<TypeHandler> handlers;
 
-  // Explicit allowlist of EWT-owned classes that use the "subclassed in Java"
-  // codegen path (abstract Java class + factory that dispatches to Java-side
-  // overrides). Using a name-prefix check here is unsafe because Flutter
-  // widgets like `SubmenuButton` also start with "Sub" but are normal factory
-  // widgets, not user-subclassable state holders.
-  static const _ewtSubclassNames = {
-    'SubState', 'SubStatefulWidget', 'SubStatelessWidget', 'SubAnimatedState',
-  };
-
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
         handlers = [MapHandler(), FunctionHandler()];
 
+  /// Maps a Dart element to its generator. Single dispatch site: no
+  /// downstream code branches on class name; every emitter uses
+  /// polymorphism through the returned generator.
+  ///
+  /// Grouped by *behavior*, not by widget identity — the class hierarchy
+  /// in `emit/shape/*` captures divergent emission shapes (abstract
+  /// factory host, indexed builder expansion, imperative controller,
+  /// color swatch, tracked sub-widget, user-subclassable state). Adding a
+  /// new Flutter widget that fits an existing shape is just one line
+  /// here; a new shape is a new class + one line here.
   AGen getGen(Element dartClass) {
     if (dartClass is ClassElement) {
-      if (_ewtSubclassNames.contains(dartClass.name)) {
-        return SubclassGen(this, dartClass);
+      switch (dartClass.name) {
+        // User-subclassable EWT bases.
+        case 'SubState': return SubStateGen(this, dartClass);
+        case 'SubAnimatedState': return SubAnimatedStateGen(this, dartClass);
+        case 'SubStatefulWidget':
+        case 'SubStatelessWidget':
+          return TrackedSubWidgetGen(this, dartClass);
+        // Imperative controller — the config lives on the class.
+        case 'AnimationController':
+          return ImperativeControllerGen.forAnimationController(this, dartClass);
+        // Color swatch (shade-field pre-resolution + custom web decoder).
+        case 'MaterialColor':
+          return ColorSwatchGen(this, dartClass);
+        // Indexed builder expansion (.builder with itemBuilder+itemCount).
+        case 'ListView':
+          return BuilderExpansionGen(this, dartClass);
+        // Abstract classes exposing factory ctors as static Java factories.
+        case 'ImageFilter':
+        case 'ColorFilter':
+          return AbstractFactoryHostGen(this, dartClass);
       }
-      else if ((dartClass.hasImmutable || dartClass.allSupertypes.any((s) => s.element.hasImmutable)) && !dartClass.isAbstract) {
+      if ((dartClass.hasImmutable || dartClass.allSupertypes.any((s) => s.element.hasImmutable)) && !dartClass.isAbstract) {
         return ImmutableGen(this, dartClass);
       }
-      else {
-        return WidgetGen(this, dartClass);
-      }
+      return WidgetGen(this, dartClass);
     }
     else if (dartClass is EnumElement) {
       return EnumGen(this, dartClass);
@@ -181,123 +199,13 @@ class Types {
     return gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int';
   }
 
-  String type4J(DartType namedType) {
-    if (!isPrimitive(namedType) && supportedType(namedType)) {
-      addRequiredType(namedType);
-    }
-    // `dynamic` isn't an InterfaceType — treat it as Object (→ NativeObj) so
-    // callback params like `List<dynamic>` (DragTarget.builder rejectedData)
-    // map to `List<NativeObj>` in Java.
-    if (namedType is DynamicType) {
-      return 'NativeObj';
-    }
-    // Unbound type parameters (e.g. T in Radio<T>, DropdownButton<T>) have no concrete
-    // Java type — map to NativeObj so ptrObj(Optional<NativeObj>) resolves correctly.
-    if (namedType is TypeParameterType) {
-      return 'NativeObj';
-    }
-    var h = getHandler(namedType);
-    if (h != null) {
-      return h.type4J(namedType);
-    }
-    if (namedType is InterfaceType) {
-      if (namedType.isDartCoreBool) {
-        return 'boolean';
-      }
-      else if (namedType.isDartCoreList) {
-        final arrayType = (namedType).typeArguments[0];
-        // Java generics reject primitives — `List<double>` must be `List<Double>`.
-        return 'List<${boxedType(type4J(arrayType).firstUpper())}>';
-      }
-      else if (namedType.isDartCoreObject) {
-        return 'NativeObj';
-      }
-      // else if (!isPrimitive(namedType)) {
-      //   return '${namedType.element.name}Builder';
-      // }
-      return namedType.element.name;
-    }
-    // else if (namedType is FunctionType) {
-    //   var params = namedType.parameters.map((p) => type4J(p.type).firstUpper()).join(', ');
-    //   if (namedType.returnType is VoidType) {
-    //     if (namedType.parameters.isEmpty) {
-    //       return 'Runnable';
-    //     }
-    //     return 'Consumer<${params}>';
-    //   } else {
-    //     var retType4j = type4J(namedType.returnType);
-    //     if (namedType.parameters.isEmpty) {
-    //       return 'Supplier<${retType4j}>';
-    //     }
-    //     final arity = switch(namedType.parameters.length) {
-    //       1 => '',
-    //       2 => 'Bi',
-    //       var i => throw 'Unsupported $i args function',
-    //     };
-    //     return '${arity}Function<$params, $retType4j>';
-    //   }
-    // }
-    return namedType.getDisplayString(withNullability: false);
-  }
+  /// Java surface of a Dart type. Thin shim over [TypeMapping.resolve]; kept
+  /// as a member for call-site continuity — every emitter still writes
+  /// `types.type4J(t)`.
+  String type4J(DartType namedType) => TypeMapping(this).resolve(namedType).java;
 
-  String type4C(DartType namedType) {
-    var h = getHandler(namedType);
-    if (h != null) {
-      return h.type4C(namedType);
-    }
-    if (namedType is DynamicType) {
-      return 'DartObj';
-    }
-    // Unbound type parameters (e.g. T in Radio<T>) have no concrete C type — treat as opaque.
-    if (namedType is TypeParameterType) {
-      return 'DartObj';
-    }
-    if (namedType is VoidType) {
-      return 'void';
-    }
-    if (namedType.isDartCoreString) {
-      return 'char*';
-    }
-    else if (namedType.isDartCoreBool) {
-      return 'int';
-    }
-    else if (namedType.isDartCoreInt) {
-      return 'int';
-    }
-    else if (namedType.isDartCoreDouble) {
-      return 'double';
-    }
-    else if (namedType.isDartCoreNum) {
-      return 'num';
-    }
-    else if (namedType.element is EnumElement) {
-      return 'int';
-    }
-    else if (namedType.isDartCoreList) {
-      final arrayType = (namedType as InterfaceType).typeArguments[0];
-      if (isPrimitive(arrayType)) {
-        return '${type4C(arrayType)}*';
-      } else {
-        return 'ArrayC';
-      }
-    }
-    // else if (namedType is FunctionType) {
-    //   if (namedType.alias != null) {
-    //     addTypeDef(namedType.alias!.element);
-    //     return '${namedType.alias!.element.name}FFI';
-    //   }
-    //   final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-    //   final aliasName = '${cbRet}Callback${namedType.parameters.map((p) => type4C(p.type)).join(', ')}';
-    //   var typeAliasElementImpl = TypeAliasElementImpl(aliasName, 0);
-    //   typeAliasElementImpl.aliasedType = namedType;
-    //   addTypeDef(typeAliasElementImpl);
-    //   return '${aliasName}FFI';
-    // }
-    else if (!isPrimitive(namedType)) {
-      return getGen(namedType.element!).objType(); //'DartObj'; // object are passes as ids or structs
-    }
-    return namedType.toString();
-  }
+  /// C surface of a Dart type. Shim over [TypeMapping.resolve].
+  String type4C(DartType namedType) => TypeMapping(this).resolve(namedType).c;
 
   String type4DRet(DartType namedType) {
     if (namedType is VoidType) {
@@ -311,59 +219,8 @@ class Types {
     return gen.objType() == 'DartObj' ? 'int' : gen.objType();
   }
 
-  String type4D(DartType namedType) {
-    var h = getHandler(namedType);
-    if (h != null) {
-      return h.type4D(namedType);
-    }
-    if (namedType is DynamicType) {
-      return 'DartObj';
-    }
-    // Unbound (or Object-bound) type parameters (e.g. T in Radio<T>, DropdownButton<T>)
-    // have no concrete Dart representation — treat as opaque DartObj.
-    if (namedType is TypeParameterType) {
-      return 'DartObj';
-    }
-    // if (namedType is InterfaceType) {
-    if (namedType.isDartCoreString) {
-      return 'ffi.Pointer<ffi.Char>';
-    }
-    else if (namedType.isDartCoreInt) {
-      return 'ffi.Int';
-    }
-    else if (namedType.isDartCoreDouble) {
-      return 'ffi.Double';
-    }
-    else if (namedType.isDartCoreBool) {
-      return 'ffi.Int';
-    }
-    else if (namedType.isDartCoreNum) {
-      return 'ffi.Num';
-    }
-    else if (namedType.element is EnumElement) {
-      return 'ffi.Int';
-    }
-    else if (namedType.isDartCoreList) {
-      final arrayType = (namedType as InterfaceType).typeArguments[0];
-      if (isPrimitive(arrayType)) {
-        return 'ffi.Pointer<${type4D(arrayType)}>';
-      } else {
-        return 'ArrayC';
-      }
-    }
-    // else if (namedType is FunctionType) {
-    //   if (namedType.alias != null) {
-    //     return '${namedType.alias!.element.name}FFI';
-    //   }
-    //   final cbRet = (namedType.returnType is VoidType) ? 'Void' : type4C(namedType.returnType);
-    //   return '${cbRet}Callback${namedType.parameters.map((p) => type4C(p.type)).join(', ')}';
-    // }
-    else if (!isPrimitive(namedType)) {
-      return getGen(namedType.element!).objType();// 'DartObj';
-    }
-    throw UnsupportedError('Unsupported type $namedType');
-    // }
-  }
+  /// FFI-Dart surface of a Dart type. Shim over [TypeMapping.resolve].
+  String type4D(DartType namedType) => TypeMapping(this).resolve(namedType).dart;
 
   String paramValue4FFM(Types types, ParameterElement param) {
     final t = param.type;

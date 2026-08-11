@@ -8,6 +8,7 @@ import 'package:analyzer/src/dart/element/element.dart';
 // import 'package:collection/collection.dart';
 import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:generator/diagnostics.dart';
 import 'package:generator/gen.dart';
 import 'package:path/path.dart' as path;
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -15,7 +16,11 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 // import 'package:analyzer/dart/element/type.dart';
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
+  // --strict escalates any warn() emitted during generation to a non-zero
+  // exit at the end of the run. Useful for CI, where "silent skip" widgets
+  // now surface as failures. See lib/diagnostics.dart.
+  Diagnostics.strict = args.contains('--strict');
   var sw = Stopwatch()..start();
   var preindexName = 'pregeneration_index.dart';
   var preindexCache = File(path.join('build', '$preindexName.ts'));
@@ -40,6 +45,11 @@ Future<void> main() async {
     ..gen()
     ..write();
   print('-- Generation ${sw.elapsedReset}');
+
+  if (Diagnostics.strict && Diagnostics.warned) {
+    stderr.writeln('error: --strict mode: generation completed with warnings.');
+    exit(1);
+  }
 }
 
 extension on Stopwatch {
