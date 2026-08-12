@@ -369,6 +369,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   public Map<Integer, EwtNode> nodes() { return byId; }
   private final Map<Integer, Object> callbacks = new HashMap<>();
   public Map<Integer, Object> callbacks() { return callbacks; }
+  final Map<Integer, Function<BuildContext, Widget>> deferredStateless = new java.util.LinkedHashMap<>();
+  final Map<Integer, Supplier<State>> deferredStateful = new java.util.LinkedHashMap<>();
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
     if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
   private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
@@ -391,6 +393,64 @@ $overrides
     p.put("duration", byId.get(duration.getId()));
     record(id, "subAnimatedStateAnimationController", p);
     return id;
+  }
+  @SuppressWarnings("unchecked")
+  public void resolveDeferred(BuildContext ctx, java.util.List<Object> nestedStatesOut) {
+    while (!deferredStateless.isEmpty() || !deferredStateful.isEmpty()) {
+      var ssSnap = new java.util.LinkedHashMap<>(deferredStateless);
+      var sfSnap  = new java.util.LinkedHashMap<>(deferredStateful);
+      deferredStateless.clear();
+      deferredStateful.clear();
+      for (var e : ssSnap.entrySet()) {
+        int pid = e.getKey();
+        Widget built = ((Function<BuildContext, Widget>) e.getValue()).apply(ctx);
+        EwtNode resolved = byId.get(built.getId());
+        byId.put(pid, resolved);
+        replaceInAll(pid, resolved);
+      }
+      for (var e : sfSnap.entrySet()) {
+        int pid = e.getKey();
+        SubStatefulWidget ownerWidget = SubclassedInJava.getSubNatObj(pid);
+        if (ownerWidget == null) continue;
+        Object stateObj = ownerWidget.createStateFn();
+        EwtNode resolved;
+        if (stateObj instanceof SubState<?> ss) {
+          ss.setWebWidget(ownerWidget);
+          ss.initStateFn();
+          Widget built = ss.buildFn(ctx);
+          resolved = byId.get(built.getId());
+          nestedStatesOut.add(ss);
+        } else if (stateObj instanceof SubAnimatedState<?> as) {
+          as.setWebWidget(ownerWidget);
+          as.initStateFn();
+          Widget built = as.buildFn(ctx);
+          resolved = byId.get(built.getId());
+          nestedStatesOut.add(as);
+        } else { continue; }
+        byId.put(pid, resolved);
+        replaceInAll(pid, resolved);
+      }
+    }
+  }
+  private void replaceInAll(int oldId, EwtNode replacement) {
+    for (EwtNode node : byId.values())
+      replaceInParams(node.params(), oldId, replacement);
+  }
+  @SuppressWarnings("unchecked")
+  private void replaceInParams(java.util.Map<String, Object> params, int oldId, EwtNode replacement) {
+    for (var e : params.entrySet()) {
+      Object v = e.getValue();
+      if (v instanceof EwtNode n && n.id() == oldId) e.setValue(replacement);
+      else if (v instanceof java.util.List<?> list) replaceInList((java.util.List<Object>) list, oldId, replacement);
+    }
+  }
+  @SuppressWarnings("unchecked")
+  private void replaceInList(java.util.List<Object> list, int oldId, EwtNode replacement) {
+    for (int i = 0; i < list.size(); i++) {
+      Object v = list.get(i);
+      if (v instanceof EwtNode n && n.id() == oldId) list.set(i, replacement);
+      else if (v instanceof java.util.List<?> nested) replaceInList((java.util.List<Object>) nested, oldId, replacement);
+    }
   }
   // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
   int offsetTween(Offset begin, Offset end, Animation parent) {

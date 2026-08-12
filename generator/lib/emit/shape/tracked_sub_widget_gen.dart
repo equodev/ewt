@@ -14,4 +14,13 @@ class TrackedSubWidgetGen extends SubclassGen {
 
   @override
   String dartFactoryCtorClass(FunctionTypedElement node) => '_Tracked${node.displayName}';
+
+  @override
+  void emitExtraJavaSerializerFields(String factoryName, String objStClass) {
+    if (objStClass == 'SubStatefulWidgetObjSt') {
+      ctx.javaSerializer.writeln('    deferredStateful.put(id, createStateFn);');
+    } else if (objStClass == 'SubStatelessWidgetObjSt') {
+      ctx.javaSerializer.writeln('    deferredStateless.put(id, buildFn);');
+    }
+  }
 }
