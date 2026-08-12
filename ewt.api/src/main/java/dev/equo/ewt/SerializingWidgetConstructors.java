@@ -1339,6 +1339,50 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int longPressDownDetailsLongPressDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "longPressDownDetailsLongPressDownDetails", p);
+    return id;
+  }
+
+  @Override
+  int longPressStartDetailsLongPressStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    record(id, "longPressStartDetailsLongPressStartDetails", p);
+    return id;
+  }
+
+  @Override
+  int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Offset> offsetFromOrigin, Optional<Offset> localOffsetFromOrigin) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    offsetFromOrigin.ifPresent(v -> p.put("offsetFromOrigin", byId.get(v.getId())));
+    localOffsetFromOrigin.ifPresent(v -> p.put("localOffsetFromOrigin", byId.get(v.getId())));
+    record(id, "longPressMoveUpdateDetailsLongPressMoveUpdateDetails", p);
+    return id;
+  }
+
+  @Override
+  int longPressEndDetailsLongPressEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    velocity.ifPresent(v -> p.put("velocity", byId.get(v.getId())));
+    record(id, "longPressEndDetailsLongPressEndDetails", p);
+    return id;
+  }
+
+  @Override
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -4566,7 +4610,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -4585,15 +4629,27 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onDoubleTapDown != null) { p.put("onDoubleTapDown", nextCallbackId++); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onDoubleTapCancel.isPresent()) { int __cb_onDoubleTapCancel = nextCallbackId++; p.put("onDoubleTapCancel", __cb_onDoubleTapCancel); callbacks.put(__cb_onDoubleTapCancel, onDoubleTapCancel.get()); }
+    if (onLongPressDown != null) { p.put("onLongPressDown", nextCallbackId++); }
     if (onLongPressCancel.isPresent()) { int __cb_onLongPressCancel = nextCallbackId++; p.put("onLongPressCancel", __cb_onLongPressCancel); callbacks.put(__cb_onLongPressCancel, onLongPressCancel.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onLongPressStart != null) { p.put("onLongPressStart", nextCallbackId++); }
+    if (onLongPressMoveUpdate != null) { p.put("onLongPressMoveUpdate", nextCallbackId++); }
     if (onLongPressUp.isPresent()) { int __cb_onLongPressUp = nextCallbackId++; p.put("onLongPressUp", __cb_onLongPressUp); callbacks.put(__cb_onLongPressUp, onLongPressUp.get()); }
+    if (onLongPressEnd != null) { p.put("onLongPressEnd", nextCallbackId++); }
+    if (onSecondaryLongPressDown != null) { p.put("onSecondaryLongPressDown", nextCallbackId++); }
     if (onSecondaryLongPressCancel.isPresent()) { int __cb_onSecondaryLongPressCancel = nextCallbackId++; p.put("onSecondaryLongPressCancel", __cb_onSecondaryLongPressCancel); callbacks.put(__cb_onSecondaryLongPressCancel, onSecondaryLongPressCancel.get()); }
     if (onSecondaryLongPress.isPresent()) { int __cb_onSecondaryLongPress = nextCallbackId++; p.put("onSecondaryLongPress", __cb_onSecondaryLongPress); callbacks.put(__cb_onSecondaryLongPress, onSecondaryLongPress.get()); }
+    if (onSecondaryLongPressStart != null) { p.put("onSecondaryLongPressStart", nextCallbackId++); }
+    if (onSecondaryLongPressMoveUpdate != null) { p.put("onSecondaryLongPressMoveUpdate", nextCallbackId++); }
     if (onSecondaryLongPressUp.isPresent()) { int __cb_onSecondaryLongPressUp = nextCallbackId++; p.put("onSecondaryLongPressUp", __cb_onSecondaryLongPressUp); callbacks.put(__cb_onSecondaryLongPressUp, onSecondaryLongPressUp.get()); }
+    if (onSecondaryLongPressEnd != null) { p.put("onSecondaryLongPressEnd", nextCallbackId++); }
+    if (onTertiaryLongPressDown != null) { p.put("onTertiaryLongPressDown", nextCallbackId++); }
     if (onTertiaryLongPressCancel.isPresent()) { int __cb_onTertiaryLongPressCancel = nextCallbackId++; p.put("onTertiaryLongPressCancel", __cb_onTertiaryLongPressCancel); callbacks.put(__cb_onTertiaryLongPressCancel, onTertiaryLongPressCancel.get()); }
     if (onTertiaryLongPress.isPresent()) { int __cb_onTertiaryLongPress = nextCallbackId++; p.put("onTertiaryLongPress", __cb_onTertiaryLongPress); callbacks.put(__cb_onTertiaryLongPress, onTertiaryLongPress.get()); }
+    if (onTertiaryLongPressStart != null) { p.put("onTertiaryLongPressStart", nextCallbackId++); }
+    if (onTertiaryLongPressMoveUpdate != null) { p.put("onTertiaryLongPressMoveUpdate", nextCallbackId++); }
     if (onTertiaryLongPressUp.isPresent()) { int __cb_onTertiaryLongPressUp = nextCallbackId++; p.put("onTertiaryLongPressUp", __cb_onTertiaryLongPressUp); callbacks.put(__cb_onTertiaryLongPressUp, onTertiaryLongPressUp.get()); }
+    if (onTertiaryLongPressEnd != null) { p.put("onTertiaryLongPressEnd", nextCallbackId++); }
     if (onVerticalDragCancel.isPresent()) { int __cb_onVerticalDragCancel = nextCallbackId++; p.put("onVerticalDragCancel", __cb_onVerticalDragCancel); callbacks.put(__cb_onVerticalDragCancel, onVerticalDragCancel.get()); }
     if (onHorizontalDragCancel.isPresent()) { int __cb_onHorizontalDragCancel = nextCallbackId++; p.put("onHorizontalDragCancel", __cb_onHorizontalDragCancel); callbacks.put(__cb_onHorizontalDragCancel, onHorizontalDragCancel.get()); }
     if (onPanCancel.isPresent()) { int __cb_onPanCancel = nextCallbackId++; p.put("onPanCancel", __cb_onPanCancel); callbacks.put(__cb_onPanCancel, onPanCancel.get()); }

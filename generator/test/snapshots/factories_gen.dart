@@ -1369,6 +1369,46 @@ int tapMoveDetailsTapMoveDetails(int kind, ffi.Pointer<DartObj> globalPosition, 
   return _addWidget(w);
 }
 
+void _setupLongPressDownDetails(WidgetFactories f) {
+  f.longPressDownDetails.longPressDownDetails = ffi.Pointer.fromFunction(longPressDownDetailsLongPressDownDetails, exception);
+}
+int longPressDownDetailsLongPressDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<ffi.Int> kind) {
+  final w = LongPressDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+
+void _setupLongPressStartDetails(WidgetFactories f) {
+  f.longPressStartDetails.longPressStartDetails = ffi.Pointer.fromFunction(longPressStartDetailsLongPressStartDetails, exception);
+}
+int longPressStartDetailsLongPressStartDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition) {
+  final w = LongPressStartDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul());
+  return _addWidget(w);
+}
+
+void _setupLongPressMoveUpdateDetails(WidgetFactories f) {
+  f.longPressMoveUpdateDetails.longPressMoveUpdateDetails = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLongPressMoveUpdateDetails, exception);
+}
+int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> offsetFromOrigin, ffi.Pointer<DartObj> localOffsetFromOrigin) {
+  final w = LongPressMoveUpdateDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      offsetFromOrigin: offsetFromOrigin.objOr(Offset.zero),
+      localOffsetFromOrigin: localOffsetFromOrigin.objOrNul());
+  return _addWidget(w);
+}
+
+void _setupLongPressEndDetails(WidgetFactories f) {
+  f.longPressEndDetails.longPressEndDetails = ffi.Pointer.fromFunction(longPressEndDetailsLongPressEndDetails, exception);
+}
+int longPressEndDetailsLongPressEndDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> velocity) {
+  final w = LongPressEndDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      velocity: velocity.objOr(Velocity.zero));
+  return _addWidget(w);
+}
+
 void _setupCubic(WidgetFactories f) {
   f.cubic.cubic = ffi.Pointer.fromFunction(cubicCubic);
 }
@@ -5191,7 +5231,7 @@ ChipObjSt _createChipObjSt(Chip? w) {
 void _setupGestureDetector(WidgetFactories f) {
   f.gestureDetector.gestureDetector = ffi.Pointer.fromFunction(gestureDetectorGestureDetector);
 }
-GestureDetectorObjSt gestureDetectorGestureDetector(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapDownCallbackFFI> onTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTapUp, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapMoveCallbackFFI> onTapMove, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapDownCallbackFFI> onSecondaryTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onSecondaryTapUp, ffi.Pointer<GestureTapCancelCallbackFFI> onSecondaryTapCancel, ffi.Pointer<GestureTapDownCallbackFFI> onTertiaryTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTertiaryTapUp, ffi.Pointer<GestureTapCancelCallbackFFI> onTertiaryTapCancel, ffi.Pointer<GestureTapDownCallbackFFI> onDoubleTapDown, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onDoubleTapCancel, ffi.Pointer<GestureLongPressCancelCallbackFFI> onLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onLongPressUp, ffi.Pointer<GestureLongPressCancelCallbackFFI> onSecondaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onSecondaryLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onSecondaryLongPressUp, ffi.Pointer<GestureLongPressCancelCallbackFFI> onTertiaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onTertiaryLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onTertiaryLongPressUp, ffi.Pointer<GestureDragCancelCallbackFFI> onVerticalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onHorizontalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onPanCancel, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, ffi.Pointer<DartObj> trackpadScrollToScaleFactor) {
+GestureDetectorObjSt gestureDetectorGestureDetector(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapDownCallbackFFI> onTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTapUp, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapMoveCallbackFFI> onTapMove, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapDownCallbackFFI> onSecondaryTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onSecondaryTapUp, ffi.Pointer<GestureTapCancelCallbackFFI> onSecondaryTapCancel, ffi.Pointer<GestureTapDownCallbackFFI> onTertiaryTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTertiaryTapUp, ffi.Pointer<GestureTapCancelCallbackFFI> onTertiaryTapCancel, ffi.Pointer<GestureTapDownCallbackFFI> onDoubleTapDown, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onDoubleTapCancel, ffi.Pointer<GestureLongPressDownCallbackFFI> onLongPressDown, ffi.Pointer<GestureLongPressCancelCallbackFFI> onLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureLongPressStartCallbackFFI> onLongPressStart, ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> onLongPressMoveUpdate, ffi.Pointer<GestureLongPressUpCallbackFFI> onLongPressUp, ffi.Pointer<GestureLongPressEndCallbackFFI> onLongPressEnd, ffi.Pointer<GestureLongPressDownCallbackFFI> onSecondaryLongPressDown, ffi.Pointer<GestureLongPressCancelCallbackFFI> onSecondaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onSecondaryLongPress, ffi.Pointer<GestureLongPressStartCallbackFFI> onSecondaryLongPressStart, ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> onSecondaryLongPressMoveUpdate, ffi.Pointer<GestureLongPressUpCallbackFFI> onSecondaryLongPressUp, ffi.Pointer<GestureLongPressEndCallbackFFI> onSecondaryLongPressEnd, ffi.Pointer<GestureLongPressDownCallbackFFI> onTertiaryLongPressDown, ffi.Pointer<GestureLongPressCancelCallbackFFI> onTertiaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onTertiaryLongPress, ffi.Pointer<GestureLongPressStartCallbackFFI> onTertiaryLongPressStart, ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> onTertiaryLongPressMoveUpdate, ffi.Pointer<GestureLongPressUpCallbackFFI> onTertiaryLongPressUp, ffi.Pointer<GestureLongPressEndCallbackFFI> onTertiaryLongPressEnd, ffi.Pointer<GestureDragCancelCallbackFFI> onVerticalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onHorizontalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onPanCancel, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, ffi.Pointer<DartObj> trackpadScrollToScaleFactor) {
   final w = GestureDetector(child: child.objOrNul(),
       onTapDown: onTapDown.toGestureTapDownCallbackFn(),
       onTapUp: onTapUp.toGestureTapUpCallbackFn(),
@@ -5208,15 +5248,27 @@ GestureDetectorObjSt gestureDetectorGestureDetector(ffi.Pointer<DartObj> child, 
       onDoubleTapDown: onDoubleTapDown.toGestureTapDownCallbackFn(),
       onDoubleTap: onDoubleTap.toGestureTapCallbackFn(),
       onDoubleTapCancel: onDoubleTapCancel.toGestureTapCancelCallbackFn(),
+      onLongPressDown: onLongPressDown.toGestureLongPressDownCallbackFn(),
       onLongPressCancel: onLongPressCancel.toGestureLongPressCancelCallbackFn(),
       onLongPress: onLongPress.toGestureLongPressCallbackFn(),
+      onLongPressStart: onLongPressStart.toGestureLongPressStartCallbackFn(),
+      onLongPressMoveUpdate: onLongPressMoveUpdate.toGestureLongPressMoveUpdateCallbackFn(),
       onLongPressUp: onLongPressUp.toGestureLongPressUpCallbackFn(),
+      onLongPressEnd: onLongPressEnd.toGestureLongPressEndCallbackFn(),
+      onSecondaryLongPressDown: onSecondaryLongPressDown.toGestureLongPressDownCallbackFn(),
       onSecondaryLongPressCancel: onSecondaryLongPressCancel.toGestureLongPressCancelCallbackFn(),
       onSecondaryLongPress: onSecondaryLongPress.toGestureLongPressCallbackFn(),
+      onSecondaryLongPressStart: onSecondaryLongPressStart.toGestureLongPressStartCallbackFn(),
+      onSecondaryLongPressMoveUpdate: onSecondaryLongPressMoveUpdate.toGestureLongPressMoveUpdateCallbackFn(),
       onSecondaryLongPressUp: onSecondaryLongPressUp.toGestureLongPressUpCallbackFn(),
+      onSecondaryLongPressEnd: onSecondaryLongPressEnd.toGestureLongPressEndCallbackFn(),
+      onTertiaryLongPressDown: onTertiaryLongPressDown.toGestureLongPressDownCallbackFn(),
       onTertiaryLongPressCancel: onTertiaryLongPressCancel.toGestureLongPressCancelCallbackFn(),
       onTertiaryLongPress: onTertiaryLongPress.toGestureLongPressCallbackFn(),
+      onTertiaryLongPressStart: onTertiaryLongPressStart.toGestureLongPressStartCallbackFn(),
+      onTertiaryLongPressMoveUpdate: onTertiaryLongPressMoveUpdate.toGestureLongPressMoveUpdateCallbackFn(),
       onTertiaryLongPressUp: onTertiaryLongPressUp.toGestureLongPressUpCallbackFn(),
+      onTertiaryLongPressEnd: onTertiaryLongPressEnd.toGestureLongPressEndCallbackFn(),
       onVerticalDragCancel: onVerticalDragCancel.toGestureDragCancelCallbackFn(),
       onHorizontalDragCancel: onHorizontalDragCancel.toGestureDragCancelCallbackFn(),
       onPanCancel: onPanCancel.toGestureDragCancelCallbackFn(),
@@ -8895,6 +8947,10 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupTapDownDetails(f);
   _setupTapUpDetails(f);
   _setupTapMoveDetails(f);
+  _setupLongPressDownDetails(f);
+  _setupLongPressStartDetails(f);
+  _setupLongPressMoveUpdateDetails(f);
+  _setupLongPressEndDetails(f);
   _setupCubic(f);
   _setupThreePointCubic(f);
   _setupElasticOutCurve(f);
@@ -9495,6 +9551,18 @@ extension on ffi.Pointer<GestureTapCancelCallbackFFI> {
   GestureTapCancelCallback? toGestureTapCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapCancelCallbackFn() : null;
 }
 
+extension on GestureLongPressDownCallbackFFI {
+  GestureLongPressDownCallback toGestureLongPressDownCallbackFn() {
+    return (LongPressDownDetails details) {
+      DartGestureLongPressDownCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressDownCallbackFFI> {
+  GestureLongPressDownCallback? toGestureLongPressDownCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressDownCallbackFn() : null;
+}
+
 extension on GestureLongPressCancelCallbackFFI {
   GestureLongPressCancelCallback toGestureLongPressCancelCallbackFn() {
     return () {
@@ -9519,6 +9587,30 @@ extension on ffi.Pointer<GestureLongPressCallbackFFI> {
   GestureLongPressCallback? toGestureLongPressCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressCallbackFn() : null;
 }
 
+extension on GestureLongPressStartCallbackFFI {
+  GestureLongPressStartCallback toGestureLongPressStartCallbackFn() {
+    return (LongPressStartDetails details) {
+      DartGestureLongPressStartCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressStartCallbackFFI> {
+  GestureLongPressStartCallback? toGestureLongPressStartCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressStartCallbackFn() : null;
+}
+
+extension on GestureLongPressMoveUpdateCallbackFFI {
+  GestureLongPressMoveUpdateCallback toGestureLongPressMoveUpdateCallbackFn() {
+    return (LongPressMoveUpdateDetails details) {
+      DartGestureLongPressMoveUpdateCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> {
+  GestureLongPressMoveUpdateCallback? toGestureLongPressMoveUpdateCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressMoveUpdateCallbackFn() : null;
+}
+
 extension on GestureLongPressUpCallbackFFI {
   GestureLongPressUpCallback toGestureLongPressUpCallbackFn() {
     return () {
@@ -9529,6 +9621,18 @@ extension on GestureLongPressUpCallbackFFI {
 }
 extension on ffi.Pointer<GestureLongPressUpCallbackFFI> {
   GestureLongPressUpCallback? toGestureLongPressUpCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressUpCallbackFn() : null;
+}
+
+extension on GestureLongPressEndCallbackFFI {
+  GestureLongPressEndCallback toGestureLongPressEndCallbackFn() {
+    return (LongPressEndDetails details) {
+      DartGestureLongPressEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressEndCallbackFFI> {
+  GestureLongPressEndCallback? toGestureLongPressEndCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressEndCallbackFn() : null;
 }
 
 extension on GestureDragCancelCallbackFFI {

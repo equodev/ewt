@@ -376,6 +376,22 @@ public class EWT {
     return TapMoveDetailsTapMoveDetailsBuilder.tapMoveDetailsTapMoveDetails(kind);
   }
 
+  public static LongPressDownDetailsLongPressDownDetailsBuilder LongPressDownDetails() {
+    return LongPressDownDetailsLongPressDownDetailsBuilder.longPressDownDetailsLongPressDownDetails();
+  }
+
+  public static LongPressStartDetailsLongPressStartDetailsBuilder LongPressStartDetails() {
+    return LongPressStartDetailsLongPressStartDetailsBuilder.longPressStartDetailsLongPressStartDetails();
+  }
+
+  public static LongPressMoveUpdateDetailsLongPressMoveUpdateDetailsBuilder LongPressMoveUpdateDetails() {
+    return LongPressMoveUpdateDetailsLongPressMoveUpdateDetailsBuilder.longPressMoveUpdateDetailsLongPressMoveUpdateDetails();
+  }
+
+  public static LongPressEndDetailsLongPressEndDetailsBuilder LongPressEndDetails() {
+    return LongPressEndDetailsLongPressEndDetailsBuilder.longPressEndDetailsLongPressEndDetails();
+  }
+
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {
     return CubicCubicBuilder.cubicCubic(a, b, c, d);
   }
