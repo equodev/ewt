@@ -243,6 +243,10 @@ typedef struct {
     ListenableBuilderObjSt (*listenableBuilder)(DartObj listenable, TransitionBuilderFFI builder, DartObj* child);
   } listenableBuilder;
 
+  struct VelocitySt {
+    VelocityObjSt (*velocity)(DartObj pixelsPerSecond);
+  } velocity;
+
   struct CubicSt {
     CubicObjSt (*cubic)(double a, double b, double c, double d);
   } cubic;
@@ -518,7 +522,7 @@ typedef struct {
   } interactiveViewer;
 
   struct DraggableSt {
-    DraggableObjSt (*draggable)(DartObj child, DartObj feedback, DartObj* data, int* axis, DartObj* childWhenDragging, DartObj* feedbackOffset, DragAnchorStrategyFFI* dragAnchorStrategy, int* affinity, int* maxSimultaneousDrags, VoidCallbackFFI* onDragStarted, VoidCallbackFFI* onDragCompleted, int* ignoringFeedbackSemantics, int* ignoringFeedbackPointer, int* rootOverlay, int* hitTestBehavior, AllowedButtonsFilterFFI* allowedButtonsFilter);
+    DraggableObjSt (*draggable)(DartObj child, DartObj feedback, DartObj* data, int* axis, DartObj* childWhenDragging, DartObj* feedbackOffset, DragAnchorStrategyFFI* dragAnchorStrategy, int* affinity, int* maxSimultaneousDrags, VoidCallbackFFI* onDragStarted, DraggableCanceledCallbackFFI* onDraggableCanceled, VoidCallbackFFI* onDragCompleted, int* ignoringFeedbackSemantics, int* ignoringFeedbackPointer, int* rootOverlay, int* hitTestBehavior, AllowedButtonsFilterFFI* allowedButtonsFilter);
   } draggable;
 
   struct DragTargetSt {

@@ -9,6 +9,7 @@ typedef DartObj (*NullableIndexedWidgetBuilderFFI)(DartObj context, int index);
 typedef DartObj (*IndexedWidgetBuilderFFI)(DartObj context, int index);
 typedef void (*ValueChangedForIntFFI)(int value);
 typedef DartObj (*DragAnchorStrategyFFI)(DartObj draggable, DartObj context, DartObj position);
+typedef void (*DraggableCanceledCallbackFFI)(DartObj velocity, DartObj offset);
 typedef int (*AllowedButtonsFilterFFI)(int buttons);
 typedef DartObj (*DragTargetBuilderForTFFI)(DartObj context, ArrayC candidateData, ArrayC rejectedData);
 typedef int (*DragTargetWillAcceptForTFFI)(DartObj data);

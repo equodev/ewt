@@ -360,6 +360,10 @@ public class EWT {
     return ListenableBuilderListenableBuilderBuilder.listenableBuilderListenableBuilder(listenable, builder);
   }
 
+  public static VelocityVelocityBuilder Velocity(OffsetI pixelsPerSecond) {
+    return VelocityVelocityBuilder.velocityVelocity(pixelsPerSecond);
+  }
+
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {
     return CubicCubicBuilder.cubicCubic(a, b, c, d);
   }

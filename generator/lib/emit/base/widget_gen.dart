@@ -587,13 +587,24 @@ class WidgetGen implements AGen {
   String dartExptrToJava(Expression e) {
     if (e is InstanceCreationExpression) {
       var nodeList = e.argumentList.arguments;
-      var requiredArgs = nodeList
-          .where((a) => a.correspondingParameter!.isRequiredPositional)
-          .map((a) => a.unParenthesized)
-          .map((e) => dartExptrToJava(e))
-          .join(', ');
+      // The emitted static factory's @Builder.Parameter slots are the leading
+      // required params in constructor-declaration order (see Params.mandatory
+      // in params.dart, `takeWhile((p) => p.isRequired)`). Both required
+      // positional and required-named args land there and must be forwarded
+      // positionally; only optional named args become builder chain calls.
+      var requiredPositional = nodeList
+          .where((a) => a.correspondingParameter?.isRequiredPositional == true)
+          .map((a) => dartExptrToJava(a.unParenthesized))
+          .toList();
+      var requiredNamed = nodeList
+          .whereType<NamedExpression>()
+          .where((a) => a.correspondingParameter?.isRequiredNamed == true)
+          .map((a) => dartExptrToJava(a.expression.unParenthesized))
+          .toList();
+      var requiredArgs = [...requiredPositional, ...requiredNamed].join(', ');
       var otherArgs = nodeList
           .whereType<NamedExpression>()
+          .where((a) => a.correspondingParameter?.isRequiredNamed != true)
           .map((a) => '.${a.name.label}(${dartExptrToJava(a.expression)})')
           .join('');
 

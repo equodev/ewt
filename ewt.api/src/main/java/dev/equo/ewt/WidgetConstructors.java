@@ -977,6 +977,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
+  MemorySegment velocityVelocity(Offset pixelsPerSecond) {
+    var st = WidgetFactories.velocity(factories);
+    var fn = WidgetFactories.VelocitySt.velocity(st);
+    return WidgetFactories.VelocitySt.velocity.invoke(fn, arena, pixelsPerSecond.build().getId());
+  }
+
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     var st = WidgetFactories.cubic(factories);
     var fn = WidgetFactories.CubicSt.cubic(st);
@@ -1789,7 +1795,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     var st = WidgetFactories.draggable(factories);
     var fn = WidgetFactories.DraggableSt.draggable(st);
     return WidgetFactories.DraggableSt.draggable.invoke(fn, arena, child.build().getId(),
@@ -1802,6 +1808,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(affinity),
       ptr(maxSimultaneousDrags),
       onDragStarted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragStarted.get())) : MemorySegment.NULL,
+      onDraggableCanceled.isPresent() ? ptrHolder(ptrDraggableCanceledCallbackFn(onDraggableCanceled.get())) : MemorySegment.NULL,
       onDragCompleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragCompleted.get())) : MemorySegment.NULL,
       ptrBool(ignoringFeedbackSemantics),
       ptrBool(ignoringFeedbackPointer),
@@ -5552,6 +5559,11 @@ MemorySegment ptrDragAnchorStrategyFn(TriFunction<Draggable, BuildContext, Offse
   return DragAnchorStrategyFFI.allocate((draggable, context, position) -> {
     final var jFnRet = jFn.apply(new Draggable(draggable), new BuildContext() { public int getId() { return context; } }, new Offset(position));
     return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrDraggableCanceledCallbackFn(BiConsumer<Velocity, Offset> jFn) {
+  return DraggableCanceledCallbackFFI.allocate((velocity, offset) -> {
+    jFn.accept(new Velocity(velocity), new Offset(offset));
   }, arena);
 }
 MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {

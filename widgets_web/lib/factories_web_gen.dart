@@ -441,6 +441,9 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       milliseconds: (p['milliseconds'] as int?) ?? 0,
       microseconds: (p['microseconds'] as int?) ?? 0),
 
+  'velocityVelocity': (p) => Velocity(pixelsPerSecond: decodeEwtNode(p['pixelsPerSecond'] as Map<String,dynamic>) as Offset),
+  'velocityPixelsPerSecond': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as Velocity).pixelsPerSecond,
+
   'cubicCubic': (p) => Cubic((p['a'] as num).toDouble(),
       (p['b'] as num).toDouble(),
       (p['c'] as num).toDouble(),
@@ -861,6 +864,7 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       affinity: p['affinity'] == null ? null : Axis.values[p['affinity'] as int],
       maxSimultaneousDrags: p['maxSimultaneousDrags'] as int?,
       onDragStarted: ewtWireCallback(p['onDragStarted']),
+      onDraggableCanceled: ([Object? a, Object? b, Object? c]) {},
       onDragCompleted: ewtWireCallback(p['onDragCompleted']),
       ignoringFeedbackSemantics: (p['ignoringFeedbackSemantics'] as bool?) ?? true,
       ignoringFeedbackPointer: (p['ignoringFeedbackPointer'] as bool?) ?? true,

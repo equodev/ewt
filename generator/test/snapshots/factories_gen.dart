@@ -1323,6 +1323,21 @@ ListenableBuilderObjSt _createListenableBuilderObjSt(ListenableBuilder? w) {
   return stObj;
 }
 
+void _setupVelocity(WidgetFactories f) {
+  f.velocity.velocity = ffi.Pointer.fromFunction(velocityVelocity);
+}
+VelocityObjSt velocityVelocity(DartDartObj pixelsPerSecond) {
+  final w = Velocity(pixelsPerSecond: _widgetsMap[pixelsPerSecond]! as Offset);
+  return _createVelocityObjSt(w);
+}
+VelocityObjSt _createVelocityObjSt(Velocity? w) {
+  final VelocityObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.pixelsPerSecond = _addWidget(w.pixelsPerSecond);
+  return stObj;
+}
+
 void _setupCubic(WidgetFactories f) {
   f.cubic.cubic = ffi.Pointer.fromFunction(cubicCubic);
 }
@@ -2826,7 +2841,7 @@ InteractiveViewerObjSt _createInteractiveViewerObjSt(InteractiveViewer? w) {
 void _setupDraggable(WidgetFactories f) {
   f.draggable.draggable = ffi.Pointer.fromFunction(draggableDraggable);
 }
-DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.Pointer<DartObj> data, ffi.Pointer<ffi.Int> axis, ffi.Pointer<DartObj> childWhenDragging, ffi.Pointer<DartObj> feedbackOffset, ffi.Pointer<DragAnchorStrategyFFI> dragAnchorStrategy, ffi.Pointer<ffi.Int> affinity, ffi.Pointer<ffi.Int> maxSimultaneousDrags, ffi.Pointer<VoidCallbackFFI> onDragStarted, ffi.Pointer<VoidCallbackFFI> onDragCompleted, ffi.Pointer<ffi.Int> ignoringFeedbackSemantics, ffi.Pointer<ffi.Int> ignoringFeedbackPointer, ffi.Pointer<ffi.Int> rootOverlay, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<AllowedButtonsFilterFFI> allowedButtonsFilter) {
+DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.Pointer<DartObj> data, ffi.Pointer<ffi.Int> axis, ffi.Pointer<DartObj> childWhenDragging, ffi.Pointer<DartObj> feedbackOffset, ffi.Pointer<DragAnchorStrategyFFI> dragAnchorStrategy, ffi.Pointer<ffi.Int> affinity, ffi.Pointer<ffi.Int> maxSimultaneousDrags, ffi.Pointer<VoidCallbackFFI> onDragStarted, ffi.Pointer<DraggableCanceledCallbackFFI> onDraggableCanceled, ffi.Pointer<VoidCallbackFFI> onDragCompleted, ffi.Pointer<ffi.Int> ignoringFeedbackSemantics, ffi.Pointer<ffi.Int> ignoringFeedbackPointer, ffi.Pointer<ffi.Int> rootOverlay, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<AllowedButtonsFilterFFI> allowedButtonsFilter) {
   final w = Draggable(child: _widgetsMap[child]! as Widget,
       feedback: _widgetsMap[feedback]! as Widget,
       data: data,
@@ -2837,6 +2852,7 @@ DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.P
       affinity: affinity.enumOrNul(Axis.values),
       maxSimultaneousDrags: maxSimultaneousDrags.intOrNul(),
       onDragStarted: onDragStarted.toVoidCallbackFn(),
+      onDraggableCanceled: onDraggableCanceled.toDraggableCanceledCallbackFn(),
       onDragCompleted: onDragCompleted.toVoidCallbackFn(),
       ignoringFeedbackSemantics: ignoringFeedbackSemantics.boolOr(true),
       ignoringFeedbackPointer: ignoringFeedbackPointer.boolOr(true),
@@ -8827,6 +8843,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupAnimationController(f);
   _setupAnimatedBuilder(f);
   _setupOffset(f);
+  _setupVelocity(f);
   _setupCubic(f);
   _setupThreePointCubic(f);
   _setupElasticOutCurve(f);
@@ -9176,6 +9193,18 @@ extension on DragAnchorStrategyFFI {
 }
 extension on ffi.Pointer<DragAnchorStrategyFFI> {
   DragAnchorStrategy? toDragAnchorStrategyFn() => (this != ffi.nullptr) ? this.value.toDragAnchorStrategyFn() : null;
+}
+
+extension on DraggableCanceledCallbackFFI {
+  DraggableCanceledCallback toDraggableCanceledCallbackFn() {
+    return (Velocity velocity, Offset offset) {
+      DartDraggableCanceledCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(velocity), _addWidget(offset));
+    };
+  }
+}
+extension on ffi.Pointer<DraggableCanceledCallbackFFI> {
+  DraggableCanceledCallback? toDraggableCanceledCallbackFn() => (this != ffi.nullptr) ? this.value.toDraggableCanceledCallbackFn() : null;
 }
 
 extension on AllowedButtonsFilterFFI {

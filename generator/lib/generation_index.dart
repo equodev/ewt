@@ -46,6 +46,7 @@ w.TickerProvider? tickerProvider;
 w.AnimationController? animationController;
 w.AnimatedBuilder? animatedBuilder;
 w.Offset? offset;
+w.Velocity? velocity;
 w.Curve? curve;
 w.Cubic? cubic;
 w.ThreePointCubic? threePointCubic;

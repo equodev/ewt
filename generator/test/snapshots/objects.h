@@ -231,6 +231,10 @@ typedef struct {
 } ListenableBuilderObjSt;
 typedef struct {
   int id;
+  DartObj pixelsPerSecond;
+} VelocityObjSt;
+typedef struct {
+  int id;
   double a;
   double b;
   double c;
