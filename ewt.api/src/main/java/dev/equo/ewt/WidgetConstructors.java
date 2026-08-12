@@ -425,15 +425,94 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectionColor));
   }
 
-  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
+  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     var st = WidgetFactories.textSpan(factories);
     var fn = WidgetFactories.TextSpanSt.textSpan(st);
     return WidgetFactories.TextSpanSt.textSpan.invoke(fn, arena, ptrStr(text),
       ptrList(children),
       ptrObj(style),
+      onEnter.isPresent() ? ptrHolder(ptrPointerEnterEventListenerFn(onEnter.get())) : MemorySegment.NULL,
+      onExit.isPresent() ? ptrHolder(ptrPointerExitEventListenerFn(onExit.get())) : MemorySegment.NULL,
       ptrStr(semanticsLabel),
       ptrStr(semanticsIdentifier),
       ptrBool(spellOut));
+  }
+
+  MemorySegment pointerEnterEventPointerEnterEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerEnterEvent(factories);
+    var fn = WidgetFactories.PointerEnterEventSt.pointerEnterEvent(st);
+    return WidgetFactories.PointerEnterEventSt.pointerEnterEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptr(pointer),
+      ptrEnum(kind),
+      ptr(device),
+      ptrObj(position),
+      ptrObj(delta),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptrBool(down),
+      ptrBool(synthesized),
+      ptr(embedderId));
+  }
+  MemorySegment pointerEnterEventFromMouseEvent(PointerEvent event) {
+    var st = WidgetFactories.pointerEnterEvent(factories);
+    var fn = WidgetFactories.PointerEnterEventSt.fromMouseEvent(st);
+    return WidgetFactories.PointerEnterEventSt.fromMouseEvent.invoke(fn, arena, event.build().getId());
+  }
+
+  MemorySegment pointerExitEventPointerExitEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerExitEvent(factories);
+    var fn = WidgetFactories.PointerExitEventSt.pointerExitEvent(st);
+    return WidgetFactories.PointerExitEventSt.pointerExitEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptrEnum(kind),
+      ptr(pointer),
+      ptr(device),
+      ptrObj(position),
+      ptrObj(delta),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptrBool(down),
+      ptrBool(synthesized),
+      ptr(embedderId));
+  }
+  MemorySegment pointerExitEventFromMouseEvent(PointerEvent event) {
+    var st = WidgetFactories.pointerExitEvent(factories);
+    var fn = WidgetFactories.PointerExitEventSt.fromMouseEvent(st);
+    return WidgetFactories.PointerExitEventSt.fromMouseEvent.invoke(fn, arena, event.build().getId());
+  }
+
+  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
+    var st = WidgetFactories.duration(factories);
+    var fn = WidgetFactories.DurationSt.duration(st);
+    return WidgetFactories.DurationSt.duration.invoke(fn, ptr(days),
+      ptr(hours),
+      ptr(minutes),
+      ptr(seconds),
+      ptr(milliseconds),
+      ptr(microseconds));
   }
 
   MemorySegment richTextRichText(InlineSpan text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
@@ -950,17 +1029,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       d.build().getId());
   }
 
-  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
-    var st = WidgetFactories.duration(factories);
-    var fn = WidgetFactories.DurationSt.duration(st);
-    return WidgetFactories.DurationSt.duration.invoke(fn, ptr(days),
-      ptr(hours),
-      ptr(minutes),
-      ptr(seconds),
-      ptr(milliseconds),
-      ptr(microseconds));
-  }
-
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {
     var st = WidgetFactories.animatedBuilder(factories);
     var fn = WidgetFactories.AnimatedBuilderSt.animatedBuilder(st);
@@ -1124,6 +1192,84 @@ class WidgetConstructors extends WidgetConstructorsBase {
       offset.build().getId());
   }
 
+  MemorySegment pointerDownEventPointerDownEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerDownEvent(factories);
+    var fn = WidgetFactories.PointerDownEventSt.pointerDownEvent(st);
+    return WidgetFactories.PointerDownEventSt.pointerDownEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptr(pointer),
+      ptrEnum(kind),
+      ptr(device),
+      ptrObj(position),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressure),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptr(embedderId));
+  }
+
+  MemorySegment pointerUpEventPointerUpEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerUpEvent(factories);
+    var fn = WidgetFactories.PointerUpEventSt.pointerUpEvent(st);
+    return WidgetFactories.PointerUpEventSt.pointerUpEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptr(pointer),
+      ptrEnum(kind),
+      ptr(device),
+      ptrObj(position),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressure),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptr(embedderId));
+  }
+
+  MemorySegment pointerHoverEventPointerHoverEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerHoverEvent(factories);
+    var fn = WidgetFactories.PointerHoverEventSt.pointerHoverEvent(st);
+    return WidgetFactories.PointerHoverEventSt.pointerHoverEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptrEnum(kind),
+      ptr(pointer),
+      ptr(device),
+      ptrObj(position),
+      ptrObj(delta),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptrBool(synthesized),
+      ptr(embedderId));
+  }
+
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     var st = WidgetFactories.cubic(factories);
     var fn = WidgetFactories.CubicSt.cubic(st);
@@ -1247,10 +1393,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  MemorySegment mouseRegionMouseRegion(Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
+  MemorySegment mouseRegionMouseRegion(Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<Consumer<PointerHoverEvent>> onHover, Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
     var st = WidgetFactories.mouseRegion(factories);
     var fn = WidgetFactories.MouseRegionSt.mouseRegion(st);
-    return WidgetFactories.MouseRegionSt.mouseRegion.invoke(fn, arena, ptrBool(opaque),
+    return WidgetFactories.MouseRegionSt.mouseRegion.invoke(fn, arena, onEnter.isPresent() ? ptrHolder(ptrPointerEnterEventListenerFn(onEnter.get())) : MemorySegment.NULL,
+      onExit.isPresent() ? ptrHolder(ptrPointerExitEventListenerFn(onExit.get())) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrHolder(ptrPointerHoverEventListenerFn(onHover.get())) : MemorySegment.NULL,
+      ptrBool(opaque),
       ptrEnum(hitTestBehavior),
       ptrObj(child));
   }
@@ -3273,7 +3422,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.InputBorderSt.none(st);
   }
 
-  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     var st = WidgetFactories.textField(factories);
     var fn = WidgetFactories.TextFieldSt.textField(st);
     return WidgetFactories.TextFieldSt.textField.invoke(fn, arena, ptrObj(groupId),
@@ -3317,6 +3466,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(selectAllOnFocus),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
       ptrBool(onTapAlwaysCalled),
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
       buildCounter.isPresent() ? ptrHolder(ptrInputCounterWidgetBuilderFn(buildCounter.get())) : MemorySegment.NULL,
       ptrStrList(autofillHints),
       ptrEnum(clipBehavior),
@@ -4942,13 +5093,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(acceptEmptyDate));
   }
 
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
     var st = WidgetFactories.searchBar(factories);
     var fn = WidgetFactories.SearchBarSt.searchBar(st);
     return WidgetFactories.SearchBarSt.searchBar.invoke(fn, arena, ptrStr(hintText),
       ptrObj(leading),
       ptrList(trailing),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
       onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
       ptrObj(constraints),
@@ -5422,7 +5574,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     var st = WidgetFactories.cupertinoTextField(factories);
     var fn = WidgetFactories.CupertinoTextFieldSt.cupertinoTextField(st);
     return WidgetFactories.CupertinoTextFieldSt.cupertinoTextField.invoke(fn, arena, ptrObj(groupId),
@@ -5459,6 +5611,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
       onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
       ptrBool(enabled),
       ptr(cursorWidth),
       ptr(cursorHeight),
@@ -5480,7 +5634,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(stylusHandwritingEnabled),
       ptrBool(enableIMEPersonalizedLearning));
   }
-  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     var st = WidgetFactories.cupertinoTextField(factories);
     var fn = WidgetFactories.CupertinoTextFieldSt.borderless(st);
     return WidgetFactories.CupertinoTextFieldSt.borderless.invoke(fn, arena, ptrObj(groupId),
@@ -5517,6 +5671,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
       onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
       ptrBool(enabled),
       ptr(cursorWidth),
       ptr(cursorHeight),
@@ -5727,6 +5883,21 @@ MemorySegment ptrSelectableDayForRangePredicateFn(TriFunction<DateTime, DateTime
     return (jFnRet ? 1 : 0);
   }, arena);
 }
+MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
+  return PointerEnterEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerEnterEvent(event));
+  }, arena);
+}
+MemorySegment ptrPointerExitEventListenerFn(Consumer<PointerExitEvent> jFn) {
+  return PointerExitEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerExitEvent(event));
+  }, arena);
+}
+MemorySegment ptrPointerHoverEventListenerFn(Consumer<PointerHoverEvent> jFn) {
+  return PointerHoverEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerHoverEvent(event));
+  }, arena);
+}
 MemorySegment ptrVoidCallbackFn(Runnable jFn) {
   return VoidCallbackFFI.allocate(() -> {
     jFn.run();
@@ -5861,6 +6032,16 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
 MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
   return GestureTapCallbackFFI.allocate(() -> {
     jFn.run();
+  }, arena);
+}
+MemorySegment ptrTapRegionCallbackFn(Consumer<PointerDownEvent> jFn) {
+  return TapRegionCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerDownEvent(event));
+  }, arena);
+}
+MemorySegment ptrTapRegionUpCallbackFn(Consumer<PointerUpEvent> jFn) {
+  return TapRegionUpCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerUpEvent(event));
   }, arena);
 }
 MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {

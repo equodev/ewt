@@ -497,12 +497,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
+  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     text.ifPresent(v -> p.put("text", v));
     children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
     style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    if (onEnter != null) { p.put("onEnter", nextCallbackId++); }
+    if (onExit != null) { p.put("onExit", nextCallbackId++); }
     semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
     semanticsIdentifier.ifPresent(v -> p.put("semanticsIdentifier", v));
     spellOut.ifPresent(v -> p.put("spellOut", v));
@@ -510,6 +512,106 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     MemorySegment st = TextSpanObjSt.allocate(arena);
     TextSpanObjSt.id(st, id);
     return st;
+  }
+
+  @Override
+  MemorySegment pointerEnterEventPointerEnterEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    down.ifPresent(v -> p.put("down", v));
+    synthesized.ifPresent(v -> p.put("synthesized", v));
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerEnterEventPointerEnterEvent", p);
+    MemorySegment st = PointerEnterEventObjSt.allocate(arena);
+    PointerEnterEventObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment pointerEnterEventFromMouseEvent(PointerEvent event) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("event", byId.get(event.getId()));
+    record(id, "pointerEnterEventFromMouseEvent", p);
+    MemorySegment st = PointerEnterEventObjSt.allocate(arena);
+    PointerEnterEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pointerExitEventPointerExitEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    down.ifPresent(v -> p.put("down", v));
+    synthesized.ifPresent(v -> p.put("synthesized", v));
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerExitEventPointerExitEvent", p);
+    MemorySegment st = PointerExitEventObjSt.allocate(arena);
+    PointerExitEventObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment pointerExitEventFromMouseEvent(PointerEvent event) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("event", byId.get(event.getId()));
+    record(id, "pointerExitEventFromMouseEvent", p);
+    MemorySegment st = PointerExitEventObjSt.allocate(arena);
+    PointerExitEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (days.isPresent()) { p.put("days", days.getAsInt()); }
+    if (hours.isPresent()) { p.put("hours", hours.getAsInt()); }
+    if (minutes.isPresent()) { p.put("minutes", minutes.getAsInt()); }
+    if (seconds.isPresent()) { p.put("seconds", seconds.getAsInt()); }
+    if (milliseconds.isPresent()) { p.put("milliseconds", milliseconds.getAsInt()); }
+    if (microseconds.isPresent()) { p.put("microseconds", microseconds.getAsInt()); }
+    record(id, "durationDuration", p);
+    return id;
   }
 
   @Override
@@ -1254,20 +1356,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    if (days.isPresent()) { p.put("days", days.getAsInt()); }
-    if (hours.isPresent()) { p.put("hours", hours.getAsInt()); }
-    if (minutes.isPresent()) { p.put("minutes", minutes.getAsInt()); }
-    if (seconds.isPresent()) { p.put("seconds", seconds.getAsInt()); }
-    if (milliseconds.isPresent()) { p.put("milliseconds", milliseconds.getAsInt()); }
-    if (microseconds.isPresent()) { p.put("microseconds", microseconds.getAsInt()); }
-    record(id, "durationDuration", p);
-    return id;
-  }
-
-  @Override
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -1494,6 +1582,99 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment pointerDownEventPointerDownEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressure.isPresent()) { p.put("pressure", pressure.getAsDouble()); }
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerDownEventPointerDownEvent", p);
+    MemorySegment st = PointerDownEventObjSt.allocate(arena);
+    PointerDownEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pointerUpEventPointerUpEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressure.isPresent()) { p.put("pressure", pressure.getAsDouble()); }
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerUpEventPointerUpEvent", p);
+    MemorySegment st = PointerUpEventObjSt.allocate(arena);
+    PointerUpEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pointerHoverEventPointerHoverEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    synthesized.ifPresent(v -> p.put("synthesized", v));
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerHoverEventPointerHoverEvent", p);
+    MemorySegment st = PointerHoverEventObjSt.allocate(arena);
+    PointerHoverEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -1705,9 +1886,12 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment mouseRegionMouseRegion(Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
+  MemorySegment mouseRegionMouseRegion(Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<Consumer<PointerHoverEvent>> onHover, Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onEnter != null) { p.put("onEnter", nextCallbackId++); }
+    if (onExit != null) { p.put("onExit", nextCallbackId++); }
+    if (onHover != null) { p.put("onHover", nextCallbackId++); }
     opaque.ifPresent(v -> p.put("opaque", v));
     hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -4402,7 +4586,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -4446,6 +4630,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     selectAllOnFocus.ifPresent(v -> p.put("selectAllOnFocus", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     onTapAlwaysCalled.ifPresent(v -> p.put("onTapAlwaysCalled", v));
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
     if (buildCounter != null) { p.put("buildCounter", nextCallbackId++); }
     autofillHints.ifPresent(v -> p.put("autofillHints", v.stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
@@ -6491,13 +6677,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     hintText.ifPresent(v -> p.put("hintText", v));
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     trailing.ifPresent(v -> p.put("trailing", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
     constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
@@ -7127,7 +7314,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -7164,6 +7351,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
     enabled.ifPresent(v -> p.put("enabled", v));
     if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
     if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }
@@ -7190,7 +7379,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -7227,6 +7416,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
     enabled.ifPresent(v -> p.put("enabled", v));
     if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
     if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }

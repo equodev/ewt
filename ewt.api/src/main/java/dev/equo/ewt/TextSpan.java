@@ -17,10 +17,12 @@ public class TextSpan extends InlineSpan implements TextSpanI {
   }
   TextSpan(int id) { this.id = id; }
   @Builder.Factory
-  static TextSpan textSpanTextSpan(Optional<String> text, Optional<List<InlineSpanI>> children, Optional<TextStyleI> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
+  static TextSpan textSpanTextSpan(Optional<String> text, Optional<List<InlineSpanI>> children, Optional<TextStyleI> style, Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     var st = factories.textSpanTextSpan(text,
       children.map(i -> i.stream().map(InlineSpanI::build).toList()),
       style.map(TextStyleI::build),
+      onEnter,
+      onExit,
       semanticsLabel,
       semanticsIdentifier,
       spellOut);

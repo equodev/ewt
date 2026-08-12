@@ -184,6 +184,24 @@ public class EWT {
     return TextSpanTextSpanBuilder.textSpanTextSpan();
   }
 
+  public static PointerEnterEventPointerEnterEventBuilder PointerEnterEvent() {
+    return PointerEnterEventPointerEnterEventBuilder.pointerEnterEventPointerEnterEvent();
+  }
+  public static PointerEnterEventFromMouseEventBuilder PointerEnterEvent_fromMouseEvent(PointerEventI event) {
+    return PointerEnterEventFromMouseEventBuilder.pointerEnterEventFromMouseEvent(event);
+  }
+
+  public static PointerExitEventPointerExitEventBuilder PointerExitEvent() {
+    return PointerExitEventPointerExitEventBuilder.pointerExitEventPointerExitEvent();
+  }
+  public static PointerExitEventFromMouseEventBuilder PointerExitEvent_fromMouseEvent(PointerEventI event) {
+    return PointerExitEventFromMouseEventBuilder.pointerExitEventFromMouseEvent(event);
+  }
+
+  public static DurationDurationBuilder Duration() {
+    return DurationDurationBuilder.durationDuration();
+  }
+
   public static RichTextRichTextBuilder RichText(InlineSpanI text) {
     return RichTextRichTextBuilder.richTextRichText(text);
   }
@@ -348,10 +366,6 @@ public class EWT {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
   }
 
-  public static DurationDurationBuilder Duration() {
-    return DurationDurationBuilder.durationDuration();
-  }
-
   public static AnimatedBuilderAnimatedBuilderBuilder AnimatedBuilder(ListenableI animation, BiFunction<BuildContext, Widget, Widget> builder) {
     return AnimatedBuilderAnimatedBuilderBuilder.animatedBuilderAnimatedBuilder(animation, builder);
   }
@@ -426,6 +440,18 @@ public class EWT {
 
   public static DraggableDetailsDraggableDetailsBuilder DraggableDetails() {
     return DraggableDetailsDraggableDetailsBuilder.draggableDetailsDraggableDetails();
+  }
+
+  public static PointerDownEventPointerDownEventBuilder PointerDownEvent() {
+    return PointerDownEventPointerDownEventBuilder.pointerDownEventPointerDownEvent();
+  }
+
+  public static PointerUpEventPointerUpEventBuilder PointerUpEvent() {
+    return PointerUpEventPointerUpEventBuilder.pointerUpEventPointerUpEvent();
+  }
+
+  public static PointerHoverEventPointerHoverEventBuilder PointerHoverEvent() {
+    return PointerHoverEventPointerHoverEventBuilder.pointerHoverEventPointerHoverEvent();
   }
 
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {

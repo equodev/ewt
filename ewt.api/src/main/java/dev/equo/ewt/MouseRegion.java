@@ -17,8 +17,11 @@ public class MouseRegion extends SingleChildRenderObjectWidget implements MouseR
   }
   MouseRegion(int id) { this.id = id; }
   @Builder.Factory
-  static MouseRegion mouseRegionMouseRegion(Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<WidgetI> child) {
-    var st = factories.mouseRegionMouseRegion(opaque,
+  static MouseRegion mouseRegionMouseRegion(Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<Consumer<PointerHoverEvent>> onHover, Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<WidgetI> child) {
+    var st = factories.mouseRegionMouseRegion(onEnter,
+      onExit,
+      onHover,
+      opaque,
       hitTestBehavior,
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget MouseRegion");
