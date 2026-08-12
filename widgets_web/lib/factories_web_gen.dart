@@ -717,6 +717,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       clipBehavior: p['clipBehavior'] == null ? Clip.hardEdge : Clip.values[p['clipBehavior'] as int],
       hitTestBehavior: p['hitTestBehavior'] == null ? HitTestBehavior.opaque : HitTestBehavior.values[p['hitTestBehavior'] as int]),
 
+  'dragTargetDragTarget': (p) { final child = decodeEwtWidget(p['child'] as Map<String,dynamic>); return DragTarget(builder: (_, __, ___) => child); },
+
   'gridViewCount': (p) => GridView.count(scrollDirection: p['scrollDirection'] == null ? Axis.vertical : Axis.values[p['scrollDirection'] as int],
       reverse: (p['reverse'] as bool?) ?? false,
       primary: p['primary'] as bool?,

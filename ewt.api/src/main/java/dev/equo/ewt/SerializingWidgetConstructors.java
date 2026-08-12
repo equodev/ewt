@@ -2560,10 +2560,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("builder", nextCallbackId++);
-    if (onWillAccept != null) { p.put("onWillAccept", nextCallbackId++); }
-    if (onAccept != null) { p.put("onAccept", nextCallbackId++); }
-    if (onLeave != null) { p.put("onLeave", nextCallbackId++); }
+    Widget __child = builder.apply(EwtWebCapture.stubContext(), java.util.List.of(), java.util.List.of());
+    p.put("child", byId.get(__child.getId()));
     hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
     record(id, "dragTargetDragTarget", p);
     MemorySegment st = DragTargetObjSt.allocate(arena);
