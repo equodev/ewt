@@ -17,7 +17,7 @@ public class Draggable<T> extends StatefulWidget implements DraggableI {
   }
   Draggable(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> Draggable<T> draggableDraggable(@Builder.Parameter WidgetI child, @Builder.Parameter WidgetI feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<WidgetI> childWhenDragging, Optional<OffsetI> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  static <T extends NativeObj> Draggable<T> draggableDraggable(@Builder.Parameter WidgetI child, @Builder.Parameter WidgetI feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<WidgetI> childWhenDragging, Optional<OffsetI> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     var st = factories.draggableDraggable(child.build(),
       feedback.build(),
       data,
@@ -28,6 +28,7 @@ public class Draggable<T> extends StatefulWidget implements DraggableI {
       affinity,
       maxSimultaneousDrags,
       onDragStarted,
+      onDragUpdate,
       onDraggableCanceled,
       onDragCompleted,
       ignoringFeedbackSemantics,

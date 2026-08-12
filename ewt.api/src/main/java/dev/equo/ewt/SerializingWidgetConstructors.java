@@ -1383,6 +1383,54 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int dragDownDetailsDragDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    record(id, "dragDownDetailsDragDownDetails", p);
+    return id;
+  }
+
+  @Override
+  int dragStartDetailsDragStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "dragStartDetailsDragStartDetails", p);
+    return id;
+  }
+
+  @Override
+  int dragUpdateDetailsDragUpdateDetails(Offset globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<Offset> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("globalPosition", byId.get(globalPosition.getId()));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (primaryDelta.isPresent()) { p.put("primaryDelta", primaryDelta.getAsDouble()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "dragUpdateDetailsDragUpdateDetails", p);
+    return id;
+  }
+
+  @Override
+  int dragEndDetailsDragEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity, OptionalDouble primaryVelocity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    velocity.ifPresent(v -> p.put("velocity", byId.get(v.getId())));
+    if (primaryVelocity.isPresent()) { p.put("primaryVelocity", primaryVelocity.getAsDouble()); }
+    record(id, "dragEndDetailsDragEndDetails", p);
+    return id;
+  }
+
+  @Override
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -2607,7 +2655,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("child", byId.get(child.getId()));
@@ -2620,6 +2668,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     affinity.ifPresent(v -> p.put("affinity", v.ordinal()));
     if (maxSimultaneousDrags.isPresent()) { p.put("maxSimultaneousDrags", maxSimultaneousDrags.getAsInt()); }
     if (onDragStarted.isPresent()) { int __cb_onDragStarted = nextCallbackId++; p.put("onDragStarted", __cb_onDragStarted); callbacks.put(__cb_onDragStarted, onDragStarted.get()); }
+    if (onDragUpdate != null) { p.put("onDragUpdate", nextCallbackId++); }
     if (onDraggableCanceled != null) { p.put("onDraggableCanceled", nextCallbackId++); }
     if (onDragCompleted.isPresent()) { int __cb_onDragCompleted = nextCallbackId++; p.put("onDragCompleted", __cb_onDragCompleted); callbacks.put(__cb_onDragCompleted, onDragCompleted.get()); }
     ignoringFeedbackSemantics.ifPresent(v -> p.put("ignoringFeedbackSemantics", v));
@@ -4610,7 +4659,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -4650,8 +4699,20 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onTertiaryLongPressMoveUpdate != null) { p.put("onTertiaryLongPressMoveUpdate", nextCallbackId++); }
     if (onTertiaryLongPressUp.isPresent()) { int __cb_onTertiaryLongPressUp = nextCallbackId++; p.put("onTertiaryLongPressUp", __cb_onTertiaryLongPressUp); callbacks.put(__cb_onTertiaryLongPressUp, onTertiaryLongPressUp.get()); }
     if (onTertiaryLongPressEnd != null) { p.put("onTertiaryLongPressEnd", nextCallbackId++); }
+    if (onVerticalDragDown != null) { p.put("onVerticalDragDown", nextCallbackId++); }
+    if (onVerticalDragStart != null) { p.put("onVerticalDragStart", nextCallbackId++); }
+    if (onVerticalDragUpdate != null) { p.put("onVerticalDragUpdate", nextCallbackId++); }
+    if (onVerticalDragEnd != null) { p.put("onVerticalDragEnd", nextCallbackId++); }
     if (onVerticalDragCancel.isPresent()) { int __cb_onVerticalDragCancel = nextCallbackId++; p.put("onVerticalDragCancel", __cb_onVerticalDragCancel); callbacks.put(__cb_onVerticalDragCancel, onVerticalDragCancel.get()); }
+    if (onHorizontalDragDown != null) { p.put("onHorizontalDragDown", nextCallbackId++); }
+    if (onHorizontalDragStart != null) { p.put("onHorizontalDragStart", nextCallbackId++); }
+    if (onHorizontalDragUpdate != null) { p.put("onHorizontalDragUpdate", nextCallbackId++); }
+    if (onHorizontalDragEnd != null) { p.put("onHorizontalDragEnd", nextCallbackId++); }
     if (onHorizontalDragCancel.isPresent()) { int __cb_onHorizontalDragCancel = nextCallbackId++; p.put("onHorizontalDragCancel", __cb_onHorizontalDragCancel); callbacks.put(__cb_onHorizontalDragCancel, onHorizontalDragCancel.get()); }
+    if (onPanDown != null) { p.put("onPanDown", nextCallbackId++); }
+    if (onPanStart != null) { p.put("onPanStart", nextCallbackId++); }
+    if (onPanUpdate != null) { p.put("onPanUpdate", nextCallbackId++); }
+    if (onPanEnd != null) { p.put("onPanEnd", nextCallbackId++); }
     if (onPanCancel.isPresent()) { int __cb_onPanCancel = nextCallbackId++; p.put("onPanCancel", __cb_onPanCancel); callbacks.put(__cb_onPanCancel, onPanCancel.get()); }
     behavior.ifPresent(v -> p.put("behavior", v.ordinal()));
     excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));

@@ -1040,6 +1040,42 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(velocity));
   }
 
+  int dragDownDetailsDragDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    var st = WidgetFactories.dragDownDetails(factories);
+    var fn = WidgetFactories.DragDownDetailsSt.dragDownDetails(st);
+    return WidgetFactories.DragDownDetailsSt.dragDownDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition));
+  }
+
+  int dragStartDetailsDragStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.dragStartDetails(factories);
+    var fn = WidgetFactories.DragStartDetailsSt.dragStartDetails(st);
+    return WidgetFactories.DragStartDetailsSt.dragStartDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrObj(sourceTimeStamp),
+      ptrEnum(kind));
+  }
+
+  int dragUpdateDetailsDragUpdateDetails(Offset globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<Offset> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.dragUpdateDetails(st);
+    return WidgetFactories.DragUpdateDetailsSt.dragUpdateDetails.invoke(fn, globalPosition.build().getId(),
+      ptrObj(localPosition),
+      ptrObj(sourceTimeStamp),
+      ptrObj(delta),
+      ptr(primaryDelta),
+      ptrEnum(kind));
+  }
+
+  int dragEndDetailsDragEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity, OptionalDouble primaryVelocity) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.dragEndDetails(st);
+    return WidgetFactories.DragEndDetailsSt.dragEndDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrObj(velocity),
+      ptr(primaryVelocity));
+  }
+
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     var st = WidgetFactories.cubic(factories);
     var fn = WidgetFactories.CubicSt.cubic(st);
@@ -1852,7 +1888,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     var st = WidgetFactories.draggable(factories);
     var fn = WidgetFactories.DraggableSt.draggable(st);
     return WidgetFactories.DraggableSt.draggable.invoke(fn, arena, child.build().getId(),
@@ -1865,6 +1901,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(affinity),
       ptr(maxSimultaneousDrags),
       onDragStarted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragStarted.get())) : MemorySegment.NULL,
+      onDragUpdate.isPresent() ? ptrHolder(ptrDragUpdateCallbackFn(onDragUpdate.get())) : MemorySegment.NULL,
       onDraggableCanceled.isPresent() ? ptrHolder(ptrDraggableCanceledCallbackFn(onDraggableCanceled.get())) : MemorySegment.NULL,
       onDragCompleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragCompleted.get())) : MemorySegment.NULL,
       ptrBool(ignoringFeedbackSemantics),
@@ -3430,7 +3467,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(deleteIconBoxConstraints));
   }
 
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     var st = WidgetFactories.gestureDetector(factories);
     var fn = WidgetFactories.GestureDetectorSt.gestureDetector(st);
     return WidgetFactories.GestureDetectorSt.gestureDetector.invoke(fn, arena, ptrObj(child),
@@ -3470,8 +3507,20 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onTertiaryLongPressMoveUpdate.isPresent() ? ptrHolder(ptrGestureLongPressMoveUpdateCallbackFn(onTertiaryLongPressMoveUpdate.get())) : MemorySegment.NULL,
       onTertiaryLongPressUp.isPresent() ? ptrHolder(ptrGestureLongPressUpCallbackFn(onTertiaryLongPressUp.get())) : MemorySegment.NULL,
       onTertiaryLongPressEnd.isPresent() ? ptrHolder(ptrGestureLongPressEndCallbackFn(onTertiaryLongPressEnd.get())) : MemorySegment.NULL,
+      onVerticalDragDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onVerticalDragDown.get())) : MemorySegment.NULL,
+      onVerticalDragStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onVerticalDragStart.get())) : MemorySegment.NULL,
+      onVerticalDragUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onVerticalDragUpdate.get())) : MemorySegment.NULL,
+      onVerticalDragEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onVerticalDragEnd.get())) : MemorySegment.NULL,
       onVerticalDragCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onVerticalDragCancel.get())) : MemorySegment.NULL,
+      onHorizontalDragDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onHorizontalDragDown.get())) : MemorySegment.NULL,
+      onHorizontalDragStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onHorizontalDragStart.get())) : MemorySegment.NULL,
+      onHorizontalDragUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onHorizontalDragUpdate.get())) : MemorySegment.NULL,
+      onHorizontalDragEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onHorizontalDragEnd.get())) : MemorySegment.NULL,
       onHorizontalDragCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onHorizontalDragCancel.get())) : MemorySegment.NULL,
+      onPanDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onPanDown.get())) : MemorySegment.NULL,
+      onPanStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onPanStart.get())) : MemorySegment.NULL,
+      onPanUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onPanUpdate.get())) : MemorySegment.NULL,
+      onPanEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onPanEnd.get())) : MemorySegment.NULL,
       onPanCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onPanCancel.get())) : MemorySegment.NULL,
       ptrEnum(behavior),
       ptrBool(excludeFromSemantics),
@@ -5647,6 +5696,11 @@ MemorySegment ptrDragAnchorStrategyFn(TriFunction<Draggable, BuildContext, Offse
     return jFnRet.build().getId();
   }, arena);
 }
+MemorySegment ptrDragUpdateCallbackFn(Consumer<DragUpdateDetails> jFn) {
+  return DragUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragUpdateDetails(details));
+  }, arena);
+}
 MemorySegment ptrDraggableCanceledCallbackFn(BiConsumer<Velocity, Offset> jFn) {
   return DraggableCanceledCallbackFFI.allocate((velocity, offset) -> {
     jFn.accept(new Velocity(velocity), new Offset(offset));
@@ -5789,6 +5843,26 @@ MemorySegment ptrGestureLongPressUpCallbackFn(Runnable jFn) {
 MemorySegment ptrGestureLongPressEndCallbackFn(Consumer<LongPressEndDetails> jFn) {
   return GestureLongPressEndCallbackFFI.allocate((details) -> {
     jFn.accept(new LongPressEndDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragDownCallbackFn(Consumer<DragDownDetails> jFn) {
+  return GestureDragDownCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragDownDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragStartCallbackFn(Consumer<DragStartDetails> jFn) {
+  return GestureDragStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragStartDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragUpdateCallbackFn(Consumer<DragUpdateDetails> jFn) {
+  return GestureDragUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragUpdateDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragEndCallbackFn(Consumer<DragEndDetails> jFn) {
+  return GestureDragEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragEndDetails(details));
   }, arena);
 }
 MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
