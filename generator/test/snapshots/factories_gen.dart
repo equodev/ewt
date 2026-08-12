@@ -616,6 +616,49 @@ int durationDuration(ffi.Pointer<ffi.Int> days, ffi.Pointer<ffi.Int> hours, ffi.
   return _addWidget(w);
 }
 
+void _setupPointerEvent(WidgetFactories f) {
+  f.pointerEvent.position = ffi.Pointer.fromFunction(pointerEventPosition, exception);
+  f.pointerEvent.delta = ffi.Pointer.fromFunction(pointerEventDelta, exception);
+  f.pointerEvent.pointer = ffi.Pointer.fromFunction(pointerEventPointer, exception);
+  f.pointerEvent.buttons = ffi.Pointer.fromFunction(pointerEventButtons, exception);
+  f.pointerEvent.down = ffi.Pointer.fromFunction(pointerEventDown, exception);
+  f.pointerEvent.pressure = ffi.Pointer.fromFunction(pointerEventPressure, exceptionDouble);
+  f.pointerEvent.distance = ffi.Pointer.fromFunction(pointerEventDistance, exceptionDouble);
+  f.pointerEvent.size = ffi.Pointer.fromFunction(pointerEventSize, exceptionDouble);
+}
+int pointerEventPosition(DartDartObj self) {
+  final w = PointerEventMethods.position(_widgetsMap[self]! as PointerEvent);
+  return _addWidget(w);
+}
+int pointerEventDelta(DartDartObj self) {
+  final w = PointerEventMethods.delta(_widgetsMap[self]! as PointerEvent);
+  return _addWidget(w);
+}
+int pointerEventPointer(DartDartObj self) {
+  final w = PointerEventMethods.pointer(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+int pointerEventButtons(DartDartObj self) {
+  final w = PointerEventMethods.buttons(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+int pointerEventDown(DartDartObj self) {
+  final w = PointerEventMethods.down(_widgetsMap[self]! as PointerEvent);
+  return w.toInt();
+}
+double pointerEventPressure(DartDartObj self) {
+  final w = PointerEventMethods.pressure(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+double pointerEventDistance(DartDartObj self) {
+  final w = PointerEventMethods.distance(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+double pointerEventSize(DartDartObj self) {
+  final w = PointerEventMethods.size(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+
 void _setupRichText(WidgetFactories f) {
   f.richText.richText = ffi.Pointer.fromFunction(richTextRichText);
 }
@@ -1454,6 +1497,8 @@ int tapDownDetailsLocalPosition(DartDartObj self) {
 
 void _setupTapUpDetails(WidgetFactories f) {
   f.tapUpDetails.tapUpDetails = ffi.Pointer.fromFunction(tapUpDetailsTapUpDetails, exception);
+  f.tapUpDetails.globalPosition = ffi.Pointer.fromFunction(tapUpDetailsGlobalPosition, exception);
+  f.tapUpDetails.localPosition = ffi.Pointer.fromFunction(tapUpDetailsLocalPosition, exception);
 }
 int tapUpDetailsTapUpDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, int kind) {
   final w = TapUpDetails(globalPosition: globalPosition.objOr(Offset.zero),
@@ -1461,9 +1506,20 @@ int tapUpDetailsTapUpDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<Da
       kind: PointerDeviceKind.values[kind]);
   return _addWidget(w);
 }
+int tapUpDetailsGlobalPosition(DartDartObj self) {
+  final w = TapUpDetailsMethods.globalPosition(_widgetsMap[self]! as TapUpDetails);
+  return _addWidget(w);
+}
+int tapUpDetailsLocalPosition(DartDartObj self) {
+  final w = TapUpDetailsMethods.localPosition(_widgetsMap[self]! as TapUpDetails);
+  return _addWidget(w);
+}
 
 void _setupTapMoveDetails(WidgetFactories f) {
   f.tapMoveDetails.tapMoveDetails = ffi.Pointer.fromFunction(tapMoveDetailsTapMoveDetails, exception);
+  f.tapMoveDetails.globalPosition = ffi.Pointer.fromFunction(tapMoveDetailsGlobalPosition, exception);
+  f.tapMoveDetails.localPosition = ffi.Pointer.fromFunction(tapMoveDetailsLocalPosition, exception);
+  f.tapMoveDetails.delta = ffi.Pointer.fromFunction(tapMoveDetailsDelta, exception);
 }
 int tapMoveDetailsTapMoveDetails(int kind, ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> delta, ffi.Pointer<DartObj> localPosition) {
   final w = TapMoveDetails(kind: PointerDeviceKind.values[kind],
@@ -1472,9 +1528,23 @@ int tapMoveDetailsTapMoveDetails(int kind, ffi.Pointer<DartObj> globalPosition, 
       localPosition: localPosition.objOrNul());
   return _addWidget(w);
 }
+int tapMoveDetailsGlobalPosition(DartDartObj self) {
+  final w = TapMoveDetailsMethods.globalPosition(_widgetsMap[self]! as TapMoveDetails);
+  return _addWidget(w);
+}
+int tapMoveDetailsLocalPosition(DartDartObj self) {
+  final w = TapMoveDetailsMethods.localPosition(_widgetsMap[self]! as TapMoveDetails);
+  return _addWidget(w);
+}
+int tapMoveDetailsDelta(DartDartObj self) {
+  final w = TapMoveDetailsMethods.delta(_widgetsMap[self]! as TapMoveDetails);
+  return _addWidget(w);
+}
 
 void _setupLongPressDownDetails(WidgetFactories f) {
   f.longPressDownDetails.longPressDownDetails = ffi.Pointer.fromFunction(longPressDownDetailsLongPressDownDetails, exception);
+  f.longPressDownDetails.globalPosition = ffi.Pointer.fromFunction(longPressDownDetailsGlobalPosition, exception);
+  f.longPressDownDetails.localPosition = ffi.Pointer.fromFunction(longPressDownDetailsLocalPosition, exception);
 }
 int longPressDownDetailsLongPressDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<ffi.Int> kind) {
   final w = LongPressDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
@@ -1482,18 +1552,40 @@ int longPressDownDetailsLongPressDownDetails(ffi.Pointer<DartObj> globalPosition
       kind: kind.enumOrNul(PointerDeviceKind.values));
   return _addWidget(w);
 }
+int longPressDownDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressDownDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressDownDetails);
+  return _addWidget(w);
+}
+int longPressDownDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressDownDetailsMethods.localPosition(_widgetsMap[self]! as LongPressDownDetails);
+  return _addWidget(w);
+}
 
 void _setupLongPressStartDetails(WidgetFactories f) {
   f.longPressStartDetails.longPressStartDetails = ffi.Pointer.fromFunction(longPressStartDetailsLongPressStartDetails, exception);
+  f.longPressStartDetails.globalPosition = ffi.Pointer.fromFunction(longPressStartDetailsGlobalPosition, exception);
+  f.longPressStartDetails.localPosition = ffi.Pointer.fromFunction(longPressStartDetailsLocalPosition, exception);
 }
 int longPressStartDetailsLongPressStartDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition) {
   final w = LongPressStartDetails(globalPosition: globalPosition.objOr(Offset.zero),
       localPosition: localPosition.objOrNul());
   return _addWidget(w);
 }
+int longPressStartDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressStartDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressStartDetails);
+  return _addWidget(w);
+}
+int longPressStartDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressStartDetailsMethods.localPosition(_widgetsMap[self]! as LongPressStartDetails);
+  return _addWidget(w);
+}
 
 void _setupLongPressMoveUpdateDetails(WidgetFactories f) {
   f.longPressMoveUpdateDetails.longPressMoveUpdateDetails = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLongPressMoveUpdateDetails, exception);
+  f.longPressMoveUpdateDetails.globalPosition = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsGlobalPosition, exception);
+  f.longPressMoveUpdateDetails.localPosition = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLocalPosition, exception);
+  f.longPressMoveUpdateDetails.offsetFromOrigin = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsOffsetFromOrigin, exception);
+  f.longPressMoveUpdateDetails.localOffsetFromOrigin = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLocalOffsetFromOrigin, exception);
 }
 int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> offsetFromOrigin, ffi.Pointer<DartObj> localOffsetFromOrigin) {
   final w = LongPressMoveUpdateDetails(globalPosition: globalPosition.objOr(Offset.zero),
@@ -1502,9 +1594,28 @@ int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(ffi.Pointer<DartObj> gl
       localOffsetFromOrigin: localOffsetFromOrigin.objOrNul());
   return _addWidget(w);
 }
+int longPressMoveUpdateDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.localPosition(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsOffsetFromOrigin(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.offsetFromOrigin(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsLocalOffsetFromOrigin(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.localOffsetFromOrigin(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
 
 void _setupLongPressEndDetails(WidgetFactories f) {
   f.longPressEndDetails.longPressEndDetails = ffi.Pointer.fromFunction(longPressEndDetailsLongPressEndDetails, exception);
+  f.longPressEndDetails.globalPosition = ffi.Pointer.fromFunction(longPressEndDetailsGlobalPosition, exception);
+  f.longPressEndDetails.localPosition = ffi.Pointer.fromFunction(longPressEndDetailsLocalPosition, exception);
+  f.longPressEndDetails.velocity = ffi.Pointer.fromFunction(longPressEndDetailsVelocity);
 }
 int longPressEndDetailsLongPressEndDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> velocity) {
   final w = LongPressEndDetails(globalPosition: globalPosition.objOr(Offset.zero),
@@ -1512,18 +1623,42 @@ int longPressEndDetailsLongPressEndDetails(ffi.Pointer<DartObj> globalPosition, 
       velocity: velocity.objOr(Velocity.zero));
   return _addWidget(w);
 }
+int longPressEndDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressEndDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressEndDetails);
+  return _addWidget(w);
+}
+int longPressEndDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressEndDetailsMethods.localPosition(_widgetsMap[self]! as LongPressEndDetails);
+  return _addWidget(w);
+}
+VelocityObjSt longPressEndDetailsVelocity(DartDartObj self) {
+  final w = LongPressEndDetailsMethods.velocity(_widgetsMap[self]! as LongPressEndDetails);
+  return _createVelocityObjSt(w);
+}
 
 void _setupDragDownDetails(WidgetFactories f) {
   f.dragDownDetails.dragDownDetails = ffi.Pointer.fromFunction(dragDownDetailsDragDownDetails, exception);
+  f.dragDownDetails.globalPosition = ffi.Pointer.fromFunction(dragDownDetailsGlobalPosition, exception);
+  f.dragDownDetails.localPosition = ffi.Pointer.fromFunction(dragDownDetailsLocalPosition, exception);
 }
 int dragDownDetailsDragDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition) {
   final w = DragDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
       localPosition: localPosition.objOrNul());
   return _addWidget(w);
 }
+int dragDownDetailsGlobalPosition(DartDartObj self) {
+  final w = DragDownDetailsMethods.globalPosition(_widgetsMap[self]! as DragDownDetails);
+  return _addWidget(w);
+}
+int dragDownDetailsLocalPosition(DartDartObj self) {
+  final w = DragDownDetailsMethods.localPosition(_widgetsMap[self]! as DragDownDetails);
+  return _addWidget(w);
+}
 
 void _setupDragStartDetails(WidgetFactories f) {
   f.dragStartDetails.dragStartDetails = ffi.Pointer.fromFunction(dragStartDetailsDragStartDetails, exception);
+  f.dragStartDetails.globalPosition = ffi.Pointer.fromFunction(dragStartDetailsGlobalPosition, exception);
+  f.dragStartDetails.localPosition = ffi.Pointer.fromFunction(dragStartDetailsLocalPosition, exception);
 }
 int dragStartDetailsDragStartDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> sourceTimeStamp, ffi.Pointer<ffi.Int> kind) {
   final w = DragStartDetails(globalPosition: globalPosition.objOr(Offset.zero),
@@ -1532,9 +1667,20 @@ int dragStartDetailsDragStartDetails(ffi.Pointer<DartObj> globalPosition, ffi.Po
       kind: kind.enumOrNul(PointerDeviceKind.values));
   return _addWidget(w);
 }
+int dragStartDetailsGlobalPosition(DartDartObj self) {
+  final w = DragStartDetailsMethods.globalPosition(_widgetsMap[self]! as DragStartDetails);
+  return _addWidget(w);
+}
+int dragStartDetailsLocalPosition(DartDartObj self) {
+  final w = DragStartDetailsMethods.localPosition(_widgetsMap[self]! as DragStartDetails);
+  return _addWidget(w);
+}
 
 void _setupDragUpdateDetails(WidgetFactories f) {
   f.dragUpdateDetails.dragUpdateDetails = ffi.Pointer.fromFunction(dragUpdateDetailsDragUpdateDetails, exception);
+  f.dragUpdateDetails.globalPosition = ffi.Pointer.fromFunction(dragUpdateDetailsGlobalPosition, exception);
+  f.dragUpdateDetails.localPosition = ffi.Pointer.fromFunction(dragUpdateDetailsLocalPosition, exception);
+  f.dragUpdateDetails.delta = ffi.Pointer.fromFunction(dragUpdateDetailsDelta, exception);
 }
 int dragUpdateDetailsDragUpdateDetails(DartDartObj globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> sourceTimeStamp, ffi.Pointer<DartObj> delta, ffi.Pointer<ffi.Double> primaryDelta, ffi.Pointer<ffi.Int> kind) {
   final w = DragUpdateDetails(globalPosition: _widgetsMap[globalPosition]! as Offset,
@@ -1545,9 +1691,24 @@ int dragUpdateDetailsDragUpdateDetails(DartDartObj globalPosition, ffi.Pointer<D
       kind: kind.enumOrNul(PointerDeviceKind.values));
   return _addWidget(w);
 }
+int dragUpdateDetailsGlobalPosition(DartDartObj self) {
+  final w = DragUpdateDetailsMethods.globalPosition(_widgetsMap[self]! as DragUpdateDetails);
+  return _addWidget(w);
+}
+int dragUpdateDetailsLocalPosition(DartDartObj self) {
+  final w = DragUpdateDetailsMethods.localPosition(_widgetsMap[self]! as DragUpdateDetails);
+  return _addWidget(w);
+}
+int dragUpdateDetailsDelta(DartDartObj self) {
+  final w = DragUpdateDetailsMethods.delta(_widgetsMap[self]! as DragUpdateDetails);
+  return _addWidget(w);
+}
 
 void _setupDragEndDetails(WidgetFactories f) {
   f.dragEndDetails.dragEndDetails = ffi.Pointer.fromFunction(dragEndDetailsDragEndDetails, exception);
+  f.dragEndDetails.globalPosition = ffi.Pointer.fromFunction(dragEndDetailsGlobalPosition, exception);
+  f.dragEndDetails.localPosition = ffi.Pointer.fromFunction(dragEndDetailsLocalPosition, exception);
+  f.dragEndDetails.velocity = ffi.Pointer.fromFunction(dragEndDetailsVelocity);
 }
 int dragEndDetailsDragEndDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> velocity, ffi.Pointer<ffi.Double> primaryVelocity) {
   final w = DragEndDetails(globalPosition: globalPosition.objOr(Offset.zero),
@@ -1556,9 +1717,24 @@ int dragEndDetailsDragEndDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointe
       primaryVelocity: primaryVelocity.doubleOrNul());
   return _addWidget(w);
 }
+int dragEndDetailsGlobalPosition(DartDartObj self) {
+  final w = DragEndDetailsMethods.globalPosition(_widgetsMap[self]! as DragEndDetails);
+  return _addWidget(w);
+}
+int dragEndDetailsLocalPosition(DartDartObj self) {
+  final w = DragEndDetailsMethods.localPosition(_widgetsMap[self]! as DragEndDetails);
+  return _addWidget(w);
+}
+VelocityObjSt dragEndDetailsVelocity(DartDartObj self) {
+  final w = DragEndDetailsMethods.velocity(_widgetsMap[self]! as DragEndDetails);
+  return _createVelocityObjSt(w);
+}
 
 void _setupScaleStartDetails(WidgetFactories f) {
   f.scaleStartDetails.scaleStartDetails = ffi.Pointer.fromFunction(scaleStartDetailsScaleStartDetails, exception);
+  f.scaleStartDetails.focalPoint = ffi.Pointer.fromFunction(scaleStartDetailsFocalPoint, exception);
+  f.scaleStartDetails.localFocalPoint = ffi.Pointer.fromFunction(scaleStartDetailsLocalFocalPoint, exception);
+  f.scaleStartDetails.pointerCount = ffi.Pointer.fromFunction(scaleStartDetailsPointerCount, exception);
 }
 int scaleStartDetailsScaleStartDetails(ffi.Pointer<DartObj> focalPoint, ffi.Pointer<DartObj> localFocalPoint, ffi.Pointer<ffi.Int> pointerCount, ffi.Pointer<DartObj> sourceTimeStamp, ffi.Pointer<ffi.Int> kind) {
   final w = ScaleStartDetails(focalPoint: focalPoint.objOr(Offset.zero),
@@ -1568,9 +1744,29 @@ int scaleStartDetailsScaleStartDetails(ffi.Pointer<DartObj> focalPoint, ffi.Poin
       kind: kind.enumOrNul(PointerDeviceKind.values));
   return _addWidget(w);
 }
+int scaleStartDetailsFocalPoint(DartDartObj self) {
+  final w = ScaleStartDetailsMethods.focalPoint(_widgetsMap[self]! as ScaleStartDetails);
+  return _addWidget(w);
+}
+int scaleStartDetailsLocalFocalPoint(DartDartObj self) {
+  final w = ScaleStartDetailsMethods.localFocalPoint(_widgetsMap[self]! as ScaleStartDetails);
+  return _addWidget(w);
+}
+int scaleStartDetailsPointerCount(DartDartObj self) {
+  final w = ScaleStartDetailsMethods.pointerCount(_widgetsMap[self]! as ScaleStartDetails);
+  return w;
+}
 
 void _setupScaleUpdateDetails(WidgetFactories f) {
   f.scaleUpdateDetails.scaleUpdateDetails = ffi.Pointer.fromFunction(scaleUpdateDetailsScaleUpdateDetails, exception);
+  f.scaleUpdateDetails.focalPoint = ffi.Pointer.fromFunction(scaleUpdateDetailsFocalPoint, exception);
+  f.scaleUpdateDetails.localFocalPoint = ffi.Pointer.fromFunction(scaleUpdateDetailsLocalFocalPoint, exception);
+  f.scaleUpdateDetails.focalPointDelta = ffi.Pointer.fromFunction(scaleUpdateDetailsFocalPointDelta, exception);
+  f.scaleUpdateDetails.scale = ffi.Pointer.fromFunction(scaleUpdateDetailsScale, exceptionDouble);
+  f.scaleUpdateDetails.horizontalScale = ffi.Pointer.fromFunction(scaleUpdateDetailsHorizontalScale, exceptionDouble);
+  f.scaleUpdateDetails.verticalScale = ffi.Pointer.fromFunction(scaleUpdateDetailsVerticalScale, exceptionDouble);
+  f.scaleUpdateDetails.rotation = ffi.Pointer.fromFunction(scaleUpdateDetailsRotation, exceptionDouble);
+  f.scaleUpdateDetails.pointerCount = ffi.Pointer.fromFunction(scaleUpdateDetailsPointerCount, exception);
 }
 int scaleUpdateDetailsScaleUpdateDetails(ffi.Pointer<DartObj> focalPoint, ffi.Pointer<DartObj> localFocalPoint, ffi.Pointer<ffi.Double> scale, ffi.Pointer<ffi.Double> horizontalScale, ffi.Pointer<ffi.Double> verticalScale, ffi.Pointer<ffi.Double> rotation, ffi.Pointer<ffi.Int> pointerCount, ffi.Pointer<DartObj> focalPointDelta, ffi.Pointer<DartObj> sourceTimeStamp) {
   final w = ScaleUpdateDetails(focalPoint: focalPoint.objOr(Offset.zero),
@@ -1584,9 +1780,44 @@ int scaleUpdateDetailsScaleUpdateDetails(ffi.Pointer<DartObj> focalPoint, ffi.Po
       sourceTimeStamp: sourceTimeStamp.objOrNul());
   return _addWidget(w);
 }
+int scaleUpdateDetailsFocalPoint(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.focalPoint(_widgetsMap[self]! as ScaleUpdateDetails);
+  return _addWidget(w);
+}
+int scaleUpdateDetailsLocalFocalPoint(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.localFocalPoint(_widgetsMap[self]! as ScaleUpdateDetails);
+  return _addWidget(w);
+}
+int scaleUpdateDetailsFocalPointDelta(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.focalPointDelta(_widgetsMap[self]! as ScaleUpdateDetails);
+  return _addWidget(w);
+}
+double scaleUpdateDetailsScale(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.scale(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+double scaleUpdateDetailsHorizontalScale(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.horizontalScale(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+double scaleUpdateDetailsVerticalScale(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.verticalScale(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+double scaleUpdateDetailsRotation(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.rotation(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+int scaleUpdateDetailsPointerCount(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.pointerCount(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
 
 void _setupScaleEndDetails(WidgetFactories f) {
   f.scaleEndDetails.scaleEndDetails = ffi.Pointer.fromFunction(scaleEndDetailsScaleEndDetails, exception);
+  f.scaleEndDetails.velocity = ffi.Pointer.fromFunction(scaleEndDetailsVelocity);
+  f.scaleEndDetails.scaleVelocity = ffi.Pointer.fromFunction(scaleEndDetailsScaleVelocity, exceptionDouble);
+  f.scaleEndDetails.pointerCount = ffi.Pointer.fromFunction(scaleEndDetailsPointerCount, exception);
 }
 int scaleEndDetailsScaleEndDetails(ffi.Pointer<DartObj> velocity, ffi.Pointer<ffi.Double> scaleVelocity, ffi.Pointer<ffi.Int> pointerCount) {
   final w = ScaleEndDetails(velocity: velocity.objOr(Velocity.zero),
@@ -1594,9 +1825,24 @@ int scaleEndDetailsScaleEndDetails(ffi.Pointer<DartObj> velocity, ffi.Pointer<ff
       pointerCount: pointerCount.intOr(0));
   return _addWidget(w);
 }
+VelocityObjSt scaleEndDetailsVelocity(DartDartObj self) {
+  final w = ScaleEndDetailsMethods.velocity(_widgetsMap[self]! as ScaleEndDetails);
+  return _createVelocityObjSt(w);
+}
+double scaleEndDetailsScaleVelocity(DartDartObj self) {
+  final w = ScaleEndDetailsMethods.scaleVelocity(_widgetsMap[self]! as ScaleEndDetails);
+  return w;
+}
+int scaleEndDetailsPointerCount(DartDartObj self) {
+  final w = ScaleEndDetailsMethods.pointerCount(_widgetsMap[self]! as ScaleEndDetails);
+  return w;
+}
 
 void _setupForcePressDetails(WidgetFactories f) {
   f.forcePressDetails.forcePressDetails = ffi.Pointer.fromFunction(forcePressDetailsForcePressDetails, exception);
+  f.forcePressDetails.globalPosition = ffi.Pointer.fromFunction(forcePressDetailsGlobalPosition, exception);
+  f.forcePressDetails.localPosition = ffi.Pointer.fromFunction(forcePressDetailsLocalPosition, exception);
+  f.forcePressDetails.pressure = ffi.Pointer.fromFunction(forcePressDetailsPressure, exceptionDouble);
 }
 int forcePressDetailsForcePressDetails(DartDartObj globalPosition, ffi.Pointer<DartObj> localPosition, double pressure) {
   final w = ForcePressDetails(globalPosition: _widgetsMap[globalPosition]! as Offset,
@@ -1604,14 +1850,41 @@ int forcePressDetailsForcePressDetails(DartDartObj globalPosition, ffi.Pointer<D
       pressure: pressure);
   return _addWidget(w);
 }
+int forcePressDetailsGlobalPosition(DartDartObj self) {
+  final w = ForcePressDetailsMethods.globalPosition(_widgetsMap[self]! as ForcePressDetails);
+  return _addWidget(w);
+}
+int forcePressDetailsLocalPosition(DartDartObj self) {
+  final w = ForcePressDetailsMethods.localPosition(_widgetsMap[self]! as ForcePressDetails);
+  return _addWidget(w);
+}
+double forcePressDetailsPressure(DartDartObj self) {
+  final w = ForcePressDetailsMethods.pressure(_widgetsMap[self]! as ForcePressDetails);
+  return w;
+}
 
 void _setupDraggableDetails(WidgetFactories f) {
   f.draggableDetails.draggableDetails = ffi.Pointer.fromFunction(draggableDetailsDraggableDetails, exception);
+  f.draggableDetails.wasAccepted = ffi.Pointer.fromFunction(draggableDetailsWasAccepted, exception);
+  f.draggableDetails.velocity = ffi.Pointer.fromFunction(draggableDetailsVelocity);
+  f.draggableDetails.offset = ffi.Pointer.fromFunction(draggableDetailsOffset, exception);
 }
 int draggableDetailsDraggableDetails(ffi.Pointer<ffi.Int> wasAccepted, DartDartObj velocity, DartDartObj offset) {
   final w = DraggableDetails(wasAccepted: wasAccepted.boolOr(false),
       velocity: _widgetsMap[velocity]! as Velocity,
       offset: _widgetsMap[offset]! as Offset);
+  return _addWidget(w);
+}
+int draggableDetailsWasAccepted(DartDartObj self) {
+  final w = DraggableDetailsMethods.wasAccepted(_widgetsMap[self]! as DraggableDetails);
+  return w.toInt();
+}
+VelocityObjSt draggableDetailsVelocity(DartDartObj self) {
+  final w = DraggableDetailsMethods.velocity(_widgetsMap[self]! as DraggableDetails);
+  return _createVelocityObjSt(w);
+}
+int draggableDetailsOffset(DartDartObj self) {
+  final w = DraggableDetailsMethods.offset(_widgetsMap[self]! as DraggableDetails);
   return _addWidget(w);
 }
 
@@ -9519,6 +9792,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubAnimatedState(f);
   _setupShadow(f);
   _setupShadow(f);
+  _setupPointerEvent(f);
   _setupEdgeInsetsGeometry(f);
   _setupBoxParentData(f);
   _setupParentData(f);

@@ -631,6 +631,71 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int pointerEventPosition(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventPosition", p);
+    return id;
+  }
+  @Override
+  int pointerEventDelta(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventDelta", p);
+    return id;
+  }
+  @Override
+  int pointerEventPointer(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventPointer", p);
+    return id;
+  }
+  @Override
+  int pointerEventButtons(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventButtons", p);
+    return id;
+  }
+  @Override
+  int pointerEventDown(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventDown", p);
+    return id;
+  }
+  @Override
+  double pointerEventPressure(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventPressure", p);
+    return id;
+  }
+  @Override
+  double pointerEventDistance(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventDistance", p);
+    return id;
+  }
+  @Override
+  double pointerEventSize(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventSize", p);
+    return id;
+  }
+
+  @Override
   MemorySegment richTextRichText(InlineSpan text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -1445,6 +1510,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "tapUpDetailsTapUpDetails", p);
     return id;
   }
+  @Override
+  int tapUpDetailsGlobalPosition(TapUpDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapUpDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int tapUpDetailsLocalPosition(TapUpDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapUpDetailsLocalPosition", p);
+    return id;
+  }
 
   @Override
   int tapMoveDetailsTapMoveDetails(PointerDeviceKind kind, Optional<Offset> globalPosition, Optional<Offset> delta, Optional<Offset> localPosition) {
@@ -1455,6 +1536,30 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
     localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
     record(id, "tapMoveDetailsTapMoveDetails", p);
+    return id;
+  }
+  @Override
+  int tapMoveDetailsGlobalPosition(TapMoveDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapMoveDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int tapMoveDetailsLocalPosition(TapMoveDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapMoveDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  int tapMoveDetailsDelta(TapMoveDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapMoveDetailsDelta", p);
     return id;
   }
 
@@ -1468,6 +1573,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "longPressDownDetailsLongPressDownDetails", p);
     return id;
   }
+  @Override
+  int longPressDownDetailsGlobalPosition(LongPressDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressDownDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressDownDetailsLocalPosition(LongPressDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressDownDetailsLocalPosition", p);
+    return id;
+  }
 
   @Override
   int longPressStartDetailsLongPressStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
@@ -1476,6 +1597,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
     localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
     record(id, "longPressStartDetailsLongPressStartDetails", p);
+    return id;
+  }
+  @Override
+  int longPressStartDetailsGlobalPosition(LongPressStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressStartDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressStartDetailsLocalPosition(LongPressStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressStartDetailsLocalPosition", p);
     return id;
   }
 
@@ -1490,6 +1627,38 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "longPressMoveUpdateDetailsLongPressMoveUpdateDetails", p);
     return id;
   }
+  @Override
+  int longPressMoveUpdateDetailsGlobalPosition(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsLocalPosition(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsOffsetFromOrigin", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsLocalOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsLocalOffsetFromOrigin", p);
+    return id;
+  }
 
   @Override
   int longPressEndDetailsLongPressEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity) {
@@ -1501,6 +1670,32 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "longPressEndDetailsLongPressEndDetails", p);
     return id;
   }
+  @Override
+  int longPressEndDetailsGlobalPosition(LongPressEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressEndDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressEndDetailsLocalPosition(LongPressEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressEndDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  MemorySegment longPressEndDetailsVelocity(LongPressEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressEndDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
 
   @Override
   int dragDownDetailsDragDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
@@ -1509,6 +1704,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
     localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
     record(id, "dragDownDetailsDragDownDetails", p);
+    return id;
+  }
+  @Override
+  int dragDownDetailsGlobalPosition(DragDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragDownDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragDownDetailsLocalPosition(DragDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragDownDetailsLocalPosition", p);
     return id;
   }
 
@@ -1521,6 +1732,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
     kind.ifPresent(v -> p.put("kind", v.ordinal()));
     record(id, "dragStartDetailsDragStartDetails", p);
+    return id;
+  }
+  @Override
+  int dragStartDetailsGlobalPosition(DragStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragStartDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragStartDetailsLocalPosition(DragStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragStartDetailsLocalPosition", p);
     return id;
   }
 
@@ -1537,6 +1764,30 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "dragUpdateDetailsDragUpdateDetails", p);
     return id;
   }
+  @Override
+  int dragUpdateDetailsGlobalPosition(DragUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragUpdateDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragUpdateDetailsLocalPosition(DragUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragUpdateDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  int dragUpdateDetailsDelta(DragUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragUpdateDetailsDelta", p);
+    return id;
+  }
 
   @Override
   int dragEndDetailsDragEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity, OptionalDouble primaryVelocity) {
@@ -1549,6 +1800,32 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "dragEndDetailsDragEndDetails", p);
     return id;
   }
+  @Override
+  int dragEndDetailsGlobalPosition(DragEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragEndDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragEndDetailsLocalPosition(DragEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragEndDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  MemorySegment dragEndDetailsVelocity(DragEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragEndDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
 
   @Override
   int scaleStartDetailsScaleStartDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalInt pointerCount, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
@@ -1560,6 +1837,30 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
     kind.ifPresent(v -> p.put("kind", v.ordinal()));
     record(id, "scaleStartDetailsScaleStartDetails", p);
+    return id;
+  }
+  @Override
+  int scaleStartDetailsFocalPoint(ScaleStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleStartDetailsFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleStartDetailsLocalFocalPoint(ScaleStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleStartDetailsLocalFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleStartDetailsPointerCount(ScaleStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleStartDetailsPointerCount", p);
     return id;
   }
 
@@ -1579,6 +1880,70 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "scaleUpdateDetailsScaleUpdateDetails", p);
     return id;
   }
+  @Override
+  int scaleUpdateDetailsFocalPoint(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsLocalFocalPoint(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsLocalFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsFocalPointDelta(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsFocalPointDelta", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsScale(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsScale", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsHorizontalScale(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsHorizontalScale", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsVerticalScale(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsVerticalScale", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsRotation(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsRotation", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsPointerCount(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsPointerCount", p);
+    return id;
+  }
 
   @Override
   int scaleEndDetailsScaleEndDetails(Optional<Velocity> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
@@ -1588,6 +1953,32 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (scaleVelocity.isPresent()) { p.put("scaleVelocity", scaleVelocity.getAsDouble()); }
     if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
     record(id, "scaleEndDetailsScaleEndDetails", p);
+    return id;
+  }
+  @Override
+  MemorySegment scaleEndDetailsVelocity(ScaleEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleEndDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  double scaleEndDetailsScaleVelocity(ScaleEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleEndDetailsScaleVelocity", p);
+    return id;
+  }
+  @Override
+  int scaleEndDetailsPointerCount(ScaleEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleEndDetailsPointerCount", p);
     return id;
   }
 
@@ -1601,6 +1992,30 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "forcePressDetailsForcePressDetails", p);
     return id;
   }
+  @Override
+  int forcePressDetailsGlobalPosition(ForcePressDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "forcePressDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int forcePressDetailsLocalPosition(ForcePressDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "forcePressDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  double forcePressDetailsPressure(ForcePressDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "forcePressDetailsPressure", p);
+    return id;
+  }
 
   @Override
   int draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, Velocity velocity, Offset offset) {
@@ -1610,6 +2025,32 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("velocity", byId.get(velocity.getId()));
     p.put("offset", byId.get(offset.getId()));
     record(id, "draggableDetailsDraggableDetails", p);
+    return id;
+  }
+  @Override
+  int draggableDetailsWasAccepted(DraggableDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "draggableDetailsWasAccepted", p);
+    return id;
+  }
+  @Override
+  MemorySegment draggableDetailsVelocity(DraggableDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "draggableDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int draggableDetailsOffset(DraggableDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "draggableDetailsOffset", p);
     return id;
   }
 

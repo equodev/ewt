@@ -101,6 +101,17 @@ typedef struct {
     DartObj (*duration)(int* days, int* hours, int* minutes, int* seconds, int* milliseconds, int* microseconds);
   } duration;
 
+  struct PointerEventSt {
+    DartObj (*position)(DartObj self);
+    DartObj (*delta)(DartObj self);
+    int (*pointer)(DartObj self);
+    int (*buttons)(DartObj self);
+    int (*down)(DartObj self);
+    double (*pressure)(DartObj self);
+    double (*distance)(DartObj self);
+    double (*size)(DartObj self);
+  } pointerEvent;
+
   struct RichTextSt {
     RichTextObjSt (*richText)(DartObj text, int* textAlign, int* textDirection, int* softWrap, int* overflow, double* textScaleFactor, int* maxLines, int* textWidthBasis, DartObj* selectionColor);
   } richText;
@@ -267,62 +278,108 @@ typedef struct {
 
   struct TapUpDetailsSt {
     DartObj (*tapUpDetails)(DartObj* globalPosition, DartObj* localPosition, int kind);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
   } tapUpDetails;
 
   struct TapMoveDetailsSt {
     DartObj (*tapMoveDetails)(int kind, DartObj* globalPosition, DartObj* delta, DartObj* localPosition);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
+    DartObj (*delta)(DartObj self);
   } tapMoveDetails;
 
   struct LongPressDownDetailsSt {
     DartObj (*longPressDownDetails)(DartObj* globalPosition, DartObj* localPosition, int* kind);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
   } longPressDownDetails;
 
   struct LongPressStartDetailsSt {
     DartObj (*longPressStartDetails)(DartObj* globalPosition, DartObj* localPosition);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
   } longPressStartDetails;
 
   struct LongPressMoveUpdateDetailsSt {
     DartObj (*longPressMoveUpdateDetails)(DartObj* globalPosition, DartObj* localPosition, DartObj* offsetFromOrigin, DartObj* localOffsetFromOrigin);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
+    DartObj (*offsetFromOrigin)(DartObj self);
+    DartObj (*localOffsetFromOrigin)(DartObj self);
   } longPressMoveUpdateDetails;
 
   struct LongPressEndDetailsSt {
     DartObj (*longPressEndDetails)(DartObj* globalPosition, DartObj* localPosition, DartObj* velocity);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
+    VelocityObjSt (*velocity)(DartObj self);
   } longPressEndDetails;
 
   struct DragDownDetailsSt {
     DartObj (*dragDownDetails)(DartObj* globalPosition, DartObj* localPosition);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
   } dragDownDetails;
 
   struct DragStartDetailsSt {
     DartObj (*dragStartDetails)(DartObj* globalPosition, DartObj* localPosition, DartObj* sourceTimeStamp, int* kind);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
   } dragStartDetails;
 
   struct DragUpdateDetailsSt {
     DartObj (*dragUpdateDetails)(DartObj globalPosition, DartObj* localPosition, DartObj* sourceTimeStamp, DartObj* delta, double* primaryDelta, int* kind);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
+    DartObj (*delta)(DartObj self);
   } dragUpdateDetails;
 
   struct DragEndDetailsSt {
     DartObj (*dragEndDetails)(DartObj* globalPosition, DartObj* localPosition, DartObj* velocity, double* primaryVelocity);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
+    VelocityObjSt (*velocity)(DartObj self);
   } dragEndDetails;
 
   struct ScaleStartDetailsSt {
     DartObj (*scaleStartDetails)(DartObj* focalPoint, DartObj* localFocalPoint, int* pointerCount, DartObj* sourceTimeStamp, int* kind);
+    DartObj (*focalPoint)(DartObj self);
+    DartObj (*localFocalPoint)(DartObj self);
+    int (*pointerCount)(DartObj self);
   } scaleStartDetails;
 
   struct ScaleUpdateDetailsSt {
     DartObj (*scaleUpdateDetails)(DartObj* focalPoint, DartObj* localFocalPoint, double* scale, double* horizontalScale, double* verticalScale, double* rotation, int* pointerCount, DartObj* focalPointDelta, DartObj* sourceTimeStamp);
+    DartObj (*focalPoint)(DartObj self);
+    DartObj (*localFocalPoint)(DartObj self);
+    DartObj (*focalPointDelta)(DartObj self);
+    double (*scale)(DartObj self);
+    double (*horizontalScale)(DartObj self);
+    double (*verticalScale)(DartObj self);
+    double (*rotation)(DartObj self);
+    int (*pointerCount)(DartObj self);
   } scaleUpdateDetails;
 
   struct ScaleEndDetailsSt {
     DartObj (*scaleEndDetails)(DartObj* velocity, double* scaleVelocity, int* pointerCount);
+    VelocityObjSt (*velocity)(DartObj self);
+    double (*scaleVelocity)(DartObj self);
+    int (*pointerCount)(DartObj self);
   } scaleEndDetails;
 
   struct ForcePressDetailsSt {
     DartObj (*forcePressDetails)(DartObj globalPosition, DartObj* localPosition, double pressure);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
+    double (*pressure)(DartObj self);
   } forcePressDetails;
 
   struct DraggableDetailsSt {
     DartObj (*draggableDetails)(int* wasAccepted, DartObj velocity, DartObj offset);
+    int (*wasAccepted)(DartObj self);
+    VelocityObjSt (*velocity)(DartObj self);
+    DartObj (*offset)(DartObj self);
   } draggableDetails;
 
   struct DragTargetDetailsSt {

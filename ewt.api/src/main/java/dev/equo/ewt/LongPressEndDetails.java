@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import java.lang.foreign.MemorySegment;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class LongPressEndDetails extends NativeObj.Base implements LongPressEndDetailsI {
   protected LongPressEndDetails() {}
   LongPressEndDetails(int id) {
@@ -20,6 +22,20 @@ public class LongPressEndDetails extends NativeObj.Base implements LongPressEndD
   }
   public static LongPressEndDetailsLongPressEndDetailsBuilder longPressEndDetails() {
     return LongPressEndDetailsLongPressEndDetailsBuilder.longPressEndDetailsLongPressEndDetails();
+  }
+  public Offset globalPosition() {
+    int id = factories.longPressEndDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.longPressEndDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
+  }
+  public Velocity velocity() {
+    MemorySegment id = factories.longPressEndDetailsVelocity(this);
+    return new Velocity(id);
   }
   @Override
   public LongPressEndDetails build() {

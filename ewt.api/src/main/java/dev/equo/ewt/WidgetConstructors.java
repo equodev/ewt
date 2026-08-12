@@ -525,6 +525,47 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(microseconds));
   }
 
+  int pointerEventPosition(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.position(st);
+    return WidgetFactories.PointerEventSt.position.invoke(fn, self.build().getId());
+  }
+  int pointerEventDelta(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.delta(st);
+    return WidgetFactories.PointerEventSt.delta.invoke(fn, self.build().getId());
+  }
+  int pointerEventPointer(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.pointer(st);
+    return WidgetFactories.PointerEventSt.pointer.invoke(fn, self.build().getId());
+  }
+  int pointerEventButtons(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.buttons(st);
+    return WidgetFactories.PointerEventSt.buttons.invoke(fn, self.build().getId());
+  }
+  int pointerEventDown(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.down(st);
+    return WidgetFactories.PointerEventSt.down.invoke(fn, self.build().getId());
+  }
+  double pointerEventPressure(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.pressure(st);
+    return WidgetFactories.PointerEventSt.pressure.invoke(fn, self.build().getId());
+  }
+  double pointerEventDistance(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.distance(st);
+    return WidgetFactories.PointerEventSt.distance.invoke(fn, self.build().getId());
+  }
+  double pointerEventSize(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.size(st);
+    return WidgetFactories.PointerEventSt.size.invoke(fn, self.build().getId());
+  }
+
   MemorySegment richTextRichText(InlineSpan text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
     var st = WidgetFactories.richText(factories);
     var fn = WidgetFactories.RichTextSt.richText(st);
@@ -1086,6 +1127,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(localPosition),
       kind.ordinal());
   }
+  int tapUpDetailsGlobalPosition(TapUpDetails self) {
+    var st = WidgetFactories.tapUpDetails(factories);
+    var fn = WidgetFactories.TapUpDetailsSt.globalPosition(st);
+    return WidgetFactories.TapUpDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int tapUpDetailsLocalPosition(TapUpDetails self) {
+    var st = WidgetFactories.tapUpDetails(factories);
+    var fn = WidgetFactories.TapUpDetailsSt.localPosition(st);
+    return WidgetFactories.TapUpDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
 
   int tapMoveDetailsTapMoveDetails(PointerDeviceKind kind, Optional<Offset> globalPosition, Optional<Offset> delta, Optional<Offset> localPosition) {
     var st = WidgetFactories.tapMoveDetails(factories);
@@ -1095,6 +1146,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(delta),
       ptrObj(localPosition));
   }
+  int tapMoveDetailsGlobalPosition(TapMoveDetails self) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.globalPosition(st);
+    return WidgetFactories.TapMoveDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int tapMoveDetailsLocalPosition(TapMoveDetails self) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.localPosition(st);
+    return WidgetFactories.TapMoveDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  int tapMoveDetailsDelta(TapMoveDetails self) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.delta(st);
+    return WidgetFactories.TapMoveDetailsSt.delta.invoke(fn, self.build().getId());
+  }
 
   int longPressDownDetailsLongPressDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
     var st = WidgetFactories.longPressDownDetails(factories);
@@ -1103,12 +1169,32 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(localPosition),
       ptrEnum(kind));
   }
+  int longPressDownDetailsGlobalPosition(LongPressDownDetails self) {
+    var st = WidgetFactories.longPressDownDetails(factories);
+    var fn = WidgetFactories.LongPressDownDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressDownDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressDownDetailsLocalPosition(LongPressDownDetails self) {
+    var st = WidgetFactories.longPressDownDetails(factories);
+    var fn = WidgetFactories.LongPressDownDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressDownDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
 
   int longPressStartDetailsLongPressStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
     var st = WidgetFactories.longPressStartDetails(factories);
     var fn = WidgetFactories.LongPressStartDetailsSt.longPressStartDetails(st);
     return WidgetFactories.LongPressStartDetailsSt.longPressStartDetails.invoke(fn, ptrObj(globalPosition),
       ptrObj(localPosition));
+  }
+  int longPressStartDetailsGlobalPosition(LongPressStartDetails self) {
+    var st = WidgetFactories.longPressStartDetails(factories);
+    var fn = WidgetFactories.LongPressStartDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressStartDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressStartDetailsLocalPosition(LongPressStartDetails self) {
+    var st = WidgetFactories.longPressStartDetails(factories);
+    var fn = WidgetFactories.LongPressStartDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressStartDetailsSt.localPosition.invoke(fn, self.build().getId());
   }
 
   int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Offset> offsetFromOrigin, Optional<Offset> localOffsetFromOrigin) {
@@ -1119,6 +1205,26 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(offsetFromOrigin),
       ptrObj(localOffsetFromOrigin));
   }
+  int longPressMoveUpdateDetailsGlobalPosition(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressMoveUpdateDetailsLocalPosition(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  int longPressMoveUpdateDetailsOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.offsetFromOrigin(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.offsetFromOrigin.invoke(fn, self.build().getId());
+  }
+  int longPressMoveUpdateDetailsLocalOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.localOffsetFromOrigin(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.localOffsetFromOrigin.invoke(fn, self.build().getId());
+  }
 
   int longPressEndDetailsLongPressEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity) {
     var st = WidgetFactories.longPressEndDetails(factories);
@@ -1127,12 +1233,37 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(localPosition),
       ptrObj(velocity));
   }
+  int longPressEndDetailsGlobalPosition(LongPressEndDetails self) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressEndDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressEndDetailsLocalPosition(LongPressEndDetails self) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressEndDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  MemorySegment longPressEndDetailsVelocity(LongPressEndDetails self) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.velocity(st);
+    return WidgetFactories.LongPressEndDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
 
   int dragDownDetailsDragDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
     var st = WidgetFactories.dragDownDetails(factories);
     var fn = WidgetFactories.DragDownDetailsSt.dragDownDetails(st);
     return WidgetFactories.DragDownDetailsSt.dragDownDetails.invoke(fn, ptrObj(globalPosition),
       ptrObj(localPosition));
+  }
+  int dragDownDetailsGlobalPosition(DragDownDetails self) {
+    var st = WidgetFactories.dragDownDetails(factories);
+    var fn = WidgetFactories.DragDownDetailsSt.globalPosition(st);
+    return WidgetFactories.DragDownDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragDownDetailsLocalPosition(DragDownDetails self) {
+    var st = WidgetFactories.dragDownDetails(factories);
+    var fn = WidgetFactories.DragDownDetailsSt.localPosition(st);
+    return WidgetFactories.DragDownDetailsSt.localPosition.invoke(fn, self.build().getId());
   }
 
   int dragStartDetailsDragStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
@@ -1142,6 +1273,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(localPosition),
       ptrObj(sourceTimeStamp),
       ptrEnum(kind));
+  }
+  int dragStartDetailsGlobalPosition(DragStartDetails self) {
+    var st = WidgetFactories.dragStartDetails(factories);
+    var fn = WidgetFactories.DragStartDetailsSt.globalPosition(st);
+    return WidgetFactories.DragStartDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragStartDetailsLocalPosition(DragStartDetails self) {
+    var st = WidgetFactories.dragStartDetails(factories);
+    var fn = WidgetFactories.DragStartDetailsSt.localPosition(st);
+    return WidgetFactories.DragStartDetailsSt.localPosition.invoke(fn, self.build().getId());
   }
 
   int dragUpdateDetailsDragUpdateDetails(Offset globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<Offset> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
@@ -1154,6 +1295,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(primaryDelta),
       ptrEnum(kind));
   }
+  int dragUpdateDetailsGlobalPosition(DragUpdateDetails self) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.globalPosition(st);
+    return WidgetFactories.DragUpdateDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragUpdateDetailsLocalPosition(DragUpdateDetails self) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.localPosition(st);
+    return WidgetFactories.DragUpdateDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  int dragUpdateDetailsDelta(DragUpdateDetails self) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.delta(st);
+    return WidgetFactories.DragUpdateDetailsSt.delta.invoke(fn, self.build().getId());
+  }
 
   int dragEndDetailsDragEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity, OptionalDouble primaryVelocity) {
     var st = WidgetFactories.dragEndDetails(factories);
@@ -1162,6 +1318,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(localPosition),
       ptrObj(velocity),
       ptr(primaryVelocity));
+  }
+  int dragEndDetailsGlobalPosition(DragEndDetails self) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.globalPosition(st);
+    return WidgetFactories.DragEndDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragEndDetailsLocalPosition(DragEndDetails self) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.localPosition(st);
+    return WidgetFactories.DragEndDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  MemorySegment dragEndDetailsVelocity(DragEndDetails self) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.velocity(st);
+    return WidgetFactories.DragEndDetailsSt.velocity.invoke(fn, arena, self.build().getId());
   }
 
   int scaleStartDetailsScaleStartDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalInt pointerCount, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
@@ -1172,6 +1343,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(pointerCount),
       ptrObj(sourceTimeStamp),
       ptrEnum(kind));
+  }
+  int scaleStartDetailsFocalPoint(ScaleStartDetails self) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.focalPoint(st);
+    return WidgetFactories.ScaleStartDetailsSt.focalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleStartDetailsLocalFocalPoint(ScaleStartDetails self) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.localFocalPoint(st);
+    return WidgetFactories.ScaleStartDetailsSt.localFocalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleStartDetailsPointerCount(ScaleStartDetails self) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.pointerCount(st);
+    return WidgetFactories.ScaleStartDetailsSt.pointerCount.invoke(fn, self.build().getId());
   }
 
   int scaleUpdateDetailsScaleUpdateDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<Offset> focalPointDelta, Optional<Duration> sourceTimeStamp) {
@@ -1187,6 +1373,46 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(focalPointDelta),
       ptrObj(sourceTimeStamp));
   }
+  int scaleUpdateDetailsFocalPoint(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.focalPoint(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.focalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleUpdateDetailsLocalFocalPoint(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.localFocalPoint(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.localFocalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleUpdateDetailsFocalPointDelta(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.focalPointDelta(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.focalPointDelta.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsScale(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.scale(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.scale.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsHorizontalScale(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.horizontalScale(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.horizontalScale.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsVerticalScale(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.verticalScale(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.verticalScale.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsRotation(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.rotation(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.rotation.invoke(fn, self.build().getId());
+  }
+  int scaleUpdateDetailsPointerCount(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.pointerCount(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.pointerCount.invoke(fn, self.build().getId());
+  }
 
   int scaleEndDetailsScaleEndDetails(Optional<Velocity> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
     var st = WidgetFactories.scaleEndDetails(factories);
@@ -1194,6 +1420,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ScaleEndDetailsSt.scaleEndDetails.invoke(fn, ptrObj(velocity),
       ptr(scaleVelocity),
       ptr(pointerCount));
+  }
+  MemorySegment scaleEndDetailsVelocity(ScaleEndDetails self) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.velocity(st);
+    return WidgetFactories.ScaleEndDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
+  double scaleEndDetailsScaleVelocity(ScaleEndDetails self) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.scaleVelocity(st);
+    return WidgetFactories.ScaleEndDetailsSt.scaleVelocity.invoke(fn, self.build().getId());
+  }
+  int scaleEndDetailsPointerCount(ScaleEndDetails self) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.pointerCount(st);
+    return WidgetFactories.ScaleEndDetailsSt.pointerCount.invoke(fn, self.build().getId());
   }
 
   int forcePressDetailsForcePressDetails(Offset globalPosition, Optional<Offset> localPosition, double pressure) {
@@ -1203,6 +1444,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(localPosition),
       pressure);
   }
+  int forcePressDetailsGlobalPosition(ForcePressDetails self) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.globalPosition(st);
+    return WidgetFactories.ForcePressDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int forcePressDetailsLocalPosition(ForcePressDetails self) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.localPosition(st);
+    return WidgetFactories.ForcePressDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  double forcePressDetailsPressure(ForcePressDetails self) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.pressure(st);
+    return WidgetFactories.ForcePressDetailsSt.pressure.invoke(fn, self.build().getId());
+  }
 
   int draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, Velocity velocity, Offset offset) {
     var st = WidgetFactories.draggableDetails(factories);
@@ -1210,6 +1466,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.DraggableDetailsSt.draggableDetails.invoke(fn, ptrBool(wasAccepted),
       velocity.build().getId(),
       offset.build().getId());
+  }
+  int draggableDetailsWasAccepted(DraggableDetails self) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.wasAccepted(st);
+    return WidgetFactories.DraggableDetailsSt.wasAccepted.invoke(fn, self.build().getId());
+  }
+  MemorySegment draggableDetailsVelocity(DraggableDetails self) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.velocity(st);
+    return WidgetFactories.DraggableDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
+  int draggableDetailsOffset(DraggableDetails self) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.offset(st);
+    return WidgetFactories.DraggableDetailsSt.offset.invoke(fn, self.build().getId());
   }
 
   <T> int dragTargetDetailsDragTargetDetails(NativeObj data, Offset offset) {

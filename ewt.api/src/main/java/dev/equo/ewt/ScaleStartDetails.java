@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ScaleStartDetails extends NativeObj.Base implements ScaleStartDetailsI {
   protected ScaleStartDetails() {}
   ScaleStartDetails(int id) {
@@ -22,6 +23,21 @@ public class ScaleStartDetails extends NativeObj.Base implements ScaleStartDetai
   }
   public static ScaleStartDetailsScaleStartDetailsBuilder scaleStartDetails() {
     return ScaleStartDetailsScaleStartDetailsBuilder.scaleStartDetailsScaleStartDetails();
+  }
+  public Offset focalPoint() {
+    int id = factories.scaleStartDetailsFocalPoint(this);
+    if (id <= 0) throw new RuntimeException("Failed to call focalPoint");
+    return new Offset(id);
+  }
+  public Offset localFocalPoint() {
+    int id = factories.scaleStartDetailsLocalFocalPoint(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localFocalPoint");
+    return new Offset(id);
+  }
+  public int pointerCount() {
+    int id = factories.scaleStartDetailsPointerCount(this);
+    if (id <= 0) throw new RuntimeException("Failed to call pointerCount");
+    return id;
   }
   @Override
   public ScaleStartDetails build() {

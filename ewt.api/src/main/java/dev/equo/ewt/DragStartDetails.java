@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DragStartDetails extends NativeObj.Base implements DragStartDetailsI {
   protected DragStartDetails() {}
   DragStartDetails(int id) {
@@ -21,6 +22,16 @@ public class DragStartDetails extends NativeObj.Base implements DragStartDetails
   }
   public static DragStartDetailsDragStartDetailsBuilder dragStartDetails() {
     return DragStartDetailsDragStartDetailsBuilder.dragStartDetailsDragStartDetails();
+  }
+  public Offset globalPosition() {
+    int id = factories.dragStartDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.dragStartDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
   }
   @Override
   public DragStartDetails build() {

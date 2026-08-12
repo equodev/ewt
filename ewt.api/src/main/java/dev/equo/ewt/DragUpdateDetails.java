@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetailsI {
   protected DragUpdateDetails() {}
   DragUpdateDetails(int id) {
@@ -23,6 +24,21 @@ public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetai
   }
   public static DragUpdateDetailsDragUpdateDetailsBuilder dragUpdateDetails(OffsetI globalPosition) {
     return DragUpdateDetailsDragUpdateDetailsBuilder.dragUpdateDetailsDragUpdateDetails(globalPosition);
+  }
+  public Offset globalPosition() {
+    int id = factories.dragUpdateDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.dragUpdateDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
+  }
+  public Offset delta() {
+    int id = factories.dragUpdateDetailsDelta(this);
+    if (id <= 0) throw new RuntimeException("Failed to call delta");
+    return new Offset(id);
   }
   @Override
   public DragUpdateDetails build() {

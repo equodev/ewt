@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ForcePressDetails extends NativeObj.Base implements ForcePressDetailsI {
   protected ForcePressDetails() {}
   ForcePressDetails(int id) {
@@ -20,6 +21,20 @@ public class ForcePressDetails extends NativeObj.Base implements ForcePressDetai
   }
   public static ForcePressDetailsForcePressDetailsBuilder forcePressDetails(OffsetI globalPosition) {
     return ForcePressDetailsForcePressDetailsBuilder.forcePressDetailsForcePressDetails(globalPosition);
+  }
+  public Offset globalPosition() {
+    int id = factories.forcePressDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.forcePressDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
+  }
+  public double pressure() {
+    double id = factories.forcePressDetailsPressure(this);
+    return id;
   }
   @Override
   public ForcePressDetails build() {

@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class LongPressDownDetails extends NativeObj.Base implements LongPressDownDetailsI {
   protected LongPressDownDetails() {}
   LongPressDownDetails(int id) {
@@ -20,6 +21,16 @@ public class LongPressDownDetails extends NativeObj.Base implements LongPressDow
   }
   public static LongPressDownDetailsLongPressDownDetailsBuilder longPressDownDetails() {
     return LongPressDownDetailsLongPressDownDetailsBuilder.longPressDownDetailsLongPressDownDetails();
+  }
+  public Offset globalPosition() {
+    int id = factories.longPressDownDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.longPressDownDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
   }
   @Override
   public LongPressDownDetails build() {

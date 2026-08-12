@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TapMoveDetails extends NativeObj.Base implements TapMoveDetailsI {
   protected TapMoveDetails() {}
   TapMoveDetails(int id) {
@@ -21,6 +22,21 @@ public class TapMoveDetails extends NativeObj.Base implements TapMoveDetailsI {
   }
   public static TapMoveDetailsTapMoveDetailsBuilder tapMoveDetails(PointerDeviceKind kind) {
     return TapMoveDetailsTapMoveDetailsBuilder.tapMoveDetailsTapMoveDetails(kind);
+  }
+  public Offset globalPosition() {
+    int id = factories.tapMoveDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.tapMoveDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
+  }
+  public Offset delta() {
+    int id = factories.tapMoveDetailsDelta(this);
+    if (id <= 0) throw new RuntimeException("Failed to call delta");
+    return new Offset(id);
   }
   @Override
   public TapMoveDetails build() {

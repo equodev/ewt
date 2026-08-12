@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDetailsI {
   protected ScaleUpdateDetails() {}
   ScaleUpdateDetails(int id) {
@@ -26,6 +27,42 @@ public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDet
   }
   public static ScaleUpdateDetailsScaleUpdateDetailsBuilder scaleUpdateDetails() {
     return ScaleUpdateDetailsScaleUpdateDetailsBuilder.scaleUpdateDetailsScaleUpdateDetails();
+  }
+  public Offset focalPoint() {
+    int id = factories.scaleUpdateDetailsFocalPoint(this);
+    if (id <= 0) throw new RuntimeException("Failed to call focalPoint");
+    return new Offset(id);
+  }
+  public Offset localFocalPoint() {
+    int id = factories.scaleUpdateDetailsLocalFocalPoint(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localFocalPoint");
+    return new Offset(id);
+  }
+  public Offset focalPointDelta() {
+    int id = factories.scaleUpdateDetailsFocalPointDelta(this);
+    if (id <= 0) throw new RuntimeException("Failed to call focalPointDelta");
+    return new Offset(id);
+  }
+  public double scale() {
+    double id = factories.scaleUpdateDetailsScale(this);
+    return id;
+  }
+  public double horizontalScale() {
+    double id = factories.scaleUpdateDetailsHorizontalScale(this);
+    return id;
+  }
+  public double verticalScale() {
+    double id = factories.scaleUpdateDetailsVerticalScale(this);
+    return id;
+  }
+  public double rotation() {
+    double id = factories.scaleUpdateDetailsRotation(this);
+    return id;
+  }
+  public int pointerCount() {
+    int id = factories.scaleUpdateDetailsPointerCount(this);
+    if (id <= 0) throw new RuntimeException("Failed to call pointerCount");
+    return id;
   }
   @Override
   public ScaleUpdateDetails build() {

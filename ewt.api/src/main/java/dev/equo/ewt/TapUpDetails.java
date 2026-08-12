@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
   protected TapUpDetails() {}
   TapUpDetails(int id) {
@@ -20,6 +21,16 @@ public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
   }
   public static TapUpDetailsTapUpDetailsBuilder tapUpDetails() {
     return TapUpDetailsTapUpDetailsBuilder.tapUpDetailsTapUpDetails();
+  }
+  public Offset globalPosition() {
+    int id = factories.tapUpDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.tapUpDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
   }
   @Override
   public TapUpDetails build() {

@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import java.lang.foreign.MemorySegment;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DraggableDetails extends NativeObj.Base implements DraggableDetailsI {
   protected DraggableDetails() {}
   DraggableDetails(int id) {
@@ -20,6 +22,20 @@ public class DraggableDetails extends NativeObj.Base implements DraggableDetails
   }
   public static DraggableDetailsDraggableDetailsBuilder draggableDetails() {
     return DraggableDetailsDraggableDetailsBuilder.draggableDetailsDraggableDetails();
+  }
+  public boolean wasAccepted() {
+    int id = factories.draggableDetailsWasAccepted(this);
+    if (id <= 0) throw new RuntimeException("Failed to call wasAccepted");
+    return intToBool(id);
+  }
+  public Velocity velocity() {
+    MemorySegment id = factories.draggableDetailsVelocity(this);
+    return new Velocity(id);
+  }
+  public Offset offset() {
+    int id = factories.draggableDetailsOffset(this);
+    if (id <= 0) throw new RuntimeException("Failed to call offset");
+    return new Offset(id);
   }
   @Override
   public DraggableDetails build() {

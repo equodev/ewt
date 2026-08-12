@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.SubAnimatedStateObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;

@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AnimationController extends NativeObj.Base implements Animation<Double>, AnimationControllerI {
   protected AnimationController() {}
   AnimationController(int id) {
