@@ -1582,6 +1582,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  <T> int dragTargetDetailsDragTargetDetails(NativeObj data, Offset offset) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", data);
+    p.put("offset", byId.get(offset.getId()));
+    record(id, "dragTargetDetailsDragTargetDetails", p);
+    return id;
+  }
+
+  @Override
   MemorySegment pointerDownEventPointerDownEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -2934,13 +2944,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Function<DragTargetDetails, Boolean>> onWillAcceptWithDetails, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<DragTargetDetails>> onAcceptWithDetails, Optional<Consumer<NativeObj>> onLeave, Optional<Consumer<DragTargetDetails>> onMove, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("builder", nextCallbackId++);
     if (onWillAccept != null) { p.put("onWillAccept", nextCallbackId++); }
+    if (onWillAcceptWithDetails != null) { p.put("onWillAcceptWithDetails", nextCallbackId++); }
     if (onAccept != null) { p.put("onAccept", nextCallbackId++); }
+    if (onAcceptWithDetails != null) { p.put("onAcceptWithDetails", nextCallbackId++); }
     if (onLeave != null) { p.put("onLeave", nextCallbackId++); }
+    if (onMove != null) { p.put("onMove", nextCallbackId++); }
     hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
     record(id, "dragTargetDragTarget", p);
     MemorySegment st = DragTargetObjSt.allocate(arena);

@@ -442,6 +442,10 @@ public class EWT {
     return DraggableDetailsDraggableDetailsBuilder.draggableDetailsDraggableDetails();
   }
 
+  public static <T extends NativeObj> DragTargetDetailsDragTargetDetailsBuilder<T> DragTargetDetails(NativeObj data, OffsetI offset) {
+    return DragTargetDetailsDragTargetDetailsBuilder.dragTargetDetailsDragTargetDetails(data, offset);
+  }
+
   public static PointerDownEventPointerDownEventBuilder PointerDownEvent() {
     return PointerDownEventPointerDownEventBuilder.pointerDownEventPointerDownEvent();
   }

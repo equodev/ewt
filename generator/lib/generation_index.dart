@@ -64,6 +64,7 @@ w.ScaleUpdateDetails? scaleUpdateDetails;
 w.ScaleEndDetails? scaleEndDetails;
 w.ForcePressDetails? forcePressDetails;
 w.DraggableDetails? draggableDetails;
+w.DragTargetDetails? dragTargetDetails;
 g.PointerDownEvent? pointerDownEvent;
 g.PointerUpEvent? pointerUpEvent;
 g.PointerEnterEvent? pointerEnterEvent;

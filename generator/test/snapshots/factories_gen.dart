@@ -1595,6 +1595,15 @@ int draggableDetailsDraggableDetails(ffi.Pointer<ffi.Int> wasAccepted, DartDartO
   return _addWidget(w);
 }
 
+void _setupDragTargetDetails(WidgetFactories f) {
+  f.dragTargetDetails.dragTargetDetails = ffi.Pointer.fromFunction(dragTargetDetailsDragTargetDetails, exception);
+}
+int dragTargetDetailsDragTargetDetails(DartDartObj data, DartDartObj offset) {
+  final w = DragTargetDetails(data: data,
+      offset: _widgetsMap[offset]! as Offset);
+  return _addWidget(w);
+}
+
 void _setupPointerDownEvent(WidgetFactories f) {
   f.pointerDownEvent.pointerDownEvent = ffi.Pointer.fromFunction(pointerDownEventPointerDownEvent);
 }
@@ -3249,11 +3258,14 @@ DraggableObjSt _createDraggableObjSt(Draggable? w) {
 void _setupDragTarget(WidgetFactories f) {
   f.dragTarget.dragTarget = ffi.Pointer.fromFunction(dragTargetDragTarget);
 }
-DragTargetObjSt dragTargetDragTarget(DragTargetBuilderForTFFI builder, ffi.Pointer<DragTargetWillAcceptForTFFI> onWillAccept, ffi.Pointer<DragTargetAcceptForTFFI> onAccept, ffi.Pointer<DragTargetLeaveForTFFI> onLeave, ffi.Pointer<ffi.Int> hitTestBehavior) {
+DragTargetObjSt dragTargetDragTarget(DragTargetBuilderForTFFI builder, ffi.Pointer<DragTargetWillAcceptForTFFI> onWillAccept, ffi.Pointer<DragTargetWillAcceptWithDetailsForTFFI> onWillAcceptWithDetails, ffi.Pointer<DragTargetAcceptForTFFI> onAccept, ffi.Pointer<DragTargetAcceptWithDetailsForTFFI> onAcceptWithDetails, ffi.Pointer<DragTargetLeaveForTFFI> onLeave, ffi.Pointer<DragTargetMoveForTFFI> onMove, ffi.Pointer<ffi.Int> hitTestBehavior) {
   final w = DragTarget(builder: builder.toDragTargetBuilderForTFn(),
       onWillAccept: onWillAccept.toDragTargetWillAcceptForTFn(),
+      onWillAcceptWithDetails: onWillAcceptWithDetails.toDragTargetWillAcceptWithDetailsForTFn(),
       onAccept: onAccept.toDragTargetAcceptForTFn(),
+      onAcceptWithDetails: onAcceptWithDetails.toDragTargetAcceptWithDetailsForTFn(),
       onLeave: onLeave.toDragTargetLeaveForTFn(),
+      onMove: onMove.toDragTargetMoveForTFn(),
       hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.translucent));
   return _createDragTargetObjSt(w);
 }
@@ -9282,6 +9294,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupScaleEndDetails(f);
   _setupForcePressDetails(f);
   _setupDraggableDetails(f);
+  _setupDragTargetDetails(f);
   _setupPointerDownEvent(f);
   _setupPointerUpEvent(f);
   _setupPointerEnterEvent(f);
@@ -9785,6 +9798,19 @@ extension on ffi.Pointer<DragTargetWillAcceptForTFFI> {
   DragTargetWillAccept<T>? toDragTargetWillAcceptForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetWillAcceptForTFn() : null;
 }
 
+extension on DragTargetWillAcceptWithDetailsForTFFI {
+  DragTargetWillAcceptWithDetails<T> toDragTargetWillAcceptWithDetailsForTFn<T>() {
+    return (DragTargetDetails<T> details) {
+      DartDragTargetWillAcceptWithDetailsForTFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(details));
+      return dFnRet.toBool();
+    };
+  }
+}
+extension on ffi.Pointer<DragTargetWillAcceptWithDetailsForTFFI> {
+  DragTargetWillAcceptWithDetails<T>? toDragTargetWillAcceptWithDetailsForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetWillAcceptWithDetailsForTFn() : null;
+}
+
 extension on DragTargetAcceptForTFFI {
   DragTargetAccept<T> toDragTargetAcceptForTFn<T>() {
     return (T? data) {
@@ -9797,6 +9823,18 @@ extension on ffi.Pointer<DragTargetAcceptForTFFI> {
   DragTargetAccept<T>? toDragTargetAcceptForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetAcceptForTFn() : null;
 }
 
+extension on DragTargetAcceptWithDetailsForTFFI {
+  DragTargetAcceptWithDetails<T> toDragTargetAcceptWithDetailsForTFn<T>() {
+    return (DragTargetDetails<T> details) {
+      DartDragTargetAcceptWithDetailsForTFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragTargetAcceptWithDetailsForTFFI> {
+  DragTargetAcceptWithDetails<T>? toDragTargetAcceptWithDetailsForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetAcceptWithDetailsForTFn() : null;
+}
+
 extension on DragTargetLeaveForTFFI {
   DragTargetLeave<T> toDragTargetLeaveForTFn<T>() {
     return (T? data) {
@@ -9807,6 +9845,18 @@ extension on DragTargetLeaveForTFFI {
 }
 extension on ffi.Pointer<DragTargetLeaveForTFFI> {
   DragTargetLeave<T>? toDragTargetLeaveForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetLeaveForTFn() : null;
+}
+
+extension on DragTargetMoveForTFFI {
+  DragTargetMove<T> toDragTargetMoveForTFn<T>() {
+    return (DragTargetDetails<T> details) {
+      DartDragTargetMoveForTFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragTargetMoveForTFFI> {
+  DragTargetMove<T>? toDragTargetMoveForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetMoveForTFn() : null;
 }
 
 extension on HeroFlightShuttleBuilderFFI {

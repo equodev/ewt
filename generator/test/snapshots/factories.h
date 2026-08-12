@@ -321,6 +321,10 @@ typedef struct {
     DartObj (*draggableDetails)(int* wasAccepted, DartObj velocity, DartObj offset);
   } draggableDetails;
 
+  struct DragTargetDetailsSt {
+    DartObj (*dragTargetDetails)(DartObj data, DartObj offset);
+  } dragTargetDetails;
+
   struct PointerDownEventSt {
     PointerDownEventObjSt (*pointerDownEvent)(int* viewId, DartObj* timeStamp, int* pointer, int* kind, int* device, DartObj* position, int* buttons, int* obscured, double* pressure, double* pressureMin, double* pressureMax, double* distanceMax, double* size, double* radiusMajor, double* radiusMinor, double* radiusMin, double* radiusMax, double* orientation, double* tilt, int* embedderId);
   } pointerDownEvent;
@@ -612,7 +616,7 @@ typedef struct {
   } draggable;
 
   struct DragTargetSt {
-    DragTargetObjSt (*dragTarget)(DragTargetBuilderForTFFI builder, DragTargetWillAcceptForTFFI* onWillAccept, DragTargetAcceptForTFFI* onAccept, DragTargetLeaveForTFFI* onLeave, int* hitTestBehavior);
+    DragTargetObjSt (*dragTarget)(DragTargetBuilderForTFFI builder, DragTargetWillAcceptForTFFI* onWillAccept, DragTargetWillAcceptWithDetailsForTFFI* onWillAcceptWithDetails, DragTargetAcceptForTFFI* onAccept, DragTargetAcceptWithDetailsForTFFI* onAcceptWithDetails, DragTargetLeaveForTFFI* onLeave, DragTargetMoveForTFFI* onMove, int* hitTestBehavior);
   } dragTarget;
 
   struct HeroSt {

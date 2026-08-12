@@ -573,6 +573,9 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       velocity: decodeEwtNode(p['velocity'] as Map<String,dynamic>) as Velocity,
       offset: decodeEwtNode(p['offset'] as Map<String,dynamic>) as Offset),
 
+  'dragTargetDetailsDragTargetDetails': (p) => DragTargetDetails(data: p['data'],
+      offset: decodeEwtNode(p['offset'] as Map<String,dynamic>) as Offset),
+
   'pointerDownEventPointerDownEvent': (p) => PointerDownEvent(viewId: (p['viewId'] as int?) ?? 0,
       timeStamp: p['timeStamp'] == null ? Duration.zero : decodeEwtNode(p['timeStamp'] as Map<String,dynamic>) as Duration,
       pointer: (p['pointer'] as int?) ?? 0,

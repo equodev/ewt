@@ -1192,6 +1192,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       offset.build().getId());
   }
 
+  <T> int dragTargetDetailsDragTargetDetails(NativeObj data, Offset offset) {
+    var st = WidgetFactories.dragTargetDetails(factories);
+    var fn = WidgetFactories.DragTargetDetailsSt.dragTargetDetails(st);
+    return WidgetFactories.DragTargetDetailsSt.dragTargetDetails.invoke(fn, data.build().getId(),
+      offset.build().getId());
+  }
+
   MemorySegment pointerDownEventPointerDownEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
     var st = WidgetFactories.pointerDownEvent(factories);
     var fn = WidgetFactories.PointerDownEventSt.pointerDownEvent(st);
@@ -2112,13 +2119,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
       allowedButtonsFilter.isPresent() ? ptrHolder(ptrAllowedButtonsFilterFn(allowedButtonsFilter.get())) : MemorySegment.NULL);
   }
 
-  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Function<DragTargetDetails, Boolean>> onWillAcceptWithDetails, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<DragTargetDetails>> onAcceptWithDetails, Optional<Consumer<NativeObj>> onLeave, Optional<Consumer<DragTargetDetails>> onMove, Optional<HitTestBehavior> hitTestBehavior) {
     var st = WidgetFactories.dragTarget(factories);
     var fn = WidgetFactories.DragTargetSt.dragTarget(st);
     return WidgetFactories.DragTargetSt.dragTarget.invoke(fn, arena, ptrDragTargetBuilderForTFn(builder),
       onWillAccept.isPresent() ? ptrHolder(ptrDragTargetWillAcceptForTFn(onWillAccept.get())) : MemorySegment.NULL,
+      onWillAcceptWithDetails.isPresent() ? ptrHolder(ptrDragTargetWillAcceptWithDetailsForTFn(onWillAcceptWithDetails.get())) : MemorySegment.NULL,
       onAccept.isPresent() ? ptrHolder(ptrDragTargetAcceptForTFn(onAccept.get())) : MemorySegment.NULL,
+      onAcceptWithDetails.isPresent() ? ptrHolder(ptrDragTargetAcceptWithDetailsForTFn(onAcceptWithDetails.get())) : MemorySegment.NULL,
       onLeave.isPresent() ? ptrHolder(ptrDragTargetLeaveForTFn(onLeave.get())) : MemorySegment.NULL,
+      onMove.isPresent() ? ptrHolder(ptrDragTargetMoveForTFn(onMove.get())) : MemorySegment.NULL,
       ptrEnum(hitTestBehavior));
   }
 
@@ -5974,14 +5984,30 @@ MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
     return (jFnRet ? 1 : 0);
   }, arena);
 }
+<T> MemorySegment ptrDragTargetWillAcceptWithDetailsForTFn(Function<DragTargetDetails, Boolean> jFn) {
+  return DragTargetWillAcceptWithDetailsForTFFI.allocate((details) -> {
+    final var jFnRet = jFn.apply(new DragTargetDetails(details));
+    return (jFnRet ? 1 : 0);
+  }, arena);
+}
 <T> MemorySegment ptrDragTargetAcceptForTFn(Consumer<NativeObj> jFn) {
   return DragTargetAcceptForTFFI.allocate((data) -> {
     jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
   }, arena);
 }
+<T> MemorySegment ptrDragTargetAcceptWithDetailsForTFn(Consumer<DragTargetDetails> jFn) {
+  return DragTargetAcceptWithDetailsForTFFI.allocate((details) -> {
+    jFn.accept(new DragTargetDetails(details));
+  }, arena);
+}
 <T> MemorySegment ptrDragTargetLeaveForTFn(Consumer<NativeObj> jFn) {
   return DragTargetLeaveForTFFI.allocate((data) -> {
     jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
+  }, arena);
+}
+<T> MemorySegment ptrDragTargetMoveForTFn(Consumer<DragTargetDetails> jFn) {
+  return DragTargetMoveForTFFI.allocate((details) -> {
+    jFn.accept(new DragTargetDetails(details));
   }, arena);
 }
 MemorySegment ptrHeroFlightShuttleBuilderFn(PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget> jFn) {
