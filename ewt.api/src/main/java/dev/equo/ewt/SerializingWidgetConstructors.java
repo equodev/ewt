@@ -1431,6 +1431,58 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int scaleStartDetailsScaleStartDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalInt pointerCount, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    focalPoint.ifPresent(v -> p.put("focalPoint", byId.get(v.getId())));
+    localFocalPoint.ifPresent(v -> p.put("localFocalPoint", byId.get(v.getId())));
+    if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "scaleStartDetailsScaleStartDetails", p);
+    return id;
+  }
+
+  @Override
+  int scaleUpdateDetailsScaleUpdateDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<Offset> focalPointDelta, Optional<Duration> sourceTimeStamp) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    focalPoint.ifPresent(v -> p.put("focalPoint", byId.get(v.getId())));
+    localFocalPoint.ifPresent(v -> p.put("localFocalPoint", byId.get(v.getId())));
+    if (scale.isPresent()) { p.put("scale", scale.getAsDouble()); }
+    if (horizontalScale.isPresent()) { p.put("horizontalScale", horizontalScale.getAsDouble()); }
+    if (verticalScale.isPresent()) { p.put("verticalScale", verticalScale.getAsDouble()); }
+    if (rotation.isPresent()) { p.put("rotation", rotation.getAsDouble()); }
+    if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
+    focalPointDelta.ifPresent(v -> p.put("focalPointDelta", byId.get(v.getId())));
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    record(id, "scaleUpdateDetailsScaleUpdateDetails", p);
+    return id;
+  }
+
+  @Override
+  int scaleEndDetailsScaleEndDetails(Optional<Velocity> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    velocity.ifPresent(v -> p.put("velocity", byId.get(v.getId())));
+    if (scaleVelocity.isPresent()) { p.put("scaleVelocity", scaleVelocity.getAsDouble()); }
+    if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
+    record(id, "scaleEndDetailsScaleEndDetails", p);
+    return id;
+  }
+
+  @Override
+  int forcePressDetailsForcePressDetails(Offset globalPosition, Optional<Offset> localPosition, double pressure) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("globalPosition", byId.get(globalPosition.getId()));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    p.put("pressure", pressure);
+    record(id, "forcePressDetailsForcePressDetails", p);
+    return id;
+  }
+
+  @Override
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -2632,7 +2684,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
+  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Consumer<ScaleEndDetails>> onInteractionEnd, Optional<Consumer<ScaleStartDetails>> onInteractionStart, Optional<Consumer<ScaleUpdateDetails>> onInteractionUpdate, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
@@ -2642,6 +2694,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (maxScale.isPresent()) { p.put("maxScale", maxScale.getAsDouble()); }
     if (minScale.isPresent()) { p.put("minScale", minScale.getAsDouble()); }
     if (interactionEndFrictionCoefficient.isPresent()) { p.put("interactionEndFrictionCoefficient", interactionEndFrictionCoefficient.getAsDouble()); }
+    if (onInteractionEnd != null) { p.put("onInteractionEnd", nextCallbackId++); }
+    if (onInteractionStart != null) { p.put("onInteractionStart", nextCallbackId++); }
+    if (onInteractionUpdate != null) { p.put("onInteractionUpdate", nextCallbackId++); }
     panEnabled.ifPresent(v -> p.put("panEnabled", v));
     scaleEnabled.ifPresent(v -> p.put("scaleEnabled", v));
     if (scaleFactor.isPresent()) { p.put("scaleFactor", scaleFactor.getAsDouble()); }
@@ -4659,7 +4714,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<ForcePressDetails>> onForcePressStart, Optional<Consumer<ForcePressDetails>> onForcePressPeak, Optional<Consumer<ForcePressDetails>> onForcePressUpdate, Optional<Consumer<ForcePressDetails>> onForcePressEnd, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<Consumer<ScaleStartDetails>> onScaleStart, Optional<Consumer<ScaleUpdateDetails>> onScaleUpdate, Optional<Consumer<ScaleEndDetails>> onScaleEnd, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -4709,11 +4764,18 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onHorizontalDragUpdate != null) { p.put("onHorizontalDragUpdate", nextCallbackId++); }
     if (onHorizontalDragEnd != null) { p.put("onHorizontalDragEnd", nextCallbackId++); }
     if (onHorizontalDragCancel.isPresent()) { int __cb_onHorizontalDragCancel = nextCallbackId++; p.put("onHorizontalDragCancel", __cb_onHorizontalDragCancel); callbacks.put(__cb_onHorizontalDragCancel, onHorizontalDragCancel.get()); }
+    if (onForcePressStart != null) { p.put("onForcePressStart", nextCallbackId++); }
+    if (onForcePressPeak != null) { p.put("onForcePressPeak", nextCallbackId++); }
+    if (onForcePressUpdate != null) { p.put("onForcePressUpdate", nextCallbackId++); }
+    if (onForcePressEnd != null) { p.put("onForcePressEnd", nextCallbackId++); }
     if (onPanDown != null) { p.put("onPanDown", nextCallbackId++); }
     if (onPanStart != null) { p.put("onPanStart", nextCallbackId++); }
     if (onPanUpdate != null) { p.put("onPanUpdate", nextCallbackId++); }
     if (onPanEnd != null) { p.put("onPanEnd", nextCallbackId++); }
     if (onPanCancel.isPresent()) { int __cb_onPanCancel = nextCallbackId++; p.put("onPanCancel", __cb_onPanCancel); callbacks.put(__cb_onPanCancel, onPanCancel.get()); }
+    if (onScaleStart != null) { p.put("onScaleStart", nextCallbackId++); }
+    if (onScaleUpdate != null) { p.put("onScaleUpdate", nextCallbackId++); }
+    if (onScaleEnd != null) { p.put("onScaleEnd", nextCallbackId++); }
     behavior.ifPresent(v -> p.put("behavior", v.ordinal()));
     excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));

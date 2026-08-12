@@ -1076,6 +1076,46 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(primaryVelocity));
   }
 
+  int scaleStartDetailsScaleStartDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalInt pointerCount, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.scaleStartDetails(st);
+    return WidgetFactories.ScaleStartDetailsSt.scaleStartDetails.invoke(fn, ptrObj(focalPoint),
+      ptrObj(localFocalPoint),
+      ptr(pointerCount),
+      ptrObj(sourceTimeStamp),
+      ptrEnum(kind));
+  }
+
+  int scaleUpdateDetailsScaleUpdateDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<Offset> focalPointDelta, Optional<Duration> sourceTimeStamp) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.scaleUpdateDetails(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.scaleUpdateDetails.invoke(fn, ptrObj(focalPoint),
+      ptrObj(localFocalPoint),
+      ptr(scale),
+      ptr(horizontalScale),
+      ptr(verticalScale),
+      ptr(rotation),
+      ptr(pointerCount),
+      ptrObj(focalPointDelta),
+      ptrObj(sourceTimeStamp));
+  }
+
+  int scaleEndDetailsScaleEndDetails(Optional<Velocity> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.scaleEndDetails(st);
+    return WidgetFactories.ScaleEndDetailsSt.scaleEndDetails.invoke(fn, ptrObj(velocity),
+      ptr(scaleVelocity),
+      ptr(pointerCount));
+  }
+
+  int forcePressDetailsForcePressDetails(Offset globalPosition, Optional<Offset> localPosition, double pressure) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.forcePressDetails(st);
+    return WidgetFactories.ForcePressDetailsSt.forcePressDetails.invoke(fn, globalPosition.build().getId(),
+      ptrObj(localPosition),
+      pressure);
+  }
+
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     var st = WidgetFactories.cubic(factories);
     var fn = WidgetFactories.CubicSt.cubic(st);
@@ -1870,7 +1910,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
-  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
+  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Consumer<ScaleEndDetails>> onInteractionEnd, Optional<Consumer<ScaleStartDetails>> onInteractionStart, Optional<Consumer<ScaleUpdateDetails>> onInteractionUpdate, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
     var st = WidgetFactories.interactiveViewer(factories);
     var fn = WidgetFactories.InteractiveViewerSt.interactiveViewer(st);
     return WidgetFactories.InteractiveViewerSt.interactiveViewer.invoke(fn, arena, ptrEnum(clipBehavior),
@@ -1880,6 +1920,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(maxScale),
       ptr(minScale),
       ptr(interactionEndFrictionCoefficient),
+      onInteractionEnd.isPresent() ? ptrHolder(ptrGestureScaleEndCallbackFn(onInteractionEnd.get())) : MemorySegment.NULL,
+      onInteractionStart.isPresent() ? ptrHolder(ptrGestureScaleStartCallbackFn(onInteractionStart.get())) : MemorySegment.NULL,
+      onInteractionUpdate.isPresent() ? ptrHolder(ptrGestureScaleUpdateCallbackFn(onInteractionUpdate.get())) : MemorySegment.NULL,
       ptrBool(panEnabled),
       ptrBool(scaleEnabled),
       ptr(scaleFactor),
@@ -3467,7 +3510,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(deleteIconBoxConstraints));
   }
 
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<ForcePressDetails>> onForcePressStart, Optional<Consumer<ForcePressDetails>> onForcePressPeak, Optional<Consumer<ForcePressDetails>> onForcePressUpdate, Optional<Consumer<ForcePressDetails>> onForcePressEnd, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<Consumer<ScaleStartDetails>> onScaleStart, Optional<Consumer<ScaleUpdateDetails>> onScaleUpdate, Optional<Consumer<ScaleEndDetails>> onScaleEnd, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     var st = WidgetFactories.gestureDetector(factories);
     var fn = WidgetFactories.GestureDetectorSt.gestureDetector(st);
     return WidgetFactories.GestureDetectorSt.gestureDetector.invoke(fn, arena, ptrObj(child),
@@ -3517,11 +3560,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onHorizontalDragUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onHorizontalDragUpdate.get())) : MemorySegment.NULL,
       onHorizontalDragEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onHorizontalDragEnd.get())) : MemorySegment.NULL,
       onHorizontalDragCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onHorizontalDragCancel.get())) : MemorySegment.NULL,
+      onForcePressStart.isPresent() ? ptrHolder(ptrGestureForcePressStartCallbackFn(onForcePressStart.get())) : MemorySegment.NULL,
+      onForcePressPeak.isPresent() ? ptrHolder(ptrGestureForcePressPeakCallbackFn(onForcePressPeak.get())) : MemorySegment.NULL,
+      onForcePressUpdate.isPresent() ? ptrHolder(ptrGestureForcePressUpdateCallbackFn(onForcePressUpdate.get())) : MemorySegment.NULL,
+      onForcePressEnd.isPresent() ? ptrHolder(ptrGestureForcePressEndCallbackFn(onForcePressEnd.get())) : MemorySegment.NULL,
       onPanDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onPanDown.get())) : MemorySegment.NULL,
       onPanStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onPanStart.get())) : MemorySegment.NULL,
       onPanUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onPanUpdate.get())) : MemorySegment.NULL,
       onPanEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onPanEnd.get())) : MemorySegment.NULL,
       onPanCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onPanCancel.get())) : MemorySegment.NULL,
+      onScaleStart.isPresent() ? ptrHolder(ptrGestureScaleStartCallbackFn(onScaleStart.get())) : MemorySegment.NULL,
+      onScaleUpdate.isPresent() ? ptrHolder(ptrGestureScaleUpdateCallbackFn(onScaleUpdate.get())) : MemorySegment.NULL,
+      onScaleEnd.isPresent() ? ptrHolder(ptrGestureScaleEndCallbackFn(onScaleEnd.get())) : MemorySegment.NULL,
       ptrEnum(behavior),
       ptrBool(excludeFromSemantics),
       ptrEnum(dragStartBehavior),
@@ -5690,6 +5740,21 @@ MemorySegment ptrIndexedWidgetBuilderFn(BiFunction<BuildContext, Integer, Widget
     jFn.accept(value);
   }, arena);
 }
+MemorySegment ptrGestureScaleEndCallbackFn(Consumer<ScaleEndDetails> jFn) {
+  return GestureScaleEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new ScaleEndDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureScaleStartCallbackFn(Consumer<ScaleStartDetails> jFn) {
+  return GestureScaleStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new ScaleStartDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureScaleUpdateCallbackFn(Consumer<ScaleUpdateDetails> jFn) {
+  return GestureScaleUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new ScaleUpdateDetails(details));
+  }, arena);
+}
 MemorySegment ptrDragAnchorStrategyFn(TriFunction<Draggable, BuildContext, Offset, Offset> jFn) {
   return DragAnchorStrategyFFI.allocate((draggable, context, position) -> {
     final var jFnRet = jFn.apply(new Draggable(draggable), new BuildContext() { public int getId() { return context; } }, new Offset(position));
@@ -5868,6 +5933,26 @@ MemorySegment ptrGestureDragEndCallbackFn(Consumer<DragEndDetails> jFn) {
 MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
   return GestureDragCancelCallbackFFI.allocate(() -> {
     jFn.run();
+  }, arena);
+}
+MemorySegment ptrGestureForcePressStartCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureForcePressPeakCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressPeakCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureForcePressUpdateCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureForcePressEndCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
   }, arena);
 }
 <T> MemorySegment ptrValueChangedForBoolOptFn(Consumer<Boolean> jFn) {

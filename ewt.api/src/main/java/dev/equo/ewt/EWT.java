@@ -408,6 +408,22 @@ public class EWT {
     return DragEndDetailsDragEndDetailsBuilder.dragEndDetailsDragEndDetails();
   }
 
+  public static ScaleStartDetailsScaleStartDetailsBuilder ScaleStartDetails() {
+    return ScaleStartDetailsScaleStartDetailsBuilder.scaleStartDetailsScaleStartDetails();
+  }
+
+  public static ScaleUpdateDetailsScaleUpdateDetailsBuilder ScaleUpdateDetails() {
+    return ScaleUpdateDetailsScaleUpdateDetailsBuilder.scaleUpdateDetailsScaleUpdateDetails();
+  }
+
+  public static ScaleEndDetailsScaleEndDetailsBuilder ScaleEndDetails() {
+    return ScaleEndDetailsScaleEndDetailsBuilder.scaleEndDetailsScaleEndDetails();
+  }
+
+  public static ForcePressDetailsForcePressDetailsBuilder ForcePressDetails(OffsetI globalPosition) {
+    return ForcePressDetailsForcePressDetailsBuilder.forcePressDetailsForcePressDetails(globalPosition);
+  }
+
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {
     return CubicCubicBuilder.cubicCubic(a, b, c, d);
   }

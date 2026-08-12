@@ -291,6 +291,22 @@ typedef struct {
     DartObj (*dragEndDetails)(DartObj* globalPosition, DartObj* localPosition, DartObj* velocity, double* primaryVelocity);
   } dragEndDetails;
 
+  struct ScaleStartDetailsSt {
+    DartObj (*scaleStartDetails)(DartObj* focalPoint, DartObj* localFocalPoint, int* pointerCount, DartObj* sourceTimeStamp, int* kind);
+  } scaleStartDetails;
+
+  struct ScaleUpdateDetailsSt {
+    DartObj (*scaleUpdateDetails)(DartObj* focalPoint, DartObj* localFocalPoint, double* scale, double* horizontalScale, double* verticalScale, double* rotation, int* pointerCount, DartObj* focalPointDelta, DartObj* sourceTimeStamp);
+  } scaleUpdateDetails;
+
+  struct ScaleEndDetailsSt {
+    DartObj (*scaleEndDetails)(DartObj* velocity, double* scaleVelocity, int* pointerCount);
+  } scaleEndDetails;
+
+  struct ForcePressDetailsSt {
+    DartObj (*forcePressDetails)(DartObj globalPosition, DartObj* localPosition, double pressure);
+  } forcePressDetails;
+
   struct CubicSt {
     CubicObjSt (*cubic)(double a, double b, double c, double d);
   } cubic;
@@ -562,7 +578,7 @@ typedef struct {
   } indexedStack;
 
   struct InteractiveViewerSt {
-    InteractiveViewerObjSt (*interactiveViewer)(int* clipBehavior, int* panAxis, DartObj* boundaryMargin, int* constrained, double* maxScale, double* minScale, double* interactionEndFrictionCoefficient, int* panEnabled, int* scaleEnabled, double* scaleFactor, DartObj* alignment, int* trackpadScrollCausesScale, DartObj child);
+    InteractiveViewerObjSt (*interactiveViewer)(int* clipBehavior, int* panAxis, DartObj* boundaryMargin, int* constrained, double* maxScale, double* minScale, double* interactionEndFrictionCoefficient, GestureScaleEndCallbackFFI* onInteractionEnd, GestureScaleStartCallbackFFI* onInteractionStart, GestureScaleUpdateCallbackFFI* onInteractionUpdate, int* panEnabled, int* scaleEnabled, double* scaleFactor, DartObj* alignment, int* trackpadScrollCausesScale, DartObj child);
   } interactiveViewer;
 
   struct DraggableSt {
@@ -789,7 +805,7 @@ typedef struct {
   } chip;
 
   struct GestureDetectorSt {
-    GestureDetectorObjSt (*gestureDetector)(DartObj* child, GestureTapDownCallbackFFI* onTapDown, GestureTapUpCallbackFFI* onTapUp, GestureTapCallbackFFI* onTap, GestureTapMoveCallbackFFI* onTapMove, GestureTapCancelCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapDownCallbackFFI* onSecondaryTapDown, GestureTapUpCallbackFFI* onSecondaryTapUp, GestureTapCancelCallbackFFI* onSecondaryTapCancel, GestureTapDownCallbackFFI* onTertiaryTapDown, GestureTapUpCallbackFFI* onTertiaryTapUp, GestureTapCancelCallbackFFI* onTertiaryTapCancel, GestureTapDownCallbackFFI* onDoubleTapDown, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onDoubleTapCancel, GestureLongPressDownCallbackFFI* onLongPressDown, GestureLongPressCancelCallbackFFI* onLongPressCancel, GestureLongPressCallbackFFI* onLongPress, GestureLongPressStartCallbackFFI* onLongPressStart, GestureLongPressMoveUpdateCallbackFFI* onLongPressMoveUpdate, GestureLongPressUpCallbackFFI* onLongPressUp, GestureLongPressEndCallbackFFI* onLongPressEnd, GestureLongPressDownCallbackFFI* onSecondaryLongPressDown, GestureLongPressCancelCallbackFFI* onSecondaryLongPressCancel, GestureLongPressCallbackFFI* onSecondaryLongPress, GestureLongPressStartCallbackFFI* onSecondaryLongPressStart, GestureLongPressMoveUpdateCallbackFFI* onSecondaryLongPressMoveUpdate, GestureLongPressUpCallbackFFI* onSecondaryLongPressUp, GestureLongPressEndCallbackFFI* onSecondaryLongPressEnd, GestureLongPressDownCallbackFFI* onTertiaryLongPressDown, GestureLongPressCancelCallbackFFI* onTertiaryLongPressCancel, GestureLongPressCallbackFFI* onTertiaryLongPress, GestureLongPressStartCallbackFFI* onTertiaryLongPressStart, GestureLongPressMoveUpdateCallbackFFI* onTertiaryLongPressMoveUpdate, GestureLongPressUpCallbackFFI* onTertiaryLongPressUp, GestureLongPressEndCallbackFFI* onTertiaryLongPressEnd, GestureDragDownCallbackFFI* onVerticalDragDown, GestureDragStartCallbackFFI* onVerticalDragStart, GestureDragUpdateCallbackFFI* onVerticalDragUpdate, GestureDragEndCallbackFFI* onVerticalDragEnd, GestureDragCancelCallbackFFI* onVerticalDragCancel, GestureDragDownCallbackFFI* onHorizontalDragDown, GestureDragStartCallbackFFI* onHorizontalDragStart, GestureDragUpdateCallbackFFI* onHorizontalDragUpdate, GestureDragEndCallbackFFI* onHorizontalDragEnd, GestureDragCancelCallbackFFI* onHorizontalDragCancel, GestureDragDownCallbackFFI* onPanDown, GestureDragStartCallbackFFI* onPanStart, GestureDragUpdateCallbackFFI* onPanUpdate, GestureDragEndCallbackFFI* onPanEnd, GestureDragCancelCallbackFFI* onPanCancel, int* behavior, int* excludeFromSemantics, int* dragStartBehavior, int* trackpadScrollCausesScale, DartObj* trackpadScrollToScaleFactor);
+    GestureDetectorObjSt (*gestureDetector)(DartObj* child, GestureTapDownCallbackFFI* onTapDown, GestureTapUpCallbackFFI* onTapUp, GestureTapCallbackFFI* onTap, GestureTapMoveCallbackFFI* onTapMove, GestureTapCancelCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapDownCallbackFFI* onSecondaryTapDown, GestureTapUpCallbackFFI* onSecondaryTapUp, GestureTapCancelCallbackFFI* onSecondaryTapCancel, GestureTapDownCallbackFFI* onTertiaryTapDown, GestureTapUpCallbackFFI* onTertiaryTapUp, GestureTapCancelCallbackFFI* onTertiaryTapCancel, GestureTapDownCallbackFFI* onDoubleTapDown, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onDoubleTapCancel, GestureLongPressDownCallbackFFI* onLongPressDown, GestureLongPressCancelCallbackFFI* onLongPressCancel, GestureLongPressCallbackFFI* onLongPress, GestureLongPressStartCallbackFFI* onLongPressStart, GestureLongPressMoveUpdateCallbackFFI* onLongPressMoveUpdate, GestureLongPressUpCallbackFFI* onLongPressUp, GestureLongPressEndCallbackFFI* onLongPressEnd, GestureLongPressDownCallbackFFI* onSecondaryLongPressDown, GestureLongPressCancelCallbackFFI* onSecondaryLongPressCancel, GestureLongPressCallbackFFI* onSecondaryLongPress, GestureLongPressStartCallbackFFI* onSecondaryLongPressStart, GestureLongPressMoveUpdateCallbackFFI* onSecondaryLongPressMoveUpdate, GestureLongPressUpCallbackFFI* onSecondaryLongPressUp, GestureLongPressEndCallbackFFI* onSecondaryLongPressEnd, GestureLongPressDownCallbackFFI* onTertiaryLongPressDown, GestureLongPressCancelCallbackFFI* onTertiaryLongPressCancel, GestureLongPressCallbackFFI* onTertiaryLongPress, GestureLongPressStartCallbackFFI* onTertiaryLongPressStart, GestureLongPressMoveUpdateCallbackFFI* onTertiaryLongPressMoveUpdate, GestureLongPressUpCallbackFFI* onTertiaryLongPressUp, GestureLongPressEndCallbackFFI* onTertiaryLongPressEnd, GestureDragDownCallbackFFI* onVerticalDragDown, GestureDragStartCallbackFFI* onVerticalDragStart, GestureDragUpdateCallbackFFI* onVerticalDragUpdate, GestureDragEndCallbackFFI* onVerticalDragEnd, GestureDragCancelCallbackFFI* onVerticalDragCancel, GestureDragDownCallbackFFI* onHorizontalDragDown, GestureDragStartCallbackFFI* onHorizontalDragStart, GestureDragUpdateCallbackFFI* onHorizontalDragUpdate, GestureDragEndCallbackFFI* onHorizontalDragEnd, GestureDragCancelCallbackFFI* onHorizontalDragCancel, GestureForcePressStartCallbackFFI* onForcePressStart, GestureForcePressPeakCallbackFFI* onForcePressPeak, GestureForcePressUpdateCallbackFFI* onForcePressUpdate, GestureForcePressEndCallbackFFI* onForcePressEnd, GestureDragDownCallbackFFI* onPanDown, GestureDragStartCallbackFFI* onPanStart, GestureDragUpdateCallbackFFI* onPanUpdate, GestureDragEndCallbackFFI* onPanEnd, GestureDragCancelCallbackFFI* onPanCancel, GestureScaleStartCallbackFFI* onScaleStart, GestureScaleUpdateCallbackFFI* onScaleUpdate, GestureScaleEndCallbackFFI* onScaleEnd, int* behavior, int* excludeFromSemantics, int* dragStartBehavior, int* trackpadScrollCausesScale, DartObj* trackpadScrollToScaleFactor);
   } gestureDetector;
 
   struct ListTileSt {
