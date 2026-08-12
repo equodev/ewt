@@ -424,6 +424,10 @@ public class EWT {
     return ForcePressDetailsForcePressDetailsBuilder.forcePressDetailsForcePressDetails(globalPosition);
   }
 
+  public static DraggableDetailsDraggableDetailsBuilder DraggableDetails() {
+    return DraggableDetailsDraggableDetailsBuilder.draggableDetailsDraggableDetails();
+  }
+
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {
     return CubicCubicBuilder.cubicCubic(a, b, c, d);
   }

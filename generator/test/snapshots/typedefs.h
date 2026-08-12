@@ -14,6 +14,7 @@ typedef void (*GestureScaleUpdateCallbackFFI)(DartObj details);
 typedef DartObj (*DragAnchorStrategyFFI)(DartObj draggable, DartObj context, DartObj position);
 typedef void (*DragUpdateCallbackFFI)(DartObj details);
 typedef void (*DraggableCanceledCallbackFFI)(DartObj velocity, DartObj offset);
+typedef void (*DragEndCallbackFFI)(DartObj details);
 typedef int (*AllowedButtonsFilterFFI)(int buttons);
 typedef DartObj (*DragTargetBuilderForTFFI)(DartObj context, ArrayC candidateData, ArrayC rejectedData);
 typedef int (*DragTargetWillAcceptForTFFI)(DartObj data);

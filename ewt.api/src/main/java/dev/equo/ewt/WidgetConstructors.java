@@ -1116,6 +1116,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       pressure);
   }
 
+  int draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, Velocity velocity, Offset offset) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.draggableDetails(st);
+    return WidgetFactories.DraggableDetailsSt.draggableDetails.invoke(fn, ptrBool(wasAccepted),
+      velocity.build().getId(),
+      offset.build().getId());
+  }
+
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     var st = WidgetFactories.cubic(factories);
     var fn = WidgetFactories.CubicSt.cubic(st);
@@ -1931,7 +1939,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Consumer<DraggableDetails>> onDragEnd, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     var st = WidgetFactories.draggable(factories);
     var fn = WidgetFactories.DraggableSt.draggable(st);
     return WidgetFactories.DraggableSt.draggable.invoke(fn, arena, child.build().getId(),
@@ -1946,6 +1954,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onDragStarted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragStarted.get())) : MemorySegment.NULL,
       onDragUpdate.isPresent() ? ptrHolder(ptrDragUpdateCallbackFn(onDragUpdate.get())) : MemorySegment.NULL,
       onDraggableCanceled.isPresent() ? ptrHolder(ptrDraggableCanceledCallbackFn(onDraggableCanceled.get())) : MemorySegment.NULL,
+      onDragEnd.isPresent() ? ptrHolder(ptrDragEndCallbackFn(onDragEnd.get())) : MemorySegment.NULL,
       onDragCompleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragCompleted.get())) : MemorySegment.NULL,
       ptrBool(ignoringFeedbackSemantics),
       ptrBool(ignoringFeedbackPointer),
@@ -5769,6 +5778,11 @@ MemorySegment ptrDragUpdateCallbackFn(Consumer<DragUpdateDetails> jFn) {
 MemorySegment ptrDraggableCanceledCallbackFn(BiConsumer<Velocity, Offset> jFn) {
   return DraggableCanceledCallbackFFI.allocate((velocity, offset) -> {
     jFn.accept(new Velocity(velocity), new Offset(offset));
+  }, arena);
+}
+MemorySegment ptrDragEndCallbackFn(Consumer<DraggableDetails> jFn) {
+  return DragEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new DraggableDetails(details));
   }, arena);
 }
 MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {

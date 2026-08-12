@@ -1501,6 +1501,16 @@ int forcePressDetailsForcePressDetails(DartDartObj globalPosition, ffi.Pointer<D
   return _addWidget(w);
 }
 
+void _setupDraggableDetails(WidgetFactories f) {
+  f.draggableDetails.draggableDetails = ffi.Pointer.fromFunction(draggableDetailsDraggableDetails, exception);
+}
+int draggableDetailsDraggableDetails(ffi.Pointer<ffi.Int> wasAccepted, DartDartObj velocity, DartDartObj offset) {
+  final w = DraggableDetails(wasAccepted: wasAccepted.boolOr(false),
+      velocity: _widgetsMap[velocity]! as Velocity,
+      offset: _widgetsMap[offset]! as Offset);
+  return _addWidget(w);
+}
+
 void _setupCubic(WidgetFactories f) {
   f.cubic.cubic = ffi.Pointer.fromFunction(cubicCubic);
 }
@@ -3007,7 +3017,7 @@ InteractiveViewerObjSt _createInteractiveViewerObjSt(InteractiveViewer? w) {
 void _setupDraggable(WidgetFactories f) {
   f.draggable.draggable = ffi.Pointer.fromFunction(draggableDraggable);
 }
-DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.Pointer<DartObj> data, ffi.Pointer<ffi.Int> axis, ffi.Pointer<DartObj> childWhenDragging, ffi.Pointer<DartObj> feedbackOffset, ffi.Pointer<DragAnchorStrategyFFI> dragAnchorStrategy, ffi.Pointer<ffi.Int> affinity, ffi.Pointer<ffi.Int> maxSimultaneousDrags, ffi.Pointer<VoidCallbackFFI> onDragStarted, ffi.Pointer<DragUpdateCallbackFFI> onDragUpdate, ffi.Pointer<DraggableCanceledCallbackFFI> onDraggableCanceled, ffi.Pointer<VoidCallbackFFI> onDragCompleted, ffi.Pointer<ffi.Int> ignoringFeedbackSemantics, ffi.Pointer<ffi.Int> ignoringFeedbackPointer, ffi.Pointer<ffi.Int> rootOverlay, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<AllowedButtonsFilterFFI> allowedButtonsFilter) {
+DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.Pointer<DartObj> data, ffi.Pointer<ffi.Int> axis, ffi.Pointer<DartObj> childWhenDragging, ffi.Pointer<DartObj> feedbackOffset, ffi.Pointer<DragAnchorStrategyFFI> dragAnchorStrategy, ffi.Pointer<ffi.Int> affinity, ffi.Pointer<ffi.Int> maxSimultaneousDrags, ffi.Pointer<VoidCallbackFFI> onDragStarted, ffi.Pointer<DragUpdateCallbackFFI> onDragUpdate, ffi.Pointer<DraggableCanceledCallbackFFI> onDraggableCanceled, ffi.Pointer<DragEndCallbackFFI> onDragEnd, ffi.Pointer<VoidCallbackFFI> onDragCompleted, ffi.Pointer<ffi.Int> ignoringFeedbackSemantics, ffi.Pointer<ffi.Int> ignoringFeedbackPointer, ffi.Pointer<ffi.Int> rootOverlay, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<AllowedButtonsFilterFFI> allowedButtonsFilter) {
   final w = Draggable(child: _widgetsMap[child]! as Widget,
       feedback: _widgetsMap[feedback]! as Widget,
       data: data,
@@ -3020,6 +3030,7 @@ DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.P
       onDragStarted: onDragStarted.toVoidCallbackFn(),
       onDragUpdate: onDragUpdate.toDragUpdateCallbackFn(),
       onDraggableCanceled: onDraggableCanceled.toDraggableCanceledCallbackFn(),
+      onDragEnd: onDragEnd.toDragEndCallbackFn(),
       onDragCompleted: onDragCompleted.toVoidCallbackFn(),
       ignoringFeedbackSemantics: ignoringFeedbackSemantics.boolOr(true),
       ignoringFeedbackPointer: ignoringFeedbackPointer.boolOr(true),
@@ -9074,6 +9085,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupScaleUpdateDetails(f);
   _setupScaleEndDetails(f);
   _setupForcePressDetails(f);
+  _setupDraggableDetails(f);
   _setupCubic(f);
   _setupThreePointCubic(f);
   _setupElasticOutCurve(f);
@@ -9483,6 +9495,18 @@ extension on DraggableCanceledCallbackFFI {
 }
 extension on ffi.Pointer<DraggableCanceledCallbackFFI> {
   DraggableCanceledCallback? toDraggableCanceledCallbackFn() => (this != ffi.nullptr) ? this.value.toDraggableCanceledCallbackFn() : null;
+}
+
+extension on DragEndCallbackFFI {
+  DragEndCallback toDragEndCallbackFn() {
+    return (DraggableDetails details) {
+      DartDragEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragEndCallbackFFI> {
+  DragEndCallback? toDragEndCallbackFn() => (this != ffi.nullptr) ? this.value.toDragEndCallbackFn() : null;
 }
 
 extension on AllowedButtonsFilterFFI {

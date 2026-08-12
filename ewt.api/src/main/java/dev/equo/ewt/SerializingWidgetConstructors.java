@@ -1483,6 +1483,17 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, Velocity velocity, Offset offset) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    wasAccepted.ifPresent(v -> p.put("wasAccepted", v));
+    p.put("velocity", byId.get(velocity.getId()));
+    p.put("offset", byId.get(offset.getId()));
+    record(id, "draggableDetailsDraggableDetails", p);
+    return id;
+  }
+
+  @Override
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -2710,7 +2721,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Consumer<DraggableDetails>> onDragEnd, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("child", byId.get(child.getId()));
@@ -2725,6 +2736,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onDragStarted.isPresent()) { int __cb_onDragStarted = nextCallbackId++; p.put("onDragStarted", __cb_onDragStarted); callbacks.put(__cb_onDragStarted, onDragStarted.get()); }
     if (onDragUpdate != null) { p.put("onDragUpdate", nextCallbackId++); }
     if (onDraggableCanceled != null) { p.put("onDraggableCanceled", nextCallbackId++); }
+    if (onDragEnd != null) { p.put("onDragEnd", nextCallbackId++); }
     if (onDragCompleted.isPresent()) { int __cb_onDragCompleted = nextCallbackId++; p.put("onDragCompleted", __cb_onDragCompleted); callbacks.put(__cb_onDragCompleted, onDragCompleted.get()); }
     ignoringFeedbackSemantics.ifPresent(v -> p.put("ignoringFeedbackSemantics", v));
     ignoringFeedbackPointer.ifPresent(v -> p.put("ignoringFeedbackPointer", v));

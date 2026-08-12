@@ -307,6 +307,10 @@ typedef struct {
     DartObj (*forcePressDetails)(DartObj globalPosition, DartObj* localPosition, double pressure);
   } forcePressDetails;
 
+  struct DraggableDetailsSt {
+    DartObj (*draggableDetails)(int* wasAccepted, DartObj velocity, DartObj offset);
+  } draggableDetails;
+
   struct CubicSt {
     CubicObjSt (*cubic)(double a, double b, double c, double d);
   } cubic;
@@ -582,7 +586,7 @@ typedef struct {
   } interactiveViewer;
 
   struct DraggableSt {
-    DraggableObjSt (*draggable)(DartObj child, DartObj feedback, DartObj* data, int* axis, DartObj* childWhenDragging, DartObj* feedbackOffset, DragAnchorStrategyFFI* dragAnchorStrategy, int* affinity, int* maxSimultaneousDrags, VoidCallbackFFI* onDragStarted, DragUpdateCallbackFFI* onDragUpdate, DraggableCanceledCallbackFFI* onDraggableCanceled, VoidCallbackFFI* onDragCompleted, int* ignoringFeedbackSemantics, int* ignoringFeedbackPointer, int* rootOverlay, int* hitTestBehavior, AllowedButtonsFilterFFI* allowedButtonsFilter);
+    DraggableObjSt (*draggable)(DartObj child, DartObj feedback, DartObj* data, int* axis, DartObj* childWhenDragging, DartObj* feedbackOffset, DragAnchorStrategyFFI* dragAnchorStrategy, int* affinity, int* maxSimultaneousDrags, VoidCallbackFFI* onDragStarted, DragUpdateCallbackFFI* onDragUpdate, DraggableCanceledCallbackFFI* onDraggableCanceled, DragEndCallbackFFI* onDragEnd, VoidCallbackFFI* onDragCompleted, int* ignoringFeedbackSemantics, int* ignoringFeedbackPointer, int* rootOverlay, int* hitTestBehavior, AllowedButtonsFilterFFI* allowedButtonsFilter);
   } draggable;
 
   struct DragTargetSt {

@@ -517,6 +517,10 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       localPosition: p['localPosition'] == null ? null : decodeEwtNode(p['localPosition'] as Map<String,dynamic>) as Offset,
       pressure: (p['pressure'] as num).toDouble()),
 
+  'draggableDetailsDraggableDetails': (p) => DraggableDetails(wasAccepted: (p['wasAccepted'] as bool?) ?? false,
+      velocity: decodeEwtNode(p['velocity'] as Map<String,dynamic>) as Velocity,
+      offset: decodeEwtNode(p['offset'] as Map<String,dynamic>) as Offset),
+
   'cubicCubic': (p) => Cubic((p['a'] as num).toDouble(),
       (p['b'] as num).toDouble(),
       (p['c'] as num).toDouble(),
@@ -942,6 +946,7 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       onDragStarted: ewtWireCallback(p['onDragStarted']),
       onDragUpdate: ([Object? a, Object? b, Object? c]) {},
       onDraggableCanceled: ([Object? a, Object? b, Object? c]) {},
+      onDragEnd: ([Object? a, Object? b, Object? c]) {},
       onDragCompleted: ewtWireCallback(p['onDragCompleted']),
       ignoringFeedbackSemantics: (p['ignoringFeedbackSemantics'] as bool?) ?? true,
       ignoringFeedbackPointer: (p['ignoringFeedbackPointer'] as bool?) ?? true,

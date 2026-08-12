@@ -63,6 +63,7 @@ w.ScaleStartDetails? scaleStartDetails;
 w.ScaleUpdateDetails? scaleUpdateDetails;
 w.ScaleEndDetails? scaleEndDetails;
 w.ForcePressDetails? forcePressDetails;
+w.DraggableDetails? draggableDetails;
 w.Curve? curve;
 w.Cubic? cubic;
 w.ThreePointCubic? threePointCubic;
