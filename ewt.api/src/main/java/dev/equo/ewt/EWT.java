@@ -364,6 +364,18 @@ public class EWT {
     return VelocityVelocityBuilder.velocityVelocity(pixelsPerSecond);
   }
 
+  public static TapDownDetailsTapDownDetailsBuilder TapDownDetails() {
+    return TapDownDetailsTapDownDetailsBuilder.tapDownDetailsTapDownDetails();
+  }
+
+  public static TapUpDetailsTapUpDetailsBuilder TapUpDetails() {
+    return TapUpDetailsTapUpDetailsBuilder.tapUpDetailsTapUpDetails();
+  }
+
+  public static TapMoveDetailsTapMoveDetailsBuilder TapMoveDetails(PointerDeviceKind kind) {
+    return TapMoveDetailsTapMoveDetailsBuilder.tapMoveDetailsTapMoveDetails(kind);
+  }
+
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {
     return CubicCubicBuilder.cubicCubic(a, b, c, d);
   }

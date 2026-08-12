@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:flutter/gestures.dart' as g;
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/cupertino.dart' as c;
@@ -47,6 +48,9 @@ w.AnimationController? animationController;
 w.AnimatedBuilder? animatedBuilder;
 w.Offset? offset;
 w.Velocity? velocity;
+w.TapDownDetails? tapDownDetails;
+w.TapUpDetails? tapUpDetails;
+g.TapMoveDetails? tapMoveDetails;
 w.Curve? curve;
 w.Cubic? cubic;
 w.ThreePointCubic? threePointCubic;

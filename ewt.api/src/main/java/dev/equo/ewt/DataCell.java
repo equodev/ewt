@@ -17,12 +17,13 @@ public class DataCell extends NativeObj.Base implements DataCellI {
   }
   DataCell(int id) { this.id = id; }
   @Builder.Factory
-  static DataCell dataCellDataCell(@Builder.Parameter WidgetI child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
+  static DataCell dataCellDataCell(@Builder.Parameter WidgetI child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
     var st = factories.dataCellDataCell(child.build(),
       placeholder,
       showEditIcon,
       onTap,
       onLongPress,
+      onTapDown,
       onDoubleTap,
       onTapCancel);
     if (st == null) throw new RuntimeException("Failed to created widget DataCell");

@@ -247,6 +247,18 @@ typedef struct {
     VelocityObjSt (*velocity)(DartObj pixelsPerSecond);
   } velocity;
 
+  struct TapDownDetailsSt {
+    DartObj (*tapDownDetails)(DartObj* globalPosition, DartObj* localPosition, int* kind);
+  } tapDownDetails;
+
+  struct TapUpDetailsSt {
+    DartObj (*tapUpDetails)(DartObj* globalPosition, DartObj* localPosition, int kind);
+  } tapUpDetails;
+
+  struct TapMoveDetailsSt {
+    DartObj (*tapMoveDetails)(int kind, DartObj* globalPosition, DartObj* delta, DartObj* localPosition);
+  } tapMoveDetails;
+
   struct CubicSt {
     CubicObjSt (*cubic)(double a, double b, double c, double d);
   } cubic;
@@ -745,7 +757,7 @@ typedef struct {
   } chip;
 
   struct GestureDetectorSt {
-    GestureDetectorObjSt (*gestureDetector)(DartObj* child, GestureTapCallbackFFI* onTap, GestureTapCancelCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapCancelCallbackFFI* onSecondaryTapCancel, GestureTapCancelCallbackFFI* onTertiaryTapCancel, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onDoubleTapCancel, GestureLongPressCancelCallbackFFI* onLongPressCancel, GestureLongPressCallbackFFI* onLongPress, GestureLongPressUpCallbackFFI* onLongPressUp, GestureLongPressCancelCallbackFFI* onSecondaryLongPressCancel, GestureLongPressCallbackFFI* onSecondaryLongPress, GestureLongPressUpCallbackFFI* onSecondaryLongPressUp, GestureLongPressCancelCallbackFFI* onTertiaryLongPressCancel, GestureLongPressCallbackFFI* onTertiaryLongPress, GestureLongPressUpCallbackFFI* onTertiaryLongPressUp, GestureDragCancelCallbackFFI* onVerticalDragCancel, GestureDragCancelCallbackFFI* onHorizontalDragCancel, GestureDragCancelCallbackFFI* onPanCancel, int* behavior, int* excludeFromSemantics, int* dragStartBehavior, int* trackpadScrollCausesScale, DartObj* trackpadScrollToScaleFactor);
+    GestureDetectorObjSt (*gestureDetector)(DartObj* child, GestureTapDownCallbackFFI* onTapDown, GestureTapUpCallbackFFI* onTapUp, GestureTapCallbackFFI* onTap, GestureTapMoveCallbackFFI* onTapMove, GestureTapCancelCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapDownCallbackFFI* onSecondaryTapDown, GestureTapUpCallbackFFI* onSecondaryTapUp, GestureTapCancelCallbackFFI* onSecondaryTapCancel, GestureTapDownCallbackFFI* onTertiaryTapDown, GestureTapUpCallbackFFI* onTertiaryTapUp, GestureTapCancelCallbackFFI* onTertiaryTapCancel, GestureTapDownCallbackFFI* onDoubleTapDown, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onDoubleTapCancel, GestureLongPressCancelCallbackFFI* onLongPressCancel, GestureLongPressCallbackFFI* onLongPress, GestureLongPressUpCallbackFFI* onLongPressUp, GestureLongPressCancelCallbackFFI* onSecondaryLongPressCancel, GestureLongPressCallbackFFI* onSecondaryLongPress, GestureLongPressUpCallbackFFI* onSecondaryLongPressUp, GestureLongPressCancelCallbackFFI* onTertiaryLongPressCancel, GestureLongPressCallbackFFI* onTertiaryLongPress, GestureLongPressUpCallbackFFI* onTertiaryLongPressUp, GestureDragCancelCallbackFFI* onVerticalDragCancel, GestureDragCancelCallbackFFI* onHorizontalDragCancel, GestureDragCancelCallbackFFI* onPanCancel, int* behavior, int* excludeFromSemantics, int* dragStartBehavior, int* trackpadScrollCausesScale, DartObj* trackpadScrollToScaleFactor);
   } gestureDetector;
 
   struct ListTileSt {
@@ -831,11 +843,11 @@ typedef struct {
   } selectableText;
 
   struct InkWellSt {
-    InkWellObjSt (*inkWell)(DartObj* child, GestureTapCallbackFFI* onTap, GestureTapCallbackFFI* onDoubleTap, GestureLongPressCallbackFFI* onLongPress, GestureTapCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapCallbackFFI* onSecondaryTapCancel, ValueChangedForBoolFFI* onHighlightChanged, ValueChangedForBoolFFI* onHover, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* overlayColor, DartObj* splashColor, double* radius, DartObj* borderRadius, DartObj* customBorder, int* enableFeedback, int* excludeFromSemantics, int* canRequestFocus, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* hoverDuration);
+    InkWellObjSt (*inkWell)(DartObj* child, GestureTapCallbackFFI* onTap, GestureTapCallbackFFI* onDoubleTap, GestureLongPressCallbackFFI* onLongPress, GestureTapDownCallbackFFI* onTapDown, GestureTapUpCallbackFFI* onTapUp, GestureTapCallbackFFI* onTapCancel, GestureTapCallbackFFI* onSecondaryTap, GestureTapUpCallbackFFI* onSecondaryTapUp, GestureTapDownCallbackFFI* onSecondaryTapDown, GestureTapCallbackFFI* onSecondaryTapCancel, ValueChangedForBoolFFI* onHighlightChanged, ValueChangedForBoolFFI* onHover, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* overlayColor, DartObj* splashColor, double* radius, DartObj* borderRadius, DartObj* customBorder, int* enableFeedback, int* excludeFromSemantics, int* canRequestFocus, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* hoverDuration);
   } inkWell;
 
   struct InkResponseSt {
-    InkResponseObjSt (*inkResponse)(DartObj* child, GestureTapCallbackFFI* onTap, GestureTapCallbackFFI* onTapCancel, GestureTapCallbackFFI* onDoubleTap, GestureLongPressCallbackFFI* onLongPress, GestureTapCallbackFFI* onSecondaryTap, GestureTapCallbackFFI* onSecondaryTapCancel, ValueChangedForBoolFFI* onHighlightChanged, ValueChangedForBoolFFI* onHover, int* containedInkWell, int* highlightShape, double* radius, DartObj* borderRadius, DartObj* customBorder, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* overlayColor, DartObj* splashColor, int* enableFeedback, int* excludeFromSemantics, int* canRequestFocus, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* hoverDuration);
+    InkResponseObjSt (*inkResponse)(DartObj* child, GestureTapCallbackFFI* onTap, GestureTapDownCallbackFFI* onTapDown, GestureTapUpCallbackFFI* onTapUp, GestureTapCallbackFFI* onTapCancel, GestureTapCallbackFFI* onDoubleTap, GestureLongPressCallbackFFI* onLongPress, GestureTapCallbackFFI* onSecondaryTap, GestureTapUpCallbackFFI* onSecondaryTapUp, GestureTapDownCallbackFFI* onSecondaryTapDown, GestureTapCallbackFFI* onSecondaryTapCancel, ValueChangedForBoolFFI* onHighlightChanged, ValueChangedForBoolFFI* onHover, int* containedInkWell, int* highlightShape, double* radius, DartObj* borderRadius, DartObj* customBorder, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* overlayColor, DartObj* splashColor, int* enableFeedback, int* excludeFromSemantics, int* canRequestFocus, ValueChangedForBoolFFI* onFocusChange, int* autofocus, DartObj* hoverDuration);
   } inkResponse;
 
   struct DataTableSt {
@@ -852,7 +864,7 @@ typedef struct {
   } dataRow;
 
   struct DataCellSt {
-    DataCellObjSt (*dataCell)(DartObj child, int* placeholder, int* showEditIcon, GestureTapCallbackFFI* onTap, GestureLongPressCallbackFFI* onLongPress, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onTapCancel);
+    DataCellObjSt (*dataCell)(DartObj child, int* placeholder, int* showEditIcon, GestureTapCallbackFFI* onTap, GestureLongPressCallbackFFI* onLongPress, GestureTapDownCallbackFFI* onTapDown, GestureTapCallbackFFI* onDoubleTap, GestureTapCancelCallbackFFI* onTapCancel);
   } dataCell;
 
   struct DropdownMenuEntrySt {

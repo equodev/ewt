@@ -1305,6 +1305,40 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int tapDownDetailsTapDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "tapDownDetailsTapDownDetails", p);
+    return id;
+  }
+
+  @Override
+  int tapUpDetailsTapUpDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, PointerDeviceKind kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    p.put("kind", kind.ordinal());
+    record(id, "tapUpDetailsTapUpDetails", p);
+    return id;
+  }
+
+  @Override
+  int tapMoveDetailsTapMoveDetails(PointerDeviceKind kind, Optional<Offset> globalPosition, Optional<Offset> delta, Optional<Offset> localPosition) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("kind", kind.ordinal());
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    record(id, "tapMoveDetailsTapMoveDetails", p);
+    return id;
+  }
+
+  @Override
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -4532,15 +4566,23 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Runnable> onTertiaryTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
+    if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapMove != null) { p.put("onTapMove", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
+    if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
     if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
+    if (onTertiaryTapDown != null) { p.put("onTertiaryTapDown", nextCallbackId++); }
+    if (onTertiaryTapUp != null) { p.put("onTertiaryTapUp", nextCallbackId++); }
     if (onTertiaryTapCancel.isPresent()) { int __cb_onTertiaryTapCancel = nextCallbackId++; p.put("onTertiaryTapCancel", __cb_onTertiaryTapCancel); callbacks.put(__cb_onTertiaryTapCancel, onTertiaryTapCancel.get()); }
+    if (onDoubleTapDown != null) { p.put("onDoubleTapDown", nextCallbackId++); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onDoubleTapCancel.isPresent()) { int __cb_onDoubleTapCancel = nextCallbackId++; p.put("onDoubleTapCancel", __cb_onDoubleTapCancel); callbacks.put(__cb_onDoubleTapCancel, onDoubleTapCancel.get()); }
     if (onLongPressCancel.isPresent()) { int __cb_onLongPressCancel = nextCallbackId++; p.put("onLongPressCancel", __cb_onLongPressCancel); callbacks.put(__cb_onLongPressCancel, onLongPressCancel.get()); }
@@ -5328,15 +5370,19 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
+    if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
+    if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
     if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
     if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
     if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
@@ -5361,15 +5407,19 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
+    if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
+    if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
     if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
     if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
     if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
@@ -5472,7 +5522,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
+  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("child", byId.get(child.getId()));
@@ -5480,6 +5530,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     showEditIcon.ifPresent(v -> p.put("showEditIcon", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     record(id, "dataCellDataCell", p);

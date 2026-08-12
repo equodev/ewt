@@ -983,6 +983,31 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.VelocitySt.velocity.invoke(fn, arena, pixelsPerSecond.build().getId());
   }
 
+  int tapDownDetailsTapDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.tapDownDetails(factories);
+    var fn = WidgetFactories.TapDownDetailsSt.tapDownDetails(st);
+    return WidgetFactories.TapDownDetailsSt.tapDownDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrEnum(kind));
+  }
+
+  int tapUpDetailsTapUpDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, PointerDeviceKind kind) {
+    var st = WidgetFactories.tapUpDetails(factories);
+    var fn = WidgetFactories.TapUpDetailsSt.tapUpDetails(st);
+    return WidgetFactories.TapUpDetailsSt.tapUpDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      kind.ordinal());
+  }
+
+  int tapMoveDetailsTapMoveDetails(PointerDeviceKind kind, Optional<Offset> globalPosition, Optional<Offset> delta, Optional<Offset> localPosition) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.tapMoveDetails(st);
+    return WidgetFactories.TapMoveDetailsSt.tapMoveDetails.invoke(fn, kind.ordinal(),
+      ptrObj(globalPosition),
+      ptrObj(delta),
+      ptrObj(localPosition));
+  }
+
   MemorySegment cubicCubic(double a, double b, double c, double d) {
     var st = WidgetFactories.cubic(factories);
     var fn = WidgetFactories.CubicSt.cubic(st);
@@ -3373,15 +3398,23 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(deleteIconBoxConstraints));
   }
 
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Runnable> onTertiaryTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     var st = WidgetFactories.gestureDetector(factories);
     var fn = WidgetFactories.GestureDetectorSt.gestureDetector(st);
     return WidgetFactories.GestureDetectorSt.gestureDetector.invoke(fn, arena, ptrObj(child),
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
+      onTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTapUp.get())) : MemorySegment.NULL,
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapMove.isPresent() ? ptrHolder(ptrGestureTapMoveCallbackFn(onTapMove.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
       onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onSecondaryTapDown.get())) : MemorySegment.NULL,
+      onSecondaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onSecondaryTapUp.get())) : MemorySegment.NULL,
       onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
+      onTertiaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTertiaryTapDown.get())) : MemorySegment.NULL,
+      onTertiaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTertiaryTapUp.get())) : MemorySegment.NULL,
       onTertiaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTertiaryTapCancel.get())) : MemorySegment.NULL,
+      onDoubleTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onDoubleTapDown.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onDoubleTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onDoubleTapCancel.get())) : MemorySegment.NULL,
       onLongPressCancel.isPresent() ? ptrHolder(ptrGestureLongPressCancelCallbackFn(onLongPressCancel.get())) : MemorySegment.NULL,
@@ -4027,15 +4060,19 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(textWidthBasis));
   }
 
-  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     var st = WidgetFactories.inkWell(factories);
     var fn = WidgetFactories.InkWellSt.inkWell(st);
     return WidgetFactories.InkWellSt.inkWell.invoke(fn, arena, ptrObj(child),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
+      onTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTapUp.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
       onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onSecondaryTapUp.get())) : MemorySegment.NULL,
+      onSecondaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onSecondaryTapDown.get())) : MemorySegment.NULL,
       onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
       onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
@@ -4055,15 +4092,19 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(hoverDuration));
   }
 
-  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     var st = WidgetFactories.inkResponse(factories);
     var fn = WidgetFactories.InkResponseSt.inkResponse(st);
     return WidgetFactories.InkResponseSt.inkResponse.invoke(fn, arena, ptrObj(child),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
+      onTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTapUp.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onSecondaryTapUp.get())) : MemorySegment.NULL,
+      onSecondaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onSecondaryTapDown.get())) : MemorySegment.NULL,
       onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
       onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
@@ -4141,7 +4182,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(cells));
   }
 
-  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
+  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
     var st = WidgetFactories.dataCell(factories);
     var fn = WidgetFactories.DataCellSt.dataCell(st);
     return WidgetFactories.DataCellSt.dataCell.invoke(fn, arena, child.build().getId(),
@@ -4149,6 +4190,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(showEditIcon),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTapCancel.get())) : MemorySegment.NULL);
   }
@@ -5648,6 +5690,21 @@ MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer,
   return InputCounterWidgetBuilderFFI.allocate((context, currentLength, isFocused, maxLength) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, currentLength, intToBool(isFocused), maxLength);
     return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrGestureTapDownCallbackFn(Consumer<TapDownDetails> jFn) {
+  return GestureTapDownCallbackFFI.allocate((details) -> {
+    jFn.accept(new TapDownDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureTapUpCallbackFn(Consumer<TapUpDetails> jFn) {
+  return GestureTapUpCallbackFFI.allocate((details) -> {
+    jFn.accept(new TapUpDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureTapMoveCallbackFn(Consumer<TapMoveDetails> jFn) {
+  return GestureTapMoveCallbackFFI.allocate((details) -> {
+    jFn.accept(new TapMoveDetails(details));
   }, arena);
 }
 MemorySegment ptrGestureTapCancelCallbackFn(Runnable jFn) {
