@@ -1136,6 +1136,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       rootOverlay: (p['rootOverlay'] as bool?) ?? false,
       hitTestBehavior: p['hitTestBehavior'] == null ? HitTestBehavior.deferToChild : HitTestBehavior.values[p['hitTestBehavior'] as int]),
 
+  'dragTargetDragTarget': (p) { final child = decodeEwtWidget(p['child'] as Map<String,dynamic>); return DragTarget(builder: (_, __, ___) => child); },
+
   'heroHero': (p) => Hero(tag: decodeEwtNode(p['tag'] as Map<String,dynamic>) as Object,
       transitionOnUserGestures: (p['transitionOnUserGestures'] as bool?) ?? false,
       child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),

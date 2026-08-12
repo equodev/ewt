@@ -12,22 +12,11 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   public Map<Integer, EwtNode> nodes() { return byId; }
   private final Map<Integer, Object> callbacks = new HashMap<>();
   public Map<Integer, Object> callbacks() { return callbacks; }
-  // Deferred build fns for nested Sub* widgets: resolved after the outer build() returns so
-  // subclass fields (set in the concrete constructor body) are already initialized when called.
   final Map<Integer, Function<BuildContext, Widget>> deferredStateless = new java.util.LinkedHashMap<>();
   final Map<Integer, Supplier<State>> deferredStateful = new java.util.LinkedHashMap<>();
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
     if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
   private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
-  /** Called by rebuildAnimated to claim an AnimationController id in this serializer so SubStateless
-   *  placeholder ids cannot collide with it. The stub carries only ctrlId; the Dart side matches
-   *  the existing controller by ctrlId and reuses it, so duration/self are not needed on rebuild. */
-  void preregisterAnimationController(int ctrlId) {
-    if (nextId <= ctrlId) nextId = ctrlId + 1;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("ctrlId", ctrlId);
-    record(ctrlId, "subAnimatedStateAnimationController", p);
-  }
   public int recordAccessor(String type, int receiverId) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -3433,7 +3422,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Function<DragTargetDetails, Boolean>> onWillAcceptWithDetails, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<DragTargetDetails>> onAcceptWithDetails, Optional<Consumer<NativeObj>> onLeave, Optional<Consumer<DragTargetDetails>> onMove, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("builder", nextCallbackId++);
+    Widget __child = builder.apply(EwtWebCapture.stubContext(), java.util.List.of(), java.util.List.of());
+    p.put("child", byId.get(__child.getId()));
     if (onWillAccept != null) { p.put("onWillAccept", nextCallbackId++); }
     if (onWillAcceptWithDetails != null) { p.put("onWillAcceptWithDetails", nextCallbackId++); }
     if (onAccept != null) { p.put("onAccept", nextCallbackId++); }
@@ -8122,9 +8112,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_createStateFn = nextCallbackId++; p.put("createStateFn", __cb_createStateFn); callbacks.put(__cb_createStateFn, createStateFn);
     record(id, "subStatefulWidgetSubStatefulWidget", p);
-    deferredStateful.put(id, createStateFn);
     MemorySegment st = SubStatefulWidgetObjSt.allocate(arena);
     SubStatefulWidgetObjSt.id(st, id);
+    deferredStateful.put(id, createStateFn);
     return st;
   }
 
@@ -8134,9 +8124,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("buildFn", nextCallbackId++);
     record(id, "subStatelessWidgetSubStatelessWidget", p);
-    deferredStateless.put(id, buildFn);
     MemorySegment st = SubStatelessWidgetObjSt.allocate(arena);
     SubStatelessWidgetObjSt.id(st, id);
+    deferredStateless.put(id, buildFn);
     return st;
   }
 
@@ -8159,6 +8149,15 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
 
+  /** Called by rebuildAnimated to claim an AnimationController id in this serializer so SubStateless
+   *  placeholder ids cannot collide with it. The stub carries only ctrlId; the Dart side matches
+   *  the existing controller by ctrlId and reuses it, so duration/self are not needed on rebuild. */
+  void preregisterAnimationController(int ctrlId) {
+    if (nextId <= ctrlId) nextId = ctrlId + 1;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", ctrlId);
+    record(ctrlId, "subAnimatedStateAnimationController", p);
+  }
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   @Override
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
@@ -8170,26 +8169,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "subAnimatedStateAnimationController", p);
     return id;
   }
-  // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
-  int offsetTween(Offset begin, Offset end, Animation parent) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("begin", byId.get(begin.getId()));
-    p.put("end", byId.get(end.getId()));
-    p.put("parent", byId.get(parent.getId()));
-    record(id, "offsetTween", p);
-    return id;
-  }
-
-  /**
-   * Resolves nested SubStateless/SubStateful placeholders recorded during the outer build().
-   * Must be called after the outer state's build() returns, so all subclass constructors have
-   * finished and their fields are initialized. Runs in a loop to handle arbitrarily deep nesting.
-   *
-   * @param ctx stub BuildContext for web-mode builds
-   * @param nestedStatesOut receives SubState/SubAnimatedState instances created during resolution
-   *                        so the caller can register their setState → rebuild hooks
-   */
   @SuppressWarnings("unchecked")
   public void resolveDeferred(BuildContext ctx, java.util.List<Object> nestedStatesOut) {
     while (!deferredStateless.isEmpty() || !deferredStateful.isEmpty()) {
@@ -8197,7 +8176,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
       var sfSnap  = new java.util.LinkedHashMap<>(deferredStateful);
       deferredStateless.clear();
       deferredStateful.clear();
-
       for (var e : ssSnap.entrySet()) {
         int pid = e.getKey();
         Widget built = ((Function<BuildContext, Widget>) e.getValue()).apply(ctx);
@@ -8205,7 +8183,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
         byId.put(pid, resolved);
         replaceInAll(pid, resolved);
       }
-
       for (var e : sfSnap.entrySet()) {
         int pid = e.getKey();
         SubStatefulWidget ownerWidget = SubclassedInJava.getSubNatObj(pid);
@@ -8224,44 +8201,40 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
           Widget built = as.buildFn(ctx);
           resolved = byId.get(built.getId());
           nestedStatesOut.add(as);
-        } else {
-          continue;
-        }
+        } else { continue; }
         byId.put(pid, resolved);
         replaceInAll(pid, resolved);
       }
     }
   }
-
   private void replaceInAll(int oldId, EwtNode replacement) {
-    for (EwtNode node : byId.values()) {
-      if (node == null) continue;
-      replaceInParams(node, oldId, replacement);
-    }
+    for (EwtNode node : byId.values())
+      replaceInParams(node.params(), oldId, replacement);
   }
-
   @SuppressWarnings("unchecked")
-  private void replaceInParams(EwtNode owner, int oldId, EwtNode replacement) {
-    java.util.Map<String, Object> params = owner.params();
+  private void replaceInParams(java.util.Map<String, Object> params, int oldId, EwtNode replacement) {
     for (var e : params.entrySet()) {
       Object v = e.getValue();
-      if (v instanceof EwtNode n && n.id() == oldId) {
-        e.setValue(replacement);
-      } else if (v instanceof java.util.List<?> list) {
-        replaceInList((java.util.List<Object>) list, oldId, replacement);
-      }
+      if (v instanceof EwtNode n && n.id() == oldId) e.setValue(replacement);
+      else if (v instanceof java.util.List<?> list) replaceInList((java.util.List<Object>) list, oldId, replacement);
     }
   }
-
   @SuppressWarnings("unchecked")
   private void replaceInList(java.util.List<Object> list, int oldId, EwtNode replacement) {
     for (int i = 0; i < list.size(); i++) {
       Object v = list.get(i);
-      if (v instanceof EwtNode n && n.id() == oldId) {
-        list.set(i, replacement);
-      } else if (v instanceof java.util.List<?> nested) {
-        replaceInList((java.util.List<Object>) nested, oldId, replacement);
-      }
+      if (v instanceof EwtNode n && n.id() == oldId) list.set(i, replacement);
+      else if (v instanceof java.util.List<?> nested) replaceInList((java.util.List<Object>) nested, oldId, replacement);
     }
+  }
+  // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
+  int offsetTween(Offset begin, Offset end, Animation parent) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("begin", byId.get(begin.getId()));
+    p.put("end", byId.get(end.getId()));
+    p.put("parent", byId.get(parent.getId()));
+    record(id, "offsetTween", p);
+    return id;
   }
 }

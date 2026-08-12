@@ -383,6 +383,15 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return id;
   }
 $overrides
+  /** Called by rebuildAnimated to claim an AnimationController id in this serializer so SubStateless
+   *  placeholder ids cannot collide with it. The stub carries only ctrlId; the Dart side matches
+   *  the existing controller by ctrlId and reuses it, so duration/self are not needed on rebuild. */
+  void preregisterAnimationController(int ctrlId) {
+    if (nextId <= ctrlId) nextId = ctrlId + 1;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", ctrlId);
+    record(ctrlId, "subAnimatedStateAnimationController", p);
+  }
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   @Override
   int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
