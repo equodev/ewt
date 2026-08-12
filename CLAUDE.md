@@ -61,21 +61,72 @@ JAVA_HOME=~/bin/jdk-22 ./gradlew :generator:generator   # Java builders + C head
 
 The generator does not delete output for widgets removed from the index; stale `*.java` left behind will break the build, so remove them by hand.
 
-`docs/coverage.md` is the tracking list for the widget-coverage effort (one
-checkbox per widget in `widgets.dart`, `material.dart` and `cupertino.dart`,
-ticked for the ones already generated).
+`docs/coverage.md` is the tracking list for the widget-coverage effort: one line
+per widget in `widgets.dart`, `material.dart` and `cupertino.dart`, in four
+states — ✅ complete, 🟡 partial, ❌ unusable, ⬜ not supported.
 
-**Never edit or commit it by hand.** The CI `coverage:commit` job regenerates it
-on `main` after every change to `generation_index.dart` and commits the result
-itself (with `[skip ci]`), so it stays current on its own — committing it from a
-branch only creates conflicts. To see the current coverage locally:
+The distinction matters. A widget can be declared in `generation_index.dart`,
+have its `.java` class emitted, and still be unusable: the generator silently
+skips optional params whose Dart type it cannot marshal, and skips a constructor
+entirely when a *required* param is unmarshalable. `docs/coverage.md` used to
+tick those as supported. Now it doesn't:
 
-```bash
-cd generator && dart tool/coverage_audit.dart   # writes docs/coverage.md
+```
+generator  →  generator/build/coverage_status.json   (what got dropped, per widget/ctor)
+                            ↓
+           tool/coverage_audit.dart  +  Flutter libs via the analyzer
+                            ↓
+                     docs/coverage.md
 ```
 
-The tool resolves the libraries with the Dart analyzer, so it always reflects the
-installed Flutter version.
+`coverage_status.json` is gitignored (it lives under `build/`) but frozen as a
+snapshot in `generator/test/snapshots/`, so a change in which params survive
+marshalling shows up as a reviewable diff in the MR rather than silently moving
+the numbers. Refresh it with `dart run tool/update_snapshots.dart`.
+
+**Never edit or commit `docs/coverage.md` by hand.** The CI `coverage:commit` job
+runs the generator and the audit on every pipeline, and on `main` commits the
+result (with `[skip ci]`) *only when the content actually changed* — the report
+carries no timestamp and every list in it is sorted, so a commit that doesn't
+affect coverage produces a byte-identical file and no commit. To see the current
+coverage locally:
+
+```bash
+cd generator && dart run bin/generator.dart && dart tool/coverage_audit.dart
+```
+
+The audit resolves the libraries with the Dart analyzer, so the widget list
+always reflects the installed Flutter version.
+
+The report counts the two backends separately (`Props (native)` / `Props (web)`).
+They are not the same number: a param the pure-Dart web decoder cannot represent
+still has a Java setter that works over the native FFI bridge, so averaging them
+would hide which backend is short.
+
+What the report does *not* claim: that a widget renders correctly. A property
+counts as exposed when its Java setter is generated — an API-surface fact, not a
+runtime one.
+
+### The coverage gate
+
+`tool/coverage_gate.dart` diffs the report against the snapshot as committed on
+`main` and fails when coverage got *worse* — a property that lost its setter, a
+constructor no longer generated, a widget no longer instantiable. New widgets
+that land incomplete are reported but do not fail (`--strict-new` changes that).
+
+```bash
+git show origin/main:generator/test/snapshots/coverage_status.json > /tmp/base.json
+cd generator && dart run bin/generator.dart && dart tool/coverage_gate.dart /tmp/base.json
+```
+
+The CI job is `allow_failure: true` by design — it is advisory and must never be
+the reason an MR cannot merge. The tool is defensive to match: a missing, empty
+or malformed baseline exits 0 with a warning rather than breaking the pipeline.
+CI fetches the baseline over the API instead of reading the branch, so an MR
+cannot move its own goalposts by refreshing the snapshot.
+
+`test/coverage_gate_test.dart` covers the comparison logic directly — the gate's
+failure modes are otherwise only reproducible by pushing commits.
 
 **Companion doc — `docs/gen_structure.md`**: hand-maintained. Two sections:
 (1) which Java classes are generated vs. hand-written across the ewt.api

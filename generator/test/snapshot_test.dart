@@ -27,6 +27,11 @@ const _monolithicSnapshots = <_SnapshotFile>[
   _SnapshotFile('../widgets/lib/factories_gen.dart', 'factories_gen.dart'),
   _SnapshotFile('../widgets/lib/subwidgets.dart', 'subwidgets_widgets.dart'),
   _SnapshotFile('./lib/subwidgets.dart', 'subwidgets_generator.dart'),
+  // Not an emitter output, but frozen for the same reason: it is how the
+  // coverage report learns what got dropped. Snapshotting it means a change in
+  // which params survive marshalling shows up as a reviewable diff instead of
+  // silently moving the numbers in docs/coverage.md.
+  _SnapshotFile('./build/coverage_status.json', 'coverage_status.json'),
 ];
 
 const _committedOutputPaths = <String>[

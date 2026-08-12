@@ -2,569 +2,583 @@
 
 Flutter 3.35.7
 
+## Legend
+
+| | Meaning |
+|---|---|
+| ✅ | **Complete** — every constructor and every Flutter property is exposed in Java. |
+| 🟡 | **Partial** — `EWT.<Widget>(…)` works, but some properties have no setter (their Dart type cannot be marshalled), some are inert on the web backend, or a named constructor was dropped. They are listed inline. |
+| ❌ | **Unusable** — the `.java` class is generated (it is needed as a parent / parameter type) but every constructor has a required param that cannot be marshalled, so there is no way to instantiate it. |
+| ⬜ | **Not supported** — not declared in `generation_index.dart`. |
+
 ## Summary
 
-| Library | Supported | Total | % |
-|---|---:|---:|---:|
-| Basic widgets | 81 | 291 | 27% |
-| Material | 65 | 187 | 34% |
-| Cupertino | 29 | 53 | 54% |
-| **Total** | **175** | **531** | **32%** |
+| Library | ✅ Complete | 🟡 Partial | ❌ Unusable | Total | Coverage | Props (native) | Props (web) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Basic widgets | 51 | 29 | 1 | 291 | 27% | 493/589 (83%) | 482/589 (81%) |
+| Material | 15 | 50 | 0 | 187 | 34% | 939/1158 (81%) | 911/1158 (78%) |
+| Cupertino | 11 | 18 | 0 | 53 | 54% | 288/359 (80%) | 280/359 (77%) |
+| **Total** | **77** | **97** | **1** | **531** | **32%** | **1720/2106 (81%)** | **1673/2106 (79%)** |
+
+**Coverage** counts complete + partial against every widget in the library: a partial widget is still usable. Unusable widgets are deliberately excluded — counting them is exactly the over-reporting this file exists to avoid.
+
+**Props** is the honest figure: how many of the constructor parameters Flutter offers are actually reachable, across every supported widget. The two backends differ, so they are counted separately — *native* is the FFI bridge, *web* is the pure-Dart decoder. A property missing from *web* only has a Java setter that compiles and works natively, but whose value the web decoder discards.
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**81 of 291 supported**
+**80 of 291 usable** — 51 complete, 29 partial, 1 unusable
 
-- [x] AbsorbPointer
-- [x] Align
-- [x] AnimatedAlign
-- [x] AnimatedBuilder
-- [x] AnimatedContainer
-- [x] AnimatedCrossFade
-- [x] AnimatedOpacity
-- [x] AnimatedPadding
-- [x] AnimatedRotation
-- [x] AnimatedScale
-- [x] AnimatedSize
-- [x] AnimatedSlide
-- [x] AnimatedSwitcher
-- [x] AspectRatio
-- [x] BackdropFilter
-- [x] Banner
-- [x] Baseline
-- [x] Center
-- [x] ClipOval
-- [x] ClipRRect
-- [x] ClipRSuperellipse
-- [x] ClipRect
-- [x] ColorFiltered
-- [x] ColoredBox
-- [x] Column
-- [x] ConstrainedBox
-- [x] Container
-- [x] DecoratedBox
-- [x] DefaultTextStyle
-- [x] Directionality
-- [x] DragTarget
-- [x] Draggable
-- [x] Expanded
-- [x] FadeTransition
-- [x] FittedBox
-- [x] Flex
-- [x] Flexible
-- [x] FlutterLogo
-- [x] FractionalTranslation
-- [x] FractionallySizedBox
-- [x] GestureDetector
-- [x] GridView
-- [x] Hero
-- [x] Icon
-- [x] IgnorePointer
-- [x] ImageFiltered
-- [x] IndexedStack
-- [x] InteractiveViewer
-- [x] IntrinsicHeight
-- [x] IntrinsicWidth
-- [x] LimitedBox
-- [x] ListView
-- [x] ListWheelScrollView
-- [x] MatrixTransition
-- [x] MouseRegion
-- [x] Navigator
-- [x] Opacity
-- [x] OverflowBox
-- [x] Padding
-- [x] PageView
-- [x] PhysicalModel
-- [x] Placeholder
-- [x] Positioned
-- [x] RepaintBoundary
-- [x] RichText
-- [x] RotatedBox
-- [x] RotationTransition
-- [x] Row
-- [x] SafeArea
-- [x] ScaleTransition
-- [x] SingleChildScrollView
-- [x] SizeTransition
-- [x] SizedBox
-- [x] SlideTransition
-- [x] Spacer
-- [x] Stack
-- [x] Text
-- [x] Transform
-- [x] UnconstrainedBox
-- [x] Visibility
-- [x] Wrap
-- [ ] ActionListener
-- [ ] Actions
-- [ ] AlignTransition
-- [ ] AndroidView
-- [ ] AndroidViewSurface
-- [ ] AnimatedDefaultTextStyle
-- [ ] AnimatedFractionallySizedBox
-- [ ] AnimatedGrid
-- [ ] AnimatedList
-- [ ] AnimatedModalBarrier
-- [ ] AnimatedPhysicalModel
-- [ ] AnimatedPositioned
-- [ ] AnimatedPositionedDirectional
-- [ ] AnnotatedRegion
-- [ ] AppKitView
-- [ ] AutocompleteHighlightedOption
-- [ ] AutofillGroup
-- [ ] AutomaticKeepAlive
-- [ ] BackButtonListener
-- [ ] BackdropGroup
-- [ ] BlockSemantics
-- [ ] Builder
-- [ ] CallbackShortcuts
-- [ ] CheckedModeBanner
-- [ ] ClipPath
-- [ ] CompositedTransformFollower
-- [ ] CompositedTransformTarget
-- [ ] ConstraintsTransformBox
-- [ ] CustomMultiChildLayout
-- [ ] CustomPaint
-- [ ] CustomScrollView
-- [ ] CustomSingleChildLayout
-- [ ] DecoratedBoxTransition
-- [ ] DecoratedSliver
-- [ ] DefaultAssetBundle
-- [ ] DefaultSelectionStyle
-- [ ] DefaultTextEditingShortcuts
-- [ ] DefaultTextHeightBehavior
-- [ ] DefaultTextStyleTransition
-- [ ] DisableWidgetInspectorScope
-- [ ] Dismissible
-- [ ] DisplayFeatureSubScreen
-- [ ] DragBoundary
-- [ ] DraggableScrollableActuator
-- [ ] DraggableScrollableSheet
-- [ ] DualTransitionBuilder
-- [ ] EditableText
-- [ ] EnableWidgetInspectorScope
-- [ ] ErrorWidget
-- [ ] ExcludeFocus
-- [ ] ExcludeFocusTraversal
-- [ ] ExcludeSemantics
-- [ ] Expansible
-- [ ] FadeInImage
-- [ ] Flow
-- [ ] Focus
-- [ ] FocusScope
-- [ ] FocusTraversalGroup
-- [ ] FocusTraversalOrder
-- [ ] FocusableActionDetector
-- [ ] Form
-- [ ] FormField
-- [ ] FutureBuilder
-- [ ] GlowingOverscrollIndicator
-- [ ] GridPaper
-- [ ] HeroControllerScope
-- [ ] HeroMode
-- [ ] HtmlElementView
-- [ ] IconTheme
-- [ ] IgnoreBaseline
-- [ ] Image
-- [ ] ImageIcon
-- [ ] IndexedSemantics
-- [ ] KeepAlive
-- [ ] KeyboardListener
-- [ ] KeyedSubtree
-- [ ] LayoutBuilder
-- [ ] LayoutId
-- [ ] ListBody
-- [ ] ListWheelViewport
-- [ ] ListenableBuilder
-- [ ] Listener
-- [ ] Localizations
-- [ ] LongPressDraggable
-- [ ] LookupBoundary
-- [ ] MediaQuery
-- [ ] MergeSemantics
-- [ ] MetaData
-- [ ] ModalBarrier
-- [ ] NavigationToolbar
-- [ ] NavigatorPopHandler
-- [ ] NestedScrollView
-- [ ] NestedScrollViewViewport
-- [ ] NotificationListener
-- [ ] Offstage
-- [ ] OrientationBuilder
-- [ ] OverflowBar
-- [ ] Overlay
-- [ ] OverlayPortal
-- [ ] PageStorage
-- [ ] PerformanceOverlay
-- [ ] PhysicalShape
-- [ ] PinnedHeaderSliver
-- [ ] PlatformMenuBar
-- [ ] PlatformSelectableRegionContextMenu
-- [ ] PlatformViewLink
-- [ ] PlatformViewSurface
-- [ ] PopScope
-- [ ] PositionedDirectional
-- [ ] PositionedTransition
-- [ ] PreferredSize
-- [ ] PrimaryScrollController
-- [ ] RadioGroup
-- [ ] RawAutocomplete
-- [ ] RawGestureDetector
-- [ ] RawImage
-- [ ] RawKeyboardListener
-- [ ] RawMagnifier
-- [ ] RawMenuAnchor
-- [ ] RawMenuAnchorGroup
-- [ ] RawRadio
-- [ ] RawScrollbar
-- [ ] RawView
-- [ ] RelativePositionedTransition
-- [ ] RenderObjectToWidgetAdapter
-- [ ] ReorderableDelayedDragStartListener
-- [ ] ReorderableDragStartListener
-- [ ] ReorderableList
-- [ ] RestorationScope
-- [ ] RootRestorationScope
-- [ ] RootWidget
-- [ ] Router
-- [ ] ScrollConfiguration
-- [ ] ScrollNotificationObserver
-- [ ] Scrollable
-- [ ] SelectableRegion
-- [ ] SelectableRegionSelectionStatusScope
-- [ ] SelectionContainer
-- [ ] SelectionListener
-- [ ] SelectionRegistrarScope
-- [ ] Semantics
-- [ ] SemanticsDebugger
-- [ ] SensitiveContent
-- [ ] ShaderMask
-- [ ] SharedAppData
-- [ ] ShortcutRegistrar
-- [ ] Shortcuts
-- [ ] ShrinkWrappingViewport
-- [ ] SizeChangedLayoutNotifier
-- [ ] SizedOverflowBox
-- [ ] SliverAnimatedGrid
-- [ ] SliverAnimatedList
-- [ ] SliverAnimatedOpacity
-- [ ] SliverConstrainedCrossAxis
-- [ ] SliverCrossAxisExpanded
-- [ ] SliverCrossAxisGroup
-- [ ] SliverEnsureSemantics
-- [ ] SliverFadeTransition
-- [ ] SliverFillRemaining
-- [ ] SliverFillViewport
-- [ ] SliverFixedExtentList
-- [ ] SliverFloatingHeader
-- [ ] SliverGrid
-- [ ] SliverIgnorePointer
-- [ ] SliverLayoutBuilder
-- [ ] SliverList
-- [ ] SliverMainAxisGroup
-- [ ] SliverOffstage
-- [ ] SliverOpacity
-- [ ] SliverOverlapAbsorber
-- [ ] SliverOverlapInjector
-- [ ] SliverPadding
-- [ ] SliverPersistentHeader
-- [ ] SliverPrototypeExtentList
-- [ ] SliverReorderableList
-- [ ] SliverResizingHeader
-- [ ] SliverSafeArea
-- [ ] SliverSemantics
-- [ ] SliverToBoxAdapter
-- [ ] SliverVariedExtentList
-- [ ] SliverVisibility
-- [ ] SnapshotWidget
-- [ ] StatefulBuilder
-- [ ] StreamBuilder
-- [ ] StretchingOverscrollIndicator
-- [ ] SystemContextMenu
-- [ ] Table
-- [ ] TableCell
-- [ ] TapRegion
-- [ ] TapRegionSurface
-- [ ] TextFieldTapRegion
-- [ ] TextSelectionGestureDetector
-- [ ] Texture
-- [ ] TickerMode
-- [ ] Title
-- [ ] TreeSliver
-- [ ] TweenAnimationBuilder
-- [ ] TwoDimensionalScrollable
-- [ ] UiKitView
-- [ ] UndoHistory
-- [ ] UnmanagedRestorationScope
-- [ ] ValueListenableBuilder
-- [ ] View
-- [ ] ViewAnchor
-- [ ] ViewCollection
-- [ ] Viewport
-- [ ] WidgetInspector
-- [ ] WidgetToRenderBoxAdapter
-- [ ] WidgetsApp
-- [ ] WillPopScope
+- ✅ AbsorbPointer
+- ✅ Align
+- ✅ AnimatedAlign
+- ✅ AnimatedOpacity
+- ✅ AnimatedPadding
+- ✅ AnimatedRotation
+- ✅ AnimatedScale
+- ✅ AnimatedSize
+- ✅ AnimatedSlide
+- ✅ AspectRatio
+- ✅ Baseline
+- ✅ Center
+- ✅ ColorFiltered
+- ✅ ColoredBox
+- ✅ Column
+- ✅ ConstrainedBox
+- ✅ DecoratedBox
+- ✅ Directionality
+- ✅ Expanded
+- ✅ FadeTransition
+- ✅ FittedBox
+- ✅ Flex
+- ✅ Flexible
+- ✅ FlutterLogo
+- ✅ FractionalTranslation
+- ✅ FractionallySizedBox
+- ✅ Icon
+- ✅ IgnorePointer
+- ✅ ImageFiltered
+- ✅ IndexedStack
+- ✅ IntrinsicHeight
+- ✅ IntrinsicWidth
+- ✅ LimitedBox
+- ✅ Opacity
+- ✅ Padding
+- ✅ PhysicalModel
+- ✅ Placeholder
+- ✅ RepaintBoundary
+- ✅ RotatedBox
+- ✅ RotationTransition
+- ✅ Row
+- ✅ SafeArea
+- ✅ ScaleTransition
+- ✅ SizeTransition
+- ✅ SizedBox
+- ✅ SlideTransition
+- ✅ Spacer
+- ✅ Stack
+- ✅ UnconstrainedBox
+- ✅ Visibility
+- ✅ Wrap
+- 🟡 AnimatedBuilder — 3/3 props native, 2/3 web · inert on web: `builder`
+- 🟡 AnimatedContainer — 15/16 props · missing: `transform`
+- 🟡 AnimatedCrossFade — 10/11 props · missing: `layoutBuilder` · dropped constructors: `.defaultLayoutBuilder`
+- 🟡 AnimatedSwitcher — 7/7 props native, 5/7 web · inert on web: `layoutBuilder`, `transitionBuilder`
+- 🟡 BackdropFilter — 4/5 props · missing: `backdropGroupKey`
+- 🟡 Banner — 7/8 props · missing: `textStyle`
+- 🟡 ClipOval — 2/3 props · missing: `clipper`
+- 🟡 ClipRRect — 3/4 props · missing: `clipper`
+- 🟡 ClipRSuperellipse — 3/4 props · missing: `clipper`
+- 🟡 ClipRect — 2/3 props · missing: `clipper`
+- 🟡 Container — 12/13 props · missing: `transform`
+- 🟡 DefaultTextStyle — 7/8 props · missing: `textHeightBehavior`
+- 🟡 DragTarget — 5/8 props native, 1/8 web · missing: `onAcceptWithDetails`, `onMove`, `onWillAcceptWithDetails` · inert on web: `builder`, `onAccept`, `onLeave`, `onWillAccept`
+- 🟡 Draggable — 16/19 props native, 14/19 web · missing: `onDragEnd`, `onDragUpdate`, `onDraggableCanceled` · inert on web: `allowedButtonsFilter`, `dragAnchorStrategy`
+- 🟡 GestureDetector — 25/65 props · missing: `onDoubleTapDown`, `onForcePressEnd`, `onForcePressPeak`, `onForcePressStart`, `onForcePressUpdate`, +35
+- 🟡 GridView — 20/22 props · missing: `controller`, `physics` · dropped constructors: `.`, `.builder`, `.custom`
+- 🟡 Hero — 4/6 props native, 3/6 web · missing: `createRectTween`, `placeholderBuilder` · inert on web: `flightShuttleBuilder`
+- 🟡 InteractiveViewer — 13/17 props · missing: `onInteractionEnd`, `onInteractionStart`, `onInteractionUpdate`, `transformationController` · dropped constructors: `.builder`, `.getAxisAlignedBoundingBox`, `.getNearestPointInside`, `.getNearestPointOnLine`, `.pointIsInside`
+- 🟡 ListView — 18/21 props · missing: `controller`, `itemExtentBuilder`, `physics` · dropped constructors: `.custom`
+- 🟡 ListWheelScrollView — 16/19 props · missing: `controller`, `physics`, `scrollBehavior` · dropped constructors: `.useDelegate`
+- 🟡 MouseRegion — 3/7 props · missing: `cursor`, `onEnter`, `onExit`, `onHover`
+- 🟡 Navigator — 7/15 props · missing: `observers`, `onDidRemovePage`, `onGenerateInitialRoutes`, `onGenerateRoute`, `onPopPage`, +3 · dropped constructors: `.popUntil`, `.pushAndRemoveUntil`, `.pushNamedAndRemoveUntil`, `.pushReplacement`, `.push`, `.removeRouteBelow`, `.removeRoute`, `.replaceRouteBelow`, `.replace`, `.restorablePushAndRemoveUntil`, `.restorablePushNamedAndRemoveUntil`, `.restorablePushReplacement`, `.restorablePush`, `.restorableReplaceRouteBelow`, `.restorableReplace`
+- 🟡 OverflowBox — 7/7 props native, 6/7 web · inert on web: `fit`
+- 🟡 PageView — 11/14 props · missing: `controller`, `physics`, `scrollBehavior` · dropped constructors: `.custom`
+- 🟡 Positioned — 7/7 props · dropped constructors: `.fromRect`, `.fromRelativeRect`
+- 🟡 RichText — 9/14 props · missing: `locale`, `selectionRegistrar`, `strutStyle`, `textHeightBehavior`, `textScaler`
+- 🟡 SingleChildScrollView — 10/12 props · missing: `controller`, `physics`
+- 🟡 Text — 12/16 props · missing: `locale`, `strutStyle`, `textHeightBehavior`, `textScaler`
+- 🟡 Transform — 6/6 props · dropped constructors: `.`
+- ❌ MatrixTransition — no factory: every constructor has an unmarshalable required param (`Matrix4 Function(double)`)
+- ⬜ ActionListener
+- ⬜ Actions
+- ⬜ AlignTransition
+- ⬜ AndroidView
+- ⬜ AndroidViewSurface
+- ⬜ AnimatedDefaultTextStyle
+- ⬜ AnimatedFractionallySizedBox
+- ⬜ AnimatedGrid
+- ⬜ AnimatedList
+- ⬜ AnimatedModalBarrier
+- ⬜ AnimatedPhysicalModel
+- ⬜ AnimatedPositioned
+- ⬜ AnimatedPositionedDirectional
+- ⬜ AnnotatedRegion
+- ⬜ AppKitView
+- ⬜ AutocompleteHighlightedOption
+- ⬜ AutofillGroup
+- ⬜ AutomaticKeepAlive
+- ⬜ BackButtonListener
+- ⬜ BackdropGroup
+- ⬜ BlockSemantics
+- ⬜ Builder
+- ⬜ CallbackShortcuts
+- ⬜ CheckedModeBanner
+- ⬜ ClipPath
+- ⬜ CompositedTransformFollower
+- ⬜ CompositedTransformTarget
+- ⬜ ConstraintsTransformBox
+- ⬜ CustomMultiChildLayout
+- ⬜ CustomPaint
+- ⬜ CustomScrollView
+- ⬜ CustomSingleChildLayout
+- ⬜ DecoratedBoxTransition
+- ⬜ DecoratedSliver
+- ⬜ DefaultAssetBundle
+- ⬜ DefaultSelectionStyle
+- ⬜ DefaultTextEditingShortcuts
+- ⬜ DefaultTextHeightBehavior
+- ⬜ DefaultTextStyleTransition
+- ⬜ DisableWidgetInspectorScope
+- ⬜ Dismissible
+- ⬜ DisplayFeatureSubScreen
+- ⬜ DragBoundary
+- ⬜ DraggableScrollableActuator
+- ⬜ DraggableScrollableSheet
+- ⬜ DualTransitionBuilder
+- ⬜ EditableText
+- ⬜ EnableWidgetInspectorScope
+- ⬜ ErrorWidget
+- ⬜ ExcludeFocus
+- ⬜ ExcludeFocusTraversal
+- ⬜ ExcludeSemantics
+- ⬜ Expansible
+- ⬜ FadeInImage
+- ⬜ Flow
+- ⬜ Focus
+- ⬜ FocusScope
+- ⬜ FocusTraversalGroup
+- ⬜ FocusTraversalOrder
+- ⬜ FocusableActionDetector
+- ⬜ Form
+- ⬜ FormField
+- ⬜ FutureBuilder
+- ⬜ GlowingOverscrollIndicator
+- ⬜ GridPaper
+- ⬜ HeroControllerScope
+- ⬜ HeroMode
+- ⬜ HtmlElementView
+- ⬜ IconTheme
+- ⬜ IgnoreBaseline
+- ⬜ Image
+- ⬜ ImageIcon
+- ⬜ IndexedSemantics
+- ⬜ KeepAlive
+- ⬜ KeyboardListener
+- ⬜ KeyedSubtree
+- ⬜ LayoutBuilder
+- ⬜ LayoutId
+- ⬜ ListBody
+- ⬜ ListWheelViewport
+- ⬜ ListenableBuilder
+- ⬜ Listener
+- ⬜ Localizations
+- ⬜ LongPressDraggable
+- ⬜ LookupBoundary
+- ⬜ MediaQuery
+- ⬜ MergeSemantics
+- ⬜ MetaData
+- ⬜ ModalBarrier
+- ⬜ NavigationToolbar
+- ⬜ NavigatorPopHandler
+- ⬜ NestedScrollView
+- ⬜ NestedScrollViewViewport
+- ⬜ NotificationListener
+- ⬜ Offstage
+- ⬜ OrientationBuilder
+- ⬜ OverflowBar
+- ⬜ Overlay
+- ⬜ OverlayPortal
+- ⬜ PageStorage
+- ⬜ PerformanceOverlay
+- ⬜ PhysicalShape
+- ⬜ PinnedHeaderSliver
+- ⬜ PlatformMenuBar
+- ⬜ PlatformSelectableRegionContextMenu
+- ⬜ PlatformViewLink
+- ⬜ PlatformViewSurface
+- ⬜ PopScope
+- ⬜ PositionedDirectional
+- ⬜ PositionedTransition
+- ⬜ PreferredSize
+- ⬜ PrimaryScrollController
+- ⬜ RadioGroup
+- ⬜ RawAutocomplete
+- ⬜ RawGestureDetector
+- ⬜ RawImage
+- ⬜ RawKeyboardListener
+- ⬜ RawMagnifier
+- ⬜ RawMenuAnchor
+- ⬜ RawMenuAnchorGroup
+- ⬜ RawRadio
+- ⬜ RawScrollbar
+- ⬜ RawView
+- ⬜ RelativePositionedTransition
+- ⬜ RenderObjectToWidgetAdapter
+- ⬜ ReorderableDelayedDragStartListener
+- ⬜ ReorderableDragStartListener
+- ⬜ ReorderableList
+- ⬜ RestorationScope
+- ⬜ RootRestorationScope
+- ⬜ RootWidget
+- ⬜ Router
+- ⬜ ScrollConfiguration
+- ⬜ ScrollNotificationObserver
+- ⬜ Scrollable
+- ⬜ SelectableRegion
+- ⬜ SelectableRegionSelectionStatusScope
+- ⬜ SelectionContainer
+- ⬜ SelectionListener
+- ⬜ SelectionRegistrarScope
+- ⬜ Semantics
+- ⬜ SemanticsDebugger
+- ⬜ SensitiveContent
+- ⬜ ShaderMask
+- ⬜ SharedAppData
+- ⬜ ShortcutRegistrar
+- ⬜ Shortcuts
+- ⬜ ShrinkWrappingViewport
+- ⬜ SizeChangedLayoutNotifier
+- ⬜ SizedOverflowBox
+- ⬜ SliverAnimatedGrid
+- ⬜ SliverAnimatedList
+- ⬜ SliverAnimatedOpacity
+- ⬜ SliverConstrainedCrossAxis
+- ⬜ SliverCrossAxisExpanded
+- ⬜ SliverCrossAxisGroup
+- ⬜ SliverEnsureSemantics
+- ⬜ SliverFadeTransition
+- ⬜ SliverFillRemaining
+- ⬜ SliverFillViewport
+- ⬜ SliverFixedExtentList
+- ⬜ SliverFloatingHeader
+- ⬜ SliverGrid
+- ⬜ SliverIgnorePointer
+- ⬜ SliverLayoutBuilder
+- ⬜ SliverList
+- ⬜ SliverMainAxisGroup
+- ⬜ SliverOffstage
+- ⬜ SliverOpacity
+- ⬜ SliverOverlapAbsorber
+- ⬜ SliverOverlapInjector
+- ⬜ SliverPadding
+- ⬜ SliverPersistentHeader
+- ⬜ SliverPrototypeExtentList
+- ⬜ SliverReorderableList
+- ⬜ SliverResizingHeader
+- ⬜ SliverSafeArea
+- ⬜ SliverSemantics
+- ⬜ SliverToBoxAdapter
+- ⬜ SliverVariedExtentList
+- ⬜ SliverVisibility
+- ⬜ SnapshotWidget
+- ⬜ StatefulBuilder
+- ⬜ StreamBuilder
+- ⬜ StretchingOverscrollIndicator
+- ⬜ SystemContextMenu
+- ⬜ Table
+- ⬜ TableCell
+- ⬜ TapRegion
+- ⬜ TapRegionSurface
+- ⬜ TextFieldTapRegion
+- ⬜ TextSelectionGestureDetector
+- ⬜ Texture
+- ⬜ TickerMode
+- ⬜ Title
+- ⬜ TreeSliver
+- ⬜ TweenAnimationBuilder
+- ⬜ TwoDimensionalScrollable
+- ⬜ UiKitView
+- ⬜ UndoHistory
+- ⬜ UnmanagedRestorationScope
+- ⬜ ValueListenableBuilder
+- ⬜ View
+- ⬜ ViewAnchor
+- ⬜ ViewCollection
+- ⬜ Viewport
+- ⬜ WidgetInspector
+- ⬜ WidgetToRenderBoxAdapter
+- ⬜ WidgetsApp
+- ⬜ WillPopScope
 
 ## Material
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**65 of 187 supported**
+**65 of 187 usable** — 15 complete, 50 partial, 0 unusable
 
-- [x] AlertDialog
-- [x] AppBar
-- [x] Badge
-- [x] CalendarDatePicker
-- [x] Card
-- [x] Checkbox
-- [x] CheckboxListTile
-- [x] CheckboxMenuButton
-- [x] CheckedPopupMenuItem
-- [x] Chip
-- [x] CircleAvatar
-- [x] CircularProgressIndicator
-- [x] DataTable
-- [x] DatePickerDialog
-- [x] DateRangePickerDialog
-- [x] DefaultTabController
-- [x] Divider
-- [x] Drawer
-- [x] ElevatedButton
-- [x] ExpansionPanelList
-- [x] ExpansionTile
-- [x] FilledButton
-- [x] FloatingActionButton
-- [x] IconButton
-- [x] InkWell
-- [x] InputDatePickerFormField
-- [x] LinearProgressIndicator
-- [x] ListTile
-- [x] Material
-- [x] MaterialApp
-- [x] MenuAnchor
-- [x] MenuBar
-- [x] MenuItemButton
-- [x] NavigationBar
-- [x] NavigationDestination
-- [x] NavigationDrawer
-- [x] NavigationDrawerDestination
-- [x] NavigationRail
-- [x] OutlinedButton
-- [x] PopupMenuButton
-- [x] PopupMenuDivider
-- [x] PopupMenuItem
-- [x] Radio
-- [x] RadioListTile
-- [x] RadioMenuButton
-- [x] Scaffold
-- [x] ScaffoldMessenger
-- [x] Scrollbar
-- [x] SearchBar
-- [x] SelectableText
-- [x] Slider
-- [x] SnackBar
-- [x] SnackBarAction
-- [x] SubmenuButton
-- [x] Switch
-- [x] SwitchListTile
-- [x] Tab
-- [x] TabBar
-- [x] TabBarView
-- [x] TextButton
-- [x] TextField
-- [x] Theme
-- [x] TimePickerDialog
-- [x] Tooltip
-- [x] YearPicker
-- [ ] AboutDialog
-- [ ] AboutListTile
-- [ ] ActionChip
-- [ ] ActionIconTheme
-- [ ] AdaptiveTextSelectionToolbar
-- [ ] AnimatedIcon
-- [ ] AnimatedTheme
-- [ ] AppBarTheme
-- [ ] Autocomplete
-- [ ] BackButton
-- [ ] BackButtonIcon
-- [ ] BadgeTheme
-- [ ] BottomAppBar
-- [ ] BottomAppBarTheme
-- [ ] BottomNavigationBar
-- [ ] BottomNavigationBarTheme
-- [ ] BottomSheet
-- [ ] ButtonBar
-- [ ] ButtonBarTheme
-- [ ] ButtonTheme
-- [ ] CardTheme
-- [ ] CarouselView
-- [ ] CarouselViewTheme
-- [ ] CheckboxTheme
-- [ ] ChipTheme
-- [ ] ChoiceChip
-- [ ] CloseButton
-- [ ] CloseButtonIcon
-- [ ] DataTableTheme
-- [ ] DatePickerTheme
-- [ ] DesktopTextSelectionToolbar
-- [ ] DesktopTextSelectionToolbarButton
-- [ ] Dialog
-- [ ] DialogTheme
-- [ ] DividerTheme
-- [ ] DrawerButton
-- [ ] DrawerButtonIcon
-- [ ] DrawerController
-- [ ] DrawerHeader
-- [ ] DrawerTheme
-- [ ] DropdownButton
-- [ ] DropdownButtonFormField
-- [ ] DropdownButtonHideUnderline
-- [ ] DropdownMenu
-- [ ] DropdownMenuFormField
-- [ ] DropdownMenuItem
-- [ ] DropdownMenuTheme
-- [ ] ElevatedButtonTheme
-- [ ] EndDrawerButton
-- [ ] EndDrawerButtonIcon
-- [ ] ExpandIcon
-- [ ] ExpansionTileTheme
-- [ ] FilledButtonTheme
-- [ ] FilterChip
-- [ ] FlexibleSpaceBar
-- [ ] FlexibleSpaceBarSettings
-- [ ] GridTile
-- [ ] GridTileBar
-- [ ] IconButtonTheme
-- [ ] Ink
-- [ ] InkResponse
-- [ ] InputChip
-- [ ] InputDecorationTheme
-- [ ] InputDecorator
-- [ ] LicensePage
-- [ ] ListTileTheme
-- [ ] Magnifier
-- [ ] MaterialBanner
-- [ ] MaterialBannerTheme
-- [ ] MaterialButton
-- [ ] MenuAcceleratorCallbackBinding
-- [ ] MenuAcceleratorLabel
-- [ ] MenuBarTheme
-- [ ] MenuButtonTheme
-- [ ] MenuTheme
-- [ ] MergeableMaterial
-- [ ] NavigationBarTheme
-- [ ] NavigationDrawerTheme
-- [ ] NavigationIndicator
-- [ ] NavigationRailTheme
-- [ ] OutlinedButtonTheme
-- [ ] PaginatedDataTable
-- [ ] PopupMenuTheme
-- [ ] ProgressIndicatorTheme
-- [ ] RadioTheme
-- [ ] RangeSlider
-- [ ] RawChip
-- [ ] RawMaterialButton
-- [ ] RefreshIndicator
-- [ ] RefreshProgressIndicator
-- [ ] ReorderableListView
-- [ ] ScrollbarTheme
-- [ ] SearchAnchor
-- [ ] SearchBarTheme
-- [ ] SearchViewTheme
-- [ ] SegmentedButton
-- [ ] SegmentedButtonTheme
-- [ ] SelectionArea
-- [ ] SimpleDialog
-- [ ] SimpleDialogOption
-- [ ] SliderTheme
-- [ ] SliverAppBar
-- [ ] SpellCheckSuggestionsToolbar
-- [ ] Stepper
-- [ ] SwitchTheme
-- [ ] TabBarTheme
-- [ ] TabPageSelector
-- [ ] TabPageSelectorIndicator
-- [ ] TableRowInkWell
-- [ ] TextButtonTheme
-- [ ] TextFormField
-- [ ] TextMagnifier
-- [ ] TextSelectionTheme
-- [ ] TextSelectionToolbar
-- [ ] TextSelectionToolbarTextButton
-- [ ] TimePickerTheme
-- [ ] ToggleButtons
-- [ ] ToggleButtonsTheme
-- [ ] TooltipTheme
-- [ ] TooltipVisibility
-- [ ] UserAccountsDrawerHeader
-- [ ] VerticalDivider
+- ✅ AlertDialog
+- ✅ Badge
+- ✅ Card
+- ✅ CircularProgressIndicator
+- ✅ Divider
+- ✅ Drawer
+- ✅ LinearProgressIndicator
+- ✅ NavigationDestination
+- ✅ NavigationDrawer
+- ✅ NavigationDrawerDestination
+- ✅ PopupMenuDivider
+- ✅ SnackBar
+- ✅ SnackBarAction
+- ✅ Tab
+- ✅ Theme
+- 🟡 AppBar — 28/32 props · missing: `actionsIconTheme`, `iconTheme`, `notificationPredicate`, `systemOverlayStyle` · dropped constructors: `.preferredHeightFor`
+- 🟡 CalendarDatePicker — 8/9 props native, 5/9 web · missing: `calendarDelegate` · inert on web: `onDateChanged`, `onDisplayedMonthChanged`, `selectableDayPredicate`
+- 🟡 Checkbox — 15/19 props · missing: `fillColor`, `focusNode`, `mouseCursor`, `overlayColor`
+- 🟡 CheckboxListTile — 31/35 props · missing: `fillColor`, `focusNode`, `mouseCursor`, `overlayColor`
+- 🟡 CheckboxMenuButton — 10/14 props · missing: `focusNode`, `shortcut`, `statesController`, `style`
+- 🟡 CheckedPopupMenuItem — 7/9 props · missing: `labelTextStyle`, `mouseCursor`
+- 🟡 Chip — 21/26 props · missing: `chipAnimationStyle`, `color`, `focusNode`, `iconTheme`, `mouseCursor`
+- 🟡 CircleAvatar — 6/10 props · missing: `backgroundImage`, `foregroundImage`, `onBackgroundImageError`, `onForegroundImageError`
+- 🟡 DataTable — 19/22 props · missing: `border`, `dataRowColor`, `headingRowColor`
+- 🟡 DatePickerDialog — 19/21 props native, 17/21 web · missing: `calendarDelegate`, `keyboardType` · inert on web: `onDatePickerModeChange`, `selectableDayPredicate`
+- 🟡 DateRangePickerDialog — 19/22 props native, 18/22 web · missing: `calendarDelegate`, `initialDateRange`, `keyboardType` · inert on web: `selectableDayPredicate`
+- 🟡 DefaultTabController — 4/4 props · dropped constructors: `.maybeOf`, `.of`
+- 🟡 ElevatedButton — 7/10 props · missing: `focusNode`, `statesController`, `style` · dropped constructors: `.styleFrom`
+- 🟡 ExpansionPanelList — 7/8 props native, 6/8 web · missing: `expandedHeaderPadding` · inert on web: `expansionCallback`
+- 🟡 ExpansionTile — 29/31 props · missing: `controller`, `expansionAnimationStyle`
+- 🟡 FilledButton — 7/10 props · missing: `focusNode`, `statesController`, `style` · dropped constructors: `.styleFrom`
+- 🟡 FloatingActionButton — 21/23 props · missing: `focusNode`, `mouseCursor`
+- 🟡 IconButton — 21/24 props · missing: `focusNode`, `mouseCursor`, `style` · dropped constructors: `.styleFrom`
+- 🟡 InkWell — 22/31 props · missing: `focusNode`, `mouseCursor`, `onSecondaryTapDown`, `onSecondaryTapUp`, `onTapDown`, +4
+- 🟡 InputDatePickerFormField — 12/15 props native, 9/15 web · missing: `calendarDelegate`, `focusNode`, `keyboardType` · inert on web: `onDateSaved`, `onDateSubmitted`, `selectableDayPredicate`
+- 🟡 ListTile — 34/37 props · missing: `focusNode`, `mouseCursor`, `statesController` · dropped constructors: `.divideTiles`
+- 🟡 Material — 13/13 props · dropped constructors: `.maybeOf`, `.of`
+- 🟡 MaterialApp — 21/38 props native, 19/38 web · missing: `actions`, `locale`, `localeListResolutionCallback`, `localeResolutionCallback`, `localizationsDelegates`, +12 · inert on web: `builder`, `onGenerateTitle` · dropped constructors: `.createMaterialHeroController`
+- 🟡 MenuAnchor — 10/15 props · missing: `builder`, `childFocusNode`, `controller`, `layerLink`, `style`
+- 🟡 MenuBar — 2/4 props · missing: `controller`, `style`
+- 🟡 MenuItemButton — 12/16 props · missing: `focusNode`, `shortcut`, `statesController`, `style` · dropped constructors: `.styleFrom`
+- 🟡 NavigationBar — 14/16 props · missing: `labelTextStyle`, `overlayColor`
+- 🟡 NavigationRail — 20/22 props · missing: `selectedIconTheme`, `unselectedIconTheme`
+- 🟡 OutlinedButton — 7/10 props · missing: `focusNode`, `statesController`, `style` · dropped constructors: `.styleFrom`
+- 🟡 PopupMenuButton — 27/30 props native, 25/30 web · missing: `popUpAnimationStyle`, `routeSettings`, `style` · inert on web: `itemBuilder`, `onSelected`
+- 🟡 PopupMenuItem — 7/9 props · missing: `labelTextStyle`, `mouseCursor`
+- 🟡 Radio — 13/20 props native, 12/20 web · missing: `backgroundColor`, `fillColor`, `focusNode`, `groupRegistry`, `innerRadius`, +2 · inert on web: `onChanged`
+- 🟡 RadioListTile — 28/33 props native, 27/33 web · missing: `fillColor`, `focusNode`, `mouseCursor`, `overlayColor`, `radioBackgroundColor` · inert on web: `onChanged`
+- 🟡 RadioMenuButton — 10/14 props native, 9/14 web · missing: `focusNode`, `shortcut`, `statesController`, `style` · inert on web: `onChanged`
+- 🟡 Scaffold — 25/27 props native, 24/27 web · missing: `floatingActionButtonAnimator`, `floatingActionButtonLocation` · inert on web: `bottomSheetScrimBuilder` · dropped constructors: `.maybeOf`, `.of`
+- 🟡 ScaffoldMessenger — 1/1 props · dropped constructors: `.maybeOf`, `.of`
+- 🟡 Scrollbar — 7/9 props · missing: `controller`, `notificationPredicate`
+- 🟡 SearchBar — 11/27 props · missing: `backgroundColor`, `contextMenuBuilder`, `controller`, `elevation`, `focusNode`, +11
+- 🟡 SelectableText — 21/32 props native, 19/32 web · missing: `contextMenuBuilder`, `focusNode`, `magnifierConfiguration`, `onSelectionChanged`, `scrollBehavior`, +6 · inert on web: `selectionHeightStyle`, `selectionWidthStyle`
+- 🟡 Slider — 18/21 props native, 17/21 web · missing: `focusNode`, `mouseCursor`, `overlayColor` · inert on web: `semanticFormatterCallback`
+- 🟡 SubmenuButton — 11/17 props · missing: `controller`, `focusNode`, `menuStyle`, `statesController`, `style`, +1 · dropped constructors: `.styleFrom`
+- 🟡 Switch — 15/27 props · missing: `activeThumbImage`, `focusNode`, `inactiveThumbImage`, `mouseCursor`, `onActiveThumbImageError`, +7
+- 🟡 SwitchListTile — 27/38 props · missing: `activeThumbImage`, `focusNode`, `inactiveThumbImage`, `mouseCursor`, `onActiveThumbImageError`, +6
+- 🟡 TabBar — 24/30 props native, 22/30 web · missing: `controller`, `mouseCursor`, `overlayColor`, `physics`, `splashFactory`, +1 · inert on web: `onFocusChange`, `onHover`
+- 🟡 TabBarView — 4/6 props · missing: `controller`, `physics`
+- 🟡 TextButton — 8/11 props · missing: `focusNode`, `statesController`, `style` · dropped constructors: `.styleFrom`
+- 🟡 TextField — 48/70 props native, 45/70 web · missing: `autofillHints`, `contentInsertionConfiguration`, `contextMenuBuilder`, `controller`, `focusNode`, +17 · inert on web: `buildCounter`, `selectionHeightStyle`, `selectionWidthStyle` · dropped constructors: `.defaultSpellCheckSuggestionsToolbarBuilder`, `.inferAndroidSpellCheckConfiguration`
+- 🟡 TimePickerDialog — 13/13 props native, 12/13 web · inert on web: `onEntryModeChanged`
+- 🟡 Tooltip — 21/22 props · missing: `mouseCursor`
+- 🟡 YearPicker — 7/8 props native, 6/8 web · missing: `calendarDelegate` · inert on web: `onChanged`
+- ⬜ AboutDialog
+- ⬜ AboutListTile
+- ⬜ ActionChip
+- ⬜ ActionIconTheme
+- ⬜ AdaptiveTextSelectionToolbar
+- ⬜ AnimatedIcon
+- ⬜ AnimatedTheme
+- ⬜ AppBarTheme
+- ⬜ Autocomplete
+- ⬜ BackButton
+- ⬜ BackButtonIcon
+- ⬜ BadgeTheme
+- ⬜ BottomAppBar
+- ⬜ BottomAppBarTheme
+- ⬜ BottomNavigationBar
+- ⬜ BottomNavigationBarTheme
+- ⬜ BottomSheet
+- ⬜ ButtonBar
+- ⬜ ButtonBarTheme
+- ⬜ ButtonTheme
+- ⬜ CardTheme
+- ⬜ CarouselView
+- ⬜ CarouselViewTheme
+- ⬜ CheckboxTheme
+- ⬜ ChipTheme
+- ⬜ ChoiceChip
+- ⬜ CloseButton
+- ⬜ CloseButtonIcon
+- ⬜ DataTableTheme
+- ⬜ DatePickerTheme
+- ⬜ DesktopTextSelectionToolbar
+- ⬜ DesktopTextSelectionToolbarButton
+- ⬜ Dialog
+- ⬜ DialogTheme
+- ⬜ DividerTheme
+- ⬜ DrawerButton
+- ⬜ DrawerButtonIcon
+- ⬜ DrawerController
+- ⬜ DrawerHeader
+- ⬜ DrawerTheme
+- ⬜ DropdownButton
+- ⬜ DropdownButtonFormField
+- ⬜ DropdownButtonHideUnderline
+- ⬜ DropdownMenu
+- ⬜ DropdownMenuFormField
+- ⬜ DropdownMenuItem
+- ⬜ DropdownMenuTheme
+- ⬜ ElevatedButtonTheme
+- ⬜ EndDrawerButton
+- ⬜ EndDrawerButtonIcon
+- ⬜ ExpandIcon
+- ⬜ ExpansionTileTheme
+- ⬜ FilledButtonTheme
+- ⬜ FilterChip
+- ⬜ FlexibleSpaceBar
+- ⬜ FlexibleSpaceBarSettings
+- ⬜ GridTile
+- ⬜ GridTileBar
+- ⬜ IconButtonTheme
+- ⬜ Ink
+- ⬜ InkResponse
+- ⬜ InputChip
+- ⬜ InputDecorationTheme
+- ⬜ InputDecorator
+- ⬜ LicensePage
+- ⬜ ListTileTheme
+- ⬜ Magnifier
+- ⬜ MaterialBanner
+- ⬜ MaterialBannerTheme
+- ⬜ MaterialButton
+- ⬜ MenuAcceleratorCallbackBinding
+- ⬜ MenuAcceleratorLabel
+- ⬜ MenuBarTheme
+- ⬜ MenuButtonTheme
+- ⬜ MenuTheme
+- ⬜ MergeableMaterial
+- ⬜ NavigationBarTheme
+- ⬜ NavigationDrawerTheme
+- ⬜ NavigationIndicator
+- ⬜ NavigationRailTheme
+- ⬜ OutlinedButtonTheme
+- ⬜ PaginatedDataTable
+- ⬜ PopupMenuTheme
+- ⬜ ProgressIndicatorTheme
+- ⬜ RadioTheme
+- ⬜ RangeSlider
+- ⬜ RawChip
+- ⬜ RawMaterialButton
+- ⬜ RefreshIndicator
+- ⬜ RefreshProgressIndicator
+- ⬜ ReorderableListView
+- ⬜ ScrollbarTheme
+- ⬜ SearchAnchor
+- ⬜ SearchBarTheme
+- ⬜ SearchViewTheme
+- ⬜ SegmentedButton
+- ⬜ SegmentedButtonTheme
+- ⬜ SelectionArea
+- ⬜ SimpleDialog
+- ⬜ SimpleDialogOption
+- ⬜ SliderTheme
+- ⬜ SliverAppBar
+- ⬜ SpellCheckSuggestionsToolbar
+- ⬜ Stepper
+- ⬜ SwitchTheme
+- ⬜ TabBarTheme
+- ⬜ TabPageSelector
+- ⬜ TabPageSelectorIndicator
+- ⬜ TableRowInkWell
+- ⬜ TextButtonTheme
+- ⬜ TextFormField
+- ⬜ TextMagnifier
+- ⬜ TextSelectionTheme
+- ⬜ TextSelectionToolbar
+- ⬜ TextSelectionToolbarTextButton
+- ⬜ TimePickerTheme
+- ⬜ ToggleButtons
+- ⬜ ToggleButtonsTheme
+- ⬜ TooltipTheme
+- ⬜ TooltipVisibility
+- ⬜ UserAccountsDrawerHeader
+- ⬜ VerticalDivider
 
 ## Cupertino
 
 _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 
-**29 of 53 supported**
+**29 of 53 usable** — 11 complete, 18 partial, 0 unusable
 
-- [x] CupertinoActionSheet
-- [x] CupertinoActionSheetAction
-- [x] CupertinoActivityIndicator
-- [x] CupertinoAlertDialog
-- [x] CupertinoApp
-- [x] CupertinoButton
-- [x] CupertinoCheckbox
-- [x] CupertinoContextMenu
-- [x] CupertinoContextMenuAction
-- [x] CupertinoDialogAction
-- [x] CupertinoExpansionTile
-- [x] CupertinoFormRow
-- [x] CupertinoFormSection
-- [x] CupertinoListSection
-- [x] CupertinoListTile
-- [x] CupertinoListTileChevron
-- [x] CupertinoNavigationBar
-- [x] CupertinoNavigationBarBackButton
-- [x] CupertinoPageScaffold
-- [x] CupertinoPicker
-- [x] CupertinoSearchTextField
-- [x] CupertinoSlider
-- [x] CupertinoSliverNavigationBar
-- [x] CupertinoSwitch
-- [x] CupertinoTabBar
-- [x] CupertinoTabScaffold
-- [x] CupertinoTabView
-- [x] CupertinoTextField
-- [x] CupertinoTimerPicker
-- [ ] CupertinoAdaptiveTextSelectionToolbar
-- [ ] CupertinoDatePicker
-- [ ] CupertinoDesktopTextSelectionToolbar
-- [ ] CupertinoDesktopTextSelectionToolbarButton
-- [ ] CupertinoFullscreenDialogTransition
-- [ ] CupertinoMagnifier
-- [ ] CupertinoPageScaffoldBackgroundColor
-- [ ] CupertinoPageTransition
-- [ ] CupertinoPickerDefaultSelectionOverlay
-- [ ] CupertinoPopupSurface
-- [ ] CupertinoRadio
-- [ ] CupertinoScrollbar
-- [ ] CupertinoSegmentedControl
-- [ ] CupertinoSheetTransition
-- [ ] CupertinoSlidingSegmentedControl
-- [ ] CupertinoSliverRefreshControl
-- [ ] CupertinoSpellCheckSuggestionsToolbar
-- [ ] CupertinoTextFormFieldRow
-- [ ] CupertinoTextMagnifier
-- [ ] CupertinoTextSelectionToolbar
-- [ ] CupertinoTextSelectionToolbarButton
-- [ ] CupertinoTheme
-- [ ] CupertinoUserInterfaceLevel
-- [ ] InheritedCupertinoTheme
+- ✅ CupertinoActivityIndicator
+- ✅ CupertinoContextMenu
+- ✅ CupertinoContextMenuAction
+- ✅ CupertinoFormRow
+- ✅ CupertinoFormSection
+- ✅ CupertinoListSection
+- ✅ CupertinoListTileChevron
+- ✅ CupertinoNavigationBarBackButton
+- ✅ CupertinoPageScaffold
+- ✅ CupertinoSlider
+- ✅ CupertinoTabBar
+- 🟡 CupertinoActionSheet — 4/6 props · missing: `actionScrollController`, `messageScrollController`
+- 🟡 CupertinoActionSheetAction — 4/5 props · missing: `mouseCursor`
+- 🟡 CupertinoAlertDialog — 5/7 props · missing: `actionScrollController`, `scrollController`
+- 🟡 CupertinoApp — 13/29 props native, 11/29 web · missing: `actions`, `locale`, `localeListResolutionCallback`, `localeResolutionCallback`, `localizationsDelegates`, +11 · inert on web: `builder`, `onGenerateTitle` · dropped constructors: `.createCupertinoHeroController`
+- 🟡 CupertinoButton — 15/18 props · missing: `focusNode`, `minimumSize`, `mouseCursor`
+- 🟡 CupertinoCheckbox — 11/14 props · missing: `fillColor`, `focusNode`, `mouseCursor`
+- 🟡 CupertinoDialogAction — 5/6 props · missing: `mouseCursor`
+- 🟡 CupertinoExpansionTile — 3/4 props · missing: `controller`
+- 🟡 CupertinoListTile — 10/11 props · missing: `onTap`
+- 🟡 CupertinoNavigationBar — 13/15 props · missing: `heroTag`, `padding`
+- 🟡 CupertinoPicker — 12/13 props · missing: `scrollController`
+- 🟡 CupertinoSearchTextField — 30/33 props · missing: `controller`, `focusNode`, `keyboardType`
+- 🟡 CupertinoSliverNavigationBar — 17/19 props · missing: `heroTag`, `padding`
+- 🟡 CupertinoSwitch — 15/24 props · missing: `activeThumbImage`, `focusNode`, `inactiveThumbImage`, `mouseCursor`, `onActiveThumbImageError`, +4
+- 🟡 CupertinoTabScaffold — 5/6 props native, 4/6 web · missing: `controller` · inert on web: `tabBuilder`
+- 🟡 CupertinoTabView — 3/8 props native, 2/8 web · missing: `navigatorKey`, `navigatorObservers`, `onGenerateRoute`, `onUnknownRoute`, `routes` · inert on web: `builder`
+- 🟡 CupertinoTextField — 53/71 props native, 51/71 web · missing: `autofillHints`, `contentInsertionConfiguration`, `contextMenuBuilder`, `controller`, `focusNode`, +13 · inert on web: `selectionHeightStyle`, `selectionWidthStyle` · dropped constructors: `.defaultSpellCheckSuggestionsToolbarBuilder`, `.inferIOSSpellCheckConfiguration`
+- 🟡 CupertinoTimerPicker — 10/10 props native, 8/10 web · inert on web: `onTimerDurationChanged`, `selectionOverlayBuilder`
+- ⬜ CupertinoAdaptiveTextSelectionToolbar
+- ⬜ CupertinoDatePicker
+- ⬜ CupertinoDesktopTextSelectionToolbar
+- ⬜ CupertinoDesktopTextSelectionToolbarButton
+- ⬜ CupertinoFullscreenDialogTransition
+- ⬜ CupertinoMagnifier
+- ⬜ CupertinoPageScaffoldBackgroundColor
+- ⬜ CupertinoPageTransition
+- ⬜ CupertinoPickerDefaultSelectionOverlay
+- ⬜ CupertinoPopupSurface
+- ⬜ CupertinoRadio
+- ⬜ CupertinoScrollbar
+- ⬜ CupertinoSegmentedControl
+- ⬜ CupertinoSheetTransition
+- ⬜ CupertinoSlidingSegmentedControl
+- ⬜ CupertinoSliverRefreshControl
+- ⬜ CupertinoSpellCheckSuggestionsToolbar
+- ⬜ CupertinoTextFormFieldRow
+- ⬜ CupertinoTextMagnifier
+- ⬜ CupertinoTextSelectionToolbar
+- ⬜ CupertinoTextSelectionToolbarButton
+- ⬜ CupertinoTheme
+- ⬜ CupertinoUserInterfaceLevel
+- ⬜ InheritedCupertinoTheme
 
 ## Notes
 
-- `foundation.dart` exports no widgets. What the issue calls Foundation (`Alignment`, `EdgeInsets`, `BoxDecoration`) lives in `painting.dart` and is already supported.
 - Only concrete classes extending `Widget` are listed. Abstract classes and supporting types (enums, themes, controllers) are excluded.
-- Generated by `generator/tool/coverage_audit.dart`. Re-run it after every change to `generation_index.dart`.
+- Property counts come from the constructor a caller actually reaches for (the unnamed one when it exists). Per-constructor detail lives in `generator/build/coverage_status.json`.
+- A property is counted as exposed when its Java setter is generated. That is a statement about the API surface, not proof that the widget renders correctly.
+- Generated by `generator/tool/coverage_audit.dart` from `generator/build/coverage_status.json`. Never edit by hand: CI regenerates this file on `main` and commits it whenever the content changes.

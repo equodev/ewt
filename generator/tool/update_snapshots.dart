@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 // Refresh the frozen snapshots under generator/test/snapshots/.
 //
 // Runs the generator against the real generation_index.dart, then copies the
-// six gitignored monolithic outputs into test/snapshots/. Use this only after
+// gitignored monolithic outputs into test/snapshots/. Use this only after
 // an intentional change to the emitter, and commit the resulting diff.
 //
 // The committed per-widget outputs (ewt.api/*.java, widgets_web/*.dart) are
@@ -18,6 +18,7 @@ const _monolithicSnapshots = <List<String>>[
   ['../widgets/lib/factories_gen.dart', 'factories_gen.dart'],
   ['../widgets/lib/subwidgets.dart', 'subwidgets_widgets.dart'],
   ['./lib/subwidgets.dart', 'subwidgets_generator.dart'],
+  ['./build/coverage_status.json', 'coverage_status.json'],
 ];
 
 Future<void> main() async {

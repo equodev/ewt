@@ -1,3 +1,5 @@
+import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
@@ -30,6 +32,7 @@ part 'emit/base/subclass_gen.dart';
 part 'emit/base/enum_gen.dart';
 part 'pre_generation.dart';
 part 'gen_helpers.dart';
+part 'coverage.dart';
 part 'generation.dart';
 part 'params.dart';
 

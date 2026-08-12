@@ -238,6 +238,7 @@ class Generation {
     widGen
       ..gen()
       ..genJavaClass()..write();
+    CoverageReport.recordWidget(dartClass, hasMembers: widGen.hasMembers);
     if (widGen.hasMembers) {
       classesWithSetup.add(dartClass.thisType.element);
     } else if (!dartClass.isAbstract) {
@@ -343,6 +344,7 @@ class Generation {
     _writeJ('EWT', javaStatics.toString());
     _writeJ('SerializingWidgetConstructors', _buildSerializingClass(javaSerializer.toString()));
     _writeWW('factories_web_gen.dart', _buildWebDecoders(dartWebDecoders.toString()));
+    CoverageReport.write();
 
     for (var t in types.unsupportedTypes) {
       warn('unsupported type: $t');

@@ -334,7 +334,12 @@ class WidgetGen implements AGen {
   }
 
   void writeFactory(FunctionTypedElement node) {
-    if (node.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) || !types.supportedType(node.returnType)) {
+    final blocked = node.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) ||
+        !types.supportedType(node.returnType);
+    // Recorded before the bail-out so a constructor dropped for an unmarshalable
+    // required param shows up in coverage_status.json instead of vanishing.
+    CoverageReport.recordFactory(widgetClass, node, types, emitted: !blocked);
+    if (blocked) {
       return;
     }
     String factory = (node.name!.isEmpty) ? widgetField : node.name!;

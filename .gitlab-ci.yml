@@ -137,6 +137,16 @@ generate:
       - ewt.api/src/main/java/dev/equo/ewt/ffm/
     expire_in: 1 week
 
+# Rebuilds docs/coverage.md and, on main, commits it — but only when the content
+# actually changed. The report is deterministic (no timestamps, every list sorted),
+# so a commit that does not affect coverage produces a byte-identical file and no
+# commit at all.
+#
+# The audit needs build/coverage_status.json, which only the generator produces.
+# Running the generator here rather than depending on the `generate` job is
+# deliberate: `generate` sits behind the manual release_gate on main, so coverage.md
+# would stop refreshing on ordinary pushes. This is ~10s of pure Dart — no gradle,
+# no jextract, no JDK.
 coverage:commit:
   stage: check
   image: $FLUTTER_IMAGE_TAG
@@ -145,7 +155,16 @@ coverage:commit:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
-    - (cd "$CI_PROJECT_DIR/generator" && flutter pub get && dart tool/coverage_audit.dart)
+    # subwidgets.dart is gitignored but imported by generation_index.dart; drop the
+    # pregeneration cache so the generator writes it before the main run.
+    - |
+      (
+        cd "$CI_PROJECT_DIR/generator"
+        flutter pub get
+        rm -f build/pregeneration_index.dart.ts
+        dart run bin/generator.dart
+        dart tool/coverage_audit.dart
+      )
     - |
       GENERATED=$(cat "$CI_PROJECT_DIR/docs/coverage.md")
       CURRENT=$(curl -sf --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
@@ -163,6 +182,40 @@ coverage:commit:
           --data "{\"branch\":\"$CI_DEFAULT_BRANCH\",\"content\":\"$ENCODED\",\"encoding\":\"base64\",\"commit_message\":\"chore(coverage): refresh docs/coverage.md [skip ci]\"}"
         echo "Refreshed docs/coverage.md"
       fi
+
+# Flags coverage that got WORSE in this MR: a property that lost its Java setter,
+# a constructor no longer generated, a widget no longer instantiable. New widgets
+# that land incomplete are reported but do not fail (see tool/coverage_gate.dart).
+#
+# allow_failure: true on purpose. This is an advisory signal, and it must never be
+# the reason an MR cannot merge — not for a real regression the author accepts, and
+# certainly not for a hiccup in the API call that fetches the baseline. The gate
+# itself is defensive too: a missing or malformed baseline exits 0 with a warning.
+#
+# The baseline is the snapshot as committed on the default branch, fetched over the
+# API rather than read from the branch, so an MR cannot move its own goalposts by
+# refreshing test/snapshots/coverage_status.json.
+coverage:gate:
+  stage: check
+  image: $FLUTTER_IMAGE_TAG
+  needs: []
+  allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  script:
+    - |
+      (
+        cd "$CI_PROJECT_DIR/generator"
+        flutter pub get
+        rm -f build/pregeneration_index.dart.ts
+        dart run bin/generator.dart
+      )
+    - |
+      BASELINE="$CI_PROJECT_DIR/generator/build/coverage_baseline.json"
+      curl -sf --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/files/generator%2Ftest%2Fsnapshots%2Fcoverage_status.json/raw?ref=$CI_DEFAULT_BRANCH" \
+        -o "$BASELINE" || echo "could not fetch the baseline from $CI_DEFAULT_BRANCH; the gate will skip"
+      (cd "$CI_PROJECT_DIR/generator" && dart tool/coverage_gate.dart "$BASELINE")
 
 # Pure-Dart web decoders: no swt-evolve needed, so this runs on the same Linux image
 # alongside the native flutter builds. factories_web_gen.dart is committed (not gitignored)
