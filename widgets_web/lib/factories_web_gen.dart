@@ -3220,6 +3220,39 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       menuChildren: ((p['menuChildren'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
 
+  'submenuButtonSubmenuButton': (p) => SubmenuButton(
+      onHover: ewtWireValueCallback(p['onHover']),
+      onFocusChange: ewtWireValueCallback(p['onFocusChange']),
+      onOpen: ewtWireCallback(p['onOpen']),
+      onClose: ewtWireCallback(p['onClose']),
+      alignmentOffset: p['alignmentOffset'] == null ? null : decodeEwtNode(p['alignmentOffset'] as Map<String,dynamic>) as Offset,
+      clipBehavior: p['clipBehavior'] == null ? Clip.none : Clip.values[p['clipBehavior'] as int],
+      leadingIcon: p['leadingIcon'] == null ? null : decodeEwtWidget(p['leadingIcon'] as Map<String,dynamic>),
+      trailingIcon: p['trailingIcon'] == null ? null : decodeEwtWidget(p['trailingIcon'] as Map<String,dynamic>),
+      useRootOverlay: (p['useRootOverlay'] as bool?) ?? false,
+      menuChildren: ((p['menuChildren'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'popupMenuButtonPopupMenuButton': (p) => PopupMenuButton(
+      itemBuilder: (context) => [],
+      onOpened: ewtWireCallback(p['onOpened']),
+      onCanceled: ewtWireCallback(p['onCanceled']),
+      tooltip: p['tooltip'] as String?,
+      elevation: (p['elevation'] as num?)?.toDouble(),
+      shadowColor: p['shadowColor'] == null ? null : decodeEwtNode(p['shadowColor'] as Map<String,dynamic>) as Color,
+      surfaceTintColor: p['surfaceTintColor'] == null ? null : decodeEwtNode(p['surfaceTintColor'] as Map<String,dynamic>) as Color,
+      padding: p['padding'] == null ? const EdgeInsets.all(8.0) : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsets,
+      clipBehavior: p['clipBehavior'] == null ? Clip.none : Clip.values[p['clipBehavior'] as int],
+      enabled: (p['enabled'] as bool?) ?? true,
+      icon: p['icon'] == null ? null : decodeEwtWidget(p['icon'] as Map<String,dynamic>),
+      iconSize: (p['iconSize'] as num?)?.toDouble(),
+      offset: p['offset'] == null ? Offset.zero : decodeEwtNode(p['offset'] as Map<String,dynamic>) as Offset,
+      color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      iconColor: p['iconColor'] == null ? null : decodeEwtNode(p['iconColor'] as Map<String,dynamic>) as Color,
+      enableFeedback: p['enableFeedback'] as bool?,
+      useRootNavigator: (p['useRootNavigator'] as bool?) ?? false,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
   'menuItemButtonMenuItemButton': (p) => MenuItemButton(onPressed: ewtWireCallback(p['onPressed']),
       onHover: ewtWireValueCallback(p['onHover']),
       requestFocusOnHover: (p['requestFocusOnHover'] as bool?) ?? true,
@@ -3787,8 +3820,11 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       debugPrint('EWT: subAnimatedStateAnimationController outside animated region (ctrlId=$ctrlId)');
       return null;
     }
-    final duration = decodeEwtNode(p['duration'] as Map<String, dynamic>) as Duration;
-    return registry.putIfAbsent(ctrlId, () => AnimationController(vsync: vsync, duration: duration));
+    // duration is only needed when creating a new controller; on rebuild the stub omits it.
+    return registry.putIfAbsent(ctrlId, () {
+      final duration = decodeEwtNode(p['duration'] as Map<String, dynamic>) as Duration;
+      return AnimationController(vsync: vsync, duration: duration);
+    });
   },
   'curvedAnimationCurvedAnimation': (p) => CurvedAnimation(
       parent: decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>,
