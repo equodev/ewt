@@ -164,6 +164,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "offsetLerp", p);
     return id;
   }
+  @Override
+  double offsetDx(Offset self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "offsetDx", p);
+    return id;
+  }
+  @Override
+  double offsetDy(Offset self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "offsetDy", p);
+    return id;
+  }
 
   @Override
   int dateTimeDateTime(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
@@ -1400,6 +1416,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
     kind.ifPresent(v -> p.put("kind", v.ordinal()));
     record(id, "tapDownDetailsTapDownDetails", p);
+    return id;
+  }
+  @Override
+  int tapDownDetailsGlobalPosition(TapDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapDownDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int tapDownDetailsLocalPosition(TapDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapDownDetailsLocalPosition", p);
     return id;
   }
 

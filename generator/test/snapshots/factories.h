@@ -22,6 +22,8 @@ typedef struct {
     DartObj (*offset)(double dx, double dy);
     DartObj (*fromDirection)(double direction, double* distance);
     DartObj (*lerp)(DartObj a, DartObj b, double t);
+    double (*dx)(DartObj self);
+    double (*dy)(DartObj self);
   } offset;
 
   struct DateTimeSt {
@@ -259,6 +261,8 @@ typedef struct {
 
   struct TapDownDetailsSt {
     DartObj (*tapDownDetails)(DartObj* globalPosition, DartObj* localPosition, int* kind);
+    DartObj (*globalPosition)(DartObj self);
+    DartObj (*localPosition)(DartObj self);
   } tapDownDetails;
 
   struct TapUpDetailsSt {

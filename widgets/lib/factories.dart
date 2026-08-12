@@ -18,6 +18,8 @@ part 'factories_gen.dart';
 part 'sub_animated_state.dart';
 part 'sub_animated_state_methods.dart';
 part 'animation_controller_methods.dart';
+part 'tap_down_details_methods.dart';
+part 'offset_methods.dart';
 
 final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;

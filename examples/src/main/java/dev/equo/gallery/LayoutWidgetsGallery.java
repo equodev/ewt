@@ -45,6 +45,7 @@ public class LayoutWidgetsGallery {
     double _size = 60.0;
     boolean _visible = true;
     int _normalTaps = 0;
+    String _lastTap = "-";
 
     @Override
     public Widget build(BuildContext context) {
@@ -135,6 +136,15 @@ public class LayoutWidgetsGallery {
                   GestureDetector().onTap(() -> setState(() -> _normalTaps++))
                       .child(rect(60.0, 40.0, Colors.green())),
                   IgnorePointer().child(rect(60.0, 40.0, Colors.red()))
+              ))),
+          // Smoke test: TapDownDetails.globalPosition() reads the Dart-side value
+          tile("onTapDown coords",
+              Column().children(List.of(
+                  GestureDetector()
+                      .onTapDown(d -> setState(() -> _lastTap =
+                          "(" + (int) d.globalPosition().dx() + "," + (int) d.globalPosition().dy() + ")"))
+                      .child(rect(80.0, 40.0, Colors.deepPurple())),
+                  Text("last: " + _lastTap)
               ))),
           Divider(),
 

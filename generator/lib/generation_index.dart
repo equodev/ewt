@@ -7,6 +7,8 @@ import 'subwidgets.dart' as s;
 import 'sub_animated_state.dart' as sas;
 import 'animation_controller_methods.dart' as acm;
 import 'sub_animated_state_methods.dart' as sasm;
+import 'tap_down_details_methods.dart' as tddm;
+import 'offset_methods.dart' as om;
 
 // Index of Dart types the generator emits Java + FFI code for.
 // See docs/gen_structure.md for the deferred-widgets list and the reasons —
@@ -294,6 +296,8 @@ sas.SubAnimatedState? subAnimatedState;
 
 acm.AnimationControllerMethods? animationControllerMethods;
 sasm.SubAnimatedStateMethods? subAnimatedStateMethods;
+tddm.TapDownDetailsMethods? tapDownDetailsMethods;
+om.OffsetMethods? offsetMethods;
 
 const showDialog = m.showDialog;
 const showDatePicker = m.showDatePicker;

@@ -70,6 +70,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'offsetLerp': (p) => Offset.lerp(decodeEwtNode(p['a'] as Map<String,dynamic>) as Offset,
       decodeEwtNode(p['b'] as Map<String,dynamic>) as Offset,
       (p['t'] as num).toDouble()),
+  'offsetDx': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as Offset).dx,
+  'offsetDy': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as Offset).dy,
 
   'dateTimeDateTime': (p) => DateTime(p['year'] as int,
       (p['month'] as int?) ?? 1,
@@ -499,6 +501,8 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'tapDownDetailsTapDownDetails': (p) => TapDownDetails(globalPosition: p['globalPosition'] == null ? Offset.zero : decodeEwtNode(p['globalPosition'] as Map<String,dynamic>) as Offset,
       localPosition: p['localPosition'] == null ? null : decodeEwtNode(p['localPosition'] as Map<String,dynamic>) as Offset,
       kind: p['kind'] == null ? null : PointerDeviceKind.values[p['kind'] as int]),
+  'tapDownDetailsGlobalPosition': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as TapDownDetails).globalPosition,
+  'tapDownDetailsLocalPosition': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as TapDownDetails).localPosition,
 
   'tapUpDetailsTapUpDetails': (p) => TapUpDetails(globalPosition: p['globalPosition'] == null ? Offset.zero : decodeEwtNode(p['globalPosition'] as Map<String,dynamic>) as Offset,
       localPosition: p['localPosition'] == null ? null : decodeEwtNode(p['localPosition'] as Map<String,dynamic>) as Offset,

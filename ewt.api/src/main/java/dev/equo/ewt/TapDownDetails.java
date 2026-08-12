@@ -21,6 +21,16 @@ public class TapDownDetails extends NativeObj.Base implements TapDownDetailsI {
   public static TapDownDetailsTapDownDetailsBuilder tapDownDetails() {
     return TapDownDetailsTapDownDetailsBuilder.tapDownDetailsTapDownDetails();
   }
+  public Offset globalPosition() {
+    int id = factories.tapDownDetailsGlobalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
+    return new Offset(id);
+  }
+  public Offset localPosition() {
+    int id = factories.tapDownDetailsLocalPosition(this);
+    if (id <= 0) throw new RuntimeException("Failed to call localPosition");
+    return new Offset(id);
+  }
   @Override
   public TapDownDetails build() {
     return this;

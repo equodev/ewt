@@ -39,6 +39,14 @@ public class Offset extends OffsetBase implements OffsetI {
     System.out.println("New Offset? id:"+id);
     return new Offset(id);
   }
+  public double dx() {
+    double id = factories.offsetDx(this);
+    return id;
+  }
+  public double dy() {
+    double id = factories.offsetDy(this);
+    return id;
+  }
   public static Offset zero() {
     return Offset.offset(0.0, 0.0).build();
   }

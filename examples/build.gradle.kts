@@ -99,7 +99,8 @@ dependencies {
 // examples still compile (these two extend/import Evolve's org.eclipse.swt.* types).
 if (!evolveAvailable) {
     sourceSets["main"].java.exclude(
-        "dev/equo/EvolveEwtButtons.java"
+        "dev/equo/EvolveEwtButtons.java",
+        "dev/equo/EvolveSamples.java"
     )
 }
 

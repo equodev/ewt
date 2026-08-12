@@ -212,6 +212,8 @@ void _setupOffset(WidgetFactories f) {
   f.offset.offset = ffi.Pointer.fromFunction(offsetOffset, exception);
   f.offset.fromDirection = ffi.Pointer.fromFunction(offsetFromDirection, exception);
   f.offset.lerp = ffi.Pointer.fromFunction(offsetLerp, exception);
+  f.offset.dx = ffi.Pointer.fromFunction(offsetDx, exceptionDouble);
+  f.offset.dy = ffi.Pointer.fromFunction(offsetDy, exceptionDouble);
 }
 int offsetOffset(double dx, double dy) {
   final w = Offset(dx,
@@ -228,6 +230,14 @@ int offsetLerp(DartDartObj a, DartDartObj b, double t) {
       _widgetsMap[b]! as Offset?,
       t);
   return _addWidget(w);
+}
+double offsetDx(DartDartObj self) {
+  final w = OffsetMethods.dx(_widgetsMap[self]! as Offset);
+  return w;
+}
+double offsetDy(DartDartObj self) {
+  final w = OffsetMethods.dy(_widgetsMap[self]! as Offset);
+  return w;
 }
 
 void _setupDateTime(WidgetFactories f) {
@@ -1424,11 +1434,21 @@ VelocityObjSt _createVelocityObjSt(Velocity? w) {
 
 void _setupTapDownDetails(WidgetFactories f) {
   f.tapDownDetails.tapDownDetails = ffi.Pointer.fromFunction(tapDownDetailsTapDownDetails, exception);
+  f.tapDownDetails.globalPosition = ffi.Pointer.fromFunction(tapDownDetailsGlobalPosition, exception);
+  f.tapDownDetails.localPosition = ffi.Pointer.fromFunction(tapDownDetailsLocalPosition, exception);
 }
 int tapDownDetailsTapDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<ffi.Int> kind) {
   final w = TapDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
       localPosition: localPosition.objOrNul(),
       kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+int tapDownDetailsGlobalPosition(DartDartObj self) {
+  final w = TapDownDetailsMethods.globalPosition(_widgetsMap[self]! as TapDownDetails);
+  return _addWidget(w);
+}
+int tapDownDetailsLocalPosition(DartDartObj self) {
+  final w = TapDownDetailsMethods.localPosition(_widgetsMap[self]! as TapDownDetails);
   return _addWidget(w);
 }
 

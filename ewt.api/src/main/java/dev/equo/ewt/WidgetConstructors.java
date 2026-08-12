@@ -203,6 +203,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
       b != null ? b.build().getId() : null,
       t);
   }
+  double offsetDx(Offset self) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.dx(st);
+    return WidgetFactories.OffsetSt.dx.invoke(fn, self.build().getId());
+  }
+  double offsetDy(Offset self) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.dy(st);
+    return WidgetFactories.OffsetSt.dy.invoke(fn, self.build().getId());
+  }
 
   int dateTimeDateTime(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
     var st = WidgetFactories.dateTime(factories);
@@ -1057,6 +1067,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.TapDownDetailsSt.tapDownDetails.invoke(fn, ptrObj(globalPosition),
       ptrObj(localPosition),
       ptrEnum(kind));
+  }
+  int tapDownDetailsGlobalPosition(TapDownDetails self) {
+    var st = WidgetFactories.tapDownDetails(factories);
+    var fn = WidgetFactories.TapDownDetailsSt.globalPosition(st);
+    return WidgetFactories.TapDownDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int tapDownDetailsLocalPosition(TapDownDetails self) {
+    var st = WidgetFactories.tapDownDetails(factories);
+    var fn = WidgetFactories.TapDownDetailsSt.localPosition(st);
+    return WidgetFactories.TapDownDetailsSt.localPosition.invoke(fn, self.build().getId());
   }
 
   int tapUpDetailsTapUpDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, PointerDeviceKind kind) {
