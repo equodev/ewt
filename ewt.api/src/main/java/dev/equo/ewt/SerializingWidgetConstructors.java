@@ -12,9 +12,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   public Map<Integer, EwtNode> nodes() { return byId; }
   private final Map<Integer, Object> callbacks = new HashMap<>();
   public Map<Integer, Object> callbacks() { return callbacks; }
+  // Deferred build fns for nested Sub* widgets: resolved after the outer build() returns so
+  // subclass fields (set in the concrete constructor body) are already initialized when called.
+  final Map<Integer, Function<BuildContext, Widget>> deferredStateless = new java.util.LinkedHashMap<>();
+  final Map<Integer, Supplier<State>> deferredStateful = new java.util.LinkedHashMap<>();
   public EwtNode rootNode(int rootWidgetId) { EwtNode n = byId.get(rootWidgetId);
     if (n == null) throw new IllegalStateException("No recorded node for id " + rootWidgetId); return n; }
   private void record(int id, String type, Map<String,Object> p) { byId.put(id, new EwtNode(id, type, p, java.util.List.of())); }
+  /** Called by rebuildAnimated to claim an AnimationController id in this serializer so SubStateless
+   *  placeholder ids cannot collide with it. The stub carries only ctrlId; the Dart side matches
+   *  the existing controller by ctrlId and reuses it, so duration/self are not needed on rebuild. */
+  void preregisterAnimationController(int ctrlId) {
+    if (nextId <= ctrlId) nextId = ctrlId + 1;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("ctrlId", ctrlId);
+    record(ctrlId, "subAnimatedStateAnimationController", p);
+  }
   public int recordAccessor(String type, int receiverId) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -8109,6 +8122,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_createStateFn = nextCallbackId++; p.put("createStateFn", __cb_createStateFn); callbacks.put(__cb_createStateFn, createStateFn);
     record(id, "subStatefulWidgetSubStatefulWidget", p);
+    deferredStateful.put(id, createStateFn);
     MemorySegment st = SubStatefulWidgetObjSt.allocate(arena);
     SubStatefulWidgetObjSt.id(st, id);
     return st;
@@ -8120,6 +8134,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("buildFn", nextCallbackId++);
     record(id, "subStatelessWidgetSubStatelessWidget", p);
+    deferredStateless.put(id, buildFn);
     MemorySegment st = SubStatelessWidgetObjSt.allocate(arena);
     SubStatelessWidgetObjSt.id(st, id);
     return st;
@@ -8164,5 +8179,89 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("parent", byId.get(parent.getId()));
     record(id, "offsetTween", p);
     return id;
+  }
+
+  /**
+   * Resolves nested SubStateless/SubStateful placeholders recorded during the outer build().
+   * Must be called after the outer state's build() returns, so all subclass constructors have
+   * finished and their fields are initialized. Runs in a loop to handle arbitrarily deep nesting.
+   *
+   * @param ctx stub BuildContext for web-mode builds
+   * @param nestedStatesOut receives SubState/SubAnimatedState instances created during resolution
+   *                        so the caller can register their setState → rebuild hooks
+   */
+  @SuppressWarnings("unchecked")
+  public void resolveDeferred(BuildContext ctx, java.util.List<Object> nestedStatesOut) {
+    while (!deferredStateless.isEmpty() || !deferredStateful.isEmpty()) {
+      var ssSnap = new java.util.LinkedHashMap<>(deferredStateless);
+      var sfSnap  = new java.util.LinkedHashMap<>(deferredStateful);
+      deferredStateless.clear();
+      deferredStateful.clear();
+
+      for (var e : ssSnap.entrySet()) {
+        int pid = e.getKey();
+        Widget built = ((Function<BuildContext, Widget>) e.getValue()).apply(ctx);
+        EwtNode resolved = byId.get(built.getId());
+        byId.put(pid, resolved);
+        replaceInAll(pid, resolved);
+      }
+
+      for (var e : sfSnap.entrySet()) {
+        int pid = e.getKey();
+        SubStatefulWidget ownerWidget = SubclassedInJava.getSubNatObj(pid);
+        if (ownerWidget == null) continue;
+        Object stateObj = ownerWidget.createStateFn();
+        EwtNode resolved;
+        if (stateObj instanceof SubState<?> ss) {
+          ss.setWebWidget(ownerWidget);
+          ss.initStateFn();
+          Widget built = ss.buildFn(ctx);
+          resolved = byId.get(built.getId());
+          nestedStatesOut.add(ss);
+        } else if (stateObj instanceof SubAnimatedState<?> as) {
+          as.setWebWidget(ownerWidget);
+          as.initStateFn();
+          Widget built = as.buildFn(ctx);
+          resolved = byId.get(built.getId());
+          nestedStatesOut.add(as);
+        } else {
+          continue;
+        }
+        byId.put(pid, resolved);
+        replaceInAll(pid, resolved);
+      }
+    }
+  }
+
+  private void replaceInAll(int oldId, EwtNode replacement) {
+    for (EwtNode node : byId.values()) {
+      if (node == null) continue;
+      replaceInParams(node, oldId, replacement);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private void replaceInParams(EwtNode owner, int oldId, EwtNode replacement) {
+    java.util.Map<String, Object> params = owner.params();
+    for (var e : params.entrySet()) {
+      Object v = e.getValue();
+      if (v instanceof EwtNode n && n.id() == oldId) {
+        e.setValue(replacement);
+      } else if (v instanceof java.util.List<?> list) {
+        replaceInList((java.util.List<Object>) list, oldId, replacement);
+      }
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private void replaceInList(java.util.List<Object> list, int oldId, EwtNode replacement) {
+    for (int i = 0; i < list.size(); i++) {
+      Object v = list.get(i);
+      if (v instanceof EwtNode n && n.id() == oldId) {
+        list.set(i, replacement);
+      } else if (v instanceof java.util.List<?> nested) {
+        replaceInList((java.util.List<Object>) nested, oldId, replacement);
+      }
+    }
   }
 }
