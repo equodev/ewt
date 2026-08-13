@@ -17,7 +17,7 @@ public class Switch extends StatelessWidget implements SwitchI {
   }
   Switch(int id) { this.id = id; }
   @Builder.Factory
-  static Switch switch_Switch_(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding) {
+  static Switch switch_Switch_(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding) {
     var st = factories.switch_Switch_(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -25,10 +25,16 @@ public class Switch extends StatelessWidget implements SwitchI {
       activeTrackColor.map(ColorI::build),
       inactiveThumbColor.map(ColorI::build),
       inactiveTrackColor.map(ColorI::build),
+      thumbColor.map(ColorI::build),
+      trackColor.map(ColorI::build),
+      trackOutlineColor.map(ColorI::build),
+      trackOutlineWidth,
+      thumbIcon.map(IconI::build),
       materialTapTargetSize,
       dragStartBehavior,
       focusColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       onFocusChange,
       autofocus,
@@ -40,7 +46,7 @@ public class Switch extends StatelessWidget implements SwitchI {
     return Switch_Switch_Builder.switch_Switch_(value, onChanged);
   }
   @Builder.Factory
-  static Switch switch_Adaptive(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> applyCupertinoTheme) {
+  static Switch switch_Adaptive(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> applyCupertinoTheme) {
     var st = factories.switch_Adaptive(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -49,9 +55,15 @@ public class Switch extends StatelessWidget implements SwitchI {
       inactiveThumbColor.map(ColorI::build),
       inactiveTrackColor.map(ColorI::build),
       materialTapTargetSize,
+      thumbColor.map(ColorI::build),
+      trackColor.map(ColorI::build),
+      trackOutlineColor.map(ColorI::build),
+      trackOutlineWidth,
+      thumbIcon.map(IconI::build),
       dragStartBehavior,
       focusColor.map(ColorI::build),
       hoverColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       splashRadius,
       onFocusChange,
       autofocus,

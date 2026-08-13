@@ -17,12 +17,13 @@ public class CheckedPopupMenuItem<T> extends PopupMenuItem<T> implements Checked
   }
   CheckedPopupMenuItem(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> CheckedPopupMenuItem<T> checkedPopupMenuItemCheckedPopupMenuItem(Optional<NativeObj> value, Optional<Boolean> checked, Optional<Boolean> enabled, Optional<EdgeInsetsI> padding, OptionalDouble height, Optional<WidgetI> child, Optional<Runnable> onTap) {
+  static <T extends NativeObj> CheckedPopupMenuItem<T> checkedPopupMenuItemCheckedPopupMenuItem(Optional<NativeObj> value, Optional<Boolean> checked, Optional<Boolean> enabled, Optional<EdgeInsetsI> padding, OptionalDouble height, Optional<TextStyleI> labelTextStyle, Optional<WidgetI> child, Optional<Runnable> onTap) {
     var st = factories.checkedPopupMenuItemCheckedPopupMenuItem(value,
       checked,
       enabled,
       padding.map(EdgeInsetsI::build),
       height,
+      labelTextStyle.map(TextStyleI::build),
       child.map(WidgetI::build),
       onTap);
     if (st == null) throw new RuntimeException("Failed to created widget CheckedPopupMenuItem");

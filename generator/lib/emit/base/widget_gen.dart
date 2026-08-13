@@ -148,10 +148,23 @@ class WidgetGen implements AGen {
   /// ImageFilterGen / ColorFilterGen override to true.
   bool get isAbstractFactoryHost => false;
 
+  /// Skips static-factory emit for return types the FFM bridge can't hand
+  /// back to Java today. Bare `List<Widget>` was already excluded via
+  /// `isDartCoreList` because the invoke-path returns an ArrayC struct that
+  /// needs an arena arg (which the static-method emitter doesn't wire). The
+  /// same is true for `Iterable<Widget>` now that IterableHandler makes it a
+  /// supported type — without this filter, `ListTile.divideTiles` would
+  /// emit an `int` Java return that mismatches the C-side ArrayC.
+  bool _isCollectionReturn(DartType t) {
+    if (t.isDartCoreList) return true;
+    if (t is InterfaceType && t.element.name == 'Iterable') return true;
+    return false;
+  }
+
   @override
   void gen() {
     var constructors = dartClass.constructors.where((f) => f.isPublic);
-    var staticMethods = dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList);
+    var staticMethods = dartClass.methods.where((m) => m.isStatic && m.isPublic && !_isCollectionReturn(m.returnType));
     var consts = dartClass.fields.where((f) => f.isStatic && f.isConst).whereType<ConstFieldElementImpl>();
     var companionMethods = methodsCompanion?.methods.where((m) => m.isStatic && m.isPublic && _isCompanionInstanceMethod(m)) ?? const <MethodElement>[];
     // Abstract classes can still expose Dart `factory` constructors (e.g.
@@ -174,7 +187,7 @@ class WidgetGen implements AGen {
       for (var constr in constructors) {
         writeFactory(constr);
       }
-      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !m.returnType.isDartCoreList /*&& m.returnType == dartClass.thisType*/)) {
+      for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !_isCollectionReturn(m.returnType) /*&& m.returnType == dartClass.thisType*/)) {
         writeFactory(constr);
       }
       for (var method in companionMethods) {

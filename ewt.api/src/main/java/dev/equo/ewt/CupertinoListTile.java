@@ -17,12 +17,13 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
   }
   CupertinoListTile(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoListTile cupertinoListTileCupertinoListTile(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, Optional<WidgetI> additionalInfo, Optional<WidgetI> leading, Optional<WidgetI> trailing, Optional<ColorI> backgroundColor, Optional<ColorI> backgroundColorActivated, Optional<EdgeInsetsGeometryI> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+  static CupertinoListTile cupertinoListTileCupertinoListTile(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, Optional<WidgetI> additionalInfo, Optional<WidgetI> leading, Optional<WidgetI> trailing, Optional<Runnable> onTap, Optional<ColorI> backgroundColor, Optional<ColorI> backgroundColorActivated, Optional<EdgeInsetsGeometryI> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
     var st = factories.cupertinoListTileCupertinoListTile(title.build(),
       subtitle.map(WidgetI::build),
       additionalInfo.map(WidgetI::build),
       leading.map(WidgetI::build),
       trailing.map(WidgetI::build),
+      onTap,
       backgroundColor.map(ColorI::build),
       backgroundColorActivated.map(ColorI::build),
       padding.map(EdgeInsetsGeometryI::build),
@@ -35,12 +36,13 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
     return CupertinoListTileCupertinoListTileBuilder.cupertinoListTileCupertinoListTile(title);
   }
   @Builder.Factory
-  static CupertinoListTile cupertinoListTileNotched(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, Optional<WidgetI> additionalInfo, Optional<WidgetI> leading, Optional<WidgetI> trailing, Optional<ColorI> backgroundColor, Optional<ColorI> backgroundColorActivated, Optional<EdgeInsetsGeometryI> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
+  static CupertinoListTile cupertinoListTileNotched(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, Optional<WidgetI> additionalInfo, Optional<WidgetI> leading, Optional<WidgetI> trailing, Optional<Runnable> onTap, Optional<ColorI> backgroundColor, Optional<ColorI> backgroundColorActivated, Optional<EdgeInsetsGeometryI> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
     var st = factories.cupertinoListTileNotched(title.build(),
       subtitle.map(WidgetI::build),
       additionalInfo.map(WidgetI::build),
       leading.map(WidgetI::build),
       trailing.map(WidgetI::build),
+      onTap,
       backgroundColor.map(ColorI::build),
       backgroundColorActivated.map(ColorI::build),
       padding.map(EdgeInsetsGeometryI::build),

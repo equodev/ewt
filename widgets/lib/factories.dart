@@ -143,6 +143,12 @@ extension on ffi.Pointer<ffi.Char> {
 extension Obj<T> on int? {
   T? objOrNul() => this == null ? null : _widgetsMap[this]! as T;
 }
+/// Wraps a nullable inner value in a constant `WidgetStateProperty`, or
+/// returns null if the inner value is null. Used by the generator's
+/// [WidgetStatePropertyHandler] to expose `WidgetStateProperty<T>?` params
+/// as their plain-T equivalent on the Java surface.
+WidgetStateProperty<T>? _wspNul<T>(T? v) =>
+    v == null ? null : WidgetStatePropertyAll<T>(v);
 extension ObjPtr<T> on ffi.Pointer<ffi.Int> {
   T? objOrNul() => this == ffi.nullptr ? null : _widgetsMap[value]! as T;
   T objOr(T def) => this == ffi.nullptr ? def : _widgetsMap[value]! as T;

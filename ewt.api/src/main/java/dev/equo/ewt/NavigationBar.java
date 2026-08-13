@@ -17,7 +17,7 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
   }
   NavigationBar(int id) { this.id = id; }
   @Builder.Factory
-  static NavigationBar navigationBarNavigationBar(Optional<DurationI> animationDuration, OptionalInt selectedIndex, List<WidgetI> destinations, Optional<Consumer<Integer>> onDestinationSelected, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, OptionalDouble height, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> maintainBottomViewPadding) {
+  static NavigationBar navigationBarNavigationBar(Optional<DurationI> animationDuration, OptionalInt selectedIndex, List<WidgetI> destinations, Optional<Consumer<Integer>> onDestinationSelected, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, OptionalDouble height, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<ColorI> overlayColor, Optional<TextStyleI> labelTextStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> maintainBottomViewPadding) {
     var st = factories.navigationBarNavigationBar(animationDuration.map(DurationI::build),
       selectedIndex,
       destinations.stream().map(WidgetI::build).toList(),
@@ -30,6 +30,8 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       indicatorShape.map(ShapeBorderI::build),
       height,
       labelBehavior,
+      overlayColor.map(ColorI::build),
+      labelTextStyle.map(TextStyleI::build),
       labelPadding.map(EdgeInsetsGeometryI::build),
       maintainBottomViewPadding);
     if (st == null) throw new RuntimeException("Failed to created widget NavigationBar");

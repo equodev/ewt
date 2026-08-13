@@ -17,10 +17,14 @@ class JsonToDart extends SerializeStrategy {
     final key = param.name;
     final read = "p['$key']";
     final h = types.getHandler(t);
-    // Callbacks are inert in this phase: a void closure accepting any
-    // arity (optional positional Object? params make it assignable to
-    // VoidCallback / ValueChanged / etc.).
     if (h != null) {
+      // Value handlers (WidgetStatePropertyHandler, etc.) return their own
+      // JSON expression. Callback handlers leave it null and drop through to
+      // the inert / wired closure shapes below — a void closure accepting any
+      // arity (optional positional Object? params make it assignable to
+      // VoidCallback / ValueChanged / etc.).
+      final custom = h.value4Json(param);
+      if (custom != null) return custom;
       if (_isZeroArgCallback(t)) return 'ewtWireCallback($read)';
       if (_valueCallbackJavaType(t) != null) return 'ewtWireValueCallback($read)';
       return '([Object? a, Object? b, Object? c]) {}';

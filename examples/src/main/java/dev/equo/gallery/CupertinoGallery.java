@@ -170,7 +170,10 @@ public class CupertinoGallery {
                               CupertinoListSection_insetGrouped().children(List.of(
                                   CupertinoListTile(Text("Notifications"))
                                       .trailing(CupertinoSwitch(_switchOn,
-                                          v -> setState(() -> _switchOn = v))),
+                                          v -> setState(() -> _switchOn = v)))
+                                      // onTap is FutureOr<void> Function()? on Flutter;
+                                      // the handler unwraps to plain Runnable on the Java side.
+                                      .onTap(() -> setState(() -> _switchOn = !_switchOn)),
                                   CupertinoListTile(Text("Volume"))
                                       .subtitle(CupertinoSlider(_sliderVal,
                                           v -> setState(() -> _sliderVal = v))

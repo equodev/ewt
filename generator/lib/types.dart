@@ -21,7 +21,7 @@ class Types {
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
-        handlers = [MapHandler(), FunctionHandler()];
+        handlers = [MapHandler(), FutureOrHandler(), IterableHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
 
   /// Maps a Dart element to its generator. Single dispatch site: no
   /// downstream code branches on class name; every emitter uses
@@ -93,6 +93,15 @@ class Types {
 
   void addRequiredType(DartType requiredType) {
     if (requiredType.isDartCoreObject || requiredType.isDartCoreList || requiredType.isDartCoreMap || isPrimitive(requiredType)) {
+      return;
+    }
+    // Types owned by a value handler (Iterable<T>, FutureOr<T>,
+    // WidgetStateProperty<T>) are aliases onto their inner type — they never
+    // need their own emitted Java class. Emitting one is worse than useless:
+    // e.g. `dev.equo.ewt.Iterable` would shadow `java.lang.Iterable` for every
+    // file in the package and break every Immutables-generated builder that
+    // takes an `Iterable<? extends T>`.
+    if (getHandler(requiredType) != null) {
       return;
     }
     // if (processed.contains(requiredType.element)) {
@@ -342,6 +351,16 @@ class Types {
   /// `int*` in the typedef and so arrives as a pointer. Struct field getters
   /// read the same bool back as a plain int, hence the distinction.
   String paramValueFFMtoJ(Types types, ParameterElement param, {bool fromCallback = false}) {
+    // Value handlers that mirror an inner type on the Java surface
+    // (WidgetStatePropertyHandler) need this Java-side coercion to see the
+    // inner type — otherwise the field-accessor emitter constructs the outer
+    // wrapper class (`new WidgetStateProperty(...) {}`) and tries to return
+    // it as the unwrapped Java type, which won't type-check.
+    final h = getHandler(param.type);
+    if (h != null) {
+      final unwrapped = h.unwrapParam(param);
+      if (unwrapped != null) return paramValueFFMtoJ(types, unwrapped, fromCallback: fromCallback);
+    }
     var t = param.type;
     // Field getters typed as a type parameter `T` come back as an int id from
     // the struct. We can't marshall arbitrary values so — with `_sanitizeTypeParam`
@@ -453,6 +472,22 @@ mixin TypeHandler {
   String type4J(DartType t);
   String value4D(ParameterElement param);
   String value4FFM(ParameterElement param);
+
+  /// Web-decoder (`JsonToDart`) expression, or null to fall back to the
+  /// strategy's callback-shape defaults. Value-carrying handlers
+  /// (`WidgetStatePropertyHandler`) override this to decode the inner value
+  /// and wrap it; callback handlers (`FunctionHandler`) leave it null so the
+  /// strategy's `_isZeroArgCallback` / `_valueCallbackJavaType` dispatch keeps
+  /// producing the inert / wired closure shapes it always has.
+  String? value4Json(ParameterElement param) => null;
+
+  /// For handlers that mirror an inner type on the Java surface (aliases
+  /// like `WidgetStateProperty<T>` → `T`), return a synthetic parameter of
+  /// the inner type so upstream helpers that walk the Dart type — most
+  /// notably `Params.paramDef4JBuilder`, which extracts `type.element.name`
+  /// to build the `<Name>I` builder-interface — see the underlying type
+  /// rather than the wrapper. Callback handlers leave it null.
+  ParameterElement? unwrapParam(ParameterElement param) => null;
 }
 
 class MapHandler with TypeHandler {
@@ -470,7 +505,218 @@ class MapHandler with TypeHandler {
   String value4FFM(ParameterElement param) => 'ptrMap(${Params.escape4J(types, param)})';
 }
 
+/// `FutureOr<T>` is `dart:async`'s "T or Future<T>" union. From the Java side
+/// every call is synchronous — the Java caller can't return a Future — so
+/// treating `FutureOr<T>` as plain `T` is safe. This unlocks Flutter callback
+/// shapes like `optionsBuilder` on `Autocomplete<T>` (returns `FutureOr<Iterable<T>>`)
+/// and `onOpen` on menu widgets (returns `FutureOr<void>`) without any runtime
+/// bridge work.
+class FutureOrHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (t.element?.name != 'FutureOr') return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is VoidType) return true;
+    if (inner is TypeParameterType) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  ParameterElement _synth(ParameterElement param) {
+    final inner = _inner(param.type);
+    final kind = param.isOptional
+        ? ParameterKind.POSITIONAL
+        : ParameterKind.REQUIRED;
+    return paramElement(param.name, inner, kind);
+  }
+
+  @override
+  String type4C(DartType t) => types.type4C(_inner(t));
+  @override
+  String type4D(DartType t) => types.type4D(_inner(t));
+  @override
+  String type4J(DartType t) => types.type4J(_inner(t));
+
+  @override
+  String value4D(ParameterElement param) =>
+      const FfiToDart().apply(types, _synth(param));
+
+  @override
+  String value4FFM(ParameterElement param) =>
+      types.paramValue4FFM(types, _synth(param));
+
+  @override
+  String? value4Json(ParameterElement param) =>
+      const JsonToDart().apply(types, _synth(param));
+
+  @override
+  ParameterElement? unwrapParam(ParameterElement param) => _synth(param);
+}
+
+/// `Iterable<T>` is `List<T>`'s supertype. Every Flutter constructor that
+/// declares one accepts a `List<T>` at runtime — the type annotation is
+/// documentation, not enforcement. So we hand the Java caller the same
+/// `List<T>` surface we'd emit for a `List<T>` param and let it flow through
+/// the standard list marshaling path unchanged.
+///
+/// Only matches when the inner type is supported *and* not numeric-primitive
+/// (`List<double>` / `List<int>` are deferred by the same FFI-protocol gap
+/// noted in `gen_structure.md` §4).
+class IterableHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (t.element?.name != 'Iterable') return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is TypeParameterType) return false;
+    if (inner.isDartCoreDouble || inner.isDartCoreInt) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  /// Synthesizes a `List<T>` `DartType` from the analyzer's core-lib type
+  /// provider so the returned `ParameterElement` can pass through code paths
+  /// that inspect `t.isDartCoreList` (paramValueSerialize, paramValue4JBuilder,
+  /// FfiToDart.dispatchInterface, DartToC.dispatchInterface, …) as if the
+  /// original Flutter param had been typed `List<T>` all along.
+  ParameterElement _synth(ParameterElement param) {
+    final inner = _inner(param.type);
+    final tp = types.widgetElement!.library!.typeProvider;
+    final listT = tp.listType(inner);
+    final kind = param.isOptional
+        ? ParameterKind.POSITIONAL
+        : ParameterKind.REQUIRED;
+    return paramElement(
+      param.name,
+      param.type.nullabilitySuffix == NullabilitySuffix.question
+          ? (listT as InterfaceTypeImpl).withNullability(NullabilitySuffix.question)
+          : listT,
+      kind,
+    );
+  }
+
+  @override
+  String type4C(DartType t) => types.type4C(_synth(paramElement('', t)).type);
+  @override
+  String type4D(DartType t) => types.type4D(_synth(paramElement('', t)).type);
+  @override
+  String type4J(DartType t) => types.type4J(_synth(paramElement('', t)).type);
+
+  @override
+  String value4D(ParameterElement param) =>
+      const FfiToDart().apply(types, _synth(param));
+
+  @override
+  String value4FFM(ParameterElement param) =>
+      types.paramValue4FFM(types, _synth(param));
+
+  @override
+  String? value4Json(ParameterElement param) =>
+      const JsonToDart().apply(types, _synth(param));
+
+  @override
+  ParameterElement? unwrapParam(ParameterElement param) => _synth(param);
+}
+
+/// `WidgetStateProperty<T>` is Flutter's way of letting a value vary by widget
+/// state (hovered, pressed, focused, …). From the Java surface we expose the
+/// inner `T` directly — same Java type, same FFM marshaling, same C typedef.
+/// The only divergence is on the Dart FFI side: the incoming value is wrapped
+/// with `WidgetStatePropertyAll<T>(...)` before it's handed to the Flutter
+/// constructor.
+///
+/// This is a lossy compression of the Flutter API (users can't set different
+/// values per state), but covers the overwhelmingly-common case of "one value
+/// applied uniformly" — `TextButton.styleFrom(backgroundColor: Colors.blue)`.
+/// Per-state support would require crossing `Set<WidgetState>` as a callback
+/// argument, which needs new FFI plumbing.
+///
+/// Only matches when the inner `T` is supported. `WidgetStateProperty<MouseCursor>?`
+/// stays unsupported because `MouseCursor` isn't in the widget index, so a
+/// Java caller could never populate it anyway.
+class WidgetStatePropertyHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (t.element?.name != 'WidgetStateProperty') return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is TypeParameterType) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  ParameterElement _synth(ParameterElement param) {
+    final inner = _inner(param.type);
+    // Preserve the ORIGINAL param's optionality so the synth flows through
+    // FfiToDart / paramValue4FFM as if it were a plain-T param.
+    final kind = param.isOptional
+        ? ParameterKind.POSITIONAL
+        : ParameterKind.REQUIRED;
+    return paramElement(param.name, inner, kind);
+  }
+
+  @override
+  String type4C(DartType t) => types.type4C(_inner(t));
+  @override
+  String type4D(DartType t) => types.type4D(_inner(t));
+  @override
+  String type4J(DartType t) => types.type4J(_inner(t));
+
+  @override
+  String value4D(ParameterElement param) {
+    final innerExpr = const FfiToDart().apply(types, _synth(param));
+    // Preserve the outer nullability on the generic argument so
+    // `WidgetStateProperty<Color?>?` reads back as `WidgetStatePropertyAll<Color?>`.
+    // `matches` already excludes TypeParameterType inners, so the analyzer
+    // quirk `_dartTypeStr` guards against doesn't apply here — the plain
+    // display string preserves the trailing `?` correctly.
+    final innerDisplay = _inner(param.type).getDisplayString(withNullability: true);
+    if (param.isOptional) {
+      return '_wspNul<$innerDisplay>($innerExpr)';
+    }
+    return 'WidgetStatePropertyAll<$innerDisplay>($innerExpr)';
+  }
+
+  @override
+  String value4FFM(ParameterElement param) =>
+      types.paramValue4FFM(types, _synth(param));
+
+  @override
+  ParameterElement? unwrapParam(ParameterElement param) => _synth(param);
+
+  @override
+  String value4Json(ParameterElement param) {
+    final innerExpr = const JsonToDart().apply(types, _synth(param));
+    final innerDisplay =
+        _inner(param.type).getDisplayString(withNullability: true);
+    if (param.isOptional) {
+      return '_wspNul<$innerDisplay>($innerExpr)';
+    }
+    return 'WidgetStatePropertyAll<$innerDisplay>($innerExpr)';
+  }
+}
+
 class FunctionHandler with TypeHandler {
+  /// A `FutureOr<T>` return type is treated as plain `T` — Java always returns
+  /// synchronously across the FFI boundary, so the union collapses to the
+  /// non-Future side and shape-picking (Runnable / Supplier<T> / …) works off
+  /// the same skeleton as a pure-T return.
+  DartType _effectiveReturn(DartType t) {
+    if (t is ParameterizedType
+        && t.element?.name == 'FutureOr'
+        && t.typeArguments.length == 1) {
+      return t.typeArguments[0];
+    }
+    return t;
+  }
+
   @override
   bool matches(DartType t) =>
       t is FunctionType && (t.parameters.isEmpty ||
@@ -492,7 +738,8 @@ class FunctionHandler with TypeHandler {
     if (alias != null) {
       return getInstantiatedAliasName(alias, withSuffix: withSuffix);
     }
-    final cbRet = (fn.returnType is VoidType) ? 'Void' : types.type4C(fn.returnType);
+    final ret = _effectiveReturn(fn.returnType);
+    final cbRet = (ret is VoidType) ? 'Void' : types.type4C(ret);
     final aliasName = '${cbRet}Callback${fn.parameters.map((p) => types.type4C(p.type)).join('')}';
     return '$aliasName${withSuffix ? 'FFI' : ''}';
   }
@@ -512,7 +759,8 @@ class FunctionHandler with TypeHandler {
   String type4J(DartType t, [List<DartType>? typeArguments]) {
     var fn = t as FunctionType;
     var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => boxedType(types.type4J(p.type).firstUpper())).join(', ');
-    if (fn.returnType is VoidType) {
+    final ret = _effectiveReturn(fn.returnType);
+    if (ret is VoidType) {
       if (fn.parameters.isEmpty) {
         return 'Runnable';
       }
@@ -530,7 +778,7 @@ class FunctionHandler with TypeHandler {
     } else {
       // Return type also has to be boxed when it sits inside Function<>,
       // otherwise a bool return leaks as `boolean` — invalid inside generics.
-      var retType4j = boxedType(types.type4J(fn.returnType).firstUpper());
+      var retType4j = boxedType(types.type4J(ret).firstUpper());
       if (fn.parameters.isEmpty) {
         return 'Supplier<$retType4j>';
       }

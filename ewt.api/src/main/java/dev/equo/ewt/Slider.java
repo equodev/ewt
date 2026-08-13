@@ -17,7 +17,7 @@ public class Slider extends StatefulWidget implements SliderI {
   }
   Slider(int id) { this.id = id; }
   @Builder.Factory
-  static Slider sliderSlider(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> year2023) {
+  static Slider sliderSlider(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<ColorI> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> year2023) {
     var st = factories.sliderSlider(value,
       secondaryTrackValue,
       onChanged,
@@ -31,6 +31,7 @@ public class Slider extends StatefulWidget implements SliderI {
       inactiveColor.map(ColorI::build),
       secondaryActiveColor.map(ColorI::build),
       thumbColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       semanticFormatterCallback,
       autofocus,
       allowedInteraction,
@@ -43,7 +44,7 @@ public class Slider extends StatefulWidget implements SliderI {
     return SliderSliderBuilder.sliderSlider(value);
   }
   @Builder.Factory
-  static Slider sliderAdaptive(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
+  static Slider sliderAdaptive(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<ColorI> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
     var st = factories.sliderAdaptive(value,
       secondaryTrackValue,
       onChanged,
@@ -57,6 +58,7 @@ public class Slider extends StatefulWidget implements SliderI {
       inactiveColor.map(ColorI::build),
       secondaryActiveColor.map(ColorI::build),
       thumbColor.map(ColorI::build),
+      overlayColor.map(ColorI::build),
       semanticFormatterCallback,
       autofocus,
       allowedInteraction,

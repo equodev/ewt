@@ -17,12 +17,13 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
   }
   CupertinoCheckbox(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoCheckbox cupertinoCheckboxCupertinoCheckbox(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<Boolean> autofocus, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<String> semanticLabel) {
+  static CupertinoCheckbox cupertinoCheckboxCupertinoCheckbox(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<Boolean> autofocus, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<String> semanticLabel) {
     var st = factories.cupertinoCheckboxCupertinoCheckbox(value,
       tristate,
       onChanged,
       activeColor.map(ColorI::build),
       inactiveColor.map(ColorI::build),
+      fillColor.map(ColorI::build),
       checkColor.map(ColorI::build),
       focusColor.map(ColorI::build),
       autofocus,

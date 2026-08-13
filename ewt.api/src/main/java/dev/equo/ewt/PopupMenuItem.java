@@ -17,13 +17,14 @@ public class PopupMenuItem<T> extends PopupMenuEntry<T> implements PopupMenuItem
   }
   PopupMenuItem(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> PopupMenuItem<T> popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsetsI> padding, Optional<TextStyleI> textStyle, WidgetI child) {
+  static <T extends NativeObj> PopupMenuItem<T> popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsetsI> padding, Optional<TextStyleI> textStyle, Optional<TextStyleI> labelTextStyle, WidgetI child) {
     var st = factories.popupMenuItemPopupMenuItem(value,
       onTap,
       enabled,
       height,
       padding.map(EdgeInsetsI::build),
       textStyle.map(TextStyleI::build),
+      labelTextStyle.map(TextStyleI::build),
       child.build());
     if (st == null) throw new RuntimeException("Failed to created widget PopupMenuItem");
     return new PopupMenuItem(st);

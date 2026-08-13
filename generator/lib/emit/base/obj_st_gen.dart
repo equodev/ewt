@@ -100,5 +100,13 @@ abstract class ObjStGen extends WidgetGen {
           !f.getter!.hasOverride && f.isPublic && !f.isStatic
           && f.type is! FunctionType && f.type is! TypeParameterType
           && !f.type.isDartCoreList && !f.type.isDartCoreObject
-          /*&& !isInterface(f.type.element)*/ && types.supportedType(f.type) && f.type != sourceClass.thisType);
+          /*&& !isInterface(f.type.element)*/ && types.supportedType(f.type) && f.type != sourceClass.thisType
+          // Value-handler fields (e.g. WidgetStatePropertyHandler) marshal to the
+          // inner type in the *forward* direction (Java-set → Flutter-ctor). The
+          // *reverse* direction (Flutter widget instance → ObjSt struct →
+          // Java accessor) has no clean shape: the Flutter field holds a WSP
+          // wrapper, not the inner T, so it can't populate an inline `IconObjSt`
+          // slot or a primitive `double` slot without an additional
+          // `.resolve(const {})` unwrap that we don't emit today. Skip.
+          && (types.getHandler(f.type)?.unwrapParam(paramElement(f.name, f.type)) == null));
 }

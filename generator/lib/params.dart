@@ -28,6 +28,15 @@ class Params {
   }
 
   static String paramDef4J(Types generation, ParameterElement param, {bool annotated = false, bool wrap = false}) {
+    // Value handlers that mirror an inner type (WidgetStatePropertyHandler)
+    // must select the primitive-optional wrapper based on the INNER type,
+    // otherwise `WSP<double?>?` widens to the invalid `Optional<double>`
+    // rather than `OptionalDouble`.
+    final h = generation.getHandler(param.type);
+    if (h != null) {
+      final unwrapped = h.unwrapParam(param);
+      if (unwrapped != null) return paramDef4J(generation, unwrapped, annotated: annotated, wrap: wrap);
+    }
     var t ='${annotated ? '@Builder.Parameter ' : ''}${generation.type4J(param.type)}';
     if (wrap) {
       if (param.type.isDartCoreDouble) {
@@ -47,6 +56,16 @@ class Params {
   }
 
   static String paramDef4JBuilder(Types generation, ParameterElement param, {bool annotated = false, bool wrap = false}) {
+    // Value handlers that mirror an inner type on the Java surface (e.g.,
+    // WidgetStatePropertyHandler exposing `WSP<Color?>?` as `Optional<Color>`)
+    // must have the builder-interface derived from the inner type too. Without
+    // this, the loop below would read the *outer* element name and emit
+    // `Optional<WidgetStatePropertyI>` instead of `Optional<ColorI>`.
+    final h = generation.getHandler(param.type);
+    if (h != null) {
+      final unwrapped = h.unwrapParam(param);
+      if (unwrapped != null) return paramDef4JBuilder(generation, unwrapped, annotated: annotated, wrap: wrap);
+    }
     // var t ='${annotated ? '@Builder.Parameter ' : ''}${generation.type4J(param.type)}';
     var type = param.type;
     if (type is InterfaceType) {
@@ -173,9 +192,21 @@ class Params {
     final key = param.name;
     final t = param.type;
     final h = types.getHandler(t);
+    // Value handlers that mirror an inner type (WidgetStatePropertyHandler)
+    // must serialize using the inner type — otherwise `WSP<double?>?` falls
+    // through to the object branch (`byId.get(v.getId())`) rather than the
+    // OptionalDouble branch below. FunctionType handlers still enter the
+    // callback path.
+    if (h != null && t is! FunctionType) {
+      final unwrapped = h.unwrapParam(param);
+      if (unwrapped != null) return paramValueSerialize(types, unwrapped);
+    }
 
     // Callback: reserve a numeric id and optionally store the Runnable.
-    if (h != null) {
+    // Only FunctionType handlers are callbacks. Value handlers like MapHandler
+    // or WidgetStatePropertyHandler fall through to the standard object/list
+    // paths below.
+    if (h != null && t is FunctionType) {
       if (_isZeroArgCallback(t)) {
         // Wire zero-arg callbacks: reserve the id, record it in the node, and keep the
         // real Runnable so EwtWidget can fire it when the browser reports a click.
@@ -374,6 +405,14 @@ class Params {
   }
 
   static String paramValue4JBuilder(Types types, ParameterElement param) {
+    // Mirror the unwrap done in [paramDef4JBuilder] so the `.map(NameI::build)`
+    // callsite references the inner type's builder interface (`ColorI::build`)
+    // rather than the wrapper's (`WidgetStatePropertyI::build`).
+    final h = types.getHandler(param.type);
+    if (h != null) {
+      final unwrapped = h.unwrapParam(param);
+      if (unwrapped != null) return paramValue4JBuilder(types, unwrapped);
+    }
     final t = param.type;
     var value = escape4J(types, param);
     if (t is InterfaceType) {

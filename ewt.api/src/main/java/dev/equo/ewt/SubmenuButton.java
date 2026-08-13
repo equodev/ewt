@@ -17,7 +17,7 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
   }
   SubmenuButton(int id) { this.id = id; }
   @Builder.Factory
-  static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<Boolean> useRootOverlay, List<WidgetI> menuChildren, WidgetI child) {
+  static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<WidgetI> submenuIcon, Optional<Boolean> useRootOverlay, List<WidgetI> menuChildren, WidgetI child) {
     var st = factories.submenuButtonSubmenuButton(onHover,
       onFocusChange,
       onOpen,
@@ -26,6 +26,7 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
       clipBehavior,
       leadingIcon.map(WidgetI::build),
       trailingIcon.map(WidgetI::build),
+      submenuIcon.map(WidgetI::build),
       useRootOverlay,
       menuChildren.stream().map(WidgetI::build).toList(),
       child.build());
