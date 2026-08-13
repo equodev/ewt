@@ -164,6 +164,22 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "offsetLerp", p);
     return id;
   }
+  @Override
+  double offsetDx(Offset self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "offsetDx", p);
+    return id;
+  }
+  @Override
+  double offsetDy(Offset self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "offsetDy", p);
+    return id;
+  }
 
   @Override
   int dateTimeDateTime(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
@@ -497,12 +513,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
+  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     text.ifPresent(v -> p.put("text", v));
     children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
     style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    if (onEnter != null) { p.put("onEnter", nextCallbackId++); }
+    if (onExit != null) { p.put("onExit", nextCallbackId++); }
     semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
     semanticsIdentifier.ifPresent(v -> p.put("semanticsIdentifier", v));
     spellOut.ifPresent(v -> p.put("spellOut", v));
@@ -510,6 +528,171 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     MemorySegment st = TextSpanObjSt.allocate(arena);
     TextSpanObjSt.id(st, id);
     return st;
+  }
+
+  @Override
+  MemorySegment pointerEnterEventPointerEnterEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    down.ifPresent(v -> p.put("down", v));
+    synthesized.ifPresent(v -> p.put("synthesized", v));
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerEnterEventPointerEnterEvent", p);
+    MemorySegment st = PointerEnterEventObjSt.allocate(arena);
+    PointerEnterEventObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment pointerEnterEventFromMouseEvent(PointerEvent event) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("event", byId.get(event.getId()));
+    record(id, "pointerEnterEventFromMouseEvent", p);
+    MemorySegment st = PointerEnterEventObjSt.allocate(arena);
+    PointerEnterEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pointerExitEventPointerExitEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    down.ifPresent(v -> p.put("down", v));
+    synthesized.ifPresent(v -> p.put("synthesized", v));
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerExitEventPointerExitEvent", p);
+    MemorySegment st = PointerExitEventObjSt.allocate(arena);
+    PointerExitEventObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment pointerExitEventFromMouseEvent(PointerEvent event) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("event", byId.get(event.getId()));
+    record(id, "pointerExitEventFromMouseEvent", p);
+    MemorySegment st = PointerExitEventObjSt.allocate(arena);
+    PointerExitEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (days.isPresent()) { p.put("days", days.getAsInt()); }
+    if (hours.isPresent()) { p.put("hours", hours.getAsInt()); }
+    if (minutes.isPresent()) { p.put("minutes", minutes.getAsInt()); }
+    if (seconds.isPresent()) { p.put("seconds", seconds.getAsInt()); }
+    if (milliseconds.isPresent()) { p.put("milliseconds", milliseconds.getAsInt()); }
+    if (microseconds.isPresent()) { p.put("microseconds", microseconds.getAsInt()); }
+    record(id, "durationDuration", p);
+    return id;
+  }
+
+  @Override
+  int pointerEventPosition(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventPosition", p);
+    return id;
+  }
+  @Override
+  int pointerEventDelta(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventDelta", p);
+    return id;
+  }
+  @Override
+  int pointerEventPointer(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventPointer", p);
+    return id;
+  }
+  @Override
+  int pointerEventButtons(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventButtons", p);
+    return id;
+  }
+  @Override
+  int pointerEventDown(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventDown", p);
+    return id;
+  }
+  @Override
+  double pointerEventPressure(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventPressure", p);
+    return id;
+  }
+  @Override
+  double pointerEventDistance(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventDistance", p);
+    return id;
+  }
+  @Override
+  double pointerEventSize(PointerEvent self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "pointerEventSize", p);
+    return id;
   }
 
   @Override
@@ -1254,20 +1437,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    if (days.isPresent()) { p.put("days", days.getAsInt()); }
-    if (hours.isPresent()) { p.put("hours", hours.getAsInt()); }
-    if (minutes.isPresent()) { p.put("minutes", minutes.getAsInt()); }
-    if (seconds.isPresent()) { p.put("seconds", seconds.getAsInt()); }
-    if (milliseconds.isPresent()) { p.put("milliseconds", milliseconds.getAsInt()); }
-    if (microseconds.isPresent()) { p.put("microseconds", microseconds.getAsInt()); }
-    record(id, "durationDuration", p);
-    return id;
-  }
-
-  @Override
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -1290,6 +1459,701 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "listenableBuilderListenableBuilder", p);
     MemorySegment st = ListenableBuilderObjSt.allocate(arena);
     ListenableBuilderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment velocityVelocity(Offset pixelsPerSecond) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("pixelsPerSecond", byId.get(pixelsPerSecond.getId()));
+    record(id, "velocityVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int tapDownDetailsTapDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "tapDownDetailsTapDownDetails", p);
+    return id;
+  }
+  @Override
+  int tapDownDetailsGlobalPosition(TapDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapDownDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int tapDownDetailsLocalPosition(TapDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapDownDetailsLocalPosition", p);
+    return id;
+  }
+
+  @Override
+  int tapUpDetailsTapUpDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, PointerDeviceKind kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    p.put("kind", kind.ordinal());
+    record(id, "tapUpDetailsTapUpDetails", p);
+    return id;
+  }
+  @Override
+  int tapUpDetailsGlobalPosition(TapUpDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapUpDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int tapUpDetailsLocalPosition(TapUpDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapUpDetailsLocalPosition", p);
+    return id;
+  }
+
+  @Override
+  int tapMoveDetailsTapMoveDetails(PointerDeviceKind kind, Optional<Offset> globalPosition, Optional<Offset> delta, Optional<Offset> localPosition) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("kind", kind.ordinal());
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    record(id, "tapMoveDetailsTapMoveDetails", p);
+    return id;
+  }
+  @Override
+  int tapMoveDetailsGlobalPosition(TapMoveDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapMoveDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int tapMoveDetailsLocalPosition(TapMoveDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapMoveDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  int tapMoveDetailsDelta(TapMoveDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "tapMoveDetailsDelta", p);
+    return id;
+  }
+
+  @Override
+  int longPressDownDetailsLongPressDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "longPressDownDetailsLongPressDownDetails", p);
+    return id;
+  }
+  @Override
+  int longPressDownDetailsGlobalPosition(LongPressDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressDownDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressDownDetailsLocalPosition(LongPressDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressDownDetailsLocalPosition", p);
+    return id;
+  }
+
+  @Override
+  int longPressStartDetailsLongPressStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    record(id, "longPressStartDetailsLongPressStartDetails", p);
+    return id;
+  }
+  @Override
+  int longPressStartDetailsGlobalPosition(LongPressStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressStartDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressStartDetailsLocalPosition(LongPressStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressStartDetailsLocalPosition", p);
+    return id;
+  }
+
+  @Override
+  int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Offset> offsetFromOrigin, Optional<Offset> localOffsetFromOrigin) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    offsetFromOrigin.ifPresent(v -> p.put("offsetFromOrigin", byId.get(v.getId())));
+    localOffsetFromOrigin.ifPresent(v -> p.put("localOffsetFromOrigin", byId.get(v.getId())));
+    record(id, "longPressMoveUpdateDetailsLongPressMoveUpdateDetails", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsGlobalPosition(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsLocalPosition(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsOffsetFromOrigin", p);
+    return id;
+  }
+  @Override
+  int longPressMoveUpdateDetailsLocalOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressMoveUpdateDetailsLocalOffsetFromOrigin", p);
+    return id;
+  }
+
+  @Override
+  int longPressEndDetailsLongPressEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    velocity.ifPresent(v -> p.put("velocity", byId.get(v.getId())));
+    record(id, "longPressEndDetailsLongPressEndDetails", p);
+    return id;
+  }
+  @Override
+  int longPressEndDetailsGlobalPosition(LongPressEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressEndDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int longPressEndDetailsLocalPosition(LongPressEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressEndDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  MemorySegment longPressEndDetailsVelocity(LongPressEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "longPressEndDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int dragDownDetailsDragDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    record(id, "dragDownDetailsDragDownDetails", p);
+    return id;
+  }
+  @Override
+  int dragDownDetailsGlobalPosition(DragDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragDownDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragDownDetailsLocalPosition(DragDownDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragDownDetailsLocalPosition", p);
+    return id;
+  }
+
+  @Override
+  int dragStartDetailsDragStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "dragStartDetailsDragStartDetails", p);
+    return id;
+  }
+  @Override
+  int dragStartDetailsGlobalPosition(DragStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragStartDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragStartDetailsLocalPosition(DragStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragStartDetailsLocalPosition", p);
+    return id;
+  }
+
+  @Override
+  int dragUpdateDetailsDragUpdateDetails(Offset globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<Offset> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("globalPosition", byId.get(globalPosition.getId()));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (primaryDelta.isPresent()) { p.put("primaryDelta", primaryDelta.getAsDouble()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "dragUpdateDetailsDragUpdateDetails", p);
+    return id;
+  }
+  @Override
+  int dragUpdateDetailsGlobalPosition(DragUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragUpdateDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragUpdateDetailsLocalPosition(DragUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragUpdateDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  int dragUpdateDetailsDelta(DragUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragUpdateDetailsDelta", p);
+    return id;
+  }
+
+  @Override
+  int dragEndDetailsDragEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity, OptionalDouble primaryVelocity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    globalPosition.ifPresent(v -> p.put("globalPosition", byId.get(v.getId())));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    velocity.ifPresent(v -> p.put("velocity", byId.get(v.getId())));
+    if (primaryVelocity.isPresent()) { p.put("primaryVelocity", primaryVelocity.getAsDouble()); }
+    record(id, "dragEndDetailsDragEndDetails", p);
+    return id;
+  }
+  @Override
+  int dragEndDetailsGlobalPosition(DragEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragEndDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int dragEndDetailsLocalPosition(DragEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragEndDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  MemorySegment dragEndDetailsVelocity(DragEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dragEndDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int scaleStartDetailsScaleStartDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalInt pointerCount, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    focalPoint.ifPresent(v -> p.put("focalPoint", byId.get(v.getId())));
+    localFocalPoint.ifPresent(v -> p.put("localFocalPoint", byId.get(v.getId())));
+    if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    record(id, "scaleStartDetailsScaleStartDetails", p);
+    return id;
+  }
+  @Override
+  int scaleStartDetailsFocalPoint(ScaleStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleStartDetailsFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleStartDetailsLocalFocalPoint(ScaleStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleStartDetailsLocalFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleStartDetailsPointerCount(ScaleStartDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleStartDetailsPointerCount", p);
+    return id;
+  }
+
+  @Override
+  int scaleUpdateDetailsScaleUpdateDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<Offset> focalPointDelta, Optional<Duration> sourceTimeStamp) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    focalPoint.ifPresent(v -> p.put("focalPoint", byId.get(v.getId())));
+    localFocalPoint.ifPresent(v -> p.put("localFocalPoint", byId.get(v.getId())));
+    if (scale.isPresent()) { p.put("scale", scale.getAsDouble()); }
+    if (horizontalScale.isPresent()) { p.put("horizontalScale", horizontalScale.getAsDouble()); }
+    if (verticalScale.isPresent()) { p.put("verticalScale", verticalScale.getAsDouble()); }
+    if (rotation.isPresent()) { p.put("rotation", rotation.getAsDouble()); }
+    if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
+    focalPointDelta.ifPresent(v -> p.put("focalPointDelta", byId.get(v.getId())));
+    sourceTimeStamp.ifPresent(v -> p.put("sourceTimeStamp", byId.get(v.getId())));
+    record(id, "scaleUpdateDetailsScaleUpdateDetails", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsFocalPoint(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsLocalFocalPoint(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsLocalFocalPoint", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsFocalPointDelta(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsFocalPointDelta", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsScale(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsScale", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsHorizontalScale(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsHorizontalScale", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsVerticalScale(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsVerticalScale", p);
+    return id;
+  }
+  @Override
+  double scaleUpdateDetailsRotation(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsRotation", p);
+    return id;
+  }
+  @Override
+  int scaleUpdateDetailsPointerCount(ScaleUpdateDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleUpdateDetailsPointerCount", p);
+    return id;
+  }
+
+  @Override
+  int scaleEndDetailsScaleEndDetails(Optional<Velocity> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    velocity.ifPresent(v -> p.put("velocity", byId.get(v.getId())));
+    if (scaleVelocity.isPresent()) { p.put("scaleVelocity", scaleVelocity.getAsDouble()); }
+    if (pointerCount.isPresent()) { p.put("pointerCount", pointerCount.getAsInt()); }
+    record(id, "scaleEndDetailsScaleEndDetails", p);
+    return id;
+  }
+  @Override
+  MemorySegment scaleEndDetailsVelocity(ScaleEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleEndDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  double scaleEndDetailsScaleVelocity(ScaleEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleEndDetailsScaleVelocity", p);
+    return id;
+  }
+  @Override
+  int scaleEndDetailsPointerCount(ScaleEndDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "scaleEndDetailsPointerCount", p);
+    return id;
+  }
+
+  @Override
+  int forcePressDetailsForcePressDetails(Offset globalPosition, Optional<Offset> localPosition, double pressure) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("globalPosition", byId.get(globalPosition.getId()));
+    localPosition.ifPresent(v -> p.put("localPosition", byId.get(v.getId())));
+    p.put("pressure", pressure);
+    record(id, "forcePressDetailsForcePressDetails", p);
+    return id;
+  }
+  @Override
+  int forcePressDetailsGlobalPosition(ForcePressDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "forcePressDetailsGlobalPosition", p);
+    return id;
+  }
+  @Override
+  int forcePressDetailsLocalPosition(ForcePressDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "forcePressDetailsLocalPosition", p);
+    return id;
+  }
+  @Override
+  double forcePressDetailsPressure(ForcePressDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "forcePressDetailsPressure", p);
+    return id;
+  }
+
+  @Override
+  int draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, Velocity velocity, Offset offset) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    wasAccepted.ifPresent(v -> p.put("wasAccepted", v));
+    p.put("velocity", byId.get(velocity.getId()));
+    p.put("offset", byId.get(offset.getId()));
+    record(id, "draggableDetailsDraggableDetails", p);
+    return id;
+  }
+  @Override
+  int draggableDetailsWasAccepted(DraggableDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "draggableDetailsWasAccepted", p);
+    return id;
+  }
+  @Override
+  MemorySegment draggableDetailsVelocity(DraggableDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "draggableDetailsVelocity", p);
+    MemorySegment st = VelocityObjSt.allocate(arena);
+    VelocityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int draggableDetailsOffset(DraggableDetails self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "draggableDetailsOffset", p);
+    return id;
+  }
+
+  @Override
+  <T> int dragTargetDetailsDragTargetDetails(NativeObj data, Offset offset) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", data);
+    p.put("offset", byId.get(offset.getId()));
+    record(id, "dragTargetDetailsDragTargetDetails", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment pointerDownEventPointerDownEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressure.isPresent()) { p.put("pressure", pressure.getAsDouble()); }
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerDownEventPointerDownEvent", p);
+    MemorySegment st = PointerDownEventObjSt.allocate(arena);
+    PointerDownEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pointerUpEventPointerUpEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressure.isPresent()) { p.put("pressure", pressure.getAsDouble()); }
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerUpEventPointerUpEvent", p);
+    MemorySegment st = PointerUpEventObjSt.allocate(arena);
+    PointerUpEventObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pointerHoverEventPointerHoverEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (viewId.isPresent()) { p.put("viewId", viewId.getAsInt()); }
+    timeStamp.ifPresent(v -> p.put("timeStamp", byId.get(v.getId())));
+    kind.ifPresent(v -> p.put("kind", v.ordinal()));
+    if (pointer.isPresent()) { p.put("pointer", pointer.getAsInt()); }
+    if (device.isPresent()) { p.put("device", device.getAsInt()); }
+    position.ifPresent(v -> p.put("position", byId.get(v.getId())));
+    delta.ifPresent(v -> p.put("delta", byId.get(v.getId())));
+    if (buttons.isPresent()) { p.put("buttons", buttons.getAsInt()); }
+    obscured.ifPresent(v -> p.put("obscured", v));
+    if (pressureMin.isPresent()) { p.put("pressureMin", pressureMin.getAsDouble()); }
+    if (pressureMax.isPresent()) { p.put("pressureMax", pressureMax.getAsDouble()); }
+    if (distance.isPresent()) { p.put("distance", distance.getAsDouble()); }
+    if (distanceMax.isPresent()) { p.put("distanceMax", distanceMax.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (radiusMajor.isPresent()) { p.put("radiusMajor", radiusMajor.getAsDouble()); }
+    if (radiusMinor.isPresent()) { p.put("radiusMinor", radiusMinor.getAsDouble()); }
+    if (radiusMin.isPresent()) { p.put("radiusMin", radiusMin.getAsDouble()); }
+    if (radiusMax.isPresent()) { p.put("radiusMax", radiusMax.getAsDouble()); }
+    if (orientation.isPresent()) { p.put("orientation", orientation.getAsDouble()); }
+    if (tilt.isPresent()) { p.put("tilt", tilt.getAsDouble()); }
+    synthesized.ifPresent(v -> p.put("synthesized", v));
+    if (embedderId.isPresent()) { p.put("embedderId", embedderId.getAsInt()); }
+    record(id, "pointerHoverEventPointerHoverEvent", p);
+    MemorySegment st = PointerHoverEventObjSt.allocate(arena);
+    PointerHoverEventObjSt.id(st, id);
     return st;
   }
 
@@ -1505,9 +2369,12 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment mouseRegionMouseRegion(Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
+  MemorySegment mouseRegionMouseRegion(Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<Consumer<PointerHoverEvent>> onHover, Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onEnter != null) { p.put("onEnter", nextCallbackId++); }
+    if (onExit != null) { p.put("onExit", nextCallbackId++); }
+    if (onHover != null) { p.put("onHover", nextCallbackId++); }
     opaque.ifPresent(v -> p.put("opaque", v));
     hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -2495,7 +3362,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
+  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Consumer<ScaleEndDetails>> onInteractionEnd, Optional<Consumer<ScaleStartDetails>> onInteractionStart, Optional<Consumer<ScaleUpdateDetails>> onInteractionUpdate, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
@@ -2505,6 +3372,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (maxScale.isPresent()) { p.put("maxScale", maxScale.getAsDouble()); }
     if (minScale.isPresent()) { p.put("minScale", minScale.getAsDouble()); }
     if (interactionEndFrictionCoefficient.isPresent()) { p.put("interactionEndFrictionCoefficient", interactionEndFrictionCoefficient.getAsDouble()); }
+    if (onInteractionEnd != null) { p.put("onInteractionEnd", nextCallbackId++); }
+    if (onInteractionStart != null) { p.put("onInteractionStart", nextCallbackId++); }
+    if (onInteractionUpdate != null) { p.put("onInteractionUpdate", nextCallbackId++); }
     panEnabled.ifPresent(v -> p.put("panEnabled", v));
     scaleEnabled.ifPresent(v -> p.put("scaleEnabled", v));
     if (scaleFactor.isPresent()) { p.put("scaleFactor", scaleFactor.getAsDouble()); }
@@ -2518,7 +3388,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Consumer<DraggableDetails>> onDragEnd, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("child", byId.get(child.getId()));
@@ -2531,6 +3401,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     affinity.ifPresent(v -> p.put("affinity", v.ordinal()));
     if (maxSimultaneousDrags.isPresent()) { p.put("maxSimultaneousDrags", maxSimultaneousDrags.getAsInt()); }
     if (onDragStarted.isPresent()) { int __cb_onDragStarted = nextCallbackId++; p.put("onDragStarted", __cb_onDragStarted); callbacks.put(__cb_onDragStarted, onDragStarted.get()); }
+    if (onDragUpdate != null) { p.put("onDragUpdate", nextCallbackId++); }
+    if (onDraggableCanceled != null) { p.put("onDraggableCanceled", nextCallbackId++); }
+    if (onDragEnd != null) { p.put("onDragEnd", nextCallbackId++); }
     if (onDragCompleted.isPresent()) { int __cb_onDragCompleted = nextCallbackId++; p.put("onDragCompleted", __cb_onDragCompleted); callbacks.put(__cb_onDragCompleted, onDragCompleted.get()); }
     ignoringFeedbackSemantics.ifPresent(v -> p.put("ignoringFeedbackSemantics", v));
     ignoringFeedbackPointer.ifPresent(v -> p.put("ignoringFeedbackPointer", v));
@@ -2544,13 +3417,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Function<DragTargetDetails, Boolean>> onWillAcceptWithDetails, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<DragTargetDetails>> onAcceptWithDetails, Optional<Consumer<NativeObj>> onLeave, Optional<Consumer<DragTargetDetails>> onMove, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("builder", nextCallbackId++);
     if (onWillAccept != null) { p.put("onWillAccept", nextCallbackId++); }
+    if (onWillAcceptWithDetails != null) { p.put("onWillAcceptWithDetails", nextCallbackId++); }
     if (onAccept != null) { p.put("onAccept", nextCallbackId++); }
+    if (onAcceptWithDetails != null) { p.put("onAcceptWithDetails", nextCallbackId++); }
     if (onLeave != null) { p.put("onLeave", nextCallbackId++); }
+    if (onMove != null) { p.put("onMove", nextCallbackId++); }
     hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
     record(id, "dragTargetDragTarget", p);
     MemorySegment st = DragTargetObjSt.allocate(arena);
@@ -4196,7 +5072,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -4240,6 +5116,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     selectAllOnFocus.ifPresent(v -> p.put("selectAllOnFocus", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     onTapAlwaysCalled.ifPresent(v -> p.put("onTapAlwaysCalled", v));
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
     if (buildCounter != null) { p.put("buildCounter", nextCallbackId++); }
     autofillHints.ifPresent(v -> p.put("autofillHints", v.stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
@@ -4520,29 +5398,68 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Runnable> onTertiaryTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<ForcePressDetails>> onForcePressStart, Optional<Consumer<ForcePressDetails>> onForcePressPeak, Optional<Consumer<ForcePressDetails>> onForcePressUpdate, Optional<Consumer<ForcePressDetails>> onForcePressEnd, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<Consumer<ScaleStartDetails>> onScaleStart, Optional<Consumer<ScaleUpdateDetails>> onScaleUpdate, Optional<Consumer<ScaleEndDetails>> onScaleEnd, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
+    if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapMove != null) { p.put("onTapMove", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
+    if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
     if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
+    if (onTertiaryTapDown != null) { p.put("onTertiaryTapDown", nextCallbackId++); }
+    if (onTertiaryTapUp != null) { p.put("onTertiaryTapUp", nextCallbackId++); }
     if (onTertiaryTapCancel.isPresent()) { int __cb_onTertiaryTapCancel = nextCallbackId++; p.put("onTertiaryTapCancel", __cb_onTertiaryTapCancel); callbacks.put(__cb_onTertiaryTapCancel, onTertiaryTapCancel.get()); }
+    if (onDoubleTapDown != null) { p.put("onDoubleTapDown", nextCallbackId++); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onDoubleTapCancel.isPresent()) { int __cb_onDoubleTapCancel = nextCallbackId++; p.put("onDoubleTapCancel", __cb_onDoubleTapCancel); callbacks.put(__cb_onDoubleTapCancel, onDoubleTapCancel.get()); }
+    if (onLongPressDown != null) { p.put("onLongPressDown", nextCallbackId++); }
     if (onLongPressCancel.isPresent()) { int __cb_onLongPressCancel = nextCallbackId++; p.put("onLongPressCancel", __cb_onLongPressCancel); callbacks.put(__cb_onLongPressCancel, onLongPressCancel.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onLongPressStart != null) { p.put("onLongPressStart", nextCallbackId++); }
+    if (onLongPressMoveUpdate != null) { p.put("onLongPressMoveUpdate", nextCallbackId++); }
     if (onLongPressUp.isPresent()) { int __cb_onLongPressUp = nextCallbackId++; p.put("onLongPressUp", __cb_onLongPressUp); callbacks.put(__cb_onLongPressUp, onLongPressUp.get()); }
+    if (onLongPressEnd != null) { p.put("onLongPressEnd", nextCallbackId++); }
+    if (onSecondaryLongPressDown != null) { p.put("onSecondaryLongPressDown", nextCallbackId++); }
     if (onSecondaryLongPressCancel.isPresent()) { int __cb_onSecondaryLongPressCancel = nextCallbackId++; p.put("onSecondaryLongPressCancel", __cb_onSecondaryLongPressCancel); callbacks.put(__cb_onSecondaryLongPressCancel, onSecondaryLongPressCancel.get()); }
     if (onSecondaryLongPress.isPresent()) { int __cb_onSecondaryLongPress = nextCallbackId++; p.put("onSecondaryLongPress", __cb_onSecondaryLongPress); callbacks.put(__cb_onSecondaryLongPress, onSecondaryLongPress.get()); }
+    if (onSecondaryLongPressStart != null) { p.put("onSecondaryLongPressStart", nextCallbackId++); }
+    if (onSecondaryLongPressMoveUpdate != null) { p.put("onSecondaryLongPressMoveUpdate", nextCallbackId++); }
     if (onSecondaryLongPressUp.isPresent()) { int __cb_onSecondaryLongPressUp = nextCallbackId++; p.put("onSecondaryLongPressUp", __cb_onSecondaryLongPressUp); callbacks.put(__cb_onSecondaryLongPressUp, onSecondaryLongPressUp.get()); }
+    if (onSecondaryLongPressEnd != null) { p.put("onSecondaryLongPressEnd", nextCallbackId++); }
+    if (onTertiaryLongPressDown != null) { p.put("onTertiaryLongPressDown", nextCallbackId++); }
     if (onTertiaryLongPressCancel.isPresent()) { int __cb_onTertiaryLongPressCancel = nextCallbackId++; p.put("onTertiaryLongPressCancel", __cb_onTertiaryLongPressCancel); callbacks.put(__cb_onTertiaryLongPressCancel, onTertiaryLongPressCancel.get()); }
     if (onTertiaryLongPress.isPresent()) { int __cb_onTertiaryLongPress = nextCallbackId++; p.put("onTertiaryLongPress", __cb_onTertiaryLongPress); callbacks.put(__cb_onTertiaryLongPress, onTertiaryLongPress.get()); }
+    if (onTertiaryLongPressStart != null) { p.put("onTertiaryLongPressStart", nextCallbackId++); }
+    if (onTertiaryLongPressMoveUpdate != null) { p.put("onTertiaryLongPressMoveUpdate", nextCallbackId++); }
     if (onTertiaryLongPressUp.isPresent()) { int __cb_onTertiaryLongPressUp = nextCallbackId++; p.put("onTertiaryLongPressUp", __cb_onTertiaryLongPressUp); callbacks.put(__cb_onTertiaryLongPressUp, onTertiaryLongPressUp.get()); }
+    if (onTertiaryLongPressEnd != null) { p.put("onTertiaryLongPressEnd", nextCallbackId++); }
+    if (onVerticalDragDown != null) { p.put("onVerticalDragDown", nextCallbackId++); }
+    if (onVerticalDragStart != null) { p.put("onVerticalDragStart", nextCallbackId++); }
+    if (onVerticalDragUpdate != null) { p.put("onVerticalDragUpdate", nextCallbackId++); }
+    if (onVerticalDragEnd != null) { p.put("onVerticalDragEnd", nextCallbackId++); }
     if (onVerticalDragCancel.isPresent()) { int __cb_onVerticalDragCancel = nextCallbackId++; p.put("onVerticalDragCancel", __cb_onVerticalDragCancel); callbacks.put(__cb_onVerticalDragCancel, onVerticalDragCancel.get()); }
+    if (onHorizontalDragDown != null) { p.put("onHorizontalDragDown", nextCallbackId++); }
+    if (onHorizontalDragStart != null) { p.put("onHorizontalDragStart", nextCallbackId++); }
+    if (onHorizontalDragUpdate != null) { p.put("onHorizontalDragUpdate", nextCallbackId++); }
+    if (onHorizontalDragEnd != null) { p.put("onHorizontalDragEnd", nextCallbackId++); }
     if (onHorizontalDragCancel.isPresent()) { int __cb_onHorizontalDragCancel = nextCallbackId++; p.put("onHorizontalDragCancel", __cb_onHorizontalDragCancel); callbacks.put(__cb_onHorizontalDragCancel, onHorizontalDragCancel.get()); }
+    if (onForcePressStart != null) { p.put("onForcePressStart", nextCallbackId++); }
+    if (onForcePressPeak != null) { p.put("onForcePressPeak", nextCallbackId++); }
+    if (onForcePressUpdate != null) { p.put("onForcePressUpdate", nextCallbackId++); }
+    if (onForcePressEnd != null) { p.put("onForcePressEnd", nextCallbackId++); }
+    if (onPanDown != null) { p.put("onPanDown", nextCallbackId++); }
+    if (onPanStart != null) { p.put("onPanStart", nextCallbackId++); }
+    if (onPanUpdate != null) { p.put("onPanUpdate", nextCallbackId++); }
+    if (onPanEnd != null) { p.put("onPanEnd", nextCallbackId++); }
     if (onPanCancel.isPresent()) { int __cb_onPanCancel = nextCallbackId++; p.put("onPanCancel", __cb_onPanCancel); callbacks.put(__cb_onPanCancel, onPanCancel.get()); }
+    if (onScaleStart != null) { p.put("onScaleStart", nextCallbackId++); }
+    if (onScaleUpdate != null) { p.put("onScaleUpdate", nextCallbackId++); }
+    if (onScaleEnd != null) { p.put("onScaleEnd", nextCallbackId++); }
     behavior.ifPresent(v -> p.put("behavior", v.ordinal()));
     excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));
     dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
@@ -5316,15 +6233,19 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
+    if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
+    if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
     if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
     if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
     if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
@@ -5349,15 +6270,19 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
+    if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
+    if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
+    if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
     if (onSecondaryTapCancel.isPresent()) { int __cb_onSecondaryTapCancel = nextCallbackId++; p.put("onSecondaryTapCancel", __cb_onSecondaryTapCancel); callbacks.put(__cb_onSecondaryTapCancel, onSecondaryTapCancel.get()); }
     if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
     if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
@@ -5460,7 +6385,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
+  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("child", byId.get(child.getId()));
@@ -5468,6 +6393,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     showEditIcon.ifPresent(v -> p.put("showEditIcon", v));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     record(id, "dataCellDataCell", p);
@@ -6237,13 +7163,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     hintText.ifPresent(v -> p.put("hintText", v));
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     trailing.ifPresent(v -> p.put("trailing", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
     constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
@@ -6873,7 +7800,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -6910,6 +7837,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
     enabled.ifPresent(v -> p.put("enabled", v));
     if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
     if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }
@@ -6936,7 +7865,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -6973,6 +7902,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
     if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
     if (onSubmitted.isPresent()) { int __cb_onSubmitted = nextCallbackId++; p.put("onSubmitted", __cb_onSubmitted); java.util.function.Consumer<String> __h_onSubmitted = onSubmitted.get(); callbacks.put(__cb_onSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onSubmitted.accept((String) v))); }
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
     enabled.ifPresent(v -> p.put("enabled", v));
     if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
     if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }

@@ -190,13 +190,17 @@ class WidgetGen implements AGen {
       for (var constr in dartClass.methods.where((m) => m.isStatic && m.isPublic && !_isCollectionReturn(m.returnType) /*&& m.returnType == dartClass.thisType*/)) {
         writeFactory(constr);
       }
-      for (var method in companionMethods) {
-        writeInstanceMethod(method, methodsCompanion!.name);
-      }
     } else {
       for (var constr in abstractFactoryConstructors) {
         writeFactory(constr);
       }
+    }
+    // Companion methods are emitted regardless of abstract-ness: subclasses
+    // (e.g. PointerHoverEvent extends PointerEvent) inherit them via Java's
+    // normal method inheritance, so a companion on PointerEvent surfaces on
+    // every concrete Pointer*Event class.
+    for (var method in companionMethods) {
+      writeInstanceMethod(method, methodsCompanion!.name);
     }
     writeMembers();
     if (consts.isNotEmpty) {
@@ -237,6 +241,22 @@ class WidgetGen implements AGen {
   void write() {
     _writeJ(widgetClass, ctx.javaFile.toString());
     _writeJ('${widgetClass}I', ctx.builderFile.toString());
+  }
+
+  /// True when any companion method or emitted factory returns an ObjSt-backed
+  /// type — the emitted Java needs `MemorySegment` in scope in that case.
+  bool _needsForeignImport() {
+    final companion = methodsCompanion;
+    if (companion == null) return false;
+    for (final m in companion.methods.where((m) => m.isStatic && m.isPublic)) {
+      final ret = m.returnType;
+      if (ret is VoidType) continue;
+      final el = ret.element;
+      if (el == null) continue;
+      final gen = types.getGen(el);
+      if (gen.objType().endsWith('ObjSt')) return true;
+    }
+    return false;
   }
 
   void writeHeaders(bool hasMembers) {
@@ -302,6 +322,18 @@ class WidgetGen implements AGen {
     } else {
       ctx.javaFile
         .writeln('import java.util.*;');
+    }
+    // Companion methods emit into the target class's file. If the target isn't
+    // itself ObjSt-backed, ObjStGen.writeJavaDecl doesn't run, so add the
+    // imports its emitted return-conversion code needs:
+    //   - MemorySegment when a companion returns an ObjSt-backed type
+    //   - WidgetConstructorsBase.* for helpers like intToBool used by
+    //     primitive returns (`boolean`, etc.)
+    if (methodsCompanion != null) {
+      if (_needsForeignImport()) {
+        ctx.javaFile.writeln('import java.lang.foreign.MemorySegment;');
+      }
+      ctx.javaFile.writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;');
     }
     writeJavaDecl(extend, _isInterface);
     if (hasMembers) {
@@ -587,13 +619,24 @@ class WidgetGen implements AGen {
   String dartExptrToJava(Expression e) {
     if (e is InstanceCreationExpression) {
       var nodeList = e.argumentList.arguments;
-      var requiredArgs = nodeList
-          .where((a) => a.correspondingParameter!.isRequiredPositional)
-          .map((a) => a.unParenthesized)
-          .map((e) => dartExptrToJava(e))
-          .join(', ');
+      // The emitted static factory's @Builder.Parameter slots are the leading
+      // required params in constructor-declaration order (see Params.mandatory
+      // in params.dart, `takeWhile((p) => p.isRequired)`). Both required
+      // positional and required-named args land there and must be forwarded
+      // positionally; only optional named args become builder chain calls.
+      var requiredPositional = nodeList
+          .where((a) => a.correspondingParameter?.isRequiredPositional == true)
+          .map((a) => dartExptrToJava(a.unParenthesized))
+          .toList();
+      var requiredNamed = nodeList
+          .whereType<NamedExpression>()
+          .where((a) => a.correspondingParameter?.isRequiredNamed == true)
+          .map((a) => dartExptrToJava(a.expression.unParenthesized))
+          .toList();
+      var requiredArgs = [...requiredPositional, ...requiredNamed].join(', ');
       var otherArgs = nodeList
           .whereType<NamedExpression>()
+          .where((a) => a.correspondingParameter?.isRequiredNamed != true)
           .map((a) => '.${a.name.label}(${dartExptrToJava(a.expression)})')
           .join('');
 

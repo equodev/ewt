@@ -203,6 +203,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
       b != null ? b.build().getId() : null,
       t);
   }
+  double offsetDx(Offset self) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.dx(st);
+    return WidgetFactories.OffsetSt.dx.invoke(fn, self.build().getId());
+  }
+  double offsetDy(Offset self) {
+    var st = WidgetFactories.offset(factories);
+    var fn = WidgetFactories.OffsetSt.dy(st);
+    return WidgetFactories.OffsetSt.dy.invoke(fn, self.build().getId());
+  }
 
   int dateTimeDateTime(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
     var st = WidgetFactories.dateTime(factories);
@@ -425,15 +435,135 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectionColor));
   }
 
-  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
+  MemorySegment textSpanTextSpan(Optional<String> text, Optional<List<InlineSpan>> children, Optional<TextStyle> style, Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
     var st = WidgetFactories.textSpan(factories);
     var fn = WidgetFactories.TextSpanSt.textSpan(st);
     return WidgetFactories.TextSpanSt.textSpan.invoke(fn, arena, ptrStr(text),
       ptrList(children),
       ptrObj(style),
+      onEnter.isPresent() ? ptrHolder(ptrPointerEnterEventListenerFn(onEnter.get())) : MemorySegment.NULL,
+      onExit.isPresent() ? ptrHolder(ptrPointerExitEventListenerFn(onExit.get())) : MemorySegment.NULL,
       ptrStr(semanticsLabel),
       ptrStr(semanticsIdentifier),
       ptrBool(spellOut));
+  }
+
+  MemorySegment pointerEnterEventPointerEnterEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerEnterEvent(factories);
+    var fn = WidgetFactories.PointerEnterEventSt.pointerEnterEvent(st);
+    return WidgetFactories.PointerEnterEventSt.pointerEnterEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptr(pointer),
+      ptrEnum(kind),
+      ptr(device),
+      ptrObj(position),
+      ptrObj(delta),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptrBool(down),
+      ptrBool(synthesized),
+      ptr(embedderId));
+  }
+  MemorySegment pointerEnterEventFromMouseEvent(PointerEvent event) {
+    var st = WidgetFactories.pointerEnterEvent(factories);
+    var fn = WidgetFactories.PointerEnterEventSt.fromMouseEvent(st);
+    return WidgetFactories.PointerEnterEventSt.fromMouseEvent.invoke(fn, arena, event.build().getId());
+  }
+
+  MemorySegment pointerExitEventPointerExitEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> down, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerExitEvent(factories);
+    var fn = WidgetFactories.PointerExitEventSt.pointerExitEvent(st);
+    return WidgetFactories.PointerExitEventSt.pointerExitEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptrEnum(kind),
+      ptr(pointer),
+      ptr(device),
+      ptrObj(position),
+      ptrObj(delta),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptrBool(down),
+      ptrBool(synthesized),
+      ptr(embedderId));
+  }
+  MemorySegment pointerExitEventFromMouseEvent(PointerEvent event) {
+    var st = WidgetFactories.pointerExitEvent(factories);
+    var fn = WidgetFactories.PointerExitEventSt.fromMouseEvent(st);
+    return WidgetFactories.PointerExitEventSt.fromMouseEvent.invoke(fn, arena, event.build().getId());
+  }
+
+  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
+    var st = WidgetFactories.duration(factories);
+    var fn = WidgetFactories.DurationSt.duration(st);
+    return WidgetFactories.DurationSt.duration.invoke(fn, ptr(days),
+      ptr(hours),
+      ptr(minutes),
+      ptr(seconds),
+      ptr(milliseconds),
+      ptr(microseconds));
+  }
+
+  int pointerEventPosition(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.position(st);
+    return WidgetFactories.PointerEventSt.position.invoke(fn, self.build().getId());
+  }
+  int pointerEventDelta(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.delta(st);
+    return WidgetFactories.PointerEventSt.delta.invoke(fn, self.build().getId());
+  }
+  int pointerEventPointer(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.pointer(st);
+    return WidgetFactories.PointerEventSt.pointer.invoke(fn, self.build().getId());
+  }
+  int pointerEventButtons(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.buttons(st);
+    return WidgetFactories.PointerEventSt.buttons.invoke(fn, self.build().getId());
+  }
+  int pointerEventDown(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.down(st);
+    return WidgetFactories.PointerEventSt.down.invoke(fn, self.build().getId());
+  }
+  double pointerEventPressure(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.pressure(st);
+    return WidgetFactories.PointerEventSt.pressure.invoke(fn, self.build().getId());
+  }
+  double pointerEventDistance(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.distance(st);
+    return WidgetFactories.PointerEventSt.distance.invoke(fn, self.build().getId());
+  }
+  double pointerEventSize(PointerEvent self) {
+    var st = WidgetFactories.pointerEvent(factories);
+    var fn = WidgetFactories.PointerEventSt.size(st);
+    return WidgetFactories.PointerEventSt.size.invoke(fn, self.build().getId());
   }
 
   MemorySegment richTextRichText(InlineSpan text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Color> selectionColor) {
@@ -950,17 +1080,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       d.build().getId());
   }
 
-  int durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
-    var st = WidgetFactories.duration(factories);
-    var fn = WidgetFactories.DurationSt.duration(st);
-    return WidgetFactories.DurationSt.duration.invoke(fn, ptr(days),
-      ptr(hours),
-      ptr(minutes),
-      ptr(seconds),
-      ptr(milliseconds),
-      ptr(microseconds));
-  }
-
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {
     var st = WidgetFactories.animatedBuilder(factories);
     var fn = WidgetFactories.AnimatedBuilderSt.animatedBuilder(st);
@@ -975,6 +1094,478 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ListenableBuilderSt.listenableBuilder.invoke(fn, arena, listenable.build().getId(),
       ptrTransitionBuilderFn(builder),
       ptrObj(child));
+  }
+
+  MemorySegment velocityVelocity(Offset pixelsPerSecond) {
+    var st = WidgetFactories.velocity(factories);
+    var fn = WidgetFactories.VelocitySt.velocity(st);
+    return WidgetFactories.VelocitySt.velocity.invoke(fn, arena, pixelsPerSecond.build().getId());
+  }
+
+  int tapDownDetailsTapDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.tapDownDetails(factories);
+    var fn = WidgetFactories.TapDownDetailsSt.tapDownDetails(st);
+    return WidgetFactories.TapDownDetailsSt.tapDownDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrEnum(kind));
+  }
+  int tapDownDetailsGlobalPosition(TapDownDetails self) {
+    var st = WidgetFactories.tapDownDetails(factories);
+    var fn = WidgetFactories.TapDownDetailsSt.globalPosition(st);
+    return WidgetFactories.TapDownDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int tapDownDetailsLocalPosition(TapDownDetails self) {
+    var st = WidgetFactories.tapDownDetails(factories);
+    var fn = WidgetFactories.TapDownDetailsSt.localPosition(st);
+    return WidgetFactories.TapDownDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+
+  int tapUpDetailsTapUpDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, PointerDeviceKind kind) {
+    var st = WidgetFactories.tapUpDetails(factories);
+    var fn = WidgetFactories.TapUpDetailsSt.tapUpDetails(st);
+    return WidgetFactories.TapUpDetailsSt.tapUpDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      kind.ordinal());
+  }
+  int tapUpDetailsGlobalPosition(TapUpDetails self) {
+    var st = WidgetFactories.tapUpDetails(factories);
+    var fn = WidgetFactories.TapUpDetailsSt.globalPosition(st);
+    return WidgetFactories.TapUpDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int tapUpDetailsLocalPosition(TapUpDetails self) {
+    var st = WidgetFactories.tapUpDetails(factories);
+    var fn = WidgetFactories.TapUpDetailsSt.localPosition(st);
+    return WidgetFactories.TapUpDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+
+  int tapMoveDetailsTapMoveDetails(PointerDeviceKind kind, Optional<Offset> globalPosition, Optional<Offset> delta, Optional<Offset> localPosition) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.tapMoveDetails(st);
+    return WidgetFactories.TapMoveDetailsSt.tapMoveDetails.invoke(fn, kind.ordinal(),
+      ptrObj(globalPosition),
+      ptrObj(delta),
+      ptrObj(localPosition));
+  }
+  int tapMoveDetailsGlobalPosition(TapMoveDetails self) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.globalPosition(st);
+    return WidgetFactories.TapMoveDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int tapMoveDetailsLocalPosition(TapMoveDetails self) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.localPosition(st);
+    return WidgetFactories.TapMoveDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  int tapMoveDetailsDelta(TapMoveDetails self) {
+    var st = WidgetFactories.tapMoveDetails(factories);
+    var fn = WidgetFactories.TapMoveDetailsSt.delta(st);
+    return WidgetFactories.TapMoveDetailsSt.delta.invoke(fn, self.build().getId());
+  }
+
+  int longPressDownDetailsLongPressDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.longPressDownDetails(factories);
+    var fn = WidgetFactories.LongPressDownDetailsSt.longPressDownDetails(st);
+    return WidgetFactories.LongPressDownDetailsSt.longPressDownDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrEnum(kind));
+  }
+  int longPressDownDetailsGlobalPosition(LongPressDownDetails self) {
+    var st = WidgetFactories.longPressDownDetails(factories);
+    var fn = WidgetFactories.LongPressDownDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressDownDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressDownDetailsLocalPosition(LongPressDownDetails self) {
+    var st = WidgetFactories.longPressDownDetails(factories);
+    var fn = WidgetFactories.LongPressDownDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressDownDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+
+  int longPressStartDetailsLongPressStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    var st = WidgetFactories.longPressStartDetails(factories);
+    var fn = WidgetFactories.LongPressStartDetailsSt.longPressStartDetails(st);
+    return WidgetFactories.LongPressStartDetailsSt.longPressStartDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition));
+  }
+  int longPressStartDetailsGlobalPosition(LongPressStartDetails self) {
+    var st = WidgetFactories.longPressStartDetails(factories);
+    var fn = WidgetFactories.LongPressStartDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressStartDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressStartDetailsLocalPosition(LongPressStartDetails self) {
+    var st = WidgetFactories.longPressStartDetails(factories);
+    var fn = WidgetFactories.LongPressStartDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressStartDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+
+  int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Offset> offsetFromOrigin, Optional<Offset> localOffsetFromOrigin) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.longPressMoveUpdateDetails(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.longPressMoveUpdateDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrObj(offsetFromOrigin),
+      ptrObj(localOffsetFromOrigin));
+  }
+  int longPressMoveUpdateDetailsGlobalPosition(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressMoveUpdateDetailsLocalPosition(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  int longPressMoveUpdateDetailsOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.offsetFromOrigin(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.offsetFromOrigin.invoke(fn, self.build().getId());
+  }
+  int longPressMoveUpdateDetailsLocalOffsetFromOrigin(LongPressMoveUpdateDetails self) {
+    var st = WidgetFactories.longPressMoveUpdateDetails(factories);
+    var fn = WidgetFactories.LongPressMoveUpdateDetailsSt.localOffsetFromOrigin(st);
+    return WidgetFactories.LongPressMoveUpdateDetailsSt.localOffsetFromOrigin.invoke(fn, self.build().getId());
+  }
+
+  int longPressEndDetailsLongPressEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.longPressEndDetails(st);
+    return WidgetFactories.LongPressEndDetailsSt.longPressEndDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrObj(velocity));
+  }
+  int longPressEndDetailsGlobalPosition(LongPressEndDetails self) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.globalPosition(st);
+    return WidgetFactories.LongPressEndDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int longPressEndDetailsLocalPosition(LongPressEndDetails self) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.localPosition(st);
+    return WidgetFactories.LongPressEndDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  MemorySegment longPressEndDetailsVelocity(LongPressEndDetails self) {
+    var st = WidgetFactories.longPressEndDetails(factories);
+    var fn = WidgetFactories.LongPressEndDetailsSt.velocity(st);
+    return WidgetFactories.LongPressEndDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
+
+  int dragDownDetailsDragDownDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition) {
+    var st = WidgetFactories.dragDownDetails(factories);
+    var fn = WidgetFactories.DragDownDetailsSt.dragDownDetails(st);
+    return WidgetFactories.DragDownDetailsSt.dragDownDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition));
+  }
+  int dragDownDetailsGlobalPosition(DragDownDetails self) {
+    var st = WidgetFactories.dragDownDetails(factories);
+    var fn = WidgetFactories.DragDownDetailsSt.globalPosition(st);
+    return WidgetFactories.DragDownDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragDownDetailsLocalPosition(DragDownDetails self) {
+    var st = WidgetFactories.dragDownDetails(factories);
+    var fn = WidgetFactories.DragDownDetailsSt.localPosition(st);
+    return WidgetFactories.DragDownDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+
+  int dragStartDetailsDragStartDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.dragStartDetails(factories);
+    var fn = WidgetFactories.DragStartDetailsSt.dragStartDetails(st);
+    return WidgetFactories.DragStartDetailsSt.dragStartDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrObj(sourceTimeStamp),
+      ptrEnum(kind));
+  }
+  int dragStartDetailsGlobalPosition(DragStartDetails self) {
+    var st = WidgetFactories.dragStartDetails(factories);
+    var fn = WidgetFactories.DragStartDetailsSt.globalPosition(st);
+    return WidgetFactories.DragStartDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragStartDetailsLocalPosition(DragStartDetails self) {
+    var st = WidgetFactories.dragStartDetails(factories);
+    var fn = WidgetFactories.DragStartDetailsSt.localPosition(st);
+    return WidgetFactories.DragStartDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+
+  int dragUpdateDetailsDragUpdateDetails(Offset globalPosition, Optional<Offset> localPosition, Optional<Duration> sourceTimeStamp, Optional<Offset> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.dragUpdateDetails(st);
+    return WidgetFactories.DragUpdateDetailsSt.dragUpdateDetails.invoke(fn, globalPosition.build().getId(),
+      ptrObj(localPosition),
+      ptrObj(sourceTimeStamp),
+      ptrObj(delta),
+      ptr(primaryDelta),
+      ptrEnum(kind));
+  }
+  int dragUpdateDetailsGlobalPosition(DragUpdateDetails self) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.globalPosition(st);
+    return WidgetFactories.DragUpdateDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragUpdateDetailsLocalPosition(DragUpdateDetails self) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.localPosition(st);
+    return WidgetFactories.DragUpdateDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  int dragUpdateDetailsDelta(DragUpdateDetails self) {
+    var st = WidgetFactories.dragUpdateDetails(factories);
+    var fn = WidgetFactories.DragUpdateDetailsSt.delta(st);
+    return WidgetFactories.DragUpdateDetailsSt.delta.invoke(fn, self.build().getId());
+  }
+
+  int dragEndDetailsDragEndDetails(Optional<Offset> globalPosition, Optional<Offset> localPosition, Optional<Velocity> velocity, OptionalDouble primaryVelocity) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.dragEndDetails(st);
+    return WidgetFactories.DragEndDetailsSt.dragEndDetails.invoke(fn, ptrObj(globalPosition),
+      ptrObj(localPosition),
+      ptrObj(velocity),
+      ptr(primaryVelocity));
+  }
+  int dragEndDetailsGlobalPosition(DragEndDetails self) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.globalPosition(st);
+    return WidgetFactories.DragEndDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int dragEndDetailsLocalPosition(DragEndDetails self) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.localPosition(st);
+    return WidgetFactories.DragEndDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  MemorySegment dragEndDetailsVelocity(DragEndDetails self) {
+    var st = WidgetFactories.dragEndDetails(factories);
+    var fn = WidgetFactories.DragEndDetailsSt.velocity(st);
+    return WidgetFactories.DragEndDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
+
+  int scaleStartDetailsScaleStartDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalInt pointerCount, Optional<Duration> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.scaleStartDetails(st);
+    return WidgetFactories.ScaleStartDetailsSt.scaleStartDetails.invoke(fn, ptrObj(focalPoint),
+      ptrObj(localFocalPoint),
+      ptr(pointerCount),
+      ptrObj(sourceTimeStamp),
+      ptrEnum(kind));
+  }
+  int scaleStartDetailsFocalPoint(ScaleStartDetails self) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.focalPoint(st);
+    return WidgetFactories.ScaleStartDetailsSt.focalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleStartDetailsLocalFocalPoint(ScaleStartDetails self) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.localFocalPoint(st);
+    return WidgetFactories.ScaleStartDetailsSt.localFocalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleStartDetailsPointerCount(ScaleStartDetails self) {
+    var st = WidgetFactories.scaleStartDetails(factories);
+    var fn = WidgetFactories.ScaleStartDetailsSt.pointerCount(st);
+    return WidgetFactories.ScaleStartDetailsSt.pointerCount.invoke(fn, self.build().getId());
+  }
+
+  int scaleUpdateDetailsScaleUpdateDetails(Optional<Offset> focalPoint, Optional<Offset> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<Offset> focalPointDelta, Optional<Duration> sourceTimeStamp) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.scaleUpdateDetails(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.scaleUpdateDetails.invoke(fn, ptrObj(focalPoint),
+      ptrObj(localFocalPoint),
+      ptr(scale),
+      ptr(horizontalScale),
+      ptr(verticalScale),
+      ptr(rotation),
+      ptr(pointerCount),
+      ptrObj(focalPointDelta),
+      ptrObj(sourceTimeStamp));
+  }
+  int scaleUpdateDetailsFocalPoint(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.focalPoint(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.focalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleUpdateDetailsLocalFocalPoint(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.localFocalPoint(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.localFocalPoint.invoke(fn, self.build().getId());
+  }
+  int scaleUpdateDetailsFocalPointDelta(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.focalPointDelta(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.focalPointDelta.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsScale(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.scale(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.scale.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsHorizontalScale(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.horizontalScale(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.horizontalScale.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsVerticalScale(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.verticalScale(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.verticalScale.invoke(fn, self.build().getId());
+  }
+  double scaleUpdateDetailsRotation(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.rotation(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.rotation.invoke(fn, self.build().getId());
+  }
+  int scaleUpdateDetailsPointerCount(ScaleUpdateDetails self) {
+    var st = WidgetFactories.scaleUpdateDetails(factories);
+    var fn = WidgetFactories.ScaleUpdateDetailsSt.pointerCount(st);
+    return WidgetFactories.ScaleUpdateDetailsSt.pointerCount.invoke(fn, self.build().getId());
+  }
+
+  int scaleEndDetailsScaleEndDetails(Optional<Velocity> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.scaleEndDetails(st);
+    return WidgetFactories.ScaleEndDetailsSt.scaleEndDetails.invoke(fn, ptrObj(velocity),
+      ptr(scaleVelocity),
+      ptr(pointerCount));
+  }
+  MemorySegment scaleEndDetailsVelocity(ScaleEndDetails self) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.velocity(st);
+    return WidgetFactories.ScaleEndDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
+  double scaleEndDetailsScaleVelocity(ScaleEndDetails self) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.scaleVelocity(st);
+    return WidgetFactories.ScaleEndDetailsSt.scaleVelocity.invoke(fn, self.build().getId());
+  }
+  int scaleEndDetailsPointerCount(ScaleEndDetails self) {
+    var st = WidgetFactories.scaleEndDetails(factories);
+    var fn = WidgetFactories.ScaleEndDetailsSt.pointerCount(st);
+    return WidgetFactories.ScaleEndDetailsSt.pointerCount.invoke(fn, self.build().getId());
+  }
+
+  int forcePressDetailsForcePressDetails(Offset globalPosition, Optional<Offset> localPosition, double pressure) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.forcePressDetails(st);
+    return WidgetFactories.ForcePressDetailsSt.forcePressDetails.invoke(fn, globalPosition.build().getId(),
+      ptrObj(localPosition),
+      pressure);
+  }
+  int forcePressDetailsGlobalPosition(ForcePressDetails self) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.globalPosition(st);
+    return WidgetFactories.ForcePressDetailsSt.globalPosition.invoke(fn, self.build().getId());
+  }
+  int forcePressDetailsLocalPosition(ForcePressDetails self) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.localPosition(st);
+    return WidgetFactories.ForcePressDetailsSt.localPosition.invoke(fn, self.build().getId());
+  }
+  double forcePressDetailsPressure(ForcePressDetails self) {
+    var st = WidgetFactories.forcePressDetails(factories);
+    var fn = WidgetFactories.ForcePressDetailsSt.pressure(st);
+    return WidgetFactories.ForcePressDetailsSt.pressure.invoke(fn, self.build().getId());
+  }
+
+  int draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, Velocity velocity, Offset offset) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.draggableDetails(st);
+    return WidgetFactories.DraggableDetailsSt.draggableDetails.invoke(fn, ptrBool(wasAccepted),
+      velocity.build().getId(),
+      offset.build().getId());
+  }
+  int draggableDetailsWasAccepted(DraggableDetails self) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.wasAccepted(st);
+    return WidgetFactories.DraggableDetailsSt.wasAccepted.invoke(fn, self.build().getId());
+  }
+  MemorySegment draggableDetailsVelocity(DraggableDetails self) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.velocity(st);
+    return WidgetFactories.DraggableDetailsSt.velocity.invoke(fn, arena, self.build().getId());
+  }
+  int draggableDetailsOffset(DraggableDetails self) {
+    var st = WidgetFactories.draggableDetails(factories);
+    var fn = WidgetFactories.DraggableDetailsSt.offset(st);
+    return WidgetFactories.DraggableDetailsSt.offset.invoke(fn, self.build().getId());
+  }
+
+  <T> int dragTargetDetailsDragTargetDetails(NativeObj data, Offset offset) {
+    var st = WidgetFactories.dragTargetDetails(factories);
+    var fn = WidgetFactories.DragTargetDetailsSt.dragTargetDetails(st);
+    return WidgetFactories.DragTargetDetailsSt.dragTargetDetails.invoke(fn, data.build().getId(),
+      offset.build().getId());
+  }
+
+  MemorySegment pointerDownEventPointerDownEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerDownEvent(factories);
+    var fn = WidgetFactories.PointerDownEventSt.pointerDownEvent(st);
+    return WidgetFactories.PointerDownEventSt.pointerDownEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptr(pointer),
+      ptrEnum(kind),
+      ptr(device),
+      ptrObj(position),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressure),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptr(embedderId));
+  }
+
+  MemorySegment pointerUpEventPointerUpEvent(OptionalInt viewId, Optional<Duration> timeStamp, OptionalInt pointer, Optional<PointerDeviceKind> kind, OptionalInt device, Optional<Offset> position, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressure, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerUpEvent(factories);
+    var fn = WidgetFactories.PointerUpEventSt.pointerUpEvent(st);
+    return WidgetFactories.PointerUpEventSt.pointerUpEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptr(pointer),
+      ptrEnum(kind),
+      ptr(device),
+      ptrObj(position),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressure),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptr(embedderId));
+  }
+
+  MemorySegment pointerHoverEventPointerHoverEvent(OptionalInt viewId, Optional<Duration> timeStamp, Optional<PointerDeviceKind> kind, OptionalInt pointer, OptionalInt device, Optional<Offset> position, Optional<Offset> delta, OptionalInt buttons, Optional<Boolean> obscured, OptionalDouble pressureMin, OptionalDouble pressureMax, OptionalDouble distance, OptionalDouble distanceMax, OptionalDouble size, OptionalDouble radiusMajor, OptionalDouble radiusMinor, OptionalDouble radiusMin, OptionalDouble radiusMax, OptionalDouble orientation, OptionalDouble tilt, Optional<Boolean> synthesized, OptionalInt embedderId) {
+    var st = WidgetFactories.pointerHoverEvent(factories);
+    var fn = WidgetFactories.PointerHoverEventSt.pointerHoverEvent(st);
+    return WidgetFactories.PointerHoverEventSt.pointerHoverEvent.invoke(fn, arena, ptr(viewId),
+      ptrObj(timeStamp),
+      ptrEnum(kind),
+      ptr(pointer),
+      ptr(device),
+      ptrObj(position),
+      ptrObj(delta),
+      ptr(buttons),
+      ptrBool(obscured),
+      ptr(pressureMin),
+      ptr(pressureMax),
+      ptr(distance),
+      ptr(distanceMax),
+      ptr(size),
+      ptr(radiusMajor),
+      ptr(radiusMinor),
+      ptr(radiusMin),
+      ptr(radiusMax),
+      ptr(orientation),
+      ptr(tilt),
+      ptrBool(synthesized),
+      ptr(embedderId));
   }
 
   MemorySegment cubicCubic(double a, double b, double c, double d) {
@@ -1100,10 +1691,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  MemorySegment mouseRegionMouseRegion(Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
+  MemorySegment mouseRegionMouseRegion(Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<Consumer<PointerHoverEvent>> onHover, Optional<Boolean> opaque, Optional<HitTestBehavior> hitTestBehavior, Optional<Widget> child) {
     var st = WidgetFactories.mouseRegion(factories);
     var fn = WidgetFactories.MouseRegionSt.mouseRegion(st);
-    return WidgetFactories.MouseRegionSt.mouseRegion.invoke(fn, arena, ptrBool(opaque),
+    return WidgetFactories.MouseRegionSt.mouseRegion.invoke(fn, arena, onEnter.isPresent() ? ptrHolder(ptrPointerEnterEventListenerFn(onEnter.get())) : MemorySegment.NULL,
+      onExit.isPresent() ? ptrHolder(ptrPointerExitEventListenerFn(onExit.get())) : MemorySegment.NULL,
+      onHover.isPresent() ? ptrHolder(ptrPointerHoverEventListenerFn(onHover.get())) : MemorySegment.NULL,
+      ptrBool(opaque),
       ptrEnum(hitTestBehavior),
       ptrObj(child));
   }
@@ -1771,7 +2365,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
-  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
+  MemorySegment interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsets> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Consumer<ScaleEndDetails>> onInteractionEnd, Optional<Consumer<ScaleStartDetails>> onInteractionStart, Optional<Consumer<ScaleUpdateDetails>> onInteractionUpdate, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<Alignment> alignment, Optional<Boolean> trackpadScrollCausesScale, Widget child) {
     var st = WidgetFactories.interactiveViewer(factories);
     var fn = WidgetFactories.InteractiveViewerSt.interactiveViewer(st);
     return WidgetFactories.InteractiveViewerSt.interactiveViewer.invoke(fn, arena, ptrEnum(clipBehavior),
@@ -1781,6 +2375,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(maxScale),
       ptr(minScale),
       ptr(interactionEndFrictionCoefficient),
+      onInteractionEnd.isPresent() ? ptrHolder(ptrGestureScaleEndCallbackFn(onInteractionEnd.get())) : MemorySegment.NULL,
+      onInteractionStart.isPresent() ? ptrHolder(ptrGestureScaleStartCallbackFn(onInteractionStart.get())) : MemorySegment.NULL,
+      onInteractionUpdate.isPresent() ? ptrHolder(ptrGestureScaleUpdateCallbackFn(onInteractionUpdate.get())) : MemorySegment.NULL,
       ptrBool(panEnabled),
       ptrBool(scaleEnabled),
       ptr(scaleFactor),
@@ -1789,7 +2386,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
+  <T extends NativeObj> MemorySegment draggableDraggable(Widget child, Widget feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<Widget> childWhenDragging, Optional<Offset> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Consumer<DraggableDetails>> onDragEnd, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
     var st = WidgetFactories.draggable(factories);
     var fn = WidgetFactories.DraggableSt.draggable(st);
     return WidgetFactories.DraggableSt.draggable.invoke(fn, arena, child.build().getId(),
@@ -1802,6 +2399,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(affinity),
       ptr(maxSimultaneousDrags),
       onDragStarted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragStarted.get())) : MemorySegment.NULL,
+      onDragUpdate.isPresent() ? ptrHolder(ptrDragUpdateCallbackFn(onDragUpdate.get())) : MemorySegment.NULL,
+      onDraggableCanceled.isPresent() ? ptrHolder(ptrDraggableCanceledCallbackFn(onDraggableCanceled.get())) : MemorySegment.NULL,
+      onDragEnd.isPresent() ? ptrHolder(ptrDragEndCallbackFn(onDragEnd.get())) : MemorySegment.NULL,
       onDragCompleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDragCompleted.get())) : MemorySegment.NULL,
       ptrBool(ignoringFeedbackSemantics),
       ptrBool(ignoringFeedbackPointer),
@@ -1810,13 +2410,16 @@ class WidgetConstructors extends WidgetConstructorsBase {
       allowedButtonsFilter.isPresent() ? ptrHolder(ptrAllowedButtonsFilterFn(allowedButtonsFilter.get())) : MemorySegment.NULL);
   }
 
-  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  <T extends NativeObj> MemorySegment dragTargetDragTarget(TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Function<DragTargetDetails, Boolean>> onWillAcceptWithDetails, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<DragTargetDetails>> onAcceptWithDetails, Optional<Consumer<NativeObj>> onLeave, Optional<Consumer<DragTargetDetails>> onMove, Optional<HitTestBehavior> hitTestBehavior) {
     var st = WidgetFactories.dragTarget(factories);
     var fn = WidgetFactories.DragTargetSt.dragTarget(st);
     return WidgetFactories.DragTargetSt.dragTarget.invoke(fn, arena, ptrDragTargetBuilderForTFn(builder),
       onWillAccept.isPresent() ? ptrHolder(ptrDragTargetWillAcceptForTFn(onWillAccept.get())) : MemorySegment.NULL,
+      onWillAcceptWithDetails.isPresent() ? ptrHolder(ptrDragTargetWillAcceptWithDetailsForTFn(onWillAcceptWithDetails.get())) : MemorySegment.NULL,
       onAccept.isPresent() ? ptrHolder(ptrDragTargetAcceptForTFn(onAccept.get())) : MemorySegment.NULL,
+      onAcceptWithDetails.isPresent() ? ptrHolder(ptrDragTargetAcceptWithDetailsForTFn(onAcceptWithDetails.get())) : MemorySegment.NULL,
       onLeave.isPresent() ? ptrHolder(ptrDragTargetLeaveForTFn(onLeave.get())) : MemorySegment.NULL,
+      onMove.isPresent() ? ptrHolder(ptrDragTargetMoveForTFn(onMove.get())) : MemorySegment.NULL,
       ptrEnum(hitTestBehavior));
   }
 
@@ -3120,7 +3723,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.InputBorderSt.none(st);
   }
 
-  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     var st = WidgetFactories.textField(factories);
     var fn = WidgetFactories.TextFieldSt.textField(st);
     return WidgetFactories.TextFieldSt.textField.invoke(fn, arena, ptrObj(groupId),
@@ -3164,6 +3767,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(selectAllOnFocus),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
       ptrBool(onTapAlwaysCalled),
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
       buildCounter.isPresent() ? ptrHolder(ptrInputCounterWidgetBuilderFn(buildCounter.get())) : MemorySegment.NULL,
       ptrStrList(autofillHints),
       ptrEnum(clipBehavior),
@@ -3366,29 +3971,68 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(deleteIconBoxConstraints));
   }
 
-  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Runnable> onTertiaryTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Runnable> onSecondaryLongPressUp, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Runnable> onTertiaryLongPressUp, Optional<Runnable> onVerticalDragCancel, Optional<Runnable> onHorizontalDragCancel, Optional<Runnable> onPanCancel, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
+  MemorySegment gestureDetectorGestureDetector(Optional<Widget> child, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTap, Optional<Consumer<TapMoveDetails>> onTapMove, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<TapDownDetails>> onTertiaryTapDown, Optional<Consumer<TapUpDetails>> onTertiaryTapUp, Optional<Runnable> onTertiaryTapCancel, Optional<Consumer<TapDownDetails>> onDoubleTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onDoubleTapCancel, Optional<Consumer<LongPressDownDetails>> onLongPressDown, Optional<Runnable> onLongPressCancel, Optional<Runnable> onLongPress, Optional<Consumer<LongPressStartDetails>> onLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onLongPressMoveUpdate, Optional<Runnable> onLongPressUp, Optional<Consumer<LongPressEndDetails>> onLongPressEnd, Optional<Consumer<LongPressDownDetails>> onSecondaryLongPressDown, Optional<Runnable> onSecondaryLongPressCancel, Optional<Runnable> onSecondaryLongPress, Optional<Consumer<LongPressStartDetails>> onSecondaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onSecondaryLongPressMoveUpdate, Optional<Runnable> onSecondaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onSecondaryLongPressEnd, Optional<Consumer<LongPressDownDetails>> onTertiaryLongPressDown, Optional<Runnable> onTertiaryLongPressCancel, Optional<Runnable> onTertiaryLongPress, Optional<Consumer<LongPressStartDetails>> onTertiaryLongPressStart, Optional<Consumer<LongPressMoveUpdateDetails>> onTertiaryLongPressMoveUpdate, Optional<Runnable> onTertiaryLongPressUp, Optional<Consumer<LongPressEndDetails>> onTertiaryLongPressEnd, Optional<Consumer<DragDownDetails>> onVerticalDragDown, Optional<Consumer<DragStartDetails>> onVerticalDragStart, Optional<Consumer<DragUpdateDetails>> onVerticalDragUpdate, Optional<Consumer<DragEndDetails>> onVerticalDragEnd, Optional<Runnable> onVerticalDragCancel, Optional<Consumer<DragDownDetails>> onHorizontalDragDown, Optional<Consumer<DragStartDetails>> onHorizontalDragStart, Optional<Consumer<DragUpdateDetails>> onHorizontalDragUpdate, Optional<Consumer<DragEndDetails>> onHorizontalDragEnd, Optional<Runnable> onHorizontalDragCancel, Optional<Consumer<ForcePressDetails>> onForcePressStart, Optional<Consumer<ForcePressDetails>> onForcePressPeak, Optional<Consumer<ForcePressDetails>> onForcePressUpdate, Optional<Consumer<ForcePressDetails>> onForcePressEnd, Optional<Consumer<DragDownDetails>> onPanDown, Optional<Consumer<DragStartDetails>> onPanStart, Optional<Consumer<DragUpdateDetails>> onPanUpdate, Optional<Consumer<DragEndDetails>> onPanEnd, Optional<Runnable> onPanCancel, Optional<Consumer<ScaleStartDetails>> onScaleStart, Optional<Consumer<ScaleUpdateDetails>> onScaleUpdate, Optional<Consumer<ScaleEndDetails>> onScaleEnd, Optional<HitTestBehavior> behavior, Optional<Boolean> excludeFromSemantics, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> trackpadScrollCausesScale, Optional<Offset> trackpadScrollToScaleFactor) {
     var st = WidgetFactories.gestureDetector(factories);
     var fn = WidgetFactories.GestureDetectorSt.gestureDetector(st);
     return WidgetFactories.GestureDetectorSt.gestureDetector.invoke(fn, arena, ptrObj(child),
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
+      onTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTapUp.get())) : MemorySegment.NULL,
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapMove.isPresent() ? ptrHolder(ptrGestureTapMoveCallbackFn(onTapMove.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
       onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onSecondaryTapDown.get())) : MemorySegment.NULL,
+      onSecondaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onSecondaryTapUp.get())) : MemorySegment.NULL,
       onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
+      onTertiaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTertiaryTapDown.get())) : MemorySegment.NULL,
+      onTertiaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTertiaryTapUp.get())) : MemorySegment.NULL,
       onTertiaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTertiaryTapCancel.get())) : MemorySegment.NULL,
+      onDoubleTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onDoubleTapDown.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onDoubleTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onDoubleTapCancel.get())) : MemorySegment.NULL,
+      onLongPressDown.isPresent() ? ptrHolder(ptrGestureLongPressDownCallbackFn(onLongPressDown.get())) : MemorySegment.NULL,
       onLongPressCancel.isPresent() ? ptrHolder(ptrGestureLongPressCancelCallbackFn(onLongPressCancel.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onLongPressStart.isPresent() ? ptrHolder(ptrGestureLongPressStartCallbackFn(onLongPressStart.get())) : MemorySegment.NULL,
+      onLongPressMoveUpdate.isPresent() ? ptrHolder(ptrGestureLongPressMoveUpdateCallbackFn(onLongPressMoveUpdate.get())) : MemorySegment.NULL,
       onLongPressUp.isPresent() ? ptrHolder(ptrGestureLongPressUpCallbackFn(onLongPressUp.get())) : MemorySegment.NULL,
+      onLongPressEnd.isPresent() ? ptrHolder(ptrGestureLongPressEndCallbackFn(onLongPressEnd.get())) : MemorySegment.NULL,
+      onSecondaryLongPressDown.isPresent() ? ptrHolder(ptrGestureLongPressDownCallbackFn(onSecondaryLongPressDown.get())) : MemorySegment.NULL,
       onSecondaryLongPressCancel.isPresent() ? ptrHolder(ptrGestureLongPressCancelCallbackFn(onSecondaryLongPressCancel.get())) : MemorySegment.NULL,
       onSecondaryLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onSecondaryLongPress.get())) : MemorySegment.NULL,
+      onSecondaryLongPressStart.isPresent() ? ptrHolder(ptrGestureLongPressStartCallbackFn(onSecondaryLongPressStart.get())) : MemorySegment.NULL,
+      onSecondaryLongPressMoveUpdate.isPresent() ? ptrHolder(ptrGestureLongPressMoveUpdateCallbackFn(onSecondaryLongPressMoveUpdate.get())) : MemorySegment.NULL,
       onSecondaryLongPressUp.isPresent() ? ptrHolder(ptrGestureLongPressUpCallbackFn(onSecondaryLongPressUp.get())) : MemorySegment.NULL,
+      onSecondaryLongPressEnd.isPresent() ? ptrHolder(ptrGestureLongPressEndCallbackFn(onSecondaryLongPressEnd.get())) : MemorySegment.NULL,
+      onTertiaryLongPressDown.isPresent() ? ptrHolder(ptrGestureLongPressDownCallbackFn(onTertiaryLongPressDown.get())) : MemorySegment.NULL,
       onTertiaryLongPressCancel.isPresent() ? ptrHolder(ptrGestureLongPressCancelCallbackFn(onTertiaryLongPressCancel.get())) : MemorySegment.NULL,
       onTertiaryLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onTertiaryLongPress.get())) : MemorySegment.NULL,
+      onTertiaryLongPressStart.isPresent() ? ptrHolder(ptrGestureLongPressStartCallbackFn(onTertiaryLongPressStart.get())) : MemorySegment.NULL,
+      onTertiaryLongPressMoveUpdate.isPresent() ? ptrHolder(ptrGestureLongPressMoveUpdateCallbackFn(onTertiaryLongPressMoveUpdate.get())) : MemorySegment.NULL,
       onTertiaryLongPressUp.isPresent() ? ptrHolder(ptrGestureLongPressUpCallbackFn(onTertiaryLongPressUp.get())) : MemorySegment.NULL,
+      onTertiaryLongPressEnd.isPresent() ? ptrHolder(ptrGestureLongPressEndCallbackFn(onTertiaryLongPressEnd.get())) : MemorySegment.NULL,
+      onVerticalDragDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onVerticalDragDown.get())) : MemorySegment.NULL,
+      onVerticalDragStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onVerticalDragStart.get())) : MemorySegment.NULL,
+      onVerticalDragUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onVerticalDragUpdate.get())) : MemorySegment.NULL,
+      onVerticalDragEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onVerticalDragEnd.get())) : MemorySegment.NULL,
       onVerticalDragCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onVerticalDragCancel.get())) : MemorySegment.NULL,
+      onHorizontalDragDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onHorizontalDragDown.get())) : MemorySegment.NULL,
+      onHorizontalDragStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onHorizontalDragStart.get())) : MemorySegment.NULL,
+      onHorizontalDragUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onHorizontalDragUpdate.get())) : MemorySegment.NULL,
+      onHorizontalDragEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onHorizontalDragEnd.get())) : MemorySegment.NULL,
       onHorizontalDragCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onHorizontalDragCancel.get())) : MemorySegment.NULL,
+      onForcePressStart.isPresent() ? ptrHolder(ptrGestureForcePressStartCallbackFn(onForcePressStart.get())) : MemorySegment.NULL,
+      onForcePressPeak.isPresent() ? ptrHolder(ptrGestureForcePressPeakCallbackFn(onForcePressPeak.get())) : MemorySegment.NULL,
+      onForcePressUpdate.isPresent() ? ptrHolder(ptrGestureForcePressUpdateCallbackFn(onForcePressUpdate.get())) : MemorySegment.NULL,
+      onForcePressEnd.isPresent() ? ptrHolder(ptrGestureForcePressEndCallbackFn(onForcePressEnd.get())) : MemorySegment.NULL,
+      onPanDown.isPresent() ? ptrHolder(ptrGestureDragDownCallbackFn(onPanDown.get())) : MemorySegment.NULL,
+      onPanStart.isPresent() ? ptrHolder(ptrGestureDragStartCallbackFn(onPanStart.get())) : MemorySegment.NULL,
+      onPanUpdate.isPresent() ? ptrHolder(ptrGestureDragUpdateCallbackFn(onPanUpdate.get())) : MemorySegment.NULL,
+      onPanEnd.isPresent() ? ptrHolder(ptrGestureDragEndCallbackFn(onPanEnd.get())) : MemorySegment.NULL,
       onPanCancel.isPresent() ? ptrHolder(ptrGestureDragCancelCallbackFn(onPanCancel.get())) : MemorySegment.NULL,
+      onScaleStart.isPresent() ? ptrHolder(ptrGestureScaleStartCallbackFn(onScaleStart.get())) : MemorySegment.NULL,
+      onScaleUpdate.isPresent() ? ptrHolder(ptrGestureScaleUpdateCallbackFn(onScaleUpdate.get())) : MemorySegment.NULL,
+      onScaleEnd.isPresent() ? ptrHolder(ptrGestureScaleEndCallbackFn(onScaleEnd.get())) : MemorySegment.NULL,
       ptrEnum(behavior),
       ptrBool(excludeFromSemantics),
       ptrEnum(dragStartBehavior),
@@ -4020,15 +4664,19 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(textWidthBasis));
   }
 
-  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     var st = WidgetFactories.inkWell(factories);
     var fn = WidgetFactories.InkWellSt.inkWell(st);
     return WidgetFactories.InkWellSt.inkWell.invoke(fn, arena, ptrObj(child),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
+      onTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTapUp.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
       onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onSecondaryTapUp.get())) : MemorySegment.NULL,
+      onSecondaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onSecondaryTapDown.get())) : MemorySegment.NULL,
       onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
       onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
@@ -4048,15 +4696,19 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(hoverDuration));
   }
 
-  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     var st = WidgetFactories.inkResponse(factories);
     var fn = WidgetFactories.InkResponseSt.inkResponse(st);
     return WidgetFactories.InkResponseSt.inkResponse.invoke(fn, arena, ptrObj(child),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
+      onTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onTapUp.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTapCancel.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onSecondaryTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTap.get())) : MemorySegment.NULL,
+      onSecondaryTapUp.isPresent() ? ptrHolder(ptrGestureTapUpCallbackFn(onSecondaryTapUp.get())) : MemorySegment.NULL,
+      onSecondaryTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onSecondaryTapDown.get())) : MemorySegment.NULL,
       onSecondaryTapCancel.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onSecondaryTapCancel.get())) : MemorySegment.NULL,
       onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
@@ -4134,7 +4786,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(cells));
   }
 
-  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
+  MemorySegment dataCellDataCell(Widget child, Optional<Boolean> placeholder, Optional<Boolean> showEditIcon, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Runnable> onDoubleTap, Optional<Runnable> onTapCancel) {
     var st = WidgetFactories.dataCell(factories);
     var fn = WidgetFactories.DataCellSt.dataCell(st);
     return WidgetFactories.DataCellSt.dataCell.invoke(fn, arena, child.build().getId(),
@@ -4142,6 +4794,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(showEditIcon),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrGestureLongPressCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onTapDown.isPresent() ? ptrHolder(ptrGestureTapDownCallbackFn(onTapDown.get())) : MemorySegment.NULL,
       onDoubleTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onDoubleTap.get())) : MemorySegment.NULL,
       onTapCancel.isPresent() ? ptrHolder(ptrGestureTapCancelCallbackFn(onTapCancel.get())) : MemorySegment.NULL);
   }
@@ -4741,13 +5394,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(acceptEmptyDate));
   }
 
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
     var st = WidgetFactories.searchBar(factories);
     var fn = WidgetFactories.SearchBarSt.searchBar(st);
     return WidgetFactories.SearchBarSt.searchBar.invoke(fn, arena, ptrStr(hintText),
       ptrObj(leading),
       ptrList(trailing),
       onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
       onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
       ptrObj(constraints),
@@ -5221,7 +5875,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     var st = WidgetFactories.cupertinoTextField(factories);
     var fn = WidgetFactories.CupertinoTextFieldSt.cupertinoTextField(st);
     return WidgetFactories.CupertinoTextFieldSt.cupertinoTextField.invoke(fn, arena, ptrObj(groupId),
@@ -5258,6 +5912,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
       onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
       ptrBool(enabled),
       ptr(cursorWidth),
       ptr(cursorHeight),
@@ -5279,7 +5935,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(stylusHandwritingEnabled),
       ptrBool(enableIMEPersonalizedLearning));
   }
-  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
     var st = WidgetFactories.cupertinoTextField(factories);
     var fn = WidgetFactories.CupertinoTextFieldSt.borderless(st);
     return WidgetFactories.CupertinoTextFieldSt.borderless.invoke(fn, arena, ptrObj(groupId),
@@ -5316,6 +5972,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
       onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
       onSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onSubmitted.get())) : MemorySegment.NULL,
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
       ptrBool(enabled),
       ptr(cursorWidth),
       ptr(cursorHeight),
@@ -5526,6 +6184,21 @@ MemorySegment ptrSelectableDayForRangePredicateFn(TriFunction<DateTime, DateTime
     return (jFnRet ? 1 : 0);
   }, arena);
 }
+MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
+  return PointerEnterEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerEnterEvent(event));
+  }, arena);
+}
+MemorySegment ptrPointerExitEventListenerFn(Consumer<PointerExitEvent> jFn) {
+  return PointerExitEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerExitEvent(event));
+  }, arena);
+}
+MemorySegment ptrPointerHoverEventListenerFn(Consumer<PointerHoverEvent> jFn) {
+  return PointerHoverEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerHoverEvent(event));
+  }, arena);
+}
 MemorySegment ptrVoidCallbackFn(Runnable jFn) {
   return VoidCallbackFFI.allocate(() -> {
     jFn.run();
@@ -5548,10 +6221,40 @@ MemorySegment ptrIndexedWidgetBuilderFn(BiFunction<BuildContext, Integer, Widget
     jFn.accept(value);
   }, arena);
 }
+MemorySegment ptrGestureScaleEndCallbackFn(Consumer<ScaleEndDetails> jFn) {
+  return GestureScaleEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new ScaleEndDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureScaleStartCallbackFn(Consumer<ScaleStartDetails> jFn) {
+  return GestureScaleStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new ScaleStartDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureScaleUpdateCallbackFn(Consumer<ScaleUpdateDetails> jFn) {
+  return GestureScaleUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new ScaleUpdateDetails(details));
+  }, arena);
+}
 MemorySegment ptrDragAnchorStrategyFn(TriFunction<Draggable, BuildContext, Offset, Offset> jFn) {
   return DragAnchorStrategyFFI.allocate((draggable, context, position) -> {
     final var jFnRet = jFn.apply(new Draggable(draggable), new BuildContext() { public int getId() { return context; } }, new Offset(position));
     return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrDragUpdateCallbackFn(Consumer<DragUpdateDetails> jFn) {
+  return DragUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragUpdateDetails(details));
+  }, arena);
+}
+MemorySegment ptrDraggableCanceledCallbackFn(BiConsumer<Velocity, Offset> jFn) {
+  return DraggableCanceledCallbackFFI.allocate((velocity, offset) -> {
+    jFn.accept(new Velocity(velocity), new Offset(offset));
+  }, arena);
+}
+MemorySegment ptrDragEndCallbackFn(Consumer<DraggableDetails> jFn) {
+  return DragEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new DraggableDetails(details));
   }, arena);
 }
 MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
@@ -5572,14 +6275,30 @@ MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
     return (jFnRet ? 1 : 0);
   }, arena);
 }
+<T> MemorySegment ptrDragTargetWillAcceptWithDetailsForTFn(Function<DragTargetDetails, Boolean> jFn) {
+  return DragTargetWillAcceptWithDetailsForTFFI.allocate((details) -> {
+    final var jFnRet = jFn.apply(new DragTargetDetails(details));
+    return (jFnRet ? 1 : 0);
+  }, arena);
+}
 <T> MemorySegment ptrDragTargetAcceptForTFn(Consumer<NativeObj> jFn) {
   return DragTargetAcceptForTFFI.allocate((data) -> {
     jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
   }, arena);
 }
+<T> MemorySegment ptrDragTargetAcceptWithDetailsForTFn(Consumer<DragTargetDetails> jFn) {
+  return DragTargetAcceptWithDetailsForTFFI.allocate((details) -> {
+    jFn.accept(new DragTargetDetails(details));
+  }, arena);
+}
 <T> MemorySegment ptrDragTargetLeaveForTFn(Consumer<NativeObj> jFn) {
   return DragTargetLeaveForTFFI.allocate((data) -> {
     jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
+  }, arena);
+}
+<T> MemorySegment ptrDragTargetMoveForTFn(Consumer<DragTargetDetails> jFn) {
+  return DragTargetMoveForTFFI.allocate((details) -> {
+    jFn.accept(new DragTargetDetails(details));
   }, arena);
 }
 MemorySegment ptrHeroFlightShuttleBuilderFn(PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget> jFn) {
@@ -5632,15 +6351,45 @@ MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
+MemorySegment ptrTapRegionCallbackFn(Consumer<PointerDownEvent> jFn) {
+  return TapRegionCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerDownEvent(event));
+  }, arena);
+}
+MemorySegment ptrTapRegionUpCallbackFn(Consumer<PointerUpEvent> jFn) {
+  return TapRegionUpCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerUpEvent(event));
+  }, arena);
+}
 MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {
   return InputCounterWidgetBuilderFFI.allocate((context, currentLength, isFocused, maxLength) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, currentLength, intToBool(isFocused), maxLength);
     return jFnRet != null ? jFnRet.build().getId() : null;
   }, arena);
 }
+MemorySegment ptrGestureTapDownCallbackFn(Consumer<TapDownDetails> jFn) {
+  return GestureTapDownCallbackFFI.allocate((details) -> {
+    jFn.accept(new TapDownDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureTapUpCallbackFn(Consumer<TapUpDetails> jFn) {
+  return GestureTapUpCallbackFFI.allocate((details) -> {
+    jFn.accept(new TapUpDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureTapMoveCallbackFn(Consumer<TapMoveDetails> jFn) {
+  return GestureTapMoveCallbackFFI.allocate((details) -> {
+    jFn.accept(new TapMoveDetails(details));
+  }, arena);
+}
 MemorySegment ptrGestureTapCancelCallbackFn(Runnable jFn) {
   return GestureTapCancelCallbackFFI.allocate(() -> {
     jFn.run();
+  }, arena);
+}
+MemorySegment ptrGestureLongPressDownCallbackFn(Consumer<LongPressDownDetails> jFn) {
+  return GestureLongPressDownCallbackFFI.allocate((details) -> {
+    jFn.accept(new LongPressDownDetails(details));
   }, arena);
 }
 MemorySegment ptrGestureLongPressCancelCallbackFn(Runnable jFn) {
@@ -5653,14 +6402,69 @@ MemorySegment ptrGestureLongPressCallbackFn(Runnable jFn) {
     jFn.run();
   }, arena);
 }
+MemorySegment ptrGestureLongPressStartCallbackFn(Consumer<LongPressStartDetails> jFn) {
+  return GestureLongPressStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new LongPressStartDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureLongPressMoveUpdateCallbackFn(Consumer<LongPressMoveUpdateDetails> jFn) {
+  return GestureLongPressMoveUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new LongPressMoveUpdateDetails(details));
+  }, arena);
+}
 MemorySegment ptrGestureLongPressUpCallbackFn(Runnable jFn) {
   return GestureLongPressUpCallbackFFI.allocate(() -> {
     jFn.run();
   }, arena);
 }
+MemorySegment ptrGestureLongPressEndCallbackFn(Consumer<LongPressEndDetails> jFn) {
+  return GestureLongPressEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new LongPressEndDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragDownCallbackFn(Consumer<DragDownDetails> jFn) {
+  return GestureDragDownCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragDownDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragStartCallbackFn(Consumer<DragStartDetails> jFn) {
+  return GestureDragStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragStartDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragUpdateCallbackFn(Consumer<DragUpdateDetails> jFn) {
+  return GestureDragUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragUpdateDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureDragEndCallbackFn(Consumer<DragEndDetails> jFn) {
+  return GestureDragEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new DragEndDetails(details));
+  }, arena);
+}
 MemorySegment ptrGestureDragCancelCallbackFn(Runnable jFn) {
   return GestureDragCancelCallbackFFI.allocate(() -> {
     jFn.run();
+  }, arena);
+}
+MemorySegment ptrGestureForcePressStartCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressStartCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureForcePressPeakCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressPeakCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureForcePressUpdateCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressUpdateCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
+  }, arena);
+}
+MemorySegment ptrGestureForcePressEndCallbackFn(Consumer<ForcePressDetails> jFn) {
+  return GestureForcePressEndCallbackFFI.allocate((details) -> {
+    jFn.accept(new ForcePressDetails(details));
   }, arena);
 }
 <T> MemorySegment ptrValueChangedForBoolOptFn(Consumer<Boolean> jFn) {

@@ -17,7 +17,7 @@ public class InteractiveViewer extends StatefulWidget implements InteractiveView
   }
   InteractiveViewer(int id) { this.id = id; }
   @Builder.Factory
-  static InteractiveViewer interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsetsI> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<AlignmentI> alignment, Optional<Boolean> trackpadScrollCausesScale, WidgetI child) {
+  static InteractiveViewer interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsetsI> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Consumer<ScaleEndDetails>> onInteractionEnd, Optional<Consumer<ScaleStartDetails>> onInteractionStart, Optional<Consumer<ScaleUpdateDetails>> onInteractionUpdate, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<AlignmentI> alignment, Optional<Boolean> trackpadScrollCausesScale, WidgetI child) {
     var st = factories.interactiveViewerInteractiveViewer(clipBehavior,
       panAxis,
       boundaryMargin.map(EdgeInsetsI::build),
@@ -25,6 +25,9 @@ public class InteractiveViewer extends StatefulWidget implements InteractiveView
       maxScale,
       minScale,
       interactionEndFrictionCoefficient,
+      onInteractionEnd,
+      onInteractionStart,
+      onInteractionUpdate,
       panEnabled,
       scaleEnabled,
       scaleFactor,

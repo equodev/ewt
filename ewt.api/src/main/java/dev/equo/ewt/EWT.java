@@ -184,6 +184,24 @@ public class EWT {
     return TextSpanTextSpanBuilder.textSpanTextSpan();
   }
 
+  public static PointerEnterEventPointerEnterEventBuilder PointerEnterEvent() {
+    return PointerEnterEventPointerEnterEventBuilder.pointerEnterEventPointerEnterEvent();
+  }
+  public static PointerEnterEventFromMouseEventBuilder PointerEnterEvent_fromMouseEvent(PointerEventI event) {
+    return PointerEnterEventFromMouseEventBuilder.pointerEnterEventFromMouseEvent(event);
+  }
+
+  public static PointerExitEventPointerExitEventBuilder PointerExitEvent() {
+    return PointerExitEventPointerExitEventBuilder.pointerExitEventPointerExitEvent();
+  }
+  public static PointerExitEventFromMouseEventBuilder PointerExitEvent_fromMouseEvent(PointerEventI event) {
+    return PointerExitEventFromMouseEventBuilder.pointerExitEventFromMouseEvent(event);
+  }
+
+  public static DurationDurationBuilder Duration() {
+    return DurationDurationBuilder.durationDuration();
+  }
+
   public static RichTextRichTextBuilder RichText(InlineSpanI text) {
     return RichTextRichTextBuilder.richTextRichText(text);
   }
@@ -348,16 +366,96 @@ public class EWT {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
   }
 
-  public static DurationDurationBuilder Duration() {
-    return DurationDurationBuilder.durationDuration();
-  }
-
   public static AnimatedBuilderAnimatedBuilderBuilder AnimatedBuilder(ListenableI animation, BiFunction<BuildContext, Widget, Widget> builder) {
     return AnimatedBuilderAnimatedBuilderBuilder.animatedBuilderAnimatedBuilder(animation, builder);
   }
 
   public static ListenableBuilderListenableBuilderBuilder ListenableBuilder(ListenableI listenable, BiFunction<BuildContext, Widget, Widget> builder) {
     return ListenableBuilderListenableBuilderBuilder.listenableBuilderListenableBuilder(listenable, builder);
+  }
+
+  public static VelocityVelocityBuilder Velocity(OffsetI pixelsPerSecond) {
+    return VelocityVelocityBuilder.velocityVelocity(pixelsPerSecond);
+  }
+
+  public static TapDownDetailsTapDownDetailsBuilder TapDownDetails() {
+    return TapDownDetailsTapDownDetailsBuilder.tapDownDetailsTapDownDetails();
+  }
+
+  public static TapUpDetailsTapUpDetailsBuilder TapUpDetails() {
+    return TapUpDetailsTapUpDetailsBuilder.tapUpDetailsTapUpDetails();
+  }
+
+  public static TapMoveDetailsTapMoveDetailsBuilder TapMoveDetails(PointerDeviceKind kind) {
+    return TapMoveDetailsTapMoveDetailsBuilder.tapMoveDetailsTapMoveDetails(kind);
+  }
+
+  public static LongPressDownDetailsLongPressDownDetailsBuilder LongPressDownDetails() {
+    return LongPressDownDetailsLongPressDownDetailsBuilder.longPressDownDetailsLongPressDownDetails();
+  }
+
+  public static LongPressStartDetailsLongPressStartDetailsBuilder LongPressStartDetails() {
+    return LongPressStartDetailsLongPressStartDetailsBuilder.longPressStartDetailsLongPressStartDetails();
+  }
+
+  public static LongPressMoveUpdateDetailsLongPressMoveUpdateDetailsBuilder LongPressMoveUpdateDetails() {
+    return LongPressMoveUpdateDetailsLongPressMoveUpdateDetailsBuilder.longPressMoveUpdateDetailsLongPressMoveUpdateDetails();
+  }
+
+  public static LongPressEndDetailsLongPressEndDetailsBuilder LongPressEndDetails() {
+    return LongPressEndDetailsLongPressEndDetailsBuilder.longPressEndDetailsLongPressEndDetails();
+  }
+
+  public static DragDownDetailsDragDownDetailsBuilder DragDownDetails() {
+    return DragDownDetailsDragDownDetailsBuilder.dragDownDetailsDragDownDetails();
+  }
+
+  public static DragStartDetailsDragStartDetailsBuilder DragStartDetails() {
+    return DragStartDetailsDragStartDetailsBuilder.dragStartDetailsDragStartDetails();
+  }
+
+  public static DragUpdateDetailsDragUpdateDetailsBuilder DragUpdateDetails(OffsetI globalPosition) {
+    return DragUpdateDetailsDragUpdateDetailsBuilder.dragUpdateDetailsDragUpdateDetails(globalPosition);
+  }
+
+  public static DragEndDetailsDragEndDetailsBuilder DragEndDetails() {
+    return DragEndDetailsDragEndDetailsBuilder.dragEndDetailsDragEndDetails();
+  }
+
+  public static ScaleStartDetailsScaleStartDetailsBuilder ScaleStartDetails() {
+    return ScaleStartDetailsScaleStartDetailsBuilder.scaleStartDetailsScaleStartDetails();
+  }
+
+  public static ScaleUpdateDetailsScaleUpdateDetailsBuilder ScaleUpdateDetails() {
+    return ScaleUpdateDetailsScaleUpdateDetailsBuilder.scaleUpdateDetailsScaleUpdateDetails();
+  }
+
+  public static ScaleEndDetailsScaleEndDetailsBuilder ScaleEndDetails() {
+    return ScaleEndDetailsScaleEndDetailsBuilder.scaleEndDetailsScaleEndDetails();
+  }
+
+  public static ForcePressDetailsForcePressDetailsBuilder ForcePressDetails(OffsetI globalPosition) {
+    return ForcePressDetailsForcePressDetailsBuilder.forcePressDetailsForcePressDetails(globalPosition);
+  }
+
+  public static DraggableDetailsDraggableDetailsBuilder DraggableDetails() {
+    return DraggableDetailsDraggableDetailsBuilder.draggableDetailsDraggableDetails();
+  }
+
+  public static <T extends NativeObj> DragTargetDetailsDragTargetDetailsBuilder<T> DragTargetDetails(NativeObj data, OffsetI offset) {
+    return DragTargetDetailsDragTargetDetailsBuilder.dragTargetDetailsDragTargetDetails(data, offset);
+  }
+
+  public static PointerDownEventPointerDownEventBuilder PointerDownEvent() {
+    return PointerDownEventPointerDownEventBuilder.pointerDownEventPointerDownEvent();
+  }
+
+  public static PointerUpEventPointerUpEventBuilder PointerUpEvent() {
+    return PointerUpEventPointerUpEventBuilder.pointerUpEventPointerUpEvent();
+  }
+
+  public static PointerHoverEventPointerHoverEventBuilder PointerHoverEvent() {
+    return PointerHoverEventPointerHoverEventBuilder.pointerHoverEventPointerHoverEvent();
   }
 
   public static CubicCubicBuilder Cubic(double a, double b, double c, double d) {

@@ -74,6 +74,12 @@ typedef struct {
 } TextSpanObjSt;
 typedef struct {
   int id;
+} PointerEnterEventObjSt;
+typedef struct {
+  int id;
+} PointerExitEventObjSt;
+typedef struct {
+  int id;
   DartObj text;
   int textAlign;
   int textDirection;
@@ -229,6 +235,19 @@ typedef struct {
   int id;
   DartObj child;
 } ListenableBuilderObjSt;
+typedef struct {
+  int id;
+  DartObj pixelsPerSecond;
+} VelocityObjSt;
+typedef struct {
+  int id;
+} PointerDownEventObjSt;
+typedef struct {
+  int id;
+} PointerUpEventObjSt;
+typedef struct {
+  int id;
+} PointerHoverEventObjSt;
 typedef struct {
   int id;
   double a;

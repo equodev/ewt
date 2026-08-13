@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Offset extends OffsetBase implements OffsetI {
   protected Offset() {}
   Offset(int id) {
@@ -38,6 +39,14 @@ public class Offset extends OffsetBase implements OffsetI {
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset?");
     System.out.println("New Offset? id:"+id);
     return new Offset(id);
+  }
+  public double dx() {
+    double id = factories.offsetDx(this);
+    return id;
+  }
+  public double dy() {
+    double id = factories.offsetDy(this);
+    return id;
   }
   public static Offset zero() {
     return Offset.offset(0.0, 0.0).build();

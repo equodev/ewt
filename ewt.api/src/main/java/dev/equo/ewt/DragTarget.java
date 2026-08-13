@@ -17,11 +17,14 @@ public class DragTarget<T> extends StatefulWidget implements DragTargetI {
   }
   DragTarget(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> DragTarget<T> dragTargetDragTarget(@Builder.Parameter TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<NativeObj>> onLeave, Optional<HitTestBehavior> hitTestBehavior) {
+  static <T extends NativeObj> DragTarget<T> dragTargetDragTarget(@Builder.Parameter TriFunction<BuildContext, List<NativeObj>, List<NativeObj>, Widget> builder, Optional<Function<NativeObj, Boolean>> onWillAccept, Optional<Function<DragTargetDetails, Boolean>> onWillAcceptWithDetails, Optional<Consumer<NativeObj>> onAccept, Optional<Consumer<DragTargetDetails>> onAcceptWithDetails, Optional<Consumer<NativeObj>> onLeave, Optional<Consumer<DragTargetDetails>> onMove, Optional<HitTestBehavior> hitTestBehavior) {
     var st = factories.dragTargetDragTarget(builder,
       onWillAccept,
+      onWillAcceptWithDetails,
       onAccept,
+      onAcceptWithDetails,
       onLeave,
+      onMove,
       hitTestBehavior);
     if (st == null) throw new RuntimeException("Failed to created widget DragTarget");
     return new DragTarget(st);

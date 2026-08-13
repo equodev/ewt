@@ -212,6 +212,8 @@ void _setupOffset(WidgetFactories f) {
   f.offset.offset = ffi.Pointer.fromFunction(offsetOffset, exception);
   f.offset.fromDirection = ffi.Pointer.fromFunction(offsetFromDirection, exception);
   f.offset.lerp = ffi.Pointer.fromFunction(offsetLerp, exception);
+  f.offset.dx = ffi.Pointer.fromFunction(offsetDx, exceptionDouble);
+  f.offset.dy = ffi.Pointer.fromFunction(offsetDy, exceptionDouble);
 }
 int offsetOffset(double dx, double dy) {
   final w = Offset(dx,
@@ -228,6 +230,14 @@ int offsetLerp(DartDartObj a, DartDartObj b, double t) {
       _widgetsMap[b]! as Offset?,
       t);
   return _addWidget(w);
+}
+double offsetDx(DartDartObj self) {
+  final w = OffsetMethods.dx(_widgetsMap[self]! as Offset);
+  return w;
+}
+double offsetDy(DartDartObj self) {
+  final w = OffsetMethods.dy(_widgetsMap[self]! as Offset);
+  return w;
 }
 
 void _setupDateTime(WidgetFactories f) {
@@ -489,10 +499,12 @@ TextObjSt _createTextObjSt(Text? w) {
 void _setupTextSpan(WidgetFactories f) {
   f.textSpan.textSpan = ffi.Pointer.fromFunction(textSpanTextSpan);
 }
-TextSpanObjSt textSpanTextSpan(ffi.Pointer<ffi.Char> text, ffi.Pointer<ArrayC> children, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsIdentifier, ffi.Pointer<ffi.Int> spellOut) {
+TextSpanObjSt textSpanTextSpan(ffi.Pointer<ffi.Char> text, ffi.Pointer<ArrayC> children, ffi.Pointer<DartObj> style, ffi.Pointer<PointerEnterEventListenerFFI> onEnter, ffi.Pointer<PointerExitEventListenerFFI> onExit, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsIdentifier, ffi.Pointer<ffi.Int> spellOut) {
   final w = TextSpan(text: text.strOrNul(),
       children: children.listOrNul(),
       style: style.objOrNul(),
+      onEnter: onEnter.toPointerEnterEventListenerFn(),
+      onExit: onExit.toPointerExitEventListenerFn(),
       semanticsLabel: semanticsLabel.strOrNul(),
       semanticsIdentifier: semanticsIdentifier.strOrNul(),
       spellOut: spellOut.boolOrNul());
@@ -507,6 +519,144 @@ TextSpanObjSt _createTextSpanObjSt(TextSpan? w) {
   stObj.semanticsIdentifier = (w.semanticsIdentifier != null) ? w.semanticsIdentifier!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.spellOut = (w.spellOut != null) ? w.spellOut!.toInt() : 0;
   return stObj;
+}
+
+void _setupPointerEnterEvent(WidgetFactories f) {
+  f.pointerEnterEvent.pointerEnterEvent = ffi.Pointer.fromFunction(pointerEnterEventPointerEnterEvent);
+  f.pointerEnterEvent.fromMouseEvent = ffi.Pointer.fromFunction(pointerEnterEventFromMouseEvent);
+}
+PointerEnterEventObjSt pointerEnterEventPointerEnterEvent(ffi.Pointer<ffi.Int> viewId, ffi.Pointer<DartObj> timeStamp, ffi.Pointer<ffi.Int> pointer, ffi.Pointer<ffi.Int> kind, ffi.Pointer<ffi.Int> device, ffi.Pointer<DartObj> position, ffi.Pointer<DartObj> delta, ffi.Pointer<ffi.Int> buttons, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Double> pressureMin, ffi.Pointer<ffi.Double> pressureMax, ffi.Pointer<ffi.Double> distance, ffi.Pointer<ffi.Double> distanceMax, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> radiusMajor, ffi.Pointer<ffi.Double> radiusMinor, ffi.Pointer<ffi.Double> radiusMin, ffi.Pointer<ffi.Double> radiusMax, ffi.Pointer<ffi.Double> orientation, ffi.Pointer<ffi.Double> tilt, ffi.Pointer<ffi.Int> down, ffi.Pointer<ffi.Int> synthesized, ffi.Pointer<ffi.Int> embedderId) {
+  final w = PointerEnterEvent(viewId: viewId.intOr(0),
+      timeStamp: timeStamp.objOr(Duration.zero),
+      pointer: pointer.intOr(0),
+      kind: kind.enumOr(PointerDeviceKind.values, PointerDeviceKind.touch),
+      device: device.intOr(0),
+      position: position.objOr(Offset.zero),
+      delta: delta.objOr(Offset.zero),
+      buttons: buttons.intOr(0),
+      obscured: obscured.boolOr(false),
+      pressureMin: pressureMin.doubleOr(1.0),
+      pressureMax: pressureMax.doubleOr(1.0),
+      distance: distance.doubleOr(0.0),
+      distanceMax: distanceMax.doubleOr(0.0),
+      size: size.doubleOr(0.0),
+      radiusMajor: radiusMajor.doubleOr(0.0),
+      radiusMinor: radiusMinor.doubleOr(0.0),
+      radiusMin: radiusMin.doubleOr(0.0),
+      radiusMax: radiusMax.doubleOr(0.0),
+      orientation: orientation.doubleOr(0.0),
+      tilt: tilt.doubleOr(0.0),
+      down: down.boolOr(false),
+      synthesized: synthesized.boolOr(false),
+      embedderId: embedderId.intOr(0));
+  return _createPointerEnterEventObjSt(w);
+}
+PointerEnterEventObjSt pointerEnterEventFromMouseEvent(DartDartObj event) {
+  final w = PointerEnterEvent.fromMouseEvent(_widgetsMap[event]! as PointerEvent);
+  return _createPointerEnterEventObjSt(w);
+}
+PointerEnterEventObjSt _createPointerEnterEventObjSt(PointerEnterEvent? w) {
+  final PointerEnterEventObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupPointerExitEvent(WidgetFactories f) {
+  f.pointerExitEvent.pointerExitEvent = ffi.Pointer.fromFunction(pointerExitEventPointerExitEvent);
+  f.pointerExitEvent.fromMouseEvent = ffi.Pointer.fromFunction(pointerExitEventFromMouseEvent);
+}
+PointerExitEventObjSt pointerExitEventPointerExitEvent(ffi.Pointer<ffi.Int> viewId, ffi.Pointer<DartObj> timeStamp, ffi.Pointer<ffi.Int> kind, ffi.Pointer<ffi.Int> pointer, ffi.Pointer<ffi.Int> device, ffi.Pointer<DartObj> position, ffi.Pointer<DartObj> delta, ffi.Pointer<ffi.Int> buttons, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Double> pressureMin, ffi.Pointer<ffi.Double> pressureMax, ffi.Pointer<ffi.Double> distance, ffi.Pointer<ffi.Double> distanceMax, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> radiusMajor, ffi.Pointer<ffi.Double> radiusMinor, ffi.Pointer<ffi.Double> radiusMin, ffi.Pointer<ffi.Double> radiusMax, ffi.Pointer<ffi.Double> orientation, ffi.Pointer<ffi.Double> tilt, ffi.Pointer<ffi.Int> down, ffi.Pointer<ffi.Int> synthesized, ffi.Pointer<ffi.Int> embedderId) {
+  final w = PointerExitEvent(viewId: viewId.intOr(0),
+      timeStamp: timeStamp.objOr(Duration.zero),
+      kind: kind.enumOr(PointerDeviceKind.values, PointerDeviceKind.touch),
+      pointer: pointer.intOr(0),
+      device: device.intOr(0),
+      position: position.objOr(Offset.zero),
+      delta: delta.objOr(Offset.zero),
+      buttons: buttons.intOr(0),
+      obscured: obscured.boolOr(false),
+      pressureMin: pressureMin.doubleOr(1.0),
+      pressureMax: pressureMax.doubleOr(1.0),
+      distance: distance.doubleOr(0.0),
+      distanceMax: distanceMax.doubleOr(0.0),
+      size: size.doubleOr(0.0),
+      radiusMajor: radiusMajor.doubleOr(0.0),
+      radiusMinor: radiusMinor.doubleOr(0.0),
+      radiusMin: radiusMin.doubleOr(0.0),
+      radiusMax: radiusMax.doubleOr(0.0),
+      orientation: orientation.doubleOr(0.0),
+      tilt: tilt.doubleOr(0.0),
+      down: down.boolOr(false),
+      synthesized: synthesized.boolOr(false),
+      embedderId: embedderId.intOr(0));
+  return _createPointerExitEventObjSt(w);
+}
+PointerExitEventObjSt pointerExitEventFromMouseEvent(DartDartObj event) {
+  final w = PointerExitEvent.fromMouseEvent(_widgetsMap[event]! as PointerEvent);
+  return _createPointerExitEventObjSt(w);
+}
+PointerExitEventObjSt _createPointerExitEventObjSt(PointerExitEvent? w) {
+  final PointerExitEventObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupDuration(WidgetFactories f) {
+  f.duration.duration = ffi.Pointer.fromFunction(durationDuration, exception);
+}
+int durationDuration(ffi.Pointer<ffi.Int> days, ffi.Pointer<ffi.Int> hours, ffi.Pointer<ffi.Int> minutes, ffi.Pointer<ffi.Int> seconds, ffi.Pointer<ffi.Int> milliseconds, ffi.Pointer<ffi.Int> microseconds) {
+  final w = Duration(days: days.intOr(0),
+      hours: hours.intOr(0),
+      minutes: minutes.intOr(0),
+      seconds: seconds.intOr(0),
+      milliseconds: milliseconds.intOr(0),
+      microseconds: microseconds.intOr(0));
+  return _addWidget(w);
+}
+
+void _setupPointerEvent(WidgetFactories f) {
+  f.pointerEvent.position = ffi.Pointer.fromFunction(pointerEventPosition, exception);
+  f.pointerEvent.delta = ffi.Pointer.fromFunction(pointerEventDelta, exception);
+  f.pointerEvent.pointer = ffi.Pointer.fromFunction(pointerEventPointer, exception);
+  f.pointerEvent.buttons = ffi.Pointer.fromFunction(pointerEventButtons, exception);
+  f.pointerEvent.down = ffi.Pointer.fromFunction(pointerEventDown, exception);
+  f.pointerEvent.pressure = ffi.Pointer.fromFunction(pointerEventPressure, exceptionDouble);
+  f.pointerEvent.distance = ffi.Pointer.fromFunction(pointerEventDistance, exceptionDouble);
+  f.pointerEvent.size = ffi.Pointer.fromFunction(pointerEventSize, exceptionDouble);
+}
+int pointerEventPosition(DartDartObj self) {
+  final w = PointerEventMethods.position(_widgetsMap[self]! as PointerEvent);
+  return _addWidget(w);
+}
+int pointerEventDelta(DartDartObj self) {
+  final w = PointerEventMethods.delta(_widgetsMap[self]! as PointerEvent);
+  return _addWidget(w);
+}
+int pointerEventPointer(DartDartObj self) {
+  final w = PointerEventMethods.pointer(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+int pointerEventButtons(DartDartObj self) {
+  final w = PointerEventMethods.buttons(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+int pointerEventDown(DartDartObj self) {
+  final w = PointerEventMethods.down(_widgetsMap[self]! as PointerEvent);
+  return w.toInt();
+}
+double pointerEventPressure(DartDartObj self) {
+  final w = PointerEventMethods.pressure(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+double pointerEventDistance(DartDartObj self) {
+  final w = PointerEventMethods.distance(_widgetsMap[self]! as PointerEvent);
+  return w;
+}
+double pointerEventSize(DartDartObj self) {
+  final w = PointerEventMethods.size(_widgetsMap[self]! as PointerEvent);
+  return w;
 }
 
 void _setupRichText(WidgetFactories f) {
@@ -1276,19 +1426,6 @@ void animationControllerSetReverseDuration(DartDartObj self, DartDartObj d) {
       _widgetsMap[d]! as Duration);
 }
 
-void _setupDuration(WidgetFactories f) {
-  f.duration.duration = ffi.Pointer.fromFunction(durationDuration, exception);
-}
-int durationDuration(ffi.Pointer<ffi.Int> days, ffi.Pointer<ffi.Int> hours, ffi.Pointer<ffi.Int> minutes, ffi.Pointer<ffi.Int> seconds, ffi.Pointer<ffi.Int> milliseconds, ffi.Pointer<ffi.Int> microseconds) {
-  final w = Duration(days: days.intOr(0),
-      hours: hours.intOr(0),
-      minutes: minutes.intOr(0),
-      seconds: seconds.intOr(0),
-      milliseconds: milliseconds.intOr(0),
-      microseconds: microseconds.intOr(0));
-  return _addWidget(w);
-}
-
 void _setupAnimatedBuilder(WidgetFactories f) {
   f.animatedBuilder.animatedBuilder = ffi.Pointer.fromFunction(animatedBuilderAnimatedBuilder);
 }
@@ -1320,6 +1457,545 @@ ListenableBuilderObjSt _createListenableBuilderObjSt(ListenableBuilder? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupVelocity(WidgetFactories f) {
+  f.velocity.velocity = ffi.Pointer.fromFunction(velocityVelocity);
+}
+VelocityObjSt velocityVelocity(DartDartObj pixelsPerSecond) {
+  final w = Velocity(pixelsPerSecond: _widgetsMap[pixelsPerSecond]! as Offset);
+  return _createVelocityObjSt(w);
+}
+VelocityObjSt _createVelocityObjSt(Velocity? w) {
+  final VelocityObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.pixelsPerSecond = _addWidget(w.pixelsPerSecond);
+  return stObj;
+}
+
+void _setupTapDownDetails(WidgetFactories f) {
+  f.tapDownDetails.tapDownDetails = ffi.Pointer.fromFunction(tapDownDetailsTapDownDetails, exception);
+  f.tapDownDetails.globalPosition = ffi.Pointer.fromFunction(tapDownDetailsGlobalPosition, exception);
+  f.tapDownDetails.localPosition = ffi.Pointer.fromFunction(tapDownDetailsLocalPosition, exception);
+}
+int tapDownDetailsTapDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<ffi.Int> kind) {
+  final w = TapDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+int tapDownDetailsGlobalPosition(DartDartObj self) {
+  final w = TapDownDetailsMethods.globalPosition(_widgetsMap[self]! as TapDownDetails);
+  return _addWidget(w);
+}
+int tapDownDetailsLocalPosition(DartDartObj self) {
+  final w = TapDownDetailsMethods.localPosition(_widgetsMap[self]! as TapDownDetails);
+  return _addWidget(w);
+}
+
+void _setupTapUpDetails(WidgetFactories f) {
+  f.tapUpDetails.tapUpDetails = ffi.Pointer.fromFunction(tapUpDetailsTapUpDetails, exception);
+  f.tapUpDetails.globalPosition = ffi.Pointer.fromFunction(tapUpDetailsGlobalPosition, exception);
+  f.tapUpDetails.localPosition = ffi.Pointer.fromFunction(tapUpDetailsLocalPosition, exception);
+}
+int tapUpDetailsTapUpDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, int kind) {
+  final w = TapUpDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      kind: PointerDeviceKind.values[kind]);
+  return _addWidget(w);
+}
+int tapUpDetailsGlobalPosition(DartDartObj self) {
+  final w = TapUpDetailsMethods.globalPosition(_widgetsMap[self]! as TapUpDetails);
+  return _addWidget(w);
+}
+int tapUpDetailsLocalPosition(DartDartObj self) {
+  final w = TapUpDetailsMethods.localPosition(_widgetsMap[self]! as TapUpDetails);
+  return _addWidget(w);
+}
+
+void _setupTapMoveDetails(WidgetFactories f) {
+  f.tapMoveDetails.tapMoveDetails = ffi.Pointer.fromFunction(tapMoveDetailsTapMoveDetails, exception);
+  f.tapMoveDetails.globalPosition = ffi.Pointer.fromFunction(tapMoveDetailsGlobalPosition, exception);
+  f.tapMoveDetails.localPosition = ffi.Pointer.fromFunction(tapMoveDetailsLocalPosition, exception);
+  f.tapMoveDetails.delta = ffi.Pointer.fromFunction(tapMoveDetailsDelta, exception);
+}
+int tapMoveDetailsTapMoveDetails(int kind, ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> delta, ffi.Pointer<DartObj> localPosition) {
+  final w = TapMoveDetails(kind: PointerDeviceKind.values[kind],
+      globalPosition: globalPosition.objOr(Offset.zero),
+      delta: delta.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul());
+  return _addWidget(w);
+}
+int tapMoveDetailsGlobalPosition(DartDartObj self) {
+  final w = TapMoveDetailsMethods.globalPosition(_widgetsMap[self]! as TapMoveDetails);
+  return _addWidget(w);
+}
+int tapMoveDetailsLocalPosition(DartDartObj self) {
+  final w = TapMoveDetailsMethods.localPosition(_widgetsMap[self]! as TapMoveDetails);
+  return _addWidget(w);
+}
+int tapMoveDetailsDelta(DartDartObj self) {
+  final w = TapMoveDetailsMethods.delta(_widgetsMap[self]! as TapMoveDetails);
+  return _addWidget(w);
+}
+
+void _setupLongPressDownDetails(WidgetFactories f) {
+  f.longPressDownDetails.longPressDownDetails = ffi.Pointer.fromFunction(longPressDownDetailsLongPressDownDetails, exception);
+  f.longPressDownDetails.globalPosition = ffi.Pointer.fromFunction(longPressDownDetailsGlobalPosition, exception);
+  f.longPressDownDetails.localPosition = ffi.Pointer.fromFunction(longPressDownDetailsLocalPosition, exception);
+}
+int longPressDownDetailsLongPressDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<ffi.Int> kind) {
+  final w = LongPressDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+int longPressDownDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressDownDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressDownDetails);
+  return _addWidget(w);
+}
+int longPressDownDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressDownDetailsMethods.localPosition(_widgetsMap[self]! as LongPressDownDetails);
+  return _addWidget(w);
+}
+
+void _setupLongPressStartDetails(WidgetFactories f) {
+  f.longPressStartDetails.longPressStartDetails = ffi.Pointer.fromFunction(longPressStartDetailsLongPressStartDetails, exception);
+  f.longPressStartDetails.globalPosition = ffi.Pointer.fromFunction(longPressStartDetailsGlobalPosition, exception);
+  f.longPressStartDetails.localPosition = ffi.Pointer.fromFunction(longPressStartDetailsLocalPosition, exception);
+}
+int longPressStartDetailsLongPressStartDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition) {
+  final w = LongPressStartDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul());
+  return _addWidget(w);
+}
+int longPressStartDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressStartDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressStartDetails);
+  return _addWidget(w);
+}
+int longPressStartDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressStartDetailsMethods.localPosition(_widgetsMap[self]! as LongPressStartDetails);
+  return _addWidget(w);
+}
+
+void _setupLongPressMoveUpdateDetails(WidgetFactories f) {
+  f.longPressMoveUpdateDetails.longPressMoveUpdateDetails = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLongPressMoveUpdateDetails, exception);
+  f.longPressMoveUpdateDetails.globalPosition = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsGlobalPosition, exception);
+  f.longPressMoveUpdateDetails.localPosition = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLocalPosition, exception);
+  f.longPressMoveUpdateDetails.offsetFromOrigin = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsOffsetFromOrigin, exception);
+  f.longPressMoveUpdateDetails.localOffsetFromOrigin = ffi.Pointer.fromFunction(longPressMoveUpdateDetailsLocalOffsetFromOrigin, exception);
+}
+int longPressMoveUpdateDetailsLongPressMoveUpdateDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> offsetFromOrigin, ffi.Pointer<DartObj> localOffsetFromOrigin) {
+  final w = LongPressMoveUpdateDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      offsetFromOrigin: offsetFromOrigin.objOr(Offset.zero),
+      localOffsetFromOrigin: localOffsetFromOrigin.objOrNul());
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.localPosition(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsOffsetFromOrigin(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.offsetFromOrigin(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+int longPressMoveUpdateDetailsLocalOffsetFromOrigin(DartDartObj self) {
+  final w = LongPressMoveUpdateDetailsMethods.localOffsetFromOrigin(_widgetsMap[self]! as LongPressMoveUpdateDetails);
+  return _addWidget(w);
+}
+
+void _setupLongPressEndDetails(WidgetFactories f) {
+  f.longPressEndDetails.longPressEndDetails = ffi.Pointer.fromFunction(longPressEndDetailsLongPressEndDetails, exception);
+  f.longPressEndDetails.globalPosition = ffi.Pointer.fromFunction(longPressEndDetailsGlobalPosition, exception);
+  f.longPressEndDetails.localPosition = ffi.Pointer.fromFunction(longPressEndDetailsLocalPosition, exception);
+  f.longPressEndDetails.velocity = ffi.Pointer.fromFunction(longPressEndDetailsVelocity);
+}
+int longPressEndDetailsLongPressEndDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> velocity) {
+  final w = LongPressEndDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      velocity: velocity.objOr(Velocity.zero));
+  return _addWidget(w);
+}
+int longPressEndDetailsGlobalPosition(DartDartObj self) {
+  final w = LongPressEndDetailsMethods.globalPosition(_widgetsMap[self]! as LongPressEndDetails);
+  return _addWidget(w);
+}
+int longPressEndDetailsLocalPosition(DartDartObj self) {
+  final w = LongPressEndDetailsMethods.localPosition(_widgetsMap[self]! as LongPressEndDetails);
+  return _addWidget(w);
+}
+VelocityObjSt longPressEndDetailsVelocity(DartDartObj self) {
+  final w = LongPressEndDetailsMethods.velocity(_widgetsMap[self]! as LongPressEndDetails);
+  return _createVelocityObjSt(w);
+}
+
+void _setupDragDownDetails(WidgetFactories f) {
+  f.dragDownDetails.dragDownDetails = ffi.Pointer.fromFunction(dragDownDetailsDragDownDetails, exception);
+  f.dragDownDetails.globalPosition = ffi.Pointer.fromFunction(dragDownDetailsGlobalPosition, exception);
+  f.dragDownDetails.localPosition = ffi.Pointer.fromFunction(dragDownDetailsLocalPosition, exception);
+}
+int dragDownDetailsDragDownDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition) {
+  final w = DragDownDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul());
+  return _addWidget(w);
+}
+int dragDownDetailsGlobalPosition(DartDartObj self) {
+  final w = DragDownDetailsMethods.globalPosition(_widgetsMap[self]! as DragDownDetails);
+  return _addWidget(w);
+}
+int dragDownDetailsLocalPosition(DartDartObj self) {
+  final w = DragDownDetailsMethods.localPosition(_widgetsMap[self]! as DragDownDetails);
+  return _addWidget(w);
+}
+
+void _setupDragStartDetails(WidgetFactories f) {
+  f.dragStartDetails.dragStartDetails = ffi.Pointer.fromFunction(dragStartDetailsDragStartDetails, exception);
+  f.dragStartDetails.globalPosition = ffi.Pointer.fromFunction(dragStartDetailsGlobalPosition, exception);
+  f.dragStartDetails.localPosition = ffi.Pointer.fromFunction(dragStartDetailsLocalPosition, exception);
+}
+int dragStartDetailsDragStartDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> sourceTimeStamp, ffi.Pointer<ffi.Int> kind) {
+  final w = DragStartDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      sourceTimeStamp: sourceTimeStamp.objOrNul(),
+      kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+int dragStartDetailsGlobalPosition(DartDartObj self) {
+  final w = DragStartDetailsMethods.globalPosition(_widgetsMap[self]! as DragStartDetails);
+  return _addWidget(w);
+}
+int dragStartDetailsLocalPosition(DartDartObj self) {
+  final w = DragStartDetailsMethods.localPosition(_widgetsMap[self]! as DragStartDetails);
+  return _addWidget(w);
+}
+
+void _setupDragUpdateDetails(WidgetFactories f) {
+  f.dragUpdateDetails.dragUpdateDetails = ffi.Pointer.fromFunction(dragUpdateDetailsDragUpdateDetails, exception);
+  f.dragUpdateDetails.globalPosition = ffi.Pointer.fromFunction(dragUpdateDetailsGlobalPosition, exception);
+  f.dragUpdateDetails.localPosition = ffi.Pointer.fromFunction(dragUpdateDetailsLocalPosition, exception);
+  f.dragUpdateDetails.delta = ffi.Pointer.fromFunction(dragUpdateDetailsDelta, exception);
+}
+int dragUpdateDetailsDragUpdateDetails(DartDartObj globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> sourceTimeStamp, ffi.Pointer<DartObj> delta, ffi.Pointer<ffi.Double> primaryDelta, ffi.Pointer<ffi.Int> kind) {
+  final w = DragUpdateDetails(globalPosition: _widgetsMap[globalPosition]! as Offset,
+      localPosition: localPosition.objOrNul(),
+      sourceTimeStamp: sourceTimeStamp.objOrNul(),
+      delta: delta.objOr(Offset.zero),
+      primaryDelta: primaryDelta.doubleOrNul(),
+      kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+int dragUpdateDetailsGlobalPosition(DartDartObj self) {
+  final w = DragUpdateDetailsMethods.globalPosition(_widgetsMap[self]! as DragUpdateDetails);
+  return _addWidget(w);
+}
+int dragUpdateDetailsLocalPosition(DartDartObj self) {
+  final w = DragUpdateDetailsMethods.localPosition(_widgetsMap[self]! as DragUpdateDetails);
+  return _addWidget(w);
+}
+int dragUpdateDetailsDelta(DartDartObj self) {
+  final w = DragUpdateDetailsMethods.delta(_widgetsMap[self]! as DragUpdateDetails);
+  return _addWidget(w);
+}
+
+void _setupDragEndDetails(WidgetFactories f) {
+  f.dragEndDetails.dragEndDetails = ffi.Pointer.fromFunction(dragEndDetailsDragEndDetails, exception);
+  f.dragEndDetails.globalPosition = ffi.Pointer.fromFunction(dragEndDetailsGlobalPosition, exception);
+  f.dragEndDetails.localPosition = ffi.Pointer.fromFunction(dragEndDetailsLocalPosition, exception);
+  f.dragEndDetails.velocity = ffi.Pointer.fromFunction(dragEndDetailsVelocity);
+}
+int dragEndDetailsDragEndDetails(ffi.Pointer<DartObj> globalPosition, ffi.Pointer<DartObj> localPosition, ffi.Pointer<DartObj> velocity, ffi.Pointer<ffi.Double> primaryVelocity) {
+  final w = DragEndDetails(globalPosition: globalPosition.objOr(Offset.zero),
+      localPosition: localPosition.objOrNul(),
+      velocity: velocity.objOr(Velocity.zero),
+      primaryVelocity: primaryVelocity.doubleOrNul());
+  return _addWidget(w);
+}
+int dragEndDetailsGlobalPosition(DartDartObj self) {
+  final w = DragEndDetailsMethods.globalPosition(_widgetsMap[self]! as DragEndDetails);
+  return _addWidget(w);
+}
+int dragEndDetailsLocalPosition(DartDartObj self) {
+  final w = DragEndDetailsMethods.localPosition(_widgetsMap[self]! as DragEndDetails);
+  return _addWidget(w);
+}
+VelocityObjSt dragEndDetailsVelocity(DartDartObj self) {
+  final w = DragEndDetailsMethods.velocity(_widgetsMap[self]! as DragEndDetails);
+  return _createVelocityObjSt(w);
+}
+
+void _setupScaleStartDetails(WidgetFactories f) {
+  f.scaleStartDetails.scaleStartDetails = ffi.Pointer.fromFunction(scaleStartDetailsScaleStartDetails, exception);
+  f.scaleStartDetails.focalPoint = ffi.Pointer.fromFunction(scaleStartDetailsFocalPoint, exception);
+  f.scaleStartDetails.localFocalPoint = ffi.Pointer.fromFunction(scaleStartDetailsLocalFocalPoint, exception);
+  f.scaleStartDetails.pointerCount = ffi.Pointer.fromFunction(scaleStartDetailsPointerCount, exception);
+}
+int scaleStartDetailsScaleStartDetails(ffi.Pointer<DartObj> focalPoint, ffi.Pointer<DartObj> localFocalPoint, ffi.Pointer<ffi.Int> pointerCount, ffi.Pointer<DartObj> sourceTimeStamp, ffi.Pointer<ffi.Int> kind) {
+  final w = ScaleStartDetails(focalPoint: focalPoint.objOr(Offset.zero),
+      localFocalPoint: localFocalPoint.objOrNul(),
+      pointerCount: pointerCount.intOr(0),
+      sourceTimeStamp: sourceTimeStamp.objOrNul(),
+      kind: kind.enumOrNul(PointerDeviceKind.values));
+  return _addWidget(w);
+}
+int scaleStartDetailsFocalPoint(DartDartObj self) {
+  final w = ScaleStartDetailsMethods.focalPoint(_widgetsMap[self]! as ScaleStartDetails);
+  return _addWidget(w);
+}
+int scaleStartDetailsLocalFocalPoint(DartDartObj self) {
+  final w = ScaleStartDetailsMethods.localFocalPoint(_widgetsMap[self]! as ScaleStartDetails);
+  return _addWidget(w);
+}
+int scaleStartDetailsPointerCount(DartDartObj self) {
+  final w = ScaleStartDetailsMethods.pointerCount(_widgetsMap[self]! as ScaleStartDetails);
+  return w;
+}
+
+void _setupScaleUpdateDetails(WidgetFactories f) {
+  f.scaleUpdateDetails.scaleUpdateDetails = ffi.Pointer.fromFunction(scaleUpdateDetailsScaleUpdateDetails, exception);
+  f.scaleUpdateDetails.focalPoint = ffi.Pointer.fromFunction(scaleUpdateDetailsFocalPoint, exception);
+  f.scaleUpdateDetails.localFocalPoint = ffi.Pointer.fromFunction(scaleUpdateDetailsLocalFocalPoint, exception);
+  f.scaleUpdateDetails.focalPointDelta = ffi.Pointer.fromFunction(scaleUpdateDetailsFocalPointDelta, exception);
+  f.scaleUpdateDetails.scale = ffi.Pointer.fromFunction(scaleUpdateDetailsScale, exceptionDouble);
+  f.scaleUpdateDetails.horizontalScale = ffi.Pointer.fromFunction(scaleUpdateDetailsHorizontalScale, exceptionDouble);
+  f.scaleUpdateDetails.verticalScale = ffi.Pointer.fromFunction(scaleUpdateDetailsVerticalScale, exceptionDouble);
+  f.scaleUpdateDetails.rotation = ffi.Pointer.fromFunction(scaleUpdateDetailsRotation, exceptionDouble);
+  f.scaleUpdateDetails.pointerCount = ffi.Pointer.fromFunction(scaleUpdateDetailsPointerCount, exception);
+}
+int scaleUpdateDetailsScaleUpdateDetails(ffi.Pointer<DartObj> focalPoint, ffi.Pointer<DartObj> localFocalPoint, ffi.Pointer<ffi.Double> scale, ffi.Pointer<ffi.Double> horizontalScale, ffi.Pointer<ffi.Double> verticalScale, ffi.Pointer<ffi.Double> rotation, ffi.Pointer<ffi.Int> pointerCount, ffi.Pointer<DartObj> focalPointDelta, ffi.Pointer<DartObj> sourceTimeStamp) {
+  final w = ScaleUpdateDetails(focalPoint: focalPoint.objOr(Offset.zero),
+      localFocalPoint: localFocalPoint.objOrNul(),
+      scale: scale.doubleOr(1.0),
+      horizontalScale: horizontalScale.doubleOr(1.0),
+      verticalScale: verticalScale.doubleOr(1.0),
+      rotation: rotation.doubleOr(0.0),
+      pointerCount: pointerCount.intOr(0),
+      focalPointDelta: focalPointDelta.objOr(Offset.zero),
+      sourceTimeStamp: sourceTimeStamp.objOrNul());
+  return _addWidget(w);
+}
+int scaleUpdateDetailsFocalPoint(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.focalPoint(_widgetsMap[self]! as ScaleUpdateDetails);
+  return _addWidget(w);
+}
+int scaleUpdateDetailsLocalFocalPoint(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.localFocalPoint(_widgetsMap[self]! as ScaleUpdateDetails);
+  return _addWidget(w);
+}
+int scaleUpdateDetailsFocalPointDelta(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.focalPointDelta(_widgetsMap[self]! as ScaleUpdateDetails);
+  return _addWidget(w);
+}
+double scaleUpdateDetailsScale(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.scale(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+double scaleUpdateDetailsHorizontalScale(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.horizontalScale(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+double scaleUpdateDetailsVerticalScale(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.verticalScale(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+double scaleUpdateDetailsRotation(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.rotation(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+int scaleUpdateDetailsPointerCount(DartDartObj self) {
+  final w = ScaleUpdateDetailsMethods.pointerCount(_widgetsMap[self]! as ScaleUpdateDetails);
+  return w;
+}
+
+void _setupScaleEndDetails(WidgetFactories f) {
+  f.scaleEndDetails.scaleEndDetails = ffi.Pointer.fromFunction(scaleEndDetailsScaleEndDetails, exception);
+  f.scaleEndDetails.velocity = ffi.Pointer.fromFunction(scaleEndDetailsVelocity);
+  f.scaleEndDetails.scaleVelocity = ffi.Pointer.fromFunction(scaleEndDetailsScaleVelocity, exceptionDouble);
+  f.scaleEndDetails.pointerCount = ffi.Pointer.fromFunction(scaleEndDetailsPointerCount, exception);
+}
+int scaleEndDetailsScaleEndDetails(ffi.Pointer<DartObj> velocity, ffi.Pointer<ffi.Double> scaleVelocity, ffi.Pointer<ffi.Int> pointerCount) {
+  final w = ScaleEndDetails(velocity: velocity.objOr(Velocity.zero),
+      scaleVelocity: scaleVelocity.doubleOr(0),
+      pointerCount: pointerCount.intOr(0));
+  return _addWidget(w);
+}
+VelocityObjSt scaleEndDetailsVelocity(DartDartObj self) {
+  final w = ScaleEndDetailsMethods.velocity(_widgetsMap[self]! as ScaleEndDetails);
+  return _createVelocityObjSt(w);
+}
+double scaleEndDetailsScaleVelocity(DartDartObj self) {
+  final w = ScaleEndDetailsMethods.scaleVelocity(_widgetsMap[self]! as ScaleEndDetails);
+  return w;
+}
+int scaleEndDetailsPointerCount(DartDartObj self) {
+  final w = ScaleEndDetailsMethods.pointerCount(_widgetsMap[self]! as ScaleEndDetails);
+  return w;
+}
+
+void _setupForcePressDetails(WidgetFactories f) {
+  f.forcePressDetails.forcePressDetails = ffi.Pointer.fromFunction(forcePressDetailsForcePressDetails, exception);
+  f.forcePressDetails.globalPosition = ffi.Pointer.fromFunction(forcePressDetailsGlobalPosition, exception);
+  f.forcePressDetails.localPosition = ffi.Pointer.fromFunction(forcePressDetailsLocalPosition, exception);
+  f.forcePressDetails.pressure = ffi.Pointer.fromFunction(forcePressDetailsPressure, exceptionDouble);
+}
+int forcePressDetailsForcePressDetails(DartDartObj globalPosition, ffi.Pointer<DartObj> localPosition, double pressure) {
+  final w = ForcePressDetails(globalPosition: _widgetsMap[globalPosition]! as Offset,
+      localPosition: localPosition.objOrNul(),
+      pressure: pressure);
+  return _addWidget(w);
+}
+int forcePressDetailsGlobalPosition(DartDartObj self) {
+  final w = ForcePressDetailsMethods.globalPosition(_widgetsMap[self]! as ForcePressDetails);
+  return _addWidget(w);
+}
+int forcePressDetailsLocalPosition(DartDartObj self) {
+  final w = ForcePressDetailsMethods.localPosition(_widgetsMap[self]! as ForcePressDetails);
+  return _addWidget(w);
+}
+double forcePressDetailsPressure(DartDartObj self) {
+  final w = ForcePressDetailsMethods.pressure(_widgetsMap[self]! as ForcePressDetails);
+  return w;
+}
+
+void _setupDraggableDetails(WidgetFactories f) {
+  f.draggableDetails.draggableDetails = ffi.Pointer.fromFunction(draggableDetailsDraggableDetails, exception);
+  f.draggableDetails.wasAccepted = ffi.Pointer.fromFunction(draggableDetailsWasAccepted, exception);
+  f.draggableDetails.velocity = ffi.Pointer.fromFunction(draggableDetailsVelocity);
+  f.draggableDetails.offset = ffi.Pointer.fromFunction(draggableDetailsOffset, exception);
+}
+int draggableDetailsDraggableDetails(ffi.Pointer<ffi.Int> wasAccepted, DartDartObj velocity, DartDartObj offset) {
+  final w = DraggableDetails(wasAccepted: wasAccepted.boolOr(false),
+      velocity: _widgetsMap[velocity]! as Velocity,
+      offset: _widgetsMap[offset]! as Offset);
+  return _addWidget(w);
+}
+int draggableDetailsWasAccepted(DartDartObj self) {
+  final w = DraggableDetailsMethods.wasAccepted(_widgetsMap[self]! as DraggableDetails);
+  return w.toInt();
+}
+VelocityObjSt draggableDetailsVelocity(DartDartObj self) {
+  final w = DraggableDetailsMethods.velocity(_widgetsMap[self]! as DraggableDetails);
+  return _createVelocityObjSt(w);
+}
+int draggableDetailsOffset(DartDartObj self) {
+  final w = DraggableDetailsMethods.offset(_widgetsMap[self]! as DraggableDetails);
+  return _addWidget(w);
+}
+
+void _setupDragTargetDetails(WidgetFactories f) {
+  f.dragTargetDetails.dragTargetDetails = ffi.Pointer.fromFunction(dragTargetDetailsDragTargetDetails, exception);
+}
+int dragTargetDetailsDragTargetDetails(DartDartObj data, DartDartObj offset) {
+  final w = DragTargetDetails(data: data,
+      offset: _widgetsMap[offset]! as Offset);
+  return _addWidget(w);
+}
+
+void _setupPointerDownEvent(WidgetFactories f) {
+  f.pointerDownEvent.pointerDownEvent = ffi.Pointer.fromFunction(pointerDownEventPointerDownEvent);
+}
+PointerDownEventObjSt pointerDownEventPointerDownEvent(ffi.Pointer<ffi.Int> viewId, ffi.Pointer<DartObj> timeStamp, ffi.Pointer<ffi.Int> pointer, ffi.Pointer<ffi.Int> kind, ffi.Pointer<ffi.Int> device, ffi.Pointer<DartObj> position, ffi.Pointer<ffi.Int> buttons, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Double> pressure, ffi.Pointer<ffi.Double> pressureMin, ffi.Pointer<ffi.Double> pressureMax, ffi.Pointer<ffi.Double> distanceMax, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> radiusMajor, ffi.Pointer<ffi.Double> radiusMinor, ffi.Pointer<ffi.Double> radiusMin, ffi.Pointer<ffi.Double> radiusMax, ffi.Pointer<ffi.Double> orientation, ffi.Pointer<ffi.Double> tilt, ffi.Pointer<ffi.Int> embedderId) {
+  final w = PointerDownEvent(viewId: viewId.intOr(0),
+      timeStamp: timeStamp.objOr(Duration.zero),
+      pointer: pointer.intOr(0),
+      kind: kind.enumOr(PointerDeviceKind.values, PointerDeviceKind.touch),
+      device: device.intOr(0),
+      position: position.objOr(Offset.zero),
+      buttons: buttons.intOr(kPrimaryButton),
+      obscured: obscured.boolOr(false),
+      pressure: pressure.doubleOr(1.0),
+      pressureMin: pressureMin.doubleOr(1.0),
+      pressureMax: pressureMax.doubleOr(1.0),
+      distanceMax: distanceMax.doubleOr(0.0),
+      size: size.doubleOr(0.0),
+      radiusMajor: radiusMajor.doubleOr(0.0),
+      radiusMinor: radiusMinor.doubleOr(0.0),
+      radiusMin: radiusMin.doubleOr(0.0),
+      radiusMax: radiusMax.doubleOr(0.0),
+      orientation: orientation.doubleOr(0.0),
+      tilt: tilt.doubleOr(0.0),
+      embedderId: embedderId.intOr(0));
+  return _createPointerDownEventObjSt(w);
+}
+PointerDownEventObjSt _createPointerDownEventObjSt(PointerDownEvent? w) {
+  final PointerDownEventObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupPointerUpEvent(WidgetFactories f) {
+  f.pointerUpEvent.pointerUpEvent = ffi.Pointer.fromFunction(pointerUpEventPointerUpEvent);
+}
+PointerUpEventObjSt pointerUpEventPointerUpEvent(ffi.Pointer<ffi.Int> viewId, ffi.Pointer<DartObj> timeStamp, ffi.Pointer<ffi.Int> pointer, ffi.Pointer<ffi.Int> kind, ffi.Pointer<ffi.Int> device, ffi.Pointer<DartObj> position, ffi.Pointer<ffi.Int> buttons, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Double> pressure, ffi.Pointer<ffi.Double> pressureMin, ffi.Pointer<ffi.Double> pressureMax, ffi.Pointer<ffi.Double> distance, ffi.Pointer<ffi.Double> distanceMax, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> radiusMajor, ffi.Pointer<ffi.Double> radiusMinor, ffi.Pointer<ffi.Double> radiusMin, ffi.Pointer<ffi.Double> radiusMax, ffi.Pointer<ffi.Double> orientation, ffi.Pointer<ffi.Double> tilt, ffi.Pointer<ffi.Int> embedderId) {
+  final w = PointerUpEvent(viewId: viewId.intOr(0),
+      timeStamp: timeStamp.objOr(Duration.zero),
+      pointer: pointer.intOr(0),
+      kind: kind.enumOr(PointerDeviceKind.values, PointerDeviceKind.touch),
+      device: device.intOr(0),
+      position: position.objOr(Offset.zero),
+      buttons: buttons.intOr(0),
+      obscured: obscured.boolOr(false),
+      pressure: pressure.doubleOr(0.0),
+      pressureMin: pressureMin.doubleOr(1.0),
+      pressureMax: pressureMax.doubleOr(1.0),
+      distance: distance.doubleOr(0.0),
+      distanceMax: distanceMax.doubleOr(0.0),
+      size: size.doubleOr(0.0),
+      radiusMajor: radiusMajor.doubleOr(0.0),
+      radiusMinor: radiusMinor.doubleOr(0.0),
+      radiusMin: radiusMin.doubleOr(0.0),
+      radiusMax: radiusMax.doubleOr(0.0),
+      orientation: orientation.doubleOr(0.0),
+      tilt: tilt.doubleOr(0.0),
+      embedderId: embedderId.intOr(0));
+  return _createPointerUpEventObjSt(w);
+}
+PointerUpEventObjSt _createPointerUpEventObjSt(PointerUpEvent? w) {
+  final PointerUpEventObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupPointerHoverEvent(WidgetFactories f) {
+  f.pointerHoverEvent.pointerHoverEvent = ffi.Pointer.fromFunction(pointerHoverEventPointerHoverEvent);
+}
+PointerHoverEventObjSt pointerHoverEventPointerHoverEvent(ffi.Pointer<ffi.Int> viewId, ffi.Pointer<DartObj> timeStamp, ffi.Pointer<ffi.Int> kind, ffi.Pointer<ffi.Int> pointer, ffi.Pointer<ffi.Int> device, ffi.Pointer<DartObj> position, ffi.Pointer<DartObj> delta, ffi.Pointer<ffi.Int> buttons, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Double> pressureMin, ffi.Pointer<ffi.Double> pressureMax, ffi.Pointer<ffi.Double> distance, ffi.Pointer<ffi.Double> distanceMax, ffi.Pointer<ffi.Double> size, ffi.Pointer<ffi.Double> radiusMajor, ffi.Pointer<ffi.Double> radiusMinor, ffi.Pointer<ffi.Double> radiusMin, ffi.Pointer<ffi.Double> radiusMax, ffi.Pointer<ffi.Double> orientation, ffi.Pointer<ffi.Double> tilt, ffi.Pointer<ffi.Int> synthesized, ffi.Pointer<ffi.Int> embedderId) {
+  final w = PointerHoverEvent(viewId: viewId.intOr(0),
+      timeStamp: timeStamp.objOr(Duration.zero),
+      kind: kind.enumOr(PointerDeviceKind.values, PointerDeviceKind.touch),
+      pointer: pointer.intOr(0),
+      device: device.intOr(0),
+      position: position.objOr(Offset.zero),
+      delta: delta.objOr(Offset.zero),
+      buttons: buttons.intOr(0),
+      obscured: obscured.boolOr(false),
+      pressureMin: pressureMin.doubleOr(1.0),
+      pressureMax: pressureMax.doubleOr(1.0),
+      distance: distance.doubleOr(0.0),
+      distanceMax: distanceMax.doubleOr(0.0),
+      size: size.doubleOr(0.0),
+      radiusMajor: radiusMajor.doubleOr(0.0),
+      radiusMinor: radiusMinor.doubleOr(0.0),
+      radiusMin: radiusMin.doubleOr(0.0),
+      radiusMax: radiusMax.doubleOr(0.0),
+      orientation: orientation.doubleOr(0.0),
+      tilt: tilt.doubleOr(0.0),
+      synthesized: synthesized.boolOr(false),
+      embedderId: embedderId.intOr(0));
+  return _createPointerHoverEventObjSt(w);
+}
+PointerHoverEventObjSt _createPointerHoverEventObjSt(PointerHoverEvent? w) {
+  final PointerHoverEventObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
   return stObj;
 }
 
@@ -1520,8 +2196,11 @@ AlignmentDirectionalObjSt _createAlignmentDirectionalObjSt(AlignmentDirectional?
 void _setupMouseRegion(WidgetFactories f) {
   f.mouseRegion.mouseRegion = ffi.Pointer.fromFunction(mouseRegionMouseRegion);
 }
-MouseRegionObjSt mouseRegionMouseRegion(ffi.Pointer<ffi.Int> opaque, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<DartObj> child) {
-  final w = MouseRegion(opaque: opaque.boolOr(true),
+MouseRegionObjSt mouseRegionMouseRegion(ffi.Pointer<PointerEnterEventListenerFFI> onEnter, ffi.Pointer<PointerExitEventListenerFFI> onExit, ffi.Pointer<PointerHoverEventListenerFFI> onHover, ffi.Pointer<ffi.Int> opaque, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<DartObj> child) {
+  final w = MouseRegion(onEnter: onEnter.toPointerEnterEventListenerFn(),
+      onExit: onExit.toPointerExitEventListenerFn(),
+      onHover: onHover.toPointerHoverEventListenerFn(),
+      opaque: opaque.boolOr(true),
       hitTestBehavior: hitTestBehavior.enumOrNul(HitTestBehavior.values),
       child: child.objOrNul());
   return _createMouseRegionObjSt(w);
@@ -2787,7 +3466,7 @@ IndexedStackObjSt _createIndexedStackObjSt(IndexedStack? w) {
 void _setupInteractiveViewer(WidgetFactories f) {
   f.interactiveViewer.interactiveViewer = ffi.Pointer.fromFunction(interactiveViewerInteractiveViewer);
 }
-InteractiveViewerObjSt interactiveViewerInteractiveViewer(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> panAxis, ffi.Pointer<DartObj> boundaryMargin, ffi.Pointer<ffi.Int> constrained, ffi.Pointer<ffi.Double> maxScale, ffi.Pointer<ffi.Double> minScale, ffi.Pointer<ffi.Double> interactionEndFrictionCoefficient, ffi.Pointer<ffi.Int> panEnabled, ffi.Pointer<ffi.Int> scaleEnabled, ffi.Pointer<ffi.Double> scaleFactor, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, DartDartObj child) {
+InteractiveViewerObjSt interactiveViewerInteractiveViewer(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> panAxis, ffi.Pointer<DartObj> boundaryMargin, ffi.Pointer<ffi.Int> constrained, ffi.Pointer<ffi.Double> maxScale, ffi.Pointer<ffi.Double> minScale, ffi.Pointer<ffi.Double> interactionEndFrictionCoefficient, ffi.Pointer<GestureScaleEndCallbackFFI> onInteractionEnd, ffi.Pointer<GestureScaleStartCallbackFFI> onInteractionStart, ffi.Pointer<GestureScaleUpdateCallbackFFI> onInteractionUpdate, ffi.Pointer<ffi.Int> panEnabled, ffi.Pointer<ffi.Int> scaleEnabled, ffi.Pointer<ffi.Double> scaleFactor, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, DartDartObj child) {
   final w = InteractiveViewer(clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
       panAxis: panAxis.enumOr(PanAxis.values, PanAxis.free),
       boundaryMargin: boundaryMargin.objOr(EdgeInsets.zero),
@@ -2795,6 +3474,9 @@ InteractiveViewerObjSt interactiveViewerInteractiveViewer(ffi.Pointer<ffi.Int> c
       maxScale: maxScale.doubleOr(2.5),
       minScale: minScale.doubleOr(0.8),
       interactionEndFrictionCoefficient: interactionEndFrictionCoefficient.doubleOr(0.0000135),
+      onInteractionEnd: onInteractionEnd.toGestureScaleEndCallbackFn(),
+      onInteractionStart: onInteractionStart.toGestureScaleStartCallbackFn(),
+      onInteractionUpdate: onInteractionUpdate.toGestureScaleUpdateCallbackFn(),
       panEnabled: panEnabled.boolOr(true),
       scaleEnabled: scaleEnabled.boolOr(true),
       scaleFactor: scaleFactor.doubleOr(200.0),
@@ -2826,7 +3508,7 @@ InteractiveViewerObjSt _createInteractiveViewerObjSt(InteractiveViewer? w) {
 void _setupDraggable(WidgetFactories f) {
   f.draggable.draggable = ffi.Pointer.fromFunction(draggableDraggable);
 }
-DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.Pointer<DartObj> data, ffi.Pointer<ffi.Int> axis, ffi.Pointer<DartObj> childWhenDragging, ffi.Pointer<DartObj> feedbackOffset, ffi.Pointer<DragAnchorStrategyFFI> dragAnchorStrategy, ffi.Pointer<ffi.Int> affinity, ffi.Pointer<ffi.Int> maxSimultaneousDrags, ffi.Pointer<VoidCallbackFFI> onDragStarted, ffi.Pointer<VoidCallbackFFI> onDragCompleted, ffi.Pointer<ffi.Int> ignoringFeedbackSemantics, ffi.Pointer<ffi.Int> ignoringFeedbackPointer, ffi.Pointer<ffi.Int> rootOverlay, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<AllowedButtonsFilterFFI> allowedButtonsFilter) {
+DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.Pointer<DartObj> data, ffi.Pointer<ffi.Int> axis, ffi.Pointer<DartObj> childWhenDragging, ffi.Pointer<DartObj> feedbackOffset, ffi.Pointer<DragAnchorStrategyFFI> dragAnchorStrategy, ffi.Pointer<ffi.Int> affinity, ffi.Pointer<ffi.Int> maxSimultaneousDrags, ffi.Pointer<VoidCallbackFFI> onDragStarted, ffi.Pointer<DragUpdateCallbackFFI> onDragUpdate, ffi.Pointer<DraggableCanceledCallbackFFI> onDraggableCanceled, ffi.Pointer<DragEndCallbackFFI> onDragEnd, ffi.Pointer<VoidCallbackFFI> onDragCompleted, ffi.Pointer<ffi.Int> ignoringFeedbackSemantics, ffi.Pointer<ffi.Int> ignoringFeedbackPointer, ffi.Pointer<ffi.Int> rootOverlay, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<AllowedButtonsFilterFFI> allowedButtonsFilter) {
   final w = Draggable(child: _widgetsMap[child]! as Widget,
       feedback: _widgetsMap[feedback]! as Widget,
       data: data,
@@ -2837,6 +3519,9 @@ DraggableObjSt draggableDraggable(DartDartObj child, DartDartObj feedback, ffi.P
       affinity: affinity.enumOrNul(Axis.values),
       maxSimultaneousDrags: maxSimultaneousDrags.intOrNul(),
       onDragStarted: onDragStarted.toVoidCallbackFn(),
+      onDragUpdate: onDragUpdate.toDragUpdateCallbackFn(),
+      onDraggableCanceled: onDraggableCanceled.toDraggableCanceledCallbackFn(),
+      onDragEnd: onDragEnd.toDragEndCallbackFn(),
       onDragCompleted: onDragCompleted.toVoidCallbackFn(),
       ignoringFeedbackSemantics: ignoringFeedbackSemantics.boolOr(true),
       ignoringFeedbackPointer: ignoringFeedbackPointer.boolOr(true),
@@ -2866,11 +3551,14 @@ DraggableObjSt _createDraggableObjSt(Draggable? w) {
 void _setupDragTarget(WidgetFactories f) {
   f.dragTarget.dragTarget = ffi.Pointer.fromFunction(dragTargetDragTarget);
 }
-DragTargetObjSt dragTargetDragTarget(DragTargetBuilderForTFFI builder, ffi.Pointer<DragTargetWillAcceptForTFFI> onWillAccept, ffi.Pointer<DragTargetAcceptForTFFI> onAccept, ffi.Pointer<DragTargetLeaveForTFFI> onLeave, ffi.Pointer<ffi.Int> hitTestBehavior) {
+DragTargetObjSt dragTargetDragTarget(DragTargetBuilderForTFFI builder, ffi.Pointer<DragTargetWillAcceptForTFFI> onWillAccept, ffi.Pointer<DragTargetWillAcceptWithDetailsForTFFI> onWillAcceptWithDetails, ffi.Pointer<DragTargetAcceptForTFFI> onAccept, ffi.Pointer<DragTargetAcceptWithDetailsForTFFI> onAcceptWithDetails, ffi.Pointer<DragTargetLeaveForTFFI> onLeave, ffi.Pointer<DragTargetMoveForTFFI> onMove, ffi.Pointer<ffi.Int> hitTestBehavior) {
   final w = DragTarget(builder: builder.toDragTargetBuilderForTFn(),
       onWillAccept: onWillAccept.toDragTargetWillAcceptForTFn(),
+      onWillAcceptWithDetails: onWillAcceptWithDetails.toDragTargetWillAcceptWithDetailsForTFn(),
       onAccept: onAccept.toDragTargetAcceptForTFn(),
+      onAcceptWithDetails: onAcceptWithDetails.toDragTargetAcceptWithDetailsForTFn(),
       onLeave: onLeave.toDragTargetLeaveForTFn(),
+      onMove: onMove.toDragTargetMoveForTFn(),
       hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.translucent));
   return _createDragTargetObjSt(w);
 }
@@ -4722,7 +5410,7 @@ void _setupInputBorder(WidgetFactories f) {
 void _setupTextField(WidgetFactories f) {
   f.textField.textField = ffi.Pointer.fromFunction(textFieldTextField);
 }
-TextFieldObjSt textFieldTextField(ffi.Pointer<DartObj> groupId, ffi.Pointer<DartObj> decoration, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> ignorePointers, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<DartObj> cursorErrorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Int> selectAllOnFocus, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Int> onTapAlwaysCalled, ffi.Pointer<InputCounterWidgetBuilderFFI> buildCounter, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning, ffi.Pointer<ffi.Int> canRequestFocus) {
+TextFieldObjSt textFieldTextField(ffi.Pointer<DartObj> groupId, ffi.Pointer<DartObj> decoration, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> ignorePointers, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<DartObj> cursorErrorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Int> selectAllOnFocus, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Int> onTapAlwaysCalled, ffi.Pointer<TapRegionCallbackFFI> onTapOutside, ffi.Pointer<TapRegionUpCallbackFFI> onTapUpOutside, ffi.Pointer<InputCounterWidgetBuilderFFI> buildCounter, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning, ffi.Pointer<ffi.Int> canRequestFocus) {
   final w = TextField(groupId: groupId.objOr(EditableText),
       decoration: decoration.objOrNul(),
       textInputAction: textInputAction.enumOrNul(TextInputAction.values),
@@ -4764,6 +5452,8 @@ TextFieldObjSt textFieldTextField(ffi.Pointer<DartObj> groupId, ffi.Pointer<Dart
       selectAllOnFocus: selectAllOnFocus.boolOrNul(),
       onTap: onTap.toGestureTapCallbackFn(),
       onTapAlwaysCalled: onTapAlwaysCalled.boolOr(false),
+      onTapOutside: onTapOutside.toTapRegionCallbackFn(),
+      onTapUpOutside: onTapUpOutside.toTapRegionUpCallbackFn(),
       buildCounter: buildCounter.toInputCounterWidgetBuilderFn(),
       autofillHints: autofillHints.listOrNul(),
       clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
@@ -5144,27 +5834,66 @@ ChipObjSt _createChipObjSt(Chip? w) {
 void _setupGestureDetector(WidgetFactories f) {
   f.gestureDetector.gestureDetector = ffi.Pointer.fromFunction(gestureDetectorGestureDetector);
 }
-GestureDetectorObjSt gestureDetectorGestureDetector(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapCancelCallbackFFI> onSecondaryTapCancel, ffi.Pointer<GestureTapCancelCallbackFFI> onTertiaryTapCancel, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onDoubleTapCancel, ffi.Pointer<GestureLongPressCancelCallbackFFI> onLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onLongPressUp, ffi.Pointer<GestureLongPressCancelCallbackFFI> onSecondaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onSecondaryLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onSecondaryLongPressUp, ffi.Pointer<GestureLongPressCancelCallbackFFI> onTertiaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onTertiaryLongPress, ffi.Pointer<GestureLongPressUpCallbackFFI> onTertiaryLongPressUp, ffi.Pointer<GestureDragCancelCallbackFFI> onVerticalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onHorizontalDragCancel, ffi.Pointer<GestureDragCancelCallbackFFI> onPanCancel, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, ffi.Pointer<DartObj> trackpadScrollToScaleFactor) {
+GestureDetectorObjSt gestureDetectorGestureDetector(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapDownCallbackFFI> onTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTapUp, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapMoveCallbackFFI> onTapMove, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapDownCallbackFFI> onSecondaryTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onSecondaryTapUp, ffi.Pointer<GestureTapCancelCallbackFFI> onSecondaryTapCancel, ffi.Pointer<GestureTapDownCallbackFFI> onTertiaryTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTertiaryTapUp, ffi.Pointer<GestureTapCancelCallbackFFI> onTertiaryTapCancel, ffi.Pointer<GestureTapDownCallbackFFI> onDoubleTapDown, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onDoubleTapCancel, ffi.Pointer<GestureLongPressDownCallbackFFI> onLongPressDown, ffi.Pointer<GestureLongPressCancelCallbackFFI> onLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureLongPressStartCallbackFFI> onLongPressStart, ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> onLongPressMoveUpdate, ffi.Pointer<GestureLongPressUpCallbackFFI> onLongPressUp, ffi.Pointer<GestureLongPressEndCallbackFFI> onLongPressEnd, ffi.Pointer<GestureLongPressDownCallbackFFI> onSecondaryLongPressDown, ffi.Pointer<GestureLongPressCancelCallbackFFI> onSecondaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onSecondaryLongPress, ffi.Pointer<GestureLongPressStartCallbackFFI> onSecondaryLongPressStart, ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> onSecondaryLongPressMoveUpdate, ffi.Pointer<GestureLongPressUpCallbackFFI> onSecondaryLongPressUp, ffi.Pointer<GestureLongPressEndCallbackFFI> onSecondaryLongPressEnd, ffi.Pointer<GestureLongPressDownCallbackFFI> onTertiaryLongPressDown, ffi.Pointer<GestureLongPressCancelCallbackFFI> onTertiaryLongPressCancel, ffi.Pointer<GestureLongPressCallbackFFI> onTertiaryLongPress, ffi.Pointer<GestureLongPressStartCallbackFFI> onTertiaryLongPressStart, ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> onTertiaryLongPressMoveUpdate, ffi.Pointer<GestureLongPressUpCallbackFFI> onTertiaryLongPressUp, ffi.Pointer<GestureLongPressEndCallbackFFI> onTertiaryLongPressEnd, ffi.Pointer<GestureDragDownCallbackFFI> onVerticalDragDown, ffi.Pointer<GestureDragStartCallbackFFI> onVerticalDragStart, ffi.Pointer<GestureDragUpdateCallbackFFI> onVerticalDragUpdate, ffi.Pointer<GestureDragEndCallbackFFI> onVerticalDragEnd, ffi.Pointer<GestureDragCancelCallbackFFI> onVerticalDragCancel, ffi.Pointer<GestureDragDownCallbackFFI> onHorizontalDragDown, ffi.Pointer<GestureDragStartCallbackFFI> onHorizontalDragStart, ffi.Pointer<GestureDragUpdateCallbackFFI> onHorizontalDragUpdate, ffi.Pointer<GestureDragEndCallbackFFI> onHorizontalDragEnd, ffi.Pointer<GestureDragCancelCallbackFFI> onHorizontalDragCancel, ffi.Pointer<GestureForcePressStartCallbackFFI> onForcePressStart, ffi.Pointer<GestureForcePressPeakCallbackFFI> onForcePressPeak, ffi.Pointer<GestureForcePressUpdateCallbackFFI> onForcePressUpdate, ffi.Pointer<GestureForcePressEndCallbackFFI> onForcePressEnd, ffi.Pointer<GestureDragDownCallbackFFI> onPanDown, ffi.Pointer<GestureDragStartCallbackFFI> onPanStart, ffi.Pointer<GestureDragUpdateCallbackFFI> onPanUpdate, ffi.Pointer<GestureDragEndCallbackFFI> onPanEnd, ffi.Pointer<GestureDragCancelCallbackFFI> onPanCancel, ffi.Pointer<GestureScaleStartCallbackFFI> onScaleStart, ffi.Pointer<GestureScaleUpdateCallbackFFI> onScaleUpdate, ffi.Pointer<GestureScaleEndCallbackFFI> onScaleEnd, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> trackpadScrollCausesScale, ffi.Pointer<DartObj> trackpadScrollToScaleFactor) {
   final w = GestureDetector(child: child.objOrNul(),
+      onTapDown: onTapDown.toGestureTapDownCallbackFn(),
+      onTapUp: onTapUp.toGestureTapUpCallbackFn(),
       onTap: onTap.toGestureTapCallbackFn(),
+      onTapMove: onTapMove.toGestureTapMoveCallbackFn(),
       onTapCancel: onTapCancel.toGestureTapCancelCallbackFn(),
       onSecondaryTap: onSecondaryTap.toGestureTapCallbackFn(),
+      onSecondaryTapDown: onSecondaryTapDown.toGestureTapDownCallbackFn(),
+      onSecondaryTapUp: onSecondaryTapUp.toGestureTapUpCallbackFn(),
       onSecondaryTapCancel: onSecondaryTapCancel.toGestureTapCancelCallbackFn(),
+      onTertiaryTapDown: onTertiaryTapDown.toGestureTapDownCallbackFn(),
+      onTertiaryTapUp: onTertiaryTapUp.toGestureTapUpCallbackFn(),
       onTertiaryTapCancel: onTertiaryTapCancel.toGestureTapCancelCallbackFn(),
+      onDoubleTapDown: onDoubleTapDown.toGestureTapDownCallbackFn(),
       onDoubleTap: onDoubleTap.toGestureTapCallbackFn(),
       onDoubleTapCancel: onDoubleTapCancel.toGestureTapCancelCallbackFn(),
+      onLongPressDown: onLongPressDown.toGestureLongPressDownCallbackFn(),
       onLongPressCancel: onLongPressCancel.toGestureLongPressCancelCallbackFn(),
       onLongPress: onLongPress.toGestureLongPressCallbackFn(),
+      onLongPressStart: onLongPressStart.toGestureLongPressStartCallbackFn(),
+      onLongPressMoveUpdate: onLongPressMoveUpdate.toGestureLongPressMoveUpdateCallbackFn(),
       onLongPressUp: onLongPressUp.toGestureLongPressUpCallbackFn(),
+      onLongPressEnd: onLongPressEnd.toGestureLongPressEndCallbackFn(),
+      onSecondaryLongPressDown: onSecondaryLongPressDown.toGestureLongPressDownCallbackFn(),
       onSecondaryLongPressCancel: onSecondaryLongPressCancel.toGestureLongPressCancelCallbackFn(),
       onSecondaryLongPress: onSecondaryLongPress.toGestureLongPressCallbackFn(),
+      onSecondaryLongPressStart: onSecondaryLongPressStart.toGestureLongPressStartCallbackFn(),
+      onSecondaryLongPressMoveUpdate: onSecondaryLongPressMoveUpdate.toGestureLongPressMoveUpdateCallbackFn(),
       onSecondaryLongPressUp: onSecondaryLongPressUp.toGestureLongPressUpCallbackFn(),
+      onSecondaryLongPressEnd: onSecondaryLongPressEnd.toGestureLongPressEndCallbackFn(),
+      onTertiaryLongPressDown: onTertiaryLongPressDown.toGestureLongPressDownCallbackFn(),
       onTertiaryLongPressCancel: onTertiaryLongPressCancel.toGestureLongPressCancelCallbackFn(),
       onTertiaryLongPress: onTertiaryLongPress.toGestureLongPressCallbackFn(),
+      onTertiaryLongPressStart: onTertiaryLongPressStart.toGestureLongPressStartCallbackFn(),
+      onTertiaryLongPressMoveUpdate: onTertiaryLongPressMoveUpdate.toGestureLongPressMoveUpdateCallbackFn(),
       onTertiaryLongPressUp: onTertiaryLongPressUp.toGestureLongPressUpCallbackFn(),
+      onTertiaryLongPressEnd: onTertiaryLongPressEnd.toGestureLongPressEndCallbackFn(),
+      onVerticalDragDown: onVerticalDragDown.toGestureDragDownCallbackFn(),
+      onVerticalDragStart: onVerticalDragStart.toGestureDragStartCallbackFn(),
+      onVerticalDragUpdate: onVerticalDragUpdate.toGestureDragUpdateCallbackFn(),
+      onVerticalDragEnd: onVerticalDragEnd.toGestureDragEndCallbackFn(),
       onVerticalDragCancel: onVerticalDragCancel.toGestureDragCancelCallbackFn(),
+      onHorizontalDragDown: onHorizontalDragDown.toGestureDragDownCallbackFn(),
+      onHorizontalDragStart: onHorizontalDragStart.toGestureDragStartCallbackFn(),
+      onHorizontalDragUpdate: onHorizontalDragUpdate.toGestureDragUpdateCallbackFn(),
+      onHorizontalDragEnd: onHorizontalDragEnd.toGestureDragEndCallbackFn(),
       onHorizontalDragCancel: onHorizontalDragCancel.toGestureDragCancelCallbackFn(),
+      onForcePressStart: onForcePressStart.toGestureForcePressStartCallbackFn(),
+      onForcePressPeak: onForcePressPeak.toGestureForcePressPeakCallbackFn(),
+      onForcePressUpdate: onForcePressUpdate.toGestureForcePressUpdateCallbackFn(),
+      onForcePressEnd: onForcePressEnd.toGestureForcePressEndCallbackFn(),
+      onPanDown: onPanDown.toGestureDragDownCallbackFn(),
+      onPanStart: onPanStart.toGestureDragStartCallbackFn(),
+      onPanUpdate: onPanUpdate.toGestureDragUpdateCallbackFn(),
+      onPanEnd: onPanEnd.toGestureDragEndCallbackFn(),
       onPanCancel: onPanCancel.toGestureDragCancelCallbackFn(),
+      onScaleStart: onScaleStart.toGestureScaleStartCallbackFn(),
+      onScaleUpdate: onScaleUpdate.toGestureScaleUpdateCallbackFn(),
+      onScaleEnd: onScaleEnd.toGestureScaleEndCallbackFn(),
       behavior: behavior.enumOrNul(HitTestBehavior.values),
       excludeFromSemantics: excludeFromSemantics.boolOr(false),
       dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
@@ -6211,13 +6940,17 @@ SelectableTextObjSt _createSelectableTextObjSt(SelectableText? w) {
 void _setupInkWell(WidgetFactories f) {
   f.inkWell.inkWell = ffi.Pointer.fromFunction(inkWellInkWell);
 }
-InkWellObjSt inkWellInkWell(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureTapCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTapCancel, ffi.Pointer<ValueChangedForBoolFFI> onHighlightChanged, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> radius, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> customBorder, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> canRequestFocus, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> hoverDuration) {
+InkWellObjSt inkWellInkWell(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureTapDownCallbackFFI> onTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTapUp, ffi.Pointer<GestureTapCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapUpCallbackFFI> onSecondaryTapUp, ffi.Pointer<GestureTapDownCallbackFFI> onSecondaryTapDown, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTapCancel, ffi.Pointer<ValueChangedForBoolFFI> onHighlightChanged, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> radius, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> customBorder, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> canRequestFocus, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> hoverDuration) {
   final w = InkWell(child: child.objOrNul(),
       onTap: onTap.toGestureTapCallbackFn(),
       onDoubleTap: onDoubleTap.toGestureTapCallbackFn(),
       onLongPress: onLongPress.toGestureLongPressCallbackFn(),
+      onTapDown: onTapDown.toGestureTapDownCallbackFn(),
+      onTapUp: onTapUp.toGestureTapUpCallbackFn(),
       onTapCancel: onTapCancel.toGestureTapCallbackFn(),
       onSecondaryTap: onSecondaryTap.toGestureTapCallbackFn(),
+      onSecondaryTapUp: onSecondaryTapUp.toGestureTapUpCallbackFn(),
+      onSecondaryTapDown: onSecondaryTapDown.toGestureTapDownCallbackFn(),
       onSecondaryTapCancel: onSecondaryTapCancel.toGestureTapCallbackFn(),
       onHighlightChanged: onHighlightChanged.toValueChangedForBoolFn(),
       onHover: onHover.toValueChangedForBoolFn(),
@@ -6247,13 +6980,17 @@ InkWellObjSt _createInkWellObjSt(InkWell? w) {
 void _setupInkResponse(WidgetFactories f) {
   f.inkResponse.inkResponse = ffi.Pointer.fromFunction(inkResponseInkResponse);
 }
-InkResponseObjSt inkResponseInkResponse(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTapCancel, ffi.Pointer<ValueChangedForBoolFFI> onHighlightChanged, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<ffi.Int> containedInkWell, ffi.Pointer<ffi.Int> highlightShape, ffi.Pointer<ffi.Double> radius, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> customBorder, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> canRequestFocus, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> hoverDuration) {
+InkResponseObjSt inkResponseInkResponse(ffi.Pointer<DartObj> child, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureTapDownCallbackFFI> onTapDown, ffi.Pointer<GestureTapUpCallbackFFI> onTapUp, ffi.Pointer<GestureTapCallbackFFI> onTapCancel, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTap, ffi.Pointer<GestureTapUpCallbackFFI> onSecondaryTapUp, ffi.Pointer<GestureTapDownCallbackFFI> onSecondaryTapDown, ffi.Pointer<GestureTapCallbackFFI> onSecondaryTapCancel, ffi.Pointer<ValueChangedForBoolFFI> onHighlightChanged, ffi.Pointer<ValueChangedForBoolFFI> onHover, ffi.Pointer<ffi.Int> containedInkWell, ffi.Pointer<ffi.Int> highlightShape, ffi.Pointer<ffi.Double> radius, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> customBorder, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Int> canRequestFocus, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> hoverDuration) {
   final w = InkResponse(child: child.objOrNul(),
       onTap: onTap.toGestureTapCallbackFn(),
+      onTapDown: onTapDown.toGestureTapDownCallbackFn(),
+      onTapUp: onTapUp.toGestureTapUpCallbackFn(),
       onTapCancel: onTapCancel.toGestureTapCallbackFn(),
       onDoubleTap: onDoubleTap.toGestureTapCallbackFn(),
       onLongPress: onLongPress.toGestureLongPressCallbackFn(),
       onSecondaryTap: onSecondaryTap.toGestureTapCallbackFn(),
+      onSecondaryTapUp: onSecondaryTapUp.toGestureTapUpCallbackFn(),
+      onSecondaryTapDown: onSecondaryTapDown.toGestureTapDownCallbackFn(),
       onSecondaryTapCancel: onSecondaryTapCancel.toGestureTapCallbackFn(),
       onHighlightChanged: onHighlightChanged.toValueChangedForBoolFn(),
       onHover: onHover.toValueChangedForBoolFn(),
@@ -6401,12 +7138,13 @@ DataRowObjSt _createDataRowObjSt(DataRow? w) {
 void _setupDataCell(WidgetFactories f) {
   f.dataCell.dataCell = ffi.Pointer.fromFunction(dataCellDataCell);
 }
-DataCellObjSt dataCellDataCell(DartDartObj child, ffi.Pointer<ffi.Int> placeholder, ffi.Pointer<ffi.Int> showEditIcon, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel) {
+DataCellObjSt dataCellDataCell(DartDartObj child, ffi.Pointer<ffi.Int> placeholder, ffi.Pointer<ffi.Int> showEditIcon, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<GestureLongPressCallbackFFI> onLongPress, ffi.Pointer<GestureTapDownCallbackFFI> onTapDown, ffi.Pointer<GestureTapCallbackFFI> onDoubleTap, ffi.Pointer<GestureTapCancelCallbackFFI> onTapCancel) {
   final w = DataCell(_widgetsMap[child]! as Widget,
       placeholder: placeholder.boolOr(false),
       showEditIcon: showEditIcon.boolOr(false),
       onTap: onTap.toGestureTapCallbackFn(),
       onLongPress: onLongPress.toGestureLongPressCallbackFn(),
+      onTapDown: onTapDown.toGestureTapDownCallbackFn(),
       onDoubleTap: onDoubleTap.toGestureTapCallbackFn(),
       onTapCancel: onTapCancel.toGestureTapCancelCallbackFn());
   return _createDataCellObjSt(w);
@@ -7514,11 +8252,12 @@ InputDatePickerFormFieldObjSt _createInputDatePickerFormFieldObjSt(InputDatePick
 void _setupSearchBar(WidgetFactories f) {
   f.searchBar.searchBar = ffi.Pointer.fromFunction(searchBarSearchBar);
 }
-SearchBarObjSt searchBarSearchBar(ffi.Pointer<ffi.Char> hintText, ffi.Pointer<DartObj> leading, ffi.Pointer<ArrayC> trailing, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> autoFocus, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<DartObj> scrollPadding) {
+SearchBarObjSt searchBarSearchBar(ffi.Pointer<ffi.Char> hintText, ffi.Pointer<DartObj> leading, ffi.Pointer<ArrayC> trailing, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<TapRegionCallbackFFI> onTapOutside, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> autoFocus, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<DartObj> scrollPadding) {
   final w = SearchBar(hintText: hintText.strOrNul(),
       leading: leading.objOrNul(),
       trailing: trailing.listOrNul(),
       onTap: onTap.toGestureTapCallbackFn(),
+      onTapOutside: onTapOutside.toTapRegionCallbackFn(),
       onChanged: onChanged.toValueChangedForStringFn(),
       onSubmitted: onSubmitted.toValueChangedForStringFn(),
       constraints: constraints.objOrNul(),
@@ -8338,7 +9077,7 @@ void _setupCupertinoTextField(WidgetFactories f) {
   f.cupertinoTextField.cupertinoTextField = ffi.Pointer.fromFunction(cupertinoTextFieldCupertinoTextField);
   f.cupertinoTextField.borderless = ffi.Pointer.fromFunction(cupertinoTextFieldBorderless);
 }
-CupertinoTextFieldObjSt cupertinoTextFieldCupertinoTextField(ffi.Pointer<DartObj> groupId, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Char> placeholder, ffi.Pointer<DartObj> placeholderStyle, ffi.Pointer<DartObj> prefix, ffi.Pointer<ffi.Int> prefixMode, ffi.Pointer<DartObj> suffix, ffi.Pointer<ffi.Int> suffixMode, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> clearButtonMode, ffi.Pointer<ffi.Char> clearButtonSemanticLabel, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Int> selectAllOnFocus, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning) {
+CupertinoTextFieldObjSt cupertinoTextFieldCupertinoTextField(ffi.Pointer<DartObj> groupId, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Char> placeholder, ffi.Pointer<DartObj> placeholderStyle, ffi.Pointer<DartObj> prefix, ffi.Pointer<ffi.Int> prefixMode, ffi.Pointer<DartObj> suffix, ffi.Pointer<ffi.Int> suffixMode, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> clearButtonMode, ffi.Pointer<ffi.Char> clearButtonSemanticLabel, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<TapRegionCallbackFFI> onTapOutside, ffi.Pointer<TapRegionCallbackFFI> onTapUpOutside, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Int> selectAllOnFocus, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning) {
   final w = CupertinoTextField(groupId: groupId.objOr(EditableText),
       decoration: decoration.objOrNul(),
       padding: padding.objOr(const EdgeInsets.all(7.0)),
@@ -8373,6 +9112,8 @@ CupertinoTextFieldObjSt cupertinoTextFieldCupertinoTextField(ffi.Pointer<DartObj
       onChanged: onChanged.toValueChangedForStringFn(),
       onEditingComplete: onEditingComplete.toVoidCallbackFn(),
       onSubmitted: onSubmitted.toValueChangedForStringFn(),
+      onTapOutside: onTapOutside.toTapRegionCallbackFn(),
+      onTapUpOutside: onTapUpOutside.toTapRegionCallbackFn(),
       enabled: enabled.boolOr(true),
       cursorWidth: cursorWidth.doubleOr(2.0),
       cursorHeight: cursorHeight.doubleOrNul(),
@@ -8395,7 +9136,7 @@ CupertinoTextFieldObjSt cupertinoTextFieldCupertinoTextField(ffi.Pointer<DartObj
       enableIMEPersonalizedLearning: enableIMEPersonalizedLearning.boolOr(true));
   return _createCupertinoTextFieldObjSt(w);
 }
-CupertinoTextFieldObjSt cupertinoTextFieldBorderless(ffi.Pointer<DartObj> groupId, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Char> placeholder, ffi.Pointer<DartObj> placeholderStyle, ffi.Pointer<DartObj> prefix, ffi.Pointer<ffi.Int> prefixMode, ffi.Pointer<DartObj> suffix, ffi.Pointer<ffi.Int> suffixMode, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> clearButtonMode, ffi.Pointer<ffi.Char> clearButtonSemanticLabel, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Int> selectAllOnFocus, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning) {
+CupertinoTextFieldObjSt cupertinoTextFieldBorderless(ffi.Pointer<DartObj> groupId, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Char> placeholder, ffi.Pointer<DartObj> placeholderStyle, ffi.Pointer<DartObj> prefix, ffi.Pointer<ffi.Int> prefixMode, ffi.Pointer<DartObj> suffix, ffi.Pointer<ffi.Int> suffixMode, ffi.Pointer<ffi.Int> crossAxisAlignment, ffi.Pointer<ffi.Int> clearButtonMode, ffi.Pointer<ffi.Char> clearButtonSemanticLabel, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ffi.Int> maxLengthEnforcement, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onSubmitted, ffi.Pointer<TapRegionCallbackFFI> onTapOutside, ffi.Pointer<TapRegionCallbackFFI> onTapUpOutside, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorRadius, ffi.Pointer<ffi.Int> cursorOpacityAnimates, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Int> selectAllOnFocus, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> scribbleEnabled, ffi.Pointer<ffi.Int> stylusHandwritingEnabled, ffi.Pointer<ffi.Int> enableIMEPersonalizedLearning) {
   final w = CupertinoTextField.borderless(groupId: groupId.objOr(EditableText),
       decoration: decoration.objOrNul(),
       padding: padding.objOr(const EdgeInsets.all(7.0)),
@@ -8430,6 +9171,8 @@ CupertinoTextFieldObjSt cupertinoTextFieldBorderless(ffi.Pointer<DartObj> groupI
       onChanged: onChanged.toValueChangedForStringFn(),
       onEditingComplete: onEditingComplete.toVoidCallbackFn(),
       onSubmitted: onSubmitted.toValueChangedForStringFn(),
+      onTapOutside: onTapOutside.toTapRegionCallbackFn(),
+      onTapUpOutside: onTapUpOutside.toTapRegionCallbackFn(),
       enabled: enabled.boolOr(true),
       cursorWidth: cursorWidth.doubleOr(2.0),
       cursorHeight: cursorHeight.doubleOrNul(),
@@ -8827,6 +9570,29 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupAnimationController(f);
   _setupAnimatedBuilder(f);
   _setupOffset(f);
+  _setupVelocity(f);
+  _setupTapDownDetails(f);
+  _setupTapUpDetails(f);
+  _setupTapMoveDetails(f);
+  _setupLongPressDownDetails(f);
+  _setupLongPressStartDetails(f);
+  _setupLongPressMoveUpdateDetails(f);
+  _setupLongPressEndDetails(f);
+  _setupDragDownDetails(f);
+  _setupDragStartDetails(f);
+  _setupDragUpdateDetails(f);
+  _setupDragEndDetails(f);
+  _setupScaleStartDetails(f);
+  _setupScaleUpdateDetails(f);
+  _setupScaleEndDetails(f);
+  _setupForcePressDetails(f);
+  _setupDraggableDetails(f);
+  _setupDragTargetDetails(f);
+  _setupPointerDownEvent(f);
+  _setupPointerUpEvent(f);
+  _setupPointerEnterEvent(f);
+  _setupPointerExitEvent(f);
+  _setupPointerHoverEvent(f);
   _setupCubic(f);
   _setupThreePointCubic(f);
   _setupElasticOutCurve(f);
@@ -9026,6 +9792,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubAnimatedState(f);
   _setupShadow(f);
   _setupShadow(f);
+  _setupPointerEvent(f);
   _setupEdgeInsetsGeometry(f);
   _setupBoxParentData(f);
   _setupParentData(f);
@@ -9115,6 +9882,42 @@ extension on ffi.Pointer<SelectableDayForRangePredicateFFI> {
   SelectableDayForRangePredicate? toSelectableDayForRangePredicateFn() => (this != ffi.nullptr) ? this.value.toSelectableDayForRangePredicateFn() : null;
 }
 
+extension on PointerEnterEventListenerFFI {
+  PointerEnterEventListener toPointerEnterEventListenerFn() {
+    return (PointerEnterEvent event) {
+      DartPointerEnterEventListenerFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<PointerEnterEventListenerFFI> {
+  PointerEnterEventListener? toPointerEnterEventListenerFn() => (this != ffi.nullptr) ? this.value.toPointerEnterEventListenerFn() : null;
+}
+
+extension on PointerExitEventListenerFFI {
+  PointerExitEventListener toPointerExitEventListenerFn() {
+    return (PointerExitEvent event) {
+      DartPointerExitEventListenerFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<PointerExitEventListenerFFI> {
+  PointerExitEventListener? toPointerExitEventListenerFn() => (this != ffi.nullptr) ? this.value.toPointerExitEventListenerFn() : null;
+}
+
+extension on PointerHoverEventListenerFFI {
+  PointerHoverEventListener toPointerHoverEventListenerFn() {
+    return (PointerHoverEvent event) {
+      DartPointerHoverEventListenerFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<PointerHoverEventListenerFFI> {
+  PointerHoverEventListener? toPointerHoverEventListenerFn() => (this != ffi.nullptr) ? this.value.toPointerHoverEventListenerFn() : null;
+}
+
 extension on VoidCallbackFFI {
   VoidCallback toVoidCallbackFn() {
     return () {
@@ -9165,6 +9968,42 @@ extension on ffi.Pointer<ValueChangedForIntFFI> {
   ValueChanged<int>? toValueChangedForIntFn() => (this != ffi.nullptr) ? this.value.toValueChangedForIntFn() : null;
 }
 
+extension on GestureScaleEndCallbackFFI {
+  GestureScaleEndCallback toGestureScaleEndCallbackFn() {
+    return (ScaleEndDetails details) {
+      DartGestureScaleEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureScaleEndCallbackFFI> {
+  GestureScaleEndCallback? toGestureScaleEndCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureScaleEndCallbackFn() : null;
+}
+
+extension on GestureScaleStartCallbackFFI {
+  GestureScaleStartCallback toGestureScaleStartCallbackFn() {
+    return (ScaleStartDetails details) {
+      DartGestureScaleStartCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureScaleStartCallbackFFI> {
+  GestureScaleStartCallback? toGestureScaleStartCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureScaleStartCallbackFn() : null;
+}
+
+extension on GestureScaleUpdateCallbackFFI {
+  GestureScaleUpdateCallback toGestureScaleUpdateCallbackFn() {
+    return (ScaleUpdateDetails details) {
+      DartGestureScaleUpdateCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureScaleUpdateCallbackFFI> {
+  GestureScaleUpdateCallback? toGestureScaleUpdateCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureScaleUpdateCallbackFn() : null;
+}
+
 extension on DragAnchorStrategyFFI {
   DragAnchorStrategy toDragAnchorStrategyFn() {
     return (Draggable<Object> draggable, BuildContext context, Offset position) => _runBuildScope(() {
@@ -9176,6 +10015,42 @@ extension on DragAnchorStrategyFFI {
 }
 extension on ffi.Pointer<DragAnchorStrategyFFI> {
   DragAnchorStrategy? toDragAnchorStrategyFn() => (this != ffi.nullptr) ? this.value.toDragAnchorStrategyFn() : null;
+}
+
+extension on DragUpdateCallbackFFI {
+  DragUpdateCallback toDragUpdateCallbackFn() {
+    return (DragUpdateDetails details) {
+      DartDragUpdateCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragUpdateCallbackFFI> {
+  DragUpdateCallback? toDragUpdateCallbackFn() => (this != ffi.nullptr) ? this.value.toDragUpdateCallbackFn() : null;
+}
+
+extension on DraggableCanceledCallbackFFI {
+  DraggableCanceledCallback toDraggableCanceledCallbackFn() {
+    return (Velocity velocity, Offset offset) {
+      DartDraggableCanceledCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(velocity), _addWidget(offset));
+    };
+  }
+}
+extension on ffi.Pointer<DraggableCanceledCallbackFFI> {
+  DraggableCanceledCallback? toDraggableCanceledCallbackFn() => (this != ffi.nullptr) ? this.value.toDraggableCanceledCallbackFn() : null;
+}
+
+extension on DragEndCallbackFFI {
+  DragEndCallback toDragEndCallbackFn() {
+    return (DraggableDetails details) {
+      DartDragEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragEndCallbackFFI> {
+  DragEndCallback? toDragEndCallbackFn() => (this != ffi.nullptr) ? this.value.toDragEndCallbackFn() : null;
 }
 
 extension on AllowedButtonsFilterFFI {
@@ -9217,6 +10092,19 @@ extension on ffi.Pointer<DragTargetWillAcceptForTFFI> {
   DragTargetWillAccept<T>? toDragTargetWillAcceptForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetWillAcceptForTFn() : null;
 }
 
+extension on DragTargetWillAcceptWithDetailsForTFFI {
+  DragTargetWillAcceptWithDetails<T> toDragTargetWillAcceptWithDetailsForTFn<T>() {
+    return (DragTargetDetails<T> details) {
+      DartDragTargetWillAcceptWithDetailsForTFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(details));
+      return dFnRet.toBool();
+    };
+  }
+}
+extension on ffi.Pointer<DragTargetWillAcceptWithDetailsForTFFI> {
+  DragTargetWillAcceptWithDetails<T>? toDragTargetWillAcceptWithDetailsForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetWillAcceptWithDetailsForTFn() : null;
+}
+
 extension on DragTargetAcceptForTFFI {
   DragTargetAccept<T> toDragTargetAcceptForTFn<T>() {
     return (T? data) {
@@ -9229,6 +10117,18 @@ extension on ffi.Pointer<DragTargetAcceptForTFFI> {
   DragTargetAccept<T>? toDragTargetAcceptForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetAcceptForTFn() : null;
 }
 
+extension on DragTargetAcceptWithDetailsForTFFI {
+  DragTargetAcceptWithDetails<T> toDragTargetAcceptWithDetailsForTFn<T>() {
+    return (DragTargetDetails<T> details) {
+      DartDragTargetAcceptWithDetailsForTFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragTargetAcceptWithDetailsForTFFI> {
+  DragTargetAcceptWithDetails<T>? toDragTargetAcceptWithDetailsForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetAcceptWithDetailsForTFn() : null;
+}
+
 extension on DragTargetLeaveForTFFI {
   DragTargetLeave<T> toDragTargetLeaveForTFn<T>() {
     return (T? data) {
@@ -9239,6 +10139,18 @@ extension on DragTargetLeaveForTFFI {
 }
 extension on ffi.Pointer<DragTargetLeaveForTFFI> {
   DragTargetLeave<T>? toDragTargetLeaveForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetLeaveForTFn() : null;
+}
+
+extension on DragTargetMoveForTFFI {
+  DragTargetMove<T> toDragTargetMoveForTFn<T>() {
+    return (DragTargetDetails<T> details) {
+      DartDragTargetMoveForTFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<DragTargetMoveForTFFI> {
+  DragTargetMove<T>? toDragTargetMoveForTFn<T>() => (this != ffi.nullptr) ? this.value.toDragTargetMoveForTFn() : null;
 }
 
 extension on HeroFlightShuttleBuilderFFI {
@@ -9354,6 +10266,30 @@ extension on ffi.Pointer<GestureTapCallbackFFI> {
   GestureTapCallback? toGestureTapCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapCallbackFn() : null;
 }
 
+extension on TapRegionCallbackFFI {
+  TapRegionCallback toTapRegionCallbackFn() {
+    return (PointerDownEvent event) {
+      DartTapRegionCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<TapRegionCallbackFFI> {
+  TapRegionCallback? toTapRegionCallbackFn() => (this != ffi.nullptr) ? this.value.toTapRegionCallbackFn() : null;
+}
+
+extension on TapRegionUpCallbackFFI {
+  TapRegionUpCallback toTapRegionUpCallbackFn() {
+    return (PointerUpEvent event) {
+      DartTapRegionUpCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<TapRegionUpCallbackFFI> {
+  TapRegionUpCallback? toTapRegionUpCallbackFn() => (this != ffi.nullptr) ? this.value.toTapRegionUpCallbackFn() : null;
+}
+
 extension on InputCounterWidgetBuilderFFI {
   InputCounterWidgetBuilder toInputCounterWidgetBuilderFn() {
     return (BuildContext context, {required int currentLength, required bool isFocused, required int? maxLength}) => _runBuildScope(() {
@@ -9367,6 +10303,42 @@ extension on ffi.Pointer<InputCounterWidgetBuilderFFI> {
   InputCounterWidgetBuilder? toInputCounterWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toInputCounterWidgetBuilderFn() : null;
 }
 
+extension on GestureTapDownCallbackFFI {
+  GestureTapDownCallback toGestureTapDownCallbackFn() {
+    return (TapDownDetails details) {
+      DartGestureTapDownCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureTapDownCallbackFFI> {
+  GestureTapDownCallback? toGestureTapDownCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapDownCallbackFn() : null;
+}
+
+extension on GestureTapUpCallbackFFI {
+  GestureTapUpCallback toGestureTapUpCallbackFn() {
+    return (TapUpDetails details) {
+      DartGestureTapUpCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureTapUpCallbackFFI> {
+  GestureTapUpCallback? toGestureTapUpCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapUpCallbackFn() : null;
+}
+
+extension on GestureTapMoveCallbackFFI {
+  GestureTapMoveCallback toGestureTapMoveCallbackFn() {
+    return (TapMoveDetails details) {
+      DartGestureTapMoveCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureTapMoveCallbackFFI> {
+  GestureTapMoveCallback? toGestureTapMoveCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapMoveCallbackFn() : null;
+}
+
 extension on GestureTapCancelCallbackFFI {
   GestureTapCancelCallback toGestureTapCancelCallbackFn() {
     return () {
@@ -9377,6 +10349,18 @@ extension on GestureTapCancelCallbackFFI {
 }
 extension on ffi.Pointer<GestureTapCancelCallbackFFI> {
   GestureTapCancelCallback? toGestureTapCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapCancelCallbackFn() : null;
+}
+
+extension on GestureLongPressDownCallbackFFI {
+  GestureLongPressDownCallback toGestureLongPressDownCallbackFn() {
+    return (LongPressDownDetails details) {
+      DartGestureLongPressDownCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressDownCallbackFFI> {
+  GestureLongPressDownCallback? toGestureLongPressDownCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressDownCallbackFn() : null;
 }
 
 extension on GestureLongPressCancelCallbackFFI {
@@ -9403,6 +10387,30 @@ extension on ffi.Pointer<GestureLongPressCallbackFFI> {
   GestureLongPressCallback? toGestureLongPressCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressCallbackFn() : null;
 }
 
+extension on GestureLongPressStartCallbackFFI {
+  GestureLongPressStartCallback toGestureLongPressStartCallbackFn() {
+    return (LongPressStartDetails details) {
+      DartGestureLongPressStartCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressStartCallbackFFI> {
+  GestureLongPressStartCallback? toGestureLongPressStartCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressStartCallbackFn() : null;
+}
+
+extension on GestureLongPressMoveUpdateCallbackFFI {
+  GestureLongPressMoveUpdateCallback toGestureLongPressMoveUpdateCallbackFn() {
+    return (LongPressMoveUpdateDetails details) {
+      DartGestureLongPressMoveUpdateCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressMoveUpdateCallbackFFI> {
+  GestureLongPressMoveUpdateCallback? toGestureLongPressMoveUpdateCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressMoveUpdateCallbackFn() : null;
+}
+
 extension on GestureLongPressUpCallbackFFI {
   GestureLongPressUpCallback toGestureLongPressUpCallbackFn() {
     return () {
@@ -9415,6 +10423,66 @@ extension on ffi.Pointer<GestureLongPressUpCallbackFFI> {
   GestureLongPressUpCallback? toGestureLongPressUpCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressUpCallbackFn() : null;
 }
 
+extension on GestureLongPressEndCallbackFFI {
+  GestureLongPressEndCallback toGestureLongPressEndCallbackFn() {
+    return (LongPressEndDetails details) {
+      DartGestureLongPressEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureLongPressEndCallbackFFI> {
+  GestureLongPressEndCallback? toGestureLongPressEndCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureLongPressEndCallbackFn() : null;
+}
+
+extension on GestureDragDownCallbackFFI {
+  GestureDragDownCallback toGestureDragDownCallbackFn() {
+    return (DragDownDetails details) {
+      DartGestureDragDownCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureDragDownCallbackFFI> {
+  GestureDragDownCallback? toGestureDragDownCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragDownCallbackFn() : null;
+}
+
+extension on GestureDragStartCallbackFFI {
+  GestureDragStartCallback toGestureDragStartCallbackFn() {
+    return (DragStartDetails details) {
+      DartGestureDragStartCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureDragStartCallbackFFI> {
+  GestureDragStartCallback? toGestureDragStartCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragStartCallbackFn() : null;
+}
+
+extension on GestureDragUpdateCallbackFFI {
+  GestureDragUpdateCallback toGestureDragUpdateCallbackFn() {
+    return (DragUpdateDetails details) {
+      DartGestureDragUpdateCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureDragUpdateCallbackFFI> {
+  GestureDragUpdateCallback? toGestureDragUpdateCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragUpdateCallbackFn() : null;
+}
+
+extension on GestureDragEndCallbackFFI {
+  GestureDragEndCallback toGestureDragEndCallbackFn() {
+    return (DragEndDetails details) {
+      DartGestureDragEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureDragEndCallbackFFI> {
+  GestureDragEndCallback? toGestureDragEndCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragEndCallbackFn() : null;
+}
+
 extension on GestureDragCancelCallbackFFI {
   GestureDragCancelCallback toGestureDragCancelCallbackFn() {
     return () {
@@ -9425,6 +10493,54 @@ extension on GestureDragCancelCallbackFFI {
 }
 extension on ffi.Pointer<GestureDragCancelCallbackFFI> {
   GestureDragCancelCallback? toGestureDragCancelCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureDragCancelCallbackFn() : null;
+}
+
+extension on GestureForcePressStartCallbackFFI {
+  GestureForcePressStartCallback toGestureForcePressStartCallbackFn() {
+    return (ForcePressDetails details) {
+      DartGestureForcePressStartCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureForcePressStartCallbackFFI> {
+  GestureForcePressStartCallback? toGestureForcePressStartCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureForcePressStartCallbackFn() : null;
+}
+
+extension on GestureForcePressPeakCallbackFFI {
+  GestureForcePressPeakCallback toGestureForcePressPeakCallbackFn() {
+    return (ForcePressDetails details) {
+      DartGestureForcePressPeakCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureForcePressPeakCallbackFFI> {
+  GestureForcePressPeakCallback? toGestureForcePressPeakCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureForcePressPeakCallbackFn() : null;
+}
+
+extension on GestureForcePressUpdateCallbackFFI {
+  GestureForcePressUpdateCallback toGestureForcePressUpdateCallbackFn() {
+    return (ForcePressDetails details) {
+      DartGestureForcePressUpdateCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureForcePressUpdateCallbackFFI> {
+  GestureForcePressUpdateCallback? toGestureForcePressUpdateCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureForcePressUpdateCallbackFn() : null;
+}
+
+extension on GestureForcePressEndCallbackFFI {
+  GestureForcePressEndCallback toGestureForcePressEndCallbackFn() {
+    return (ForcePressDetails details) {
+      DartGestureForcePressEndCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<GestureForcePressEndCallbackFFI> {
+  GestureForcePressEndCallback? toGestureForcePressEndCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureForcePressEndCallbackFn() : null;
 }
 
 extension on ValueChangedForBoolOptFFI {
