@@ -8,6 +8,9 @@ import 'dart:ui' show ColorSpace, ImageFilter;
 import 'decode.dart';
 import 'callbacks.dart';
 
+WidgetStateProperty<T>? _wspNul<T>(T? v) =>
+    v == null ? null : WidgetStatePropertyAll<T>(v);
+
 final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'textStyleTextStyle': (p) => TextStyle(inherit: (p['inherit'] as bool?) ?? true,
       color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,

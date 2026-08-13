@@ -419,6 +419,9 @@ import 'dart:ui' show ColorSpace, ImageFilter;
 import 'decode.dart';
 import 'callbacks.dart';
 
+WidgetStateProperty<T>? _wspNul<T>(T? v) =>
+    v == null ? null : WidgetStatePropertyAll<T>(v);
+
 final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
 $entries
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
