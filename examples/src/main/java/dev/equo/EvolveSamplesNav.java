@@ -9,7 +9,7 @@ import static dev.equo.ewt.EWT.*;
 
 /**
  * Flutter-rendered tab strip for the web showcase window.
- * Renders 4 tabs; calls {@code onTabSelected} (Java lambda) when the user
+ * Renders 5 tabs; calls {@code onTabSelected} (Java lambda) when the user
  * taps a tab so the caller can switch the content EwtWidget region.
  */
 public class EvolveSamplesNav extends SubStatefulWidget {
@@ -41,7 +41,8 @@ public class EvolveSamplesNav extends SubStatefulWidget {
                             _tab(0, Icons.hub_rounded(), "Showcase"),
                             _tab(1, Icons.play_circle_rounded(), "Animations"),
                             _tab(2, Icons.swap_horiz_rounded(), "Slide"),
-                            _tab(3, Icons.phone_iphone_rounded(), "Cupertino Mix")
+                            _tab(3, Icons.phone_iphone_rounded(), "Cupertino"),
+                            _tab(4, Icons.code_rounded(), "IDE")
                     ))
             );
         }

@@ -70,6 +70,8 @@ public class EwtWidget extends Composite {
     private volatile java.util.Map<Integer, Object> webCallbacks;
     /** Either a SubState<?> or a SubAnimatedState<?>, or null for stateless roots. */
     private volatile Object webState;
+    /** SubState/SubAnimatedState instances from nested SubStatefulWidget children; same rebuild hook as root. */
+    private volatile java.util.List<Object> webNestedStates = java.util.List.of();
     /** Guards against registering the same EvolveComm handlers more than once across repeated setWidget calls. */
     private boolean webHandlersRegistered = false;
 
@@ -93,11 +95,16 @@ public class EwtWidget extends Composite {
             webCallbacks = capture.callbacks;
             clearWebState();
             webState = capture.state;
+            webNestedStates = capture.nestedStates;
             if (capture.state instanceof SubState<?> ss) {
                 EwtWebState.register(ss, this::rebuild);
             } else if (capture.state instanceof SubAnimatedState<?> as) {
                 EwtWebState.register(as, this::rebuild);
                 as.setWebAnimCommandSink(this::sendAnimCommand);
+            }
+            for (Object ns : capture.nestedStates) {
+                if (ns instanceof SubState<?> ss) EwtWebState.register(ss, this::rebuild);
+                else if (ns instanceof SubAnimatedState<?> as) EwtWebState.register(as, this::rebuild);
             }
             if (!webHandlersRegistered) {
                 EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
@@ -120,7 +127,7 @@ public class EwtWidget extends Composite {
         }
     }
 
-    /** Unregisters the current web state from EwtWebState and clears its anim sink. */
+    /** Unregisters the current web state (root + nested) from EwtWebState and clears anim sinks. */
     private void clearWebState() {
         Object prev = webState;
         if (prev instanceof SubState<?> ss) EwtWebState.unregister(ss);
@@ -129,6 +136,11 @@ public class EwtWidget extends Composite {
             as.setWebAnimCommandSink(null);
         }
         webState = null;
+        for (Object ns : webNestedStates) {
+            if (ns instanceof SubState<?> ss) EwtWebState.unregister(ss);
+            else if (ns instanceof SubAnimatedState<?> as) EwtWebState.unregister(as);
+        }
+        webNestedStates = java.util.List.of();
     }
 
     /** Web-mode rebuild: re-flatten the retained state, refresh callbacks, publish a diff (or a full
@@ -144,6 +156,15 @@ public class EwtWidget extends Composite {
                 capture = EwtWebCapture.rebuildAnimated(as);
             } else return;
             webCallbacks = capture.callbacks;
+            for (Object ns : webNestedStates) {
+                if (ns instanceof SubState<?> ss) EwtWebState.unregister(ss);
+                else if (ns instanceof SubAnimatedState<?> as) EwtWebState.unregister(as);
+            }
+            webNestedStates = capture.nestedStates;
+            for (Object ns : webNestedStates) {
+                if (ns instanceof SubState<?> ss) EwtWebState.register(ss, this::rebuild);
+                else if (ns instanceof SubAnimatedState<?> as) EwtWebState.register(as, this::rebuild);
+            }
             EwtNode prev = lastTree;
             lastTree = capture.root;
             String json = encodeUpdate(prev, capture.root);

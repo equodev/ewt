@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.EwtWidget;
 import org.eclipse.swt.widgets.Shell;
 
+import dev.equo.ide2.IdeShell2;
 import dev.equo.showcase.AnimationPlaygroundPage;
 import dev.equo.showcase.SlideTransitionPage;
 
@@ -51,6 +52,7 @@ public class EvolveSamples {
                     case 1 -> () -> new AnimationPlaygroundPage(() -> {});
                     case 2 -> () -> new SlideTransitionPage(() -> {});
                     case 3 -> CupertinoMixPage.Page::new;
+                    case 4 -> IdeShell2::new;
                     default -> EwtWebShowcase.ShowcasePage::new;
                 }))
         ));

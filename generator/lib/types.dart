@@ -51,6 +51,9 @@ class Types {
         // Indexed builder expansion (.builder with itemBuilder+itemCount).
         case 'ListView':
           return BuilderExpansionGen(this, dartClass);
+        // DragTarget: eager-expands builder with empty lists for static child.
+        case 'DragTarget':
+          return DragTargetGen(this, dartClass);
         // Abstract classes exposing factory ctors as static Java factories.
         case 'ImageFilter':
         case 'ColorFilter':

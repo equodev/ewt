@@ -48,5 +48,6 @@ part 'emit/shape/color_swatch_gen.dart';
 part 'emit/shape/imperative_controller_gen.dart';
 part 'emit/shape/sub_animated_state_gen.dart';
 part 'emit/shape/sub_state_gen.dart';
+part 'emit/shape/drag_target_gen.dart';
 part 'emit/shape/tracked_sub_widget_gen.dart';
 part 'emit/shape/unique_key_defaulter_gen.dart';
