@@ -73,7 +73,7 @@ build_docker_image:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build --pull --build-arg FLUTTER_VERSION=$FLUTTER_SDK --build-arg JEXTRACT_URL=$JEXTRACT_URL -f .docker/Dockerfile -t "$FLUTTER_IMAGE_TAG" .
+    - docker build --provenance=false --sbom=false --pull --build-arg FLUTTER_VERSION=$FLUTTER_SDK --build-arg JEXTRACT_URL=$JEXTRACT_URL -f .docker/Dockerfile -t "$FLUTTER_IMAGE_TAG" .
     - docker push "$FLUTTER_IMAGE_TAG"
 
 # Runs on every push to main. Records that a release is pending so the next
