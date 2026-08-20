@@ -1116,6 +1116,57 @@ public class EWT {
     return InputChipInputChipBuilder.inputChipInputChip();
   }
 
+  public static AlignTransitionAlignTransitionBuilder AlignTransition(AnimationI alignment, WidgetI child) {
+    return AlignTransitionAlignTransitionBuilder.alignTransitionAlignTransition(alignment, child);
+  }
+
+  public static AnimatedDefaultTextStyleAnimatedDefaultTextStyleBuilder AnimatedDefaultTextStyle(WidgetI child, TextStyleI style) {
+    return AnimatedDefaultTextStyleAnimatedDefaultTextStyleBuilder.animatedDefaultTextStyleAnimatedDefaultTextStyle(child, style);
+  }
+
+  public static AnimatedFractionallySizedBoxAnimatedFractionallySizedBoxBuilder AnimatedFractionallySizedBox() {
+    return AnimatedFractionallySizedBoxAnimatedFractionallySizedBoxBuilder.animatedFractionallySizedBoxAnimatedFractionallySizedBox();
+  }
+
+  public static AnimatedPositionedAnimatedPositionedBuilder AnimatedPositioned(WidgetI child) {
+    return AnimatedPositionedAnimatedPositionedBuilder.animatedPositionedAnimatedPositioned(child);
+  }
+
+  public static AnimatedPositionedDirectionalAnimatedPositionedDirectionalBuilder AnimatedPositionedDirectional(WidgetI child) {
+    return AnimatedPositionedDirectionalAnimatedPositionedDirectionalBuilder.animatedPositionedDirectionalAnimatedPositionedDirectional(child);
+  }
+
+  public static DisplayFeatureSubScreenDisplayFeatureSubScreenBuilder DisplayFeatureSubScreen() {
+    return DisplayFeatureSubScreenDisplayFeatureSubScreenBuilder.displayFeatureSubScreenDisplayFeatureSubScreen();
+  }
+
+  public static ErrorWidgetErrorWidgetBuilder ErrorWidget(NativeObj.I exception) {
+    return ErrorWidgetErrorWidgetBuilder.errorWidgetErrorWidget(exception);
+  }
+  public static ErrorWidgetWithDetailsBuilder ErrorWidget_withDetails() {
+    return ErrorWidgetWithDetailsBuilder.errorWidgetWithDetails();
+  }
+
+  public static RestorationScopeRestorationScopeBuilder RestorationScope(String restorationId, WidgetI child) {
+    return RestorationScopeRestorationScopeBuilder.restorationScopeRestorationScope(restorationId, child);
+  }
+
+  public static RootRestorationScopeRootRestorationScopeBuilder RootRestorationScope(String restorationId, WidgetI child) {
+    return RootRestorationScopeRootRestorationScopeBuilder.rootRestorationScopeRootRestorationScope(restorationId, child);
+  }
+
+  public static StretchingOverscrollIndicatorStretchingOverscrollIndicatorBuilder StretchingOverscrollIndicator(AxisDirection axisDirection) {
+    return StretchingOverscrollIndicatorStretchingOverscrollIndicatorBuilder.stretchingOverscrollIndicatorStretchingOverscrollIndicator(axisDirection);
+  }
+
+  public static TapRegionTapRegionBuilder TapRegion(WidgetI child) {
+    return TapRegionTapRegionBuilder.tapRegionTapRegion(child);
+  }
+
+  public static TextFieldTapRegionTextFieldTapRegionBuilder TextFieldTapRegion(WidgetI child) {
+    return TextFieldTapRegionTextFieldTapRegionBuilder.textFieldTapRegionTextFieldTapRegion(child);
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

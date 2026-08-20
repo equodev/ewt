@@ -247,6 +247,29 @@ public class LayoutWidgetsGallery {
           Divider(),
 
           // ---- Batch 6: Dialog, GridTile, InputDecorator, chip variants ----
+          // ---- Batch 7: animated positioned + text style + tap region ----
+          tile("AnimatedPositioned in a Stack (toggle)",
+              SizedBox().width(200.0).height(60.0).child(
+                  Stack().children(List.of(
+                      AnimatedPositioned(rect(40.0, 40.0, Colors.deepPurple()).build())
+                          .left(_visible ? 8.0 : 140.0).top(10.0)
+                          .duration(Duration().milliseconds(300).build()).build()
+                  )))),
+          tile("AnimatedDefaultTextStyle (toggle)",
+              AnimatedDefaultTextStyle(Text("styled").build(),
+                  TextStyle().fontSize(_visible ? 22.0 : 14.0)
+                      .color(_visible ? Colors.red() : Colors.grey()).build())
+                  .duration(Duration().milliseconds(300).build())),
+          tile("AnimatedFractionallySizedBox",
+              stage(80.0, 40.0,
+                  AnimatedFractionallySizedBox().widthFactor(_visible ? 1.0 : 0.4)
+                      .duration(Duration().milliseconds(300).build())
+                      .child(ColoredBox(Colors.teal()).build()).build())),
+          tile("TapRegion (log outside taps)",
+              TapRegion(rect(80.0, 32.0, Colors.blueGrey()).build())
+                  .onTapOutside(e -> setState(() -> _lastTap = "outside"))),
+          Divider(),
+
           tile("Dialog (inline preview)",
               SizedBox().width(220.0).height(70.0).child(
                   Dialog().backgroundColor(Colors.grey())

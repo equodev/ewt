@@ -3621,6 +3621,141 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(deleteIconBoxConstraints));
   }
 
+  MemorySegment alignTransitionAlignTransition(Animation alignment, Widget child, OptionalDouble widthFactor, OptionalDouble heightFactor) {
+    var st = WidgetFactories.alignTransition(factories);
+    var fn = WidgetFactories.AlignTransitionSt.alignTransition(st);
+    return WidgetFactories.AlignTransitionSt.alignTransition.invoke(fn, arena, alignment.build().getId(),
+      child.build().getId(),
+      ptr(widthFactor),
+      ptr(heightFactor));
+  }
+
+  MemorySegment animatedDefaultTextStyleAnimatedDefaultTextStyle(Widget child, TextStyle style, Optional<TextAlign> textAlign, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedDefaultTextStyle(factories);
+    var fn = WidgetFactories.AnimatedDefaultTextStyleSt.animatedDefaultTextStyle(st);
+    return WidgetFactories.AnimatedDefaultTextStyleSt.animatedDefaultTextStyle.invoke(fn, arena, child.build().getId(),
+      style.build().getId(),
+      ptrEnum(textAlign),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(maxLines),
+      ptrEnum(textWidthBasis),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedFractionallySizedBoxAnimatedFractionallySizedBox(Optional<AlignmentGeometry> alignment, Optional<Widget> child, OptionalDouble heightFactor, OptionalDouble widthFactor, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedFractionallySizedBox(factories);
+    var fn = WidgetFactories.AnimatedFractionallySizedBoxSt.animatedFractionallySizedBox(st);
+    return WidgetFactories.AnimatedFractionallySizedBoxSt.animatedFractionallySizedBox.invoke(fn, arena, ptrObj(alignment),
+      ptrObj(child),
+      ptr(heightFactor),
+      ptr(widthFactor),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedPositionedAnimatedPositioned(Widget child, OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedPositioned(factories);
+    var fn = WidgetFactories.AnimatedPositionedSt.animatedPositioned(st);
+    return WidgetFactories.AnimatedPositionedSt.animatedPositioned.invoke(fn, arena, child.build().getId(),
+      ptr(left),
+      ptr(top),
+      ptr(right),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedPositionedDirectionalAnimatedPositionedDirectional(Widget child, OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedPositionedDirectional(factories);
+    var fn = WidgetFactories.AnimatedPositionedDirectionalSt.animatedPositionedDirectional(st);
+    return WidgetFactories.AnimatedPositionedDirectionalSt.animatedPositionedDirectional.invoke(fn, arena, child.build().getId(),
+      ptr(start),
+      ptr(top),
+      ptr(end),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment displayFeatureSubScreenDisplayFeatureSubScreen(Optional<Offset> anchorPoint, Widget child) {
+    var st = WidgetFactories.displayFeatureSubScreen(factories);
+    var fn = WidgetFactories.DisplayFeatureSubScreenSt.displayFeatureSubScreen(st);
+    return WidgetFactories.DisplayFeatureSubScreenSt.displayFeatureSubScreen.invoke(fn, arena, ptrObj(anchorPoint),
+      child.build().getId());
+  }
+
+  MemorySegment errorWidgetErrorWidget(NativeObj exception) {
+    var st = WidgetFactories.errorWidget(factories);
+    var fn = WidgetFactories.ErrorWidgetSt.errorWidget(st);
+    return WidgetFactories.ErrorWidgetSt.errorWidget.invoke(fn, arena, exception.build().getId());
+  }
+  MemorySegment errorWidgetWithDetails(Optional<String> message) {
+    var st = WidgetFactories.errorWidget(factories);
+    var fn = WidgetFactories.ErrorWidgetSt.withDetails(st);
+    return WidgetFactories.ErrorWidgetSt.withDetails.invoke(fn, arena, ptrStr(message));
+  }
+
+  MemorySegment restorationScopeRestorationScope(String restorationId, Widget child) {
+    var st = WidgetFactories.restorationScope(factories);
+    var fn = WidgetFactories.RestorationScopeSt.restorationScope(st);
+    return WidgetFactories.RestorationScopeSt.restorationScope.invoke(fn, arena, arena.allocateFrom(restorationId),
+      child.build().getId());
+  }
+
+  MemorySegment rootRestorationScopeRootRestorationScope(String restorationId, Widget child) {
+    var st = WidgetFactories.rootRestorationScope(factories);
+    var fn = WidgetFactories.RootRestorationScopeSt.rootRestorationScope(st);
+    return WidgetFactories.RootRestorationScopeSt.rootRestorationScope.invoke(fn, arena, arena.allocateFrom(restorationId),
+      child.build().getId());
+  }
+
+  MemorySegment stretchingOverscrollIndicatorStretchingOverscrollIndicator(AxisDirection axisDirection, Optional<Clip> clipBehavior, Optional<Widget> child) {
+    var st = WidgetFactories.stretchingOverscrollIndicator(factories);
+    var fn = WidgetFactories.StretchingOverscrollIndicatorSt.stretchingOverscrollIndicator(st);
+    return WidgetFactories.StretchingOverscrollIndicatorSt.stretchingOverscrollIndicator.invoke(fn, arena, axisDirection.ordinal(),
+      ptrEnum(clipBehavior),
+      ptrObj(child));
+  }
+
+  MemorySegment tapRegionTapRegion(Widget child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
+    var st = WidgetFactories.tapRegion(factories);
+    var fn = WidgetFactories.TapRegionSt.tapRegion(st);
+    return WidgetFactories.TapRegionSt.tapRegion.invoke(fn, arena, child != null ? child.build().getId() : null,
+      ptrBool(enabled),
+      ptrEnum(behavior),
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapInside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapInside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
+      onTapUpInside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpInside.get())) : MemorySegment.NULL,
+      ptrObj(groupId),
+      ptrBool(consumeOutsideTaps),
+      ptrStr(debugLabel));
+  }
+
+  MemorySegment textFieldTapRegionTextFieldTapRegion(Widget child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj> groupId) {
+    var st = WidgetFactories.textFieldTapRegion(factories);
+    var fn = WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion(st);
+    return WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion.invoke(fn, arena, child != null ? child.build().getId() : null,
+      ptrBool(enabled),
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapInside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapInside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
+      onTapUpInside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpInside.get())) : MemorySegment.NULL,
+      ptrBool(consumeOutsideTaps),
+      ptrStr(debugLabel),
+      ptrObj(groupId));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -7285,6 +7420,16 @@ MemorySegment ptrPointerUpEventListenerFn(Consumer<PointerUpEvent> jFn) {
     jFn.accept(new PointerUpEvent(event));
   }, arena);
 }
+MemorySegment ptrTapRegionCallbackFn(Consumer<PointerDownEvent> jFn) {
+  return TapRegionCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerDownEvent(event));
+  }, arena);
+}
+MemorySegment ptrTapRegionUpCallbackFn(Consumer<PointerUpEvent> jFn) {
+  return TapRegionUpCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerUpEvent(event));
+  }, arena);
+}
 MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {
   return DrawerCallbackFFI.allocate((isOpened) -> {
     jFn.accept(intToBool(isOpened));
@@ -7310,16 +7455,6 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
 MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
   return GestureTapCallbackFFI.allocate(() -> {
     jFn.run();
-  }, arena);
-}
-MemorySegment ptrTapRegionCallbackFn(Consumer<PointerDownEvent> jFn) {
-  return TapRegionCallbackFFI.allocate((event) -> {
-    jFn.accept(new PointerDownEvent(event));
-  }, arena);
-}
-MemorySegment ptrTapRegionUpCallbackFn(Consumer<PointerUpEvent> jFn) {
-  return TapRegionUpCallbackFFI.allocate((event) -> {
-    jFn.accept(new PointerUpEvent(event));
   }, arena);
 }
 MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {

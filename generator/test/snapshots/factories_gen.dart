@@ -5765,6 +5765,281 @@ InputChipObjSt _createInputChipObjSt(InputChip? w) {
   return stObj;
 }
 
+void _setupAlignTransition(WidgetFactories f) {
+  f.alignTransition.alignTransition = ffi.Pointer.fromFunction(alignTransitionAlignTransition);
+}
+AlignTransitionObjSt alignTransitionAlignTransition(DartDartObj alignment, DartDartObj child, ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<ffi.Double> heightFactor) {
+  final w = AlignTransition(alignment: _widgetsMap[alignment]! as Animation<AlignmentGeometry>,
+      child: _widgetsMap[child]! as Widget,
+      widthFactor: widthFactor.doubleOrNul(),
+      heightFactor: heightFactor.doubleOrNul());
+  return _createAlignTransitionObjSt(w);
+}
+AlignTransitionObjSt _createAlignTransitionObjSt(AlignTransition? w) {
+  final AlignTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.widthFactor = (w.widthFactor != null) ? w.widthFactor! : 0;
+  stObj.heightFactor = (w.heightFactor != null) ? w.heightFactor! : 0;
+  stObj.child = _addWidget(w.child);
+  stObj.alignment = _addWidget(w.alignment);
+  return stObj;
+}
+
+void _setupAnimatedDefaultTextStyle(WidgetFactories f) {
+  f.animatedDefaultTextStyle.animatedDefaultTextStyle = ffi.Pointer.fromFunction(animatedDefaultTextStyleAnimatedDefaultTextStyle);
+}
+AnimatedDefaultTextStyleObjSt animatedDefaultTextStyleAnimatedDefaultTextStyle(DartDartObj child, DartDartObj style, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> softWrap, ffi.Pointer<ffi.Int> overflow, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> textWidthBasis, ffi.Pointer<DartObj> curve, DartDartObj duration, ffi.Pointer<VoidCallbackFFI> onEnd) {
+  final w = AnimatedDefaultTextStyle(child: _widgetsMap[child]! as Widget,
+      style: _widgetsMap[style]! as TextStyle,
+      textAlign: textAlign.enumOrNul(TextAlign.values),
+      softWrap: softWrap.boolOr(true),
+      overflow: overflow.enumOr(TextOverflow.values, TextOverflow.clip),
+      maxLines: maxLines.intOrNul(),
+      textWidthBasis: textWidthBasis.enumOr(TextWidthBasis.values, TextWidthBasis.parent),
+      curve: curve.objOr(Curves.linear),
+      duration: _widgetsMap[duration]! as Duration,
+      onEnd: onEnd.toVoidCallbackFn());
+  return _createAnimatedDefaultTextStyleObjSt(w);
+}
+AnimatedDefaultTextStyleObjSt _createAnimatedDefaultTextStyleObjSt(AnimatedDefaultTextStyle? w) {
+  final AnimatedDefaultTextStyleObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.style = _createTextStyleObjSt(w.style);
+  stObj.textAlign = (w.textAlign != null) ? w.textAlign!.index : 0;
+  stObj.softWrap = w.softWrap.toInt();
+  stObj.overflow = w.overflow.index;
+  stObj.maxLines = (w.maxLines != null) ? w.maxLines! : 0;
+  stObj.textWidthBasis = w.textWidthBasis.index;
+  return stObj;
+}
+
+void _setupAnimatedFractionallySizedBox(WidgetFactories f) {
+  f.animatedFractionallySizedBox.animatedFractionallySizedBox = ffi.Pointer.fromFunction(animatedFractionallySizedBoxAnimatedFractionallySizedBox);
+}
+AnimatedFractionallySizedBoxObjSt animatedFractionallySizedBoxAnimatedFractionallySizedBox(ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Double> heightFactor, ffi.Pointer<ffi.Double> widthFactor, ffi.Pointer<DartObj> curve, DartDartObj duration, ffi.Pointer<VoidCallbackFFI> onEnd) {
+  final w = AnimatedFractionallySizedBox(alignment: alignment.objOr(Alignment.center),
+      child: child.objOrNul(),
+      heightFactor: heightFactor.doubleOrNul(),
+      widthFactor: widthFactor.doubleOrNul(),
+      curve: curve.objOr(Curves.linear),
+      duration: _widgetsMap[duration]! as Duration,
+      onEnd: onEnd.toVoidCallbackFn());
+  return _createAnimatedFractionallySizedBoxObjSt(w);
+}
+AnimatedFractionallySizedBoxObjSt _createAnimatedFractionallySizedBoxObjSt(AnimatedFractionallySizedBox? w) {
+  final AnimatedFractionallySizedBoxObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.heightFactor = (w.heightFactor != null) ? w.heightFactor! : 0;
+  stObj.widthFactor = (w.widthFactor != null) ? w.widthFactor! : 0;
+  stObj.alignment = _addWidget(w.alignment);
+  return stObj;
+}
+
+void _setupAnimatedPositioned(WidgetFactories f) {
+  f.animatedPositioned.animatedPositioned = ffi.Pointer.fromFunction(animatedPositionedAnimatedPositioned);
+}
+AnimatedPositionedObjSt animatedPositionedAnimatedPositioned(DartDartObj child, ffi.Pointer<ffi.Double> left, ffi.Pointer<ffi.Double> top, ffi.Pointer<ffi.Double> right, ffi.Pointer<ffi.Double> bottom, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> curve, DartDartObj duration, ffi.Pointer<VoidCallbackFFI> onEnd) {
+  final w = AnimatedPositioned(child: _widgetsMap[child]! as Widget,
+      left: left.doubleOrNul(),
+      top: top.doubleOrNul(),
+      right: right.doubleOrNul(),
+      bottom: bottom.doubleOrNul(),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      curve: curve.objOr(Curves.linear),
+      duration: _widgetsMap[duration]! as Duration,
+      onEnd: onEnd.toVoidCallbackFn());
+  return _createAnimatedPositionedObjSt(w);
+}
+AnimatedPositionedObjSt _createAnimatedPositionedObjSt(AnimatedPositioned? w) {
+  final AnimatedPositionedObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.left = (w.left != null) ? w.left! : 0;
+  stObj.top = (w.top != null) ? w.top! : 0;
+  stObj.right = (w.right != null) ? w.right! : 0;
+  stObj.bottom = (w.bottom != null) ? w.bottom! : 0;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  return stObj;
+}
+
+void _setupAnimatedPositionedDirectional(WidgetFactories f) {
+  f.animatedPositionedDirectional.animatedPositionedDirectional = ffi.Pointer.fromFunction(animatedPositionedDirectionalAnimatedPositionedDirectional);
+}
+AnimatedPositionedDirectionalObjSt animatedPositionedDirectionalAnimatedPositionedDirectional(DartDartObj child, ffi.Pointer<ffi.Double> start, ffi.Pointer<ffi.Double> top, ffi.Pointer<ffi.Double> end, ffi.Pointer<ffi.Double> bottom, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> curve, DartDartObj duration, ffi.Pointer<VoidCallbackFFI> onEnd) {
+  final w = AnimatedPositionedDirectional(child: _widgetsMap[child]! as Widget,
+      start: start.doubleOrNul(),
+      top: top.doubleOrNul(),
+      end: end.doubleOrNul(),
+      bottom: bottom.doubleOrNul(),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      curve: curve.objOr(Curves.linear),
+      duration: _widgetsMap[duration]! as Duration,
+      onEnd: onEnd.toVoidCallbackFn());
+  return _createAnimatedPositionedDirectionalObjSt(w);
+}
+AnimatedPositionedDirectionalObjSt _createAnimatedPositionedDirectionalObjSt(AnimatedPositionedDirectional? w) {
+  final AnimatedPositionedDirectionalObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.start = (w.start != null) ? w.start! : 0;
+  stObj.top = (w.top != null) ? w.top! : 0;
+  stObj.end = (w.end != null) ? w.end! : 0;
+  stObj.bottom = (w.bottom != null) ? w.bottom! : 0;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  return stObj;
+}
+
+void _setupDisplayFeatureSubScreen(WidgetFactories f) {
+  f.displayFeatureSubScreen.displayFeatureSubScreen = ffi.Pointer.fromFunction(displayFeatureSubScreenDisplayFeatureSubScreen);
+}
+DisplayFeatureSubScreenObjSt displayFeatureSubScreenDisplayFeatureSubScreen(ffi.Pointer<DartObj> anchorPoint, DartDartObj child) {
+  final w = DisplayFeatureSubScreen(anchorPoint: anchorPoint.objOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createDisplayFeatureSubScreenObjSt(w);
+}
+DisplayFeatureSubScreenObjSt _createDisplayFeatureSubScreenObjSt(DisplayFeatureSubScreen? w) {
+  final DisplayFeatureSubScreenObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.anchorPoint = _addWidget(w.anchorPoint);
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupErrorWidget(WidgetFactories f) {
+  f.errorWidget.errorWidget = ffi.Pointer.fromFunction(errorWidgetErrorWidget);
+  f.errorWidget.withDetails = ffi.Pointer.fromFunction(errorWidgetWithDetails);
+}
+ErrorWidgetObjSt errorWidgetErrorWidget(DartDartObj exception) {
+  final w = ErrorWidget(_widgetsMap[exception]! as Object);
+  return _createErrorWidgetObjSt(w);
+}
+ErrorWidgetObjSt errorWidgetWithDetails(ffi.Pointer<ffi.Char> message) {
+  final w = ErrorWidget.withDetails(message: message.strOr(''));
+  return _createErrorWidgetObjSt(w);
+}
+ErrorWidgetObjSt _createErrorWidgetObjSt(ErrorWidget? w) {
+  final ErrorWidgetObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.message = w.message.toNativeUtf8().cast<ffi.Char>();
+  return stObj;
+}
+
+void _setupRestorationScope(WidgetFactories f) {
+  f.restorationScope.restorationScope = ffi.Pointer.fromFunction(restorationScopeRestorationScope);
+}
+RestorationScopeObjSt restorationScopeRestorationScope(ffi.Pointer<ffi.Char> restorationId, DartDartObj child) {
+  final w = RestorationScope(restorationId: restorationId.cast<Utf8>().toDartString(),
+      child: _widgetsMap[child]! as Widget);
+  return _createRestorationScopeObjSt(w);
+}
+RestorationScopeObjSt _createRestorationScopeObjSt(RestorationScope? w) {
+  final RestorationScopeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.restorationId = (w.restorationId != null) ? w.restorationId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  return stObj;
+}
+
+void _setupRootRestorationScope(WidgetFactories f) {
+  f.rootRestorationScope.rootRestorationScope = ffi.Pointer.fromFunction(rootRestorationScopeRootRestorationScope);
+}
+RootRestorationScopeObjSt rootRestorationScopeRootRestorationScope(ffi.Pointer<ffi.Char> restorationId, DartDartObj child) {
+  final w = RootRestorationScope(restorationId: restorationId.cast<Utf8>().toDartString(),
+      child: _widgetsMap[child]! as Widget);
+  return _createRootRestorationScopeObjSt(w);
+}
+RootRestorationScopeObjSt _createRootRestorationScopeObjSt(RootRestorationScope? w) {
+  final RootRestorationScopeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.restorationId = (w.restorationId != null) ? w.restorationId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  return stObj;
+}
+
+void _setupStretchingOverscrollIndicator(WidgetFactories f) {
+  f.stretchingOverscrollIndicator.stretchingOverscrollIndicator = ffi.Pointer.fromFunction(stretchingOverscrollIndicatorStretchingOverscrollIndicator);
+}
+StretchingOverscrollIndicatorObjSt stretchingOverscrollIndicatorStretchingOverscrollIndicator(int axisDirection, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child) {
+  final w = StretchingOverscrollIndicator(axisDirection: AxisDirection.values[axisDirection],
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      child: child.objOrNul());
+  return _createStretchingOverscrollIndicatorObjSt(w);
+}
+StretchingOverscrollIndicatorObjSt _createStretchingOverscrollIndicatorObjSt(StretchingOverscrollIndicator? w) {
+  final StretchingOverscrollIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.axisDirection = w.axisDirection.index;
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.child = _addWidget(w.child);
+  stObj.axis = w.axis.index;
+  return stObj;
+}
+
+void _setupTapRegion(WidgetFactories f) {
+  f.tapRegion.tapRegion = ffi.Pointer.fromFunction(tapRegionTapRegion);
+}
+TapRegionObjSt tapRegionTapRegion(DartDartObj child, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<TapRegionCallbackFFI> onTapOutside, ffi.Pointer<TapRegionCallbackFFI> onTapInside, ffi.Pointer<TapRegionUpCallbackFFI> onTapUpOutside, ffi.Pointer<TapRegionUpCallbackFFI> onTapUpInside, ffi.Pointer<DartObj> groupId, ffi.Pointer<ffi.Int> consumeOutsideTaps, ffi.Pointer<ffi.Char> debugLabel) {
+  final w = TapRegion(child: _widgetsMap[child]! as Widget?,
+      enabled: enabled.boolOr(true),
+      behavior: behavior.enumOr(HitTestBehavior.values, HitTestBehavior.deferToChild),
+      onTapOutside: onTapOutside.toTapRegionCallbackFn(),
+      onTapInside: onTapInside.toTapRegionCallbackFn(),
+      onTapUpOutside: onTapUpOutside.toTapRegionUpCallbackFn(),
+      onTapUpInside: onTapUpInside.toTapRegionUpCallbackFn(),
+      groupId: groupId.objOrNul(),
+      consumeOutsideTaps: consumeOutsideTaps.boolOr(false),
+      debugLabel: debugLabel.strOrNul());
+  return _createTapRegionObjSt(w);
+}
+TapRegionObjSt _createTapRegionObjSt(TapRegion? w) {
+  final TapRegionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.enabled = w.enabled.toInt();
+  stObj.behavior = w.behavior.index;
+  stObj.consumeOutsideTaps = w.consumeOutsideTaps.toInt();
+  stObj.debugLabel = (w.debugLabel != null) ? w.debugLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  return stObj;
+}
+
+void _setupTextFieldTapRegion(WidgetFactories f) {
+  f.textFieldTapRegion.textFieldTapRegion = ffi.Pointer.fromFunction(textFieldTapRegionTextFieldTapRegion);
+}
+TextFieldTapRegionObjSt textFieldTapRegionTextFieldTapRegion(DartDartObj child, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<TapRegionCallbackFFI> onTapOutside, ffi.Pointer<TapRegionCallbackFFI> onTapInside, ffi.Pointer<TapRegionUpCallbackFFI> onTapUpOutside, ffi.Pointer<TapRegionUpCallbackFFI> onTapUpInside, ffi.Pointer<ffi.Int> consumeOutsideTaps, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<DartObj> groupId) {
+  final w = TextFieldTapRegion(child: _widgetsMap[child]! as Widget?,
+      enabled: enabled.boolOr(true),
+      onTapOutside: onTapOutside.toTapRegionCallbackFn(),
+      onTapInside: onTapInside.toTapRegionCallbackFn(),
+      onTapUpOutside: onTapUpOutside.toTapRegionUpCallbackFn(),
+      onTapUpInside: onTapUpInside.toTapRegionUpCallbackFn(),
+      consumeOutsideTaps: consumeOutsideTaps.boolOr(false),
+      debugLabel: debugLabel.strOrNul(),
+      groupId: groupId.objOrNul());
+  return _createTextFieldTapRegionObjSt(w);
+}
+TextFieldTapRegionObjSt _createTextFieldTapRegionObjSt(TextFieldTapRegion? w) {
+  final TextFieldTapRegionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -11538,6 +11813,18 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupInputDecorator(f);
   _setupUserAccountsDrawerHeader(f);
   _setupInputChip(f);
+  _setupAlignTransition(f);
+  _setupAnimatedDefaultTextStyle(f);
+  _setupAnimatedFractionallySizedBox(f);
+  _setupAnimatedPositioned(f);
+  _setupAnimatedPositionedDirectional(f);
+  _setupDisplayFeatureSubScreen(f);
+  _setupErrorWidget(f);
+  _setupRestorationScope(f);
+  _setupRootRestorationScope(f);
+  _setupStretchingOverscrollIndicator(f);
+  _setupTapRegion(f);
+  _setupTextFieldTapRegion(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);
@@ -12098,6 +12385,30 @@ extension on ffi.Pointer<PointerUpEventListenerFFI> {
   PointerUpEventListener? toPointerUpEventListenerFn() => (this != ffi.nullptr) ? this.value.toPointerUpEventListenerFn() : null;
 }
 
+extension on TapRegionCallbackFFI {
+  TapRegionCallback toTapRegionCallbackFn() {
+    return (PointerDownEvent event) {
+      DartTapRegionCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<TapRegionCallbackFFI> {
+  TapRegionCallback? toTapRegionCallbackFn() => (this != ffi.nullptr) ? this.value.toTapRegionCallbackFn() : null;
+}
+
+extension on TapRegionUpCallbackFFI {
+  TapRegionUpCallback toTapRegionUpCallbackFn() {
+    return (PointerUpEvent event) {
+      DartTapRegionUpCallbackFFIFunction dFn = asFunction();
+      dFn(_addWidget(event));
+    };
+  }
+}
+extension on ffi.Pointer<TapRegionUpCallbackFFI> {
+  TapRegionUpCallback? toTapRegionUpCallbackFn() => (this != ffi.nullptr) ? this.value.toTapRegionUpCallbackFn() : null;
+}
+
 extension on DrawerCallbackFFI {
   DrawerCallback toDrawerCallbackFn() {
     return (bool isOpened) {
@@ -12158,30 +12469,6 @@ extension on GestureTapCallbackFFI {
 }
 extension on ffi.Pointer<GestureTapCallbackFFI> {
   GestureTapCallback? toGestureTapCallbackFn() => (this != ffi.nullptr) ? this.value.toGestureTapCallbackFn() : null;
-}
-
-extension on TapRegionCallbackFFI {
-  TapRegionCallback toTapRegionCallbackFn() {
-    return (PointerDownEvent event) {
-      DartTapRegionCallbackFFIFunction dFn = asFunction();
-      dFn(_addWidget(event));
-    };
-  }
-}
-extension on ffi.Pointer<TapRegionCallbackFFI> {
-  TapRegionCallback? toTapRegionCallbackFn() => (this != ffi.nullptr) ? this.value.toTapRegionCallbackFn() : null;
-}
-
-extension on TapRegionUpCallbackFFI {
-  TapRegionUpCallback toTapRegionUpCallbackFn() {
-    return (PointerUpEvent event) {
-      DartTapRegionUpCallbackFFIFunction dFn = asFunction();
-      dFn(_addWidget(event));
-    };
-  }
-}
-extension on ffi.Pointer<TapRegionUpCallbackFFI> {
-  TapRegionUpCallback? toTapRegionUpCallbackFn() => (this != ffi.nullptr) ? this.value.toTapRegionUpCallbackFn() : null;
 }
 
 extension on InputCounterWidgetBuilderFFI {

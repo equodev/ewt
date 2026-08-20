@@ -257,6 +257,19 @@ m.InputChip? inputChip;
 // CupertinoPopupSurface skipped: generator emits invalid Java for its
 // filter-matrix constants (writes `1.74()` instead of literals in a getter body).
 
+w.AlignTransition? alignTransition;
+w.AnimatedDefaultTextStyle? animatedDefaultTextStyle;
+w.AnimatedFractionallySizedBox? animatedFractionallySizedBox;
+w.AnimatedPositioned? animatedPositioned;
+w.AnimatedPositionedDirectional? animatedPositionedDirectional;
+w.DisplayFeatureSubScreen? displayFeatureSubScreen;
+w.ErrorWidget? errorWidget;
+w.RestorationScope? restorationScope;
+w.RootRestorationScope? rootRestorationScope;
+w.StretchingOverscrollIndicator? stretchingOverscrollIndicator;
+w.TapRegion? tapRegion;
+w.TextFieldTapRegion? textFieldTapRegion;
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

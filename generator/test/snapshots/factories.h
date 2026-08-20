@@ -1034,6 +1034,55 @@ typedef struct {
     InputChipObjSt (*inputChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, int* isEnabled, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, VoidCallbackFFI* onPressed, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
   } inputChip;
 
+  struct AlignTransitionSt {
+    AlignTransitionObjSt (*alignTransition)(DartObj alignment, DartObj child, double* widthFactor, double* heightFactor);
+  } alignTransition;
+
+  struct AnimatedDefaultTextStyleSt {
+    AnimatedDefaultTextStyleObjSt (*animatedDefaultTextStyle)(DartObj child, DartObj style, int* textAlign, int* softWrap, int* overflow, int* maxLines, int* textWidthBasis, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedDefaultTextStyle;
+
+  struct AnimatedFractionallySizedBoxSt {
+    AnimatedFractionallySizedBoxObjSt (*animatedFractionallySizedBox)(DartObj* alignment, DartObj* child, double* heightFactor, double* widthFactor, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedFractionallySizedBox;
+
+  struct AnimatedPositionedSt {
+    AnimatedPositionedObjSt (*animatedPositioned)(DartObj child, double* left, double* top, double* right, double* bottom, double* width, double* height, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedPositioned;
+
+  struct AnimatedPositionedDirectionalSt {
+    AnimatedPositionedDirectionalObjSt (*animatedPositionedDirectional)(DartObj child, double* start, double* top, double* end, double* bottom, double* width, double* height, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd);
+  } animatedPositionedDirectional;
+
+  struct DisplayFeatureSubScreenSt {
+    DisplayFeatureSubScreenObjSt (*displayFeatureSubScreen)(DartObj* anchorPoint, DartObj child);
+  } displayFeatureSubScreen;
+
+  struct ErrorWidgetSt {
+    ErrorWidgetObjSt (*errorWidget)(DartObj exception);
+    ErrorWidgetObjSt (*withDetails)(char* message);
+  } errorWidget;
+
+  struct RestorationScopeSt {
+    RestorationScopeObjSt (*restorationScope)(char* restorationId, DartObj child);
+  } restorationScope;
+
+  struct RootRestorationScopeSt {
+    RootRestorationScopeObjSt (*rootRestorationScope)(char* restorationId, DartObj child);
+  } rootRestorationScope;
+
+  struct StretchingOverscrollIndicatorSt {
+    StretchingOverscrollIndicatorObjSt (*stretchingOverscrollIndicator)(int axisDirection, int* clipBehavior, DartObj* child);
+  } stretchingOverscrollIndicator;
+
+  struct TapRegionSt {
+    TapRegionObjSt (*tapRegion)(DartObj child, int* enabled, int* behavior, TapRegionCallbackFFI* onTapOutside, TapRegionCallbackFFI* onTapInside, TapRegionUpCallbackFFI* onTapUpOutside, TapRegionUpCallbackFFI* onTapUpInside, DartObj* groupId, int* consumeOutsideTaps, char* debugLabel);
+  } tapRegion;
+
+  struct TextFieldTapRegionSt {
+    TextFieldTapRegionObjSt (*textFieldTapRegion)(DartObj child, int* enabled, TapRegionCallbackFFI* onTapOutside, TapRegionCallbackFFI* onTapInside, TapRegionUpCallbackFFI* onTapUpOutside, TapRegionUpCallbackFFI* onTapUpInside, int* consumeOutsideTaps, char* debugLabel, DartObj* groupId);
+  } textFieldTapRegion;
+
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
     ColorSchemeObjSt (*fromSeed)(DartObj seedColor, int* brightness, int* dynamicSchemeVariant, double* contrastLevel, DartObj* primary, DartObj* onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj* secondary, DartObj* onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj* error, DartObj* onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj* outline, DartObj* outlineVariant, DartObj* surface, DartObj* onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* shadow, DartObj* scrim, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);

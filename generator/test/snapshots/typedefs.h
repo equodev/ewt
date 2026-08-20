@@ -32,13 +32,13 @@ typedef DartObj (*AnimatedSwitcherLayoutBuilderFFI)(DartObj currentChild, ArrayC
 typedef void (*ValueChangedForBoolFFI)(int value);
 typedef void (*PointerDownEventListenerFFI)(DartObj event);
 typedef void (*PointerUpEventListenerFFI)(DartObj event);
+typedef void (*TapRegionCallbackFFI)(DartObj event);
+typedef void (*TapRegionUpCallbackFFI)(DartObj event);
 typedef void (*DrawerCallbackFFI)(int isOpened);
 typedef DartObj (*DartObjCallbackDartObjDartObjFFI)(DartObj , DartObj );
 typedef char* (*GenerateAppTitleFFI)(DartObj context);
 typedef void (*ValueChangedForStringFFI)(char* value);
 typedef void (*GestureTapCallbackFFI)(void);
-typedef void (*TapRegionCallbackFFI)(DartObj event);
-typedef void (*TapRegionUpCallbackFFI)(DartObj event);
 typedef DartObj (*InputCounterWidgetBuilderFFI)(DartObj context, int currentLength, int isFocused, int maxLength);
 typedef void (*GestureTapDownCallbackFFI)(DartObj details);
 typedef void (*GestureTapUpCallbackFFI)(DartObj details);

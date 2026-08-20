@@ -1283,6 +1283,86 @@ typedef struct {
 } InputChipObjSt;
 typedef struct {
   int id;
+  double widthFactor;
+  double heightFactor;
+  DartObj child;
+  DartObj alignment;
+} AlignTransitionObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  TextStyleObjSt style;
+  int textAlign;
+  int softWrap;
+  int overflow;
+  int maxLines;
+  int textWidthBasis;
+} AnimatedDefaultTextStyleObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  double heightFactor;
+  double widthFactor;
+  DartObj alignment;
+} AnimatedFractionallySizedBoxObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  double left;
+  double top;
+  double right;
+  double bottom;
+  double width;
+  double height;
+} AnimatedPositionedObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  double start;
+  double top;
+  double end;
+  double bottom;
+  double width;
+  double height;
+} AnimatedPositionedDirectionalObjSt;
+typedef struct {
+  int id;
+  DartObj anchorPoint;
+  DartObj child;
+} DisplayFeatureSubScreenObjSt;
+typedef struct {
+  int id;
+  char* message;
+} ErrorWidgetObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  char* restorationId;
+} RestorationScopeObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  char* restorationId;
+} RootRestorationScopeObjSt;
+typedef struct {
+  int id;
+  int axisDirection;
+  int clipBehavior;
+  DartObj child;
+  int axis;
+} StretchingOverscrollIndicatorObjSt;
+typedef struct {
+  int id;
+  int enabled;
+  int behavior;
+  int consumeOutsideTaps;
+  char* debugLabel;
+} TapRegionObjSt;
+typedef struct {
+  int id;
+} TextFieldTapRegionObjSt;
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;

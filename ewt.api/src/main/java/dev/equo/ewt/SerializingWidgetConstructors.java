@@ -5170,6 +5170,206 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment alignTransitionAlignTransition(Animation alignment, Widget child, OptionalDouble widthFactor, OptionalDouble heightFactor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("alignment", byId.get(alignment.getId()));
+    p.put("child", byId.get(child.getId()));
+    if (widthFactor.isPresent()) { p.put("widthFactor", widthFactor.getAsDouble()); }
+    if (heightFactor.isPresent()) { p.put("heightFactor", heightFactor.getAsDouble()); }
+    record(id, "alignTransitionAlignTransition", p);
+    MemorySegment st = AlignTransitionObjSt.allocate(arena);
+    AlignTransitionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedDefaultTextStyleAnimatedDefaultTextStyle(Widget child, TextStyle style, Optional<TextAlign> textAlign, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    p.put("style", byId.get(style.getId()));
+    textAlign.ifPresent(v -> p.put("textAlign", v.ordinal()));
+    softWrap.ifPresent(v -> p.put("softWrap", v));
+    overflow.ifPresent(v -> p.put("overflow", v.ordinal()));
+    if (maxLines.isPresent()) { p.put("maxLines", maxLines.getAsInt()); }
+    textWidthBasis.ifPresent(v -> p.put("textWidthBasis", v.ordinal()));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedDefaultTextStyleAnimatedDefaultTextStyle", p);
+    MemorySegment st = AnimatedDefaultTextStyleObjSt.allocate(arena);
+    AnimatedDefaultTextStyleObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedFractionallySizedBoxAnimatedFractionallySizedBox(Optional<AlignmentGeometry> alignment, Optional<Widget> child, OptionalDouble heightFactor, OptionalDouble widthFactor, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    if (heightFactor.isPresent()) { p.put("heightFactor", heightFactor.getAsDouble()); }
+    if (widthFactor.isPresent()) { p.put("widthFactor", widthFactor.getAsDouble()); }
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedFractionallySizedBoxAnimatedFractionallySizedBox", p);
+    MemorySegment st = AnimatedFractionallySizedBoxObjSt.allocate(arena);
+    AnimatedFractionallySizedBoxObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedPositionedAnimatedPositioned(Widget child, OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    if (left.isPresent()) { p.put("left", left.getAsDouble()); }
+    if (top.isPresent()) { p.put("top", top.getAsDouble()); }
+    if (right.isPresent()) { p.put("right", right.getAsDouble()); }
+    if (bottom.isPresent()) { p.put("bottom", bottom.getAsDouble()); }
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedPositionedAnimatedPositioned", p);
+    MemorySegment st = AnimatedPositionedObjSt.allocate(arena);
+    AnimatedPositionedObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedPositionedDirectionalAnimatedPositionedDirectional(Widget child, OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    if (start.isPresent()) { p.put("start", start.getAsDouble()); }
+    if (top.isPresent()) { p.put("top", top.getAsDouble()); }
+    if (end.isPresent()) { p.put("end", end.getAsDouble()); }
+    if (bottom.isPresent()) { p.put("bottom", bottom.getAsDouble()); }
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    record(id, "animatedPositionedDirectionalAnimatedPositionedDirectional", p);
+    MemorySegment st = AnimatedPositionedDirectionalObjSt.allocate(arena);
+    AnimatedPositionedDirectionalObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment displayFeatureSubScreenDisplayFeatureSubScreen(Optional<Offset> anchorPoint, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    anchorPoint.ifPresent(v -> p.put("anchorPoint", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "displayFeatureSubScreenDisplayFeatureSubScreen", p);
+    MemorySegment st = DisplayFeatureSubScreenObjSt.allocate(arena);
+    DisplayFeatureSubScreenObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment errorWidgetErrorWidget(NativeObj exception) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("exception", byId.get(exception.getId()));
+    record(id, "errorWidgetErrorWidget", p);
+    MemorySegment st = ErrorWidgetObjSt.allocate(arena);
+    ErrorWidgetObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment errorWidgetWithDetails(Optional<String> message) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    message.ifPresent(v -> p.put("message", v));
+    record(id, "errorWidgetWithDetails", p);
+    MemorySegment st = ErrorWidgetObjSt.allocate(arena);
+    ErrorWidgetObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment restorationScopeRestorationScope(String restorationId, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("restorationId", restorationId);
+    p.put("child", byId.get(child.getId()));
+    record(id, "restorationScopeRestorationScope", p);
+    MemorySegment st = RestorationScopeObjSt.allocate(arena);
+    RestorationScopeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment rootRestorationScopeRootRestorationScope(String restorationId, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("restorationId", restorationId);
+    p.put("child", byId.get(child.getId()));
+    record(id, "rootRestorationScopeRootRestorationScope", p);
+    MemorySegment st = RootRestorationScopeObjSt.allocate(arena);
+    RootRestorationScopeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment stretchingOverscrollIndicatorStretchingOverscrollIndicator(AxisDirection axisDirection, Optional<Clip> clipBehavior, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("axisDirection", axisDirection.ordinal());
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "stretchingOverscrollIndicatorStretchingOverscrollIndicator", p);
+    MemorySegment st = StretchingOverscrollIndicatorObjSt.allocate(arena);
+    StretchingOverscrollIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment tapRegionTapRegion(Widget child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    behavior.ifPresent(v -> p.put("behavior", v.ordinal()));
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapInside != null) { p.put("onTapInside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
+    if (onTapUpInside != null) { p.put("onTapUpInside", nextCallbackId++); }
+    groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
+    consumeOutsideTaps.ifPresent(v -> p.put("consumeOutsideTaps", v));
+    debugLabel.ifPresent(v -> p.put("debugLabel", v));
+    record(id, "tapRegionTapRegion", p);
+    MemorySegment st = TapRegionObjSt.allocate(arena);
+    TapRegionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment textFieldTapRegionTextFieldTapRegion(Widget child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj> groupId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    if (onTapOutside != null) { p.put("onTapOutside", nextCallbackId++); }
+    if (onTapInside != null) { p.put("onTapInside", nextCallbackId++); }
+    if (onTapUpOutside != null) { p.put("onTapUpOutside", nextCallbackId++); }
+    if (onTapUpInside != null) { p.put("onTapUpInside", nextCallbackId++); }
+    consumeOutsideTaps.ifPresent(v -> p.put("consumeOutsideTaps", v));
+    debugLabel.ifPresent(v -> p.put("debugLabel", v));
+    groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
+    record(id, "textFieldTapRegionTextFieldTapRegion", p);
+    MemorySegment st = TextFieldTapRegionObjSt.allocate(arena);
+    TextFieldTapRegionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
