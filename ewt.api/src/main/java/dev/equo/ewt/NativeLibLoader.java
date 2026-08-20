@@ -72,6 +72,27 @@ public class NativeLibLoader {
             URL jarUrl = NativeLibLoader.class.getProtectionDomain()
                 .getCodeSource().getLocation();
             Path jarPath = Path.of(jarUrl.toURI());
+
+            // Dev/test path: when the class is loaded from an exploded directory
+            // (Gradle's test task puts build/classes + build/generated/resources on the
+            // classpath as separate directories, not a jar), the libs are already staged
+            // on disk by the copyNativeLibs task. Skip the SHA/cache/extract dance —
+            // those steps only exist to unpack from a jar — and resolve each lib via the
+            // ClassLoader so we hit whichever classpath entry actually holds the resource,
+            // not necessarily the one holding this class.
+            if (Files.isDirectory(jarPath)) {
+                String libPrefix = "native/" + osDir + "/lib/";
+                for (String name : libs) {
+                    String res = libPrefix + name;
+                    URL u = NativeLibLoader.class.getClassLoader().getResource(res);
+                    if (u == null) {
+                        throw new RuntimeException("Resource not found: " + res);
+                    }
+                    System.load(Path.of(u.toURI()).toString());
+                }
+                return;
+            }
+
             Path jarDir = jarPath.getParent();
             Path cacheDir = jarDir.resolve("native").resolve(osDir);
 
