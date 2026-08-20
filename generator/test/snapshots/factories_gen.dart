@@ -5311,6 +5311,460 @@ AboutListTileObjSt _createAboutListTileObjSt(AboutListTile? w) {
   return stObj;
 }
 
+void _setupDialog(WidgetFactories f) {
+  f.dialog.dialog = ffi.Pointer.fromFunction(dialogDialog);
+  f.dialog.fullscreen = ffi.Pointer.fromFunction(dialogFullscreen);
+}
+DialogObjSt dialogDialog(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> insetAnimationDuration, ffi.Pointer<DartObj> insetAnimationCurve, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> semanticsRole, ffi.Pointer<DartObj> constraints) {
+  final w = Dialog(backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      insetAnimationDuration: insetAnimationDuration.objOr(const Duration(milliseconds: 100)),
+      insetAnimationCurve: insetAnimationCurve.objOr(Curves.decelerate),
+      insetPadding: insetPadding.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      shape: shape.objOrNul(),
+      alignment: alignment.objOrNul(),
+      child: child.objOrNul(),
+      semanticsRole: semanticsRole.enumOr(SemanticsRole.values, SemanticsRole.dialog),
+      constraints: constraints.objOrNul());
+  return _createDialogObjSt(w);
+}
+DialogObjSt dialogFullscreen(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> insetAnimationDuration, ffi.Pointer<DartObj> insetAnimationCurve, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> semanticsRole) {
+  final w = Dialog.fullscreen(backgroundColor: backgroundColor.objOrNul(),
+      insetAnimationDuration: insetAnimationDuration.objOr(Duration.zero),
+      insetAnimationCurve: insetAnimationCurve.objOr(Curves.decelerate),
+      child: child.objOrNul(),
+      semanticsRole: semanticsRole.enumOr(SemanticsRole.values, SemanticsRole.dialog));
+  return _createDialogObjSt(w);
+}
+DialogObjSt _createDialogObjSt(Dialog? w) {
+  final DialogObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.insetAnimationDuration = _addWidget(w.insetAnimationDuration);
+  stObj.insetAnimationCurve = _addWidget(w.insetAnimationCurve);
+  stObj.insetPadding = _createEdgeInsetsObjSt(w.insetPadding);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.child = _addWidget(w.child);
+  stObj.semanticsRole = w.semanticsRole.index;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  return stObj;
+}
+
+void _setupGridTile(WidgetFactories f) {
+  f.gridTile.gridTile = ffi.Pointer.fromFunction(gridTileGridTile);
+}
+GridTileObjSt gridTileGridTile(ffi.Pointer<DartObj> header, ffi.Pointer<DartObj> footer, DartDartObj child) {
+  final w = GridTile(header: header.objOrNul(),
+      footer: footer.objOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createGridTileObjSt(w);
+}
+GridTileObjSt _createGridTileObjSt(GridTile? w) {
+  final GridTileObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.header = _addWidget(w.header);
+  stObj.footer = _addWidget(w.footer);
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupGridTileBar(WidgetFactories f) {
+  f.gridTileBar.gridTileBar = ffi.Pointer.fromFunction(gridTileBarGridTileBar);
+}
+GridTileBarObjSt gridTileBarGridTileBar(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> title, ffi.Pointer<DartObj> subtitle, ffi.Pointer<DartObj> trailing) {
+  final w = GridTileBar(backgroundColor: backgroundColor.objOrNul(),
+      leading: leading.objOrNul(),
+      title: title.objOrNul(),
+      subtitle: subtitle.objOrNul(),
+      trailing: trailing.objOrNul());
+  return _createGridTileBarObjSt(w);
+}
+GridTileBarObjSt _createGridTileBarObjSt(GridTileBar? w) {
+  final GridTileBarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.leading = _addWidget(w.leading);
+  stObj.title = _addWidget(w.title);
+  stObj.subtitle = _addWidget(w.subtitle);
+  stObj.trailing = _addWidget(w.trailing);
+  return stObj;
+}
+
+void _setupRefreshProgressIndicator(WidgetFactories f) {
+  f.refreshProgressIndicator.refreshProgressIndicator = ffi.Pointer.fromFunction(refreshProgressIndicatorRefreshProgressIndicator);
+}
+RefreshProgressIndicatorObjSt refreshProgressIndicatorRefreshProgressIndicator(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> indicatorMargin, ffi.Pointer<DartObj> indicatorPadding) {
+  final w = RefreshProgressIndicator(value: value.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      color: color.objOrNul(),
+      valueColor: valueColor.objOrNul(),
+      strokeWidth: strokeWidth.doubleOrNul(),
+      strokeAlign: strokeAlign.doubleOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
+      elevation: elevation.doubleOr(2.0),
+      indicatorMargin: indicatorMargin.objOr(const EdgeInsets.all(4.0)),
+      indicatorPadding: indicatorPadding.objOr(const EdgeInsets.all(12.0)));
+  return _createRefreshProgressIndicatorObjSt(w);
+}
+RefreshProgressIndicatorObjSt _createRefreshProgressIndicatorObjSt(RefreshProgressIndicator? w) {
+  final RefreshProgressIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.elevation = w.elevation;
+  stObj.indicatorMargin = _addWidget(w.indicatorMargin);
+  stObj.indicatorPadding = _addWidget(w.indicatorPadding);
+  return stObj;
+}
+
+void _setupCircularProgressIndicator(WidgetFactories f) {
+  f.circularProgressIndicator.circularProgressIndicator = ffi.Pointer.fromFunction(circularProgressIndicatorCircularProgressIndicator);
+  f.circularProgressIndicator.adaptive = ffi.Pointer.fromFunction(circularProgressIndicatorAdaptive);
+}
+CircularProgressIndicatorObjSt circularProgressIndicatorCircularProgressIndicator(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> padding) {
+  final w = CircularProgressIndicator(value: value.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      color: color.objOrNul(),
+      valueColor: valueColor.objOrNul(),
+      strokeWidth: strokeWidth.doubleOrNul(),
+      strokeAlign: strokeAlign.doubleOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
+      constraints: constraints.objOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      year2023: year2023.boolOrNul(),
+      padding: padding.objOrNul());
+  return _createCircularProgressIndicatorObjSt(w);
+}
+CircularProgressIndicatorObjSt circularProgressIndicatorAdaptive(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> padding) {
+  final w = CircularProgressIndicator.adaptive(value: value.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      valueColor: valueColor.objOrNul(),
+      strokeWidth: strokeWidth.doubleOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
+      strokeAlign: strokeAlign.doubleOrNul(),
+      constraints: constraints.objOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      year2023: year2023.boolOrNul(),
+      padding: padding.objOrNul());
+  return _createCircularProgressIndicatorObjSt(w);
+}
+CircularProgressIndicatorObjSt _createCircularProgressIndicatorObjSt(CircularProgressIndicator? w) {
+  final CircularProgressIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.strokeWidth = (w.strokeWidth != null) ? w.strokeWidth! : 0;
+  stObj.strokeAlign = (w.strokeAlign != null) ? w.strokeAlign! : 0;
+  stObj.strokeCap = (w.strokeCap != null) ? w.strokeCap!.index : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.trackGap = (w.trackGap != null) ? w.trackGap! : 0;
+  stObj.year2023 = (w.year2023 != null) ? w.year2023!.toInt() : 0;
+  stObj.padding = _addWidget(w.padding);
+  return stObj;
+}
+
+void _setupInputDecorator(WidgetFactories f) {
+  f.inputDecorator.inputDecorator = ffi.Pointer.fromFunction(inputDecoratorInputDecorator);
+  f.inputDecorator.containerOf = ffi.Pointer.fromFunction(inputDecoratorContainerOf, exception);
+}
+InputDecoratorObjSt inputDecoratorInputDecorator(DartDartObj decoration, ffi.Pointer<DartObj> baseStyle, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> isFocused, ffi.Pointer<ffi.Int> isHovering, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> isEmpty, ffi.Pointer<DartObj> child) {
+  final w = InputDecorator(decoration: _widgetsMap[decoration]! as InputDecoration,
+      baseStyle: baseStyle.objOrNul(),
+      textAlign: textAlign.enumOrNul(TextAlign.values),
+      isFocused: isFocused.boolOr(false),
+      isHovering: isHovering.boolOr(false),
+      expands: expands.boolOr(false),
+      isEmpty: isEmpty.boolOr(false),
+      child: child.objOrNul());
+  return _createInputDecoratorObjSt(w);
+}
+int inputDecoratorContainerOf(DartDartObj context) {
+  final w = InputDecorator.containerOf(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+InputDecoratorObjSt _createInputDecoratorObjSt(InputDecorator? w) {
+  final InputDecoratorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.decoration = _createInputDecorationObjSt(w.decoration);
+  stObj.baseStyle = _createTextStyleObjSt(w.baseStyle);
+  stObj.textAlign = (w.textAlign != null) ? w.textAlign!.index : 0;
+  stObj.isFocused = w.isFocused.toInt();
+  stObj.isHovering = w.isHovering.toInt();
+  stObj.expands = w.expands.toInt();
+  stObj.isEmpty = w.isEmpty.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupInputDecoration(WidgetFactories f) {
+  f.inputDecoration.inputDecoration = ffi.Pointer.fromFunction(inputDecorationInputDecoration);
+  f.inputDecoration.collapsed = ffi.Pointer.fromFunction(inputDecorationCollapsed);
+}
+InputDecorationObjSt inputDecorationInputDecoration(ffi.Pointer<DartObj> icon, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> label, ffi.Pointer<ffi.Char> labelText, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> floatingLabelStyle, ffi.Pointer<DartObj> helper, ffi.Pointer<ffi.Char> helperText, ffi.Pointer<DartObj> helperStyle, ffi.Pointer<ffi.Int> helperMaxLines, ffi.Pointer<ffi.Char> hintText, ffi.Pointer<DartObj> hint, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<ffi.Int> hintTextDirection, ffi.Pointer<ffi.Int> hintMaxLines, ffi.Pointer<DartObj> hintFadeDuration, ffi.Pointer<ffi.Int> maintainHintHeight, ffi.Pointer<ffi.Int> maintainHintSize, ffi.Pointer<DartObj> error, ffi.Pointer<ffi.Char> errorText, ffi.Pointer<DartObj> errorStyle, ffi.Pointer<ffi.Int> errorMaxLines, ffi.Pointer<ffi.Int> floatingLabelBehavior, ffi.Pointer<ffi.Int> isCollapsed, ffi.Pointer<ffi.Int> isDense, ffi.Pointer<DartObj> contentPadding, ffi.Pointer<DartObj> prefixIcon, ffi.Pointer<DartObj> prefixIconConstraints, ffi.Pointer<DartObj> prefix, ffi.Pointer<ffi.Char> prefixText, ffi.Pointer<DartObj> prefixStyle, ffi.Pointer<DartObj> prefixIconColor, ffi.Pointer<DartObj> suffixIcon, ffi.Pointer<DartObj> suffix, ffi.Pointer<ffi.Char> suffixText, ffi.Pointer<DartObj> suffixStyle, ffi.Pointer<DartObj> suffixIconColor, ffi.Pointer<DartObj> suffixIconConstraints, ffi.Pointer<DartObj> counter, ffi.Pointer<ffi.Char> counterText, ffi.Pointer<DartObj> counterStyle, ffi.Pointer<ffi.Int> filled, ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> errorBorder, ffi.Pointer<DartObj> focusedBorder, ffi.Pointer<DartObj> focusedErrorBorder, ffi.Pointer<DartObj> disabledBorder, ffi.Pointer<DartObj> enabledBorder, ffi.Pointer<DartObj> border, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Char> semanticCounterText, ffi.Pointer<ffi.Int> alignLabelWithHint, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> visualDensity) {
+  final w = InputDecoration(icon: icon.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      label: label.objOrNul(),
+      labelText: labelText.strOrNul(),
+      labelStyle: labelStyle.objOrNul(),
+      floatingLabelStyle: floatingLabelStyle.objOrNul(),
+      helper: helper.objOrNul(),
+      helperText: helperText.strOrNul(),
+      helperStyle: helperStyle.objOrNul(),
+      helperMaxLines: helperMaxLines.intOrNul(),
+      hintText: hintText.strOrNul(),
+      hint: hint.objOrNul(),
+      hintStyle: hintStyle.objOrNul(),
+      hintTextDirection: hintTextDirection.enumOrNul(TextDirection.values),
+      hintMaxLines: hintMaxLines.intOrNul(),
+      hintFadeDuration: hintFadeDuration.objOrNul(),
+      maintainHintHeight: maintainHintHeight.boolOr(true),
+      maintainHintSize: maintainHintSize.boolOr(true),
+      error: error.objOrNul(),
+      errorText: errorText.strOrNul(),
+      errorStyle: errorStyle.objOrNul(),
+      errorMaxLines: errorMaxLines.intOrNul(),
+      floatingLabelBehavior: floatingLabelBehavior.enumOrNul(FloatingLabelBehavior.values),
+      isCollapsed: isCollapsed.boolOrNul(),
+      isDense: isDense.boolOrNul(),
+      contentPadding: contentPadding.objOrNul(),
+      prefixIcon: prefixIcon.objOrNul(),
+      prefixIconConstraints: prefixIconConstraints.objOrNul(),
+      prefix: prefix.objOrNul(),
+      prefixText: prefixText.strOrNul(),
+      prefixStyle: prefixStyle.objOrNul(),
+      prefixIconColor: prefixIconColor.objOrNul(),
+      suffixIcon: suffixIcon.objOrNul(),
+      suffix: suffix.objOrNul(),
+      suffixText: suffixText.strOrNul(),
+      suffixStyle: suffixStyle.objOrNul(),
+      suffixIconColor: suffixIconColor.objOrNul(),
+      suffixIconConstraints: suffixIconConstraints.objOrNul(),
+      counter: counter.objOrNul(),
+      counterText: counterText.strOrNul(),
+      counterStyle: counterStyle.objOrNul(),
+      filled: filled.boolOrNul(),
+      fillColor: fillColor.objOrNul(),
+      focusColor: focusColor.objOrNul(),
+      hoverColor: hoverColor.objOrNul(),
+      errorBorder: errorBorder.objOrNul(),
+      focusedBorder: focusedBorder.objOrNul(),
+      focusedErrorBorder: focusedErrorBorder.objOrNul(),
+      disabledBorder: disabledBorder.objOrNul(),
+      enabledBorder: enabledBorder.objOrNul(),
+      border: border.objOrNul(),
+      enabled: enabled.boolOr(true),
+      semanticCounterText: semanticCounterText.strOrNul(),
+      alignLabelWithHint: alignLabelWithHint.boolOrNul(),
+      constraints: constraints.objOrNul(),
+      visualDensity: visualDensity.objOrNul());
+  return _createInputDecorationObjSt(w);
+}
+InputDecorationObjSt inputDecorationCollapsed(ffi.Pointer<ffi.Char> hintText, ffi.Pointer<ffi.Int> floatingLabelBehavior, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<DartObj> hint, ffi.Pointer<ffi.Int> hintTextDirection, ffi.Pointer<ffi.Int> hintMaxLines, ffi.Pointer<DartObj> hintFadeDuration, ffi.Pointer<ffi.Int> maintainHintHeight, ffi.Pointer<ffi.Int> maintainHintSize, ffi.Pointer<ffi.Int> filled, ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> border, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<DartObj> constraints) {
+  final w = InputDecoration.collapsed(hintText: hintText.cast<Utf8>().toDartString(),
+      floatingLabelBehavior: floatingLabelBehavior.enumOrNul(FloatingLabelBehavior.values),
+      hintStyle: hintStyle.objOrNul(),
+      hint: hint.objOrNul(),
+      hintTextDirection: hintTextDirection.enumOrNul(TextDirection.values),
+      hintMaxLines: hintMaxLines.intOrNul(),
+      hintFadeDuration: hintFadeDuration.objOrNul(),
+      maintainHintHeight: maintainHintHeight.boolOr(true),
+      maintainHintSize: maintainHintSize.boolOr(true),
+      filled: filled.boolOrNul(),
+      fillColor: fillColor.objOrNul(),
+      focusColor: focusColor.objOrNul(),
+      hoverColor: hoverColor.objOrNul(),
+      border: border.objOrNul(),
+      enabled: enabled.boolOr(true),
+      constraints: constraints.objOrNul());
+  return _createInputDecorationObjSt(w);
+}
+InputDecorationObjSt _createInputDecorationObjSt(InputDecoration? w) {
+  final InputDecorationObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.icon = _addWidget(w.icon);
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.label = _addWidget(w.label);
+  stObj.labelText = (w.labelText != null) ? w.labelText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.floatingLabelStyle = _createTextStyleObjSt(w.floatingLabelStyle);
+  stObj.helper = _addWidget(w.helper);
+  stObj.helperText = (w.helperText != null) ? w.helperText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.helperStyle = _createTextStyleObjSt(w.helperStyle);
+  stObj.helperMaxLines = (w.helperMaxLines != null) ? w.helperMaxLines! : 0;
+  stObj.hintText = (w.hintText != null) ? w.hintText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.hint = _addWidget(w.hint);
+  stObj.hintStyle = _createTextStyleObjSt(w.hintStyle);
+  stObj.hintTextDirection = (w.hintTextDirection != null) ? w.hintTextDirection!.index : 0;
+  stObj.hintMaxLines = (w.hintMaxLines != null) ? w.hintMaxLines! : 0;
+  stObj.hintFadeDuration = _addWidget(w.hintFadeDuration);
+  stObj.maintainHintHeight = w.maintainHintHeight.toInt();
+  stObj.maintainHintSize = w.maintainHintSize.toInt();
+  stObj.error = _addWidget(w.error);
+  stObj.errorText = (w.errorText != null) ? w.errorText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.errorStyle = _createTextStyleObjSt(w.errorStyle);
+  stObj.errorMaxLines = (w.errorMaxLines != null) ? w.errorMaxLines! : 0;
+  stObj.floatingLabelBehavior = (w.floatingLabelBehavior != null) ? w.floatingLabelBehavior!.index : 0;
+  stObj.isDense = (w.isDense != null) ? w.isDense!.toInt() : 0;
+  stObj.contentPadding = _addWidget(w.contentPadding);
+  stObj.isCollapsed = (w.isCollapsed != null) ? w.isCollapsed!.toInt() : 0;
+  stObj.prefixIcon = _addWidget(w.prefixIcon);
+  stObj.prefixIconConstraints = _createBoxConstraintsObjSt(w.prefixIconConstraints);
+  stObj.prefix = _addWidget(w.prefix);
+  stObj.prefixText = (w.prefixText != null) ? w.prefixText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.prefixStyle = _createTextStyleObjSt(w.prefixStyle);
+  stObj.prefixIconColor = _addWidget(w.prefixIconColor);
+  stObj.suffixIcon = _addWidget(w.suffixIcon);
+  stObj.suffix = _addWidget(w.suffix);
+  stObj.suffixText = (w.suffixText != null) ? w.suffixText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.suffixStyle = _createTextStyleObjSt(w.suffixStyle);
+  stObj.suffixIconColor = _addWidget(w.suffixIconColor);
+  stObj.suffixIconConstraints = _createBoxConstraintsObjSt(w.suffixIconConstraints);
+  stObj.counterText = (w.counterText != null) ? w.counterText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.counter = _addWidget(w.counter);
+  stObj.counterStyle = _createTextStyleObjSt(w.counterStyle);
+  stObj.filled = (w.filled != null) ? w.filled!.toInt() : 0;
+  stObj.fillColor = _addWidget(w.fillColor);
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.hoverColor = _addWidget(w.hoverColor);
+  stObj.errorBorder = _addWidget(w.errorBorder);
+  stObj.focusedBorder = _addWidget(w.focusedBorder);
+  stObj.focusedErrorBorder = _addWidget(w.focusedErrorBorder);
+  stObj.disabledBorder = _addWidget(w.disabledBorder);
+  stObj.enabledBorder = _addWidget(w.enabledBorder);
+  stObj.border = _addWidget(w.border);
+  stObj.enabled = w.enabled.toInt();
+  stObj.semanticCounterText = (w.semanticCounterText != null) ? w.semanticCounterText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.alignLabelWithHint = (w.alignLabelWithHint != null) ? w.alignLabelWithHint!.toInt() : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  return stObj;
+}
+
+void _setupInputBorder(WidgetFactories f) {
+  f.inputBorder.none = _addWidget(InputBorder.none);
+}
+
+void _setupUserAccountsDrawerHeader(WidgetFactories f) {
+  f.userAccountsDrawerHeader.userAccountsDrawerHeader = ffi.Pointer.fromFunction(userAccountsDrawerHeaderUserAccountsDrawerHeader);
+}
+UserAccountsDrawerHeaderObjSt userAccountsDrawerHeaderUserAccountsDrawerHeader(ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> currentAccountPicture, ffi.Pointer<ArrayC> otherAccountsPictures, DartDartObj accountName, DartDartObj accountEmail, ffi.Pointer<VoidCallbackFFI> onDetailsPressed, ffi.Pointer<DartObj> arrowColor) {
+  final w = UserAccountsDrawerHeader(decoration: decoration.objOrNul(),
+      margin: margin.objOrNul(),
+      currentAccountPicture: currentAccountPicture.objOrNul(),
+      otherAccountsPictures: otherAccountsPictures.listOrNul(),
+      accountName: _widgetsMap[accountName]! as Widget?,
+      accountEmail: _widgetsMap[accountEmail]! as Widget?,
+      onDetailsPressed: onDetailsPressed.toVoidCallbackFn(),
+      arrowColor: arrowColor.objOr(Colors.white));
+  return _createUserAccountsDrawerHeaderObjSt(w);
+}
+UserAccountsDrawerHeaderObjSt _createUserAccountsDrawerHeaderObjSt(UserAccountsDrawerHeader? w) {
+  final UserAccountsDrawerHeaderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.decoration = _addWidget(w.decoration);
+  stObj.margin = _addWidget(w.margin);
+  stObj.currentAccountPicture = _addWidget(w.currentAccountPicture);
+  stObj.accountName = _addWidget(w.accountName);
+  stObj.accountEmail = _addWidget(w.accountEmail);
+  stObj.arrowColor = _addWidget(w.arrowColor);
+  return stObj;
+}
+
+void _setupInputChip(WidgetFactories f) {
+  f.inputChip.inputChip = ffi.Pointer.fromFunction(inputChipInputChip);
+}
+InputChipObjSt inputChipInputChip(ffi.Pointer<DartObj> avatar, DartDartObj label, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Int> isEnabled, ffi.Pointer<ValueChangedForBoolFFI> onSelected, ffi.Pointer<DartObj> deleteIcon, ffi.Pointer<VoidCallbackFFI> onDeleted, ffi.Pointer<DartObj> deleteIconColor, ffi.Pointer<ffi.Char> deleteButtonTooltipMessage, ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<ffi.Double> pressElevation, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> selectedColor, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> selectedShadowColor, ffi.Pointer<ffi.Int> showCheckmark, ffi.Pointer<DartObj> checkmarkColor, ffi.Pointer<DartObj> avatarBorder, ffi.Pointer<DartObj> avatarBoxConstraints, ffi.Pointer<DartObj> deleteIconBoxConstraints) {
+  final w = InputChip(avatar: avatar.objOrNul(),
+      label: _widgetsMap[label]! as Widget,
+      labelStyle: labelStyle.objOrNul(),
+      labelPadding: labelPadding.objOrNul(),
+      selected: selected.boolOr(false),
+      isEnabled: isEnabled.boolOr(true),
+      onSelected: onSelected.toValueChangedForBoolFn(),
+      deleteIcon: deleteIcon.objOrNul(),
+      onDeleted: onDeleted.toVoidCallbackFn(),
+      deleteIconColor: deleteIconColor.objOrNul(),
+      deleteButtonTooltipMessage: deleteButtonTooltipMessage.strOrNul(),
+      onPressed: onPressed.toVoidCallbackFn(),
+      pressElevation: pressElevation.doubleOrNul(),
+      disabledColor: disabledColor.objOrNul(),
+      selectedColor: selectedColor.objOrNul(),
+      tooltip: tooltip.strOrNul(),
+      side: side.objOrNul(),
+      shape: shape.objOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      autofocus: autofocus.boolOr(false),
+      color: _wspNul<Color?>(color.objOrNul()),
+      backgroundColor: backgroundColor.objOrNul(),
+      padding: padding.objOrNul(),
+      visualDensity: visualDensity.objOrNul(),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      selectedShadowColor: selectedShadowColor.objOrNul(),
+      showCheckmark: showCheckmark.boolOrNul(),
+      checkmarkColor: checkmarkColor.objOrNul(),
+      avatarBorder: avatarBorder.objOr(const CircleBorder()),
+      avatarBoxConstraints: avatarBoxConstraints.objOrNul(),
+      deleteIconBoxConstraints: deleteIconBoxConstraints.objOrNul());
+  return _createInputChipObjSt(w);
+}
+InputChipObjSt _createInputChipObjSt(InputChip? w) {
+  final InputChipObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.avatar = _addWidget(w.avatar);
+  stObj.label = _addWidget(w.label);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  stObj.selected = w.selected.toInt();
+  stObj.isEnabled = w.isEnabled.toInt();
+  stObj.deleteIcon = _addWidget(w.deleteIcon);
+  stObj.deleteIconColor = _addWidget(w.deleteIconColor);
+  stObj.deleteButtonTooltipMessage = (w.deleteButtonTooltipMessage != null) ? w.deleteButtonTooltipMessage!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.pressElevation = (w.pressElevation != null) ? w.pressElevation! : 0;
+  stObj.disabledColor = _addWidget(w.disabledColor);
+  stObj.selectedColor = _addWidget(w.selectedColor);
+  stObj.tooltip = (w.tooltip != null) ? w.tooltip!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.side = _createBorderSideObjSt(w.side);
+  stObj.shape = _addWidget(w.shape);
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.padding = _addWidget(w.padding);
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.selectedShadowColor = _addWidget(w.selectedShadowColor);
+  stObj.showCheckmark = (w.showCheckmark != null) ? w.showCheckmark!.toInt() : 0;
+  stObj.checkmarkColor = _addWidget(w.checkmarkColor);
+  stObj.avatarBorder = _addWidget(w.avatarBorder);
+  stObj.avatarBoxConstraints = _createBoxConstraintsObjSt(w.avatarBoxConstraints);
+  stObj.deleteIconBoxConstraints = _createBoxConstraintsObjSt(w.deleteIconBoxConstraints);
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -6804,155 +7258,6 @@ AlertDialogObjSt _createAlertDialogObjSt(AlertDialog? w) {
   return stObj;
 }
 
-void _setupInputDecoration(WidgetFactories f) {
-  f.inputDecoration.inputDecoration = ffi.Pointer.fromFunction(inputDecorationInputDecoration);
-  f.inputDecoration.collapsed = ffi.Pointer.fromFunction(inputDecorationCollapsed);
-}
-InputDecorationObjSt inputDecorationInputDecoration(ffi.Pointer<DartObj> icon, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> label, ffi.Pointer<ffi.Char> labelText, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> floatingLabelStyle, ffi.Pointer<DartObj> helper, ffi.Pointer<ffi.Char> helperText, ffi.Pointer<DartObj> helperStyle, ffi.Pointer<ffi.Int> helperMaxLines, ffi.Pointer<ffi.Char> hintText, ffi.Pointer<DartObj> hint, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<ffi.Int> hintTextDirection, ffi.Pointer<ffi.Int> hintMaxLines, ffi.Pointer<DartObj> hintFadeDuration, ffi.Pointer<ffi.Int> maintainHintHeight, ffi.Pointer<ffi.Int> maintainHintSize, ffi.Pointer<DartObj> error, ffi.Pointer<ffi.Char> errorText, ffi.Pointer<DartObj> errorStyle, ffi.Pointer<ffi.Int> errorMaxLines, ffi.Pointer<ffi.Int> floatingLabelBehavior, ffi.Pointer<ffi.Int> isCollapsed, ffi.Pointer<ffi.Int> isDense, ffi.Pointer<DartObj> contentPadding, ffi.Pointer<DartObj> prefixIcon, ffi.Pointer<DartObj> prefixIconConstraints, ffi.Pointer<DartObj> prefix, ffi.Pointer<ffi.Char> prefixText, ffi.Pointer<DartObj> prefixStyle, ffi.Pointer<DartObj> prefixIconColor, ffi.Pointer<DartObj> suffixIcon, ffi.Pointer<DartObj> suffix, ffi.Pointer<ffi.Char> suffixText, ffi.Pointer<DartObj> suffixStyle, ffi.Pointer<DartObj> suffixIconColor, ffi.Pointer<DartObj> suffixIconConstraints, ffi.Pointer<DartObj> counter, ffi.Pointer<ffi.Char> counterText, ffi.Pointer<DartObj> counterStyle, ffi.Pointer<ffi.Int> filled, ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> errorBorder, ffi.Pointer<DartObj> focusedBorder, ffi.Pointer<DartObj> focusedErrorBorder, ffi.Pointer<DartObj> disabledBorder, ffi.Pointer<DartObj> enabledBorder, ffi.Pointer<DartObj> border, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Char> semanticCounterText, ffi.Pointer<ffi.Int> alignLabelWithHint, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> visualDensity) {
-  final w = InputDecoration(icon: icon.objOrNul(),
-      iconColor: iconColor.objOrNul(),
-      label: label.objOrNul(),
-      labelText: labelText.strOrNul(),
-      labelStyle: labelStyle.objOrNul(),
-      floatingLabelStyle: floatingLabelStyle.objOrNul(),
-      helper: helper.objOrNul(),
-      helperText: helperText.strOrNul(),
-      helperStyle: helperStyle.objOrNul(),
-      helperMaxLines: helperMaxLines.intOrNul(),
-      hintText: hintText.strOrNul(),
-      hint: hint.objOrNul(),
-      hintStyle: hintStyle.objOrNul(),
-      hintTextDirection: hintTextDirection.enumOrNul(TextDirection.values),
-      hintMaxLines: hintMaxLines.intOrNul(),
-      hintFadeDuration: hintFadeDuration.objOrNul(),
-      maintainHintHeight: maintainHintHeight.boolOr(true),
-      maintainHintSize: maintainHintSize.boolOr(true),
-      error: error.objOrNul(),
-      errorText: errorText.strOrNul(),
-      errorStyle: errorStyle.objOrNul(),
-      errorMaxLines: errorMaxLines.intOrNul(),
-      floatingLabelBehavior: floatingLabelBehavior.enumOrNul(FloatingLabelBehavior.values),
-      isCollapsed: isCollapsed.boolOrNul(),
-      isDense: isDense.boolOrNul(),
-      contentPadding: contentPadding.objOrNul(),
-      prefixIcon: prefixIcon.objOrNul(),
-      prefixIconConstraints: prefixIconConstraints.objOrNul(),
-      prefix: prefix.objOrNul(),
-      prefixText: prefixText.strOrNul(),
-      prefixStyle: prefixStyle.objOrNul(),
-      prefixIconColor: prefixIconColor.objOrNul(),
-      suffixIcon: suffixIcon.objOrNul(),
-      suffix: suffix.objOrNul(),
-      suffixText: suffixText.strOrNul(),
-      suffixStyle: suffixStyle.objOrNul(),
-      suffixIconColor: suffixIconColor.objOrNul(),
-      suffixIconConstraints: suffixIconConstraints.objOrNul(),
-      counter: counter.objOrNul(),
-      counterText: counterText.strOrNul(),
-      counterStyle: counterStyle.objOrNul(),
-      filled: filled.boolOrNul(),
-      fillColor: fillColor.objOrNul(),
-      focusColor: focusColor.objOrNul(),
-      hoverColor: hoverColor.objOrNul(),
-      errorBorder: errorBorder.objOrNul(),
-      focusedBorder: focusedBorder.objOrNul(),
-      focusedErrorBorder: focusedErrorBorder.objOrNul(),
-      disabledBorder: disabledBorder.objOrNul(),
-      enabledBorder: enabledBorder.objOrNul(),
-      border: border.objOrNul(),
-      enabled: enabled.boolOr(true),
-      semanticCounterText: semanticCounterText.strOrNul(),
-      alignLabelWithHint: alignLabelWithHint.boolOrNul(),
-      constraints: constraints.objOrNul(),
-      visualDensity: visualDensity.objOrNul());
-  return _createInputDecorationObjSt(w);
-}
-InputDecorationObjSt inputDecorationCollapsed(ffi.Pointer<ffi.Char> hintText, ffi.Pointer<ffi.Int> floatingLabelBehavior, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<DartObj> hint, ffi.Pointer<ffi.Int> hintTextDirection, ffi.Pointer<ffi.Int> hintMaxLines, ffi.Pointer<DartObj> hintFadeDuration, ffi.Pointer<ffi.Int> maintainHintHeight, ffi.Pointer<ffi.Int> maintainHintSize, ffi.Pointer<ffi.Int> filled, ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> border, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<DartObj> constraints) {
-  final w = InputDecoration.collapsed(hintText: hintText.cast<Utf8>().toDartString(),
-      floatingLabelBehavior: floatingLabelBehavior.enumOrNul(FloatingLabelBehavior.values),
-      hintStyle: hintStyle.objOrNul(),
-      hint: hint.objOrNul(),
-      hintTextDirection: hintTextDirection.enumOrNul(TextDirection.values),
-      hintMaxLines: hintMaxLines.intOrNul(),
-      hintFadeDuration: hintFadeDuration.objOrNul(),
-      maintainHintHeight: maintainHintHeight.boolOr(true),
-      maintainHintSize: maintainHintSize.boolOr(true),
-      filled: filled.boolOrNul(),
-      fillColor: fillColor.objOrNul(),
-      focusColor: focusColor.objOrNul(),
-      hoverColor: hoverColor.objOrNul(),
-      border: border.objOrNul(),
-      enabled: enabled.boolOr(true),
-      constraints: constraints.objOrNul());
-  return _createInputDecorationObjSt(w);
-}
-InputDecorationObjSt _createInputDecorationObjSt(InputDecoration? w) {
-  final InputDecorationObjSt stObj = ffi.Struct.create();
-  stObj.id = _addWidget(w);
-  if (w == null) return stObj;
-  stObj.icon = _addWidget(w.icon);
-  stObj.iconColor = _addWidget(w.iconColor);
-  stObj.label = _addWidget(w.label);
-  stObj.labelText = (w.labelText != null) ? w.labelText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
-  stObj.floatingLabelStyle = _createTextStyleObjSt(w.floatingLabelStyle);
-  stObj.helper = _addWidget(w.helper);
-  stObj.helperText = (w.helperText != null) ? w.helperText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.helperStyle = _createTextStyleObjSt(w.helperStyle);
-  stObj.helperMaxLines = (w.helperMaxLines != null) ? w.helperMaxLines! : 0;
-  stObj.hintText = (w.hintText != null) ? w.hintText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.hint = _addWidget(w.hint);
-  stObj.hintStyle = _createTextStyleObjSt(w.hintStyle);
-  stObj.hintTextDirection = (w.hintTextDirection != null) ? w.hintTextDirection!.index : 0;
-  stObj.hintMaxLines = (w.hintMaxLines != null) ? w.hintMaxLines! : 0;
-  stObj.hintFadeDuration = _addWidget(w.hintFadeDuration);
-  stObj.maintainHintHeight = w.maintainHintHeight.toInt();
-  stObj.maintainHintSize = w.maintainHintSize.toInt();
-  stObj.error = _addWidget(w.error);
-  stObj.errorText = (w.errorText != null) ? w.errorText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.errorStyle = _createTextStyleObjSt(w.errorStyle);
-  stObj.errorMaxLines = (w.errorMaxLines != null) ? w.errorMaxLines! : 0;
-  stObj.floatingLabelBehavior = (w.floatingLabelBehavior != null) ? w.floatingLabelBehavior!.index : 0;
-  stObj.isDense = (w.isDense != null) ? w.isDense!.toInt() : 0;
-  stObj.contentPadding = _addWidget(w.contentPadding);
-  stObj.isCollapsed = (w.isCollapsed != null) ? w.isCollapsed!.toInt() : 0;
-  stObj.prefixIcon = _addWidget(w.prefixIcon);
-  stObj.prefixIconConstraints = _createBoxConstraintsObjSt(w.prefixIconConstraints);
-  stObj.prefix = _addWidget(w.prefix);
-  stObj.prefixText = (w.prefixText != null) ? w.prefixText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.prefixStyle = _createTextStyleObjSt(w.prefixStyle);
-  stObj.prefixIconColor = _addWidget(w.prefixIconColor);
-  stObj.suffixIcon = _addWidget(w.suffixIcon);
-  stObj.suffix = _addWidget(w.suffix);
-  stObj.suffixText = (w.suffixText != null) ? w.suffixText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.suffixStyle = _createTextStyleObjSt(w.suffixStyle);
-  stObj.suffixIconColor = _addWidget(w.suffixIconColor);
-  stObj.suffixIconConstraints = _createBoxConstraintsObjSt(w.suffixIconConstraints);
-  stObj.counterText = (w.counterText != null) ? w.counterText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.counter = _addWidget(w.counter);
-  stObj.counterStyle = _createTextStyleObjSt(w.counterStyle);
-  stObj.filled = (w.filled != null) ? w.filled!.toInt() : 0;
-  stObj.fillColor = _addWidget(w.fillColor);
-  stObj.focusColor = _addWidget(w.focusColor);
-  stObj.hoverColor = _addWidget(w.hoverColor);
-  stObj.errorBorder = _addWidget(w.errorBorder);
-  stObj.focusedBorder = _addWidget(w.focusedBorder);
-  stObj.focusedErrorBorder = _addWidget(w.focusedErrorBorder);
-  stObj.disabledBorder = _addWidget(w.disabledBorder);
-  stObj.enabledBorder = _addWidget(w.enabledBorder);
-  stObj.border = _addWidget(w.border);
-  stObj.enabled = w.enabled.toInt();
-  stObj.semanticCounterText = (w.semanticCounterText != null) ? w.semanticCounterText!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
-  stObj.alignLabelWithHint = (w.alignLabelWithHint != null) ? w.alignLabelWithHint!.toInt() : 0;
-  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
-  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
-  return stObj;
-}
-
-void _setupInputBorder(WidgetFactories f) {
-  f.inputBorder.none = _addWidget(InputBorder.none);
-}
-
 void _setupTextField(WidgetFactories f) {
   f.textField.textField = ffi.Pointer.fromFunction(textFieldTextField);
 }
@@ -7600,55 +7905,6 @@ SingleChildScrollViewObjSt _createSingleChildScrollViewObjSt(SingleChildScrollVi
   stObj.hitTestBehavior = w.hitTestBehavior.index;
   stObj.restorationId = (w.restorationId != null) ? w.restorationId!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
   stObj.keyboardDismissBehavior = (w.keyboardDismissBehavior != null) ? w.keyboardDismissBehavior!.index : 0;
-  return stObj;
-}
-
-void _setupCircularProgressIndicator(WidgetFactories f) {
-  f.circularProgressIndicator.circularProgressIndicator = ffi.Pointer.fromFunction(circularProgressIndicatorCircularProgressIndicator);
-  f.circularProgressIndicator.adaptive = ffi.Pointer.fromFunction(circularProgressIndicatorAdaptive);
-}
-CircularProgressIndicatorObjSt circularProgressIndicatorCircularProgressIndicator(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> padding) {
-  final w = CircularProgressIndicator(value: value.doubleOrNul(),
-      backgroundColor: backgroundColor.objOrNul(),
-      color: color.objOrNul(),
-      valueColor: valueColor.objOrNul(),
-      strokeWidth: strokeWidth.doubleOrNul(),
-      strokeAlign: strokeAlign.doubleOrNul(),
-      semanticsLabel: semanticsLabel.strOrNul(),
-      semanticsValue: semanticsValue.strOrNul(),
-      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
-      constraints: constraints.objOrNul(),
-      trackGap: trackGap.doubleOrNul(),
-      year2023: year2023.boolOrNul(),
-      padding: padding.objOrNul());
-  return _createCircularProgressIndicatorObjSt(w);
-}
-CircularProgressIndicatorObjSt circularProgressIndicatorAdaptive(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> valueColor, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023, ffi.Pointer<DartObj> padding) {
-  final w = CircularProgressIndicator.adaptive(value: value.doubleOrNul(),
-      backgroundColor: backgroundColor.objOrNul(),
-      valueColor: valueColor.objOrNul(),
-      strokeWidth: strokeWidth.doubleOrNul(),
-      semanticsLabel: semanticsLabel.strOrNul(),
-      semanticsValue: semanticsValue.strOrNul(),
-      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
-      strokeAlign: strokeAlign.doubleOrNul(),
-      constraints: constraints.objOrNul(),
-      trackGap: trackGap.doubleOrNul(),
-      year2023: year2023.boolOrNul(),
-      padding: padding.objOrNul());
-  return _createCircularProgressIndicatorObjSt(w);
-}
-CircularProgressIndicatorObjSt _createCircularProgressIndicatorObjSt(CircularProgressIndicator? w) {
-  final CircularProgressIndicatorObjSt stObj = ffi.Struct.create();
-  stObj.id = _addWidget(w);
-  if (w == null) return stObj;
-  stObj.strokeWidth = (w.strokeWidth != null) ? w.strokeWidth! : 0;
-  stObj.strokeAlign = (w.strokeAlign != null) ? w.strokeAlign! : 0;
-  stObj.strokeCap = (w.strokeCap != null) ? w.strokeCap!.index : 0;
-  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
-  stObj.trackGap = (w.trackGap != null) ? w.trackGap! : 0;
-  stObj.year2023 = (w.year2023 != null) ? w.year2023!.toInt() : 0;
-  stObj.padding = _addWidget(w.padding);
   return stObj;
 }
 
@@ -11275,6 +11531,13 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupReorderableDragStartListener(f);
   _setupReorderableDelayedDragStartListener(f);
   _setupAboutListTile(f);
+  _setupDialog(f);
+  _setupGridTile(f);
+  _setupGridTileBar(f);
+  _setupRefreshProgressIndicator(f);
+  _setupInputDecorator(f);
+  _setupUserAccountsDrawerHeader(f);
+  _setupInputChip(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);
@@ -11406,9 +11669,9 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupEdgeInsetsGeometry(f);
   _setupListenableBuilder(f);
   _setupImageFilter(f);
-  _setupColorSwatch(f);
-  _setupColorSwatch(f);
   _setupInputBorder(f);
+  _setupColorSwatch(f);
+  _setupColorSwatch(f);
   _setupInputBorder(f);
   _setupInkResponse(f);
   return fp;

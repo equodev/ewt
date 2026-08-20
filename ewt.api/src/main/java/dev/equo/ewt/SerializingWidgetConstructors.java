@@ -4852,6 +4852,324 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment dialogDialog(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<Widget> child, Optional<SemanticsRole> semanticsRole, Optional<BoxConstraints> constraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    insetAnimationDuration.ifPresent(v -> p.put("insetAnimationDuration", byId.get(v.getId())));
+    insetAnimationCurve.ifPresent(v -> p.put("insetAnimationCurve", byId.get(v.getId())));
+    insetPadding.ifPresent(v -> p.put("insetPadding", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    semanticsRole.ifPresent(v -> p.put("semanticsRole", v.ordinal()));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    record(id, "dialogDialog", p);
+    MemorySegment st = DialogObjSt.allocate(arena);
+    DialogObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment dialogFullscreen(Optional<Color> backgroundColor, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve, Optional<Widget> child, Optional<SemanticsRole> semanticsRole) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    insetAnimationDuration.ifPresent(v -> p.put("insetAnimationDuration", byId.get(v.getId())));
+    insetAnimationCurve.ifPresent(v -> p.put("insetAnimationCurve", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    semanticsRole.ifPresent(v -> p.put("semanticsRole", v.ordinal()));
+    record(id, "dialogFullscreen", p);
+    MemorySegment st = DialogObjSt.allocate(arena);
+    DialogObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment gridTileGridTile(Optional<Widget> header, Optional<Widget> footer, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    header.ifPresent(v -> p.put("header", byId.get(v.getId())));
+    footer.ifPresent(v -> p.put("footer", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "gridTileGridTile", p);
+    MemorySegment st = GridTileObjSt.allocate(arena);
+    GridTileObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment gridTileBarGridTileBar(Optional<Color> backgroundColor, Optional<Widget> leading, Optional<Widget> title, Optional<Widget> subtitle, Optional<Widget> trailing) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    subtitle.ifPresent(v -> p.put("subtitle", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    record(id, "gridTileBarGridTileBar", p);
+    MemorySegment st = GridTileBarObjSt.allocate(arena);
+    GridTileBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment refreshProgressIndicatorRefreshProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble elevation, Optional<EdgeInsetsGeometry> indicatorMargin, Optional<EdgeInsetsGeometry> indicatorPadding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (value.isPresent()) { p.put("value", value.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    valueColor.ifPresent(v -> p.put("valueColor", byId.get(v.getId())));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    if (strokeAlign.isPresent()) { p.put("strokeAlign", strokeAlign.getAsDouble()); }
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    strokeCap.ifPresent(v -> p.put("strokeCap", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    indicatorMargin.ifPresent(v -> p.put("indicatorMargin", byId.get(v.getId())));
+    indicatorPadding.ifPresent(v -> p.put("indicatorPadding", byId.get(v.getId())));
+    record(id, "refreshProgressIndicatorRefreshProgressIndicator", p);
+    MemorySegment st = RefreshProgressIndicatorObjSt.allocate(arena);
+    RefreshProgressIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (value.isPresent()) { p.put("value", value.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    valueColor.ifPresent(v -> p.put("valueColor", byId.get(v.getId())));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    if (strokeAlign.isPresent()) { p.put("strokeAlign", strokeAlign.getAsDouble()); }
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    strokeCap.ifPresent(v -> p.put("strokeCap", v.ordinal()));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
+    year2023.ifPresent(v -> p.put("year2023", v));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    record(id, "circularProgressIndicatorCircularProgressIndicator", p);
+    MemorySegment st = CircularProgressIndicatorObjSt.allocate(arena);
+    CircularProgressIndicatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (value.isPresent()) { p.put("value", value.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    valueColor.ifPresent(v -> p.put("valueColor", byId.get(v.getId())));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    strokeCap.ifPresent(v -> p.put("strokeCap", v.ordinal()));
+    if (strokeAlign.isPresent()) { p.put("strokeAlign", strokeAlign.getAsDouble()); }
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
+    year2023.ifPresent(v -> p.put("year2023", v));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    record(id, "circularProgressIndicatorAdaptive", p);
+    MemorySegment st = CircularProgressIndicatorObjSt.allocate(arena);
+    CircularProgressIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment inputDecoratorInputDecorator(InputDecoration decoration, Optional<TextStyle> baseStyle, Optional<TextAlign> textAlign, Optional<Boolean> isFocused, Optional<Boolean> isHovering, Optional<Boolean> expands, Optional<Boolean> isEmpty, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("decoration", byId.get(decoration.getId()));
+    baseStyle.ifPresent(v -> p.put("baseStyle", byId.get(v.getId())));
+    textAlign.ifPresent(v -> p.put("textAlign", v.ordinal()));
+    isFocused.ifPresent(v -> p.put("isFocused", v));
+    isHovering.ifPresent(v -> p.put("isHovering", v));
+    expands.ifPresent(v -> p.put("expands", v));
+    isEmpty.ifPresent(v -> p.put("isEmpty", v));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "inputDecoratorInputDecorator", p);
+    MemorySegment st = InputDecoratorObjSt.allocate(arena);
+    InputDecoratorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int inputDecoratorContainerOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "inputDecoratorContainerOf", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
+    iconColor.ifPresent(v -> p.put("iconColor", byId.get(v.getId())));
+    label.ifPresent(v -> p.put("label", byId.get(v.getId())));
+    labelText.ifPresent(v -> p.put("labelText", v));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    floatingLabelStyle.ifPresent(v -> p.put("floatingLabelStyle", byId.get(v.getId())));
+    helper.ifPresent(v -> p.put("helper", byId.get(v.getId())));
+    helperText.ifPresent(v -> p.put("helperText", v));
+    helperStyle.ifPresent(v -> p.put("helperStyle", byId.get(v.getId())));
+    if (helperMaxLines.isPresent()) { p.put("helperMaxLines", helperMaxLines.getAsInt()); }
+    hintText.ifPresent(v -> p.put("hintText", v));
+    hint.ifPresent(v -> p.put("hint", byId.get(v.getId())));
+    hintStyle.ifPresent(v -> p.put("hintStyle", byId.get(v.getId())));
+    hintTextDirection.ifPresent(v -> p.put("hintTextDirection", v.ordinal()));
+    if (hintMaxLines.isPresent()) { p.put("hintMaxLines", hintMaxLines.getAsInt()); }
+    hintFadeDuration.ifPresent(v -> p.put("hintFadeDuration", byId.get(v.getId())));
+    maintainHintHeight.ifPresent(v -> p.put("maintainHintHeight", v));
+    maintainHintSize.ifPresent(v -> p.put("maintainHintSize", v));
+    error.ifPresent(v -> p.put("error", byId.get(v.getId())));
+    errorText.ifPresent(v -> p.put("errorText", v));
+    errorStyle.ifPresent(v -> p.put("errorStyle", byId.get(v.getId())));
+    if (errorMaxLines.isPresent()) { p.put("errorMaxLines", errorMaxLines.getAsInt()); }
+    floatingLabelBehavior.ifPresent(v -> p.put("floatingLabelBehavior", v.ordinal()));
+    isCollapsed.ifPresent(v -> p.put("isCollapsed", v));
+    isDense.ifPresent(v -> p.put("isDense", v));
+    contentPadding.ifPresent(v -> p.put("contentPadding", byId.get(v.getId())));
+    prefixIcon.ifPresent(v -> p.put("prefixIcon", byId.get(v.getId())));
+    prefixIconConstraints.ifPresent(v -> p.put("prefixIconConstraints", byId.get(v.getId())));
+    prefix.ifPresent(v -> p.put("prefix", byId.get(v.getId())));
+    prefixText.ifPresent(v -> p.put("prefixText", v));
+    prefixStyle.ifPresent(v -> p.put("prefixStyle", byId.get(v.getId())));
+    prefixIconColor.ifPresent(v -> p.put("prefixIconColor", byId.get(v.getId())));
+    suffixIcon.ifPresent(v -> p.put("suffixIcon", byId.get(v.getId())));
+    suffix.ifPresent(v -> p.put("suffix", byId.get(v.getId())));
+    suffixText.ifPresent(v -> p.put("suffixText", v));
+    suffixStyle.ifPresent(v -> p.put("suffixStyle", byId.get(v.getId())));
+    suffixIconColor.ifPresent(v -> p.put("suffixIconColor", byId.get(v.getId())));
+    suffixIconConstraints.ifPresent(v -> p.put("suffixIconConstraints", byId.get(v.getId())));
+    counter.ifPresent(v -> p.put("counter", byId.get(v.getId())));
+    counterText.ifPresent(v -> p.put("counterText", v));
+    counterStyle.ifPresent(v -> p.put("counterStyle", byId.get(v.getId())));
+    filled.ifPresent(v -> p.put("filled", v));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    errorBorder.ifPresent(v -> p.put("errorBorder", byId.get(v.getId())));
+    focusedBorder.ifPresent(v -> p.put("focusedBorder", byId.get(v.getId())));
+    focusedErrorBorder.ifPresent(v -> p.put("focusedErrorBorder", byId.get(v.getId())));
+    disabledBorder.ifPresent(v -> p.put("disabledBorder", byId.get(v.getId())));
+    enabledBorder.ifPresent(v -> p.put("enabledBorder", byId.get(v.getId())));
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    semanticCounterText.ifPresent(v -> p.put("semanticCounterText", v));
+    alignLabelWithHint.ifPresent(v -> p.put("alignLabelWithHint", v));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    record(id, "inputDecorationInputDecoration", p);
+    MemorySegment st = InputDecorationObjSt.allocate(arena);
+    InputDecorationObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("hintText", hintText);
+    floatingLabelBehavior.ifPresent(v -> p.put("floatingLabelBehavior", v.ordinal()));
+    hintStyle.ifPresent(v -> p.put("hintStyle", byId.get(v.getId())));
+    hint.ifPresent(v -> p.put("hint", byId.get(v.getId())));
+    hintTextDirection.ifPresent(v -> p.put("hintTextDirection", v.ordinal()));
+    if (hintMaxLines.isPresent()) { p.put("hintMaxLines", hintMaxLines.getAsInt()); }
+    hintFadeDuration.ifPresent(v -> p.put("hintFadeDuration", byId.get(v.getId())));
+    maintainHintHeight.ifPresent(v -> p.put("maintainHintHeight", v));
+    maintainHintSize.ifPresent(v -> p.put("maintainHintSize", v));
+    filled.ifPresent(v -> p.put("filled", v));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    record(id, "inputDecorationCollapsed", p);
+    MemorySegment st = InputDecorationObjSt.allocate(arena);
+    InputDecorationObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  int inputBorderNone() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "inputBorderNone", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<Widget> currentAccountPicture, Optional<List<Widget>> otherAccountsPictures, Widget accountName, Widget accountEmail, Optional<Runnable> onDetailsPressed, Optional<Color> arrowColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    currentAccountPicture.ifPresent(v -> p.put("currentAccountPicture", byId.get(v.getId())));
+    otherAccountsPictures.ifPresent(v -> p.put("otherAccountsPictures", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    p.put("accountName", byId.get(accountName.getId()));
+    p.put("accountEmail", byId.get(accountEmail.getId()));
+    if (onDetailsPressed.isPresent()) { int __cb_onDetailsPressed = nextCallbackId++; p.put("onDetailsPressed", __cb_onDetailsPressed); callbacks.put(__cb_onDetailsPressed, onDetailsPressed.get()); }
+    arrowColor.ifPresent(v -> p.put("arrowColor", byId.get(v.getId())));
+    record(id, "userAccountsDrawerHeaderUserAccountsDrawerHeader", p);
+    MemorySegment st = UserAccountsDrawerHeaderObjSt.allocate(arena);
+    UserAccountsDrawerHeaderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    selected.ifPresent(v -> p.put("selected", v));
+    isEnabled.ifPresent(v -> p.put("isEnabled", v));
+    if (onSelected.isPresent()) { int __cb_onSelected = nextCallbackId++; p.put("onSelected", __cb_onSelected); java.util.function.Consumer<Boolean> __h_onSelected = onSelected.get(); callbacks.put(__cb_onSelected, (java.util.function.Consumer<Object>)(v -> __h_onSelected.accept((Boolean) v))); }
+    deleteIcon.ifPresent(v -> p.put("deleteIcon", byId.get(v.getId())));
+    if (onDeleted.isPresent()) { int __cb_onDeleted = nextCallbackId++; p.put("onDeleted", __cb_onDeleted); callbacks.put(__cb_onDeleted, onDeleted.get()); }
+    deleteIconColor.ifPresent(v -> p.put("deleteIconColor", byId.get(v.getId())));
+    deleteButtonTooltipMessage.ifPresent(v -> p.put("deleteButtonTooltipMessage", v));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
+    showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
+    checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
+    avatarBorder.ifPresent(v -> p.put("avatarBorder", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    deleteIconBoxConstraints.ifPresent(v -> p.put("deleteIconBoxConstraints", byId.get(v.getId())));
+    record(id, "inputChipInputChip", p);
+    MemorySegment st = InputChipObjSt.allocate(arena);
+    InputChipObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -6193,105 +6511,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
-    iconColor.ifPresent(v -> p.put("iconColor", byId.get(v.getId())));
-    label.ifPresent(v -> p.put("label", byId.get(v.getId())));
-    labelText.ifPresent(v -> p.put("labelText", v));
-    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
-    floatingLabelStyle.ifPresent(v -> p.put("floatingLabelStyle", byId.get(v.getId())));
-    helper.ifPresent(v -> p.put("helper", byId.get(v.getId())));
-    helperText.ifPresent(v -> p.put("helperText", v));
-    helperStyle.ifPresent(v -> p.put("helperStyle", byId.get(v.getId())));
-    if (helperMaxLines.isPresent()) { p.put("helperMaxLines", helperMaxLines.getAsInt()); }
-    hintText.ifPresent(v -> p.put("hintText", v));
-    hint.ifPresent(v -> p.put("hint", byId.get(v.getId())));
-    hintStyle.ifPresent(v -> p.put("hintStyle", byId.get(v.getId())));
-    hintTextDirection.ifPresent(v -> p.put("hintTextDirection", v.ordinal()));
-    if (hintMaxLines.isPresent()) { p.put("hintMaxLines", hintMaxLines.getAsInt()); }
-    hintFadeDuration.ifPresent(v -> p.put("hintFadeDuration", byId.get(v.getId())));
-    maintainHintHeight.ifPresent(v -> p.put("maintainHintHeight", v));
-    maintainHintSize.ifPresent(v -> p.put("maintainHintSize", v));
-    error.ifPresent(v -> p.put("error", byId.get(v.getId())));
-    errorText.ifPresent(v -> p.put("errorText", v));
-    errorStyle.ifPresent(v -> p.put("errorStyle", byId.get(v.getId())));
-    if (errorMaxLines.isPresent()) { p.put("errorMaxLines", errorMaxLines.getAsInt()); }
-    floatingLabelBehavior.ifPresent(v -> p.put("floatingLabelBehavior", v.ordinal()));
-    isCollapsed.ifPresent(v -> p.put("isCollapsed", v));
-    isDense.ifPresent(v -> p.put("isDense", v));
-    contentPadding.ifPresent(v -> p.put("contentPadding", byId.get(v.getId())));
-    prefixIcon.ifPresent(v -> p.put("prefixIcon", byId.get(v.getId())));
-    prefixIconConstraints.ifPresent(v -> p.put("prefixIconConstraints", byId.get(v.getId())));
-    prefix.ifPresent(v -> p.put("prefix", byId.get(v.getId())));
-    prefixText.ifPresent(v -> p.put("prefixText", v));
-    prefixStyle.ifPresent(v -> p.put("prefixStyle", byId.get(v.getId())));
-    prefixIconColor.ifPresent(v -> p.put("prefixIconColor", byId.get(v.getId())));
-    suffixIcon.ifPresent(v -> p.put("suffixIcon", byId.get(v.getId())));
-    suffix.ifPresent(v -> p.put("suffix", byId.get(v.getId())));
-    suffixText.ifPresent(v -> p.put("suffixText", v));
-    suffixStyle.ifPresent(v -> p.put("suffixStyle", byId.get(v.getId())));
-    suffixIconColor.ifPresent(v -> p.put("suffixIconColor", byId.get(v.getId())));
-    suffixIconConstraints.ifPresent(v -> p.put("suffixIconConstraints", byId.get(v.getId())));
-    counter.ifPresent(v -> p.put("counter", byId.get(v.getId())));
-    counterText.ifPresent(v -> p.put("counterText", v));
-    counterStyle.ifPresent(v -> p.put("counterStyle", byId.get(v.getId())));
-    filled.ifPresent(v -> p.put("filled", v));
-    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
-    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
-    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
-    errorBorder.ifPresent(v -> p.put("errorBorder", byId.get(v.getId())));
-    focusedBorder.ifPresent(v -> p.put("focusedBorder", byId.get(v.getId())));
-    focusedErrorBorder.ifPresent(v -> p.put("focusedErrorBorder", byId.get(v.getId())));
-    disabledBorder.ifPresent(v -> p.put("disabledBorder", byId.get(v.getId())));
-    enabledBorder.ifPresent(v -> p.put("enabledBorder", byId.get(v.getId())));
-    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
-    enabled.ifPresent(v -> p.put("enabled", v));
-    semanticCounterText.ifPresent(v -> p.put("semanticCounterText", v));
-    alignLabelWithHint.ifPresent(v -> p.put("alignLabelWithHint", v));
-    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
-    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
-    record(id, "inputDecorationInputDecoration", p);
-    MemorySegment st = InputDecorationObjSt.allocate(arena);
-    InputDecorationObjSt.id(st, id);
-    return st;
-  }
-  @Override
-  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("hintText", hintText);
-    floatingLabelBehavior.ifPresent(v -> p.put("floatingLabelBehavior", v.ordinal()));
-    hintStyle.ifPresent(v -> p.put("hintStyle", byId.get(v.getId())));
-    hint.ifPresent(v -> p.put("hint", byId.get(v.getId())));
-    hintTextDirection.ifPresent(v -> p.put("hintTextDirection", v.ordinal()));
-    if (hintMaxLines.isPresent()) { p.put("hintMaxLines", hintMaxLines.getAsInt()); }
-    hintFadeDuration.ifPresent(v -> p.put("hintFadeDuration", byId.get(v.getId())));
-    maintainHintHeight.ifPresent(v -> p.put("maintainHintHeight", v));
-    maintainHintSize.ifPresent(v -> p.put("maintainHintSize", v));
-    filled.ifPresent(v -> p.put("filled", v));
-    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
-    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
-    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
-    border.ifPresent(v -> p.put("border", byId.get(v.getId())));
-    enabled.ifPresent(v -> p.put("enabled", v));
-    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
-    record(id, "inputDecorationCollapsed", p);
-    MemorySegment st = InputDecorationObjSt.allocate(arena);
-    InputDecorationObjSt.id(st, id);
-    return st;
-  }
-
-  @Override
-  int inputBorderNone() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "inputBorderNone", p);
-    return id;
-  }
-
-  @Override
   MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -6772,50 +6991,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "singleChildScrollViewSingleChildScrollView", p);
     MemorySegment st = SingleChildScrollViewObjSt.allocate(arena);
     SingleChildScrollViewObjSt.id(st, id);
-    return st;
-  }
-
-  @Override
-  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    if (value.isPresent()) { p.put("value", value.getAsDouble()); }
-    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
-    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
-    valueColor.ifPresent(v -> p.put("valueColor", byId.get(v.getId())));
-    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
-    if (strokeAlign.isPresent()) { p.put("strokeAlign", strokeAlign.getAsDouble()); }
-    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
-    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
-    strokeCap.ifPresent(v -> p.put("strokeCap", v.ordinal()));
-    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
-    if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
-    year2023.ifPresent(v -> p.put("year2023", v));
-    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
-    record(id, "circularProgressIndicatorCircularProgressIndicator", p);
-    MemorySegment st = CircularProgressIndicatorObjSt.allocate(arena);
-    CircularProgressIndicatorObjSt.id(st, id);
-    return st;
-  }
-  @Override
-  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    if (value.isPresent()) { p.put("value", value.getAsDouble()); }
-    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
-    valueColor.ifPresent(v -> p.put("valueColor", byId.get(v.getId())));
-    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
-    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
-    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
-    strokeCap.ifPresent(v -> p.put("strokeCap", v.ordinal()));
-    if (strokeAlign.isPresent()) { p.put("strokeAlign", strokeAlign.getAsDouble()); }
-    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
-    if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
-    year2023.ifPresent(v -> p.put("year2023", v));
-    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
-    record(id, "circularProgressIndicatorAdaptive", p);
-    MemorySegment st = CircularProgressIndicatorObjSt.allocate(arena);
-    CircularProgressIndicatorObjSt.id(st, id);
     return st;
   }
 

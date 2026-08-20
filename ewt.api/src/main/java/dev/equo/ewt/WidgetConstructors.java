@@ -3369,6 +3369,258 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(dense));
   }
 
+  MemorySegment dialogDialog(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<Widget> child, Optional<SemanticsRole> semanticsRole, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.dialog(factories);
+    var fn = WidgetFactories.DialogSt.dialog(st);
+    return WidgetFactories.DialogSt.dialog.invoke(fn, arena, ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(insetAnimationDuration),
+      ptrObj(insetAnimationCurve),
+      ptrObj(insetPadding),
+      ptrEnum(clipBehavior),
+      ptrObj(shape),
+      ptrObj(alignment),
+      ptrObj(child),
+      ptrEnum(semanticsRole),
+      ptrObj(constraints));
+  }
+  MemorySegment dialogFullscreen(Optional<Color> backgroundColor, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve, Optional<Widget> child, Optional<SemanticsRole> semanticsRole) {
+    var st = WidgetFactories.dialog(factories);
+    var fn = WidgetFactories.DialogSt.fullscreen(st);
+    return WidgetFactories.DialogSt.fullscreen.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(insetAnimationDuration),
+      ptrObj(insetAnimationCurve),
+      ptrObj(child),
+      ptrEnum(semanticsRole));
+  }
+
+  MemorySegment gridTileGridTile(Optional<Widget> header, Optional<Widget> footer, Widget child) {
+    var st = WidgetFactories.gridTile(factories);
+    var fn = WidgetFactories.GridTileSt.gridTile(st);
+    return WidgetFactories.GridTileSt.gridTile.invoke(fn, arena, ptrObj(header),
+      ptrObj(footer),
+      child.build().getId());
+  }
+
+  MemorySegment gridTileBarGridTileBar(Optional<Color> backgroundColor, Optional<Widget> leading, Optional<Widget> title, Optional<Widget> subtitle, Optional<Widget> trailing) {
+    var st = WidgetFactories.gridTileBar(factories);
+    var fn = WidgetFactories.GridTileBarSt.gridTileBar(st);
+    return WidgetFactories.GridTileBarSt.gridTileBar.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(leading),
+      ptrObj(title),
+      ptrObj(subtitle),
+      ptrObj(trailing));
+  }
+
+  MemorySegment refreshProgressIndicatorRefreshProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble elevation, Optional<EdgeInsetsGeometry> indicatorMargin, Optional<EdgeInsetsGeometry> indicatorPadding) {
+    var st = WidgetFactories.refreshProgressIndicator(factories);
+    var fn = WidgetFactories.RefreshProgressIndicatorSt.refreshProgressIndicator(st);
+    return WidgetFactories.RefreshProgressIndicatorSt.refreshProgressIndicator.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(color),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptr(strokeAlign),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptr(elevation),
+      ptrObj(indicatorMargin),
+      ptrObj(indicatorPadding));
+  }
+
+  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+    var st = WidgetFactories.circularProgressIndicator(factories);
+    var fn = WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator(st);
+    return WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(color),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptr(strokeAlign),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(padding));
+  }
+  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+    var st = WidgetFactories.circularProgressIndicator(factories);
+    var fn = WidgetFactories.CircularProgressIndicatorSt.adaptive(st);
+    return WidgetFactories.CircularProgressIndicatorSt.adaptive.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptr(strokeAlign),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(padding));
+  }
+
+  MemorySegment inputDecoratorInputDecorator(InputDecoration decoration, Optional<TextStyle> baseStyle, Optional<TextAlign> textAlign, Optional<Boolean> isFocused, Optional<Boolean> isHovering, Optional<Boolean> expands, Optional<Boolean> isEmpty, Optional<Widget> child) {
+    var st = WidgetFactories.inputDecorator(factories);
+    var fn = WidgetFactories.InputDecoratorSt.inputDecorator(st);
+    return WidgetFactories.InputDecoratorSt.inputDecorator.invoke(fn, arena, decoration.build().getId(),
+      ptrObj(baseStyle),
+      ptrEnum(textAlign),
+      ptrBool(isFocused),
+      ptrBool(isHovering),
+      ptrBool(expands),
+      ptrBool(isEmpty),
+      ptrObj(child));
+  }
+  int inputDecoratorContainerOf(BuildContext context) {
+    var st = WidgetFactories.inputDecorator(factories);
+    var fn = WidgetFactories.InputDecoratorSt.containerOf(st);
+    return WidgetFactories.InputDecoratorSt.containerOf.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
+    var st = WidgetFactories.inputDecoration(factories);
+    var fn = WidgetFactories.InputDecorationSt.inputDecoration(st);
+    return WidgetFactories.InputDecorationSt.inputDecoration.invoke(fn, arena, ptrObj(icon),
+      ptrObj(iconColor),
+      ptrObj(label),
+      ptrStr(labelText),
+      ptrObj(labelStyle),
+      ptrObj(floatingLabelStyle),
+      ptrObj(helper),
+      ptrStr(helperText),
+      ptrObj(helperStyle),
+      ptr(helperMaxLines),
+      ptrStr(hintText),
+      ptrObj(hint),
+      ptrObj(hintStyle),
+      ptrEnum(hintTextDirection),
+      ptr(hintMaxLines),
+      ptrObj(hintFadeDuration),
+      ptrBool(maintainHintHeight),
+      ptrBool(maintainHintSize),
+      ptrObj(error),
+      ptrStr(errorText),
+      ptrObj(errorStyle),
+      ptr(errorMaxLines),
+      ptrEnum(floatingLabelBehavior),
+      ptrBool(isCollapsed),
+      ptrBool(isDense),
+      ptrObj(contentPadding),
+      ptrObj(prefixIcon),
+      ptrObj(prefixIconConstraints),
+      ptrObj(prefix),
+      ptrStr(prefixText),
+      ptrObj(prefixStyle),
+      ptrObj(prefixIconColor),
+      ptrObj(suffixIcon),
+      ptrObj(suffix),
+      ptrStr(suffixText),
+      ptrObj(suffixStyle),
+      ptrObj(suffixIconColor),
+      ptrObj(suffixIconConstraints),
+      ptrObj(counter),
+      ptrStr(counterText),
+      ptrObj(counterStyle),
+      ptrBool(filled),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(errorBorder),
+      ptrObj(focusedBorder),
+      ptrObj(focusedErrorBorder),
+      ptrObj(disabledBorder),
+      ptrObj(enabledBorder),
+      ptrObj(border),
+      ptrBool(enabled),
+      ptrStr(semanticCounterText),
+      ptrBool(alignLabelWithHint),
+      ptrObj(constraints),
+      ptrObj(visualDensity));
+  }
+  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.inputDecoration(factories);
+    var fn = WidgetFactories.InputDecorationSt.collapsed(st);
+    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, arena.allocateFrom(hintText),
+      ptrEnum(floatingLabelBehavior),
+      ptrObj(hintStyle),
+      ptrObj(hint),
+      ptrEnum(hintTextDirection),
+      ptr(hintMaxLines),
+      ptrObj(hintFadeDuration),
+      ptrBool(maintainHintHeight),
+      ptrBool(maintainHintSize),
+      ptrBool(filled),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(border),
+      ptrBool(enabled),
+      ptrObj(constraints));
+  }
+
+  int inputBorderNone() {
+    var st = WidgetFactories.inputBorder(factories);
+    return WidgetFactories.InputBorderSt.none(st);
+  }
+
+  MemorySegment userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<Widget> currentAccountPicture, Optional<List<Widget>> otherAccountsPictures, Widget accountName, Widget accountEmail, Optional<Runnable> onDetailsPressed, Optional<Color> arrowColor) {
+    var st = WidgetFactories.userAccountsDrawerHeader(factories);
+    var fn = WidgetFactories.UserAccountsDrawerHeaderSt.userAccountsDrawerHeader(st);
+    return WidgetFactories.UserAccountsDrawerHeaderSt.userAccountsDrawerHeader.invoke(fn, arena, ptrObj(decoration),
+      ptrObj(margin),
+      ptrObj(currentAccountPicture),
+      ptrList(otherAccountsPictures),
+      accountName != null ? accountName.build().getId() : null,
+      accountEmail != null ? accountEmail.build().getId() : null,
+      onDetailsPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDetailsPressed.get())) : MemorySegment.NULL,
+      ptrObj(arrowColor));
+  }
+
+  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.inputChip(factories);
+    var fn = WidgetFactories.InputChipSt.inputChip(st);
+    return WidgetFactories.InputChipSt.inputChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrBool(selected),
+      ptrBool(isEnabled),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -4456,92 +4708,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(insetAnimationCurve));
   }
 
-  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
-    var st = WidgetFactories.inputDecoration(factories);
-    var fn = WidgetFactories.InputDecorationSt.inputDecoration(st);
-    return WidgetFactories.InputDecorationSt.inputDecoration.invoke(fn, arena, ptrObj(icon),
-      ptrObj(iconColor),
-      ptrObj(label),
-      ptrStr(labelText),
-      ptrObj(labelStyle),
-      ptrObj(floatingLabelStyle),
-      ptrObj(helper),
-      ptrStr(helperText),
-      ptrObj(helperStyle),
-      ptr(helperMaxLines),
-      ptrStr(hintText),
-      ptrObj(hint),
-      ptrObj(hintStyle),
-      ptrEnum(hintTextDirection),
-      ptr(hintMaxLines),
-      ptrObj(hintFadeDuration),
-      ptrBool(maintainHintHeight),
-      ptrBool(maintainHintSize),
-      ptrObj(error),
-      ptrStr(errorText),
-      ptrObj(errorStyle),
-      ptr(errorMaxLines),
-      ptrEnum(floatingLabelBehavior),
-      ptrBool(isCollapsed),
-      ptrBool(isDense),
-      ptrObj(contentPadding),
-      ptrObj(prefixIcon),
-      ptrObj(prefixIconConstraints),
-      ptrObj(prefix),
-      ptrStr(prefixText),
-      ptrObj(prefixStyle),
-      ptrObj(prefixIconColor),
-      ptrObj(suffixIcon),
-      ptrObj(suffix),
-      ptrStr(suffixText),
-      ptrObj(suffixStyle),
-      ptrObj(suffixIconColor),
-      ptrObj(suffixIconConstraints),
-      ptrObj(counter),
-      ptrStr(counterText),
-      ptrObj(counterStyle),
-      ptrBool(filled),
-      ptrObj(fillColor),
-      ptrObj(focusColor),
-      ptrObj(hoverColor),
-      ptrObj(errorBorder),
-      ptrObj(focusedBorder),
-      ptrObj(focusedErrorBorder),
-      ptrObj(disabledBorder),
-      ptrObj(enabledBorder),
-      ptrObj(border),
-      ptrBool(enabled),
-      ptrStr(semanticCounterText),
-      ptrBool(alignLabelWithHint),
-      ptrObj(constraints),
-      ptrObj(visualDensity));
-  }
-  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
-    var st = WidgetFactories.inputDecoration(factories);
-    var fn = WidgetFactories.InputDecorationSt.collapsed(st);
-    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, arena.allocateFrom(hintText),
-      ptrEnum(floatingLabelBehavior),
-      ptrObj(hintStyle),
-      ptrObj(hint),
-      ptrEnum(hintTextDirection),
-      ptr(hintMaxLines),
-      ptrObj(hintFadeDuration),
-      ptrBool(maintainHintHeight),
-      ptrBool(maintainHintSize),
-      ptrBool(filled),
-      ptrObj(fillColor),
-      ptrObj(focusColor),
-      ptrObj(hoverColor),
-      ptrObj(border),
-      ptrBool(enabled),
-      ptrObj(constraints));
-  }
-
-  int inputBorderNone() {
-    var st = WidgetFactories.inputBorder(factories);
-    return WidgetFactories.InputBorderSt.none(st);
-  }
-
   MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     var st = WidgetFactories.textField(factories);
     var fn = WidgetFactories.TextFieldSt.textField(st);
@@ -4926,40 +5092,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(hitTestBehavior),
       ptrStr(restorationId),
       ptrEnum(keyboardDismissBehavior));
-  }
-
-  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
-    var st = WidgetFactories.circularProgressIndicator(factories);
-    var fn = WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator(st);
-    return WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator.invoke(fn, arena, ptr(value),
-      ptrObj(backgroundColor),
-      ptrObj(color),
-      ptrObj(valueColor),
-      ptr(strokeWidth),
-      ptr(strokeAlign),
-      ptrStr(semanticsLabel),
-      ptrStr(semanticsValue),
-      ptrEnum(strokeCap),
-      ptrObj(constraints),
-      ptr(trackGap),
-      ptrBool(year2023),
-      ptrObj(padding));
-  }
-  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
-    var st = WidgetFactories.circularProgressIndicator(factories);
-    var fn = WidgetFactories.CircularProgressIndicatorSt.adaptive(st);
-    return WidgetFactories.CircularProgressIndicatorSt.adaptive.invoke(fn, arena, ptr(value),
-      ptrObj(backgroundColor),
-      ptrObj(valueColor),
-      ptr(strokeWidth),
-      ptrStr(semanticsLabel),
-      ptrStr(semanticsValue),
-      ptrEnum(strokeCap),
-      ptr(strokeAlign),
-      ptrObj(constraints),
-      ptr(trackGap),
-      ptrBool(year2023),
-      ptrObj(padding));
   }
 
   MemorySegment linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023) {

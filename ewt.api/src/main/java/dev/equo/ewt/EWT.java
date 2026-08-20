@@ -1071,6 +1071,51 @@ public class EWT {
     return AboutListTileAboutListTileBuilder.aboutListTileAboutListTile();
   }
 
+  public static DialogDialogBuilder Dialog() {
+    return DialogDialogBuilder.dialogDialog();
+  }
+  public static DialogFullscreenBuilder Dialog_fullscreen() {
+    return DialogFullscreenBuilder.dialogFullscreen();
+  }
+
+  public static GridTileGridTileBuilder GridTile() {
+    return GridTileGridTileBuilder.gridTileGridTile();
+  }
+
+  public static GridTileBarGridTileBarBuilder GridTileBar() {
+    return GridTileBarGridTileBarBuilder.gridTileBarGridTileBar();
+  }
+
+  public static RefreshProgressIndicatorRefreshProgressIndicatorBuilder RefreshProgressIndicator() {
+    return RefreshProgressIndicatorRefreshProgressIndicatorBuilder.refreshProgressIndicatorRefreshProgressIndicator();
+  }
+
+  public static CircularProgressIndicatorCircularProgressIndicatorBuilder CircularProgressIndicator() {
+    return CircularProgressIndicatorCircularProgressIndicatorBuilder.circularProgressIndicatorCircularProgressIndicator();
+  }
+  public static CircularProgressIndicatorAdaptiveBuilder CircularProgressIndicator_adaptive() {
+    return CircularProgressIndicatorAdaptiveBuilder.circularProgressIndicatorAdaptive();
+  }
+
+  public static InputDecoratorInputDecoratorBuilder InputDecorator(InputDecorationI decoration) {
+    return InputDecoratorInputDecoratorBuilder.inputDecoratorInputDecorator(decoration);
+  }
+
+  public static InputDecorationInputDecorationBuilder InputDecoration() {
+    return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
+  }
+  public static InputDecorationCollapsedBuilder InputDecoration_collapsed(String hintText) {
+    return InputDecorationCollapsedBuilder.inputDecorationCollapsed(hintText);
+  }
+
+  public static UserAccountsDrawerHeaderUserAccountsDrawerHeaderBuilder UserAccountsDrawerHeader() {
+    return UserAccountsDrawerHeaderUserAccountsDrawerHeaderBuilder.userAccountsDrawerHeaderUserAccountsDrawerHeader();
+  }
+
+  public static InputChipInputChipBuilder InputChip() {
+    return InputChipInputChipBuilder.inputChipInputChip();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
@@ -1206,13 +1251,6 @@ public class EWT {
     return AlertDialogAdaptiveBuilder.alertDialogAdaptive();
   }
 
-  public static InputDecorationInputDecorationBuilder InputDecoration() {
-    return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
-  }
-  public static InputDecorationCollapsedBuilder InputDecoration_collapsed(String hintText) {
-    return InputDecorationCollapsedBuilder.inputDecorationCollapsed(hintText);
-  }
-
   public static TextFieldTextFieldBuilder TextField() {
     return TextFieldTextFieldBuilder.textFieldTextField();
   }
@@ -1278,13 +1316,6 @@ public class EWT {
 
   public static SingleChildScrollViewSingleChildScrollViewBuilder SingleChildScrollView() {
     return SingleChildScrollViewSingleChildScrollViewBuilder.singleChildScrollViewSingleChildScrollView();
-  }
-
-  public static CircularProgressIndicatorCircularProgressIndicatorBuilder CircularProgressIndicator() {
-    return CircularProgressIndicatorCircularProgressIndicatorBuilder.circularProgressIndicatorCircularProgressIndicator();
-  }
-  public static CircularProgressIndicatorAdaptiveBuilder CircularProgressIndicator_adaptive() {
-    return CircularProgressIndicatorAdaptiveBuilder.circularProgressIndicatorAdaptive();
   }
 
   public static LinearProgressIndicatorLinearProgressIndicatorBuilder LinearProgressIndicator() {

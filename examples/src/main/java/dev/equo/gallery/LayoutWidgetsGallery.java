@@ -246,6 +246,35 @@ public class LayoutWidgetsGallery {
                   .applicationVersion("dev"))),
           Divider(),
 
+          // ---- Batch 6: Dialog, GridTile, InputDecorator, chip variants ----
+          tile("Dialog (inline preview)",
+              SizedBox().width(220.0).height(70.0).child(
+                  Dialog().backgroundColor(Colors.grey())
+                      .child(Padding(EdgeInsets_all(12.0)).child(Text("Dialog body"))).build())),
+          tile("GridTile + GridTileBar",
+              SizedBox().width(160.0).height(80.0).child(
+                  GridTile().child(rect(160.0, 80.0, Colors.blueGrey()).build())
+                      .header(GridTileBar().leading(Icon(Icons.info()))
+                          .title(Text("Header")).backgroundColor(Colors.black()).build())
+                      .footer(GridTileBar().title(Text("Footer"))
+                          .backgroundColor(Colors.black()).build()))),
+          tile("RefreshProgressIndicator + InputChip",
+              Row().children(List.of(
+                  RefreshProgressIndicator(),
+                  SizedBox().width(12.0),
+                  InputChip().label(Text("input"))
+                      .onDeleted(() -> setState(() -> _lastTap = "chip-deleted"))
+              ))),
+          tile("InputDecorator",
+              SizedBox().width(200.0).child(InputDecorator(
+                  InputDecoration().labelText("Label").border(OutlineInputBorder().build()).build())
+                  .child(Text("value")))),
+          tile("UserAccountsDrawerHeader",
+              SizedBox().width(280.0).height(120.0).child(UserAccountsDrawerHeader()
+                  .accountName(Text("Ada Lovelace"))
+                  .accountEmail(Text("ada@example.com")))),
+          Divider(),
+
           tile("Ink + BottomAppBar",
               SizedBox().width(220.0).height(60.0).child(
                   BottomAppBar().color(Colors.teal()).child(

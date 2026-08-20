@@ -244,6 +244,19 @@ m.AboutListTile? aboutListTile;
 // `void Function(int)??` for stripAcceleratorMarkers.setIndex) and references
 // top-level `defaultLabelBuilder` that the generated factories file cannot import.
 
+m.Dialog? dialog;
+// FlexibleSpaceBar skipped: references CollapseMode + StretchMode enums the generator does not emit.
+m.GridTile? gridTile;
+m.GridTileBar? gridTileBar;
+m.RefreshProgressIndicator? refreshProgressIndicator;
+m.InputDecorator? inputDecorator;
+// ToggleButtons skipped: required `isSelected: List<bool>` — the FFM ptrList
+// helper has no List<Boolean> overload yet.
+m.UserAccountsDrawerHeader? userAccountsDrawerHeader;
+m.InputChip? inputChip;
+// CupertinoPopupSurface skipped: generator emits invalid Java for its
+// filter-matrix constants (writes `1.74()` instead of literals in a getter body).
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;
