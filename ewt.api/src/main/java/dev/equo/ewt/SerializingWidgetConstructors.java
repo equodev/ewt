@@ -4167,6 +4167,461 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment sizeChangedLayoutNotifierSizeChangedLayoutNotifier(Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "sizeChangedLayoutNotifierSizeChangedLayoutNotifier", p);
+    MemorySegment st = SizeChangedLayoutNotifierObjSt.allocate(arena);
+    SizeChangedLayoutNotifierObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment draggableScrollableActuatorDraggableScrollableActuator(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "draggableScrollableActuatorDraggableScrollableActuator", p);
+    MemorySegment st = DraggableScrollableActuatorObjSt.allocate(arena);
+    DraggableScrollableActuatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int draggableScrollableActuatorReset(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "draggableScrollableActuatorReset", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment scrollNotificationObserverScrollNotificationObserver(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "scrollNotificationObserverScrollNotificationObserver", p);
+    MemorySegment st = ScrollNotificationObserverObjSt.allocate(arena);
+    ScrollNotificationObserverObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment modalBarrierModalBarrier(Optional<Color> color, Optional<Boolean> dismissible, Optional<Runnable> onDismiss, Optional<String> semanticsLabel, Optional<Boolean> barrierSemanticsDismissible, Optional<String> semanticsOnTapHint) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    dismissible.ifPresent(v -> p.put("dismissible", v));
+    if (onDismiss.isPresent()) { int __cb_onDismiss = nextCallbackId++; p.put("onDismiss", __cb_onDismiss); callbacks.put(__cb_onDismiss, onDismiss.get()); }
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    barrierSemanticsDismissible.ifPresent(v -> p.put("barrierSemanticsDismissible", v));
+    semanticsOnTapHint.ifPresent(v -> p.put("semanticsOnTapHint", v));
+    record(id, "modalBarrierModalBarrier", p);
+    MemorySegment st = ModalBarrierObjSt.allocate(arena);
+    ModalBarrierObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment listenerListener(Optional<Consumer<PointerDownEvent>> onPointerDown, Optional<Consumer<PointerUpEvent>> onPointerUp, Optional<Consumer<PointerHoverEvent>> onPointerHover, Optional<HitTestBehavior> behavior, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPointerDown != null) { p.put("onPointerDown", nextCallbackId++); }
+    if (onPointerUp != null) { p.put("onPointerUp", nextCallbackId++); }
+    if (onPointerHover != null) { p.put("onPointerHover", nextCallbackId++); }
+    behavior.ifPresent(v -> p.put("behavior", v.ordinal()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "listenerListener", p);
+    MemorySegment st = ListenerObjSt.allocate(arena);
+    ListenerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment overflowBarOverflowBar(OptionalDouble spacing, Optional<MainAxisAlignment> alignment, OptionalDouble overflowSpacing, Optional<OverflowBarAlignment> overflowAlignment, Optional<VerticalDirection> overflowDirection, Optional<TextDirection> textDirection, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (spacing.isPresent()) { p.put("spacing", spacing.getAsDouble()); }
+    alignment.ifPresent(v -> p.put("alignment", v.ordinal()));
+    if (overflowSpacing.isPresent()) { p.put("overflowSpacing", overflowSpacing.getAsDouble()); }
+    overflowAlignment.ifPresent(v -> p.put("overflowAlignment", v.ordinal()));
+    overflowDirection.ifPresent(v -> p.put("overflowDirection", v.ordinal()));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "overflowBarOverflowBar", p);
+    MemorySegment st = OverflowBarObjSt.allocate(arena);
+    OverflowBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment defaultSelectionStyleDefaultSelectionStyle(Optional<Color> cursorColor, Optional<Color> selectionColor, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    selectionColor.ifPresent(v -> p.put("selectionColor", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "defaultSelectionStyleDefaultSelectionStyle", p);
+    MemorySegment st = DefaultSelectionStyleObjSt.allocate(arena);
+    DefaultSelectionStyleObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment defaultSelectionStyleFallback() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "defaultSelectionStyleFallback", p);
+    MemorySegment st = DefaultSelectionStyleObjSt.allocate(arena);
+    DefaultSelectionStyleObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int defaultSelectionStyleMerge(Optional<Color> cursorColor, Optional<Color> selectionColor, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    selectionColor.ifPresent(v -> p.put("selectionColor", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "defaultSelectionStyleMerge", p);
+    return id;
+  }
+  @Override
+  MemorySegment defaultSelectionStyleOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "defaultSelectionStyleOf", p);
+    MemorySegment st = DefaultSelectionStyleObjSt.allocate(arena);
+    DefaultSelectionStyleObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment inkInk(Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, OptionalDouble width, OptionalDouble height, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "inkInk", p);
+    MemorySegment st = InkObjSt.allocate(arena);
+    InkObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment bottomAppBarBottomAppBar(Optional<Color> color, OptionalDouble elevation, Optional<Clip> clipBehavior, OptionalDouble notchMargin, Optional<Widget> child, Optional<EdgeInsetsGeometry> padding, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, OptionalDouble height) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    if (notchMargin.isPresent()) { p.put("notchMargin", notchMargin.getAsDouble()); }
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    record(id, "bottomAppBarBottomAppBar", p);
+    MemorySegment st = BottomAppBarObjSt.allocate(arena);
+    BottomAppBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    if (onSelected.isPresent()) { int __cb_onSelected = nextCallbackId++; p.put("onSelected", __cb_onSelected); java.util.function.Consumer<Boolean> __h_onSelected = onSelected.get(); callbacks.put(__cb_onSelected, (java.util.function.Consumer<Object>)(v -> __h_onSelected.accept((Boolean) v))); }
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    p.put("selected", selected);
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
+    showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
+    checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
+    avatarBorder.ifPresent(v -> p.put("avatarBorder", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    record(id, "choiceChipChoiceChip", p);
+    MemorySegment st = ChoiceChipObjSt.allocate(arena);
+    ChoiceChipObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    if (onSelected.isPresent()) { int __cb_onSelected = nextCallbackId++; p.put("onSelected", __cb_onSelected); java.util.function.Consumer<Boolean> __h_onSelected = onSelected.get(); callbacks.put(__cb_onSelected, (java.util.function.Consumer<Object>)(v -> __h_onSelected.accept((Boolean) v))); }
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    p.put("selected", selected);
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
+    showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
+    checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
+    avatarBorder.ifPresent(v -> p.put("avatarBorder", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    record(id, "choiceChipElevated", p);
+    MemorySegment st = ChoiceChipObjSt.allocate(arena);
+    ChoiceChipObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (horizontal.isPresent()) { p.put("horizontal", horizontal.getAsDouble()); }
+    if (vertical.isPresent()) { p.put("vertical", vertical.getAsDouble()); }
+    record(id, "visualDensityVisualDensity", p);
+    MemorySegment st = VisualDensityObjSt.allocate(arena);
+    VisualDensityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment visualDensityDefaultDensityForPlatform(TargetPlatform platform) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("platform", platform.ordinal());
+    record(id, "visualDensityDefaultDensityForPlatform", p);
+    MemorySegment st = VisualDensityObjSt.allocate(arena);
+    VisualDensityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment visualDensityLerp(VisualDensity a, VisualDensity b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "visualDensityLerp", p);
+    MemorySegment st = VisualDensityObjSt.allocate(arena);
+    VisualDensityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    selected.ifPresent(v -> p.put("selected", v));
+    int __cb_onSelected = nextCallbackId++; p.put("onSelected", __cb_onSelected); callbacks.put(__cb_onSelected, (java.util.function.Consumer<Object>)(v -> onSelected.accept((Boolean) v)));
+    deleteIcon.ifPresent(v -> p.put("deleteIcon", byId.get(v.getId())));
+    if (onDeleted.isPresent()) { int __cb_onDeleted = nextCallbackId++; p.put("onDeleted", __cb_onDeleted); callbacks.put(__cb_onDeleted, onDeleted.get()); }
+    deleteIconColor.ifPresent(v -> p.put("deleteIconColor", byId.get(v.getId())));
+    deleteButtonTooltipMessage.ifPresent(v -> p.put("deleteButtonTooltipMessage", v));
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
+    showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
+    checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
+    avatarBorder.ifPresent(v -> p.put("avatarBorder", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    deleteIconBoxConstraints.ifPresent(v -> p.put("deleteIconBoxConstraints", byId.get(v.getId())));
+    record(id, "filterChipFilterChip", p);
+    MemorySegment st = FilterChipObjSt.allocate(arena);
+    FilterChipObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    selected.ifPresent(v -> p.put("selected", v));
+    int __cb_onSelected = nextCallbackId++; p.put("onSelected", __cb_onSelected); callbacks.put(__cb_onSelected, (java.util.function.Consumer<Object>)(v -> onSelected.accept((Boolean) v)));
+    deleteIcon.ifPresent(v -> p.put("deleteIcon", byId.get(v.getId())));
+    if (onDeleted.isPresent()) { int __cb_onDeleted = nextCallbackId++; p.put("onDeleted", __cb_onDeleted); callbacks.put(__cb_onDeleted, onDeleted.get()); }
+    deleteIconColor.ifPresent(v -> p.put("deleteIconColor", byId.get(v.getId())));
+    deleteButtonTooltipMessage.ifPresent(v -> p.put("deleteButtonTooltipMessage", v));
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
+    showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
+    checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
+    avatarBorder.ifPresent(v -> p.put("avatarBorder", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    deleteIconBoxConstraints.ifPresent(v -> p.put("deleteIconBoxConstraints", byId.get(v.getId())));
+    record(id, "filterChipElevated", p);
+    MemorySegment st = FilterChipObjSt.allocate(arena);
+    FilterChipObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    record(id, "actionChipActionChip", p);
+    MemorySegment st = ActionChipObjSt.allocate(arena);
+    ActionChipObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    record(id, "actionChipElevated", p);
+    MemorySegment st = ActionChipObjSt.allocate(arena);
+    ActionChipObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment simpleDialogSimpleDialog(Optional<Widget> title, Optional<EdgeInsetsGeometry> titlePadding, Optional<TextStyle> titleTextStyle, Optional<List<Widget>> children, Optional<EdgeInsetsGeometry> contentPadding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<BoxConstraints> constraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    titlePadding.ifPresent(v -> p.put("titlePadding", byId.get(v.getId())));
+    titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    contentPadding.ifPresent(v -> p.put("contentPadding", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    semanticLabel.ifPresent(v -> p.put("semanticLabel", v));
+    insetPadding.ifPresent(v -> p.put("insetPadding", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    record(id, "simpleDialogSimpleDialog", p);
+    MemorySegment st = SimpleDialogObjSt.allocate(arena);
+    SimpleDialogObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment simpleDialogOptionSimpleDialogOption(Optional<Runnable> onPressed, Optional<EdgeInsets> padding, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "simpleDialogOptionSimpleDialogOption", p);
+    MemorySegment st = SimpleDialogOptionObjSt.allocate(arena);
+    SimpleDialogOptionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -4650,40 +5105,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "textThemePrimaryOf", p);
     MemorySegment st = TextThemeObjSt.allocate(arena);
     TextThemeObjSt.id(st, id);
-    return st;
-  }
-
-  @Override
-  MemorySegment visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    if (horizontal.isPresent()) { p.put("horizontal", horizontal.getAsDouble()); }
-    if (vertical.isPresent()) { p.put("vertical", vertical.getAsDouble()); }
-    record(id, "visualDensityVisualDensity", p);
-    MemorySegment st = VisualDensityObjSt.allocate(arena);
-    VisualDensityObjSt.id(st, id);
-    return st;
-  }
-  @Override
-  MemorySegment visualDensityDefaultDensityForPlatform(TargetPlatform platform) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("platform", platform.ordinal());
-    record(id, "visualDensityDefaultDensityForPlatform", p);
-    MemorySegment st = VisualDensityObjSt.allocate(arena);
-    VisualDensityObjSt.id(st, id);
-    return st;
-  }
-  @Override
-  MemorySegment visualDensityLerp(VisualDensity a, VisualDensity b, double t) {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("a", byId.get(a.getId()));
-    p.put("b", byId.get(b.getId()));
-    p.put("t", t);
-    record(id, "visualDensityLerp", p);
-    MemorySegment st = VisualDensityObjSt.allocate(arena);
-    VisualDensityObjSt.id(st, id);
     return st;
   }
 

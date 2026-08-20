@@ -214,6 +214,21 @@ w.CustomScrollView? customScrollView;
 m.DrawerHeader? drawerHeader;
 m.SelectionArea? selectionArea;
 
+w.SizeChangedLayoutNotifier? sizeChangedLayoutNotifier;
+w.DraggableScrollableActuator? draggableScrollableActuator;
+w.ScrollNotificationObserver? scrollNotificationObserver;
+w.ModalBarrier? modalBarrier;
+w.Listener? listener;
+w.OverflowBar? overflowBar;
+w.DefaultSelectionStyle? defaultSelectionStyle;
+m.Ink? ink;
+m.BottomAppBar? bottomAppBar;
+m.ChoiceChip? choiceChip;
+m.FilterChip? filterChip;
+m.ActionChip? actionChip;
+m.SimpleDialog? simpleDialog;
+m.SimpleDialogOption? simpleDialogOption;
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

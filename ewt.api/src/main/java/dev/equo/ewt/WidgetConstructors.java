@@ -2882,6 +2882,346 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.SelectionAreaSt.selectionArea.invoke(fn, arena, child.build().getId());
   }
 
+  MemorySegment sizeChangedLayoutNotifierSizeChangedLayoutNotifier(Optional<Widget> child) {
+    var st = WidgetFactories.sizeChangedLayoutNotifier(factories);
+    var fn = WidgetFactories.SizeChangedLayoutNotifierSt.sizeChangedLayoutNotifier(st);
+    return WidgetFactories.SizeChangedLayoutNotifierSt.sizeChangedLayoutNotifier.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment draggableScrollableActuatorDraggableScrollableActuator(Widget child) {
+    var st = WidgetFactories.draggableScrollableActuator(factories);
+    var fn = WidgetFactories.DraggableScrollableActuatorSt.draggableScrollableActuator(st);
+    return WidgetFactories.DraggableScrollableActuatorSt.draggableScrollableActuator.invoke(fn, arena, child.build().getId());
+  }
+  int draggableScrollableActuatorReset(BuildContext context) {
+    var st = WidgetFactories.draggableScrollableActuator(factories);
+    var fn = WidgetFactories.DraggableScrollableActuatorSt.reset(st);
+    return WidgetFactories.DraggableScrollableActuatorSt.reset.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment scrollNotificationObserverScrollNotificationObserver(Widget child) {
+    var st = WidgetFactories.scrollNotificationObserver(factories);
+    var fn = WidgetFactories.ScrollNotificationObserverSt.scrollNotificationObserver(st);
+    return WidgetFactories.ScrollNotificationObserverSt.scrollNotificationObserver.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment modalBarrierModalBarrier(Optional<Color> color, Optional<Boolean> dismissible, Optional<Runnable> onDismiss, Optional<String> semanticsLabel, Optional<Boolean> barrierSemanticsDismissible, Optional<String> semanticsOnTapHint) {
+    var st = WidgetFactories.modalBarrier(factories);
+    var fn = WidgetFactories.ModalBarrierSt.modalBarrier(st);
+    return WidgetFactories.ModalBarrierSt.modalBarrier.invoke(fn, arena, ptrObj(color),
+      ptrBool(dismissible),
+      onDismiss.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDismiss.get())) : MemorySegment.NULL,
+      ptrStr(semanticsLabel),
+      ptrBool(barrierSemanticsDismissible),
+      ptrStr(semanticsOnTapHint));
+  }
+
+  MemorySegment listenerListener(Optional<Consumer<PointerDownEvent>> onPointerDown, Optional<Consumer<PointerUpEvent>> onPointerUp, Optional<Consumer<PointerHoverEvent>> onPointerHover, Optional<HitTestBehavior> behavior, Optional<Widget> child) {
+    var st = WidgetFactories.listener(factories);
+    var fn = WidgetFactories.ListenerSt.listener(st);
+    return WidgetFactories.ListenerSt.listener.invoke(fn, arena, onPointerDown.isPresent() ? ptrHolder(ptrPointerDownEventListenerFn(onPointerDown.get())) : MemorySegment.NULL,
+      onPointerUp.isPresent() ? ptrHolder(ptrPointerUpEventListenerFn(onPointerUp.get())) : MemorySegment.NULL,
+      onPointerHover.isPresent() ? ptrHolder(ptrPointerHoverEventListenerFn(onPointerHover.get())) : MemorySegment.NULL,
+      ptrEnum(behavior),
+      ptrObj(child));
+  }
+
+  MemorySegment overflowBarOverflowBar(OptionalDouble spacing, Optional<MainAxisAlignment> alignment, OptionalDouble overflowSpacing, Optional<OverflowBarAlignment> overflowAlignment, Optional<VerticalDirection> overflowDirection, Optional<TextDirection> textDirection, Optional<List<Widget>> children) {
+    var st = WidgetFactories.overflowBar(factories);
+    var fn = WidgetFactories.OverflowBarSt.overflowBar(st);
+    return WidgetFactories.OverflowBarSt.overflowBar.invoke(fn, arena, ptr(spacing),
+      ptrEnum(alignment),
+      ptr(overflowSpacing),
+      ptrEnum(overflowAlignment),
+      ptrEnum(overflowDirection),
+      ptrEnum(textDirection),
+      ptrList(children));
+  }
+
+  MemorySegment defaultSelectionStyleDefaultSelectionStyle(Optional<Color> cursorColor, Optional<Color> selectionColor, Widget child) {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.defaultSelectionStyle(st);
+    return WidgetFactories.DefaultSelectionStyleSt.defaultSelectionStyle.invoke(fn, arena, ptrObj(cursorColor),
+      ptrObj(selectionColor),
+      child.build().getId());
+  }
+  MemorySegment defaultSelectionStyleFallback() {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.fallback(st);
+    return WidgetFactories.DefaultSelectionStyleSt.fallback.invoke(fn, arena);
+  }
+  int defaultSelectionStyleMerge(Optional<Color> cursorColor, Optional<Color> selectionColor, Widget child) {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.merge(st);
+    return WidgetFactories.DefaultSelectionStyleSt.merge.invoke(fn, ptrObj(cursorColor),
+      ptrObj(selectionColor),
+      child.build().getId());
+  }
+  MemorySegment defaultSelectionStyleOf(BuildContext context) {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.of(st);
+    return WidgetFactories.DefaultSelectionStyleSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment inkInk(Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, OptionalDouble width, OptionalDouble height, Optional<Widget> child) {
+    var st = WidgetFactories.ink(factories);
+    var fn = WidgetFactories.InkSt.ink(st);
+    return WidgetFactories.InkSt.ink.invoke(fn, arena, ptrObj(padding),
+      ptrObj(color),
+      ptrObj(decoration),
+      ptr(width),
+      ptr(height),
+      ptrObj(child));
+  }
+
+  MemorySegment bottomAppBarBottomAppBar(Optional<Color> color, OptionalDouble elevation, Optional<Clip> clipBehavior, OptionalDouble notchMargin, Optional<Widget> child, Optional<EdgeInsetsGeometry> padding, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, OptionalDouble height) {
+    var st = WidgetFactories.bottomAppBar(factories);
+    var fn = WidgetFactories.BottomAppBarSt.bottomAppBar(st);
+    return WidgetFactories.BottomAppBarSt.bottomAppBar.invoke(fn, arena, ptrObj(color),
+      ptr(elevation),
+      ptrEnum(clipBehavior),
+      ptr(notchMargin),
+      ptrObj(child),
+      ptrObj(padding),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptr(height));
+  }
+
+  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.choiceChip(factories);
+    var fn = WidgetFactories.ChoiceChipSt.choiceChip(st);
+    return WidgetFactories.ChoiceChipSt.choiceChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      (selected ? 1 : 0),
+      ptrObj(selectedColor),
+      ptrObj(disabledColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints));
+  }
+  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.choiceChip(factories);
+    var fn = WidgetFactories.ChoiceChipSt.elevated(st);
+    return WidgetFactories.ChoiceChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      (selected ? 1 : 0),
+      ptrObj(selectedColor),
+      ptrObj(disabledColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints));
+  }
+
+  MemorySegment visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
+    var st = WidgetFactories.visualDensity(factories);
+    var fn = WidgetFactories.VisualDensitySt.visualDensity(st);
+    return WidgetFactories.VisualDensitySt.visualDensity.invoke(fn, arena, ptr(horizontal),
+      ptr(vertical));
+  }
+  MemorySegment visualDensityDefaultDensityForPlatform(TargetPlatform platform) {
+    var st = WidgetFactories.visualDensity(factories);
+    var fn = WidgetFactories.VisualDensitySt.defaultDensityForPlatform(st);
+    return WidgetFactories.VisualDensitySt.defaultDensityForPlatform.invoke(fn, arena, platform.ordinal());
+  }
+  MemorySegment visualDensityLerp(VisualDensity a, VisualDensity b, double t) {
+    var st = WidgetFactories.visualDensity(factories);
+    var fn = WidgetFactories.VisualDensitySt.lerp(st);
+    return WidgetFactories.VisualDensitySt.lerp.invoke(fn, arena, a.build().getId(),
+      b.build().getId(),
+      t);
+  }
+
+  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.filterChip(factories);
+    var fn = WidgetFactories.FilterChipSt.filterChip(st);
+    return WidgetFactories.FilterChipSt.filterChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrBool(selected),
+      ptrValueChangedForBoolFn(onSelected),
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      ptr(pressElevation),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.filterChip(factories);
+    var fn = WidgetFactories.FilterChipSt.elevated(st);
+    return WidgetFactories.FilterChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrBool(selected),
+      ptrValueChangedForBoolFn(onSelected),
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      ptr(pressElevation),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+
+  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.actionChip(factories);
+    var fn = WidgetFactories.ActionChipSt.actionChip(st);
+    return WidgetFactories.ActionChipSt.actionChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(disabledColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(avatarBoxConstraints));
+  }
+  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.actionChip(factories);
+    var fn = WidgetFactories.ActionChipSt.elevated(st);
+    return WidgetFactories.ActionChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(disabledColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(avatarBoxConstraints));
+  }
+
+  MemorySegment simpleDialogSimpleDialog(Optional<Widget> title, Optional<EdgeInsetsGeometry> titlePadding, Optional<TextStyle> titleTextStyle, Optional<List<Widget>> children, Optional<EdgeInsetsGeometry> contentPadding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.simpleDialog(factories);
+    var fn = WidgetFactories.SimpleDialogSt.simpleDialog(st);
+    return WidgetFactories.SimpleDialogSt.simpleDialog.invoke(fn, arena, ptrObj(title),
+      ptrObj(titlePadding),
+      ptrObj(titleTextStyle),
+      ptrList(children),
+      ptrObj(contentPadding),
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrStr(semanticLabel),
+      ptrObj(insetPadding),
+      ptrEnum(clipBehavior),
+      ptrObj(shape),
+      ptrObj(alignment),
+      ptrObj(constraints));
+  }
+
+  MemorySegment simpleDialogOptionSimpleDialogOption(Optional<Runnable> onPressed, Optional<EdgeInsets> padding, Optional<Widget> child) {
+    var st = WidgetFactories.simpleDialogOption(factories);
+    var fn = WidgetFactories.SimpleDialogOptionSt.simpleDialogOption(st);
+    return WidgetFactories.SimpleDialogOptionSt.simpleDialogOption.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptrObj(padding),
+      ptrObj(child));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -3282,25 +3622,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.textTheme(factories);
     var fn = WidgetFactories.TextThemeSt.primaryOf(st);
     return WidgetFactories.TextThemeSt.primaryOf.invoke(fn, arena, context.build().getId());
-  }
-
-  MemorySegment visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
-    var st = WidgetFactories.visualDensity(factories);
-    var fn = WidgetFactories.VisualDensitySt.visualDensity(st);
-    return WidgetFactories.VisualDensitySt.visualDensity.invoke(fn, arena, ptr(horizontal),
-      ptr(vertical));
-  }
-  MemorySegment visualDensityDefaultDensityForPlatform(TargetPlatform platform) {
-    var st = WidgetFactories.visualDensity(factories);
-    var fn = WidgetFactories.VisualDensitySt.defaultDensityForPlatform(st);
-    return WidgetFactories.VisualDensitySt.defaultDensityForPlatform.invoke(fn, arena, platform.ordinal());
-  }
-  MemorySegment visualDensityLerp(VisualDensity a, VisualDensity b, double t) {
-    var st = WidgetFactories.visualDensity(factories);
-    var fn = WidgetFactories.VisualDensitySt.lerp(st);
-    return WidgetFactories.VisualDensitySt.lerp.invoke(fn, arena, a.build().getId(),
-      b.build().getId(),
-      t);
   }
 
   MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
@@ -6673,6 +6994,16 @@ MemorySegment ptrAnimatedSwitcherLayoutBuilderFn(BiFunction<Widget, List<Widget>
 <T> MemorySegment ptrValueChangedForBoolFn(Consumer<Boolean> jFn) {
   return ValueChangedForBoolFFI.allocate((value) -> {
     jFn.accept(intToBool(value));
+  }, arena);
+}
+MemorySegment ptrPointerDownEventListenerFn(Consumer<PointerDownEvent> jFn) {
+  return PointerDownEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerDownEvent(event));
+  }, arena);
+}
+MemorySegment ptrPointerUpEventListenerFn(Consumer<PointerUpEvent> jFn) {
+  return PointerUpEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerUpEvent(event));
   }, arena);
 }
 MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {

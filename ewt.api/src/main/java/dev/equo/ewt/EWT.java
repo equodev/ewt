@@ -940,6 +940,78 @@ public class EWT {
     return SelectionAreaSelectionAreaBuilder.selectionAreaSelectionArea(child);
   }
 
+  public static SizeChangedLayoutNotifierSizeChangedLayoutNotifierBuilder SizeChangedLayoutNotifier() {
+    return SizeChangedLayoutNotifierSizeChangedLayoutNotifierBuilder.sizeChangedLayoutNotifierSizeChangedLayoutNotifier();
+  }
+
+  public static DraggableScrollableActuatorDraggableScrollableActuatorBuilder DraggableScrollableActuator(WidgetI child) {
+    return DraggableScrollableActuatorDraggableScrollableActuatorBuilder.draggableScrollableActuatorDraggableScrollableActuator(child);
+  }
+
+  public static ScrollNotificationObserverScrollNotificationObserverBuilder ScrollNotificationObserver(WidgetI child) {
+    return ScrollNotificationObserverScrollNotificationObserverBuilder.scrollNotificationObserverScrollNotificationObserver(child);
+  }
+
+  public static ModalBarrierModalBarrierBuilder ModalBarrier() {
+    return ModalBarrierModalBarrierBuilder.modalBarrierModalBarrier();
+  }
+
+  public static ListenerListenerBuilder Listener() {
+    return ListenerListenerBuilder.listenerListener();
+  }
+
+  public static OverflowBarOverflowBarBuilder OverflowBar() {
+    return OverflowBarOverflowBarBuilder.overflowBarOverflowBar();
+  }
+
+  public static DefaultSelectionStyleDefaultSelectionStyleBuilder DefaultSelectionStyle() {
+    return DefaultSelectionStyleDefaultSelectionStyleBuilder.defaultSelectionStyleDefaultSelectionStyle();
+  }
+  public static DefaultSelectionStyleFallbackBuilder DefaultSelectionStyle_fallback() {
+    return DefaultSelectionStyleFallbackBuilder.defaultSelectionStyleFallback();
+  }
+
+  public static InkInkBuilder Ink() {
+    return InkInkBuilder.inkInk();
+  }
+
+  public static BottomAppBarBottomAppBarBuilder BottomAppBar() {
+    return BottomAppBarBottomAppBarBuilder.bottomAppBarBottomAppBar();
+  }
+
+  public static ChoiceChipChoiceChipBuilder ChoiceChip() {
+    return ChoiceChipChoiceChipBuilder.choiceChipChoiceChip();
+  }
+  public static ChoiceChipElevatedBuilder ChoiceChip_elevated() {
+    return ChoiceChipElevatedBuilder.choiceChipElevated();
+  }
+
+  public static VisualDensityVisualDensityBuilder VisualDensity() {
+    return VisualDensityVisualDensityBuilder.visualDensityVisualDensity();
+  }
+
+  public static FilterChipFilterChipBuilder FilterChip() {
+    return FilterChipFilterChipBuilder.filterChipFilterChip();
+  }
+  public static FilterChipElevatedBuilder FilterChip_elevated() {
+    return FilterChipElevatedBuilder.filterChipElevated();
+  }
+
+  public static ActionChipActionChipBuilder ActionChip() {
+    return ActionChipActionChipBuilder.actionChipActionChip();
+  }
+  public static ActionChipElevatedBuilder ActionChip_elevated() {
+    return ActionChipElevatedBuilder.actionChipElevated();
+  }
+
+  public static SimpleDialogSimpleDialogBuilder SimpleDialog() {
+    return SimpleDialogSimpleDialogBuilder.simpleDialogSimpleDialog();
+  }
+
+  public static SimpleDialogOptionSimpleDialogOptionBuilder SimpleDialogOption() {
+    return SimpleDialogOptionSimpleDialogOptionBuilder.simpleDialogOptionSimpleDialogOption();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }
@@ -968,10 +1040,6 @@ public class EWT {
 
   public static TextThemeTextThemeBuilder TextTheme() {
     return TextThemeTextThemeBuilder.textThemeTextTheme();
-  }
-
-  public static VisualDensityVisualDensityBuilder VisualDensity() {
-    return VisualDensityVisualDensityBuilder.visualDensityVisualDensity();
   }
 
   public static ThemeDataThemeDataBuilder ThemeData() {

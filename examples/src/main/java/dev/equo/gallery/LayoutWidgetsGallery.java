@@ -189,6 +189,28 @@ public class LayoutWidgetsGallery {
                           .trailing(dot(Colors.blue()))))),
           Divider(),
 
+          // ---- Batch 4: Listener + OverflowBar + ChoiceChip + Ink + BottomAppBar ----
+          tile("Listener + OverflowBar",
+              SizedBox().width(220.0).height(50.0).child(
+                  Listener().onPointerDown(e -> setState(() -> _normalTaps++))
+                      .child(OverflowBar().spacing(6.0).children(List.of(
+                          Chip().label(Text("Pointer taps: " + _normalTaps)),
+                          ChoiceChip().label(Text("Choice"))
+                              .selected(_visible)
+                              .onSelected(v -> setState(() -> _visible = v)),
+                          FilterChip().label(Text("Filter"))
+                              .selected(_expanded)
+                              .onSelected(v -> setState(() -> _expanded = v)),
+                          ActionChip().label(Text("Action"))
+                              .onPressed(() -> setState(() -> _lastTap = "action-chip"))
+                      )).build()))),
+          tile("Ink + BottomAppBar",
+              SizedBox().width(220.0).height(60.0).child(
+                  BottomAppBar().color(Colors.teal()).child(
+                      Ink().width(80.0).height(40.0).color(Colors.orange())
+                          .child(Center().child(Text("Ink"))).build()))),
+          Divider(),
+
           // ---- Batch 2: VerticalDivider + ExpandIcon + PositionedDirectional ----
           // The other batch-2 widgets (CheckedModeBanner, IgnoreBaseline, TickerMode,
           // TapRegionSurface, LookupBoundary, SemanticsDebugger, ExcludeFocus,

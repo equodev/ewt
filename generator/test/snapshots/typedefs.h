@@ -30,6 +30,8 @@ typedef DartObj (*HeroFlightShuttleBuilderFFI)(DartObj flightContext, DartObj an
 typedef DartObj (*AnimatedSwitcherTransitionBuilderFFI)(DartObj child, DartObj animation);
 typedef DartObj (*AnimatedSwitcherLayoutBuilderFFI)(DartObj currentChild, ArrayC previousChildren);
 typedef void (*ValueChangedForBoolFFI)(int value);
+typedef void (*PointerDownEventListenerFFI)(DartObj event);
+typedef void (*PointerUpEventListenerFFI)(DartObj event);
 typedef void (*DrawerCallbackFFI)(int isOpened);
 typedef DartObj (*DartObjCallbackDartObjDartObjFFI)(DartObj , DartObj );
 typedef char* (*GenerateAppTitleFFI)(DartObj context);
