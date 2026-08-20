@@ -2605,6 +2605,153 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(middleSpacing));
   }
 
+  MemorySegment checkedModeBannerCheckedModeBanner(Widget child) {
+    var st = WidgetFactories.checkedModeBanner(factories);
+    var fn = WidgetFactories.CheckedModeBannerSt.checkedModeBanner(st);
+    return WidgetFactories.CheckedModeBannerSt.checkedModeBanner.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment ignoreBaselineIgnoreBaseline(Optional<Widget> child) {
+    var st = WidgetFactories.ignoreBaseline(factories);
+    var fn = WidgetFactories.IgnoreBaselineSt.ignoreBaseline(st);
+    return WidgetFactories.IgnoreBaselineSt.ignoreBaseline.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment tickerModeTickerMode(boolean enabled, Widget child) {
+    var st = WidgetFactories.tickerMode(factories);
+    var fn = WidgetFactories.TickerModeSt.tickerMode(st);
+    return WidgetFactories.TickerModeSt.tickerMode.invoke(fn, arena, (enabled ? 1 : 0),
+      child.build().getId());
+  }
+  int tickerModeOf(BuildContext context) {
+    var st = WidgetFactories.tickerMode(factories);
+    var fn = WidgetFactories.TickerModeSt.of(st);
+    return WidgetFactories.TickerModeSt.of.invoke(fn, context.build().getId());
+  }
+  int tickerModeGetNotifier(BuildContext context) {
+    var st = WidgetFactories.tickerMode(factories);
+    var fn = WidgetFactories.TickerModeSt.getNotifier(st);
+    return WidgetFactories.TickerModeSt.getNotifier.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment tapRegionSurfaceTapRegionSurface(Widget child) {
+    var st = WidgetFactories.tapRegionSurface(factories);
+    var fn = WidgetFactories.TapRegionSurfaceSt.tapRegionSurface(st);
+    return WidgetFactories.TapRegionSurfaceSt.tapRegionSurface.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment lookupBoundaryLookupBoundary(Widget child) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.lookupBoundary(st);
+    return WidgetFactories.LookupBoundarySt.lookupBoundary.invoke(fn, arena, child.build().getId());
+  }
+  <T extends InheritedWidget> int lookupBoundaryDependOnInheritedWidgetOfExactType(BuildContext context, Optional<NativeObj> aspect) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.dependOnInheritedWidgetOfExactType(st);
+    return WidgetFactories.LookupBoundarySt.dependOnInheritedWidgetOfExactType.invoke(fn, context.build().getId(),
+      ptrObj(aspect));
+  }
+  <T extends Widget> int lookupBoundaryFindAncestorWidgetOfExactType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findAncestorWidgetOfExactType(st);
+    return WidgetFactories.LookupBoundarySt.findAncestorWidgetOfExactType.invoke(fn, context.build().getId());
+  }
+  <T extends State<StatefulWidget>> int lookupBoundaryFindAncestorStateOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findAncestorStateOfType(st);
+    return WidgetFactories.LookupBoundarySt.findAncestorStateOfType.invoke(fn, context.build().getId());
+  }
+  <T extends State<StatefulWidget>> int lookupBoundaryFindRootAncestorStateOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findRootAncestorStateOfType(st);
+    return WidgetFactories.LookupBoundarySt.findRootAncestorStateOfType.invoke(fn, context.build().getId());
+  }
+  <T extends RenderObject> int lookupBoundaryFindAncestorRenderObjectOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findAncestorRenderObjectOfType(st);
+    return WidgetFactories.LookupBoundarySt.findAncestorRenderObjectOfType.invoke(fn, context.build().getId());
+  }
+  int lookupBoundaryDebugIsHidingAncestorWidgetOfExactType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.debugIsHidingAncestorWidgetOfExactType(st);
+    return WidgetFactories.LookupBoundarySt.debugIsHidingAncestorWidgetOfExactType.invoke(fn, context.build().getId());
+  }
+  int lookupBoundaryDebugIsHidingAncestorStateOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.debugIsHidingAncestorStateOfType(st);
+    return WidgetFactories.LookupBoundarySt.debugIsHidingAncestorStateOfType.invoke(fn, context.build().getId());
+  }
+  int lookupBoundaryDebugIsHidingAncestorRenderObjectOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.debugIsHidingAncestorRenderObjectOfType(st);
+    return WidgetFactories.LookupBoundarySt.debugIsHidingAncestorRenderObjectOfType.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment semanticsDebuggerSemanticsDebugger(Widget child, Optional<TextStyle> labelStyle) {
+    var st = WidgetFactories.semanticsDebugger(factories);
+    var fn = WidgetFactories.SemanticsDebuggerSt.semanticsDebugger(st);
+    return WidgetFactories.SemanticsDebuggerSt.semanticsDebugger.invoke(fn, arena, child.build().getId(),
+      ptrObj(labelStyle));
+  }
+
+  MemorySegment excludeFocusExcludeFocus(Optional<Boolean> excluding, Widget child) {
+    var st = WidgetFactories.excludeFocus(factories);
+    var fn = WidgetFactories.ExcludeFocusSt.excludeFocus(st);
+    return WidgetFactories.ExcludeFocusSt.excludeFocus.invoke(fn, arena, ptrBool(excluding),
+      child.build().getId());
+  }
+
+  MemorySegment excludeFocusTraversalExcludeFocusTraversal(Optional<Boolean> excluding, Widget child) {
+    var st = WidgetFactories.excludeFocusTraversal(factories);
+    var fn = WidgetFactories.ExcludeFocusTraversalSt.excludeFocusTraversal(st);
+    return WidgetFactories.ExcludeFocusTraversalSt.excludeFocusTraversal.invoke(fn, arena, ptrBool(excluding),
+      child.build().getId());
+  }
+
+  MemorySegment autofillGroupAutofillGroup(Widget child, Optional<AutofillContextAction> onDisposeAction) {
+    var st = WidgetFactories.autofillGroup(factories);
+    var fn = WidgetFactories.AutofillGroupSt.autofillGroup(st);
+    return WidgetFactories.AutofillGroupSt.autofillGroup.invoke(fn, arena, child.build().getId(),
+      ptrEnum(onDisposeAction));
+  }
+
+  MemorySegment positionedDirectionalPositionedDirectional(OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Widget child) {
+    var st = WidgetFactories.positionedDirectional(factories);
+    var fn = WidgetFactories.PositionedDirectionalSt.positionedDirectional(st);
+    return WidgetFactories.PositionedDirectionalSt.positionedDirectional.invoke(fn, arena, ptr(start),
+      ptr(top),
+      ptr(end),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      child.build().getId());
+  }
+
+  MemorySegment verticalDividerVerticalDivider(OptionalDouble width, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<Color> color, Optional<BorderRadiusGeometry> radius) {
+    var st = WidgetFactories.verticalDivider(factories);
+    var fn = WidgetFactories.VerticalDividerSt.verticalDivider(st);
+    return WidgetFactories.VerticalDividerSt.verticalDivider.invoke(fn, arena, ptr(width),
+      ptr(thickness),
+      ptr(indent),
+      ptr(endIndent),
+      ptrObj(color),
+      ptrObj(radius));
+  }
+
+  MemorySegment expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Consumer<Boolean> onPressed, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> expandedColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
+    var st = WidgetFactories.expandIcon(factories);
+    var fn = WidgetFactories.ExpandIconSt.expandIcon(st);
+    return WidgetFactories.ExpandIconSt.expandIcon.invoke(fn, arena, ptrBool(isExpanded),
+      ptr(size),
+      ptrValueChangedForBoolFn(onPressed),
+      ptrObj(padding),
+      ptrObj(color),
+      ptrObj(disabledColor),
+      ptrObj(expandedColor),
+      ptrObj(splashColor),
+      ptrObj(highlightColor));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);

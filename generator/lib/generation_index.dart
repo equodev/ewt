@@ -186,6 +186,19 @@ w.ListBody? listBody;
 w.GridPaper? gridPaper;
 w.NavigationToolbar? navigationToolbar;
 
+w.CheckedModeBanner? checkedModeBanner;
+w.IgnoreBaseline? ignoreBaseline;
+w.TickerMode? tickerMode;
+w.TapRegionSurface? tapRegionSurface;
+w.LookupBoundary? lookupBoundary;
+w.SemanticsDebugger? semanticsDebugger;
+w.ExcludeFocus? excludeFocus;
+w.ExcludeFocusTraversal? excludeFocusTraversal;
+w.AutofillGroup? autofillGroup;
+w.PositionedDirectional? positionedDirectional;
+m.VerticalDivider? verticalDivider;
+m.ExpandIcon? expandIcon;
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

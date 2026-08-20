@@ -1216,6 +1216,65 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       centerMiddle: (p['centerMiddle'] as bool?) ?? true,
       middleSpacing: ((p['middleSpacing'] as num?)?.toDouble()) ?? 16.0),
 
+  'checkedModeBannerCheckedModeBanner': (p) => CheckedModeBanner(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'ignoreBaselineIgnoreBaseline': (p) => IgnoreBaseline(child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'tickerModeTickerMode': (p) => TickerMode(enabled: p['enabled'] as bool,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+  'tickerModeOf': (p) => TickerMode.of(ewtActiveBuildContext!),
+  'tickerModeGetNotifier': (p) => TickerMode.getNotifier(ewtActiveBuildContext!),
+
+  'tapRegionSurfaceTapRegionSurface': (p) => TapRegionSurface(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'lookupBoundaryLookupBoundary': (p) => LookupBoundary(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+  'lookupBoundaryDependOnInheritedWidgetOfExactType': (p) => LookupBoundary.dependOnInheritedWidgetOfExactType(ewtActiveBuildContext!,
+      aspect: p['aspect'] == null ? null : decodeEwtNode(p['aspect'] as Map<String,dynamic>) as Object),
+  'lookupBoundaryFindAncestorWidgetOfExactType': (p) => LookupBoundary.findAncestorWidgetOfExactType(ewtActiveBuildContext!),
+  'lookupBoundaryFindAncestorStateOfType': (p) => LookupBoundary.findAncestorStateOfType(ewtActiveBuildContext!),
+  'lookupBoundaryFindRootAncestorStateOfType': (p) => LookupBoundary.findRootAncestorStateOfType(ewtActiveBuildContext!),
+  'lookupBoundaryFindAncestorRenderObjectOfType': (p) => LookupBoundary.findAncestorRenderObjectOfType(ewtActiveBuildContext!),
+  'lookupBoundaryDebugIsHidingAncestorWidgetOfExactType': (p) => LookupBoundary.debugIsHidingAncestorWidgetOfExactType(ewtActiveBuildContext!),
+  'lookupBoundaryDebugIsHidingAncestorStateOfType': (p) => LookupBoundary.debugIsHidingAncestorStateOfType(ewtActiveBuildContext!),
+  'lookupBoundaryDebugIsHidingAncestorRenderObjectOfType': (p) => LookupBoundary.debugIsHidingAncestorRenderObjectOfType(ewtActiveBuildContext!),
+
+  'semanticsDebuggerSemanticsDebugger': (p) => SemanticsDebugger(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      labelStyle: p['labelStyle'] == null ? const TextStyle(color: Color(0xFF000000), fontSize: 10.0, height: 0.8) : decodeEwtNode(p['labelStyle'] as Map<String,dynamic>) as TextStyle),
+
+  'excludeFocusExcludeFocus': (p) => ExcludeFocus(excluding: (p['excluding'] as bool?) ?? true,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'excludeFocusTraversalExcludeFocusTraversal': (p) => ExcludeFocusTraversal(excluding: (p['excluding'] as bool?) ?? true,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'autofillGroupAutofillGroup': (p) => AutofillGroup(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      onDisposeAction: p['onDisposeAction'] == null ? AutofillContextAction.commit : AutofillContextAction.values[p['onDisposeAction'] as int]),
+
+  'positionedDirectionalPositionedDirectional': (p) => PositionedDirectional(start: (p['start'] as num?)?.toDouble(),
+      top: (p['top'] as num?)?.toDouble(),
+      end: (p['end'] as num?)?.toDouble(),
+      bottom: (p['bottom'] as num?)?.toDouble(),
+      width: (p['width'] as num?)?.toDouble(),
+      height: (p['height'] as num?)?.toDouble(),
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'verticalDividerVerticalDivider': (p) => VerticalDivider(width: (p['width'] as num?)?.toDouble(),
+      thickness: (p['thickness'] as num?)?.toDouble(),
+      indent: (p['indent'] as num?)?.toDouble(),
+      endIndent: (p['endIndent'] as num?)?.toDouble(),
+      color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      radius: p['radius'] == null ? null : decodeEwtNode(p['radius'] as Map<String,dynamic>) as BorderRadiusGeometry),
+
+  'expandIconExpandIcon': (p) => ExpandIcon(isExpanded: (p['isExpanded'] as bool?) ?? false,
+      size: ((p['size'] as num?)?.toDouble()) ?? 24.0,
+      onPressed: ewtWireValueCallback(p['onPressed']),
+      padding: p['padding'] == null ? const EdgeInsets.all(8.0) : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      disabledColor: p['disabledColor'] == null ? null : decodeEwtNode(p['disabledColor'] as Map<String,dynamic>) as Color,
+      expandedColor: p['expandedColor'] == null ? null : decodeEwtNode(p['expandedColor'] as Map<String,dynamic>) as Color,
+      splashColor: p['splashColor'] == null ? null : decodeEwtNode(p['splashColor'] as Map<String,dynamic>) as Color,
+      highlightColor: p['highlightColor'] == null ? null : decodeEwtNode(p['highlightColor'] as Map<String,dynamic>) as Color),
+
   'colorSchemeColorScheme': (p) => ColorScheme(brightness: Brightness.values[p['brightness'] as int],
       primary: decodeEwtNode(p['primary'] as Map<String,dynamic>) as Color,
       onPrimary: decodeEwtNode(p['onPrimary'] as Map<String,dynamic>) as Color,

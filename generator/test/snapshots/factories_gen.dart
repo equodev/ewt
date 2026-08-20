@@ -3907,6 +3907,281 @@ NavigationToolbarObjSt _createNavigationToolbarObjSt(NavigationToolbar? w) {
   return stObj;
 }
 
+void _setupCheckedModeBanner(WidgetFactories f) {
+  f.checkedModeBanner.checkedModeBanner = ffi.Pointer.fromFunction(checkedModeBannerCheckedModeBanner);
+}
+CheckedModeBannerObjSt checkedModeBannerCheckedModeBanner(DartDartObj child) {
+  final w = CheckedModeBanner(child: _widgetsMap[child]! as Widget);
+  return _createCheckedModeBannerObjSt(w);
+}
+CheckedModeBannerObjSt _createCheckedModeBannerObjSt(CheckedModeBanner? w) {
+  final CheckedModeBannerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupIgnoreBaseline(WidgetFactories f) {
+  f.ignoreBaseline.ignoreBaseline = ffi.Pointer.fromFunction(ignoreBaselineIgnoreBaseline);
+}
+IgnoreBaselineObjSt ignoreBaselineIgnoreBaseline(ffi.Pointer<DartObj> child) {
+  final w = IgnoreBaseline(child: child.objOrNul());
+  return _createIgnoreBaselineObjSt(w);
+}
+IgnoreBaselineObjSt _createIgnoreBaselineObjSt(IgnoreBaseline? w) {
+  final IgnoreBaselineObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupTickerMode(WidgetFactories f) {
+  f.tickerMode.tickerMode = ffi.Pointer.fromFunction(tickerModeTickerMode);
+  f.tickerMode.of = ffi.Pointer.fromFunction(tickerModeOf, exception);
+  f.tickerMode.getNotifier = ffi.Pointer.fromFunction(tickerModeGetNotifier, exception);
+}
+TickerModeObjSt tickerModeTickerMode(int enabled, DartDartObj child) {
+  final w = TickerMode(enabled: enabled.toBool(),
+      child: _widgetsMap[child]! as Widget);
+  return _createTickerModeObjSt(w);
+}
+int tickerModeOf(DartDartObj context) {
+  final w = TickerMode.of(_widgetsMap[context]! as BuildContext);
+  return w.toInt();
+}
+int tickerModeGetNotifier(DartDartObj context) {
+  final w = TickerMode.getNotifier(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+TickerModeObjSt _createTickerModeObjSt(TickerMode? w) {
+  final TickerModeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.enabled = w.enabled.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupTapRegionSurface(WidgetFactories f) {
+  f.tapRegionSurface.tapRegionSurface = ffi.Pointer.fromFunction(tapRegionSurfaceTapRegionSurface);
+}
+TapRegionSurfaceObjSt tapRegionSurfaceTapRegionSurface(DartDartObj child) {
+  final w = TapRegionSurface(child: _widgetsMap[child]! as Widget);
+  return _createTapRegionSurfaceObjSt(w);
+}
+TapRegionSurfaceObjSt _createTapRegionSurfaceObjSt(TapRegionSurface? w) {
+  final TapRegionSurfaceObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupLookupBoundary(WidgetFactories f) {
+  f.lookupBoundary.lookupBoundary = ffi.Pointer.fromFunction(lookupBoundaryLookupBoundary);
+  f.lookupBoundary.dependOnInheritedWidgetOfExactType = ffi.Pointer.fromFunction(lookupBoundaryDependOnInheritedWidgetOfExactType, exception);
+  f.lookupBoundary.findAncestorWidgetOfExactType = ffi.Pointer.fromFunction(lookupBoundaryFindAncestorWidgetOfExactType, exception);
+  f.lookupBoundary.findAncestorStateOfType = ffi.Pointer.fromFunction(lookupBoundaryFindAncestorStateOfType, exception);
+  f.lookupBoundary.findRootAncestorStateOfType = ffi.Pointer.fromFunction(lookupBoundaryFindRootAncestorStateOfType, exception);
+  f.lookupBoundary.findAncestorRenderObjectOfType = ffi.Pointer.fromFunction(lookupBoundaryFindAncestorRenderObjectOfType, exception);
+  f.lookupBoundary.debugIsHidingAncestorWidgetOfExactType = ffi.Pointer.fromFunction(lookupBoundaryDebugIsHidingAncestorWidgetOfExactType, exception);
+  f.lookupBoundary.debugIsHidingAncestorStateOfType = ffi.Pointer.fromFunction(lookupBoundaryDebugIsHidingAncestorStateOfType, exception);
+  f.lookupBoundary.debugIsHidingAncestorRenderObjectOfType = ffi.Pointer.fromFunction(lookupBoundaryDebugIsHidingAncestorRenderObjectOfType, exception);
+}
+LookupBoundaryObjSt lookupBoundaryLookupBoundary(DartDartObj child) {
+  final w = LookupBoundary(child: _widgetsMap[child]! as Widget);
+  return _createLookupBoundaryObjSt(w);
+}
+int lookupBoundaryDependOnInheritedWidgetOfExactType(DartDartObj context, ffi.Pointer<DartObj> aspect) {
+  final w = LookupBoundary.dependOnInheritedWidgetOfExactType(_widgetsMap[context]! as BuildContext,
+      aspect: aspect.objOrNul());
+  return _addWidget(w);
+}
+int lookupBoundaryFindAncestorWidgetOfExactType(DartDartObj context) {
+  final w = LookupBoundary.findAncestorWidgetOfExactType(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int lookupBoundaryFindAncestorStateOfType(DartDartObj context) {
+  final w = LookupBoundary.findAncestorStateOfType(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int lookupBoundaryFindRootAncestorStateOfType(DartDartObj context) {
+  final w = LookupBoundary.findRootAncestorStateOfType(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int lookupBoundaryFindAncestorRenderObjectOfType(DartDartObj context) {
+  final w = LookupBoundary.findAncestorRenderObjectOfType(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int lookupBoundaryDebugIsHidingAncestorWidgetOfExactType(DartDartObj context) {
+  final w = LookupBoundary.debugIsHidingAncestorWidgetOfExactType(_widgetsMap[context]! as BuildContext);
+  return w.toInt();
+}
+int lookupBoundaryDebugIsHidingAncestorStateOfType(DartDartObj context) {
+  final w = LookupBoundary.debugIsHidingAncestorStateOfType(_widgetsMap[context]! as BuildContext);
+  return w.toInt();
+}
+int lookupBoundaryDebugIsHidingAncestorRenderObjectOfType(DartDartObj context) {
+  final w = LookupBoundary.debugIsHidingAncestorRenderObjectOfType(_widgetsMap[context]! as BuildContext);
+  return w.toInt();
+}
+LookupBoundaryObjSt _createLookupBoundaryObjSt(LookupBoundary? w) {
+  final LookupBoundaryObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupSemanticsDebugger(WidgetFactories f) {
+  f.semanticsDebugger.semanticsDebugger = ffi.Pointer.fromFunction(semanticsDebuggerSemanticsDebugger);
+}
+SemanticsDebuggerObjSt semanticsDebuggerSemanticsDebugger(DartDartObj child, ffi.Pointer<DartObj> labelStyle) {
+  final w = SemanticsDebugger(child: _widgetsMap[child]! as Widget,
+      labelStyle: labelStyle.objOr(const TextStyle(color: Color(0xFF000000), fontSize: 10.0, height: 0.8)));
+  return _createSemanticsDebuggerObjSt(w);
+}
+SemanticsDebuggerObjSt _createSemanticsDebuggerObjSt(SemanticsDebugger? w) {
+  final SemanticsDebuggerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  return stObj;
+}
+
+void _setupExcludeFocus(WidgetFactories f) {
+  f.excludeFocus.excludeFocus = ffi.Pointer.fromFunction(excludeFocusExcludeFocus);
+}
+ExcludeFocusObjSt excludeFocusExcludeFocus(ffi.Pointer<ffi.Int> excluding, DartDartObj child) {
+  final w = ExcludeFocus(excluding: excluding.boolOr(true),
+      child: _widgetsMap[child]! as Widget);
+  return _createExcludeFocusObjSt(w);
+}
+ExcludeFocusObjSt _createExcludeFocusObjSt(ExcludeFocus? w) {
+  final ExcludeFocusObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.excluding = w.excluding.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupExcludeFocusTraversal(WidgetFactories f) {
+  f.excludeFocusTraversal.excludeFocusTraversal = ffi.Pointer.fromFunction(excludeFocusTraversalExcludeFocusTraversal);
+}
+ExcludeFocusTraversalObjSt excludeFocusTraversalExcludeFocusTraversal(ffi.Pointer<ffi.Int> excluding, DartDartObj child) {
+  final w = ExcludeFocusTraversal(excluding: excluding.boolOr(true),
+      child: _widgetsMap[child]! as Widget);
+  return _createExcludeFocusTraversalObjSt(w);
+}
+ExcludeFocusTraversalObjSt _createExcludeFocusTraversalObjSt(ExcludeFocusTraversal? w) {
+  final ExcludeFocusTraversalObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.excluding = w.excluding.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupAutofillGroup(WidgetFactories f) {
+  f.autofillGroup.autofillGroup = ffi.Pointer.fromFunction(autofillGroupAutofillGroup);
+}
+AutofillGroupObjSt autofillGroupAutofillGroup(DartDartObj child, ffi.Pointer<ffi.Int> onDisposeAction) {
+  final w = AutofillGroup(child: _widgetsMap[child]! as Widget,
+      onDisposeAction: onDisposeAction.enumOr(AutofillContextAction.values, AutofillContextAction.commit));
+  return _createAutofillGroupObjSt(w);
+}
+AutofillGroupObjSt _createAutofillGroupObjSt(AutofillGroup? w) {
+  final AutofillGroupObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.onDisposeAction = w.onDisposeAction.index;
+  return stObj;
+}
+
+void _setupPositionedDirectional(WidgetFactories f) {
+  f.positionedDirectional.positionedDirectional = ffi.Pointer.fromFunction(positionedDirectionalPositionedDirectional);
+}
+PositionedDirectionalObjSt positionedDirectionalPositionedDirectional(ffi.Pointer<ffi.Double> start, ffi.Pointer<ffi.Double> top, ffi.Pointer<ffi.Double> end, ffi.Pointer<ffi.Double> bottom, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, DartDartObj child) {
+  final w = PositionedDirectional(start: start.doubleOrNul(),
+      top: top.doubleOrNul(),
+      end: end.doubleOrNul(),
+      bottom: bottom.doubleOrNul(),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      child: _widgetsMap[child]! as Widget);
+  return _createPositionedDirectionalObjSt(w);
+}
+PositionedDirectionalObjSt _createPositionedDirectionalObjSt(PositionedDirectional? w) {
+  final PositionedDirectionalObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.start = (w.start != null) ? w.start! : 0;
+  stObj.top = (w.top != null) ? w.top! : 0;
+  stObj.end = (w.end != null) ? w.end! : 0;
+  stObj.bottom = (w.bottom != null) ? w.bottom! : 0;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupVerticalDivider(WidgetFactories f) {
+  f.verticalDivider.verticalDivider = ffi.Pointer.fromFunction(verticalDividerVerticalDivider);
+}
+VerticalDividerObjSt verticalDividerVerticalDivider(ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> thickness, ffi.Pointer<ffi.Double> indent, ffi.Pointer<ffi.Double> endIndent, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> radius) {
+  final w = VerticalDivider(width: width.doubleOrNul(),
+      thickness: thickness.doubleOrNul(),
+      indent: indent.doubleOrNul(),
+      endIndent: endIndent.doubleOrNul(),
+      color: color.objOrNul(),
+      radius: radius.objOrNul());
+  return _createVerticalDividerObjSt(w);
+}
+VerticalDividerObjSt _createVerticalDividerObjSt(VerticalDivider? w) {
+  final VerticalDividerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.thickness = (w.thickness != null) ? w.thickness! : 0;
+  stObj.indent = (w.indent != null) ? w.indent! : 0;
+  stObj.endIndent = (w.endIndent != null) ? w.endIndent! : 0;
+  stObj.color = _addWidget(w.color);
+  stObj.radius = _addWidget(w.radius);
+  return stObj;
+}
+
+void _setupExpandIcon(WidgetFactories f) {
+  f.expandIcon.expandIcon = ffi.Pointer.fromFunction(expandIconExpandIcon);
+}
+ExpandIconObjSt expandIconExpandIcon(ffi.Pointer<ffi.Int> isExpanded, ffi.Pointer<ffi.Double> size, ValueChangedForBoolFFI onPressed, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> expandedColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> highlightColor) {
+  final w = ExpandIcon(isExpanded: isExpanded.boolOr(false),
+      size: size.doubleOr(24.0),
+      onPressed: onPressed.toValueChangedForBoolFn(),
+      padding: padding.objOr(const EdgeInsets.all(8.0)),
+      color: color.objOrNul(),
+      disabledColor: disabledColor.objOrNul(),
+      expandedColor: expandedColor.objOrNul(),
+      splashColor: splashColor.objOrNul(),
+      highlightColor: highlightColor.objOrNul());
+  return _createExpandIconObjSt(w);
+}
+ExpandIconObjSt _createExpandIconObjSt(ExpandIcon? w) {
+  final ExpandIconObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.isExpanded = w.isExpanded.toInt();
+  stObj.size = w.size;
+  stObj.padding = _addWidget(w.padding);
+  stObj.color = _addWidget(w.color);
+  stObj.disabledColor = _addWidget(w.disabledColor);
+  stObj.expandedColor = _addWidget(w.expandedColor);
+  stObj.splashColor = _addWidget(w.splashColor);
+  stObj.highlightColor = _addWidget(w.highlightColor);
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -9850,6 +10125,18 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupListBody(f);
   _setupGridPaper(f);
   _setupNavigationToolbar(f);
+  _setupCheckedModeBanner(f);
+  _setupIgnoreBaseline(f);
+  _setupTickerMode(f);
+  _setupTapRegionSurface(f);
+  _setupLookupBoundary(f);
+  _setupSemanticsDebugger(f);
+  _setupExcludeFocus(f);
+  _setupExcludeFocusTraversal(f);
+  _setupAutofillGroup(f);
+  _setupPositionedDirectional(f);
+  _setupVerticalDivider(f);
+  _setupExpandIcon(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);

@@ -3725,6 +3725,243 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment checkedModeBannerCheckedModeBanner(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "checkedModeBannerCheckedModeBanner", p);
+    MemorySegment st = CheckedModeBannerObjSt.allocate(arena);
+    CheckedModeBannerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment ignoreBaselineIgnoreBaseline(Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "ignoreBaselineIgnoreBaseline", p);
+    MemorySegment st = IgnoreBaselineObjSt.allocate(arena);
+    IgnoreBaselineObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment tickerModeTickerMode(boolean enabled, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("enabled", enabled);
+    p.put("child", byId.get(child.getId()));
+    record(id, "tickerModeTickerMode", p);
+    MemorySegment st = TickerModeObjSt.allocate(arena);
+    TickerModeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int tickerModeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "tickerModeOf", p);
+    return id;
+  }
+  @Override
+  int tickerModeGetNotifier(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "tickerModeGetNotifier", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment tapRegionSurfaceTapRegionSurface(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "tapRegionSurfaceTapRegionSurface", p);
+    MemorySegment st = TapRegionSurfaceObjSt.allocate(arena);
+    TapRegionSurfaceObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment lookupBoundaryLookupBoundary(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "lookupBoundaryLookupBoundary", p);
+    MemorySegment st = LookupBoundaryObjSt.allocate(arena);
+    LookupBoundaryObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  <T extends InheritedWidget> int lookupBoundaryDependOnInheritedWidgetOfExactType(BuildContext context, Optional<NativeObj> aspect) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    aspect.ifPresent(v -> p.put("aspect", byId.get(v.getId())));
+    record(id, "lookupBoundaryDependOnInheritedWidgetOfExactType", p);
+    return id;
+  }
+  @Override
+  <T extends Widget> int lookupBoundaryFindAncestorWidgetOfExactType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryFindAncestorWidgetOfExactType", p);
+    return id;
+  }
+  @Override
+  <T extends State<StatefulWidget>> int lookupBoundaryFindAncestorStateOfType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryFindAncestorStateOfType", p);
+    return id;
+  }
+  @Override
+  <T extends State<StatefulWidget>> int lookupBoundaryFindRootAncestorStateOfType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryFindRootAncestorStateOfType", p);
+    return id;
+  }
+  @Override
+  <T extends RenderObject> int lookupBoundaryFindAncestorRenderObjectOfType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryFindAncestorRenderObjectOfType", p);
+    return id;
+  }
+  @Override
+  int lookupBoundaryDebugIsHidingAncestorWidgetOfExactType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryDebugIsHidingAncestorWidgetOfExactType", p);
+    return id;
+  }
+  @Override
+  int lookupBoundaryDebugIsHidingAncestorStateOfType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryDebugIsHidingAncestorStateOfType", p);
+    return id;
+  }
+  @Override
+  int lookupBoundaryDebugIsHidingAncestorRenderObjectOfType(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "lookupBoundaryDebugIsHidingAncestorRenderObjectOfType", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment semanticsDebuggerSemanticsDebugger(Widget child, Optional<TextStyle> labelStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    record(id, "semanticsDebuggerSemanticsDebugger", p);
+    MemorySegment st = SemanticsDebuggerObjSt.allocate(arena);
+    SemanticsDebuggerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment excludeFocusExcludeFocus(Optional<Boolean> excluding, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    excluding.ifPresent(v -> p.put("excluding", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "excludeFocusExcludeFocus", p);
+    MemorySegment st = ExcludeFocusObjSt.allocate(arena);
+    ExcludeFocusObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment excludeFocusTraversalExcludeFocusTraversal(Optional<Boolean> excluding, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    excluding.ifPresent(v -> p.put("excluding", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "excludeFocusTraversalExcludeFocusTraversal", p);
+    MemorySegment st = ExcludeFocusTraversalObjSt.allocate(arena);
+    ExcludeFocusTraversalObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment autofillGroupAutofillGroup(Widget child, Optional<AutofillContextAction> onDisposeAction) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    onDisposeAction.ifPresent(v -> p.put("onDisposeAction", v.ordinal()));
+    record(id, "autofillGroupAutofillGroup", p);
+    MemorySegment st = AutofillGroupObjSt.allocate(arena);
+    AutofillGroupObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment positionedDirectionalPositionedDirectional(OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (start.isPresent()) { p.put("start", start.getAsDouble()); }
+    if (top.isPresent()) { p.put("top", top.getAsDouble()); }
+    if (end.isPresent()) { p.put("end", end.getAsDouble()); }
+    if (bottom.isPresent()) { p.put("bottom", bottom.getAsDouble()); }
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    p.put("child", byId.get(child.getId()));
+    record(id, "positionedDirectionalPositionedDirectional", p);
+    MemorySegment st = PositionedDirectionalObjSt.allocate(arena);
+    PositionedDirectionalObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment verticalDividerVerticalDivider(OptionalDouble width, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<Color> color, Optional<BorderRadiusGeometry> radius) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (thickness.isPresent()) { p.put("thickness", thickness.getAsDouble()); }
+    if (indent.isPresent()) { p.put("indent", indent.getAsDouble()); }
+    if (endIndent.isPresent()) { p.put("endIndent", endIndent.getAsDouble()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    radius.ifPresent(v -> p.put("radius", byId.get(v.getId())));
+    record(id, "verticalDividerVerticalDivider", p);
+    MemorySegment st = VerticalDividerObjSt.allocate(arena);
+    VerticalDividerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Consumer<Boolean> onPressed, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> expandedColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    isExpanded.ifPresent(v -> p.put("isExpanded", v));
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, (java.util.function.Consumer<Object>)(v -> onPressed.accept((Boolean) v)));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    expandedColor.ifPresent(v -> p.put("expandedColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    record(id, "expandIconExpandIcon", p);
+    MemorySegment st = ExpandIconObjSt.allocate(arena);
+    ExpandIconObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

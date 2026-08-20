@@ -833,6 +833,54 @@ public class EWT {
     return NavigationToolbarNavigationToolbarBuilder.navigationToolbarNavigationToolbar();
   }
 
+  public static CheckedModeBannerCheckedModeBannerBuilder CheckedModeBanner(WidgetI child) {
+    return CheckedModeBannerCheckedModeBannerBuilder.checkedModeBannerCheckedModeBanner(child);
+  }
+
+  public static IgnoreBaselineIgnoreBaselineBuilder IgnoreBaseline() {
+    return IgnoreBaselineIgnoreBaselineBuilder.ignoreBaselineIgnoreBaseline();
+  }
+
+  public static TickerModeTickerModeBuilder TickerMode(boolean enabled, WidgetI child) {
+    return TickerModeTickerModeBuilder.tickerModeTickerMode(enabled, child);
+  }
+
+  public static TapRegionSurfaceTapRegionSurfaceBuilder TapRegionSurface(WidgetI child) {
+    return TapRegionSurfaceTapRegionSurfaceBuilder.tapRegionSurfaceTapRegionSurface(child);
+  }
+
+  public static LookupBoundaryLookupBoundaryBuilder LookupBoundary(WidgetI child) {
+    return LookupBoundaryLookupBoundaryBuilder.lookupBoundaryLookupBoundary(child);
+  }
+
+  public static SemanticsDebuggerSemanticsDebuggerBuilder SemanticsDebugger(WidgetI child) {
+    return SemanticsDebuggerSemanticsDebuggerBuilder.semanticsDebuggerSemanticsDebugger(child);
+  }
+
+  public static ExcludeFocusExcludeFocusBuilder ExcludeFocus() {
+    return ExcludeFocusExcludeFocusBuilder.excludeFocusExcludeFocus();
+  }
+
+  public static ExcludeFocusTraversalExcludeFocusTraversalBuilder ExcludeFocusTraversal() {
+    return ExcludeFocusTraversalExcludeFocusTraversalBuilder.excludeFocusTraversalExcludeFocusTraversal();
+  }
+
+  public static AutofillGroupAutofillGroupBuilder AutofillGroup(WidgetI child) {
+    return AutofillGroupAutofillGroupBuilder.autofillGroupAutofillGroup(child);
+  }
+
+  public static PositionedDirectionalPositionedDirectionalBuilder PositionedDirectional() {
+    return PositionedDirectionalPositionedDirectionalBuilder.positionedDirectionalPositionedDirectional();
+  }
+
+  public static VerticalDividerVerticalDividerBuilder VerticalDivider() {
+    return VerticalDividerVerticalDividerBuilder.verticalDividerVerticalDivider();
+  }
+
+  public static ExpandIconExpandIconBuilder ExpandIcon() {
+    return ExpandIconExpandIconBuilder.expandIconExpandIcon();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

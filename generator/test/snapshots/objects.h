@@ -745,6 +745,74 @@ typedef struct {
 } NavigationToolbarObjSt;
 typedef struct {
   int id;
+  DartObj child;
+} CheckedModeBannerObjSt;
+typedef struct {
+  int id;
+} IgnoreBaselineObjSt;
+typedef struct {
+  int id;
+  int enabled;
+  DartObj child;
+} TickerModeObjSt;
+typedef struct {
+  int id;
+} TapRegionSurfaceObjSt;
+typedef struct {
+  int id;
+} LookupBoundaryObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  TextStyleObjSt labelStyle;
+} SemanticsDebuggerObjSt;
+typedef struct {
+  int id;
+  int excluding;
+  DartObj child;
+} ExcludeFocusObjSt;
+typedef struct {
+  int id;
+  int excluding;
+  DartObj child;
+} ExcludeFocusTraversalObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int onDisposeAction;
+} AutofillGroupObjSt;
+typedef struct {
+  int id;
+  double start;
+  double top;
+  double end;
+  double bottom;
+  double width;
+  double height;
+  DartObj child;
+} PositionedDirectionalObjSt;
+typedef struct {
+  int id;
+  double width;
+  double thickness;
+  double indent;
+  double endIndent;
+  DartObj color;
+  DartObj radius;
+} VerticalDividerObjSt;
+typedef struct {
+  int id;
+  int isExpanded;
+  double size;
+  DartObj padding;
+  DartObj color;
+  DartObj disabledColor;
+  DartObj expandedColor;
+  DartObj splashColor;
+  DartObj highlightColor;
+} ExpandIconObjSt;
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;
