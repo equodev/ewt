@@ -229,6 +229,21 @@ m.ActionChip? actionChip;
 m.SimpleDialog? simpleDialog;
 m.SimpleDialogOption? simpleDialogOption;
 
+m.CircleBorder? circleBorder;
+m.StadiumBorder? stadiumBorder;
+m.BeveledRectangleBorder? beveledRectangleBorder;
+m.ContinuousRectangleBorder? continuousRectangleBorder;
+m.LinearBorder? linearBorder;
+m.StarBorder? starBorder;
+m.MaterialBanner? materialBanner;
+m.TabPageSelectorIndicator? tabPageSelectorIndicator;
+w.ReorderableDragStartListener? reorderableDragStartListener;
+w.ReorderableDelayedDragStartListener? reorderableDelayedDragStartListener;
+m.AboutListTile? aboutListTile;
+// MenuAcceleratorLabel skipped: emits invalid Dart (nullable-of-nullable
+// `void Function(int)??` for stripAcceleratorMarkers.setIndex) and references
+// top-level `defaultLabelBuilder` that the generated factories file cannot import.
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

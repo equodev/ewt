@@ -1054,6 +1054,77 @@ typedef struct {
 } SimpleDialogOptionObjSt;
 typedef struct {
   int id;
+  double eccentricity;
+} CircleBorderObjSt;
+typedef struct {
+  int id;
+} StadiumBorderObjSt;
+typedef struct {
+  int id;
+  DartObj borderRadius;
+} BeveledRectangleBorderObjSt;
+typedef struct {
+  int id;
+  DartObj borderRadius;
+} ContinuousRectangleBorderObjSt;
+typedef struct {
+  int id;
+} LinearBorderObjSt;
+typedef struct {
+  int id;
+  double points;
+  double pointRounding;
+  double valleyRounding;
+  double squash;
+  double innerRadiusRatio;
+  double rotation;
+} StarBorderObjSt;
+typedef struct {
+  int id;
+  DartObj content;
+  TextStyleObjSt contentTextStyle;
+  double elevation;
+  DartObj leading;
+  double minActionBarHeight;
+  DartObj backgroundColor;
+  DartObj surfaceTintColor;
+  DartObj shadowColor;
+  DartObj dividerColor;
+  DartObj padding;
+  DartObj margin;
+  DartObj leadingPadding;
+  int forceActionsBelow;
+  int overflowAlignment;
+  DartObj animation;
+} MaterialBannerObjSt;
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  DartObj borderColor;
+  double size;
+  int borderStyle;
+} TabPageSelectorIndicatorObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int index;
+  int enabled;
+} ReorderableDragStartListenerObjSt;
+typedef struct {
+  int id;
+} ReorderableDelayedDragStartListenerObjSt;
+typedef struct {
+  int id;
+  DartObj icon;
+  DartObj child;
+  char* applicationName;
+  char* applicationVersion;
+  DartObj applicationIcon;
+  char* applicationLegalese;
+  int dense;
+} AboutListTileObjSt;
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;

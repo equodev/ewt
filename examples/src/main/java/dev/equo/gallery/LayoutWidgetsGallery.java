@@ -204,6 +204,48 @@ public class LayoutWidgetsGallery {
                           ActionChip().label(Text("Action"))
                               .onPressed(() -> setState(() -> _lastTap = "action-chip"))
                       )).build()))),
+          // ---- Batch 5: OutlinedBorder variants ----
+          tile("Circle/Stadium/Beveled/Continuous/Star borders",
+              Row().mainAxisAlignment(MainAxisAlignment.spaceBetween).children(List.of(
+                  Container().width(28.0).height(28.0).decoration(BoxDecoration()
+                      .color(Colors.red()).shape(BoxShape.circle)),
+                  Material().color(Colors.orange()).shape(StadiumBorder().build())
+                      .child(SizedBox().width(40.0).height(20.0).build()).build(),
+                  Material().color(Colors.green())
+                      .shape(BeveledRectangleBorder().borderRadius(BorderRadius_circular(6.0)).build())
+                      .child(SizedBox().width(28.0).height(20.0).build()).build(),
+                  Material().color(Colors.blue())
+                      .shape(ContinuousRectangleBorder().borderRadius(BorderRadius_circular(8.0)).build())
+                      .child(SizedBox().width(28.0).height(20.0).build()).build(),
+                  Material().color(Colors.purple())
+                      .shape(StarBorder().points(6).build())
+                      .child(SizedBox().width(28.0).height(28.0).build()).build()
+              ))),
+          tile("LinearBorder + TabPageSelectorIndicator",
+              Row().children(List.of(
+                  Material().color(Colors.teal()).shape(LinearBorder_bottom().build())
+                      .child(SizedBox().width(40.0).height(24.0).build()).build(),
+                  SizedBox().width(12.0),
+                  TabPageSelectorIndicator(Colors.blue(), Colors.blueGrey(), 14.0)
+              ))),
+          tile("MaterialBanner",
+              SizedBox().width(280.0).child(MaterialBanner(Text("Something happened."))
+                  .leading(Icon(Icons.info()))
+                  .addActions(TextButton(() -> setState(() -> _lastTap = "banner")).child(Text("OK")).build())
+                  .backgroundColor(Colors.amber()))),
+          tile("Reorderable listeners",
+              Row().children(List.of(
+                  ReorderableDragStartListener(rect(28.0, 28.0, Colors.indigo()).build(), 0),
+                  SizedBox().width(8.0),
+                  ReorderableDelayedDragStartListener(rect(28.0, 28.0, Colors.deepPurple()).build(), 1)
+              ))),
+          tile("AboutListTile",
+              SizedBox().width(240.0).child(AboutListTile()
+                  .icon(Icon(Icons.info()))
+                  .applicationName("EWT")
+                  .applicationVersion("dev"))),
+          Divider(),
+
           tile("Ink + BottomAppBar",
               SizedBox().width(220.0).height(60.0).child(
                   BottomAppBar().color(Colors.teal()).child(

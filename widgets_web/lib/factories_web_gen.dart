@@ -1576,6 +1576,68 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       padding: p['padding'] == null ? null : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsets,
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
 
+  'circleBorderCircleBorder': (p) => CircleBorder(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      eccentricity: ((p['eccentricity'] as num?)?.toDouble()) ?? 0.0),
+
+  'stadiumBorderStadiumBorder': (p) => StadiumBorder(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide),
+
+  'beveledRectangleBorderBeveledRectangleBorder': (p) => BeveledRectangleBorder(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      borderRadius: p['borderRadius'] == null ? BorderRadius.zero : decodeEwtNode(p['borderRadius'] as Map<String,dynamic>) as BorderRadiusGeometry),
+
+  'continuousRectangleBorderContinuousRectangleBorder': (p) => ContinuousRectangleBorder(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      borderRadius: p['borderRadius'] == null ? BorderRadius.zero : decodeEwtNode(p['borderRadius'] as Map<String,dynamic>) as BorderRadiusGeometry),
+
+  'linearBorderLinearBorder': (p) => LinearBorder(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide),
+  'linearBorderStart': (p) => LinearBorder.start(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      alignment: ((p['alignment'] as num?)?.toDouble()) ?? 0.0,
+      size: ((p['size'] as num?)?.toDouble()) ?? 1.0),
+  'linearBorderEnd': (p) => LinearBorder.end(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      alignment: ((p['alignment'] as num?)?.toDouble()) ?? 0.0,
+      size: ((p['size'] as num?)?.toDouble()) ?? 1.0),
+  'linearBorderTop': (p) => LinearBorder.top(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      alignment: ((p['alignment'] as num?)?.toDouble()) ?? 0.0,
+      size: ((p['size'] as num?)?.toDouble()) ?? 1.0),
+  'linearBorderBottom': (p) => LinearBorder.bottom(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      alignment: ((p['alignment'] as num?)?.toDouble()) ?? 0.0,
+      size: ((p['size'] as num?)?.toDouble()) ?? 1.0),
+
+  'starBorderStarBorder': (p) => StarBorder(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      points: ((p['points'] as num?)?.toDouble()) ?? 5,
+      innerRadiusRatio: ((p['innerRadiusRatio'] as num?)?.toDouble()) ?? 0.4,
+      pointRounding: ((p['pointRounding'] as num?)?.toDouble()) ?? 0,
+      valleyRounding: ((p['valleyRounding'] as num?)?.toDouble()) ?? 0,
+      rotation: ((p['rotation'] as num?)?.toDouble()) ?? 0,
+      squash: ((p['squash'] as num?)?.toDouble()) ?? 0),
+  'starBorderPolygon': (p) => StarBorder.polygon(side: p['side'] == null ? BorderSide.none : decodeEwtNode(p['side'] as Map<String,dynamic>) as BorderSide,
+      sides: ((p['sides'] as num?)?.toDouble()) ?? 5,
+      pointRounding: ((p['pointRounding'] as num?)?.toDouble()) ?? 0,
+      rotation: ((p['rotation'] as num?)?.toDouble()) ?? 0,
+      squash: ((p['squash'] as num?)?.toDouble()) ?? 0),
+
+  'materialBannerCreateAnimationController': (p) => MaterialBanner.createAnimationController(vsync: decodeEwtNode(p['vsync'] as Map<String,dynamic>) as TickerProvider),
+
+  'tabPageSelectorIndicatorTabPageSelectorIndicator': (p) => TabPageSelectorIndicator(backgroundColor: decodeEwtNode(p['backgroundColor'] as Map<String,dynamic>) as Color,
+      borderColor: decodeEwtNode(p['borderColor'] as Map<String,dynamic>) as Color,
+      size: (p['size'] as num).toDouble(),
+      borderStyle: p['borderStyle'] == null ? BorderStyle.solid : BorderStyle.values[p['borderStyle'] as int]),
+
+  'reorderableDragStartListenerReorderableDragStartListener': (p) => ReorderableDragStartListener(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      index: p['index'] as int,
+      enabled: (p['enabled'] as bool?) ?? true),
+
+  'reorderableDelayedDragStartListenerReorderableDelayedDragStartListener': (p) => ReorderableDelayedDragStartListener(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      index: p['index'] as int,
+      enabled: (p['enabled'] as bool?) ?? true),
+
+  'aboutListTileAboutListTile': (p) => AboutListTile(icon: p['icon'] == null ? null : decodeEwtWidget(p['icon'] as Map<String,dynamic>),
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      applicationName: p['applicationName'] as String?,
+      applicationVersion: p['applicationVersion'] as String?,
+      applicationIcon: p['applicationIcon'] == null ? null : decodeEwtWidget(p['applicationIcon'] as Map<String,dynamic>),
+      applicationLegalese: p['applicationLegalese'] as String?,
+      aboutBoxChildren: ((p['aboutBoxChildren'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      dense: p['dense'] as bool?),
+
   'colorSchemeColorScheme': (p) => ColorScheme(brightness: Brightness.values[p['brightness'] as int],
       primary: decodeEwtNode(p['primary'] as Map<String,dynamic>) as Color,
       onPrimary: decodeEwtNode(p['onPrimary'] as Map<String,dynamic>) as Color,

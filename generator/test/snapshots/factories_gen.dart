@@ -5038,6 +5038,279 @@ SimpleDialogOptionObjSt _createSimpleDialogOptionObjSt(SimpleDialogOption? w) {
   return stObj;
 }
 
+void _setupCircleBorder(WidgetFactories f) {
+  f.circleBorder.circleBorder = ffi.Pointer.fromFunction(circleBorderCircleBorder);
+}
+CircleBorderObjSt circleBorderCircleBorder(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> eccentricity) {
+  final w = CircleBorder(side: side.objOr(BorderSide.none),
+      eccentricity: eccentricity.doubleOr(0.0));
+  return _createCircleBorderObjSt(w);
+}
+CircleBorderObjSt _createCircleBorderObjSt(CircleBorder? w) {
+  final CircleBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.eccentricity = w.eccentricity;
+  return stObj;
+}
+
+void _setupStadiumBorder(WidgetFactories f) {
+  f.stadiumBorder.stadiumBorder = ffi.Pointer.fromFunction(stadiumBorderStadiumBorder);
+}
+StadiumBorderObjSt stadiumBorderStadiumBorder(ffi.Pointer<DartObj> side) {
+  final w = StadiumBorder(side: side.objOr(BorderSide.none));
+  return _createStadiumBorderObjSt(w);
+}
+StadiumBorderObjSt _createStadiumBorderObjSt(StadiumBorder? w) {
+  final StadiumBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupBeveledRectangleBorder(WidgetFactories f) {
+  f.beveledRectangleBorder.beveledRectangleBorder = ffi.Pointer.fromFunction(beveledRectangleBorderBeveledRectangleBorder);
+}
+BeveledRectangleBorderObjSt beveledRectangleBorderBeveledRectangleBorder(ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> borderRadius) {
+  final w = BeveledRectangleBorder(side: side.objOr(BorderSide.none),
+      borderRadius: borderRadius.objOr(BorderRadius.zero));
+  return _createBeveledRectangleBorderObjSt(w);
+}
+BeveledRectangleBorderObjSt _createBeveledRectangleBorderObjSt(BeveledRectangleBorder? w) {
+  final BeveledRectangleBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.borderRadius = _addWidget(w.borderRadius);
+  return stObj;
+}
+
+void _setupContinuousRectangleBorder(WidgetFactories f) {
+  f.continuousRectangleBorder.continuousRectangleBorder = ffi.Pointer.fromFunction(continuousRectangleBorderContinuousRectangleBorder);
+}
+ContinuousRectangleBorderObjSt continuousRectangleBorderContinuousRectangleBorder(ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> borderRadius) {
+  final w = ContinuousRectangleBorder(side: side.objOr(BorderSide.none),
+      borderRadius: borderRadius.objOr(BorderRadius.zero));
+  return _createContinuousRectangleBorderObjSt(w);
+}
+ContinuousRectangleBorderObjSt _createContinuousRectangleBorderObjSt(ContinuousRectangleBorder? w) {
+  final ContinuousRectangleBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.borderRadius = _addWidget(w.borderRadius);
+  return stObj;
+}
+
+void _setupLinearBorder(WidgetFactories f) {
+  f.linearBorder.linearBorder = ffi.Pointer.fromFunction(linearBorderLinearBorder);
+  f.linearBorder.start = ffi.Pointer.fromFunction(linearBorderStart);
+  f.linearBorder.end = ffi.Pointer.fromFunction(linearBorderEnd);
+  f.linearBorder.top = ffi.Pointer.fromFunction(linearBorderTop);
+  f.linearBorder.bottom = ffi.Pointer.fromFunction(linearBorderBottom);
+}
+LinearBorderObjSt linearBorderLinearBorder(ffi.Pointer<DartObj> side) {
+  final w = LinearBorder(side: side.objOr(BorderSide.none));
+  return _createLinearBorderObjSt(w);
+}
+LinearBorderObjSt linearBorderStart(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> alignment, ffi.Pointer<ffi.Double> size) {
+  final w = LinearBorder.start(side: side.objOr(BorderSide.none),
+      alignment: alignment.doubleOr(0.0),
+      size: size.doubleOr(1.0));
+  return _createLinearBorderObjSt(w);
+}
+LinearBorderObjSt linearBorderEnd(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> alignment, ffi.Pointer<ffi.Double> size) {
+  final w = LinearBorder.end(side: side.objOr(BorderSide.none),
+      alignment: alignment.doubleOr(0.0),
+      size: size.doubleOr(1.0));
+  return _createLinearBorderObjSt(w);
+}
+LinearBorderObjSt linearBorderTop(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> alignment, ffi.Pointer<ffi.Double> size) {
+  final w = LinearBorder.top(side: side.objOr(BorderSide.none),
+      alignment: alignment.doubleOr(0.0),
+      size: size.doubleOr(1.0));
+  return _createLinearBorderObjSt(w);
+}
+LinearBorderObjSt linearBorderBottom(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> alignment, ffi.Pointer<ffi.Double> size) {
+  final w = LinearBorder.bottom(side: side.objOr(BorderSide.none),
+      alignment: alignment.doubleOr(0.0),
+      size: size.doubleOr(1.0));
+  return _createLinearBorderObjSt(w);
+}
+LinearBorderObjSt _createLinearBorderObjSt(LinearBorder? w) {
+  final LinearBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupStarBorder(WidgetFactories f) {
+  f.starBorder.starBorder = ffi.Pointer.fromFunction(starBorderStarBorder);
+  f.starBorder.polygon = ffi.Pointer.fromFunction(starBorderPolygon);
+}
+StarBorderObjSt starBorderStarBorder(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> points, ffi.Pointer<ffi.Double> innerRadiusRatio, ffi.Pointer<ffi.Double> pointRounding, ffi.Pointer<ffi.Double> valleyRounding, ffi.Pointer<ffi.Double> rotation, ffi.Pointer<ffi.Double> squash) {
+  final w = StarBorder(side: side.objOr(BorderSide.none),
+      points: points.doubleOr(5),
+      innerRadiusRatio: innerRadiusRatio.doubleOr(0.4),
+      pointRounding: pointRounding.doubleOr(0),
+      valleyRounding: valleyRounding.doubleOr(0),
+      rotation: rotation.doubleOr(0),
+      squash: squash.doubleOr(0));
+  return _createStarBorderObjSt(w);
+}
+StarBorderObjSt starBorderPolygon(ffi.Pointer<DartObj> side, ffi.Pointer<ffi.Double> sides, ffi.Pointer<ffi.Double> pointRounding, ffi.Pointer<ffi.Double> rotation, ffi.Pointer<ffi.Double> squash) {
+  final w = StarBorder.polygon(side: side.objOr(BorderSide.none),
+      sides: sides.doubleOr(5),
+      pointRounding: pointRounding.doubleOr(0),
+      rotation: rotation.doubleOr(0),
+      squash: squash.doubleOr(0));
+  return _createStarBorderObjSt(w);
+}
+StarBorderObjSt _createStarBorderObjSt(StarBorder? w) {
+  final StarBorderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.points = w.points;
+  stObj.pointRounding = w.pointRounding;
+  stObj.valleyRounding = w.valleyRounding;
+  stObj.squash = w.squash;
+  stObj.innerRadiusRatio = w.innerRadiusRatio;
+  stObj.rotation = w.rotation;
+  return stObj;
+}
+
+void _setupMaterialBanner(WidgetFactories f) {
+  f.materialBanner.materialBanner = ffi.Pointer.fromFunction(materialBannerMaterialBanner);
+  f.materialBanner.createAnimationController = ffi.Pointer.fromFunction(materialBannerCreateAnimationController, exception);
+}
+MaterialBannerObjSt materialBannerMaterialBanner(DartDartObj content, ffi.Pointer<DartObj> contentTextStyle, ArrayC actions, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> leadingPadding, ffi.Pointer<ffi.Int> forceActionsBelow, ffi.Pointer<ffi.Int> overflowAlignment, ffi.Pointer<DartObj> animation, ffi.Pointer<VoidCallbackFFI> onVisible, ffi.Pointer<ffi.Double> minActionBarHeight) {
+  final w = MaterialBanner(content: _widgetsMap[content]! as Widget,
+      contentTextStyle: contentTextStyle.objOrNul(),
+      actions: actions.listOrEmpty(),
+      elevation: elevation.doubleOrNul(),
+      leading: leading.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      dividerColor: dividerColor.objOrNul(),
+      padding: padding.objOrNul(),
+      margin: margin.objOrNul(),
+      leadingPadding: leadingPadding.objOrNul(),
+      forceActionsBelow: forceActionsBelow.boolOr(false),
+      overflowAlignment: overflowAlignment.enumOr(OverflowBarAlignment.values, OverflowBarAlignment.end),
+      animation: animation.objOrNul(),
+      onVisible: onVisible.toVoidCallbackFn(),
+      minActionBarHeight: minActionBarHeight.doubleOr(52.0));
+  return _createMaterialBannerObjSt(w);
+}
+int materialBannerCreateAnimationController(DartDartObj vsync) {
+  final w = MaterialBanner.createAnimationController(vsync: _widgetsMap[vsync]! as TickerProvider);
+  return _addWidget(w);
+}
+MaterialBannerObjSt _createMaterialBannerObjSt(MaterialBanner? w) {
+  final MaterialBannerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.content = _addWidget(w.content);
+  stObj.contentTextStyle = _createTextStyleObjSt(w.contentTextStyle);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.leading = _addWidget(w.leading);
+  stObj.minActionBarHeight = w.minActionBarHeight;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.dividerColor = _addWidget(w.dividerColor);
+  stObj.padding = _addWidget(w.padding);
+  stObj.margin = _addWidget(w.margin);
+  stObj.leadingPadding = _addWidget(w.leadingPadding);
+  stObj.forceActionsBelow = w.forceActionsBelow.toInt();
+  stObj.overflowAlignment = w.overflowAlignment.index;
+  stObj.animation = _addWidget(w.animation);
+  return stObj;
+}
+
+void _setupTabPageSelectorIndicator(WidgetFactories f) {
+  f.tabPageSelectorIndicator.tabPageSelectorIndicator = ffi.Pointer.fromFunction(tabPageSelectorIndicatorTabPageSelectorIndicator);
+}
+TabPageSelectorIndicatorObjSt tabPageSelectorIndicatorTabPageSelectorIndicator(DartDartObj backgroundColor, DartDartObj borderColor, double size, ffi.Pointer<ffi.Int> borderStyle) {
+  final w = TabPageSelectorIndicator(backgroundColor: _widgetsMap[backgroundColor]! as Color,
+      borderColor: _widgetsMap[borderColor]! as Color,
+      size: size,
+      borderStyle: borderStyle.enumOr(BorderStyle.values, BorderStyle.solid));
+  return _createTabPageSelectorIndicatorObjSt(w);
+}
+TabPageSelectorIndicatorObjSt _createTabPageSelectorIndicatorObjSt(TabPageSelectorIndicator? w) {
+  final TabPageSelectorIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.borderColor = _addWidget(w.borderColor);
+  stObj.size = w.size;
+  stObj.borderStyle = w.borderStyle.index;
+  return stObj;
+}
+
+void _setupReorderableDragStartListener(WidgetFactories f) {
+  f.reorderableDragStartListener.reorderableDragStartListener = ffi.Pointer.fromFunction(reorderableDragStartListenerReorderableDragStartListener);
+}
+ReorderableDragStartListenerObjSt reorderableDragStartListenerReorderableDragStartListener(DartDartObj child, int index, ffi.Pointer<ffi.Int> enabled) {
+  final w = ReorderableDragStartListener(child: _widgetsMap[child]! as Widget,
+      index: index,
+      enabled: enabled.boolOr(true));
+  return _createReorderableDragStartListenerObjSt(w);
+}
+ReorderableDragStartListenerObjSt _createReorderableDragStartListenerObjSt(ReorderableDragStartListener? w) {
+  final ReorderableDragStartListenerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.index = w.index;
+  stObj.enabled = w.enabled.toInt();
+  return stObj;
+}
+
+void _setupReorderableDelayedDragStartListener(WidgetFactories f) {
+  f.reorderableDelayedDragStartListener.reorderableDelayedDragStartListener = ffi.Pointer.fromFunction(reorderableDelayedDragStartListenerReorderableDelayedDragStartListener);
+}
+ReorderableDelayedDragStartListenerObjSt reorderableDelayedDragStartListenerReorderableDelayedDragStartListener(DartDartObj child, int index, ffi.Pointer<ffi.Int> enabled) {
+  final w = ReorderableDelayedDragStartListener(child: _widgetsMap[child]! as Widget,
+      index: index,
+      enabled: enabled.boolOr(true));
+  return _createReorderableDelayedDragStartListenerObjSt(w);
+}
+ReorderableDelayedDragStartListenerObjSt _createReorderableDelayedDragStartListenerObjSt(ReorderableDelayedDragStartListener? w) {
+  final ReorderableDelayedDragStartListenerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupAboutListTile(WidgetFactories f) {
+  f.aboutListTile.aboutListTile = ffi.Pointer.fromFunction(aboutListTileAboutListTile);
+}
+AboutListTileObjSt aboutListTileAboutListTile(ffi.Pointer<DartObj> icon, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Char> applicationName, ffi.Pointer<ffi.Char> applicationVersion, ffi.Pointer<DartObj> applicationIcon, ffi.Pointer<ffi.Char> applicationLegalese, ffi.Pointer<ArrayC> aboutBoxChildren, ffi.Pointer<ffi.Int> dense) {
+  final w = AboutListTile(icon: icon.objOrNul(),
+      child: child.objOrNul(),
+      applicationName: applicationName.strOrNul(),
+      applicationVersion: applicationVersion.strOrNul(),
+      applicationIcon: applicationIcon.objOrNul(),
+      applicationLegalese: applicationLegalese.strOrNul(),
+      aboutBoxChildren: aboutBoxChildren.listOrNul(),
+      dense: dense.boolOrNul());
+  return _createAboutListTileObjSt(w);
+}
+AboutListTileObjSt _createAboutListTileObjSt(AboutListTile? w) {
+  final AboutListTileObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.icon = _addWidget(w.icon);
+  stObj.child = _addWidget(w.child);
+  stObj.applicationName = (w.applicationName != null) ? w.applicationName!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.applicationVersion = (w.applicationVersion != null) ? w.applicationVersion!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.applicationIcon = _addWidget(w.applicationIcon);
+  stObj.applicationLegalese = (w.applicationLegalese != null) ? w.applicationLegalese!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.dense = (w.dense != null) ? w.dense!.toInt() : 0;
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -10991,6 +11264,17 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupActionChip(f);
   _setupSimpleDialog(f);
   _setupSimpleDialogOption(f);
+  _setupCircleBorder(f);
+  _setupStadiumBorder(f);
+  _setupBeveledRectangleBorder(f);
+  _setupContinuousRectangleBorder(f);
+  _setupLinearBorder(f);
+  _setupStarBorder(f);
+  _setupMaterialBanner(f);
+  _setupTabPageSelectorIndicator(f);
+  _setupReorderableDragStartListener(f);
+  _setupReorderableDelayedDragStartListener(f);
+  _setupAboutListTile(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);

@@ -4622,6 +4622,236 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment circleBorderCircleBorder(Optional<BorderSide> side, OptionalDouble eccentricity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (eccentricity.isPresent()) { p.put("eccentricity", eccentricity.getAsDouble()); }
+    record(id, "circleBorderCircleBorder", p);
+    MemorySegment st = CircleBorderObjSt.allocate(arena);
+    CircleBorderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment stadiumBorderStadiumBorder(Optional<BorderSide> side) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    record(id, "stadiumBorderStadiumBorder", p);
+    MemorySegment st = StadiumBorderObjSt.allocate(arena);
+    StadiumBorderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment beveledRectangleBorderBeveledRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    record(id, "beveledRectangleBorderBeveledRectangleBorder", p);
+    MemorySegment st = BeveledRectangleBorderObjSt.allocate(arena);
+    BeveledRectangleBorderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment continuousRectangleBorderContinuousRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    record(id, "continuousRectangleBorderContinuousRectangleBorder", p);
+    MemorySegment st = ContinuousRectangleBorderObjSt.allocate(arena);
+    ContinuousRectangleBorderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment linearBorderLinearBorder(Optional<BorderSide> side) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    record(id, "linearBorderLinearBorder", p);
+    MemorySegment st = LinearBorderObjSt.allocate(arena);
+    LinearBorderObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment linearBorderStart(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (alignment.isPresent()) { p.put("alignment", alignment.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    record(id, "linearBorderStart", p);
+    MemorySegment st = LinearBorderObjSt.allocate(arena);
+    LinearBorderObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment linearBorderEnd(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (alignment.isPresent()) { p.put("alignment", alignment.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    record(id, "linearBorderEnd", p);
+    MemorySegment st = LinearBorderObjSt.allocate(arena);
+    LinearBorderObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment linearBorderTop(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (alignment.isPresent()) { p.put("alignment", alignment.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    record(id, "linearBorderTop", p);
+    MemorySegment st = LinearBorderObjSt.allocate(arena);
+    LinearBorderObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment linearBorderBottom(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (alignment.isPresent()) { p.put("alignment", alignment.getAsDouble()); }
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    record(id, "linearBorderBottom", p);
+    MemorySegment st = LinearBorderObjSt.allocate(arena);
+    LinearBorderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment starBorderStarBorder(Optional<BorderSide> side, OptionalDouble points, OptionalDouble innerRadiusRatio, OptionalDouble pointRounding, OptionalDouble valleyRounding, OptionalDouble rotation, OptionalDouble squash) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (points.isPresent()) { p.put("points", points.getAsDouble()); }
+    if (innerRadiusRatio.isPresent()) { p.put("innerRadiusRatio", innerRadiusRatio.getAsDouble()); }
+    if (pointRounding.isPresent()) { p.put("pointRounding", pointRounding.getAsDouble()); }
+    if (valleyRounding.isPresent()) { p.put("valleyRounding", valleyRounding.getAsDouble()); }
+    if (rotation.isPresent()) { p.put("rotation", rotation.getAsDouble()); }
+    if (squash.isPresent()) { p.put("squash", squash.getAsDouble()); }
+    record(id, "starBorderStarBorder", p);
+    MemorySegment st = StarBorderObjSt.allocate(arena);
+    StarBorderObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment starBorderPolygon(Optional<BorderSide> side, OptionalDouble sides, OptionalDouble pointRounding, OptionalDouble rotation, OptionalDouble squash) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (sides.isPresent()) { p.put("sides", sides.getAsDouble()); }
+    if (pointRounding.isPresent()) { p.put("pointRounding", pointRounding.getAsDouble()); }
+    if (rotation.isPresent()) { p.put("rotation", rotation.getAsDouble()); }
+    if (squash.isPresent()) { p.put("squash", squash.getAsDouble()); }
+    record(id, "starBorderPolygon", p);
+    MemorySegment st = StarBorderObjSt.allocate(arena);
+    StarBorderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment materialBannerMaterialBanner(Widget content, Optional<TextStyle> contentTextStyle, List<Widget> actions, OptionalDouble elevation, Optional<Widget> leading, Optional<Color> backgroundColor, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<Color> dividerColor, Optional<EdgeInsetsGeometry> padding, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> leadingPadding, Optional<Boolean> forceActionsBelow, Optional<OverflowBarAlignment> overflowAlignment, Optional<Animation> animation, Optional<Runnable> onVisible, OptionalDouble minActionBarHeight) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("content", byId.get(content.getId()));
+    contentTextStyle.ifPresent(v -> p.put("contentTextStyle", byId.get(v.getId())));
+    p.put("actions", actions.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    dividerColor.ifPresent(v -> p.put("dividerColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    leadingPadding.ifPresent(v -> p.put("leadingPadding", byId.get(v.getId())));
+    forceActionsBelow.ifPresent(v -> p.put("forceActionsBelow", v));
+    overflowAlignment.ifPresent(v -> p.put("overflowAlignment", v.ordinal()));
+    animation.ifPresent(v -> p.put("animation", byId.get(v.getId())));
+    if (onVisible.isPresent()) { int __cb_onVisible = nextCallbackId++; p.put("onVisible", __cb_onVisible); callbacks.put(__cb_onVisible, onVisible.get()); }
+    if (minActionBarHeight.isPresent()) { p.put("minActionBarHeight", minActionBarHeight.getAsDouble()); }
+    record(id, "materialBannerMaterialBanner", p);
+    MemorySegment st = MaterialBannerObjSt.allocate(arena);
+    MaterialBannerObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int materialBannerCreateAnimationController(TickerProvider vsync) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("vsync", byId.get(vsync.getId()));
+    record(id, "materialBannerCreateAnimationController", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment tabPageSelectorIndicatorTabPageSelectorIndicator(Color backgroundColor, Color borderColor, double size, Optional<BorderStyle> borderStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("backgroundColor", byId.get(backgroundColor.getId()));
+    p.put("borderColor", byId.get(borderColor.getId()));
+    p.put("size", size);
+    borderStyle.ifPresent(v -> p.put("borderStyle", v.ordinal()));
+    record(id, "tabPageSelectorIndicatorTabPageSelectorIndicator", p);
+    MemorySegment st = TabPageSelectorIndicatorObjSt.allocate(arena);
+    TabPageSelectorIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment reorderableDragStartListenerReorderableDragStartListener(Widget child, int index, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    p.put("index", index);
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "reorderableDragStartListenerReorderableDragStartListener", p);
+    MemorySegment st = ReorderableDragStartListenerObjSt.allocate(arena);
+    ReorderableDragStartListenerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment reorderableDelayedDragStartListenerReorderableDelayedDragStartListener(Widget child, int index, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    p.put("index", index);
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "reorderableDelayedDragStartListenerReorderableDelayedDragStartListener", p);
+    MemorySegment st = ReorderableDelayedDragStartListenerObjSt.allocate(arena);
+    ReorderableDelayedDragStartListenerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment aboutListTileAboutListTile(Optional<Widget> icon, Optional<Widget> child, Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> aboutBoxChildren, Optional<Boolean> dense) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    applicationName.ifPresent(v -> p.put("applicationName", v));
+    applicationVersion.ifPresent(v -> p.put("applicationVersion", v));
+    applicationIcon.ifPresent(v -> p.put("applicationIcon", byId.get(v.getId())));
+    applicationLegalese.ifPresent(v -> p.put("applicationLegalese", v));
+    aboutBoxChildren.ifPresent(v -> p.put("aboutBoxChildren", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    dense.ifPresent(v -> p.put("dense", v));
+    record(id, "aboutListTileAboutListTile", p);
+    MemorySegment st = AboutListTileObjSt.allocate(arena);
+    AboutListTileObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

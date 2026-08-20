@@ -1012,6 +1012,65 @@ public class EWT {
     return SimpleDialogOptionSimpleDialogOptionBuilder.simpleDialogOptionSimpleDialogOption();
   }
 
+  public static CircleBorderCircleBorderBuilder CircleBorder() {
+    return CircleBorderCircleBorderBuilder.circleBorderCircleBorder();
+  }
+
+  public static StadiumBorderStadiumBorderBuilder StadiumBorder() {
+    return StadiumBorderStadiumBorderBuilder.stadiumBorderStadiumBorder();
+  }
+
+  public static BeveledRectangleBorderBeveledRectangleBorderBuilder BeveledRectangleBorder() {
+    return BeveledRectangleBorderBeveledRectangleBorderBuilder.beveledRectangleBorderBeveledRectangleBorder();
+  }
+
+  public static ContinuousRectangleBorderContinuousRectangleBorderBuilder ContinuousRectangleBorder() {
+    return ContinuousRectangleBorderContinuousRectangleBorderBuilder.continuousRectangleBorderContinuousRectangleBorder();
+  }
+
+  public static LinearBorderLinearBorderBuilder LinearBorder() {
+    return LinearBorderLinearBorderBuilder.linearBorderLinearBorder();
+  }
+  public static LinearBorderStartBuilder LinearBorder_start() {
+    return LinearBorderStartBuilder.linearBorderStart();
+  }
+  public static LinearBorderEndBuilder LinearBorder_end() {
+    return LinearBorderEndBuilder.linearBorderEnd();
+  }
+  public static LinearBorderTopBuilder LinearBorder_top() {
+    return LinearBorderTopBuilder.linearBorderTop();
+  }
+  public static LinearBorderBottomBuilder LinearBorder_bottom() {
+    return LinearBorderBottomBuilder.linearBorderBottom();
+  }
+
+  public static StarBorderStarBorderBuilder StarBorder() {
+    return StarBorderStarBorderBuilder.starBorderStarBorder();
+  }
+  public static StarBorderPolygonBuilder StarBorder_polygon() {
+    return StarBorderPolygonBuilder.starBorderPolygon();
+  }
+
+  public static MaterialBannerMaterialBannerBuilder MaterialBanner(WidgetI content) {
+    return MaterialBannerMaterialBannerBuilder.materialBannerMaterialBanner(content);
+  }
+
+  public static TabPageSelectorIndicatorTabPageSelectorIndicatorBuilder TabPageSelectorIndicator(ColorI backgroundColor, ColorI borderColor, double size) {
+    return TabPageSelectorIndicatorTabPageSelectorIndicatorBuilder.tabPageSelectorIndicatorTabPageSelectorIndicator(backgroundColor, borderColor, size);
+  }
+
+  public static ReorderableDragStartListenerReorderableDragStartListenerBuilder ReorderableDragStartListener(WidgetI child, int index) {
+    return ReorderableDragStartListenerReorderableDragStartListenerBuilder.reorderableDragStartListenerReorderableDragStartListener(child, index);
+  }
+
+  public static ReorderableDelayedDragStartListenerReorderableDelayedDragStartListenerBuilder ReorderableDelayedDragStartListener(WidgetI child, int index) {
+    return ReorderableDelayedDragStartListenerReorderableDelayedDragStartListenerBuilder.reorderableDelayedDragStartListenerReorderableDelayedDragStartListener(child, index);
+  }
+
+  public static AboutListTileAboutListTileBuilder AboutListTile() {
+    return AboutListTileAboutListTileBuilder.aboutListTileAboutListTile();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

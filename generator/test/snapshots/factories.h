@@ -940,6 +940,56 @@ typedef struct {
     SimpleDialogOptionObjSt (*simpleDialogOption)(VoidCallbackFFI* onPressed, DartObj* padding, DartObj* child);
   } simpleDialogOption;
 
+  struct CircleBorderSt {
+    CircleBorderObjSt (*circleBorder)(DartObj* side, double* eccentricity);
+  } circleBorder;
+
+  struct StadiumBorderSt {
+    StadiumBorderObjSt (*stadiumBorder)(DartObj* side);
+  } stadiumBorder;
+
+  struct BeveledRectangleBorderSt {
+    BeveledRectangleBorderObjSt (*beveledRectangleBorder)(DartObj* side, DartObj* borderRadius);
+  } beveledRectangleBorder;
+
+  struct ContinuousRectangleBorderSt {
+    ContinuousRectangleBorderObjSt (*continuousRectangleBorder)(DartObj* side, DartObj* borderRadius);
+  } continuousRectangleBorder;
+
+  struct LinearBorderSt {
+    LinearBorderObjSt (*linearBorder)(DartObj* side);
+    LinearBorderObjSt (*start)(DartObj* side, double* alignment, double* size);
+    LinearBorderObjSt (*end)(DartObj* side, double* alignment, double* size);
+    LinearBorderObjSt (*top)(DartObj* side, double* alignment, double* size);
+    LinearBorderObjSt (*bottom)(DartObj* side, double* alignment, double* size);
+  } linearBorder;
+
+  struct StarBorderSt {
+    StarBorderObjSt (*starBorder)(DartObj* side, double* points, double* innerRadiusRatio, double* pointRounding, double* valleyRounding, double* rotation, double* squash);
+    StarBorderObjSt (*polygon)(DartObj* side, double* sides, double* pointRounding, double* rotation, double* squash);
+  } starBorder;
+
+  struct MaterialBannerSt {
+    MaterialBannerObjSt (*materialBanner)(DartObj content, DartObj* contentTextStyle, ArrayC actions, double* elevation, DartObj* leading, DartObj* backgroundColor, DartObj* surfaceTintColor, DartObj* shadowColor, DartObj* dividerColor, DartObj* padding, DartObj* margin, DartObj* leadingPadding, int* forceActionsBelow, int* overflowAlignment, DartObj* animation, VoidCallbackFFI* onVisible, double* minActionBarHeight);
+    DartObj (*createAnimationController)(DartObj vsync);
+  } materialBanner;
+
+  struct TabPageSelectorIndicatorSt {
+    TabPageSelectorIndicatorObjSt (*tabPageSelectorIndicator)(DartObj backgroundColor, DartObj borderColor, double size, int* borderStyle);
+  } tabPageSelectorIndicator;
+
+  struct ReorderableDragStartListenerSt {
+    ReorderableDragStartListenerObjSt (*reorderableDragStartListener)(DartObj child, int index, int* enabled);
+  } reorderableDragStartListener;
+
+  struct ReorderableDelayedDragStartListenerSt {
+    ReorderableDelayedDragStartListenerObjSt (*reorderableDelayedDragStartListener)(DartObj child, int index, int* enabled);
+  } reorderableDelayedDragStartListener;
+
+  struct AboutListTileSt {
+    AboutListTileObjSt (*aboutListTile)(DartObj* icon, DartObj* child, char* applicationName, char* applicationVersion, DartObj* applicationIcon, char* applicationLegalese, ArrayC* aboutBoxChildren, int* dense);
+  } aboutListTile;
+
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
     ColorSchemeObjSt (*fromSeed)(DartObj seedColor, int* brightness, int* dynamicSchemeVariant, double* contrastLevel, DartObj* primary, DartObj* onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj* secondary, DartObj* onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj* error, DartObj* onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj* outline, DartObj* outlineVariant, DartObj* surface, DartObj* onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* shadow, DartObj* scrim, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);

@@ -3222,6 +3222,153 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
+  MemorySegment circleBorderCircleBorder(Optional<BorderSide> side, OptionalDouble eccentricity) {
+    var st = WidgetFactories.circleBorder(factories);
+    var fn = WidgetFactories.CircleBorderSt.circleBorder(st);
+    return WidgetFactories.CircleBorderSt.circleBorder.invoke(fn, arena, ptrObj(side),
+      ptr(eccentricity));
+  }
+
+  MemorySegment stadiumBorderStadiumBorder(Optional<BorderSide> side) {
+    var st = WidgetFactories.stadiumBorder(factories);
+    var fn = WidgetFactories.StadiumBorderSt.stadiumBorder(st);
+    return WidgetFactories.StadiumBorderSt.stadiumBorder.invoke(fn, arena, ptrObj(side));
+  }
+
+  MemorySegment beveledRectangleBorderBeveledRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    var st = WidgetFactories.beveledRectangleBorder(factories);
+    var fn = WidgetFactories.BeveledRectangleBorderSt.beveledRectangleBorder(st);
+    return WidgetFactories.BeveledRectangleBorderSt.beveledRectangleBorder.invoke(fn, arena, ptrObj(side),
+      ptrObj(borderRadius));
+  }
+
+  MemorySegment continuousRectangleBorderContinuousRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    var st = WidgetFactories.continuousRectangleBorder(factories);
+    var fn = WidgetFactories.ContinuousRectangleBorderSt.continuousRectangleBorder(st);
+    return WidgetFactories.ContinuousRectangleBorderSt.continuousRectangleBorder.invoke(fn, arena, ptrObj(side),
+      ptrObj(borderRadius));
+  }
+
+  MemorySegment linearBorderLinearBorder(Optional<BorderSide> side) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.linearBorder(st);
+    return WidgetFactories.LinearBorderSt.linearBorder.invoke(fn, arena, ptrObj(side));
+  }
+  MemorySegment linearBorderStart(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.start(st);
+    return WidgetFactories.LinearBorderSt.start.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+  MemorySegment linearBorderEnd(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.end(st);
+    return WidgetFactories.LinearBorderSt.end.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+  MemorySegment linearBorderTop(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.top(st);
+    return WidgetFactories.LinearBorderSt.top.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+  MemorySegment linearBorderBottom(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.bottom(st);
+    return WidgetFactories.LinearBorderSt.bottom.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+
+  MemorySegment starBorderStarBorder(Optional<BorderSide> side, OptionalDouble points, OptionalDouble innerRadiusRatio, OptionalDouble pointRounding, OptionalDouble valleyRounding, OptionalDouble rotation, OptionalDouble squash) {
+    var st = WidgetFactories.starBorder(factories);
+    var fn = WidgetFactories.StarBorderSt.starBorder(st);
+    return WidgetFactories.StarBorderSt.starBorder.invoke(fn, arena, ptrObj(side),
+      ptr(points),
+      ptr(innerRadiusRatio),
+      ptr(pointRounding),
+      ptr(valleyRounding),
+      ptr(rotation),
+      ptr(squash));
+  }
+  MemorySegment starBorderPolygon(Optional<BorderSide> side, OptionalDouble sides, OptionalDouble pointRounding, OptionalDouble rotation, OptionalDouble squash) {
+    var st = WidgetFactories.starBorder(factories);
+    var fn = WidgetFactories.StarBorderSt.polygon(st);
+    return WidgetFactories.StarBorderSt.polygon.invoke(fn, arena, ptrObj(side),
+      ptr(sides),
+      ptr(pointRounding),
+      ptr(rotation),
+      ptr(squash));
+  }
+
+  MemorySegment materialBannerMaterialBanner(Widget content, Optional<TextStyle> contentTextStyle, List<Widget> actions, OptionalDouble elevation, Optional<Widget> leading, Optional<Color> backgroundColor, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<Color> dividerColor, Optional<EdgeInsetsGeometry> padding, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> leadingPadding, Optional<Boolean> forceActionsBelow, Optional<OverflowBarAlignment> overflowAlignment, Optional<Animation> animation, Optional<Runnable> onVisible, OptionalDouble minActionBarHeight) {
+    var st = WidgetFactories.materialBanner(factories);
+    var fn = WidgetFactories.MaterialBannerSt.materialBanner(st);
+    return WidgetFactories.MaterialBannerSt.materialBanner.invoke(fn, arena, content.build().getId(),
+      ptrObj(contentTextStyle),
+      ptrList(actions),
+      ptr(elevation),
+      ptrObj(leading),
+      ptrObj(backgroundColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptrObj(dividerColor),
+      ptrObj(padding),
+      ptrObj(margin),
+      ptrObj(leadingPadding),
+      ptrBool(forceActionsBelow),
+      ptrEnum(overflowAlignment),
+      ptrObj(animation),
+      onVisible.isPresent() ? ptrHolder(ptrVoidCallbackFn(onVisible.get())) : MemorySegment.NULL,
+      ptr(minActionBarHeight));
+  }
+  int materialBannerCreateAnimationController(TickerProvider vsync) {
+    var st = WidgetFactories.materialBanner(factories);
+    var fn = WidgetFactories.MaterialBannerSt.createAnimationController(st);
+    return WidgetFactories.MaterialBannerSt.createAnimationController.invoke(fn, vsync.build().getId());
+  }
+
+  MemorySegment tabPageSelectorIndicatorTabPageSelectorIndicator(Color backgroundColor, Color borderColor, double size, Optional<BorderStyle> borderStyle) {
+    var st = WidgetFactories.tabPageSelectorIndicator(factories);
+    var fn = WidgetFactories.TabPageSelectorIndicatorSt.tabPageSelectorIndicator(st);
+    return WidgetFactories.TabPageSelectorIndicatorSt.tabPageSelectorIndicator.invoke(fn, arena, backgroundColor.build().getId(),
+      borderColor.build().getId(),
+      size,
+      ptrEnum(borderStyle));
+  }
+
+  MemorySegment reorderableDragStartListenerReorderableDragStartListener(Widget child, int index, Optional<Boolean> enabled) {
+    var st = WidgetFactories.reorderableDragStartListener(factories);
+    var fn = WidgetFactories.ReorderableDragStartListenerSt.reorderableDragStartListener(st);
+    return WidgetFactories.ReorderableDragStartListenerSt.reorderableDragStartListener.invoke(fn, arena, child.build().getId(),
+      index,
+      ptrBool(enabled));
+  }
+
+  MemorySegment reorderableDelayedDragStartListenerReorderableDelayedDragStartListener(Widget child, int index, Optional<Boolean> enabled) {
+    var st = WidgetFactories.reorderableDelayedDragStartListener(factories);
+    var fn = WidgetFactories.ReorderableDelayedDragStartListenerSt.reorderableDelayedDragStartListener(st);
+    return WidgetFactories.ReorderableDelayedDragStartListenerSt.reorderableDelayedDragStartListener.invoke(fn, arena, child.build().getId(),
+      index,
+      ptrBool(enabled));
+  }
+
+  MemorySegment aboutListTileAboutListTile(Optional<Widget> icon, Optional<Widget> child, Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> aboutBoxChildren, Optional<Boolean> dense) {
+    var st = WidgetFactories.aboutListTile(factories);
+    var fn = WidgetFactories.AboutListTileSt.aboutListTile(st);
+    return WidgetFactories.AboutListTileSt.aboutListTile.invoke(fn, arena, ptrObj(icon),
+      ptrObj(child),
+      ptrStr(applicationName),
+      ptrStr(applicationVersion),
+      ptrObj(applicationIcon),
+      ptrStr(applicationLegalese),
+      ptrList(aboutBoxChildren),
+      ptrBool(dense));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
