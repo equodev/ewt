@@ -46,6 +46,7 @@ public class LayoutWidgetsGallery {
     boolean _visible = true;
     int _normalTaps = 0;
     String _lastTap = "-";
+    boolean _expanded = false;
 
     @Override
     public Widget build(BuildContext context) {
@@ -186,6 +187,28 @@ public class LayoutWidgetsGallery {
                           .middle(ListBody().mainAxis(Axis.horizontal).children(List.of(
                               Text("A "), Text("B "), Text("C"))))
                           .trailing(dot(Colors.blue()))))),
+          Divider(),
+
+          // ---- Batch 2: VerticalDivider + ExpandIcon + PositionedDirectional ----
+          // The other batch-2 widgets (CheckedModeBanner, IgnoreBaseline, TickerMode,
+          // TapRegionSurface, LookupBoundary, SemanticsDebugger, ExcludeFocus,
+          // ExcludeFocusTraversal, AutofillGroup) are invisible policy widgets — wrapping
+          // this whole tile in them proves they compile & don't break the subtree.
+          tile("VerticalDivider + ExpandIcon + PositionedDirectional",
+              CheckedModeBanner(TickerMode(true,
+                  ExcludeFocus().child(
+                      SizedBox().width(220.0).height(56.0).child(IntrinsicHeight().child(
+                          Row().children(List.of(
+                              rect(48.0, 40.0, Colors.teal()),
+                              VerticalDivider().width(20.0).thickness(2.0).color(Colors.grey()),
+                              Stack().children(List.of(
+                                  rect(80.0, 40.0, Colors.blueGrey()),
+                                  PositionedDirectional().start(6.0).top(6.0)
+                                      .child(dot(Colors.orange()).build()).build())),
+                              VerticalDivider().width(20.0).thickness(2.0).color(Colors.grey()),
+                              ExpandIcon().isExpanded(_expanded)
+                                  .onPressed(v -> setState(() -> _expanded = !_expanded))
+                          ))))).build()).build())),
           Divider(),
 
           // ---- Text / direction ----
