@@ -881,6 +881,65 @@ public class EWT {
     return ExpandIconExpandIconBuilder.expandIconExpandIcon();
   }
 
+  public static SliverPaddingSliverPaddingBuilder SliverPadding(EdgeInsetsGeometryI padding) {
+    return SliverPaddingSliverPaddingBuilder.sliverPaddingSliverPadding(padding);
+  }
+
+  public static SliverOpacitySliverOpacityBuilder SliverOpacity(double opacity) {
+    return SliverOpacitySliverOpacityBuilder.sliverOpacitySliverOpacity(opacity);
+  }
+
+  public static SliverIgnorePointerSliverIgnorePointerBuilder SliverIgnorePointer() {
+    return SliverIgnorePointerSliverIgnorePointerBuilder.sliverIgnorePointerSliverIgnorePointer();
+  }
+
+  public static SliverOffstageSliverOffstageBuilder SliverOffstage() {
+    return SliverOffstageSliverOffstageBuilder.sliverOffstageSliverOffstage();
+  }
+
+  public static SliverSafeAreaSliverSafeAreaBuilder SliverSafeArea() {
+    return SliverSafeAreaSliverSafeAreaBuilder.sliverSafeAreaSliverSafeArea();
+  }
+
+  public static SliverVisibilitySliverVisibilityBuilder SliverVisibility(WidgetI sliver) {
+    return SliverVisibilitySliverVisibilityBuilder.sliverVisibilitySliverVisibility(sliver);
+  }
+  public static SliverVisibilityMaintainBuilder SliverVisibility_maintain(WidgetI sliver) {
+    return SliverVisibilityMaintainBuilder.sliverVisibilityMaintain(sliver);
+  }
+
+  public static SliverMainAxisGroupSliverMainAxisGroupBuilder SliverMainAxisGroup(List<WidgetI> slivers) {
+    return SliverMainAxisGroupSliverMainAxisGroupBuilder.sliverMainAxisGroupSliverMainAxisGroup(slivers);
+  }
+
+  public static SliverCrossAxisGroupSliverCrossAxisGroupBuilder SliverCrossAxisGroup(List<WidgetI> slivers) {
+    return SliverCrossAxisGroupSliverCrossAxisGroupBuilder.sliverCrossAxisGroupSliverCrossAxisGroup(slivers);
+  }
+
+  public static SliverFillRemainingSliverFillRemainingBuilder SliverFillRemaining() {
+    return SliverFillRemainingSliverFillRemainingBuilder.sliverFillRemainingSliverFillRemaining();
+  }
+
+  public static SliverEnsureSemanticsSliverEnsureSemanticsBuilder SliverEnsureSemantics(WidgetI sliver) {
+    return SliverEnsureSemanticsSliverEnsureSemanticsBuilder.sliverEnsureSemanticsSliverEnsureSemantics(sliver);
+  }
+
+  public static SliverConstrainedCrossAxisSliverConstrainedCrossAxisBuilder SliverConstrainedCrossAxis(double maxExtent, WidgetI sliver) {
+    return SliverConstrainedCrossAxisSliverConstrainedCrossAxisBuilder.sliverConstrainedCrossAxisSliverConstrainedCrossAxis(maxExtent, sliver);
+  }
+
+  public static CustomScrollViewCustomScrollViewBuilder CustomScrollView() {
+    return CustomScrollViewCustomScrollViewBuilder.customScrollViewCustomScrollView();
+  }
+
+  public static DrawerHeaderDrawerHeaderBuilder DrawerHeader() {
+    return DrawerHeaderDrawerHeaderBuilder.drawerHeaderDrawerHeader();
+  }
+
+  public static SelectionAreaSelectionAreaBuilder SelectionArea(WidgetI child) {
+    return SelectionAreaSelectionAreaBuilder.selectionAreaSelectionArea(child);
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

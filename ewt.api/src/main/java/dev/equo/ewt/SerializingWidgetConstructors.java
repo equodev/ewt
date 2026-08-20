@@ -3962,6 +3962,211 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment sliverPaddingSliverPadding(EdgeInsetsGeometry padding, Optional<Widget> sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("padding", byId.get(padding.getId()));
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    record(id, "sliverPaddingSliverPadding", p);
+    MemorySegment st = SliverPaddingObjSt.allocate(arena);
+    SliverPaddingObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverOpacitySliverOpacity(double opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("opacity", opacity);
+    alwaysIncludeSemantics.ifPresent(v -> p.put("alwaysIncludeSemantics", v));
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    record(id, "sliverOpacitySliverOpacity", p);
+    MemorySegment st = SliverOpacityObjSt.allocate(arena);
+    SliverOpacityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverIgnorePointerSliverIgnorePointer(Optional<Boolean> ignoring, Optional<Boolean> ignoringSemantics, Optional<Widget> sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    ignoring.ifPresent(v -> p.put("ignoring", v));
+    ignoringSemantics.ifPresent(v -> p.put("ignoringSemantics", v));
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    record(id, "sliverIgnorePointerSliverIgnorePointer", p);
+    MemorySegment st = SliverIgnorePointerObjSt.allocate(arena);
+    SliverIgnorePointerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverOffstageSliverOffstage(Optional<Boolean> offstage, Optional<Widget> sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    offstage.ifPresent(v -> p.put("offstage", v));
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    record(id, "sliverOffstageSliverOffstage", p);
+    MemorySegment st = SliverOffstageObjSt.allocate(arena);
+    SliverOffstageObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverSafeAreaSliverSafeArea(Optional<Boolean> left, Optional<Boolean> top, Optional<Boolean> right, Optional<Boolean> bottom, Optional<EdgeInsets> minimum, Widget sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    left.ifPresent(v -> p.put("left", v));
+    top.ifPresent(v -> p.put("top", v));
+    right.ifPresent(v -> p.put("right", v));
+    bottom.ifPresent(v -> p.put("bottom", v));
+    minimum.ifPresent(v -> p.put("minimum", byId.get(v.getId())));
+    p.put("sliver", byId.get(sliver.getId()));
+    record(id, "sliverSafeAreaSliverSafeArea", p);
+    MemorySegment st = SliverSafeAreaObjSt.allocate(arena);
+    SliverSafeAreaObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverVisibilitySliverVisibility(Widget sliver, Optional<Widget> replacementSliver, Optional<Boolean> visible, Optional<Boolean> maintainState, Optional<Boolean> maintainAnimation, Optional<Boolean> maintainSize, Optional<Boolean> maintainSemantics, Optional<Boolean> maintainInteractivity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("sliver", byId.get(sliver.getId()));
+    replacementSliver.ifPresent(v -> p.put("replacementSliver", byId.get(v.getId())));
+    visible.ifPresent(v -> p.put("visible", v));
+    maintainState.ifPresent(v -> p.put("maintainState", v));
+    maintainAnimation.ifPresent(v -> p.put("maintainAnimation", v));
+    maintainSize.ifPresent(v -> p.put("maintainSize", v));
+    maintainSemantics.ifPresent(v -> p.put("maintainSemantics", v));
+    maintainInteractivity.ifPresent(v -> p.put("maintainInteractivity", v));
+    record(id, "sliverVisibilitySliverVisibility", p);
+    MemorySegment st = SliverVisibilityObjSt.allocate(arena);
+    SliverVisibilityObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverVisibilityMaintain(Widget sliver, Optional<Widget> replacementSliver, Optional<Boolean> visible) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("sliver", byId.get(sliver.getId()));
+    replacementSliver.ifPresent(v -> p.put("replacementSliver", byId.get(v.getId())));
+    visible.ifPresent(v -> p.put("visible", v));
+    record(id, "sliverVisibilityMaintain", p);
+    MemorySegment st = SliverVisibilityObjSt.allocate(arena);
+    SliverVisibilityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverMainAxisGroupSliverMainAxisGroup(List<Widget> slivers) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("slivers", slivers.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    record(id, "sliverMainAxisGroupSliverMainAxisGroup", p);
+    MemorySegment st = SliverMainAxisGroupObjSt.allocate(arena);
+    SliverMainAxisGroupObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverCrossAxisGroupSliverCrossAxisGroup(List<Widget> slivers) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("slivers", slivers.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    record(id, "sliverCrossAxisGroupSliverCrossAxisGroup", p);
+    MemorySegment st = SliverCrossAxisGroupObjSt.allocate(arena);
+    SliverCrossAxisGroupObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverFillRemainingSliverFillRemaining(Optional<Widget> child, Optional<Boolean> hasScrollBody, Optional<Boolean> fillOverscroll) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    hasScrollBody.ifPresent(v -> p.put("hasScrollBody", v));
+    fillOverscroll.ifPresent(v -> p.put("fillOverscroll", v));
+    record(id, "sliverFillRemainingSliverFillRemaining", p);
+    MemorySegment st = SliverFillRemainingObjSt.allocate(arena);
+    SliverFillRemainingObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverEnsureSemanticsSliverEnsureSemantics(Widget sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("sliver", byId.get(sliver.getId()));
+    record(id, "sliverEnsureSemanticsSliverEnsureSemantics", p);
+    MemorySegment st = SliverEnsureSemanticsObjSt.allocate(arena);
+    SliverEnsureSemanticsObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverConstrainedCrossAxisSliverConstrainedCrossAxis(double maxExtent, Widget sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("maxExtent", maxExtent);
+    p.put("sliver", byId.get(sliver.getId()));
+    record(id, "sliverConstrainedCrossAxisSliverConstrainedCrossAxis", p);
+    MemorySegment st = SliverConstrainedCrossAxisObjSt.allocate(arena);
+    SliverConstrainedCrossAxisObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment customScrollViewCustomScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, OptionalDouble anchor, OptionalDouble cacheExtent, Optional<SliverPaintOrder> paintOrder, Optional<List<Widget>> slivers, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    primary.ifPresent(v -> p.put("primary", v));
+    shrinkWrap.ifPresent(v -> p.put("shrinkWrap", v));
+    if (anchor.isPresent()) { p.put("anchor", anchor.getAsDouble()); }
+    if (cacheExtent.isPresent()) { p.put("cacheExtent", cacheExtent.getAsDouble()); }
+    paintOrder.ifPresent(v -> p.put("paintOrder", v.ordinal()));
+    slivers.ifPresent(v -> p.put("slivers", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    if (semanticChildCount.isPresent()) { p.put("semanticChildCount", semanticChildCount.getAsInt()); }
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    keyboardDismissBehavior.ifPresent(v -> p.put("keyboardDismissBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    record(id, "customScrollViewCustomScrollView", p);
+    MemorySegment st = CustomScrollViewObjSt.allocate(arena);
+    CustomScrollViewObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment drawerHeaderDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, Optional<Duration> duration, Optional<Curve> curve, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    duration.ifPresent(v -> p.put("duration", byId.get(v.getId())));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "drawerHeaderDrawerHeader", p);
+    MemorySegment st = DrawerHeaderObjSt.allocate(arena);
+    DrawerHeaderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment selectionAreaSelectionArea(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "selectionAreaSelectionArea", p);
+    MemorySegment st = SelectionAreaObjSt.allocate(arena);
+    SelectionAreaObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

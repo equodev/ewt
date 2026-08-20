@@ -2752,6 +2752,136 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor));
   }
 
+  MemorySegment sliverPaddingSliverPadding(EdgeInsetsGeometry padding, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverPadding(factories);
+    var fn = WidgetFactories.SliverPaddingSt.sliverPadding(st);
+    return WidgetFactories.SliverPaddingSt.sliverPadding.invoke(fn, arena, padding.build().getId(),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverOpacitySliverOpacity(double opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverOpacity(factories);
+    var fn = WidgetFactories.SliverOpacitySt.sliverOpacity(st);
+    return WidgetFactories.SliverOpacitySt.sliverOpacity.invoke(fn, arena, opacity,
+      ptrBool(alwaysIncludeSemantics),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverIgnorePointerSliverIgnorePointer(Optional<Boolean> ignoring, Optional<Boolean> ignoringSemantics, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverIgnorePointer(factories);
+    var fn = WidgetFactories.SliverIgnorePointerSt.sliverIgnorePointer(st);
+    return WidgetFactories.SliverIgnorePointerSt.sliverIgnorePointer.invoke(fn, arena, ptrBool(ignoring),
+      ptrBool(ignoringSemantics),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverOffstageSliverOffstage(Optional<Boolean> offstage, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverOffstage(factories);
+    var fn = WidgetFactories.SliverOffstageSt.sliverOffstage(st);
+    return WidgetFactories.SliverOffstageSt.sliverOffstage.invoke(fn, arena, ptrBool(offstage),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverSafeAreaSliverSafeArea(Optional<Boolean> left, Optional<Boolean> top, Optional<Boolean> right, Optional<Boolean> bottom, Optional<EdgeInsets> minimum, Widget sliver) {
+    var st = WidgetFactories.sliverSafeArea(factories);
+    var fn = WidgetFactories.SliverSafeAreaSt.sliverSafeArea(st);
+    return WidgetFactories.SliverSafeAreaSt.sliverSafeArea.invoke(fn, arena, ptrBool(left),
+      ptrBool(top),
+      ptrBool(right),
+      ptrBool(bottom),
+      ptrObj(minimum),
+      sliver.build().getId());
+  }
+
+  MemorySegment sliverVisibilitySliverVisibility(Widget sliver, Optional<Widget> replacementSliver, Optional<Boolean> visible, Optional<Boolean> maintainState, Optional<Boolean> maintainAnimation, Optional<Boolean> maintainSize, Optional<Boolean> maintainSemantics, Optional<Boolean> maintainInteractivity) {
+    var st = WidgetFactories.sliverVisibility(factories);
+    var fn = WidgetFactories.SliverVisibilitySt.sliverVisibility(st);
+    return WidgetFactories.SliverVisibilitySt.sliverVisibility.invoke(fn, arena, sliver.build().getId(),
+      ptrObj(replacementSliver),
+      ptrBool(visible),
+      ptrBool(maintainState),
+      ptrBool(maintainAnimation),
+      ptrBool(maintainSize),
+      ptrBool(maintainSemantics),
+      ptrBool(maintainInteractivity));
+  }
+  MemorySegment sliverVisibilityMaintain(Widget sliver, Optional<Widget> replacementSliver, Optional<Boolean> visible) {
+    var st = WidgetFactories.sliverVisibility(factories);
+    var fn = WidgetFactories.SliverVisibilitySt.maintain(st);
+    return WidgetFactories.SliverVisibilitySt.maintain.invoke(fn, arena, sliver.build().getId(),
+      ptrObj(replacementSliver),
+      ptrBool(visible));
+  }
+
+  MemorySegment sliverMainAxisGroupSliverMainAxisGroup(List<Widget> slivers) {
+    var st = WidgetFactories.sliverMainAxisGroup(factories);
+    var fn = WidgetFactories.SliverMainAxisGroupSt.sliverMainAxisGroup(st);
+    return WidgetFactories.SliverMainAxisGroupSt.sliverMainAxisGroup.invoke(fn, arena, ptrList(slivers));
+  }
+
+  MemorySegment sliverCrossAxisGroupSliverCrossAxisGroup(List<Widget> slivers) {
+    var st = WidgetFactories.sliverCrossAxisGroup(factories);
+    var fn = WidgetFactories.SliverCrossAxisGroupSt.sliverCrossAxisGroup(st);
+    return WidgetFactories.SliverCrossAxisGroupSt.sliverCrossAxisGroup.invoke(fn, arena, ptrList(slivers));
+  }
+
+  MemorySegment sliverFillRemainingSliverFillRemaining(Optional<Widget> child, Optional<Boolean> hasScrollBody, Optional<Boolean> fillOverscroll) {
+    var st = WidgetFactories.sliverFillRemaining(factories);
+    var fn = WidgetFactories.SliverFillRemainingSt.sliverFillRemaining(st);
+    return WidgetFactories.SliverFillRemainingSt.sliverFillRemaining.invoke(fn, arena, ptrObj(child),
+      ptrBool(hasScrollBody),
+      ptrBool(fillOverscroll));
+  }
+
+  MemorySegment sliverEnsureSemanticsSliverEnsureSemantics(Widget sliver) {
+    var st = WidgetFactories.sliverEnsureSemantics(factories);
+    var fn = WidgetFactories.SliverEnsureSemanticsSt.sliverEnsureSemantics(st);
+    return WidgetFactories.SliverEnsureSemanticsSt.sliverEnsureSemantics.invoke(fn, arena, sliver.build().getId());
+  }
+
+  MemorySegment sliverConstrainedCrossAxisSliverConstrainedCrossAxis(double maxExtent, Widget sliver) {
+    var st = WidgetFactories.sliverConstrainedCrossAxis(factories);
+    var fn = WidgetFactories.SliverConstrainedCrossAxisSt.sliverConstrainedCrossAxis(st);
+    return WidgetFactories.SliverConstrainedCrossAxisSt.sliverConstrainedCrossAxis.invoke(fn, arena, maxExtent,
+      sliver.build().getId());
+  }
+
+  MemorySegment customScrollViewCustomScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, OptionalDouble anchor, OptionalDouble cacheExtent, Optional<SliverPaintOrder> paintOrder, Optional<List<Widget>> slivers, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    var st = WidgetFactories.customScrollView(factories);
+    var fn = WidgetFactories.CustomScrollViewSt.customScrollView(st);
+    return WidgetFactories.CustomScrollViewSt.customScrollView.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrBool(primary),
+      ptrBool(shrinkWrap),
+      ptr(anchor),
+      ptr(cacheExtent),
+      ptrEnum(paintOrder),
+      ptrList(slivers),
+      ptr(semanticChildCount),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(keyboardDismissBehavior),
+      ptrStr(restorationId),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior));
+  }
+
+  MemorySegment drawerHeaderDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, Optional<Duration> duration, Optional<Curve> curve, Widget child) {
+    var st = WidgetFactories.drawerHeader(factories);
+    var fn = WidgetFactories.DrawerHeaderSt.drawerHeader(st);
+    return WidgetFactories.DrawerHeaderSt.drawerHeader.invoke(fn, arena, ptrObj(decoration),
+      ptrObj(margin),
+      ptrObj(padding),
+      ptrObj(duration),
+      ptrObj(curve),
+      child != null ? child.build().getId() : null);
+  }
+
+  MemorySegment selectionAreaSelectionArea(Widget child) {
+    var st = WidgetFactories.selectionArea(factories);
+    var fn = WidgetFactories.SelectionAreaSt.selectionArea(st);
+    return WidgetFactories.SelectionAreaSt.selectionArea.invoke(fn, arena, child.build().getId());
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);

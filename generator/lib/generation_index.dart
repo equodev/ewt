@@ -199,6 +199,21 @@ w.PositionedDirectional? positionedDirectional;
 m.VerticalDivider? verticalDivider;
 m.ExpandIcon? expandIcon;
 
+w.SliverPadding? sliverPadding;
+w.SliverOpacity? sliverOpacity;
+w.SliverIgnorePointer? sliverIgnorePointer;
+w.SliverOffstage? sliverOffstage;
+w.SliverSafeArea? sliverSafeArea;
+w.SliverVisibility? sliverVisibility;
+w.SliverMainAxisGroup? sliverMainAxisGroup;
+w.SliverCrossAxisGroup? sliverCrossAxisGroup;
+w.SliverFillRemaining? sliverFillRemaining;
+w.SliverEnsureSemantics? sliverEnsureSemantics;
+w.SliverConstrainedCrossAxis? sliverConstrainedCrossAxis;
+w.CustomScrollView? customScrollView;
+m.DrawerHeader? drawerHeader;
+m.SelectionArea? selectionArea;
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

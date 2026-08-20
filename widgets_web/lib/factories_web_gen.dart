@@ -1275,6 +1275,76 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       splashColor: p['splashColor'] == null ? null : decodeEwtNode(p['splashColor'] as Map<String,dynamic>) as Color,
       highlightColor: p['highlightColor'] == null ? null : decodeEwtNode(p['highlightColor'] as Map<String,dynamic>) as Color),
 
+  'sliverPaddingSliverPadding': (p) => SliverPadding(padding: decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      sliver: p['sliver'] == null ? null : decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverOpacitySliverOpacity': (p) => SliverOpacity(opacity: (p['opacity'] as num).toDouble(),
+      alwaysIncludeSemantics: (p['alwaysIncludeSemantics'] as bool?) ?? false,
+      sliver: p['sliver'] == null ? null : decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverIgnorePointerSliverIgnorePointer': (p) => SliverIgnorePointer(ignoring: (p['ignoring'] as bool?) ?? true,
+      ignoringSemantics: p['ignoringSemantics'] as bool?,
+      sliver: p['sliver'] == null ? null : decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverOffstageSliverOffstage': (p) => SliverOffstage(offstage: (p['offstage'] as bool?) ?? true,
+      sliver: p['sliver'] == null ? null : decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverSafeAreaSliverSafeArea': (p) => SliverSafeArea(left: (p['left'] as bool?) ?? true,
+      top: (p['top'] as bool?) ?? true,
+      right: (p['right'] as bool?) ?? true,
+      bottom: (p['bottom'] as bool?) ?? true,
+      minimum: p['minimum'] == null ? EdgeInsets.zero : decodeEwtNode(p['minimum'] as Map<String,dynamic>) as EdgeInsets,
+      sliver: decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverVisibilitySliverVisibility': (p) => SliverVisibility(sliver: decodeEwtWidget(p['sliver'] as Map<String,dynamic>),
+      replacementSliver: p['replacementSliver'] == null ? const SliverToBoxAdapter() : decodeEwtWidget(p['replacementSliver'] as Map<String,dynamic>),
+      visible: (p['visible'] as bool?) ?? true,
+      maintainState: (p['maintainState'] as bool?) ?? false,
+      maintainAnimation: (p['maintainAnimation'] as bool?) ?? false,
+      maintainSize: (p['maintainSize'] as bool?) ?? false,
+      maintainSemantics: (p['maintainSemantics'] as bool?) ?? false,
+      maintainInteractivity: (p['maintainInteractivity'] as bool?) ?? false),
+  'sliverVisibilityMaintain': (p) => SliverVisibility.maintain(sliver: decodeEwtWidget(p['sliver'] as Map<String,dynamic>),
+      replacementSliver: p['replacementSliver'] == null ? const SliverToBoxAdapter() : decodeEwtWidget(p['replacementSliver'] as Map<String,dynamic>),
+      visible: (p['visible'] as bool?) ?? true),
+
+  'sliverMainAxisGroupSliverMainAxisGroup': (p) => SliverMainAxisGroup(slivers: ((p['slivers'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'sliverCrossAxisGroupSliverCrossAxisGroup': (p) => SliverCrossAxisGroup(slivers: ((p['slivers'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'sliverFillRemainingSliverFillRemaining': (p) => SliverFillRemaining(child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      hasScrollBody: (p['hasScrollBody'] as bool?) ?? true,
+      fillOverscroll: (p['fillOverscroll'] as bool?) ?? false),
+
+  'sliverEnsureSemanticsSliverEnsureSemantics': (p) => SliverEnsureSemantics(sliver: decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverConstrainedCrossAxisSliverConstrainedCrossAxis': (p) => SliverConstrainedCrossAxis(maxExtent: (p['maxExtent'] as num).toDouble(),
+      sliver: decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'customScrollViewCustomScrollView': (p) => CustomScrollView(scrollDirection: p['scrollDirection'] == null ? Axis.vertical : Axis.values[p['scrollDirection'] as int],
+      reverse: (p['reverse'] as bool?) ?? false,
+      primary: p['primary'] as bool?,
+      shrinkWrap: (p['shrinkWrap'] as bool?) ?? false,
+      anchor: ((p['anchor'] as num?)?.toDouble()) ?? 0.0,
+      cacheExtent: (p['cacheExtent'] as num?)?.toDouble(),
+      paintOrder: p['paintOrder'] == null ? SliverPaintOrder.firstIsTop : SliverPaintOrder.values[p['paintOrder'] as int],
+      slivers: ((p['slivers'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      semanticChildCount: p['semanticChildCount'] as int?,
+      dragStartBehavior: p['dragStartBehavior'] == null ? DragStartBehavior.start : DragStartBehavior.values[p['dragStartBehavior'] as int],
+      keyboardDismissBehavior: p['keyboardDismissBehavior'] == null ? null : ScrollViewKeyboardDismissBehavior.values[p['keyboardDismissBehavior'] as int],
+      restorationId: p['restorationId'] as String?,
+      clipBehavior: p['clipBehavior'] == null ? Clip.hardEdge : Clip.values[p['clipBehavior'] as int],
+      hitTestBehavior: p['hitTestBehavior'] == null ? HitTestBehavior.opaque : HitTestBehavior.values[p['hitTestBehavior'] as int]),
+
+  'drawerHeaderDrawerHeader': (p) => DrawerHeader(decoration: p['decoration'] == null ? null : decodeEwtNode(p['decoration'] as Map<String,dynamic>) as Decoration,
+      margin: p['margin'] == null ? null : decodeEwtNode(p['margin'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      padding: p['padding'] == null ? const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0) : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      duration: p['duration'] == null ? const Duration(milliseconds: 250) : decodeEwtNode(p['duration'] as Map<String,dynamic>) as Duration,
+      curve: p['curve'] == null ? Curves.fastOutSlowIn : decodeEwtNode(p['curve'] as Map<String,dynamic>) as Curve,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'selectionAreaSelectionArea': (p) => SelectionArea(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
   'colorSchemeColorScheme': (p) => ColorScheme(brightness: Brightness.values[p['brightness'] as int],
       primary: decodeEwtNode(p['primary'] as Map<String,dynamic>) as Color,
       onPrimary: decodeEwtNode(p['onPrimary'] as Map<String,dynamic>) as Color,

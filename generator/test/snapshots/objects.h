@@ -813,6 +813,80 @@ typedef struct {
 } ExpandIconObjSt;
 typedef struct {
   int id;
+  DartObj padding;
+} SliverPaddingObjSt;
+typedef struct {
+  int id;
+  double opacity;
+  int alwaysIncludeSemantics;
+} SliverOpacityObjSt;
+typedef struct {
+  int id;
+  int ignoring;
+  int ignoringSemantics;
+} SliverIgnorePointerObjSt;
+typedef struct {
+  int id;
+  int offstage;
+} SliverOffstageObjSt;
+typedef struct {
+  int id;
+  int left;
+  int top;
+  int right;
+  int bottom;
+  EdgeInsetsObjSt minimum;
+  DartObj sliver;
+} SliverSafeAreaObjSt;
+typedef struct {
+  int id;
+  DartObj sliver;
+  DartObj replacementSliver;
+  int visible;
+  int maintainState;
+  int maintainAnimation;
+  int maintainSize;
+  int maintainSemantics;
+  int maintainInteractivity;
+} SliverVisibilityObjSt;
+typedef struct {
+  int id;
+} SliverMainAxisGroupObjSt;
+typedef struct {
+  int id;
+} SliverCrossAxisGroupObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int hasScrollBody;
+  int fillOverscroll;
+} SliverFillRemainingObjSt;
+typedef struct {
+  int id;
+} SliverEnsureSemanticsObjSt;
+typedef struct {
+  int id;
+  double maxExtent;
+  DartObj sliver;
+} SliverConstrainedCrossAxisObjSt;
+typedef struct {
+  int id;
+} CustomScrollViewObjSt;
+typedef struct {
+  int id;
+  DartObj decoration;
+  DartObj padding;
+  DartObj margin;
+  DartObj duration;
+  DartObj curve;
+  DartObj child;
+} DrawerHeaderObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+} SelectionAreaObjSt;
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;

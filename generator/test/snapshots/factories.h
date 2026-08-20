@@ -814,6 +814,63 @@ typedef struct {
     ExpandIconObjSt (*expandIcon)(int* isExpanded, double* size, ValueChangedForBoolFFI onPressed, DartObj* padding, DartObj* color, DartObj* disabledColor, DartObj* expandedColor, DartObj* splashColor, DartObj* highlightColor);
   } expandIcon;
 
+  struct SliverPaddingSt {
+    SliverPaddingObjSt (*sliverPadding)(DartObj padding, DartObj* sliver);
+  } sliverPadding;
+
+  struct SliverOpacitySt {
+    SliverOpacityObjSt (*sliverOpacity)(double opacity, int* alwaysIncludeSemantics, DartObj* sliver);
+  } sliverOpacity;
+
+  struct SliverIgnorePointerSt {
+    SliverIgnorePointerObjSt (*sliverIgnorePointer)(int* ignoring, int* ignoringSemantics, DartObj* sliver);
+  } sliverIgnorePointer;
+
+  struct SliverOffstageSt {
+    SliverOffstageObjSt (*sliverOffstage)(int* offstage, DartObj* sliver);
+  } sliverOffstage;
+
+  struct SliverSafeAreaSt {
+    SliverSafeAreaObjSt (*sliverSafeArea)(int* left, int* top, int* right, int* bottom, DartObj* minimum, DartObj sliver);
+  } sliverSafeArea;
+
+  struct SliverVisibilitySt {
+    SliverVisibilityObjSt (*sliverVisibility)(DartObj sliver, DartObj* replacementSliver, int* visible, int* maintainState, int* maintainAnimation, int* maintainSize, int* maintainSemantics, int* maintainInteractivity);
+    SliverVisibilityObjSt (*maintain)(DartObj sliver, DartObj* replacementSliver, int* visible);
+  } sliverVisibility;
+
+  struct SliverMainAxisGroupSt {
+    SliverMainAxisGroupObjSt (*sliverMainAxisGroup)(ArrayC slivers);
+  } sliverMainAxisGroup;
+
+  struct SliverCrossAxisGroupSt {
+    SliverCrossAxisGroupObjSt (*sliverCrossAxisGroup)(ArrayC slivers);
+  } sliverCrossAxisGroup;
+
+  struct SliverFillRemainingSt {
+    SliverFillRemainingObjSt (*sliverFillRemaining)(DartObj* child, int* hasScrollBody, int* fillOverscroll);
+  } sliverFillRemaining;
+
+  struct SliverEnsureSemanticsSt {
+    SliverEnsureSemanticsObjSt (*sliverEnsureSemantics)(DartObj sliver);
+  } sliverEnsureSemantics;
+
+  struct SliverConstrainedCrossAxisSt {
+    SliverConstrainedCrossAxisObjSt (*sliverConstrainedCrossAxis)(double maxExtent, DartObj sliver);
+  } sliverConstrainedCrossAxis;
+
+  struct CustomScrollViewSt {
+    CustomScrollViewObjSt (*customScrollView)(int* scrollDirection, int* reverse, int* primary, int* shrinkWrap, double* anchor, double* cacheExtent, int* paintOrder, ArrayC* slivers, int* semanticChildCount, int* dragStartBehavior, int* keyboardDismissBehavior, char* restorationId, int* clipBehavior, int* hitTestBehavior);
+  } customScrollView;
+
+  struct DrawerHeaderSt {
+    DrawerHeaderObjSt (*drawerHeader)(DartObj* decoration, DartObj* margin, DartObj* padding, DartObj* duration, DartObj* curve, DartObj child);
+  } drawerHeader;
+
+  struct SelectionAreaSt {
+    SelectionAreaObjSt (*selectionArea)(DartObj child);
+  } selectionArea;
+
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
     ColorSchemeObjSt (*fromSeed)(DartObj seedColor, int* brightness, int* dynamicSchemeVariant, double* contrastLevel, DartObj* primary, DartObj* onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj* secondary, DartObj* onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj* error, DartObj* onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj* outline, DartObj* outlineVariant, DartObj* surface, DartObj* onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* shadow, DartObj* scrim, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);

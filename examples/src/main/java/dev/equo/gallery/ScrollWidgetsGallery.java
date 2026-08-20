@@ -91,7 +91,49 @@ public class ScrollWidgetsGallery {
                       .children(cells)),
 
               section("PageView (swipe horizontally)", 80.0,
-                  PageView().children(pages))
+                  PageView().children(pages)),
+
+              // --- CustomScrollView + a bouquet of sliver widgets ---
+              // SliverEnsureSemantics wraps the whole thing; SliverMainAxisGroup
+              // stacks its group; SliverPadding + SliverOpacity + SliverIgnorePointer
+              // + SliverOffstage + SliverVisibility + SliverSafeArea + SliverConstrainedCrossAxis
+              // all wrap SliverToBoxAdapter cells. SliverFillRemaining is the final panel.
+              section("CustomScrollView (11 sliver widgets)", 280.0,
+                  CustomScrollView().slivers(List.of(
+                      SliverEnsureSemantics(
+                          SliverMainAxisGroup(List.of(
+                              SliverPadding(EdgeInsets_all(6.0).build())
+                                  .sliver(SliverToBoxAdapter()
+                                      .child(box("SliverPadding + Adapter", Colors.red())).build()).build(),
+                              SliverOpacity(0.5).sliver(
+                                  SliverToBoxAdapter().child(box("SliverOpacity 0.5", Colors.blue())).build()).build(),
+                              SliverIgnorePointer().sliver(
+                                  SliverToBoxAdapter().child(box("SliverIgnorePointer", Colors.green())).build()).build(),
+                              SliverOffstage().offstage(false).sliver(
+                                  SliverToBoxAdapter().child(box("SliverOffstage(false)", Colors.amber())).build()).build(),
+                              SliverVisibility(SliverToBoxAdapter()
+                                      .child(box("SliverVisibility", Colors.purple())).build())
+                                  .visible(true).build(),
+                              SliverConstrainedCrossAxis(200.0,
+                                  SliverToBoxAdapter().child(box("SliverConstrainedCrossAxis 200", Colors.teal())).build()).build(),
+                              SliverSafeArea().sliver(
+                                  SliverToBoxAdapter().child(box("SliverSafeArea", Colors.indigo())).build()).build(),
+                              SliverFillRemaining().child(
+                                  Container().color(Colors.deepOrange())
+                                      .child(Center().child(Text("SliverFillRemaining")))).build()
+                          )).build()).build()
+                  ))),
+
+              // --- SelectionArea: makes any Text subtree user-selectable ---
+              section("SelectionArea (select the text below)", 40.0,
+                  SelectionArea(Text("Highlight me with the mouse or keyboard.").build())),
+
+              // --- DrawerHeader: normally lives in a Scaffold.drawer, shown standalone here ---
+              section("DrawerHeader", 100.0,
+                  DrawerHeader()
+                      .decoration(BoxDecoration().color(Colors.deepOrange()))
+                      .child(Text("Drawer header content")
+                          .style(TextStyle().color(Colors.white()).fontSize(18.0))))
           ))));
     }
   }

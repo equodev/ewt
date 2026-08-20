@@ -4182,6 +4182,280 @@ ExpandIconObjSt _createExpandIconObjSt(ExpandIcon? w) {
   return stObj;
 }
 
+void _setupSliverPadding(WidgetFactories f) {
+  f.sliverPadding.sliverPadding = ffi.Pointer.fromFunction(sliverPaddingSliverPadding);
+}
+SliverPaddingObjSt sliverPaddingSliverPadding(DartDartObj padding, ffi.Pointer<DartObj> sliver) {
+  final w = SliverPadding(padding: _widgetsMap[padding]! as EdgeInsetsGeometry,
+      sliver: sliver.objOrNul());
+  return _createSliverPaddingObjSt(w);
+}
+SliverPaddingObjSt _createSliverPaddingObjSt(SliverPadding? w) {
+  final SliverPaddingObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.padding = _addWidget(w.padding);
+  return stObj;
+}
+
+void _setupSliverOpacity(WidgetFactories f) {
+  f.sliverOpacity.sliverOpacity = ffi.Pointer.fromFunction(sliverOpacitySliverOpacity);
+}
+SliverOpacityObjSt sliverOpacitySliverOpacity(double opacity, ffi.Pointer<ffi.Int> alwaysIncludeSemantics, ffi.Pointer<DartObj> sliver) {
+  final w = SliverOpacity(opacity: opacity,
+      alwaysIncludeSemantics: alwaysIncludeSemantics.boolOr(false),
+      sliver: sliver.objOrNul());
+  return _createSliverOpacityObjSt(w);
+}
+SliverOpacityObjSt _createSliverOpacityObjSt(SliverOpacity? w) {
+  final SliverOpacityObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.opacity = w.opacity;
+  stObj.alwaysIncludeSemantics = w.alwaysIncludeSemantics.toInt();
+  return stObj;
+}
+
+void _setupSliverIgnorePointer(WidgetFactories f) {
+  f.sliverIgnorePointer.sliverIgnorePointer = ffi.Pointer.fromFunction(sliverIgnorePointerSliverIgnorePointer);
+}
+SliverIgnorePointerObjSt sliverIgnorePointerSliverIgnorePointer(ffi.Pointer<ffi.Int> ignoring, ffi.Pointer<ffi.Int> ignoringSemantics, ffi.Pointer<DartObj> sliver) {
+  final w = SliverIgnorePointer(ignoring: ignoring.boolOr(true),
+      ignoringSemantics: ignoringSemantics.boolOrNul(),
+      sliver: sliver.objOrNul());
+  return _createSliverIgnorePointerObjSt(w);
+}
+SliverIgnorePointerObjSt _createSliverIgnorePointerObjSt(SliverIgnorePointer? w) {
+  final SliverIgnorePointerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.ignoring = w.ignoring.toInt();
+  stObj.ignoringSemantics = (w.ignoringSemantics != null) ? w.ignoringSemantics!.toInt() : 0;
+  return stObj;
+}
+
+void _setupSliverOffstage(WidgetFactories f) {
+  f.sliverOffstage.sliverOffstage = ffi.Pointer.fromFunction(sliverOffstageSliverOffstage);
+}
+SliverOffstageObjSt sliverOffstageSliverOffstage(ffi.Pointer<ffi.Int> offstage, ffi.Pointer<DartObj> sliver) {
+  final w = SliverOffstage(offstage: offstage.boolOr(true),
+      sliver: sliver.objOrNul());
+  return _createSliverOffstageObjSt(w);
+}
+SliverOffstageObjSt _createSliverOffstageObjSt(SliverOffstage? w) {
+  final SliverOffstageObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.offstage = w.offstage.toInt();
+  return stObj;
+}
+
+void _setupSliverSafeArea(WidgetFactories f) {
+  f.sliverSafeArea.sliverSafeArea = ffi.Pointer.fromFunction(sliverSafeAreaSliverSafeArea);
+}
+SliverSafeAreaObjSt sliverSafeAreaSliverSafeArea(ffi.Pointer<ffi.Int> left, ffi.Pointer<ffi.Int> top, ffi.Pointer<ffi.Int> right, ffi.Pointer<ffi.Int> bottom, ffi.Pointer<DartObj> minimum, DartDartObj sliver) {
+  final w = SliverSafeArea(left: left.boolOr(true),
+      top: top.boolOr(true),
+      right: right.boolOr(true),
+      bottom: bottom.boolOr(true),
+      minimum: minimum.objOr(EdgeInsets.zero),
+      sliver: _widgetsMap[sliver]! as Widget);
+  return _createSliverSafeAreaObjSt(w);
+}
+SliverSafeAreaObjSt _createSliverSafeAreaObjSt(SliverSafeArea? w) {
+  final SliverSafeAreaObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.left = w.left.toInt();
+  stObj.top = w.top.toInt();
+  stObj.right = w.right.toInt();
+  stObj.bottom = w.bottom.toInt();
+  stObj.minimum = _createEdgeInsetsObjSt(w.minimum);
+  stObj.sliver = _addWidget(w.sliver);
+  return stObj;
+}
+
+void _setupSliverVisibility(WidgetFactories f) {
+  f.sliverVisibility.sliverVisibility = ffi.Pointer.fromFunction(sliverVisibilitySliverVisibility);
+  f.sliverVisibility.maintain = ffi.Pointer.fromFunction(sliverVisibilityMaintain);
+}
+SliverVisibilityObjSt sliverVisibilitySliverVisibility(DartDartObj sliver, ffi.Pointer<DartObj> replacementSliver, ffi.Pointer<ffi.Int> visible, ffi.Pointer<ffi.Int> maintainState, ffi.Pointer<ffi.Int> maintainAnimation, ffi.Pointer<ffi.Int> maintainSize, ffi.Pointer<ffi.Int> maintainSemantics, ffi.Pointer<ffi.Int> maintainInteractivity) {
+  final w = SliverVisibility(sliver: _widgetsMap[sliver]! as Widget,
+      replacementSliver: replacementSliver.objOr(const SliverToBoxAdapter()),
+      visible: visible.boolOr(true),
+      maintainState: maintainState.boolOr(false),
+      maintainAnimation: maintainAnimation.boolOr(false),
+      maintainSize: maintainSize.boolOr(false),
+      maintainSemantics: maintainSemantics.boolOr(false),
+      maintainInteractivity: maintainInteractivity.boolOr(false));
+  return _createSliverVisibilityObjSt(w);
+}
+SliverVisibilityObjSt sliverVisibilityMaintain(DartDartObj sliver, ffi.Pointer<DartObj> replacementSliver, ffi.Pointer<ffi.Int> visible) {
+  final w = SliverVisibility.maintain(sliver: _widgetsMap[sliver]! as Widget,
+      replacementSliver: replacementSliver.objOr(const SliverToBoxAdapter()),
+      visible: visible.boolOr(true));
+  return _createSliverVisibilityObjSt(w);
+}
+SliverVisibilityObjSt _createSliverVisibilityObjSt(SliverVisibility? w) {
+  final SliverVisibilityObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.sliver = _addWidget(w.sliver);
+  stObj.replacementSliver = _addWidget(w.replacementSliver);
+  stObj.visible = w.visible.toInt();
+  stObj.maintainState = w.maintainState.toInt();
+  stObj.maintainAnimation = w.maintainAnimation.toInt();
+  stObj.maintainSize = w.maintainSize.toInt();
+  stObj.maintainSemantics = w.maintainSemantics.toInt();
+  stObj.maintainInteractivity = w.maintainInteractivity.toInt();
+  return stObj;
+}
+
+void _setupSliverMainAxisGroup(WidgetFactories f) {
+  f.sliverMainAxisGroup.sliverMainAxisGroup = ffi.Pointer.fromFunction(sliverMainAxisGroupSliverMainAxisGroup);
+}
+SliverMainAxisGroupObjSt sliverMainAxisGroupSliverMainAxisGroup(ArrayC slivers) {
+  final w = SliverMainAxisGroup(slivers: slivers.listOrEmpty());
+  return _createSliverMainAxisGroupObjSt(w);
+}
+SliverMainAxisGroupObjSt _createSliverMainAxisGroupObjSt(SliverMainAxisGroup? w) {
+  final SliverMainAxisGroupObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupSliverCrossAxisGroup(WidgetFactories f) {
+  f.sliverCrossAxisGroup.sliverCrossAxisGroup = ffi.Pointer.fromFunction(sliverCrossAxisGroupSliverCrossAxisGroup);
+}
+SliverCrossAxisGroupObjSt sliverCrossAxisGroupSliverCrossAxisGroup(ArrayC slivers) {
+  final w = SliverCrossAxisGroup(slivers: slivers.listOrEmpty());
+  return _createSliverCrossAxisGroupObjSt(w);
+}
+SliverCrossAxisGroupObjSt _createSliverCrossAxisGroupObjSt(SliverCrossAxisGroup? w) {
+  final SliverCrossAxisGroupObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupSliverFillRemaining(WidgetFactories f) {
+  f.sliverFillRemaining.sliverFillRemaining = ffi.Pointer.fromFunction(sliverFillRemainingSliverFillRemaining);
+}
+SliverFillRemainingObjSt sliverFillRemainingSliverFillRemaining(ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> hasScrollBody, ffi.Pointer<ffi.Int> fillOverscroll) {
+  final w = SliverFillRemaining(child: child.objOrNul(),
+      hasScrollBody: hasScrollBody.boolOr(true),
+      fillOverscroll: fillOverscroll.boolOr(false));
+  return _createSliverFillRemainingObjSt(w);
+}
+SliverFillRemainingObjSt _createSliverFillRemainingObjSt(SliverFillRemaining? w) {
+  final SliverFillRemainingObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.hasScrollBody = w.hasScrollBody.toInt();
+  stObj.fillOverscroll = w.fillOverscroll.toInt();
+  return stObj;
+}
+
+void _setupSliverEnsureSemantics(WidgetFactories f) {
+  f.sliverEnsureSemantics.sliverEnsureSemantics = ffi.Pointer.fromFunction(sliverEnsureSemanticsSliverEnsureSemantics);
+}
+SliverEnsureSemanticsObjSt sliverEnsureSemanticsSliverEnsureSemantics(DartDartObj sliver) {
+  final w = SliverEnsureSemantics(sliver: _widgetsMap[sliver]! as Widget);
+  return _createSliverEnsureSemanticsObjSt(w);
+}
+SliverEnsureSemanticsObjSt _createSliverEnsureSemanticsObjSt(SliverEnsureSemantics? w) {
+  final SliverEnsureSemanticsObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupSliverConstrainedCrossAxis(WidgetFactories f) {
+  f.sliverConstrainedCrossAxis.sliverConstrainedCrossAxis = ffi.Pointer.fromFunction(sliverConstrainedCrossAxisSliverConstrainedCrossAxis);
+}
+SliverConstrainedCrossAxisObjSt sliverConstrainedCrossAxisSliverConstrainedCrossAxis(double maxExtent, DartDartObj sliver) {
+  final w = SliverConstrainedCrossAxis(maxExtent: maxExtent,
+      sliver: _widgetsMap[sliver]! as Widget);
+  return _createSliverConstrainedCrossAxisObjSt(w);
+}
+SliverConstrainedCrossAxisObjSt _createSliverConstrainedCrossAxisObjSt(SliverConstrainedCrossAxis? w) {
+  final SliverConstrainedCrossAxisObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.maxExtent = w.maxExtent;
+  stObj.sliver = _addWidget(w.sliver);
+  return stObj;
+}
+
+void _setupCustomScrollView(WidgetFactories f) {
+  f.customScrollView.customScrollView = ffi.Pointer.fromFunction(customScrollViewCustomScrollView);
+}
+CustomScrollViewObjSt customScrollViewCustomScrollView(ffi.Pointer<ffi.Int> scrollDirection, ffi.Pointer<ffi.Int> reverse, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> shrinkWrap, ffi.Pointer<ffi.Double> anchor, ffi.Pointer<ffi.Double> cacheExtent, ffi.Pointer<ffi.Int> paintOrder, ffi.Pointer<ArrayC> slivers, ffi.Pointer<ffi.Int> semanticChildCount, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<ffi.Int> keyboardDismissBehavior, ffi.Pointer<ffi.Char> restorationId, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> hitTestBehavior) {
+  final w = CustomScrollView(scrollDirection: scrollDirection.enumOr(Axis.values, Axis.vertical),
+      reverse: reverse.boolOr(false),
+      primary: primary.boolOrNul(),
+      shrinkWrap: shrinkWrap.boolOr(false),
+      anchor: anchor.doubleOr(0.0),
+      cacheExtent: cacheExtent.doubleOrNul(),
+      paintOrder: paintOrder.enumOr(SliverPaintOrder.values, SliverPaintOrder.firstIsTop),
+      slivers: slivers.listOrEmpty(),
+      semanticChildCount: semanticChildCount.intOrNul(),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      keyboardDismissBehavior: keyboardDismissBehavior.enumOrNul(ScrollViewKeyboardDismissBehavior.values),
+      restorationId: restorationId.strOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
+      hitTestBehavior: hitTestBehavior.enumOr(HitTestBehavior.values, HitTestBehavior.opaque));
+  return _createCustomScrollViewObjSt(w);
+}
+CustomScrollViewObjSt _createCustomScrollViewObjSt(CustomScrollView? w) {
+  final CustomScrollViewObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupDrawerHeader(WidgetFactories f) {
+  f.drawerHeader.drawerHeader = ffi.Pointer.fromFunction(drawerHeaderDrawerHeader);
+}
+DrawerHeaderObjSt drawerHeaderDrawerHeader(ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> duration, ffi.Pointer<DartObj> curve, DartDartObj child) {
+  final w = DrawerHeader(decoration: decoration.objOrNul(),
+      margin: margin.objOrNul(),
+      padding: padding.objOr(const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0)),
+      duration: duration.objOr(const Duration(milliseconds: 250)),
+      curve: curve.objOr(Curves.fastOutSlowIn),
+      child: _widgetsMap[child]! as Widget?);
+  return _createDrawerHeaderObjSt(w);
+}
+DrawerHeaderObjSt _createDrawerHeaderObjSt(DrawerHeader? w) {
+  final DrawerHeaderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.decoration = _addWidget(w.decoration);
+  stObj.padding = _addWidget(w.padding);
+  stObj.margin = _addWidget(w.margin);
+  stObj.duration = _addWidget(w.duration);
+  stObj.curve = _addWidget(w.curve);
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupSelectionArea(WidgetFactories f) {
+  f.selectionArea.selectionArea = ffi.Pointer.fromFunction(selectionAreaSelectionArea);
+}
+SelectionAreaObjSt selectionAreaSelectionArea(DartDartObj child) {
+  final w = SelectionArea(child: _widgetsMap[child]! as Widget);
+  return _createSelectionAreaObjSt(w);
+}
+SelectionAreaObjSt _createSelectionAreaObjSt(SelectionArea? w) {
+  final SelectionAreaObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -10137,6 +10411,20 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupPositionedDirectional(f);
   _setupVerticalDivider(f);
   _setupExpandIcon(f);
+  _setupSliverPadding(f);
+  _setupSliverOpacity(f);
+  _setupSliverIgnorePointer(f);
+  _setupSliverOffstage(f);
+  _setupSliverSafeArea(f);
+  _setupSliverVisibility(f);
+  _setupSliverMainAxisGroup(f);
+  _setupSliverCrossAxisGroup(f);
+  _setupSliverFillRemaining(f);
+  _setupSliverEnsureSemantics(f);
+  _setupSliverConstrainedCrossAxis(f);
+  _setupCustomScrollView(f);
+  _setupDrawerHeader(f);
+  _setupSelectionArea(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);
