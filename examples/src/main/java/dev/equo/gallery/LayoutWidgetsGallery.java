@@ -177,6 +177,17 @@ public class LayoutWidgetsGallery {
           tile("FlutterLogo 72", FlutterLogo().size(72.0)),
           Divider(),
 
+          // ---- NavigationToolbar + ListBody laid over GridPaper ----
+          tile("NavigationToolbar/ListBody/GridPaper",
+              SizedBox().width(200.0).height(80.0).child(
+                  GridPaper().interval(20.0).divisions(2).subdivisions(2).color(Colors.blueGrey())
+                      .child(NavigationToolbar()
+                          .leading(dot(Colors.red()))
+                          .middle(ListBody().mainAxis(Axis.horizontal).children(List.of(
+                              Text("A "), Text("B "), Text("C"))))
+                          .trailing(dot(Colors.blue()))))),
+          Divider(),
+
           // ---- Text / direction ----
           // DefaultTextStyle: sets the inherited text style for the whole subtree
           tile("DefaultTextStyle", DefaultTextStyle(

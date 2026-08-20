@@ -3735,6 +3735,178 @@ ImageFilteredObjSt _createImageFilteredObjSt(ImageFiltered? w) {
   return stObj;
 }
 
+void _setupHeroMode(WidgetFactories f) {
+  f.heroMode.heroMode = ffi.Pointer.fromFunction(heroModeHeroMode);
+}
+HeroModeObjSt heroModeHeroMode(DartDartObj child, ffi.Pointer<ffi.Int> enabled) {
+  final w = HeroMode(child: _widgetsMap[child]! as Widget,
+      enabled: enabled.boolOr(true));
+  return _createHeroModeObjSt(w);
+}
+HeroModeObjSt _createHeroModeObjSt(HeroMode? w) {
+  final HeroModeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.enabled = w.enabled.toInt();
+  return stObj;
+}
+
+void _setupBlockSemantics(WidgetFactories f) {
+  f.blockSemantics.blockSemantics = ffi.Pointer.fromFunction(blockSemanticsBlockSemantics);
+}
+BlockSemanticsObjSt blockSemanticsBlockSemantics(ffi.Pointer<ffi.Int> blocking, ffi.Pointer<DartObj> child) {
+  final w = BlockSemantics(blocking: blocking.boolOr(true),
+      child: child.objOrNul());
+  return _createBlockSemanticsObjSt(w);
+}
+BlockSemanticsObjSt _createBlockSemanticsObjSt(BlockSemantics? w) {
+  final BlockSemanticsObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.blocking = w.blocking.toInt();
+  return stObj;
+}
+
+void _setupMergeSemantics(WidgetFactories f) {
+  f.mergeSemantics.mergeSemantics = ffi.Pointer.fromFunction(mergeSemanticsMergeSemantics);
+}
+MergeSemanticsObjSt mergeSemanticsMergeSemantics(ffi.Pointer<DartObj> child) {
+  final w = MergeSemantics(child: child.objOrNul());
+  return _createMergeSemanticsObjSt(w);
+}
+MergeSemanticsObjSt _createMergeSemanticsObjSt(MergeSemantics? w) {
+  final MergeSemanticsObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupExcludeSemantics(WidgetFactories f) {
+  f.excludeSemantics.excludeSemantics = ffi.Pointer.fromFunction(excludeSemanticsExcludeSemantics);
+}
+ExcludeSemanticsObjSt excludeSemanticsExcludeSemantics(ffi.Pointer<ffi.Int> excluding, ffi.Pointer<DartObj> child) {
+  final w = ExcludeSemantics(excluding: excluding.boolOr(true),
+      child: child.objOrNul());
+  return _createExcludeSemanticsObjSt(w);
+}
+ExcludeSemanticsObjSt _createExcludeSemanticsObjSt(ExcludeSemantics? w) {
+  final ExcludeSemanticsObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.excluding = w.excluding.toInt();
+  return stObj;
+}
+
+void _setupIndexedSemantics(WidgetFactories f) {
+  f.indexedSemantics.indexedSemantics = ffi.Pointer.fromFunction(indexedSemanticsIndexedSemantics);
+}
+IndexedSemanticsObjSt indexedSemanticsIndexedSemantics(int index, ffi.Pointer<DartObj> child) {
+  final w = IndexedSemantics(index: index,
+      child: child.objOrNul());
+  return _createIndexedSemanticsObjSt(w);
+}
+IndexedSemanticsObjSt _createIndexedSemanticsObjSt(IndexedSemantics? w) {
+  final IndexedSemanticsObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.index = w.index;
+  return stObj;
+}
+
+void _setupAutomaticKeepAlive(WidgetFactories f) {
+  f.automaticKeepAlive.automaticKeepAlive = ffi.Pointer.fromFunction(automaticKeepAliveAutomaticKeepAlive);
+}
+AutomaticKeepAliveObjSt automaticKeepAliveAutomaticKeepAlive(DartDartObj child) {
+  final w = AutomaticKeepAlive(child: _widgetsMap[child]! as Widget);
+  return _createAutomaticKeepAliveObjSt(w);
+}
+AutomaticKeepAliveObjSt _createAutomaticKeepAliveObjSt(AutomaticKeepAlive? w) {
+  final AutomaticKeepAliveObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupSliverToBoxAdapter(WidgetFactories f) {
+  f.sliverToBoxAdapter.sliverToBoxAdapter = ffi.Pointer.fromFunction(sliverToBoxAdapterSliverToBoxAdapter);
+}
+SliverToBoxAdapterObjSt sliverToBoxAdapterSliverToBoxAdapter(ffi.Pointer<DartObj> child) {
+  final w = SliverToBoxAdapter(child: child.objOrNul());
+  return _createSliverToBoxAdapterObjSt(w);
+}
+SliverToBoxAdapterObjSt _createSliverToBoxAdapterObjSt(SliverToBoxAdapter? w) {
+  final SliverToBoxAdapterObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupListBody(WidgetFactories f) {
+  f.listBody.listBody = ffi.Pointer.fromFunction(listBodyListBody);
+}
+ListBodyObjSt listBodyListBody(ffi.Pointer<ffi.Int> mainAxis, ffi.Pointer<ffi.Int> reverse, ffi.Pointer<ArrayC> children) {
+  final w = ListBody(mainAxis: mainAxis.enumOr(Axis.values, Axis.vertical),
+      reverse: reverse.boolOr(false),
+      children: children.listOrEmpty());
+  return _createListBodyObjSt(w);
+}
+ListBodyObjSt _createListBodyObjSt(ListBody? w) {
+  final ListBodyObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.mainAxis = w.mainAxis.index;
+  stObj.reverse = w.reverse.toInt();
+  return stObj;
+}
+
+void _setupGridPaper(WidgetFactories f) {
+  f.gridPaper.gridPaper = ffi.Pointer.fromFunction(gridPaperGridPaper);
+}
+GridPaperObjSt gridPaperGridPaper(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> interval, ffi.Pointer<ffi.Int> divisions, ffi.Pointer<ffi.Int> subdivisions, ffi.Pointer<DartObj> child) {
+  final w = GridPaper(color: color.objOr(const Color(0x7FC3E8F3)),
+      interval: interval.doubleOr(100.0),
+      divisions: divisions.intOr(2),
+      subdivisions: subdivisions.intOr(5),
+      child: child.objOrNul());
+  return _createGridPaperObjSt(w);
+}
+GridPaperObjSt _createGridPaperObjSt(GridPaper? w) {
+  final GridPaperObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.interval = w.interval;
+  stObj.divisions = w.divisions;
+  stObj.subdivisions = w.subdivisions;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupNavigationToolbar(WidgetFactories f) {
+  f.navigationToolbar.navigationToolbar = ffi.Pointer.fromFunction(navigationToolbarNavigationToolbar);
+}
+NavigationToolbarObjSt navigationToolbarNavigationToolbar(ffi.Pointer<DartObj> leading, ffi.Pointer<DartObj> middle, ffi.Pointer<DartObj> trailing, ffi.Pointer<ffi.Int> centerMiddle, ffi.Pointer<ffi.Double> middleSpacing) {
+  final w = NavigationToolbar(leading: leading.objOrNul(),
+      middle: middle.objOrNul(),
+      trailing: trailing.objOrNul(),
+      centerMiddle: centerMiddle.boolOr(true),
+      middleSpacing: middleSpacing.doubleOr(16.0));
+  return _createNavigationToolbarObjSt(w);
+}
+NavigationToolbarObjSt _createNavigationToolbarObjSt(NavigationToolbar? w) {
+  final NavigationToolbarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.leading = _addWidget(w.leading);
+  stObj.middle = _addWidget(w.middle);
+  stObj.trailing = _addWidget(w.trailing);
+  stObj.centerMiddle = w.centerMiddle.toInt();
+  stObj.middleSpacing = w.middleSpacing;
+  return stObj;
+}
+
 void _setupColorScheme(WidgetFactories f) {
   f.colorScheme.colorScheme = ffi.Pointer.fromFunction(colorSchemeColorScheme);
   f.colorScheme.fromSeed = ffi.Pointer.fromFunction(colorSchemeFromSeed);
@@ -9668,6 +9840,16 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupBackdropFilter(f);
   _setupColorFiltered(f);
   _setupImageFiltered(f);
+  _setupHeroMode(f);
+  _setupBlockSemantics(f);
+  _setupMergeSemantics(f);
+  _setupExcludeSemantics(f);
+  _setupIndexedSemantics(f);
+  _setupAutomaticKeepAlive(f);
+  _setupSliverToBoxAdapter(f);
+  _setupListBody(f);
+  _setupGridPaper(f);
+  _setupNavigationToolbar(f);
   _setupColorScheme(f);
   _setupTextTheme(f);
   _setupVisualDensity(f);

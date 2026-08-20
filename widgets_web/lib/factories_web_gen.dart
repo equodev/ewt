@@ -1182,6 +1182,40 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>),
       enabled: (p['enabled'] as bool?) ?? true),
 
+  'heroModeHeroMode': (p) => HeroMode(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      enabled: (p['enabled'] as bool?) ?? true),
+
+  'blockSemanticsBlockSemantics': (p) => BlockSemantics(blocking: (p['blocking'] as bool?) ?? true,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'mergeSemanticsMergeSemantics': (p) => MergeSemantics(child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'excludeSemanticsExcludeSemantics': (p) => ExcludeSemantics(excluding: (p['excluding'] as bool?) ?? true,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'indexedSemanticsIndexedSemantics': (p) => IndexedSemantics(index: p['index'] as int,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'automaticKeepAliveAutomaticKeepAlive': (p) => AutomaticKeepAlive(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'sliverToBoxAdapterSliverToBoxAdapter': (p) => SliverToBoxAdapter(child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'listBodyListBody': (p) => ListBody(mainAxis: p['mainAxis'] == null ? Axis.vertical : Axis.values[p['mainAxis'] as int],
+      reverse: (p['reverse'] as bool?) ?? false,
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'gridPaperGridPaper': (p) => GridPaper(color: p['color'] == null ? const Color(0x7FC3E8F3) : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      interval: ((p['interval'] as num?)?.toDouble()) ?? 100.0,
+      divisions: (p['divisions'] as int?) ?? 2,
+      subdivisions: (p['subdivisions'] as int?) ?? 5,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'navigationToolbarNavigationToolbar': (p) => NavigationToolbar(leading: p['leading'] == null ? null : decodeEwtWidget(p['leading'] as Map<String,dynamic>),
+      middle: p['middle'] == null ? null : decodeEwtWidget(p['middle'] as Map<String,dynamic>),
+      trailing: p['trailing'] == null ? null : decodeEwtWidget(p['trailing'] as Map<String,dynamic>),
+      centerMiddle: (p['centerMiddle'] as bool?) ?? true,
+      middleSpacing: ((p['middleSpacing'] as num?)?.toDouble()) ?? 16.0),
+
   'colorSchemeColorScheme': (p) => ColorScheme(brightness: Brightness.values[p['brightness'] as int],
       primary: decodeEwtNode(p['primary'] as Map<String,dynamic>) as Color,
       onPrimary: decodeEwtNode(p['onPrimary'] as Map<String,dynamic>) as Color,
@@ -3778,6 +3812,39 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       trailingIcon: p['trailingIcon'] == null ? null : decodeEwtNode(p['trailingIcon'] as Map<String,dynamic>) as IconData),
 
 
+  // SubmenuButton and PopupMenuButton are excluded from auto web decoding
+  // (MenuController + itemBuilder returns a value); hand-maintained here.
+  'submenuButtonSubmenuButton': (p) => SubmenuButton(
+      onHover: ewtWireValueCallback(p['onHover']),
+      onFocusChange: ewtWireValueCallback(p['onFocusChange']),
+      onOpen: ewtWireCallback(p['onOpen']),
+      onClose: ewtWireCallback(p['onClose']),
+      alignmentOffset: p['alignmentOffset'] == null ? null : decodeEwtNode(p['alignmentOffset'] as Map<String,dynamic>) as Offset,
+      clipBehavior: p['clipBehavior'] == null ? Clip.none : Clip.values[p['clipBehavior'] as int],
+      leadingIcon: p['leadingIcon'] == null ? null : decodeEwtWidget(p['leadingIcon'] as Map<String,dynamic>),
+      trailingIcon: p['trailingIcon'] == null ? null : decodeEwtWidget(p['trailingIcon'] as Map<String,dynamic>),
+      useRootOverlay: (p['useRootOverlay'] as bool?) ?? false,
+      menuChildren: ((p['menuChildren'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+  'popupMenuButtonPopupMenuButton': (p) => PopupMenuButton(
+      itemBuilder: (context) => [],
+      onOpened: ewtWireCallback(p['onOpened']),
+      onCanceled: ewtWireCallback(p['onCanceled']),
+      tooltip: p['tooltip'] as String?,
+      elevation: (p['elevation'] as num?)?.toDouble(),
+      shadowColor: p['shadowColor'] == null ? null : decodeEwtNode(p['shadowColor'] as Map<String,dynamic>) as Color,
+      surfaceTintColor: p['surfaceTintColor'] == null ? null : decodeEwtNode(p['surfaceTintColor'] as Map<String,dynamic>) as Color,
+      padding: p['padding'] == null ? const EdgeInsets.all(8.0) : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsets,
+      clipBehavior: p['clipBehavior'] == null ? Clip.none : Clip.values[p['clipBehavior'] as int],
+      enabled: (p['enabled'] as bool?) ?? true,
+      icon: p['icon'] == null ? null : decodeEwtWidget(p['icon'] as Map<String,dynamic>),
+      iconSize: (p['iconSize'] as num?)?.toDouble(),
+      offset: p['offset'] == null ? Offset.zero : decodeEwtNode(p['offset'] as Map<String,dynamic>) as Offset,
+      color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      iconColor: p['iconColor'] == null ? null : decodeEwtNode(p['iconColor'] as Map<String,dynamic>) as Color,
+      enableFeedback: p['enableFeedback'] as bool?,
+      useRootNavigator: (p['useRootNavigator'] as bool?) ?? false,
+      child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   'subAnimatedStateAnimationController': (p) {
     final ctrlId = p['ctrlId'] as int;

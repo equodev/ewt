@@ -3601,6 +3601,130 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment heroModeHeroMode(Widget child, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "heroModeHeroMode", p);
+    MemorySegment st = HeroModeObjSt.allocate(arena);
+    HeroModeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment blockSemanticsBlockSemantics(Optional<Boolean> blocking, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    blocking.ifPresent(v -> p.put("blocking", v));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "blockSemanticsBlockSemantics", p);
+    MemorySegment st = BlockSemanticsObjSt.allocate(arena);
+    BlockSemanticsObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment mergeSemanticsMergeSemantics(Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "mergeSemanticsMergeSemantics", p);
+    MemorySegment st = MergeSemanticsObjSt.allocate(arena);
+    MergeSemanticsObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment excludeSemanticsExcludeSemantics(Optional<Boolean> excluding, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    excluding.ifPresent(v -> p.put("excluding", v));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "excludeSemanticsExcludeSemantics", p);
+    MemorySegment st = ExcludeSemanticsObjSt.allocate(arena);
+    ExcludeSemanticsObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment indexedSemanticsIndexedSemantics(int index, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("index", index);
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "indexedSemanticsIndexedSemantics", p);
+    MemorySegment st = IndexedSemanticsObjSt.allocate(arena);
+    IndexedSemanticsObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment automaticKeepAliveAutomaticKeepAlive(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "automaticKeepAliveAutomaticKeepAlive", p);
+    MemorySegment st = AutomaticKeepAliveObjSt.allocate(arena);
+    AutomaticKeepAliveObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverToBoxAdapterSliverToBoxAdapter(Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "sliverToBoxAdapterSliverToBoxAdapter", p);
+    MemorySegment st = SliverToBoxAdapterObjSt.allocate(arena);
+    SliverToBoxAdapterObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment listBodyListBody(Optional<Axis> mainAxis, Optional<Boolean> reverse, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    mainAxis.ifPresent(v -> p.put("mainAxis", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "listBodyListBody", p);
+    MemorySegment st = ListBodyObjSt.allocate(arena);
+    ListBodyObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment gridPaperGridPaper(Optional<Color> color, OptionalDouble interval, OptionalInt divisions, OptionalInt subdivisions, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (interval.isPresent()) { p.put("interval", interval.getAsDouble()); }
+    if (divisions.isPresent()) { p.put("divisions", divisions.getAsInt()); }
+    if (subdivisions.isPresent()) { p.put("subdivisions", subdivisions.getAsInt()); }
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "gridPaperGridPaper", p);
+    MemorySegment st = GridPaperObjSt.allocate(arena);
+    GridPaperObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment navigationToolbarNavigationToolbar(Optional<Widget> leading, Optional<Widget> middle, Optional<Widget> trailing, Optional<Boolean> centerMiddle, OptionalDouble middleSpacing) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    middle.ifPresent(v -> p.put("middle", byId.get(v.getId())));
+    trailing.ifPresent(v -> p.put("trailing", byId.get(v.getId())));
+    centerMiddle.ifPresent(v -> p.put("centerMiddle", v));
+    if (middleSpacing.isPresent()) { p.put("middleSpacing", middleSpacing.getAsDouble()); }
+    record(id, "navigationToolbarNavigationToolbar", p);
+    MemorySegment st = NavigationToolbarObjSt.allocate(arena);
+    NavigationToolbarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

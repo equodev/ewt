@@ -2531,6 +2531,80 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enabled));
   }
 
+  MemorySegment heroModeHeroMode(Widget child, Optional<Boolean> enabled) {
+    var st = WidgetFactories.heroMode(factories);
+    var fn = WidgetFactories.HeroModeSt.heroMode(st);
+    return WidgetFactories.HeroModeSt.heroMode.invoke(fn, arena, child.build().getId(),
+      ptrBool(enabled));
+  }
+
+  MemorySegment blockSemanticsBlockSemantics(Optional<Boolean> blocking, Optional<Widget> child) {
+    var st = WidgetFactories.blockSemantics(factories);
+    var fn = WidgetFactories.BlockSemanticsSt.blockSemantics(st);
+    return WidgetFactories.BlockSemanticsSt.blockSemantics.invoke(fn, arena, ptrBool(blocking),
+      ptrObj(child));
+  }
+
+  MemorySegment mergeSemanticsMergeSemantics(Optional<Widget> child) {
+    var st = WidgetFactories.mergeSemantics(factories);
+    var fn = WidgetFactories.MergeSemanticsSt.mergeSemantics(st);
+    return WidgetFactories.MergeSemanticsSt.mergeSemantics.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment excludeSemanticsExcludeSemantics(Optional<Boolean> excluding, Optional<Widget> child) {
+    var st = WidgetFactories.excludeSemantics(factories);
+    var fn = WidgetFactories.ExcludeSemanticsSt.excludeSemantics(st);
+    return WidgetFactories.ExcludeSemanticsSt.excludeSemantics.invoke(fn, arena, ptrBool(excluding),
+      ptrObj(child));
+  }
+
+  MemorySegment indexedSemanticsIndexedSemantics(int index, Optional<Widget> child) {
+    var st = WidgetFactories.indexedSemantics(factories);
+    var fn = WidgetFactories.IndexedSemanticsSt.indexedSemantics(st);
+    return WidgetFactories.IndexedSemanticsSt.indexedSemantics.invoke(fn, arena, index,
+      ptrObj(child));
+  }
+
+  MemorySegment automaticKeepAliveAutomaticKeepAlive(Widget child) {
+    var st = WidgetFactories.automaticKeepAlive(factories);
+    var fn = WidgetFactories.AutomaticKeepAliveSt.automaticKeepAlive(st);
+    return WidgetFactories.AutomaticKeepAliveSt.automaticKeepAlive.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment sliverToBoxAdapterSliverToBoxAdapter(Optional<Widget> child) {
+    var st = WidgetFactories.sliverToBoxAdapter(factories);
+    var fn = WidgetFactories.SliverToBoxAdapterSt.sliverToBoxAdapter(st);
+    return WidgetFactories.SliverToBoxAdapterSt.sliverToBoxAdapter.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment listBodyListBody(Optional<Axis> mainAxis, Optional<Boolean> reverse, Optional<List<Widget>> children) {
+    var st = WidgetFactories.listBody(factories);
+    var fn = WidgetFactories.ListBodySt.listBody(st);
+    return WidgetFactories.ListBodySt.listBody.invoke(fn, arena, ptrEnum(mainAxis),
+      ptrBool(reverse),
+      ptrList(children));
+  }
+
+  MemorySegment gridPaperGridPaper(Optional<Color> color, OptionalDouble interval, OptionalInt divisions, OptionalInt subdivisions, Optional<Widget> child) {
+    var st = WidgetFactories.gridPaper(factories);
+    var fn = WidgetFactories.GridPaperSt.gridPaper(st);
+    return WidgetFactories.GridPaperSt.gridPaper.invoke(fn, arena, ptrObj(color),
+      ptr(interval),
+      ptr(divisions),
+      ptr(subdivisions),
+      ptrObj(child));
+  }
+
+  MemorySegment navigationToolbarNavigationToolbar(Optional<Widget> leading, Optional<Widget> middle, Optional<Widget> trailing, Optional<Boolean> centerMiddle, OptionalDouble middleSpacing) {
+    var st = WidgetFactories.navigationToolbar(factories);
+    var fn = WidgetFactories.NavigationToolbarSt.navigationToolbar(st);
+    return WidgetFactories.NavigationToolbarSt.navigationToolbar.invoke(fn, arena, ptrObj(leading),
+      ptrObj(middle),
+      ptrObj(trailing),
+      ptrBool(centerMiddle),
+      ptr(middleSpacing));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);

@@ -793,6 +793,46 @@ public class EWT {
     return ImageFilteredImageFilteredBuilder.imageFilteredImageFiltered(imageFilter);
   }
 
+  public static HeroModeHeroModeBuilder HeroMode(WidgetI child) {
+    return HeroModeHeroModeBuilder.heroModeHeroMode(child);
+  }
+
+  public static BlockSemanticsBlockSemanticsBuilder BlockSemantics() {
+    return BlockSemanticsBlockSemanticsBuilder.blockSemanticsBlockSemantics();
+  }
+
+  public static MergeSemanticsMergeSemanticsBuilder MergeSemantics() {
+    return MergeSemanticsMergeSemanticsBuilder.mergeSemanticsMergeSemantics();
+  }
+
+  public static ExcludeSemanticsExcludeSemanticsBuilder ExcludeSemantics() {
+    return ExcludeSemanticsExcludeSemanticsBuilder.excludeSemanticsExcludeSemantics();
+  }
+
+  public static IndexedSemanticsIndexedSemanticsBuilder IndexedSemantics(int index) {
+    return IndexedSemanticsIndexedSemanticsBuilder.indexedSemanticsIndexedSemantics(index);
+  }
+
+  public static AutomaticKeepAliveAutomaticKeepAliveBuilder AutomaticKeepAlive(WidgetI child) {
+    return AutomaticKeepAliveAutomaticKeepAliveBuilder.automaticKeepAliveAutomaticKeepAlive(child);
+  }
+
+  public static SliverToBoxAdapterSliverToBoxAdapterBuilder SliverToBoxAdapter() {
+    return SliverToBoxAdapterSliverToBoxAdapterBuilder.sliverToBoxAdapterSliverToBoxAdapter();
+  }
+
+  public static ListBodyListBodyBuilder ListBody() {
+    return ListBodyListBodyBuilder.listBodyListBody();
+  }
+
+  public static GridPaperGridPaperBuilder GridPaper() {
+    return GridPaperGridPaperBuilder.gridPaperGridPaper();
+  }
+
+  public static NavigationToolbarNavigationToolbarBuilder NavigationToolbar() {
+    return NavigationToolbarNavigationToolbarBuilder.navigationToolbarNavigationToolbar();
+  }
+
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
     return ColorSchemeColorSchemeBuilder.colorSchemeColorScheme(brightness, primary, onPrimary);
   }

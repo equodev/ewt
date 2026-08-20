@@ -697,6 +697,54 @@ typedef struct {
 } ImageFilteredObjSt;
 typedef struct {
   int id;
+  DartObj child;
+  int enabled;
+} HeroModeObjSt;
+typedef struct {
+  int id;
+  int blocking;
+} BlockSemanticsObjSt;
+typedef struct {
+  int id;
+} MergeSemanticsObjSt;
+typedef struct {
+  int id;
+  int excluding;
+} ExcludeSemanticsObjSt;
+typedef struct {
+  int id;
+  int index;
+} IndexedSemanticsObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+} AutomaticKeepAliveObjSt;
+typedef struct {
+  int id;
+} SliverToBoxAdapterObjSt;
+typedef struct {
+  int id;
+  int mainAxis;
+  int reverse;
+} ListBodyObjSt;
+typedef struct {
+  int id;
+  DartObj color;
+  double interval;
+  int divisions;
+  int subdivisions;
+  DartObj child;
+} GridPaperObjSt;
+typedef struct {
+  int id;
+  DartObj leading;
+  DartObj middle;
+  DartObj trailing;
+  int centerMiddle;
+  double middleSpacing;
+} NavigationToolbarObjSt;
+typedef struct {
+  int id;
   int brightness;
   DartObj primary;
   DartObj onPrimary;

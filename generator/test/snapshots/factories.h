@@ -716,6 +716,46 @@ typedef struct {
     ImageFilteredObjSt (*imageFiltered)(DartObj imageFilter, DartObj* child, int* enabled);
   } imageFiltered;
 
+  struct HeroModeSt {
+    HeroModeObjSt (*heroMode)(DartObj child, int* enabled);
+  } heroMode;
+
+  struct BlockSemanticsSt {
+    BlockSemanticsObjSt (*blockSemantics)(int* blocking, DartObj* child);
+  } blockSemantics;
+
+  struct MergeSemanticsSt {
+    MergeSemanticsObjSt (*mergeSemantics)(DartObj* child);
+  } mergeSemantics;
+
+  struct ExcludeSemanticsSt {
+    ExcludeSemanticsObjSt (*excludeSemantics)(int* excluding, DartObj* child);
+  } excludeSemantics;
+
+  struct IndexedSemanticsSt {
+    IndexedSemanticsObjSt (*indexedSemantics)(int index, DartObj* child);
+  } indexedSemantics;
+
+  struct AutomaticKeepAliveSt {
+    AutomaticKeepAliveObjSt (*automaticKeepAlive)(DartObj child);
+  } automaticKeepAlive;
+
+  struct SliverToBoxAdapterSt {
+    SliverToBoxAdapterObjSt (*sliverToBoxAdapter)(DartObj* child);
+  } sliverToBoxAdapter;
+
+  struct ListBodySt {
+    ListBodyObjSt (*listBody)(int* mainAxis, int* reverse, ArrayC* children);
+  } listBody;
+
+  struct GridPaperSt {
+    GridPaperObjSt (*gridPaper)(DartObj* color, double* interval, int* divisions, int* subdivisions, DartObj* child);
+  } gridPaper;
+
+  struct NavigationToolbarSt {
+    NavigationToolbarObjSt (*navigationToolbar)(DartObj* leading, DartObj* middle, DartObj* trailing, int* centerMiddle, double* middleSpacing);
+  } navigationToolbar;
+
   struct ColorSchemeSt {
     ColorSchemeObjSt (*colorScheme)(int brightness, DartObj primary, DartObj onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj secondary, DartObj onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj error, DartObj onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj surface, DartObj onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* outline, DartObj* outlineVariant, DartObj* shadow, DartObj* scrim, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);
     ColorSchemeObjSt (*fromSeed)(DartObj seedColor, int* brightness, int* dynamicSchemeVariant, double* contrastLevel, DartObj* primary, DartObj* onPrimary, DartObj* primaryContainer, DartObj* onPrimaryContainer, DartObj* primaryFixed, DartObj* primaryFixedDim, DartObj* onPrimaryFixed, DartObj* onPrimaryFixedVariant, DartObj* secondary, DartObj* onSecondary, DartObj* secondaryContainer, DartObj* onSecondaryContainer, DartObj* secondaryFixed, DartObj* secondaryFixedDim, DartObj* onSecondaryFixed, DartObj* onSecondaryFixedVariant, DartObj* tertiary, DartObj* onTertiary, DartObj* tertiaryContainer, DartObj* onTertiaryContainer, DartObj* tertiaryFixed, DartObj* tertiaryFixedDim, DartObj* onTertiaryFixed, DartObj* onTertiaryFixedVariant, DartObj* error, DartObj* onError, DartObj* errorContainer, DartObj* onErrorContainer, DartObj* outline, DartObj* outlineVariant, DartObj* surface, DartObj* onSurface, DartObj* surfaceDim, DartObj* surfaceBright, DartObj* surfaceContainerLowest, DartObj* surfaceContainerLow, DartObj* surfaceContainer, DartObj* surfaceContainerHigh, DartObj* surfaceContainerHighest, DartObj* onSurfaceVariant, DartObj* inverseSurface, DartObj* onInverseSurface, DartObj* inversePrimary, DartObj* shadow, DartObj* scrim, DartObj* surfaceTint, DartObj* background, DartObj* onBackground, DartObj* surfaceVariant);

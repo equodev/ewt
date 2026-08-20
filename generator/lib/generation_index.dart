@@ -174,6 +174,18 @@ w.BackdropFilter? backdropFilter;
 w.ColorFiltered? colorFiltered;
 w.ImageFiltered? imageFiltered;
 
+w.HeroMode? heroMode;
+w.BlockSemantics? blockSemantics;
+w.MergeSemantics? mergeSemantics;
+w.ExcludeSemantics? excludeSemantics;
+w.IndexedSemantics? indexedSemantics;
+w.AutomaticKeepAlive? automaticKeepAlive;
+w.SliverToBoxAdapter? sliverToBoxAdapter;
+w.ListBody? listBody;
+// Title skipped: field `title` collides with the widget's own class name (both resolve to `title()` no-arg method) — same shape as Offstage
+w.GridPaper? gridPaper;
+w.NavigationToolbar? navigationToolbar;
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;
