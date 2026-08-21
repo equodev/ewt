@@ -5020,6 +5020,52 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger(st);
     return WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger.invoke(fn, arena, child.build().getId());
   }
+  void scaffoldMessengerShowSnackBar(BuildContext context, SnackBar snackBar) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.showSnackBar(st);
+    WidgetFactories.ScaffoldMessengerSt.showSnackBar.invoke(fn, context.build().getId(),
+      snackBar.build().getId());
+  }
+  void scaffoldMessengerRemoveCurrentSnackBar(BuildContext context, Optional<SnackBarClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.removeCurrentSnackBar(st);
+    WidgetFactories.ScaffoldMessengerSt.removeCurrentSnackBar.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerHideCurrentSnackBar(BuildContext context, Optional<SnackBarClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.hideCurrentSnackBar(st);
+    WidgetFactories.ScaffoldMessengerSt.hideCurrentSnackBar.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerClearSnackBars(BuildContext context) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.clearSnackBars(st);
+    WidgetFactories.ScaffoldMessengerSt.clearSnackBars.invoke(fn, context.build().getId());
+  }
+  void scaffoldMessengerShowMaterialBanner(BuildContext context, MaterialBanner materialBanner) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.showMaterialBanner(st);
+    WidgetFactories.ScaffoldMessengerSt.showMaterialBanner.invoke(fn, context.build().getId(),
+      materialBanner.build().getId());
+  }
+  void scaffoldMessengerRemoveCurrentMaterialBanner(BuildContext context, Optional<MaterialBannerClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.removeCurrentMaterialBanner(st);
+    WidgetFactories.ScaffoldMessengerSt.removeCurrentMaterialBanner.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerHideCurrentMaterialBanner(BuildContext context, Optional<MaterialBannerClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.hideCurrentMaterialBanner(st);
+    WidgetFactories.ScaffoldMessengerSt.hideCurrentMaterialBanner.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerClearMaterialBanners(BuildContext context) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.clearMaterialBanners(st);
+    WidgetFactories.ScaffoldMessengerSt.clearMaterialBanners.invoke(fn, context.build().getId());
+  }
 
   MemorySegment cardCard(Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometry> margin, Optional<Clip> clipBehavior, Optional<Widget> child, Optional<Boolean> semanticContainer) {
     var st = WidgetFactories.card(factories);

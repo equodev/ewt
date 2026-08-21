@@ -40,6 +40,33 @@ extension _JavaEmit on WidgetGen {
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
   }
 
+  /// Emits a companion `<Method>(BuildContext ctx, ...)` as a `public static`
+  /// on the target Java class. All parameters (including the context) are
+  /// user-facing; the FFM factory receives them verbatim. The Dart-side
+  /// companion body performs the `Target.of(context).X(...)` dispatch.
+  void writeJavaStaticContextMethod(FunctionTypedElement node, String factoryName, String factory) {
+    final requiredParams = node.parameters.where((p) => !p.isOptional).toList();
+    final jParamsDecl = Params(types, requiredParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
+    final jParamsCall = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
+    final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+    final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+
+    ctx.javaFile
+        .writeln('  public static ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
+    if (node.returnType is VoidType) {
+      ctx.javaFile.writeln('    factories.$factoryName(${jParamsCall.names});');
+    } else {
+      final retType = types.type4FFMRet(node.returnType);
+      ctx.javaFile.writeln('    $retType id = factories.$factoryName(${jParamsCall.names});');
+      if (retType == 'int') {
+        ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
+      }
+      ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+    }
+    ctx.javaFile.writeln('  }');
+    writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
+  }
+
   /// Emits a public static Java method that wraps a Dart static function/factory
   /// whose returned widget/value is threaded through Immutables (via
   /// [writeJavaInstanceBody]).

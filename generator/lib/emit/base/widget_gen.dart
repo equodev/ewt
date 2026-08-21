@@ -202,6 +202,12 @@ class WidgetGen implements AGen {
     for (var method in companionMethods) {
       writeInstanceMethod(method, methodsCompanion!.name);
     }
+    // .of(context) affordance: for widgets listed in contextBoundWidgets,
+    // walk the state class returned by `Widget.of(BuildContext)` and emit
+    // a `public static` on the target Java class for each eligible method.
+    if (contextBoundWidgets.contains(widgetClass)) {
+      writeContextBoundStateMethods();
+    }
     writeMembers();
     if (consts.isNotEmpty) {
       var c=1;
@@ -410,15 +416,27 @@ class WidgetGen implements AGen {
     // }
   }
 
-  /// A companion method qualifies as an instance method only if its first parameter
-  /// is typed exactly as the target class (the receiver).
+  /// A companion method qualifies for emission when its first parameter is
+  /// either the target class (instance-style: emitted as an instance method
+  /// with `this` as receiver) or `BuildContext` (context-style: emitted as a
+  /// public static on the target's Java class — the companion body typically
+  /// looks up state via `Target.of(context)`).
   bool _isCompanionInstanceMethod(MethodElement m) =>
       m.parameters.isNotEmpty &&
-      m.parameters.first.type.element == dartClass.thisType.element;
+      (m.parameters.first.type.element == dartClass.thisType.element
+          || _isContextReceiver(m));
 
-  /// Emits a static method from the methods-companion as an instance method on the
-  /// target class. First parameter (the receiver) is consumed: it does not appear
-  /// in the Java signature and is replaced by `this.id` in the FFM call.
+  /// True when the first companion parameter is BuildContext — the method is
+  /// meant to be invoked as `Target.methodName(ctx, ...)` in Java, letting the
+  /// companion body dispatch through the ambient `Target.of(context)`.
+  static bool _isContextReceiver(MethodElement m) =>
+      m.parameters.isNotEmpty &&
+      m.parameters.first.type.element?.name == 'BuildContext';
+
+  /// Emits a companion method. Instance-style (self-receiver) becomes an
+  /// instance method; context-style (BuildContext-receiver) becomes a public
+  /// static. Both share the same underlying FFM factory + Dart bridge; only
+  /// the Java surface + serializer coverage differ.
   void writeInstanceMethod(FunctionTypedElement node, String companionClassName) {
     if (!_isCompanionInstanceMethod(node as MethodElement)) return;
     if (node.parameters.any((p) => p.isRequired && !types.supportedType(p.type)) || !types.supportedType(node.returnType)) {
@@ -426,11 +444,129 @@ class WidgetGen implements AGen {
     }
     String factory = node.name!;
     String factoryName = '$widgetField${factory.firstUpper()}';
-    writeJavaInstanceMethod(node, factoryName, factory);
-    writeJavaSerializer(node, factoryName, factory);
+    if (_isContextReceiver(node)) {
+      writeJavaStaticContextMethod(node, factoryName, factory);
+      // Context methods are imperative (invoked at runtime); they don't
+      // participate in static-tree web serialization or decoding — the web
+      // path is for building trees, not for calling `.of(context).X()`.
+    } else {
+      writeJavaInstanceMethod(node, factoryName, factory);
+      writeJavaSerializer(node, factoryName, factory);
+      writeWebInstanceDecoder(factory, factoryName, node);
+    }
     writeCFactory(factory, node, 'int');
     writeDInstanceMethod(factory, factoryName, node, companionClassName);
-    writeWebInstanceDecoder(factory, factoryName, node);
+  }
+
+  /// Methods on Flutter State / Data superclasses (and framework machinery)
+  /// that are noise if we try to expose them as imperative Java statics.
+  static const _contextBoundSkip = <String>{
+    'build', 'initState', 'dispose', 'setState', 'didUpdateWidget',
+    'didChangeDependencies', 'reassemble', 'activate', 'deactivate',
+    'debugFillProperties', 'toString', 'toStringShort', 'noSuchMethod',
+    'debugDescribeChildren', 'debugDescribeInternal', 'createElement',
+    'updateShouldNotify', 'updateShouldNotifyDependent', 'inheritFromElement',
+  };
+
+  /// Implements the `.of(context)` affordance driven by `contextBoundWidgets`.
+  /// For this widget's `.of(BuildContext) → StateClass` static, iterates the
+  /// state class's *class-declared* public instance methods and emits each as
+  /// a `public static <ret> methodName(BuildContext ctx, <args>)` on the
+  /// widget's Java class, dispatched at runtime through
+  /// `Widget.of(context).method(args)`. Framework noise (build/setState/…) is
+  /// skipped by name; unsupported signatures are skipped by the type system.
+  void writeContextBoundStateMethods() {
+    final ofMethod = dartClass.methods.where((m) =>
+        m.isStatic && m.isPublic && m.name == 'of' &&
+        m.parameters.length == 1 &&
+        m.parameters.first.type.element?.name == 'BuildContext').firstOrNull;
+    if (ofMethod == null) {
+      warn('$widgetClass: listed in contextBoundWidgets but has no static .of(BuildContext)');
+      return;
+    }
+    final stateElement = ofMethod.returnType.element;
+    if (stateElement is! ClassElement) {
+      warn('$widgetClass: .of(context) does not return a class');
+      return;
+    }
+    final buildContextClass = types.widgets.firstWhere(
+        (c) => c.name == 'BuildContext',
+        orElse: () => throw StateError('BuildContext must be in generation_index.dart to use contextBoundWidgets'));
+    for (final method in stateElement.methods) {
+      if (!method.isPublic || method.isStatic) continue;
+      if (_contextBoundSkip.contains(method.name)) continue;
+      // Coerce unsupported returns to void — most State methods return controllers
+      // (e.g. `ScaffoldFeatureController` from `showSnackBar`) that Java callers
+      // don't need. Skipping them entirely would drop the useful surface.
+      final coerceVoid = !types.supportedType(method.returnType);
+      if (method.parameters.any((p) => p.isRequired && !types.supportedType(p.type))) continue;
+      _emitContextBoundStateMethod(method, buildContextClass, coerceVoid: coerceVoid);
+    }
+  }
+
+  /// Emits all four sides (Java on widget, Java FFM factory, C header field,
+  /// Dart FFI adapter) for a single state-class method reached through
+  /// `<Widget>.of(context)`.
+  void _emitContextBoundStateMethod(MethodElement stateMethod, ClassElement buildContextClass, {bool coerceVoid = false}) {
+    final factory = stateMethod.name;
+    final factoryName = '$widgetField${factory.firstUpper()}';
+    final ctxParam = paramElement('context', buildContextClass.thisType, ParameterKind.REQUIRED);
+    final combinedParams = [ctxParam, ...stateMethod.parameters];
+    final requiredParams = combinedParams.where((p) => !p.isOptional).toList();
+    final jParamsDecl = Params(types, requiredParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
+    final jParamsCall = Params(types, combinedParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
+    final jParams = Params(types, combinedParams, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+    final jParamsFFM = Params(types, combinedParams, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    final dartParams = Params(types, combinedParams, Params.paramDef4D, paramValue: Params.paramValue4D);
+    // When the state method returns something the generator can't marshal, we
+    // still expose it — the Java signature becomes void and the Dart adapter
+    // ignores the return.
+    final ret = coerceVoid ? types.widgetElement!.library!.typeProvider.voidType : stateMethod.returnType;
+
+    // 1) Java: public static on widget class.
+    ctx.javaFile
+        .writeln('  public static ${types.type4J(ret)} $factory(${jParamsDecl.decl}) {');
+    if (ret is VoidType) {
+      ctx.javaFile.writeln('    factories.$factoryName(${jParamsCall.names});');
+    } else {
+      final retFFM = types.type4FFMRet(ret);
+      ctx.javaFile.writeln('    $retFFM id = factories.$factoryName(${jParamsCall.names});');
+      if (retFFM == 'int') {
+        ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
+      }
+      ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', ret))};');
+    }
+    ctx.javaFile.writeln('  }');
+
+    // 2) Java FFM factory (WidgetConstructors).
+    final type4ffmRet = types.type4FFMRet(ret);
+    final retGen = ret is VoidType ? null : types.getGen(ret.element!);
+    final useArena = ret is! VoidType && retGen!.objType().endsWith('ObjSt');
+    ctx.javaFactories
+      ..writeln('  $type4ffmRet $factoryName(${jParams.decl}) {')
+      ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+      ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
+      ..writeln('    ${ret is VoidType ? '' : 'return '}WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
+      ..writeln('  }');
+
+    // 3) C header field.
+    ctx.headerFile.writeln('    ${CLang(types).field(factory, types.type4C(ret), params: combinedParams)}');
+
+    // 4) Dart FFI adapter — dispatches through `<Widget>.of(context).method(args)`.
+    ctx.dartAssigns
+        .writeln('  f.$widgetField.$factory = ffi.Pointer.fromFunction($factoryName${retGen == null || ret.isDartCoreString || retGen.objType().endsWith('ObjSt') ? '' : ', ${exception(ret)}'});');
+    final stateArgs = Params(types, stateMethod.parameters, Params.paramDef4D, paramValue: Params.paramValue4D).names;
+    ctx.dartFns
+      ..writeln('${types.type4DRet(ret)} $factoryName(${dartParams.decl}) {')
+      ..writeln('  ${retGen == null ? '' : 'final w = '}$widgetClass.of(${Params.paramValue4D(types, ctxParam)}).$factory($stateArgs);');
+    if (retGen == null) {
+      // void — nothing to return
+    } else if (retGen.objType().endsWith('ObjSt')) {
+      ctx.dartFns.writeln('  return _create${retGen.objType()}(w);');
+    } else {
+      ctx.dartFns.writeln('  return ${Params.paramValueDtoC(types, paramElement('w', ret))};');
+    }
+    ctx.dartFns.writeln('}');
   }
 
 

@@ -7828,10 +7828,42 @@ SnackBarObjSt _createSnackBarObjSt(SnackBar? w) {
 
 void _setupScaffoldMessenger(WidgetFactories f) {
   f.scaffoldMessenger.scaffoldMessenger = ffi.Pointer.fromFunction(scaffoldMessengerScaffoldMessenger);
+  f.scaffoldMessenger.showSnackBar = ffi.Pointer.fromFunction(scaffoldMessengerShowSnackBar);
+  f.scaffoldMessenger.removeCurrentSnackBar = ffi.Pointer.fromFunction(scaffoldMessengerRemoveCurrentSnackBar);
+  f.scaffoldMessenger.hideCurrentSnackBar = ffi.Pointer.fromFunction(scaffoldMessengerHideCurrentSnackBar);
+  f.scaffoldMessenger.clearSnackBars = ffi.Pointer.fromFunction(scaffoldMessengerClearSnackBars);
+  f.scaffoldMessenger.showMaterialBanner = ffi.Pointer.fromFunction(scaffoldMessengerShowMaterialBanner);
+  f.scaffoldMessenger.removeCurrentMaterialBanner = ffi.Pointer.fromFunction(scaffoldMessengerRemoveCurrentMaterialBanner);
+  f.scaffoldMessenger.hideCurrentMaterialBanner = ffi.Pointer.fromFunction(scaffoldMessengerHideCurrentMaterialBanner);
+  f.scaffoldMessenger.clearMaterialBanners = ffi.Pointer.fromFunction(scaffoldMessengerClearMaterialBanners);
 }
 ScaffoldMessengerObjSt scaffoldMessengerScaffoldMessenger(DartDartObj child) {
   final w = ScaffoldMessenger(child: _widgetsMap[child]! as Widget);
   return _createScaffoldMessengerObjSt(w);
+}
+void scaffoldMessengerShowSnackBar(DartDartObj context, DartDartObj snackBar) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).showSnackBar(_widgetsMap[snackBar]! as SnackBar);
+}
+void scaffoldMessengerRemoveCurrentSnackBar(DartDartObj context, ffi.Pointer<ffi.Int> reason) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).removeCurrentSnackBar(reason: reason.enumOr(SnackBarClosedReason.values, SnackBarClosedReason.remove));
+}
+void scaffoldMessengerHideCurrentSnackBar(DartDartObj context, ffi.Pointer<ffi.Int> reason) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).hideCurrentSnackBar(reason: reason.enumOr(SnackBarClosedReason.values, SnackBarClosedReason.hide));
+}
+void scaffoldMessengerClearSnackBars(DartDartObj context) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).clearSnackBars();
+}
+void scaffoldMessengerShowMaterialBanner(DartDartObj context, DartDartObj materialBanner) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).showMaterialBanner(_widgetsMap[materialBanner]! as MaterialBanner);
+}
+void scaffoldMessengerRemoveCurrentMaterialBanner(DartDartObj context, ffi.Pointer<ffi.Int> reason) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).removeCurrentMaterialBanner(reason: reason.enumOr(MaterialBannerClosedReason.values, MaterialBannerClosedReason.remove));
+}
+void scaffoldMessengerHideCurrentMaterialBanner(DartDartObj context, ffi.Pointer<ffi.Int> reason) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).hideCurrentMaterialBanner(reason: reason.enumOr(MaterialBannerClosedReason.values, MaterialBannerClosedReason.hide));
+}
+void scaffoldMessengerClearMaterialBanners(DartDartObj context) {
+  ScaffoldMessenger.of(_widgetsMap[context]! as BuildContext).clearMaterialBanners();
 }
 ScaffoldMessengerObjSt _createScaffoldMessengerObjSt(ScaffoldMessenger? w) {
   final ScaffoldMessengerObjSt stObj = ffi.Struct.create();

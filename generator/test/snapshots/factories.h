@@ -1235,6 +1235,14 @@ typedef struct {
 
   struct ScaffoldMessengerSt {
     ScaffoldMessengerObjSt (*scaffoldMessenger)(DartObj child);
+    void (*showSnackBar)(DartObj context, DartObj snackBar);
+    void (*removeCurrentSnackBar)(DartObj context, int* reason);
+    void (*hideCurrentSnackBar)(DartObj context, int* reason);
+    void (*clearSnackBars)(DartObj context);
+    void (*showMaterialBanner)(DartObj context, DartObj materialBanner);
+    void (*removeCurrentMaterialBanner)(DartObj context, int* reason);
+    void (*hideCurrentMaterialBanner)(DartObj context, int* reason);
+    void (*clearMaterialBanners)(DartObj context);
   } scaffoldMessenger;
 
   struct CardSt {
