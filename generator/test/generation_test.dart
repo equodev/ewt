@@ -264,7 +264,7 @@ Future<void> main() async {
       final cls = widgets.firstWhere((w) => w.name == 'GestureDetector');
       gen = WidgetGen(types, cls)..gen();
       java = gen.genJavaClass();
-      factories = gen.javaFactories.toString();
+      factories = gen.ctx.javaFactories.toString();
     });
 
     test('void Function() callbacks become Optional<Runnable>', () {

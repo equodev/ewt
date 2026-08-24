@@ -42,18 +42,27 @@ class SubAnimatedStateGen extends SubclassGen {
       ..writeln('  void sendAnimCommand(int ctrlId, String action) {')
       ..writeln('    if (webAnimCommandSink != null) webAnimCommandSink.accept("{\\"ctrlId\\":" + ctrlId + ",\\"action\\":\\"" + action + "\\"}");')
       ..writeln('    else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);')
+      ..writeln('  }')
+      ..writeln('  private final java.util.List<AnimationController> controllers = new java.util.ArrayList<>();')
+      ..writeln('  /** Pre-registers stub AnimationController nodes in a fresh serializer to prevent id collisions')
+      ..writeln('   *  during rebuildAnimated: each controller keeps its original id so the Dart side can match/reuse. */')
+      ..writeln('  void preregisterControllers(SerializingWidgetConstructors ser) {')
+      ..writeln('    for (AnimationController c : controllers) ser.preregisterAnimationController(c.getId());')
       ..writeln('  }');
   }
 
   /// `animationController` returns a controller wired to route web commands
   /// back to this state (`ctrl.setWebOwner(this)`), rather than the generic
-  /// FFM unwrap.
+  /// FFM unwrap. The returned controller is also tracked so
+  /// [EwtWebCapture.rebuildAnimated] can pre-register its id and avoid
+  /// collisions when re-serializing this state.
   @override
   bool tryWriteCustomInstanceMethodReturn(String factory, DartType returnType) {
     if (factory != 'animationController') return false;
     ctx.javaFile
       ..writeln('    AnimationController ctrl = new AnimationController(id);')
       ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);')
+      ..writeln('    controllers.add(ctrl);')
       ..writeln('    return ctrl;');
     return true;
   }

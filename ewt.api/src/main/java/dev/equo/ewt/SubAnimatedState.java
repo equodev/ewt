@@ -23,8 +23,6 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     SubclassedInJava.addSubNatObj(this);
     System.out.println("New SubAnimatedState id:"+id);
   }
-  private final List<AnimationController> controllers = new ArrayList<>();
-
   public AnimationController animationController(DurationI duration) {
     int id = factories.subAnimatedStateAnimationController(this,
       duration.build());
@@ -33,12 +31,6 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);
     controllers.add(ctrl);
     return ctrl;
-  }
-
-  /** Pre-registers stub AnimationController nodes in a fresh serializer to prevent id collisions
-   *  during rebuildAnimated: each controller keeps its original id so the Dart side can match/reuse. */
-  void preregisterControllers(SerializingWidgetConstructors ser) {
-    for (AnimationController c : controllers) ser.preregisterAnimationController(c.getId());
   }
   protected void initState() {}
   void initStateFn() {
@@ -105,6 +97,12 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
   void sendAnimCommand(int ctrlId, String action) {
     if (webAnimCommandSink != null) webAnimCommandSink.accept("{\"ctrlId\":" + ctrlId + ",\"action\":\"" + action + "\"}");
     else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);
+  }
+  private final java.util.List<AnimationController> controllers = new java.util.ArrayList<>();
+  /** Pre-registers stub AnimationController nodes in a fresh serializer to prevent id collisions
+   *  during rebuildAnimated: each controller keeps its original id so the Dart side can match/reuse. */
+  void preregisterControllers(SerializingWidgetConstructors ser) {
+    for (AnimationController c : controllers) ser.preregisterAnimationController(c.getId());
   }
   @Override
   public SubAnimatedState build() {
