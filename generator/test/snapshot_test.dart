@@ -13,7 +13,7 @@ import 'package:test/test.dart';
 //      widget is added). References for these live under test/snapshots/.
 //   2. Per-widget files that are committed under ewt.api/src/main/java and
 //      widgets_web/lib. The working tree itself is the reference; we compare
-//      via `git diff --exit-code`.
+//      via `git status --porcelain`.
 //
 // A refactor that preserves emitter behavior byte-for-byte will pass this
 // test unchanged. When output is intentionally changed, run
@@ -29,9 +29,10 @@ const _monolithicSnapshots = <_SnapshotFile>[
   _SnapshotFile('./lib/subwidgets.dart', 'subwidgets_generator.dart'),
 ];
 
+// Paths relative to the project root (generator/..).
 const _committedOutputPaths = <String>[
-  '../ewt.api/src/main/java/dev/equo/ewt',
-  '../widgets_web/lib/factories_web_gen.dart',
+  'ewt.api/src/main/java/dev/equo/ewt',
+  'widgets_web/lib/factories_web_gen.dart',
 ];
 
 void main() {
@@ -80,17 +81,34 @@ void main() {
   });
 
   test('committed generator outputs are unchanged (git diff)', () {
-    final result = Process.runSync(
-      'git',
-      ['diff', '--exit-code', '--', ..._committedOutputPaths],
-      workingDirectory: generatorDir,
-    );
+    final projectRoot = p.normalize(p.join(generatorDir, '..'));
+    // `-c safe.directory=*` bypasses git's ownership guard, which fires in
+    // the GitLab k8s runner because the checkout is done by the init
+    // container (one UID) while the job runs as another — every git
+    // invocation would otherwise exit 128 with `fatal: detected dubious
+    // ownership in repository`. On earlier attempts the same error surfaced
+    // as `error: Could not access '<dirPath>/<basename(filePath)>'` because
+    // git aborted mid-way through `diff -- <dir> <file>`, which also
+    // motivated switching to per-path `status --porcelain`: quirk-free and
+    // it pinpoints which output diverged.
+    final divergences = <String>[];
+    for (final path in _committedOutputPaths) {
+      final args = ['-c', 'safe.directory=*', 'status', '--porcelain', '--', path];
+      final result = Process.runSync('git', args, workingDirectory: projectRoot);
+      if (result.exitCode != 0) {
+        divergences.add('git ${args.join(' ')} exited ${result.exitCode}\n'
+            'STDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}');
+        continue;
+      }
+      final out = (result.stdout as String).trim();
+      if (out.isNotEmpty) divergences.add('$path:\n$out');
+    }
     expect(
-      result.exitCode,
-      0,
-      reason: 'committed generator outputs diverged.\n'
-          'STDOUT:\n${result.stdout}\n'
-          'STDERR:\n${result.stderr}',
+      divergences,
+      isEmpty,
+      reason: 'committed generator outputs diverged '
+          '(run `dart run tool/update_snapshots.dart` if intentional):\n\n'
+          '${divergences.join('\n\n')}',
     );
   });
 }
