@@ -1,79 +1,62 @@
-import 'package:flutter/material.dart';
+package dev.equo;
 
-void main() {
-  runApp(const MyApp());
+import static dev.equo.ewt.EWT.*;
+import dev.equo.ewt.*;
+import java.util.List;
+
+public class Temp {
+public static void main(String[] args) {
+App.runApp(() -> new MyAppT());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Text Field with Button',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
-      home: const HomeScreen(),
-    );
-  }
+}
+class MyAppT extends SubStatelessWidget {
+public MyAppT() {
+}
+@Override protected  Widget build(BuildContext context) {
+return MaterialApp()
+.title("Text Field with Button")
+.theme(ThemeData()
+.useMaterial3(true)
+.colorScheme(ColorScheme_fromSeed(Colors.blue())))
+.home(new HomeScreen());
+}
+}
+class HomeScreen extends SubStatefulWidget {
+public HomeScreen() {
+}
+@Override protected  State<HomeScreen> createState() {
+ return new HomeScreenState();
+}
+}
+class HomeScreenState extends SubState<HomeScreen> {
+private final TextEditingController _textController = TextEditingController();
+@Override protected  void dispose() {
+_textController.dispose();
+super.dispose();
+}
+private void _handleSubmit() {
+final var text = _textController.text();
+if (text.isNotEmpty()) {
+ScaffoldMessenger.of(context()).showSnackBar(SnackBar(Text("Submitted: "+text+"")));
+_textController.clear();
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
 }
-
-class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _textController = TextEditingController();
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
-
-  void _handleSubmit() {
-    final text = _textController.text;
-    if (text.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Submitted: $text')),
-      );
-      _textController.clear();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Text Field with Button'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _textController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter text',
-                  border: OutlineInputBorder(),
-                ),
-                onSubmitted: (_) => _handleSubmit(),
-              ),
-            ),
-            const SizedBox(width: 12),
-            FilledButton(
-              onPressed: _handleSubmit,
-              child: const Text('Submit'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+@Override protected  Widget build(BuildContext context) {
+return Scaffold()
+.appBar(AppBar()
+.title(Text("Text Field with Button")))
+.body(Padding(EdgeInsets_all(16.0))
+.child(Row()
+.children(List.of(Expanded()
+.child(TextField()
+.controller(_textController)
+.decoration(InputDecoration()
+.hintText("Enter text")
+.border(OutlineInputBorder()))
+.onSubmitted((_0) -> _handleSubmit())), SizedBox()
+.width(12), FilledButton(this::_handleSubmit)
+.child(Text("Submit"))))));
+}
 }

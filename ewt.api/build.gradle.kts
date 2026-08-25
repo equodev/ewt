@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("maven-publish")
+    id("jacoco")
 }
 
 group = "dev.equo"
@@ -239,7 +240,10 @@ if (!evolveAvailable) {
 
 tasks.test {
     useJUnitPlatform {
-        if (System.getProperty("skipNativeTests") != null) {
+        // @Tag("native") tests need a live Flutter runtime and the shared
+        // FFM MemorySegment initialised by App.runApp — excluded by default
+        // so `./gradlew test` stays green. Opt in with -DrunNativeTests.
+        if (System.getProperty("runNativeTests") == null) {
             excludeTags("native")
         }
     }
@@ -249,6 +253,18 @@ tasks.test {
     if (System.getProperty("os.name").lowercase().contains("mac")) {
         jvmArgs("-XstartOnFirstThread")
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+    // Exclude jextract-generated FFM bindings — machine output, not worth measuring.
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it) { exclude("dev/equo/ewt/ffm/**") }
+    }))
 }
 
 fun flutterBuildTarget(): String {

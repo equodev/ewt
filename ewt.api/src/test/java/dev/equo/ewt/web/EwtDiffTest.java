@@ -106,4 +106,43 @@ class EwtDiffTest {
     assertEquals(1, patch.ops().size());
     assertEquals(List.of("child"), patch.ops().get(0).path()); // only the label, not onPressed
   }
+
+  @Test
+  void multipleChangedPrimitivesInOneNodeMergeIntoOneOp() {
+    EwtNode a = node(1, "textText", p("data", "old", "maxLines", 1));
+    EwtNode b = node(1, "textText", p("data", "new", "maxLines", 3));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(1, patch.ops().size(), "both changes collapse into one op");
+    SetParamsOp op = patch.ops().get(0);
+    assertEquals(List.of(), op.path());
+    assertEquals(Map.of("data", "new", "maxLines", 3), op.set());
+  }
+
+  @Test
+  void primitiveListElementChangeIsOneOp() {
+    EwtNode a = node(1, "row", p("tags", List.of("x", "y")));
+    EwtNode b = node(1, "row", p("tags", List.of("x", "Z")));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(1, patch.ops().size());
+    SetParamsOp op = patch.ops().get(0);
+    assertEquals(List.of(), op.path()); // at root node level
+    assertEquals(List.of("x", "Z"), op.set().get("tags")); // whole list replaced
+  }
+
+  @Test
+  void threeLevelNestedPathIsCorrect() {
+    EwtNode grandchild_a = node(3, "textText", p("data", "old"));
+    EwtNode grandchild_b = node(3, "textText", p("data", "new"));
+    EwtNode child_a = node(2, "paddingPadding", p("child", grandchild_a));
+    EwtNode child_b = node(2, "paddingPadding", p("child", grandchild_b));
+    EwtNode a = node(1, "centerCenter", p("child", child_a));
+    EwtNode b = node(1, "centerCenter", p("child", child_b));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(1, patch.ops().size());
+    assertEquals(List.of("child", "child"), patch.ops().get(0).path());
+    assertEquals(Map.of("data", "new"), patch.ops().get(0).set());
+  }
 }
