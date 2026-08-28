@@ -2,6 +2,7 @@ package dev.equo.ewt;
 
 import dev.equo.ewt.internal.EmbedBridge;
 import dev.equo.ewt.ffm.StarterBridge;
+import dev.equo.ewt.ffm.StarterOpts;
 import dev.equo.ewt.ffm.WidgetFactories;
 import dev.equo.ewt.ffm.buildWidgetTreeFn;
 
@@ -109,8 +110,14 @@ public class App {
                 throw new RuntimeException(e);
             }
         }, Arena.ofShared());
-        int r = StarterBridge.startApp(ffmFn);
-        if (r != 0)
-            throw new RuntimeException("Could not startup EWT app, error: " + r);
+        try (Arena arena = Arena.ofConfined()) {
+            MemorySegment opts = StarterOpts.allocate(arena);
+            StarterOpts.buildWidgetTree(opts, ffmFn);
+            StarterOpts.onPostFrame(opts, MemorySegment.NULL);
+            StarterOpts.onFlutterError(opts, MemorySegment.NULL);
+            int r = StarterBridge.startApp(opts);
+            if (r != 0)
+                throw new RuntimeException("Could not startup EWT app, error: " + r);
+        }
     }
 }

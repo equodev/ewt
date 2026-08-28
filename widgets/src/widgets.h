@@ -41,3 +41,11 @@ FFI_PLUGIN_EXPORT int sum_long_running(int a, int b);
 FFI_PLUGIN_EXPORT void setBuildWidgetTree(buildWidgetTreeFn fn);
 
 FFI_PLUGIN_EXPORT int callToBuildWidgetTree(WidgetFactories* factories, int regionId);
+
+FFI_PLUGIN_EXPORT void setPostFrameCallback(postFrameFn fn);
+FFI_PLUGIN_EXPORT void setFlutterErrorCallback(flutterErrorFn fn);
+FFI_PLUGIN_EXPORT void setRebuildHandler(void (*fn)(void));
+
+FFI_PLUGIN_EXPORT void callPostFrameCallback(long frameId, const char* json, int len);
+FFI_PLUGIN_EXPORT void callFlutterErrorCallback(long frameId, const char* kind, const char* msg, const char* st);
+FFI_PLUGIN_EXPORT void requestRebuildFromNative(void);

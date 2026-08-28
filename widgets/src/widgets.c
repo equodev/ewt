@@ -31,3 +31,31 @@ FFI_PLUGIN_EXPORT void setBuildWidgetTree(buildWidgetTreeFn fn) {
 FFI_PLUGIN_EXPORT int callToBuildWidgetTree(WidgetFactories* factories, int regionId) {
     return buildWidgetTree(factories, regionId);
 }
+
+static postFrameFn    g_post_frame_cb    = NULL;
+static flutterErrorFn g_flutter_error_cb = NULL;
+static void (*g_rebuild_handler)(void)   = NULL;
+
+FFI_PLUGIN_EXPORT void setPostFrameCallback(postFrameFn fn) {
+    g_post_frame_cb = fn;
+}
+
+FFI_PLUGIN_EXPORT void setFlutterErrorCallback(flutterErrorFn fn) {
+    g_flutter_error_cb = fn;
+}
+
+FFI_PLUGIN_EXPORT void setRebuildHandler(void (*fn)(void)) {
+    g_rebuild_handler = fn;
+}
+
+FFI_PLUGIN_EXPORT void callPostFrameCallback(long frameId, const char* json, int len) {
+    if (g_post_frame_cb) g_post_frame_cb(frameId, json, len);
+}
+
+FFI_PLUGIN_EXPORT void callFlutterErrorCallback(long frameId, const char* kind, const char* msg, const char* st) {
+    if (g_flutter_error_cb) g_flutter_error_cb(frameId, kind, msg, st);
+}
+
+FFI_PLUGIN_EXPORT void requestRebuildFromNative(void) {
+    if (g_rebuild_handler) g_rebuild_handler();
+}

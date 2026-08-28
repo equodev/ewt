@@ -112,12 +112,30 @@ class FlutterBridgeController {
     }
 }
 
+// Matches the C typedef in widgets/src/common.h:
+//   typedef int (*buildWidgetTreeFn)(WidgetFactories*, int regionId);
+// The `regionId` (int) selects the Java builder in multi-region attach mode;
+// standalone apps use regionId=0.  Import as `UnsafeMutablePointer` because
+// C `WidgetFactories*` is a mutable pointer.
 @_silgen_name("setBuildWidgetTree")
-func c_setBuildWidgetTree(_ fn: @convention(c) (UnsafePointer<WidgetFactories>?) -> Int32) -> Void
+func c_setBuildWidgetTree(_ fn: @convention(c) (UnsafeMutablePointer<WidgetFactories>?, Int32) -> Int32) -> Void
 
+// Matches the Linux/Windows signature (see widgets/example/native/Starter.h):
+//   int startApp(const StarterOpts* opts);
+// The struct is defined in widgets/src/common.h; Swift imports it via the
+// bridging header.  onPostFrame / onFlutterError are wired via widgets.c
+// setters; requestRebuild / requestShutdown are no-ops on macOS today (the
+// native render harness targets Linux under xvfb).
 @MainActor @_cdecl("startApp")
-public func StartApp(buildWidgetTree: @convention(c) (UnsafePointer<WidgetFactories>?) -> Int32) -> Int32 {
-    c_setBuildWidgetTree(buildWidgetTree)
+public func StartApp(opts: UnsafePointer<StarterOpts>) -> Int32 {
+    guard let opts = opts.pointee.buildWidgetTree else { return 1 }
+    c_setBuildWidgetTree(opts)
     FlutterBridgeController.shared.initialize()
     return 0
 }
+
+@_cdecl("Starter_requestRebuild")
+public func Starter_requestRebuild() {}
+
+@_cdecl("Starter_requestShutdown")
+public func Starter_requestShutdown() {}

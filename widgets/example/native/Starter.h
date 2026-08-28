@@ -13,6 +13,8 @@
 // Export macro for macOS
 #define EXPORT __attribute__((visibility("default")))
 
-EXPORT int startApp(buildWidgetTreeFn buildWidgetTree);
+EXPORT int  startApp(const StarterOpts* opts);
+EXPORT void Starter_requestRebuild(void);
+EXPORT void Starter_requestShutdown(void);
 
 #endif /* Starter_h */
