@@ -136,6 +136,7 @@ generate:
       - generator/lib/subwidgets.dart
       - widgets/lib/widgets_bindings_generated.dart
       - ewt.api/src/main/java/dev/equo/ewt/ffm/
+      - ewt.api/src/test/java/dev/equo/ewt/support/variants/
     expire_in: 1 week
 
 coverage:commit:
@@ -312,6 +313,43 @@ ewt_api_tests:linux:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
+# Native rendering suite: boots a real Flutter engine under xvfb and mounts every
+# widget × variant through it (see docs/adr/0009-native-render-test-harness.md).
+# Runs the smoke test as of this MR; will consume WidgetVariantsRegistry once the
+# generator emitter (Task 4.3) lands.
+ewt_native_render:
+  stage: test
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - generate
+    - flutter:linux
+    - ewt_api_tests:linux
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  timeout: 15m
+  variables:
+    EWT_SHARD_INDEX: "0"
+    EWT_SHARD_COUNT: "1"
+  script:
+    - xvfb-run -a ./gradlew :ewt.api:test -DrunNativeTests=1
+        --tests dev.equo.ewt.NativeRenderSmokeTest
+        --tests dev.equo.ewt.WidgetNativeRenderTest
+        --info --no-daemon
+  artifacts:
+    when: always
+    reports:
+      junit: ewt.api/build/test-results/test/**/*.xml
+    paths:
+      - ewt.api/build/reports/tests/test/
+      - hs_err_pid*.log
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
 # =============================================================================
 # BUILD STAGE
 # =============================================================================
@@ -321,7 +359,7 @@ ewt_api_tests:linux:
 ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
-  # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
+  # gate: generator_tests + ewt_api_tests:linux + ewt_native_render must pass before we build for deploy.
   needs:
     - generate
     - flutter:linux
@@ -329,6 +367,8 @@ ewt_build:
     - flutter:windows
     - generator_tests
     - ewt_api_tests:linux
+    - job: ewt_native_render
+      artifacts: false
     - job: build_docker_image
       optional: true
     - job: release_gate

@@ -30,6 +30,38 @@ public final class WidgetBuilderCatalog {
 
   private WidgetBuilderCatalog() {}
 
+  /**
+   * Full four-column stream (widgetName, variantLabel, callable, expectations) from the
+   * generator-emitted {@link dev.equo.ewt.support.variants.WidgetVariantsRegistry}.
+   * Consumed by {@code WidgetNativeRenderTest}.  Expectations is null when the variant
+   * has no round-trip assertions (e.g. {@code _required}, {@code _nullExplicit}).
+   *
+   * <p>{@link #mountableWidgets()} below is intentionally NOT delegated to the registry
+   * yet — the generator's optionality detection (via Dart analyzer's {@code isRequired})
+   * does not always match what Immutables' generated Java builder marks as required
+   * (Cupertino widgets in particular), which produces {@code IllegalStateException}
+   * for some emitted {@code _required} / {@code _nullExplicit} variants when
+   * {@code WidgetBuilderSerializationTest} tries to build them.  Delegation lands in a
+   * follow-up MR once the emitter closes that gap.
+   */
+  public static Stream<Arguments> mountableVariants() {
+    Stream<Arguments> all = dev.equo.ewt.support.variants.WidgetVariantsRegistry.allVariants();
+    int count = envInt("EWT_SHARD_COUNT", 1);
+    int index = envInt("EWT_SHARD_INDEX", 0);
+    if (count <= 1) return all;
+    return all.filter(a -> {
+      Object[] arr = a.get();
+      int h = java.util.Objects.hash(arr[0], arr[1]);
+      return Math.floorMod(h, count) == index;
+    });
+  }
+
+  private static int envInt(String name, int fallback) {
+    String v = System.getenv(name);
+    try { return v == null || v.isEmpty() ? fallback : Integer.parseInt(v); }
+    catch (NumberFormatException e) { return fallback; }
+  }
+
   public static Stream<Arguments> mountableWidgets() {
     return Stream.of(
         // ── Layout / sizing ──────────────────────────────────────────────────
