@@ -1,11 +1,8 @@
 
 import 'dart:async';
 import 'dart:ffi' as ffi;
-import 'package:ffi/ffi.dart';
 import 'dart:io';
 import 'dart:isolate';
-
-import 'package:flutter/widgets.dart';
 
 import 'widgets_bindings_generated.dart';
 import 'hot_reload.dart';
@@ -23,6 +20,30 @@ int callToBuildWidgetTree(ffi.Pointer<WidgetFactories> factories, [int regionId 
   }
   return _bindings.callToBuildWidgetTree(factories, regionId);
 }
+
+// ──────────────────────────────────────────────────────────────
+// Harness callback registration (Task 2.1 C setters exposed here
+// so engine_hooks.dart can import a single package library instead
+// of duplicating the DynamicLibrary setup).
+// ──────────────────────────────────────────────────────────────
+
+void setPostFrameCallback(postFrameFn fn) =>
+    _bindings.setPostFrameCallback(fn);
+
+void setFlutterErrorCallback(flutterErrorFn fn) =>
+    _bindings.setFlutterErrorCallback(fn);
+
+void setRebuildHandler(
+        ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> fn) =>
+    _bindings.setRebuildHandler(fn);
+
+void callPostFrameCallback(
+        int frameId, ffi.Pointer<ffi.Char> json, int len) =>
+    _bindings.callPostFrameCallback(frameId, json, len);
+
+void callFlutterErrorCallback(int frameId, ffi.Pointer<ffi.Char> kind,
+        ffi.Pointer<ffi.Char> msg, ffi.Pointer<ffi.Char> st) =>
+    _bindings.callFlutterErrorCallback(frameId, kind, msg, st);
 
 /// A very short-lived native function.
 ///
