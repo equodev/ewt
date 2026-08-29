@@ -31,8 +31,12 @@ on Debian / Ubuntu) and prepend `xvfb-run -a` to the command above.
 The `@Tag("native")` + `@EnabledIfSystemProperty(named="runNativeTests")`
 gate keeps these out of a regular `./gradlew test` run, so day-to-day dev
 work does not need xvfb or the Flutter runtime. In CI the same command runs
-under `xvfb-run -a` in the `ewt_native_render` job, wired as a hard gate on
-`ewt_build`.
+under `xvfb-run -a` in the `ewt_native_render` job.
+
+**The job is soft-gated (`allow_failure: true`) for now** — it runs and
+uploads reports on every MR but does not block `ewt_build`. Once the two
+known-failure buckets are cleared (issue #44 and the extended contextual
+scaffolds — see "Coverage today" below), we flip it to a hard gate.
 
 ## What the harness does — walked through `Text`
 

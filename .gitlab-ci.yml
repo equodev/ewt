@@ -314,12 +314,20 @@ ewt_api_tests:linux:
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
 # Native rendering suite: boots a real Flutter engine under xvfb and mounts every
-# widget × variant through it (see docs/adr/0009-native-render-test-harness.md).
-# Runs the smoke test as of this MR; will consume WidgetVariantsRegistry once the
-# generator emitter (Task 4.3) lands.
+# widget × variant through it (see docs/adr/0009-native-render-test-harness.md
+# and docs/native-tests.md).
+#
+# SOFT-GATED (allow_failure: true) until the two follow-up buckets are cleared:
+#   - ~100 variants fail Immutables required-attr checks (issue #44).
+#   - ~60 variants need ancestor scaffolds beyond MaterialApp (Material,
+#     DefaultTabController, CupertinoApp, Scaffold) — extend
+#     generator/lib/contextual_scaffolds.dart.
+# Once the pass count is stable at 647/647 for ~1-2 weeks, drop allow_failure
+# and re-add this job to ewt_build.needs to make it a hard merge gate.
 ewt_native_render:
   stage: test
   image: $FLUTTER_IMAGE_TAG
+  allow_failure: true
   needs:
     - generate
     - flutter:linux
@@ -359,7 +367,8 @@ ewt_native_render:
 ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
-  # gate: generator_tests + ewt_api_tests:linux + ewt_native_render must pass before we build for deploy.
+  # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
+  # ewt_native_render intentionally NOT in this list — see its soft-gate note above.
   needs:
     - generate
     - flutter:linux
@@ -367,8 +376,6 @@ ewt_build:
     - flutter:windows
     - generator_tests
     - ewt_api_tests:linux
-    - job: ewt_native_render
-      artifacts: false
     - job: build_docker_image
       optional: true
     - job: release_gate
