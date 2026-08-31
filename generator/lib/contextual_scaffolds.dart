@@ -41,11 +41,17 @@ const Map<String, String> _scaffolds = {
 
   // Tab system widgets
   'Tab': 'DefaultTabController.defaultTabController(1).child({inner}).build()',
+  'TabBar':
+      'DefaultTabController.defaultTabController(1).child({inner}).build()',
   'TabBarView':
       'DefaultTabController.defaultTabController(1).child({inner}).build()',
 
-  // ListTile renders correctly only inside a Material surface
+  // Widgets that use Ink / Material.of internally need an actual Material
+  // ancestor — MaterialApp alone is not enough.
   'ListTile': 'Material.material().child({inner}).build()',
+  'CheckboxListTile': 'Material.material().child({inner}).build()',
+  'SwitchListTile': 'Material.material().child({inner}).build()',
+  'CheckedPopupMenuItem': 'Material.material().child({inner}).build()',
 
   // Drawer must be placed inside a Scaffold
   'Drawer':
@@ -55,5 +61,16 @@ const Map<String, String> _scaffolds = {
   // Column wrapper so the item can render for snapshot purposes
   'PopupMenuItem':
       'Column.column().children(List.<WidgetI>of({inner})).build()',
+
+  // NavigationDestination reads _NavigationDestinationInfo.of(context), which
+  // is only provided by NavigationBar. NavigationBar asserts
+  // destinations.length >= 2, so mount two copies of the variant.
+  'NavigationDestination':
+      'NavigationBar.navigationBar().addDestinations({inner}, {inner}).build()',
+
+  // NavigationDrawerDestination reads _NavigationDrawerDestinationInfo.of(
+  // context), only provided by NavigationDrawer.
+  'NavigationDrawerDestination':
+      'NavigationDrawer.navigationDrawer(List.<WidgetI>of({inner}, {inner})).build()',
 
 };
