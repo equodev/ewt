@@ -174,6 +174,24 @@ const _boundaryOverrides = <String, String?>{
 };
 
 // ---------------------------------------------------------------------------
+// Per-widget/param boundary overrides
+//
+// Type-level boundaries (0, 0.0, "", first-enum) are safe for most params but
+// violate widget-specific invariants on a few (e.g. GridView asserts
+// childAspectRatio > 0 and would otherwise ~/ 0 during layout). There is no
+// automated way to derive these limits — Flutter encodes them as runtime
+// `assert()` statements which the Dart analyzer does not expose — so this
+// table is hand-curated. Key format: `Widget.factory.param`. A null value
+// skips the param from the boundary chain entirely.
+// ---------------------------------------------------------------------------
+const _boundaryParamOverrides = <String, String?>{
+  'GridView.count.childAspectRatio': '1.0',
+  'GridView.extent.childAspectRatio': '1.0',
+  'GridView.count.crossAxisCount': '1',
+  'GridView.extent.maxCrossAxisExtent': '1.0',
+};
+
+// ---------------------------------------------------------------------------
 // Main emitter class
 // ---------------------------------------------------------------------------
 class VariantsEmitter {
@@ -282,7 +300,7 @@ class VariantsEmitter {
           .where((t) => t.$2 != null)
           .toList();
       final optsWithBoundaries = optionalParams
-          .map((p) => (p, _boundaryCode(p.type)))
+          .map((p) => (p, _boundaryCode(p.type, widget: name, factory: factoryLabel, param: p.name)))
           .where((t) => t.$2 != null)
           .toList();
       final callbackOpts = optionalParams
@@ -512,7 +530,17 @@ class VariantsEmitter {
   }
 
   /// Returns the boundary Java expression for type [t], applying local overrides.
-  String? _boundaryCode(DartType t) {
+  ///
+  /// When [widget], [factory], and [param] are provided, checks
+  /// [_boundaryParamOverrides] first for widget-specific invariants that make
+  /// the default type-level boundary (0, 0.0, etc.) unsafe.
+  String? _boundaryCode(DartType t, {String? widget, String? factory, String? param}) {
+    if (widget != null && factory != null && param != null) {
+      final key = '$widget.$factory.$param';
+      if (_boundaryParamOverrides.containsKey(key)) {
+        return _boundaryParamOverrides[key]; // may be null → skip param
+      }
+    }
     // For List<T> in optional chains: skip (same reason as _sampleCode)
     if (t is InterfaceType && t.isDartCoreList) return null;
     final n = t.element?.name;
