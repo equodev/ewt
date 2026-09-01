@@ -80,8 +80,13 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message,
 }
 
 extern "C" STARTER_EXPORT
-int startApp(buildWidgetTreeFn buildWidgetTree) {
-  setBuildWidgetTree(buildWidgetTree);
+int startApp(const StarterOpts* opts) {
+  setBuildWidgetTree(opts->buildWidgetTree);
+  // onPostFrame / onFlutterError are wired via widgets.c setters (Task 2.1 on
+  // Linux); the Windows shared library uses the same widgets.c copy, so no
+  // per-file plumbing is needed here.  Windows has no GTK main loop, so
+  // Starter_requestRebuild / Starter_requestShutdown below are stubs kept for
+  // symbol parity with the Linux export surface.
 
   ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
 
@@ -162,4 +167,12 @@ int startApp(buildWidgetTreeFn buildWidgetTree) {
   g_flutter_controller = nullptr;
   ::CoUninitialize();
   return static_cast<int>(msg.wParam);
+}
+
+// Symbol parity with Linux Starter.cc.  The native render test harness targets
+// Linux under xvfb; on Windows these are no-ops.  When Windows-hosted rendering
+// tests become a goal, wire these to a Win32 window-message-based rebuild/quit.
+extern "C" STARTER_EXPORT void Starter_requestRebuild(void) {}
+extern "C" STARTER_EXPORT void Starter_requestShutdown(void) {
+  ::PostQuitMessage(0);
 }

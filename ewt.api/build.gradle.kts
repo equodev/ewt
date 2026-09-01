@@ -250,6 +250,21 @@ tasks.test {
 
     systemProperty("os.name", System.getProperty("os.name"))
 
+    // Propagate -DrunNativeTests to the test-worker JVM so @EnabledIfSystemProperty
+    // on FlutterRenderTestBase / NativeRenderSmokeTest sees the flag.  Without
+    // this, the property is only visible to the Gradle build script's JVM and the
+    // test classes are disabled even when the CI job explicitly asks for them.
+    System.getProperty("runNativeTests")?.let {
+        systemProperty("runNativeTests", it)
+        // Native tests exercise the real FFM path — the generated widget getters
+        // (Text.style, Column.children, …) have a web-mode branch that casts
+        // WidgetConstructors to SerializingWidgetConstructors.  Web-mode default
+        // per EwtWebTransport.isWebMode() is TRUE when unset, so any getter
+        // round-trip under native would ClassCastException unless we opt out here
+        // (same value examples/build.gradle.kts sets for the gallery apps).
+        systemProperty("dev.equo.swt.mode", "desktop")
+    }
+
     if (System.getProperty("os.name").lowercase().contains("mac")) {
         jvmArgs("-XstartOnFirstThread")
     }

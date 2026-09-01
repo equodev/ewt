@@ -10,6 +10,7 @@ import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:generator/diagnostics.dart';
 import 'package:generator/gen.dart';
+import 'package:generator/emit/variants_gen.dart';
 import 'package:path/path.dart' as path;
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
@@ -45,6 +46,14 @@ Future<void> main(List<String> args) async {
     ..gen()
     ..write();
   print('-- Generation ${sw.elapsedReset}');
+
+  // Emit per-widget variant catalogs + registry for the native render test suite.
+  final variantsEmitter = VariantsEmitter();
+  for (final dartClass in widgets.$1) {
+    variantsEmitter.emitForWidget(dartClass);
+  }
+  variantsEmitter.emitRegistry();
+  print('-- VariantsEmitter ${sw.elapsedReset}');
 
   if (Diagnostics.strict && Diagnostics.warned) {
     stderr.writeln('error: --strict mode: generation completed with warnings.');

@@ -7,6 +7,10 @@
 
 #include "common.h"
 
+#ifndef EXPORT
+#define EXPORT __attribute__((visibility("default")))
+#endif
+
 // Runtime GTK/GLib loading — no compile-time GTK linkage.
 // By the time libStarter.so is loaded, libflutter_linux_gtk.so is already
 // in-process and has pulled in libgtk-3, libgobject-2.0 and libgio-2.0 as
@@ -14,6 +18,7 @@
 #define LIB_GTK3    "libgtk-3.so.0"
 #define LIB_GOBJECT "libgobject-2.0.so.0"
 #define LIB_GIO     "libgio-2.0.so.0"
+#define LIB_GLIB    "libglib-2.0.so.0"
 
 #define LOAD_FUNCTION_LIB(var, libname, name) \
   static void* var = nullptr; \
@@ -27,6 +32,7 @@
 
 // Provided by libwidgets.so
 extern "C" void setBuildWidgetTree(buildWidgetTreeFn fn);
+extern "C" void requestRebuildFromNative(void);
 
 // Used as an address anchor for dladdr self-location
 extern "C" __attribute__((visibility("default"))) void DummyExportedFunction() {}
@@ -109,6 +115,36 @@ static void ewt_g_object_unref(gpointer obj) {
   if (fp) ((void(*)(gpointer))fp)(obj);
 }
 
+// --- GLib main-loop wrappers (runtime-loaded) --------------------------------
+
+static GMainLoop* ewt_g_main_loop_new(GMainContext* ctx, gboolean is_running) {
+  LOAD_POINTER_FUNCTION_LIB(fp, LIB_GLIB, g_main_loop_new)
+  return fp ? ((GMainLoop*(*)(GMainContext*, gboolean))fp)(ctx, is_running) : nullptr;
+}
+
+static void ewt_g_main_loop_quit(GMainLoop* loop) {
+  LOAD_POINTER_FUNCTION_LIB(fp, LIB_GLIB, g_main_loop_quit)
+  if (fp) ((void(*)(GMainLoop*))fp)(loop);
+}
+
+static GMainContext* ewt_g_main_loop_get_context(GMainLoop* loop) {
+  LOAD_POINTER_FUNCTION_LIB(fp, LIB_GLIB, g_main_loop_get_context)
+  return fp ? ((GMainContext*(*)(GMainLoop*))fp)(loop) : nullptr;
+}
+
+static void ewt_g_main_context_invoke(GMainContext* ctx, GSourceFunc fn, gpointer data) {
+  LOAD_POINTER_FUNCTION_LIB(fp, LIB_GLIB, g_main_context_invoke)
+  if (fp) ((void(*)(GMainContext*, GSourceFunc, gpointer))fp)(ctx, fn, data);
+}
+
+static void ewt_g_main_loop_unref(GMainLoop* loop) {
+  LOAD_POINTER_FUNCTION_LIB(fp, LIB_GLIB, g_main_loop_unref)
+  if (fp) ((void(*)(GMainLoop*))fp)(loop);
+}
+
+// The main loop wrapping the default GMainContext; set once in startApp.
+static GMainLoop* g_ewt_main_loop = nullptr;
+
 // --------------------------------------------------------------------------
 
 static void on_activate(GtkApplication* app, gpointer /*user_data*/) {
@@ -134,9 +170,11 @@ static void on_activate(GtkApplication* app, gpointer /*user_data*/) {
   ewt_gtk_widget_grab_focus(GTK_WIDGET(view));
 }
 
-extern "C" __attribute__((visibility("default")))
-int startApp(buildWidgetTreeFn buildWidgetTree) {
-  setBuildWidgetTree(buildWidgetTree);
+extern "C" EXPORT
+int startApp(const StarterOpts* opts) {
+  setBuildWidgetTree(opts->buildWidgetTree);
+  // Callbacks onPostFrame / onFlutterError will be wired in Phase 2
+  // via setPostFrameCallback / setFlutterErrorCallback in widgets.c.
 
   // Primary: locate paths relative to this shared library.
   // Layout mirrors Flutter's bundle: lib/libStarter.so, data/flutter_assets, data/icudtl.dat
@@ -165,6 +203,10 @@ int startApp(buildWidgetTreeFn buildWidgetTree) {
       ewt_home);
   }
 
+  // Capture the default GMainContext in a GMainLoop so requestRebuild /
+  // requestShutdown can post work back onto the GTK main thread.
+  g_ewt_main_loop = ewt_g_main_loop_new(nullptr, FALSE);
+
   GtkApplication* gtk_app = ewt_gtk_application_new("dev.equo.ewt",
                                                      G_APPLICATION_NON_UNIQUE);
   ewt_g_signal_connect_data(gtk_app, "activate", G_CALLBACK(on_activate),
@@ -173,5 +215,24 @@ int startApp(buildWidgetTreeFn buildWidgetTree) {
   int argc = 0;
   int status = ewt_g_application_run(G_APPLICATION(gtk_app), argc, nullptr);
   ewt_g_object_unref(gtk_app);
+  if (g_ewt_main_loop) {
+    ewt_g_main_loop_unref(g_ewt_main_loop);
+    g_ewt_main_loop = nullptr;
+  }
   return status;
+}
+
+extern "C" EXPORT void Starter_requestRebuild(void) {
+  if (!g_ewt_main_loop) return;
+  ewt_g_main_context_invoke(
+      ewt_g_main_loop_get_context(g_ewt_main_loop),
+      [](gpointer) -> gboolean {
+        requestRebuildFromNative();
+        return G_SOURCE_REMOVE;
+      },
+      nullptr);
+}
+
+extern "C" EXPORT void Starter_requestShutdown(void) {
+  if (g_ewt_main_loop) ewt_g_main_loop_quit(g_ewt_main_loop);
 }

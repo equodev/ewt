@@ -53,6 +53,8 @@ widgets/lib/subwidgets.dart
 generator/lib/subwidgets.dart
 widgets/lib/widgets_bindings_generated.dart
 ewt.api/src/main/java/dev/equo/ewt/ffm/
+ewt.api/src/test/java/dev/equo/ewt/support/variants/WidgetVariantsRegistry.java
+ewt.api/src/test/java/dev/equo/ewt/support/variants/*Variants.java
 
 ### Flutter ###
 # Per-environment dependency redirect (e.g. CI points swtflutter at its swt-evolve clone).

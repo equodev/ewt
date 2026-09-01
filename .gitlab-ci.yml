@@ -136,6 +136,7 @@ generate:
       - generator/lib/subwidgets.dart
       - widgets/lib/widgets_bindings_generated.dart
       - ewt.api/src/main/java/dev/equo/ewt/ffm/
+      - ewt.api/src/test/java/dev/equo/ewt/support/variants/
     expire_in: 1 week
 
 coverage:commit:
@@ -312,6 +313,51 @@ ewt_api_tests:linux:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
+# Native rendering suite: boots a real Flutter engine under xvfb and mounts every
+# widget × variant through it (see docs/adr/0009-native-render-test-harness.md
+# and docs/native-tests.md).
+#
+# SOFT-GATED (allow_failure: true) until the two follow-up buckets are cleared:
+#   - ~100 variants fail Immutables required-attr checks (issue #44).
+#   - ~60 variants need ancestor scaffolds beyond MaterialApp (Material,
+#     DefaultTabController, CupertinoApp, Scaffold) — extend
+#     generator/lib/contextual_scaffolds.dart.
+# Once the pass count is stable at 647/647 for ~1-2 weeks, drop allow_failure
+# and re-add this job to ewt_build.needs to make it a hard merge gate.
+ewt_native_render:
+  stage: test
+  image: $FLUTTER_IMAGE_TAG
+  allow_failure: true
+  needs:
+    - generate
+    - flutter:linux
+    - ewt_api_tests:linux
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  timeout: 15m
+  variables:
+    EWT_SHARD_INDEX: "0"
+    EWT_SHARD_COUNT: "1"
+  script:
+    - xvfb-run -a ./gradlew :ewt.api:test -DrunNativeTests=1
+        --tests dev.equo.ewt.NativeRenderSmokeTest
+        --tests dev.equo.ewt.WidgetNativeRenderTest
+        --info --no-daemon
+  artifacts:
+    when: always
+    reports:
+      junit: ewt.api/build/test-results/test/**/*.xml
+    paths:
+      - ewt.api/build/reports/tests/test/
+      - hs_err_pid*.log
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
 # =============================================================================
 # BUILD STAGE
 # =============================================================================
@@ -322,6 +368,7 @@ ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
   # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
+  # ewt_native_render intentionally NOT in this list — see its soft-gate note above.
   needs:
     - generate
     - flutter:linux
