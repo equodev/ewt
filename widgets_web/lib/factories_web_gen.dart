@@ -4410,8 +4410,11 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       debugPrint('EWT: subAnimatedStateAnimationController outside animated region (ctrlId=$ctrlId)');
       return null;
     }
-    final duration = decodeEwtNode(p['duration'] as Map<String, dynamic>) as Duration;
-    return registry.putIfAbsent(ctrlId, () => AnimationController(vsync: vsync, duration: duration));
+    // duration is only needed when creating a new controller; on rebuild the stub omits it.
+    return registry.putIfAbsent(ctrlId, () {
+      final duration = decodeEwtNode(p['duration'] as Map<String, dynamic>) as Duration;
+      return AnimationController(vsync: vsync, duration: duration);
+    });
   },
   'curvedAnimationCurvedAnimation': (p) => CurvedAnimation(
       parent: decodeEwtNode(p['parent'] as Map<String, dynamic>) as Animation<double>,
