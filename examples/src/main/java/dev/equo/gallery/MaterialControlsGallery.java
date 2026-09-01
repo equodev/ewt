@@ -81,6 +81,15 @@ public class MaterialControlsGallery {
 
                       tile("Tooltip (hover me)", Tooltip().message("A helpful hint")
                           .child(Icon(Icons.favorite()))),
+                      // Imperative dispatch via the new context-receiver companion:
+                      // ScaffoldMessengerMethods.showSnackBar is emitted as a public
+                      // static on ScaffoldMessenger.java, dispatched at runtime through
+                      // ScaffoldMessenger.of(context).
+                      tile("Show SnackBar", ElevatedButton(() -> ScaffoldMessenger.showSnackBar(context,
+                              SnackBar(Text("hello from EWT"))
+                                  .action(SnackBarAction().label("Undo").onPressed(() -> {}).build())
+                                  .duration(Duration().seconds(3).build()).build()))
+                          .child(Text("Show snack"))),
                       tile("Badge", Badge().label(Text("9+")).child(Icon(Icons.notifications()))),
                       // SelectableText vs Text: click-drag to select the right column; left column is not selectable
                       Row().children(List.of(

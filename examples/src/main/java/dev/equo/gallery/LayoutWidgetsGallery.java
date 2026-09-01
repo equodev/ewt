@@ -46,6 +46,7 @@ public class LayoutWidgetsGallery {
     boolean _visible = true;
     int _normalTaps = 0;
     String _lastTap = "-";
+    boolean _expanded = false;
 
     @Override
     public Widget build(BuildContext context) {
@@ -175,6 +176,155 @@ public class LayoutWidgetsGallery {
           tile("FlutterLogo 24", FlutterLogo().size(24.0)),
           tile("FlutterLogo 48", FlutterLogo().size(48.0)),
           tile("FlutterLogo 72", FlutterLogo().size(72.0)),
+          Divider(),
+
+          // ---- NavigationToolbar + ListBody laid over GridPaper ----
+          tile("NavigationToolbar/ListBody/GridPaper",
+              SizedBox().width(200.0).height(80.0).child(
+                  GridPaper().interval(20.0).divisions(2).subdivisions(2).color(Colors.blueGrey())
+                      .child(NavigationToolbar()
+                          .leading(dot(Colors.red()))
+                          .middle(ListBody().mainAxis(Axis.horizontal).children(List.of(
+                              Text("A "), Text("B "), Text("C"))))
+                          .trailing(dot(Colors.blue()))))),
+          Divider(),
+
+          // ---- Batch 4: Listener + OverflowBar + ChoiceChip + Ink + BottomAppBar ----
+          tile("Listener + OverflowBar",
+              SizedBox().width(220.0).height(50.0).child(
+                  Listener().onPointerDown(e -> setState(() -> _normalTaps++))
+                      .child(OverflowBar().spacing(6.0).children(List.of(
+                          Chip().label(Text("Pointer taps: " + _normalTaps)),
+                          ChoiceChip().label(Text("Choice"))
+                              .selected(_visible)
+                              .onSelected(v -> setState(() -> _visible = v)),
+                          FilterChip().label(Text("Filter"))
+                              .selected(_expanded)
+                              .onSelected(v -> setState(() -> _expanded = v)),
+                          ActionChip().label(Text("Action"))
+                              .onPressed(() -> setState(() -> _lastTap = "action-chip"))
+                      )).build()))),
+          // ---- Batch 5: OutlinedBorder variants ----
+          tile("Circle/Stadium/Beveled/Continuous/Star borders",
+              Row().mainAxisAlignment(MainAxisAlignment.spaceBetween).children(List.of(
+                  Container().width(28.0).height(28.0).decoration(BoxDecoration()
+                      .color(Colors.red()).shape(BoxShape.circle)),
+                  Material().color(Colors.orange()).shape(StadiumBorder().build())
+                      .child(SizedBox().width(40.0).height(20.0).build()).build(),
+                  Material().color(Colors.green())
+                      .shape(BeveledRectangleBorder().borderRadius(BorderRadius_circular(6.0)).build())
+                      .child(SizedBox().width(28.0).height(20.0).build()).build(),
+                  Material().color(Colors.blue())
+                      .shape(ContinuousRectangleBorder().borderRadius(BorderRadius_circular(8.0)).build())
+                      .child(SizedBox().width(28.0).height(20.0).build()).build(),
+                  Material().color(Colors.purple())
+                      .shape(StarBorder().points(6).build())
+                      .child(SizedBox().width(28.0).height(28.0).build()).build()
+              ))),
+          tile("LinearBorder + TabPageSelectorIndicator",
+              Row().children(List.of(
+                  Material().color(Colors.teal()).shape(LinearBorder_bottom().build())
+                      .child(SizedBox().width(40.0).height(24.0).build()).build(),
+                  SizedBox().width(12.0),
+                  TabPageSelectorIndicator(Colors.blue(), Colors.blueGrey(), 14.0)
+              ))),
+          tile("MaterialBanner",
+              SizedBox().width(280.0).child(MaterialBanner(Text("Something happened."))
+                  .leading(Icon(Icons.info()))
+                  .addActions(TextButton(() -> setState(() -> _lastTap = "banner")).child(Text("OK")).build())
+                  .backgroundColor(Colors.amber()))),
+          tile("Reorderable listeners",
+              Row().children(List.of(
+                  ReorderableDragStartListener(rect(28.0, 28.0, Colors.indigo()).build(), 0),
+                  SizedBox().width(8.0),
+                  ReorderableDelayedDragStartListener(rect(28.0, 28.0, Colors.deepPurple()).build(), 1)
+              ))),
+          tile("AboutListTile",
+              SizedBox().width(240.0).child(AboutListTile()
+                  .icon(Icon(Icons.info()))
+                  .applicationName("EWT")
+                  .applicationVersion("dev"))),
+          Divider(),
+
+          // ---- Batch 6: Dialog, GridTile, InputDecorator, chip variants ----
+          // ---- Batch 7: animated positioned + text style + tap region ----
+          tile("AnimatedPositioned in a Stack (toggle)",
+              SizedBox().width(200.0).height(60.0).child(
+                  Stack().children(List.of(
+                      AnimatedPositioned(rect(40.0, 40.0, Colors.deepPurple()).build())
+                          .left(_visible ? 8.0 : 140.0).top(10.0)
+                          .duration(Duration().milliseconds(300).build()).build()
+                  )))),
+          tile("AnimatedDefaultTextStyle (toggle)",
+              AnimatedDefaultTextStyle(Text("styled").build(),
+                  TextStyle().fontSize(_visible ? 22.0 : 14.0)
+                      .color(_visible ? Colors.red() : Colors.grey()).build())
+                  .duration(Duration().milliseconds(300).build())),
+          tile("AnimatedFractionallySizedBox",
+              stage(80.0, 40.0,
+                  AnimatedFractionallySizedBox().widthFactor(_visible ? 1.0 : 0.4)
+                      .duration(Duration().milliseconds(300).build())
+                      .child(ColoredBox(Colors.teal()).build()).build())),
+          tile("TapRegion (log outside taps)",
+              TapRegion(rect(80.0, 32.0, Colors.blueGrey()).build())
+                  .onTapOutside(e -> setState(() -> _lastTap = "outside"))),
+          Divider(),
+
+          tile("Dialog (inline preview)",
+              SizedBox().width(220.0).height(70.0).child(
+                  Dialog().backgroundColor(Colors.grey())
+                      .child(Padding(EdgeInsets_all(12.0)).child(Text("Dialog body"))).build())),
+          tile("GridTile + GridTileBar",
+              SizedBox().width(160.0).height(80.0).child(
+                  GridTile().child(rect(160.0, 80.0, Colors.blueGrey()).build())
+                      .header(GridTileBar().leading(Icon(Icons.info()))
+                          .title(Text("Header")).backgroundColor(Colors.black()).build())
+                      .footer(GridTileBar().title(Text("Footer"))
+                          .backgroundColor(Colors.black()).build()))),
+          tile("RefreshProgressIndicator + InputChip",
+              Row().children(List.of(
+                  RefreshProgressIndicator(),
+                  SizedBox().width(12.0),
+                  InputChip().label(Text("input"))
+                      .onDeleted(() -> setState(() -> _lastTap = "chip-deleted"))
+              ))),
+          tile("InputDecorator",
+              SizedBox().width(200.0).child(InputDecorator(
+                  InputDecoration().labelText("Label").border(OutlineInputBorder().build()).build())
+                  .child(Text("value")))),
+          tile("UserAccountsDrawerHeader",
+              SizedBox().width(280.0).height(120.0).child(UserAccountsDrawerHeader()
+                  .accountName(Text("Ada Lovelace"))
+                  .accountEmail(Text("ada@example.com")))),
+          Divider(),
+
+          tile("Ink + BottomAppBar",
+              SizedBox().width(220.0).height(60.0).child(
+                  BottomAppBar().color(Colors.teal()).child(
+                      Ink().width(80.0).height(40.0).color(Colors.orange())
+                          .child(Center().child(Text("Ink"))).build()))),
+          Divider(),
+
+          // ---- Batch 2: VerticalDivider + ExpandIcon + PositionedDirectional ----
+          // The other batch-2 widgets (CheckedModeBanner, IgnoreBaseline, TickerMode,
+          // TapRegionSurface, LookupBoundary, SemanticsDebugger, ExcludeFocus,
+          // ExcludeFocusTraversal, AutofillGroup) are invisible policy widgets — wrapping
+          // this whole tile in them proves they compile & don't break the subtree.
+          tile("VerticalDivider + ExpandIcon + PositionedDirectional",
+              CheckedModeBanner(TickerMode(true,
+                  ExcludeFocus().child(
+                      SizedBox().width(220.0).height(56.0).child(IntrinsicHeight().child(
+                          Row().children(List.of(
+                              rect(48.0, 40.0, Colors.teal()),
+                              VerticalDivider().width(20.0).thickness(2.0).color(Colors.grey()),
+                              Stack().children(List.of(
+                                  rect(80.0, 40.0, Colors.blueGrey()),
+                                  PositionedDirectional().start(6.0).top(6.0)
+                                      .child(dot(Colors.orange()).build()).build())),
+                              VerticalDivider().width(20.0).thickness(2.0).color(Colors.grey()),
+                              ExpandIcon().isExpanded(_expanded)
+                                  .onPressed(v -> setState(() -> _expanded = !_expanded))
+                          ))))).build()).build())),
           Divider(),
 
           // ---- Text / direction ----

@@ -2531,6 +2531,1231 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enabled));
   }
 
+  MemorySegment heroModeHeroMode(Widget child, Optional<Boolean> enabled) {
+    var st = WidgetFactories.heroMode(factories);
+    var fn = WidgetFactories.HeroModeSt.heroMode(st);
+    return WidgetFactories.HeroModeSt.heroMode.invoke(fn, arena, child.build().getId(),
+      ptrBool(enabled));
+  }
+
+  MemorySegment blockSemanticsBlockSemantics(Optional<Boolean> blocking, Optional<Widget> child) {
+    var st = WidgetFactories.blockSemantics(factories);
+    var fn = WidgetFactories.BlockSemanticsSt.blockSemantics(st);
+    return WidgetFactories.BlockSemanticsSt.blockSemantics.invoke(fn, arena, ptrBool(blocking),
+      ptrObj(child));
+  }
+
+  MemorySegment mergeSemanticsMergeSemantics(Optional<Widget> child) {
+    var st = WidgetFactories.mergeSemantics(factories);
+    var fn = WidgetFactories.MergeSemanticsSt.mergeSemantics(st);
+    return WidgetFactories.MergeSemanticsSt.mergeSemantics.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment excludeSemanticsExcludeSemantics(Optional<Boolean> excluding, Optional<Widget> child) {
+    var st = WidgetFactories.excludeSemantics(factories);
+    var fn = WidgetFactories.ExcludeSemanticsSt.excludeSemantics(st);
+    return WidgetFactories.ExcludeSemanticsSt.excludeSemantics.invoke(fn, arena, ptrBool(excluding),
+      ptrObj(child));
+  }
+
+  MemorySegment indexedSemanticsIndexedSemantics(int index, Optional<Widget> child) {
+    var st = WidgetFactories.indexedSemantics(factories);
+    var fn = WidgetFactories.IndexedSemanticsSt.indexedSemantics(st);
+    return WidgetFactories.IndexedSemanticsSt.indexedSemantics.invoke(fn, arena, index,
+      ptrObj(child));
+  }
+
+  MemorySegment automaticKeepAliveAutomaticKeepAlive(Widget child) {
+    var st = WidgetFactories.automaticKeepAlive(factories);
+    var fn = WidgetFactories.AutomaticKeepAliveSt.automaticKeepAlive(st);
+    return WidgetFactories.AutomaticKeepAliveSt.automaticKeepAlive.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment sliverToBoxAdapterSliverToBoxAdapter(Optional<Widget> child) {
+    var st = WidgetFactories.sliverToBoxAdapter(factories);
+    var fn = WidgetFactories.SliverToBoxAdapterSt.sliverToBoxAdapter(st);
+    return WidgetFactories.SliverToBoxAdapterSt.sliverToBoxAdapter.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment listBodyListBody(Optional<Axis> mainAxis, Optional<Boolean> reverse, Optional<List<Widget>> children) {
+    var st = WidgetFactories.listBody(factories);
+    var fn = WidgetFactories.ListBodySt.listBody(st);
+    return WidgetFactories.ListBodySt.listBody.invoke(fn, arena, ptrEnum(mainAxis),
+      ptrBool(reverse),
+      ptrList(children));
+  }
+
+  MemorySegment gridPaperGridPaper(Optional<Color> color, OptionalDouble interval, OptionalInt divisions, OptionalInt subdivisions, Optional<Widget> child) {
+    var st = WidgetFactories.gridPaper(factories);
+    var fn = WidgetFactories.GridPaperSt.gridPaper(st);
+    return WidgetFactories.GridPaperSt.gridPaper.invoke(fn, arena, ptrObj(color),
+      ptr(interval),
+      ptr(divisions),
+      ptr(subdivisions),
+      ptrObj(child));
+  }
+
+  MemorySegment navigationToolbarNavigationToolbar(Optional<Widget> leading, Optional<Widget> middle, Optional<Widget> trailing, Optional<Boolean> centerMiddle, OptionalDouble middleSpacing) {
+    var st = WidgetFactories.navigationToolbar(factories);
+    var fn = WidgetFactories.NavigationToolbarSt.navigationToolbar(st);
+    return WidgetFactories.NavigationToolbarSt.navigationToolbar.invoke(fn, arena, ptrObj(leading),
+      ptrObj(middle),
+      ptrObj(trailing),
+      ptrBool(centerMiddle),
+      ptr(middleSpacing));
+  }
+
+  MemorySegment checkedModeBannerCheckedModeBanner(Widget child) {
+    var st = WidgetFactories.checkedModeBanner(factories);
+    var fn = WidgetFactories.CheckedModeBannerSt.checkedModeBanner(st);
+    return WidgetFactories.CheckedModeBannerSt.checkedModeBanner.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment ignoreBaselineIgnoreBaseline(Optional<Widget> child) {
+    var st = WidgetFactories.ignoreBaseline(factories);
+    var fn = WidgetFactories.IgnoreBaselineSt.ignoreBaseline(st);
+    return WidgetFactories.IgnoreBaselineSt.ignoreBaseline.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment tickerModeTickerMode(boolean enabled, Widget child) {
+    var st = WidgetFactories.tickerMode(factories);
+    var fn = WidgetFactories.TickerModeSt.tickerMode(st);
+    return WidgetFactories.TickerModeSt.tickerMode.invoke(fn, arena, (enabled ? 1 : 0),
+      child.build().getId());
+  }
+  int tickerModeOf(BuildContext context) {
+    var st = WidgetFactories.tickerMode(factories);
+    var fn = WidgetFactories.TickerModeSt.of(st);
+    return WidgetFactories.TickerModeSt.of.invoke(fn, context.build().getId());
+  }
+  int tickerModeGetNotifier(BuildContext context) {
+    var st = WidgetFactories.tickerMode(factories);
+    var fn = WidgetFactories.TickerModeSt.getNotifier(st);
+    return WidgetFactories.TickerModeSt.getNotifier.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment tapRegionSurfaceTapRegionSurface(Widget child) {
+    var st = WidgetFactories.tapRegionSurface(factories);
+    var fn = WidgetFactories.TapRegionSurfaceSt.tapRegionSurface(st);
+    return WidgetFactories.TapRegionSurfaceSt.tapRegionSurface.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment lookupBoundaryLookupBoundary(Widget child) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.lookupBoundary(st);
+    return WidgetFactories.LookupBoundarySt.lookupBoundary.invoke(fn, arena, child.build().getId());
+  }
+  <T extends InheritedWidget> int lookupBoundaryDependOnInheritedWidgetOfExactType(BuildContext context, Optional<NativeObj> aspect) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.dependOnInheritedWidgetOfExactType(st);
+    return WidgetFactories.LookupBoundarySt.dependOnInheritedWidgetOfExactType.invoke(fn, context.build().getId(),
+      ptrObj(aspect));
+  }
+  <T extends Widget> int lookupBoundaryFindAncestorWidgetOfExactType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findAncestorWidgetOfExactType(st);
+    return WidgetFactories.LookupBoundarySt.findAncestorWidgetOfExactType.invoke(fn, context.build().getId());
+  }
+  <T extends State<StatefulWidget>> int lookupBoundaryFindAncestorStateOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findAncestorStateOfType(st);
+    return WidgetFactories.LookupBoundarySt.findAncestorStateOfType.invoke(fn, context.build().getId());
+  }
+  <T extends State<StatefulWidget>> int lookupBoundaryFindRootAncestorStateOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findRootAncestorStateOfType(st);
+    return WidgetFactories.LookupBoundarySt.findRootAncestorStateOfType.invoke(fn, context.build().getId());
+  }
+  <T extends RenderObject> int lookupBoundaryFindAncestorRenderObjectOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.findAncestorRenderObjectOfType(st);
+    return WidgetFactories.LookupBoundarySt.findAncestorRenderObjectOfType.invoke(fn, context.build().getId());
+  }
+  int lookupBoundaryDebugIsHidingAncestorWidgetOfExactType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.debugIsHidingAncestorWidgetOfExactType(st);
+    return WidgetFactories.LookupBoundarySt.debugIsHidingAncestorWidgetOfExactType.invoke(fn, context.build().getId());
+  }
+  int lookupBoundaryDebugIsHidingAncestorStateOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.debugIsHidingAncestorStateOfType(st);
+    return WidgetFactories.LookupBoundarySt.debugIsHidingAncestorStateOfType.invoke(fn, context.build().getId());
+  }
+  int lookupBoundaryDebugIsHidingAncestorRenderObjectOfType(BuildContext context) {
+    var st = WidgetFactories.lookupBoundary(factories);
+    var fn = WidgetFactories.LookupBoundarySt.debugIsHidingAncestorRenderObjectOfType(st);
+    return WidgetFactories.LookupBoundarySt.debugIsHidingAncestorRenderObjectOfType.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment semanticsDebuggerSemanticsDebugger(Widget child, Optional<TextStyle> labelStyle) {
+    var st = WidgetFactories.semanticsDebugger(factories);
+    var fn = WidgetFactories.SemanticsDebuggerSt.semanticsDebugger(st);
+    return WidgetFactories.SemanticsDebuggerSt.semanticsDebugger.invoke(fn, arena, child.build().getId(),
+      ptrObj(labelStyle));
+  }
+
+  MemorySegment excludeFocusExcludeFocus(Optional<Boolean> excluding, Widget child) {
+    var st = WidgetFactories.excludeFocus(factories);
+    var fn = WidgetFactories.ExcludeFocusSt.excludeFocus(st);
+    return WidgetFactories.ExcludeFocusSt.excludeFocus.invoke(fn, arena, ptrBool(excluding),
+      child.build().getId());
+  }
+
+  MemorySegment excludeFocusTraversalExcludeFocusTraversal(Optional<Boolean> excluding, Widget child) {
+    var st = WidgetFactories.excludeFocusTraversal(factories);
+    var fn = WidgetFactories.ExcludeFocusTraversalSt.excludeFocusTraversal(st);
+    return WidgetFactories.ExcludeFocusTraversalSt.excludeFocusTraversal.invoke(fn, arena, ptrBool(excluding),
+      child.build().getId());
+  }
+
+  MemorySegment autofillGroupAutofillGroup(Widget child, Optional<AutofillContextAction> onDisposeAction) {
+    var st = WidgetFactories.autofillGroup(factories);
+    var fn = WidgetFactories.AutofillGroupSt.autofillGroup(st);
+    return WidgetFactories.AutofillGroupSt.autofillGroup.invoke(fn, arena, child.build().getId(),
+      ptrEnum(onDisposeAction));
+  }
+
+  MemorySegment positionedDirectionalPositionedDirectional(OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Widget child) {
+    var st = WidgetFactories.positionedDirectional(factories);
+    var fn = WidgetFactories.PositionedDirectionalSt.positionedDirectional(st);
+    return WidgetFactories.PositionedDirectionalSt.positionedDirectional.invoke(fn, arena, ptr(start),
+      ptr(top),
+      ptr(end),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      child.build().getId());
+  }
+
+  MemorySegment verticalDividerVerticalDivider(OptionalDouble width, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<Color> color, Optional<BorderRadiusGeometry> radius) {
+    var st = WidgetFactories.verticalDivider(factories);
+    var fn = WidgetFactories.VerticalDividerSt.verticalDivider(st);
+    return WidgetFactories.VerticalDividerSt.verticalDivider.invoke(fn, arena, ptr(width),
+      ptr(thickness),
+      ptr(indent),
+      ptr(endIndent),
+      ptrObj(color),
+      ptrObj(radius));
+  }
+
+  MemorySegment expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Consumer<Boolean> onPressed, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> expandedColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
+    var st = WidgetFactories.expandIcon(factories);
+    var fn = WidgetFactories.ExpandIconSt.expandIcon(st);
+    return WidgetFactories.ExpandIconSt.expandIcon.invoke(fn, arena, ptrBool(isExpanded),
+      ptr(size),
+      ptrValueChangedForBoolFn(onPressed),
+      ptrObj(padding),
+      ptrObj(color),
+      ptrObj(disabledColor),
+      ptrObj(expandedColor),
+      ptrObj(splashColor),
+      ptrObj(highlightColor));
+  }
+
+  MemorySegment sliverPaddingSliverPadding(EdgeInsetsGeometry padding, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverPadding(factories);
+    var fn = WidgetFactories.SliverPaddingSt.sliverPadding(st);
+    return WidgetFactories.SliverPaddingSt.sliverPadding.invoke(fn, arena, padding.build().getId(),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverOpacitySliverOpacity(double opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverOpacity(factories);
+    var fn = WidgetFactories.SliverOpacitySt.sliverOpacity(st);
+    return WidgetFactories.SliverOpacitySt.sliverOpacity.invoke(fn, arena, opacity,
+      ptrBool(alwaysIncludeSemantics),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverIgnorePointerSliverIgnorePointer(Optional<Boolean> ignoring, Optional<Boolean> ignoringSemantics, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverIgnorePointer(factories);
+    var fn = WidgetFactories.SliverIgnorePointerSt.sliverIgnorePointer(st);
+    return WidgetFactories.SliverIgnorePointerSt.sliverIgnorePointer.invoke(fn, arena, ptrBool(ignoring),
+      ptrBool(ignoringSemantics),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverOffstageSliverOffstage(Optional<Boolean> offstage, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverOffstage(factories);
+    var fn = WidgetFactories.SliverOffstageSt.sliverOffstage(st);
+    return WidgetFactories.SliverOffstageSt.sliverOffstage.invoke(fn, arena, ptrBool(offstage),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverSafeAreaSliverSafeArea(Optional<Boolean> left, Optional<Boolean> top, Optional<Boolean> right, Optional<Boolean> bottom, Optional<EdgeInsets> minimum, Widget sliver) {
+    var st = WidgetFactories.sliverSafeArea(factories);
+    var fn = WidgetFactories.SliverSafeAreaSt.sliverSafeArea(st);
+    return WidgetFactories.SliverSafeAreaSt.sliverSafeArea.invoke(fn, arena, ptrBool(left),
+      ptrBool(top),
+      ptrBool(right),
+      ptrBool(bottom),
+      ptrObj(minimum),
+      sliver.build().getId());
+  }
+
+  MemorySegment sliverVisibilitySliverVisibility(Widget sliver, Optional<Widget> replacementSliver, Optional<Boolean> visible, Optional<Boolean> maintainState, Optional<Boolean> maintainAnimation, Optional<Boolean> maintainSize, Optional<Boolean> maintainSemantics, Optional<Boolean> maintainInteractivity) {
+    var st = WidgetFactories.sliverVisibility(factories);
+    var fn = WidgetFactories.SliverVisibilitySt.sliverVisibility(st);
+    return WidgetFactories.SliverVisibilitySt.sliverVisibility.invoke(fn, arena, sliver.build().getId(),
+      ptrObj(replacementSliver),
+      ptrBool(visible),
+      ptrBool(maintainState),
+      ptrBool(maintainAnimation),
+      ptrBool(maintainSize),
+      ptrBool(maintainSemantics),
+      ptrBool(maintainInteractivity));
+  }
+  MemorySegment sliverVisibilityMaintain(Widget sliver, Optional<Widget> replacementSliver, Optional<Boolean> visible) {
+    var st = WidgetFactories.sliverVisibility(factories);
+    var fn = WidgetFactories.SliverVisibilitySt.maintain(st);
+    return WidgetFactories.SliverVisibilitySt.maintain.invoke(fn, arena, sliver.build().getId(),
+      ptrObj(replacementSliver),
+      ptrBool(visible));
+  }
+
+  MemorySegment sliverMainAxisGroupSliverMainAxisGroup(List<Widget> slivers) {
+    var st = WidgetFactories.sliverMainAxisGroup(factories);
+    var fn = WidgetFactories.SliverMainAxisGroupSt.sliverMainAxisGroup(st);
+    return WidgetFactories.SliverMainAxisGroupSt.sliverMainAxisGroup.invoke(fn, arena, ptrList(slivers));
+  }
+
+  MemorySegment sliverCrossAxisGroupSliverCrossAxisGroup(List<Widget> slivers) {
+    var st = WidgetFactories.sliverCrossAxisGroup(factories);
+    var fn = WidgetFactories.SliverCrossAxisGroupSt.sliverCrossAxisGroup(st);
+    return WidgetFactories.SliverCrossAxisGroupSt.sliverCrossAxisGroup.invoke(fn, arena, ptrList(slivers));
+  }
+
+  MemorySegment sliverFillRemainingSliverFillRemaining(Optional<Widget> child, Optional<Boolean> hasScrollBody, Optional<Boolean> fillOverscroll) {
+    var st = WidgetFactories.sliverFillRemaining(factories);
+    var fn = WidgetFactories.SliverFillRemainingSt.sliverFillRemaining(st);
+    return WidgetFactories.SliverFillRemainingSt.sliverFillRemaining.invoke(fn, arena, ptrObj(child),
+      ptrBool(hasScrollBody),
+      ptrBool(fillOverscroll));
+  }
+
+  MemorySegment sliverEnsureSemanticsSliverEnsureSemantics(Widget sliver) {
+    var st = WidgetFactories.sliverEnsureSemantics(factories);
+    var fn = WidgetFactories.SliverEnsureSemanticsSt.sliverEnsureSemantics(st);
+    return WidgetFactories.SliverEnsureSemanticsSt.sliverEnsureSemantics.invoke(fn, arena, sliver.build().getId());
+  }
+
+  MemorySegment sliverConstrainedCrossAxisSliverConstrainedCrossAxis(double maxExtent, Widget sliver) {
+    var st = WidgetFactories.sliverConstrainedCrossAxis(factories);
+    var fn = WidgetFactories.SliverConstrainedCrossAxisSt.sliverConstrainedCrossAxis(st);
+    return WidgetFactories.SliverConstrainedCrossAxisSt.sliverConstrainedCrossAxis.invoke(fn, arena, maxExtent,
+      sliver.build().getId());
+  }
+
+  MemorySegment customScrollViewCustomScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, OptionalDouble anchor, OptionalDouble cacheExtent, Optional<SliverPaintOrder> paintOrder, Optional<List<Widget>> slivers, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+    var st = WidgetFactories.customScrollView(factories);
+    var fn = WidgetFactories.CustomScrollViewSt.customScrollView(st);
+    return WidgetFactories.CustomScrollViewSt.customScrollView.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrBool(primary),
+      ptrBool(shrinkWrap),
+      ptr(anchor),
+      ptr(cacheExtent),
+      ptrEnum(paintOrder),
+      ptrList(slivers),
+      ptr(semanticChildCount),
+      ptrEnum(dragStartBehavior),
+      ptrEnum(keyboardDismissBehavior),
+      ptrStr(restorationId),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior));
+  }
+
+  MemorySegment drawerHeaderDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, Optional<Duration> duration, Optional<Curve> curve, Widget child) {
+    var st = WidgetFactories.drawerHeader(factories);
+    var fn = WidgetFactories.DrawerHeaderSt.drawerHeader(st);
+    return WidgetFactories.DrawerHeaderSt.drawerHeader.invoke(fn, arena, ptrObj(decoration),
+      ptrObj(margin),
+      ptrObj(padding),
+      ptrObj(duration),
+      ptrObj(curve),
+      child != null ? child.build().getId() : null);
+  }
+
+  MemorySegment selectionAreaSelectionArea(Widget child) {
+    var st = WidgetFactories.selectionArea(factories);
+    var fn = WidgetFactories.SelectionAreaSt.selectionArea(st);
+    return WidgetFactories.SelectionAreaSt.selectionArea.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment sizeChangedLayoutNotifierSizeChangedLayoutNotifier(Optional<Widget> child) {
+    var st = WidgetFactories.sizeChangedLayoutNotifier(factories);
+    var fn = WidgetFactories.SizeChangedLayoutNotifierSt.sizeChangedLayoutNotifier(st);
+    return WidgetFactories.SizeChangedLayoutNotifierSt.sizeChangedLayoutNotifier.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment draggableScrollableActuatorDraggableScrollableActuator(Widget child) {
+    var st = WidgetFactories.draggableScrollableActuator(factories);
+    var fn = WidgetFactories.DraggableScrollableActuatorSt.draggableScrollableActuator(st);
+    return WidgetFactories.DraggableScrollableActuatorSt.draggableScrollableActuator.invoke(fn, arena, child.build().getId());
+  }
+  int draggableScrollableActuatorReset(BuildContext context) {
+    var st = WidgetFactories.draggableScrollableActuator(factories);
+    var fn = WidgetFactories.DraggableScrollableActuatorSt.reset(st);
+    return WidgetFactories.DraggableScrollableActuatorSt.reset.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment scrollNotificationObserverScrollNotificationObserver(Widget child) {
+    var st = WidgetFactories.scrollNotificationObserver(factories);
+    var fn = WidgetFactories.ScrollNotificationObserverSt.scrollNotificationObserver(st);
+    return WidgetFactories.ScrollNotificationObserverSt.scrollNotificationObserver.invoke(fn, arena, child.build().getId());
+  }
+
+  MemorySegment modalBarrierModalBarrier(Optional<Color> color, Optional<Boolean> dismissible, Optional<Runnable> onDismiss, Optional<String> semanticsLabel, Optional<Boolean> barrierSemanticsDismissible, Optional<String> semanticsOnTapHint) {
+    var st = WidgetFactories.modalBarrier(factories);
+    var fn = WidgetFactories.ModalBarrierSt.modalBarrier(st);
+    return WidgetFactories.ModalBarrierSt.modalBarrier.invoke(fn, arena, ptrObj(color),
+      ptrBool(dismissible),
+      onDismiss.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDismiss.get())) : MemorySegment.NULL,
+      ptrStr(semanticsLabel),
+      ptrBool(barrierSemanticsDismissible),
+      ptrStr(semanticsOnTapHint));
+  }
+
+  MemorySegment listenerListener(Optional<Consumer<PointerDownEvent>> onPointerDown, Optional<Consumer<PointerUpEvent>> onPointerUp, Optional<Consumer<PointerHoverEvent>> onPointerHover, Optional<HitTestBehavior> behavior, Optional<Widget> child) {
+    var st = WidgetFactories.listener(factories);
+    var fn = WidgetFactories.ListenerSt.listener(st);
+    return WidgetFactories.ListenerSt.listener.invoke(fn, arena, onPointerDown.isPresent() ? ptrHolder(ptrPointerDownEventListenerFn(onPointerDown.get())) : MemorySegment.NULL,
+      onPointerUp.isPresent() ? ptrHolder(ptrPointerUpEventListenerFn(onPointerUp.get())) : MemorySegment.NULL,
+      onPointerHover.isPresent() ? ptrHolder(ptrPointerHoverEventListenerFn(onPointerHover.get())) : MemorySegment.NULL,
+      ptrEnum(behavior),
+      ptrObj(child));
+  }
+
+  MemorySegment overflowBarOverflowBar(OptionalDouble spacing, Optional<MainAxisAlignment> alignment, OptionalDouble overflowSpacing, Optional<OverflowBarAlignment> overflowAlignment, Optional<VerticalDirection> overflowDirection, Optional<TextDirection> textDirection, Optional<List<Widget>> children) {
+    var st = WidgetFactories.overflowBar(factories);
+    var fn = WidgetFactories.OverflowBarSt.overflowBar(st);
+    return WidgetFactories.OverflowBarSt.overflowBar.invoke(fn, arena, ptr(spacing),
+      ptrEnum(alignment),
+      ptr(overflowSpacing),
+      ptrEnum(overflowAlignment),
+      ptrEnum(overflowDirection),
+      ptrEnum(textDirection),
+      ptrList(children));
+  }
+
+  MemorySegment defaultSelectionStyleDefaultSelectionStyle(Optional<Color> cursorColor, Optional<Color> selectionColor, Widget child) {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.defaultSelectionStyle(st);
+    return WidgetFactories.DefaultSelectionStyleSt.defaultSelectionStyle.invoke(fn, arena, ptrObj(cursorColor),
+      ptrObj(selectionColor),
+      child.build().getId());
+  }
+  MemorySegment defaultSelectionStyleFallback() {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.fallback(st);
+    return WidgetFactories.DefaultSelectionStyleSt.fallback.invoke(fn, arena);
+  }
+  int defaultSelectionStyleMerge(Optional<Color> cursorColor, Optional<Color> selectionColor, Widget child) {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.merge(st);
+    return WidgetFactories.DefaultSelectionStyleSt.merge.invoke(fn, ptrObj(cursorColor),
+      ptrObj(selectionColor),
+      child.build().getId());
+  }
+  MemorySegment defaultSelectionStyleOf(BuildContext context) {
+    var st = WidgetFactories.defaultSelectionStyle(factories);
+    var fn = WidgetFactories.DefaultSelectionStyleSt.of(st);
+    return WidgetFactories.DefaultSelectionStyleSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment inkInk(Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, OptionalDouble width, OptionalDouble height, Optional<Widget> child) {
+    var st = WidgetFactories.ink(factories);
+    var fn = WidgetFactories.InkSt.ink(st);
+    return WidgetFactories.InkSt.ink.invoke(fn, arena, ptrObj(padding),
+      ptrObj(color),
+      ptrObj(decoration),
+      ptr(width),
+      ptr(height),
+      ptrObj(child));
+  }
+
+  MemorySegment bottomAppBarBottomAppBar(Optional<Color> color, OptionalDouble elevation, Optional<Clip> clipBehavior, OptionalDouble notchMargin, Optional<Widget> child, Optional<EdgeInsetsGeometry> padding, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, OptionalDouble height) {
+    var st = WidgetFactories.bottomAppBar(factories);
+    var fn = WidgetFactories.BottomAppBarSt.bottomAppBar(st);
+    return WidgetFactories.BottomAppBarSt.bottomAppBar.invoke(fn, arena, ptrObj(color),
+      ptr(elevation),
+      ptrEnum(clipBehavior),
+      ptr(notchMargin),
+      ptrObj(child),
+      ptrObj(padding),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptr(height));
+  }
+
+  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.choiceChip(factories);
+    var fn = WidgetFactories.ChoiceChipSt.choiceChip(st);
+    return WidgetFactories.ChoiceChipSt.choiceChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      (selected ? 1 : 0),
+      ptrObj(selectedColor),
+      ptrObj(disabledColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints));
+  }
+  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.choiceChip(factories);
+    var fn = WidgetFactories.ChoiceChipSt.elevated(st);
+    return WidgetFactories.ChoiceChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      (selected ? 1 : 0),
+      ptrObj(selectedColor),
+      ptrObj(disabledColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints));
+  }
+
+  MemorySegment visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
+    var st = WidgetFactories.visualDensity(factories);
+    var fn = WidgetFactories.VisualDensitySt.visualDensity(st);
+    return WidgetFactories.VisualDensitySt.visualDensity.invoke(fn, arena, ptr(horizontal),
+      ptr(vertical));
+  }
+  MemorySegment visualDensityDefaultDensityForPlatform(TargetPlatform platform) {
+    var st = WidgetFactories.visualDensity(factories);
+    var fn = WidgetFactories.VisualDensitySt.defaultDensityForPlatform(st);
+    return WidgetFactories.VisualDensitySt.defaultDensityForPlatform.invoke(fn, arena, platform.ordinal());
+  }
+  MemorySegment visualDensityLerp(VisualDensity a, VisualDensity b, double t) {
+    var st = WidgetFactories.visualDensity(factories);
+    var fn = WidgetFactories.VisualDensitySt.lerp(st);
+    return WidgetFactories.VisualDensitySt.lerp.invoke(fn, arena, a.build().getId(),
+      b.build().getId(),
+      t);
+  }
+
+  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.filterChip(factories);
+    var fn = WidgetFactories.FilterChipSt.filterChip(st);
+    return WidgetFactories.FilterChipSt.filterChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrBool(selected),
+      ptrValueChangedForBoolFn(onSelected),
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      ptr(pressElevation),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.filterChip(factories);
+    var fn = WidgetFactories.FilterChipSt.elevated(st);
+    return WidgetFactories.FilterChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrBool(selected),
+      ptrValueChangedForBoolFn(onSelected),
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      ptr(pressElevation),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+
+  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.actionChip(factories);
+    var fn = WidgetFactories.ActionChipSt.actionChip(st);
+    return WidgetFactories.ActionChipSt.actionChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(disabledColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(avatarBoxConstraints));
+  }
+  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+    var st = WidgetFactories.actionChip(factories);
+    var fn = WidgetFactories.ActionChipSt.elevated(st);
+    return WidgetFactories.ActionChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(disabledColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(avatarBoxConstraints));
+  }
+
+  MemorySegment simpleDialogSimpleDialog(Optional<Widget> title, Optional<EdgeInsetsGeometry> titlePadding, Optional<TextStyle> titleTextStyle, Optional<List<Widget>> children, Optional<EdgeInsetsGeometry> contentPadding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.simpleDialog(factories);
+    var fn = WidgetFactories.SimpleDialogSt.simpleDialog(st);
+    return WidgetFactories.SimpleDialogSt.simpleDialog.invoke(fn, arena, ptrObj(title),
+      ptrObj(titlePadding),
+      ptrObj(titleTextStyle),
+      ptrList(children),
+      ptrObj(contentPadding),
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrStr(semanticLabel),
+      ptrObj(insetPadding),
+      ptrEnum(clipBehavior),
+      ptrObj(shape),
+      ptrObj(alignment),
+      ptrObj(constraints));
+  }
+
+  MemorySegment simpleDialogOptionSimpleDialogOption(Optional<Runnable> onPressed, Optional<EdgeInsets> padding, Optional<Widget> child) {
+    var st = WidgetFactories.simpleDialogOption(factories);
+    var fn = WidgetFactories.SimpleDialogOptionSt.simpleDialogOption(st);
+    return WidgetFactories.SimpleDialogOptionSt.simpleDialogOption.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptrObj(padding),
+      ptrObj(child));
+  }
+
+  MemorySegment circleBorderCircleBorder(Optional<BorderSide> side, OptionalDouble eccentricity) {
+    var st = WidgetFactories.circleBorder(factories);
+    var fn = WidgetFactories.CircleBorderSt.circleBorder(st);
+    return WidgetFactories.CircleBorderSt.circleBorder.invoke(fn, arena, ptrObj(side),
+      ptr(eccentricity));
+  }
+
+  MemorySegment stadiumBorderStadiumBorder(Optional<BorderSide> side) {
+    var st = WidgetFactories.stadiumBorder(factories);
+    var fn = WidgetFactories.StadiumBorderSt.stadiumBorder(st);
+    return WidgetFactories.StadiumBorderSt.stadiumBorder.invoke(fn, arena, ptrObj(side));
+  }
+
+  MemorySegment beveledRectangleBorderBeveledRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    var st = WidgetFactories.beveledRectangleBorder(factories);
+    var fn = WidgetFactories.BeveledRectangleBorderSt.beveledRectangleBorder(st);
+    return WidgetFactories.BeveledRectangleBorderSt.beveledRectangleBorder.invoke(fn, arena, ptrObj(side),
+      ptrObj(borderRadius));
+  }
+
+  MemorySegment continuousRectangleBorderContinuousRectangleBorder(Optional<BorderSide> side, Optional<BorderRadiusGeometry> borderRadius) {
+    var st = WidgetFactories.continuousRectangleBorder(factories);
+    var fn = WidgetFactories.ContinuousRectangleBorderSt.continuousRectangleBorder(st);
+    return WidgetFactories.ContinuousRectangleBorderSt.continuousRectangleBorder.invoke(fn, arena, ptrObj(side),
+      ptrObj(borderRadius));
+  }
+
+  MemorySegment linearBorderLinearBorder(Optional<BorderSide> side) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.linearBorder(st);
+    return WidgetFactories.LinearBorderSt.linearBorder.invoke(fn, arena, ptrObj(side));
+  }
+  MemorySegment linearBorderStart(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.start(st);
+    return WidgetFactories.LinearBorderSt.start.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+  MemorySegment linearBorderEnd(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.end(st);
+    return WidgetFactories.LinearBorderSt.end.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+  MemorySegment linearBorderTop(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.top(st);
+    return WidgetFactories.LinearBorderSt.top.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+  MemorySegment linearBorderBottom(Optional<BorderSide> side, OptionalDouble alignment, OptionalDouble size) {
+    var st = WidgetFactories.linearBorder(factories);
+    var fn = WidgetFactories.LinearBorderSt.bottom(st);
+    return WidgetFactories.LinearBorderSt.bottom.invoke(fn, arena, ptrObj(side),
+      ptr(alignment),
+      ptr(size));
+  }
+
+  MemorySegment starBorderStarBorder(Optional<BorderSide> side, OptionalDouble points, OptionalDouble innerRadiusRatio, OptionalDouble pointRounding, OptionalDouble valleyRounding, OptionalDouble rotation, OptionalDouble squash) {
+    var st = WidgetFactories.starBorder(factories);
+    var fn = WidgetFactories.StarBorderSt.starBorder(st);
+    return WidgetFactories.StarBorderSt.starBorder.invoke(fn, arena, ptrObj(side),
+      ptr(points),
+      ptr(innerRadiusRatio),
+      ptr(pointRounding),
+      ptr(valleyRounding),
+      ptr(rotation),
+      ptr(squash));
+  }
+  MemorySegment starBorderPolygon(Optional<BorderSide> side, OptionalDouble sides, OptionalDouble pointRounding, OptionalDouble rotation, OptionalDouble squash) {
+    var st = WidgetFactories.starBorder(factories);
+    var fn = WidgetFactories.StarBorderSt.polygon(st);
+    return WidgetFactories.StarBorderSt.polygon.invoke(fn, arena, ptrObj(side),
+      ptr(sides),
+      ptr(pointRounding),
+      ptr(rotation),
+      ptr(squash));
+  }
+
+  MemorySegment materialBannerMaterialBanner(Widget content, Optional<TextStyle> contentTextStyle, List<Widget> actions, OptionalDouble elevation, Optional<Widget> leading, Optional<Color> backgroundColor, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<Color> dividerColor, Optional<EdgeInsetsGeometry> padding, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> leadingPadding, Optional<Boolean> forceActionsBelow, Optional<OverflowBarAlignment> overflowAlignment, Optional<Animation> animation, Optional<Runnable> onVisible, OptionalDouble minActionBarHeight) {
+    var st = WidgetFactories.materialBanner(factories);
+    var fn = WidgetFactories.MaterialBannerSt.materialBanner(st);
+    return WidgetFactories.MaterialBannerSt.materialBanner.invoke(fn, arena, content.build().getId(),
+      ptrObj(contentTextStyle),
+      ptrList(actions),
+      ptr(elevation),
+      ptrObj(leading),
+      ptrObj(backgroundColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptrObj(dividerColor),
+      ptrObj(padding),
+      ptrObj(margin),
+      ptrObj(leadingPadding),
+      ptrBool(forceActionsBelow),
+      ptrEnum(overflowAlignment),
+      ptrObj(animation),
+      onVisible.isPresent() ? ptrHolder(ptrVoidCallbackFn(onVisible.get())) : MemorySegment.NULL,
+      ptr(minActionBarHeight));
+  }
+  int materialBannerCreateAnimationController(TickerProvider vsync) {
+    var st = WidgetFactories.materialBanner(factories);
+    var fn = WidgetFactories.MaterialBannerSt.createAnimationController(st);
+    return WidgetFactories.MaterialBannerSt.createAnimationController.invoke(fn, vsync.build().getId());
+  }
+
+  MemorySegment tabPageSelectorIndicatorTabPageSelectorIndicator(Color backgroundColor, Color borderColor, double size, Optional<BorderStyle> borderStyle) {
+    var st = WidgetFactories.tabPageSelectorIndicator(factories);
+    var fn = WidgetFactories.TabPageSelectorIndicatorSt.tabPageSelectorIndicator(st);
+    return WidgetFactories.TabPageSelectorIndicatorSt.tabPageSelectorIndicator.invoke(fn, arena, backgroundColor.build().getId(),
+      borderColor.build().getId(),
+      size,
+      ptrEnum(borderStyle));
+  }
+
+  MemorySegment reorderableDragStartListenerReorderableDragStartListener(Widget child, int index, Optional<Boolean> enabled) {
+    var st = WidgetFactories.reorderableDragStartListener(factories);
+    var fn = WidgetFactories.ReorderableDragStartListenerSt.reorderableDragStartListener(st);
+    return WidgetFactories.ReorderableDragStartListenerSt.reorderableDragStartListener.invoke(fn, arena, child.build().getId(),
+      index,
+      ptrBool(enabled));
+  }
+
+  MemorySegment reorderableDelayedDragStartListenerReorderableDelayedDragStartListener(Widget child, int index, Optional<Boolean> enabled) {
+    var st = WidgetFactories.reorderableDelayedDragStartListener(factories);
+    var fn = WidgetFactories.ReorderableDelayedDragStartListenerSt.reorderableDelayedDragStartListener(st);
+    return WidgetFactories.ReorderableDelayedDragStartListenerSt.reorderableDelayedDragStartListener.invoke(fn, arena, child.build().getId(),
+      index,
+      ptrBool(enabled));
+  }
+
+  MemorySegment aboutListTileAboutListTile(Optional<Widget> icon, Optional<Widget> child, Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> aboutBoxChildren, Optional<Boolean> dense) {
+    var st = WidgetFactories.aboutListTile(factories);
+    var fn = WidgetFactories.AboutListTileSt.aboutListTile(st);
+    return WidgetFactories.AboutListTileSt.aboutListTile.invoke(fn, arena, ptrObj(icon),
+      ptrObj(child),
+      ptrStr(applicationName),
+      ptrStr(applicationVersion),
+      ptrObj(applicationIcon),
+      ptrStr(applicationLegalese),
+      ptrList(aboutBoxChildren),
+      ptrBool(dense));
+  }
+
+  MemorySegment dialogDialog(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<Widget> child, Optional<SemanticsRole> semanticsRole, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.dialog(factories);
+    var fn = WidgetFactories.DialogSt.dialog(st);
+    return WidgetFactories.DialogSt.dialog.invoke(fn, arena, ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(insetAnimationDuration),
+      ptrObj(insetAnimationCurve),
+      ptrObj(insetPadding),
+      ptrEnum(clipBehavior),
+      ptrObj(shape),
+      ptrObj(alignment),
+      ptrObj(child),
+      ptrEnum(semanticsRole),
+      ptrObj(constraints));
+  }
+  MemorySegment dialogFullscreen(Optional<Color> backgroundColor, Optional<Duration> insetAnimationDuration, Optional<Curve> insetAnimationCurve, Optional<Widget> child, Optional<SemanticsRole> semanticsRole) {
+    var st = WidgetFactories.dialog(factories);
+    var fn = WidgetFactories.DialogSt.fullscreen(st);
+    return WidgetFactories.DialogSt.fullscreen.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(insetAnimationDuration),
+      ptrObj(insetAnimationCurve),
+      ptrObj(child),
+      ptrEnum(semanticsRole));
+  }
+
+  MemorySegment gridTileGridTile(Optional<Widget> header, Optional<Widget> footer, Widget child) {
+    var st = WidgetFactories.gridTile(factories);
+    var fn = WidgetFactories.GridTileSt.gridTile(st);
+    return WidgetFactories.GridTileSt.gridTile.invoke(fn, arena, ptrObj(header),
+      ptrObj(footer),
+      child.build().getId());
+  }
+
+  MemorySegment gridTileBarGridTileBar(Optional<Color> backgroundColor, Optional<Widget> leading, Optional<Widget> title, Optional<Widget> subtitle, Optional<Widget> trailing) {
+    var st = WidgetFactories.gridTileBar(factories);
+    var fn = WidgetFactories.GridTileBarSt.gridTileBar(st);
+    return WidgetFactories.GridTileBarSt.gridTileBar.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(leading),
+      ptrObj(title),
+      ptrObj(subtitle),
+      ptrObj(trailing));
+  }
+
+  MemorySegment refreshProgressIndicatorRefreshProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble elevation, Optional<EdgeInsetsGeometry> indicatorMargin, Optional<EdgeInsetsGeometry> indicatorPadding) {
+    var st = WidgetFactories.refreshProgressIndicator(factories);
+    var fn = WidgetFactories.RefreshProgressIndicatorSt.refreshProgressIndicator(st);
+    return WidgetFactories.RefreshProgressIndicatorSt.refreshProgressIndicator.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(color),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptr(strokeAlign),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptr(elevation),
+      ptrObj(indicatorMargin),
+      ptrObj(indicatorPadding));
+  }
+
+  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+    var st = WidgetFactories.circularProgressIndicator(factories);
+    var fn = WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator(st);
+    return WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(color),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptr(strokeAlign),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(padding));
+  }
+  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+    var st = WidgetFactories.circularProgressIndicator(factories);
+    var fn = WidgetFactories.CircularProgressIndicatorSt.adaptive(st);
+    return WidgetFactories.CircularProgressIndicatorSt.adaptive.invoke(fn, arena, ptr(value),
+      ptrObj(backgroundColor),
+      ptrObj(valueColor),
+      ptr(strokeWidth),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(strokeCap),
+      ptr(strokeAlign),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrBool(year2023),
+      ptrObj(padding));
+  }
+
+  MemorySegment inputDecoratorInputDecorator(InputDecoration decoration, Optional<TextStyle> baseStyle, Optional<TextAlign> textAlign, Optional<Boolean> isFocused, Optional<Boolean> isHovering, Optional<Boolean> expands, Optional<Boolean> isEmpty, Optional<Widget> child) {
+    var st = WidgetFactories.inputDecorator(factories);
+    var fn = WidgetFactories.InputDecoratorSt.inputDecorator(st);
+    return WidgetFactories.InputDecoratorSt.inputDecorator.invoke(fn, arena, decoration.build().getId(),
+      ptrObj(baseStyle),
+      ptrEnum(textAlign),
+      ptrBool(isFocused),
+      ptrBool(isHovering),
+      ptrBool(expands),
+      ptrBool(isEmpty),
+      ptrObj(child));
+  }
+  int inputDecoratorContainerOf(BuildContext context) {
+    var st = WidgetFactories.inputDecorator(factories);
+    var fn = WidgetFactories.InputDecoratorSt.containerOf(st);
+    return WidgetFactories.InputDecoratorSt.containerOf.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
+    var st = WidgetFactories.inputDecoration(factories);
+    var fn = WidgetFactories.InputDecorationSt.inputDecoration(st);
+    return WidgetFactories.InputDecorationSt.inputDecoration.invoke(fn, arena, ptrObj(icon),
+      ptrObj(iconColor),
+      ptrObj(label),
+      ptrStr(labelText),
+      ptrObj(labelStyle),
+      ptrObj(floatingLabelStyle),
+      ptrObj(helper),
+      ptrStr(helperText),
+      ptrObj(helperStyle),
+      ptr(helperMaxLines),
+      ptrStr(hintText),
+      ptrObj(hint),
+      ptrObj(hintStyle),
+      ptrEnum(hintTextDirection),
+      ptr(hintMaxLines),
+      ptrObj(hintFadeDuration),
+      ptrBool(maintainHintHeight),
+      ptrBool(maintainHintSize),
+      ptrObj(error),
+      ptrStr(errorText),
+      ptrObj(errorStyle),
+      ptr(errorMaxLines),
+      ptrEnum(floatingLabelBehavior),
+      ptrBool(isCollapsed),
+      ptrBool(isDense),
+      ptrObj(contentPadding),
+      ptrObj(prefixIcon),
+      ptrObj(prefixIconConstraints),
+      ptrObj(prefix),
+      ptrStr(prefixText),
+      ptrObj(prefixStyle),
+      ptrObj(prefixIconColor),
+      ptrObj(suffixIcon),
+      ptrObj(suffix),
+      ptrStr(suffixText),
+      ptrObj(suffixStyle),
+      ptrObj(suffixIconColor),
+      ptrObj(suffixIconConstraints),
+      ptrObj(counter),
+      ptrStr(counterText),
+      ptrObj(counterStyle),
+      ptrBool(filled),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(errorBorder),
+      ptrObj(focusedBorder),
+      ptrObj(focusedErrorBorder),
+      ptrObj(disabledBorder),
+      ptrObj(enabledBorder),
+      ptrObj(border),
+      ptrBool(enabled),
+      ptrStr(semanticCounterText),
+      ptrBool(alignLabelWithHint),
+      ptrObj(constraints),
+      ptrObj(visualDensity));
+  }
+  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.inputDecoration(factories);
+    var fn = WidgetFactories.InputDecorationSt.collapsed(st);
+    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, arena.allocateFrom(hintText),
+      ptrEnum(floatingLabelBehavior),
+      ptrObj(hintStyle),
+      ptrObj(hint),
+      ptrEnum(hintTextDirection),
+      ptr(hintMaxLines),
+      ptrObj(hintFadeDuration),
+      ptrBool(maintainHintHeight),
+      ptrBool(maintainHintSize),
+      ptrBool(filled),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(border),
+      ptrBool(enabled),
+      ptrObj(constraints));
+  }
+
+  int inputBorderNone() {
+    var st = WidgetFactories.inputBorder(factories);
+    return WidgetFactories.InputBorderSt.none(st);
+  }
+
+  MemorySegment userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<Widget> currentAccountPicture, Optional<List<Widget>> otherAccountsPictures, Widget accountName, Widget accountEmail, Optional<Runnable> onDetailsPressed, Optional<Color> arrowColor) {
+    var st = WidgetFactories.userAccountsDrawerHeader(factories);
+    var fn = WidgetFactories.UserAccountsDrawerHeaderSt.userAccountsDrawerHeader(st);
+    return WidgetFactories.UserAccountsDrawerHeaderSt.userAccountsDrawerHeader.invoke(fn, arena, ptrObj(decoration),
+      ptrObj(margin),
+      ptrObj(currentAccountPicture),
+      ptrList(otherAccountsPictures),
+      accountName != null ? accountName.build().getId() : null,
+      accountEmail != null ? accountEmail.build().getId() : null,
+      onDetailsPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDetailsPressed.get())) : MemorySegment.NULL,
+      ptrObj(arrowColor));
+  }
+
+  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.inputChip(factories);
+    var fn = WidgetFactories.InputChipSt.inputChip(st);
+    return WidgetFactories.InputChipSt.inputChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(labelPadding),
+      ptrBool(selected),
+      ptrBool(isEnabled),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+
+  MemorySegment alignTransitionAlignTransition(Animation alignment, Widget child, OptionalDouble widthFactor, OptionalDouble heightFactor) {
+    var st = WidgetFactories.alignTransition(factories);
+    var fn = WidgetFactories.AlignTransitionSt.alignTransition(st);
+    return WidgetFactories.AlignTransitionSt.alignTransition.invoke(fn, arena, alignment.build().getId(),
+      child.build().getId(),
+      ptr(widthFactor),
+      ptr(heightFactor));
+  }
+
+  MemorySegment animatedDefaultTextStyleAnimatedDefaultTextStyle(Widget child, TextStyle style, Optional<TextAlign> textAlign, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedDefaultTextStyle(factories);
+    var fn = WidgetFactories.AnimatedDefaultTextStyleSt.animatedDefaultTextStyle(st);
+    return WidgetFactories.AnimatedDefaultTextStyleSt.animatedDefaultTextStyle.invoke(fn, arena, child.build().getId(),
+      style.build().getId(),
+      ptrEnum(textAlign),
+      ptrBool(softWrap),
+      ptrEnum(overflow),
+      ptr(maxLines),
+      ptrEnum(textWidthBasis),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedFractionallySizedBoxAnimatedFractionallySizedBox(Optional<AlignmentGeometry> alignment, Optional<Widget> child, OptionalDouble heightFactor, OptionalDouble widthFactor, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedFractionallySizedBox(factories);
+    var fn = WidgetFactories.AnimatedFractionallySizedBoxSt.animatedFractionallySizedBox(st);
+    return WidgetFactories.AnimatedFractionallySizedBoxSt.animatedFractionallySizedBox.invoke(fn, arena, ptrObj(alignment),
+      ptrObj(child),
+      ptr(heightFactor),
+      ptr(widthFactor),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedPositionedAnimatedPositioned(Widget child, OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedPositioned(factories);
+    var fn = WidgetFactories.AnimatedPositionedSt.animatedPositioned(st);
+    return WidgetFactories.AnimatedPositionedSt.animatedPositioned.invoke(fn, arena, child.build().getId(),
+      ptr(left),
+      ptr(top),
+      ptr(right),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment animatedPositionedDirectionalAnimatedPositionedDirectional(Widget child, OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd) {
+    var st = WidgetFactories.animatedPositionedDirectional(factories);
+    var fn = WidgetFactories.AnimatedPositionedDirectionalSt.animatedPositionedDirectional(st);
+    return WidgetFactories.AnimatedPositionedDirectionalSt.animatedPositionedDirectional.invoke(fn, arena, child.build().getId(),
+      ptr(start),
+      ptr(top),
+      ptr(end),
+      ptr(bottom),
+      ptr(width),
+      ptr(height),
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment displayFeatureSubScreenDisplayFeatureSubScreen(Optional<Offset> anchorPoint, Widget child) {
+    var st = WidgetFactories.displayFeatureSubScreen(factories);
+    var fn = WidgetFactories.DisplayFeatureSubScreenSt.displayFeatureSubScreen(st);
+    return WidgetFactories.DisplayFeatureSubScreenSt.displayFeatureSubScreen.invoke(fn, arena, ptrObj(anchorPoint),
+      child.build().getId());
+  }
+
+  MemorySegment errorWidgetErrorWidget(NativeObj exception) {
+    var st = WidgetFactories.errorWidget(factories);
+    var fn = WidgetFactories.ErrorWidgetSt.errorWidget(st);
+    return WidgetFactories.ErrorWidgetSt.errorWidget.invoke(fn, arena, exception.build().getId());
+  }
+  MemorySegment errorWidgetWithDetails(Optional<String> message) {
+    var st = WidgetFactories.errorWidget(factories);
+    var fn = WidgetFactories.ErrorWidgetSt.withDetails(st);
+    return WidgetFactories.ErrorWidgetSt.withDetails.invoke(fn, arena, ptrStr(message));
+  }
+
+  MemorySegment restorationScopeRestorationScope(String restorationId, Widget child) {
+    var st = WidgetFactories.restorationScope(factories);
+    var fn = WidgetFactories.RestorationScopeSt.restorationScope(st);
+    return WidgetFactories.RestorationScopeSt.restorationScope.invoke(fn, arena, arena.allocateFrom(restorationId),
+      child.build().getId());
+  }
+
+  MemorySegment rootRestorationScopeRootRestorationScope(String restorationId, Widget child) {
+    var st = WidgetFactories.rootRestorationScope(factories);
+    var fn = WidgetFactories.RootRestorationScopeSt.rootRestorationScope(st);
+    return WidgetFactories.RootRestorationScopeSt.rootRestorationScope.invoke(fn, arena, arena.allocateFrom(restorationId),
+      child.build().getId());
+  }
+
+  MemorySegment stretchingOverscrollIndicatorStretchingOverscrollIndicator(AxisDirection axisDirection, Optional<Clip> clipBehavior, Optional<Widget> child) {
+    var st = WidgetFactories.stretchingOverscrollIndicator(factories);
+    var fn = WidgetFactories.StretchingOverscrollIndicatorSt.stretchingOverscrollIndicator(st);
+    return WidgetFactories.StretchingOverscrollIndicatorSt.stretchingOverscrollIndicator.invoke(fn, arena, axisDirection.ordinal(),
+      ptrEnum(clipBehavior),
+      ptrObj(child));
+  }
+
+  MemorySegment tapRegionTapRegion(Widget child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
+    var st = WidgetFactories.tapRegion(factories);
+    var fn = WidgetFactories.TapRegionSt.tapRegion(st);
+    return WidgetFactories.TapRegionSt.tapRegion.invoke(fn, arena, child != null ? child.build().getId() : null,
+      ptrBool(enabled),
+      ptrEnum(behavior),
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapInside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapInside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
+      onTapUpInside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpInside.get())) : MemorySegment.NULL,
+      ptrObj(groupId),
+      ptrBool(consumeOutsideTaps),
+      ptrStr(debugLabel));
+  }
+
+  MemorySegment textFieldTapRegionTextFieldTapRegion(Widget child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj> groupId) {
+    var st = WidgetFactories.textFieldTapRegion(factories);
+    var fn = WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion(st);
+    return WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion.invoke(fn, arena, child != null ? child.build().getId() : null,
+      ptrBool(enabled),
+      onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
+      onTapInside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapInside.get())) : MemorySegment.NULL,
+      onTapUpOutside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpOutside.get())) : MemorySegment.NULL,
+      onTapUpInside.isPresent() ? ptrHolder(ptrTapRegionUpCallbackFn(onTapUpInside.get())) : MemorySegment.NULL,
+      ptrBool(consumeOutsideTaps),
+      ptrStr(debugLabel),
+      ptrObj(groupId));
+  }
+
   MemorySegment colorSchemeColorScheme(Brightness brightness, Color primary, Color onPrimary, Optional<Color> primaryContainer, Optional<Color> onPrimaryContainer, Optional<Color> primaryFixed, Optional<Color> primaryFixedDim, Optional<Color> onPrimaryFixed, Optional<Color> onPrimaryFixedVariant, Color secondary, Color onSecondary, Optional<Color> secondaryContainer, Optional<Color> onSecondaryContainer, Optional<Color> secondaryFixed, Optional<Color> secondaryFixedDim, Optional<Color> onSecondaryFixed, Optional<Color> onSecondaryFixedVariant, Optional<Color> tertiary, Optional<Color> onTertiary, Optional<Color> tertiaryContainer, Optional<Color> onTertiaryContainer, Optional<Color> tertiaryFixed, Optional<Color> tertiaryFixedDim, Optional<Color> onTertiaryFixed, Optional<Color> onTertiaryFixedVariant, Color error, Color onError, Optional<Color> errorContainer, Optional<Color> onErrorContainer, Color surface, Color onSurface, Optional<Color> surfaceDim, Optional<Color> surfaceBright, Optional<Color> surfaceContainerLowest, Optional<Color> surfaceContainerLow, Optional<Color> surfaceContainer, Optional<Color> surfaceContainerHigh, Optional<Color> surfaceContainerHighest, Optional<Color> onSurfaceVariant, Optional<Color> outline, Optional<Color> outlineVariant, Optional<Color> shadow, Optional<Color> scrim, Optional<Color> inverseSurface, Optional<Color> onInverseSurface, Optional<Color> inversePrimary, Optional<Color> surfaceTint, Optional<Color> background, Optional<Color> onBackground, Optional<Color> surfaceVariant) {
     var st = WidgetFactories.colorScheme(factories);
     var fn = WidgetFactories.ColorSchemeSt.colorScheme(st);
@@ -2931,25 +4156,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.textTheme(factories);
     var fn = WidgetFactories.TextThemeSt.primaryOf(st);
     return WidgetFactories.TextThemeSt.primaryOf.invoke(fn, arena, context.build().getId());
-  }
-
-  MemorySegment visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
-    var st = WidgetFactories.visualDensity(factories);
-    var fn = WidgetFactories.VisualDensitySt.visualDensity(st);
-    return WidgetFactories.VisualDensitySt.visualDensity.invoke(fn, arena, ptr(horizontal),
-      ptr(vertical));
-  }
-  MemorySegment visualDensityDefaultDensityForPlatform(TargetPlatform platform) {
-    var st = WidgetFactories.visualDensity(factories);
-    var fn = WidgetFactories.VisualDensitySt.defaultDensityForPlatform(st);
-    return WidgetFactories.VisualDensitySt.defaultDensityForPlatform.invoke(fn, arena, platform.ordinal());
-  }
-  MemorySegment visualDensityLerp(VisualDensity a, VisualDensity b, double t) {
-    var st = WidgetFactories.visualDensity(factories);
-    var fn = WidgetFactories.VisualDensitySt.lerp(st);
-    return WidgetFactories.VisualDensitySt.lerp.invoke(fn, arena, a.build().getId(),
-      b.build().getId(),
-      t);
   }
 
   MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
@@ -3637,92 +4843,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(insetAnimationCurve));
   }
 
-  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
-    var st = WidgetFactories.inputDecoration(factories);
-    var fn = WidgetFactories.InputDecorationSt.inputDecoration(st);
-    return WidgetFactories.InputDecorationSt.inputDecoration.invoke(fn, arena, ptrObj(icon),
-      ptrObj(iconColor),
-      ptrObj(label),
-      ptrStr(labelText),
-      ptrObj(labelStyle),
-      ptrObj(floatingLabelStyle),
-      ptrObj(helper),
-      ptrStr(helperText),
-      ptrObj(helperStyle),
-      ptr(helperMaxLines),
-      ptrStr(hintText),
-      ptrObj(hint),
-      ptrObj(hintStyle),
-      ptrEnum(hintTextDirection),
-      ptr(hintMaxLines),
-      ptrObj(hintFadeDuration),
-      ptrBool(maintainHintHeight),
-      ptrBool(maintainHintSize),
-      ptrObj(error),
-      ptrStr(errorText),
-      ptrObj(errorStyle),
-      ptr(errorMaxLines),
-      ptrEnum(floatingLabelBehavior),
-      ptrBool(isCollapsed),
-      ptrBool(isDense),
-      ptrObj(contentPadding),
-      ptrObj(prefixIcon),
-      ptrObj(prefixIconConstraints),
-      ptrObj(prefix),
-      ptrStr(prefixText),
-      ptrObj(prefixStyle),
-      ptrObj(prefixIconColor),
-      ptrObj(suffixIcon),
-      ptrObj(suffix),
-      ptrStr(suffixText),
-      ptrObj(suffixStyle),
-      ptrObj(suffixIconColor),
-      ptrObj(suffixIconConstraints),
-      ptrObj(counter),
-      ptrStr(counterText),
-      ptrObj(counterStyle),
-      ptrBool(filled),
-      ptrObj(fillColor),
-      ptrObj(focusColor),
-      ptrObj(hoverColor),
-      ptrObj(errorBorder),
-      ptrObj(focusedBorder),
-      ptrObj(focusedErrorBorder),
-      ptrObj(disabledBorder),
-      ptrObj(enabledBorder),
-      ptrObj(border),
-      ptrBool(enabled),
-      ptrStr(semanticCounterText),
-      ptrBool(alignLabelWithHint),
-      ptrObj(constraints),
-      ptrObj(visualDensity));
-  }
-  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
-    var st = WidgetFactories.inputDecoration(factories);
-    var fn = WidgetFactories.InputDecorationSt.collapsed(st);
-    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, arena.allocateFrom(hintText),
-      ptrEnum(floatingLabelBehavior),
-      ptrObj(hintStyle),
-      ptrObj(hint),
-      ptrEnum(hintTextDirection),
-      ptr(hintMaxLines),
-      ptrObj(hintFadeDuration),
-      ptrBool(maintainHintHeight),
-      ptrBool(maintainHintSize),
-      ptrBool(filled),
-      ptrObj(fillColor),
-      ptrObj(focusColor),
-      ptrObj(hoverColor),
-      ptrObj(border),
-      ptrBool(enabled),
-      ptrObj(constraints));
-  }
-
-  int inputBorderNone() {
-    var st = WidgetFactories.inputBorder(factories);
-    return WidgetFactories.InputBorderSt.none(st);
-  }
-
   MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
     var st = WidgetFactories.textField(factories);
     var fn = WidgetFactories.TextFieldSt.textField(st);
@@ -3899,6 +5019,52 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.scaffoldMessenger(factories);
     var fn = WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger(st);
     return WidgetFactories.ScaffoldMessengerSt.scaffoldMessenger.invoke(fn, arena, child.build().getId());
+  }
+  void scaffoldMessengerShowSnackBar(BuildContext context, SnackBar snackBar) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.showSnackBar(st);
+    WidgetFactories.ScaffoldMessengerSt.showSnackBar.invoke(fn, context.build().getId(),
+      snackBar.build().getId());
+  }
+  void scaffoldMessengerRemoveCurrentSnackBar(BuildContext context, Optional<SnackBarClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.removeCurrentSnackBar(st);
+    WidgetFactories.ScaffoldMessengerSt.removeCurrentSnackBar.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerHideCurrentSnackBar(BuildContext context, Optional<SnackBarClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.hideCurrentSnackBar(st);
+    WidgetFactories.ScaffoldMessengerSt.hideCurrentSnackBar.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerClearSnackBars(BuildContext context) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.clearSnackBars(st);
+    WidgetFactories.ScaffoldMessengerSt.clearSnackBars.invoke(fn, context.build().getId());
+  }
+  void scaffoldMessengerShowMaterialBanner(BuildContext context, MaterialBanner materialBanner) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.showMaterialBanner(st);
+    WidgetFactories.ScaffoldMessengerSt.showMaterialBanner.invoke(fn, context.build().getId(),
+      materialBanner.build().getId());
+  }
+  void scaffoldMessengerRemoveCurrentMaterialBanner(BuildContext context, Optional<MaterialBannerClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.removeCurrentMaterialBanner(st);
+    WidgetFactories.ScaffoldMessengerSt.removeCurrentMaterialBanner.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerHideCurrentMaterialBanner(BuildContext context, Optional<MaterialBannerClosedReason> reason) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.hideCurrentMaterialBanner(st);
+    WidgetFactories.ScaffoldMessengerSt.hideCurrentMaterialBanner.invoke(fn, context.build().getId(),
+      ptrEnum(reason));
+  }
+  void scaffoldMessengerClearMaterialBanners(BuildContext context) {
+    var st = WidgetFactories.scaffoldMessenger(factories);
+    var fn = WidgetFactories.ScaffoldMessengerSt.clearMaterialBanners(st);
+    WidgetFactories.ScaffoldMessengerSt.clearMaterialBanners.invoke(fn, context.build().getId());
   }
 
   MemorySegment cardCard(Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometry> margin, Optional<Clip> clipBehavior, Optional<Widget> child, Optional<Boolean> semanticContainer) {
@@ -4107,40 +5273,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(hitTestBehavior),
       ptrStr(restorationId),
       ptrEnum(keyboardDismissBehavior));
-  }
-
-  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
-    var st = WidgetFactories.circularProgressIndicator(factories);
-    var fn = WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator(st);
-    return WidgetFactories.CircularProgressIndicatorSt.circularProgressIndicator.invoke(fn, arena, ptr(value),
-      ptrObj(backgroundColor),
-      ptrObj(color),
-      ptrObj(valueColor),
-      ptr(strokeWidth),
-      ptr(strokeAlign),
-      ptrStr(semanticsLabel),
-      ptrStr(semanticsValue),
-      ptrEnum(strokeCap),
-      ptrObj(constraints),
-      ptr(trackGap),
-      ptrBool(year2023),
-      ptrObj(padding));
-  }
-  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
-    var st = WidgetFactories.circularProgressIndicator(factories);
-    var fn = WidgetFactories.CircularProgressIndicatorSt.adaptive(st);
-    return WidgetFactories.CircularProgressIndicatorSt.adaptive.invoke(fn, arena, ptr(value),
-      ptrObj(backgroundColor),
-      ptrObj(valueColor),
-      ptr(strokeWidth),
-      ptrStr(semanticsLabel),
-      ptrStr(semanticsValue),
-      ptrEnum(strokeCap),
-      ptr(strokeAlign),
-      ptrObj(constraints),
-      ptr(trackGap),
-      ptrBool(year2023),
-      ptrObj(padding));
   }
 
   MemorySegment linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023) {
@@ -6324,6 +7456,26 @@ MemorySegment ptrAnimatedSwitcherLayoutBuilderFn(BiFunction<Widget, List<Widget>
     jFn.accept(intToBool(value));
   }, arena);
 }
+MemorySegment ptrPointerDownEventListenerFn(Consumer<PointerDownEvent> jFn) {
+  return PointerDownEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerDownEvent(event));
+  }, arena);
+}
+MemorySegment ptrPointerUpEventListenerFn(Consumer<PointerUpEvent> jFn) {
+  return PointerUpEventListenerFFI.allocate((event) -> {
+    jFn.accept(new PointerUpEvent(event));
+  }, arena);
+}
+MemorySegment ptrTapRegionCallbackFn(Consumer<PointerDownEvent> jFn) {
+  return TapRegionCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerDownEvent(event));
+  }, arena);
+}
+MemorySegment ptrTapRegionUpCallbackFn(Consumer<PointerUpEvent> jFn) {
+  return TapRegionUpCallbackFFI.allocate((event) -> {
+    jFn.accept(new PointerUpEvent(event));
+  }, arena);
+}
 MemorySegment ptrDrawerCallbackFn(Consumer<Boolean> jFn) {
   return DrawerCallbackFFI.allocate((isOpened) -> {
     jFn.accept(intToBool(isOpened));
@@ -6349,16 +7501,6 @@ MemorySegment ptrGenerateAppTitleFn(Function<BuildContext, String> jFn) {
 MemorySegment ptrGestureTapCallbackFn(Runnable jFn) {
   return GestureTapCallbackFFI.allocate(() -> {
     jFn.run();
-  }, arena);
-}
-MemorySegment ptrTapRegionCallbackFn(Consumer<PointerDownEvent> jFn) {
-  return TapRegionCallbackFFI.allocate((event) -> {
-    jFn.accept(new PointerDownEvent(event));
-  }, arena);
-}
-MemorySegment ptrTapRegionUpCallbackFn(Consumer<PointerUpEvent> jFn) {
-  return TapRegionUpCallbackFFI.allocate((event) -> {
-    jFn.accept(new PointerUpEvent(event));
   }, arena);
 }
 MemorySegment ptrInputCounterWidgetBuilderFn(QuadFunction<BuildContext, Integer, Boolean, Integer, Widget> jFn) {

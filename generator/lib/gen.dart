@@ -21,6 +21,7 @@ import 'diagnostics.dart';
 import 'emit/emit_context.dart';
 import 'lang_writers.dart';
 import 'types.dart';
+import 'context_bindings.dart';
 
 part 'emit/base/a_gen.dart';
 part 'emit/base/widget_gen.dart';

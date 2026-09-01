@@ -174,6 +174,102 @@ w.BackdropFilter? backdropFilter;
 w.ColorFiltered? colorFiltered;
 w.ImageFiltered? imageFiltered;
 
+w.HeroMode? heroMode;
+w.BlockSemantics? blockSemantics;
+w.MergeSemantics? mergeSemantics;
+w.ExcludeSemantics? excludeSemantics;
+w.IndexedSemantics? indexedSemantics;
+w.AutomaticKeepAlive? automaticKeepAlive;
+w.SliverToBoxAdapter? sliverToBoxAdapter;
+w.ListBody? listBody;
+// Title skipped: field `title` collides with the widget's own class name (both resolve to `title()` no-arg method) — same shape as Offstage
+w.GridPaper? gridPaper;
+w.NavigationToolbar? navigationToolbar;
+
+w.CheckedModeBanner? checkedModeBanner;
+w.IgnoreBaseline? ignoreBaseline;
+w.TickerMode? tickerMode;
+w.TapRegionSurface? tapRegionSurface;
+w.LookupBoundary? lookupBoundary;
+w.SemanticsDebugger? semanticsDebugger;
+w.ExcludeFocus? excludeFocus;
+w.ExcludeFocusTraversal? excludeFocusTraversal;
+w.AutofillGroup? autofillGroup;
+w.PositionedDirectional? positionedDirectional;
+m.VerticalDivider? verticalDivider;
+m.ExpandIcon? expandIcon;
+
+w.SliverPadding? sliverPadding;
+w.SliverOpacity? sliverOpacity;
+w.SliverIgnorePointer? sliverIgnorePointer;
+w.SliverOffstage? sliverOffstage;
+w.SliverSafeArea? sliverSafeArea;
+w.SliverVisibility? sliverVisibility;
+w.SliverMainAxisGroup? sliverMainAxisGroup;
+w.SliverCrossAxisGroup? sliverCrossAxisGroup;
+w.SliverFillRemaining? sliverFillRemaining;
+w.SliverEnsureSemantics? sliverEnsureSemantics;
+w.SliverConstrainedCrossAxis? sliverConstrainedCrossAxis;
+w.CustomScrollView? customScrollView;
+m.DrawerHeader? drawerHeader;
+m.SelectionArea? selectionArea;
+
+w.SizeChangedLayoutNotifier? sizeChangedLayoutNotifier;
+w.DraggableScrollableActuator? draggableScrollableActuator;
+w.ScrollNotificationObserver? scrollNotificationObserver;
+w.ModalBarrier? modalBarrier;
+w.Listener? listener;
+w.OverflowBar? overflowBar;
+w.DefaultSelectionStyle? defaultSelectionStyle;
+m.Ink? ink;
+m.BottomAppBar? bottomAppBar;
+m.ChoiceChip? choiceChip;
+m.FilterChip? filterChip;
+m.ActionChip? actionChip;
+m.SimpleDialog? simpleDialog;
+m.SimpleDialogOption? simpleDialogOption;
+
+m.CircleBorder? circleBorder;
+m.StadiumBorder? stadiumBorder;
+m.BeveledRectangleBorder? beveledRectangleBorder;
+m.ContinuousRectangleBorder? continuousRectangleBorder;
+m.LinearBorder? linearBorder;
+m.StarBorder? starBorder;
+m.MaterialBanner? materialBanner;
+m.TabPageSelectorIndicator? tabPageSelectorIndicator;
+w.ReorderableDragStartListener? reorderableDragStartListener;
+w.ReorderableDelayedDragStartListener? reorderableDelayedDragStartListener;
+m.AboutListTile? aboutListTile;
+// MenuAcceleratorLabel skipped: emits invalid Dart (nullable-of-nullable
+// `void Function(int)??` for stripAcceleratorMarkers.setIndex) and references
+// top-level `defaultLabelBuilder` that the generated factories file cannot import.
+
+m.Dialog? dialog;
+// FlexibleSpaceBar skipped: references CollapseMode + StretchMode enums the generator does not emit.
+m.GridTile? gridTile;
+m.GridTileBar? gridTileBar;
+m.RefreshProgressIndicator? refreshProgressIndicator;
+m.InputDecorator? inputDecorator;
+// ToggleButtons skipped: required `isSelected: List<bool>` — the FFM ptrList
+// helper has no List<Boolean> overload yet.
+m.UserAccountsDrawerHeader? userAccountsDrawerHeader;
+m.InputChip? inputChip;
+// CupertinoPopupSurface skipped: generator emits invalid Java for its
+// filter-matrix constants (writes `1.74()` instead of literals in a getter body).
+
+w.AlignTransition? alignTransition;
+w.AnimatedDefaultTextStyle? animatedDefaultTextStyle;
+w.AnimatedFractionallySizedBox? animatedFractionallySizedBox;
+w.AnimatedPositioned? animatedPositioned;
+w.AnimatedPositionedDirectional? animatedPositionedDirectional;
+w.DisplayFeatureSubScreen? displayFeatureSubScreen;
+w.ErrorWidget? errorWidget;
+w.RestorationScope? restorationScope;
+w.RootRestorationScope? rootRestorationScope;
+w.StretchingOverscrollIndicator? stretchingOverscrollIndicator;
+w.TapRegion? tapRegion;
+w.TextFieldTapRegion? textFieldTapRegion;
+
 m.Durations? durations;
 m.ColorScheme? colorScheme;
 m.TextTheme? textTheme;

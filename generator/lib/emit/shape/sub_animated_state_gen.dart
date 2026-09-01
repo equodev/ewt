@@ -43,6 +43,9 @@ class SubAnimatedStateGen extends SubclassGen {
       ..writeln('    if (webAnimCommandSink != null) webAnimCommandSink.accept("{\\"ctrlId\\":" + ctrlId + ",\\"action\\":\\"" + action + "\\"}");')
       ..writeln('    else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);')
       ..writeln('  }')
+      // Tracked controllers so rebuildAnimated can pre-seed their ids into a
+      // fresh serializer, preventing SubStateless placeholder ids from
+      // colliding with live AnimationController ids (see commit 132df17).
       ..writeln('  private final java.util.List<AnimationController> controllers = new java.util.ArrayList<>();')
       ..writeln('  /** Pre-registers stub AnimationController nodes in a fresh serializer to prevent id collisions')
       ..writeln('   *  during rebuildAnimated: each controller keeps its original id so the Dart side can match/reuse. */')
