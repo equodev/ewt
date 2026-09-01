@@ -6,35 +6,44 @@ Flutter 3.35.7
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 81 | 291 | 27% |
-| Material | 65 | 187 | 34% |
+| Basic widgets | 134 | 291 | 46% |
+| Material | 86 | 187 | 45% |
 | Cupertino | 29 | 53 | 54% |
-| **Total** | **175** | **531** | **32%** |
+| **Total** | **249** | **531** | **46%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**81 of 291 supported**
+**134 of 291 supported**
 
 - [x] AbsorbPointer
 - [x] Align
+- [x] AlignTransition
 - [x] AnimatedAlign
 - [x] AnimatedBuilder
 - [x] AnimatedContainer
 - [x] AnimatedCrossFade
+- [x] AnimatedDefaultTextStyle
+- [x] AnimatedFractionallySizedBox
 - [x] AnimatedOpacity
 - [x] AnimatedPadding
+- [x] AnimatedPositioned
+- [x] AnimatedPositionedDirectional
 - [x] AnimatedRotation
 - [x] AnimatedScale
 - [x] AnimatedSize
 - [x] AnimatedSlide
 - [x] AnimatedSwitcher
 - [x] AspectRatio
+- [x] AutofillGroup
+- [x] AutomaticKeepAlive
 - [x] BackdropFilter
 - [x] Banner
 - [x] Baseline
+- [x] BlockSemantics
 - [x] Center
+- [x] CheckedModeBanner
 - [x] ClipOval
 - [x] ClipRRect
 - [x] ClipRSuperellipse
@@ -44,11 +53,19 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] Column
 - [x] ConstrainedBox
 - [x] Container
+- [x] CustomScrollView
 - [x] DecoratedBox
+- [x] DefaultSelectionStyle
 - [x] DefaultTextStyle
 - [x] Directionality
+- [x] DisplayFeatureSubScreen
 - [x] DragTarget
 - [x] Draggable
+- [x] DraggableScrollableActuator
+- [x] ErrorWidget
+- [x] ExcludeFocus
+- [x] ExcludeFocusTraversal
+- [x] ExcludeSemantics
 - [x] Expanded
 - [x] FadeTransition
 - [x] FittedBox
@@ -58,98 +75,117 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] FractionalTranslation
 - [x] FractionallySizedBox
 - [x] GestureDetector
+- [x] GridPaper
 - [x] GridView
 - [x] Hero
+- [x] HeroMode
 - [x] Icon
+- [x] IgnoreBaseline
 - [x] IgnorePointer
 - [x] ImageFiltered
+- [x] IndexedSemantics
 - [x] IndexedStack
 - [x] InteractiveViewer
 - [x] IntrinsicHeight
 - [x] IntrinsicWidth
 - [x] LimitedBox
+- [x] ListBody
 - [x] ListView
 - [x] ListWheelScrollView
+- [x] Listener
+- [x] LookupBoundary
 - [x] MatrixTransition
+- [x] MergeSemantics
+- [x] ModalBarrier
 - [x] MouseRegion
+- [x] NavigationToolbar
 - [x] Navigator
 - [x] Opacity
+- [x] OverflowBar
 - [x] OverflowBox
 - [x] Padding
 - [x] PageView
 - [x] PhysicalModel
 - [x] Placeholder
 - [x] Positioned
+- [x] PositionedDirectional
+- [x] ReorderableDelayedDragStartListener
+- [x] ReorderableDragStartListener
 - [x] RepaintBoundary
+- [x] RestorationScope
 - [x] RichText
+- [x] RootRestorationScope
 - [x] RotatedBox
 - [x] RotationTransition
 - [x] Row
 - [x] SafeArea
 - [x] ScaleTransition
+- [x] ScrollNotificationObserver
+- [x] SemanticsDebugger
 - [x] SingleChildScrollView
+- [x] SizeChangedLayoutNotifier
 - [x] SizeTransition
 - [x] SizedBox
 - [x] SlideTransition
+- [x] SliverConstrainedCrossAxis
+- [x] SliverCrossAxisGroup
+- [x] SliverEnsureSemantics
+- [x] SliverFillRemaining
+- [x] SliverIgnorePointer
+- [x] SliverMainAxisGroup
+- [x] SliverOffstage
+- [x] SliverOpacity
+- [x] SliverPadding
+- [x] SliverSafeArea
+- [x] SliverToBoxAdapter
+- [x] SliverVisibility
 - [x] Spacer
 - [x] Stack
+- [x] StretchingOverscrollIndicator
+- [x] TapRegion
+- [x] TapRegionSurface
 - [x] Text
+- [x] TextFieldTapRegion
+- [x] TickerMode
 - [x] Transform
 - [x] UnconstrainedBox
 - [x] Visibility
 - [x] Wrap
 - [ ] ActionListener
 - [ ] Actions
-- [ ] AlignTransition
 - [ ] AndroidView
 - [ ] AndroidViewSurface
-- [ ] AnimatedDefaultTextStyle
-- [ ] AnimatedFractionallySizedBox
 - [ ] AnimatedGrid
 - [ ] AnimatedList
 - [ ] AnimatedModalBarrier
 - [ ] AnimatedPhysicalModel
-- [ ] AnimatedPositioned
-- [ ] AnimatedPositionedDirectional
 - [ ] AnnotatedRegion
 - [ ] AppKitView
 - [ ] AutocompleteHighlightedOption
-- [ ] AutofillGroup
-- [ ] AutomaticKeepAlive
 - [ ] BackButtonListener
 - [ ] BackdropGroup
-- [ ] BlockSemantics
 - [ ] Builder
 - [ ] CallbackShortcuts
-- [ ] CheckedModeBanner
 - [ ] ClipPath
 - [ ] CompositedTransformFollower
 - [ ] CompositedTransformTarget
 - [ ] ConstraintsTransformBox
 - [ ] CustomMultiChildLayout
 - [ ] CustomPaint
-- [ ] CustomScrollView
 - [ ] CustomSingleChildLayout
 - [ ] DecoratedBoxTransition
 - [ ] DecoratedSliver
 - [ ] DefaultAssetBundle
-- [ ] DefaultSelectionStyle
 - [ ] DefaultTextEditingShortcuts
 - [ ] DefaultTextHeightBehavior
 - [ ] DefaultTextStyleTransition
 - [ ] DisableWidgetInspectorScope
 - [ ] Dismissible
-- [ ] DisplayFeatureSubScreen
 - [ ] DragBoundary
-- [ ] DraggableScrollableActuator
 - [ ] DraggableScrollableSheet
 - [ ] DualTransitionBuilder
 - [ ] EditableText
 - [ ] EnableWidgetInspectorScope
-- [ ] ErrorWidget
-- [ ] ExcludeFocus
-- [ ] ExcludeFocusTraversal
-- [ ] ExcludeSemantics
 - [ ] Expansible
 - [ ] FadeInImage
 - [ ] Flow
@@ -162,39 +198,28 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] FormField
 - [ ] FutureBuilder
 - [ ] GlowingOverscrollIndicator
-- [ ] GridPaper
 - [ ] HeroControllerScope
-- [ ] HeroMode
 - [ ] HtmlElementView
 - [ ] IconTheme
-- [ ] IgnoreBaseline
 - [ ] Image
 - [ ] ImageIcon
-- [ ] IndexedSemantics
 - [ ] KeepAlive
 - [ ] KeyboardListener
 - [ ] KeyedSubtree
 - [ ] LayoutBuilder
 - [ ] LayoutId
-- [ ] ListBody
 - [ ] ListWheelViewport
 - [ ] ListenableBuilder
-- [ ] Listener
 - [ ] Localizations
 - [ ] LongPressDraggable
-- [ ] LookupBoundary
 - [ ] MediaQuery
-- [ ] MergeSemantics
 - [ ] MetaData
-- [ ] ModalBarrier
-- [ ] NavigationToolbar
 - [ ] NavigatorPopHandler
 - [ ] NestedScrollView
 - [ ] NestedScrollViewViewport
 - [ ] NotificationListener
 - [ ] Offstage
 - [ ] OrientationBuilder
-- [ ] OverflowBar
 - [ ] Overlay
 - [ ] OverlayPortal
 - [ ] PageStorage
@@ -206,7 +231,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] PlatformViewLink
 - [ ] PlatformViewSurface
 - [ ] PopScope
-- [ ] PositionedDirectional
 - [ ] PositionedTransition
 - [ ] PreferredSize
 - [ ] PrimaryScrollController
@@ -223,15 +247,10 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] RawView
 - [ ] RelativePositionedTransition
 - [ ] RenderObjectToWidgetAdapter
-- [ ] ReorderableDelayedDragStartListener
-- [ ] ReorderableDragStartListener
 - [ ] ReorderableList
-- [ ] RestorationScope
-- [ ] RootRestorationScope
 - [ ] RootWidget
 - [ ] Router
 - [ ] ScrollConfiguration
-- [ ] ScrollNotificationObserver
 - [ ] Scrollable
 - [ ] SelectableRegion
 - [ ] SelectableRegionSelectionStatusScope
@@ -239,59 +258,40 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] SelectionListener
 - [ ] SelectionRegistrarScope
 - [ ] Semantics
-- [ ] SemanticsDebugger
 - [ ] SensitiveContent
 - [ ] ShaderMask
 - [ ] SharedAppData
 - [ ] ShortcutRegistrar
 - [ ] Shortcuts
 - [ ] ShrinkWrappingViewport
-- [ ] SizeChangedLayoutNotifier
 - [ ] SizedOverflowBox
 - [ ] SliverAnimatedGrid
 - [ ] SliverAnimatedList
 - [ ] SliverAnimatedOpacity
-- [ ] SliverConstrainedCrossAxis
 - [ ] SliverCrossAxisExpanded
-- [ ] SliverCrossAxisGroup
-- [ ] SliverEnsureSemantics
 - [ ] SliverFadeTransition
-- [ ] SliverFillRemaining
 - [ ] SliverFillViewport
 - [ ] SliverFixedExtentList
 - [ ] SliverFloatingHeader
 - [ ] SliverGrid
-- [ ] SliverIgnorePointer
 - [ ] SliverLayoutBuilder
 - [ ] SliverList
-- [ ] SliverMainAxisGroup
-- [ ] SliverOffstage
-- [ ] SliverOpacity
 - [ ] SliverOverlapAbsorber
 - [ ] SliverOverlapInjector
-- [ ] SliverPadding
 - [ ] SliverPersistentHeader
 - [ ] SliverPrototypeExtentList
 - [ ] SliverReorderableList
 - [ ] SliverResizingHeader
-- [ ] SliverSafeArea
 - [ ] SliverSemantics
-- [ ] SliverToBoxAdapter
 - [ ] SliverVariedExtentList
-- [ ] SliverVisibility
 - [ ] SnapshotWidget
 - [ ] StatefulBuilder
 - [ ] StreamBuilder
-- [ ] StretchingOverscrollIndicator
 - [ ] SystemContextMenu
 - [ ] Table
 - [ ] TableCell
-- [ ] TapRegion
-- [ ] TapRegionSurface
-- [ ] TextFieldTapRegion
 - [ ] TextSelectionGestureDetector
 - [ ] Texture
-- [ ] TickerMode
 - [ ] Title
 - [ ] TreeSliver
 - [ ] TweenAnimationBuilder
@@ -313,11 +313,14 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**65 of 187 supported**
+**86 of 187 supported**
 
+- [x] AboutListTile
+- [x] ActionChip
 - [x] AlertDialog
 - [x] AppBar
 - [x] Badge
+- [x] BottomAppBar
 - [x] CalendarDatePicker
 - [x] Card
 - [x] Checkbox
@@ -325,26 +328,37 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] CheckboxMenuButton
 - [x] CheckedPopupMenuItem
 - [x] Chip
+- [x] ChoiceChip
 - [x] CircleAvatar
 - [x] CircularProgressIndicator
 - [x] DataTable
 - [x] DatePickerDialog
 - [x] DateRangePickerDialog
 - [x] DefaultTabController
+- [x] Dialog
 - [x] Divider
 - [x] Drawer
+- [x] DrawerHeader
 - [x] ElevatedButton
+- [x] ExpandIcon
 - [x] ExpansionPanelList
 - [x] ExpansionTile
 - [x] FilledButton
+- [x] FilterChip
 - [x] FloatingActionButton
+- [x] GridTile
+- [x] GridTileBar
 - [x] IconButton
+- [x] Ink
 - [x] InkWell
+- [x] InputChip
 - [x] InputDatePickerFormField
+- [x] InputDecorator
 - [x] LinearProgressIndicator
 - [x] ListTile
 - [x] Material
 - [x] MaterialApp
+- [x] MaterialBanner
 - [x] MenuAnchor
 - [x] MenuBar
 - [x] MenuItemButton
@@ -360,11 +374,15 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] Radio
 - [x] RadioListTile
 - [x] RadioMenuButton
+- [x] RefreshProgressIndicator
 - [x] Scaffold
 - [x] ScaffoldMessenger
 - [x] Scrollbar
 - [x] SearchBar
 - [x] SelectableText
+- [x] SelectionArea
+- [x] SimpleDialog
+- [x] SimpleDialogOption
 - [x] Slider
 - [x] SnackBar
 - [x] SnackBarAction
@@ -374,15 +392,16 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] Tab
 - [x] TabBar
 - [x] TabBarView
+- [x] TabPageSelectorIndicator
 - [x] TextButton
 - [x] TextField
 - [x] Theme
 - [x] TimePickerDialog
 - [x] Tooltip
+- [x] UserAccountsDrawerHeader
+- [x] VerticalDivider
 - [x] YearPicker
 - [ ] AboutDialog
-- [ ] AboutListTile
-- [ ] ActionChip
 - [ ] ActionIconTheme
 - [ ] AdaptiveTextSelectionToolbar
 - [ ] AnimatedIcon
@@ -392,7 +411,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] BackButton
 - [ ] BackButtonIcon
 - [ ] BadgeTheme
-- [ ] BottomAppBar
 - [ ] BottomAppBarTheme
 - [ ] BottomNavigationBar
 - [ ] BottomNavigationBarTheme
@@ -405,20 +423,17 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] CarouselViewTheme
 - [ ] CheckboxTheme
 - [ ] ChipTheme
-- [ ] ChoiceChip
 - [ ] CloseButton
 - [ ] CloseButtonIcon
 - [ ] DataTableTheme
 - [ ] DatePickerTheme
 - [ ] DesktopTextSelectionToolbar
 - [ ] DesktopTextSelectionToolbarButton
-- [ ] Dialog
 - [ ] DialogTheme
 - [ ] DividerTheme
 - [ ] DrawerButton
 - [ ] DrawerButtonIcon
 - [ ] DrawerController
-- [ ] DrawerHeader
 - [ ] DrawerTheme
 - [ ] DropdownButton
 - [ ] DropdownButtonFormField
@@ -430,24 +445,16 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] ElevatedButtonTheme
 - [ ] EndDrawerButton
 - [ ] EndDrawerButtonIcon
-- [ ] ExpandIcon
 - [ ] ExpansionTileTheme
 - [ ] FilledButtonTheme
-- [ ] FilterChip
 - [ ] FlexibleSpaceBar
 - [ ] FlexibleSpaceBarSettings
-- [ ] GridTile
-- [ ] GridTileBar
 - [ ] IconButtonTheme
-- [ ] Ink
 - [ ] InkResponse
-- [ ] InputChip
 - [ ] InputDecorationTheme
-- [ ] InputDecorator
 - [ ] LicensePage
 - [ ] ListTileTheme
 - [ ] Magnifier
-- [ ] MaterialBanner
 - [ ] MaterialBannerTheme
 - [ ] MaterialButton
 - [ ] MenuAcceleratorCallbackBinding
@@ -469,7 +476,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] RawChip
 - [ ] RawMaterialButton
 - [ ] RefreshIndicator
-- [ ] RefreshProgressIndicator
 - [ ] ReorderableListView
 - [ ] ScrollbarTheme
 - [ ] SearchAnchor
@@ -477,9 +483,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] SearchViewTheme
 - [ ] SegmentedButton
 - [ ] SegmentedButtonTheme
-- [ ] SelectionArea
-- [ ] SimpleDialog
-- [ ] SimpleDialogOption
 - [ ] SliderTheme
 - [ ] SliverAppBar
 - [ ] SpellCheckSuggestionsToolbar
@@ -487,7 +490,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] SwitchTheme
 - [ ] TabBarTheme
 - [ ] TabPageSelector
-- [ ] TabPageSelectorIndicator
 - [ ] TableRowInkWell
 - [ ] TextButtonTheme
 - [ ] TextFormField
@@ -500,8 +502,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] ToggleButtonsTheme
 - [ ] TooltipTheme
 - [ ] TooltipVisibility
-- [ ] UserAccountsDrawerHeader
-- [ ] VerticalDivider
 
 ## Cupertino
 
