@@ -148,13 +148,20 @@ coverage:commit:
   script:
     - (cd "$CI_PROJECT_DIR/generator" && flutter pub get && dart tool/coverage_audit.dart)
     - |
+      # On MRs / non-default branches there's nothing to compare or commit — the
+      # auto-refresh only runs on $CI_DEFAULT_BRANCH. Short-circuit here so we
+      # don't need $GITLAB_PRIVATE_TOKEN, which is a protected variable and thus
+      # empty on unprotected feature branches (the API GET below would 401,
+      # curl exits 22, and the job fails misleadingly).
+      if [ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]; then
+        echo "docs/coverage.md refresh runs only on $CI_DEFAULT_BRANCH; skip compare"
+        exit 0
+      fi
       GENERATED=$(cat "$CI_PROJECT_DIR/docs/coverage.md")
       CURRENT=$(curl -sf --header "PRIVATE-TOKEN: $GITLAB_PRIVATE_TOKEN" \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/files/docs%2Fcoverage.md/raw?ref=$CI_DEFAULT_BRANCH")
       if [ "$GENERATED" = "$CURRENT" ]; then
         echo "docs/coverage.md already up to date"
-      elif [ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]; then
-        echo "docs/coverage.md is out of date; it will be refreshed once this lands on $CI_DEFAULT_BRANCH"
       else
         ENCODED=$(printf '%s\n' "$GENERATED" | base64 -w 0)
         curl -sf --request PUT \
@@ -245,6 +252,13 @@ generator_tests:
       optional: true
   script:
     - cd generator
+    # Rewrite pubspec.lock so it's owned by the current container UID. `dart
+    # test` internally calls `touch(pubspec.lock)` (utimes) inside
+    # Entrypoint.ensureUpToDate; on runners where the checkout files were left
+    # under a different UID than the container process, utimes returns EPERM
+    # ("Operation not permitted") and the test run crashes before starting.
+    # cp+mv makes the destination inherit the process UID.
+    - cp pubspec.lock pubspec.lock.new && mv pubspec.lock.new pubspec.lock
     - dart pub get
     # junitreport converts `dart test`'s JSON reporter into JUnit XML for the
     # GitLab "Tests" tab. If the runner can't reach pub.dev, drop the pipe and
