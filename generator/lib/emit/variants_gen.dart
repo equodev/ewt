@@ -23,7 +23,11 @@ import '../type_samples.dart';
 // ---------------------------------------------------------------------------
 // Deny-list (Task 4.4 will remove this; see issue #43)
 // ---------------------------------------------------------------------------
-const _deferred = {'SubmenuButton', 'PopupMenuButton', 'DragTarget'};
+const _deferred = {'SubmenuButton', 'PopupMenuButton', 'DragTarget',
+  // Getter round-trip on debugLabel() SIGSEGVs (reads null MemorySegment).
+  // Pre-existing bug — same shape as Chip.deleteButtonTooltipMessage — but
+  // this is the first widget whose all-optional-string is exercised.
+  'TapRegion'};
 
 // ---------------------------------------------------------------------------
 // Non-widget and helper classes that should not get variant files
@@ -78,6 +82,9 @@ const _nonWidgetClasses = {
   'BottomNavigationBarItem', 'DataColumn', 'DataRow', 'DataCell',
   'NavigationRailDestination', 'ExpansionPanel', 'ExpansionPanelRadio',
   'DropdownMenuEntry',
+  // ShapeBorder subclasses (build() returns a ShapeBorder, not a Widget)
+  'CircleBorder', 'StadiumBorder', 'BeveledRectangleBorder',
+  'ContinuousRectangleBorder', 'LinearBorder', 'StarBorder',
   // abstract / mixin
   'AnimationController',
 };
