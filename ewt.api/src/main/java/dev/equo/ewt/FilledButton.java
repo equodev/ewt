@@ -17,22 +17,22 @@ public class FilledButton extends ButtonStyleButton implements FilledButtonI {
   }
   FilledButton(int id) { this.id = id; }
   @Builder.Factory
-  static FilledButton filledButtonFilledButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
+  static FilledButton filledButtonFilledButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.filledButtonFilledButton(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
       autofocus,
       clipBehavior,
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget FilledButton");
     return new FilledButton(st);
   }
-  public static FilledButtonFilledButtonBuilder filledButton(Runnable onPressed) {
-    return FilledButtonFilledButtonBuilder.filledButtonFilledButton(onPressed);
+  public static FilledButtonFilledButtonBuilder filledButton() {
+    return FilledButtonFilledButtonBuilder.filledButtonFilledButton();
   }
   @Builder.Factory
-  static FilledButton filledButtonIcon(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
+  static FilledButton filledButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
     var st = factories.filledButtonIcon(onPressed,
       onLongPress,
       onHover,
@@ -45,26 +45,26 @@ public class FilledButton extends ButtonStyleButton implements FilledButtonI {
     if (st == null) throw new RuntimeException("Failed to created widget FilledButton");
     return new FilledButton(st);
   }
-  public static FilledButtonIconBuilder icon(Runnable onPressed) {
-    return FilledButtonIconBuilder.filledButtonIcon(onPressed);
+  public static FilledButtonIconBuilder icon() {
+    return FilledButtonIconBuilder.filledButtonIcon();
   }
   @Builder.Factory
-  static FilledButton filledButtonTonal(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
+  static FilledButton filledButtonTonal(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.filledButtonTonal(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
       autofocus,
       clipBehavior,
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget FilledButton");
     return new FilledButton(st);
   }
-  public static FilledButtonTonalBuilder tonal(Runnable onPressed) {
-    return FilledButtonTonalBuilder.filledButtonTonal(onPressed);
+  public static FilledButtonTonalBuilder tonal() {
+    return FilledButtonTonalBuilder.filledButtonTonal();
   }
   @Builder.Factory
-  static FilledButton filledButtonTonalIcon(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
+  static FilledButton filledButtonTonalIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
     var st = factories.filledButtonTonalIcon(onPressed,
       onLongPress,
       onHover,
@@ -77,8 +77,8 @@ public class FilledButton extends ButtonStyleButton implements FilledButtonI {
     if (st == null) throw new RuntimeException("Failed to created widget FilledButton");
     return new FilledButton(st);
   }
-  public static FilledButtonTonalIconBuilder tonalIcon(Runnable onPressed) {
-    return FilledButtonTonalIconBuilder.filledButtonTonalIcon(onPressed);
+  public static FilledButtonTonalIconBuilder tonalIcon() {
+    return FilledButtonTonalIconBuilder.filledButtonTonalIcon();
   }
   @Override
   public FilledButton build() {

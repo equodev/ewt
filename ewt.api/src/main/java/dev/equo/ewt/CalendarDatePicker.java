@@ -17,8 +17,8 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
   }
   CalendarDatePicker(int id) { this.id = id; }
   @Builder.Factory
-  static CalendarDatePicker calendarDatePickerCalendarDatePicker(@Builder.Parameter DateTimeI initialDate, @Builder.Parameter DateTimeI firstDate, @Builder.Parameter DateTimeI lastDate, Optional<DateTimeI> currentDate, Consumer<DateTime> onDateChanged, Optional<Consumer<DateTime>> onDisplayedMonthChanged, Optional<DatePickerMode> initialCalendarMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate) {
-    var st = factories.calendarDatePickerCalendarDatePicker(initialDate.build(),
+  static CalendarDatePicker calendarDatePickerCalendarDatePicker(Optional<DateTimeI> initialDate, DateTimeI firstDate, DateTimeI lastDate, Optional<DateTimeI> currentDate, Consumer<DateTime> onDateChanged, Optional<Consumer<DateTime>> onDisplayedMonthChanged, Optional<DatePickerMode> initialCalendarMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate) {
+    var st = factories.calendarDatePickerCalendarDatePicker(initialDate.map(DateTimeI::build),
       firstDate.build(),
       lastDate.build(),
       currentDate.map(DateTimeI::build),
@@ -29,8 +29,8 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
     if (st == null) throw new RuntimeException("Failed to created widget CalendarDatePicker");
     return new CalendarDatePicker(st);
   }
-  public static CalendarDatePickerCalendarDatePickerBuilder calendarDatePicker(DateTimeI initialDate, DateTimeI firstDate, DateTimeI lastDate) {
-    return CalendarDatePickerCalendarDatePickerBuilder.calendarDatePickerCalendarDatePicker(initialDate, firstDate, lastDate);
+  public static CalendarDatePickerCalendarDatePickerBuilder calendarDatePicker() {
+    return CalendarDatePickerCalendarDatePickerBuilder.calendarDatePickerCalendarDatePicker();
   }
   public DateTime initialDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {

@@ -120,12 +120,12 @@ class AnimationPlaygroundPageState extends SubAnimatedState<AnimationPlaygroundP
                 .spacing(10.0).runSpacing(10.0)
                 .alignment(WrapAlignment.center)
                 .children(List.of(
-                        FilledButton(this::playForward).child(Text("Reveal")),
-                        FilledButton_tonal(this::playReverse).child(Text("Hide")),
-                        OutlinedButton(mainCtrl::stop).child(Text("Stop")),
-                        OutlinedButton(this::resume).child(Text("Resume")),
-                        ElevatedButton(mainCtrl::repeat).child(Text("Pulse")),
-                        ElevatedButton(mainCtrl::reset).child(Text("Reset"))
+                        FilledButton().onPressed(this::playForward).child(Text("Reveal")),
+                        FilledButton_tonal().onPressed(this::playReverse).child(Text("Hide")),
+                        OutlinedButton().onPressed(mainCtrl::stop).child(Text("Stop")),
+                        OutlinedButton().onPressed(this::resume).child(Text("Resume")),
+                        ElevatedButton().onPressed(mainCtrl::repeat).child(Text("Pulse")),
+                        ElevatedButton().onPressed(mainCtrl::reset).child(Text("Reset"))
                 ));
     }
 
@@ -140,7 +140,7 @@ class AnimationPlaygroundPageState extends SubAnimatedState<AnimationPlaygroundP
     }
 
     private Widget speedBtn(String label, int millis) {
-        return OutlinedButton(() -> mainCtrl.setDuration(Duration().milliseconds(millis)))
+        return OutlinedButton().onPressed(() -> mainCtrl.setDuration(Duration().milliseconds(millis)))
                 .child(Text(label));
     }
 

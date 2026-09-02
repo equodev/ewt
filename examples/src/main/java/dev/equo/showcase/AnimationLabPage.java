@@ -123,12 +123,12 @@ class AnimationLabPageState extends SubAnimatedState<AnimationLabPage> {
                 .runSpacing(10.0)
                 .alignment(WrapAlignment.center)
                 .children(List.of(
-                        FilledButton(this::playForward).child(Text("Reveal")),
-                        FilledButton_tonal(this::playReverse).child(Text("Hide")),
-                        OutlinedButton(ctrl::stop).child(Text("Stop")),
-                        OutlinedButton(this::resume).child(Text("Resume")),
-                        ElevatedButton(ctrl::repeat).child(Text("Pulse")),
-                        ElevatedButton(ctrl::reset).child(Text("Reset"))
+                        FilledButton().onPressed(this::playForward).child(Text("Reveal")),
+                        FilledButton_tonal().onPressed(this::playReverse).child(Text("Hide")),
+                        OutlinedButton().onPressed(ctrl::stop).child(Text("Stop")),
+                        OutlinedButton().onPressed(this::resume).child(Text("Resume")),
+                        ElevatedButton().onPressed(ctrl::repeat).child(Text("Pulse")),
+                        ElevatedButton().onPressed(ctrl::reset).child(Text("Reset"))
                 ));
     }
 
@@ -144,7 +144,7 @@ class AnimationLabPageState extends SubAnimatedState<AnimationLabPage> {
     }
 
     private Widget speedButton(String label, int millis) {
-        return OutlinedButton(() -> ctrl.setDuration(Duration().milliseconds(millis)))
+        return OutlinedButton().onPressed(() -> ctrl.setDuration(Duration().milliseconds(millis)))
                 .child(Text(label));
     }
 

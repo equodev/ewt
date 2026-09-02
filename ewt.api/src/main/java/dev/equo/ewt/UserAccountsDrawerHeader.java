@@ -17,13 +17,13 @@ public class UserAccountsDrawerHeader extends StatefulWidget implements UserAcco
   }
   UserAccountsDrawerHeader(int id) { this.id = id; }
   @Builder.Factory
-  static UserAccountsDrawerHeader userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<DecorationI> decoration, Optional<EdgeInsetsGeometryI> margin, Optional<WidgetI> currentAccountPicture, Optional<List<WidgetI>> otherAccountsPictures, WidgetI accountName, WidgetI accountEmail, Optional<Runnable> onDetailsPressed, Optional<ColorI> arrowColor) {
+  static UserAccountsDrawerHeader userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<DecorationI> decoration, Optional<EdgeInsetsGeometryI> margin, Optional<WidgetI> currentAccountPicture, Optional<List<WidgetI>> otherAccountsPictures, Optional<WidgetI> accountName, Optional<WidgetI> accountEmail, Optional<Runnable> onDetailsPressed, Optional<ColorI> arrowColor) {
     var st = factories.userAccountsDrawerHeaderUserAccountsDrawerHeader(decoration.map(DecorationI::build),
       margin.map(EdgeInsetsGeometryI::build),
       currentAccountPicture.map(WidgetI::build),
       otherAccountsPictures.map(i -> i.stream().map(WidgetI::build).toList()),
-      accountName.build(),
-      accountEmail.build(),
+      accountName.map(WidgetI::build),
+      accountEmail.map(WidgetI::build),
       onDetailsPressed,
       arrowColor.map(ColorI::build));
     if (st == null) throw new RuntimeException("Failed to created widget UserAccountsDrawerHeader");

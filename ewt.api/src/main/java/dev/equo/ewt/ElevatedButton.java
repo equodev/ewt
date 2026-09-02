@@ -17,22 +17,22 @@ public class ElevatedButton extends ButtonStyleButton implements ElevatedButtonI
   }
   ElevatedButton(int id) { this.id = id; }
   @Builder.Factory
-  static ElevatedButton elevatedButtonElevatedButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
+  static ElevatedButton elevatedButtonElevatedButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.elevatedButtonElevatedButton(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
       autofocus,
       clipBehavior,
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ElevatedButton");
     return new ElevatedButton(st);
   }
-  public static ElevatedButtonElevatedButtonBuilder elevatedButton(Runnable onPressed) {
-    return ElevatedButtonElevatedButtonBuilder.elevatedButtonElevatedButton(onPressed);
+  public static ElevatedButtonElevatedButtonBuilder elevatedButton() {
+    return ElevatedButtonElevatedButtonBuilder.elevatedButtonElevatedButton();
   }
   @Builder.Factory
-  static ElevatedButton elevatedButtonIcon(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
+  static ElevatedButton elevatedButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
     var st = factories.elevatedButtonIcon(onPressed,
       onLongPress,
       onHover,
@@ -45,8 +45,8 @@ public class ElevatedButton extends ButtonStyleButton implements ElevatedButtonI
     if (st == null) throw new RuntimeException("Failed to created widget ElevatedButton");
     return new ElevatedButton(st);
   }
-  public static ElevatedButtonIconBuilder icon(Runnable onPressed) {
-    return ElevatedButtonIconBuilder.elevatedButtonIcon(onPressed);
+  public static ElevatedButtonIconBuilder icon() {
+    return ElevatedButtonIconBuilder.elevatedButtonIcon();
   }
   @Override
   public ElevatedButton build() {

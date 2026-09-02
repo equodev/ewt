@@ -17,7 +17,7 @@ public class CheckboxMenuButton extends StatelessWidget implements CheckboxMenuB
   }
   CheckboxMenuButton(int id) { this.id = id; }
   @Builder.Factory
-  static CheckboxMenuButton checkboxMenuButtonCheckboxMenuButton(@Builder.Parameter boolean value, Optional<Boolean> tristate, Optional<Boolean> isError, Consumer<Boolean> onChanged, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<WidgetI> trailingIcon, Optional<Boolean> closeOnActivate, WidgetI child) {
+  static CheckboxMenuButton checkboxMenuButtonCheckboxMenuButton(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Boolean> isError, Optional<Consumer<Boolean>> onChanged, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<WidgetI> trailingIcon, Optional<Boolean> closeOnActivate, Optional<WidgetI> child) {
     var st = factories.checkboxMenuButtonCheckboxMenuButton(value,
       tristate,
       isError,
@@ -27,12 +27,12 @@ public class CheckboxMenuButton extends StatelessWidget implements CheckboxMenuB
       clipBehavior,
       trailingIcon.map(WidgetI::build),
       closeOnActivate,
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget CheckboxMenuButton");
     return new CheckboxMenuButton(st);
   }
-  public static CheckboxMenuButtonCheckboxMenuButtonBuilder checkboxMenuButton(boolean value) {
-    return CheckboxMenuButtonCheckboxMenuButtonBuilder.checkboxMenuButtonCheckboxMenuButton(value);
+  public static CheckboxMenuButtonCheckboxMenuButtonBuilder checkboxMenuButton() {
+    return CheckboxMenuButtonCheckboxMenuButtonBuilder.checkboxMenuButtonCheckboxMenuButton();
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxMenuButtonValue not supported on web");

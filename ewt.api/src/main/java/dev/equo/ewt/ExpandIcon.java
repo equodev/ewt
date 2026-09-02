@@ -17,7 +17,7 @@ public class ExpandIcon extends StatefulWidget implements ExpandIconI {
   }
   ExpandIcon(int id) { this.id = id; }
   @Builder.Factory
-  static ExpandIcon expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Consumer<Boolean> onPressed, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> disabledColor, Optional<ColorI> expandedColor, Optional<ColorI> splashColor, Optional<ColorI> highlightColor) {
+  static ExpandIcon expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Optional<Consumer<Boolean>> onPressed, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> disabledColor, Optional<ColorI> expandedColor, Optional<ColorI> splashColor, Optional<ColorI> highlightColor) {
     var st = factories.expandIconExpandIcon(isExpanded,
       size,
       onPressed,

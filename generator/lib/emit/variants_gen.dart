@@ -272,10 +272,13 @@ class VariantsEmitter {
       // The public static factory method name on the widget class (= factory in WidgetGen)
       final publicFactory = factoryLabel;
 
-      // Check: every truly-required param must have a sample.
-      // We check ALL required params first (before filtering for private defaults),
-      // so non-void FunctionType required params skip the whole widget.
-      final allRequiredRaw = node.parameters.takeWhile((p) => p.isRequired).toList();
+      // Check: every truly-required param must have a sample. A `required T?`
+      // param is Dart-required-but-null-allowed and lands as `Optional<T>` on
+      // the Java surface (issue #44) — Immutables never asks for it at build
+      // time, so exclude it from the "truly required" sample check.
+      final allRequiredRaw = node.parameters
+          .where((p) => p.isRequired && !p.isOptionalOnSurface)
+          .toList();
       String? requiredSkipReason;
       for (final p in allRequiredRaw) {
         if (_sampleCode(p.type) == null) {
@@ -288,18 +291,46 @@ class VariantsEmitter {
         continue;
       }
 
-      // Separate required vs optional params (same filter as Params constructor)
+      // Separate required vs optional params (matching Params.mandatory: only
+      // params that are Dart-required AND non-nullable become @Builder.Parameter
+      // positional args — nullable-required ones now flow through the Optional
+      // chain like the analyzer-optional params.
       final supportedParams = node.parameters
           .where((p) => _isSupported(p.type))
           .where((p) => !hasPrivateDefault(p))
           .toList();
-      final requiredParams = supportedParams.takeWhile((p) => p.isRequired).toList();
-      final optionalParams = supportedParams.skip(requiredParams.length).toList();
+      final positionalRequired = supportedParams
+          .takeWhile((p) => p.isRequired && !p.isOptionalOnSurface)
+          .toList();
+      // A trailing non-nullable required param (e.g. SnackBarAction.label,
+      // PopupMenuItem.child) is emitted as a raw setter in Immutables, NOT as
+      // a positional @Builder.Parameter, because the leading `takeWhile` chain
+      // was broken by an earlier optional-on-surface param. Its setter must
+      // still be called in every variant or `checkRequiredAttributes` throws.
+      final trailingRequired = supportedParams
+          .skip(positionalRequired.length)
+          .where((p) => p.isRequired && !p.isOptionalOnSurface)
+          .toList();
+      final optionalParams = supportedParams
+          .skip(positionalRequired.length)
+          .where((p) => !(p.isRequired && !p.isOptionalOnSurface))
+          .toList();
 
       // Build the required-args call expression
       final reqArgs =
-          requiredParams.map((p) => _sampleCode(p.type)!).join(', ');
-      final baseCall = '$name.$publicFactory($reqArgs)';
+          positionalRequired.map((p) => _sampleCode(p.type)!).join(', ');
+      // Immutables generates `addAll<Name>(Iterable)` (plus `add<Name>(T)`) for
+      // a raw `List<T>` builder param and no top-level `<Name>(List)` setter,
+      // so the trailing-required chain has to pick the right shape per type.
+      final trailingReqChain = trailingRequired.map((p) {
+        final sample = _sampleCode(p.type)!;
+        final pName = _escapedName(p);
+        if (p.type is InterfaceType && (p.type as InterfaceType).isDartCoreList) {
+          return '.addAll${_firstUpper(pName)}($sample)';
+        }
+        return '.$pName($sample)';
+      }).join('');
+      final baseCall = '$name.$publicFactory($reqArgs)$trailingReqChain';
 
       // Collect optional params with samples (forOptionalChain=true to skip List<T>)
       final optsWithSamples = optionalParams

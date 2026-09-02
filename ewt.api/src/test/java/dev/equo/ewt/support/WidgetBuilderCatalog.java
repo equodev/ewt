@@ -200,15 +200,15 @@ public final class WidgetBuilderCatalog {
 
         // ── Buttons ──────────────────────────────────────────────────────────
         w("elevatedButton",
-            () -> ElevatedButton(() -> {}).child(Text("ok").build()).build()),
+            () -> ElevatedButton().onPressed(() -> {}).child(Text("ok").build()).build()),
         w("outlinedButton",
-            () -> OutlinedButton(() -> {}).child(Text("ok").build()).build()),
+            () -> OutlinedButton().onPressed(() -> {}).child(Text("ok").build()).build()),
         w("textButton",
-            () -> TextButton(() -> {}).child(Text("ok").build()).build()),
+            () -> TextButton().onPressed(() -> {}).child(Text("ok").build()).build()),
         w("filledButton",
-            () -> FilledButton(() -> {}).child(Text("ok").build()).build()),
+            () -> FilledButton().onPressed(() -> {}).child(Text("ok").build()).build()),
         w("filledButton_tonal",
-            () -> FilledButton_tonal(() -> {}).child(Text("ok").build()).build()),
+            () -> FilledButton_tonal().onPressed(() -> {}).child(Text("ok").build()).build()),
         w("floatingActionButton",
             () -> FloatingActionButton().onPressed(() -> {}).build()),
         w("iconButton",
@@ -216,9 +216,9 @@ public final class WidgetBuilderCatalog {
                 .icon(Icon(IconData(0xe000).build()).build()).build()),
 
         // ── Form controls ────────────────────────────────────────────────────
-        w("checkbox", () -> Checkbox(false).onChanged(b -> {}).build()),
-        w("checkbox_adaptive", () -> Checkbox_adaptive(false).onChanged(b -> {}).build()),
-        w("switch_", () -> Switch(false, b -> {}).build()),
+        w("checkbox", () -> Checkbox().value(false).onChanged(b -> {}).build()),
+        w("checkbox_adaptive", () -> Checkbox_adaptive().value(false).onChanged(b -> {}).build()),
+        w("switch_", () -> Switch(false).onChanged(b -> {}).build()),
         w("slider", () -> Slider(0.5).onChanged(d -> {}).build()),
         w("slider_adaptive", () -> Slider_adaptive(0.5).onChanged(d -> {}).build()),
         w("circularProgressIndicator", () -> CircularProgressIndicator().build()),
@@ -228,8 +228,8 @@ public final class WidgetBuilderCatalog {
 
         // ── List and selection ───────────────────────────────────────────────
         w("listTile", () -> ListTile().build()),
-        w("checkboxListTile", () -> CheckboxListTile(false, b -> {}).build()),
-        w("switchListTile", () -> SwitchListTile(false, b -> {}).build()),
+        w("checkboxListTile", () -> CheckboxListTile().value(false).onChanged(b -> {}).build()),
+        w("switchListTile", () -> SwitchListTile(false).onChanged(b -> {}).build()),
         w("radioListTile", () -> RadioListTile(SizedBox.sizedBox().build()).build()),
         w("radio", () -> Radio(SizedBox.sizedBox().build()).build()),
         w("divider", () -> Divider().build()),
@@ -293,11 +293,11 @@ public final class WidgetBuilderCatalog {
             () -> SubmenuButton().child(Text("menu").build()).build()),
         w("menuItemButton", () -> MenuItemButton().build()),
         w("checkboxMenuButton",
-            () -> CheckboxMenuButton(false).onChanged(b -> {})
+            () -> CheckboxMenuButton().value(false).onChanged(b -> {})
                 .child(Text("x").build()).build()),
         w("radioMenuButton", () -> {
           var val = SizedBox.sizedBox().build();
-          return RadioMenuButton(val, val, o -> {}).child(Text("opt").build()).build();
+          return RadioMenuButton(val).groupValue(val).onChanged(o -> {}).child(Text("opt").build()).build();
         }),
         w("popupMenuDivider", () -> PopupMenuDivider().build()),
         w("popupMenuItem",
@@ -316,10 +316,11 @@ public final class WidgetBuilderCatalog {
                 .firstDate(DateTime(2020).build())
                 .lastDate(DateTime(2030).build()).build()),
         w("calendarDatePicker",
-            () -> CalendarDatePicker(
-                DateTime(2024).build(),
-                DateTime(2020).build(),
-                DateTime(2030).build()).onDateChanged(dt -> {}).build()),
+            () -> CalendarDatePicker()
+                .initialDate(DateTime(2024).build())
+                .firstDate(DateTime(2020).build())
+                .lastDate(DateTime(2030).build())
+                .onDateChanged(dt -> {}).build()),
         w("timePickerDialog",
             () -> TimePickerDialog(TimeOfDay(12, 0).build()).build()),
         w("dateRangePickerDialog",
@@ -354,10 +355,10 @@ public final class WidgetBuilderCatalog {
             () -> CupertinoButton_filled(Text("ok").build()).onPressed(() -> {}).build()),
         w("cupertinoButton_tinted",
             () -> CupertinoButton_tinted(Text("ok").build()).onPressed(() -> {}).build()),
-        w("cupertinoSwitch", () -> CupertinoSwitch(false, b -> {}).build()),
-        w("cupertinoSlider", () -> CupertinoSlider(0.5, d -> {}).build()),
+        w("cupertinoSwitch", () -> CupertinoSwitch(false).onChanged(b -> {}).build()),
+        w("cupertinoSlider", () -> CupertinoSlider(0.5).onChanged(d -> {}).build()),
         w("cupertinoCheckbox",
-            () -> CupertinoCheckbox(false).onChanged(b -> {}).build()),
+            () -> CupertinoCheckbox().value(false).onChanged(b -> {}).build()),
         w("cupertinoTextField", () -> CupertinoTextField().build()),
         w("cupertinoTextField_borderless", () -> CupertinoTextField_borderless().build()),
         w("cupertinoSearchTextField", () -> CupertinoSearchTextField().build()),

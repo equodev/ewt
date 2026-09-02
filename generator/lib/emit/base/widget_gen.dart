@@ -512,7 +512,7 @@ class WidgetGen implements AGen {
     final factoryName = '$widgetField${factory.firstUpper()}';
     final ctxParam = paramElement('context', buildContextClass.thisType, ParameterKind.REQUIRED);
     final combinedParams = [ctxParam, ...stateMethod.parameters];
-    final requiredParams = combinedParams.where((p) => !p.isOptional).toList();
+    final requiredParams = combinedParams.where((p) => !p.isOptionalOnSurface).toList();
     final jParamsDecl = Params(types, requiredParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsCall = Params(types, combinedParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
     final jParams = Params(types, combinedParams, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);

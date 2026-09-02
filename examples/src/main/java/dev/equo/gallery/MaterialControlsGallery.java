@@ -57,7 +57,7 @@ public class MaterialControlsGallery {
                   .crossAxisAlignment(CrossAxisAlignment.start)
                   .children(List.of(
 
-                      tile("Switch", Switch(_switchOn, v -> setState(() -> _switchOn = v))
+                      tile("Switch", Switch(_switchOn).onChanged(v -> setState(() -> _switchOn = v))
                           .activeColor(Colors.indigo())
                           // WidgetStateProperty<Color?>? — a single Color is wrapped as
                           // WidgetStatePropertyAll(Color) on the Flutter side; visible
@@ -68,7 +68,7 @@ public class MaterialControlsGallery {
                       Text("Switch is " + (_switchOn ? "ON" : "OFF")),
                       Divider(),
 
-                      tile("Checkbox", Checkbox(_checked).onChanged(v -> setState(() -> _checked = v))
+                      tile("Checkbox", Checkbox().value(_checked).onChanged(v -> setState(() -> _checked = v))
                           .fillColor(Colors.teal())
                           .overlayColor(Colors.teal())),
                       Text("Checkbox is " + (_checked ? "checked" : "unchecked")),
@@ -85,7 +85,7 @@ public class MaterialControlsGallery {
                       // ScaffoldMessengerMethods.showSnackBar is emitted as a public
                       // static on ScaffoldMessenger.java, dispatched at runtime through
                       // ScaffoldMessenger.of(context).
-                      tile("Show SnackBar", ElevatedButton(() -> ScaffoldMessenger.showSnackBar(context,
+                      tile("Show SnackBar", ElevatedButton().onPressed(() -> ScaffoldMessenger.showSnackBar(context,
                               SnackBar(Text("hello from EWT"))
                                   .action(SnackBarAction().label("Undo").onPressed(() -> {}).build())
                                   .duration(Duration().seconds(3).build()).build()))
@@ -107,9 +107,9 @@ public class MaterialControlsGallery {
                       )),
                       Divider(),
 
-                      SwitchListTile(_switchOn, v -> setState(() -> _switchOn = v))
+                      SwitchListTile(_switchOn).onChanged(v -> setState(() -> _switchOn = v))
                           .title(Text("SwitchListTile")),
-                      CheckboxListTile(_checked, v -> setState(() -> _checked = v))
+                      CheckboxListTile().value(_checked).onChanged(v -> setState(() -> _checked = v))
                           .title(Text("CheckboxListTile"))
                   )))));
     }

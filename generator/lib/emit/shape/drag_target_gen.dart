@@ -27,7 +27,7 @@ class DragTargetGen extends ImmutableGen {
       ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();')
       ..writeln('    Widget __child = builder.apply(EwtWebCapture.stubContext(), java.util.List.of(), java.util.List.of());')
       ..writeln('    p.put("child", byId.get(__child.getId()));');
-    for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
+    for (final param in relaxFactoryParams(node.parameters).where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
       if (param.name == 'builder') continue;
       final stmt = Params.paramValueSerialize(types, param);
       if (stmt.isNotEmpty) ctx.javaSerializer.writeln('    $stmt');

@@ -11,9 +11,9 @@ class Params {
   late String requiredNames = "";
   bool allTypes;
 
-  Params(this.types, this.parameters,
+  Params(this.types, List<ParameterElement> rawParameters,
       String Function(Types, ParameterElement, {bool annotated, bool wrap}) paramDef,
-      {this.allTypes = false, String Function(Types, ParameterElement) paramValue = _paramName, String Function(Types, ParameterElement) escape = _paramName}) {
+      {this.allTypes = false, String Function(Types, ParameterElement) paramValue = _paramName, String Function(Types, ParameterElement) escape = _paramName, bool relaxOnSurface = true}) : parameters = relaxOnSurface ? relaxFactoryParams(rawParameters) : List.of(rawParameters) {
     var filtered = (allTypes ? parameters : parameters.where((p) => types.supportedType(p.type)))
         .where((p) => !hasPrivateDefault(p));
     // Empty string is the "skip" sentinel (see paramValueJson / _paramValueJsonRaw); filter out
@@ -22,7 +22,6 @@ class Params {
     var mandatory = filtered.takeWhile((p) => p.isRequired);
     builderDecl = filtered.map((p) => '${paramDef(types, p, annotated: mandatory.contains(p), wrap: p.isOptional)} ${escape(types, p)}').join(', ');
     decl = filtered.map((p) => '${paramDef(types, p, wrap: p.isOptional)} ${escape(types, p)}').join(', ');
-    // var mandatory = filtered.where((p) => p.isRequired);
     required = mandatory.map((p) => '${paramDef(types, p)} ${escape(types, p)}').join(', ');
     requiredNames = mandatory.map((p) => paramValue(types, p)).join(', ');
   }
@@ -461,3 +460,42 @@ extension Case on String {
   firstUpper() => isEmpty ? "" : this[0].toUpperCase() + substring(1);
   firstLower() => isEmpty ? "" : this[0].toLowerCase() + substring(1);
 }
+
+/// Whether the param is a `{required T?}` named param — Dart-required *by name*
+/// but null-allowed. `relaxFactoryParams` substitutes these with synthetic
+/// optional-named params so widget-factory emitters (Java @Builder.Factory
+/// signature, FFM factory, C typedef, Dart FFI adapter) wrap them as
+/// `Optional<T>` and the C typedef treats them as nullable pointers — matching
+/// Flutter's nullability 1:1 on the Java side (issue #44). variants_gen
+/// consumes this predicate directly to decide which required-in-analyzer
+/// params still need `.setter(sample)` chaining in the `_required` variant.
+///
+/// Positional-required params — even nullable ones like `Icon(this.icon, ...)`
+/// or `Text(this.data, ...)` — stay raw so they remain leading @Builder.Parameter
+/// positional args and don't collapse to a no-arg builder that would collide
+/// with instance accessors of the same name (`Icon.icon()` static vs `IconData icon()` getter).
+extension WrapPolicy on ParameterElement {
+  bool get isOptionalOnSurface =>
+      isOptional ||
+      (isNamed && type.nullabilitySuffix == NullabilitySuffix.question);
+}
+
+/// Substitutes each `{required T?}` named param with a synthetic optional-named
+/// counterpart (`{T? foo}`). Downstream code that keys on
+/// [ParameterElement.isOptional] — Params ctor's `mandatory` / `wrap`
+/// decisions, paramValue* helpers, FFI serialize strategies, FFM marshalers —
+/// then treats the param as `Optional<T>` at the Java surface and as a nullable
+/// pointer at the C/Dart FFI boundary without any per-caller flag plumbing.
+///
+/// Apply at each widget-factory entry point that feeds params into Params or
+/// per-param iterators. Callback typedef processing (`addTypeDefs`) must NOT
+/// call this — its params are wired through a Java `<...>Function<...>` that
+/// receives the boxed value directly, and swapping them to nullable pointers
+/// would break the FFM callback body (nullable `int?` in a callback arg has no
+/// pointer-marshaller implementation).
+List<ParameterElement> relaxFactoryParams(Iterable<ParameterElement> params) =>
+    params.map((p) {
+      if (!p.isRequiredNamed) return p;
+      if (p.type.nullabilitySuffix != NullabilitySuffix.question) return p;
+      return paramElement(p.name, p.type, ParameterKind.NAMED);
+    }).toList();

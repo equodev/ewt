@@ -17,22 +17,22 @@ public class OutlinedButton extends ButtonStyleButton implements OutlinedButtonI
   }
   OutlinedButton(int id) { this.id = id; }
   @Builder.Factory
-  static OutlinedButton outlinedButtonOutlinedButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, WidgetI child) {
+  static OutlinedButton outlinedButtonOutlinedButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
     var st = factories.outlinedButtonOutlinedButton(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
       autofocus,
       clipBehavior,
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget OutlinedButton");
     return new OutlinedButton(st);
   }
-  public static OutlinedButtonOutlinedButtonBuilder outlinedButton(Runnable onPressed) {
-    return OutlinedButtonOutlinedButtonBuilder.outlinedButtonOutlinedButton(onPressed);
+  public static OutlinedButtonOutlinedButtonBuilder outlinedButton() {
+    return OutlinedButtonOutlinedButtonBuilder.outlinedButtonOutlinedButton();
   }
   @Builder.Factory
-  static OutlinedButton outlinedButtonIcon(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
+  static OutlinedButton outlinedButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
     var st = factories.outlinedButtonIcon(onPressed,
       onLongPress,
       onHover,
@@ -45,8 +45,8 @@ public class OutlinedButton extends ButtonStyleButton implements OutlinedButtonI
     if (st == null) throw new RuntimeException("Failed to created widget OutlinedButton");
     return new OutlinedButton(st);
   }
-  public static OutlinedButtonIconBuilder icon(Runnable onPressed) {
-    return OutlinedButtonIconBuilder.outlinedButtonIcon(onPressed);
+  public static OutlinedButtonIconBuilder icon() {
+    return OutlinedButtonIconBuilder.outlinedButtonIcon();
   }
   @Override
   public OutlinedButton build() {

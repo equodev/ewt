@@ -17,7 +17,7 @@ public class Checkbox extends StatefulWidget implements CheckboxI {
   }
   Checkbox(int id) { this.id = id; }
   @Builder.Factory
-  static Checkbox checkboxCheckbox(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  static Checkbox checkboxCheckbox(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     var st = factories.checkboxCheckbox(value,
       tristate,
       onChanged,
@@ -38,11 +38,11 @@ public class Checkbox extends StatefulWidget implements CheckboxI {
     if (st == null) throw new RuntimeException("Failed to created widget Checkbox");
     return new Checkbox(st);
   }
-  public static CheckboxCheckboxBuilder checkbox(boolean value) {
-    return CheckboxCheckboxBuilder.checkboxCheckbox(value);
+  public static CheckboxCheckboxBuilder checkbox() {
+    return CheckboxCheckboxBuilder.checkboxCheckbox();
   }
   @Builder.Factory
-  static Checkbox checkboxAdaptive(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  static Checkbox checkboxAdaptive(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     var st = factories.checkboxAdaptive(value,
       tristate,
       onChanged,
@@ -63,8 +63,8 @@ public class Checkbox extends StatefulWidget implements CheckboxI {
     if (st == null) throw new RuntimeException("Failed to created widget Checkbox");
     return new Checkbox(st);
   }
-  public static CheckboxAdaptiveBuilder adaptive(boolean value) {
-    return CheckboxAdaptiveBuilder.checkboxAdaptive(value);
+  public static CheckboxAdaptiveBuilder adaptive() {
+    return CheckboxAdaptiveBuilder.checkboxAdaptive();
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxValue not supported on web");

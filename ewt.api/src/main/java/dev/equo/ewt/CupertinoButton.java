@@ -17,7 +17,7 @@ public class CupertinoButton extends StatefulWidget implements CupertinoButtonI 
   }
   CupertinoButton(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoButton cupertinoButtonCupertinoButton(@Builder.Parameter WidgetI child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> foregroundColor, Optional<ColorI> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadiusI> borderRadius, Optional<AlignmentGeometryI> alignment, Optional<ColorI> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+  static CupertinoButton cupertinoButtonCupertinoButton(@Builder.Parameter WidgetI child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> foregroundColor, Optional<ColorI> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadiusI> borderRadius, Optional<AlignmentGeometryI> alignment, Optional<ColorI> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Optional<Runnable> onPressed) {
     var st = factories.cupertinoButtonCupertinoButton(child.build(),
       sizeStyle,
       padding.map(EdgeInsetsGeometryI::build),
@@ -40,7 +40,7 @@ public class CupertinoButton extends StatefulWidget implements CupertinoButtonI 
     return CupertinoButtonCupertinoButtonBuilder.cupertinoButtonCupertinoButton(child);
   }
   @Builder.Factory
-  static CupertinoButton cupertinoButtonTinted(@Builder.Parameter WidgetI child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> foregroundColor, Optional<ColorI> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadiusI> borderRadius, Optional<AlignmentGeometryI> alignment, Optional<ColorI> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+  static CupertinoButton cupertinoButtonTinted(@Builder.Parameter WidgetI child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> foregroundColor, Optional<ColorI> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadiusI> borderRadius, Optional<AlignmentGeometryI> alignment, Optional<ColorI> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Optional<Runnable> onPressed) {
     var st = factories.cupertinoButtonTinted(child.build(),
       sizeStyle,
       padding.map(EdgeInsetsGeometryI::build),
@@ -63,7 +63,7 @@ public class CupertinoButton extends StatefulWidget implements CupertinoButtonI 
     return CupertinoButtonTintedBuilder.cupertinoButtonTinted(child);
   }
   @Builder.Factory
-  static CupertinoButton cupertinoButtonFilled(@Builder.Parameter WidgetI child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> disabledColor, Optional<ColorI> foregroundColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadiusI> borderRadius, Optional<AlignmentGeometryI> alignment, Optional<ColorI> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+  static CupertinoButton cupertinoButtonFilled(@Builder.Parameter WidgetI child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometryI> padding, Optional<ColorI> color, Optional<ColorI> disabledColor, Optional<ColorI> foregroundColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadiusI> borderRadius, Optional<AlignmentGeometryI> alignment, Optional<ColorI> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Optional<Runnable> onPressed) {
     var st = factories.cupertinoButtonFilled(child.build(),
       sizeStyle,
       padding.map(EdgeInsetsGeometryI::build),

@@ -93,7 +93,7 @@ public class BottomPanel extends SubStatelessWidget {
                         count > 0 ? badge(count) : SizedBox().width(0.0)
                 ))));
 
-        return TextButton(() -> onSelectTab.accept(id))
+        return TextButton().onPressed(() -> onSelectTab.accept(id))
                 .onHover(hovering -> {})
                 .child(label);
     }

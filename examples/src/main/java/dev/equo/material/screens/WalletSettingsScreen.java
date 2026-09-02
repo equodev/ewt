@@ -83,7 +83,7 @@ class WalletSettingsState extends SubState<WalletSettingsScreen> {
         return ListTile()
                 .leading(WalletKit.iconTile(icon.get(), color.get(), 32.0))
                 .title(Text(title).style(WalletPalette.rowTitle()))
-                .trailing(Switch(value, v -> onChanged.accept(v))
+                .trailing(Switch(value).onChanged(v -> onChanged.accept(v))
                         .activeThumbColor(WalletPalette.background())
                         .activeTrackColor(WalletPalette.green()));
     }

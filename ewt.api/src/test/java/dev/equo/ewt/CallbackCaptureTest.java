@@ -12,8 +12,10 @@ class CallbackCaptureTest {
     NativeObj.Base.factories = s;
     try {
       boolean[] ran = {false};
-      // FilledButton(onPressed).child(Text) — onPressed is a zero-arg Runnable.
-      var btn = EWT.FilledButton(() -> ran[0] = true)
+      // FilledButton().onPressed(Runnable).child(Text) — onPressed is nullable-required
+      // in Flutter, so it's Optional-wrapped on the Java surface (issue #44).
+      var btn = EWT.FilledButton()
+          .onPressed(() -> ran[0] = true)
           .child(EWT.Text("Follow"))
           .build();
       Map<Integer, Object> cbs = s.callbacks();
@@ -35,8 +37,9 @@ class CallbackCaptureTest {
     NativeObj.Base.factories = s;
     try {
       Boolean[] got = {null};
-      // FilledButton(onPressed).onHover(bool).child(Text) — onHover is a Consumer<Boolean>.
-      EWT.FilledButton(() -> {})
+      // FilledButton().onPressed(...).onHover(bool).child(Text) — onHover is Consumer<Boolean>.
+      EWT.FilledButton()
+          .onPressed(() -> {})
           .onHover(v -> got[0] = v)
           .child(EWT.Text("Follow"))
           .build();

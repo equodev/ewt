@@ -17,7 +17,7 @@ public class SwitchListTile extends StatelessWidget implements SwitchListTileI {
   }
   SwitchListTile(int id) { this.id = id; }
   @Builder.Factory
-  static SwitchListTile switchListTileSwitchListTile(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorderI> shape, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Boolean> enableFeedback, Optional<ColorI> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  static SwitchListTile switchListTileSwitchListTile(@Builder.Parameter boolean value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorderI> shape, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Boolean> enableFeedback, Optional<ColorI> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.switchListTileSwitchListTile(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -53,11 +53,11 @@ public class SwitchListTile extends StatelessWidget implements SwitchListTileI {
     if (st == null) throw new RuntimeException("Failed to created widget SwitchListTile");
     return new SwitchListTile(st);
   }
-  public static SwitchListTileSwitchListTileBuilder switchListTile(boolean value, Consumer<Boolean> onChanged) {
-    return SwitchListTileSwitchListTileBuilder.switchListTileSwitchListTile(value, onChanged);
+  public static SwitchListTileSwitchListTileBuilder switchListTile(boolean value) {
+    return SwitchListTileSwitchListTileBuilder.switchListTileSwitchListTile(value);
   }
   @Builder.Factory
-  static SwitchListTile switchListTileAdaptive(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorderI> shape, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Boolean> enableFeedback, Optional<ColorI> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  static SwitchListTile switchListTileAdaptive(@Builder.Parameter boolean value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorderI> shape, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Boolean> enableFeedback, Optional<ColorI> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.switchListTileAdaptive(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -94,8 +94,8 @@ public class SwitchListTile extends StatelessWidget implements SwitchListTileI {
     if (st == null) throw new RuntimeException("Failed to created widget SwitchListTile");
     return new SwitchListTile(st);
   }
-  public static SwitchListTileAdaptiveBuilder adaptive(boolean value, Consumer<Boolean> onChanged) {
-    return SwitchListTileAdaptiveBuilder.switchListTileAdaptive(value, onChanged);
+  public static SwitchListTileAdaptiveBuilder adaptive(boolean value) {
+    return SwitchListTileAdaptiveBuilder.switchListTileAdaptive(value);
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("switchListTileValue not supported on web");

@@ -151,7 +151,7 @@ public class EvolveEwtButtons {
                             .mainAxisAlignment(MainAxisAlignment.center)
                             .crossAxisAlignment(CrossAxisAlignment.center)
                             .children(List.of(
-                                FilledButton(() -> System.out.println("[EWT] Follow"))
+                                FilledButton().onPressed(() -> System.out.println("[EWT] Follow"))
                                     .child(Text("Follow")),
                                 SizedBox().width(8.0),
                                 IconButton()

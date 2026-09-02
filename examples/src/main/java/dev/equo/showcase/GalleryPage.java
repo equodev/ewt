@@ -104,7 +104,7 @@ class GalleryPageState extends SubAnimatedState<GalleryPage> {
                 .mainAxisSize(MainAxisSize.min)
                 .children(List.of(
                         SizedBox().width(TILE_SIZE).height(TILE_SIZE).child(
-                                TextButton(() -> toggleTile(idx))
+                                TextButton().onPressed(() -> toggleTile(idx))
                                         .onHover(hover -> setHover(idx, hover))
                                         .child(RotationTransition(
                                                 CurvedAnimation(c, Curves.elasticOut()).build())

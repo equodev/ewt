@@ -159,7 +159,14 @@ class Generation {
         var boundPositionalParams = bindTypeParameters(fnType.parameters.where((p) => p.isPositional).toList(), td.typeArguments);
         var boundNamedParams = bindTypeParameters(fnType.parameters.where((p) => p.isNamed).toList(), td.typeArguments);
         var allParams = boundPositionalParams+boundNamedParams;
-        typedefFile.writeln('typedef ${CLang(types).field(ourName, types.type4C(fnType.returnType), params: allParams)}');
+        // Callback typedef processing keeps the analyzer's isOptional/nullable
+        // distinction verbatim — relaxing `{required T?}` here would turn e.g.
+        // `InputCounterWidgetBuilder`'s `maxLength` (required-named-nullable
+        // `int?`) into a nullable C pointer with no matching pointer-marshaller
+        // on either side (see the pre-existing bool-only fromCallback handling
+        // in DartToC.apply / paramValueFFMtoJ). Widget-factory params relax by
+        // default (issue #44); typedef params opt out.
+        typedefFile.writeln('typedef ${CLang(types).field(ourName, types.type4C(fnType.returnType), params: allParams, relaxOnSurface: false)}');
         // if (!aliasedType.boundParams.any((p) => p.type.isDartCoreBool || !isPrimitive(p.type))) { // we need to wrap from int to bool
         // Collect type parameters recursively so `List<T>`, `Map<K,V>`, and
         // nested function types all contribute their `T` to the extension's
@@ -639,7 +646,7 @@ final Set<String> unsupportedFactories = {};
 
   void writeJavaFactoryForStatic(TopLevelFunctionElement node, String factoryName, String factory) {
     List<ParameterElement> allParams = sortParameters(node);
-    var params = allParams.where((p) => !p.isOptional).toList();
+    var params = allParams.where((p) => !p.isOptionalOnSurface).toList();
     final jParams = Params(types, allParams, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsDecl = Params(types, params, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsValuesOpt = Params(types, allParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);

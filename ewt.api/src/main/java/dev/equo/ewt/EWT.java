@@ -1104,8 +1104,8 @@ public class EWT {
   public static InputDecorationInputDecorationBuilder InputDecoration() {
     return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
   }
-  public static InputDecorationCollapsedBuilder InputDecoration_collapsed(String hintText) {
-    return InputDecorationCollapsedBuilder.inputDecorationCollapsed(hintText);
+  public static InputDecorationCollapsedBuilder InputDecoration_collapsed() {
+    return InputDecorationCollapsedBuilder.inputDecorationCollapsed();
   }
 
   public static UserAccountsDrawerHeaderUserAccountsDrawerHeaderBuilder UserAccountsDrawerHeader() {
@@ -1147,24 +1147,24 @@ public class EWT {
     return ErrorWidgetWithDetailsBuilder.errorWidgetWithDetails();
   }
 
-  public static RestorationScopeRestorationScopeBuilder RestorationScope(String restorationId, WidgetI child) {
-    return RestorationScopeRestorationScopeBuilder.restorationScopeRestorationScope(restorationId, child);
+  public static RestorationScopeRestorationScopeBuilder RestorationScope() {
+    return RestorationScopeRestorationScopeBuilder.restorationScopeRestorationScope();
   }
 
-  public static RootRestorationScopeRootRestorationScopeBuilder RootRestorationScope(String restorationId, WidgetI child) {
-    return RootRestorationScopeRootRestorationScopeBuilder.rootRestorationScopeRootRestorationScope(restorationId, child);
+  public static RootRestorationScopeRootRestorationScopeBuilder RootRestorationScope() {
+    return RootRestorationScopeRootRestorationScopeBuilder.rootRestorationScopeRootRestorationScope();
   }
 
   public static StretchingOverscrollIndicatorStretchingOverscrollIndicatorBuilder StretchingOverscrollIndicator(AxisDirection axisDirection) {
     return StretchingOverscrollIndicatorStretchingOverscrollIndicatorBuilder.stretchingOverscrollIndicatorStretchingOverscrollIndicator(axisDirection);
   }
 
-  public static TapRegionTapRegionBuilder TapRegion(WidgetI child) {
-    return TapRegionTapRegionBuilder.tapRegionTapRegion(child);
+  public static TapRegionTapRegionBuilder TapRegion() {
+    return TapRegionTapRegionBuilder.tapRegionTapRegion();
   }
 
-  public static TextFieldTapRegionTextFieldTapRegionBuilder TextFieldTapRegion(WidgetI child) {
-    return TextFieldTapRegionTextFieldTapRegionBuilder.textFieldTapRegionTextFieldTapRegion(child);
+  public static TextFieldTapRegionTextFieldTapRegionBuilder TextFieldTapRegion() {
+    return TextFieldTapRegionTextFieldTapRegionBuilder.textFieldTapRegionTextFieldTapRegion();
   }
 
   public static ColorSchemeColorSchemeBuilder ColorScheme(Brightness brightness, ColorI primary, ColorI onPrimary) {
@@ -1266,25 +1266,25 @@ public class EWT {
     return ThemeThemeBuilder.themeTheme(data, child);
   }
 
-  public static ElevatedButtonElevatedButtonBuilder ElevatedButton(Runnable onPressed) {
-    return ElevatedButtonElevatedButtonBuilder.elevatedButtonElevatedButton(onPressed);
+  public static ElevatedButtonElevatedButtonBuilder ElevatedButton() {
+    return ElevatedButtonElevatedButtonBuilder.elevatedButtonElevatedButton();
   }
-  public static ElevatedButtonIconBuilder ElevatedButton_icon(Runnable onPressed) {
-    return ElevatedButtonIconBuilder.elevatedButtonIcon(onPressed);
-  }
-
-  public static OutlinedButtonOutlinedButtonBuilder OutlinedButton(Runnable onPressed) {
-    return OutlinedButtonOutlinedButtonBuilder.outlinedButtonOutlinedButton(onPressed);
-  }
-  public static OutlinedButtonIconBuilder OutlinedButton_icon(Runnable onPressed) {
-    return OutlinedButtonIconBuilder.outlinedButtonIcon(onPressed);
+  public static ElevatedButtonIconBuilder ElevatedButton_icon() {
+    return ElevatedButtonIconBuilder.elevatedButtonIcon();
   }
 
-  public static TextButtonTextButtonBuilder TextButton(Runnable onPressed) {
-    return TextButtonTextButtonBuilder.textButtonTextButton(onPressed);
+  public static OutlinedButtonOutlinedButtonBuilder OutlinedButton() {
+    return OutlinedButtonOutlinedButtonBuilder.outlinedButtonOutlinedButton();
   }
-  public static TextButtonIconBuilder TextButton_icon(Runnable onPressed) {
-    return TextButtonIconBuilder.textButtonIcon(onPressed);
+  public static OutlinedButtonIconBuilder OutlinedButton_icon() {
+    return OutlinedButtonIconBuilder.outlinedButtonIcon();
+  }
+
+  public static TextButtonTextButtonBuilder TextButton() {
+    return TextButtonTextButtonBuilder.textButtonTextButton();
+  }
+  public static TextButtonIconBuilder TextButton_icon() {
+    return TextButtonIconBuilder.textButtonIcon();
   }
 
   public static NavigatorStateNavigatorStateBuilder NavigatorState() {
@@ -1310,17 +1310,17 @@ public class EWT {
     return DividerDividerBuilder.dividerDivider();
   }
 
-  public static FilledButtonFilledButtonBuilder FilledButton(Runnable onPressed) {
-    return FilledButtonFilledButtonBuilder.filledButtonFilledButton(onPressed);
+  public static FilledButtonFilledButtonBuilder FilledButton() {
+    return FilledButtonFilledButtonBuilder.filledButtonFilledButton();
   }
-  public static FilledButtonIconBuilder FilledButton_icon(Runnable onPressed) {
-    return FilledButtonIconBuilder.filledButtonIcon(onPressed);
+  public static FilledButtonIconBuilder FilledButton_icon() {
+    return FilledButtonIconBuilder.filledButtonIcon();
   }
-  public static FilledButtonTonalBuilder FilledButton_tonal(Runnable onPressed) {
-    return FilledButtonTonalBuilder.filledButtonTonal(onPressed);
+  public static FilledButtonTonalBuilder FilledButton_tonal() {
+    return FilledButtonTonalBuilder.filledButtonTonal();
   }
-  public static FilledButtonTonalIconBuilder FilledButton_tonalIcon(Runnable onPressed) {
-    return FilledButtonTonalIconBuilder.filledButtonTonalIcon(onPressed);
+  public static FilledButtonTonalIconBuilder FilledButton_tonalIcon() {
+    return FilledButtonTonalIconBuilder.filledButtonTonalIcon();
   }
 
   public static OutlineInputBorderOutlineInputBorderBuilder OutlineInputBorder() {
@@ -1373,18 +1373,18 @@ public class EWT {
     return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
   }
 
-  public static CheckboxCheckboxBuilder Checkbox(boolean value) {
-    return CheckboxCheckboxBuilder.checkboxCheckbox(value);
+  public static CheckboxCheckboxBuilder Checkbox() {
+    return CheckboxCheckboxBuilder.checkboxCheckbox();
   }
-  public static CheckboxAdaptiveBuilder Checkbox_adaptive(boolean value) {
-    return CheckboxAdaptiveBuilder.checkboxAdaptive(value);
+  public static CheckboxAdaptiveBuilder Checkbox_adaptive() {
+    return CheckboxAdaptiveBuilder.checkboxAdaptive();
   }
 
-  public static Switch_Switch_Builder Switch(boolean value, Consumer<Boolean> onChanged) {
-    return Switch_Switch_Builder.switch_Switch_(value, onChanged);
+  public static Switch_Switch_Builder Switch(boolean value) {
+    return Switch_Switch_Builder.switch_Switch_(value);
   }
-  public static Switch_AdaptiveBuilder Switch_adaptive(boolean value, Consumer<Boolean> onChanged) {
-    return Switch_AdaptiveBuilder.switch_Adaptive(value, onChanged);
+  public static Switch_AdaptiveBuilder Switch_adaptive(boolean value) {
+    return Switch_AdaptiveBuilder.switch_Adaptive(value);
   }
 
   public static SliderSliderBuilder Slider(double value) {
@@ -1421,18 +1421,18 @@ public class EWT {
     return DefaultTabControllerDefaultTabControllerBuilder.defaultTabControllerDefaultTabController(length);
   }
 
-  public static CheckboxListTileCheckboxListTileBuilder CheckboxListTile(boolean value, Consumer<Boolean> onChanged) {
-    return CheckboxListTileCheckboxListTileBuilder.checkboxListTileCheckboxListTile(value, onChanged);
+  public static CheckboxListTileCheckboxListTileBuilder CheckboxListTile() {
+    return CheckboxListTileCheckboxListTileBuilder.checkboxListTileCheckboxListTile();
   }
-  public static CheckboxListTileAdaptiveBuilder CheckboxListTile_adaptive(boolean value, Consumer<Boolean> onChanged) {
-    return CheckboxListTileAdaptiveBuilder.checkboxListTileAdaptive(value, onChanged);
+  public static CheckboxListTileAdaptiveBuilder CheckboxListTile_adaptive() {
+    return CheckboxListTileAdaptiveBuilder.checkboxListTileAdaptive();
   }
 
-  public static SwitchListTileSwitchListTileBuilder SwitchListTile(boolean value, Consumer<Boolean> onChanged) {
-    return SwitchListTileSwitchListTileBuilder.switchListTileSwitchListTile(value, onChanged);
+  public static SwitchListTileSwitchListTileBuilder SwitchListTile(boolean value) {
+    return SwitchListTileSwitchListTileBuilder.switchListTileSwitchListTile(value);
   }
-  public static SwitchListTileAdaptiveBuilder SwitchListTile_adaptive(boolean value, Consumer<Boolean> onChanged) {
-    return SwitchListTileAdaptiveBuilder.switchListTileAdaptive(value, onChanged);
+  public static SwitchListTileAdaptiveBuilder SwitchListTile_adaptive(boolean value) {
+    return SwitchListTileAdaptiveBuilder.switchListTileAdaptive(value);
   }
 
   public static BadgeBadgeBuilder Badge() {
@@ -1577,20 +1577,20 @@ public class EWT {
     return MenuItemButtonMenuItemButtonBuilder.menuItemButtonMenuItemButton();
   }
 
-  public static CheckboxMenuButtonCheckboxMenuButtonBuilder CheckboxMenuButton(boolean value) {
-    return CheckboxMenuButtonCheckboxMenuButtonBuilder.checkboxMenuButtonCheckboxMenuButton(value);
+  public static CheckboxMenuButtonCheckboxMenuButtonBuilder CheckboxMenuButton() {
+    return CheckboxMenuButtonCheckboxMenuButtonBuilder.checkboxMenuButtonCheckboxMenuButton();
   }
 
-  public static <T extends NativeObj> RadioMenuButtonRadioMenuButtonBuilder<T> RadioMenuButton(NativeObj value, NativeObj groupValue, Consumer<NativeObj> onChanged) {
-    return RadioMenuButtonRadioMenuButtonBuilder.radioMenuButtonRadioMenuButton(value, groupValue, onChanged);
+  public static <T extends NativeObj> RadioMenuButtonRadioMenuButtonBuilder<T> RadioMenuButton(NativeObj value) {
+    return RadioMenuButtonRadioMenuButtonBuilder.radioMenuButtonRadioMenuButton(value);
   }
 
   public static DatePickerDialogDatePickerDialogBuilder DatePickerDialog() {
     return DatePickerDialogDatePickerDialogBuilder.datePickerDialogDatePickerDialog();
   }
 
-  public static CalendarDatePickerCalendarDatePickerBuilder CalendarDatePicker(DateTimeI initialDate, DateTimeI firstDate, DateTimeI lastDate) {
-    return CalendarDatePickerCalendarDatePickerBuilder.calendarDatePickerCalendarDatePicker(initialDate, firstDate, lastDate);
+  public static CalendarDatePickerCalendarDatePickerBuilder CalendarDatePicker() {
+    return CalendarDatePickerCalendarDatePickerBuilder.calendarDatePickerCalendarDatePicker();
   }
 
   public static TimePickerDialogTimePickerDialogBuilder TimePickerDialog(TimeOfDayI initialTime) {
@@ -1652,12 +1652,12 @@ public class EWT {
     return CupertinoButtonFilledBuilder.cupertinoButtonFilled(child);
   }
 
-  public static CupertinoSwitchCupertinoSwitchBuilder CupertinoSwitch(boolean value, Consumer<Boolean> onChanged) {
-    return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value, onChanged);
+  public static CupertinoSwitchCupertinoSwitchBuilder CupertinoSwitch(boolean value) {
+    return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value);
   }
 
-  public static CupertinoSliderCupertinoSliderBuilder CupertinoSlider(double value, Consumer<Double> onChanged) {
-    return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value, onChanged);
+  public static CupertinoSliderCupertinoSliderBuilder CupertinoSlider(double value) {
+    return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value);
   }
 
   public static CupertinoSearchTextFieldCupertinoSearchTextFieldBuilder CupertinoSearchTextField() {
@@ -1730,8 +1730,8 @@ public class EWT {
     return CupertinoTextFieldBorderlessBuilder.cupertinoTextFieldBorderless();
   }
 
-  public static CupertinoCheckboxCupertinoCheckboxBuilder CupertinoCheckbox(boolean value) {
-    return CupertinoCheckboxCupertinoCheckboxBuilder.cupertinoCheckboxCupertinoCheckbox(value);
+  public static CupertinoCheckboxCupertinoCheckboxBuilder CupertinoCheckbox() {
+    return CupertinoCheckboxCupertinoCheckboxBuilder.cupertinoCheckboxCupertinoCheckbox();
   }
 
   public static CupertinoExpansionTileCupertinoExpansionTileBuilder CupertinoExpansionTile(WidgetI title, WidgetI child) {

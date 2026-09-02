@@ -81,7 +81,7 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
     return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
   }
   @Builder.Factory
-  static InputDecoration inputDecorationCollapsed(@Builder.Parameter String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyleI> hintStyle, Optional<WidgetI> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<BoxConstraintsI> constraints) {
+  static InputDecoration inputDecorationCollapsed(Optional<String> hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyleI> hintStyle, Optional<WidgetI> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<BoxConstraintsI> constraints) {
     var st = factories.inputDecorationCollapsed(hintText,
       floatingLabelBehavior,
       hintStyle.map(TextStyleI::build),
@@ -101,8 +101,8 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
     if (st == null) throw new RuntimeException("Failed to created widget InputDecoration");
     return new InputDecoration(st);
   }
-  public static InputDecorationCollapsedBuilder collapsed(String hintText) {
-    return InputDecorationCollapsedBuilder.inputDecorationCollapsed(hintText);
+  public static InputDecorationCollapsedBuilder collapsed() {
+    return InputDecorationCollapsedBuilder.inputDecorationCollapsed();
   }
   public Widget icon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationIcon not supported on web");

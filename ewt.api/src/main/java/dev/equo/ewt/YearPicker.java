@@ -17,12 +17,12 @@ public class YearPicker extends StatefulWidget implements YearPickerI {
   }
   YearPicker(int id) { this.id = id; }
   @Builder.Factory
-  static YearPicker yearPickerYearPicker(Optional<DateTimeI> currentDate, DateTimeI firstDate, DateTimeI lastDate, Optional<DateTimeI> initialDate, DateTimeI selectedDate, Consumer<DateTime> onChanged, Optional<DragStartBehavior> dragStartBehavior) {
+  static YearPicker yearPickerYearPicker(Optional<DateTimeI> currentDate, DateTimeI firstDate, DateTimeI lastDate, Optional<DateTimeI> initialDate, Optional<DateTimeI> selectedDate, Consumer<DateTime> onChanged, Optional<DragStartBehavior> dragStartBehavior) {
     var st = factories.yearPickerYearPicker(currentDate.map(DateTimeI::build),
       firstDate.build(),
       lastDate.build(),
       initialDate.map(DateTimeI::build),
-      selectedDate.build(),
+      selectedDate.map(DateTimeI::build),
       onChanged,
       dragStartBehavior);
     if (st == null) throw new RuntimeException("Failed to created widget YearPicker");

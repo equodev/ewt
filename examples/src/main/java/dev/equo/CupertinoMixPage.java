@@ -173,11 +173,11 @@ public class CupertinoMixPage {
                     "Switch.value and CupertinoSwitch.value are separate Java booleans.",
                     _sideBySide(
                             Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
-                                    Switch(materialSwitch, v -> setState(() -> materialSwitch = v)),
+                                    Switch(materialSwitch).onChanged(v -> setState(() -> materialSwitch = v)),
                                     Text(materialSwitch ? "ON" : "OFF").style(TextStyle().fontSize(12.0))
                             )),
                             Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
-                                    CupertinoSwitch(cupertinoSwitch, v -> setState(() -> cupertinoSwitch = v)),
+                                    CupertinoSwitch(cupertinoSwitch).onChanged(v -> setState(() -> cupertinoSwitch = v)),
                                     Text(cupertinoSwitch ? "ON" : "OFF").style(TextStyle().fontSize(12.0))
                             ))
                     ));
@@ -197,8 +197,7 @@ public class CupertinoMixPage {
                                     Text((int) materialSlider + " %").style(TextStyle().fontSize(12.0))
                             )),
                             Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
-                                    CupertinoSlider(cupertinoSlider,
-                                            v -> setState(() -> cupertinoSlider = v))
+                                    CupertinoSlider(cupertinoSlider).onChanged(v -> setState(() -> cupertinoSlider = v))
                                             .min(0.0).max(100.0),
                                     Text((int) cupertinoSlider + " %").style(TextStyle().fontSize(12.0))
                             ))
@@ -254,7 +253,7 @@ public class CupertinoMixPage {
                             ),
                             SizedBox().height(12.0),
                             Center().child(
-                                    OutlinedButton(() -> setState(() -> loading = !loading))
+                                    OutlinedButton().onPressed(() -> setState(() -> loading = !loading))
                                             .child(Text(loading ? "Stop loading" : "Start loading"))
                             )
                     )));
@@ -271,8 +270,7 @@ public class CupertinoMixPage {
                                     CupertinoListTile(Text("Notifications"))
                                             .leading(Icon(Icons.notifications_outlined())
                                                     .color(Colors.red()))
-                                            .trailing(CupertinoSwitch(materialSwitch,
-                                                    v -> setState(() -> materialSwitch = v))),
+                                            .trailing(CupertinoSwitch(materialSwitch).onChanged(v -> setState(() -> materialSwitch = v))),
                                     CupertinoListTile(Text("Appearance"))
                                             .leading(Icon(Icons.palette_outlined())
                                                     .color(Colors.purple()))

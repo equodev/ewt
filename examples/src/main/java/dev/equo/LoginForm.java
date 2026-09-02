@@ -40,7 +40,7 @@ public class LoginForm {
                 .title(Text("Missing fields"))
                 .content(Text("Please fill in both email and password."))
                 .actions(List.of(
-                    TextButton(() -> Navigator.pop(ctx)).child(Text("OK"))
+                    TextButton().onPressed(() -> Navigator.pop(ctx)).child(Text("OK"))
                 ))
         );
       } else {
@@ -49,7 +49,7 @@ public class LoginForm {
                 .title(Text("Welcome!"))
                 .content(Text("Logged in as " + _email))
                 .actions(List.of(
-                    TextButton(() -> Navigator.pop(ctx)).child(Text("OK"))
+                    TextButton().onPressed(() -> Navigator.pop(ctx)).child(Text("OK"))
                 ))
         );
       }
@@ -92,7 +92,7 @@ public class LoginForm {
                               .obscureText(true)
                               .onChanged(v -> _password = v),
                           SizedBox().height(28.0),
-                          FilledButton(this::_login)
+                          FilledButton().onPressed(this::_login)
                               .child(Text("Sign In"))
                       ))
               ))

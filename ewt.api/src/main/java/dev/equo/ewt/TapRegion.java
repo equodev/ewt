@@ -17,8 +17,8 @@ public class TapRegion extends SingleChildRenderObjectWidget implements TapRegio
   }
   TapRegion(int id) { this.id = id; }
   @Builder.Factory
-  static TapRegion tapRegionTapRegion(@Builder.Parameter WidgetI child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj.I> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
-    var st = factories.tapRegionTapRegion(child.build(),
+  static TapRegion tapRegionTapRegion(Optional<WidgetI> child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj.I> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
+    var st = factories.tapRegionTapRegion(child.map(WidgetI::build),
       enabled,
       behavior,
       onTapOutside,
@@ -31,8 +31,8 @@ public class TapRegion extends SingleChildRenderObjectWidget implements TapRegio
     if (st == null) throw new RuntimeException("Failed to created widget TapRegion");
     return new TapRegion(st);
   }
-  public static TapRegionTapRegionBuilder tapRegion(WidgetI child) {
-    return TapRegionTapRegionBuilder.tapRegionTapRegion(child);
+  public static TapRegionTapRegionBuilder tapRegion() {
+    return TapRegionTapRegionBuilder.tapRegionTapRegion();
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tapRegionEnabled not supported on web");

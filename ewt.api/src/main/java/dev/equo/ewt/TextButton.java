@@ -17,7 +17,7 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
   }
   TextButton(int id) { this.id = id; }
   @Builder.Factory
-  static TextButton textButtonTextButton(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Boolean> isSemanticButton, WidgetI child) {
+  static TextButton textButtonTextButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Boolean> isSemanticButton, WidgetI child) {
     var st = factories.textButtonTextButton(onPressed,
       onLongPress,
       onHover,
@@ -29,11 +29,11 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
     if (st == null) throw new RuntimeException("Failed to created widget TextButton");
     return new TextButton(st);
   }
-  public static TextButtonTextButtonBuilder textButton(Runnable onPressed) {
-    return TextButtonTextButtonBuilder.textButtonTextButton(onPressed);
+  public static TextButtonTextButtonBuilder textButton() {
+    return TextButtonTextButtonBuilder.textButtonTextButton();
   }
   @Builder.Factory
-  static TextButton textButtonIcon(@Builder.Parameter Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
+  static TextButton textButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
     var st = factories.textButtonIcon(onPressed,
       onLongPress,
       onHover,
@@ -46,8 +46,8 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
     if (st == null) throw new RuntimeException("Failed to created widget TextButton");
     return new TextButton(st);
   }
-  public static TextButtonIconBuilder icon(Runnable onPressed) {
-    return TextButtonIconBuilder.textButtonIcon(onPressed);
+  public static TextButtonIconBuilder icon() {
+    return TextButtonIconBuilder.textButtonIcon();
   }
   @Override
   public TextButton build() {

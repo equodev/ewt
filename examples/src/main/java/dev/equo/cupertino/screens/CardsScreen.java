@@ -91,7 +91,7 @@ class CardsState extends SubState<CardsScreen> {
                         WalletKit.iconTile(icon.get(), color.get(), 34.0),
                         SizedBox().width(12.0),
                         Expanded().child(Text(title).style(WalletPalette.rowTitle())),
-                        CupertinoSwitch(value, v -> onChanged.accept(v)).activeColor(WalletPalette.green())
+                        CupertinoSwitch(value).onChanged(v -> onChanged.accept(v)).activeColor(WalletPalette.green())
                 )));
     }
 
@@ -104,7 +104,7 @@ class CardsState extends SubState<CardsScreen> {
                                 Text("/ month").style(WalletPalette.rowSub())))
                 )),
                 SizedBox().height(6.0),
-                CupertinoSlider(limit, v -> setState(() -> limit = v))
+                CupertinoSlider(limit).onChanged(v -> setState(() -> limit = v))
                         .min(500.0).max(5000.0).divisions(18)
                         .activeColor(WalletPalette.blue())
         ))));

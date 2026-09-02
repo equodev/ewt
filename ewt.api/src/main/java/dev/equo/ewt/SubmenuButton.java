@@ -17,7 +17,7 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
   }
   SubmenuButton(int id) { this.id = id; }
   @Builder.Factory
-  static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<WidgetI> submenuIcon, Optional<Boolean> useRootOverlay, List<WidgetI> menuChildren, WidgetI child) {
+  static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<WidgetI> submenuIcon, Optional<Boolean> useRootOverlay, List<WidgetI> menuChildren, Optional<WidgetI> child) {
     var st = factories.submenuButtonSubmenuButton(onHover,
       onFocusChange,
       onOpen,
@@ -29,7 +29,7 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
       submenuIcon.map(WidgetI::build),
       useRootOverlay,
       menuChildren.stream().map(WidgetI::build).toList(),
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget SubmenuButton");
     return new SubmenuButton(st);
   }

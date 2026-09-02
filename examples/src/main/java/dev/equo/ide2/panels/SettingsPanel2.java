@@ -87,20 +87,20 @@ public class SettingsPanel2 extends SubStatelessWidget {
                                         .crossAxisAlignment(CrossAxisAlignment.stretch)
                                         .children(List.of(
                                                 sectionCaps("APPEARANCE"),
-                                                SwitchListTile(dark, v -> onTheme.accept(v))
+                                                SwitchListTile(dark).onChanged(v -> onTheme.accept(v))
                                                         .title(Text("Dark theme").style(IdePalette.ui(dark)))
                                                         .activeColor(IdePalette.accent(dark)),
 
                                                 sectionCaps("EDITOR"),
-                                                SwitchListTile(wordWrap, v -> onWordWrap.accept(v))
+                                                SwitchListTile(wordWrap).onChanged(v -> onWordWrap.accept(v))
                                                         .title(Text("Word wrap").style(IdePalette.ui(dark)))
                                                         .activeColor(IdePalette.accent(dark)),
-                                                CheckboxListTile(lineNumbers, v -> onLineNumbers.accept(v))
+                                                CheckboxListTile().value(lineNumbers).onChanged(v -> onLineNumbers.accept(v))
                                                         .title(Text("Line numbers").style(IdePalette.ui(dark)))
                                                         .activeColor(IdePalette.accent(dark)),
 
                                                 sectionCaps("PANEL"),
-                                                CheckboxListTile(panelVisible, v -> onPanelVisible.accept(v))
+                                                CheckboxListTile().value(panelVisible).onChanged(v -> onPanelVisible.accept(v))
                                                         .title(Text("Show bottom panel").style(IdePalette.ui(dark)))
                                                         .activeColor(IdePalette.accent(dark)),
                                                 heightSlider(),
@@ -127,7 +127,7 @@ public class SettingsPanel2 extends SubStatelessWidget {
                 .child(Row().children(List.of(
                         Expanded().child(Text("License expiry: 2027-01-01")
                                 .style(IdePalette.uiMuted(dark))),
-                        TextButton(() -> showDatePicker(
+                        TextButton().onPressed(() -> showDatePicker(
                                         ctx,
                                         DateTime(2026).month(1).day(1).build(),
                                         DateTime(2030).month(12).day(31).build()))
@@ -196,7 +196,7 @@ public class SettingsPanel2 extends SubStatelessWidget {
 
     private Widget filterChip(String label, boolean value, Color color, Consumer<Boolean> onChanged) {
         return Row().children(List.of(
-                Checkbox(value).onChanged(v -> onChanged.accept(v)).activeColor(color),
+                Checkbox().value(value).onChanged(v -> onChanged.accept(v)).activeColor(color),
                 SizedBox().width(4.0),
                 Text(label).style(IdePalette.ui(dark))
         ));

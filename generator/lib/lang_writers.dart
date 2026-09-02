@@ -13,9 +13,9 @@ class CLang {
 
   CLang(this.generation);
 
-  field(String name, String ret, {List<ParameterElement>? params}) {
+  field(String name, String ret, {List<ParameterElement>? params, bool relaxOnSurface = true}) {
     if (params != null) {
-      final cParams = Params(generation, params, Params.paramDef4C);
+      final cParams = Params(generation, params, Params.paramDef4C, relaxOnSurface: relaxOnSurface);
       return '$ret (*$name)(${cParams.decl.ifNotEmptyOrElse('void')});';
     } else {
       return '$ret $name;';

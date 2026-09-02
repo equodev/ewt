@@ -47,7 +47,7 @@ class BuilderExpansionGen extends ImmutableGen {
       ..writeln('      }')
       ..writeln('      p.put("children", __children);')
       ..writeln('    }');
-    for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
+    for (final param in relaxFactoryParams(node.parameters).where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
       if (param.name == 'itemBuilder' || param.name == 'itemCount') continue;
       final stmt = Params.paramValueSerialize(types, param);
       if (stmt.isNotEmpty) ctx.javaSerializer.writeln('    $stmt');

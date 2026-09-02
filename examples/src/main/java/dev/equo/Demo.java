@@ -66,8 +66,8 @@ public class Demo {
                       .border(OutlineInputBorder()))
                   .onChanged(v -> _newTag = v))
               .actions(List.of(
-                  TextButton(() -> Navigator.pop(ctx)).child(Text("Cancel")),
-                  FilledButton(() -> {
+                  TextButton().onPressed(() -> Navigator.pop(ctx)).child(Text("Cancel")),
+                  FilledButton().onPressed(() -> {
                     Navigator.pop(ctx);
                     if (!_newTag.isBlank()) setState(() -> _tags.add(_newTag));
                   }).child(Text("Add"))
@@ -132,7 +132,7 @@ public class Demo {
                               .obscureText(true)
                               .onChanged(v -> _password = v),
                           SizedBox().height(24.0),
-                          FilledButton(this::_login)
+                          FilledButton().onPressed(this::_login)
                               .child(Text("Sign in")),
                           SizedBox().height(16.0),
                           Center().child(

@@ -17,7 +17,7 @@ public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI 
   }
   CupertinoSlider(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoSlider cupertinoSliderCupertinoSlider(@Builder.Parameter double value, @Builder.Parameter Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<ColorI> activeColor, Optional<ColorI> thumbColor) {
+  static CupertinoSlider cupertinoSliderCupertinoSlider(@Builder.Parameter double value, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<ColorI> activeColor, Optional<ColorI> thumbColor) {
     var st = factories.cupertinoSliderCupertinoSlider(value,
       onChanged,
       onChangeStart,
@@ -30,8 +30,8 @@ public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI 
     if (st == null) throw new RuntimeException("Failed to created widget CupertinoSlider");
     return new CupertinoSlider(st);
   }
-  public static CupertinoSliderCupertinoSliderBuilder cupertinoSlider(double value, Consumer<Double> onChanged) {
-    return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value, onChanged);
+  public static CupertinoSliderCupertinoSliderBuilder cupertinoSlider(double value) {
+    return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value);
   }
   public double value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderValue not supported on web");

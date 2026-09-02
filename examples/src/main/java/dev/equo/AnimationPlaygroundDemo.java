@@ -118,11 +118,11 @@ public class AnimationPlaygroundDemo {
                     .runSpacing(8.0)
                     .alignment(WrapAlignment.center)
                     .children(List.of(
-                            FilledButton(this::doForward).child(Text("Reveal")),
-                            FilledButton_tonal(this::doReverse).child(Text("Hide")),
-                            OutlinedButton(mainCtrl::stop).child(Text("Stop")),
-                            OutlinedButton(this::doResume).child(Text("Resume")),
-                            ElevatedButton(mainCtrl::repeat).child(Text("Pulse"))
+                            FilledButton().onPressed(this::doForward).child(Text("Reveal")),
+                            FilledButton_tonal().onPressed(this::doReverse).child(Text("Hide")),
+                            OutlinedButton().onPressed(mainCtrl::stop).child(Text("Stop")),
+                            OutlinedButton().onPressed(this::doResume).child(Text("Resume")),
+                            ElevatedButton().onPressed(mainCtrl::repeat).child(Text("Pulse"))
                     ));
         }
 
@@ -138,7 +138,7 @@ public class AnimationPlaygroundDemo {
         }
 
         private Widget speedButton(String label, int millis) {
-            return OutlinedButton(() -> mainCtrl.setDuration(Duration().milliseconds(millis)))
+            return OutlinedButton().onPressed(() -> mainCtrl.setDuration(Duration().milliseconds(millis)))
                     .child(Text(label));
         }
 

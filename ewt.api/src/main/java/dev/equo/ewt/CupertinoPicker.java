@@ -17,7 +17,7 @@ public class CupertinoPicker extends StatefulWidget implements CupertinoPickerI 
   }
   CupertinoPicker(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoPicker cupertinoPickerCupertinoPicker(OptionalDouble diameterRatio, Optional<ColorI> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, List<WidgetI> children, Optional<WidgetI> selectionOverlay, Optional<Boolean> looping) {
+  static CupertinoPicker cupertinoPickerCupertinoPicker(OptionalDouble diameterRatio, Optional<ColorI> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Optional<Consumer<Integer>> onSelectedItemChanged, List<WidgetI> children, Optional<WidgetI> selectionOverlay, Optional<Boolean> looping) {
     var st = factories.cupertinoPickerCupertinoPicker(diameterRatio,
       backgroundColor.map(ColorI::build),
       offAxisFraction,
@@ -37,7 +37,7 @@ public class CupertinoPicker extends StatefulWidget implements CupertinoPickerI 
     return CupertinoPickerCupertinoPickerBuilder.cupertinoPickerCupertinoPicker();
   }
   @Builder.Factory
-  static CupertinoPicker cupertinoPickerBuilder(OptionalDouble diameterRatio, Optional<ColorI> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt childCount, Optional<WidgetI> selectionOverlay) {
+  static CupertinoPicker cupertinoPickerBuilder(OptionalDouble diameterRatio, Optional<ColorI> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Optional<Consumer<Integer>> onSelectedItemChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt childCount, Optional<WidgetI> selectionOverlay) {
     var st = factories.cupertinoPickerBuilder(diameterRatio,
       backgroundColor.map(ColorI::build),
       offAxisFraction,

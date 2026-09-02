@@ -70,12 +70,12 @@ public class CupertinoGallery {
                               // ── CupertinoCheckbox ───────────────────────────
                               _sectionLabel("CupertinoCheckbox"),
                               Row().children(List.of(
-                                  CupertinoCheckbox(_checkA)
+                                  CupertinoCheckbox().value(_checkA)
                                       .onChanged(v -> setState(() -> _checkA = v)),
                                   SizedBox().width(8.0),
                                   Text("Option A  "),
                                   SizedBox().width(24.0),
-                                  CupertinoCheckbox(_checkB)
+                                  CupertinoCheckbox().value(_checkB)
                                       .onChanged(v -> setState(() -> _checkB = v)),
                                   SizedBox().width(8.0),
                                   Text("Option B")
@@ -169,14 +169,12 @@ public class CupertinoGallery {
                               _sectionLabel("CupertinoSwitch / CupertinoSlider / CupertinoSearchTextField"),
                               CupertinoListSection_insetGrouped().children(List.of(
                                   CupertinoListTile(Text("Notifications"))
-                                      .trailing(CupertinoSwitch(_switchOn,
-                                          v -> setState(() -> _switchOn = v)))
+                                      .trailing(CupertinoSwitch(_switchOn).onChanged(v -> setState(() -> _switchOn = v)))
                                       // onTap is FutureOr<void> Function()? on Flutter;
                                       // the handler unwraps to plain Runnable on the Java side.
                                       .onTap(() -> setState(() -> _switchOn = !_switchOn)),
                                   CupertinoListTile(Text("Volume"))
-                                      .subtitle(CupertinoSlider(_sliderVal,
-                                          v -> setState(() -> _sliderVal = v))
+                                      .subtitle(CupertinoSlider(_sliderVal).onChanged(v -> setState(() -> _sliderVal = v))
                                           .min(0.0).max(1.0))
                               )),
                               SizedBox().height(12.0),

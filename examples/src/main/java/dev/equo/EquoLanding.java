@@ -143,7 +143,7 @@ public class EquoLanding {
         // Hover target is only the "Equo" word so the button's rounded overlay
         // stays tight around the title and doesn't cover the subtitle below.
         private Widget hoverableTitle() {
-            return TextButton(() -> {})
+            return TextButton().onPressed(() -> {})
                     .onHover(this::setSubtitleHover)
                     .child(Text("Equo").style(TextStyle()
                             .fontSize(88.0)
@@ -199,7 +199,7 @@ public class EquoLanding {
                             SizedBox().width(8.0),
                             spinningIcon
                     )));
-            return FilledButton(goToJoin)
+            return FilledButton().onPressed(goToJoin)
                     .onHover(this::setRightHover)
                     .child(content);
         }
@@ -308,7 +308,7 @@ public class EquoLanding {
                                             .color(Colors.grey().shade900()))
                             ))
                     ));
-            var hoverable = TextButton(() -> {})
+            var hoverable = TextButton().onPressed(() -> {})
                     .onHover(this::setEmailHover)
                     .child(inner);
             return ScaleTransition(scaleIn).child(hoverable);

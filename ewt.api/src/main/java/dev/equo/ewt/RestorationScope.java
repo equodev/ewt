@@ -17,14 +17,14 @@ public class RestorationScope extends StatefulWidget implements RestorationScope
   }
   RestorationScope(int id) { this.id = id; }
   @Builder.Factory
-  static RestorationScope restorationScopeRestorationScope(@Builder.Parameter String restorationId, @Builder.Parameter WidgetI child) {
+  static RestorationScope restorationScopeRestorationScope(Optional<String> restorationId, WidgetI child) {
     var st = factories.restorationScopeRestorationScope(restorationId,
       child.build());
     if (st == null) throw new RuntimeException("Failed to created widget RestorationScope");
     return new RestorationScope(st);
   }
-  public static RestorationScopeRestorationScopeBuilder restorationScope(String restorationId, WidgetI child) {
-    return RestorationScopeRestorationScopeBuilder.restorationScopeRestorationScope(restorationId, child);
+  public static RestorationScopeRestorationScopeBuilder restorationScope() {
+    return RestorationScopeRestorationScopeBuilder.restorationScopeRestorationScope();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("restorationScopeChild not supported on web");

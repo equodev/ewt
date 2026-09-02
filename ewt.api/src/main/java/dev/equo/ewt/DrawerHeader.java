@@ -17,13 +17,13 @@ public class DrawerHeader extends StatelessWidget implements DrawerHeaderI {
   }
   DrawerHeader(int id) { this.id = id; }
   @Builder.Factory
-  static DrawerHeader drawerHeaderDrawerHeader(Optional<DecorationI> decoration, Optional<EdgeInsetsGeometryI> margin, Optional<EdgeInsetsGeometryI> padding, Optional<DurationI> duration, Optional<CurveI> curve, WidgetI child) {
+  static DrawerHeader drawerHeaderDrawerHeader(Optional<DecorationI> decoration, Optional<EdgeInsetsGeometryI> margin, Optional<EdgeInsetsGeometryI> padding, Optional<DurationI> duration, Optional<CurveI> curve, Optional<WidgetI> child) {
     var st = factories.drawerHeaderDrawerHeader(decoration.map(DecorationI::build),
       margin.map(EdgeInsetsGeometryI::build),
       padding.map(EdgeInsetsGeometryI::build),
       duration.map(DurationI::build),
       curve.map(CurveI::build),
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget DrawerHeader");
     return new DrawerHeader(st);
   }

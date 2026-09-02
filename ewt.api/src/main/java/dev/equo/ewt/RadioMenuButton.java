@@ -17,7 +17,7 @@ public class RadioMenuButton<T> extends StatelessWidget implements RadioMenuButt
   }
   RadioMenuButton(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> RadioMenuButton<T> radioMenuButtonRadioMenuButton(@Builder.Parameter NativeObj value, @Builder.Parameter NativeObj groupValue, @Builder.Parameter Consumer<NativeObj> onChanged, Optional<Boolean> toggleable, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<WidgetI> trailingIcon, Optional<Boolean> closeOnActivate, WidgetI child) {
+  static <T extends NativeObj> RadioMenuButton<T> radioMenuButtonRadioMenuButton(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<WidgetI> trailingIcon, Optional<Boolean> closeOnActivate, Optional<WidgetI> child) {
     var st = factories.radioMenuButtonRadioMenuButton(value,
       groupValue,
       onChanged,
@@ -27,12 +27,12 @@ public class RadioMenuButton<T> extends StatelessWidget implements RadioMenuButt
       clipBehavior,
       trailingIcon.map(WidgetI::build),
       closeOnActivate,
-      child.build());
+      child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget RadioMenuButton");
     return new RadioMenuButton(st);
   }
-  public static <T extends NativeObj> RadioMenuButtonRadioMenuButtonBuilder<T> radioMenuButton(NativeObj value, NativeObj groupValue, Consumer<NativeObj> onChanged) {
-    return RadioMenuButtonRadioMenuButtonBuilder.radioMenuButtonRadioMenuButton(value, groupValue, onChanged);
+  public static <T extends NativeObj> RadioMenuButtonRadioMenuButtonBuilder<T> radioMenuButton(NativeObj value) {
+    return RadioMenuButtonRadioMenuButtonBuilder.radioMenuButtonRadioMenuButton(value);
   }
   public boolean toggleable() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioMenuButtonToggleable not supported on web");

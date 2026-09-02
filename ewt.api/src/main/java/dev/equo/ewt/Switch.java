@@ -17,7 +17,7 @@ public class Switch extends StatelessWidget implements SwitchI {
   }
   Switch(int id) { this.id = id; }
   @Builder.Factory
-  static Switch switch_Switch_(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding) {
+  static Switch switch_Switch_(@Builder.Parameter boolean value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding) {
     var st = factories.switch_Switch_(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -42,11 +42,11 @@ public class Switch extends StatelessWidget implements SwitchI {
     if (st == null) throw new RuntimeException("Failed to created widget Switch");
     return new Switch(st);
   }
-  public static Switch_Switch_Builder switch_(boolean value, Consumer<Boolean> onChanged) {
-    return Switch_Switch_Builder.switch_Switch_(value, onChanged);
+  public static Switch_Switch_Builder switch_(boolean value) {
+    return Switch_Switch_Builder.switch_Switch_(value);
   }
   @Builder.Factory
-  static Switch switch_Adaptive(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> applyCupertinoTheme) {
+  static Switch switch_Adaptive(@Builder.Parameter boolean value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> activeThumbColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveThumbColor, Optional<ColorI> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<ColorI> thumbColor, Optional<ColorI> trackColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<DragStartBehavior> dragStartBehavior, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> applyCupertinoTheme) {
     var st = factories.switch_Adaptive(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -72,8 +72,8 @@ public class Switch extends StatelessWidget implements SwitchI {
     if (st == null) throw new RuntimeException("Failed to created widget Switch");
     return new Switch(st);
   }
-  public static Switch_AdaptiveBuilder adaptive(boolean value, Consumer<Boolean> onChanged) {
-    return Switch_AdaptiveBuilder.switch_Adaptive(value, onChanged);
+  public static Switch_AdaptiveBuilder adaptive(boolean value) {
+    return Switch_AdaptiveBuilder.switch_Adaptive(value);
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("switch_Value not supported on web");

@@ -94,7 +94,7 @@ public class EditorArea extends SubStatelessWidget {
         // TextButton wraps the pill so we get Material hover feedback (an
         // inset overlay) at no cost. onHover is a no-op — the hover paint
         // is entirely driven by the button's built-in Material state.
-        return TextButton(() -> onSelectTab.accept(i))
+        return TextButton().onPressed(() -> onSelectTab.accept(i))
                 .onHover(hovering -> {})
                 .child(content);
     }

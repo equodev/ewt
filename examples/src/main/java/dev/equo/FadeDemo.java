@@ -57,7 +57,7 @@ public class FadeDemo {
         }
 
         private Widget button(String label, Runnable action) {
-            return ElevatedButton(action).child(Text(label));
+            return ElevatedButton().onPressed(action).child(Text(label));
         }
     }
 }

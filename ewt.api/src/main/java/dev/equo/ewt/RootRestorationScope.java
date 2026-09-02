@@ -17,14 +17,14 @@ public class RootRestorationScope extends StatefulWidget implements RootRestorat
   }
   RootRestorationScope(int id) { this.id = id; }
   @Builder.Factory
-  static RootRestorationScope rootRestorationScopeRootRestorationScope(@Builder.Parameter String restorationId, @Builder.Parameter WidgetI child) {
+  static RootRestorationScope rootRestorationScopeRootRestorationScope(Optional<String> restorationId, WidgetI child) {
     var st = factories.rootRestorationScopeRootRestorationScope(restorationId,
       child.build());
     if (st == null) throw new RuntimeException("Failed to created widget RootRestorationScope");
     return new RootRestorationScope(st);
   }
-  public static RootRestorationScopeRootRestorationScopeBuilder rootRestorationScope(String restorationId, WidgetI child) {
-    return RootRestorationScopeRootRestorationScopeBuilder.rootRestorationScopeRootRestorationScope(restorationId, child);
+  public static RootRestorationScopeRootRestorationScopeBuilder rootRestorationScope() {
+    return RootRestorationScopeRootRestorationScopeBuilder.rootRestorationScopeRootRestorationScope();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rootRestorationScopeChild not supported on web");

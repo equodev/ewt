@@ -17,8 +17,8 @@ public class TextFieldTapRegion extends TapRegion implements TextFieldTapRegionI
   }
   TextFieldTapRegion(int id) { this.id = id; }
   @Builder.Factory
-  static TextFieldTapRegion textFieldTapRegionTextFieldTapRegion(@Builder.Parameter WidgetI child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj.I> groupId) {
-    var st = factories.textFieldTapRegionTextFieldTapRegion(child.build(),
+  static TextFieldTapRegion textFieldTapRegionTextFieldTapRegion(Optional<WidgetI> child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj.I> groupId) {
+    var st = factories.textFieldTapRegionTextFieldTapRegion(child.map(WidgetI::build),
       enabled,
       onTapOutside,
       onTapInside,
@@ -30,8 +30,8 @@ public class TextFieldTapRegion extends TapRegion implements TextFieldTapRegionI
     if (st == null) throw new RuntimeException("Failed to created widget TextFieldTapRegion");
     return new TextFieldTapRegion(st);
   }
-  public static TextFieldTapRegionTextFieldTapRegionBuilder textFieldTapRegion(WidgetI child) {
-    return TextFieldTapRegionTextFieldTapRegionBuilder.textFieldTapRegionTextFieldTapRegion(child);
+  public static TextFieldTapRegionTextFieldTapRegionBuilder textFieldTapRegion() {
+    return TextFieldTapRegionTextFieldTapRegionBuilder.textFieldTapRegionTextFieldTapRegion();
   }
   @Override
   public TextFieldTapRegion build() {

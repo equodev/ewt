@@ -66,10 +66,10 @@ class SlideTransitionPageState extends SubAnimatedState<SlideTransitionPage> {
                                                         .spacing(10.0).runSpacing(10.0)
                                                         .alignment(WrapAlignment.center)
                                                         .children(List.of(
-                                                                FilledButton(ctrl::forward).child(Text("Slide In")),
-                                                                FilledButton_tonal(ctrl::reverse).child(Text("Slide Out")),
-                                                                OutlinedButton(ctrl::repeat).child(Text("Bounce")),
-                                                                OutlinedButton(ctrl::reset).child(Text("Reset"))
+                                                                FilledButton().onPressed(ctrl::forward).child(Text("Slide In")),
+                                                                FilledButton_tonal().onPressed(ctrl::reverse).child(Text("Slide Out")),
+                                                                OutlinedButton().onPressed(ctrl::repeat).child(Text("Bounce")),
+                                                                OutlinedButton().onPressed(ctrl::reset).child(Text("Reset"))
                                                         )),
                                                 SizedBox().height(24.0),
                                                 Text("Speed").style(Palette.sectionTitle()),
@@ -85,7 +85,7 @@ class SlideTransitionPageState extends SubAnimatedState<SlideTransitionPage> {
     }
 
     private Widget speedBtn(String label, int millis) {
-        return OutlinedButton(() -> ctrl.setDuration(Duration().milliseconds(millis)))
+        return OutlinedButton().onPressed(() -> ctrl.setDuration(Duration().milliseconds(millis)))
                 .child(Text(label));
     }
 

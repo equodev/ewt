@@ -109,7 +109,7 @@ public class LayoutWidgetsGallery {
           tile("RotatedBox (1 turn)", RotatedBox(1).child(Text("rot"))),
           tile("Visibility (toggle below)",
               Visibility(rect(40.0, 40.0, Colors.deepPurple())).visible(_visible)),
-          SwitchListTile(_visible, v -> setState(() -> _visible = v))
+          SwitchListTile(_visible).onChanged(v -> setState(() -> _visible = v))
               .title(Text("Visibility.visible")),
           Divider(),
 
@@ -119,13 +119,13 @@ public class LayoutWidgetsGallery {
           Padding(EdgeInsets_symmetric().vertical(8.0)).child(
               Row().children(List.of(
                   Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
-                      OutlinedButton(() -> setState(() -> _normalTaps++)).child(Text("tap me")),
+                      OutlinedButton().onPressed(() -> setState(() -> _normalTaps++)).child(Text("tap me")),
                       Text("taps: " + _normalTaps)
                   )),
                   SizedBox().width(48.0),
                   Column().crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
                       AbsorbPointer().child(
-                          OutlinedButton(() -> setState(() -> _normalTaps++)).child(Text("absorbed"))
+                          OutlinedButton().onPressed(() -> setState(() -> _normalTaps++)).child(Text("absorbed"))
                       ),
                       Text("taps: 0 (blocked)")
                   ))
@@ -231,7 +231,7 @@ public class LayoutWidgetsGallery {
           tile("MaterialBanner",
               SizedBox().width(280.0).child(MaterialBanner(Text("Something happened."))
                   .leading(Icon(Icons.info()))
-                  .addActions(TextButton(() -> setState(() -> _lastTap = "banner")).child(Text("OK")).build())
+                  .addActions(TextButton().onPressed(() -> setState(() -> _lastTap = "banner")).child(Text("OK")).build())
                   .backgroundColor(Colors.amber()))),
           tile("Reorderable listeners",
               Row().children(List.of(
@@ -266,7 +266,7 @@ public class LayoutWidgetsGallery {
                       .duration(Duration().milliseconds(300).build())
                       .child(ColoredBox(Colors.teal()).build()).build())),
           tile("TapRegion (log outside taps)",
-              TapRegion(rect(80.0, 32.0, Colors.blueGrey()).build())
+              TapRegion().child(rect(80.0, 32.0, Colors.blueGrey()).build())
                   .onTapOutside(e -> setState(() -> _lastTap = "outside"))),
           Divider(),
 

@@ -13,7 +13,7 @@ extension _JavaEmit on WidgetGen {
   /// [WidgetGen.writeInstanceMethod].
   void writeJavaInstanceMethod(FunctionTypedElement node, String factoryName, String factory) {
     final restParams = node.parameters.skip(1).toList();
-    final restRequired = restParams.where((p) => !p.isOptional).toList();
+    final restRequired = restParams.where((p) => !p.isOptionalOnSurface).toList();
     final jParamsDecl = Params(types, restRequired, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsValuesOpt = Params(types, restParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
@@ -45,7 +45,7 @@ extension _JavaEmit on WidgetGen {
   /// user-facing; the FFM factory receives them verbatim. The Dart-side
   /// companion body performs the `Target.of(context).X(...)` dispatch.
   void writeJavaStaticContextMethod(FunctionTypedElement node, String factoryName, String factory) {
-    final requiredParams = node.parameters.where((p) => !p.isOptional).toList();
+    final requiredParams = node.parameters.where((p) => !p.isOptionalOnSurface).toList();
     final jParamsDecl = Params(types, requiredParams, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsCall = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
@@ -71,7 +71,7 @@ extension _JavaEmit on WidgetGen {
   /// whose returned widget/value is threaded through Immutables (via
   /// [writeJavaInstanceBody]).
   void writeJavaFactoryForStatic(FunctionTypedElement node, String factoryName, String factory) {
-    var params = node.parameters.where((p) => !p.isOptional).toList();
+    var params = node.parameters.where((p) => !p.isOptionalOnSurface).toList();
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsDecl = Params(types, params, Params.paramDef4JBuilder, paramValue: Params.paramValue4JBuilder, escape: Params.escape4J);
     final jParamsValuesOpt = Params(types, node.parameters, Params.paramDef4JBuilder, paramValue: Params.paramValue4JOptional, escape: Params.escape4J);
@@ -133,7 +133,10 @@ extension _JavaEmit on WidgetGen {
       ..writeln('    int id = nextId++;')
       ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
 
-    for (final param in node.parameters.where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
+    // Relax `{required T?}` before dispatch so `Params.paramValueSerialize`'s
+    // `.isPresent()` / `.ifPresent()` branches match the Optional-wrapped
+    // signature emitted by jParamsFFM.decl above (issue #44).
+    for (final param in relaxFactoryParams(node.parameters).where((p) => types.supportedType(p.type) && !hasPrivateDefault(p))) {
       final stmt = Params.paramValueSerialize(types, param);
       if (stmt.isNotEmpty) {
         ctx.javaSerializer.writeln('    $stmt');

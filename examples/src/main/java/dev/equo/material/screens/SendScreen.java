@@ -58,7 +58,7 @@ class SendState extends SubState<SendScreen> {
                 SizedBox().height(24.0),
                 Padding(EdgeInsets_symmetric().horizontal(16.0).build()).child(
                         Row().children(List.of(Expanded().child(
-                                FilledButton(() -> setState(() -> sent = true))
+                                FilledButton().onPressed(() -> setState(() -> sent = true))
                                         .child(Padding(EdgeInsets_symmetric().vertical(14.0).build())
                                                 .child(Text("Send $" + AMOUNTS[amountIndex])
                                                         .style(TextStyle().fontSize(16.0)
@@ -122,7 +122,7 @@ class SendState extends SubState<SendScreen> {
                 SizedBox().height(4.0),
                 Text("to Alex Kim").style(WalletPalette.rowSub()),
                 SizedBox().height(28.0),
-                TextButton(() -> setState(() -> sent = false))
+                TextButton().onPressed(() -> setState(() -> sent = false))
                         .child(Text("New Transfer").style(TextStyle().fontSize(16.0)
                                 .color(WalletPalette.primary())))
         )));

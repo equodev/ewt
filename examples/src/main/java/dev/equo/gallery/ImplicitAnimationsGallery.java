@@ -86,7 +86,7 @@ public class ImplicitAnimationsGallery {
                               .duration(_dur()).child(dot(Colors.orange())))),
 
                       Divider(),
-                      SwitchListTile(_on, v -> setState(() -> _on = v))
+                      SwitchListTile(_on).onChanged(v -> setState(() -> _on = v))
                           .title(Text("Same state, as a switch"))
                   )))));
     }

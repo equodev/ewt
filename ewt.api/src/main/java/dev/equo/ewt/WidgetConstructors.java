@@ -2738,12 +2738,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(radius));
   }
 
-  MemorySegment expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Consumer<Boolean> onPressed, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> expandedColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
+  MemorySegment expandIconExpandIcon(Optional<Boolean> isExpanded, OptionalDouble size, Optional<Consumer<Boolean>> onPressed, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> expandedColor, Optional<Color> splashColor, Optional<Color> highlightColor) {
     var st = WidgetFactories.expandIcon(factories);
     var fn = WidgetFactories.ExpandIconSt.expandIcon(st);
     return WidgetFactories.ExpandIconSt.expandIcon.invoke(fn, arena, ptrBool(isExpanded),
       ptr(size),
-      ptrValueChangedForBoolFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onPressed.get())) : MemorySegment.NULL,
       ptrObj(padding),
       ptrObj(color),
       ptrObj(disabledColor),
@@ -2865,7 +2865,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(hitTestBehavior));
   }
 
-  MemorySegment drawerHeaderDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, Optional<Duration> duration, Optional<Curve> curve, Widget child) {
+  MemorySegment drawerHeaderDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, Optional<Duration> duration, Optional<Curve> curve, Optional<Widget> child) {
     var st = WidgetFactories.drawerHeader(factories);
     var fn = WidgetFactories.DrawerHeaderSt.drawerHeader(st);
     return WidgetFactories.DrawerHeaderSt.drawerHeader.invoke(fn, arena, ptrObj(decoration),
@@ -2873,7 +2873,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(padding),
       ptrObj(duration),
       ptrObj(curve),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
 
   MemorySegment selectionAreaSelectionArea(Widget child) {
@@ -3070,7 +3070,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.filterChip(factories);
     var fn = WidgetFactories.FilterChipSt.filterChip(st);
     return WidgetFactories.FilterChipSt.filterChip.invoke(fn, arena, ptrObj(avatar),
@@ -3078,7 +3078,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(labelStyle),
       ptrObj(labelPadding),
       ptrBool(selected),
-      ptrValueChangedForBoolFn(onSelected),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
       ptrObj(deleteIcon),
       onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
       ptrObj(deleteIconColor),
@@ -3106,7 +3106,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(avatarBoxConstraints),
       ptrObj(deleteIconBoxConstraints));
   }
-  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Consumer<Boolean> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.filterChip(factories);
     var fn = WidgetFactories.FilterChipSt.elevated(st);
     return WidgetFactories.FilterChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
@@ -3114,7 +3114,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(labelStyle),
       ptrObj(labelPadding),
       ptrBool(selected),
-      ptrValueChangedForBoolFn(onSelected),
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
       ptrObj(deleteIcon),
       onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
       ptrObj(deleteIconColor),
@@ -3543,10 +3543,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(constraints),
       ptrObj(visualDensity));
   }
-  MemorySegment inputDecorationCollapsed(String hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
+  MemorySegment inputDecorationCollapsed(Optional<String> hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
     var st = WidgetFactories.inputDecoration(factories);
     var fn = WidgetFactories.InputDecorationSt.collapsed(st);
-    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, arena.allocateFrom(hintText),
+    return WidgetFactories.InputDecorationSt.collapsed.invoke(fn, arena, ptrStr(hintText),
       ptrEnum(floatingLabelBehavior),
       ptrObj(hintStyle),
       ptrObj(hint),
@@ -3569,15 +3569,15 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.InputBorderSt.none(st);
   }
 
-  MemorySegment userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<Widget> currentAccountPicture, Optional<List<Widget>> otherAccountsPictures, Widget accountName, Widget accountEmail, Optional<Runnable> onDetailsPressed, Optional<Color> arrowColor) {
+  MemorySegment userAccountsDrawerHeaderUserAccountsDrawerHeader(Optional<Decoration> decoration, Optional<EdgeInsetsGeometry> margin, Optional<Widget> currentAccountPicture, Optional<List<Widget>> otherAccountsPictures, Optional<Widget> accountName, Optional<Widget> accountEmail, Optional<Runnable> onDetailsPressed, Optional<Color> arrowColor) {
     var st = WidgetFactories.userAccountsDrawerHeader(factories);
     var fn = WidgetFactories.UserAccountsDrawerHeaderSt.userAccountsDrawerHeader(st);
     return WidgetFactories.UserAccountsDrawerHeaderSt.userAccountsDrawerHeader.invoke(fn, arena, ptrObj(decoration),
       ptrObj(margin),
       ptrObj(currentAccountPicture),
       ptrList(otherAccountsPictures),
-      accountName != null ? accountName.build().getId() : null,
-      accountEmail != null ? accountEmail.build().getId() : null,
+      ptrObj(accountName),
+      ptrObj(accountEmail),
       onDetailsPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDetailsPressed.get())) : MemorySegment.NULL,
       ptrObj(arrowColor));
   }
@@ -3705,17 +3705,17 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ErrorWidgetSt.withDetails.invoke(fn, arena, ptrStr(message));
   }
 
-  MemorySegment restorationScopeRestorationScope(String restorationId, Widget child) {
+  MemorySegment restorationScopeRestorationScope(Optional<String> restorationId, Widget child) {
     var st = WidgetFactories.restorationScope(factories);
     var fn = WidgetFactories.RestorationScopeSt.restorationScope(st);
-    return WidgetFactories.RestorationScopeSt.restorationScope.invoke(fn, arena, arena.allocateFrom(restorationId),
+    return WidgetFactories.RestorationScopeSt.restorationScope.invoke(fn, arena, ptrStr(restorationId),
       child.build().getId());
   }
 
-  MemorySegment rootRestorationScopeRootRestorationScope(String restorationId, Widget child) {
+  MemorySegment rootRestorationScopeRootRestorationScope(Optional<String> restorationId, Widget child) {
     var st = WidgetFactories.rootRestorationScope(factories);
     var fn = WidgetFactories.RootRestorationScopeSt.rootRestorationScope(st);
-    return WidgetFactories.RootRestorationScopeSt.rootRestorationScope.invoke(fn, arena, arena.allocateFrom(restorationId),
+    return WidgetFactories.RootRestorationScopeSt.rootRestorationScope.invoke(fn, arena, ptrStr(restorationId),
       child.build().getId());
   }
 
@@ -3727,10 +3727,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
-  MemorySegment tapRegionTapRegion(Widget child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
+  MemorySegment tapRegionTapRegion(Optional<Widget> child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
     var st = WidgetFactories.tapRegion(factories);
     var fn = WidgetFactories.TapRegionSt.tapRegion(st);
-    return WidgetFactories.TapRegionSt.tapRegion.invoke(fn, arena, child != null ? child.build().getId() : null,
+    return WidgetFactories.TapRegionSt.tapRegion.invoke(fn, arena, ptrObj(child),
       ptrBool(enabled),
       ptrEnum(behavior),
       onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
@@ -3742,10 +3742,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(debugLabel));
   }
 
-  MemorySegment textFieldTapRegionTextFieldTapRegion(Widget child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj> groupId) {
+  MemorySegment textFieldTapRegionTextFieldTapRegion(Optional<Widget> child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj> groupId) {
     var st = WidgetFactories.textFieldTapRegion(factories);
     var fn = WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion(st);
-    return WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion.invoke(fn, arena, child != null ? child.build().getId() : null,
+    return WidgetFactories.TextFieldTapRegionSt.textFieldTapRegion.invoke(fn, arena, ptrObj(child),
       ptrBool(enabled),
       onTapOutside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapOutside.get())) : MemorySegment.NULL,
       onTapInside.isPresent() ? ptrHolder(ptrTapRegionCallbackFn(onTapInside.get())) : MemorySegment.NULL,
@@ -4263,7 +4263,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(animateColor));
   }
 
-  MemorySegment iconButtonIconButton(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonIconButton(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.iconButton(st);
     return WidgetFactories.IconButtonSt.iconButton.invoke(fn, arena, ptr(iconSize),
@@ -4277,7 +4277,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor),
       ptrObj(splashColor),
       ptrObj(disabledColor),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -4288,7 +4288,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectedIcon),
       icon.build().getId());
   }
-  MemorySegment iconButtonFilled(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonFilled(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.filled(st);
     return WidgetFactories.IconButtonSt.filled.invoke(fn, arena, ptr(iconSize),
@@ -4302,7 +4302,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor),
       ptrObj(splashColor),
       ptrObj(disabledColor),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -4313,7 +4313,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectedIcon),
       icon.build().getId());
   }
-  MemorySegment iconButtonFilledTonal(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonFilledTonal(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.filledTonal(st);
     return WidgetFactories.IconButtonSt.filledTonal.invoke(fn, arena, ptr(iconSize),
@@ -4327,7 +4327,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor),
       ptrObj(splashColor),
       ptrObj(disabledColor),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -4338,7 +4338,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(selectedIcon),
       icon.build().getId());
   }
-  MemorySegment iconButtonOutlined(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Runnable onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
+  MemorySegment iconButtonOutlined(OptionalDouble iconSize, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, OptionalDouble splashRadius, Optional<Color> color, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Color> disabledColor, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Runnable> onLongPress, Optional<Boolean> autofocus, Optional<String> tooltip, Optional<Boolean> enableFeedback, Optional<BoxConstraints> constraints, Optional<Boolean> isSelected, Optional<Widget> selectedIcon, Widget icon) {
     var st = WidgetFactories.iconButton(factories);
     var fn = WidgetFactories.IconButtonSt.outlined(st);
     return WidgetFactories.IconButtonSt.outlined.invoke(fn, arena, ptr(iconSize),
@@ -4352,7 +4352,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor),
       ptrObj(splashColor),
       ptrObj(disabledColor),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
@@ -4487,7 +4487,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(useInheritedMediaQuery));
   }
 
-  MemorySegment floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<Boolean> mini, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonFloatingActionButton(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<Runnable> onPressed, Optional<Boolean> mini, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> isExtended, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.floatingActionButton(st);
     return WidgetFactories.FloatingActionButtonSt.floatingActionButton.invoke(fn, arena, ptrObj(child),
@@ -4503,7 +4503,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(hoverElevation),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       ptrBool(mini),
       ptrObj(shape),
       ptrEnum(clipBehavior),
@@ -4512,7 +4512,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(isExtended),
       ptrBool(enableFeedback));
   }
-  MemorySegment floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonSmall(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<Runnable> onPressed, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.small(st);
     return WidgetFactories.FloatingActionButtonSt.small.invoke(fn, arena, ptrObj(child),
@@ -4528,14 +4528,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(hoverElevation),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       ptrObj(shape),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  MemorySegment floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonLarge(Optional<Widget> child, Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<Runnable> onPressed, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.large(st);
     return WidgetFactories.FloatingActionButtonSt.large.invoke(fn, arena, ptrObj(child),
@@ -4551,14 +4551,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(hoverElevation),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       ptrObj(shape),
       ptrEnum(clipBehavior),
       ptrBool(autofocus),
       ptrEnum(materialTapTargetSize),
       ptrBool(enableFeedback));
   }
-  MemorySegment floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Runnable onPressed, Optional<ShapeBorder> shape, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometry> extendedPadding, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
+  MemorySegment floatingActionButtonExtended(Optional<String> tooltip, Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<NativeObj> heroTag, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, Optional<Color> splashColor, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<Runnable> onPressed, Optional<ShapeBorder> shape, Optional<Boolean> isExtended, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometry> extendedPadding, Optional<TextStyle> extendedTextStyle, Optional<Widget> icon, Widget label, Optional<Boolean> enableFeedback) {
     var st = WidgetFactories.floatingActionButton(factories);
     var fn = WidgetFactories.FloatingActionButtonSt.extended(st);
     return WidgetFactories.FloatingActionButtonSt.extended.invoke(fn, arena, ptrStr(tooltip),
@@ -4573,7 +4573,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(splashColor),
       ptr(highlightElevation),
       ptr(disabledElevation),
-      ptrVoidCallbackFn(onPressed),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       ptrObj(shape),
       ptrBool(isExtended),
       ptrEnum(materialTapTargetSize),
@@ -4609,21 +4609,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ThemeSt.maybeBrightnessOf.invoke(fn, context.build().getId());
   }
 
-  MemorySegment elevatedButtonElevatedButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+  MemorySegment elevatedButtonElevatedButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> child) {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.elevatedButton(st);
-    return WidgetFactories.ElevatedButtonSt.elevatedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.ElevatedButtonSt.elevatedButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrEnum(clipBehavior),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
-  MemorySegment elevatedButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+  MemorySegment elevatedButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.elevatedButton(factories);
     var fn = WidgetFactories.ElevatedButtonSt.icon(st);
-    return WidgetFactories.ElevatedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.ElevatedButtonSt.icon.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
@@ -4634,21 +4634,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(iconAlignment));
   }
 
-  MemorySegment outlinedButtonOutlinedButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+  MemorySegment outlinedButtonOutlinedButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> child) {
     var st = WidgetFactories.outlinedButton(factories);
     var fn = WidgetFactories.OutlinedButtonSt.outlinedButton(st);
-    return WidgetFactories.OutlinedButtonSt.outlinedButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.OutlinedButtonSt.outlinedButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrEnum(clipBehavior),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
-  MemorySegment outlinedButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+  MemorySegment outlinedButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.outlinedButton(factories);
     var fn = WidgetFactories.OutlinedButtonSt.icon(st);
-    return WidgetFactories.OutlinedButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.OutlinedButtonSt.icon.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
@@ -4659,10 +4659,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(iconAlignment));
   }
 
-  MemorySegment textButtonTextButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Boolean> isSemanticButton, Widget child) {
+  MemorySegment textButtonTextButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Boolean> isSemanticButton, Widget child) {
     var st = WidgetFactories.textButton(factories);
     var fn = WidgetFactories.TextButtonSt.textButton(st);
-    return WidgetFactories.TextButtonSt.textButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.TextButtonSt.textButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
@@ -4671,10 +4671,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(isSemanticButton),
       child.build().getId());
   }
-  MemorySegment textButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+  MemorySegment textButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.textButton(factories);
     var fn = WidgetFactories.TextButtonSt.icon(st);
-    return WidgetFactories.TextButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.TextButtonSt.icon.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
@@ -4917,21 +4917,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(width));
   }
 
-  MemorySegment filledButtonFilledButton(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+  MemorySegment filledButtonFilledButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> child) {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.filledButton(st);
-    return WidgetFactories.FilledButtonSt.filledButton.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.FilledButtonSt.filledButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrEnum(clipBehavior),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
-  MemorySegment filledButtonIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+  MemorySegment filledButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.icon(st);
-    return WidgetFactories.FilledButtonSt.icon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.FilledButtonSt.icon.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
@@ -4941,21 +4941,21 @@ class WidgetConstructors extends WidgetConstructorsBase {
       label.build().getId(),
       ptrEnum(iconAlignment));
   }
-  MemorySegment filledButtonTonal(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Widget child) {
+  MemorySegment filledButtonTonal(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> child) {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.tonal(st);
-    return WidgetFactories.FilledButtonSt.tonal.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.FilledButtonSt.tonal.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       ptrEnum(clipBehavior),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
-  MemorySegment filledButtonTonalIcon(Runnable onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
+  MemorySegment filledButtonTonalIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Widget> icon, Widget label, Optional<IconAlignment> iconAlignment) {
     var st = WidgetFactories.filledButton(factories);
     var fn = WidgetFactories.FilledButtonSt.tonalIcon(st);
-    return WidgetFactories.FilledButtonSt.tonalIcon.invoke(fn, arena, ptrVoidCallbackFn(onPressed),
+    return WidgetFactories.FilledButtonSt.tonalIcon.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
@@ -5292,12 +5292,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(year2023));
   }
 
-  MemorySegment checkboxCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  MemorySegment checkboxCheckbox(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     var st = WidgetFactories.checkbox(factories);
     var fn = WidgetFactories.CheckboxSt.checkbox(st);
-    return WidgetFactories.CheckboxSt.checkbox.invoke(fn, arena, (value ? 1 : 0),
+    return WidgetFactories.CheckboxSt.checkbox.invoke(fn, arena, ptrBool(value),
       ptrBool(tristate),
-      ptrValueChangedForBoolOptFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(fillColor),
       ptrObj(checkColor),
@@ -5313,12 +5313,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(isError),
       ptrStr(semanticLabel));
   }
-  MemorySegment checkboxAdaptive(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
+  MemorySegment checkboxAdaptive(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<OutlinedBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<String> semanticLabel) {
     var st = WidgetFactories.checkbox(factories);
     var fn = WidgetFactories.CheckboxSt.adaptive(st);
-    return WidgetFactories.CheckboxSt.adaptive.invoke(fn, arena, (value ? 1 : 0),
+    return WidgetFactories.CheckboxSt.adaptive.invoke(fn, arena, ptrBool(value),
       ptrBool(tristate),
-      ptrValueChangedForBoolOptFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(fillColor),
       ptrObj(checkColor),
@@ -5335,11 +5335,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(semanticLabel));
   }
 
-  MemorySegment switch_Switch_(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding) {
+  MemorySegment switch_Switch_(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding) {
     var st = WidgetFactories.switch_(factories);
     var fn = WidgetFactories.SwitchSt.switch_(st);
     return WidgetFactories.SwitchSt.switch_.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(activeThumbColor),
       ptrObj(activeTrackColor),
@@ -5360,11 +5360,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(autofocus),
       ptrObj(padding));
   }
-  MemorySegment switch_Adaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> applyCupertinoTheme) {
+  MemorySegment switch_Adaptive(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> applyCupertinoTheme) {
     var st = WidgetFactories.switch_(factories);
     var fn = WidgetFactories.SwitchSt.adaptive(st);
     return WidgetFactories.SwitchSt.adaptive.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(activeThumbColor),
       ptrObj(activeTrackColor),
@@ -5387,12 +5387,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(applyCupertinoTheme));
   }
 
-  MemorySegment sliderSlider(double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> year2023) {
+  MemorySegment sliderSlider(double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> year2023) {
     var st = WidgetFactories.slider(factories);
     var fn = WidgetFactories.SliderSt.slider(st);
     return WidgetFactories.SliderSt.slider.invoke(fn, arena, value,
       ptr(secondaryTrackValue),
-      ptrValueChangedForDoubleFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChanged.get())) : MemorySegment.NULL,
       onChangeStart.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeStart.get())) : MemorySegment.NULL,
       onChangeEnd.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeEnd.get())) : MemorySegment.NULL,
       ptr(min),
@@ -5410,12 +5410,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(padding),
       ptrBool(year2023));
   }
-  MemorySegment sliderAdaptive(double value, OptionalDouble secondaryTrackValue, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
+  MemorySegment sliderAdaptive(double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
     var st = WidgetFactories.slider(factories);
     var fn = WidgetFactories.SliderSt.adaptive(st);
     return WidgetFactories.SliderSt.adaptive.invoke(fn, arena, value,
       ptr(secondaryTrackValue),
-      ptrValueChangedForDoubleFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChanged.get())) : MemorySegment.NULL,
       onChangeStart.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeStart.get())) : MemorySegment.NULL,
       onChangeEnd.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeEnd.get())) : MemorySegment.NULL,
       ptr(min),
@@ -5565,11 +5565,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(animationDuration));
   }
 
-  MemorySegment checkboxListTileCheckboxListTile(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment checkboxListTileCheckboxListTile(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = WidgetFactories.checkboxListTile(factories);
     var fn = WidgetFactories.CheckboxListTileSt.checkboxListTile(st);
-    return WidgetFactories.CheckboxListTileSt.checkboxListTile.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolOptFn(onChanged),
+    return WidgetFactories.CheckboxListTileSt.checkboxListTile.invoke(fn, arena, ptrBool(value),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(fillColor),
       ptrObj(checkColor),
@@ -5602,11 +5602,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(titleAlignment),
       ptrBool(internalAddSemanticForOnTap));
   }
-  MemorySegment checkboxListTileAdaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment checkboxListTileAdaptive(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = WidgetFactories.checkboxListTile(factories);
     var fn = WidgetFactories.CheckboxListTileSt.adaptive(st);
-    return WidgetFactories.CheckboxListTileSt.adaptive.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolOptFn(onChanged),
+    return WidgetFactories.CheckboxListTileSt.adaptive.invoke(fn, arena, ptrBool(value),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(fillColor),
       ptrObj(checkColor),
@@ -5640,11 +5640,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(internalAddSemanticForOnTap));
   }
 
-  MemorySegment switchListTileSwitchListTile(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment switchListTileSwitchListTile(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = WidgetFactories.switchListTile(factories);
     var fn = WidgetFactories.SwitchListTileSt.switchListTile(st);
     return WidgetFactories.SwitchListTileSt.switchListTile.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(activeThumbColor),
       ptrObj(activeTrackColor),
@@ -5676,11 +5676,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(hoverColor),
       ptrBool(internalAddSemanticForOnTap));
   }
-  MemorySegment switchListTileAdaptive(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment switchListTileAdaptive(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = WidgetFactories.switchListTile(factories);
     var fn = WidgetFactories.SwitchListTileSt.adaptive(st);
     return WidgetFactories.SwitchListTileSt.adaptive.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(activeThumbColor),
       ptrObj(activeTrackColor),
@@ -6140,7 +6140,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor));
   }
 
-  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, int selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
     var st = WidgetFactories.navigationRail(factories);
     var fn = WidgetFactories.NavigationRailSt.navigationRail(st);
     return WidgetFactories.NavigationRailSt.navigationRail.invoke(fn, arena, ptrObj(backgroundColor),
@@ -6148,7 +6148,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(leading),
       ptrObj(trailing),
       ptrList(destinations),
-      selectedIndex,
+      ptr(selectedIndex),
       onDestinationSelected.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onDestinationSelected.get())) : MemorySegment.NULL,
       ptr(elevation),
       ptr(groupAlignment),
@@ -6272,7 +6272,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(requestFocus));
   }
 
-  <T> MemorySegment popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsets> padding, Optional<TextStyle> textStyle, Optional<TextStyle> labelTextStyle, Widget child) {
+  <T> MemorySegment popupMenuItemPopupMenuItem(Optional<NativeObj> value, Optional<Runnable> onTap, Optional<Boolean> enabled, OptionalDouble height, Optional<EdgeInsets> padding, Optional<TextStyle> textStyle, Optional<TextStyle> labelTextStyle, Optional<Widget> child) {
     var st = WidgetFactories.popupMenuItem(factories);
     var fn = WidgetFactories.PopupMenuItemSt.popupMenuItem(st);
     return WidgetFactories.PopupMenuItemSt.popupMenuItem.invoke(fn, arena, ptrObj(value),
@@ -6282,7 +6282,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(padding),
       ptrObj(textStyle),
       ptrObj(labelTextStyle),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
 
   MemorySegment popupMenuDividerPopupMenuDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<BorderRadiusGeometry> radius, Optional<Color> color) {
@@ -6354,7 +6354,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
-  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Widget> submenuIcon, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Widget child) {
+  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Widget> submenuIcon, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Optional<Widget> child) {
     var st = WidgetFactories.submenuButton(factories);
     var fn = WidgetFactories.SubmenuButtonSt.submenuButton(st);
     return WidgetFactories.SubmenuButtonSt.submenuButton.invoke(fn, arena, onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
@@ -6368,7 +6368,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(submenuIcon),
       ptrBool(useRootOverlay),
       ptrList(menuChildren),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
 
   MemorySegment menuItemButtonMenuItemButton(Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Boolean> requestFocusOnHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<String> semanticsLabel, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Optional<Axis> overflowAxis, Optional<Widget> child) {
@@ -6388,34 +6388,34 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(child));
   }
 
-  MemorySegment checkboxMenuButtonCheckboxMenuButton(boolean value, Optional<Boolean> tristate, Optional<Boolean> isError, Consumer<Boolean> onChanged, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Widget child) {
+  MemorySegment checkboxMenuButtonCheckboxMenuButton(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Boolean> isError, Optional<Consumer<Boolean>> onChanged, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Optional<Widget> child) {
     var st = WidgetFactories.checkboxMenuButton(factories);
     var fn = WidgetFactories.CheckboxMenuButtonSt.checkboxMenuButton(st);
-    return WidgetFactories.CheckboxMenuButtonSt.checkboxMenuButton.invoke(fn, arena, (value ? 1 : 0),
+    return WidgetFactories.CheckboxMenuButtonSt.checkboxMenuButton.invoke(fn, arena, ptrBool(value),
       ptrBool(tristate),
       ptrBool(isError),
-      ptrValueChangedForBoolOptFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onChanged.get())) : MemorySegment.NULL,
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrEnum(clipBehavior),
       ptrObj(trailingIcon),
       ptrBool(closeOnActivate),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
 
-  <T> MemorySegment radioMenuButtonRadioMenuButton(NativeObj value, NativeObj groupValue, Consumer<NativeObj> onChanged, Optional<Boolean> toggleable, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Widget child) {
+  <T> MemorySegment radioMenuButtonRadioMenuButton(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Clip> clipBehavior, Optional<Widget> trailingIcon, Optional<Boolean> closeOnActivate, Optional<Widget> child) {
     var st = WidgetFactories.radioMenuButton(factories);
     var fn = WidgetFactories.RadioMenuButtonSt.radioMenuButton(st);
     return WidgetFactories.RadioMenuButtonSt.radioMenuButton.invoke(fn, arena, value.build().getId(),
-      groupValue != null ? groupValue.build().getId() : null,
-      ptrValueChangedForTOptFn(onChanged),
+      ptrObj(groupValue),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
       ptrBool(toggleable),
       onHover.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHover.get())) : MemorySegment.NULL,
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrEnum(clipBehavior),
       ptrObj(trailingIcon),
       ptrBool(closeOnActivate),
-      child != null ? child.build().getId() : null);
+      ptrObj(child));
   }
 
   MemorySegment datePickerDialogDatePickerDialog(Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Optional<DatePickerEntryMode> initialEntryMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<DatePickerMode> initialCalendarMode, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<String> restorationId, Optional<Consumer<DatePickerEntryMode>> onDatePickerModeChange, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToCalendarEntryModeIcon, Optional<EdgeInsets> insetPadding) {
@@ -6442,10 +6442,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(insetPadding));
   }
 
-  MemorySegment calendarDatePickerCalendarDatePicker(DateTime initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Consumer<DateTime> onDateChanged, Optional<Consumer<DateTime>> onDisplayedMonthChanged, Optional<DatePickerMode> initialCalendarMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate) {
+  MemorySegment calendarDatePickerCalendarDatePicker(Optional<DateTime> initialDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> currentDate, Consumer<DateTime> onDateChanged, Optional<Consumer<DateTime>> onDisplayedMonthChanged, Optional<DatePickerMode> initialCalendarMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate) {
     var st = WidgetFactories.calendarDatePicker(factories);
     var fn = WidgetFactories.CalendarDatePickerSt.calendarDatePicker(st);
-    return WidgetFactories.CalendarDatePickerSt.calendarDatePicker.invoke(fn, arena, initialDate != null ? initialDate.build().getId() : null,
+    return WidgetFactories.CalendarDatePickerSt.calendarDatePicker.invoke(fn, arena, ptrObj(initialDate),
       firstDate.build().getId(),
       lastDate.build().getId(),
       ptrObj(currentDate),
@@ -6497,14 +6497,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayForRangePredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL);
   }
 
-  MemorySegment yearPickerYearPicker(Optional<DateTime> currentDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> initialDate, DateTime selectedDate, Consumer<DateTime> onChanged, Optional<DragStartBehavior> dragStartBehavior) {
+  MemorySegment yearPickerYearPicker(Optional<DateTime> currentDate, DateTime firstDate, DateTime lastDate, Optional<DateTime> initialDate, Optional<DateTime> selectedDate, Consumer<DateTime> onChanged, Optional<DragStartBehavior> dragStartBehavior) {
     var st = WidgetFactories.yearPicker(factories);
     var fn = WidgetFactories.YearPickerSt.yearPicker(st);
     return WidgetFactories.YearPickerSt.yearPicker.invoke(fn, arena, ptrObj(currentDate),
       firstDate.build().getId(),
       lastDate.build().getId(),
       ptrObj(initialDate),
-      selectedDate != null ? selectedDate.build().getId() : null,
+      ptrObj(selectedDate),
       ptrValueChangedForDateTimeFn(onChanged),
       ptrEnum(dragStartBehavior));
   }
@@ -6683,7 +6683,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(restorationScopeId));
   }
 
-  MemorySegment cupertinoButtonCupertinoButton(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+  MemorySegment cupertinoButtonCupertinoButton(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Optional<Runnable> onPressed) {
     var st = WidgetFactories.cupertinoButton(factories);
     var fn = WidgetFactories.CupertinoButtonSt.cupertinoButton(st);
     return WidgetFactories.CupertinoButtonSt.cupertinoButton.invoke(fn, arena, child.build().getId(),
@@ -6700,9 +6700,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
-      ptrVoidCallbackFn(onPressed));
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
   }
-  MemorySegment cupertinoButtonTinted(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+  MemorySegment cupertinoButtonTinted(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> foregroundColor, Optional<Color> disabledColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Optional<Runnable> onPressed) {
     var st = WidgetFactories.cupertinoButton(factories);
     var fn = WidgetFactories.CupertinoButtonSt.tinted(st);
     return WidgetFactories.CupertinoButtonSt.tinted.invoke(fn, arena, child.build().getId(),
@@ -6719,9 +6719,9 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
-      ptrVoidCallbackFn(onPressed));
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
   }
-  MemorySegment cupertinoButtonFilled(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> foregroundColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Runnable onPressed) {
+  MemorySegment cupertinoButtonFilled(Widget child, Optional<CupertinoButtonSize> sizeStyle, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> foregroundColor, OptionalDouble minSize, OptionalDouble pressedOpacity, Optional<BorderRadius> borderRadius, Optional<AlignmentGeometry> alignment, Optional<Color> focusColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Runnable> onLongPress, Optional<Runnable> onPressed) {
     var st = WidgetFactories.cupertinoButton(factories);
     var fn = WidgetFactories.CupertinoButtonSt.filled(st);
     return WidgetFactories.CupertinoButtonSt.filled.invoke(fn, arena, child.build().getId(),
@@ -6738,7 +6738,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
       ptrBool(autofocus),
       onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
-      ptrVoidCallbackFn(onPressed));
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
   }
   double cupertinoButtonTapMoveSlop() {
     var st = WidgetFactories.cupertinoButton(factories);
@@ -6746,11 +6746,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.CupertinoButtonSt.tapMoveSlop.invoke(fn);
   }
 
-  MemorySegment cupertinoSwitchCupertinoSwitch(boolean value, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> trackColor, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<Color> focusColor, Optional<Color> onLabelColor, Optional<Color> offLabelColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
+  MemorySegment cupertinoSwitchCupertinoSwitch(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> trackColor, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<Color> focusColor, Optional<Color> onLabelColor, Optional<Color> offLabelColor, Optional<Color> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<Icon> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
     var st = WidgetFactories.cupertinoSwitch(factories);
     var fn = WidgetFactories.CupertinoSwitchSt.cupertinoSwitch(st);
     return WidgetFactories.CupertinoSwitchSt.cupertinoSwitch.invoke(fn, arena, (value ? 1 : 0),
-      ptrValueChangedForBoolFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(trackColor),
       ptrObj(activeTrackColor),
@@ -6769,11 +6769,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(dragStartBehavior));
   }
 
-  MemorySegment cupertinoSliderCupertinoSlider(double value, Consumer<Double> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<Color> activeColor, Optional<Color> thumbColor) {
+  MemorySegment cupertinoSliderCupertinoSlider(double value, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<Color> activeColor, Optional<Color> thumbColor) {
     var st = WidgetFactories.cupertinoSlider(factories);
     var fn = WidgetFactories.CupertinoSliderSt.cupertinoSlider(st);
     return WidgetFactories.CupertinoSliderSt.cupertinoSlider.invoke(fn, arena, value,
-      ptrValueChangedForDoubleFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChanged.get())) : MemorySegment.NULL,
       onChangeStart.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeStart.get())) : MemorySegment.NULL,
       onChangeEnd.isPresent() ? ptrHolder(ptrValueChangedForDoubleFn(onChangeEnd.get())) : MemorySegment.NULL,
       ptr(min),
@@ -6936,7 +6936,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(error));
   }
 
-  MemorySegment cupertinoPickerCupertinoPicker(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, List<Widget> children, Optional<Widget> selectionOverlay, Optional<Boolean> looping) {
+  MemorySegment cupertinoPickerCupertinoPicker(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Optional<Consumer<Integer>> onSelectedItemChanged, List<Widget> children, Optional<Widget> selectionOverlay, Optional<Boolean> looping) {
     var st = WidgetFactories.cupertinoPicker(factories);
     var fn = WidgetFactories.CupertinoPickerSt.cupertinoPicker(st);
     return WidgetFactories.CupertinoPickerSt.cupertinoPicker.invoke(fn, arena, ptr(diameterRatio),
@@ -6947,12 +6947,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(squeeze),
       ptrEnum(changeReportingBehavior),
       itemExtent,
-      ptrValueChangedForIntFn(onSelectedItemChanged),
+      onSelectedItemChanged.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onSelectedItemChanged.get())) : MemorySegment.NULL,
       ptrList(children),
       ptrObj(selectionOverlay),
       ptrBool(looping));
   }
-  MemorySegment cupertinoPickerBuilder(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Consumer<Integer> onSelectedItemChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt childCount, Optional<Widget> selectionOverlay) {
+  MemorySegment cupertinoPickerBuilder(OptionalDouble diameterRatio, Optional<Color> backgroundColor, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble squeeze, Optional<ChangeReportingBehavior> changeReportingBehavior, double itemExtent, Optional<Consumer<Integer>> onSelectedItemChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt childCount, Optional<Widget> selectionOverlay) {
     var st = WidgetFactories.cupertinoPicker(factories);
     var fn = WidgetFactories.CupertinoPickerSt.builder(st);
     return WidgetFactories.CupertinoPickerSt.builder.invoke(fn, arena, ptr(diameterRatio),
@@ -6963,7 +6963,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(squeeze),
       ptrEnum(changeReportingBehavior),
       itemExtent,
-      ptrValueChangedForIntFn(onSelectedItemChanged),
+      onSelectedItemChanged.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onSelectedItemChanged.get())) : MemorySegment.NULL,
       ptrNullableIndexedWidgetBuilderFn(itemBuilder),
       ptr(childCount),
       ptrObj(selectionOverlay));
@@ -7128,12 +7128,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enableIMEPersonalizedLearning));
   }
 
-  MemorySegment cupertinoCheckboxCupertinoCheckbox(boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<String> semanticLabel) {
+  MemorySegment cupertinoCheckboxCupertinoCheckbox(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<String> semanticLabel) {
     var st = WidgetFactories.cupertinoCheckbox(factories);
     var fn = WidgetFactories.CupertinoCheckboxSt.cupertinoCheckbox(st);
-    return WidgetFactories.CupertinoCheckboxSt.cupertinoCheckbox.invoke(fn, arena, (value ? 1 : 0),
+    return WidgetFactories.CupertinoCheckboxSt.cupertinoCheckbox.invoke(fn, arena, ptrBool(value),
       ptrBool(tristate),
-      ptrValueChangedForBoolOptFn(onChanged),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolOptFn(onChanged.get())) : MemorySegment.NULL,
       ptrObj(activeColor),
       ptrObj(inactiveColor),
       ptrObj(fillColor),

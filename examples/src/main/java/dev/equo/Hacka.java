@@ -14,7 +14,7 @@ public class Hacka {
     return AlertDialog()
         .title(Text("Hello!"))
         .content(Text("This is a simple Hello World Flutter application."))
-        .actions(List.of(TextButton(() -> Navigator.pop(context)).child(Text("OK"))));
+        .actions(List.of(TextButton().onPressed(() -> Navigator.pop(context)).child(Text("OK"))));
   }
 }
 

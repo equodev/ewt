@@ -58,7 +58,7 @@ public class GestureTableGallery {
                       .leading(Icon(Icons.grid_on()))
                       .middle(Text("Gesture Board")
                           .style(TextStyle().fontSize(16.0).fontWeight(FontWeight.w600())))
-                      .trailing(TextButton(() -> setState(() -> reset())).child(Text("Reset"))).build()))),
+                      .trailing(TextButton().onPressed(() -> setState(() -> reset())).child(Text("Reset"))).build()))),
 
           SizedBox().height(16.0),
 

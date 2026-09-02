@@ -17,7 +17,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
   }
   CupertinoSwitch(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoSwitch cupertinoSwitchCupertinoSwitch(@Builder.Parameter boolean value, @Builder.Parameter Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> trackColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<ColorI> focusColor, Optional<ColorI> onLabelColor, Optional<ColorI> offLabelColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
+  static CupertinoSwitch cupertinoSwitchCupertinoSwitch(@Builder.Parameter boolean value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> trackColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<ColorI> focusColor, Optional<ColorI> onLabelColor, Optional<ColorI> offLabelColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
     var st = factories.cupertinoSwitchCupertinoSwitch(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -39,8 +39,8 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
     if (st == null) throw new RuntimeException("Failed to created widget CupertinoSwitch");
     return new CupertinoSwitch(st);
   }
-  public static CupertinoSwitchCupertinoSwitchBuilder cupertinoSwitch(boolean value, Consumer<Boolean> onChanged) {
-    return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value, onChanged);
+  public static CupertinoSwitchCupertinoSwitchBuilder cupertinoSwitch(boolean value) {
+    return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value);
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchValue not supported on web");

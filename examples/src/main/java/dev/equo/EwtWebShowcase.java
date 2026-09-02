@@ -171,7 +171,7 @@ public class EwtWebShowcase {
                                     Row()
                                             .mainAxisAlignment(MainAxisAlignment.center)
                                             .children(List.of(
-                                                    FilledButton_tonal(() -> setState(() -> count--))
+                                                    FilledButton_tonal().onPressed(() -> setState(() -> count--))
                                                             .child(Row()
                                                                     .mainAxisSize(MainAxisSize.min)
                                                                     .children(List.of(
@@ -180,7 +180,7 @@ public class EwtWebShowcase {
                                                                             Text("Dec")
                                                                     ))),
                                                     SizedBox().width(10.0),
-                                                    FilledButton(() -> setState(() -> count++))
+                                                    FilledButton().onPressed(() -> setState(() -> count++))
                                                             .child(Row()
                                                                     .mainAxisSize(MainAxisSize.min)
                                                                     .children(List.of(
@@ -189,7 +189,7 @@ public class EwtWebShowcase {
                                                                             Text("Inc")
                                                                     ))),
                                                     SizedBox().width(10.0),
-                                                    OutlinedButton(() -> setState(() -> count = 0))
+                                                    OutlinedButton().onPressed(() -> setState(() -> count = 0))
                                                             .child(Text("Reset"))
                                             ))
                             ))
@@ -205,9 +205,9 @@ public class EwtWebShowcase {
                     Column()
                             .crossAxisAlignment(CrossAxisAlignment.start)
                             .children(List.of(
-                                    SwitchListTile(switchOn, v -> setState(() -> switchOn = v))
+                                    SwitchListTile(switchOn).onChanged(v -> setState(() -> switchOn = v))
                                             .title(Text("Tile labels — " + (switchOn ? "shown" : "hidden"))),
-                                    CheckboxListTile(checked, v -> setState(() -> checked = v))
+                                    CheckboxListTile().value(checked).onChanged(v -> setState(() -> checked = v))
                                             .title(Text("Notifications — " + (checked ? "enabled" : "disabled"))),
                                     SizedBox().height(4.0),
                                     Padding(EdgeInsets_symmetric().horizontal(16.0))

@@ -85,7 +85,7 @@ class WalletSettingsState extends SubState<WalletSettingsScreen> {
                         WalletKit.iconTile(icon.get(), color.get(), 32.0),
                         SizedBox().width(12.0),
                         Expanded().child(Text(title).style(WalletPalette.rowTitle())),
-                        CupertinoSwitch(value, v -> onChanged.accept(v)).activeColor(WalletPalette.green())
+                        CupertinoSwitch(value).onChanged(v -> onChanged.accept(v)).activeColor(WalletPalette.green())
                 )));
     }
 

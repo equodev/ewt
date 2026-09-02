@@ -17,7 +17,7 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
   }
   CupertinoCheckbox(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoCheckbox cupertinoCheckboxCupertinoCheckbox(@Builder.Parameter boolean value, Optional<Boolean> tristate, Consumer<Boolean> onChanged, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<Boolean> autofocus, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<String> semanticLabel) {
+  static CupertinoCheckbox cupertinoCheckboxCupertinoCheckbox(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<Boolean> autofocus, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<String> semanticLabel) {
     var st = factories.cupertinoCheckboxCupertinoCheckbox(value,
       tristate,
       onChanged,
@@ -33,8 +33,8 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
     if (st == null) throw new RuntimeException("Failed to created widget CupertinoCheckbox");
     return new CupertinoCheckbox(st);
   }
-  public static CupertinoCheckboxCupertinoCheckboxBuilder cupertinoCheckbox(boolean value) {
-    return CupertinoCheckboxCupertinoCheckboxBuilder.cupertinoCheckboxCupertinoCheckbox(value);
+  public static CupertinoCheckboxCupertinoCheckboxBuilder cupertinoCheckbox() {
+    return CupertinoCheckboxCupertinoCheckboxBuilder.cupertinoCheckboxCupertinoCheckbox();
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoCheckboxValue not supported on web");
