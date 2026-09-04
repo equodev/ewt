@@ -3455,6 +3455,118 @@ typedef struct {
 } HeroControllerScopeObjSt;
 typedef struct {
   int id;
+} CompositedTransformTargetObjSt;
+typedef struct {
+  int id;
+  int showWhenUnlinked;
+  AlignmentObjSt targetAnchor;
+  AlignmentObjSt followerAnchor;
+  DartObj offset;
+} CompositedTransformFollowerObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int clipBehavior;
+  DartObj focalPointOffset;
+  double magnificationScale;
+} RawMagnifierObjSt;
+typedef struct {
+  int id;
+  int autofocus;
+  int includeSemantics;
+  DartObj child;
+} KeyboardListenerObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int thumbVisibility;
+  DartObj shape;
+  DartObj radius;
+  double thickness;
+  DartObj thumbColor;
+  double minThumbLength;
+  double minOverscrollLength;
+  int trackVisibility;
+  DartObj trackRadius;
+  DartObj trackColor;
+  DartObj trackBorderColor;
+  DartObj fadeDuration;
+  DartObj timeToFade;
+  DartObj pressDuration;
+  int interactive;
+  int scrollbarOrientation;
+  double mainAxisMargin;
+  double crossAxisMargin;
+  EdgeInsetsObjSt padding;
+} RawScrollbarObjSt;
+typedef struct {
+  int id;
+  DartObj avatar;
+  DartObj label;
+  TextStyleObjSt labelStyle;
+  DartObj labelPadding;
+  DartObj deleteIcon;
+  DartObj deleteIconColor;
+  char* deleteButtonTooltipMessage;
+  double pressElevation;
+  int selected;
+  int isEnabled;
+  DartObj disabledColor;
+  DartObj selectedColor;
+  char* tooltip;
+  BorderSideObjSt side;
+  DartObj shape;
+  int clipBehavior;
+  int autofocus;
+  DartObj backgroundColor;
+  DartObj padding;
+  VisualDensityObjSt visualDensity;
+  int materialTapTargetSize;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj selectedShadowColor;
+  int showCheckmark;
+  DartObj checkmarkColor;
+  DartObj avatarBorder;
+  BoxConstraintsObjSt avatarBoxConstraints;
+  BoxConstraintsObjSt deleteIconBoxConstraints;
+  int tapEnabled;
+} RawChipObjSt;
+typedef struct {
+  int id;
+  int direction;
+  int multiSelectionEnabled;
+  int emptySelectionAllowed;
+  EdgeInsetsObjSt expandedInsets;
+  int showSelectedIcon;
+  DartObj selectedIcon;
+} SegmentedButtonObjSt;
+typedef struct {
+  int id;
+  int toggleable;
+  int useCheckmarkStyle;
+  DartObj activeColor;
+  DartObj inactiveColor;
+  DartObj fillColor;
+  DartObj focusColor;
+  int autofocus;
+  int enabled;
+} CupertinoRadioObjSt;
+typedef struct {
+  int id;
+  int mode;
+  int autoresize;
+} SnapshotWidgetObjSt;
+typedef struct {
+  int id;
+  int axisDirection;
+  int crossAxisDirection;
+  int paintOrder;
+  int clipBehavior;
+} ShrinkWrappingViewportObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

@@ -10910,6 +10910,102 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment rawScrollbarRawScrollbar(Widget child, Optional<Boolean> thumbVisibility, Optional<OutlinedBorder> shape, Optional<Radius> radius, OptionalDouble thickness, Optional<Color> thumbColor, OptionalDouble minThumbLength, OptionalDouble minOverscrollLength, Optional<Boolean> trackVisibility, Optional<Radius> trackRadius, Optional<Color> trackColor, Optional<Color> trackBorderColor, Optional<Duration> fadeDuration, Optional<Duration> timeToFade, Optional<Duration> pressDuration, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation, OptionalDouble mainAxisMargin, OptionalDouble crossAxisMargin, Optional<EdgeInsets> padding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    thumbVisibility.ifPresent(v -> p.put("thumbVisibility", v));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    radius.ifPresent(v -> p.put("radius", byId.get(v.getId())));
+    if (thickness.isPresent()) { p.put("thickness", thickness.getAsDouble()); }
+    thumbColor.ifPresent(v -> p.put("thumbColor", byId.get(v.getId())));
+    if (minThumbLength.isPresent()) { p.put("minThumbLength", minThumbLength.getAsDouble()); }
+    if (minOverscrollLength.isPresent()) { p.put("minOverscrollLength", minOverscrollLength.getAsDouble()); }
+    trackVisibility.ifPresent(v -> p.put("trackVisibility", v));
+    trackRadius.ifPresent(v -> p.put("trackRadius", byId.get(v.getId())));
+    trackColor.ifPresent(v -> p.put("trackColor", byId.get(v.getId())));
+    trackBorderColor.ifPresent(v -> p.put("trackBorderColor", byId.get(v.getId())));
+    fadeDuration.ifPresent(v -> p.put("fadeDuration", byId.get(v.getId())));
+    timeToFade.ifPresent(v -> p.put("timeToFade", byId.get(v.getId())));
+    pressDuration.ifPresent(v -> p.put("pressDuration", byId.get(v.getId())));
+    interactive.ifPresent(v -> p.put("interactive", v));
+    scrollbarOrientation.ifPresent(v -> p.put("scrollbarOrientation", v.ordinal()));
+    if (mainAxisMargin.isPresent()) { p.put("mainAxisMargin", mainAxisMargin.getAsDouble()); }
+    if (crossAxisMargin.isPresent()) { p.put("crossAxisMargin", crossAxisMargin.getAsDouble()); }
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    record(id, "rawScrollbarRawScrollbar", p);
+    MemorySegment st = RawScrollbarObjSt.allocate(arena);
+    RawScrollbarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment rawChipRawChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
+    p.put("label", byId.get(label.getId()));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    deleteIcon.ifPresent(v -> p.put("deleteIcon", byId.get(v.getId())));
+    if (onDeleted.isPresent()) { int __cb_onDeleted = nextCallbackId++; p.put("onDeleted", __cb_onDeleted); callbacks.put(__cb_onDeleted, onDeleted.get()); }
+    deleteIconColor.ifPresent(v -> p.put("deleteIconColor", byId.get(v.getId())));
+    deleteButtonTooltipMessage.ifPresent(v -> p.put("deleteButtonTooltipMessage", v));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    if (onSelected.isPresent()) { int __cb_onSelected = nextCallbackId++; p.put("onSelected", __cb_onSelected); java.util.function.Consumer<Boolean> __h_onSelected = onSelected.get(); callbacks.put(__cb_onSelected, (java.util.function.Consumer<Object>)(v -> __h_onSelected.accept((Boolean) v))); }
+    if (pressElevation.isPresent()) { p.put("pressElevation", pressElevation.getAsDouble()); }
+    tapEnabled.ifPresent(v -> p.put("tapEnabled", v));
+    selected.ifPresent(v -> p.put("selected", v));
+    isEnabled.ifPresent(v -> p.put("isEnabled", v));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
+    showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
+    checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
+    avatarBorder.ifPresent(v -> p.put("avatarBorder", byId.get(v.getId())));
+    avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
+    deleteIconBoxConstraints.ifPresent(v -> p.put("deleteIconBoxConstraints", byId.get(v.getId())));
+    record(id, "rawChipRawChip", p);
+    MemorySegment st = RawChipObjSt.allocate(arena);
+    RawChipObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  <T> MemorySegment cupertinoRadioCupertinoRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<Boolean> useCheckmarkStyle, Optional<Boolean> enabled) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("value", value);
+    p.put("groupValue", groupValue);
+    if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
+    toggleable.ifPresent(v -> p.put("toggleable", v));
+    activeColor.ifPresent(v -> p.put("activeColor", byId.get(v.getId())));
+    inactiveColor.ifPresent(v -> p.put("inactiveColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    useCheckmarkStyle.ifPresent(v -> p.put("useCheckmarkStyle", v));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    record(id, "cupertinoRadioCupertinoRadio", p);
+    MemorySegment st = CupertinoRadioObjSt.allocate(arena);
+    CupertinoRadioObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

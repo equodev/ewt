@@ -536,6 +536,23 @@ w.FocusableActionDetector? focusableActionDetector;
 w.OverlayPortal? overlayPortal;
 w.HeroControllerScope? heroControllerScope;
 
+// --- Batch 9: composited transforms, magnifier, more Material ---
+w.CompositedTransformTarget? compositedTransformTarget;
+w.CompositedTransformFollower? compositedTransformFollower;
+w.RawMagnifier? rawMagnifier;
+w.KeyboardListener? keyboardListener;
+w.RawScrollbar? rawScrollbar;
+m.RawChip? rawChip;
+m.SegmentedButton? segmentedButton;
+c.CupertinoRadio? cupertinoRadio;
+// CupertinoTheme skipped: has static methods (`brightnessOf`, `maybeBrightnessOf`) that make the generator emit `_createCupertinoThemeObjSt(CupertinoTheme?)` in factories_gen.dart — but the ObjSt struct is `typedef struct { int id; DartObj child; } CupertinoThemeObjSt;`, whose body ffigen dedupes with other identically-shaped anonymous structs, so the type never lands in `widgets_bindings_generated.dart`. Same shape hits any widget with static returns + trivial ObjSt.
+// CupertinoTextFormFieldRow skipped: `onSaved: FormFieldSetter<String>` and `validator: FormFieldValidator<String>` are `void Function(String?)` and `String? Function(String?)`. The generated FFI wrapper hands a non-nullable `String` to the Java callback (via `Pointer<Char>`), so factories_gen.dart fails type-checking on the nullable-string-arg mismatch. Nullable-string callback-arg marshaling gap.
+// CupertinoScrollBehavior skipped: pulls its `ScrollBehavior` supertype into the Java surface, which references `_bouncingPhysics()` / `_clampingPhysics()` / `BouncingScrollPhysics` / `RangeMaintainingScrollPhysics` / `ClampingScrollPhysics` / `ScrollDecelerationRate` — none of them emitted (private helpers + unregistered ScrollPhysics subclasses).
+w.SnapshotWidget? snapshotWidget;
+w.ShrinkWrappingViewport? shrinkWrappingViewport;
+// Viewport skipped: same ffigen-drops-trivial-ObjSt landmine as CupertinoTheme — the static `getDefaultCrossAxisDirection` makes the generator emit `_createViewportObjSt`, and ffigen doesn't emit the type.
+w.ScrollNotificationObserverScope? scrollNotificationObserverScope;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

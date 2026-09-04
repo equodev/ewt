@@ -8108,6 +8108,87 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.HeroControllerScopeSt.none.invoke(fn, arena, child.build().getId());
   }
 
+  MemorySegment rawScrollbarRawScrollbar(Widget child, Optional<Boolean> thumbVisibility, Optional<OutlinedBorder> shape, Optional<Radius> radius, OptionalDouble thickness, Optional<Color> thumbColor, OptionalDouble minThumbLength, OptionalDouble minOverscrollLength, Optional<Boolean> trackVisibility, Optional<Radius> trackRadius, Optional<Color> trackColor, Optional<Color> trackBorderColor, Optional<Duration> fadeDuration, Optional<Duration> timeToFade, Optional<Duration> pressDuration, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation, OptionalDouble mainAxisMargin, OptionalDouble crossAxisMargin, Optional<EdgeInsets> padding) {
+    var st = WidgetFactories.rawScrollbar(factories);
+    var fn = WidgetFactories.RawScrollbarSt.rawScrollbar(st);
+    return WidgetFactories.RawScrollbarSt.rawScrollbar.invoke(fn, arena, child.build().getId(),
+      ptrBool(thumbVisibility),
+      ptrObj(shape),
+      ptrObj(radius),
+      ptr(thickness),
+      ptrObj(thumbColor),
+      ptr(minThumbLength),
+      ptr(minOverscrollLength),
+      ptrBool(trackVisibility),
+      ptrObj(trackRadius),
+      ptrObj(trackColor),
+      ptrObj(trackBorderColor),
+      ptrObj(fadeDuration),
+      ptrObj(timeToFade),
+      ptrObj(pressDuration),
+      ptrBool(interactive),
+      ptrEnum(scrollbarOrientation),
+      ptr(mainAxisMargin),
+      ptr(crossAxisMargin),
+      ptrObj(padding));
+  }
+
+  MemorySegment rawChipRawChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+    var st = WidgetFactories.rawChip(factories);
+    var fn = WidgetFactories.RawChipSt.rawChip(st);
+    return WidgetFactories.RawChipSt.rawChip.invoke(fn, arena, ptrObj(avatar),
+      label.build().getId(),
+      ptrObj(labelStyle),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrObj(labelPadding),
+      ptrObj(deleteIcon),
+      onDeleted.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDeleted.get())) : MemorySegment.NULL,
+      ptrObj(deleteIconColor),
+      ptrStr(deleteButtonTooltipMessage),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      onSelected.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onSelected.get())) : MemorySegment.NULL,
+      ptr(pressElevation),
+      ptrBool(tapEnabled),
+      ptrBool(selected),
+      ptrBool(isEnabled),
+      ptrObj(disabledColor),
+      ptrObj(selectedColor),
+      ptrStr(tooltip),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrEnum(materialTapTargetSize),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(selectedShadowColor),
+      ptrBool(showCheckmark),
+      ptrObj(checkmarkColor),
+      ptrObj(avatarBorder),
+      ptrObj(avatarBoxConstraints),
+      ptrObj(deleteIconBoxConstraints));
+  }
+
+  <T> MemorySegment cupertinoRadioCupertinoRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<Boolean> useCheckmarkStyle, Optional<Boolean> enabled) {
+    var st = WidgetFactories.cupertinoRadio(factories);
+    var fn = WidgetFactories.CupertinoRadioSt.cupertinoRadio(st);
+    return WidgetFactories.CupertinoRadioSt.cupertinoRadio.invoke(fn, arena, value.build().getId(),
+      ptrObj(groupValue),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
+      ptrBool(toggleable),
+      ptrObj(activeColor),
+      ptrObj(inactiveColor),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrBool(autofocus),
+      ptrBool(useCheckmarkStyle),
+      ptrBool(enabled));
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);

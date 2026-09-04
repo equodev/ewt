@@ -2009,6 +2009,18 @@ public class EWT {
     return HeroControllerScopeNoneBuilder.heroControllerScopeNone(child);
   }
 
+  public static RawScrollbarRawScrollbarBuilder RawScrollbar(WidgetI child) {
+    return RawScrollbarRawScrollbarBuilder.rawScrollbarRawScrollbar(child);
+  }
+
+  public static RawChipRawChipBuilder RawChip() {
+    return RawChipRawChipBuilder.rawChipRawChip();
+  }
+
+  public static <T extends NativeObj> CupertinoRadioCupertinoRadioBuilder<T> CupertinoRadio(NativeObj value) {
+    return CupertinoRadioCupertinoRadioBuilder.cupertinoRadioCupertinoRadio(value);
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

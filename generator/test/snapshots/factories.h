@@ -1863,6 +1863,18 @@ typedef struct {
     HeroControllerScopeObjSt (*none)(DartObj child);
   } heroControllerScope;
 
+  struct RawScrollbarSt {
+    RawScrollbarObjSt (*rawScrollbar)(DartObj child, int* thumbVisibility, DartObj* shape, DartObj* radius, double* thickness, DartObj* thumbColor, double* minThumbLength, double* minOverscrollLength, int* trackVisibility, DartObj* trackRadius, DartObj* trackColor, DartObj* trackBorderColor, DartObj* fadeDuration, DartObj* timeToFade, DartObj* pressDuration, int* interactive, int* scrollbarOrientation, double* mainAxisMargin, double* crossAxisMargin, DartObj* padding);
+  } rawScrollbar;
+
+  struct RawChipSt {
+    RawChipObjSt (*rawChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* padding, DartObj* visualDensity, DartObj* labelPadding, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, VoidCallbackFFI* onPressed, ValueChangedForBoolFFI* onSelected, double* pressElevation, int* tapEnabled, int* selected, int* isEnabled, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+  } rawChip;
+
+  struct CupertinoRadioSt {
+    CupertinoRadioObjSt (*cupertinoRadio)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* inactiveColor, DartObj* fillColor, DartObj* focusColor, int* autofocus, int* useCheckmarkStyle, int* enabled);
+  } cupertinoRadio;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

@@ -13138,6 +13138,170 @@ HeroControllerScopeObjSt _createHeroControllerScopeObjSt(HeroControllerScope? w)
   return stObj;
 }
 
+void _setupRawScrollbar(WidgetFactories f) {
+  f.rawScrollbar.rawScrollbar = ffi.Pointer.fromFunction(rawScrollbarRawScrollbar);
+}
+RawScrollbarObjSt rawScrollbarRawScrollbar(DartDartObj child, ffi.Pointer<ffi.Int> thumbVisibility, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> radius, ffi.Pointer<ffi.Double> thickness, ffi.Pointer<DartObj> thumbColor, ffi.Pointer<ffi.Double> minThumbLength, ffi.Pointer<ffi.Double> minOverscrollLength, ffi.Pointer<ffi.Int> trackVisibility, ffi.Pointer<DartObj> trackRadius, ffi.Pointer<DartObj> trackColor, ffi.Pointer<DartObj> trackBorderColor, ffi.Pointer<DartObj> fadeDuration, ffi.Pointer<DartObj> timeToFade, ffi.Pointer<DartObj> pressDuration, ffi.Pointer<ffi.Int> interactive, ffi.Pointer<ffi.Int> scrollbarOrientation, ffi.Pointer<ffi.Double> mainAxisMargin, ffi.Pointer<ffi.Double> crossAxisMargin, ffi.Pointer<DartObj> padding) {
+  final w = RawScrollbar(child: _widgetsMap[child]! as Widget,
+      thumbVisibility: thumbVisibility.boolOrNul(),
+      shape: shape.objOrNul(),
+      radius: radius.objOrNul(),
+      thickness: thickness.doubleOrNul(),
+      thumbColor: thumbColor.objOrNul(),
+      minThumbLength: minThumbLength.doubleOr(18.0),
+      minOverscrollLength: minOverscrollLength.doubleOrNul(),
+      trackVisibility: trackVisibility.boolOrNul(),
+      trackRadius: trackRadius.objOrNul(),
+      trackColor: trackColor.objOrNul(),
+      trackBorderColor: trackBorderColor.objOrNul(),
+      fadeDuration: fadeDuration.objOr(Duration(milliseconds: 300)),
+      timeToFade: timeToFade.objOr(Duration(milliseconds: 600)),
+      pressDuration: pressDuration.objOr(Duration.zero),
+      interactive: interactive.boolOrNul(),
+      scrollbarOrientation: scrollbarOrientation.enumOrNul(ScrollbarOrientation.values),
+      mainAxisMargin: mainAxisMargin.doubleOr(0.0),
+      crossAxisMargin: crossAxisMargin.doubleOr(0.0),
+      padding: padding.objOrNul());
+  return _createRawScrollbarObjSt(w);
+}
+RawScrollbarObjSt _createRawScrollbarObjSt(RawScrollbar? w) {
+  final RawScrollbarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.thumbVisibility = (w.thumbVisibility != null) ? w.thumbVisibility!.toInt() : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.radius = _addWidget(w.radius);
+  stObj.thickness = (w.thickness != null) ? w.thickness! : 0;
+  stObj.thumbColor = _addWidget(w.thumbColor);
+  stObj.minThumbLength = w.minThumbLength;
+  stObj.minOverscrollLength = (w.minOverscrollLength != null) ? w.minOverscrollLength! : 0;
+  stObj.trackVisibility = (w.trackVisibility != null) ? w.trackVisibility!.toInt() : 0;
+  stObj.trackRadius = _addWidget(w.trackRadius);
+  stObj.trackColor = _addWidget(w.trackColor);
+  stObj.trackBorderColor = _addWidget(w.trackBorderColor);
+  stObj.fadeDuration = _addWidget(w.fadeDuration);
+  stObj.timeToFade = _addWidget(w.timeToFade);
+  stObj.pressDuration = _addWidget(w.pressDuration);
+  stObj.interactive = (w.interactive != null) ? w.interactive!.toInt() : 0;
+  stObj.scrollbarOrientation = (w.scrollbarOrientation != null) ? w.scrollbarOrientation!.index : 0;
+  stObj.mainAxisMargin = w.mainAxisMargin;
+  stObj.crossAxisMargin = w.crossAxisMargin;
+  stObj.padding = _createEdgeInsetsObjSt(w.padding);
+  return stObj;
+}
+
+void _setupRawChip(WidgetFactories f) {
+  f.rawChip.rawChip = ffi.Pointer.fromFunction(rawChipRawChip);
+}
+RawChipObjSt rawChipRawChip(ffi.Pointer<DartObj> avatar, DartDartObj label, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> deleteIcon, ffi.Pointer<VoidCallbackFFI> onDeleted, ffi.Pointer<DartObj> deleteIconColor, ffi.Pointer<ffi.Char> deleteButtonTooltipMessage, ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<ValueChangedForBoolFFI> onSelected, ffi.Pointer<ffi.Double> pressElevation, ffi.Pointer<ffi.Int> tapEnabled, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Int> isEnabled, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> selectedColor, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> selectedShadowColor, ffi.Pointer<ffi.Int> showCheckmark, ffi.Pointer<DartObj> checkmarkColor, ffi.Pointer<DartObj> avatarBorder, ffi.Pointer<DartObj> avatarBoxConstraints, ffi.Pointer<DartObj> deleteIconBoxConstraints) {
+  final w = RawChip(avatar: avatar.objOrNul(),
+      label: _widgetsMap[label]! as Widget,
+      labelStyle: labelStyle.objOrNul(),
+      padding: padding.objOrNul(),
+      visualDensity: visualDensity.objOrNul(),
+      labelPadding: labelPadding.objOrNul(),
+      deleteIcon: deleteIcon.objOrNul(),
+      onDeleted: onDeleted.toVoidCallbackFn(),
+      deleteIconColor: deleteIconColor.objOrNul(),
+      deleteButtonTooltipMessage: deleteButtonTooltipMessage.strOrNul(),
+      onPressed: onPressed.toVoidCallbackFn(),
+      onSelected: onSelected.toValueChangedForBoolFn(),
+      pressElevation: pressElevation.doubleOrNul(),
+      tapEnabled: tapEnabled.boolOr(true),
+      selected: selected.boolOr(false),
+      isEnabled: isEnabled.boolOr(true),
+      disabledColor: disabledColor.objOrNul(),
+      selectedColor: selectedColor.objOrNul(),
+      tooltip: tooltip.strOrNul(),
+      side: side.objOrNul(),
+      shape: shape.objOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      autofocus: autofocus.boolOr(false),
+      color: _wspNul<Color?>(color.objOrNul()),
+      backgroundColor: backgroundColor.objOrNul(),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      selectedShadowColor: selectedShadowColor.objOrNul(),
+      showCheckmark: showCheckmark.boolOrNul(),
+      checkmarkColor: checkmarkColor.objOrNul(),
+      avatarBorder: avatarBorder.objOr(const CircleBorder()),
+      avatarBoxConstraints: avatarBoxConstraints.objOrNul(),
+      deleteIconBoxConstraints: deleteIconBoxConstraints.objOrNul());
+  return _createRawChipObjSt(w);
+}
+RawChipObjSt _createRawChipObjSt(RawChip? w) {
+  final RawChipObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.avatar = _addWidget(w.avatar);
+  stObj.label = _addWidget(w.label);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  stObj.deleteIcon = _addWidget(w.deleteIcon);
+  stObj.deleteIconColor = _addWidget(w.deleteIconColor);
+  stObj.deleteButtonTooltipMessage = (w.deleteButtonTooltipMessage != null) ? w.deleteButtonTooltipMessage!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.pressElevation = (w.pressElevation != null) ? w.pressElevation! : 0;
+  stObj.selected = w.selected.toInt();
+  stObj.isEnabled = w.isEnabled.toInt();
+  stObj.disabledColor = _addWidget(w.disabledColor);
+  stObj.selectedColor = _addWidget(w.selectedColor);
+  stObj.tooltip = (w.tooltip != null) ? w.tooltip!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.side = _createBorderSideObjSt(w.side);
+  stObj.shape = _addWidget(w.shape);
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.padding = _addWidget(w.padding);
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.selectedShadowColor = _addWidget(w.selectedShadowColor);
+  stObj.showCheckmark = (w.showCheckmark != null) ? w.showCheckmark!.toInt() : 0;
+  stObj.checkmarkColor = _addWidget(w.checkmarkColor);
+  stObj.avatarBorder = _addWidget(w.avatarBorder);
+  stObj.avatarBoxConstraints = _createBoxConstraintsObjSt(w.avatarBoxConstraints);
+  stObj.deleteIconBoxConstraints = _createBoxConstraintsObjSt(w.deleteIconBoxConstraints);
+  stObj.tapEnabled = w.tapEnabled.toInt();
+  return stObj;
+}
+
+void _setupCupertinoRadio(WidgetFactories f) {
+  f.cupertinoRadio.cupertinoRadio = ffi.Pointer.fromFunction(cupertinoRadioCupertinoRadio);
+}
+CupertinoRadioObjSt cupertinoRadioCupertinoRadio(DartDartObj value, ffi.Pointer<DartObj> groupValue, ffi.Pointer<ValueChangedForTOptFFI> onChanged, ffi.Pointer<ffi.Int> toggleable, ffi.Pointer<DartObj> activeColor, ffi.Pointer<DartObj> inactiveColor, ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> useCheckmarkStyle, ffi.Pointer<ffi.Int> enabled) {
+  final w = CupertinoRadio(value: value,
+      groupValue: groupValue,
+      onChanged: onChanged.toValueChangedForTOptFn(),
+      toggleable: toggleable.boolOr(false),
+      activeColor: activeColor.objOrNul(),
+      inactiveColor: inactiveColor.objOrNul(),
+      fillColor: fillColor.objOrNul(),
+      focusColor: focusColor.objOrNul(),
+      autofocus: autofocus.boolOr(false),
+      useCheckmarkStyle: useCheckmarkStyle.boolOr(false),
+      enabled: enabled.boolOrNul());
+  return _createCupertinoRadioObjSt(w);
+}
+CupertinoRadioObjSt _createCupertinoRadioObjSt(CupertinoRadio? w) {
+  final CupertinoRadioObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.toggleable = w.toggleable.toInt();
+  stObj.useCheckmarkStyle = w.useCheckmarkStyle.toInt();
+  stObj.activeColor = _addWidget(w.activeColor);
+  stObj.inactiveColor = _addWidget(w.inactiveColor);
+  stObj.fillColor = _addWidget(w.fillColor);
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.enabled = (w.enabled != null) ? w.enabled!.toInt() : 0;
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -13594,6 +13758,9 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupTextSelectionToolbarTextButton(f);
   _setupFocusableActionDetector(f);
   _setupHeroControllerScope(f);
+  _setupRawScrollbar(f);
+  _setupRawChip(f);
+  _setupCupertinoRadio(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
