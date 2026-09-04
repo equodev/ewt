@@ -891,7 +891,18 @@ List<ParameterElement> bindTypeParameters(List<ParameterElement> parameters, Lis
       if (arg is TypeParameterType && arg.element == (parameter.type as TypeParameterType).element) {
         continue;
       }
-      newParams[i] = paramElement(parameter.name, arg);
+      // Preserve the original parameter's nullability. `FormFieldSetter<T>` is
+      // declared as `void Function(T? newValue)` in Flutter — instantiating T
+      // as `String` must yield `String?`, not `String`. Without this, the
+      // emitted lambda `(String newValue) { … }` is `void Function(String)`
+      // and doesn't satisfy the alias's `void Function(String?)` contract.
+      var boundType = arg;
+      if (parameter.type.nullabilitySuffix == NullabilitySuffix.question &&
+          arg.nullabilitySuffix != NullabilitySuffix.question &&
+          arg is InterfaceTypeImpl) {
+        boundType = arg.withNullability(NullabilitySuffix.question);
+      }
+      newParams[i] = paramElement(parameter.name, boundType);
     }
   }
   return newParams;

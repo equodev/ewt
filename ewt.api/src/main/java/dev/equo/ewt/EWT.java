@@ -2382,6 +2382,10 @@ public class EWT {
     return CupertinoRadioCupertinoRadioBuilder.cupertinoRadioCupertinoRadio(value);
   }
 
+  public static CupertinoTextFormFieldRowCupertinoTextFormFieldRowBuilder CupertinoTextFormFieldRow() {
+    return CupertinoTextFormFieldRowCupertinoTextFormFieldRowBuilder.cupertinoTextFormFieldRowCupertinoTextFormFieldRow();
+  }
+
   public static CupertinoDynamicColorCupertinoDynamicColorBuilder CupertinoDynamicColor() {
     return CupertinoDynamicColorCupertinoDynamicColorBuilder.cupertinoDynamicColorCupertinoDynamicColor();
   }

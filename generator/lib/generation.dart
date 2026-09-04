@@ -194,13 +194,40 @@ class Generation {
           // every intermediate widget ID added during the Java→Dart call is removed from
           // _widgetsMap once the callback returns and Flutter holds the tree directly.
           final needsScope = fnType.returnType is! VoidType && !isPrimitive(fnType.returnType);
+          // ffigen emits a `Dart<Alias>FFIFunction` type only when the Dart
+          // callable form differs from the native form — that's when ANY
+          // slot is `ffi.Void` / `ffi.Int` / `ffi.Double` / `ffi.Bool` (Dart
+          // versions drop the `ffi.` prefix). If every slot stays
+          // pointer-shaped (String → `Pointer<Char>`, ObjSt → struct), the
+          // plain `<Alias>FFIFunction` IS the Dart callable and ffigen
+          // skips the `Dart` variant — so emitting `Dart<Alias>FFIFunction`
+          // in that case fails to compile (see FormFieldValidator<String>).
+          DartType _substTypeParam(DartType t) {
+            if (t is TypeParameterType && td.typeArguments.isNotEmpty) {
+              final idx = td.element.typeParameters
+                  .indexWhere((p) => p == t.element);
+              if (idx >= 0 && idx < td.typeArguments.length) {
+                return td.typeArguments[idx];
+              }
+            }
+            return t;
+          }
+          bool _isPointerShaped(DartType t) =>
+              _substTypeParam(t).isDartCoreString; // char* → Pointer<Char> —
+                                                   // only known collapse today.
+          final _allSlotsPointerShaped =
+              _isPointerShaped(fnType.returnType) &&
+              fnType.parameters.every((p) => _isPointerShaped(p.type));
+          final _dartFnTypeName = _allSlotsPointerShaped
+              ? '${aliasName}FFIFunction'
+              : 'Dart${aliasName}FFIFunction';
           dartFactories.writeln(
                   'extension on $ourName {\n'
                   '  $retType to${aliasName}Fn$tp() {\n'
                   // '    return (${fnType}) {\n'
                   // '    return (${boundParams.map((p) => '${p.type} ${ensureName(p)}').join(', ')}) {\n'
                   '    return (${boundPositionalParams.map((p) => '${_dartTypeStr(p.type)} ${ensureName(p)}').join(', ')}${boundNamedParams.isNotEmpty ?', {${boundNamedParams.map((p) => '${p.isRequiredNamed ? 'required ' : ''}${_dartTypeStr(p.type)} ${ensureName(p)}').join(', ')}}' : ''}) ${needsScope ? '=> _runBuildScope(() ' : ''}{\n'
-                  '      Dart${aliasName}FFIFunction dFn = asFunction();\n'
+                  '      $_dartFnTypeName dFn = asFunction();\n'
                   '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p, fromCallback: true)).join(', ')});');
           if (fnType.returnType is! VoidType) {
             dartFactories.writeln(

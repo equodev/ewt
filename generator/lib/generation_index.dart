@@ -546,7 +546,7 @@ m.RawChip? rawChip;
 m.SegmentedButton? segmentedButton;
 c.CupertinoRadio? cupertinoRadio;
 // CupertinoTheme skipped: has static methods (`brightnessOf`, `maybeBrightnessOf`) that make the generator emit `_createCupertinoThemeObjSt(CupertinoTheme?)` in factories_gen.dart — but the ObjSt struct is `typedef struct { int id; DartObj child; } CupertinoThemeObjSt;`, whose body ffigen dedupes with other identically-shaped anonymous structs, so the type never lands in `widgets_bindings_generated.dart`. Same shape hits any widget with static returns + trivial ObjSt.
-// CupertinoTextFormFieldRow skipped: `onSaved: FormFieldSetter<String>` and `validator: FormFieldValidator<String>` are `void Function(String?)` and `String? Function(String?)`. The generated FFI wrapper hands a non-nullable `String` to the Java callback (via `Pointer<Char>`), so factories_gen.dart fails type-checking on the nullable-string-arg mismatch. Nullable-string callback-arg marshaling gap.
+c.CupertinoTextFormFieldRow? cupertinoTextFormFieldRow;
 // CupertinoScrollBehavior skipped: pulls its `ScrollBehavior` supertype into the Java surface, which references `_bouncingPhysics()` / `_clampingPhysics()` / `BouncingScrollPhysics` / `RangeMaintainingScrollPhysics` / `ClampingScrollPhysics` / `ScrollDecelerationRate` — none of them emitted (private helpers + unregistered ScrollPhysics subclasses).
 w.SnapshotWidget? snapshotWidget;
 w.ShrinkWrappingViewport? shrinkWrappingViewport;

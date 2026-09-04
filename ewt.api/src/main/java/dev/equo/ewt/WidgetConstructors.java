@@ -9865,6 +9865,53 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enabled));
   }
 
+  MemorySegment cupertinoTextFormFieldRowCupertinoTextFormFieldRow(Optional<Widget> prefix, Optional<EdgeInsetsGeometry> padding, Optional<String> initialValue, Optional<BoxDecoration> decoration, Optional<TextCapitalization> textCapitalization, Optional<TextInputAction> textInputAction, Optional<TextStyle> style, Optional<TextDirection> textDirection, Optional<TextAlign> textAlign, Optional<Boolean> autofocus, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<Consumer<String>> onChanged, Optional<Runnable> onTap, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onFieldSubmitted, Optional<Consumer<String>> onSaved, Optional<Function<String, String>> validator, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Color> cursorColor, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<Boolean> enableInteractiveSelection, Optional<List<String>> autofillHints, Optional<AutovalidateMode> autovalidateMode, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<String> restorationId) {
+    var st = WidgetFactories.cupertinoTextFormFieldRow(factories);
+    var fn = WidgetFactories.CupertinoTextFormFieldRowSt.cupertinoTextFormFieldRow(st);
+    return WidgetFactories.CupertinoTextFormFieldRowSt.cupertinoTextFormFieldRow.invoke(fn, arena, ptrObj(prefix),
+      ptrObj(padding),
+      ptrStr(initialValue),
+      ptrObj(decoration),
+      ptrEnum(textCapitalization),
+      ptrEnum(textInputAction),
+      ptrObj(style),
+      ptrEnum(textDirection),
+      ptrEnum(textAlign),
+      ptrBool(autofocus),
+      ptrBool(readOnly),
+      ptrBool(showCursor),
+      ptrStr(obscuringCharacter),
+      ptrBool(obscureText),
+      ptrBool(autocorrect),
+      ptrEnum(smartDashesType),
+      ptrEnum(smartQuotesType),
+      ptrBool(enableSuggestions),
+      ptr(maxLines),
+      ptr(minLines),
+      ptrBool(expands),
+      ptr(maxLength),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
+      onFieldSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onFieldSubmitted.get())) : MemorySegment.NULL,
+      onSaved.isPresent() ? ptrHolder(ptrFormFieldSetterForStringFn(onSaved.get())) : MemorySegment.NULL,
+      validator.isPresent() ? ptrHolder(ptrFormFieldValidatorForStringFn(validator.get())) : MemorySegment.NULL,
+      ptrBool(enabled),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorColor),
+      ptrEnum(keyboardAppearance),
+      ptrObj(scrollPadding),
+      ptrBool(enableInteractiveSelection),
+      ptrStrList(autofillHints),
+      ptrEnum(autovalidateMode),
+      ptrStr(placeholder),
+      ptrObj(placeholderStyle),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrStr(restorationId));
+  }
+
   MemorySegment cupertinoDynamicColorCupertinoDynamicColor(Optional<String> debugLabel, Color color, Color darkColor, Color highContrastColor, Color darkHighContrastColor, Color elevatedColor, Color darkElevatedColor, Color highContrastElevatedColor, Color darkHighContrastElevatedColor) {
     var st = WidgetFactories.cupertinoDynamicColor(factories);
     var fn = WidgetFactories.CupertinoDynamicColorSt.cupertinoDynamicColor(st);
@@ -10464,6 +10511,17 @@ MemorySegment ptrRefreshCallbackFn(Supplier<Future> jFn) {
 <T> MemorySegment ptrValueChangedForRefreshIndicatorStatusOptFn(Consumer<RefreshIndicatorStatus> jFn) {
   return ValueChangedForRefreshIndicatorStatusOptFFI.allocate((value) -> {
     jFn.accept(memToEnum(value, RefreshIndicatorStatus.values()));
+  }, arena);
+}
+<T> MemorySegment ptrFormFieldSetterForStringFn(Consumer<String> jFn) {
+  return FormFieldSetterForStringFFI.allocate((newValue) -> {
+    jFn.accept(newValue.getString(0));
+  }, arena);
+}
+<T> MemorySegment ptrFormFieldValidatorForStringFn(Function<String, String> jFn) {
+  return FormFieldValidatorForStringFFI.allocate((value) -> {
+    final var jFnRet = jFn.apply(value.getString(0));
+    return arena.allocateFrom(jFnRet);
   }, arena);
 }
 MemorySegment ptrNestedScrollViewHeaderSliversBuilderFn(BiFunction<BuildContext, Boolean, List<Widget>> jFn) {

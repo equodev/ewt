@@ -2313,6 +2313,10 @@ typedef struct {
     CupertinoRadioObjSt (*cupertinoRadio)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* inactiveColor, DartObj* fillColor, DartObj* focusColor, int* autofocus, int* useCheckmarkStyle, int* enabled);
   } cupertinoRadio;
 
+  struct CupertinoTextFormFieldRowSt {
+    CupertinoTextFormFieldRowObjSt (*cupertinoTextFormFieldRow)(DartObj* prefix, DartObj* padding, char* initialValue, DartObj* decoration, int* textCapitalization, int* textInputAction, DartObj* style, int* textDirection, int* textAlign, int* autofocus, int* readOnly, int* showCursor, char* obscuringCharacter, int* obscureText, int* autocorrect, int* smartDashesType, int* smartQuotesType, int* enableSuggestions, int* maxLines, int* minLines, int* expands, int* maxLength, ValueChangedForStringFFI* onChanged, GestureTapCallbackFFI* onTap, VoidCallbackFFI* onEditingComplete, ValueChangedForStringFFI* onFieldSubmitted, FormFieldSetterForStringFFI* onSaved, FormFieldValidatorForStringFFI* validator, int* enabled, double* cursorWidth, double* cursorHeight, DartObj* cursorColor, int* keyboardAppearance, DartObj* scrollPadding, int* enableInteractiveSelection, char*** autofillHints, int* autovalidateMode, char* placeholder, DartObj* placeholderStyle, int* selectionHeightStyle, int* selectionWidthStyle, char* restorationId);
+  } cupertinoTextFormFieldRow;
+
   struct CupertinoDynamicColorSt {
     CupertinoDynamicColorObjSt (*cupertinoDynamicColor)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor, DartObj elevatedColor, DartObj darkElevatedColor, DartObj highContrastElevatedColor, DartObj darkHighContrastElevatedColor);
     CupertinoDynamicColorObjSt (*withBrightnessAndContrast)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor);

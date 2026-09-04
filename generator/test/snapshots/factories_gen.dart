@@ -16184,6 +16184,63 @@ CupertinoRadioObjSt _createCupertinoRadioObjSt(CupertinoRadio? w) {
   return stObj;
 }
 
+void _setupCupertinoTextFormFieldRow(WidgetFactories f) {
+  f.cupertinoTextFormFieldRow.cupertinoTextFormFieldRow = ffi.Pointer.fromFunction(cupertinoTextFormFieldRowCupertinoTextFormFieldRow);
+}
+CupertinoTextFormFieldRowObjSt cupertinoTextFormFieldRowCupertinoTextFormFieldRow(ffi.Pointer<DartObj> prefix, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Char> initialValue, ffi.Pointer<DartObj> decoration, ffi.Pointer<ffi.Int> textCapitalization, ffi.Pointer<ffi.Int> textInputAction, ffi.Pointer<DartObj> style, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> showCursor, ffi.Pointer<ffi.Char> obscuringCharacter, ffi.Pointer<ffi.Int> obscureText, ffi.Pointer<ffi.Int> autocorrect, ffi.Pointer<ffi.Int> smartDashesType, ffi.Pointer<ffi.Int> smartQuotesType, ffi.Pointer<ffi.Int> enableSuggestions, ffi.Pointer<ffi.Int> maxLines, ffi.Pointer<ffi.Int> minLines, ffi.Pointer<ffi.Int> expands, ffi.Pointer<ffi.Int> maxLength, ffi.Pointer<ValueChangedForStringFFI> onChanged, ffi.Pointer<GestureTapCallbackFFI> onTap, ffi.Pointer<VoidCallbackFFI> onEditingComplete, ffi.Pointer<ValueChangedForStringFFI> onFieldSubmitted, ffi.Pointer<FormFieldSetterForStringFFI> onSaved, ffi.Pointer<FormFieldValidatorForStringFFI> validator, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Double> cursorWidth, ffi.Pointer<ffi.Double> cursorHeight, ffi.Pointer<DartObj> cursorColor, ffi.Pointer<ffi.Int> keyboardAppearance, ffi.Pointer<DartObj> scrollPadding, ffi.Pointer<ffi.Int> enableInteractiveSelection, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> autofillHints, ffi.Pointer<ffi.Int> autovalidateMode, ffi.Pointer<ffi.Char> placeholder, ffi.Pointer<DartObj> placeholderStyle, ffi.Pointer<ffi.Int> selectionHeightStyle, ffi.Pointer<ffi.Int> selectionWidthStyle, ffi.Pointer<ffi.Char> restorationId) {
+  final w = CupertinoTextFormFieldRow(prefix: prefix.objOrNul(),
+      padding: padding.objOrNul(),
+      initialValue: initialValue.strOrNul(),
+      decoration: decoration.objOrNul(),
+      textCapitalization: textCapitalization.enumOr(TextCapitalization.values, TextCapitalization.none),
+      textInputAction: textInputAction.enumOrNul(TextInputAction.values),
+      style: style.objOrNul(),
+      textDirection: textDirection.enumOrNul(TextDirection.values),
+      textAlign: textAlign.enumOr(TextAlign.values, TextAlign.start),
+      autofocus: autofocus.boolOr(false),
+      readOnly: readOnly.boolOr(false),
+      showCursor: showCursor.boolOrNul(),
+      obscuringCharacter: obscuringCharacter.strOr('•'),
+      obscureText: obscureText.boolOr(false),
+      autocorrect: autocorrect.boolOr(true),
+      smartDashesType: smartDashesType.enumOrNul(SmartDashesType.values),
+      smartQuotesType: smartQuotesType.enumOrNul(SmartQuotesType.values),
+      enableSuggestions: enableSuggestions.boolOr(true),
+      maxLines: maxLines.intOrNul(),
+      minLines: minLines.intOrNul(),
+      expands: expands.boolOr(false),
+      maxLength: maxLength.intOrNul(),
+      onChanged: onChanged.toValueChangedForStringFn(),
+      onTap: onTap.toGestureTapCallbackFn(),
+      onEditingComplete: onEditingComplete.toVoidCallbackFn(),
+      onFieldSubmitted: onFieldSubmitted.toValueChangedForStringFn(),
+      onSaved: onSaved.toFormFieldSetterForStringFn(),
+      validator: validator.toFormFieldValidatorForStringFn(),
+      enabled: enabled.boolOrNul(),
+      cursorWidth: cursorWidth.doubleOr(2.0),
+      cursorHeight: cursorHeight.doubleOrNul(),
+      cursorColor: cursorColor.objOrNul(),
+      keyboardAppearance: keyboardAppearance.enumOrNul(Brightness.values),
+      scrollPadding: scrollPadding.objOr(const EdgeInsets.all(20.0)),
+      enableInteractiveSelection: enableInteractiveSelection.boolOr(true),
+      autofillHints: autofillHints.listOrNul(),
+      autovalidateMode: autovalidateMode.enumOr(AutovalidateMode.values, AutovalidateMode.disabled),
+      placeholder: placeholder.strOrNul(),
+      placeholderStyle: placeholderStyle.objOrNul(),
+      selectionHeightStyle: selectionHeightStyle.enumOrNul(BoxHeightStyle.values),
+      selectionWidthStyle: selectionWidthStyle.enumOrNul(BoxWidthStyle.values),
+      restorationId: restorationId.strOrNul());
+  return _createCupertinoTextFormFieldRowObjSt(w);
+}
+CupertinoTextFormFieldRowObjSt _createCupertinoTextFormFieldRowObjSt(CupertinoTextFormFieldRow? w) {
+  final CupertinoTextFormFieldRowObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.prefix = _addWidget(w.prefix);
+  stObj.padding = _addWidget(w.padding);
+  return stObj;
+}
+
 void _setupCupertinoDynamicColor(WidgetFactories f) {
   f.cupertinoDynamicColor.cupertinoDynamicColor = ffi.Pointer.fromFunction(cupertinoDynamicColorCupertinoDynamicColor);
   f.cupertinoDynamicColor.withBrightnessAndContrast = ffi.Pointer.fromFunction(cupertinoDynamicColorWithBrightnessAndContrast);
@@ -16806,6 +16863,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupRawScrollbar(f);
   _setupRawChip(f);
   _setupCupertinoRadio(f);
+  _setupCupertinoTextFormFieldRow(f);
   _setupCupertinoDynamicColor(f);
   _setupTableRow(f);
   _setupCupertinoThemeData(f);
@@ -17985,6 +18043,31 @@ extension on ValueChangedForRefreshIndicatorStatusOptFFI {
 }
 extension on ffi.Pointer<ValueChangedForRefreshIndicatorStatusOptFFI> {
   ValueChanged<RefreshIndicatorStatus?>? toValueChangedForRefreshIndicatorStatusOptFn() => (this != ffi.nullptr) ? this.value.toValueChangedForRefreshIndicatorStatusOptFn() : null;
+}
+
+extension on FormFieldSetterForStringFFI {
+  FormFieldSetter<String> toFormFieldSetterForStringFn() {
+    return (String? newValue) {
+      DartFormFieldSetterForStringFFIFunction dFn = asFunction();
+      dFn((newValue != null) ? newValue!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr);
+    };
+  }
+}
+extension on ffi.Pointer<FormFieldSetterForStringFFI> {
+  FormFieldSetter<String>? toFormFieldSetterForStringFn() => (this != ffi.nullptr) ? this.value.toFormFieldSetterForStringFn() : null;
+}
+
+extension on FormFieldValidatorForStringFFI {
+  FormFieldValidator<String> toFormFieldValidatorForStringFn() {
+    return (String? value) {
+      FormFieldValidatorForStringFFIFunction dFn = asFunction();
+      final dFnRet = dFn((value != null) ? value!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr);
+      return dFnRet.strOrNul();
+    };
+  }
+}
+extension on ffi.Pointer<FormFieldValidatorForStringFFI> {
+  FormFieldValidator<String>? toFormFieldValidatorForStringFn() => (this != ffi.nullptr) ? this.value.toFormFieldValidatorForStringFn() : null;
 }
 
 extension on NestedScrollViewHeaderSliversBuilderFFI {

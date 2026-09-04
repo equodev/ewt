@@ -4228,6 +4228,18 @@ typedef struct {
 } CupertinoRadioObjSt;
 typedef struct {
   int id;
+  DartObj prefix;
+  DartObj padding;
+} CupertinoTextFormFieldRowObjSt;
+typedef struct {
+  int id;
+  char* forceErrorText;
+  int enabled;
+  int autovalidateMode;
+  char* restorationId;
+} FormFieldObjSt;
+typedef struct {
+  int id;
   int mode;
   int autoresize;
 } SnapshotWidgetObjSt;
