@@ -4615,6 +4615,46 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>),
       enableFeedback: (p['enableFeedback'] as bool?) ?? true),
 
+  'pageStoragePageStorage': (p) => PageStorage(bucket: decodeEwtNode(p['bucket'] as Map<String,dynamic>) as PageStorageBucket,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+  'pageStorageMaybeOf': (p) => PageStorage.maybeOf(ewtActiveBuildContext!),
+  'pageStorageOf': (p) => PageStorage.of(ewtActiveBuildContext!),
+
+  'pageStorageBucketPageStorageBucket': (p) => PageStorageBucket(),
+
+  'decoratedSliverDecoratedSliver': (p) => DecoratedSliver(decoration: decodeEwtNode(p['decoration'] as Map<String,dynamic>) as Decoration,
+      position: p['position'] == null ? DecorationPosition.background : DecorationPosition.values[p['position'] as int],
+      sliver: p['sliver'] == null ? null : decodeEwtWidget(p['sliver'] as Map<String,dynamic>)),
+
+  'sliverListList': (p) => SliverList.list(children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      addAutomaticKeepAlives: (p['addAutomaticKeepAlives'] as bool?) ?? true,
+      addRepaintBoundaries: (p['addRepaintBoundaries'] as bool?) ?? true,
+      addSemanticIndexes: (p['addSemanticIndexes'] as bool?) ?? true),
+
+  'sliverGridCount': (p) => SliverGrid.count(crossAxisCount: p['crossAxisCount'] as int,
+      mainAxisSpacing: ((p['mainAxisSpacing'] as num?)?.toDouble()) ?? 0.0,
+      crossAxisSpacing: ((p['crossAxisSpacing'] as num?)?.toDouble()) ?? 0.0,
+      childAspectRatio: ((p['childAspectRatio'] as num?)?.toDouble()) ?? 1.0,
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+  'sliverGridExtent': (p) => SliverGrid.extent(maxCrossAxisExtent: (p['maxCrossAxisExtent'] as num).toDouble(),
+      mainAxisSpacing: ((p['mainAxisSpacing'] as num?)?.toDouble()) ?? 0.0,
+      crossAxisSpacing: ((p['crossAxisSpacing'] as num?)?.toDouble()) ?? 0.0,
+      childAspectRatio: ((p['childAspectRatio'] as num?)?.toDouble()) ?? 1.0,
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'sliverAnimatedOpacitySliverAnimatedOpacity': (p) => SliverAnimatedOpacity(sliver: p['sliver'] == null ? null : decodeEwtWidget(p['sliver'] as Map<String,dynamic>),
+      opacity: (p['opacity'] as num).toDouble(),
+      curve: p['curve'] == null ? Curves.linear : decodeEwtNode(p['curve'] as Map<String,dynamic>) as Curve,
+      duration: decodeEwtNode(p['duration'] as Map<String,dynamic>) as Duration,
+      onEnd: ewtWireCallback(p['onEnd']),
+      alwaysIncludeSemantics: (p['alwaysIncludeSemantics'] as bool?) ?? false),
+
+  'pinnedHeaderSliverPinnedHeaderSliver': (p) => PinnedHeaderSliver(child: p['child'] == null ? null : decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'focusTraversalGroupFocusTraversalGroup': (p) => FocusTraversalGroup(descendantsAreFocusable: (p['descendantsAreFocusable'] as bool?) ?? true,
+      descendantsAreTraversable: (p['descendantsAreTraversable'] as bool?) ?? true,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
 
   // SubmenuButton and PopupMenuButton are excluded from auto web decoding
   // (MenuController + itemBuilder returns a value); hand-maintained here.

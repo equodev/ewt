@@ -12375,6 +12375,213 @@ RawMaterialButtonObjSt _createRawMaterialButtonObjSt(RawMaterialButton? w) {
   return stObj;
 }
 
+void _setupPageStorage(WidgetFactories f) {
+  f.pageStorage.pageStorage = ffi.Pointer.fromFunction(pageStoragePageStorage);
+  f.pageStorage.maybeOf = ffi.Pointer.fromFunction(pageStorageMaybeOf, exception);
+  f.pageStorage.of = ffi.Pointer.fromFunction(pageStorageOf, exception);
+}
+PageStorageObjSt pageStoragePageStorage(DartDartObj bucket, DartDartObj child) {
+  final w = PageStorage(bucket: _widgetsMap[bucket]! as PageStorageBucket,
+      child: _widgetsMap[child]! as Widget);
+  return _createPageStorageObjSt(w);
+}
+int pageStorageMaybeOf(DartDartObj context) {
+  final w = PageStorage.maybeOf(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int pageStorageOf(DartDartObj context) {
+  final w = PageStorage.of(_widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+PageStorageObjSt _createPageStorageObjSt(PageStorage? w) {
+  final PageStorageObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.bucket = _addWidget(w.bucket);
+  return stObj;
+}
+
+void _setupPageStorageBucket(WidgetFactories f) {
+  f.pageStorageBucket.pageStorageBucket = ffi.Pointer.fromFunction(pageStorageBucketPageStorageBucket, exception);
+}
+int pageStorageBucketPageStorageBucket() {
+  final w = PageStorageBucket();
+  return _addWidget(w);
+}
+
+void _setupPositionedTransition(WidgetFactories f) {
+  f.positionedTransition.positionedTransition = ffi.Pointer.fromFunction(positionedTransitionPositionedTransition);
+}
+PositionedTransitionObjSt positionedTransitionPositionedTransition(DartDartObj rect, DartDartObj child) {
+  final w = PositionedTransition(rect: _widgetsMap[rect]! as Animation<RelativeRect>,
+      child: _widgetsMap[child]! as Widget);
+  return _createPositionedTransitionObjSt(w);
+}
+PositionedTransitionObjSt _createPositionedTransitionObjSt(PositionedTransition? w) {
+  final PositionedTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.rect = _addWidget(w.rect);
+  return stObj;
+}
+
+void _setupDecoratedBoxTransition(WidgetFactories f) {
+  f.decoratedBoxTransition.decoratedBoxTransition = ffi.Pointer.fromFunction(decoratedBoxTransitionDecoratedBoxTransition);
+}
+DecoratedBoxTransitionObjSt decoratedBoxTransitionDecoratedBoxTransition(DartDartObj decoration, ffi.Pointer<ffi.Int> position, DartDartObj child) {
+  final w = DecoratedBoxTransition(decoration: _widgetsMap[decoration]! as Animation<Decoration>,
+      position: position.enumOr(DecorationPosition.values, DecorationPosition.background),
+      child: _widgetsMap[child]! as Widget);
+  return _createDecoratedBoxTransitionObjSt(w);
+}
+DecoratedBoxTransitionObjSt _createDecoratedBoxTransitionObjSt(DecoratedBoxTransition? w) {
+  final DecoratedBoxTransitionObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.decoration = _addWidget(w.decoration);
+  stObj.position = w.position.index;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupDecoratedSliver(WidgetFactories f) {
+  f.decoratedSliver.decoratedSliver = ffi.Pointer.fromFunction(decoratedSliverDecoratedSliver);
+}
+DecoratedSliverObjSt decoratedSliverDecoratedSliver(DartDartObj decoration, ffi.Pointer<ffi.Int> position, ffi.Pointer<DartObj> sliver) {
+  final w = DecoratedSliver(decoration: _widgetsMap[decoration]! as Decoration,
+      position: position.enumOr(DecorationPosition.values, DecorationPosition.background),
+      sliver: sliver.objOrNul());
+  return _createDecoratedSliverObjSt(w);
+}
+DecoratedSliverObjSt _createDecoratedSliverObjSt(DecoratedSliver? w) {
+  final DecoratedSliverObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.decoration = _addWidget(w.decoration);
+  stObj.position = w.position.index;
+  return stObj;
+}
+
+void _setupSliverList(WidgetFactories f) {
+  f.sliverList.builder = ffi.Pointer.fromFunction(sliverListBuilder);
+  f.sliverList.separated = ffi.Pointer.fromFunction(sliverListSeparated);
+  f.sliverList.list = ffi.Pointer.fromFunction(sliverListList);
+}
+SliverListObjSt sliverListBuilder(NullableIndexedWidgetBuilderFFI itemBuilder, ffi.Pointer<ffi.Int> itemCount, ffi.Pointer<ffi.Int> addAutomaticKeepAlives, ffi.Pointer<ffi.Int> addRepaintBoundaries, ffi.Pointer<ffi.Int> addSemanticIndexes) {
+  final w = SliverList.builder(itemBuilder: itemBuilder.toNullableIndexedWidgetBuilderFn(),
+      itemCount: itemCount.intOrNul(),
+      addAutomaticKeepAlives: addAutomaticKeepAlives.boolOr(true),
+      addRepaintBoundaries: addRepaintBoundaries.boolOr(true),
+      addSemanticIndexes: addSemanticIndexes.boolOr(true));
+  return _createSliverListObjSt(w);
+}
+SliverListObjSt sliverListSeparated(NullableIndexedWidgetBuilderFFI itemBuilder, NullableIndexedWidgetBuilderFFI separatorBuilder, ffi.Pointer<ffi.Int> itemCount, ffi.Pointer<ffi.Int> addAutomaticKeepAlives, ffi.Pointer<ffi.Int> addRepaintBoundaries, ffi.Pointer<ffi.Int> addSemanticIndexes) {
+  final w = SliverList.separated(itemBuilder: itemBuilder.toNullableIndexedWidgetBuilderFn(),
+      separatorBuilder: separatorBuilder.toNullableIndexedWidgetBuilderFn(),
+      itemCount: itemCount.intOrNul(),
+      addAutomaticKeepAlives: addAutomaticKeepAlives.boolOr(true),
+      addRepaintBoundaries: addRepaintBoundaries.boolOr(true),
+      addSemanticIndexes: addSemanticIndexes.boolOr(true));
+  return _createSliverListObjSt(w);
+}
+SliverListObjSt sliverListList(ArrayC children, ffi.Pointer<ffi.Int> addAutomaticKeepAlives, ffi.Pointer<ffi.Int> addRepaintBoundaries, ffi.Pointer<ffi.Int> addSemanticIndexes) {
+  final w = SliverList.list(children: children.listOrEmpty(),
+      addAutomaticKeepAlives: addAutomaticKeepAlives.boolOr(true),
+      addRepaintBoundaries: addRepaintBoundaries.boolOr(true),
+      addSemanticIndexes: addSemanticIndexes.boolOr(true));
+  return _createSliverListObjSt(w);
+}
+SliverListObjSt _createSliverListObjSt(SliverList? w) {
+  final SliverListObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupSliverGrid(WidgetFactories f) {
+  f.sliverGrid.count = ffi.Pointer.fromFunction(sliverGridCount);
+  f.sliverGrid.extent = ffi.Pointer.fromFunction(sliverGridExtent);
+}
+SliverGridObjSt sliverGridCount(int crossAxisCount, ffi.Pointer<ffi.Double> mainAxisSpacing, ffi.Pointer<ffi.Double> crossAxisSpacing, ffi.Pointer<ffi.Double> childAspectRatio, ffi.Pointer<ArrayC> children) {
+  final w = SliverGrid.count(crossAxisCount: crossAxisCount,
+      mainAxisSpacing: mainAxisSpacing.doubleOr(0.0),
+      crossAxisSpacing: crossAxisSpacing.doubleOr(0.0),
+      childAspectRatio: childAspectRatio.doubleOr(1.0),
+      children: children.listOrEmpty());
+  return _createSliverGridObjSt(w);
+}
+SliverGridObjSt sliverGridExtent(double maxCrossAxisExtent, ffi.Pointer<ffi.Double> mainAxisSpacing, ffi.Pointer<ffi.Double> crossAxisSpacing, ffi.Pointer<ffi.Double> childAspectRatio, ffi.Pointer<ArrayC> children) {
+  final w = SliverGrid.extent(maxCrossAxisExtent: maxCrossAxisExtent,
+      mainAxisSpacing: mainAxisSpacing.doubleOr(0.0),
+      crossAxisSpacing: crossAxisSpacing.doubleOr(0.0),
+      childAspectRatio: childAspectRatio.doubleOr(1.0),
+      children: children.listOrEmpty());
+  return _createSliverGridObjSt(w);
+}
+SliverGridObjSt _createSliverGridObjSt(SliverGrid? w) {
+  final SliverGridObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupSliverAnimatedOpacity(WidgetFactories f) {
+  f.sliverAnimatedOpacity.sliverAnimatedOpacity = ffi.Pointer.fromFunction(sliverAnimatedOpacitySliverAnimatedOpacity);
+}
+SliverAnimatedOpacityObjSt sliverAnimatedOpacitySliverAnimatedOpacity(ffi.Pointer<DartObj> sliver, double opacity, ffi.Pointer<DartObj> curve, DartDartObj duration, ffi.Pointer<VoidCallbackFFI> onEnd, ffi.Pointer<ffi.Int> alwaysIncludeSemantics) {
+  final w = SliverAnimatedOpacity(sliver: sliver.objOrNul(),
+      opacity: opacity,
+      curve: curve.objOr(Curves.linear),
+      duration: _widgetsMap[duration]! as Duration,
+      onEnd: onEnd.toVoidCallbackFn(),
+      alwaysIncludeSemantics: alwaysIncludeSemantics.boolOr(false));
+  return _createSliverAnimatedOpacityObjSt(w);
+}
+SliverAnimatedOpacityObjSt _createSliverAnimatedOpacityObjSt(SliverAnimatedOpacity? w) {
+  final SliverAnimatedOpacityObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.sliver = _addWidget(w.sliver);
+  stObj.opacity = w.opacity;
+  stObj.alwaysIncludeSemantics = w.alwaysIncludeSemantics.toInt();
+  return stObj;
+}
+
+void _setupPinnedHeaderSliver(WidgetFactories f) {
+  f.pinnedHeaderSliver.pinnedHeaderSliver = ffi.Pointer.fromFunction(pinnedHeaderSliverPinnedHeaderSliver);
+}
+PinnedHeaderSliverObjSt pinnedHeaderSliverPinnedHeaderSliver(ffi.Pointer<DartObj> child) {
+  final w = PinnedHeaderSliver(child: child.objOrNul());
+  return _createPinnedHeaderSliverObjSt(w);
+}
+PinnedHeaderSliverObjSt _createPinnedHeaderSliverObjSt(PinnedHeaderSliver? w) {
+  final PinnedHeaderSliverObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupFocusTraversalGroup(WidgetFactories f) {
+  f.focusTraversalGroup.focusTraversalGroup = ffi.Pointer.fromFunction(focusTraversalGroupFocusTraversalGroup);
+}
+FocusTraversalGroupObjSt focusTraversalGroupFocusTraversalGroup(ffi.Pointer<ffi.Int> descendantsAreFocusable, ffi.Pointer<ffi.Int> descendantsAreTraversable, DartDartObj child) {
+  final w = FocusTraversalGroup(descendantsAreFocusable: descendantsAreFocusable.boolOr(true),
+      descendantsAreTraversable: descendantsAreTraversable.boolOr(true),
+      child: _widgetsMap[child]! as Widget);
+  return _createFocusTraversalGroupObjSt(w);
+}
+FocusTraversalGroupObjSt _createFocusTraversalGroupObjSt(FocusTraversalGroup? w) {
+  final FocusTraversalGroupObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.descendantsAreFocusable = w.descendantsAreFocusable.toInt();
+  stObj.descendantsAreTraversable = w.descendantsAreTraversable.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -12802,6 +13009,16 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupButtonTheme(f);
   _setupMaterialButton(f);
   _setupRawMaterialButton(f);
+  _setupPageStorage(f);
+  _setupPageStorageBucket(f);
+  _setupPositionedTransition(f);
+  _setupDecoratedBoxTransition(f);
+  _setupDecoratedSliver(f);
+  _setupSliverList(f);
+  _setupSliverGrid(f);
+  _setupSliverAnimatedOpacity(f);
+  _setupPinnedHeaderSliver(f);
+  _setupFocusTraversalGroup(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

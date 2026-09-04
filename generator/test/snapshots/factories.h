@@ -1738,6 +1738,51 @@ typedef struct {
     RawMaterialButtonObjSt (*rawMaterialButton)(VoidCallbackFFI* onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHighlightChanged, DartObj* textStyle, DartObj* fillColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, DartObj* padding, DartObj* visualDensity, DartObj* constraints, DartObj* shape, DartObj* animationDuration, int* clipBehavior, int* autofocus, int* materialTapTargetSize, DartObj* child, int* enableFeedback);
   } rawMaterialButton;
 
+  struct PageStorageSt {
+    PageStorageObjSt (*pageStorage)(DartObj bucket, DartObj child);
+    DartObj (*maybeOf)(DartObj context);
+    DartObj (*of)(DartObj context);
+  } pageStorage;
+
+  struct PageStorageBucketSt {
+    DartObj (*pageStorageBucket)(void);
+  } pageStorageBucket;
+
+  struct PositionedTransitionSt {
+    PositionedTransitionObjSt (*positionedTransition)(DartObj rect, DartObj child);
+  } positionedTransition;
+
+  struct DecoratedBoxTransitionSt {
+    DecoratedBoxTransitionObjSt (*decoratedBoxTransition)(DartObj decoration, int* position, DartObj child);
+  } decoratedBoxTransition;
+
+  struct DecoratedSliverSt {
+    DecoratedSliverObjSt (*decoratedSliver)(DartObj decoration, int* position, DartObj* sliver);
+  } decoratedSliver;
+
+  struct SliverListSt {
+    SliverListObjSt (*builder)(NullableIndexedWidgetBuilderFFI itemBuilder, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverListObjSt (*separated)(NullableIndexedWidgetBuilderFFI itemBuilder, NullableIndexedWidgetBuilderFFI separatorBuilder, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverListObjSt (*list)(ArrayC children, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+  } sliverList;
+
+  struct SliverGridSt {
+    SliverGridObjSt (*count)(int crossAxisCount, double* mainAxisSpacing, double* crossAxisSpacing, double* childAspectRatio, ArrayC* children);
+    SliverGridObjSt (*extent)(double maxCrossAxisExtent, double* mainAxisSpacing, double* crossAxisSpacing, double* childAspectRatio, ArrayC* children);
+  } sliverGrid;
+
+  struct SliverAnimatedOpacitySt {
+    SliverAnimatedOpacityObjSt (*sliverAnimatedOpacity)(DartObj* sliver, double opacity, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd, int* alwaysIncludeSemantics);
+  } sliverAnimatedOpacity;
+
+  struct PinnedHeaderSliverSt {
+    PinnedHeaderSliverObjSt (*pinnedHeaderSliver)(DartObj* child);
+  } pinnedHeaderSliver;
+
+  struct FocusTraversalGroupSt {
+    FocusTraversalGroupObjSt (*focusTraversalGroup)(int* descendantsAreFocusable, int* descendantsAreTraversable, DartObj child);
+  } focusTraversalGroup;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

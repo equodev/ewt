@@ -485,6 +485,23 @@ m.ButtonTheme? buttonTheme;
 m.MaterialButton? materialButton;
 m.RawMaterialButton? rawMaterialButton;
 
+// --- Batch 6: transitions, slivers, keep-alive / defaults ---
+// KeepAlive skipped: extends `ParentDataWidget<KeepAliveParentDataMixin>` — KeepAliveParentDataMixin is a Flutter mixin the generator does not emit as a Java class, so the emitted `extends ParentDataWidget<KeepAliveParentDataMixin>` fails to resolve.
+w.DefaultTextHeightBehavior? defaultTextHeightBehavior;
+w.DefaultAssetBundle? defaultAssetBundle;
+w.PageStorage? pageStorage;
+w.PageStorageBucket? pageStorageBucket;
+w.PositionedTransition? positionedTransition;
+w.DecoratedBoxTransition? decoratedBoxTransition;
+w.RelativePositionedTransition? relativePositionedTransition;
+w.DecoratedSliver? decoratedSliver;
+w.SliverList? sliverList;
+w.SliverGrid? sliverGrid;
+w.SliverFillViewport? sliverFillViewport;
+w.SliverAnimatedOpacity? sliverAnimatedOpacity;
+w.PinnedHeaderSliver? pinnedHeaderSliver;
+w.FocusTraversalGroup? focusTraversalGroup;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

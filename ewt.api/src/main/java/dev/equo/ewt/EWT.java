@@ -1875,6 +1875,55 @@ public class EWT {
     return RawMaterialButtonRawMaterialButtonBuilder.rawMaterialButtonRawMaterialButton();
   }
 
+  public static PageStoragePageStorageBuilder PageStorage(PageStorageBucketI bucket, WidgetI child) {
+    return PageStoragePageStorageBuilder.pageStoragePageStorage(bucket, child);
+  }
+
+  public static PageStorageBucketPageStorageBucketBuilder PageStorageBucket() {
+    return PageStorageBucketPageStorageBucketBuilder.pageStorageBucketPageStorageBucket();
+  }
+
+  public static PositionedTransitionPositionedTransitionBuilder PositionedTransition(AnimationI rect, WidgetI child) {
+    return PositionedTransitionPositionedTransitionBuilder.positionedTransitionPositionedTransition(rect, child);
+  }
+
+  public static DecoratedBoxTransitionDecoratedBoxTransitionBuilder DecoratedBoxTransition(AnimationI decoration) {
+    return DecoratedBoxTransitionDecoratedBoxTransitionBuilder.decoratedBoxTransitionDecoratedBoxTransition(decoration);
+  }
+
+  public static DecoratedSliverDecoratedSliverBuilder DecoratedSliver(DecorationI decoration) {
+    return DecoratedSliverDecoratedSliverBuilder.decoratedSliverDecoratedSliver(decoration);
+  }
+
+  public static SliverListBuilderBuilder SliverList_builder(BiFunction<BuildContext, Integer, Widget> itemBuilder) {
+    return SliverListBuilderBuilder.sliverListBuilder(itemBuilder);
+  }
+  public static SliverListSeparatedBuilder SliverList_separated(BiFunction<BuildContext, Integer, Widget> itemBuilder, BiFunction<BuildContext, Integer, Widget> separatorBuilder) {
+    return SliverListSeparatedBuilder.sliverListSeparated(itemBuilder, separatorBuilder);
+  }
+  public static SliverListListBuilder SliverList_list(List<WidgetI> children) {
+    return SliverListListBuilder.sliverListList(children);
+  }
+
+  public static SliverGridCountBuilder SliverGrid_count(int crossAxisCount) {
+    return SliverGridCountBuilder.sliverGridCount(crossAxisCount);
+  }
+  public static SliverGridExtentBuilder SliverGrid_extent(double maxCrossAxisExtent) {
+    return SliverGridExtentBuilder.sliverGridExtent(maxCrossAxisExtent);
+  }
+
+  public static SliverAnimatedOpacitySliverAnimatedOpacityBuilder SliverAnimatedOpacity() {
+    return SliverAnimatedOpacitySliverAnimatedOpacityBuilder.sliverAnimatedOpacitySliverAnimatedOpacity();
+  }
+
+  public static PinnedHeaderSliverPinnedHeaderSliverBuilder PinnedHeaderSliver() {
+    return PinnedHeaderSliverPinnedHeaderSliverBuilder.pinnedHeaderSliverPinnedHeaderSliver();
+  }
+
+  public static FocusTraversalGroupFocusTraversalGroupBuilder FocusTraversalGroup() {
+    return FocusTraversalGroupFocusTraversalGroupBuilder.focusTraversalGroupFocusTraversalGroup();
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

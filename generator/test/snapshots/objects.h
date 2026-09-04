@@ -3235,6 +3235,64 @@ typedef struct {
 } RawMaterialButtonObjSt;
 typedef struct {
   int id;
+} DefaultTextHeightBehaviorObjSt;
+typedef struct {
+  int id;
+} DefaultAssetBundleObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj bucket;
+} PageStorageObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj rect;
+} PositionedTransitionObjSt;
+typedef struct {
+  int id;
+  DartObj decoration;
+  int position;
+  DartObj child;
+} DecoratedBoxTransitionObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj rect;
+} RelativePositionedTransitionObjSt;
+typedef struct {
+  int id;
+  DartObj decoration;
+  int position;
+} DecoratedSliverObjSt;
+typedef struct {
+  int id;
+} SliverListObjSt;
+typedef struct {
+  int id;
+} SliverGridObjSt;
+typedef struct {
+  int id;
+  double viewportFraction;
+  int padEnds;
+} SliverFillViewportObjSt;
+typedef struct {
+  int id;
+  DartObj sliver;
+  double opacity;
+  int alwaysIncludeSemantics;
+} SliverAnimatedOpacityObjSt;
+typedef struct {
+  int id;
+} PinnedHeaderSliverObjSt;
+typedef struct {
+  int id;
+  int descendantsAreFocusable;
+  int descendantsAreTraversable;
+  DartObj child;
+} FocusTraversalGroupObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

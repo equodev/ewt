@@ -7675,6 +7675,124 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enableFeedback));
   }
 
+  MemorySegment pageStoragePageStorage(PageStorageBucket bucket, Widget child) {
+    var st = WidgetFactories.pageStorage(factories);
+    var fn = WidgetFactories.PageStorageSt.pageStorage(st);
+    return WidgetFactories.PageStorageSt.pageStorage.invoke(fn, arena, bucket.build().getId(),
+      child.build().getId());
+  }
+  int pageStorageMaybeOf(BuildContext context) {
+    var st = WidgetFactories.pageStorage(factories);
+    var fn = WidgetFactories.PageStorageSt.maybeOf(st);
+    return WidgetFactories.PageStorageSt.maybeOf.invoke(fn, context.build().getId());
+  }
+  int pageStorageOf(BuildContext context) {
+    var st = WidgetFactories.pageStorage(factories);
+    var fn = WidgetFactories.PageStorageSt.of(st);
+    return WidgetFactories.PageStorageSt.of.invoke(fn, context.build().getId());
+  }
+
+  int pageStorageBucketPageStorageBucket() {
+    var st = WidgetFactories.pageStorageBucket(factories);
+    var fn = WidgetFactories.PageStorageBucketSt.pageStorageBucket(st);
+    return WidgetFactories.PageStorageBucketSt.pageStorageBucket.invoke(fn);
+  }
+
+  MemorySegment positionedTransitionPositionedTransition(Animation rect, Widget child) {
+    var st = WidgetFactories.positionedTransition(factories);
+    var fn = WidgetFactories.PositionedTransitionSt.positionedTransition(st);
+    return WidgetFactories.PositionedTransitionSt.positionedTransition.invoke(fn, arena, rect.build().getId(),
+      child.build().getId());
+  }
+
+  MemorySegment decoratedBoxTransitionDecoratedBoxTransition(Animation decoration, Optional<DecorationPosition> position, Widget child) {
+    var st = WidgetFactories.decoratedBoxTransition(factories);
+    var fn = WidgetFactories.DecoratedBoxTransitionSt.decoratedBoxTransition(st);
+    return WidgetFactories.DecoratedBoxTransitionSt.decoratedBoxTransition.invoke(fn, arena, decoration.build().getId(),
+      ptrEnum(position),
+      child.build().getId());
+  }
+
+  MemorySegment decoratedSliverDecoratedSliver(Decoration decoration, Optional<DecorationPosition> position, Optional<Widget> sliver) {
+    var st = WidgetFactories.decoratedSliver(factories);
+    var fn = WidgetFactories.DecoratedSliverSt.decoratedSliver(st);
+    return WidgetFactories.DecoratedSliverSt.decoratedSliver.invoke(fn, arena, decoration.build().getId(),
+      ptrEnum(position),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverList(factories);
+    var fn = WidgetFactories.SliverListSt.builder(st);
+    return WidgetFactories.SliverListSt.builder.invoke(fn, arena, ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      ptr(itemCount),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+  MemorySegment sliverListSeparated(BiFunction<BuildContext, Integer, Widget> itemBuilder, BiFunction<BuildContext, Integer, Widget> separatorBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverList(factories);
+    var fn = WidgetFactories.SliverListSt.separated(st);
+    return WidgetFactories.SliverListSt.separated.invoke(fn, arena, ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      ptrNullableIndexedWidgetBuilderFn(separatorBuilder),
+      ptr(itemCount),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+  MemorySegment sliverListList(List<Widget> children, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverList(factories);
+    var fn = WidgetFactories.SliverListSt.list(st);
+    return WidgetFactories.SliverListSt.list.invoke(fn, arena, ptrList(children),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+
+  MemorySegment sliverGridCount(int crossAxisCount, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<List<Widget>> children) {
+    var st = WidgetFactories.sliverGrid(factories);
+    var fn = WidgetFactories.SliverGridSt.count(st);
+    return WidgetFactories.SliverGridSt.count.invoke(fn, arena, crossAxisCount,
+      ptr(mainAxisSpacing),
+      ptr(crossAxisSpacing),
+      ptr(childAspectRatio),
+      ptrList(children));
+  }
+  MemorySegment sliverGridExtent(double maxCrossAxisExtent, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<List<Widget>> children) {
+    var st = WidgetFactories.sliverGrid(factories);
+    var fn = WidgetFactories.SliverGridSt.extent(st);
+    return WidgetFactories.SliverGridSt.extent.invoke(fn, arena, maxCrossAxisExtent,
+      ptr(mainAxisSpacing),
+      ptr(crossAxisSpacing),
+      ptr(childAspectRatio),
+      ptrList(children));
+  }
+
+  MemorySegment sliverAnimatedOpacitySliverAnimatedOpacity(Optional<Widget> sliver, double opacity, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd, Optional<Boolean> alwaysIncludeSemantics) {
+    var st = WidgetFactories.sliverAnimatedOpacity(factories);
+    var fn = WidgetFactories.SliverAnimatedOpacitySt.sliverAnimatedOpacity(st);
+    return WidgetFactories.SliverAnimatedOpacitySt.sliverAnimatedOpacity.invoke(fn, arena, ptrObj(sliver),
+      opacity,
+      ptrObj(curve),
+      duration.build().getId(),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL,
+      ptrBool(alwaysIncludeSemantics));
+  }
+
+  MemorySegment pinnedHeaderSliverPinnedHeaderSliver(Optional<Widget> child) {
+    var st = WidgetFactories.pinnedHeaderSliver(factories);
+    var fn = WidgetFactories.PinnedHeaderSliverSt.pinnedHeaderSliver(st);
+    return WidgetFactories.PinnedHeaderSliverSt.pinnedHeaderSliver.invoke(fn, arena, ptrObj(child));
+  }
+
+  MemorySegment focusTraversalGroupFocusTraversalGroup(Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Widget child) {
+    var st = WidgetFactories.focusTraversalGroup(factories);
+    var fn = WidgetFactories.FocusTraversalGroupSt.focusTraversalGroup(st);
+    return WidgetFactories.FocusTraversalGroupSt.focusTraversalGroup.invoke(fn, arena, ptrBool(descendantsAreFocusable),
+      ptrBool(descendantsAreTraversable),
+      child.build().getId());
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);

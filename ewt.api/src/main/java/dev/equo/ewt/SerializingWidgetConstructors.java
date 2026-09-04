@@ -10296,6 +10296,192 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment pageStoragePageStorage(PageStorageBucket bucket, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("bucket", byId.get(bucket.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "pageStoragePageStorage", p);
+    MemorySegment st = PageStorageObjSt.allocate(arena);
+    PageStorageObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int pageStorageMaybeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "pageStorageMaybeOf", p);
+    return id;
+  }
+  @Override
+  int pageStorageOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "pageStorageOf", p);
+    return id;
+  }
+
+  @Override
+  int pageStorageBucketPageStorageBucket() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "pageStorageBucketPageStorageBucket", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment positionedTransitionPositionedTransition(Animation rect, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("rect", byId.get(rect.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "positionedTransitionPositionedTransition", p);
+    MemorySegment st = PositionedTransitionObjSt.allocate(arena);
+    PositionedTransitionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment decoratedBoxTransitionDecoratedBoxTransition(Animation decoration, Optional<DecorationPosition> position, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("decoration", byId.get(decoration.getId()));
+    position.ifPresent(v -> p.put("position", v.ordinal()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "decoratedBoxTransitionDecoratedBoxTransition", p);
+    MemorySegment st = DecoratedBoxTransitionObjSt.allocate(arena);
+    DecoratedBoxTransitionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment decoratedSliverDecoratedSliver(Decoration decoration, Optional<DecorationPosition> position, Optional<Widget> sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("decoration", byId.get(decoration.getId()));
+    position.ifPresent(v -> p.put("position", v.ordinal()));
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    record(id, "decoratedSliverDecoratedSliver", p);
+    MemorySegment st = DecoratedSliverObjSt.allocate(arena);
+    DecoratedSliverObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("itemBuilder", nextCallbackId++);
+    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverListBuilder", p);
+    MemorySegment st = SliverListObjSt.allocate(arena);
+    SliverListObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverListSeparated(BiFunction<BuildContext, Integer, Widget> itemBuilder, BiFunction<BuildContext, Integer, Widget> separatorBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("itemBuilder", nextCallbackId++);
+    p.put("separatorBuilder", nextCallbackId++);
+    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverListSeparated", p);
+    MemorySegment st = SliverListObjSt.allocate(arena);
+    SliverListObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverListList(List<Widget> children, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverListList", p);
+    MemorySegment st = SliverListObjSt.allocate(arena);
+    SliverListObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverGridCount(int crossAxisCount, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("crossAxisCount", crossAxisCount);
+    if (mainAxisSpacing.isPresent()) { p.put("mainAxisSpacing", mainAxisSpacing.getAsDouble()); }
+    if (crossAxisSpacing.isPresent()) { p.put("crossAxisSpacing", crossAxisSpacing.getAsDouble()); }
+    if (childAspectRatio.isPresent()) { p.put("childAspectRatio", childAspectRatio.getAsDouble()); }
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "sliverGridCount", p);
+    MemorySegment st = SliverGridObjSt.allocate(arena);
+    SliverGridObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverGridExtent(double maxCrossAxisExtent, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("maxCrossAxisExtent", maxCrossAxisExtent);
+    if (mainAxisSpacing.isPresent()) { p.put("mainAxisSpacing", mainAxisSpacing.getAsDouble()); }
+    if (crossAxisSpacing.isPresent()) { p.put("crossAxisSpacing", crossAxisSpacing.getAsDouble()); }
+    if (childAspectRatio.isPresent()) { p.put("childAspectRatio", childAspectRatio.getAsDouble()); }
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "sliverGridExtent", p);
+    MemorySegment st = SliverGridObjSt.allocate(arena);
+    SliverGridObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverAnimatedOpacitySliverAnimatedOpacity(Optional<Widget> sliver, double opacity, Optional<Curve> curve, Duration duration, Optional<Runnable> onEnd, Optional<Boolean> alwaysIncludeSemantics) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    p.put("opacity", opacity);
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    p.put("duration", byId.get(duration.getId()));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    alwaysIncludeSemantics.ifPresent(v -> p.put("alwaysIncludeSemantics", v));
+    record(id, "sliverAnimatedOpacitySliverAnimatedOpacity", p);
+    MemorySegment st = SliverAnimatedOpacityObjSt.allocate(arena);
+    SliverAnimatedOpacityObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment pinnedHeaderSliverPinnedHeaderSliver(Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "pinnedHeaderSliverPinnedHeaderSliver", p);
+    MemorySegment st = PinnedHeaderSliverObjSt.allocate(arena);
+    PinnedHeaderSliverObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment focusTraversalGroupFocusTraversalGroup(Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    descendantsAreFocusable.ifPresent(v -> p.put("descendantsAreFocusable", v));
+    descendantsAreTraversable.ifPresent(v -> p.put("descendantsAreTraversable", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "focusTraversalGroupFocusTraversalGroup", p);
+    MemorySegment st = FocusTraversalGroupObjSt.allocate(arena);
+    FocusTraversalGroupObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
