@@ -17,19 +17,25 @@ public class BottomAppBarTheme extends InheritedTheme implements BottomAppBarThe
   }
   BottomAppBarTheme(int id) { this.id = id; }
   @Builder.Factory
-  static BottomAppBarTheme bottomAppBarThemeBottomAppBarTheme(Optional<ColorI> color, OptionalDouble elevation, OptionalDouble height, Optional<ColorI> surfaceTintColor, Optional<ColorI> shadowColor, Optional<EdgeInsetsGeometryI> padding, Optional<WidgetI> child) {
+  static BottomAppBarTheme bottomAppBarThemeBottomAppBarTheme(Optional<ColorI> color, OptionalDouble elevation, OptionalDouble height, Optional<ColorI> surfaceTintColor, Optional<ColorI> shadowColor, Optional<EdgeInsetsGeometryI> padding, Optional<BottomAppBarThemeDataI> data, Optional<WidgetI> child) {
     var st = factories.bottomAppBarThemeBottomAppBarTheme(color.map(ColorI::build),
       elevation,
       height,
       surfaceTintColor.map(ColorI::build),
       shadowColor.map(ColorI::build),
       padding.map(EdgeInsetsGeometryI::build),
+      data.map(BottomAppBarThemeDataI::build),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget BottomAppBarTheme");
     return new BottomAppBarTheme(st);
   }
   public static BottomAppBarThemeBottomAppBarThemeBuilder bottomAppBarTheme() {
     return BottomAppBarThemeBottomAppBarThemeBuilder.bottomAppBarThemeBottomAppBarTheme();
+  }
+  public static BottomAppBarThemeData of(BuildContextI context) {
+    var st = factories.bottomAppBarThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget BottomAppBarThemeData");
+    return new BottomAppBarThemeData(st);
   }
   public static BottomAppBarTheme lerp(BottomAppBarThemeI a, BottomAppBarThemeI b, double t) {
     var st = factories.bottomAppBarThemeLerp(a.build(),
@@ -73,6 +79,16 @@ public class BottomAppBarTheme extends InheritedTheme implements BottomAppBarThe
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("bottomAppBarThemePadding not supported on web");
     return new EdgeInsetsGeometry(BottomAppBarThemeObjSt.padding(st)) {};
+  }
+  public BottomAppBarThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("bottomAppBarThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BottomAppBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BottomAppBarThemeDataObjSt.id(__st, __nid);
+      return new BottomAppBarThemeData(__st);
+    }
+    return new BottomAppBarThemeData(BottomAppBarThemeObjSt.data(st));
   }
   @Override
   public BottomAppBarTheme build() {

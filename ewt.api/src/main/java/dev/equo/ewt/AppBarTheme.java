@@ -17,7 +17,7 @@ public class AppBarTheme extends InheritedTheme implements AppBarThemeI {
   }
   AppBarTheme(int id) { this.id = id; }
   @Builder.Factory
-  static AppBarTheme appBarThemeAppBarTheme(Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<WidgetI> child) {
+  static AppBarTheme appBarThemeAppBarTheme(Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<AppBarThemeDataI> data, Optional<WidgetI> child) {
     var st = factories.appBarThemeAppBarTheme(color.map(ColorI::build),
       backgroundColor.map(ColorI::build),
       foregroundColor.map(ColorI::build),
@@ -35,12 +35,18 @@ public class AppBarTheme extends InheritedTheme implements AppBarThemeI {
       toolbarTextStyle.map(TextStyleI::build),
       titleTextStyle.map(TextStyleI::build),
       actionsPadding.map(EdgeInsetsGeometryI::build),
+      data.map(AppBarThemeDataI::build),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget AppBarTheme");
     return new AppBarTheme(st);
   }
   public static AppBarThemeAppBarThemeBuilder appBarTheme() {
     return AppBarThemeAppBarThemeBuilder.appBarThemeAppBarTheme();
+  }
+  public static AppBarThemeData of(BuildContextI context) {
+    var st = factories.appBarThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget AppBarThemeData");
+    return new AppBarThemeData(st);
   }
   public static AppBarTheme lerp(AppBarThemeI a, AppBarThemeI b, double t) {
     var st = factories.appBarThemeLerp(a.build(),
@@ -152,6 +158,16 @@ public class AppBarTheme extends InheritedTheme implements AppBarThemeI {
   public EdgeInsetsGeometry actionsPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarThemeActionsPadding not supported on web");
     return new EdgeInsetsGeometry(AppBarThemeObjSt.actionsPadding(st)) {};
+  }
+  public AppBarThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("appBarThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.AppBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.AppBarThemeDataObjSt.id(__st, __nid);
+      return new AppBarThemeData(__st);
+    }
+    return new AppBarThemeData(AppBarThemeObjSt.data(st));
   }
   @Override
   public AppBarTheme build() {

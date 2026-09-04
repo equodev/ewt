@@ -601,6 +601,23 @@ m.BadgeThemeData? badgeThemeData;
 m.PopupMenuThemeData? popupMenuThemeData;
 m.MenuThemeData? menuThemeData;
 m.MenuBarThemeData? menuBarThemeData;
+
+// --- Batch 14: more theme data value types ---
+m.AppBarThemeData? appBarThemeData;
+m.ActionIconThemeData? actionIconThemeData;
+m.BottomAppBarThemeData? bottomAppBarThemeData;
+m.BottomNavigationBarThemeData? bottomNavigationBarThemeData;
+m.BottomSheetThemeData? bottomSheetThemeData;
+m.DrawerThemeData? drawerThemeData;
+m.DropdownMenuThemeData? dropdownMenuThemeData;
+m.ExpansionTileThemeData? expansionTileThemeData;
+m.NavigationBarThemeData? navigationBarThemeData;
+m.NavigationDrawerThemeData? navigationDrawerThemeData;
+m.NavigationRailThemeData? navigationRailThemeData;
+m.ProgressIndicatorThemeData? progressIndicatorThemeData;
+m.MenuButtonThemeData? menuButtonThemeData;
+m.SearchBarThemeData? searchBarThemeData;
+m.SearchViewThemeData? searchViewThemeData;
 // MaterialInkController skipped: same ChangeNotifier landmine (`extends NativeObj, ChangeNotifierI`).
 
 s.SubState? subState;

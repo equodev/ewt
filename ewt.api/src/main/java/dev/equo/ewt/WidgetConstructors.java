@@ -4191,7 +4191,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.TextThemeSt.primaryOf.invoke(fn, arena, context.build().getId());
   }
 
-  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeData> cupertinoOverrideTheme, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeData> iconTheme, Optional<IconThemeData> primaryIconTheme, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<BadgeThemeData> badgeTheme, Optional<CardThemeData> cardTheme, Optional<CheckboxThemeData> checkboxTheme, Optional<ChipThemeData> chipTheme, Optional<DialogThemeData> dialogTheme, Optional<DividerThemeData> dividerTheme, Optional<MenuBarThemeData> menuBarTheme, Optional<MenuThemeData> menuTheme, Optional<PopupMenuThemeData> popupMenuTheme, Optional<RadioThemeData> radioTheme, Optional<SliderThemeData> sliderTheme, Optional<SnackBarThemeData> snackBarTheme, Optional<SwitchThemeData> switchTheme, Optional<TabBarThemeData> tabBarTheme, Optional<TooltipThemeData> tooltipTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeData> cupertinoOverrideTheme, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeData> iconTheme, Optional<IconThemeData> primaryIconTheme, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<ActionIconThemeData> actionIconTheme, Optional<NativeObj> appBarTheme, Optional<BadgeThemeData> badgeTheme, Optional<BottomAppBarThemeData> bottomAppBarTheme, Optional<BottomNavigationBarThemeData> bottomNavigationBarTheme, Optional<BottomSheetThemeData> bottomSheetTheme, Optional<CardThemeData> cardTheme, Optional<CheckboxThemeData> checkboxTheme, Optional<ChipThemeData> chipTheme, Optional<DialogThemeData> dialogTheme, Optional<DividerThemeData> dividerTheme, Optional<DrawerThemeData> drawerTheme, Optional<DropdownMenuThemeData> dropdownMenuTheme, Optional<ExpansionTileThemeData> expansionTileTheme, Optional<MenuBarThemeData> menuBarTheme, Optional<MenuButtonThemeData> menuButtonTheme, Optional<MenuThemeData> menuTheme, Optional<NavigationBarThemeData> navigationBarTheme, Optional<NavigationDrawerThemeData> navigationDrawerTheme, Optional<NavigationRailThemeData> navigationRailTheme, Optional<PopupMenuThemeData> popupMenuTheme, Optional<ProgressIndicatorThemeData> progressIndicatorTheme, Optional<RadioThemeData> radioTheme, Optional<SearchBarThemeData> searchBarTheme, Optional<SearchViewThemeData> searchViewTheme, Optional<SliderThemeData> sliderTheme, Optional<SnackBarThemeData> snackBarTheme, Optional<SwitchThemeData> switchTheme, Optional<TabBarThemeData> tabBarTheme, Optional<TooltipThemeData> tooltipTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
     return WidgetFactories.ThemeDataSt.themeData.invoke(fn, arena, ptrBool(applyElevationOverlayColor),
@@ -4229,17 +4229,31 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(primaryIconTheme),
       ptrObj(primaryTextTheme),
       ptrObj(textTheme),
+      ptrObj(actionIconTheme),
       ptrObj(appBarTheme),
       ptrObj(badgeTheme),
+      ptrObj(bottomAppBarTheme),
+      ptrObj(bottomNavigationBarTheme),
+      ptrObj(bottomSheetTheme),
       ptrObj(cardTheme),
       ptrObj(checkboxTheme),
       ptrObj(chipTheme),
       ptrObj(dialogTheme),
       ptrObj(dividerTheme),
+      ptrObj(drawerTheme),
+      ptrObj(dropdownMenuTheme),
+      ptrObj(expansionTileTheme),
       ptrObj(menuBarTheme),
+      ptrObj(menuButtonTheme),
       ptrObj(menuTheme),
+      ptrObj(navigationBarTheme),
+      ptrObj(navigationDrawerTheme),
+      ptrObj(navigationRailTheme),
       ptrObj(popupMenuTheme),
+      ptrObj(progressIndicatorTheme),
       ptrObj(radioTheme),
+      ptrObj(searchBarTheme),
+      ptrObj(searchViewTheme),
       ptrObj(sliderTheme),
       ptrObj(snackBarTheme),
       ptrObj(switchTheme),
@@ -4302,6 +4316,22 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(applyThemeToAll));
   }
 
+  MemorySegment actionIconThemeDataActionIconThemeData(Optional<Function<BuildContext, Widget>> backButtonIconBuilder, Optional<Function<BuildContext, Widget>> closeButtonIconBuilder, Optional<Function<BuildContext, Widget>> drawerButtonIconBuilder, Optional<Function<BuildContext, Widget>> endDrawerButtonIconBuilder) {
+    var st = WidgetFactories.actionIconThemeData(factories);
+    var fn = WidgetFactories.ActionIconThemeDataSt.actionIconThemeData(st);
+    return WidgetFactories.ActionIconThemeDataSt.actionIconThemeData.invoke(fn, arena, backButtonIconBuilder.isPresent() ? ptrHolder(ptrWidgetBuilderFn(backButtonIconBuilder.get())) : MemorySegment.NULL,
+      closeButtonIconBuilder.isPresent() ? ptrHolder(ptrWidgetBuilderFn(closeButtonIconBuilder.get())) : MemorySegment.NULL,
+      drawerButtonIconBuilder.isPresent() ? ptrHolder(ptrWidgetBuilderFn(drawerButtonIconBuilder.get())) : MemorySegment.NULL,
+      endDrawerButtonIconBuilder.isPresent() ? ptrHolder(ptrWidgetBuilderFn(endDrawerButtonIconBuilder.get())) : MemorySegment.NULL);
+  }
+  MemorySegment actionIconThemeDataLerp(ActionIconThemeData a, ActionIconThemeData b, double t) {
+    var st = WidgetFactories.actionIconThemeData(factories);
+    var fn = WidgetFactories.ActionIconThemeDataSt.lerp(st);
+    return WidgetFactories.ActionIconThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
   MemorySegment badgeThemeDataBadgeThemeData(Optional<Color> backgroundColor, Optional<Color> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyle> textStyle, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, Optional<Offset> offset) {
     var st = WidgetFactories.badgeThemeData(factories);
     var fn = WidgetFactories.BadgeThemeDataSt.badgeThemeData(st);
@@ -4318,6 +4348,73 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.badgeThemeData(factories);
     var fn = WidgetFactories.BadgeThemeDataSt.lerp(st);
     return WidgetFactories.BadgeThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment bottomAppBarThemeDataBottomAppBarThemeData(Optional<Color> color, OptionalDouble elevation, OptionalDouble height, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<EdgeInsetsGeometry> padding) {
+    var st = WidgetFactories.bottomAppBarThemeData(factories);
+    var fn = WidgetFactories.BottomAppBarThemeDataSt.bottomAppBarThemeData(st);
+    return WidgetFactories.BottomAppBarThemeDataSt.bottomAppBarThemeData.invoke(fn, arena, ptrObj(color),
+      ptr(elevation),
+      ptr(height),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptrObj(padding));
+  }
+  MemorySegment bottomAppBarThemeDataLerp(BottomAppBarThemeData a, BottomAppBarThemeData b, double t) {
+    var st = WidgetFactories.bottomAppBarThemeData(factories);
+    var fn = WidgetFactories.BottomAppBarThemeDataSt.lerp(st);
+    return WidgetFactories.BottomAppBarThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment bottomNavigationBarThemeDataBottomNavigationBarThemeData(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<IconThemeData> selectedIconTheme, Optional<IconThemeData> unselectedIconTheme, Optional<Color> selectedItemColor, Optional<Color> unselectedItemColor, Optional<TextStyle> selectedLabelStyle, Optional<TextStyle> unselectedLabelStyle, Optional<Boolean> showSelectedLabels, Optional<Boolean> showUnselectedLabels, Optional<BottomNavigationBarType> type, Optional<Boolean> enableFeedback, Optional<BottomNavigationBarLandscapeLayout> landscapeLayout) {
+    var st = WidgetFactories.bottomNavigationBarThemeData(factories);
+    var fn = WidgetFactories.BottomNavigationBarThemeDataSt.bottomNavigationBarThemeData(st);
+    return WidgetFactories.BottomNavigationBarThemeDataSt.bottomNavigationBarThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(selectedIconTheme),
+      ptrObj(unselectedIconTheme),
+      ptrObj(selectedItemColor),
+      ptrObj(unselectedItemColor),
+      ptrObj(selectedLabelStyle),
+      ptrObj(unselectedLabelStyle),
+      ptrBool(showSelectedLabels),
+      ptrBool(showUnselectedLabels),
+      ptrEnum(type),
+      ptrBool(enableFeedback),
+      ptrEnum(landscapeLayout));
+  }
+  MemorySegment bottomNavigationBarThemeDataLerp(BottomNavigationBarThemeData a, BottomNavigationBarThemeData b, double t) {
+    var st = WidgetFactories.bottomNavigationBarThemeData(factories);
+    var fn = WidgetFactories.BottomNavigationBarThemeDataSt.lerp(st);
+    return WidgetFactories.BottomNavigationBarThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment bottomSheetThemeDataBottomSheetThemeData(Optional<Color> backgroundColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<Color> modalBackgroundColor, Optional<Color> modalBarrierColor, Optional<Color> shadowColor, OptionalDouble modalElevation, Optional<ShapeBorder> shape, Optional<Boolean> showDragHandle, Optional<Color> dragHandleColor, Optional<Clip> clipBehavior, Optional<BoxConstraints> constraints) {
+    var st = WidgetFactories.bottomSheetThemeData(factories);
+    var fn = WidgetFactories.BottomSheetThemeDataSt.bottomSheetThemeData(st);
+    return WidgetFactories.BottomSheetThemeDataSt.bottomSheetThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(surfaceTintColor),
+      ptr(elevation),
+      ptrObj(modalBackgroundColor),
+      ptrObj(modalBarrierColor),
+      ptrObj(shadowColor),
+      ptr(modalElevation),
+      ptrObj(shape),
+      ptrBool(showDragHandle),
+      ptrObj(dragHandleColor),
+      ptrEnum(clipBehavior),
+      ptrObj(constraints));
+  }
+  MemorySegment bottomSheetThemeDataLerp(BottomSheetThemeData a, BottomSheetThemeData b, double t) {
+    var st = WidgetFactories.bottomSheetThemeData(factories);
+    var fn = WidgetFactories.BottomSheetThemeDataSt.lerp(st);
+    return WidgetFactories.BottomSheetThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
       t);
   }
@@ -4448,6 +4545,66 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  MemorySegment drawerThemeDataDrawerThemeData(Optional<Color> backgroundColor, Optional<Color> scrimColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<ShapeBorder> endShape, OptionalDouble width, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.drawerThemeData(factories);
+    var fn = WidgetFactories.DrawerThemeDataSt.drawerThemeData(st);
+    return WidgetFactories.DrawerThemeDataSt.drawerThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(scrimColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(shape),
+      ptrObj(endShape),
+      ptr(width),
+      ptrEnum(clipBehavior));
+  }
+  MemorySegment drawerThemeDataLerp(DrawerThemeData a, DrawerThemeData b, double t) {
+    var st = WidgetFactories.drawerThemeData(factories);
+    var fn = WidgetFactories.DrawerThemeDataSt.lerp(st);
+    return WidgetFactories.DrawerThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment dropdownMenuThemeDataDropdownMenuThemeData(Optional<TextStyle> textStyle, Optional<NativeObj> inputDecorationTheme, Optional<Color> disabledColor) {
+    var st = WidgetFactories.dropdownMenuThemeData(factories);
+    var fn = WidgetFactories.DropdownMenuThemeDataSt.dropdownMenuThemeData(st);
+    return WidgetFactories.DropdownMenuThemeDataSt.dropdownMenuThemeData.invoke(fn, arena, ptrObj(textStyle),
+      ptrObj(inputDecorationTheme),
+      ptrObj(disabledColor));
+  }
+  MemorySegment dropdownMenuThemeDataLerp(DropdownMenuThemeData a, DropdownMenuThemeData b, double t) {
+    var st = WidgetFactories.dropdownMenuThemeData(factories);
+    var fn = WidgetFactories.DropdownMenuThemeDataSt.lerp(st);
+    return WidgetFactories.DropdownMenuThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment expansionTileThemeDataExpansionTileThemeData(Optional<Color> backgroundColor, Optional<Color> collapsedBackgroundColor, Optional<EdgeInsetsGeometry> tilePadding, Optional<AlignmentGeometry> expandedAlignment, Optional<EdgeInsetsGeometry> childrenPadding, Optional<Color> iconColor, Optional<Color> collapsedIconColor, Optional<Color> textColor, Optional<Color> collapsedTextColor, Optional<ShapeBorder> shape, Optional<ShapeBorder> collapsedShape, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.expansionTileThemeData(factories);
+    var fn = WidgetFactories.ExpansionTileThemeDataSt.expansionTileThemeData(st);
+    return WidgetFactories.ExpansionTileThemeDataSt.expansionTileThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(collapsedBackgroundColor),
+      ptrObj(tilePadding),
+      ptrObj(expandedAlignment),
+      ptrObj(childrenPadding),
+      ptrObj(iconColor),
+      ptrObj(collapsedIconColor),
+      ptrObj(textColor),
+      ptrObj(collapsedTextColor),
+      ptrObj(shape),
+      ptrObj(collapsedShape),
+      ptrEnum(clipBehavior));
+  }
+  MemorySegment expansionTileThemeDataLerp(ExpansionTileThemeData a, ExpansionTileThemeData b, double t) {
+    var st = WidgetFactories.expansionTileThemeData(factories);
+    var fn = WidgetFactories.ExpansionTileThemeDataSt.lerp(st);
+    return WidgetFactories.ExpansionTileThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
   MemorySegment menuBarThemeDataMenuBarThemeData() {
     var st = WidgetFactories.menuBarThemeData(factories);
     var fn = WidgetFactories.MenuBarThemeDataSt.menuBarThemeData(st);
@@ -4461,6 +4618,19 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  MemorySegment menuButtonThemeDataMenuButtonThemeData() {
+    var st = WidgetFactories.menuButtonThemeData(factories);
+    var fn = WidgetFactories.MenuButtonThemeDataSt.menuButtonThemeData(st);
+    return WidgetFactories.MenuButtonThemeDataSt.menuButtonThemeData.invoke(fn, arena);
+  }
+  MemorySegment menuButtonThemeDataLerp(MenuButtonThemeData a, MenuButtonThemeData b, double t) {
+    var st = WidgetFactories.menuButtonThemeData(factories);
+    var fn = WidgetFactories.MenuButtonThemeDataSt.lerp(st);
+    return WidgetFactories.MenuButtonThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
   MemorySegment menuThemeDataMenuThemeData(Optional<Widget> submenuIcon) {
     var st = WidgetFactories.menuThemeData(factories);
     var fn = WidgetFactories.MenuThemeDataSt.menuThemeData(st);
@@ -4470,6 +4640,76 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.menuThemeData(factories);
     var fn = WidgetFactories.MenuThemeDataSt.lerp(st);
     return WidgetFactories.MenuThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment navigationBarThemeDataNavigationBarThemeData(OptionalDouble height, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<TextStyle> labelTextStyle, Optional<IconThemeData> iconTheme, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<Color> overlayColor, Optional<EdgeInsetsGeometry> labelPadding) {
+    var st = WidgetFactories.navigationBarThemeData(factories);
+    var fn = WidgetFactories.NavigationBarThemeDataSt.navigationBarThemeData(st);
+    return WidgetFactories.NavigationBarThemeDataSt.navigationBarThemeData.invoke(fn, arena, ptr(height),
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      ptrObj(labelTextStyle),
+      ptrObj(iconTheme),
+      ptrEnum(labelBehavior),
+      ptrObj(overlayColor),
+      ptrObj(labelPadding));
+  }
+  MemorySegment navigationBarThemeDataLerp(NavigationBarThemeData a, NavigationBarThemeData b, double t) {
+    var st = WidgetFactories.navigationBarThemeData(factories);
+    var fn = WidgetFactories.NavigationBarThemeDataSt.lerp(st);
+    return WidgetFactories.NavigationBarThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment navigationDrawerThemeDataNavigationDrawerThemeData(OptionalDouble tileHeight, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<TextStyle> labelTextStyle, Optional<IconThemeData> iconTheme) {
+    var st = WidgetFactories.navigationDrawerThemeData(factories);
+    var fn = WidgetFactories.NavigationDrawerThemeDataSt.navigationDrawerThemeData(st);
+    return WidgetFactories.NavigationDrawerThemeDataSt.navigationDrawerThemeData.invoke(fn, arena, ptr(tileHeight),
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      ptrObj(labelTextStyle),
+      ptrObj(iconTheme));
+  }
+  MemorySegment navigationDrawerThemeDataLerp(NavigationDrawerThemeData a, NavigationDrawerThemeData b, double t) {
+    var st = WidgetFactories.navigationDrawerThemeData(factories);
+    var fn = WidgetFactories.NavigationDrawerThemeDataSt.lerp(st);
+    return WidgetFactories.NavigationDrawerThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment navigationRailThemeDataNavigationRailThemeData(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, Optional<IconThemeData> unselectedIconTheme, Optional<IconThemeData> selectedIconTheme, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, OptionalDouble minWidth, OptionalDouble minExtendedWidth) {
+    var st = WidgetFactories.navigationRailThemeData(factories);
+    var fn = WidgetFactories.NavigationRailThemeDataSt.navigationRailThemeData(st);
+    return WidgetFactories.NavigationRailThemeDataSt.navigationRailThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(unselectedLabelTextStyle),
+      ptrObj(selectedLabelTextStyle),
+      ptrObj(unselectedIconTheme),
+      ptrObj(selectedIconTheme),
+      ptr(groupAlignment),
+      ptrEnum(labelType),
+      ptrBool(useIndicator),
+      ptrObj(indicatorColor),
+      ptrObj(indicatorShape),
+      ptr(minWidth),
+      ptr(minExtendedWidth));
+  }
+  MemorySegment navigationRailThemeDataLerp(NavigationRailThemeData a, NavigationRailThemeData b, double t) {
+    var st = WidgetFactories.navigationRailThemeData(factories);
+    var fn = WidgetFactories.NavigationRailThemeDataSt.lerp(st);
+    return WidgetFactories.NavigationRailThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
       t);
   }
@@ -4498,6 +4738,33 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  MemorySegment progressIndicatorThemeDataProgressIndicatorThemeData(Optional<Color> color, Optional<Color> linearTrackColor, OptionalDouble linearMinHeight, Optional<Color> circularTrackColor, Optional<Color> refreshBackgroundColor, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<EdgeInsetsGeometry> circularTrackPadding, Optional<Boolean> year2023) {
+    var st = WidgetFactories.progressIndicatorThemeData(factories);
+    var fn = WidgetFactories.ProgressIndicatorThemeDataSt.progressIndicatorThemeData(st);
+    return WidgetFactories.ProgressIndicatorThemeDataSt.progressIndicatorThemeData.invoke(fn, arena, ptrObj(color),
+      ptrObj(linearTrackColor),
+      ptr(linearMinHeight),
+      ptrObj(circularTrackColor),
+      ptrObj(refreshBackgroundColor),
+      ptrObj(borderRadius),
+      ptrObj(stopIndicatorColor),
+      ptr(stopIndicatorRadius),
+      ptr(strokeWidth),
+      ptr(strokeAlign),
+      ptrEnum(strokeCap),
+      ptrObj(constraints),
+      ptr(trackGap),
+      ptrObj(circularTrackPadding),
+      ptrBool(year2023));
+  }
+  MemorySegment progressIndicatorThemeDataLerp(ProgressIndicatorThemeData a, ProgressIndicatorThemeData b, double t) {
+    var st = WidgetFactories.progressIndicatorThemeData(factories);
+    var fn = WidgetFactories.ProgressIndicatorThemeDataSt.lerp(st);
+    return WidgetFactories.ProgressIndicatorThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
   MemorySegment radioThemeDataRadioThemeData(Optional<Color> fillColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Color> backgroundColor) {
     var st = WidgetFactories.radioThemeData(factories);
     var fn = WidgetFactories.RadioThemeDataSt.radioThemeData(st);
@@ -4512,6 +4779,55 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.radioThemeData(factories);
     var fn = WidgetFactories.RadioThemeDataSt.lerp(st);
     return WidgetFactories.RadioThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment searchBarThemeDataSearchBarThemeData(OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<BoxConstraints> constraints, Optional<TextCapitalization> textCapitalization) {
+    var st = WidgetFactories.searchBarThemeData(factories);
+    var fn = WidgetFactories.SearchBarThemeDataSt.searchBarThemeData(st);
+    return WidgetFactories.SearchBarThemeDataSt.searchBarThemeData.invoke(fn, arena, ptr(elevation),
+      ptrObj(backgroundColor),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(overlayColor),
+      ptrObj(side),
+      ptrObj(shape),
+      ptrObj(padding),
+      ptrObj(textStyle),
+      ptrObj(hintStyle),
+      ptrObj(constraints),
+      ptrEnum(textCapitalization));
+  }
+  MemorySegment searchBarThemeDataLerp(SearchBarThemeData a, SearchBarThemeData b, double t) {
+    var st = WidgetFactories.searchBarThemeData(factories);
+    var fn = WidgetFactories.SearchBarThemeDataSt.lerp(st);
+    return WidgetFactories.SearchBarThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment searchViewThemeDataSearchViewThemeData(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> surfaceTintColor, Optional<BoxConstraints> constraints, Optional<EdgeInsetsGeometry> padding, Optional<EdgeInsetsGeometry> barPadding, Optional<Boolean> shrinkWrap, Optional<BorderSide> side, Optional<OutlinedBorder> shape, OptionalDouble headerHeight, Optional<TextStyle> headerTextStyle, Optional<TextStyle> headerHintStyle, Optional<Color> dividerColor) {
+    var st = WidgetFactories.searchViewThemeData(factories);
+    var fn = WidgetFactories.SearchViewThemeDataSt.searchViewThemeData(st);
+    return WidgetFactories.SearchViewThemeDataSt.searchViewThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(surfaceTintColor),
+      ptrObj(constraints),
+      ptrObj(padding),
+      ptrObj(barPadding),
+      ptrBool(shrinkWrap),
+      ptrObj(side),
+      ptrObj(shape),
+      ptr(headerHeight),
+      ptrObj(headerTextStyle),
+      ptrObj(headerHintStyle),
+      ptrObj(dividerColor));
+  }
+  MemorySegment searchViewThemeDataLerp(SearchViewThemeData a, SearchViewThemeData b, double t) {
+    var st = WidgetFactories.searchViewThemeData(factories);
+    var fn = WidgetFactories.SearchViewThemeDataSt.lerp(st);
+    return WidgetFactories.SearchViewThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
       t);
   }
@@ -4661,6 +4977,35 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.TooltipThemeDataSt.lerp(st);
     return WidgetFactories.TooltipThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment appBarThemeDataAppBarThemeData(Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Color> color, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding) {
+    var st = WidgetFactories.appBarThemeData(factories);
+    var fn = WidgetFactories.AppBarThemeDataSt.appBarThemeData(st);
+    return WidgetFactories.AppBarThemeDataSt.appBarThemeData.invoke(fn, arena, ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptrObj(color),
+      ptr(elevation),
+      ptr(scrolledUnderElevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(shape),
+      ptrObj(iconTheme),
+      ptrObj(actionsIconTheme),
+      ptrBool(centerTitle),
+      ptr(titleSpacing),
+      ptr(leadingWidth),
+      ptr(toolbarHeight),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
+      ptrObj(actionsPadding));
+  }
+  MemorySegment appBarThemeDataLerp(AppBarThemeData a, AppBarThemeData b, double t) {
+    var st = WidgetFactories.appBarThemeData(factories);
+    var fn = WidgetFactories.AppBarThemeDataSt.lerp(st);
+    return WidgetFactories.AppBarThemeDataSt.lerp.invoke(fn, arena, a.build().getId(),
+      b.build().getId(),
       t);
   }
 
@@ -7939,6 +8284,23 @@ class WidgetConstructors extends WidgetConstructorsBase {
       end);
   }
 
+  MemorySegment dropdownMenuThemeDropdownMenuTheme(DropdownMenuThemeData data, Widget child) {
+    var st = WidgetFactories.dropdownMenuTheme(factories);
+    var fn = WidgetFactories.DropdownMenuThemeSt.dropdownMenuTheme(st);
+    return WidgetFactories.DropdownMenuThemeSt.dropdownMenuTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment dropdownMenuThemeOf(BuildContext context) {
+    var st = WidgetFactories.dropdownMenuTheme(factories);
+    var fn = WidgetFactories.DropdownMenuThemeSt.of(st);
+    return WidgetFactories.DropdownMenuThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+  MemorySegment dropdownMenuThemeMaybeOf(BuildContext context) {
+    var st = WidgetFactories.dropdownMenuTheme(factories);
+    var fn = WidgetFactories.DropdownMenuThemeSt.maybeOf(st);
+    return WidgetFactories.DropdownMenuThemeSt.maybeOf.invoke(fn, arena, context.build().getId());
+  }
+
   MemorySegment drawerControllerDrawerController(Widget child, DrawerAlignment alignment, Optional<Boolean> isDrawerOpen, Optional<Consumer<Boolean>> drawerCallback, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> scrimColor, OptionalDouble edgeDragWidth, Optional<Boolean> enableOpenDragGesture, Optional<Boolean> drawerBarrierDismissible) {
     var st = WidgetFactories.drawerController(factories);
     var fn = WidgetFactories.DrawerControllerSt.drawerController(st);
@@ -7963,7 +8325,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.DrawerControllerSt.of.invoke(fn, arena, context.build().getId());
   }
 
-  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
+  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<AppBarThemeData> data, Optional<Widget> child) {
     var st = WidgetFactories.appBarTheme(factories);
     var fn = WidgetFactories.AppBarThemeSt.appBarTheme(st);
     return WidgetFactories.AppBarThemeSt.appBarTheme.invoke(fn, arena, ptrObj(color),
@@ -7983,7 +8345,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(toolbarTextStyle),
       ptrObj(titleTextStyle),
       ptrObj(actionsPadding),
+      ptrObj(data),
       ptrObj(child));
+  }
+  MemorySegment appBarThemeOf(BuildContext context) {
+    var st = WidgetFactories.appBarTheme(factories);
+    var fn = WidgetFactories.AppBarThemeSt.of(st);
+    return WidgetFactories.AppBarThemeSt.of.invoke(fn, arena, context.build().getId());
   }
   MemorySegment appBarThemeLerp(AppBarTheme a, AppBarTheme b, double t) {
     var st = WidgetFactories.appBarTheme(factories);
@@ -8179,6 +8547,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.BadgeThemeSt.of.invoke(fn, arena, context.build().getId());
   }
 
+  MemorySegment progressIndicatorThemeProgressIndicatorTheme(ProgressIndicatorThemeData data, Widget child) {
+    var st = WidgetFactories.progressIndicatorTheme(factories);
+    var fn = WidgetFactories.ProgressIndicatorThemeSt.progressIndicatorTheme(st);
+    return WidgetFactories.ProgressIndicatorThemeSt.progressIndicatorTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment progressIndicatorThemeOf(BuildContext context) {
+    var st = WidgetFactories.progressIndicatorTheme(factories);
+    var fn = WidgetFactories.ProgressIndicatorThemeSt.of(st);
+    return WidgetFactories.ProgressIndicatorThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
   MemorySegment popupMenuThemePopupMenuTheme(PopupMenuThemeData data, Widget child) {
     var st = WidgetFactories.popupMenuTheme(factories);
     var fn = WidgetFactories.PopupMenuThemeSt.popupMenuTheme(st);
@@ -8189,6 +8569,66 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.popupMenuTheme(factories);
     var fn = WidgetFactories.PopupMenuThemeSt.of(st);
     return WidgetFactories.PopupMenuThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment bottomNavigationBarThemeBottomNavigationBarTheme(BottomNavigationBarThemeData data, Widget child) {
+    var st = WidgetFactories.bottomNavigationBarTheme(factories);
+    var fn = WidgetFactories.BottomNavigationBarThemeSt.bottomNavigationBarTheme(st);
+    return WidgetFactories.BottomNavigationBarThemeSt.bottomNavigationBarTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment bottomNavigationBarThemeOf(BuildContext context) {
+    var st = WidgetFactories.bottomNavigationBarTheme(factories);
+    var fn = WidgetFactories.BottomNavigationBarThemeSt.of(st);
+    return WidgetFactories.BottomNavigationBarThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment drawerThemeDrawerTheme(DrawerThemeData data, Widget child) {
+    var st = WidgetFactories.drawerTheme(factories);
+    var fn = WidgetFactories.DrawerThemeSt.drawerTheme(st);
+    return WidgetFactories.DrawerThemeSt.drawerTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment drawerThemeOf(BuildContext context) {
+    var st = WidgetFactories.drawerTheme(factories);
+    var fn = WidgetFactories.DrawerThemeSt.of(st);
+    return WidgetFactories.DrawerThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment navigationBarThemeNavigationBarTheme(NavigationBarThemeData data, Widget child) {
+    var st = WidgetFactories.navigationBarTheme(factories);
+    var fn = WidgetFactories.NavigationBarThemeSt.navigationBarTheme(st);
+    return WidgetFactories.NavigationBarThemeSt.navigationBarTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment navigationBarThemeOf(BuildContext context) {
+    var st = WidgetFactories.navigationBarTheme(factories);
+    var fn = WidgetFactories.NavigationBarThemeSt.of(st);
+    return WidgetFactories.NavigationBarThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment navigationDrawerThemeNavigationDrawerTheme(NavigationDrawerThemeData data, Widget child) {
+    var st = WidgetFactories.navigationDrawerTheme(factories);
+    var fn = WidgetFactories.NavigationDrawerThemeSt.navigationDrawerTheme(st);
+    return WidgetFactories.NavigationDrawerThemeSt.navigationDrawerTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment navigationDrawerThemeOf(BuildContext context) {
+    var st = WidgetFactories.navigationDrawerTheme(factories);
+    var fn = WidgetFactories.NavigationDrawerThemeSt.of(st);
+    return WidgetFactories.NavigationDrawerThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment navigationRailThemeNavigationRailTheme(NavigationRailThemeData data, Widget child) {
+    var st = WidgetFactories.navigationRailTheme(factories);
+    var fn = WidgetFactories.NavigationRailThemeSt.navigationRailTheme(st);
+    return WidgetFactories.NavigationRailThemeSt.navigationRailTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment navigationRailThemeOf(BuildContext context) {
+    var st = WidgetFactories.navigationRailTheme(factories);
+    var fn = WidgetFactories.NavigationRailThemeSt.of(st);
+    return WidgetFactories.NavigationRailThemeSt.of.invoke(fn, arena, context.build().getId());
   }
 
   MemorySegment menuThemeMenuTheme(MenuThemeData data, Widget child) {
@@ -8215,7 +8655,67 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.MenuBarThemeSt.of.invoke(fn, arena, context.build().getId());
   }
 
-  MemorySegment bottomAppBarThemeBottomAppBarTheme(Optional<Color> color, OptionalDouble elevation, OptionalDouble height, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<EdgeInsetsGeometry> padding, Optional<Widget> child) {
+  MemorySegment menuButtonThemeMenuButtonTheme(MenuButtonThemeData data, Widget child) {
+    var st = WidgetFactories.menuButtonTheme(factories);
+    var fn = WidgetFactories.MenuButtonThemeSt.menuButtonTheme(st);
+    return WidgetFactories.MenuButtonThemeSt.menuButtonTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment menuButtonThemeOf(BuildContext context) {
+    var st = WidgetFactories.menuButtonTheme(factories);
+    var fn = WidgetFactories.MenuButtonThemeSt.of(st);
+    return WidgetFactories.MenuButtonThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment searchBarThemeSearchBarTheme(SearchBarThemeData data, Widget child) {
+    var st = WidgetFactories.searchBarTheme(factories);
+    var fn = WidgetFactories.SearchBarThemeSt.searchBarTheme(st);
+    return WidgetFactories.SearchBarThemeSt.searchBarTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment searchBarThemeOf(BuildContext context) {
+    var st = WidgetFactories.searchBarTheme(factories);
+    var fn = WidgetFactories.SearchBarThemeSt.of(st);
+    return WidgetFactories.SearchBarThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment searchViewThemeSearchViewTheme(SearchViewThemeData data, Widget child) {
+    var st = WidgetFactories.searchViewTheme(factories);
+    var fn = WidgetFactories.SearchViewThemeSt.searchViewTheme(st);
+    return WidgetFactories.SearchViewThemeSt.searchViewTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment searchViewThemeOf(BuildContext context) {
+    var st = WidgetFactories.searchViewTheme(factories);
+    var fn = WidgetFactories.SearchViewThemeSt.of(st);
+    return WidgetFactories.SearchViewThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment expansionTileThemeExpansionTileTheme(ExpansionTileThemeData data, Widget child) {
+    var st = WidgetFactories.expansionTileTheme(factories);
+    var fn = WidgetFactories.ExpansionTileThemeSt.expansionTileTheme(st);
+    return WidgetFactories.ExpansionTileThemeSt.expansionTileTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment expansionTileThemeOf(BuildContext context) {
+    var st = WidgetFactories.expansionTileTheme(factories);
+    var fn = WidgetFactories.ExpansionTileThemeSt.of(st);
+    return WidgetFactories.ExpansionTileThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment actionIconThemeActionIconTheme(ActionIconThemeData data, Widget child) {
+    var st = WidgetFactories.actionIconTheme(factories);
+    var fn = WidgetFactories.ActionIconThemeSt.actionIconTheme(st);
+    return WidgetFactories.ActionIconThemeSt.actionIconTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment actionIconThemeOf(BuildContext context) {
+    var st = WidgetFactories.actionIconTheme(factories);
+    var fn = WidgetFactories.ActionIconThemeSt.of(st);
+    return WidgetFactories.ActionIconThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment bottomAppBarThemeBottomAppBarTheme(Optional<Color> color, OptionalDouble elevation, OptionalDouble height, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<EdgeInsetsGeometry> padding, Optional<BottomAppBarThemeData> data, Optional<Widget> child) {
     var st = WidgetFactories.bottomAppBarTheme(factories);
     var fn = WidgetFactories.BottomAppBarThemeSt.bottomAppBarTheme(st);
     return WidgetFactories.BottomAppBarThemeSt.bottomAppBarTheme.invoke(fn, arena, ptrObj(color),
@@ -8224,7 +8724,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(surfaceTintColor),
       ptrObj(shadowColor),
       ptrObj(padding),
+      ptrObj(data),
       ptrObj(child));
+  }
+  MemorySegment bottomAppBarThemeOf(BuildContext context) {
+    var st = WidgetFactories.bottomAppBarTheme(factories);
+    var fn = WidgetFactories.BottomAppBarThemeSt.of(st);
+    return WidgetFactories.BottomAppBarThemeSt.of.invoke(fn, arena, context.build().getId());
   }
   MemorySegment bottomAppBarThemeLerp(BottomAppBarTheme a, BottomAppBarTheme b, double t) {
     var st = WidgetFactories.bottomAppBarTheme(factories);

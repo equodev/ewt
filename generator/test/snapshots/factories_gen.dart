@@ -6613,7 +6613,7 @@ void _setupThemeData(WidgetFactories f) {
   f.themeData.estimateBrightnessForColor = ffi.Pointer.fromFunction(themeDataEstimateBrightnessForColor, exception);
   f.themeData.lerp = ffi.Pointer.fromFunction(themeDataLerp);
 }
-ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<DartObj> cupertinoOverrideTheme, ffi.Pointer<DartObj> inputDecorationTheme, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<ffi.Int> useSystemColors, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> primaryIconTheme, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> appBarTheme, ffi.Pointer<DartObj> badgeTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> checkboxTheme, ffi.Pointer<DartObj> chipTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> dividerTheme, ffi.Pointer<DartObj> menuBarTheme, ffi.Pointer<DartObj> menuTheme, ffi.Pointer<DartObj> popupMenuTheme, ffi.Pointer<DartObj> radioTheme, ffi.Pointer<DartObj> sliderTheme, ffi.Pointer<DartObj> snackBarTheme, ffi.Pointer<DartObj> switchTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> tooltipTheme, ffi.Pointer<DartObj> dialogBackgroundColor, ffi.Pointer<DartObj> indicatorColor) {
+ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<DartObj> cupertinoOverrideTheme, ffi.Pointer<DartObj> inputDecorationTheme, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<ffi.Int> useSystemColors, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> primaryIconTheme, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> actionIconTheme, ffi.Pointer<DartObj> appBarTheme, ffi.Pointer<DartObj> badgeTheme, ffi.Pointer<DartObj> bottomAppBarTheme, ffi.Pointer<DartObj> bottomNavigationBarTheme, ffi.Pointer<DartObj> bottomSheetTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> checkboxTheme, ffi.Pointer<DartObj> chipTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> dividerTheme, ffi.Pointer<DartObj> drawerTheme, ffi.Pointer<DartObj> dropdownMenuTheme, ffi.Pointer<DartObj> expansionTileTheme, ffi.Pointer<DartObj> menuBarTheme, ffi.Pointer<DartObj> menuButtonTheme, ffi.Pointer<DartObj> menuTheme, ffi.Pointer<DartObj> navigationBarTheme, ffi.Pointer<DartObj> navigationDrawerTheme, ffi.Pointer<DartObj> navigationRailTheme, ffi.Pointer<DartObj> popupMenuTheme, ffi.Pointer<DartObj> progressIndicatorTheme, ffi.Pointer<DartObj> radioTheme, ffi.Pointer<DartObj> searchBarTheme, ffi.Pointer<DartObj> searchViewTheme, ffi.Pointer<DartObj> sliderTheme, ffi.Pointer<DartObj> snackBarTheme, ffi.Pointer<DartObj> switchTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> tooltipTheme, ffi.Pointer<DartObj> dialogBackgroundColor, ffi.Pointer<DartObj> indicatorColor) {
   final w = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor.boolOrNul(),
       cupertinoOverrideTheme: cupertinoOverrideTheme.objOrNul(),
       inputDecorationTheme: inputDecorationTheme.objOrNul(),
@@ -6649,17 +6649,31 @@ ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColo
       primaryIconTheme: primaryIconTheme.objOrNul(),
       primaryTextTheme: primaryTextTheme.objOrNul(),
       textTheme: textTheme.objOrNul(),
+      actionIconTheme: actionIconTheme.objOrNul(),
       appBarTheme: appBarTheme.objOrNul(),
       badgeTheme: badgeTheme.objOrNul(),
+      bottomAppBarTheme: bottomAppBarTheme.objOrNul(),
+      bottomNavigationBarTheme: bottomNavigationBarTheme.objOrNul(),
+      bottomSheetTheme: bottomSheetTheme.objOrNul(),
       cardTheme: cardTheme.objOrNul(),
       checkboxTheme: checkboxTheme.objOrNul(),
       chipTheme: chipTheme.objOrNul(),
       dialogTheme: dialogTheme.objOrNul(),
       dividerTheme: dividerTheme.objOrNul(),
+      drawerTheme: drawerTheme.objOrNul(),
+      dropdownMenuTheme: dropdownMenuTheme.objOrNul(),
+      expansionTileTheme: expansionTileTheme.objOrNul(),
       menuBarTheme: menuBarTheme.objOrNul(),
+      menuButtonTheme: menuButtonTheme.objOrNul(),
       menuTheme: menuTheme.objOrNul(),
+      navigationBarTheme: navigationBarTheme.objOrNul(),
+      navigationDrawerTheme: navigationDrawerTheme.objOrNul(),
+      navigationRailTheme: navigationRailTheme.objOrNul(),
       popupMenuTheme: popupMenuTheme.objOrNul(),
+      progressIndicatorTheme: progressIndicatorTheme.objOrNul(),
       radioTheme: radioTheme.objOrNul(),
+      searchBarTheme: searchBarTheme.objOrNul(),
+      searchViewTheme: searchViewTheme.objOrNul(),
       sliderTheme: sliderTheme.objOrNul(),
       snackBarTheme: snackBarTheme.objOrNul(),
       switchTheme: switchTheme.objOrNul(),
@@ -6733,16 +6747,31 @@ ThemeDataObjSt _createThemeDataObjSt(ThemeData? w) {
   stObj.primaryIconTheme = _createIconThemeDataObjSt(w.primaryIconTheme);
   stObj.primaryTextTheme = _createTextThemeObjSt(w.primaryTextTheme);
   stObj.textTheme = _createTextThemeObjSt(w.textTheme);
+  stObj.actionIconTheme = _createActionIconThemeDataObjSt(w.actionIconTheme);
+  stObj.appBarTheme = _createAppBarThemeDataObjSt(w.appBarTheme);
   stObj.badgeTheme = _createBadgeThemeDataObjSt(w.badgeTheme);
+  stObj.bottomAppBarTheme = _createBottomAppBarThemeDataObjSt(w.bottomAppBarTheme);
+  stObj.bottomNavigationBarTheme = _createBottomNavigationBarThemeDataObjSt(w.bottomNavigationBarTheme);
+  stObj.bottomSheetTheme = _createBottomSheetThemeDataObjSt(w.bottomSheetTheme);
   stObj.cardTheme = _createCardThemeDataObjSt(w.cardTheme);
   stObj.checkboxTheme = _createCheckboxThemeDataObjSt(w.checkboxTheme);
   stObj.chipTheme = _createChipThemeDataObjSt(w.chipTheme);
   stObj.dialogTheme = _createDialogThemeDataObjSt(w.dialogTheme);
   stObj.dividerTheme = _createDividerThemeDataObjSt(w.dividerTheme);
+  stObj.drawerTheme = _createDrawerThemeDataObjSt(w.drawerTheme);
+  stObj.dropdownMenuTheme = _createDropdownMenuThemeDataObjSt(w.dropdownMenuTheme);
+  stObj.expansionTileTheme = _createExpansionTileThemeDataObjSt(w.expansionTileTheme);
   stObj.menuBarTheme = _createMenuBarThemeDataObjSt(w.menuBarTheme);
+  stObj.menuButtonTheme = _createMenuButtonThemeDataObjSt(w.menuButtonTheme);
   stObj.menuTheme = _createMenuThemeDataObjSt(w.menuTheme);
+  stObj.navigationBarTheme = _createNavigationBarThemeDataObjSt(w.navigationBarTheme);
+  stObj.navigationDrawerTheme = _createNavigationDrawerThemeDataObjSt(w.navigationDrawerTheme);
+  stObj.navigationRailTheme = _createNavigationRailThemeDataObjSt(w.navigationRailTheme);
   stObj.popupMenuTheme = _createPopupMenuThemeDataObjSt(w.popupMenuTheme);
+  stObj.progressIndicatorTheme = _createProgressIndicatorThemeDataObjSt(w.progressIndicatorTheme);
   stObj.radioTheme = _createRadioThemeDataObjSt(w.radioTheme);
+  stObj.searchBarTheme = _createSearchBarThemeDataObjSt(w.searchBarTheme);
+  stObj.searchViewTheme = _createSearchViewThemeDataObjSt(w.searchViewTheme);
   stObj.sliderTheme = _createSliderThemeDataObjSt(w.sliderTheme);
   stObj.snackBarTheme = _createSnackBarThemeDataObjSt(w.snackBarTheme);
   stObj.switchTheme = _createSwitchThemeDataObjSt(w.switchTheme);
@@ -6783,6 +6812,30 @@ NoDefaultCupertinoThemeDataObjSt _createNoDefaultCupertinoThemeDataObjSt(NoDefau
   return stObj;
 }
 
+void _setupActionIconThemeData(WidgetFactories f) {
+  f.actionIconThemeData.actionIconThemeData = ffi.Pointer.fromFunction(actionIconThemeDataActionIconThemeData);
+  f.actionIconThemeData.lerp = ffi.Pointer.fromFunction(actionIconThemeDataLerp);
+}
+ActionIconThemeDataObjSt actionIconThemeDataActionIconThemeData(ffi.Pointer<WidgetBuilderFFI> backButtonIconBuilder, ffi.Pointer<WidgetBuilderFFI> closeButtonIconBuilder, ffi.Pointer<WidgetBuilderFFI> drawerButtonIconBuilder, ffi.Pointer<WidgetBuilderFFI> endDrawerButtonIconBuilder) {
+  final w = ActionIconThemeData(backButtonIconBuilder: backButtonIconBuilder.toWidgetBuilderFn(),
+      closeButtonIconBuilder: closeButtonIconBuilder.toWidgetBuilderFn(),
+      drawerButtonIconBuilder: drawerButtonIconBuilder.toWidgetBuilderFn(),
+      endDrawerButtonIconBuilder: endDrawerButtonIconBuilder.toWidgetBuilderFn());
+  return _createActionIconThemeDataObjSt(w);
+}
+ActionIconThemeDataObjSt actionIconThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ActionIconThemeData.lerp(_widgetsMap[a]! as ActionIconThemeData?,
+      _widgetsMap[b]! as ActionIconThemeData?,
+      t);
+  return _createActionIconThemeDataObjSt(w);
+}
+ActionIconThemeDataObjSt _createActionIconThemeDataObjSt(ActionIconThemeData? w) {
+  final ActionIconThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 void _setupBadgeThemeData(WidgetFactories f) {
   f.badgeThemeData.badgeThemeData = ffi.Pointer.fromFunction(badgeThemeDataBadgeThemeData);
   f.badgeThemeData.lerp = ffi.Pointer.fromFunction(badgeThemeDataLerp);
@@ -6816,6 +6869,128 @@ BadgeThemeDataObjSt _createBadgeThemeDataObjSt(BadgeThemeData? w) {
   stObj.padding = _addWidget(w.padding);
   stObj.alignment = _addWidget(w.alignment);
   stObj.offset = _addWidget(w.offset);
+  return stObj;
+}
+
+void _setupBottomAppBarThemeData(WidgetFactories f) {
+  f.bottomAppBarThemeData.bottomAppBarThemeData = ffi.Pointer.fromFunction(bottomAppBarThemeDataBottomAppBarThemeData);
+  f.bottomAppBarThemeData.lerp = ffi.Pointer.fromFunction(bottomAppBarThemeDataLerp);
+}
+BottomAppBarThemeDataObjSt bottomAppBarThemeDataBottomAppBarThemeData(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> padding) {
+  final w = BottomAppBarThemeData(color: color.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      height: height.doubleOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      padding: padding.objOrNul());
+  return _createBottomAppBarThemeDataObjSt(w);
+}
+BottomAppBarThemeDataObjSt bottomAppBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = BottomAppBarThemeData.lerp(_widgetsMap[a]! as BottomAppBarThemeData?,
+      _widgetsMap[b]! as BottomAppBarThemeData?,
+      t);
+  return _createBottomAppBarThemeDataObjSt(w);
+}
+BottomAppBarThemeDataObjSt _createBottomAppBarThemeDataObjSt(BottomAppBarThemeData? w) {
+  final BottomAppBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.padding = _addWidget(w.padding);
+  return stObj;
+}
+
+void _setupBottomNavigationBarThemeData(WidgetFactories f) {
+  f.bottomNavigationBarThemeData.bottomNavigationBarThemeData = ffi.Pointer.fromFunction(bottomNavigationBarThemeDataBottomNavigationBarThemeData);
+  f.bottomNavigationBarThemeData.lerp = ffi.Pointer.fromFunction(bottomNavigationBarThemeDataLerp);
+}
+BottomNavigationBarThemeDataObjSt bottomNavigationBarThemeDataBottomNavigationBarThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> selectedIconTheme, ffi.Pointer<DartObj> unselectedIconTheme, ffi.Pointer<DartObj> selectedItemColor, ffi.Pointer<DartObj> unselectedItemColor, ffi.Pointer<DartObj> selectedLabelStyle, ffi.Pointer<DartObj> unselectedLabelStyle, ffi.Pointer<ffi.Int> showSelectedLabels, ffi.Pointer<ffi.Int> showUnselectedLabels, ffi.Pointer<ffi.Int> type, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Int> landscapeLayout) {
+  final w = BottomNavigationBarThemeData(backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      selectedIconTheme: selectedIconTheme.objOrNul(),
+      unselectedIconTheme: unselectedIconTheme.objOrNul(),
+      selectedItemColor: selectedItemColor.objOrNul(),
+      unselectedItemColor: unselectedItemColor.objOrNul(),
+      selectedLabelStyle: selectedLabelStyle.objOrNul(),
+      unselectedLabelStyle: unselectedLabelStyle.objOrNul(),
+      showSelectedLabels: showSelectedLabels.boolOrNul(),
+      showUnselectedLabels: showUnselectedLabels.boolOrNul(),
+      type: type.enumOrNul(BottomNavigationBarType.values),
+      enableFeedback: enableFeedback.boolOrNul(),
+      landscapeLayout: landscapeLayout.enumOrNul(BottomNavigationBarLandscapeLayout.values));
+  return _createBottomNavigationBarThemeDataObjSt(w);
+}
+BottomNavigationBarThemeDataObjSt bottomNavigationBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = BottomNavigationBarThemeData.lerp(_widgetsMap[a]! as BottomNavigationBarThemeData?,
+      _widgetsMap[b]! as BottomNavigationBarThemeData?,
+      t);
+  return _createBottomNavigationBarThemeDataObjSt(w);
+}
+BottomNavigationBarThemeDataObjSt _createBottomNavigationBarThemeDataObjSt(BottomNavigationBarThemeData? w) {
+  final BottomNavigationBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.selectedIconTheme = _createIconThemeDataObjSt(w.selectedIconTheme);
+  stObj.unselectedIconTheme = _createIconThemeDataObjSt(w.unselectedIconTheme);
+  stObj.selectedItemColor = _addWidget(w.selectedItemColor);
+  stObj.unselectedItemColor = _addWidget(w.unselectedItemColor);
+  stObj.selectedLabelStyle = _createTextStyleObjSt(w.selectedLabelStyle);
+  stObj.unselectedLabelStyle = _createTextStyleObjSt(w.unselectedLabelStyle);
+  stObj.showSelectedLabels = (w.showSelectedLabels != null) ? w.showSelectedLabels!.toInt() : 0;
+  stObj.showUnselectedLabels = (w.showUnselectedLabels != null) ? w.showUnselectedLabels!.toInt() : 0;
+  stObj.type = (w.type != null) ? w.type!.index : 0;
+  stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
+  stObj.landscapeLayout = (w.landscapeLayout != null) ? w.landscapeLayout!.index : 0;
+  return stObj;
+}
+
+void _setupBottomSheetThemeData(WidgetFactories f) {
+  f.bottomSheetThemeData.bottomSheetThemeData = ffi.Pointer.fromFunction(bottomSheetThemeDataBottomSheetThemeData);
+  f.bottomSheetThemeData.lerp = ffi.Pointer.fromFunction(bottomSheetThemeDataLerp);
+}
+BottomSheetThemeDataObjSt bottomSheetThemeDataBottomSheetThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> modalBackgroundColor, ffi.Pointer<DartObj> modalBarrierColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<ffi.Double> modalElevation, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> showDragHandle, ffi.Pointer<DartObj> dragHandleColor, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> constraints) {
+  final w = BottomSheetThemeData(backgroundColor: backgroundColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      modalBackgroundColor: modalBackgroundColor.objOrNul(),
+      modalBarrierColor: modalBarrierColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      modalElevation: modalElevation.doubleOrNul(),
+      shape: shape.objOrNul(),
+      showDragHandle: showDragHandle.boolOrNul(),
+      dragHandleColor: dragHandleColor.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      constraints: constraints.objOrNul());
+  return _createBottomSheetThemeDataObjSt(w);
+}
+BottomSheetThemeDataObjSt bottomSheetThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = BottomSheetThemeData.lerp(_widgetsMap[a]! as BottomSheetThemeData?,
+      _widgetsMap[b]! as BottomSheetThemeData?,
+      t);
+  return _createBottomSheetThemeDataObjSt(w);
+}
+BottomSheetThemeDataObjSt _createBottomSheetThemeDataObjSt(BottomSheetThemeData? w) {
+  final BottomSheetThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.modalBackgroundColor = _addWidget(w.modalBackgroundColor);
+  stObj.modalBarrierColor = _addWidget(w.modalBarrierColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.modalElevation = (w.modalElevation != null) ? w.modalElevation! : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.showDragHandle = (w.showDragHandle != null) ? w.showDragHandle!.toInt() : 0;
+  stObj.dragHandleColor = _addWidget(w.dragHandleColor);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
   return stObj;
 }
 
@@ -7039,6 +7214,113 @@ DividerThemeDataObjSt _createDividerThemeDataObjSt(DividerThemeData? w) {
   return stObj;
 }
 
+void _setupDrawerThemeData(WidgetFactories f) {
+  f.drawerThemeData.drawerThemeData = ffi.Pointer.fromFunction(drawerThemeDataDrawerThemeData);
+  f.drawerThemeData.lerp = ffi.Pointer.fromFunction(drawerThemeDataLerp);
+}
+DrawerThemeDataObjSt drawerThemeDataDrawerThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> scrimColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> endShape, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Int> clipBehavior) {
+  final w = DrawerThemeData(backgroundColor: backgroundColor.objOrNul(),
+      scrimColor: scrimColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shape: shape.objOrNul(),
+      endShape: endShape.objOrNul(),
+      width: width.doubleOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values));
+  return _createDrawerThemeDataObjSt(w);
+}
+DrawerThemeDataObjSt drawerThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = DrawerThemeData.lerp(_widgetsMap[a]! as DrawerThemeData?,
+      _widgetsMap[b]! as DrawerThemeData?,
+      t);
+  return _createDrawerThemeDataObjSt(w);
+}
+DrawerThemeDataObjSt _createDrawerThemeDataObjSt(DrawerThemeData? w) {
+  final DrawerThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.scrimColor = _addWidget(w.scrimColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shape = _addWidget(w.shape);
+  stObj.endShape = _addWidget(w.endShape);
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  return stObj;
+}
+
+void _setupDropdownMenuThemeData(WidgetFactories f) {
+  f.dropdownMenuThemeData.dropdownMenuThemeData = ffi.Pointer.fromFunction(dropdownMenuThemeDataDropdownMenuThemeData);
+  f.dropdownMenuThemeData.lerp = ffi.Pointer.fromFunction(dropdownMenuThemeDataLerp);
+}
+DropdownMenuThemeDataObjSt dropdownMenuThemeDataDropdownMenuThemeData(ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> inputDecorationTheme, ffi.Pointer<DartObj> disabledColor) {
+  final w = DropdownMenuThemeData(textStyle: textStyle.objOrNul(),
+      inputDecorationTheme: inputDecorationTheme.objOrNul(),
+      disabledColor: disabledColor.objOrNul());
+  return _createDropdownMenuThemeDataObjSt(w);
+}
+DropdownMenuThemeDataObjSt dropdownMenuThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = DropdownMenuThemeData.lerp(_widgetsMap[a]! as DropdownMenuThemeData?,
+      _widgetsMap[b]! as DropdownMenuThemeData?,
+      t);
+  return _createDropdownMenuThemeDataObjSt(w);
+}
+DropdownMenuThemeDataObjSt _createDropdownMenuThemeDataObjSt(DropdownMenuThemeData? w) {
+  final DropdownMenuThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.textStyle = _createTextStyleObjSt(w.textStyle);
+  stObj.disabledColor = _addWidget(w.disabledColor);
+  return stObj;
+}
+
+void _setupExpansionTileThemeData(WidgetFactories f) {
+  f.expansionTileThemeData.expansionTileThemeData = ffi.Pointer.fromFunction(expansionTileThemeDataExpansionTileThemeData);
+  f.expansionTileThemeData.lerp = ffi.Pointer.fromFunction(expansionTileThemeDataLerp);
+}
+ExpansionTileThemeDataObjSt expansionTileThemeDataExpansionTileThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> collapsedBackgroundColor, ffi.Pointer<DartObj> tilePadding, ffi.Pointer<DartObj> expandedAlignment, ffi.Pointer<DartObj> childrenPadding, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> collapsedIconColor, ffi.Pointer<DartObj> textColor, ffi.Pointer<DartObj> collapsedTextColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> collapsedShape, ffi.Pointer<ffi.Int> clipBehavior) {
+  final w = ExpansionTileThemeData(backgroundColor: backgroundColor.objOrNul(),
+      collapsedBackgroundColor: collapsedBackgroundColor.objOrNul(),
+      tilePadding: tilePadding.objOrNul(),
+      expandedAlignment: expandedAlignment.objOrNul(),
+      childrenPadding: childrenPadding.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      collapsedIconColor: collapsedIconColor.objOrNul(),
+      textColor: textColor.objOrNul(),
+      collapsedTextColor: collapsedTextColor.objOrNul(),
+      shape: shape.objOrNul(),
+      collapsedShape: collapsedShape.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values));
+  return _createExpansionTileThemeDataObjSt(w);
+}
+ExpansionTileThemeDataObjSt expansionTileThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ExpansionTileThemeData.lerp(_widgetsMap[a]! as ExpansionTileThemeData?,
+      _widgetsMap[b]! as ExpansionTileThemeData?,
+      t);
+  return _createExpansionTileThemeDataObjSt(w);
+}
+ExpansionTileThemeDataObjSt _createExpansionTileThemeDataObjSt(ExpansionTileThemeData? w) {
+  final ExpansionTileThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.collapsedBackgroundColor = _addWidget(w.collapsedBackgroundColor);
+  stObj.tilePadding = _addWidget(w.tilePadding);
+  stObj.expandedAlignment = _addWidget(w.expandedAlignment);
+  stObj.childrenPadding = _addWidget(w.childrenPadding);
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.collapsedIconColor = _addWidget(w.collapsedIconColor);
+  stObj.textColor = _addWidget(w.textColor);
+  stObj.collapsedTextColor = _addWidget(w.collapsedTextColor);
+  stObj.shape = _addWidget(w.shape);
+  stObj.collapsedShape = _addWidget(w.collapsedShape);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  return stObj;
+}
+
 void _setupMenuBarThemeData(WidgetFactories f) {
   f.menuBarThemeData.menuBarThemeData = ffi.Pointer.fromFunction(menuBarThemeDataMenuBarThemeData);
   f.menuBarThemeData.lerp = ffi.Pointer.fromFunction(menuBarThemeDataLerp);
@@ -7055,6 +7337,27 @@ MenuBarThemeDataObjSt menuBarThemeDataLerp(DartDartObj a, DartDartObj b, double 
 }
 MenuBarThemeDataObjSt _createMenuBarThemeDataObjSt(MenuBarThemeData? w) {
   final MenuBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupMenuButtonThemeData(WidgetFactories f) {
+  f.menuButtonThemeData.menuButtonThemeData = ffi.Pointer.fromFunction(menuButtonThemeDataMenuButtonThemeData);
+  f.menuButtonThemeData.lerp = ffi.Pointer.fromFunction(menuButtonThemeDataLerp);
+}
+MenuButtonThemeDataObjSt menuButtonThemeDataMenuButtonThemeData() {
+  final w = MenuButtonThemeData();
+  return _createMenuButtonThemeDataObjSt(w);
+}
+MenuButtonThemeDataObjSt menuButtonThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = MenuButtonThemeData.lerp(_widgetsMap[a]! as MenuButtonThemeData?,
+      _widgetsMap[b]! as MenuButtonThemeData?,
+      t);
+  return _createMenuButtonThemeDataObjSt(w);
+}
+MenuButtonThemeDataObjSt _createMenuButtonThemeDataObjSt(MenuButtonThemeData? w) {
+  final MenuButtonThemeDataObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   return stObj;
@@ -7078,6 +7381,129 @@ MenuThemeDataObjSt _createMenuThemeDataObjSt(MenuThemeData? w) {
   final MenuThemeDataObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupNavigationBarThemeData(WidgetFactories f) {
+  f.navigationBarThemeData.navigationBarThemeData = ffi.Pointer.fromFunction(navigationBarThemeDataNavigationBarThemeData);
+  f.navigationBarThemeData.lerp = ffi.Pointer.fromFunction(navigationBarThemeDataLerp);
+}
+NavigationBarThemeDataObjSt navigationBarThemeDataNavigationBarThemeData(ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> indicatorShape, ffi.Pointer<DartObj> labelTextStyle, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<ffi.Int> labelBehavior, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> labelPadding) {
+  final w = NavigationBarThemeData(height: height.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      indicatorColor: indicatorColor.objOrNul(),
+      indicatorShape: indicatorShape.objOrNul(),
+      labelTextStyle: _wspNul<TextStyle?>(labelTextStyle.objOrNul()),
+      iconTheme: _wspNul<IconThemeData?>(iconTheme.objOrNul()),
+      labelBehavior: labelBehavior.enumOrNul(NavigationDestinationLabelBehavior.values),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      labelPadding: labelPadding.objOrNul());
+  return _createNavigationBarThemeDataObjSt(w);
+}
+NavigationBarThemeDataObjSt navigationBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = NavigationBarThemeData.lerp(_widgetsMap[a]! as NavigationBarThemeData?,
+      _widgetsMap[b]! as NavigationBarThemeData?,
+      t);
+  return _createNavigationBarThemeDataObjSt(w);
+}
+NavigationBarThemeDataObjSt _createNavigationBarThemeDataObjSt(NavigationBarThemeData? w) {
+  final NavigationBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.indicatorColor = _addWidget(w.indicatorColor);
+  stObj.indicatorShape = _addWidget(w.indicatorShape);
+  stObj.labelBehavior = (w.labelBehavior != null) ? w.labelBehavior!.index : 0;
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  return stObj;
+}
+
+void _setupNavigationDrawerThemeData(WidgetFactories f) {
+  f.navigationDrawerThemeData.navigationDrawerThemeData = ffi.Pointer.fromFunction(navigationDrawerThemeDataNavigationDrawerThemeData);
+  f.navigationDrawerThemeData.lerp = ffi.Pointer.fromFunction(navigationDrawerThemeDataLerp);
+}
+NavigationDrawerThemeDataObjSt navigationDrawerThemeDataNavigationDrawerThemeData(ffi.Pointer<ffi.Double> tileHeight, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> indicatorShape, ffi.Pointer<DartObj> labelTextStyle, ffi.Pointer<DartObj> iconTheme) {
+  final w = NavigationDrawerThemeData(tileHeight: tileHeight.doubleOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      indicatorColor: indicatorColor.objOrNul(),
+      indicatorShape: indicatorShape.objOrNul(),
+      labelTextStyle: _wspNul<TextStyle?>(labelTextStyle.objOrNul()),
+      iconTheme: _wspNul<IconThemeData?>(iconTheme.objOrNul()));
+  return _createNavigationDrawerThemeDataObjSt(w);
+}
+NavigationDrawerThemeDataObjSt navigationDrawerThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = NavigationDrawerThemeData.lerp(_widgetsMap[a]! as NavigationDrawerThemeData?,
+      _widgetsMap[b]! as NavigationDrawerThemeData?,
+      t);
+  return _createNavigationDrawerThemeDataObjSt(w);
+}
+NavigationDrawerThemeDataObjSt _createNavigationDrawerThemeDataObjSt(NavigationDrawerThemeData? w) {
+  final NavigationDrawerThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.tileHeight = (w.tileHeight != null) ? w.tileHeight! : 0;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.indicatorColor = _addWidget(w.indicatorColor);
+  stObj.indicatorShape = _addWidget(w.indicatorShape);
+  return stObj;
+}
+
+void _setupNavigationRailThemeData(WidgetFactories f) {
+  f.navigationRailThemeData.navigationRailThemeData = ffi.Pointer.fromFunction(navigationRailThemeDataNavigationRailThemeData);
+  f.navigationRailThemeData.lerp = ffi.Pointer.fromFunction(navigationRailThemeDataLerp);
+}
+NavigationRailThemeDataObjSt navigationRailThemeDataNavigationRailThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> unselectedLabelTextStyle, ffi.Pointer<DartObj> selectedLabelTextStyle, ffi.Pointer<DartObj> unselectedIconTheme, ffi.Pointer<DartObj> selectedIconTheme, ffi.Pointer<ffi.Double> groupAlignment, ffi.Pointer<ffi.Int> labelType, ffi.Pointer<ffi.Int> useIndicator, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<DartObj> indicatorShape, ffi.Pointer<ffi.Double> minWidth, ffi.Pointer<ffi.Double> minExtendedWidth) {
+  final w = NavigationRailThemeData(backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      unselectedLabelTextStyle: unselectedLabelTextStyle.objOrNul(),
+      selectedLabelTextStyle: selectedLabelTextStyle.objOrNul(),
+      unselectedIconTheme: unselectedIconTheme.objOrNul(),
+      selectedIconTheme: selectedIconTheme.objOrNul(),
+      groupAlignment: groupAlignment.doubleOrNul(),
+      labelType: labelType.enumOrNul(NavigationRailLabelType.values),
+      useIndicator: useIndicator.boolOrNul(),
+      indicatorColor: indicatorColor.objOrNul(),
+      indicatorShape: indicatorShape.objOrNul(),
+      minWidth: minWidth.doubleOrNul(),
+      minExtendedWidth: minExtendedWidth.doubleOrNul());
+  return _createNavigationRailThemeDataObjSt(w);
+}
+NavigationRailThemeDataObjSt navigationRailThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = NavigationRailThemeData.lerp(_widgetsMap[a]! as NavigationRailThemeData?,
+      _widgetsMap[b]! as NavigationRailThemeData?,
+      t);
+  return _createNavigationRailThemeDataObjSt(w);
+}
+NavigationRailThemeDataObjSt _createNavigationRailThemeDataObjSt(NavigationRailThemeData? w) {
+  final NavigationRailThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.unselectedLabelTextStyle = _createTextStyleObjSt(w.unselectedLabelTextStyle);
+  stObj.selectedLabelTextStyle = _createTextStyleObjSt(w.selectedLabelTextStyle);
+  stObj.unselectedIconTheme = _createIconThemeDataObjSt(w.unselectedIconTheme);
+  stObj.selectedIconTheme = _createIconThemeDataObjSt(w.selectedIconTheme);
+  stObj.groupAlignment = (w.groupAlignment != null) ? w.groupAlignment! : 0;
+  stObj.labelType = (w.labelType != null) ? w.labelType!.index : 0;
+  stObj.useIndicator = (w.useIndicator != null) ? w.useIndicator!.toInt() : 0;
+  stObj.indicatorColor = _addWidget(w.indicatorColor);
+  stObj.indicatorShape = _addWidget(w.indicatorShape);
+  stObj.minWidth = (w.minWidth != null) ? w.minWidth! : 0;
+  stObj.minExtendedWidth = (w.minExtendedWidth != null) ? w.minExtendedWidth! : 0;
   return stObj;
 }
 
@@ -7124,6 +7550,56 @@ PopupMenuThemeDataObjSt _createPopupMenuThemeDataObjSt(PopupMenuThemeData? w) {
   return stObj;
 }
 
+void _setupProgressIndicatorThemeData(WidgetFactories f) {
+  f.progressIndicatorThemeData.progressIndicatorThemeData = ffi.Pointer.fromFunction(progressIndicatorThemeDataProgressIndicatorThemeData);
+  f.progressIndicatorThemeData.lerp = ffi.Pointer.fromFunction(progressIndicatorThemeDataLerp);
+}
+ProgressIndicatorThemeDataObjSt progressIndicatorThemeDataProgressIndicatorThemeData(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> linearTrackColor, ffi.Pointer<ffi.Double> linearMinHeight, ffi.Pointer<DartObj> circularTrackColor, ffi.Pointer<DartObj> refreshBackgroundColor, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> stopIndicatorColor, ffi.Pointer<ffi.Double> stopIndicatorRadius, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Double> strokeAlign, ffi.Pointer<ffi.Int> strokeCap, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<DartObj> circularTrackPadding, ffi.Pointer<ffi.Int> year2023) {
+  final w = ProgressIndicatorThemeData(color: color.objOrNul(),
+      linearTrackColor: linearTrackColor.objOrNul(),
+      linearMinHeight: linearMinHeight.doubleOrNul(),
+      circularTrackColor: circularTrackColor.objOrNul(),
+      refreshBackgroundColor: refreshBackgroundColor.objOrNul(),
+      borderRadius: borderRadius.objOrNul(),
+      stopIndicatorColor: stopIndicatorColor.objOrNul(),
+      stopIndicatorRadius: stopIndicatorRadius.doubleOrNul(),
+      strokeWidth: strokeWidth.doubleOrNul(),
+      strokeAlign: strokeAlign.doubleOrNul(),
+      strokeCap: strokeCap.enumOrNul(StrokeCap.values),
+      constraints: constraints.objOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      circularTrackPadding: circularTrackPadding.objOrNul(),
+      year2023: year2023.boolOrNul());
+  return _createProgressIndicatorThemeDataObjSt(w);
+}
+ProgressIndicatorThemeDataObjSt progressIndicatorThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ProgressIndicatorThemeData.lerp(_widgetsMap[a]! as ProgressIndicatorThemeData?,
+      _widgetsMap[b]! as ProgressIndicatorThemeData?,
+      t);
+  return _createProgressIndicatorThemeDataObjSt(w);
+}
+ProgressIndicatorThemeDataObjSt _createProgressIndicatorThemeDataObjSt(ProgressIndicatorThemeData? w) {
+  final ProgressIndicatorThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.linearTrackColor = _addWidget(w.linearTrackColor);
+  stObj.linearMinHeight = (w.linearMinHeight != null) ? w.linearMinHeight! : 0;
+  stObj.circularTrackColor = _addWidget(w.circularTrackColor);
+  stObj.refreshBackgroundColor = _addWidget(w.refreshBackgroundColor);
+  stObj.borderRadius = _addWidget(w.borderRadius);
+  stObj.stopIndicatorColor = _addWidget(w.stopIndicatorColor);
+  stObj.stopIndicatorRadius = (w.stopIndicatorRadius != null) ? w.stopIndicatorRadius! : 0;
+  stObj.strokeWidth = (w.strokeWidth != null) ? w.strokeWidth! : 0;
+  stObj.strokeAlign = (w.strokeAlign != null) ? w.strokeAlign! : 0;
+  stObj.strokeCap = (w.strokeCap != null) ? w.strokeCap!.index : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.trackGap = (w.trackGap != null) ? w.trackGap! : 0;
+  stObj.circularTrackPadding = _addWidget(w.circularTrackPadding);
+  stObj.year2023 = (w.year2023 != null) ? w.year2023!.toInt() : 0;
+  return stObj;
+}
+
 void _setupRadioThemeData(WidgetFactories f) {
   f.radioThemeData.radioThemeData = ffi.Pointer.fromFunction(radioThemeDataRadioThemeData);
   f.radioThemeData.lerp = ffi.Pointer.fromFunction(radioThemeDataLerp);
@@ -7150,6 +7626,86 @@ RadioThemeDataObjSt _createRadioThemeDataObjSt(RadioThemeData? w) {
   stObj.splashRadius = (w.splashRadius != null) ? w.splashRadius! : 0;
   stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
   stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  return stObj;
+}
+
+void _setupSearchBarThemeData(WidgetFactories f) {
+  f.searchBarThemeData.searchBarThemeData = ffi.Pointer.fromFunction(searchBarThemeDataSearchBarThemeData);
+  f.searchBarThemeData.lerp = ffi.Pointer.fromFunction(searchBarThemeDataLerp);
+}
+SearchBarThemeDataObjSt searchBarThemeDataSearchBarThemeData(ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> hintStyle, ffi.Pointer<DartObj> constraints, ffi.Pointer<ffi.Int> textCapitalization) {
+  final w = SearchBarThemeData(elevation: _wspNul<double?>(elevation.doubleOrNul()),
+      backgroundColor: _wspNul<Color?>(backgroundColor.objOrNul()),
+      shadowColor: _wspNul<Color?>(shadowColor.objOrNul()),
+      surfaceTintColor: _wspNul<Color?>(surfaceTintColor.objOrNul()),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      side: _wspNul<BorderSide?>(side.objOrNul()),
+      shape: _wspNul<OutlinedBorder?>(shape.objOrNul()),
+      padding: _wspNul<EdgeInsetsGeometry?>(padding.objOrNul()),
+      textStyle: _wspNul<TextStyle?>(textStyle.objOrNul()),
+      hintStyle: _wspNul<TextStyle?>(hintStyle.objOrNul()),
+      constraints: constraints.objOrNul(),
+      textCapitalization: textCapitalization.enumOrNul(TextCapitalization.values));
+  return _createSearchBarThemeDataObjSt(w);
+}
+SearchBarThemeDataObjSt searchBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = SearchBarThemeData.lerp(_widgetsMap[a]! as SearchBarThemeData?,
+      _widgetsMap[b]! as SearchBarThemeData?,
+      t);
+  return _createSearchBarThemeDataObjSt(w);
+}
+SearchBarThemeDataObjSt _createSearchBarThemeDataObjSt(SearchBarThemeData? w) {
+  final SearchBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.textCapitalization = (w.textCapitalization != null) ? w.textCapitalization!.index : 0;
+  return stObj;
+}
+
+void _setupSearchViewThemeData(WidgetFactories f) {
+  f.searchViewThemeData.searchViewThemeData = ffi.Pointer.fromFunction(searchViewThemeDataSearchViewThemeData);
+  f.searchViewThemeData.lerp = ffi.Pointer.fromFunction(searchViewThemeDataLerp);
+}
+SearchViewThemeDataObjSt searchViewThemeDataSearchViewThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> barPadding, ffi.Pointer<ffi.Int> shrinkWrap, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Double> headerHeight, ffi.Pointer<DartObj> headerTextStyle, ffi.Pointer<DartObj> headerHintStyle, ffi.Pointer<DartObj> dividerColor) {
+  final w = SearchViewThemeData(backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      constraints: constraints.objOrNul(),
+      padding: padding.objOrNul(),
+      barPadding: barPadding.objOrNul(),
+      shrinkWrap: shrinkWrap.boolOrNul(),
+      side: side.objOrNul(),
+      shape: shape.objOrNul(),
+      headerHeight: headerHeight.doubleOrNul(),
+      headerTextStyle: headerTextStyle.objOrNul(),
+      headerHintStyle: headerHintStyle.objOrNul(),
+      dividerColor: dividerColor.objOrNul());
+  return _createSearchViewThemeDataObjSt(w);
+}
+SearchViewThemeDataObjSt searchViewThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = SearchViewThemeData.lerp(_widgetsMap[a]! as SearchViewThemeData?,
+      _widgetsMap[b]! as SearchViewThemeData?,
+      t);
+  return _createSearchViewThemeDataObjSt(w);
+}
+SearchViewThemeDataObjSt _createSearchViewThemeDataObjSt(SearchViewThemeData? w) {
+  final SearchViewThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.side = _createBorderSideObjSt(w.side);
+  stObj.shape = _addWidget(w.shape);
+  stObj.headerHeight = (w.headerHeight != null) ? w.headerHeight! : 0;
+  stObj.headerTextStyle = _createTextStyleObjSt(w.headerTextStyle);
+  stObj.headerHintStyle = _createTextStyleObjSt(w.headerHintStyle);
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.padding = _addWidget(w.padding);
+  stObj.barPadding = _addWidget(w.barPadding);
+  stObj.shrinkWrap = (w.shrinkWrap != null) ? w.shrinkWrap!.toInt() : 0;
+  stObj.dividerColor = _addWidget(w.dividerColor);
   return stObj;
 }
 
@@ -7411,6 +7967,59 @@ TooltipThemeDataObjSt _createTooltipThemeDataObjSt(TooltipThemeData? w) {
   stObj.exitDuration = _addWidget(w.exitDuration);
   stObj.triggerMode = (w.triggerMode != null) ? w.triggerMode!.index : 0;
   stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
+  return stObj;
+}
+
+void _setupAppBarThemeData(WidgetFactories f) {
+  f.appBarThemeData.appBarThemeData = ffi.Pointer.fromFunction(appBarThemeDataAppBarThemeData);
+  f.appBarThemeData.lerp = ffi.Pointer.fromFunction(appBarThemeDataLerp);
+}
+AppBarThemeDataObjSt appBarThemeDataAppBarThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> actionsIconTheme, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> actionsPadding) {
+  final w = AppBarThemeData(backgroundColor: backgroundColor.objOrNul(),
+      foregroundColor: foregroundColor.objOrNul(),
+      color: color.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shape: shape.objOrNul(),
+      iconTheme: iconTheme.objOrNul(),
+      actionsIconTheme: actionsIconTheme.objOrNul(),
+      centerTitle: centerTitle.boolOrNul(),
+      titleSpacing: titleSpacing.doubleOrNul(),
+      leadingWidth: leadingWidth.doubleOrNul(),
+      toolbarHeight: toolbarHeight.doubleOrNul(),
+      toolbarTextStyle: toolbarTextStyle.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      actionsPadding: actionsPadding.objOrNul());
+  return _createAppBarThemeDataObjSt(w);
+}
+AppBarThemeDataObjSt appBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = AppBarThemeData.lerp(_widgetsMap[a]! as AppBarThemeData,
+      _widgetsMap[b]! as AppBarThemeData,
+      t);
+  return _createAppBarThemeDataObjSt(w);
+}
+AppBarThemeDataObjSt _createAppBarThemeDataObjSt(AppBarThemeData? w) {
+  final AppBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.foregroundColor = _addWidget(w.foregroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.scrolledUnderElevation = (w.scrolledUnderElevation != null) ? w.scrolledUnderElevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shape = _addWidget(w.shape);
+  stObj.iconTheme = _createIconThemeDataObjSt(w.iconTheme);
+  stObj.actionsIconTheme = _createIconThemeDataObjSt(w.actionsIconTheme);
+  stObj.centerTitle = (w.centerTitle != null) ? w.centerTitle!.toInt() : 0;
+  stObj.titleSpacing = (w.titleSpacing != null) ? w.titleSpacing! : 0;
+  stObj.leadingWidth = (w.leadingWidth != null) ? w.leadingWidth! : 0;
+  stObj.toolbarHeight = (w.toolbarHeight != null) ? w.toolbarHeight! : 0;
+  stObj.toolbarTextStyle = _createTextStyleObjSt(w.toolbarTextStyle);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.actionsPadding = _addWidget(w.actionsPadding);
   return stObj;
 }
 
@@ -12822,6 +13431,32 @@ RangeValuesObjSt _createRangeValuesObjSt(RangeValues? w) {
   return stObj;
 }
 
+void _setupDropdownMenuTheme(WidgetFactories f) {
+  f.dropdownMenuTheme.dropdownMenuTheme = ffi.Pointer.fromFunction(dropdownMenuThemeDropdownMenuTheme);
+  f.dropdownMenuTheme.of = ffi.Pointer.fromFunction(dropdownMenuThemeOf);
+  f.dropdownMenuTheme.maybeOf = ffi.Pointer.fromFunction(dropdownMenuThemeMaybeOf);
+}
+DropdownMenuThemeObjSt dropdownMenuThemeDropdownMenuTheme(DartDartObj data, DartDartObj child) {
+  final w = DropdownMenuTheme(data: _widgetsMap[data]! as DropdownMenuThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createDropdownMenuThemeObjSt(w);
+}
+DropdownMenuThemeDataObjSt dropdownMenuThemeOf(DartDartObj context) {
+  final w = DropdownMenuTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createDropdownMenuThemeDataObjSt(w);
+}
+DropdownMenuThemeDataObjSt dropdownMenuThemeMaybeOf(DartDartObj context) {
+  final w = DropdownMenuTheme.maybeOf(_widgetsMap[context]! as BuildContext);
+  return _createDropdownMenuThemeDataObjSt(w);
+}
+DropdownMenuThemeObjSt _createDropdownMenuThemeObjSt(DropdownMenuTheme? w) {
+  final DropdownMenuThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createDropdownMenuThemeDataObjSt(w.data);
+  return stObj;
+}
+
 void _setupDrawerController(WidgetFactories f) {
   f.drawerController.drawerController = ffi.Pointer.fromFunction(drawerControllerDrawerController);
   f.drawerController.maybeOf = ffi.Pointer.fromFunction(drawerControllerMaybeOf);
@@ -12864,9 +13499,10 @@ DrawerControllerObjSt _createDrawerControllerObjSt(DrawerController? w) {
 
 void _setupAppBarTheme(WidgetFactories f) {
   f.appBarTheme.appBarTheme = ffi.Pointer.fromFunction(appBarThemeAppBarTheme);
+  f.appBarTheme.of = ffi.Pointer.fromFunction(appBarThemeOf);
   f.appBarTheme.lerp = ffi.Pointer.fromFunction(appBarThemeLerp);
 }
-AppBarThemeObjSt appBarThemeAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> actionsIconTheme, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> child) {
+AppBarThemeObjSt appBarThemeAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> actionsIconTheme, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> data, ffi.Pointer<DartObj> child) {
   final w = AppBarTheme(color: color.objOrNul(),
       backgroundColor: backgroundColor.objOrNul(),
       foregroundColor: foregroundColor.objOrNul(),
@@ -12884,8 +13520,13 @@ AppBarThemeObjSt appBarThemeAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<
       toolbarTextStyle: toolbarTextStyle.objOrNul(),
       titleTextStyle: titleTextStyle.objOrNul(),
       actionsPadding: actionsPadding.objOrNul(),
+      data: data.objOrNul(),
       child: child.objOrNul());
   return _createAppBarThemeObjSt(w);
+}
+AppBarThemeDataObjSt appBarThemeOf(DartDartObj context) {
+  final w = AppBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createAppBarThemeDataObjSt(w);
 }
 AppBarThemeObjSt appBarThemeLerp(DartDartObj a, DartDartObj b, double t) {
   final w = AppBarTheme.lerp(_widgetsMap[a]! as AppBarTheme?,
@@ -12913,6 +13554,7 @@ AppBarThemeObjSt _createAppBarThemeObjSt(AppBarTheme? w) {
   stObj.toolbarTextStyle = _createTextStyleObjSt(w.toolbarTextStyle);
   stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
   stObj.actionsPadding = _addWidget(w.actionsPadding);
+  stObj.data = _createAppBarThemeDataObjSt(w.data);
   return stObj;
 }
 
@@ -13233,6 +13875,27 @@ BadgeThemeObjSt _createBadgeThemeObjSt(BadgeTheme? w) {
   return stObj;
 }
 
+void _setupProgressIndicatorTheme(WidgetFactories f) {
+  f.progressIndicatorTheme.progressIndicatorTheme = ffi.Pointer.fromFunction(progressIndicatorThemeProgressIndicatorTheme);
+  f.progressIndicatorTheme.of = ffi.Pointer.fromFunction(progressIndicatorThemeOf);
+}
+ProgressIndicatorThemeObjSt progressIndicatorThemeProgressIndicatorTheme(DartDartObj data, DartDartObj child) {
+  final w = ProgressIndicatorTheme(data: _widgetsMap[data]! as ProgressIndicatorThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createProgressIndicatorThemeObjSt(w);
+}
+ProgressIndicatorThemeDataObjSt progressIndicatorThemeOf(DartDartObj context) {
+  final w = ProgressIndicatorTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createProgressIndicatorThemeDataObjSt(w);
+}
+ProgressIndicatorThemeObjSt _createProgressIndicatorThemeObjSt(ProgressIndicatorTheme? w) {
+  final ProgressIndicatorThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createProgressIndicatorThemeDataObjSt(w.data);
+  return stObj;
+}
+
 void _setupPopupMenuTheme(WidgetFactories f) {
   f.popupMenuTheme.popupMenuTheme = ffi.Pointer.fromFunction(popupMenuThemePopupMenuTheme);
   f.popupMenuTheme.of = ffi.Pointer.fromFunction(popupMenuThemeOf);
@@ -13251,6 +13914,111 @@ PopupMenuThemeObjSt _createPopupMenuThemeObjSt(PopupMenuTheme? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.data = _createPopupMenuThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupBottomNavigationBarTheme(WidgetFactories f) {
+  f.bottomNavigationBarTheme.bottomNavigationBarTheme = ffi.Pointer.fromFunction(bottomNavigationBarThemeBottomNavigationBarTheme);
+  f.bottomNavigationBarTheme.of = ffi.Pointer.fromFunction(bottomNavigationBarThemeOf);
+}
+BottomNavigationBarThemeObjSt bottomNavigationBarThemeBottomNavigationBarTheme(DartDartObj data, DartDartObj child) {
+  final w = BottomNavigationBarTheme(data: _widgetsMap[data]! as BottomNavigationBarThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createBottomNavigationBarThemeObjSt(w);
+}
+BottomNavigationBarThemeDataObjSt bottomNavigationBarThemeOf(DartDartObj context) {
+  final w = BottomNavigationBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createBottomNavigationBarThemeDataObjSt(w);
+}
+BottomNavigationBarThemeObjSt _createBottomNavigationBarThemeObjSt(BottomNavigationBarTheme? w) {
+  final BottomNavigationBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createBottomNavigationBarThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupDrawerTheme(WidgetFactories f) {
+  f.drawerTheme.drawerTheme = ffi.Pointer.fromFunction(drawerThemeDrawerTheme);
+  f.drawerTheme.of = ffi.Pointer.fromFunction(drawerThemeOf);
+}
+DrawerThemeObjSt drawerThemeDrawerTheme(DartDartObj data, DartDartObj child) {
+  final w = DrawerTheme(data: _widgetsMap[data]! as DrawerThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createDrawerThemeObjSt(w);
+}
+DrawerThemeDataObjSt drawerThemeOf(DartDartObj context) {
+  final w = DrawerTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createDrawerThemeDataObjSt(w);
+}
+DrawerThemeObjSt _createDrawerThemeObjSt(DrawerTheme? w) {
+  final DrawerThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createDrawerThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupNavigationBarTheme(WidgetFactories f) {
+  f.navigationBarTheme.navigationBarTheme = ffi.Pointer.fromFunction(navigationBarThemeNavigationBarTheme);
+  f.navigationBarTheme.of = ffi.Pointer.fromFunction(navigationBarThemeOf);
+}
+NavigationBarThemeObjSt navigationBarThemeNavigationBarTheme(DartDartObj data, DartDartObj child) {
+  final w = NavigationBarTheme(data: _widgetsMap[data]! as NavigationBarThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createNavigationBarThemeObjSt(w);
+}
+NavigationBarThemeDataObjSt navigationBarThemeOf(DartDartObj context) {
+  final w = NavigationBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createNavigationBarThemeDataObjSt(w);
+}
+NavigationBarThemeObjSt _createNavigationBarThemeObjSt(NavigationBarTheme? w) {
+  final NavigationBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createNavigationBarThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupNavigationDrawerTheme(WidgetFactories f) {
+  f.navigationDrawerTheme.navigationDrawerTheme = ffi.Pointer.fromFunction(navigationDrawerThemeNavigationDrawerTheme);
+  f.navigationDrawerTheme.of = ffi.Pointer.fromFunction(navigationDrawerThemeOf);
+}
+NavigationDrawerThemeObjSt navigationDrawerThemeNavigationDrawerTheme(DartDartObj data, DartDartObj child) {
+  final w = NavigationDrawerTheme(data: _widgetsMap[data]! as NavigationDrawerThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createNavigationDrawerThemeObjSt(w);
+}
+NavigationDrawerThemeDataObjSt navigationDrawerThemeOf(DartDartObj context) {
+  final w = NavigationDrawerTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createNavigationDrawerThemeDataObjSt(w);
+}
+NavigationDrawerThemeObjSt _createNavigationDrawerThemeObjSt(NavigationDrawerTheme? w) {
+  final NavigationDrawerThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createNavigationDrawerThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupNavigationRailTheme(WidgetFactories f) {
+  f.navigationRailTheme.navigationRailTheme = ffi.Pointer.fromFunction(navigationRailThemeNavigationRailTheme);
+  f.navigationRailTheme.of = ffi.Pointer.fromFunction(navigationRailThemeOf);
+}
+NavigationRailThemeObjSt navigationRailThemeNavigationRailTheme(DartDartObj data, DartDartObj child) {
+  final w = NavigationRailTheme(data: _widgetsMap[data]! as NavigationRailThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createNavigationRailThemeObjSt(w);
+}
+NavigationRailThemeDataObjSt navigationRailThemeOf(DartDartObj context) {
+  final w = NavigationRailTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createNavigationRailThemeDataObjSt(w);
+}
+NavigationRailThemeObjSt _createNavigationRailThemeObjSt(NavigationRailTheme? w) {
+  final NavigationRailThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createNavigationRailThemeDataObjSt(w.data);
   return stObj;
 }
 
@@ -13296,19 +14064,130 @@ MenuBarThemeObjSt _createMenuBarThemeObjSt(MenuBarTheme? w) {
   return stObj;
 }
 
+void _setupMenuButtonTheme(WidgetFactories f) {
+  f.menuButtonTheme.menuButtonTheme = ffi.Pointer.fromFunction(menuButtonThemeMenuButtonTheme);
+  f.menuButtonTheme.of = ffi.Pointer.fromFunction(menuButtonThemeOf);
+}
+MenuButtonThemeObjSt menuButtonThemeMenuButtonTheme(DartDartObj data, DartDartObj child) {
+  final w = MenuButtonTheme(data: _widgetsMap[data]! as MenuButtonThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createMenuButtonThemeObjSt(w);
+}
+MenuButtonThemeDataObjSt menuButtonThemeOf(DartDartObj context) {
+  final w = MenuButtonTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createMenuButtonThemeDataObjSt(w);
+}
+MenuButtonThemeObjSt _createMenuButtonThemeObjSt(MenuButtonTheme? w) {
+  final MenuButtonThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createMenuButtonThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupSearchBarTheme(WidgetFactories f) {
+  f.searchBarTheme.searchBarTheme = ffi.Pointer.fromFunction(searchBarThemeSearchBarTheme);
+  f.searchBarTheme.of = ffi.Pointer.fromFunction(searchBarThemeOf);
+}
+SearchBarThemeObjSt searchBarThemeSearchBarTheme(DartDartObj data, DartDartObj child) {
+  final w = SearchBarTheme(data: _widgetsMap[data]! as SearchBarThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createSearchBarThemeObjSt(w);
+}
+SearchBarThemeDataObjSt searchBarThemeOf(DartDartObj context) {
+  final w = SearchBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createSearchBarThemeDataObjSt(w);
+}
+SearchBarThemeObjSt _createSearchBarThemeObjSt(SearchBarTheme? w) {
+  final SearchBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createSearchBarThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupSearchViewTheme(WidgetFactories f) {
+  f.searchViewTheme.searchViewTheme = ffi.Pointer.fromFunction(searchViewThemeSearchViewTheme);
+  f.searchViewTheme.of = ffi.Pointer.fromFunction(searchViewThemeOf);
+}
+SearchViewThemeObjSt searchViewThemeSearchViewTheme(DartDartObj data, DartDartObj child) {
+  final w = SearchViewTheme(data: _widgetsMap[data]! as SearchViewThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createSearchViewThemeObjSt(w);
+}
+SearchViewThemeDataObjSt searchViewThemeOf(DartDartObj context) {
+  final w = SearchViewTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createSearchViewThemeDataObjSt(w);
+}
+SearchViewThemeObjSt _createSearchViewThemeObjSt(SearchViewTheme? w) {
+  final SearchViewThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createSearchViewThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupExpansionTileTheme(WidgetFactories f) {
+  f.expansionTileTheme.expansionTileTheme = ffi.Pointer.fromFunction(expansionTileThemeExpansionTileTheme);
+  f.expansionTileTheme.of = ffi.Pointer.fromFunction(expansionTileThemeOf);
+}
+ExpansionTileThemeObjSt expansionTileThemeExpansionTileTheme(DartDartObj data, DartDartObj child) {
+  final w = ExpansionTileTheme(data: _widgetsMap[data]! as ExpansionTileThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createExpansionTileThemeObjSt(w);
+}
+ExpansionTileThemeDataObjSt expansionTileThemeOf(DartDartObj context) {
+  final w = ExpansionTileTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createExpansionTileThemeDataObjSt(w);
+}
+ExpansionTileThemeObjSt _createExpansionTileThemeObjSt(ExpansionTileTheme? w) {
+  final ExpansionTileThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createExpansionTileThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupActionIconTheme(WidgetFactories f) {
+  f.actionIconTheme.actionIconTheme = ffi.Pointer.fromFunction(actionIconThemeActionIconTheme);
+  f.actionIconTheme.of = ffi.Pointer.fromFunction(actionIconThemeOf);
+}
+ActionIconThemeObjSt actionIconThemeActionIconTheme(DartDartObj data, DartDartObj child) {
+  final w = ActionIconTheme(data: _widgetsMap[data]! as ActionIconThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createActionIconThemeObjSt(w);
+}
+ActionIconThemeDataObjSt actionIconThemeOf(DartDartObj context) {
+  final w = ActionIconTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createActionIconThemeDataObjSt(w);
+}
+ActionIconThemeObjSt _createActionIconThemeObjSt(ActionIconTheme? w) {
+  final ActionIconThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createActionIconThemeDataObjSt(w.data);
+  return stObj;
+}
+
 void _setupBottomAppBarTheme(WidgetFactories f) {
   f.bottomAppBarTheme.bottomAppBarTheme = ffi.Pointer.fromFunction(bottomAppBarThemeBottomAppBarTheme);
+  f.bottomAppBarTheme.of = ffi.Pointer.fromFunction(bottomAppBarThemeOf);
   f.bottomAppBarTheme.lerp = ffi.Pointer.fromFunction(bottomAppBarThemeLerp);
 }
-BottomAppBarThemeObjSt bottomAppBarThemeBottomAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> child) {
+BottomAppBarThemeObjSt bottomAppBarThemeBottomAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> data, ffi.Pointer<DartObj> child) {
   final w = BottomAppBarTheme(color: color.objOrNul(),
       elevation: elevation.doubleOrNul(),
       height: height.doubleOrNul(),
       surfaceTintColor: surfaceTintColor.objOrNul(),
       shadowColor: shadowColor.objOrNul(),
       padding: padding.objOrNul(),
+      data: data.objOrNul(),
       child: child.objOrNul());
   return _createBottomAppBarThemeObjSt(w);
+}
+BottomAppBarThemeDataObjSt bottomAppBarThemeOf(DartDartObj context) {
+  final w = BottomAppBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createBottomAppBarThemeDataObjSt(w);
 }
 BottomAppBarThemeObjSt bottomAppBarThemeLerp(DartDartObj a, DartDartObj b, double t) {
   final w = BottomAppBarTheme.lerp(_widgetsMap[a]! as BottomAppBarTheme?,
@@ -13326,6 +14205,7 @@ BottomAppBarThemeObjSt _createBottomAppBarThemeObjSt(BottomAppBarTheme? w) {
   stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
   stObj.shadowColor = _addWidget(w.shadowColor);
   stObj.padding = _addWidget(w.padding);
+  stObj.data = _createBottomAppBarThemeDataObjSt(w.data);
   return stObj;
 }
 
@@ -14962,6 +15842,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupButtonBar(f);
   _setupBottomSheet(f);
   _setupRangeValues(f);
+  _setupDropdownMenuTheme(f);
   _setupDrawerController(f);
   _setupAppBarTheme(f);
   _setupCardTheme(f);
@@ -14975,9 +15856,20 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupTabBarTheme(f);
   _setupTooltipTheme(f);
   _setupBadgeTheme(f);
+  _setupProgressIndicatorTheme(f);
   _setupPopupMenuTheme(f);
+  _setupBottomNavigationBarTheme(f);
+  _setupDrawerTheme(f);
+  _setupNavigationBarTheme(f);
+  _setupNavigationDrawerTheme(f);
+  _setupNavigationRailTheme(f);
   _setupMenuTheme(f);
   _setupMenuBarTheme(f);
+  _setupMenuButtonTheme(f);
+  _setupSearchBarTheme(f);
+  _setupSearchViewTheme(f);
+  _setupExpansionTileTheme(f);
+  _setupActionIconTheme(f);
   _setupBottomAppBarTheme(f);
   _setupButtonTheme(f);
   _setupMaterialButton(f);
@@ -15035,6 +15927,21 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupPopupMenuThemeData(f);
   _setupMenuThemeData(f);
   _setupMenuBarThemeData(f);
+  _setupAppBarThemeData(f);
+  _setupActionIconThemeData(f);
+  _setupBottomAppBarThemeData(f);
+  _setupBottomNavigationBarThemeData(f);
+  _setupBottomSheetThemeData(f);
+  _setupDrawerThemeData(f);
+  _setupDropdownMenuThemeData(f);
+  _setupExpansionTileThemeData(f);
+  _setupNavigationBarThemeData(f);
+  _setupNavigationDrawerThemeData(f);
+  _setupNavigationRailThemeData(f);
+  _setupProgressIndicatorThemeData(f);
+  _setupMenuButtonThemeData(f);
+  _setupSearchBarThemeData(f);
+  _setupSearchViewThemeData(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
