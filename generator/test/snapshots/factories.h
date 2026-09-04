@@ -1783,6 +1783,60 @@ typedef struct {
     FocusTraversalGroupObjSt (*focusTraversalGroup)(int* descendantsAreFocusable, int* descendantsAreTraversable, DartObj child);
   } focusTraversalGroup;
 
+  struct SliverFadeTransitionSt {
+    SliverFadeTransitionObjSt (*sliverFadeTransition)(DartObj opacity, int* alwaysIncludeSemantics, DartObj* sliver);
+  } sliverFadeTransition;
+
+  struct SliverFixedExtentListSt {
+    SliverFixedExtentListObjSt (*builder)(NullableIndexedWidgetBuilderFFI itemBuilder, double itemExtent, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverFixedExtentListObjSt (*list)(ArrayC children, double itemExtent, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+  } sliverFixedExtentList;
+
+  struct SliverPrototypeExtentListSt {
+    SliverPrototypeExtentListObjSt (*builder)(NullableIndexedWidgetBuilderFFI itemBuilder, DartObj prototypeItem, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverPrototypeExtentListObjSt (*list)(ArrayC children, DartObj prototypeItem, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+  } sliverPrototypeExtentList;
+
+  struct SliverResizingHeaderSt {
+    SliverResizingHeaderObjSt (*sliverResizingHeader)(DartObj* minExtentPrototype, DartObj* maxExtentPrototype, DartObj* child);
+  } sliverResizingHeader;
+
+  struct SliverFloatingHeaderSt {
+    SliverFloatingHeaderObjSt (*sliverFloatingHeader)(int* snapMode, DartObj child);
+  } sliverFloatingHeader;
+
+  struct SliverSemanticsSt {
+    SliverSemanticsObjSt (*sliverSemantics)(DartObj sliver, int* container, int* explicitChildNodes, int* excludeSemantics, int* blockUserActions, int* enabled, int* checked, int* mixed, int* selected, int* toggled, int* button, int* slider, int* keyboardKey, int* link, int* header, int* headingLevel, int* textField, int* readOnly, int* focusable, int* focused, int* inMutuallyExclusiveGroup, int* obscured, int* multiline, int* scopesRoute, int* namesRoute, int* hidden, int* image, int* liveRegion, int* expanded, int* isRequired, int* maxValueLength, int* currentValueLength, char* identifier, char* label, char* value, char* increasedValue, char* decreasedValue, char* hint, char* tooltip, char* onTapHint, char* onLongPressHint, int* textDirection, VoidCallbackFFI* onTap, VoidCallbackFFI* onLongPress, VoidCallbackFFI* onScrollLeft, VoidCallbackFFI* onScrollRight, VoidCallbackFFI* onScrollUp, VoidCallbackFFI* onScrollDown, VoidCallbackFFI* onIncrease, VoidCallbackFFI* onDecrease, VoidCallbackFFI* onCopy, VoidCallbackFFI* onCut, VoidCallbackFFI* onPaste, VoidCallbackFFI* onDismiss, MoveCursorHandlerFFI* onMoveCursorForwardByCharacter, MoveCursorHandlerFFI* onMoveCursorBackwardByCharacter, SetTextHandlerFFI* onSetText, VoidCallbackFFI* onDidGainAccessibilityFocus, VoidCallbackFFI* onDidLoseAccessibilityFocus, VoidCallbackFFI* onFocus, int* role, int* validationResult, int* inputType);
+  } sliverSemantics;
+
+  struct FadeInImageSt {
+    FadeInImageObjSt (*assetNetwork)(char* placeholder, char* image, double* placeholderScale, double* imageScale, int* excludeFromSemantics, char* imageSemanticLabel, DartObj* fadeOutDuration, DartObj* fadeOutCurve, DartObj* fadeInDuration, DartObj* fadeInCurve, double* width, double* height, int* fit, DartObj* color, int* colorBlendMode, DartObj* placeholderColor, int* placeholderColorBlendMode, int* placeholderFit, int* filterQuality, int* placeholderFilterQuality, DartObj* alignment, int* repeat, int* matchTextDirection, int* placeholderCacheWidth, int* placeholderCacheHeight, int* imageCacheWidth, int* imageCacheHeight);
+  } fadeInImage;
+
+  struct NavigatorPopHandlerSt {
+    NavigatorPopHandlerObjSt (*navigatorPopHandler)(VoidCallbackFFI* onPop, PopResultCallbackForTFFI* onPopWithResult, int* enabled, DartObj child);
+  } navigatorPopHandler;
+
+  struct RawImageSt {
+    RawImageObjSt (*rawImage)(char* debugImageLabel, double* width, double* height, double* scale, DartObj* color, DartObj* opacity, int* colorBlendMode, int* fit, DartObj* alignment, int* repeat, int* matchTextDirection, int* invertColors, int* filterQuality, int* isAntiAlias);
+  } rawImage;
+
+  struct StepperSt {
+    StepperObjSt (*stepper)(ArrayC steps, int* type, int* currentStep, ValueChangedForIntFFI* onStepTapped, VoidCallbackFFI* onStepContinue, VoidCallbackFFI* onStepCancel, double* elevation, DartObj* margin, DartObj* connectorColor, double* connectorThickness, StepIconBuilderFFI* stepIconBuilder, double* stepIconHeight, double* stepIconWidth, DartObj* stepIconMargin, int* clipBehavior);
+  } stepper;
+
+  struct StepSt {
+    StepObjSt (*step)(DartObj title, DartObj* subtitle, DartObj content, int* state, int* isActive, DartObj* label);
+  } step;
+
+  struct TabPageSelectorSt {
+    TabPageSelectorObjSt (*tabPageSelector)(double* indicatorSize, DartObj* color, DartObj* selectedColor, int* borderStyle);
+  } tabPageSelector;
+
+  struct CarouselViewSt {
+    CarouselViewObjSt (*carouselView)(DartObj* padding, DartObj* backgroundColor, double* elevation, DartObj* shape, DartObj* overlayColor, int* itemSnapping, double* shrinkExtent, int* scrollDirection, int* reverse, ValueChangedForIntFFI* onTap, int* enableSplash, double itemExtent, ArrayC children);
+  } carouselView;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

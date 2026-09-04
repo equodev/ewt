@@ -502,6 +502,23 @@ w.SliverAnimatedOpacity? sliverAnimatedOpacity;
 w.PinnedHeaderSliver? pinnedHeaderSliver;
 w.FocusTraversalGroup? focusTraversalGroup;
 
+// --- Batch 7: more slivers + FadeInImage + Material Stepper ---
+w.SliverFadeTransition? sliverFadeTransition;
+w.SliverFixedExtentList? sliverFixedExtentList;
+w.SliverPrototypeExtentList? sliverPrototypeExtentList;
+w.SliverResizingHeader? sliverResizingHeader;
+// SliverCrossAxisExpanded skipped: extends `ParentDataWidget<SliverPhysicalContainerParentData>` — SliverPhysicalContainerParentData is a Flutter parent-data class the generator does not emit, same shape as KeepAlive/KeepAliveParentDataMixin.
+w.SliverFloatingHeader? sliverFloatingHeader;
+w.SliverSemantics? sliverSemantics;
+w.SliverVariedExtentList? sliverVariedExtentList;
+w.FadeInImage? fadeInImage;
+w.NavigatorPopHandler? navigatorPopHandler;
+w.RawImage? rawImage;
+m.Stepper? stepper;
+m.Step? step;
+m.TabPageSelector? tabPageSelector;
+m.CarouselView? carouselView;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

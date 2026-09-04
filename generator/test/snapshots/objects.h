@@ -3293,6 +3293,122 @@ typedef struct {
 } FocusTraversalGroupObjSt;
 typedef struct {
   int id;
+  DartObj opacity;
+  int alwaysIncludeSemantics;
+} SliverFadeTransitionObjSt;
+typedef struct {
+  int id;
+  double itemExtent;
+} SliverFixedExtentListObjSt;
+typedef struct {
+  int id;
+  DartObj prototypeItem;
+} SliverPrototypeExtentListObjSt;
+typedef struct {
+  int id;
+  DartObj minExtentPrototype;
+  DartObj maxExtentPrototype;
+  DartObj child;
+} SliverResizingHeaderObjSt;
+typedef struct {
+  int id;
+  int snapMode;
+  DartObj child;
+} SliverFloatingHeaderObjSt;
+typedef struct {
+  int id;
+} SliverSemanticsObjSt;
+typedef struct {
+  int id;
+} SliverVariedExtentListObjSt;
+typedef struct {
+  int id;
+  DartObj fadeOutDuration;
+  DartObj fadeOutCurve;
+  DartObj fadeInDuration;
+  DartObj fadeInCurve;
+  double width;
+  DartObj color;
+  int colorBlendMode;
+  DartObj placeholderColor;
+  int placeholderColorBlendMode;
+  double height;
+  int fit;
+  int placeholderFit;
+  int filterQuality;
+  int placeholderFilterQuality;
+  DartObj alignment;
+  int repeat;
+  int matchTextDirection;
+  int excludeFromSemantics;
+  char* imageSemanticLabel;
+} FadeInImageObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int enabled;
+} NavigatorPopHandlerObjSt;
+typedef struct {
+  int id;
+  char* debugImageLabel;
+  double width;
+  double height;
+  double scale;
+  DartObj color;
+  DartObj opacity;
+  int filterQuality;
+  int colorBlendMode;
+  int fit;
+  DartObj alignment;
+  int repeat;
+  int matchTextDirection;
+  int invertColors;
+  int isAntiAlias;
+} RawImageObjSt;
+typedef struct {
+  int id;
+  int type;
+  int currentStep;
+  double elevation;
+  DartObj margin;
+  double connectorThickness;
+  double stepIconHeight;
+  double stepIconWidth;
+  EdgeInsetsObjSt stepIconMargin;
+  int clipBehavior;
+} StepperObjSt;
+typedef struct {
+  int id;
+  DartObj title;
+  DartObj subtitle;
+  DartObj content;
+  int state;
+  int isActive;
+  DartObj label;
+} StepObjSt;
+typedef struct {
+  int id;
+  double indicatorSize;
+  DartObj color;
+  DartObj selectedColor;
+  int borderStyle;
+} TabPageSelectorObjSt;
+typedef struct {
+  int id;
+  EdgeInsetsObjSt padding;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj shape;
+  double shrinkExtent;
+  int itemSnapping;
+  int scrollDirection;
+  int reverse;
+  int consumeMaxWeight;
+  int enableSplash;
+  double itemExtent;
+} CarouselViewObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

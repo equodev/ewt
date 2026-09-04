@@ -7793,6 +7793,255 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
+  MemorySegment sliverFadeTransitionSliverFadeTransition(Animation opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> sliver) {
+    var st = WidgetFactories.sliverFadeTransition(factories);
+    var fn = WidgetFactories.SliverFadeTransitionSt.sliverFadeTransition(st);
+    return WidgetFactories.SliverFadeTransitionSt.sliverFadeTransition.invoke(fn, arena, opacity.build().getId(),
+      ptrBool(alwaysIncludeSemantics),
+      ptrObj(sliver));
+  }
+
+  MemorySegment sliverFixedExtentListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, double itemExtent, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverFixedExtentList(factories);
+    var fn = WidgetFactories.SliverFixedExtentListSt.builder(st);
+    return WidgetFactories.SliverFixedExtentListSt.builder.invoke(fn, arena, ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      itemExtent,
+      ptr(itemCount),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+  MemorySegment sliverFixedExtentListList(List<Widget> children, double itemExtent, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverFixedExtentList(factories);
+    var fn = WidgetFactories.SliverFixedExtentListSt.list(st);
+    return WidgetFactories.SliverFixedExtentListSt.list.invoke(fn, arena, ptrList(children),
+      itemExtent,
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+
+  MemorySegment sliverPrototypeExtentListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, Widget prototypeItem, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverPrototypeExtentList(factories);
+    var fn = WidgetFactories.SliverPrototypeExtentListSt.builder(st);
+    return WidgetFactories.SliverPrototypeExtentListSt.builder.invoke(fn, arena, ptrNullableIndexedWidgetBuilderFn(itemBuilder),
+      prototypeItem.build().getId(),
+      ptr(itemCount),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+  MemorySegment sliverPrototypeExtentListList(List<Widget> children, Widget prototypeItem, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    var st = WidgetFactories.sliverPrototypeExtentList(factories);
+    var fn = WidgetFactories.SliverPrototypeExtentListSt.list(st);
+    return WidgetFactories.SliverPrototypeExtentListSt.list.invoke(fn, arena, ptrList(children),
+      prototypeItem.build().getId(),
+      ptrBool(addAutomaticKeepAlives),
+      ptrBool(addRepaintBoundaries),
+      ptrBool(addSemanticIndexes));
+  }
+
+  MemorySegment sliverResizingHeaderSliverResizingHeader(Optional<Widget> minExtentPrototype, Optional<Widget> maxExtentPrototype, Optional<Widget> child) {
+    var st = WidgetFactories.sliverResizingHeader(factories);
+    var fn = WidgetFactories.SliverResizingHeaderSt.sliverResizingHeader(st);
+    return WidgetFactories.SliverResizingHeaderSt.sliverResizingHeader.invoke(fn, arena, ptrObj(minExtentPrototype),
+      ptrObj(maxExtentPrototype),
+      ptrObj(child));
+  }
+
+  MemorySegment sliverFloatingHeaderSliverFloatingHeader(Optional<FloatingHeaderSnapMode> snapMode, Widget child) {
+    var st = WidgetFactories.sliverFloatingHeader(factories);
+    var fn = WidgetFactories.SliverFloatingHeaderSt.sliverFloatingHeader(st);
+    return WidgetFactories.SliverFloatingHeaderSt.sliverFloatingHeader.invoke(fn, arena, ptrEnum(snapMode),
+      child.build().getId());
+  }
+
+  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsInputType> inputType) {
+    var st = WidgetFactories.sliverSemantics(factories);
+    var fn = WidgetFactories.SliverSemanticsSt.sliverSemantics(st);
+    return WidgetFactories.SliverSemanticsSt.sliverSemantics.invoke(fn, arena, sliver.build().getId(),
+      ptrBool(container),
+      ptrBool(explicitChildNodes),
+      ptrBool(excludeSemantics),
+      ptrBool(blockUserActions),
+      ptrBool(enabled),
+      ptrBool(checked),
+      ptrBool(mixed),
+      ptrBool(selected),
+      ptrBool(toggled),
+      ptrBool(button),
+      ptrBool(slider),
+      ptrBool(keyboardKey),
+      ptrBool(link),
+      ptrBool(header),
+      ptr(headingLevel),
+      ptrBool(textField),
+      ptrBool(readOnly),
+      ptrBool(focusable),
+      ptrBool(focused),
+      ptrBool(inMutuallyExclusiveGroup),
+      ptrBool(obscured),
+      ptrBool(multiline),
+      ptrBool(scopesRoute),
+      ptrBool(namesRoute),
+      ptrBool(hidden),
+      ptrBool(image),
+      ptrBool(liveRegion),
+      ptrBool(expanded),
+      ptrBool(isRequired),
+      ptr(maxValueLength),
+      ptr(currentValueLength),
+      ptrStr(identifier),
+      ptrStr(label),
+      ptrStr(value),
+      ptrStr(increasedValue),
+      ptrStr(decreasedValue),
+      ptrStr(hint),
+      ptrStr(tooltip),
+      ptrStr(onTapHint),
+      ptrStr(onLongPressHint),
+      ptrEnum(textDirection),
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onScrollLeft.isPresent() ? ptrHolder(ptrVoidCallbackFn(onScrollLeft.get())) : MemorySegment.NULL,
+      onScrollRight.isPresent() ? ptrHolder(ptrVoidCallbackFn(onScrollRight.get())) : MemorySegment.NULL,
+      onScrollUp.isPresent() ? ptrHolder(ptrVoidCallbackFn(onScrollUp.get())) : MemorySegment.NULL,
+      onScrollDown.isPresent() ? ptrHolder(ptrVoidCallbackFn(onScrollDown.get())) : MemorySegment.NULL,
+      onIncrease.isPresent() ? ptrHolder(ptrVoidCallbackFn(onIncrease.get())) : MemorySegment.NULL,
+      onDecrease.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDecrease.get())) : MemorySegment.NULL,
+      onCopy.isPresent() ? ptrHolder(ptrVoidCallbackFn(onCopy.get())) : MemorySegment.NULL,
+      onCut.isPresent() ? ptrHolder(ptrVoidCallbackFn(onCut.get())) : MemorySegment.NULL,
+      onPaste.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPaste.get())) : MemorySegment.NULL,
+      onDismiss.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDismiss.get())) : MemorySegment.NULL,
+      onMoveCursorForwardByCharacter.isPresent() ? ptrHolder(ptrMoveCursorHandlerFn(onMoveCursorForwardByCharacter.get())) : MemorySegment.NULL,
+      onMoveCursorBackwardByCharacter.isPresent() ? ptrHolder(ptrMoveCursorHandlerFn(onMoveCursorBackwardByCharacter.get())) : MemorySegment.NULL,
+      onSetText.isPresent() ? ptrHolder(ptrSetTextHandlerFn(onSetText.get())) : MemorySegment.NULL,
+      onDidGainAccessibilityFocus.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDidGainAccessibilityFocus.get())) : MemorySegment.NULL,
+      onDidLoseAccessibilityFocus.isPresent() ? ptrHolder(ptrVoidCallbackFn(onDidLoseAccessibilityFocus.get())) : MemorySegment.NULL,
+      onFocus.isPresent() ? ptrHolder(ptrVoidCallbackFn(onFocus.get())) : MemorySegment.NULL,
+      ptrEnum(role),
+      ptrEnum(validationResult),
+      ptrEnum(inputType));
+  }
+
+  MemorySegment fadeInImageAssetNetwork(String placeholder, String image, OptionalDouble placeholderScale, OptionalDouble imageScale, Optional<Boolean> excludeFromSemantics, Optional<String> imageSemanticLabel, Optional<Duration> fadeOutDuration, Optional<Curve> fadeOutCurve, Optional<Duration> fadeInDuration, Optional<Curve> fadeInCurve, OptionalDouble width, OptionalDouble height, Optional<BoxFit> fit, Optional<Color> color, Optional<BlendMode> colorBlendMode, Optional<Color> placeholderColor, Optional<BlendMode> placeholderColorBlendMode, Optional<BoxFit> placeholderFit, Optional<FilterQuality> filterQuality, Optional<FilterQuality> placeholderFilterQuality, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, OptionalInt placeholderCacheWidth, OptionalInt placeholderCacheHeight, OptionalInt imageCacheWidth, OptionalInt imageCacheHeight) {
+    var st = WidgetFactories.fadeInImage(factories);
+    var fn = WidgetFactories.FadeInImageSt.assetNetwork(st);
+    return WidgetFactories.FadeInImageSt.assetNetwork.invoke(fn, arena, arena.allocateFrom(placeholder),
+      arena.allocateFrom(image),
+      ptr(placeholderScale),
+      ptr(imageScale),
+      ptrBool(excludeFromSemantics),
+      ptrStr(imageSemanticLabel),
+      ptrObj(fadeOutDuration),
+      ptrObj(fadeOutCurve),
+      ptrObj(fadeInDuration),
+      ptrObj(fadeInCurve),
+      ptr(width),
+      ptr(height),
+      ptrEnum(fit),
+      ptrObj(color),
+      ptrEnum(colorBlendMode),
+      ptrObj(placeholderColor),
+      ptrEnum(placeholderColorBlendMode),
+      ptrEnum(placeholderFit),
+      ptrEnum(filterQuality),
+      ptrEnum(placeholderFilterQuality),
+      ptrObj(alignment),
+      ptrEnum(repeat),
+      ptrBool(matchTextDirection),
+      ptr(placeholderCacheWidth),
+      ptr(placeholderCacheHeight),
+      ptr(imageCacheWidth),
+      ptr(imageCacheHeight));
+  }
+
+  <T> MemorySegment navigatorPopHandlerNavigatorPopHandler(Optional<Runnable> onPop, Optional<Consumer<NativeObj>> onPopWithResult, Optional<Boolean> enabled, Widget child) {
+    var st = WidgetFactories.navigatorPopHandler(factories);
+    var fn = WidgetFactories.NavigatorPopHandlerSt.navigatorPopHandler(st);
+    return WidgetFactories.NavigatorPopHandlerSt.navigatorPopHandler.invoke(fn, arena, onPop.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPop.get())) : MemorySegment.NULL,
+      onPopWithResult.isPresent() ? ptrHolder(ptrPopResultCallbackForTFn(onPopWithResult.get())) : MemorySegment.NULL,
+      ptrBool(enabled),
+      child.build().getId());
+  }
+
+  MemorySegment rawImageRawImage(Optional<String> debugImageLabel, OptionalDouble width, OptionalDouble height, OptionalDouble scale, Optional<Color> color, Optional<Animation> opacity, Optional<BlendMode> colorBlendMode, Optional<BoxFit> fit, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, Optional<Boolean> invertColors, Optional<FilterQuality> filterQuality, Optional<Boolean> isAntiAlias) {
+    var st = WidgetFactories.rawImage(factories);
+    var fn = WidgetFactories.RawImageSt.rawImage(st);
+    return WidgetFactories.RawImageSt.rawImage.invoke(fn, arena, ptrStr(debugImageLabel),
+      ptr(width),
+      ptr(height),
+      ptr(scale),
+      ptrObj(color),
+      ptrObj(opacity),
+      ptrEnum(colorBlendMode),
+      ptrEnum(fit),
+      ptrObj(alignment),
+      ptrEnum(repeat),
+      ptrBool(matchTextDirection),
+      ptrBool(invertColors),
+      ptrEnum(filterQuality),
+      ptrBool(isAntiAlias));
+  }
+
+  MemorySegment stepperStepper(List<Step> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<Color> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsets> stepIconMargin, Optional<Clip> clipBehavior) {
+    var st = WidgetFactories.stepper(factories);
+    var fn = WidgetFactories.StepperSt.stepper(st);
+    return WidgetFactories.StepperSt.stepper.invoke(fn, arena, ptrList(steps),
+      ptrEnum(type),
+      ptr(currentStep),
+      onStepTapped.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onStepTapped.get())) : MemorySegment.NULL,
+      onStepContinue.isPresent() ? ptrHolder(ptrVoidCallbackFn(onStepContinue.get())) : MemorySegment.NULL,
+      onStepCancel.isPresent() ? ptrHolder(ptrVoidCallbackFn(onStepCancel.get())) : MemorySegment.NULL,
+      ptr(elevation),
+      ptrObj(margin),
+      ptrObj(connectorColor),
+      ptr(connectorThickness),
+      stepIconBuilder.isPresent() ? ptrHolder(ptrStepIconBuilderFn(stepIconBuilder.get())) : MemorySegment.NULL,
+      ptr(stepIconHeight),
+      ptr(stepIconWidth),
+      ptrObj(stepIconMargin),
+      ptrEnum(clipBehavior));
+  }
+
+  MemorySegment stepStep(Widget title, Optional<Widget> subtitle, Widget content, Optional<StepState> state, Optional<Boolean> isActive, Optional<Widget> label) {
+    var st = WidgetFactories.step(factories);
+    var fn = WidgetFactories.StepSt.step(st);
+    return WidgetFactories.StepSt.step.invoke(fn, arena, title.build().getId(),
+      ptrObj(subtitle),
+      content.build().getId(),
+      ptrEnum(state),
+      ptrBool(isActive),
+      ptrObj(label));
+  }
+
+  MemorySegment tabPageSelectorTabPageSelector(OptionalDouble indicatorSize, Optional<Color> color, Optional<Color> selectedColor, Optional<BorderStyle> borderStyle) {
+    var st = WidgetFactories.tabPageSelector(factories);
+    var fn = WidgetFactories.TabPageSelectorSt.tabPageSelector(st);
+    return WidgetFactories.TabPageSelectorSt.tabPageSelector.invoke(fn, arena, ptr(indicatorSize),
+      ptrObj(color),
+      ptrObj(selectedColor),
+      ptrEnum(borderStyle));
+  }
+
+  MemorySegment carouselViewCarouselView(Optional<EdgeInsets> padding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Color> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, double itemExtent, List<Widget> children) {
+    var st = WidgetFactories.carouselView(factories);
+    var fn = WidgetFactories.CarouselViewSt.carouselView(st);
+    return WidgetFactories.CarouselViewSt.carouselView.invoke(fn, arena, ptrObj(padding),
+      ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shape),
+      ptrObj(overlayColor),
+      ptrBool(itemSnapping),
+      ptr(shrinkExtent),
+      ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      onTap.isPresent() ? ptrHolder(ptrValueChangedForIntFn(onTap.get())) : MemorySegment.NULL,
+      ptrBool(enableSplash),
+      itemExtent,
+      ptrList(children));
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
@@ -8283,6 +8532,27 @@ MemorySegment ptrBottomSheetDragStartHandlerFn(Consumer<DragStartDetails> jFn) {
 MemorySegment ptrBottomSheetDragEndHandlerFn(BiConsumer<DragEndDetails, Boolean> jFn) {
   return BottomSheetDragEndHandlerFFI.allocate((details, isClosing) -> {
     jFn.accept(new DragEndDetails(details), intToBool(isClosing));
+  }, arena);
+}
+MemorySegment ptrMoveCursorHandlerFn(Consumer<Boolean> jFn) {
+  return MoveCursorHandlerFFI.allocate((extendSelection) -> {
+    jFn.accept(intToBool(extendSelection));
+  }, arena);
+}
+MemorySegment ptrSetTextHandlerFn(Consumer<String> jFn) {
+  return SetTextHandlerFFI.allocate((text) -> {
+    jFn.accept(text.getString(0));
+  }, arena);
+}
+<T> MemorySegment ptrPopResultCallbackForTFn(Consumer<NativeObj> jFn) {
+  return PopResultCallbackForTFFI.allocate((result) -> {
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = result; }});
+  }, arena);
+}
+MemorySegment ptrStepIconBuilderFn(BiFunction<Integer, StepState, Widget> jFn) {
+  return StepIconBuilderFFI.allocate((stepIndex, stepState) -> {
+    final var jFnRet = jFn.apply(stepIndex, StepState.values()[stepState]);
+    return jFnRet != null ? jFnRet.build().getId() : null;
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<NativeObj> jFn) {

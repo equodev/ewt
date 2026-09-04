@@ -1924,6 +1924,64 @@ public class EWT {
     return FocusTraversalGroupFocusTraversalGroupBuilder.focusTraversalGroupFocusTraversalGroup();
   }
 
+  public static SliverFadeTransitionSliverFadeTransitionBuilder SliverFadeTransition(AnimationI opacity) {
+    return SliverFadeTransitionSliverFadeTransitionBuilder.sliverFadeTransitionSliverFadeTransition(opacity);
+  }
+
+  public static SliverFixedExtentListBuilderBuilder SliverFixedExtentList_builder(BiFunction<BuildContext, Integer, Widget> itemBuilder, double itemExtent) {
+    return SliverFixedExtentListBuilderBuilder.sliverFixedExtentListBuilder(itemBuilder, itemExtent);
+  }
+  public static SliverFixedExtentListListBuilder SliverFixedExtentList_list(List<WidgetI> children, double itemExtent) {
+    return SliverFixedExtentListListBuilder.sliverFixedExtentListList(children, itemExtent);
+  }
+
+  public static SliverPrototypeExtentListBuilderBuilder SliverPrototypeExtentList_builder(BiFunction<BuildContext, Integer, Widget> itemBuilder, WidgetI prototypeItem) {
+    return SliverPrototypeExtentListBuilderBuilder.sliverPrototypeExtentListBuilder(itemBuilder, prototypeItem);
+  }
+  public static SliverPrototypeExtentListListBuilder SliverPrototypeExtentList_list(List<WidgetI> children, WidgetI prototypeItem) {
+    return SliverPrototypeExtentListListBuilder.sliverPrototypeExtentListList(children, prototypeItem);
+  }
+
+  public static SliverResizingHeaderSliverResizingHeaderBuilder SliverResizingHeader() {
+    return SliverResizingHeaderSliverResizingHeaderBuilder.sliverResizingHeaderSliverResizingHeader();
+  }
+
+  public static SliverFloatingHeaderSliverFloatingHeaderBuilder SliverFloatingHeader() {
+    return SliverFloatingHeaderSliverFloatingHeaderBuilder.sliverFloatingHeaderSliverFloatingHeader();
+  }
+
+  public static SliverSemanticsSliverSemanticsBuilder SliverSemantics(WidgetI sliver) {
+    return SliverSemanticsSliverSemanticsBuilder.sliverSemanticsSliverSemantics(sliver);
+  }
+
+  public static FadeInImageAssetNetworkBuilder FadeInImage_assetNetwork(String placeholder, String image) {
+    return FadeInImageAssetNetworkBuilder.fadeInImageAssetNetwork(placeholder, image);
+  }
+
+  public static <T extends NativeObj> NavigatorPopHandlerNavigatorPopHandlerBuilder<T> NavigatorPopHandler() {
+    return NavigatorPopHandlerNavigatorPopHandlerBuilder.navigatorPopHandlerNavigatorPopHandler();
+  }
+
+  public static RawImageRawImageBuilder RawImage() {
+    return RawImageRawImageBuilder.rawImageRawImage();
+  }
+
+  public static StepperStepperBuilder Stepper(List<StepI> steps) {
+    return StepperStepperBuilder.stepperStepper(steps);
+  }
+
+  public static StepStepBuilder Step(WidgetI title) {
+    return StepStepBuilder.stepStep(title);
+  }
+
+  public static TabPageSelectorTabPageSelectorBuilder TabPageSelector() {
+    return TabPageSelectorTabPageSelectorBuilder.tabPageSelectorTabPageSelector();
+  }
+
+  public static CarouselViewCarouselViewBuilder CarouselView() {
+    return CarouselViewCarouselViewBuilder.carouselViewCarouselView();
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

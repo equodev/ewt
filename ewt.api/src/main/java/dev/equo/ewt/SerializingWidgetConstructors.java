@@ -10482,6 +10482,330 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment sliverFadeTransitionSliverFadeTransition(Animation opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<Widget> sliver) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("opacity", byId.get(opacity.getId()));
+    alwaysIncludeSemantics.ifPresent(v -> p.put("alwaysIncludeSemantics", v));
+    sliver.ifPresent(v -> p.put("sliver", byId.get(v.getId())));
+    record(id, "sliverFadeTransitionSliverFadeTransition", p);
+    MemorySegment st = SliverFadeTransitionObjSt.allocate(arena);
+    SliverFadeTransitionObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverFixedExtentListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, double itemExtent, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("itemBuilder", nextCallbackId++);
+    p.put("itemExtent", itemExtent);
+    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverFixedExtentListBuilder", p);
+    MemorySegment st = SliverFixedExtentListObjSt.allocate(arena);
+    SliverFixedExtentListObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverFixedExtentListList(List<Widget> children, double itemExtent, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    p.put("itemExtent", itemExtent);
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverFixedExtentListList", p);
+    MemorySegment st = SliverFixedExtentListObjSt.allocate(arena);
+    SliverFixedExtentListObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverPrototypeExtentListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, Widget prototypeItem, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("itemBuilder", nextCallbackId++);
+    p.put("prototypeItem", byId.get(prototypeItem.getId()));
+    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverPrototypeExtentListBuilder", p);
+    MemorySegment st = SliverPrototypeExtentListObjSt.allocate(arena);
+    SliverPrototypeExtentListObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverPrototypeExtentListList(List<Widget> children, Widget prototypeItem, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    p.put("prototypeItem", byId.get(prototypeItem.getId()));
+    addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
+    addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
+    addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    record(id, "sliverPrototypeExtentListList", p);
+    MemorySegment st = SliverPrototypeExtentListObjSt.allocate(arena);
+    SliverPrototypeExtentListObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverResizingHeaderSliverResizingHeader(Optional<Widget> minExtentPrototype, Optional<Widget> maxExtentPrototype, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    minExtentPrototype.ifPresent(v -> p.put("minExtentPrototype", byId.get(v.getId())));
+    maxExtentPrototype.ifPresent(v -> p.put("maxExtentPrototype", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "sliverResizingHeaderSliverResizingHeader", p);
+    MemorySegment st = SliverResizingHeaderObjSt.allocate(arena);
+    SliverResizingHeaderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverFloatingHeaderSliverFloatingHeader(Optional<FloatingHeaderSnapMode> snapMode, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    snapMode.ifPresent(v -> p.put("snapMode", v.ordinal()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "sliverFloatingHeaderSliverFloatingHeader", p);
+    MemorySegment st = SliverFloatingHeaderObjSt.allocate(arena);
+    SliverFloatingHeaderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsInputType> inputType) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("sliver", byId.get(sliver.getId()));
+    container.ifPresent(v -> p.put("container", v));
+    explicitChildNodes.ifPresent(v -> p.put("explicitChildNodes", v));
+    excludeSemantics.ifPresent(v -> p.put("excludeSemantics", v));
+    blockUserActions.ifPresent(v -> p.put("blockUserActions", v));
+    enabled.ifPresent(v -> p.put("enabled", v));
+    checked.ifPresent(v -> p.put("checked", v));
+    mixed.ifPresent(v -> p.put("mixed", v));
+    selected.ifPresent(v -> p.put("selected", v));
+    toggled.ifPresent(v -> p.put("toggled", v));
+    button.ifPresent(v -> p.put("button", v));
+    slider.ifPresent(v -> p.put("slider", v));
+    keyboardKey.ifPresent(v -> p.put("keyboardKey", v));
+    link.ifPresent(v -> p.put("link", v));
+    header.ifPresent(v -> p.put("header", v));
+    if (headingLevel.isPresent()) { p.put("headingLevel", headingLevel.getAsInt()); }
+    textField.ifPresent(v -> p.put("textField", v));
+    readOnly.ifPresent(v -> p.put("readOnly", v));
+    focusable.ifPresent(v -> p.put("focusable", v));
+    focused.ifPresent(v -> p.put("focused", v));
+    inMutuallyExclusiveGroup.ifPresent(v -> p.put("inMutuallyExclusiveGroup", v));
+    obscured.ifPresent(v -> p.put("obscured", v));
+    multiline.ifPresent(v -> p.put("multiline", v));
+    scopesRoute.ifPresent(v -> p.put("scopesRoute", v));
+    namesRoute.ifPresent(v -> p.put("namesRoute", v));
+    hidden.ifPresent(v -> p.put("hidden", v));
+    image.ifPresent(v -> p.put("image", v));
+    liveRegion.ifPresent(v -> p.put("liveRegion", v));
+    expanded.ifPresent(v -> p.put("expanded", v));
+    isRequired.ifPresent(v -> p.put("isRequired", v));
+    if (maxValueLength.isPresent()) { p.put("maxValueLength", maxValueLength.getAsInt()); }
+    if (currentValueLength.isPresent()) { p.put("currentValueLength", currentValueLength.getAsInt()); }
+    identifier.ifPresent(v -> p.put("identifier", v));
+    label.ifPresent(v -> p.put("label", v));
+    value.ifPresent(v -> p.put("value", v));
+    increasedValue.ifPresent(v -> p.put("increasedValue", v));
+    decreasedValue.ifPresent(v -> p.put("decreasedValue", v));
+    hint.ifPresent(v -> p.put("hint", v));
+    tooltip.ifPresent(v -> p.put("tooltip", v));
+    onTapHint.ifPresent(v -> p.put("onTapHint", v));
+    onLongPressHint.ifPresent(v -> p.put("onLongPressHint", v));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onScrollLeft.isPresent()) { int __cb_onScrollLeft = nextCallbackId++; p.put("onScrollLeft", __cb_onScrollLeft); callbacks.put(__cb_onScrollLeft, onScrollLeft.get()); }
+    if (onScrollRight.isPresent()) { int __cb_onScrollRight = nextCallbackId++; p.put("onScrollRight", __cb_onScrollRight); callbacks.put(__cb_onScrollRight, onScrollRight.get()); }
+    if (onScrollUp.isPresent()) { int __cb_onScrollUp = nextCallbackId++; p.put("onScrollUp", __cb_onScrollUp); callbacks.put(__cb_onScrollUp, onScrollUp.get()); }
+    if (onScrollDown.isPresent()) { int __cb_onScrollDown = nextCallbackId++; p.put("onScrollDown", __cb_onScrollDown); callbacks.put(__cb_onScrollDown, onScrollDown.get()); }
+    if (onIncrease.isPresent()) { int __cb_onIncrease = nextCallbackId++; p.put("onIncrease", __cb_onIncrease); callbacks.put(__cb_onIncrease, onIncrease.get()); }
+    if (onDecrease.isPresent()) { int __cb_onDecrease = nextCallbackId++; p.put("onDecrease", __cb_onDecrease); callbacks.put(__cb_onDecrease, onDecrease.get()); }
+    if (onCopy.isPresent()) { int __cb_onCopy = nextCallbackId++; p.put("onCopy", __cb_onCopy); callbacks.put(__cb_onCopy, onCopy.get()); }
+    if (onCut.isPresent()) { int __cb_onCut = nextCallbackId++; p.put("onCut", __cb_onCut); callbacks.put(__cb_onCut, onCut.get()); }
+    if (onPaste.isPresent()) { int __cb_onPaste = nextCallbackId++; p.put("onPaste", __cb_onPaste); callbacks.put(__cb_onPaste, onPaste.get()); }
+    if (onDismiss.isPresent()) { int __cb_onDismiss = nextCallbackId++; p.put("onDismiss", __cb_onDismiss); callbacks.put(__cb_onDismiss, onDismiss.get()); }
+    if (onMoveCursorForwardByCharacter.isPresent()) { int __cb_onMoveCursorForwardByCharacter = nextCallbackId++; p.put("onMoveCursorForwardByCharacter", __cb_onMoveCursorForwardByCharacter); java.util.function.Consumer<Boolean> __h_onMoveCursorForwardByCharacter = onMoveCursorForwardByCharacter.get(); callbacks.put(__cb_onMoveCursorForwardByCharacter, (java.util.function.Consumer<Object>)(v -> __h_onMoveCursorForwardByCharacter.accept((Boolean) v))); }
+    if (onMoveCursorBackwardByCharacter.isPresent()) { int __cb_onMoveCursorBackwardByCharacter = nextCallbackId++; p.put("onMoveCursorBackwardByCharacter", __cb_onMoveCursorBackwardByCharacter); java.util.function.Consumer<Boolean> __h_onMoveCursorBackwardByCharacter = onMoveCursorBackwardByCharacter.get(); callbacks.put(__cb_onMoveCursorBackwardByCharacter, (java.util.function.Consumer<Object>)(v -> __h_onMoveCursorBackwardByCharacter.accept((Boolean) v))); }
+    if (onSetText.isPresent()) { int __cb_onSetText = nextCallbackId++; p.put("onSetText", __cb_onSetText); java.util.function.Consumer<String> __h_onSetText = onSetText.get(); callbacks.put(__cb_onSetText, (java.util.function.Consumer<Object>)(v -> __h_onSetText.accept((String) v))); }
+    if (onDidGainAccessibilityFocus.isPresent()) { int __cb_onDidGainAccessibilityFocus = nextCallbackId++; p.put("onDidGainAccessibilityFocus", __cb_onDidGainAccessibilityFocus); callbacks.put(__cb_onDidGainAccessibilityFocus, onDidGainAccessibilityFocus.get()); }
+    if (onDidLoseAccessibilityFocus.isPresent()) { int __cb_onDidLoseAccessibilityFocus = nextCallbackId++; p.put("onDidLoseAccessibilityFocus", __cb_onDidLoseAccessibilityFocus); callbacks.put(__cb_onDidLoseAccessibilityFocus, onDidLoseAccessibilityFocus.get()); }
+    if (onFocus.isPresent()) { int __cb_onFocus = nextCallbackId++; p.put("onFocus", __cb_onFocus); callbacks.put(__cb_onFocus, onFocus.get()); }
+    role.ifPresent(v -> p.put("role", v.ordinal()));
+    validationResult.ifPresent(v -> p.put("validationResult", v.ordinal()));
+    inputType.ifPresent(v -> p.put("inputType", v.ordinal()));
+    record(id, "sliverSemanticsSliverSemantics", p);
+    MemorySegment st = SliverSemanticsObjSt.allocate(arena);
+    SliverSemanticsObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment fadeInImageAssetNetwork(String placeholder, String image, OptionalDouble placeholderScale, OptionalDouble imageScale, Optional<Boolean> excludeFromSemantics, Optional<String> imageSemanticLabel, Optional<Duration> fadeOutDuration, Optional<Curve> fadeOutCurve, Optional<Duration> fadeInDuration, Optional<Curve> fadeInCurve, OptionalDouble width, OptionalDouble height, Optional<BoxFit> fit, Optional<Color> color, Optional<BlendMode> colorBlendMode, Optional<Color> placeholderColor, Optional<BlendMode> placeholderColorBlendMode, Optional<BoxFit> placeholderFit, Optional<FilterQuality> filterQuality, Optional<FilterQuality> placeholderFilterQuality, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, OptionalInt placeholderCacheWidth, OptionalInt placeholderCacheHeight, OptionalInt imageCacheWidth, OptionalInt imageCacheHeight) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("placeholder", placeholder);
+    p.put("image", image);
+    if (placeholderScale.isPresent()) { p.put("placeholderScale", placeholderScale.getAsDouble()); }
+    if (imageScale.isPresent()) { p.put("imageScale", imageScale.getAsDouble()); }
+    excludeFromSemantics.ifPresent(v -> p.put("excludeFromSemantics", v));
+    imageSemanticLabel.ifPresent(v -> p.put("imageSemanticLabel", v));
+    fadeOutDuration.ifPresent(v -> p.put("fadeOutDuration", byId.get(v.getId())));
+    fadeOutCurve.ifPresent(v -> p.put("fadeOutCurve", byId.get(v.getId())));
+    fadeInDuration.ifPresent(v -> p.put("fadeInDuration", byId.get(v.getId())));
+    fadeInCurve.ifPresent(v -> p.put("fadeInCurve", byId.get(v.getId())));
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    fit.ifPresent(v -> p.put("fit", v.ordinal()));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    colorBlendMode.ifPresent(v -> p.put("colorBlendMode", v.ordinal()));
+    placeholderColor.ifPresent(v -> p.put("placeholderColor", byId.get(v.getId())));
+    placeholderColorBlendMode.ifPresent(v -> p.put("placeholderColorBlendMode", v.ordinal()));
+    placeholderFit.ifPresent(v -> p.put("placeholderFit", v.ordinal()));
+    filterQuality.ifPresent(v -> p.put("filterQuality", v.ordinal()));
+    placeholderFilterQuality.ifPresent(v -> p.put("placeholderFilterQuality", v.ordinal()));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    repeat.ifPresent(v -> p.put("repeat", v.ordinal()));
+    matchTextDirection.ifPresent(v -> p.put("matchTextDirection", v));
+    if (placeholderCacheWidth.isPresent()) { p.put("placeholderCacheWidth", placeholderCacheWidth.getAsInt()); }
+    if (placeholderCacheHeight.isPresent()) { p.put("placeholderCacheHeight", placeholderCacheHeight.getAsInt()); }
+    if (imageCacheWidth.isPresent()) { p.put("imageCacheWidth", imageCacheWidth.getAsInt()); }
+    if (imageCacheHeight.isPresent()) { p.put("imageCacheHeight", imageCacheHeight.getAsInt()); }
+    record(id, "fadeInImageAssetNetwork", p);
+    MemorySegment st = FadeInImageObjSt.allocate(arena);
+    FadeInImageObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  <T> MemorySegment navigatorPopHandlerNavigatorPopHandler(Optional<Runnable> onPop, Optional<Consumer<NativeObj>> onPopWithResult, Optional<Boolean> enabled, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPop.isPresent()) { int __cb_onPop = nextCallbackId++; p.put("onPop", __cb_onPop); callbacks.put(__cb_onPop, onPop.get()); }
+    if (onPopWithResult != null) { p.put("onPopWithResult", nextCallbackId++); }
+    enabled.ifPresent(v -> p.put("enabled", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "navigatorPopHandlerNavigatorPopHandler", p);
+    MemorySegment st = NavigatorPopHandlerObjSt.allocate(arena);
+    NavigatorPopHandlerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment rawImageRawImage(Optional<String> debugImageLabel, OptionalDouble width, OptionalDouble height, OptionalDouble scale, Optional<Color> color, Optional<Animation> opacity, Optional<BlendMode> colorBlendMode, Optional<BoxFit> fit, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, Optional<Boolean> invertColors, Optional<FilterQuality> filterQuality, Optional<Boolean> isAntiAlias) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    debugImageLabel.ifPresent(v -> p.put("debugImageLabel", v));
+    if (width.isPresent()) { p.put("width", width.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    if (scale.isPresent()) { p.put("scale", scale.getAsDouble()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    opacity.ifPresent(v -> p.put("opacity", byId.get(v.getId())));
+    colorBlendMode.ifPresent(v -> p.put("colorBlendMode", v.ordinal()));
+    fit.ifPresent(v -> p.put("fit", v.ordinal()));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    repeat.ifPresent(v -> p.put("repeat", v.ordinal()));
+    matchTextDirection.ifPresent(v -> p.put("matchTextDirection", v));
+    invertColors.ifPresent(v -> p.put("invertColors", v));
+    filterQuality.ifPresent(v -> p.put("filterQuality", v.ordinal()));
+    isAntiAlias.ifPresent(v -> p.put("isAntiAlias", v));
+    record(id, "rawImageRawImage", p);
+    MemorySegment st = RawImageObjSt.allocate(arena);
+    RawImageObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment stepperStepper(List<Step> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<Color> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsets> stepIconMargin, Optional<Clip> clipBehavior) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("steps", steps.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    type.ifPresent(v -> p.put("type", v.ordinal()));
+    if (currentStep.isPresent()) { p.put("currentStep", currentStep.getAsInt()); }
+    if (onStepTapped.isPresent()) { int __cb_onStepTapped = nextCallbackId++; p.put("onStepTapped", __cb_onStepTapped); java.util.function.Consumer<Integer> __h_onStepTapped = onStepTapped.get(); callbacks.put(__cb_onStepTapped, (java.util.function.Consumer<Object>)(v -> __h_onStepTapped.accept(((Number) v).intValue()))); }
+    if (onStepContinue.isPresent()) { int __cb_onStepContinue = nextCallbackId++; p.put("onStepContinue", __cb_onStepContinue); callbacks.put(__cb_onStepContinue, onStepContinue.get()); }
+    if (onStepCancel.isPresent()) { int __cb_onStepCancel = nextCallbackId++; p.put("onStepCancel", __cb_onStepCancel); callbacks.put(__cb_onStepCancel, onStepCancel.get()); }
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    connectorColor.ifPresent(v -> p.put("connectorColor", byId.get(v.getId())));
+    if (connectorThickness.isPresent()) { p.put("connectorThickness", connectorThickness.getAsDouble()); }
+    if (stepIconBuilder != null) { p.put("stepIconBuilder", nextCallbackId++); }
+    if (stepIconHeight.isPresent()) { p.put("stepIconHeight", stepIconHeight.getAsDouble()); }
+    if (stepIconWidth.isPresent()) { p.put("stepIconWidth", stepIconWidth.getAsDouble()); }
+    stepIconMargin.ifPresent(v -> p.put("stepIconMargin", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    record(id, "stepperStepper", p);
+    MemorySegment st = StepperObjSt.allocate(arena);
+    StepperObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment stepStep(Widget title, Optional<Widget> subtitle, Widget content, Optional<StepState> state, Optional<Boolean> isActive, Optional<Widget> label) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("title", byId.get(title.getId()));
+    subtitle.ifPresent(v -> p.put("subtitle", byId.get(v.getId())));
+    p.put("content", byId.get(content.getId()));
+    state.ifPresent(v -> p.put("state", v.ordinal()));
+    isActive.ifPresent(v -> p.put("isActive", v));
+    label.ifPresent(v -> p.put("label", byId.get(v.getId())));
+    record(id, "stepStep", p);
+    MemorySegment st = StepObjSt.allocate(arena);
+    StepObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment tabPageSelectorTabPageSelector(OptionalDouble indicatorSize, Optional<Color> color, Optional<Color> selectedColor, Optional<BorderStyle> borderStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (indicatorSize.isPresent()) { p.put("indicatorSize", indicatorSize.getAsDouble()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    borderStyle.ifPresent(v -> p.put("borderStyle", v.ordinal()));
+    record(id, "tabPageSelectorTabPageSelector", p);
+    MemorySegment st = TabPageSelectorObjSt.allocate(arena);
+    TabPageSelectorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment carouselViewCarouselView(Optional<EdgeInsets> padding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Color> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, double itemExtent, List<Widget> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
+    itemSnapping.ifPresent(v -> p.put("itemSnapping", v));
+    if (shrinkExtent.isPresent()) { p.put("shrinkExtent", shrinkExtent.getAsDouble()); }
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
+    enableSplash.ifPresent(v -> p.put("enableSplash", v));
+    p.put("itemExtent", itemExtent);
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    record(id, "carouselViewCarouselView", p);
+    MemorySegment st = CarouselViewObjSt.allocate(arena);
+    CarouselViewObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
