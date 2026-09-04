@@ -3546,6 +3546,12 @@ typedef struct {
 } FocusScopeObjSt;
 typedef struct {
   int id;
+  DartObj child;
+  int canPop;
+  int autovalidateMode;
+} FormObjSt;
+typedef struct {
+  int id;
   int scrollDirection;
 } PrimaryScrollControllerObjSt;
 typedef struct {

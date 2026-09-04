@@ -2020,6 +2020,10 @@ public class EWT {
     return FocusScopeFocusScopeBuilder.focusScopeFocusScope(child);
   }
 
+  public static FormFormBuilder Form(WidgetI child) {
+    return FormFormBuilder.formForm(child);
+  }
+
   public static PrimaryScrollControllerNoneBuilder PrimaryScrollController_none(WidgetI child) {
     return PrimaryScrollControllerNoneBuilder.primaryScrollControllerNone(child);
   }

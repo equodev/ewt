@@ -11467,6 +11467,23 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment formForm(Widget child, Optional<Boolean> canPop, Optional<Consumer<Boolean>> onPopInvoked, Optional<BiConsumer<Boolean, NativeObj>> onPopInvokedWithResult, Optional<Supplier<Future>> onWillPop, Optional<Runnable> onChanged, Optional<AutovalidateMode> autovalidateMode) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    canPop.ifPresent(v -> p.put("canPop", v));
+    if (onPopInvoked.isPresent()) { int __cb_onPopInvoked = nextCallbackId++; p.put("onPopInvoked", __cb_onPopInvoked); java.util.function.Consumer<Boolean> __h_onPopInvoked = onPopInvoked.get(); callbacks.put(__cb_onPopInvoked, (java.util.function.Consumer<Object>)(v -> __h_onPopInvoked.accept((Boolean) v))); }
+    if (onPopInvokedWithResult != null) { p.put("onPopInvokedWithResult", nextCallbackId++); }
+    if (onWillPop.isPresent()) { int __cb_onWillPop = nextCallbackId++; p.put("onWillPop", __cb_onWillPop); callbacks.put(__cb_onWillPop, onWillPop.get()); }
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, onChanged.get()); }
+    autovalidateMode.ifPresent(v -> p.put("autovalidateMode", v.ordinal()));
+    record(id, "formForm", p);
+    MemorySegment st = FormObjSt.allocate(arena);
+    FormObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment primaryScrollControllerNone(Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

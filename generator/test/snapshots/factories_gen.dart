@@ -13777,6 +13777,29 @@ FocusScopeObjSt _createFocusScopeObjSt(FocusScope? w) {
   return stObj;
 }
 
+void _setupForm(WidgetFactories f) {
+  f.form.form = ffi.Pointer.fromFunction(formForm);
+}
+FormObjSt formForm(DartDartObj child, ffi.Pointer<ffi.Int> canPop, ffi.Pointer<PopInvokedCallbackFFI> onPopInvoked, ffi.Pointer<PopInvokedWithResultCallbackForObjectOptFFI> onPopInvokedWithResult, ffi.Pointer<WillPopCallbackFFI> onWillPop, ffi.Pointer<VoidCallbackFFI> onChanged, ffi.Pointer<ffi.Int> autovalidateMode) {
+  final w = Form(child: _widgetsMap[child]! as Widget,
+      canPop: canPop.boolOrNul(),
+      onPopInvoked: onPopInvoked.toPopInvokedCallbackFn(),
+      onPopInvokedWithResult: onPopInvokedWithResult.toPopInvokedWithResultCallbackForObjectOptFn(),
+      onWillPop: onWillPop.toWillPopCallbackFn(),
+      onChanged: onChanged.toVoidCallbackFn(),
+      autovalidateMode: autovalidateMode.enumOrNul(AutovalidateMode.values));
+  return _createFormObjSt(w);
+}
+FormObjSt _createFormObjSt(Form? w) {
+  final FormObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.canPop = (w.canPop != null) ? w.canPop!.toInt() : 0;
+  stObj.autovalidateMode = w.autovalidateMode.index;
+  return stObj;
+}
+
 void _setupPrimaryScrollController(WidgetFactories f) {
   f.primaryScrollController.none = ffi.Pointer.fromFunction(primaryScrollControllerNone);
   f.primaryScrollController.shouldInherit = ffi.Pointer.fromFunction(primaryScrollControllerShouldInherit, exception);
@@ -16780,6 +16803,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupAboutDialog(f);
   _setupFocus(f);
   _setupFocusScope(f);
+  _setupForm(f);
   _setupPrimaryScrollController(f);
   _setupTableCell(f);
   _setupImage(f);
@@ -17932,6 +17956,43 @@ extension on OrientationWidgetBuilderFFI {
 }
 extension on ffi.Pointer<OrientationWidgetBuilderFFI> {
   OrientationWidgetBuilder? toOrientationWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toOrientationWidgetBuilderFn() : null;
+}
+
+extension on PopInvokedCallbackFFI {
+  PopInvokedCallback toPopInvokedCallbackFn() {
+    return (bool didPop) {
+      DartPopInvokedCallbackFFIFunction dFn = asFunction();
+      dFn(didPop.toInt());
+    };
+  }
+}
+extension on ffi.Pointer<PopInvokedCallbackFFI> {
+  PopInvokedCallback? toPopInvokedCallbackFn() => (this != ffi.nullptr) ? this.value.toPopInvokedCallbackFn() : null;
+}
+
+extension on PopInvokedWithResultCallbackForObjectOptFFI {
+  PopInvokedWithResultCallback<Object?> toPopInvokedWithResultCallbackForObjectOptFn() {
+    return (bool didPop, Object? result) {
+      DartPopInvokedWithResultCallbackForObjectOptFFIFunction dFn = asFunction();
+      dFn(didPop.toInt(), (result != null) ? (calloc<ffi.Int>()..value = _addWidget(result)) : ffi.nullptr);
+    };
+  }
+}
+extension on ffi.Pointer<PopInvokedWithResultCallbackForObjectOptFFI> {
+  PopInvokedWithResultCallback<Object?>? toPopInvokedWithResultCallbackForObjectOptFn() => (this != ffi.nullptr) ? this.value.toPopInvokedWithResultCallbackForObjectOptFn() : null;
+}
+
+extension on WillPopCallbackFFI {
+  WillPopCallback toWillPopCallbackFn() {
+    return () => _runBuildScope(() {
+      DartWillPopCallbackFFIFunction dFn = asFunction();
+      final dFnRet = dFn();
+      return _widgetsMap[dFnRet]! as Future<bool>;
+    });
+  }
+}
+extension on ffi.Pointer<WillPopCallbackFFI> {
+  WillPopCallback? toWillPopCallbackFn() => (this != ffi.nullptr) ? this.value.toWillPopCallbackFn() : null;
 }
 
 extension on ImageFrameBuilderFFI {

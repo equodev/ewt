@@ -5430,6 +5430,13 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       descendantsAreFocusable: p['descendantsAreFocusable'] as bool?,
       descendantsAreTraversable: p['descendantsAreTraversable'] as bool?),
 
+  'formForm': (p) => Form(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      canPop: p['canPop'] as bool?,
+      onPopInvoked: ewtWireValueCallback(p['onPopInvoked']),
+      onPopInvokedWithResult: ([Object? a, Object? b, Object? c]) {},
+      onChanged: ewtWireCallback(p['onChanged']),
+      autovalidateMode: p['autovalidateMode'] == null ? null : AutovalidateMode.values[p['autovalidateMode'] as int]),
+
   'primaryScrollControllerNone': (p) => PrimaryScrollController.none(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
   'primaryScrollControllerShouldInherit': (p) => PrimaryScrollController.shouldInherit(ewtActiveBuildContext!,
       Axis.values[p['scrollDirection'] as int]),

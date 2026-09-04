@@ -8482,6 +8482,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(descendantsAreTraversable));
   }
 
+  MemorySegment formForm(Widget child, Optional<Boolean> canPop, Optional<Consumer<Boolean>> onPopInvoked, Optional<BiConsumer<Boolean, NativeObj>> onPopInvokedWithResult, Optional<Supplier<Future>> onWillPop, Optional<Runnable> onChanged, Optional<AutovalidateMode> autovalidateMode) {
+    var st = WidgetFactories.form(factories);
+    var fn = WidgetFactories.FormSt.form(st);
+    return WidgetFactories.FormSt.form.invoke(fn, arena, child.build().getId(),
+      ptrBool(canPop),
+      onPopInvoked.isPresent() ? ptrHolder(ptrPopInvokedCallbackFn(onPopInvoked.get())) : MemorySegment.NULL,
+      onPopInvokedWithResult.isPresent() ? ptrHolder(ptrPopInvokedWithResultCallbackForObjectOptFn(onPopInvokedWithResult.get())) : MemorySegment.NULL,
+      onWillPop.isPresent() ? ptrHolder(ptrWillPopCallbackFn(onWillPop.get())) : MemorySegment.NULL,
+      onChanged.isPresent() ? ptrHolder(ptrVoidCallbackFn(onChanged.get())) : MemorySegment.NULL,
+      ptrEnum(autovalidateMode));
+  }
+
   MemorySegment primaryScrollControllerNone(Widget child) {
     var st = WidgetFactories.primaryScrollController(factories);
     var fn = WidgetFactories.PrimaryScrollControllerSt.none(st);
@@ -10462,6 +10474,22 @@ MemorySegment ptrDartObjCallbackDartObjBoxConstraintsObjStFn(BiFunction<BuildCon
 MemorySegment ptrOrientationWidgetBuilderFn(BiFunction<BuildContext, Orientation, Widget> jFn) {
   return OrientationWidgetBuilderFFI.allocate((context, orientation) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, Orientation.values()[orientation]);
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrPopInvokedCallbackFn(Consumer<Boolean> jFn) {
+  return PopInvokedCallbackFFI.allocate((didPop) -> {
+    jFn.accept(intToBool(didPop));
+  }, arena);
+}
+<T> MemorySegment ptrPopInvokedWithResultCallbackForObjectOptFn(BiConsumer<Boolean, NativeObj> jFn) {
+  return PopInvokedWithResultCallbackForObjectOptFFI.allocate((didPop, result) -> {
+    jFn.accept(intToBool(didPop), (NativeObj) new NativeObj.Base() {{ this.id = result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
+  }, arena);
+}
+MemorySegment ptrWillPopCallbackFn(Supplier<Future> jFn) {
+  return WillPopCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
     return jFnRet.build().getId();
   }, arena);
 }

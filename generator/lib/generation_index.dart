@@ -420,7 +420,7 @@ m.AboutDialog? aboutDialog;
 // --- Batch 2: interaction (focus/form/table/image) + Material controls ---
 w.Focus? focus;
 w.FocusScope? focusScope;
-// Form skipped: `onPopInvokedWithResult` is `PopInvokedWithResultCallback<Object?>` — the Object-typed generic result trips the callback marshaller (emits `new Object() { public int getId() { return result; } }` against `MemorySegment result`, plus `intToBool(didPop)` where `didPop` is `MemorySegment`). Needs a proper `Object?` callback-argument path.
+w.Form? form;
 w.PrimaryScrollController? primaryScrollController;
 // StatefulBuilder skipped: `builder` is `StatefulWidgetBuilder = Widget Function(BuildContext, StateSetter)` and `StateSetter` itself is `void Function(VoidCallback fn)`. The nested callback path emits `Consumer<Runnable>` on the Java surface but the FFI wrapper passes `MemorySegment` for the inner callback, so the generated `WidgetConstructors` doesn't type-check.
 // Table skipped: `columnWidths: Map<int, TableColumnWidth>` — TableColumnWidth is an abstract Flutter class; the emitter picks it up as a Java type but never emits `TableColumnWidth.java`, so the Immutables-generated `TableTableBuilder` can't resolve the type. Same abstract-factory-host shape as ShapeBorder would need.

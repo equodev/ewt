@@ -369,20 +369,26 @@ class Types {
     // the struct. We can't marshall arbitrary values so — with `_sanitizeTypeParam`
     // constraining `T extends NativeObj` — the only viable value is a NativeObj
     // wrapper cast to T so Java's return-type check is satisfied.
+    // Same path applies to `Object` / `Object?` (opaque widened to NativeObj by
+    // TypeMapping.resolve).
     String? tpCast;
     if (t is TypeParameterType) {
       tpCast = '(NativeObj) ';
       t = t.bound;
+    } else if (t.isDartCoreObject) {
+      tpCast = '(NativeObj) ';
     }
     var value = Params.escape4J(types, param);
     if (tpCast != null) {
-      // On the callback upcall path, TypeParameterType params may arrive as either:
+      // On the callback upcall path, TypeParameterType / Object params may
+      // arrive as either:
       //   - DartObj (int) when non-nullable: wrap=false in paramDef4C → Java int param
       //   - DartObj* (MemorySegment) when nullable/optional: wrap=true → Java MemorySegment param
       // `_dartTypeStr` always widens TypeParameterType to nullable T?, so in practice
       // callback TypeParameterType params are DartObj* (MemorySegment). We detect this
-      // by checking param.isOptional (nullable T → optional positional → isOptional=true).
-      if (fromCallback && param.isOptional) {
+      // by checking param.isOptional (nullable T / Object? → optional positional → isOptional=true).
+      if (fromCallback && (param.isOptional ||
+          t.nullabilitySuffix == NullabilitySuffix.question)) {
         // `value` is MemorySegment (DartObj* pointer); dereference as C_INT to get the id.
         return '(NativeObj) new NativeObj.Base() {{ this.id = $value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }}';
       }

@@ -1914,6 +1914,10 @@ typedef struct {
     FocusScopeObjSt (*focusScope)(DartObj child, int* autofocus, ValueChangedForBoolFFI* onFocusChange, int* canRequestFocus, int* skipTraversal, char* debugLabel, int* includeSemantics, int* descendantsAreFocusable, int* descendantsAreTraversable);
   } focusScope;
 
+  struct FormSt {
+    FormObjSt (*form)(DartObj child, int* canPop, PopInvokedCallbackFFI* onPopInvoked, PopInvokedWithResultCallbackForObjectOptFFI* onPopInvokedWithResult, WillPopCallbackFFI* onWillPop, VoidCallbackFFI* onChanged, int* autovalidateMode);
+  } form;
+
   struct PrimaryScrollControllerSt {
     PrimaryScrollControllerObjSt (*none)(DartObj child);
     int (*shouldInherit)(DartObj context, int scrollDirection);

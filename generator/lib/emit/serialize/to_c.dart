@@ -99,7 +99,18 @@ class DartToC extends SerializeStrategy {
     // see FunctionHandler.type4C which maps everything through DartObj).
     // Emitting `_create<Widget>ObjSt(value)` would push a struct through
     // an int-typed slot; register the widget by id and pass that.
-    if (fromCallback) return '_addWidget(${ensureName(param)})';
+    if (fromCallback) {
+      final value = ensureName(param);
+      // Nullable Object / `T?` (opaque) crosses through a callback as
+      // `DartObj*` (`Pointer<Int>`) — allocate a heap int with the id, or
+      // nullptr for null. Java side reads via the NativeObj.Base pointer
+      // dereference in paramValueFFMtoJ.
+      if (t.isDartCoreObject &&
+          t.nullabilitySuffix == NullabilitySuffix.question) {
+        return '($value != null) ? (calloc<ffi.Int>()..value = _addWidget($value)) : ffi.nullptr';
+      }
+      return '_addWidget($value)';
+    }
     return types.getGen(t.element).dartToC(ensureName(param));
   }
 }
