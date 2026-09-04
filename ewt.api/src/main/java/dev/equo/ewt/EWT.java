@@ -1769,6 +1769,41 @@ public class EWT {
     return CupertinoContextMenuActionCupertinoContextMenuActionBuilder.cupertinoContextMenuActionCupertinoContextMenuAction(child);
   }
 
+  public static LayoutBuilderLayoutBuilderBuilder LayoutBuilder(BiFunction<BuildContext, BoxConstraints, Widget> builder) {
+    return LayoutBuilderLayoutBuilderBuilder.layoutBuilderLayoutBuilder(builder);
+  }
+
+  public static OrientationBuilderOrientationBuilderBuilder OrientationBuilder(BiFunction<BuildContext, Orientation, Widget> builder) {
+    return OrientationBuilderOrientationBuilderBuilder.orientationBuilderOrientationBuilder(builder);
+  }
+
+  public static BackButtonIconBackButtonIconBuilder BackButtonIcon() {
+    return BackButtonIconBackButtonIconBuilder.backButtonIconBackButtonIcon();
+  }
+
+  public static CloseButtonIconCloseButtonIconBuilder CloseButtonIcon() {
+    return CloseButtonIconCloseButtonIconBuilder.closeButtonIconCloseButtonIcon();
+  }
+
+  public static DrawerButtonIconDrawerButtonIconBuilder DrawerButtonIcon() {
+    return DrawerButtonIconDrawerButtonIconBuilder.drawerButtonIconDrawerButtonIcon();
+  }
+
+  public static EndDrawerButtonIconEndDrawerButtonIconBuilder EndDrawerButtonIcon() {
+    return EndDrawerButtonIconEndDrawerButtonIconBuilder.endDrawerButtonIconEndDrawerButtonIcon();
+  }
+
+  public static AnimatedThemeAnimatedThemeBuilder AnimatedTheme(ThemeDataI data) {
+    return AnimatedThemeAnimatedThemeBuilder.animatedThemeAnimatedTheme(data);
+  }
+
+  public static AboutDialogAboutDialogBuilder AboutDialog() {
+    return AboutDialogAboutDialogBuilder.aboutDialogAboutDialog();
+  }
+  public static AboutDialogAdaptiveBuilder AboutDialog_adaptive() {
+    return AboutDialogAdaptiveBuilder.aboutDialogAdaptive();
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

@@ -1626,6 +1626,39 @@ typedef struct {
     CupertinoContextMenuActionObjSt (*cupertinoContextMenuAction)(DartObj child, int* isDefaultAction, int* isDestructiveAction, VoidCallbackFFI* onPressed, DartObj* trailingIcon);
   } cupertinoContextMenuAction;
 
+  struct LayoutBuilderSt {
+    LayoutBuilderObjSt (*layoutBuilder)(DartObjCallbackDartObjBoxConstraintsObjStFFI builder);
+  } layoutBuilder;
+
+  struct OrientationBuilderSt {
+    OrientationBuilderObjSt (*orientationBuilder)(OrientationWidgetBuilderFFI builder);
+  } orientationBuilder;
+
+  struct BackButtonIconSt {
+    BackButtonIconObjSt (*backButtonIcon)(void);
+  } backButtonIcon;
+
+  struct CloseButtonIconSt {
+    CloseButtonIconObjSt (*closeButtonIcon)(void);
+  } closeButtonIcon;
+
+  struct DrawerButtonIconSt {
+    DrawerButtonIconObjSt (*drawerButtonIcon)(void);
+  } drawerButtonIcon;
+
+  struct EndDrawerButtonIconSt {
+    EndDrawerButtonIconObjSt (*endDrawerButtonIcon)(void);
+  } endDrawerButtonIcon;
+
+  struct AnimatedThemeSt {
+    AnimatedThemeObjSt (*animatedTheme)(DartObj data, DartObj* curve, DartObj* duration, VoidCallbackFFI* onEnd, DartObj child);
+  } animatedTheme;
+
+  struct AboutDialogSt {
+    AboutDialogObjSt (*aboutDialog)(char* applicationName, char* applicationVersion, DartObj* applicationIcon, char* applicationLegalese, ArrayC* children);
+    AboutDialogObjSt (*adaptive)(char* applicationName, char* applicationVersion, DartObj* applicationIcon, char* applicationLegalese, ArrayC* children);
+  } aboutDialog;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

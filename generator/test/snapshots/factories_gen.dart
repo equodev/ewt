@@ -11573,6 +11573,141 @@ CupertinoContextMenuActionObjSt _createCupertinoContextMenuActionObjSt(Cupertino
   return stObj;
 }
 
+void _setupLayoutBuilder(WidgetFactories f) {
+  f.layoutBuilder.layoutBuilder = ffi.Pointer.fromFunction(layoutBuilderLayoutBuilder);
+}
+LayoutBuilderObjSt layoutBuilderLayoutBuilder(DartObjCallbackDartObjBoxConstraintsObjStFFI builder) {
+  final w = LayoutBuilder(builder: builder.toDartObjCallbackDartObjBoxConstraintsObjStFn());
+  return _createLayoutBuilderObjSt(w);
+}
+LayoutBuilderObjSt _createLayoutBuilderObjSt(LayoutBuilder? w) {
+  final LayoutBuilderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupOrientationBuilder(WidgetFactories f) {
+  f.orientationBuilder.orientationBuilder = ffi.Pointer.fromFunction(orientationBuilderOrientationBuilder);
+}
+OrientationBuilderObjSt orientationBuilderOrientationBuilder(OrientationWidgetBuilderFFI builder) {
+  final w = OrientationBuilder(builder: builder.toOrientationWidgetBuilderFn());
+  return _createOrientationBuilderObjSt(w);
+}
+OrientationBuilderObjSt _createOrientationBuilderObjSt(OrientationBuilder? w) {
+  final OrientationBuilderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupBackButtonIcon(WidgetFactories f) {
+  f.backButtonIcon.backButtonIcon = ffi.Pointer.fromFunction(backButtonIconBackButtonIcon);
+}
+BackButtonIconObjSt backButtonIconBackButtonIcon() {
+  final w = BackButtonIcon();
+  return _createBackButtonIconObjSt(w);
+}
+BackButtonIconObjSt _createBackButtonIconObjSt(BackButtonIcon? w) {
+  final BackButtonIconObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupCloseButtonIcon(WidgetFactories f) {
+  f.closeButtonIcon.closeButtonIcon = ffi.Pointer.fromFunction(closeButtonIconCloseButtonIcon);
+}
+CloseButtonIconObjSt closeButtonIconCloseButtonIcon() {
+  final w = CloseButtonIcon();
+  return _createCloseButtonIconObjSt(w);
+}
+CloseButtonIconObjSt _createCloseButtonIconObjSt(CloseButtonIcon? w) {
+  final CloseButtonIconObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupDrawerButtonIcon(WidgetFactories f) {
+  f.drawerButtonIcon.drawerButtonIcon = ffi.Pointer.fromFunction(drawerButtonIconDrawerButtonIcon);
+}
+DrawerButtonIconObjSt drawerButtonIconDrawerButtonIcon() {
+  final w = DrawerButtonIcon();
+  return _createDrawerButtonIconObjSt(w);
+}
+DrawerButtonIconObjSt _createDrawerButtonIconObjSt(DrawerButtonIcon? w) {
+  final DrawerButtonIconObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupEndDrawerButtonIcon(WidgetFactories f) {
+  f.endDrawerButtonIcon.endDrawerButtonIcon = ffi.Pointer.fromFunction(endDrawerButtonIconEndDrawerButtonIcon);
+}
+EndDrawerButtonIconObjSt endDrawerButtonIconEndDrawerButtonIcon() {
+  final w = EndDrawerButtonIcon();
+  return _createEndDrawerButtonIconObjSt(w);
+}
+EndDrawerButtonIconObjSt _createEndDrawerButtonIconObjSt(EndDrawerButtonIcon? w) {
+  final EndDrawerButtonIconObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupAnimatedTheme(WidgetFactories f) {
+  f.animatedTheme.animatedTheme = ffi.Pointer.fromFunction(animatedThemeAnimatedTheme);
+}
+AnimatedThemeObjSt animatedThemeAnimatedTheme(DartDartObj data, ffi.Pointer<DartObj> curve, ffi.Pointer<DartObj> duration, ffi.Pointer<VoidCallbackFFI> onEnd, DartDartObj child) {
+  final w = AnimatedTheme(data: _widgetsMap[data]! as ThemeData,
+      curve: curve.objOr(Curves.linear),
+      duration: duration.objOr(kThemeAnimationDuration),
+      onEnd: onEnd.toVoidCallbackFn(),
+      child: _widgetsMap[child]! as Widget);
+  return _createAnimatedThemeObjSt(w);
+}
+AnimatedThemeObjSt _createAnimatedThemeObjSt(AnimatedTheme? w) {
+  final AnimatedThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createThemeDataObjSt(w.data);
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupAboutDialog(WidgetFactories f) {
+  f.aboutDialog.aboutDialog = ffi.Pointer.fromFunction(aboutDialogAboutDialog);
+  f.aboutDialog.adaptive = ffi.Pointer.fromFunction(aboutDialogAdaptive);
+}
+AboutDialogObjSt aboutDialogAboutDialog(ffi.Pointer<ffi.Char> applicationName, ffi.Pointer<ffi.Char> applicationVersion, ffi.Pointer<DartObj> applicationIcon, ffi.Pointer<ffi.Char> applicationLegalese, ffi.Pointer<ArrayC> children) {
+  final w = AboutDialog(applicationName: applicationName.strOrNul(),
+      applicationVersion: applicationVersion.strOrNul(),
+      applicationIcon: applicationIcon.objOrNul(),
+      applicationLegalese: applicationLegalese.strOrNul(),
+      children: children.listOrNul());
+  return _createAboutDialogObjSt(w);
+}
+AboutDialogObjSt aboutDialogAdaptive(ffi.Pointer<ffi.Char> applicationName, ffi.Pointer<ffi.Char> applicationVersion, ffi.Pointer<DartObj> applicationIcon, ffi.Pointer<ffi.Char> applicationLegalese, ffi.Pointer<ArrayC> children) {
+  final w = AboutDialog.adaptive(applicationName: applicationName.strOrNul(),
+      applicationVersion: applicationVersion.strOrNul(),
+      applicationIcon: applicationIcon.objOrNul(),
+      applicationLegalese: applicationLegalese.strOrNul(),
+      children: children.listOrNul());
+  return _createAboutDialogObjSt(w);
+}
+AboutDialogObjSt _createAboutDialogObjSt(AboutDialog? w) {
+  final AboutDialogObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.applicationName = (w.applicationName != null) ? w.applicationName!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.applicationVersion = (w.applicationVersion != null) ? w.applicationVersion!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.applicationIcon = _addWidget(w.applicationIcon);
+  stObj.applicationLegalese = (w.applicationLegalese != null) ? w.applicationLegalese!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -11975,6 +12110,14 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupCupertinoContextMenu(f);
   _setupCupertinoContextMenuAction(f);
   _setupBottomNavigationBarItem(f);
+  _setupLayoutBuilder(f);
+  _setupOrientationBuilder(f);
+  _setupBackButtonIcon(f);
+  _setupCloseButtonIcon(f);
+  _setupDrawerButtonIcon(f);
+  _setupEndDrawerButtonIcon(f);
+  _setupAnimatedTheme(f);
+  _setupAboutDialog(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
@@ -12963,6 +13106,32 @@ extension on CupertinoContextMenuBuilderFFI {
 }
 extension on ffi.Pointer<CupertinoContextMenuBuilderFFI> {
   CupertinoContextMenuBuilder? toCupertinoContextMenuBuilderFn() => (this != ffi.nullptr) ? this.value.toCupertinoContextMenuBuilderFn() : null;
+}
+
+extension on DartObjCallbackDartObjBoxConstraintsObjStFFI {
+  Widget Function(BuildContext, BoxConstraints) toDartObjCallbackDartObjBoxConstraintsObjStFn() {
+    return (BuildContext context, BoxConstraints constraints) => _runBuildScope(() {
+      DartDartObjCallbackDartObjBoxConstraintsObjStFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), _addWidget(constraints));
+      return _widgetsMap[dFnRet]! as Widget;
+    });
+  }
+}
+extension on ffi.Pointer<DartObjCallbackDartObjBoxConstraintsObjStFFI> {
+  Widget Function(BuildContext, BoxConstraints)? toDartObjCallbackDartObjBoxConstraintsObjStFn() => (this != ffi.nullptr) ? this.value.toDartObjCallbackDartObjBoxConstraintsObjStFn() : null;
+}
+
+extension on OrientationWidgetBuilderFFI {
+  OrientationWidgetBuilder toOrientationWidgetBuilderFn() {
+    return (BuildContext context, Orientation orientation) => _runBuildScope(() {
+      DartOrientationWidgetBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), orientation.index);
+      return _widgetsMap[dFnRet]! as Widget;
+    });
+  }
+}
+extension on ffi.Pointer<OrientationWidgetBuilderFFI> {
+  OrientationWidgetBuilder? toOrientationWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toOrientationWidgetBuilderFn() : null;
 }
 
 extension on VoidCallbackDartObjFFI {

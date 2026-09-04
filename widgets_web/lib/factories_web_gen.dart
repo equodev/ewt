@@ -4367,6 +4367,20 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       onPressed: ewtWireCallback(p['onPressed']),
       trailingIcon: p['trailingIcon'] == null ? null : decodeEwtNode(p['trailingIcon'] as Map<String,dynamic>) as IconData),
 
+  'backButtonIconBackButtonIcon': (p) => BackButtonIcon(),
+
+  'closeButtonIconCloseButtonIcon': (p) => CloseButtonIcon(),
+
+  'drawerButtonIconDrawerButtonIcon': (p) => DrawerButtonIcon(),
+
+  'endDrawerButtonIconEndDrawerButtonIcon': (p) => EndDrawerButtonIcon(),
+
+  'animatedThemeAnimatedTheme': (p) => AnimatedTheme(data: decodeEwtNode(p['data'] as Map<String,dynamic>) as ThemeData,
+      curve: p['curve'] == null ? Curves.linear : decodeEwtNode(p['curve'] as Map<String,dynamic>) as Curve,
+      duration: p['duration'] == null ? kThemeAnimationDuration : decodeEwtNode(p['duration'] as Map<String,dynamic>) as Duration,
+      onEnd: ewtWireCallback(p['onEnd']),
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
 
   // SubmenuButton and PopupMenuButton are excluded from auto web decoding
   // (MenuController + itemBuilder returns a value); hand-maintained here.

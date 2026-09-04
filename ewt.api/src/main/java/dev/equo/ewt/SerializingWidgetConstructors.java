@@ -9681,6 +9681,112 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment layoutBuilderLayoutBuilder(BiFunction<BuildContext, BoxConstraints, Widget> builder) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("builder", nextCallbackId++);
+    record(id, "layoutBuilderLayoutBuilder", p);
+    MemorySegment st = LayoutBuilderObjSt.allocate(arena);
+    LayoutBuilderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment orientationBuilderOrientationBuilder(BiFunction<BuildContext, Orientation, Widget> builder) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("builder", nextCallbackId++);
+    record(id, "orientationBuilderOrientationBuilder", p);
+    MemorySegment st = OrientationBuilderObjSt.allocate(arena);
+    OrientationBuilderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment backButtonIconBackButtonIcon() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "backButtonIconBackButtonIcon", p);
+    MemorySegment st = BackButtonIconObjSt.allocate(arena);
+    BackButtonIconObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment closeButtonIconCloseButtonIcon() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "closeButtonIconCloseButtonIcon", p);
+    MemorySegment st = CloseButtonIconObjSt.allocate(arena);
+    CloseButtonIconObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment drawerButtonIconDrawerButtonIcon() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "drawerButtonIconDrawerButtonIcon", p);
+    MemorySegment st = DrawerButtonIconObjSt.allocate(arena);
+    DrawerButtonIconObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment endDrawerButtonIconEndDrawerButtonIcon() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "endDrawerButtonIconEndDrawerButtonIcon", p);
+    MemorySegment st = EndDrawerButtonIconObjSt.allocate(arena);
+    EndDrawerButtonIconObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment animatedThemeAnimatedTheme(ThemeData data, Optional<Curve> curve, Optional<Duration> duration, Optional<Runnable> onEnd, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    duration.ifPresent(v -> p.put("duration", byId.get(v.getId())));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
+    p.put("child", byId.get(child.getId()));
+    record(id, "animatedThemeAnimatedTheme", p);
+    MemorySegment st = AnimatedThemeObjSt.allocate(arena);
+    AnimatedThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment aboutDialogAboutDialog(Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    applicationName.ifPresent(v -> p.put("applicationName", v));
+    applicationVersion.ifPresent(v -> p.put("applicationVersion", v));
+    applicationIcon.ifPresent(v -> p.put("applicationIcon", byId.get(v.getId())));
+    applicationLegalese.ifPresent(v -> p.put("applicationLegalese", v));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "aboutDialogAboutDialog", p);
+    MemorySegment st = AboutDialogObjSt.allocate(arena);
+    AboutDialogObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment aboutDialogAdaptive(Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    applicationName.ifPresent(v -> p.put("applicationName", v));
+    applicationVersion.ifPresent(v -> p.put("applicationVersion", v));
+    applicationIcon.ifPresent(v -> p.put("applicationIcon", byId.get(v.getId())));
+    applicationLegalese.ifPresent(v -> p.put("applicationLegalese", v));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "aboutDialogAdaptive", p);
+    MemorySegment st = AboutDialogObjSt.allocate(arena);
+    AboutDialogObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

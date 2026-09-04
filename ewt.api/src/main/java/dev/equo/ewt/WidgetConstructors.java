@@ -7235,6 +7235,71 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(trailingIcon));
   }
 
+  MemorySegment layoutBuilderLayoutBuilder(BiFunction<BuildContext, BoxConstraints, Widget> builder) {
+    var st = WidgetFactories.layoutBuilder(factories);
+    var fn = WidgetFactories.LayoutBuilderSt.layoutBuilder(st);
+    return WidgetFactories.LayoutBuilderSt.layoutBuilder.invoke(fn, arena, ptrDartObjCallbackDartObjBoxConstraintsObjStFn(builder));
+  }
+
+  MemorySegment orientationBuilderOrientationBuilder(BiFunction<BuildContext, Orientation, Widget> builder) {
+    var st = WidgetFactories.orientationBuilder(factories);
+    var fn = WidgetFactories.OrientationBuilderSt.orientationBuilder(st);
+    return WidgetFactories.OrientationBuilderSt.orientationBuilder.invoke(fn, arena, ptrOrientationWidgetBuilderFn(builder));
+  }
+
+  MemorySegment backButtonIconBackButtonIcon() {
+    var st = WidgetFactories.backButtonIcon(factories);
+    var fn = WidgetFactories.BackButtonIconSt.backButtonIcon(st);
+    return WidgetFactories.BackButtonIconSt.backButtonIcon.invoke(fn, arena);
+  }
+
+  MemorySegment closeButtonIconCloseButtonIcon() {
+    var st = WidgetFactories.closeButtonIcon(factories);
+    var fn = WidgetFactories.CloseButtonIconSt.closeButtonIcon(st);
+    return WidgetFactories.CloseButtonIconSt.closeButtonIcon.invoke(fn, arena);
+  }
+
+  MemorySegment drawerButtonIconDrawerButtonIcon() {
+    var st = WidgetFactories.drawerButtonIcon(factories);
+    var fn = WidgetFactories.DrawerButtonIconSt.drawerButtonIcon(st);
+    return WidgetFactories.DrawerButtonIconSt.drawerButtonIcon.invoke(fn, arena);
+  }
+
+  MemorySegment endDrawerButtonIconEndDrawerButtonIcon() {
+    var st = WidgetFactories.endDrawerButtonIcon(factories);
+    var fn = WidgetFactories.EndDrawerButtonIconSt.endDrawerButtonIcon(st);
+    return WidgetFactories.EndDrawerButtonIconSt.endDrawerButtonIcon.invoke(fn, arena);
+  }
+
+  MemorySegment animatedThemeAnimatedTheme(ThemeData data, Optional<Curve> curve, Optional<Duration> duration, Optional<Runnable> onEnd, Widget child) {
+    var st = WidgetFactories.animatedTheme(factories);
+    var fn = WidgetFactories.AnimatedThemeSt.animatedTheme(st);
+    return WidgetFactories.AnimatedThemeSt.animatedTheme.invoke(fn, arena, data.build().getId(),
+      ptrObj(curve),
+      ptrObj(duration),
+      onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL,
+      child.build().getId());
+  }
+
+  MemorySegment aboutDialogAboutDialog(Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> children) {
+    var st = WidgetFactories.aboutDialog(factories);
+    var fn = WidgetFactories.AboutDialogSt.aboutDialog(st);
+    return WidgetFactories.AboutDialogSt.aboutDialog.invoke(fn, arena, ptrStr(applicationName),
+      ptrStr(applicationVersion),
+      ptrObj(applicationIcon),
+      ptrStr(applicationLegalese),
+      ptrList(children));
+  }
+  MemorySegment aboutDialogAdaptive(Optional<String> applicationName, Optional<String> applicationVersion, Optional<Widget> applicationIcon, Optional<String> applicationLegalese, Optional<List<Widget>> children) {
+    var st = WidgetFactories.aboutDialog(factories);
+    var fn = WidgetFactories.AboutDialogSt.adaptive(st);
+    return WidgetFactories.AboutDialogSt.adaptive.invoke(fn, arena, ptrStr(applicationName),
+      ptrStr(applicationVersion),
+      ptrObj(applicationIcon),
+      ptrStr(applicationLegalese),
+      ptrList(children));
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
@@ -7696,6 +7761,18 @@ MemorySegment ptrSelectionOverlayBuilderFn(TriFunction<BuildContext, Integer, In
 MemorySegment ptrCupertinoContextMenuBuilderFn(BiFunction<BuildContext, Animation, Widget> jFn) {
   return CupertinoContextMenuBuilderFFI.allocate((context, animation) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Animation() { public int getId() { return animation; } });
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrDartObjCallbackDartObjBoxConstraintsObjStFn(BiFunction<BuildContext, BoxConstraints, Widget> jFn) {
+  return DartObjCallbackDartObjBoxConstraintsObjStFFI.allocate((context, constraints) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new BoxConstraints(constraints));
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrOrientationWidgetBuilderFn(BiFunction<BuildContext, Orientation, Widget> jFn) {
+  return OrientationWidgetBuilderFFI.allocate((context, orientation) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, Orientation.values()[orientation]);
     return jFnRet.build().getId();
   }, arena);
 }

@@ -77,6 +77,8 @@ typedef void (*ValueChangedForDateTimeFFI)(DartObj value);
 typedef void (*ValueChangedForDurationFFI)(DartObj value);
 typedef DartObj (*SelectionOverlayBuilderFFI)(DartObj context, int columnCount, int selectedIndex);
 typedef DartObj (*CupertinoContextMenuBuilderFFI)(DartObj context, DartObj animation);
+typedef DartObj (*DartObjCallbackDartObjBoxConstraintsObjStFFI)(DartObj context, DartObj constraints);
+typedef DartObj (*OrientationWidgetBuilderFFI)(DartObj context, int orientation);
 typedef void (*VoidCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackFFI)(void);

@@ -2880,6 +2880,43 @@ typedef struct {
 } CupertinoContextMenuActionObjSt;
 typedef struct {
   int id;
+} LayoutBuilderObjSt;
+typedef struct {
+  int id;
+} OrientationBuilderObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+} PreferredSizeObjSt;
+typedef struct {
+  int id;
+} IconThemeObjSt;
+typedef struct {
+  int id;
+} BackButtonIconObjSt;
+typedef struct {
+  int id;
+} CloseButtonIconObjSt;
+typedef struct {
+  int id;
+} DrawerButtonIconObjSt;
+typedef struct {
+  int id;
+} EndDrawerButtonIconObjSt;
+typedef struct {
+  int id;
+  ThemeDataObjSt data;
+  DartObj child;
+} AnimatedThemeObjSt;
+typedef struct {
+  int id;
+  char* applicationName;
+  char* applicationVersion;
+  DartObj applicationIcon;
+  char* applicationLegalese;
+} AboutDialogObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);
