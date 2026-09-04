@@ -451,6 +451,23 @@ m.BadgeTheme? badgeTheme;
 m.ProgressIndicatorTheme? progressIndicatorTheme;
 m.PopupMenuTheme? popupMenuTheme;
 
+// --- Batch 4: more theme wrappers ---
+m.BottomNavigationBarTheme? bottomNavigationBarTheme;
+m.BottomSheetTheme? bottomSheetTheme;
+m.DrawerTheme? drawerTheme;
+m.NavigationBarTheme? navigationBarTheme;
+m.NavigationDrawerTheme? navigationDrawerTheme;
+m.NavigationRailTheme? navigationRailTheme;
+m.MenuTheme? menuTheme;
+m.MenuBarTheme? menuBarTheme;
+m.MenuButtonTheme? menuButtonTheme;
+m.SearchBarTheme? searchBarTheme;
+m.SearchViewTheme? searchViewTheme;
+m.ExpansionTileTheme? expansionTileTheme;
+m.TextSelectionTheme? textSelectionTheme;
+m.DatePickerTheme? datePickerTheme;
+m.TimePickerTheme? timePickerTheme;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

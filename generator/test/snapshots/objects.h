@@ -3096,6 +3096,48 @@ typedef struct {
 } PopupMenuThemeObjSt;
 typedef struct {
   int id;
+} BottomNavigationBarThemeObjSt;
+typedef struct {
+  int id;
+} DrawerThemeObjSt;
+typedef struct {
+  int id;
+} NavigationBarThemeObjSt;
+typedef struct {
+  int id;
+} NavigationDrawerThemeObjSt;
+typedef struct {
+  int id;
+} NavigationRailThemeObjSt;
+typedef struct {
+  int id;
+} MenuThemeObjSt;
+typedef struct {
+  int id;
+} MenuBarThemeObjSt;
+typedef struct {
+  int id;
+} MenuButtonThemeObjSt;
+typedef struct {
+  int id;
+} SearchBarThemeObjSt;
+typedef struct {
+  int id;
+} SearchViewThemeObjSt;
+typedef struct {
+  int id;
+} ExpansionTileThemeObjSt;
+typedef struct {
+  int id;
+} TextSelectionThemeObjSt;
+typedef struct {
+  int id;
+} DatePickerThemeObjSt;
+typedef struct {
+  int id;
+} TimePickerThemeObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);
