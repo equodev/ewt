@@ -574,6 +574,16 @@ c.CupertinoIconThemeData? cupertinoIconThemeData;
 // ExpansionTileController skipped: pulls ChangeNotifier into the emitted set; emitter writes `extends NativeObj, ChangeNotifierI` (invalid Java — should be `extends NativeObj implements ChangeNotifierI`). Generator bug in the interface-vs-supertype split.
 w.NestedScrollView? nestedScrollView;
 m.SliderComponentShape? sliderComponentShape;
+
+// --- Batch 12: scroll physics family — skipped as a group ---
+// ScrollPhysics + subclasses (BouncingScrollPhysics, ClampingScrollPhysics,
+// RangeMaintainingScrollPhysics, AlwaysScrollableScrollPhysics,
+// NeverScrollableScrollPhysics, PageScrollPhysics) cannot be added yet:
+// adding them causes jextract to fail (exit 5) — the appended structs push
+// the C header past a size / recursion limit jextract enforces. The physics
+// samples in type_samples.dart still work because they emit as opaque
+// NativeObj references; giving them real ObjSt structs breaks the toolchain.
+m.Feedback? feedback;
 // MaterialInkController skipped: same ChangeNotifier landmine (`extends NativeObj, ChangeNotifierI`).
 
 s.SubState? subState;
