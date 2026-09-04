@@ -82,6 +82,8 @@ typedef DartObj (*OrientationWidgetBuilderFFI)(DartObj context, int orientation)
 typedef void (*PopInvokedCallbackFFI)(int didPop);
 typedef void (*PopInvokedWithResultCallbackForObjectOptFFI)(int didPop, DartObj* result);
 typedef DartObj (*WillPopCallbackFFI)(void);
+typedef void (*StateSetterFFI)(VoidCallbackFFI fn);
+typedef DartObj (*StatefulWidgetBuilderFFI)(DartObj context, StateSetterFFI setState);
 typedef DartObj (*ImageFrameBuilderFFI)(DartObj context, DartObj child, int frame, int wasSynchronouslyLoaded);
 typedef void (*BottomSheetDragStartHandlerFFI)(DartObj details);
 typedef void (*BottomSheetDragEndHandlerFFI)(DartObj details, int isClosing);

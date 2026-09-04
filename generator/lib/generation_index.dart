@@ -422,7 +422,7 @@ w.Focus? focus;
 w.FocusScope? focusScope;
 w.Form? form;
 w.PrimaryScrollController? primaryScrollController;
-// StatefulBuilder skipped: `builder` is `StatefulWidgetBuilder = Widget Function(BuildContext, StateSetter)` and `StateSetter` itself is `void Function(VoidCallback fn)`. The nested callback path emits `Consumer<Runnable>` on the Java surface but the FFI wrapper passes `MemorySegment` for the inner callback, so the generated `WidgetConstructors` doesn't type-check.
+w.StatefulBuilder? statefulBuilder;
 // Table skipped: `columnWidths: Map<int, TableColumnWidth>` — TableColumnWidth is an abstract Flutter class; the emitter picks it up as a Java type but never emits `TableColumnWidth.java`, so the Immutables-generated `TableTableBuilder` can't resolve the type. Same abstract-factory-host shape as ShapeBorder would need.
 w.TableCell? tableCell;
 w.Image? image;

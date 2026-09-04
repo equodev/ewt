@@ -8506,6 +8506,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
       scrollDirection.ordinal());
   }
 
+  MemorySegment statefulBuilderStatefulBuilder(BiFunction<BuildContext, Consumer<Runnable>, Widget> builder) {
+    var st = WidgetFactories.statefulBuilder(factories);
+    var fn = WidgetFactories.StatefulBuilderSt.statefulBuilder(st);
+    return WidgetFactories.StatefulBuilderSt.statefulBuilder.invoke(fn, arena, ptrStatefulWidgetBuilderFn(builder));
+  }
+
   MemorySegment tableCellTableCell(Optional<TableCellVerticalAlignment> verticalAlignment, Widget child) {
     var st = WidgetFactories.tableCell(factories);
     var fn = WidgetFactories.TableCellSt.tableCell(st);
@@ -10497,6 +10503,17 @@ MemorySegment ptrPopInvokedCallbackFn(Consumer<Boolean> jFn) {
 MemorySegment ptrWillPopCallbackFn(Supplier<Future> jFn) {
   return WillPopCallbackFFI.allocate(() -> {
     final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrStateSetterFn(Consumer<Runnable> jFn) {
+  return StateSetterFFI.allocate((fn) -> {
+    jFn.accept(memToVoidCallback(fn));
+  }, arena);
+}
+MemorySegment ptrStatefulWidgetBuilderFn(BiFunction<BuildContext, Consumer<Runnable>, Widget> jFn) {
+  return StatefulWidgetBuilderFFI.allocate((context, setState) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, memToStateSetter(setState));
     return jFnRet.build().getId();
   }, arena);
 }

@@ -2,6 +2,7 @@ package dev.equo.ewt;
 import dev.equo.ewt.ffm.*;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.lang.foreign.*;
 
 class WidgetConstructorsBase implements AutoCloseable {
@@ -36,6 +37,43 @@ class WidgetConstructorsBase implements AutoCloseable {
     }
     int i = ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0);
     return values[i];
+  }
+
+  /// Wraps a native `void ()` function pointer as a Runnable. Used on the
+  /// callback upcall path when a callback arg is itself a callback — e.g.
+  /// `StateSetter = void Function(VoidCallback)` in `StatefulBuilder.builder`,
+  /// where Dart hands us a pointer to a Dart `void ()` closure and Java code
+  /// wants to invoke it as a `Runnable`.
+  static Runnable memToVoidCallback(MemorySegment fn) {
+    if (fn == null || MemorySegment.NULL.equals(fn)) return () -> {};
+    return () -> {
+      try {
+        java.lang.foreign.Linker.nativeLinker()
+            .downcallHandle(fn, java.lang.foreign.FunctionDescriptor.ofVoid())
+            .invoke();
+      } catch (Throwable t) {
+        throw new RuntimeException(t);
+      }
+    };
+  }
+
+  /// Wraps a native `void (VoidCallback)` function pointer (StateSetter shape)
+  /// as `Consumer<Runnable>`. Each invocation upcall-allocates the caller's
+  /// Runnable and hands the pointer to the C function. Used in
+  /// `StatefulBuilder.builder`.
+  Consumer<Runnable> memToStateSetter(MemorySegment ptr) {
+    if (ptr == null || MemorySegment.NULL.equals(ptr)) return r -> {};
+    return r -> {
+      MemorySegment stub = VoidCallbackFFI.allocate(r::run, arena);
+      try {
+        java.lang.foreign.Linker.nativeLinker()
+            .downcallHandle(ptr, java.lang.foreign.FunctionDescriptor.ofVoid(
+                java.lang.foreign.ValueLayout.ADDRESS))
+            .invoke(stub);
+      } catch (Throwable t) {
+        throw new RuntimeException(t);
+      }
+    };
   }
 
   /// Reads an {@link ArrayC} struct (size + int* of widget ids) back into a

@@ -3556,6 +3556,9 @@ typedef struct {
 } PrimaryScrollControllerObjSt;
 typedef struct {
   int id;
+} StatefulBuilderObjSt;
+typedef struct {
+  int id;
   int verticalAlignment;
   DartObj child;
 } TableCellObjSt;

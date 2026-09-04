@@ -2028,6 +2028,10 @@ public class EWT {
     return PrimaryScrollControllerNoneBuilder.primaryScrollControllerNone(child);
   }
 
+  public static StatefulBuilderStatefulBuilderBuilder StatefulBuilder(BiFunction<BuildContext, Consumer<Runnable>, Widget> builder) {
+    return StatefulBuilderStatefulBuilderBuilder.statefulBuilderStatefulBuilder(builder);
+  }
+
   public static TableCellTableCellBuilder TableCell() {
     return TableCellTableCellBuilder.tableCellTableCell();
   }

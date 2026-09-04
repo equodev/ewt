@@ -1923,6 +1923,10 @@ typedef struct {
     int (*shouldInherit)(DartObj context, int scrollDirection);
   } primaryScrollController;
 
+  struct StatefulBuilderSt {
+    StatefulBuilderObjSt (*statefulBuilder)(StatefulWidgetBuilderFFI builder);
+  } statefulBuilder;
+
   struct TableCellSt {
     TableCellObjSt (*tableCell)(int* verticalAlignment, DartObj child);
   } tableCell;

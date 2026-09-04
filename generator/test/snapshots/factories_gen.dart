@@ -13821,6 +13821,20 @@ PrimaryScrollControllerObjSt _createPrimaryScrollControllerObjSt(PrimaryScrollCo
   return stObj;
 }
 
+void _setupStatefulBuilder(WidgetFactories f) {
+  f.statefulBuilder.statefulBuilder = ffi.Pointer.fromFunction(statefulBuilderStatefulBuilder);
+}
+StatefulBuilderObjSt statefulBuilderStatefulBuilder(StatefulWidgetBuilderFFI builder) {
+  final w = StatefulBuilder(builder: builder.toStatefulWidgetBuilderFn());
+  return _createStatefulBuilderObjSt(w);
+}
+StatefulBuilderObjSt _createStatefulBuilderObjSt(StatefulBuilder? w) {
+  final StatefulBuilderObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 void _setupTableCell(WidgetFactories f) {
   f.tableCell.tableCell = ffi.Pointer.fromFunction(tableCellTableCell);
 }
@@ -16821,6 +16835,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupFocusScope(f);
   _setupForm(f);
   _setupPrimaryScrollController(f);
+  _setupStatefulBuilder(f);
   _setupTableCell(f);
   _setupImage(f);
   _setupButtonBar(f);
@@ -18010,6 +18025,31 @@ extension on WillPopCallbackFFI {
 }
 extension on ffi.Pointer<WillPopCallbackFFI> {
   WillPopCallback? toWillPopCallbackFn() => (this != ffi.nullptr) ? this.value.toWillPopCallbackFn() : null;
+}
+
+extension on StateSetterFFI {
+  StateSetter toStateSetterFn() {
+    return (void Function() fn) {
+      DartStateSetterFFIFunction dFn = asFunction();
+      dFn(ffi.NativeCallable<ffi.Void Function()>.isolateLocal(fn).nativeFunction);
+    };
+  }
+}
+extension on ffi.Pointer<StateSetterFFI> {
+  StateSetter? toStateSetterFn() => (this != ffi.nullptr) ? this.value.toStateSetterFn() : null;
+}
+
+extension on StatefulWidgetBuilderFFI {
+  StatefulWidgetBuilder toStatefulWidgetBuilderFn() {
+    return (BuildContext context, void Function(void Function()) setState) => _runBuildScope(() {
+      DartStatefulWidgetBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> _cb) { setState(_cb.asFunction<void Function()>()); }).nativeFunction);
+      return _widgetsMap[dFnRet]! as Widget;
+    });
+  }
+}
+extension on ffi.Pointer<StatefulWidgetBuilderFFI> {
+  StatefulWidgetBuilder? toStatefulWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toStatefulWidgetBuilderFn() : null;
 }
 
 extension on ImageFrameBuilderFFI {

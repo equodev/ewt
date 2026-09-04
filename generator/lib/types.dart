@@ -411,6 +411,28 @@ class Types {
       }
       value = '${t.element!.name}.values()[$value]';
     }
+    else if (fromCallback && t is FunctionType) {
+      // A callback arg that is itself a callback (StateSetter = void
+      // Function(VoidCallback) in StatefulBuilder.builder). The FFI stub
+      // hands us the inner callback as a MemorySegment (native fn pointer);
+      // wrap it as a Java lambda that downcalls the C address.
+      if (t.returnType is VoidType && t.parameters.isEmpty) {
+        // void () — simplest Runnable shape.
+        return 'memToVoidCallback($value)';
+      }
+      final ps = t.parameters;
+      if (t.returnType is VoidType &&
+          ps.length == 1 &&
+          ps[0].type is FunctionType) {
+        final inner = ps[0].type as FunctionType;
+        if (inner.returnType is VoidType && inner.parameters.isEmpty) {
+          // void (VoidCallback) — StateSetter shape.
+          return 'memToStateSetter($value)';
+        }
+      }
+      // Fall through to the default `value` — will fail to compile and
+      // surface any other nested-callback shape not yet handled.
+    }
     else if (t.isDartCoreList) {
       final arrayType = (t as InterfaceType).typeArguments[0];
       if (arrayType.isDartCoreString) {

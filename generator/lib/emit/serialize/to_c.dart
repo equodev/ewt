@@ -47,6 +47,30 @@ class DartToC extends SerializeStrategy {
       final value = ensureName(param);
       return '($value != null) ? (calloc<ffi.Int>()..value = $value!.index) : ffi.nullptr';
     }
+    // A nested callback arg (`void Function()` / `void Function(VoidCallback)`).
+    // Convert the Dart closure into a native function pointer via
+    // NativeCallable.isolateLocal so it can cross the C boundary — the pointer
+    // is disposed when the wrapping upcall completes because the NativeCallable
+    // is kept alive by the enclosing _runBuildScope arena's lifecycle.
+    if (fromCallback && t is FunctionType) {
+      final value = ensureName(param);
+      if (t.returnType is VoidType && t.parameters.isEmpty) {
+        // void () → VoidCallback pointer.
+        return 'ffi.NativeCallable<ffi.Void Function()>.isolateLocal($value).nativeFunction';
+      }
+      if (t.returnType is VoidType &&
+          t.parameters.length == 1 &&
+          t.parameters[0].type is FunctionType) {
+        final inner = t.parameters[0].type as FunctionType;
+        if (inner.returnType is VoidType && inner.parameters.isEmpty) {
+          // void (VoidCallback) → StateSetter pointer. The inner argument
+          // reaches the Dart-side closure as a Pointer<NativeFunction<...>>.
+          // Adapt inline: unwrap the pointer back into a Dart `void ()`
+          // closure and forward to the user's `$value` setter.
+          return 'ffi.NativeCallable<ffi.Void Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>.isolateLocal((ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> _cb) { $value(_cb.asFunction<void Function()>()); }).nativeFunction';
+        }
+      }
+    }
     if (t is! InterfaceType) return ensureName(param);
     final inner = dispatchInterface(types, param, t);
     // Non-primitive objects encode their own null-passing — the base

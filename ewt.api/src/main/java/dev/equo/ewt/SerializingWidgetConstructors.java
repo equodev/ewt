@@ -11504,6 +11504,17 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment statefulBuilderStatefulBuilder(BiFunction<BuildContext, Consumer<Runnable>, Widget> builder) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("builder", nextCallbackId++);
+    record(id, "statefulBuilderStatefulBuilder", p);
+    MemorySegment st = StatefulBuilderObjSt.allocate(arena);
+    StatefulBuilderObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment tableCellTableCell(Optional<TableCellVerticalAlignment> verticalAlignment, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
