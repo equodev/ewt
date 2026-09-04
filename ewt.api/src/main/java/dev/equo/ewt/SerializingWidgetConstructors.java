@@ -10168,6 +10168,134 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment bottomAppBarThemeBottomAppBarTheme(Optional<Color> color, OptionalDouble elevation, OptionalDouble height, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<EdgeInsetsGeometry> padding, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "bottomAppBarThemeBottomAppBarTheme", p);
+    MemorySegment st = BottomAppBarThemeObjSt.allocate(arena);
+    BottomAppBarThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment bottomAppBarThemeLerp(BottomAppBarTheme a, BottomAppBarTheme b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "bottomAppBarThemeLerp", p);
+    MemorySegment st = BottomAppBarThemeObjSt.allocate(arena);
+    BottomAppBarThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment buttonThemeButtonTheme(Optional<ButtonTextTheme> textTheme, Optional<ButtonBarLayoutBehavior> layoutBehavior, OptionalDouble minWidth, OptionalDouble height, Optional<EdgeInsetsGeometry> padding, Optional<ShapeBorder> shape, Optional<Boolean> alignedDropdown, Optional<Color> buttonColor, Optional<Color> disabledColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<ColorScheme> colorScheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    textTheme.ifPresent(v -> p.put("textTheme", v.ordinal()));
+    layoutBehavior.ifPresent(v -> p.put("layoutBehavior", v.ordinal()));
+    if (minWidth.isPresent()) { p.put("minWidth", minWidth.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    alignedDropdown.ifPresent(v -> p.put("alignedDropdown", v));
+    buttonColor.ifPresent(v -> p.put("buttonColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    colorScheme.ifPresent(v -> p.put("colorScheme", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "buttonThemeButtonTheme", p);
+    MemorySegment st = ButtonThemeObjSt.allocate(arena);
+    ButtonThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment materialButtonMaterialButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHighlightChanged, Optional<ButtonTextTheme> textTheme, Optional<Color> textColor, Optional<Color> disabledTextColor, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Brightness> colorBrightness, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Duration> animationDuration, OptionalDouble minWidth, OptionalDouble height, Optional<Boolean> enableFeedback, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
+    textTheme.ifPresent(v -> p.put("textTheme", v.ordinal()));
+    textColor.ifPresent(v -> p.put("textColor", byId.get(v.getId())));
+    disabledTextColor.ifPresent(v -> p.put("disabledTextColor", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    colorBrightness.ifPresent(v -> p.put("colorBrightness", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (focusElevation.isPresent()) { p.put("focusElevation", focusElevation.getAsDouble()); }
+    if (hoverElevation.isPresent()) { p.put("hoverElevation", hoverElevation.getAsDouble()); }
+    if (highlightElevation.isPresent()) { p.put("highlightElevation", highlightElevation.getAsDouble()); }
+    if (disabledElevation.isPresent()) { p.put("disabledElevation", disabledElevation.getAsDouble()); }
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    animationDuration.ifPresent(v -> p.put("animationDuration", byId.get(v.getId())));
+    if (minWidth.isPresent()) { p.put("minWidth", minWidth.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "materialButtonMaterialButton", p);
+    MemorySegment st = MaterialButtonObjSt.allocate(arena);
+    MaterialButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment rawMaterialButtonRawMaterialButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHighlightChanged, Optional<TextStyle> textStyle, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<BoxConstraints> constraints, Optional<ShapeBorder> shape, Optional<Duration> animationDuration, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> child, Optional<Boolean> enableFeedback) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onHighlightChanged.isPresent()) { int __cb_onHighlightChanged = nextCallbackId++; p.put("onHighlightChanged", __cb_onHighlightChanged); java.util.function.Consumer<Boolean> __h_onHighlightChanged = onHighlightChanged.get(); callbacks.put(__cb_onHighlightChanged, (java.util.function.Consumer<Object>)(v -> __h_onHighlightChanged.accept((Boolean) v))); }
+    textStyle.ifPresent(v -> p.put("textStyle", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (focusElevation.isPresent()) { p.put("focusElevation", focusElevation.getAsDouble()); }
+    if (hoverElevation.isPresent()) { p.put("hoverElevation", hoverElevation.getAsDouble()); }
+    if (highlightElevation.isPresent()) { p.put("highlightElevation", highlightElevation.getAsDouble()); }
+    if (disabledElevation.isPresent()) { p.put("disabledElevation", disabledElevation.getAsDouble()); }
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    animationDuration.ifPresent(v -> p.put("animationDuration", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    record(id, "rawMaterialButtonRawMaterialButton", p);
+    MemorySegment st = RawMaterialButtonObjSt.allocate(arena);
+    RawMaterialButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

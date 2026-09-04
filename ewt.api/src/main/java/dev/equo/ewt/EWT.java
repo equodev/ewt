@@ -1859,6 +1859,22 @@ public class EWT {
     return TabBarThemeTabBarThemeBuilder.tabBarThemeTabBarTheme();
   }
 
+  public static BottomAppBarThemeBottomAppBarThemeBuilder BottomAppBarTheme() {
+    return BottomAppBarThemeBottomAppBarThemeBuilder.bottomAppBarThemeBottomAppBarTheme();
+  }
+
+  public static ButtonThemeButtonThemeBuilder ButtonTheme() {
+    return ButtonThemeButtonThemeBuilder.buttonThemeButtonTheme();
+  }
+
+  public static MaterialButtonMaterialButtonBuilder MaterialButton() {
+    return MaterialButtonMaterialButtonBuilder.materialButtonMaterialButton();
+  }
+
+  public static RawMaterialButtonRawMaterialButtonBuilder RawMaterialButton() {
+    return RawMaterialButtonRawMaterialButtonBuilder.rawMaterialButtonRawMaterialButton();
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

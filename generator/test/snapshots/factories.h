@@ -1721,6 +1721,23 @@ typedef struct {
     TabBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
   } tabBarTheme;
 
+  struct BottomAppBarThemeSt {
+    BottomAppBarThemeObjSt (*bottomAppBarTheme)(DartObj* color, double* elevation, double* height, DartObj* surfaceTintColor, DartObj* shadowColor, DartObj* padding, DartObj* child);
+    BottomAppBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } bottomAppBarTheme;
+
+  struct ButtonThemeSt {
+    ButtonThemeObjSt (*buttonTheme)(int* textTheme, int* layoutBehavior, double* minWidth, double* height, DartObj* padding, DartObj* shape, int* alignedDropdown, DartObj* buttonColor, DartObj* disabledColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* colorScheme, int* materialTapTargetSize, DartObj child);
+  } buttonTheme;
+
+  struct MaterialButtonSt {
+    MaterialButtonObjSt (*materialButton)(VoidCallbackFFI* onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHighlightChanged, int* textTheme, DartObj* textColor, DartObj* disabledTextColor, DartObj* color, DartObj* disabledColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, int* colorBrightness, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, DartObj* padding, DartObj* visualDensity, DartObj* shape, int* clipBehavior, int* autofocus, int* materialTapTargetSize, DartObj* animationDuration, double* minWidth, double* height, int* enableFeedback, DartObj* child);
+  } materialButton;
+
+  struct RawMaterialButtonSt {
+    RawMaterialButtonObjSt (*rawMaterialButton)(VoidCallbackFFI* onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHighlightChanged, DartObj* textStyle, DartObj* fillColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, DartObj* padding, DartObj* visualDensity, DartObj* constraints, DartObj* shape, DartObj* animationDuration, int* clipBehavior, int* autofocus, int* materialTapTargetSize, DartObj* child, int* enableFeedback);
+  } rawMaterialButton;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

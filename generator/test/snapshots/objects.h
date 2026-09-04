@@ -3138,6 +3138,103 @@ typedef struct {
 } TimePickerThemeObjSt;
 typedef struct {
   int id;
+} ElevatedButtonThemeObjSt;
+typedef struct {
+  int id;
+} TextButtonThemeObjSt;
+typedef struct {
+  int id;
+} OutlinedButtonThemeObjSt;
+typedef struct {
+  int id;
+} FilledButtonThemeObjSt;
+typedef struct {
+  int id;
+} IconButtonThemeObjSt;
+typedef struct {
+  int id;
+} SegmentedButtonThemeObjSt;
+typedef struct {
+  int id;
+} DataTableThemeObjSt;
+typedef struct {
+  int id;
+} ToggleButtonsThemeObjSt;
+typedef struct {
+  int id;
+} ActionIconThemeObjSt;
+typedef struct {
+  int id;
+} CarouselViewThemeObjSt;
+typedef struct {
+  int id;
+  DartObj color;
+  double elevation;
+  double height;
+  DartObj surfaceTintColor;
+  DartObj shadowColor;
+  DartObj padding;
+} BottomAppBarThemeObjSt;
+typedef struct {
+  int id;
+} ButtonThemeObjSt;
+typedef struct {
+  int id;
+  int textTheme;
+  DartObj textColor;
+  DartObj disabledTextColor;
+  DartObj color;
+  DartObj disabledColor;
+  DartObj splashColor;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj highlightColor;
+  double elevation;
+  double hoverElevation;
+  double focusElevation;
+  double highlightElevation;
+  double disabledElevation;
+  int colorBrightness;
+  DartObj child;
+  DartObj padding;
+  VisualDensityObjSt visualDensity;
+  DartObj shape;
+  int clipBehavior;
+  int autofocus;
+  DartObj animationDuration;
+  int materialTapTargetSize;
+  double minWidth;
+  double height;
+  int enableFeedback;
+  int enabled;
+} MaterialButtonObjSt;
+typedef struct {
+  int id;
+  TextStyleObjSt textStyle;
+  DartObj fillColor;
+  DartObj focusColor;
+  DartObj hoverColor;
+  DartObj highlightColor;
+  DartObj splashColor;
+  double elevation;
+  double hoverElevation;
+  double focusElevation;
+  double highlightElevation;
+  double disabledElevation;
+  DartObj padding;
+  VisualDensityObjSt visualDensity;
+  BoxConstraintsObjSt constraints;
+  DartObj shape;
+  DartObj animationDuration;
+  DartObj child;
+  int materialTapTargetSize;
+  int autofocus;
+  int clipBehavior;
+  int enableFeedback;
+  int enabled;
+} RawMaterialButtonObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

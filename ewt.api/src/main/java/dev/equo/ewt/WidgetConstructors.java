@@ -7572,6 +7572,109 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
+  MemorySegment bottomAppBarThemeBottomAppBarTheme(Optional<Color> color, OptionalDouble elevation, OptionalDouble height, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, Optional<EdgeInsetsGeometry> padding, Optional<Widget> child) {
+    var st = WidgetFactories.bottomAppBarTheme(factories);
+    var fn = WidgetFactories.BottomAppBarThemeSt.bottomAppBarTheme(st);
+    return WidgetFactories.BottomAppBarThemeSt.bottomAppBarTheme.invoke(fn, arena, ptrObj(color),
+      ptr(elevation),
+      ptr(height),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptrObj(padding),
+      ptrObj(child));
+  }
+  MemorySegment bottomAppBarThemeLerp(BottomAppBarTheme a, BottomAppBarTheme b, double t) {
+    var st = WidgetFactories.bottomAppBarTheme(factories);
+    var fn = WidgetFactories.BottomAppBarThemeSt.lerp(st);
+    return WidgetFactories.BottomAppBarThemeSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment buttonThemeButtonTheme(Optional<ButtonTextTheme> textTheme, Optional<ButtonBarLayoutBehavior> layoutBehavior, OptionalDouble minWidth, OptionalDouble height, Optional<EdgeInsetsGeometry> padding, Optional<ShapeBorder> shape, Optional<Boolean> alignedDropdown, Optional<Color> buttonColor, Optional<Color> disabledColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<ColorScheme> colorScheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Widget child) {
+    var st = WidgetFactories.buttonTheme(factories);
+    var fn = WidgetFactories.ButtonThemeSt.buttonTheme(st);
+    return WidgetFactories.ButtonThemeSt.buttonTheme.invoke(fn, arena, ptrEnum(textTheme),
+      ptrEnum(layoutBehavior),
+      ptr(minWidth),
+      ptr(height),
+      ptrObj(padding),
+      ptrObj(shape),
+      ptrBool(alignedDropdown),
+      ptrObj(buttonColor),
+      ptrObj(disabledColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(highlightColor),
+      ptrObj(splashColor),
+      ptrObj(colorScheme),
+      ptrEnum(materialTapTargetSize),
+      child.build().getId());
+  }
+
+  MemorySegment materialButtonMaterialButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHighlightChanged, Optional<ButtonTextTheme> textTheme, Optional<Color> textColor, Optional<Color> disabledTextColor, Optional<Color> color, Optional<Color> disabledColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<Brightness> colorBrightness, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Duration> animationDuration, OptionalDouble minWidth, OptionalDouble height, Optional<Boolean> enableFeedback, Optional<Widget> child) {
+    var st = WidgetFactories.materialButton(factories);
+    var fn = WidgetFactories.MaterialButtonSt.materialButton(st);
+    return WidgetFactories.MaterialButtonSt.materialButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
+      ptrEnum(textTheme),
+      ptrObj(textColor),
+      ptrObj(disabledTextColor),
+      ptrObj(color),
+      ptrObj(disabledColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(highlightColor),
+      ptrObj(splashColor),
+      ptrEnum(colorBrightness),
+      ptr(elevation),
+      ptr(focusElevation),
+      ptr(hoverElevation),
+      ptr(highlightElevation),
+      ptr(disabledElevation),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrEnum(materialTapTargetSize),
+      ptrObj(animationDuration),
+      ptr(minWidth),
+      ptr(height),
+      ptrBool(enableFeedback),
+      ptrObj(child));
+  }
+
+  MemorySegment rawMaterialButtonRawMaterialButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHighlightChanged, Optional<TextStyle> textStyle, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<BoxConstraints> constraints, Optional<ShapeBorder> shape, Optional<Duration> animationDuration, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> child, Optional<Boolean> enableFeedback) {
+    var st = WidgetFactories.rawMaterialButton(factories);
+    var fn = WidgetFactories.RawMaterialButtonSt.rawMaterialButton(st);
+    return WidgetFactories.RawMaterialButtonSt.rawMaterialButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      onLongPress.isPresent() ? ptrHolder(ptrVoidCallbackFn(onLongPress.get())) : MemorySegment.NULL,
+      onHighlightChanged.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onHighlightChanged.get())) : MemorySegment.NULL,
+      ptrObj(textStyle),
+      ptrObj(fillColor),
+      ptrObj(focusColor),
+      ptrObj(hoverColor),
+      ptrObj(highlightColor),
+      ptrObj(splashColor),
+      ptr(elevation),
+      ptr(focusElevation),
+      ptr(hoverElevation),
+      ptr(highlightElevation),
+      ptr(disabledElevation),
+      ptrObj(padding),
+      ptrObj(visualDensity),
+      ptrObj(constraints),
+      ptrObj(shape),
+      ptrObj(animationDuration),
+      ptrEnum(clipBehavior),
+      ptrBool(autofocus),
+      ptrEnum(materialTapTargetSize),
+      ptrObj(child),
+      ptrBool(enableFeedback));
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);

@@ -468,6 +468,23 @@ m.TextSelectionTheme? textSelectionTheme;
 m.DatePickerTheme? datePickerTheme;
 m.TimePickerTheme? timePickerTheme;
 
+// --- Batch 5: button themes + misc Material ---
+m.ElevatedButtonTheme? elevatedButtonTheme;
+m.TextButtonTheme? textButtonTheme;
+m.OutlinedButtonTheme? outlinedButtonTheme;
+m.FilledButtonTheme? filledButtonTheme;
+m.IconButtonTheme? iconButtonTheme;
+m.FloatingActionButtonTheme? floatingActionButtonTheme;
+m.SegmentedButtonTheme? segmentedButtonTheme;
+m.DataTableTheme? dataTableTheme;
+m.ToggleButtonsTheme? toggleButtonsTheme;
+m.ActionIconTheme? actionIconTheme;
+m.CarouselViewTheme? carouselViewTheme;
+m.BottomAppBarTheme? bottomAppBarTheme;
+m.ButtonTheme? buttonTheme;
+m.MaterialButton? materialButton;
+m.RawMaterialButton? rawMaterialButton;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

@@ -12185,6 +12185,196 @@ TabBarThemeObjSt _createTabBarThemeObjSt(TabBarTheme? w) {
   return stObj;
 }
 
+void _setupBottomAppBarTheme(WidgetFactories f) {
+  f.bottomAppBarTheme.bottomAppBarTheme = ffi.Pointer.fromFunction(bottomAppBarThemeBottomAppBarTheme);
+  f.bottomAppBarTheme.lerp = ffi.Pointer.fromFunction(bottomAppBarThemeLerp);
+}
+BottomAppBarThemeObjSt bottomAppBarThemeBottomAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> child) {
+  final w = BottomAppBarTheme(color: color.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      height: height.doubleOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      padding: padding.objOrNul(),
+      child: child.objOrNul());
+  return _createBottomAppBarThemeObjSt(w);
+}
+BottomAppBarThemeObjSt bottomAppBarThemeLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = BottomAppBarTheme.lerp(_widgetsMap[a]! as BottomAppBarTheme?,
+      _widgetsMap[b]! as BottomAppBarTheme?,
+      t);
+  return _createBottomAppBarThemeObjSt(w);
+}
+BottomAppBarThemeObjSt _createBottomAppBarThemeObjSt(BottomAppBarTheme? w) {
+  final BottomAppBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.padding = _addWidget(w.padding);
+  return stObj;
+}
+
+void _setupButtonTheme(WidgetFactories f) {
+  f.buttonTheme.buttonTheme = ffi.Pointer.fromFunction(buttonThemeButtonTheme);
+}
+ButtonThemeObjSt buttonThemeButtonTheme(ffi.Pointer<ffi.Int> textTheme, ffi.Pointer<ffi.Int> layoutBehavior, ffi.Pointer<ffi.Double> minWidth, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> alignedDropdown, ffi.Pointer<DartObj> buttonColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> materialTapTargetSize, DartDartObj child) {
+  final w = ButtonTheme(textTheme: textTheme.enumOr(ButtonTextTheme.values, ButtonTextTheme.normal),
+      layoutBehavior: layoutBehavior.enumOr(ButtonBarLayoutBehavior.values, ButtonBarLayoutBehavior.padded),
+      minWidth: minWidth.doubleOr(88.0),
+      height: height.doubleOr(36.0),
+      padding: padding.objOrNul(),
+      shape: shape.objOrNul(),
+      alignedDropdown: alignedDropdown.boolOr(false),
+      buttonColor: buttonColor.objOrNul(),
+      disabledColor: disabledColor.objOrNul(),
+      focusColor: focusColor.objOrNul(),
+      hoverColor: hoverColor.objOrNul(),
+      highlightColor: highlightColor.objOrNul(),
+      splashColor: splashColor.objOrNul(),
+      colorScheme: colorScheme.objOrNul(),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      child: _widgetsMap[child]! as Widget);
+  return _createButtonThemeObjSt(w);
+}
+ButtonThemeObjSt _createButtonThemeObjSt(ButtonTheme? w) {
+  final ButtonThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupMaterialButton(WidgetFactories f) {
+  f.materialButton.materialButton = ffi.Pointer.fromFunction(materialButtonMaterialButton);
+}
+MaterialButtonObjSt materialButtonMaterialButton(ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onHighlightChanged, ffi.Pointer<ffi.Int> textTheme, ffi.Pointer<DartObj> textColor, ffi.Pointer<DartObj> disabledTextColor, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Int> colorBrightness, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<DartObj> animationDuration, ffi.Pointer<ffi.Double> minWidth, ffi.Pointer<ffi.Double> height, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> child) {
+  final w = MaterialButton(onPressed: onPressed.toVoidCallbackFn(),
+      onLongPress: onLongPress.toVoidCallbackFn(),
+      onHighlightChanged: onHighlightChanged.toValueChangedForBoolFn(),
+      textTheme: textTheme.enumOrNul(ButtonTextTheme.values),
+      textColor: textColor.objOrNul(),
+      disabledTextColor: disabledTextColor.objOrNul(),
+      color: color.objOrNul(),
+      disabledColor: disabledColor.objOrNul(),
+      focusColor: focusColor.objOrNul(),
+      hoverColor: hoverColor.objOrNul(),
+      highlightColor: highlightColor.objOrNul(),
+      splashColor: splashColor.objOrNul(),
+      colorBrightness: colorBrightness.enumOrNul(Brightness.values),
+      elevation: elevation.doubleOrNul(),
+      focusElevation: focusElevation.doubleOrNul(),
+      hoverElevation: hoverElevation.doubleOrNul(),
+      highlightElevation: highlightElevation.doubleOrNul(),
+      disabledElevation: disabledElevation.doubleOrNul(),
+      padding: padding.objOrNul(),
+      visualDensity: visualDensity.objOrNul(),
+      shape: shape.objOrNul(),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      autofocus: autofocus.boolOr(false),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      animationDuration: animationDuration.objOrNul(),
+      minWidth: minWidth.doubleOrNul(),
+      height: height.doubleOrNul(),
+      enableFeedback: enableFeedback.boolOr(true),
+      child: child.objOrNul());
+  return _createMaterialButtonObjSt(w);
+}
+MaterialButtonObjSt _createMaterialButtonObjSt(MaterialButton? w) {
+  final MaterialButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.textTheme = (w.textTheme != null) ? w.textTheme!.index : 0;
+  stObj.textColor = _addWidget(w.textColor);
+  stObj.disabledTextColor = _addWidget(w.disabledTextColor);
+  stObj.color = _addWidget(w.color);
+  stObj.disabledColor = _addWidget(w.disabledColor);
+  stObj.splashColor = _addWidget(w.splashColor);
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.hoverColor = _addWidget(w.hoverColor);
+  stObj.highlightColor = _addWidget(w.highlightColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.hoverElevation = (w.hoverElevation != null) ? w.hoverElevation! : 0;
+  stObj.focusElevation = (w.focusElevation != null) ? w.focusElevation! : 0;
+  stObj.highlightElevation = (w.highlightElevation != null) ? w.highlightElevation! : 0;
+  stObj.disabledElevation = (w.disabledElevation != null) ? w.disabledElevation! : 0;
+  stObj.colorBrightness = (w.colorBrightness != null) ? w.colorBrightness!.index : 0;
+  stObj.child = _addWidget(w.child);
+  stObj.padding = _addWidget(w.padding);
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.shape = _addWidget(w.shape);
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.animationDuration = _addWidget(w.animationDuration);
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.minWidth = (w.minWidth != null) ? w.minWidth! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.enableFeedback = w.enableFeedback.toInt();
+  stObj.enabled = w.enabled.toInt();
+  return stObj;
+}
+
+void _setupRawMaterialButton(WidgetFactories f) {
+  f.rawMaterialButton.rawMaterialButton = ffi.Pointer.fromFunction(rawMaterialButtonRawMaterialButton);
+}
+RawMaterialButtonObjSt rawMaterialButtonRawMaterialButton(ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<ValueChangedForBoolFFI> onHighlightChanged, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> focusElevation, ffi.Pointer<ffi.Double> hoverElevation, ffi.Pointer<ffi.Double> highlightElevation, ffi.Pointer<ffi.Double> disabledElevation, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> animationDuration, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<DartObj> child, ffi.Pointer<ffi.Int> enableFeedback) {
+  final w = RawMaterialButton(onPressed: onPressed.toVoidCallbackFn(),
+      onLongPress: onLongPress.toVoidCallbackFn(),
+      onHighlightChanged: onHighlightChanged.toValueChangedForBoolFn(),
+      textStyle: textStyle.objOrNul(),
+      fillColor: fillColor.objOrNul(),
+      focusColor: focusColor.objOrNul(),
+      hoverColor: hoverColor.objOrNul(),
+      highlightColor: highlightColor.objOrNul(),
+      splashColor: splashColor.objOrNul(),
+      elevation: elevation.doubleOr(2.0),
+      focusElevation: focusElevation.doubleOr(4.0),
+      hoverElevation: hoverElevation.doubleOr(4.0),
+      highlightElevation: highlightElevation.doubleOr(8.0),
+      disabledElevation: disabledElevation.doubleOr(0.0),
+      padding: padding.objOr(EdgeInsets.zero),
+      visualDensity: visualDensity.objOr(VisualDensity.standard),
+      constraints: constraints.objOr(const BoxConstraints(minWidth: 88.0, minHeight: 36.0)),
+      shape: shape.objOr(const RoundedRectangleBorder()),
+      animationDuration: animationDuration.objOr(kThemeChangeDuration),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.none),
+      autofocus: autofocus.boolOr(false),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      child: child.objOrNul(),
+      enableFeedback: enableFeedback.boolOr(true));
+  return _createRawMaterialButtonObjSt(w);
+}
+RawMaterialButtonObjSt _createRawMaterialButtonObjSt(RawMaterialButton? w) {
+  final RawMaterialButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.textStyle = _createTextStyleObjSt(w.textStyle);
+  stObj.fillColor = _addWidget(w.fillColor);
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.hoverColor = _addWidget(w.hoverColor);
+  stObj.highlightColor = _addWidget(w.highlightColor);
+  stObj.splashColor = _addWidget(w.splashColor);
+  stObj.elevation = w.elevation;
+  stObj.hoverElevation = w.hoverElevation;
+  stObj.focusElevation = w.focusElevation;
+  stObj.highlightElevation = w.highlightElevation;
+  stObj.disabledElevation = w.disabledElevation;
+  stObj.padding = _addWidget(w.padding);
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.shape = _addWidget(w.shape);
+  stObj.animationDuration = _addWidget(w.animationDuration);
+  stObj.child = _addWidget(w.child);
+  stObj.materialTapTargetSize = w.materialTapTargetSize.index;
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.clipBehavior = w.clipBehavior.index;
+  stObj.enableFeedback = w.enableFeedback.toInt();
+  stObj.enabled = w.enabled.toInt();
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -12608,6 +12798,10 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupCardTheme(f);
   _setupDialogTheme(f);
   _setupTabBarTheme(f);
+  _setupBottomAppBarTheme(f);
+  _setupButtonTheme(f);
+  _setupMaterialButton(f);
+  _setupRawMaterialButton(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
