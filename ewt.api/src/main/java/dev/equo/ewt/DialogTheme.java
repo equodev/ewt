@@ -17,7 +17,7 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
   }
   DialogTheme(int id) { this.id = id; }
   @Builder.Factory
-  static DialogTheme dialogThemeDialogTheme(Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<ColorI> iconColor, Optional<TextStyleI> titleTextStyle, Optional<TextStyleI> contentTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<ColorI> barrierColor, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
+  static DialogTheme dialogThemeDialogTheme(Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<ColorI> iconColor, Optional<TextStyleI> titleTextStyle, Optional<TextStyleI> contentTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<ColorI> barrierColor, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<DialogThemeDataI> data, Optional<WidgetI> child) {
     var st = factories.dialogThemeDialogTheme(backgroundColor.map(ColorI::build),
       elevation,
       shadowColor.map(ColorI::build),
@@ -31,12 +31,18 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       barrierColor.map(ColorI::build),
       insetPadding.map(EdgeInsetsI::build),
       clipBehavior,
+      data.map(DialogThemeDataI::build),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget DialogTheme");
     return new DialogTheme(st);
   }
   public static DialogThemeDialogThemeBuilder dialogTheme() {
     return DialogThemeDialogThemeBuilder.dialogThemeDialogTheme();
+  }
+  public static DialogThemeData of(BuildContextI context) {
+    var st = factories.dialogThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget DialogThemeData");
+    return new DialogThemeData(st);
   }
   public static DialogTheme lerp(DialogThemeI a, DialogThemeI b, double t) {
     var st = factories.dialogThemeLerp(a.build(),
@@ -134,6 +140,16 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dialogThemeClipBehavior not supported on web");
     return Clip.values()[DialogThemeObjSt.clipBehavior(st)];
+  }
+  public DialogThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("dialogThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DialogThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DialogThemeDataObjSt.id(__st, __nid);
+      return new DialogThemeData(__st);
+    }
+    return new DialogThemeData(DialogThemeObjSt.data(st));
   }
   @Override
   public DialogTheme build() {

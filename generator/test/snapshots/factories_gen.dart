@@ -6613,7 +6613,7 @@ void _setupThemeData(WidgetFactories f) {
   f.themeData.estimateBrightnessForColor = ffi.Pointer.fromFunction(themeDataEstimateBrightnessForColor, exception);
   f.themeData.lerp = ffi.Pointer.fromFunction(themeDataLerp);
 }
-ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<DartObj> cupertinoOverrideTheme, ffi.Pointer<DartObj> inputDecorationTheme, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<ffi.Int> useSystemColors, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> primaryIconTheme, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> appBarTheme, ffi.Pointer<DartObj> dialogBackgroundColor, ffi.Pointer<DartObj> indicatorColor) {
+ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColor, ffi.Pointer<DartObj> cupertinoOverrideTheme, ffi.Pointer<DartObj> inputDecorationTheme, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Int> platform, ffi.Pointer<ffi.Int> useMaterial3, ffi.Pointer<ffi.Int> useSystemColors, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> colorScheme, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> colorSchemeSeed, ffi.Pointer<DartObj> canvasColor, ffi.Pointer<DartObj> cardColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<DartObj> focusColor, ffi.Pointer<DartObj> highlightColor, ffi.Pointer<DartObj> hintColor, ffi.Pointer<DartObj> hoverColor, ffi.Pointer<DartObj> primaryColor, ffi.Pointer<DartObj> primaryColorDark, ffi.Pointer<DartObj> primaryColorLight, ffi.Pointer<DartObj> primarySwatch, ffi.Pointer<DartObj> scaffoldBackgroundColor, ffi.Pointer<DartObj> secondaryHeaderColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> splashColor, ffi.Pointer<DartObj> unselectedWidgetColor, ffi.Pointer<ffi.Char> fontFamily, ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> fontFamilyFallback, ffi.Pointer<ffi.Char> package, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> primaryIconTheme, ffi.Pointer<DartObj> primaryTextTheme, ffi.Pointer<DartObj> textTheme, ffi.Pointer<DartObj> appBarTheme, ffi.Pointer<DartObj> badgeTheme, ffi.Pointer<DartObj> cardTheme, ffi.Pointer<DartObj> checkboxTheme, ffi.Pointer<DartObj> chipTheme, ffi.Pointer<DartObj> dialogTheme, ffi.Pointer<DartObj> dividerTheme, ffi.Pointer<DartObj> menuBarTheme, ffi.Pointer<DartObj> menuTheme, ffi.Pointer<DartObj> popupMenuTheme, ffi.Pointer<DartObj> radioTheme, ffi.Pointer<DartObj> sliderTheme, ffi.Pointer<DartObj> snackBarTheme, ffi.Pointer<DartObj> switchTheme, ffi.Pointer<DartObj> tabBarTheme, ffi.Pointer<DartObj> tooltipTheme, ffi.Pointer<DartObj> dialogBackgroundColor, ffi.Pointer<DartObj> indicatorColor) {
   final w = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor.boolOrNul(),
       cupertinoOverrideTheme: cupertinoOverrideTheme.objOrNul(),
       inputDecorationTheme: inputDecorationTheme.objOrNul(),
@@ -6650,6 +6650,21 @@ ThemeDataObjSt themeDataThemeData(ffi.Pointer<ffi.Int> applyElevationOverlayColo
       primaryTextTheme: primaryTextTheme.objOrNul(),
       textTheme: textTheme.objOrNul(),
       appBarTheme: appBarTheme.objOrNul(),
+      badgeTheme: badgeTheme.objOrNul(),
+      cardTheme: cardTheme.objOrNul(),
+      checkboxTheme: checkboxTheme.objOrNul(),
+      chipTheme: chipTheme.objOrNul(),
+      dialogTheme: dialogTheme.objOrNul(),
+      dividerTheme: dividerTheme.objOrNul(),
+      menuBarTheme: menuBarTheme.objOrNul(),
+      menuTheme: menuTheme.objOrNul(),
+      popupMenuTheme: popupMenuTheme.objOrNul(),
+      radioTheme: radioTheme.objOrNul(),
+      sliderTheme: sliderTheme.objOrNul(),
+      snackBarTheme: snackBarTheme.objOrNul(),
+      switchTheme: switchTheme.objOrNul(),
+      tabBarTheme: tabBarTheme.objOrNul(),
+      tooltipTheme: tooltipTheme.objOrNul(),
       dialogBackgroundColor: dialogBackgroundColor.objOrNul(),
       indicatorColor: indicatorColor.objOrNul());
   return _createThemeDataObjSt(w);
@@ -6718,6 +6733,21 @@ ThemeDataObjSt _createThemeDataObjSt(ThemeData? w) {
   stObj.primaryIconTheme = _createIconThemeDataObjSt(w.primaryIconTheme);
   stObj.primaryTextTheme = _createTextThemeObjSt(w.primaryTextTheme);
   stObj.textTheme = _createTextThemeObjSt(w.textTheme);
+  stObj.badgeTheme = _createBadgeThemeDataObjSt(w.badgeTheme);
+  stObj.cardTheme = _createCardThemeDataObjSt(w.cardTheme);
+  stObj.checkboxTheme = _createCheckboxThemeDataObjSt(w.checkboxTheme);
+  stObj.chipTheme = _createChipThemeDataObjSt(w.chipTheme);
+  stObj.dialogTheme = _createDialogThemeDataObjSt(w.dialogTheme);
+  stObj.dividerTheme = _createDividerThemeDataObjSt(w.dividerTheme);
+  stObj.menuBarTheme = _createMenuBarThemeDataObjSt(w.menuBarTheme);
+  stObj.menuTheme = _createMenuThemeDataObjSt(w.menuTheme);
+  stObj.popupMenuTheme = _createPopupMenuThemeDataObjSt(w.popupMenuTheme);
+  stObj.radioTheme = _createRadioThemeDataObjSt(w.radioTheme);
+  stObj.sliderTheme = _createSliderThemeDataObjSt(w.sliderTheme);
+  stObj.snackBarTheme = _createSnackBarThemeDataObjSt(w.snackBarTheme);
+  stObj.switchTheme = _createSwitchThemeDataObjSt(w.switchTheme);
+  stObj.tabBarTheme = _createTabBarThemeDataObjSt(w.tabBarTheme);
+  stObj.tooltipTheme = _createTooltipThemeDataObjSt(w.tooltipTheme);
   stObj.dialogBackgroundColor = _addWidget(w.dialogBackgroundColor);
   stObj.indicatorColor = _addWidget(w.indicatorColor);
   stObj.brightness = w.brightness.index;
@@ -6750,6 +6780,637 @@ NoDefaultCupertinoThemeDataObjSt _createNoDefaultCupertinoThemeDataObjSt(NoDefau
   stObj.scaffoldBackgroundColor = _addWidget(w.scaffoldBackgroundColor);
   stObj.selectionHandleColor = _addWidget(w.selectionHandleColor);
   stObj.applyThemeToAll = (w.applyThemeToAll != null) ? w.applyThemeToAll!.toInt() : 0;
+  return stObj;
+}
+
+void _setupBadgeThemeData(WidgetFactories f) {
+  f.badgeThemeData.badgeThemeData = ffi.Pointer.fromFunction(badgeThemeDataBadgeThemeData);
+  f.badgeThemeData.lerp = ffi.Pointer.fromFunction(badgeThemeDataLerp);
+}
+BadgeThemeDataObjSt badgeThemeDataBadgeThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> textColor, ffi.Pointer<ffi.Double> smallSize, ffi.Pointer<ffi.Double> largeSize, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> offset) {
+  final w = BadgeThemeData(backgroundColor: backgroundColor.objOrNul(),
+      textColor: textColor.objOrNul(),
+      smallSize: smallSize.doubleOrNul(),
+      largeSize: largeSize.doubleOrNul(),
+      textStyle: textStyle.objOrNul(),
+      padding: padding.objOrNul(),
+      alignment: alignment.objOrNul(),
+      offset: offset.objOrNul());
+  return _createBadgeThemeDataObjSt(w);
+}
+BadgeThemeDataObjSt badgeThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = BadgeThemeData.lerp(_widgetsMap[a]! as BadgeThemeData?,
+      _widgetsMap[b]! as BadgeThemeData?,
+      t);
+  return _createBadgeThemeDataObjSt(w);
+}
+BadgeThemeDataObjSt _createBadgeThemeDataObjSt(BadgeThemeData? w) {
+  final BadgeThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.textColor = _addWidget(w.textColor);
+  stObj.smallSize = (w.smallSize != null) ? w.smallSize! : 0;
+  stObj.largeSize = (w.largeSize != null) ? w.largeSize! : 0;
+  stObj.textStyle = _createTextStyleObjSt(w.textStyle);
+  stObj.padding = _addWidget(w.padding);
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.offset = _addWidget(w.offset);
+  return stObj;
+}
+
+void _setupCardThemeData(WidgetFactories f) {
+  f.cardThemeData.cardThemeData = ffi.Pointer.fromFunction(cardThemeDataCardThemeData);
+  f.cardThemeData.lerp = ffi.Pointer.fromFunction(cardThemeDataLerp);
+}
+CardThemeDataObjSt cardThemeDataCardThemeData(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> shape) {
+  final w = CardThemeData(clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      color: color.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      margin: margin.objOrNul(),
+      shape: shape.objOrNul());
+  return _createCardThemeDataObjSt(w);
+}
+CardThemeDataObjSt cardThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = CardThemeData.lerp(_widgetsMap[a]! as CardThemeData?,
+      _widgetsMap[b]! as CardThemeData?,
+      t);
+  return _createCardThemeDataObjSt(w);
+}
+CardThemeDataObjSt _createCardThemeDataObjSt(CardThemeData? w) {
+  final CardThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.color = _addWidget(w.color);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.margin = _addWidget(w.margin);
+  stObj.shape = _addWidget(w.shape);
+  return stObj;
+}
+
+void _setupCheckboxThemeData(WidgetFactories f) {
+  f.checkboxThemeData.checkboxThemeData = ffi.Pointer.fromFunction(checkboxThemeDataCheckboxThemeData);
+  f.checkboxThemeData.lerp = ffi.Pointer.fromFunction(checkboxThemeDataLerp);
+}
+CheckboxThemeDataObjSt checkboxThemeDataCheckboxThemeData(ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> checkColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> side) {
+  final w = CheckboxThemeData(fillColor: _wspNul<Color?>(fillColor.objOrNul()),
+      checkColor: _wspNul<Color?>(checkColor.objOrNul()),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      splashRadius: splashRadius.doubleOrNul(),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      visualDensity: visualDensity.objOrNul(),
+      shape: shape.objOrNul(),
+      side: side.objOrNul());
+  return _createCheckboxThemeDataObjSt(w);
+}
+CheckboxThemeDataObjSt checkboxThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = CheckboxThemeData.lerp(_widgetsMap[a]! as CheckboxThemeData?,
+      _widgetsMap[b]! as CheckboxThemeData?,
+      t);
+  return _createCheckboxThemeDataObjSt(w);
+}
+CheckboxThemeDataObjSt _createCheckboxThemeDataObjSt(CheckboxThemeData? w) {
+  final CheckboxThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.splashRadius = (w.splashRadius != null) ? w.splashRadius! : 0;
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  stObj.shape = _addWidget(w.shape);
+  stObj.side = _createBorderSideObjSt(w.side);
+  return stObj;
+}
+
+void _setupChipThemeData(WidgetFactories f) {
+  f.chipThemeData.chipThemeData = ffi.Pointer.fromFunction(chipThemeDataChipThemeData);
+  f.chipThemeData.fromDefaults = ffi.Pointer.fromFunction(chipThemeDataFromDefaults);
+  f.chipThemeData.lerp = ffi.Pointer.fromFunction(chipThemeDataLerp);
+}
+ChipThemeDataObjSt chipThemeDataChipThemeData(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> deleteIconColor, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> selectedColor, ffi.Pointer<DartObj> secondarySelectedColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> selectedShadowColor, ffi.Pointer<ffi.Int> showCheckmark, ffi.Pointer<DartObj> checkmarkColor, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> secondaryLabelStyle, ffi.Pointer<ffi.Int> brightness, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> pressElevation, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> avatarBoxConstraints, ffi.Pointer<DartObj> deleteIconBoxConstraints) {
+  final w = ChipThemeData(color: _wspNul<Color?>(color.objOrNul()),
+      backgroundColor: backgroundColor.objOrNul(),
+      deleteIconColor: deleteIconColor.objOrNul(),
+      disabledColor: disabledColor.objOrNul(),
+      selectedColor: selectedColor.objOrNul(),
+      secondarySelectedColor: secondarySelectedColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      selectedShadowColor: selectedShadowColor.objOrNul(),
+      showCheckmark: showCheckmark.boolOrNul(),
+      checkmarkColor: checkmarkColor.objOrNul(),
+      labelPadding: labelPadding.objOrNul(),
+      padding: padding.objOrNul(),
+      side: side.objOrNul(),
+      shape: shape.objOrNul(),
+      labelStyle: labelStyle.objOrNul(),
+      secondaryLabelStyle: secondaryLabelStyle.objOrNul(),
+      brightness: brightness.enumOrNul(Brightness.values),
+      elevation: elevation.doubleOrNul(),
+      pressElevation: pressElevation.doubleOrNul(),
+      iconTheme: iconTheme.objOrNul(),
+      avatarBoxConstraints: avatarBoxConstraints.objOrNul(),
+      deleteIconBoxConstraints: deleteIconBoxConstraints.objOrNul());
+  return _createChipThemeDataObjSt(w);
+}
+ChipThemeDataObjSt chipThemeDataFromDefaults(ffi.Pointer<ffi.Int> brightness, ffi.Pointer<DartObj> primaryColor, DartDartObj secondaryColor, DartDartObj labelStyle) {
+  final w = ChipThemeData.fromDefaults(brightness: brightness.enumOrNul(Brightness.values),
+      primaryColor: primaryColor.objOrNul(),
+      secondaryColor: _widgetsMap[secondaryColor]! as Color,
+      labelStyle: _widgetsMap[labelStyle]! as TextStyle);
+  return _createChipThemeDataObjSt(w);
+}
+ChipThemeDataObjSt chipThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = ChipThemeData.lerp(_widgetsMap[a]! as ChipThemeData?,
+      _widgetsMap[b]! as ChipThemeData?,
+      t);
+  return _createChipThemeDataObjSt(w);
+}
+ChipThemeDataObjSt _createChipThemeDataObjSt(ChipThemeData? w) {
+  final ChipThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.deleteIconColor = _addWidget(w.deleteIconColor);
+  stObj.disabledColor = _addWidget(w.disabledColor);
+  stObj.selectedColor = _addWidget(w.selectedColor);
+  stObj.secondarySelectedColor = _addWidget(w.secondarySelectedColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.selectedShadowColor = _addWidget(w.selectedShadowColor);
+  stObj.showCheckmark = (w.showCheckmark != null) ? w.showCheckmark!.toInt() : 0;
+  stObj.checkmarkColor = _addWidget(w.checkmarkColor);
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  stObj.padding = _addWidget(w.padding);
+  stObj.side = _createBorderSideObjSt(w.side);
+  stObj.shape = _addWidget(w.shape);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.secondaryLabelStyle = _createTextStyleObjSt(w.secondaryLabelStyle);
+  stObj.brightness = (w.brightness != null) ? w.brightness!.index : 0;
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.pressElevation = (w.pressElevation != null) ? w.pressElevation! : 0;
+  stObj.iconTheme = _createIconThemeDataObjSt(w.iconTheme);
+  stObj.avatarBoxConstraints = _createBoxConstraintsObjSt(w.avatarBoxConstraints);
+  stObj.deleteIconBoxConstraints = _createBoxConstraintsObjSt(w.deleteIconBoxConstraints);
+  return stObj;
+}
+
+void _setupDialogThemeData(WidgetFactories f) {
+  f.dialogThemeData.dialogThemeData = ffi.Pointer.fromFunction(dialogThemeDataDialogThemeData);
+  f.dialogThemeData.lerp = ffi.Pointer.fromFunction(dialogThemeDataLerp);
+}
+DialogThemeDataObjSt dialogThemeDataDialogThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> barrierColor, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> constraints) {
+  final w = DialogThemeData(backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shape: shape.objOrNul(),
+      alignment: alignment.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      contentTextStyle: contentTextStyle.objOrNul(),
+      actionsPadding: actionsPadding.objOrNul(),
+      barrierColor: barrierColor.objOrNul(),
+      insetPadding: insetPadding.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      constraints: constraints.objOrNul());
+  return _createDialogThemeDataObjSt(w);
+}
+DialogThemeDataObjSt dialogThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = DialogThemeData.lerp(_widgetsMap[a]! as DialogThemeData?,
+      _widgetsMap[b]! as DialogThemeData?,
+      t);
+  return _createDialogThemeDataObjSt(w);
+}
+DialogThemeDataObjSt _createDialogThemeDataObjSt(DialogThemeData? w) {
+  final DialogThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shape = _addWidget(w.shape);
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.contentTextStyle = _createTextStyleObjSt(w.contentTextStyle);
+  stObj.actionsPadding = _addWidget(w.actionsPadding);
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.barrierColor = _addWidget(w.barrierColor);
+  stObj.insetPadding = _createEdgeInsetsObjSt(w.insetPadding);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  return stObj;
+}
+
+void _setupDividerThemeData(WidgetFactories f) {
+  f.dividerThemeData.dividerThemeData = ffi.Pointer.fromFunction(dividerThemeDataDividerThemeData);
+  f.dividerThemeData.lerp = ffi.Pointer.fromFunction(dividerThemeDataLerp);
+}
+DividerThemeDataObjSt dividerThemeDataDividerThemeData(ffi.Pointer<DartObj> color, ffi.Pointer<ffi.Double> space, ffi.Pointer<ffi.Double> thickness, ffi.Pointer<ffi.Double> indent, ffi.Pointer<ffi.Double> endIndent, ffi.Pointer<DartObj> radius) {
+  final w = DividerThemeData(color: color.objOrNul(),
+      space: space.doubleOrNul(),
+      thickness: thickness.doubleOrNul(),
+      indent: indent.doubleOrNul(),
+      endIndent: endIndent.doubleOrNul(),
+      radius: radius.objOrNul());
+  return _createDividerThemeDataObjSt(w);
+}
+DividerThemeDataObjSt dividerThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = DividerThemeData.lerp(_widgetsMap[a]! as DividerThemeData?,
+      _widgetsMap[b]! as DividerThemeData?,
+      t);
+  return _createDividerThemeDataObjSt(w);
+}
+DividerThemeDataObjSt _createDividerThemeDataObjSt(DividerThemeData? w) {
+  final DividerThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.space = (w.space != null) ? w.space! : 0;
+  stObj.thickness = (w.thickness != null) ? w.thickness! : 0;
+  stObj.indent = (w.indent != null) ? w.indent! : 0;
+  stObj.endIndent = (w.endIndent != null) ? w.endIndent! : 0;
+  stObj.radius = _addWidget(w.radius);
+  return stObj;
+}
+
+void _setupMenuBarThemeData(WidgetFactories f) {
+  f.menuBarThemeData.menuBarThemeData = ffi.Pointer.fromFunction(menuBarThemeDataMenuBarThemeData);
+  f.menuBarThemeData.lerp = ffi.Pointer.fromFunction(menuBarThemeDataLerp);
+}
+MenuBarThemeDataObjSt menuBarThemeDataMenuBarThemeData() {
+  final w = MenuBarThemeData();
+  return _createMenuBarThemeDataObjSt(w);
+}
+MenuBarThemeDataObjSt menuBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = MenuBarThemeData.lerp(_widgetsMap[a]! as MenuBarThemeData?,
+      _widgetsMap[b]! as MenuBarThemeData?,
+      t);
+  return _createMenuBarThemeDataObjSt(w);
+}
+MenuBarThemeDataObjSt _createMenuBarThemeDataObjSt(MenuBarThemeData? w) {
+  final MenuBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupMenuThemeData(WidgetFactories f) {
+  f.menuThemeData.menuThemeData = ffi.Pointer.fromFunction(menuThemeDataMenuThemeData);
+  f.menuThemeData.lerp = ffi.Pointer.fromFunction(menuThemeDataLerp);
+}
+MenuThemeDataObjSt menuThemeDataMenuThemeData(ffi.Pointer<DartObj> submenuIcon) {
+  final w = MenuThemeData(submenuIcon: _wspNul<Widget?>(submenuIcon.objOrNul()));
+  return _createMenuThemeDataObjSt(w);
+}
+MenuThemeDataObjSt menuThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = MenuThemeData.lerp(_widgetsMap[a]! as MenuThemeData?,
+      _widgetsMap[b]! as MenuThemeData?,
+      t);
+  return _createMenuThemeDataObjSt(w);
+}
+MenuThemeDataObjSt _createMenuThemeDataObjSt(MenuThemeData? w) {
+  final MenuThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupPopupMenuThemeData(WidgetFactories f) {
+  f.popupMenuThemeData.popupMenuThemeData = ffi.Pointer.fromFunction(popupMenuThemeDataPopupMenuThemeData);
+  f.popupMenuThemeData.lerp = ffi.Pointer.fromFunction(popupMenuThemeDataLerp);
+}
+PopupMenuThemeDataObjSt popupMenuThemeDataPopupMenuThemeData(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> menuPadding, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> textStyle, ffi.Pointer<DartObj> labelTextStyle, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<ffi.Int> position, ffi.Pointer<DartObj> iconColor, ffi.Pointer<ffi.Double> iconSize) {
+  final w = PopupMenuThemeData(color: color.objOrNul(),
+      shape: shape.objOrNul(),
+      menuPadding: menuPadding.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      textStyle: textStyle.objOrNul(),
+      labelTextStyle: _wspNul<TextStyle?>(labelTextStyle.objOrNul()),
+      enableFeedback: enableFeedback.boolOrNul(),
+      position: position.enumOrNul(PopupMenuPosition.values),
+      iconColor: iconColor.objOrNul(),
+      iconSize: iconSize.doubleOrNul());
+  return _createPopupMenuThemeDataObjSt(w);
+}
+PopupMenuThemeDataObjSt popupMenuThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = PopupMenuThemeData.lerp(_widgetsMap[a]! as PopupMenuThemeData?,
+      _widgetsMap[b]! as PopupMenuThemeData?,
+      t);
+  return _createPopupMenuThemeDataObjSt(w);
+}
+PopupMenuThemeDataObjSt _createPopupMenuThemeDataObjSt(PopupMenuThemeData? w) {
+  final PopupMenuThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.shape = _addWidget(w.shape);
+  stObj.menuPadding = _addWidget(w.menuPadding);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.textStyle = _createTextStyleObjSt(w.textStyle);
+  stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
+  stObj.position = (w.position != null) ? w.position!.index : 0;
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.iconSize = (w.iconSize != null) ? w.iconSize! : 0;
+  return stObj;
+}
+
+void _setupRadioThemeData(WidgetFactories f) {
+  f.radioThemeData.radioThemeData = ffi.Pointer.fromFunction(radioThemeDataRadioThemeData);
+  f.radioThemeData.lerp = ffi.Pointer.fromFunction(radioThemeDataLerp);
+}
+RadioThemeDataObjSt radioThemeDataRadioThemeData(ffi.Pointer<DartObj> fillColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> backgroundColor) {
+  final w = RadioThemeData(fillColor: _wspNul<Color?>(fillColor.objOrNul()),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      splashRadius: splashRadius.doubleOrNul(),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      visualDensity: visualDensity.objOrNul(),
+      backgroundColor: _wspNul<Color?>(backgroundColor.objOrNul()));
+  return _createRadioThemeDataObjSt(w);
+}
+RadioThemeDataObjSt radioThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = RadioThemeData.lerp(_widgetsMap[a]! as RadioThemeData?,
+      _widgetsMap[b]! as RadioThemeData?,
+      t);
+  return _createRadioThemeDataObjSt(w);
+}
+RadioThemeDataObjSt _createRadioThemeDataObjSt(RadioThemeData? w) {
+  final RadioThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.splashRadius = (w.splashRadius != null) ? w.splashRadius! : 0;
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.visualDensity = _createVisualDensityObjSt(w.visualDensity);
+  return stObj;
+}
+
+void _setupSliderThemeData(WidgetFactories f) {
+  f.sliderThemeData.sliderThemeData = ffi.Pointer.fromFunction(sliderThemeDataSliderThemeData);
+  f.sliderThemeData.fromPrimaryColors = ffi.Pointer.fromFunction(sliderThemeDataFromPrimaryColors);
+  f.sliderThemeData.lerp = ffi.Pointer.fromFunction(sliderThemeDataLerp);
+}
+SliderThemeDataObjSt sliderThemeDataSliderThemeData(ffi.Pointer<ffi.Double> trackHeight, ffi.Pointer<DartObj> activeTrackColor, ffi.Pointer<DartObj> inactiveTrackColor, ffi.Pointer<DartObj> secondaryActiveTrackColor, ffi.Pointer<DartObj> disabledActiveTrackColor, ffi.Pointer<DartObj> disabledInactiveTrackColor, ffi.Pointer<DartObj> disabledSecondaryActiveTrackColor, ffi.Pointer<DartObj> activeTickMarkColor, ffi.Pointer<DartObj> inactiveTickMarkColor, ffi.Pointer<DartObj> disabledActiveTickMarkColor, ffi.Pointer<DartObj> disabledInactiveTickMarkColor, ffi.Pointer<DartObj> thumbColor, ffi.Pointer<DartObj> overlappingShapeStrokeColor, ffi.Pointer<DartObj> disabledThumbColor, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<DartObj> valueIndicatorColor, ffi.Pointer<DartObj> valueIndicatorStrokeColor, ffi.Pointer<DartObj> overlayShape, ffi.Pointer<DartObj> thumbShape, ffi.Pointer<DartObj> valueIndicatorShape, ffi.Pointer<ffi.Int> showValueIndicator, ffi.Pointer<DartObj> valueIndicatorTextStyle, ffi.Pointer<ffi.Double> minThumbSeparation, ffi.Pointer<ffi.Int> allowedInteraction, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Double> trackGap, ffi.Pointer<ffi.Int> year2023) {
+  final w = SliderThemeData(trackHeight: trackHeight.doubleOrNul(),
+      activeTrackColor: activeTrackColor.objOrNul(),
+      inactiveTrackColor: inactiveTrackColor.objOrNul(),
+      secondaryActiveTrackColor: secondaryActiveTrackColor.objOrNul(),
+      disabledActiveTrackColor: disabledActiveTrackColor.objOrNul(),
+      disabledInactiveTrackColor: disabledInactiveTrackColor.objOrNul(),
+      disabledSecondaryActiveTrackColor: disabledSecondaryActiveTrackColor.objOrNul(),
+      activeTickMarkColor: activeTickMarkColor.objOrNul(),
+      inactiveTickMarkColor: inactiveTickMarkColor.objOrNul(),
+      disabledActiveTickMarkColor: disabledActiveTickMarkColor.objOrNul(),
+      disabledInactiveTickMarkColor: disabledInactiveTickMarkColor.objOrNul(),
+      thumbColor: thumbColor.objOrNul(),
+      overlappingShapeStrokeColor: overlappingShapeStrokeColor.objOrNul(),
+      disabledThumbColor: disabledThumbColor.objOrNul(),
+      overlayColor: overlayColor.objOrNul(),
+      valueIndicatorColor: valueIndicatorColor.objOrNul(),
+      valueIndicatorStrokeColor: valueIndicatorStrokeColor.objOrNul(),
+      overlayShape: overlayShape.objOrNul(),
+      thumbShape: thumbShape.objOrNul(),
+      valueIndicatorShape: valueIndicatorShape.objOrNul(),
+      showValueIndicator: showValueIndicator.enumOrNul(ShowValueIndicator.values),
+      valueIndicatorTextStyle: valueIndicatorTextStyle.objOrNul(),
+      minThumbSeparation: minThumbSeparation.doubleOrNul(),
+      allowedInteraction: allowedInteraction.enumOrNul(SliderInteraction.values),
+      padding: padding.objOrNul(),
+      trackGap: trackGap.doubleOrNul(),
+      year2023: year2023.boolOrNul());
+  return _createSliderThemeDataObjSt(w);
+}
+SliderThemeDataObjSt sliderThemeDataFromPrimaryColors(DartDartObj primaryColor, DartDartObj primaryColorDark, DartDartObj primaryColorLight, DartDartObj valueIndicatorTextStyle) {
+  final w = SliderThemeData.fromPrimaryColors(primaryColor: _widgetsMap[primaryColor]! as Color,
+      primaryColorDark: _widgetsMap[primaryColorDark]! as Color,
+      primaryColorLight: _widgetsMap[primaryColorLight]! as Color,
+      valueIndicatorTextStyle: _widgetsMap[valueIndicatorTextStyle]! as TextStyle);
+  return _createSliderThemeDataObjSt(w);
+}
+SliderThemeDataObjSt sliderThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = SliderThemeData.lerp(_widgetsMap[a]! as SliderThemeData,
+      _widgetsMap[b]! as SliderThemeData,
+      t);
+  return _createSliderThemeDataObjSt(w);
+}
+SliderThemeDataObjSt _createSliderThemeDataObjSt(SliderThemeData? w) {
+  final SliderThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.trackHeight = (w.trackHeight != null) ? w.trackHeight! : 0;
+  stObj.activeTrackColor = _addWidget(w.activeTrackColor);
+  stObj.inactiveTrackColor = _addWidget(w.inactiveTrackColor);
+  stObj.secondaryActiveTrackColor = _addWidget(w.secondaryActiveTrackColor);
+  stObj.disabledActiveTrackColor = _addWidget(w.disabledActiveTrackColor);
+  stObj.disabledSecondaryActiveTrackColor = _addWidget(w.disabledSecondaryActiveTrackColor);
+  stObj.disabledInactiveTrackColor = _addWidget(w.disabledInactiveTrackColor);
+  stObj.activeTickMarkColor = _addWidget(w.activeTickMarkColor);
+  stObj.inactiveTickMarkColor = _addWidget(w.inactiveTickMarkColor);
+  stObj.disabledActiveTickMarkColor = _addWidget(w.disabledActiveTickMarkColor);
+  stObj.disabledInactiveTickMarkColor = _addWidget(w.disabledInactiveTickMarkColor);
+  stObj.thumbColor = _addWidget(w.thumbColor);
+  stObj.overlappingShapeStrokeColor = _addWidget(w.overlappingShapeStrokeColor);
+  stObj.disabledThumbColor = _addWidget(w.disabledThumbColor);
+  stObj.overlayColor = _addWidget(w.overlayColor);
+  stObj.valueIndicatorColor = _addWidget(w.valueIndicatorColor);
+  stObj.valueIndicatorStrokeColor = _addWidget(w.valueIndicatorStrokeColor);
+  stObj.overlayShape = _addWidget(w.overlayShape);
+  stObj.thumbShape = _addWidget(w.thumbShape);
+  stObj.valueIndicatorShape = _addWidget(w.valueIndicatorShape);
+  stObj.showValueIndicator = (w.showValueIndicator != null) ? w.showValueIndicator!.index : 0;
+  stObj.valueIndicatorTextStyle = _createTextStyleObjSt(w.valueIndicatorTextStyle);
+  stObj.minThumbSeparation = (w.minThumbSeparation != null) ? w.minThumbSeparation! : 0;
+  stObj.allowedInteraction = (w.allowedInteraction != null) ? w.allowedInteraction!.index : 0;
+  stObj.padding = _addWidget(w.padding);
+  stObj.trackGap = (w.trackGap != null) ? w.trackGap! : 0;
+  stObj.year2023 = (w.year2023 != null) ? w.year2023!.toInt() : 0;
+  return stObj;
+}
+
+void _setupSnackBarThemeData(WidgetFactories f) {
+  f.snackBarThemeData.snackBarThemeData = ffi.Pointer.fromFunction(snackBarThemeDataSnackBarThemeData);
+  f.snackBarThemeData.lerp = ffi.Pointer.fromFunction(snackBarThemeDataLerp);
+}
+SnackBarThemeDataObjSt snackBarThemeDataSnackBarThemeData(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> actionTextColor, ffi.Pointer<DartObj> disabledActionTextColor, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> behavior, ffi.Pointer<ffi.Double> width, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> showCloseIcon, ffi.Pointer<DartObj> closeIconColor, ffi.Pointer<ffi.Double> actionOverflowThreshold, ffi.Pointer<DartObj> actionBackgroundColor, ffi.Pointer<DartObj> disabledActionBackgroundColor, ffi.Pointer<ffi.Int> dismissDirection) {
+  final w = SnackBarThemeData(backgroundColor: backgroundColor.objOrNul(),
+      actionTextColor: actionTextColor.objOrNul(),
+      disabledActionTextColor: disabledActionTextColor.objOrNul(),
+      contentTextStyle: contentTextStyle.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shape: shape.objOrNul(),
+      behavior: behavior.enumOrNul(SnackBarBehavior.values),
+      width: width.doubleOrNul(),
+      insetPadding: insetPadding.objOrNul(),
+      showCloseIcon: showCloseIcon.boolOrNul(),
+      closeIconColor: closeIconColor.objOrNul(),
+      actionOverflowThreshold: actionOverflowThreshold.doubleOrNul(),
+      actionBackgroundColor: actionBackgroundColor.objOrNul(),
+      disabledActionBackgroundColor: disabledActionBackgroundColor.objOrNul(),
+      dismissDirection: dismissDirection.enumOrNul(DismissDirection.values));
+  return _createSnackBarThemeDataObjSt(w);
+}
+SnackBarThemeDataObjSt snackBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = SnackBarThemeData.lerp(_widgetsMap[a]! as SnackBarThemeData?,
+      _widgetsMap[b]! as SnackBarThemeData?,
+      t);
+  return _createSnackBarThemeDataObjSt(w);
+}
+SnackBarThemeDataObjSt _createSnackBarThemeDataObjSt(SnackBarThemeData? w) {
+  final SnackBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.actionTextColor = _addWidget(w.actionTextColor);
+  stObj.disabledActionTextColor = _addWidget(w.disabledActionTextColor);
+  stObj.contentTextStyle = _createTextStyleObjSt(w.contentTextStyle);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.behavior = (w.behavior != null) ? w.behavior!.index : 0;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.insetPadding = _createEdgeInsetsObjSt(w.insetPadding);
+  stObj.showCloseIcon = (w.showCloseIcon != null) ? w.showCloseIcon!.toInt() : 0;
+  stObj.closeIconColor = _addWidget(w.closeIconColor);
+  stObj.actionOverflowThreshold = (w.actionOverflowThreshold != null) ? w.actionOverflowThreshold! : 0;
+  stObj.actionBackgroundColor = _addWidget(w.actionBackgroundColor);
+  stObj.disabledActionBackgroundColor = _addWidget(w.disabledActionBackgroundColor);
+  stObj.dismissDirection = (w.dismissDirection != null) ? w.dismissDirection!.index : 0;
+  return stObj;
+}
+
+void _setupSwitchThemeData(WidgetFactories f) {
+  f.switchThemeData.switchThemeData = ffi.Pointer.fromFunction(switchThemeDataSwitchThemeData);
+  f.switchThemeData.lerp = ffi.Pointer.fromFunction(switchThemeDataLerp);
+}
+SwitchThemeDataObjSt switchThemeDataSwitchThemeData(ffi.Pointer<DartObj> thumbColor, ffi.Pointer<DartObj> trackColor, ffi.Pointer<DartObj> trackOutlineColor, ffi.Pointer<ffi.Double> trackOutlineWidth, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Double> splashRadius, ffi.Pointer<DartObj> thumbIcon, ffi.Pointer<DartObj> padding) {
+  final w = SwitchThemeData(thumbColor: _wspNul<Color?>(thumbColor.objOrNul()),
+      trackColor: _wspNul<Color?>(trackColor.objOrNul()),
+      trackOutlineColor: _wspNul<Color?>(trackOutlineColor.objOrNul()),
+      trackOutlineWidth: _wspNul<double?>(trackOutlineWidth.doubleOrNul()),
+      materialTapTargetSize: materialTapTargetSize.enumOrNul(MaterialTapTargetSize.values),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      splashRadius: splashRadius.doubleOrNul(),
+      thumbIcon: _wspNul<Icon?>(thumbIcon.objOrNul()),
+      padding: padding.objOrNul());
+  return _createSwitchThemeDataObjSt(w);
+}
+SwitchThemeDataObjSt switchThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = SwitchThemeData.lerp(_widgetsMap[a]! as SwitchThemeData?,
+      _widgetsMap[b]! as SwitchThemeData?,
+      t);
+  return _createSwitchThemeDataObjSt(w);
+}
+SwitchThemeDataObjSt _createSwitchThemeDataObjSt(SwitchThemeData? w) {
+  final SwitchThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.materialTapTargetSize = (w.materialTapTargetSize != null) ? w.materialTapTargetSize!.index : 0;
+  stObj.splashRadius = (w.splashRadius != null) ? w.splashRadius! : 0;
+  stObj.padding = _addWidget(w.padding);
+  return stObj;
+}
+
+void _setupTabBarThemeData(WidgetFactories f) {
+  f.tabBarThemeData.tabBarThemeData = ffi.Pointer.fromFunction(tabBarThemeDataTabBarThemeData);
+  f.tabBarThemeData.lerp = ffi.Pointer.fromFunction(tabBarThemeDataLerp);
+}
+TabBarThemeDataObjSt tabBarThemeDataTabBarThemeData(ffi.Pointer<DartObj> indicator, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<ffi.Int> indicatorSize, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<ffi.Double> dividerHeight, ffi.Pointer<DartObj> labelColor, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> unselectedLabelColor, ffi.Pointer<DartObj> unselectedLabelStyle, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Int> tabAlignment, ffi.Pointer<ffi.Int> indicatorAnimation, ffi.Pointer<DartObj> splashBorderRadius) {
+  final w = TabBarThemeData(indicator: indicator.objOrNul(),
+      indicatorColor: indicatorColor.objOrNul(),
+      indicatorSize: indicatorSize.enumOrNul(TabBarIndicatorSize.values),
+      dividerColor: dividerColor.objOrNul(),
+      dividerHeight: dividerHeight.doubleOrNul(),
+      labelColor: labelColor.objOrNul(),
+      labelPadding: labelPadding.objOrNul(),
+      labelStyle: labelStyle.objOrNul(),
+      unselectedLabelColor: unselectedLabelColor.objOrNul(),
+      unselectedLabelStyle: unselectedLabelStyle.objOrNul(),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      tabAlignment: tabAlignment.enumOrNul(TabAlignment.values),
+      indicatorAnimation: indicatorAnimation.enumOrNul(TabIndicatorAnimation.values),
+      splashBorderRadius: splashBorderRadius.objOrNul());
+  return _createTabBarThemeDataObjSt(w);
+}
+TabBarThemeDataObjSt tabBarThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = TabBarThemeData.lerp(_widgetsMap[a]! as TabBarThemeData,
+      _widgetsMap[b]! as TabBarThemeData,
+      t);
+  return _createTabBarThemeDataObjSt(w);
+}
+TabBarThemeDataObjSt _createTabBarThemeDataObjSt(TabBarThemeData? w) {
+  final TabBarThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.indicator = _addWidget(w.indicator);
+  stObj.indicatorColor = _addWidget(w.indicatorColor);
+  stObj.indicatorSize = (w.indicatorSize != null) ? w.indicatorSize!.index : 0;
+  stObj.dividerColor = _addWidget(w.dividerColor);
+  stObj.dividerHeight = (w.dividerHeight != null) ? w.dividerHeight! : 0;
+  stObj.labelColor = _addWidget(w.labelColor);
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.unselectedLabelColor = _addWidget(w.unselectedLabelColor);
+  stObj.unselectedLabelStyle = _createTextStyleObjSt(w.unselectedLabelStyle);
+  stObj.tabAlignment = (w.tabAlignment != null) ? w.tabAlignment!.index : 0;
+  stObj.indicatorAnimation = (w.indicatorAnimation != null) ? w.indicatorAnimation!.index : 0;
+  stObj.splashBorderRadius = _createBorderRadiusObjSt(w.splashBorderRadius);
+  return stObj;
+}
+
+void _setupTooltipThemeData(WidgetFactories f) {
+  f.tooltipThemeData.tooltipThemeData = ffi.Pointer.fromFunction(tooltipThemeDataTooltipThemeData);
+  f.tooltipThemeData.lerp = ffi.Pointer.fromFunction(tooltipThemeDataLerp);
+}
+TooltipThemeDataObjSt tooltipThemeDataTooltipThemeData(ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> constraints, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> margin, ffi.Pointer<ffi.Double> verticalOffset, ffi.Pointer<ffi.Int> preferBelow, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<DartObj> decoration, ffi.Pointer<DartObj> textStyle, ffi.Pointer<ffi.Int> textAlign, ffi.Pointer<DartObj> waitDuration, ffi.Pointer<DartObj> showDuration, ffi.Pointer<DartObj> exitDuration, ffi.Pointer<ffi.Int> triggerMode, ffi.Pointer<ffi.Int> enableFeedback) {
+  final w = TooltipThemeData(height: height.doubleOrNul(),
+      constraints: constraints.objOrNul(),
+      padding: padding.objOrNul(),
+      margin: margin.objOrNul(),
+      verticalOffset: verticalOffset.doubleOrNul(),
+      preferBelow: preferBelow.boolOrNul(),
+      excludeFromSemantics: excludeFromSemantics.boolOrNul(),
+      decoration: decoration.objOrNul(),
+      textStyle: textStyle.objOrNul(),
+      textAlign: textAlign.enumOrNul(TextAlign.values),
+      waitDuration: waitDuration.objOrNul(),
+      showDuration: showDuration.objOrNul(),
+      exitDuration: exitDuration.objOrNul(),
+      triggerMode: triggerMode.enumOrNul(TooltipTriggerMode.values),
+      enableFeedback: enableFeedback.boolOrNul());
+  return _createTooltipThemeDataObjSt(w);
+}
+TooltipThemeDataObjSt tooltipThemeDataLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = TooltipThemeData.lerp(_widgetsMap[a]! as TooltipThemeData?,
+      _widgetsMap[b]! as TooltipThemeData?,
+      t);
+  return _createTooltipThemeDataObjSt(w);
+}
+TooltipThemeDataObjSt _createTooltipThemeDataObjSt(TooltipThemeData? w) {
+  final TooltipThemeDataObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  stObj.padding = _addWidget(w.padding);
+  stObj.margin = _addWidget(w.margin);
+  stObj.verticalOffset = (w.verticalOffset != null) ? w.verticalOffset! : 0;
+  stObj.preferBelow = (w.preferBelow != null) ? w.preferBelow!.toInt() : 0;
+  stObj.excludeFromSemantics = (w.excludeFromSemantics != null) ? w.excludeFromSemantics!.toInt() : 0;
+  stObj.decoration = _addWidget(w.decoration);
+  stObj.textStyle = _createTextStyleObjSt(w.textStyle);
+  stObj.textAlign = (w.textAlign != null) ? w.textAlign!.index : 0;
+  stObj.waitDuration = _addWidget(w.waitDuration);
+  stObj.showDuration = _addWidget(w.showDuration);
+  stObj.exitDuration = _addWidget(w.exitDuration);
+  stObj.triggerMode = (w.triggerMode != null) ? w.triggerMode!.index : 0;
+  stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
   return stObj;
 }
 
@@ -12257,9 +12918,10 @@ AppBarThemeObjSt _createAppBarThemeObjSt(AppBarTheme? w) {
 
 void _setupCardTheme(WidgetFactories f) {
   f.cardTheme.cardTheme = ffi.Pointer.fromFunction(cardThemeCardTheme);
+  f.cardTheme.of = ffi.Pointer.fromFunction(cardThemeOf);
   f.cardTheme.lerp = ffi.Pointer.fromFunction(cardThemeLerp);
 }
-CardThemeObjSt cardThemeCardTheme(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> child) {
+CardThemeObjSt cardThemeCardTheme(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> data, ffi.Pointer<DartObj> child) {
   final w = CardTheme(clipBehavior: clipBehavior.enumOrNul(Clip.values),
       color: color.objOrNul(),
       surfaceTintColor: surfaceTintColor.objOrNul(),
@@ -12267,8 +12929,13 @@ CardThemeObjSt cardThemeCardTheme(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer
       elevation: elevation.doubleOrNul(),
       margin: margin.objOrNul(),
       shape: shape.objOrNul(),
+      data: data.objOrNul(),
       child: child.objOrNul());
   return _createCardThemeObjSt(w);
+}
+CardThemeDataObjSt cardThemeOf(DartDartObj context) {
+  final w = CardTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createCardThemeDataObjSt(w);
 }
 CardThemeObjSt cardThemeLerp(DartDartObj a, DartDartObj b, double t) {
   final w = CardTheme.lerp(_widgetsMap[a]! as CardTheme?,
@@ -12287,14 +12954,16 @@ CardThemeObjSt _createCardThemeObjSt(CardTheme? w) {
   stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
   stObj.margin = _addWidget(w.margin);
   stObj.shape = _addWidget(w.shape);
+  stObj.data = _createCardThemeDataObjSt(w.data);
   return stObj;
 }
 
 void _setupDialogTheme(WidgetFactories f) {
   f.dialogTheme.dialogTheme = ffi.Pointer.fromFunction(dialogThemeDialogTheme);
+  f.dialogTheme.of = ffi.Pointer.fromFunction(dialogThemeOf);
   f.dialogTheme.lerp = ffi.Pointer.fromFunction(dialogThemeLerp);
 }
-DialogThemeObjSt dialogThemeDialogTheme(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> barrierColor, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child) {
+DialogThemeObjSt dialogThemeDialogTheme(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> barrierColor, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> data, ffi.Pointer<DartObj> child) {
   final w = DialogTheme(backgroundColor: backgroundColor.objOrNul(),
       elevation: elevation.doubleOrNul(),
       shadowColor: shadowColor.objOrNul(),
@@ -12308,8 +12977,13 @@ DialogThemeObjSt dialogThemeDialogTheme(ffi.Pointer<DartObj> backgroundColor, ff
       barrierColor: barrierColor.objOrNul(),
       insetPadding: insetPadding.objOrNul(),
       clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      data: data.objOrNul(),
       child: child.objOrNul());
   return _createDialogThemeObjSt(w);
+}
+DialogThemeDataObjSt dialogThemeOf(DartDartObj context) {
+  final w = DialogTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createDialogThemeDataObjSt(w);
 }
 DialogThemeObjSt dialogThemeLerp(DartDartObj a, DartDartObj b, double t) {
   final w = DialogTheme.lerp(_widgetsMap[a]! as DialogTheme?,
@@ -12334,14 +13008,142 @@ DialogThemeObjSt _createDialogThemeObjSt(DialogTheme? w) {
   stObj.barrierColor = _addWidget(w.barrierColor);
   stObj.insetPadding = _createEdgeInsetsObjSt(w.insetPadding);
   stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.data = _createDialogThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupDividerTheme(WidgetFactories f) {
+  f.dividerTheme.dividerTheme = ffi.Pointer.fromFunction(dividerThemeDividerTheme);
+  f.dividerTheme.of = ffi.Pointer.fromFunction(dividerThemeOf);
+}
+DividerThemeObjSt dividerThemeDividerTheme(DartDartObj data, DartDartObj child) {
+  final w = DividerTheme(data: _widgetsMap[data]! as DividerThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createDividerThemeObjSt(w);
+}
+DividerThemeDataObjSt dividerThemeOf(DartDartObj context) {
+  final w = DividerTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createDividerThemeDataObjSt(w);
+}
+DividerThemeObjSt _createDividerThemeObjSt(DividerTheme? w) {
+  final DividerThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createDividerThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupChipTheme(WidgetFactories f) {
+  f.chipTheme.chipTheme = ffi.Pointer.fromFunction(chipThemeChipTheme);
+  f.chipTheme.of = ffi.Pointer.fromFunction(chipThemeOf);
+}
+ChipThemeObjSt chipThemeChipTheme(DartDartObj data, DartDartObj child) {
+  final w = ChipTheme(data: _widgetsMap[data]! as ChipThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createChipThemeObjSt(w);
+}
+ChipThemeDataObjSt chipThemeOf(DartDartObj context) {
+  final w = ChipTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createChipThemeDataObjSt(w);
+}
+ChipThemeObjSt _createChipThemeObjSt(ChipTheme? w) {
+  final ChipThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createChipThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupCheckboxTheme(WidgetFactories f) {
+  f.checkboxTheme.checkboxTheme = ffi.Pointer.fromFunction(checkboxThemeCheckboxTheme);
+  f.checkboxTheme.of = ffi.Pointer.fromFunction(checkboxThemeOf);
+}
+CheckboxThemeObjSt checkboxThemeCheckboxTheme(DartDartObj data, DartDartObj child) {
+  final w = CheckboxTheme(data: _widgetsMap[data]! as CheckboxThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createCheckboxThemeObjSt(w);
+}
+CheckboxThemeDataObjSt checkboxThemeOf(DartDartObj context) {
+  final w = CheckboxTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createCheckboxThemeDataObjSt(w);
+}
+CheckboxThemeObjSt _createCheckboxThemeObjSt(CheckboxTheme? w) {
+  final CheckboxThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createCheckboxThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupRadioTheme(WidgetFactories f) {
+  f.radioTheme.radioTheme = ffi.Pointer.fromFunction(radioThemeRadioTheme);
+  f.radioTheme.of = ffi.Pointer.fromFunction(radioThemeOf);
+}
+RadioThemeObjSt radioThemeRadioTheme(DartDartObj data, DartDartObj child) {
+  final w = RadioTheme(data: _widgetsMap[data]! as RadioThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createRadioThemeObjSt(w);
+}
+RadioThemeDataObjSt radioThemeOf(DartDartObj context) {
+  final w = RadioTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createRadioThemeDataObjSt(w);
+}
+RadioThemeObjSt _createRadioThemeObjSt(RadioTheme? w) {
+  final RadioThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createRadioThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupSwitchTheme(WidgetFactories f) {
+  f.switchTheme.switchTheme = ffi.Pointer.fromFunction(switchThemeSwitchTheme);
+  f.switchTheme.of = ffi.Pointer.fromFunction(switchThemeOf);
+}
+SwitchThemeObjSt switchThemeSwitchTheme(DartDartObj data, DartDartObj child) {
+  final w = SwitchTheme(data: _widgetsMap[data]! as SwitchThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createSwitchThemeObjSt(w);
+}
+SwitchThemeDataObjSt switchThemeOf(DartDartObj context) {
+  final w = SwitchTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createSwitchThemeDataObjSt(w);
+}
+SwitchThemeObjSt _createSwitchThemeObjSt(SwitchTheme? w) {
+  final SwitchThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createSwitchThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupSliderTheme(WidgetFactories f) {
+  f.sliderTheme.sliderTheme = ffi.Pointer.fromFunction(sliderThemeSliderTheme);
+  f.sliderTheme.of = ffi.Pointer.fromFunction(sliderThemeOf);
+}
+SliderThemeObjSt sliderThemeSliderTheme(DartDartObj data, DartDartObj child) {
+  final w = SliderTheme(data: _widgetsMap[data]! as SliderThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createSliderThemeObjSt(w);
+}
+SliderThemeDataObjSt sliderThemeOf(DartDartObj context) {
+  final w = SliderTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createSliderThemeDataObjSt(w);
+}
+SliderThemeObjSt _createSliderThemeObjSt(SliderTheme? w) {
+  final SliderThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createSliderThemeDataObjSt(w.data);
   return stObj;
 }
 
 void _setupTabBarTheme(WidgetFactories f) {
   f.tabBarTheme.tabBarTheme = ffi.Pointer.fromFunction(tabBarThemeTabBarTheme);
+  f.tabBarTheme.of = ffi.Pointer.fromFunction(tabBarThemeOf);
   f.tabBarTheme.lerp = ffi.Pointer.fromFunction(tabBarThemeLerp);
 }
-TabBarThemeObjSt tabBarThemeTabBarTheme(ffi.Pointer<DartObj> indicator, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<ffi.Int> indicatorSize, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<ffi.Double> dividerHeight, ffi.Pointer<DartObj> labelColor, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> unselectedLabelColor, ffi.Pointer<DartObj> unselectedLabelStyle, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Int> tabAlignment, ffi.Pointer<ffi.Int> indicatorAnimation, ffi.Pointer<DartObj> child) {
+TabBarThemeObjSt tabBarThemeTabBarTheme(ffi.Pointer<DartObj> indicator, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<ffi.Int> indicatorSize, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<ffi.Double> dividerHeight, ffi.Pointer<DartObj> labelColor, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> unselectedLabelColor, ffi.Pointer<DartObj> unselectedLabelStyle, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Int> tabAlignment, ffi.Pointer<ffi.Int> indicatorAnimation, ffi.Pointer<DartObj> data, ffi.Pointer<DartObj> child) {
   final w = TabBarTheme(indicator: indicator.objOrNul(),
       indicatorColor: indicatorColor.objOrNul(),
       indicatorSize: indicatorSize.enumOrNul(TabBarIndicatorSize.values),
@@ -12355,8 +13157,13 @@ TabBarThemeObjSt tabBarThemeTabBarTheme(ffi.Pointer<DartObj> indicator, ffi.Poin
       overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
       tabAlignment: tabAlignment.enumOrNul(TabAlignment.values),
       indicatorAnimation: indicatorAnimation.enumOrNul(TabIndicatorAnimation.values),
+      data: data.objOrNul(),
       child: child.objOrNul());
   return _createTabBarThemeObjSt(w);
+}
+TabBarThemeDataObjSt tabBarThemeOf(DartDartObj context) {
+  final w = TabBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createTabBarThemeDataObjSt(w);
 }
 TabBarThemeObjSt tabBarThemeLerp(DartDartObj a, DartDartObj b, double t) {
   final w = TabBarTheme.lerp(_widgetsMap[a]! as TabBarTheme,
@@ -12380,6 +13187,112 @@ TabBarThemeObjSt _createTabBarThemeObjSt(TabBarTheme? w) {
   stObj.unselectedLabelStyle = _createTextStyleObjSt(w.unselectedLabelStyle);
   stObj.tabAlignment = (w.tabAlignment != null) ? w.tabAlignment!.index : 0;
   stObj.indicatorAnimation = (w.indicatorAnimation != null) ? w.indicatorAnimation!.index : 0;
+  stObj.data = _createTabBarThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupTooltipTheme(WidgetFactories f) {
+  f.tooltipTheme.tooltipTheme = ffi.Pointer.fromFunction(tooltipThemeTooltipTheme);
+  f.tooltipTheme.of = ffi.Pointer.fromFunction(tooltipThemeOf);
+}
+TooltipThemeObjSt tooltipThemeTooltipTheme(DartDartObj data, DartDartObj child) {
+  final w = TooltipTheme(data: _widgetsMap[data]! as TooltipThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createTooltipThemeObjSt(w);
+}
+TooltipThemeDataObjSt tooltipThemeOf(DartDartObj context) {
+  final w = TooltipTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createTooltipThemeDataObjSt(w);
+}
+TooltipThemeObjSt _createTooltipThemeObjSt(TooltipTheme? w) {
+  final TooltipThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createTooltipThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupBadgeTheme(WidgetFactories f) {
+  f.badgeTheme.badgeTheme = ffi.Pointer.fromFunction(badgeThemeBadgeTheme);
+  f.badgeTheme.of = ffi.Pointer.fromFunction(badgeThemeOf);
+}
+BadgeThemeObjSt badgeThemeBadgeTheme(DartDartObj data, DartDartObj child) {
+  final w = BadgeTheme(data: _widgetsMap[data]! as BadgeThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createBadgeThemeObjSt(w);
+}
+BadgeThemeDataObjSt badgeThemeOf(DartDartObj context) {
+  final w = BadgeTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createBadgeThemeDataObjSt(w);
+}
+BadgeThemeObjSt _createBadgeThemeObjSt(BadgeTheme? w) {
+  final BadgeThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createBadgeThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupPopupMenuTheme(WidgetFactories f) {
+  f.popupMenuTheme.popupMenuTheme = ffi.Pointer.fromFunction(popupMenuThemePopupMenuTheme);
+  f.popupMenuTheme.of = ffi.Pointer.fromFunction(popupMenuThemeOf);
+}
+PopupMenuThemeObjSt popupMenuThemePopupMenuTheme(DartDartObj data, DartDartObj child) {
+  final w = PopupMenuTheme(data: _widgetsMap[data]! as PopupMenuThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createPopupMenuThemeObjSt(w);
+}
+PopupMenuThemeDataObjSt popupMenuThemeOf(DartDartObj context) {
+  final w = PopupMenuTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createPopupMenuThemeDataObjSt(w);
+}
+PopupMenuThemeObjSt _createPopupMenuThemeObjSt(PopupMenuTheme? w) {
+  final PopupMenuThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createPopupMenuThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupMenuTheme(WidgetFactories f) {
+  f.menuTheme.menuTheme = ffi.Pointer.fromFunction(menuThemeMenuTheme);
+  f.menuTheme.of = ffi.Pointer.fromFunction(menuThemeOf);
+}
+MenuThemeObjSt menuThemeMenuTheme(DartDartObj data, DartDartObj child) {
+  final w = MenuTheme(data: _widgetsMap[data]! as MenuThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createMenuThemeObjSt(w);
+}
+MenuThemeDataObjSt menuThemeOf(DartDartObj context) {
+  final w = MenuTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createMenuThemeDataObjSt(w);
+}
+MenuThemeObjSt _createMenuThemeObjSt(MenuTheme? w) {
+  final MenuThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createMenuThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupMenuBarTheme(WidgetFactories f) {
+  f.menuBarTheme.menuBarTheme = ffi.Pointer.fromFunction(menuBarThemeMenuBarTheme);
+  f.menuBarTheme.of = ffi.Pointer.fromFunction(menuBarThemeOf);
+}
+MenuBarThemeObjSt menuBarThemeMenuBarTheme(DartDartObj data, DartDartObj child) {
+  final w = MenuBarTheme(data: _widgetsMap[data]! as MenuBarThemeData,
+      child: _widgetsMap[child]! as Widget);
+  return _createMenuBarThemeObjSt(w);
+}
+MenuBarThemeDataObjSt menuBarThemeOf(DartDartObj context) {
+  final w = MenuBarTheme.of(_widgetsMap[context]! as BuildContext);
+  return _createMenuBarThemeDataObjSt(w);
+}
+MenuBarThemeObjSt _createMenuBarThemeObjSt(MenuBarTheme? w) {
+  final MenuBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.data = _createMenuBarThemeDataObjSt(w.data);
   return stObj;
 }
 
@@ -13392,8 +14305,9 @@ RawScrollbarObjSt _createRawScrollbarObjSt(RawScrollbar? w) {
 void _setupRawChip(WidgetFactories f) {
   f.rawChip.rawChip = ffi.Pointer.fromFunction(rawChipRawChip);
 }
-RawChipObjSt rawChipRawChip(ffi.Pointer<DartObj> avatar, DartDartObj label, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> deleteIcon, ffi.Pointer<VoidCallbackFFI> onDeleted, ffi.Pointer<DartObj> deleteIconColor, ffi.Pointer<ffi.Char> deleteButtonTooltipMessage, ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<ValueChangedForBoolFFI> onSelected, ffi.Pointer<ffi.Double> pressElevation, ffi.Pointer<ffi.Int> tapEnabled, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Int> isEnabled, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> selectedColor, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> selectedShadowColor, ffi.Pointer<ffi.Int> showCheckmark, ffi.Pointer<DartObj> checkmarkColor, ffi.Pointer<DartObj> avatarBorder, ffi.Pointer<DartObj> avatarBoxConstraints, ffi.Pointer<DartObj> deleteIconBoxConstraints) {
-  final w = RawChip(avatar: avatar.objOrNul(),
+RawChipObjSt rawChipRawChip(ffi.Pointer<DartObj> defaultProperties, ffi.Pointer<DartObj> avatar, DartDartObj label, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> padding, ffi.Pointer<DartObj> visualDensity, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> deleteIcon, ffi.Pointer<VoidCallbackFFI> onDeleted, ffi.Pointer<DartObj> deleteIconColor, ffi.Pointer<ffi.Char> deleteButtonTooltipMessage, ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<ValueChangedForBoolFFI> onSelected, ffi.Pointer<ffi.Double> pressElevation, ffi.Pointer<ffi.Int> tapEnabled, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Int> isEnabled, ffi.Pointer<DartObj> disabledColor, ffi.Pointer<DartObj> selectedColor, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<DartObj> side, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Int> materialTapTargetSize, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> selectedShadowColor, ffi.Pointer<ffi.Int> showCheckmark, ffi.Pointer<DartObj> checkmarkColor, ffi.Pointer<DartObj> avatarBorder, ffi.Pointer<DartObj> avatarBoxConstraints, ffi.Pointer<DartObj> deleteIconBoxConstraints) {
+  final w = RawChip(defaultProperties: defaultProperties.objOrNul(),
+      avatar: avatar.objOrNul(),
       label: _widgetsMap[label]! as Widget,
       labelStyle: labelStyle.objOrNul(),
       padding: padding.objOrNul(),
@@ -13435,6 +14349,7 @@ RawChipObjSt _createRawChipObjSt(RawChip? w) {
   final RawChipObjSt stObj = ffi.Struct.create();
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
+  stObj.defaultProperties = _createChipThemeDataObjSt(w.defaultProperties);
   stObj.avatar = _addWidget(w.avatar);
   stObj.label = _addWidget(w.label);
   stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
@@ -14051,7 +14966,18 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupAppBarTheme(f);
   _setupCardTheme(f);
   _setupDialogTheme(f);
+  _setupDividerTheme(f);
+  _setupChipTheme(f);
+  _setupCheckboxTheme(f);
+  _setupRadioTheme(f);
+  _setupSwitchTheme(f);
+  _setupSliderTheme(f);
   _setupTabBarTheme(f);
+  _setupTooltipTheme(f);
+  _setupBadgeTheme(f);
+  _setupPopupMenuTheme(f);
+  _setupMenuTheme(f);
+  _setupMenuBarTheme(f);
   _setupBottomAppBarTheme(f);
   _setupButtonTheme(f);
   _setupMaterialButton(f);
@@ -14094,6 +15020,21 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupCupertinoTextThemeData(f);
   _setupCupertinoIconThemeData(f);
   _setupNestedScrollView(f);
+  _setupCardThemeData(f);
+  _setupDialogThemeData(f);
+  _setupDividerThemeData(f);
+  _setupChipThemeData(f);
+  _setupCheckboxThemeData(f);
+  _setupRadioThemeData(f);
+  _setupSwitchThemeData(f);
+  _setupSliderThemeData(f);
+  _setupTabBarThemeData(f);
+  _setupTooltipThemeData(f);
+  _setupSnackBarThemeData(f);
+  _setupBadgeThemeData(f);
+  _setupPopupMenuThemeData(f);
+  _setupMenuThemeData(f);
+  _setupMenuBarThemeData(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

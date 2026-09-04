@@ -16,6 +16,31 @@ public class MenuTheme extends InheritedTheme implements MenuThemeI {
     System.out.println("New MenuTheme id:"+id);
   }
   MenuTheme(int id) { this.id = id; }
+  @Builder.Factory
+  static MenuTheme menuThemeMenuTheme(@Builder.Parameter MenuThemeDataI data, @Builder.Parameter WidgetI child) {
+    var st = factories.menuThemeMenuTheme(data.build(),
+      child.build());
+    if (st == null) throw new RuntimeException("Failed to created widget MenuTheme");
+    return new MenuTheme(st);
+  }
+  public static MenuThemeMenuThemeBuilder menuTheme(MenuThemeDataI data, WidgetI child) {
+    return MenuThemeMenuThemeBuilder.menuThemeMenuTheme(data, child);
+  }
+  public static MenuThemeData of(BuildContextI context) {
+    var st = factories.menuThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget MenuThemeData");
+    return new MenuThemeData(st);
+  }
+  public MenuThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("menuThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.MenuThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.MenuThemeDataObjSt.id(__st, __nid);
+      return new MenuThemeData(__st);
+    }
+    return new MenuThemeData(MenuThemeObjSt.data(st));
+  }
   @Override
   public MenuTheme build() {
     return this;

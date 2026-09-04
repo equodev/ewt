@@ -17,8 +17,9 @@ public class RawChip extends StatefulWidget implements RawChipI {
   }
   RawChip(int id) { this.id = id; }
   @Builder.Factory
-  static RawChip rawChipRawChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<EdgeInsetsGeometryI> labelPadding, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
-    var st = factories.rawChipRawChip(avatar.map(WidgetI::build),
+  static RawChip rawChipRawChip(Optional<ChipThemeDataI> defaultProperties, Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<EdgeInsetsGeometryI> labelPadding, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
+    var st = factories.rawChipRawChip(defaultProperties.map(ChipThemeDataI::build),
+      avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
       padding.map(EdgeInsetsGeometryI::build),
@@ -59,6 +60,16 @@ public class RawChip extends StatefulWidget implements RawChipI {
   }
   public static RawChipRawChipBuilder rawChip() {
     return RawChipRawChipBuilder.rawChipRawChip();
+  }
+  public ChipThemeData defaultProperties() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("rawChipDefaultProperties", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ChipThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ChipThemeDataObjSt.id(__st, __nid);
+      return new ChipThemeData(__st);
+    }
+    return new ChipThemeData(RawChipObjSt.defaultProperties(st));
   }
   public Widget avatar() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipAvatar not supported on web");

@@ -1489,6 +1489,200 @@ typedef struct {
 } NoDefaultCupertinoThemeDataObjSt;
 typedef struct {
   int id;
+  DartObj backgroundColor;
+  DartObj textColor;
+  double smallSize;
+  double largeSize;
+  TextStyleObjSt textStyle;
+  DartObj padding;
+  DartObj alignment;
+  DartObj offset;
+} BadgeThemeDataObjSt;
+typedef struct {
+  int id;
+  int clipBehavior;
+  DartObj color;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  double elevation;
+  DartObj margin;
+  DartObj shape;
+} CardThemeDataObjSt;
+typedef struct {
+  int id;
+  double splashRadius;
+  int materialTapTargetSize;
+  VisualDensityObjSt visualDensity;
+  DartObj shape;
+  BorderSideObjSt side;
+} CheckboxThemeDataObjSt;
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  DartObj deleteIconColor;
+  DartObj disabledColor;
+  DartObj selectedColor;
+  DartObj secondarySelectedColor;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj selectedShadowColor;
+  int showCheckmark;
+  DartObj checkmarkColor;
+  DartObj labelPadding;
+  DartObj padding;
+  BorderSideObjSt side;
+  DartObj shape;
+  TextStyleObjSt labelStyle;
+  TextStyleObjSt secondaryLabelStyle;
+  int brightness;
+  double elevation;
+  double pressElevation;
+  IconThemeDataObjSt iconTheme;
+  BoxConstraintsObjSt avatarBoxConstraints;
+  BoxConstraintsObjSt deleteIconBoxConstraints;
+} ChipThemeDataObjSt;
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj shape;
+  DartObj alignment;
+  TextStyleObjSt titleTextStyle;
+  TextStyleObjSt contentTextStyle;
+  DartObj actionsPadding;
+  DartObj iconColor;
+  DartObj barrierColor;
+  EdgeInsetsObjSt insetPadding;
+  int clipBehavior;
+  BoxConstraintsObjSt constraints;
+} DialogThemeDataObjSt;
+typedef struct {
+  int id;
+  DartObj color;
+  double space;
+  double thickness;
+  double indent;
+  double endIndent;
+  DartObj radius;
+} DividerThemeDataObjSt;
+typedef struct {
+  int id;
+} MenuBarThemeDataObjSt;
+typedef struct {
+  int id;
+} MenuThemeDataObjSt;
+typedef struct {
+  int id;
+  DartObj color;
+  DartObj shape;
+  DartObj menuPadding;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  TextStyleObjSt textStyle;
+  int enableFeedback;
+  int position;
+  DartObj iconColor;
+  double iconSize;
+} PopupMenuThemeDataObjSt;
+typedef struct {
+  int id;
+  double splashRadius;
+  int materialTapTargetSize;
+  VisualDensityObjSt visualDensity;
+} RadioThemeDataObjSt;
+typedef struct {
+  int id;
+  double trackHeight;
+  DartObj activeTrackColor;
+  DartObj inactiveTrackColor;
+  DartObj secondaryActiveTrackColor;
+  DartObj disabledActiveTrackColor;
+  DartObj disabledSecondaryActiveTrackColor;
+  DartObj disabledInactiveTrackColor;
+  DartObj activeTickMarkColor;
+  DartObj inactiveTickMarkColor;
+  DartObj disabledActiveTickMarkColor;
+  DartObj disabledInactiveTickMarkColor;
+  DartObj thumbColor;
+  DartObj overlappingShapeStrokeColor;
+  DartObj disabledThumbColor;
+  DartObj overlayColor;
+  DartObj valueIndicatorColor;
+  DartObj valueIndicatorStrokeColor;
+  DartObj overlayShape;
+  DartObj thumbShape;
+  DartObj valueIndicatorShape;
+  int showValueIndicator;
+  TextStyleObjSt valueIndicatorTextStyle;
+  double minThumbSeparation;
+  int allowedInteraction;
+  DartObj padding;
+  double trackGap;
+  int year2023;
+} SliderThemeDataObjSt;
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  DartObj actionTextColor;
+  DartObj disabledActionTextColor;
+  TextStyleObjSt contentTextStyle;
+  double elevation;
+  DartObj shape;
+  int behavior;
+  double width;
+  EdgeInsetsObjSt insetPadding;
+  int showCloseIcon;
+  DartObj closeIconColor;
+  double actionOverflowThreshold;
+  DartObj actionBackgroundColor;
+  DartObj disabledActionBackgroundColor;
+  int dismissDirection;
+} SnackBarThemeDataObjSt;
+typedef struct {
+  int id;
+  int materialTapTargetSize;
+  double splashRadius;
+  DartObj padding;
+} SwitchThemeDataObjSt;
+typedef struct {
+  int id;
+  DartObj indicator;
+  DartObj indicatorColor;
+  int indicatorSize;
+  DartObj dividerColor;
+  double dividerHeight;
+  DartObj labelColor;
+  DartObj labelPadding;
+  TextStyleObjSt labelStyle;
+  DartObj unselectedLabelColor;
+  TextStyleObjSt unselectedLabelStyle;
+  int tabAlignment;
+  int indicatorAnimation;
+  BorderRadiusObjSt splashBorderRadius;
+} TabBarThemeDataObjSt;
+typedef struct {
+  int id;
+  double height;
+  BoxConstraintsObjSt constraints;
+  DartObj padding;
+  DartObj margin;
+  double verticalOffset;
+  int preferBelow;
+  int excludeFromSemantics;
+  DartObj decoration;
+  TextStyleObjSt textStyle;
+  int textAlign;
+  DartObj waitDuration;
+  DartObj showDuration;
+  DartObj exitDuration;
+  int triggerMode;
+  int enableFeedback;
+} TooltipThemeDataObjSt;
+typedef struct {
+  int id;
   int applyElevationOverlayColor;
   NoDefaultCupertinoThemeDataObjSt cupertinoOverrideTheme;
   int materialTapTargetSize;
@@ -1516,6 +1710,21 @@ typedef struct {
   IconThemeDataObjSt primaryIconTheme;
   TextThemeObjSt primaryTextTheme;
   TextThemeObjSt textTheme;
+  BadgeThemeDataObjSt badgeTheme;
+  CardThemeDataObjSt cardTheme;
+  CheckboxThemeDataObjSt checkboxTheme;
+  ChipThemeDataObjSt chipTheme;
+  DialogThemeDataObjSt dialogTheme;
+  DividerThemeDataObjSt dividerTheme;
+  MenuBarThemeDataObjSt menuBarTheme;
+  MenuThemeDataObjSt menuTheme;
+  PopupMenuThemeDataObjSt popupMenuTheme;
+  RadioThemeDataObjSt radioTheme;
+  SliderThemeDataObjSt sliderTheme;
+  SnackBarThemeDataObjSt snackBarTheme;
+  SwitchThemeDataObjSt switchTheme;
+  TabBarThemeDataObjSt tabBarTheme;
+  TooltipThemeDataObjSt tooltipTheme;
   DartObj dialogBackgroundColor;
   DartObj indicatorColor;
   int brightness;
@@ -3086,6 +3295,7 @@ typedef struct {
   double elevation;
   DartObj margin;
   DartObj shape;
+  CardThemeDataObjSt data;
 } CardThemeObjSt;
 typedef struct {
   int id;
@@ -3102,24 +3312,31 @@ typedef struct {
   DartObj barrierColor;
   EdgeInsetsObjSt insetPadding;
   int clipBehavior;
+  DialogThemeDataObjSt data;
 } DialogThemeObjSt;
 typedef struct {
   int id;
+  DividerThemeDataObjSt data;
 } DividerThemeObjSt;
 typedef struct {
   int id;
+  ChipThemeDataObjSt data;
 } ChipThemeObjSt;
 typedef struct {
   int id;
+  CheckboxThemeDataObjSt data;
 } CheckboxThemeObjSt;
 typedef struct {
   int id;
+  RadioThemeDataObjSt data;
 } RadioThemeObjSt;
 typedef struct {
   int id;
+  SwitchThemeDataObjSt data;
 } SwitchThemeObjSt;
 typedef struct {
   int id;
+  SliderThemeDataObjSt data;
 } SliderThemeObjSt;
 typedef struct {
   int id;
@@ -3135,18 +3352,22 @@ typedef struct {
   TextStyleObjSt unselectedLabelStyle;
   int tabAlignment;
   int indicatorAnimation;
+  TabBarThemeDataObjSt data;
 } TabBarThemeObjSt;
 typedef struct {
   int id;
+  TooltipThemeDataObjSt data;
 } TooltipThemeObjSt;
 typedef struct {
   int id;
+  BadgeThemeDataObjSt data;
 } BadgeThemeObjSt;
 typedef struct {
   int id;
 } ProgressIndicatorThemeObjSt;
 typedef struct {
   int id;
+  PopupMenuThemeDataObjSt data;
 } PopupMenuThemeObjSt;
 typedef struct {
   int id;
@@ -3165,9 +3386,11 @@ typedef struct {
 } NavigationRailThemeObjSt;
 typedef struct {
   int id;
+  MenuThemeDataObjSt data;
 } MenuThemeObjSt;
 typedef struct {
   int id;
+  MenuBarThemeDataObjSt data;
 } MenuBarThemeObjSt;
 typedef struct {
   int id;
@@ -3555,6 +3778,7 @@ typedef struct {
 } RawScrollbarObjSt;
 typedef struct {
   int id;
+  ChipThemeDataObjSt defaultProperties;
   DartObj avatar;
   DartObj label;
   TextStyleObjSt labelStyle;

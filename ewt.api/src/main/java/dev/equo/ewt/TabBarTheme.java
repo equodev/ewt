@@ -17,7 +17,7 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
   }
   TabBarTheme(int id) { this.id = id; }
   @Builder.Factory
-  static TabBarTheme tabBarThemeTabBarTheme(Optional<DecorationI> indicator, Optional<ColorI> indicatorColor, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<EdgeInsetsGeometryI> labelPadding, Optional<TextStyleI> labelStyle, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<ColorI> overlayColor, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation, Optional<WidgetI> child) {
+  static TabBarTheme tabBarThemeTabBarTheme(Optional<DecorationI> indicator, Optional<ColorI> indicatorColor, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<EdgeInsetsGeometryI> labelPadding, Optional<TextStyleI> labelStyle, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<ColorI> overlayColor, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation, Optional<TabBarThemeDataI> data, Optional<WidgetI> child) {
     var st = factories.tabBarThemeTabBarTheme(indicator.map(DecorationI::build),
       indicatorColor.map(ColorI::build),
       indicatorSize,
@@ -31,12 +31,18 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
       overlayColor.map(ColorI::build),
       tabAlignment,
       indicatorAnimation,
+      data.map(TabBarThemeDataI::build),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget TabBarTheme");
     return new TabBarTheme(st);
   }
   public static TabBarThemeTabBarThemeBuilder tabBarTheme() {
     return TabBarThemeTabBarThemeBuilder.tabBarThemeTabBarTheme();
+  }
+  public static TabBarThemeData of(BuildContextI context) {
+    var st = factories.tabBarThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget TabBarThemeData");
+    return new TabBarThemeData(st);
   }
   public static TabBarTheme lerp(TabBarThemeI a, TabBarThemeI b, double t) {
     var st = factories.tabBarThemeLerp(a.build(),
@@ -120,6 +126,16 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
   public TabIndicatorAnimation indicatorAnimation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeIndicatorAnimation not supported on web");
     return TabIndicatorAnimation.values()[TabBarThemeObjSt.indicatorAnimation(st)];
+  }
+  public TabBarThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("tabBarThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TabBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TabBarThemeDataObjSt.id(__st, __nid);
+      return new TabBarThemeData(__st);
+    }
+    return new TabBarThemeData(TabBarThemeObjSt.data(st));
   }
   @Override
   public TabBarTheme build() {

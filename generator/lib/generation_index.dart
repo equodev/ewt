@@ -584,6 +584,23 @@ m.SliderComponentShape? sliderComponentShape;
 // samples in type_samples.dart still work because they emit as opaque
 // NativeObj references; giving them real ObjSt structs breaks the toolchain.
 m.Feedback? feedback;
+
+// --- Batch 13: theme DATA value types ---
+m.CardThemeData? cardThemeData;
+m.DialogThemeData? dialogThemeData;
+m.DividerThemeData? dividerThemeData;
+m.ChipThemeData? chipThemeData;
+m.CheckboxThemeData? checkboxThemeData;
+m.RadioThemeData? radioThemeData;
+m.SwitchThemeData? switchThemeData;
+m.SliderThemeData? sliderThemeData;
+m.TabBarThemeData? tabBarThemeData;
+m.TooltipThemeData? tooltipThemeData;
+m.SnackBarThemeData? snackBarThemeData;
+m.BadgeThemeData? badgeThemeData;
+m.PopupMenuThemeData? popupMenuThemeData;
+m.MenuThemeData? menuThemeData;
+m.MenuBarThemeData? menuBarThemeData;
 // MaterialInkController skipped: same ChangeNotifier landmine (`extends NativeObj, ChangeNotifierI`).
 
 s.SubState? subState;

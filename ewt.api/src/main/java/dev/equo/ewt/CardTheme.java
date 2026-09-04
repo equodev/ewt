@@ -17,7 +17,7 @@ public class CardTheme extends InheritedWidget implements CardThemeI {
   }
   CardTheme(int id) { this.id = id; }
   @Builder.Factory
-  static CardTheme cardThemeCardTheme(Optional<Clip> clipBehavior, Optional<ColorI> color, Optional<ColorI> surfaceTintColor, Optional<ColorI> shadowColor, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<ShapeBorderI> shape, Optional<WidgetI> child) {
+  static CardTheme cardThemeCardTheme(Optional<Clip> clipBehavior, Optional<ColorI> color, Optional<ColorI> surfaceTintColor, Optional<ColorI> shadowColor, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<ShapeBorderI> shape, Optional<CardThemeDataI> data, Optional<WidgetI> child) {
     var st = factories.cardThemeCardTheme(clipBehavior,
       color.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
@@ -25,12 +25,18 @@ public class CardTheme extends InheritedWidget implements CardThemeI {
       elevation,
       margin.map(EdgeInsetsGeometryI::build),
       shape.map(ShapeBorderI::build),
+      data.map(CardThemeDataI::build),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget CardTheme");
     return new CardTheme(st);
   }
   public static CardThemeCardThemeBuilder cardTheme() {
     return CardThemeCardThemeBuilder.cardThemeCardTheme();
+  }
+  public static CardThemeData of(BuildContextI context) {
+    var st = factories.cardThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget CardThemeData");
+    return new CardThemeData(st);
   }
   public static CardTheme lerp(CardThemeI a, CardThemeI b, double t) {
     var st = factories.cardThemeLerp(a.build(),
@@ -78,6 +84,16 @@ public class CardTheme extends InheritedWidget implements CardThemeI {
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardThemeShape not supported on web");
     return new ShapeBorder(CardThemeObjSt.shape(st)) {};
+  }
+  public CardThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cardThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CardThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.CardThemeDataObjSt.id(__st, __nid);
+      return new CardThemeData(__st);
+    }
+    return new CardThemeData(CardThemeObjSt.data(st));
   }
   @Override
   public CardTheme build() {

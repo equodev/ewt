@@ -1224,6 +1224,72 @@ public class EWT {
     return NoDefaultCupertinoThemeDataNoDefaultCupertinoThemeDataBuilder.noDefaultCupertinoThemeDataNoDefaultCupertinoThemeData();
   }
 
+  public static BadgeThemeDataBadgeThemeDataBuilder BadgeThemeData() {
+    return BadgeThemeDataBadgeThemeDataBuilder.badgeThemeDataBadgeThemeData();
+  }
+
+  public static CardThemeDataCardThemeDataBuilder CardThemeData() {
+    return CardThemeDataCardThemeDataBuilder.cardThemeDataCardThemeData();
+  }
+
+  public static CheckboxThemeDataCheckboxThemeDataBuilder CheckboxThemeData() {
+    return CheckboxThemeDataCheckboxThemeDataBuilder.checkboxThemeDataCheckboxThemeData();
+  }
+
+  public static ChipThemeDataChipThemeDataBuilder ChipThemeData() {
+    return ChipThemeDataChipThemeDataBuilder.chipThemeDataChipThemeData();
+  }
+  public static ChipThemeDataFromDefaultsBuilder ChipThemeData_fromDefaults() {
+    return ChipThemeDataFromDefaultsBuilder.chipThemeDataFromDefaults();
+  }
+
+  public static DialogThemeDataDialogThemeDataBuilder DialogThemeData() {
+    return DialogThemeDataDialogThemeDataBuilder.dialogThemeDataDialogThemeData();
+  }
+
+  public static DividerThemeDataDividerThemeDataBuilder DividerThemeData() {
+    return DividerThemeDataDividerThemeDataBuilder.dividerThemeDataDividerThemeData();
+  }
+
+  public static MenuBarThemeDataMenuBarThemeDataBuilder MenuBarThemeData() {
+    return MenuBarThemeDataMenuBarThemeDataBuilder.menuBarThemeDataMenuBarThemeData();
+  }
+
+  public static MenuThemeDataMenuThemeDataBuilder MenuThemeData() {
+    return MenuThemeDataMenuThemeDataBuilder.menuThemeDataMenuThemeData();
+  }
+
+  public static PopupMenuThemeDataPopupMenuThemeDataBuilder PopupMenuThemeData() {
+    return PopupMenuThemeDataPopupMenuThemeDataBuilder.popupMenuThemeDataPopupMenuThemeData();
+  }
+
+  public static RadioThemeDataRadioThemeDataBuilder RadioThemeData() {
+    return RadioThemeDataRadioThemeDataBuilder.radioThemeDataRadioThemeData();
+  }
+
+  public static SliderThemeDataSliderThemeDataBuilder SliderThemeData() {
+    return SliderThemeDataSliderThemeDataBuilder.sliderThemeDataSliderThemeData();
+  }
+  public static SliderThemeDataFromPrimaryColorsBuilder SliderThemeData_fromPrimaryColors(ColorI primaryColor, ColorI primaryColorDark, ColorI primaryColorLight, TextStyleI valueIndicatorTextStyle) {
+    return SliderThemeDataFromPrimaryColorsBuilder.sliderThemeDataFromPrimaryColors(primaryColor, primaryColorDark, primaryColorLight, valueIndicatorTextStyle);
+  }
+
+  public static SnackBarThemeDataSnackBarThemeDataBuilder SnackBarThemeData() {
+    return SnackBarThemeDataSnackBarThemeDataBuilder.snackBarThemeDataSnackBarThemeData();
+  }
+
+  public static SwitchThemeDataSwitchThemeDataBuilder SwitchThemeData() {
+    return SwitchThemeDataSwitchThemeDataBuilder.switchThemeDataSwitchThemeData();
+  }
+
+  public static TabBarThemeDataTabBarThemeDataBuilder TabBarThemeData() {
+    return TabBarThemeDataTabBarThemeDataBuilder.tabBarThemeDataTabBarThemeData();
+  }
+
+  public static TooltipThemeDataTooltipThemeDataBuilder TooltipThemeData() {
+    return TooltipThemeDataTooltipThemeDataBuilder.tooltipThemeDataTooltipThemeData();
+  }
+
   public static CupertinoTextThemeDataCupertinoTextThemeDataBuilder CupertinoTextThemeData() {
     return CupertinoTextThemeDataCupertinoTextThemeDataBuilder.cupertinoTextThemeDataCupertinoTextThemeData();
   }
@@ -1881,8 +1947,52 @@ public class EWT {
     return DialogThemeDialogThemeBuilder.dialogThemeDialogTheme();
   }
 
+  public static DividerThemeDividerThemeBuilder DividerTheme(DividerThemeDataI data, WidgetI child) {
+    return DividerThemeDividerThemeBuilder.dividerThemeDividerTheme(data, child);
+  }
+
+  public static ChipThemeChipThemeBuilder ChipTheme(ChipThemeDataI data, WidgetI child) {
+    return ChipThemeChipThemeBuilder.chipThemeChipTheme(data, child);
+  }
+
+  public static CheckboxThemeCheckboxThemeBuilder CheckboxTheme(CheckboxThemeDataI data, WidgetI child) {
+    return CheckboxThemeCheckboxThemeBuilder.checkboxThemeCheckboxTheme(data, child);
+  }
+
+  public static RadioThemeRadioThemeBuilder RadioTheme(RadioThemeDataI data, WidgetI child) {
+    return RadioThemeRadioThemeBuilder.radioThemeRadioTheme(data, child);
+  }
+
+  public static SwitchThemeSwitchThemeBuilder SwitchTheme(SwitchThemeDataI data, WidgetI child) {
+    return SwitchThemeSwitchThemeBuilder.switchThemeSwitchTheme(data, child);
+  }
+
+  public static SliderThemeSliderThemeBuilder SliderTheme(SliderThemeDataI data, WidgetI child) {
+    return SliderThemeSliderThemeBuilder.sliderThemeSliderTheme(data, child);
+  }
+
   public static TabBarThemeTabBarThemeBuilder TabBarTheme() {
     return TabBarThemeTabBarThemeBuilder.tabBarThemeTabBarTheme();
+  }
+
+  public static TooltipThemeTooltipThemeBuilder TooltipTheme(TooltipThemeDataI data, WidgetI child) {
+    return TooltipThemeTooltipThemeBuilder.tooltipThemeTooltipTheme(data, child);
+  }
+
+  public static BadgeThemeBadgeThemeBuilder BadgeTheme(BadgeThemeDataI data, WidgetI child) {
+    return BadgeThemeBadgeThemeBuilder.badgeThemeBadgeTheme(data, child);
+  }
+
+  public static PopupMenuThemePopupMenuThemeBuilder PopupMenuTheme(PopupMenuThemeDataI data, WidgetI child) {
+    return PopupMenuThemePopupMenuThemeBuilder.popupMenuThemePopupMenuTheme(data, child);
+  }
+
+  public static MenuThemeMenuThemeBuilder MenuTheme(MenuThemeDataI data, WidgetI child) {
+    return MenuThemeMenuThemeBuilder.menuThemeMenuTheme(data, child);
+  }
+
+  public static MenuBarThemeMenuBarThemeBuilder MenuBarTheme(MenuBarThemeDataI data, WidgetI child) {
+    return MenuBarThemeMenuBarThemeBuilder.menuBarThemeMenuBarTheme(data, child);
   }
 
   public static BottomAppBarThemeBottomAppBarThemeBuilder BottomAppBarTheme() {
