@@ -8189,6 +8189,48 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enabled));
   }
 
+  MemorySegment cupertinoDynamicColorCupertinoDynamicColor(Optional<String> debugLabel, Color color, Color darkColor, Color highContrastColor, Color darkHighContrastColor, Color elevatedColor, Color darkElevatedColor, Color highContrastElevatedColor, Color darkHighContrastElevatedColor) {
+    var st = WidgetFactories.cupertinoDynamicColor(factories);
+    var fn = WidgetFactories.CupertinoDynamicColorSt.cupertinoDynamicColor(st);
+    return WidgetFactories.CupertinoDynamicColorSt.cupertinoDynamicColor.invoke(fn, arena, ptrStr(debugLabel),
+      color.build().getId(),
+      darkColor.build().getId(),
+      highContrastColor.build().getId(),
+      darkHighContrastColor.build().getId(),
+      elevatedColor.build().getId(),
+      darkElevatedColor.build().getId(),
+      highContrastElevatedColor.build().getId(),
+      darkHighContrastElevatedColor.build().getId());
+  }
+  MemorySegment cupertinoDynamicColorWithBrightnessAndContrast(Optional<String> debugLabel, Color color, Color darkColor, Color highContrastColor, Color darkHighContrastColor) {
+    var st = WidgetFactories.cupertinoDynamicColor(factories);
+    var fn = WidgetFactories.CupertinoDynamicColorSt.withBrightnessAndContrast(st);
+    return WidgetFactories.CupertinoDynamicColorSt.withBrightnessAndContrast.invoke(fn, arena, ptrStr(debugLabel),
+      color.build().getId(),
+      darkColor.build().getId(),
+      highContrastColor.build().getId(),
+      darkHighContrastColor.build().getId());
+  }
+  MemorySegment cupertinoDynamicColorWithBrightness(Optional<String> debugLabel, Color color, Color darkColor) {
+    var st = WidgetFactories.cupertinoDynamicColor(factories);
+    var fn = WidgetFactories.CupertinoDynamicColorSt.withBrightness(st);
+    return WidgetFactories.CupertinoDynamicColorSt.withBrightness.invoke(fn, arena, ptrStr(debugLabel),
+      color.build().getId(),
+      darkColor.build().getId());
+  }
+  int cupertinoDynamicColorResolve(Color resolvable, BuildContext context) {
+    var st = WidgetFactories.cupertinoDynamicColor(factories);
+    var fn = WidgetFactories.CupertinoDynamicColorSt.resolve(st);
+    return WidgetFactories.CupertinoDynamicColorSt.resolve.invoke(fn, resolvable.build().getId(),
+      context.build().getId());
+  }
+  int cupertinoDynamicColorMaybeResolve(Color resolvable, BuildContext context) {
+    var st = WidgetFactories.cupertinoDynamicColor(factories);
+    var fn = WidgetFactories.CupertinoDynamicColorSt.maybeResolve(st);
+    return WidgetFactories.CupertinoDynamicColorSt.maybeResolve.invoke(fn, resolvable != null ? resolvable.build().getId() : null,
+      context.build().getId());
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);

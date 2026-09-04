@@ -3567,6 +3567,27 @@ typedef struct {
 } ShrinkWrappingViewportObjSt;
 typedef struct {
   int id;
+  DartObj alignment;
+} SizedOverflowBoxObjSt;
+typedef struct {
+  int id;
+  DartObj color;
+  DartObj darkColor;
+  DartObj highContrastColor;
+  DartObj darkHighContrastColor;
+  DartObj elevatedColor;
+  DartObj darkElevatedColor;
+  DartObj highContrastElevatedColor;
+  DartObj darkHighContrastElevatedColor;
+} CupertinoDynamicColorObjSt;
+typedef struct {
+  int id;
+  int autofocus;
+  int includeSemantics;
+  DartObj child;
+} RawKeyboardListenerObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

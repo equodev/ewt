@@ -13302,6 +13302,64 @@ CupertinoRadioObjSt _createCupertinoRadioObjSt(CupertinoRadio? w) {
   return stObj;
 }
 
+void _setupCupertinoDynamicColor(WidgetFactories f) {
+  f.cupertinoDynamicColor.cupertinoDynamicColor = ffi.Pointer.fromFunction(cupertinoDynamicColorCupertinoDynamicColor);
+  f.cupertinoDynamicColor.withBrightnessAndContrast = ffi.Pointer.fromFunction(cupertinoDynamicColorWithBrightnessAndContrast);
+  f.cupertinoDynamicColor.withBrightness = ffi.Pointer.fromFunction(cupertinoDynamicColorWithBrightness);
+  f.cupertinoDynamicColor.resolve = ffi.Pointer.fromFunction(cupertinoDynamicColorResolve, exception);
+  f.cupertinoDynamicColor.maybeResolve = ffi.Pointer.fromFunction(cupertinoDynamicColorMaybeResolve, exception);
+}
+CupertinoDynamicColorObjSt cupertinoDynamicColorCupertinoDynamicColor(ffi.Pointer<ffi.Char> debugLabel, DartDartObj color, DartDartObj darkColor, DartDartObj highContrastColor, DartDartObj darkHighContrastColor, DartDartObj elevatedColor, DartDartObj darkElevatedColor, DartDartObj highContrastElevatedColor, DartDartObj darkHighContrastElevatedColor) {
+  final w = CupertinoDynamicColor(debugLabel: debugLabel.strOrNul(),
+      color: _widgetsMap[color]! as Color,
+      darkColor: _widgetsMap[darkColor]! as Color,
+      highContrastColor: _widgetsMap[highContrastColor]! as Color,
+      darkHighContrastColor: _widgetsMap[darkHighContrastColor]! as Color,
+      elevatedColor: _widgetsMap[elevatedColor]! as Color,
+      darkElevatedColor: _widgetsMap[darkElevatedColor]! as Color,
+      highContrastElevatedColor: _widgetsMap[highContrastElevatedColor]! as Color,
+      darkHighContrastElevatedColor: _widgetsMap[darkHighContrastElevatedColor]! as Color);
+  return _createCupertinoDynamicColorObjSt(w);
+}
+CupertinoDynamicColorObjSt cupertinoDynamicColorWithBrightnessAndContrast(ffi.Pointer<ffi.Char> debugLabel, DartDartObj color, DartDartObj darkColor, DartDartObj highContrastColor, DartDartObj darkHighContrastColor) {
+  final w = CupertinoDynamicColor.withBrightnessAndContrast(debugLabel: debugLabel.strOrNul(),
+      color: _widgetsMap[color]! as Color,
+      darkColor: _widgetsMap[darkColor]! as Color,
+      highContrastColor: _widgetsMap[highContrastColor]! as Color,
+      darkHighContrastColor: _widgetsMap[darkHighContrastColor]! as Color);
+  return _createCupertinoDynamicColorObjSt(w);
+}
+CupertinoDynamicColorObjSt cupertinoDynamicColorWithBrightness(ffi.Pointer<ffi.Char> debugLabel, DartDartObj color, DartDartObj darkColor) {
+  final w = CupertinoDynamicColor.withBrightness(debugLabel: debugLabel.strOrNul(),
+      color: _widgetsMap[color]! as Color,
+      darkColor: _widgetsMap[darkColor]! as Color);
+  return _createCupertinoDynamicColorObjSt(w);
+}
+int cupertinoDynamicColorResolve(DartDartObj resolvable, DartDartObj context) {
+  final w = CupertinoDynamicColor.resolve(_widgetsMap[resolvable]! as Color,
+      _widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+int cupertinoDynamicColorMaybeResolve(DartDartObj resolvable, DartDartObj context) {
+  final w = CupertinoDynamicColor.maybeResolve(_widgetsMap[resolvable]! as Color?,
+      _widgetsMap[context]! as BuildContext);
+  return _addWidget(w);
+}
+CupertinoDynamicColorObjSt _createCupertinoDynamicColorObjSt(CupertinoDynamicColor? w) {
+  final CupertinoDynamicColorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.color = _addWidget(w.color);
+  stObj.darkColor = _addWidget(w.darkColor);
+  stObj.highContrastColor = _addWidget(w.highContrastColor);
+  stObj.darkHighContrastColor = _addWidget(w.darkHighContrastColor);
+  stObj.elevatedColor = _addWidget(w.elevatedColor);
+  stObj.darkElevatedColor = _addWidget(w.darkElevatedColor);
+  stObj.highContrastElevatedColor = _addWidget(w.highContrastElevatedColor);
+  stObj.darkHighContrastElevatedColor = _addWidget(w.darkHighContrastElevatedColor);
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -13761,6 +13819,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupRawScrollbar(f);
   _setupRawChip(f);
   _setupCupertinoRadio(f);
+  _setupCupertinoDynamicColor(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

@@ -2021,6 +2021,16 @@ public class EWT {
     return CupertinoRadioCupertinoRadioBuilder.cupertinoRadioCupertinoRadio(value);
   }
 
+  public static CupertinoDynamicColorCupertinoDynamicColorBuilder CupertinoDynamicColor() {
+    return CupertinoDynamicColorCupertinoDynamicColorBuilder.cupertinoDynamicColorCupertinoDynamicColor();
+  }
+  public static CupertinoDynamicColorWithBrightnessAndContrastBuilder CupertinoDynamicColor_withBrightnessAndContrast() {
+    return CupertinoDynamicColorWithBrightnessAndContrastBuilder.cupertinoDynamicColorWithBrightnessAndContrast();
+  }
+  public static CupertinoDynamicColorWithBrightnessBuilder CupertinoDynamicColor_withBrightness() {
+    return CupertinoDynamicColorWithBrightnessBuilder.cupertinoDynamicColorWithBrightness();
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

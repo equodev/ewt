@@ -553,6 +553,17 @@ w.ShrinkWrappingViewport? shrinkWrappingViewport;
 // Viewport skipped: same ffigen-drops-trivial-ObjSt landmine as CupertinoTheme — the static `getDefaultCrossAxisDirection` makes the generator emit `_createViewportObjSt`, and ffigen doesn't emit the type.
 w.ScrollNotificationObserverScope? scrollNotificationObserverScope;
 
+// --- Batch 10: more Cupertino + simple basics ---
+w.SizedOverflowBox? sizedOverflowBox;
+c.CupertinoDynamicColor? cupertinoDynamicColor;
+c.CupertinoTypography? cupertinoTypography;
+// PageTransitionsTheme skipped: emitted `_defaultBuilders()` inlines a Java Map referencing `ZoomPageTransitionsBuilder`, `CupertinoPageTransitionsBuilder` — PageTransitionsBuilder subclasses that aren't in the emitted set. Same private-defaults + missing-subclass shape as CupertinoScrollBehavior.
+m.RawSnackBar? rawSnackBar;
+m.MergeableMaterialItem? mergeableMaterialItem;
+w.RawKeyboardListener? rawKeyboardListener;
+c.CupertinoModalPopup? cupertinoModalPopup;
+c.CupertinoActionSheetLabel? cupertinoActionSheetLabel;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

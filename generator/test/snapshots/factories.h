@@ -1875,6 +1875,14 @@ typedef struct {
     CupertinoRadioObjSt (*cupertinoRadio)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* inactiveColor, DartObj* fillColor, DartObj* focusColor, int* autofocus, int* useCheckmarkStyle, int* enabled);
   } cupertinoRadio;
 
+  struct CupertinoDynamicColorSt {
+    CupertinoDynamicColorObjSt (*cupertinoDynamicColor)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor, DartObj elevatedColor, DartObj darkElevatedColor, DartObj highContrastElevatedColor, DartObj darkHighContrastElevatedColor);
+    CupertinoDynamicColorObjSt (*withBrightnessAndContrast)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor);
+    CupertinoDynamicColorObjSt (*withBrightness)(char* debugLabel, DartObj color, DartObj darkColor);
+    DartObj (*resolve)(DartObj resolvable, DartObj context);
+    DartObj (*maybeResolve)(DartObj resolvable, DartObj context);
+  } cupertinoDynamicColor;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

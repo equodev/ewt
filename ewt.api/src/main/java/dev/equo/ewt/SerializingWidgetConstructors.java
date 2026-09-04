@@ -11006,6 +11006,69 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment cupertinoDynamicColorCupertinoDynamicColor(Optional<String> debugLabel, Color color, Color darkColor, Color highContrastColor, Color darkHighContrastColor, Color elevatedColor, Color darkElevatedColor, Color highContrastElevatedColor, Color darkHighContrastElevatedColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    debugLabel.ifPresent(v -> p.put("debugLabel", v));
+    p.put("color", byId.get(color.getId()));
+    p.put("darkColor", byId.get(darkColor.getId()));
+    p.put("highContrastColor", byId.get(highContrastColor.getId()));
+    p.put("darkHighContrastColor", byId.get(darkHighContrastColor.getId()));
+    p.put("elevatedColor", byId.get(elevatedColor.getId()));
+    p.put("darkElevatedColor", byId.get(darkElevatedColor.getId()));
+    p.put("highContrastElevatedColor", byId.get(highContrastElevatedColor.getId()));
+    p.put("darkHighContrastElevatedColor", byId.get(darkHighContrastElevatedColor.getId()));
+    record(id, "cupertinoDynamicColorCupertinoDynamicColor", p);
+    MemorySegment st = CupertinoDynamicColorObjSt.allocate(arena);
+    CupertinoDynamicColorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoDynamicColorWithBrightnessAndContrast(Optional<String> debugLabel, Color color, Color darkColor, Color highContrastColor, Color darkHighContrastColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    debugLabel.ifPresent(v -> p.put("debugLabel", v));
+    p.put("color", byId.get(color.getId()));
+    p.put("darkColor", byId.get(darkColor.getId()));
+    p.put("highContrastColor", byId.get(highContrastColor.getId()));
+    p.put("darkHighContrastColor", byId.get(darkHighContrastColor.getId()));
+    record(id, "cupertinoDynamicColorWithBrightnessAndContrast", p);
+    MemorySegment st = CupertinoDynamicColorObjSt.allocate(arena);
+    CupertinoDynamicColorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoDynamicColorWithBrightness(Optional<String> debugLabel, Color color, Color darkColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    debugLabel.ifPresent(v -> p.put("debugLabel", v));
+    p.put("color", byId.get(color.getId()));
+    p.put("darkColor", byId.get(darkColor.getId()));
+    record(id, "cupertinoDynamicColorWithBrightness", p);
+    MemorySegment st = CupertinoDynamicColorObjSt.allocate(arena);
+    CupertinoDynamicColorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int cupertinoDynamicColorResolve(Color resolvable, BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("resolvable", byId.get(resolvable.getId()));
+    p.put("context", byId.get(context.getId()));
+    record(id, "cupertinoDynamicColorResolve", p);
+    return id;
+  }
+  @Override
+  int cupertinoDynamicColorMaybeResolve(Color resolvable, BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("resolvable", byId.get(resolvable.getId()));
+    p.put("context", byId.get(context.getId()));
+    record(id, "cupertinoDynamicColorMaybeResolve", p);
+    return id;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
