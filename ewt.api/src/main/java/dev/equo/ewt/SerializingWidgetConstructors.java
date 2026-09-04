@@ -5904,7 +5904,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeData> cupertinoOverrideTheme, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeData> iconTheme, Optional<IconThemeData> primaryIconTheme, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<ActionIconThemeData> actionIconTheme, Optional<NativeObj> appBarTheme, Optional<BadgeThemeData> badgeTheme, Optional<BottomAppBarThemeData> bottomAppBarTheme, Optional<BottomNavigationBarThemeData> bottomNavigationBarTheme, Optional<BottomSheetThemeData> bottomSheetTheme, Optional<CardThemeData> cardTheme, Optional<CheckboxThemeData> checkboxTheme, Optional<ChipThemeData> chipTheme, Optional<DialogThemeData> dialogTheme, Optional<DividerThemeData> dividerTheme, Optional<DrawerThemeData> drawerTheme, Optional<DropdownMenuThemeData> dropdownMenuTheme, Optional<ExpansionTileThemeData> expansionTileTheme, Optional<MenuBarThemeData> menuBarTheme, Optional<MenuButtonThemeData> menuButtonTheme, Optional<MenuThemeData> menuTheme, Optional<NavigationBarThemeData> navigationBarTheme, Optional<NavigationDrawerThemeData> navigationDrawerTheme, Optional<NavigationRailThemeData> navigationRailTheme, Optional<PopupMenuThemeData> popupMenuTheme, Optional<ProgressIndicatorThemeData> progressIndicatorTheme, Optional<RadioThemeData> radioTheme, Optional<SearchBarThemeData> searchBarTheme, Optional<SearchViewThemeData> searchViewTheme, Optional<SliderThemeData> sliderTheme, Optional<SnackBarThemeData> snackBarTheme, Optional<SwitchThemeData> switchTheme, Optional<TabBarThemeData> tabBarTheme, Optional<TooltipThemeData> tooltipTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeData> cupertinoOverrideTheme, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeData> iconTheme, Optional<IconThemeData> primaryIconTheme, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<ActionIconThemeData> actionIconTheme, Optional<NativeObj> appBarTheme, Optional<BadgeThemeData> badgeTheme, Optional<BottomAppBarThemeData> bottomAppBarTheme, Optional<BottomNavigationBarThemeData> bottomNavigationBarTheme, Optional<BottomSheetThemeData> bottomSheetTheme, Optional<ButtonThemeData> buttonTheme, Optional<CardThemeData> cardTheme, Optional<CarouselViewThemeData> carouselViewTheme, Optional<CheckboxThemeData> checkboxTheme, Optional<ChipThemeData> chipTheme, Optional<DataTableThemeData> dataTableTheme, Optional<DatePickerThemeData> datePickerTheme, Optional<DialogThemeData> dialogTheme, Optional<DividerThemeData> dividerTheme, Optional<DrawerThemeData> drawerTheme, Optional<DropdownMenuThemeData> dropdownMenuTheme, Optional<ElevatedButtonThemeData> elevatedButtonTheme, Optional<ExpansionTileThemeData> expansionTileTheme, Optional<FilledButtonThemeData> filledButtonTheme, Optional<FloatingActionButtonThemeData> floatingActionButtonTheme, Optional<IconButtonThemeData> iconButtonTheme, Optional<MenuBarThemeData> menuBarTheme, Optional<MenuButtonThemeData> menuButtonTheme, Optional<MenuThemeData> menuTheme, Optional<NavigationBarThemeData> navigationBarTheme, Optional<NavigationDrawerThemeData> navigationDrawerTheme, Optional<NavigationRailThemeData> navigationRailTheme, Optional<OutlinedButtonThemeData> outlinedButtonTheme, Optional<PopupMenuThemeData> popupMenuTheme, Optional<ProgressIndicatorThemeData> progressIndicatorTheme, Optional<RadioThemeData> radioTheme, Optional<SearchBarThemeData> searchBarTheme, Optional<SearchViewThemeData> searchViewTheme, Optional<SegmentedButtonThemeData> segmentedButtonTheme, Optional<SliderThemeData> sliderTheme, Optional<SnackBarThemeData> snackBarTheme, Optional<SwitchThemeData> switchTheme, Optional<TabBarThemeData> tabBarTheme, Optional<TextButtonThemeData> textButtonTheme, Optional<TextSelectionThemeData> textSelectionTheme, Optional<TimePickerThemeData> timePickerTheme, Optional<ToggleButtonsThemeData> toggleButtonsTheme, Optional<TooltipThemeData> tooltipTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     applyElevationOverlayColor.ifPresent(v -> p.put("applyElevationOverlayColor", v));
@@ -5948,29 +5948,43 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     bottomAppBarTheme.ifPresent(v -> p.put("bottomAppBarTheme", byId.get(v.getId())));
     bottomNavigationBarTheme.ifPresent(v -> p.put("bottomNavigationBarTheme", byId.get(v.getId())));
     bottomSheetTheme.ifPresent(v -> p.put("bottomSheetTheme", byId.get(v.getId())));
+    buttonTheme.ifPresent(v -> p.put("buttonTheme", byId.get(v.getId())));
     cardTheme.ifPresent(v -> p.put("cardTheme", byId.get(v.getId())));
+    carouselViewTheme.ifPresent(v -> p.put("carouselViewTheme", byId.get(v.getId())));
     checkboxTheme.ifPresent(v -> p.put("checkboxTheme", byId.get(v.getId())));
     chipTheme.ifPresent(v -> p.put("chipTheme", byId.get(v.getId())));
+    dataTableTheme.ifPresent(v -> p.put("dataTableTheme", byId.get(v.getId())));
+    datePickerTheme.ifPresent(v -> p.put("datePickerTheme", byId.get(v.getId())));
     dialogTheme.ifPresent(v -> p.put("dialogTheme", byId.get(v.getId())));
     dividerTheme.ifPresent(v -> p.put("dividerTheme", byId.get(v.getId())));
     drawerTheme.ifPresent(v -> p.put("drawerTheme", byId.get(v.getId())));
     dropdownMenuTheme.ifPresent(v -> p.put("dropdownMenuTheme", byId.get(v.getId())));
+    elevatedButtonTheme.ifPresent(v -> p.put("elevatedButtonTheme", byId.get(v.getId())));
     expansionTileTheme.ifPresent(v -> p.put("expansionTileTheme", byId.get(v.getId())));
+    filledButtonTheme.ifPresent(v -> p.put("filledButtonTheme", byId.get(v.getId())));
+    floatingActionButtonTheme.ifPresent(v -> p.put("floatingActionButtonTheme", byId.get(v.getId())));
+    iconButtonTheme.ifPresent(v -> p.put("iconButtonTheme", byId.get(v.getId())));
     menuBarTheme.ifPresent(v -> p.put("menuBarTheme", byId.get(v.getId())));
     menuButtonTheme.ifPresent(v -> p.put("menuButtonTheme", byId.get(v.getId())));
     menuTheme.ifPresent(v -> p.put("menuTheme", byId.get(v.getId())));
     navigationBarTheme.ifPresent(v -> p.put("navigationBarTheme", byId.get(v.getId())));
     navigationDrawerTheme.ifPresent(v -> p.put("navigationDrawerTheme", byId.get(v.getId())));
     navigationRailTheme.ifPresent(v -> p.put("navigationRailTheme", byId.get(v.getId())));
+    outlinedButtonTheme.ifPresent(v -> p.put("outlinedButtonTheme", byId.get(v.getId())));
     popupMenuTheme.ifPresent(v -> p.put("popupMenuTheme", byId.get(v.getId())));
     progressIndicatorTheme.ifPresent(v -> p.put("progressIndicatorTheme", byId.get(v.getId())));
     radioTheme.ifPresent(v -> p.put("radioTheme", byId.get(v.getId())));
     searchBarTheme.ifPresent(v -> p.put("searchBarTheme", byId.get(v.getId())));
     searchViewTheme.ifPresent(v -> p.put("searchViewTheme", byId.get(v.getId())));
+    segmentedButtonTheme.ifPresent(v -> p.put("segmentedButtonTheme", byId.get(v.getId())));
     sliderTheme.ifPresent(v -> p.put("sliderTheme", byId.get(v.getId())));
     snackBarTheme.ifPresent(v -> p.put("snackBarTheme", byId.get(v.getId())));
     switchTheme.ifPresent(v -> p.put("switchTheme", byId.get(v.getId())));
     tabBarTheme.ifPresent(v -> p.put("tabBarTheme", byId.get(v.getId())));
+    textButtonTheme.ifPresent(v -> p.put("textButtonTheme", byId.get(v.getId())));
+    textSelectionTheme.ifPresent(v -> p.put("textSelectionTheme", byId.get(v.getId())));
+    timePickerTheme.ifPresent(v -> p.put("timePickerTheme", byId.get(v.getId())));
+    toggleButtonsTheme.ifPresent(v -> p.put("toggleButtonsTheme", byId.get(v.getId())));
     tooltipTheme.ifPresent(v -> p.put("tooltipTheme", byId.get(v.getId())));
     dialogBackgroundColor.ifPresent(v -> p.put("dialogBackgroundColor", byId.get(v.getId())));
     indicatorColor.ifPresent(v -> p.put("indicatorColor", byId.get(v.getId())));
@@ -6225,6 +6239,31 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment buttonThemeDataButtonThemeData(Optional<ButtonTextTheme> textTheme, OptionalDouble minWidth, OptionalDouble height, Optional<EdgeInsetsGeometry> padding, Optional<ShapeBorder> shape, Optional<ButtonBarLayoutBehavior> layoutBehavior, Optional<Boolean> alignedDropdown, Optional<Color> buttonColor, Optional<Color> disabledColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> splashColor, Optional<ColorScheme> colorScheme, Optional<MaterialTapTargetSize> materialTapTargetSize) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    textTheme.ifPresent(v -> p.put("textTheme", v.ordinal()));
+    if (minWidth.isPresent()) { p.put("minWidth", minWidth.getAsDouble()); }
+    if (height.isPresent()) { p.put("height", height.getAsDouble()); }
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    layoutBehavior.ifPresent(v -> p.put("layoutBehavior", v.ordinal()));
+    alignedDropdown.ifPresent(v -> p.put("alignedDropdown", v));
+    buttonColor.ifPresent(v -> p.put("buttonColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    colorScheme.ifPresent(v -> p.put("colorScheme", byId.get(v.getId())));
+    materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
+    record(id, "buttonThemeDataButtonThemeData", p);
+    MemorySegment st = ButtonThemeDataObjSt.allocate(arena);
+    ButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment cardThemeDataCardThemeData(Optional<Clip> clipBehavior, Optional<Color> color, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<ShapeBorder> shape) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -6250,6 +6289,33 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "cardThemeDataLerp", p);
     MemorySegment st = CardThemeDataObjSt.allocate(arena);
     CardThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment carouselViewThemeDataCarouselViewThemeData(OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> overlayColor, Optional<OutlinedBorder> shape, Optional<EdgeInsets> padding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    record(id, "carouselViewThemeDataCarouselViewThemeData", p);
+    MemorySegment st = CarouselViewThemeDataObjSt.allocate(arena);
+    CarouselViewThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment carouselViewThemeDataLerp(CarouselViewThemeData a, CarouselViewThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "carouselViewThemeDataLerp", p);
+    MemorySegment st = CarouselViewThemeDataObjSt.allocate(arena);
+    CarouselViewThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -6338,6 +6404,102 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "chipThemeDataLerp", p);
     MemorySegment st = ChipThemeDataObjSt.allocate(arena);
     ChipThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment dataTableThemeDataDataTableThemeData(Optional<Decoration> decoration, Optional<Color> dataRowColor, OptionalDouble dataRowHeight, OptionalDouble dataRowMinHeight, OptionalDouble dataRowMaxHeight, Optional<TextStyle> dataTextStyle, Optional<Color> headingRowColor, OptionalDouble headingRowHeight, Optional<TextStyle> headingTextStyle, OptionalDouble horizontalMargin, OptionalDouble columnSpacing, OptionalDouble dividerThickness, OptionalDouble checkboxHorizontalMargin, Optional<MainAxisAlignment> headingRowAlignment) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    dataRowColor.ifPresent(v -> p.put("dataRowColor", byId.get(v.getId())));
+    if (dataRowHeight.isPresent()) { p.put("dataRowHeight", dataRowHeight.getAsDouble()); }
+    if (dataRowMinHeight.isPresent()) { p.put("dataRowMinHeight", dataRowMinHeight.getAsDouble()); }
+    if (dataRowMaxHeight.isPresent()) { p.put("dataRowMaxHeight", dataRowMaxHeight.getAsDouble()); }
+    dataTextStyle.ifPresent(v -> p.put("dataTextStyle", byId.get(v.getId())));
+    headingRowColor.ifPresent(v -> p.put("headingRowColor", byId.get(v.getId())));
+    if (headingRowHeight.isPresent()) { p.put("headingRowHeight", headingRowHeight.getAsDouble()); }
+    headingTextStyle.ifPresent(v -> p.put("headingTextStyle", byId.get(v.getId())));
+    if (horizontalMargin.isPresent()) { p.put("horizontalMargin", horizontalMargin.getAsDouble()); }
+    if (columnSpacing.isPresent()) { p.put("columnSpacing", columnSpacing.getAsDouble()); }
+    if (dividerThickness.isPresent()) { p.put("dividerThickness", dividerThickness.getAsDouble()); }
+    if (checkboxHorizontalMargin.isPresent()) { p.put("checkboxHorizontalMargin", checkboxHorizontalMargin.getAsDouble()); }
+    headingRowAlignment.ifPresent(v -> p.put("headingRowAlignment", v.ordinal()));
+    record(id, "dataTableThemeDataDataTableThemeData", p);
+    MemorySegment st = DataTableThemeDataObjSt.allocate(arena);
+    DataTableThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment dataTableThemeDataLerp(DataTableThemeData a, DataTableThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "dataTableThemeDataLerp", p);
+    MemorySegment st = DataTableThemeDataObjSt.allocate(arena);
+    DataTableThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment datePickerThemeDataDatePickerThemeData(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> headerBackgroundColor, Optional<Color> headerForegroundColor, Optional<TextStyle> headerHeadlineStyle, Optional<TextStyle> headerHelpStyle, Optional<TextStyle> weekdayStyle, Optional<TextStyle> dayStyle, Optional<Color> dayForegroundColor, Optional<Color> dayBackgroundColor, Optional<Color> dayOverlayColor, Optional<OutlinedBorder> dayShape, Optional<Color> todayForegroundColor, Optional<Color> todayBackgroundColor, Optional<BorderSide> todayBorder, Optional<TextStyle> yearStyle, Optional<Color> yearForegroundColor, Optional<Color> yearBackgroundColor, Optional<Color> yearOverlayColor, Optional<OutlinedBorder> yearShape, Optional<Color> rangePickerBackgroundColor, OptionalDouble rangePickerElevation, Optional<Color> rangePickerShadowColor, Optional<Color> rangePickerSurfaceTintColor, Optional<ShapeBorder> rangePickerShape, Optional<Color> rangePickerHeaderBackgroundColor, Optional<Color> rangePickerHeaderForegroundColor, Optional<TextStyle> rangePickerHeaderHeadlineStyle, Optional<TextStyle> rangePickerHeaderHelpStyle, Optional<Color> rangeSelectionBackgroundColor, Optional<Color> rangeSelectionOverlayColor, Optional<Color> dividerColor, Optional<NativeObj> inputDecorationTheme, Optional<TextStyle> toggleButtonTextStyle, Optional<Color> subHeaderForegroundColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    headerBackgroundColor.ifPresent(v -> p.put("headerBackgroundColor", byId.get(v.getId())));
+    headerForegroundColor.ifPresent(v -> p.put("headerForegroundColor", byId.get(v.getId())));
+    headerHeadlineStyle.ifPresent(v -> p.put("headerHeadlineStyle", byId.get(v.getId())));
+    headerHelpStyle.ifPresent(v -> p.put("headerHelpStyle", byId.get(v.getId())));
+    weekdayStyle.ifPresent(v -> p.put("weekdayStyle", byId.get(v.getId())));
+    dayStyle.ifPresent(v -> p.put("dayStyle", byId.get(v.getId())));
+    dayForegroundColor.ifPresent(v -> p.put("dayForegroundColor", byId.get(v.getId())));
+    dayBackgroundColor.ifPresent(v -> p.put("dayBackgroundColor", byId.get(v.getId())));
+    dayOverlayColor.ifPresent(v -> p.put("dayOverlayColor", byId.get(v.getId())));
+    dayShape.ifPresent(v -> p.put("dayShape", byId.get(v.getId())));
+    todayForegroundColor.ifPresent(v -> p.put("todayForegroundColor", byId.get(v.getId())));
+    todayBackgroundColor.ifPresent(v -> p.put("todayBackgroundColor", byId.get(v.getId())));
+    todayBorder.ifPresent(v -> p.put("todayBorder", byId.get(v.getId())));
+    yearStyle.ifPresent(v -> p.put("yearStyle", byId.get(v.getId())));
+    yearForegroundColor.ifPresent(v -> p.put("yearForegroundColor", byId.get(v.getId())));
+    yearBackgroundColor.ifPresent(v -> p.put("yearBackgroundColor", byId.get(v.getId())));
+    yearOverlayColor.ifPresent(v -> p.put("yearOverlayColor", byId.get(v.getId())));
+    yearShape.ifPresent(v -> p.put("yearShape", byId.get(v.getId())));
+    rangePickerBackgroundColor.ifPresent(v -> p.put("rangePickerBackgroundColor", byId.get(v.getId())));
+    if (rangePickerElevation.isPresent()) { p.put("rangePickerElevation", rangePickerElevation.getAsDouble()); }
+    rangePickerShadowColor.ifPresent(v -> p.put("rangePickerShadowColor", byId.get(v.getId())));
+    rangePickerSurfaceTintColor.ifPresent(v -> p.put("rangePickerSurfaceTintColor", byId.get(v.getId())));
+    rangePickerShape.ifPresent(v -> p.put("rangePickerShape", byId.get(v.getId())));
+    rangePickerHeaderBackgroundColor.ifPresent(v -> p.put("rangePickerHeaderBackgroundColor", byId.get(v.getId())));
+    rangePickerHeaderForegroundColor.ifPresent(v -> p.put("rangePickerHeaderForegroundColor", byId.get(v.getId())));
+    rangePickerHeaderHeadlineStyle.ifPresent(v -> p.put("rangePickerHeaderHeadlineStyle", byId.get(v.getId())));
+    rangePickerHeaderHelpStyle.ifPresent(v -> p.put("rangePickerHeaderHelpStyle", byId.get(v.getId())));
+    rangeSelectionBackgroundColor.ifPresent(v -> p.put("rangeSelectionBackgroundColor", byId.get(v.getId())));
+    rangeSelectionOverlayColor.ifPresent(v -> p.put("rangeSelectionOverlayColor", byId.get(v.getId())));
+    dividerColor.ifPresent(v -> p.put("dividerColor", byId.get(v.getId())));
+    inputDecorationTheme.ifPresent(v -> p.put("inputDecorationTheme", byId.get(v.getId())));
+    toggleButtonTextStyle.ifPresent(v -> p.put("toggleButtonTextStyle", byId.get(v.getId())));
+    subHeaderForegroundColor.ifPresent(v -> p.put("subHeaderForegroundColor", byId.get(v.getId())));
+    record(id, "datePickerThemeDataDatePickerThemeData", p);
+    MemorySegment st = DatePickerThemeDataObjSt.allocate(arena);
+    DatePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment datePickerThemeDataLerp(DatePickerThemeData a, DatePickerThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "datePickerThemeDataLerp", p);
+    MemorySegment st = DatePickerThemeDataObjSt.allocate(arena);
+    DatePickerThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -6462,6 +6624,28 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment elevatedButtonThemeDataElevatedButtonThemeData() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "elevatedButtonThemeDataElevatedButtonThemeData", p);
+    MemorySegment st = ElevatedButtonThemeDataObjSt.allocate(arena);
+    ElevatedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment elevatedButtonThemeDataLerp(ElevatedButtonThemeData a, ElevatedButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "elevatedButtonThemeDataLerp", p);
+    MemorySegment st = ElevatedButtonThemeDataObjSt.allocate(arena);
+    ElevatedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment expansionTileThemeDataExpansionTileThemeData(Optional<Color> backgroundColor, Optional<Color> collapsedBackgroundColor, Optional<EdgeInsetsGeometry> tilePadding, Optional<AlignmentGeometry> expandedAlignment, Optional<EdgeInsetsGeometry> childrenPadding, Optional<Color> iconColor, Optional<Color> collapsedIconColor, Optional<Color> textColor, Optional<Color> collapsedTextColor, Optional<ShapeBorder> shape, Optional<ShapeBorder> collapsedShape, Optional<Clip> clipBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -6492,6 +6676,92 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "expansionTileThemeDataLerp", p);
     MemorySegment st = ExpansionTileThemeDataObjSt.allocate(arena);
     ExpansionTileThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment filledButtonThemeDataFilledButtonThemeData() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "filledButtonThemeDataFilledButtonThemeData", p);
+    MemorySegment st = FilledButtonThemeDataObjSt.allocate(arena);
+    FilledButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment filledButtonThemeDataLerp(FilledButtonThemeData a, FilledButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "filledButtonThemeDataLerp", p);
+    MemorySegment st = FilledButtonThemeDataObjSt.allocate(arena);
+    FilledButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment floatingActionButtonThemeDataFloatingActionButtonThemeData(Optional<Color> foregroundColor, Optional<Color> backgroundColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble disabledElevation, OptionalDouble highlightElevation, Optional<ShapeBorder> shape, Optional<Boolean> enableFeedback, OptionalDouble iconSize, Optional<BoxConstraints> sizeConstraints, Optional<BoxConstraints> smallSizeConstraints, Optional<BoxConstraints> largeSizeConstraints, Optional<BoxConstraints> extendedSizeConstraints, OptionalDouble extendedIconLabelSpacing, Optional<EdgeInsetsGeometry> extendedPadding, Optional<TextStyle> extendedTextStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (focusElevation.isPresent()) { p.put("focusElevation", focusElevation.getAsDouble()); }
+    if (hoverElevation.isPresent()) { p.put("hoverElevation", hoverElevation.getAsDouble()); }
+    if (disabledElevation.isPresent()) { p.put("disabledElevation", disabledElevation.getAsDouble()); }
+    if (highlightElevation.isPresent()) { p.put("highlightElevation", highlightElevation.getAsDouble()); }
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (iconSize.isPresent()) { p.put("iconSize", iconSize.getAsDouble()); }
+    sizeConstraints.ifPresent(v -> p.put("sizeConstraints", byId.get(v.getId())));
+    smallSizeConstraints.ifPresent(v -> p.put("smallSizeConstraints", byId.get(v.getId())));
+    largeSizeConstraints.ifPresent(v -> p.put("largeSizeConstraints", byId.get(v.getId())));
+    extendedSizeConstraints.ifPresent(v -> p.put("extendedSizeConstraints", byId.get(v.getId())));
+    if (extendedIconLabelSpacing.isPresent()) { p.put("extendedIconLabelSpacing", extendedIconLabelSpacing.getAsDouble()); }
+    extendedPadding.ifPresent(v -> p.put("extendedPadding", byId.get(v.getId())));
+    extendedTextStyle.ifPresent(v -> p.put("extendedTextStyle", byId.get(v.getId())));
+    record(id, "floatingActionButtonThemeDataFloatingActionButtonThemeData", p);
+    MemorySegment st = FloatingActionButtonThemeDataObjSt.allocate(arena);
+    FloatingActionButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment floatingActionButtonThemeDataLerp(FloatingActionButtonThemeData a, FloatingActionButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "floatingActionButtonThemeDataLerp", p);
+    MemorySegment st = FloatingActionButtonThemeDataObjSt.allocate(arena);
+    FloatingActionButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment iconButtonThemeDataIconButtonThemeData() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "iconButtonThemeDataIconButtonThemeData", p);
+    MemorySegment st = IconButtonThemeDataObjSt.allocate(arena);
+    IconButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment iconButtonThemeDataLerp(IconButtonThemeData a, IconButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "iconButtonThemeDataLerp", p);
+    MemorySegment st = IconButtonThemeDataObjSt.allocate(arena);
+    IconButtonThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -6659,6 +6929,28 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "navigationRailThemeDataLerp", p);
     MemorySegment st = NavigationRailThemeDataObjSt.allocate(arena);
     NavigationRailThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment outlinedButtonThemeDataOutlinedButtonThemeData() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "outlinedButtonThemeDataOutlinedButtonThemeData", p);
+    MemorySegment st = OutlinedButtonThemeDataObjSt.allocate(arena);
+    OutlinedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment outlinedButtonThemeDataLerp(OutlinedButtonThemeData a, OutlinedButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "outlinedButtonThemeDataLerp", p);
+    MemorySegment st = OutlinedButtonThemeDataObjSt.allocate(arena);
+    OutlinedButtonThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -6831,6 +7123,29 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment segmentedButtonThemeDataSegmentedButtonThemeData(Optional<Widget> selectedIcon) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    selectedIcon.ifPresent(v -> p.put("selectedIcon", byId.get(v.getId())));
+    record(id, "segmentedButtonThemeDataSegmentedButtonThemeData", p);
+    MemorySegment st = SegmentedButtonThemeDataObjSt.allocate(arena);
+    SegmentedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment segmentedButtonThemeDataLerp(SegmentedButtonThemeData a, SegmentedButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "segmentedButtonThemeDataLerp", p);
+    MemorySegment st = SegmentedButtonThemeDataObjSt.allocate(arena);
+    SegmentedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment sliderThemeDataSliderThemeData(OptionalDouble trackHeight, Optional<Color> activeTrackColor, Optional<Color> inactiveTrackColor, Optional<Color> secondaryActiveTrackColor, Optional<Color> disabledActiveTrackColor, Optional<Color> disabledInactiveTrackColor, Optional<Color> disabledSecondaryActiveTrackColor, Optional<Color> activeTickMarkColor, Optional<Color> inactiveTickMarkColor, Optional<Color> disabledActiveTickMarkColor, Optional<Color> disabledInactiveTickMarkColor, Optional<Color> thumbColor, Optional<Color> overlappingShapeStrokeColor, Optional<Color> disabledThumbColor, Optional<Color> overlayColor, Optional<Color> valueIndicatorColor, Optional<Color> valueIndicatorStrokeColor, Optional<SliderComponentShape> overlayShape, Optional<SliderComponentShape> thumbShape, Optional<SliderComponentShape> valueIndicatorShape, Optional<ShowValueIndicator> showValueIndicator, Optional<TextStyle> valueIndicatorTextStyle, OptionalDouble minThumbSeparation, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, OptionalDouble trackGap, Optional<Boolean> year2023) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -6993,6 +7308,134 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "tabBarThemeDataLerp", p);
     MemorySegment st = TabBarThemeDataObjSt.allocate(arena);
     TabBarThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment textButtonThemeDataTextButtonThemeData() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "textButtonThemeDataTextButtonThemeData", p);
+    MemorySegment st = TextButtonThemeDataObjSt.allocate(arena);
+    TextButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment textButtonThemeDataLerp(TextButtonThemeData a, TextButtonThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "textButtonThemeDataLerp", p);
+    MemorySegment st = TextButtonThemeDataObjSt.allocate(arena);
+    TextButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment textSelectionThemeDataTextSelectionThemeData(Optional<Color> cursorColor, Optional<Color> selectionColor, Optional<Color> selectionHandleColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    selectionColor.ifPresent(v -> p.put("selectionColor", byId.get(v.getId())));
+    selectionHandleColor.ifPresent(v -> p.put("selectionHandleColor", byId.get(v.getId())));
+    record(id, "textSelectionThemeDataTextSelectionThemeData", p);
+    MemorySegment st = TextSelectionThemeDataObjSt.allocate(arena);
+    TextSelectionThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment textSelectionThemeDataLerp(TextSelectionThemeData a, TextSelectionThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "textSelectionThemeDataLerp", p);
+    MemorySegment st = TextSelectionThemeDataObjSt.allocate(arena);
+    TextSelectionThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment timePickerThemeDataTimePickerThemeData(Optional<Color> backgroundColor, Optional<BorderSide> dayPeriodBorderSide, Optional<Color> dayPeriodColor, Optional<OutlinedBorder> dayPeriodShape, Optional<Color> dayPeriodTextColor, Optional<TextStyle> dayPeriodTextStyle, Optional<Color> dialBackgroundColor, Optional<Color> dialHandColor, Optional<Color> dialTextColor, Optional<TextStyle> dialTextStyle, OptionalDouble elevation, Optional<Color> entryModeIconColor, Optional<TextStyle> helpTextStyle, Optional<Color> hourMinuteColor, Optional<ShapeBorder> hourMinuteShape, Optional<Color> hourMinuteTextColor, Optional<TextStyle> hourMinuteTextStyle, Optional<NativeObj> inputDecorationTheme, Optional<EdgeInsetsGeometry> padding, Optional<ShapeBorder> shape, Optional<Color> timeSelectorSeparatorColor, Optional<TextStyle> timeSelectorSeparatorTextStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    dayPeriodBorderSide.ifPresent(v -> p.put("dayPeriodBorderSide", byId.get(v.getId())));
+    dayPeriodColor.ifPresent(v -> p.put("dayPeriodColor", byId.get(v.getId())));
+    dayPeriodShape.ifPresent(v -> p.put("dayPeriodShape", byId.get(v.getId())));
+    dayPeriodTextColor.ifPresent(v -> p.put("dayPeriodTextColor", byId.get(v.getId())));
+    dayPeriodTextStyle.ifPresent(v -> p.put("dayPeriodTextStyle", byId.get(v.getId())));
+    dialBackgroundColor.ifPresent(v -> p.put("dialBackgroundColor", byId.get(v.getId())));
+    dialHandColor.ifPresent(v -> p.put("dialHandColor", byId.get(v.getId())));
+    dialTextColor.ifPresent(v -> p.put("dialTextColor", byId.get(v.getId())));
+    dialTextStyle.ifPresent(v -> p.put("dialTextStyle", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    entryModeIconColor.ifPresent(v -> p.put("entryModeIconColor", byId.get(v.getId())));
+    helpTextStyle.ifPresent(v -> p.put("helpTextStyle", byId.get(v.getId())));
+    hourMinuteColor.ifPresent(v -> p.put("hourMinuteColor", byId.get(v.getId())));
+    hourMinuteShape.ifPresent(v -> p.put("hourMinuteShape", byId.get(v.getId())));
+    hourMinuteTextColor.ifPresent(v -> p.put("hourMinuteTextColor", byId.get(v.getId())));
+    hourMinuteTextStyle.ifPresent(v -> p.put("hourMinuteTextStyle", byId.get(v.getId())));
+    inputDecorationTheme.ifPresent(v -> p.put("inputDecorationTheme", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    timeSelectorSeparatorColor.ifPresent(v -> p.put("timeSelectorSeparatorColor", byId.get(v.getId())));
+    timeSelectorSeparatorTextStyle.ifPresent(v -> p.put("timeSelectorSeparatorTextStyle", byId.get(v.getId())));
+    record(id, "timePickerThemeDataTimePickerThemeData", p);
+    MemorySegment st = TimePickerThemeDataObjSt.allocate(arena);
+    TimePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment timePickerThemeDataLerp(TimePickerThemeData a, TimePickerThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "timePickerThemeDataLerp", p);
+    MemorySegment st = TimePickerThemeDataObjSt.allocate(arena);
+    TimePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment toggleButtonsThemeDataToggleButtonsThemeData(Optional<TextStyle> textStyle, Optional<BoxConstraints> constraints, Optional<Color> color, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hoverColor, Optional<Color> splashColor, Optional<Color> borderColor, Optional<Color> selectedBorderColor, Optional<Color> disabledBorderColor, Optional<BorderRadius> borderRadius, OptionalDouble borderWidth) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    textStyle.ifPresent(v -> p.put("textStyle", byId.get(v.getId())));
+    constraints.ifPresent(v -> p.put("constraints", byId.get(v.getId())));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    selectedColor.ifPresent(v -> p.put("selectedColor", byId.get(v.getId())));
+    disabledColor.ifPresent(v -> p.put("disabledColor", byId.get(v.getId())));
+    fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    highlightColor.ifPresent(v -> p.put("highlightColor", byId.get(v.getId())));
+    hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
+    borderColor.ifPresent(v -> p.put("borderColor", byId.get(v.getId())));
+    selectedBorderColor.ifPresent(v -> p.put("selectedBorderColor", byId.get(v.getId())));
+    disabledBorderColor.ifPresent(v -> p.put("disabledBorderColor", byId.get(v.getId())));
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    if (borderWidth.isPresent()) { p.put("borderWidth", borderWidth.getAsDouble()); }
+    record(id, "toggleButtonsThemeDataToggleButtonsThemeData", p);
+    MemorySegment st = ToggleButtonsThemeDataObjSt.allocate(arena);
+    ToggleButtonsThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment toggleButtonsThemeDataLerp(ToggleButtonsThemeData a, ToggleButtonsThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "toggleButtonsThemeDataLerp", p);
+    MemorySegment st = ToggleButtonsThemeDataObjSt.allocate(arena);
+    ToggleButtonsThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -11899,6 +12342,278 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment textSelectionThemeTextSelectionTheme(TextSelectionThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "textSelectionThemeTextSelectionTheme", p);
+    MemorySegment st = TextSelectionThemeObjSt.allocate(arena);
+    TextSelectionThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment textSelectionThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "textSelectionThemeOf", p);
+    MemorySegment st = TextSelectionThemeDataObjSt.allocate(arena);
+    TextSelectionThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment datePickerThemeDatePickerTheme(DatePickerThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "datePickerThemeDatePickerTheme", p);
+    MemorySegment st = DatePickerThemeObjSt.allocate(arena);
+    DatePickerThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment datePickerThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "datePickerThemeOf", p);
+    MemorySegment st = DatePickerThemeDataObjSt.allocate(arena);
+    DatePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment datePickerThemeMaybeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "datePickerThemeMaybeOf", p);
+    MemorySegment st = DatePickerThemeDataObjSt.allocate(arena);
+    DatePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment datePickerThemeDefaults(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "datePickerThemeDefaults", p);
+    MemorySegment st = DatePickerThemeDataObjSt.allocate(arena);
+    DatePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment timePickerThemeTimePickerTheme(TimePickerThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "timePickerThemeTimePickerTheme", p);
+    MemorySegment st = TimePickerThemeObjSt.allocate(arena);
+    TimePickerThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment timePickerThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "timePickerThemeOf", p);
+    MemorySegment st = TimePickerThemeDataObjSt.allocate(arena);
+    TimePickerThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment elevatedButtonThemeElevatedButtonTheme(ElevatedButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "elevatedButtonThemeElevatedButtonTheme", p);
+    MemorySegment st = ElevatedButtonThemeObjSt.allocate(arena);
+    ElevatedButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment elevatedButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "elevatedButtonThemeOf", p);
+    MemorySegment st = ElevatedButtonThemeDataObjSt.allocate(arena);
+    ElevatedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment textButtonThemeTextButtonTheme(TextButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "textButtonThemeTextButtonTheme", p);
+    MemorySegment st = TextButtonThemeObjSt.allocate(arena);
+    TextButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment textButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "textButtonThemeOf", p);
+    MemorySegment st = TextButtonThemeDataObjSt.allocate(arena);
+    TextButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment outlinedButtonThemeOutlinedButtonTheme(OutlinedButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "outlinedButtonThemeOutlinedButtonTheme", p);
+    MemorySegment st = OutlinedButtonThemeObjSt.allocate(arena);
+    OutlinedButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment outlinedButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "outlinedButtonThemeOf", p);
+    MemorySegment st = OutlinedButtonThemeDataObjSt.allocate(arena);
+    OutlinedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment filledButtonThemeFilledButtonTheme(FilledButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "filledButtonThemeFilledButtonTheme", p);
+    MemorySegment st = FilledButtonThemeObjSt.allocate(arena);
+    FilledButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment filledButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "filledButtonThemeOf", p);
+    MemorySegment st = FilledButtonThemeDataObjSt.allocate(arena);
+    FilledButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment iconButtonThemeIconButtonTheme(IconButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "iconButtonThemeIconButtonTheme", p);
+    MemorySegment st = IconButtonThemeObjSt.allocate(arena);
+    IconButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment iconButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "iconButtonThemeOf", p);
+    MemorySegment st = IconButtonThemeDataObjSt.allocate(arena);
+    IconButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment segmentedButtonThemeSegmentedButtonTheme(SegmentedButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "segmentedButtonThemeSegmentedButtonTheme", p);
+    MemorySegment st = SegmentedButtonThemeObjSt.allocate(arena);
+    SegmentedButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment segmentedButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "segmentedButtonThemeOf", p);
+    MemorySegment st = SegmentedButtonThemeDataObjSt.allocate(arena);
+    SegmentedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment segmentedButtonThemeMaybeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "segmentedButtonThemeMaybeOf", p);
+    MemorySegment st = SegmentedButtonThemeDataObjSt.allocate(arena);
+    SegmentedButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment dataTableThemeDataTableTheme(DataTableThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "dataTableThemeDataTableTheme", p);
+    MemorySegment st = DataTableThemeObjSt.allocate(arena);
+    DataTableThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment dataTableThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "dataTableThemeOf", p);
+    MemorySegment st = DataTableThemeDataObjSt.allocate(arena);
+    DataTableThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment toggleButtonsThemeToggleButtonsTheme(ToggleButtonsThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "toggleButtonsThemeToggleButtonsTheme", p);
+    MemorySegment st = ToggleButtonsThemeObjSt.allocate(arena);
+    ToggleButtonsThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment toggleButtonsThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "toggleButtonsThemeOf", p);
+    MemorySegment st = ToggleButtonsThemeDataObjSt.allocate(arena);
+    ToggleButtonsThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment actionIconThemeActionIconTheme(ActionIconThemeData data, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -11917,6 +12632,28 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "actionIconThemeOf", p);
     MemorySegment st = ActionIconThemeDataObjSt.allocate(arena);
     ActionIconThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment carouselViewThemeCarouselViewTheme(CarouselViewThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "carouselViewThemeCarouselViewTheme", p);
+    MemorySegment st = CarouselViewThemeObjSt.allocate(arena);
+    CarouselViewThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment carouselViewThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "carouselViewThemeOf", p);
+    MemorySegment st = CarouselViewThemeDataObjSt.allocate(arena);
+    CarouselViewThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -11983,6 +12720,27 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "buttonThemeButtonTheme", p);
     MemorySegment st = ButtonThemeObjSt.allocate(arena);
     ButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment buttonThemeFromButtonThemeData(ButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "buttonThemeFromButtonThemeData", p);
+    MemorySegment st = ButtonThemeObjSt.allocate(arena);
+    ButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment buttonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "buttonThemeOf", p);
+    MemorySegment st = ButtonThemeDataObjSt.allocate(arena);
+    ButtonThemeDataObjSt.id(st, id);
     return st;
   }
 

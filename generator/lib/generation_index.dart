@@ -618,6 +618,22 @@ m.ProgressIndicatorThemeData? progressIndicatorThemeData;
 m.MenuButtonThemeData? menuButtonThemeData;
 m.SearchBarThemeData? searchBarThemeData;
 m.SearchViewThemeData? searchViewThemeData;
+
+// --- Batch 15: button + picker theme data types ---
+m.CarouselViewThemeData? carouselViewThemeData;
+m.DataTableThemeData? dataTableThemeData;
+m.DatePickerThemeData? datePickerThemeData;
+m.TimePickerThemeData? timePickerThemeData;
+m.ElevatedButtonThemeData? elevatedButtonThemeData;
+m.FilledButtonThemeData? filledButtonThemeData;
+m.OutlinedButtonThemeData? outlinedButtonThemeData;
+m.TextButtonThemeData? textButtonThemeData;
+m.IconButtonThemeData? iconButtonThemeData;
+m.FloatingActionButtonThemeData? floatingActionButtonThemeData;
+m.SegmentedButtonThemeData? segmentedButtonThemeData;
+m.ToggleButtonsThemeData? toggleButtonsThemeData;
+m.TextSelectionThemeData? textSelectionThemeData;
+m.ButtonThemeData? buttonThemeData;
 // MaterialInkController skipped: same ChangeNotifier landmine (`extends NativeObj, ChangeNotifierI`).
 
 s.SubState? subState;

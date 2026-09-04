@@ -1244,8 +1244,16 @@ public class EWT {
     return BottomSheetThemeDataBottomSheetThemeDataBuilder.bottomSheetThemeDataBottomSheetThemeData();
   }
 
+  public static ButtonThemeDataButtonThemeDataBuilder ButtonThemeData() {
+    return ButtonThemeDataButtonThemeDataBuilder.buttonThemeDataButtonThemeData();
+  }
+
   public static CardThemeDataCardThemeDataBuilder CardThemeData() {
     return CardThemeDataCardThemeDataBuilder.cardThemeDataCardThemeData();
+  }
+
+  public static CarouselViewThemeDataCarouselViewThemeDataBuilder CarouselViewThemeData() {
+    return CarouselViewThemeDataCarouselViewThemeDataBuilder.carouselViewThemeDataCarouselViewThemeData();
   }
 
   public static CheckboxThemeDataCheckboxThemeDataBuilder CheckboxThemeData() {
@@ -1257,6 +1265,14 @@ public class EWT {
   }
   public static ChipThemeDataFromDefaultsBuilder ChipThemeData_fromDefaults() {
     return ChipThemeDataFromDefaultsBuilder.chipThemeDataFromDefaults();
+  }
+
+  public static DataTableThemeDataDataTableThemeDataBuilder DataTableThemeData() {
+    return DataTableThemeDataDataTableThemeDataBuilder.dataTableThemeDataDataTableThemeData();
+  }
+
+  public static DatePickerThemeDataDatePickerThemeDataBuilder DatePickerThemeData() {
+    return DatePickerThemeDataDatePickerThemeDataBuilder.datePickerThemeDataDatePickerThemeData();
   }
 
   public static DialogThemeDataDialogThemeDataBuilder DialogThemeData() {
@@ -1275,8 +1291,24 @@ public class EWT {
     return DropdownMenuThemeDataDropdownMenuThemeDataBuilder.dropdownMenuThemeDataDropdownMenuThemeData();
   }
 
+  public static ElevatedButtonThemeDataElevatedButtonThemeDataBuilder ElevatedButtonThemeData() {
+    return ElevatedButtonThemeDataElevatedButtonThemeDataBuilder.elevatedButtonThemeDataElevatedButtonThemeData();
+  }
+
   public static ExpansionTileThemeDataExpansionTileThemeDataBuilder ExpansionTileThemeData() {
     return ExpansionTileThemeDataExpansionTileThemeDataBuilder.expansionTileThemeDataExpansionTileThemeData();
+  }
+
+  public static FilledButtonThemeDataFilledButtonThemeDataBuilder FilledButtonThemeData() {
+    return FilledButtonThemeDataFilledButtonThemeDataBuilder.filledButtonThemeDataFilledButtonThemeData();
+  }
+
+  public static FloatingActionButtonThemeDataFloatingActionButtonThemeDataBuilder FloatingActionButtonThemeData() {
+    return FloatingActionButtonThemeDataFloatingActionButtonThemeDataBuilder.floatingActionButtonThemeDataFloatingActionButtonThemeData();
+  }
+
+  public static IconButtonThemeDataIconButtonThemeDataBuilder IconButtonThemeData() {
+    return IconButtonThemeDataIconButtonThemeDataBuilder.iconButtonThemeDataIconButtonThemeData();
   }
 
   public static MenuBarThemeDataMenuBarThemeDataBuilder MenuBarThemeData() {
@@ -1303,6 +1335,10 @@ public class EWT {
     return NavigationRailThemeDataNavigationRailThemeDataBuilder.navigationRailThemeDataNavigationRailThemeData();
   }
 
+  public static OutlinedButtonThemeDataOutlinedButtonThemeDataBuilder OutlinedButtonThemeData() {
+    return OutlinedButtonThemeDataOutlinedButtonThemeDataBuilder.outlinedButtonThemeDataOutlinedButtonThemeData();
+  }
+
   public static PopupMenuThemeDataPopupMenuThemeDataBuilder PopupMenuThemeData() {
     return PopupMenuThemeDataPopupMenuThemeDataBuilder.popupMenuThemeDataPopupMenuThemeData();
   }
@@ -1323,6 +1359,10 @@ public class EWT {
     return SearchViewThemeDataSearchViewThemeDataBuilder.searchViewThemeDataSearchViewThemeData();
   }
 
+  public static SegmentedButtonThemeDataSegmentedButtonThemeDataBuilder SegmentedButtonThemeData() {
+    return SegmentedButtonThemeDataSegmentedButtonThemeDataBuilder.segmentedButtonThemeDataSegmentedButtonThemeData();
+  }
+
   public static SliderThemeDataSliderThemeDataBuilder SliderThemeData() {
     return SliderThemeDataSliderThemeDataBuilder.sliderThemeDataSliderThemeData();
   }
@@ -1340,6 +1380,22 @@ public class EWT {
 
   public static TabBarThemeDataTabBarThemeDataBuilder TabBarThemeData() {
     return TabBarThemeDataTabBarThemeDataBuilder.tabBarThemeDataTabBarThemeData();
+  }
+
+  public static TextButtonThemeDataTextButtonThemeDataBuilder TextButtonThemeData() {
+    return TextButtonThemeDataTextButtonThemeDataBuilder.textButtonThemeDataTextButtonThemeData();
+  }
+
+  public static TextSelectionThemeDataTextSelectionThemeDataBuilder TextSelectionThemeData() {
+    return TextSelectionThemeDataTextSelectionThemeDataBuilder.textSelectionThemeDataTextSelectionThemeData();
+  }
+
+  public static TimePickerThemeDataTimePickerThemeDataBuilder TimePickerThemeData() {
+    return TimePickerThemeDataTimePickerThemeDataBuilder.timePickerThemeDataTimePickerThemeData();
+  }
+
+  public static ToggleButtonsThemeDataToggleButtonsThemeDataBuilder ToggleButtonsThemeData() {
+    return ToggleButtonsThemeDataToggleButtonsThemeDataBuilder.toggleButtonsThemeDataToggleButtonsThemeData();
   }
 
   public static TooltipThemeDataTooltipThemeDataBuilder TooltipThemeData() {
@@ -2099,8 +2155,56 @@ public class EWT {
     return ExpansionTileThemeExpansionTileThemeBuilder.expansionTileThemeExpansionTileTheme(data, child);
   }
 
+  public static TextSelectionThemeTextSelectionThemeBuilder TextSelectionTheme(TextSelectionThemeDataI data, WidgetI child) {
+    return TextSelectionThemeTextSelectionThemeBuilder.textSelectionThemeTextSelectionTheme(data, child);
+  }
+
+  public static DatePickerThemeDatePickerThemeBuilder DatePickerTheme(DatePickerThemeDataI data, WidgetI child) {
+    return DatePickerThemeDatePickerThemeBuilder.datePickerThemeDatePickerTheme(data, child);
+  }
+
+  public static TimePickerThemeTimePickerThemeBuilder TimePickerTheme(TimePickerThemeDataI data, WidgetI child) {
+    return TimePickerThemeTimePickerThemeBuilder.timePickerThemeTimePickerTheme(data, child);
+  }
+
+  public static ElevatedButtonThemeElevatedButtonThemeBuilder ElevatedButtonTheme(ElevatedButtonThemeDataI data, WidgetI child) {
+    return ElevatedButtonThemeElevatedButtonThemeBuilder.elevatedButtonThemeElevatedButtonTheme(data, child);
+  }
+
+  public static TextButtonThemeTextButtonThemeBuilder TextButtonTheme(TextButtonThemeDataI data, WidgetI child) {
+    return TextButtonThemeTextButtonThemeBuilder.textButtonThemeTextButtonTheme(data, child);
+  }
+
+  public static OutlinedButtonThemeOutlinedButtonThemeBuilder OutlinedButtonTheme(OutlinedButtonThemeDataI data, WidgetI child) {
+    return OutlinedButtonThemeOutlinedButtonThemeBuilder.outlinedButtonThemeOutlinedButtonTheme(data, child);
+  }
+
+  public static FilledButtonThemeFilledButtonThemeBuilder FilledButtonTheme(FilledButtonThemeDataI data, WidgetI child) {
+    return FilledButtonThemeFilledButtonThemeBuilder.filledButtonThemeFilledButtonTheme(data, child);
+  }
+
+  public static IconButtonThemeIconButtonThemeBuilder IconButtonTheme(IconButtonThemeDataI data, WidgetI child) {
+    return IconButtonThemeIconButtonThemeBuilder.iconButtonThemeIconButtonTheme(data, child);
+  }
+
+  public static SegmentedButtonThemeSegmentedButtonThemeBuilder SegmentedButtonTheme(SegmentedButtonThemeDataI data, WidgetI child) {
+    return SegmentedButtonThemeSegmentedButtonThemeBuilder.segmentedButtonThemeSegmentedButtonTheme(data, child);
+  }
+
+  public static DataTableThemeDataTableThemeBuilder DataTableTheme(DataTableThemeDataI data, WidgetI child) {
+    return DataTableThemeDataTableThemeBuilder.dataTableThemeDataTableTheme(data, child);
+  }
+
+  public static ToggleButtonsThemeToggleButtonsThemeBuilder ToggleButtonsTheme(ToggleButtonsThemeDataI data, WidgetI child) {
+    return ToggleButtonsThemeToggleButtonsThemeBuilder.toggleButtonsThemeToggleButtonsTheme(data, child);
+  }
+
   public static ActionIconThemeActionIconThemeBuilder ActionIconTheme(ActionIconThemeDataI data, WidgetI child) {
     return ActionIconThemeActionIconThemeBuilder.actionIconThemeActionIconTheme(data, child);
+  }
+
+  public static CarouselViewThemeCarouselViewThemeBuilder CarouselViewTheme(CarouselViewThemeDataI data, WidgetI child) {
+    return CarouselViewThemeCarouselViewThemeBuilder.carouselViewThemeCarouselViewTheme(data, child);
   }
 
   public static BottomAppBarThemeBottomAppBarThemeBuilder BottomAppBarTheme() {
@@ -2109,6 +2213,9 @@ public class EWT {
 
   public static ButtonThemeButtonThemeBuilder ButtonTheme() {
     return ButtonThemeButtonThemeBuilder.buttonThemeButtonTheme();
+  }
+  public static ButtonThemeFromButtonThemeDataBuilder ButtonTheme_fromButtonThemeData(ButtonThemeDataI data, WidgetI child) {
+    return ButtonThemeFromButtonThemeDataBuilder.buttonThemeFromButtonThemeData(data, child);
   }
 
   public static MaterialButtonMaterialButtonBuilder MaterialButton() {

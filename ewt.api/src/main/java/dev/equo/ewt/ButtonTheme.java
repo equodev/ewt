@@ -40,6 +40,31 @@ public class ButtonTheme extends InheritedTheme implements ButtonThemeI {
   public static ButtonThemeButtonThemeBuilder buttonTheme() {
     return ButtonThemeButtonThemeBuilder.buttonThemeButtonTheme();
   }
+  @Builder.Factory
+  static ButtonTheme buttonThemeFromButtonThemeData(@Builder.Parameter ButtonThemeDataI data, @Builder.Parameter WidgetI child) {
+    var st = factories.buttonThemeFromButtonThemeData(data.build(),
+      child.build());
+    if (st == null) throw new RuntimeException("Failed to created widget ButtonTheme");
+    return new ButtonTheme(st);
+  }
+  public static ButtonThemeFromButtonThemeDataBuilder fromButtonThemeData(ButtonThemeDataI data, WidgetI child) {
+    return ButtonThemeFromButtonThemeDataBuilder.buttonThemeFromButtonThemeData(data, child);
+  }
+  public static ButtonThemeData of(BuildContextI context) {
+    var st = factories.buttonThemeOf(context.build());
+    if (st == null) throw new RuntimeException("Failed to created widget ButtonThemeData");
+    return new ButtonThemeData(st);
+  }
+  public ButtonThemeData data() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("buttonThemeData", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ButtonThemeDataObjSt.id(__st, __nid);
+      return new ButtonThemeData(__st);
+    }
+    return new ButtonThemeData(ButtonThemeObjSt.data(st));
+  }
   @Override
   public ButtonTheme build() {
     return this;
