@@ -4333,7 +4333,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4358,6 +4358,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
     showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
     checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
@@ -4369,7 +4370,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4394,6 +4395,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
     showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
     checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
@@ -4440,7 +4442,47 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment iconThemeDataIconThemeData(OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, OptionalDouble opacity, Optional<List<Shadow>> shadows, Optional<Boolean> applyTextScaling) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (fill.isPresent()) { p.put("fill", fill.getAsDouble()); }
+    if (weight.isPresent()) { p.put("weight", weight.getAsDouble()); }
+    if (grade.isPresent()) { p.put("grade", grade.getAsDouble()); }
+    if (opticalSize.isPresent()) { p.put("opticalSize", opticalSize.getAsDouble()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (opacity.isPresent()) { p.put("opacity", opacity.getAsDouble()); }
+    shadows.ifPresent(v -> p.put("shadows", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    applyTextScaling.ifPresent(v -> p.put("applyTextScaling", v));
+    record(id, "iconThemeDataIconThemeData", p);
+    MemorySegment st = IconThemeDataObjSt.allocate(arena);
+    IconThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment iconThemeDataFallback() {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    record(id, "iconThemeDataFallback", p);
+    MemorySegment st = IconThemeDataObjSt.allocate(arena);
+    IconThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment iconThemeDataLerp(IconThemeData a, IconThemeData b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "iconThemeDataLerp", p);
+    MemorySegment st = IconThemeDataObjSt.allocate(arena);
+    IconThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4469,6 +4511,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
     showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
     checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
@@ -4481,7 +4524,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4510,6 +4553,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
     showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
     checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
@@ -4523,7 +4567,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<BoxConstraints> avatarBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4546,6 +4590,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
     record(id, "actionChipActionChip", p);
     MemorySegment st = ActionChipObjSt.allocate(arena);
@@ -4553,7 +4598,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<BoxConstraints> avatarBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -4576,6 +4621,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
     record(id, "actionChipElevated", p);
     MemorySegment st = ActionChipObjSt.allocate(arena);
@@ -5126,7 +5172,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -5157,6 +5203,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
     showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
     checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
@@ -5857,10 +5904,11 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeData> cupertinoOverrideTheme, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeData> iconTheme, Optional<IconThemeData> primaryIconTheme, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     applyElevationOverlayColor.ifPresent(v -> p.put("applyElevationOverlayColor", v));
+    cupertinoOverrideTheme.ifPresent(v -> p.put("cupertinoOverrideTheme", byId.get(v.getId())));
     inputDecorationTheme.ifPresent(v -> p.put("inputDecorationTheme", byId.get(v.getId())));
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     platform.ifPresent(v -> p.put("platform", v.ordinal()));
@@ -5890,6 +5938,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     fontFamily.ifPresent(v -> p.put("fontFamily", v));
     fontFamilyFallback.ifPresent(v -> p.put("fontFamilyFallback", v.stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
     _package.ifPresent(v -> p.put("package", v));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
+    primaryIconTheme.ifPresent(v -> p.put("primaryIconTheme", byId.get(v.getId())));
     primaryTextTheme.ifPresent(v -> p.put("primaryTextTheme", byId.get(v.getId())));
     textTheme.ifPresent(v -> p.put("textTheme", byId.get(v.getId())));
     appBarTheme.ifPresent(v -> p.put("appBarTheme", byId.get(v.getId())));
@@ -5971,6 +6021,44 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "themeDataLerp", p);
     MemorySegment st = ThemeDataObjSt.allocate(arena);
     ThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment noDefaultCupertinoThemeDataNoDefaultCupertinoThemeData(Optional<Brightness> brightness, Optional<Color> primaryColor, Optional<Color> primaryContrastingColor, Optional<CupertinoTextThemeData> textTheme, Optional<Color> barBackgroundColor, Optional<Color> scaffoldBackgroundColor, Optional<Color> selectionHandleColor, Optional<Boolean> applyThemeToAll) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    brightness.ifPresent(v -> p.put("brightness", v.ordinal()));
+    primaryColor.ifPresent(v -> p.put("primaryColor", byId.get(v.getId())));
+    primaryContrastingColor.ifPresent(v -> p.put("primaryContrastingColor", byId.get(v.getId())));
+    textTheme.ifPresent(v -> p.put("textTheme", byId.get(v.getId())));
+    barBackgroundColor.ifPresent(v -> p.put("barBackgroundColor", byId.get(v.getId())));
+    scaffoldBackgroundColor.ifPresent(v -> p.put("scaffoldBackgroundColor", byId.get(v.getId())));
+    selectionHandleColor.ifPresent(v -> p.put("selectionHandleColor", byId.get(v.getId())));
+    applyThemeToAll.ifPresent(v -> p.put("applyThemeToAll", v));
+    record(id, "noDefaultCupertinoThemeDataNoDefaultCupertinoThemeData", p);
+    MemorySegment st = NoDefaultCupertinoThemeDataObjSt.allocate(arena);
+    NoDefaultCupertinoThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoTextThemeDataCupertinoTextThemeData(Optional<Color> primaryColor, Optional<TextStyle> textStyle, Optional<TextStyle> actionTextStyle, Optional<TextStyle> actionSmallTextStyle, Optional<TextStyle> tabLabelTextStyle, Optional<TextStyle> navTitleTextStyle, Optional<TextStyle> navLargeTitleTextStyle, Optional<TextStyle> navActionTextStyle, Optional<TextStyle> pickerTextStyle, Optional<TextStyle> dateTimePickerTextStyle) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    primaryColor.ifPresent(v -> p.put("primaryColor", byId.get(v.getId())));
+    textStyle.ifPresent(v -> p.put("textStyle", byId.get(v.getId())));
+    actionTextStyle.ifPresent(v -> p.put("actionTextStyle", byId.get(v.getId())));
+    actionSmallTextStyle.ifPresent(v -> p.put("actionSmallTextStyle", byId.get(v.getId())));
+    tabLabelTextStyle.ifPresent(v -> p.put("tabLabelTextStyle", byId.get(v.getId())));
+    navTitleTextStyle.ifPresent(v -> p.put("navTitleTextStyle", byId.get(v.getId())));
+    navLargeTitleTextStyle.ifPresent(v -> p.put("navLargeTitleTextStyle", byId.get(v.getId())));
+    navActionTextStyle.ifPresent(v -> p.put("navActionTextStyle", byId.get(v.getId())));
+    pickerTextStyle.ifPresent(v -> p.put("pickerTextStyle", byId.get(v.getId())));
+    dateTimePickerTextStyle.ifPresent(v -> p.put("dateTimePickerTextStyle", byId.get(v.getId())));
+    record(id, "cupertinoTextThemeDataCupertinoTextThemeData", p);
+    MemorySegment st = CupertinoTextThemeDataObjSt.allocate(arena);
+    CupertinoTextThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -6131,7 +6219,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Boolean> animateColor) {
+  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Boolean> animateColor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
@@ -6147,6 +6235,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
+    actionsIconTheme.ifPresent(v -> p.put("actionsIconTheme", byId.get(v.getId())));
     primary.ifPresent(v -> p.put("primary", v));
     centerTitle.ifPresent(v -> p.put("centerTitle", v));
     excludeHeaderSemantics.ifPresent(v -> p.put("excludeHeaderSemantics", v));
@@ -7005,7 +7095,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -7028,6 +7118,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     avatarBoxConstraints.ifPresent(v -> p.put("avatarBoxConstraints", byId.get(v.getId())));
     deleteIconBoxConstraints.ifPresent(v -> p.put("deleteIconBoxConstraints", byId.get(v.getId())));
     record(id, "chipChip", p);
@@ -8251,7 +8342,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, Optional<IconThemeData> unselectedIconTheme, Optional<IconThemeData> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
@@ -8266,6 +8357,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     labelType.ifPresent(v -> p.put("labelType", v.ordinal()));
     unselectedLabelTextStyle.ifPresent(v -> p.put("unselectedLabelTextStyle", byId.get(v.getId())));
     selectedLabelTextStyle.ifPresent(v -> p.put("selectedLabelTextStyle", byId.get(v.getId())));
+    unselectedIconTheme.ifPresent(v -> p.put("unselectedIconTheme", byId.get(v.getId())));
+    selectedIconTheme.ifPresent(v -> p.put("selectedIconTheme", byId.get(v.getId())));
     if (minWidth.isPresent()) { p.put("minWidth", minWidth.getAsDouble()); }
     if (minExtendedWidth.isPresent()) { p.put("minExtendedWidth", minExtendedWidth.getAsDouble()); }
     useIndicator.ifPresent(v -> p.put("useIndicator", v));
@@ -8791,10 +8884,11 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<CupertinoThemeData> theme, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     home.ifPresent(v -> p.put("home", byId.get(v.getId())));
+    theme.ifPresent(v -> p.put("theme", byId.get(v.getId())));
     initialRoute.ifPresent(v -> p.put("initialRoute", v));
     if (builder != null) { p.put("builder", nextCallbackId++); }
     title.ifPresent(v -> p.put("title", v));
@@ -8813,9 +8907,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment cupertinoAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  MemorySegment cupertinoAppRouter(Optional<CupertinoThemeData> theme, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    theme.ifPresent(v -> p.put("theme", byId.get(v.getId())));
     if (builder != null) { p.put("builder", nextCallbackId++); }
     title.ifPresent(v -> p.put("title", v));
     if (onGenerateTitle != null) { p.put("onGenerateTitle", nextCallbackId++); }
@@ -8830,6 +8925,41 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "cupertinoAppRouter", p);
     MemorySegment st = CupertinoAppObjSt.allocate(arena);
     CupertinoAppObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoThemeDataCupertinoThemeData(Optional<Brightness> brightness, Optional<Color> primaryColor, Optional<Color> primaryContrastingColor, Optional<CupertinoTextThemeData> textTheme, Optional<Color> barBackgroundColor, Optional<Color> scaffoldBackgroundColor, Optional<Color> selectionHandleColor, Optional<Boolean> applyThemeToAll) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    brightness.ifPresent(v -> p.put("brightness", v.ordinal()));
+    primaryColor.ifPresent(v -> p.put("primaryColor", byId.get(v.getId())));
+    primaryContrastingColor.ifPresent(v -> p.put("primaryContrastingColor", byId.get(v.getId())));
+    textTheme.ifPresent(v -> p.put("textTheme", byId.get(v.getId())));
+    barBackgroundColor.ifPresent(v -> p.put("barBackgroundColor", byId.get(v.getId())));
+    scaffoldBackgroundColor.ifPresent(v -> p.put("scaffoldBackgroundColor", byId.get(v.getId())));
+    selectionHandleColor.ifPresent(v -> p.put("selectionHandleColor", byId.get(v.getId())));
+    applyThemeToAll.ifPresent(v -> p.put("applyThemeToAll", v));
+    record(id, "cupertinoThemeDataCupertinoThemeData", p);
+    MemorySegment st = CupertinoThemeDataObjSt.allocate(arena);
+    CupertinoThemeDataObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cupertinoThemeDataRaw(Brightness brightness, Color primaryColor, Color primaryContrastingColor, CupertinoTextThemeData textTheme, Color barBackgroundColor, Color scaffoldBackgroundColor, Color selectionHandleColor, boolean applyThemeToAll) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("brightness", brightness.ordinal());
+    p.put("primaryColor", byId.get(primaryColor.getId()));
+    p.put("primaryContrastingColor", byId.get(primaryContrastingColor.getId()));
+    p.put("textTheme", byId.get(textTheme.getId()));
+    p.put("barBackgroundColor", byId.get(barBackgroundColor.getId()));
+    p.put("scaffoldBackgroundColor", byId.get(scaffoldBackgroundColor.getId()));
+    p.put("selectionHandleColor", byId.get(selectionHandleColor.getId()));
+    p.put("applyThemeToAll", applyThemeToAll);
+    record(id, "cupertinoThemeDataRaw", p);
+    MemorySegment st = CupertinoThemeDataObjSt.allocate(arena);
+    CupertinoThemeDataObjSt.id(st, id);
     return st;
   }
 
@@ -9703,6 +9833,37 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment iconThemeIconTheme(IconThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "iconThemeIconTheme", p);
+    MemorySegment st = IconThemeObjSt.allocate(arena);
+    IconThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int iconThemeMerge(IconThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "iconThemeMerge", p);
+    return id;
+  }
+  @Override
+  MemorySegment iconThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "iconThemeOf", p);
+    MemorySegment st = IconThemeDataObjSt.allocate(arena);
+    IconThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment backButtonIconBackButtonIcon() {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -10028,7 +10189,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
+  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     color.ifPresent(v -> p.put("color", byId.get(v.getId())));
@@ -10039,6 +10200,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
     shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
+    actionsIconTheme.ifPresent(v -> p.put("actionsIconTheme", byId.get(v.getId())));
     centerTitle.ifPresent(v -> p.put("centerTitle", v));
     if (titleSpacing.isPresent()) { p.put("titleSpacing", titleSpacing.getAsDouble()); }
     if (leadingWidth.isPresent()) { p.put("leadingWidth", leadingWidth.getAsDouble()); }
@@ -10940,7 +11103,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment rawChipRawChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment rawChipRawChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     avatar.ifPresent(v -> p.put("avatar", byId.get(v.getId())));
@@ -10972,6 +11135,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
     surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
     selectedShadowColor.ifPresent(v -> p.put("selectedShadowColor", byId.get(v.getId())));
     showCheckmark.ifPresent(v -> p.put("showCheckmark", v));
     checkmarkColor.ifPresent(v -> p.put("checkmarkColor", byId.get(v.getId())));
@@ -11066,6 +11230,56 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("context", byId.get(context.getId()));
     record(id, "cupertinoDynamicColorMaybeResolve", p);
     return id;
+  }
+
+  @Override
+  MemorySegment tableRowTableRow(Optional<Decoration> decoration, Optional<List<Widget>> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    record(id, "tableRowTableRow", p);
+    MemorySegment st = TableRowObjSt.allocate(arena);
+    TableRowObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoIconThemeDataCupertinoIconThemeData(OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, OptionalDouble opacity, Optional<List<Shadow>> shadows, Optional<Boolean> applyTextScaling) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (size.isPresent()) { p.put("size", size.getAsDouble()); }
+    if (fill.isPresent()) { p.put("fill", fill.getAsDouble()); }
+    if (weight.isPresent()) { p.put("weight", weight.getAsDouble()); }
+    if (grade.isPresent()) { p.put("grade", grade.getAsDouble()); }
+    if (opticalSize.isPresent()) { p.put("opticalSize", opticalSize.getAsDouble()); }
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (opacity.isPresent()) { p.put("opacity", opacity.getAsDouble()); }
+    shadows.ifPresent(v -> p.put("shadows", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    applyTextScaling.ifPresent(v -> p.put("applyTextScaling", v));
+    record(id, "cupertinoIconThemeDataCupertinoIconThemeData", p);
+    MemorySegment st = CupertinoIconThemeDataObjSt.allocate(arena);
+    CupertinoIconThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment nestedScrollViewNestedScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, BiFunction<BuildContext, Boolean, List<Widget>> headerSliverBuilder, Widget body, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> floatHeaderSlivers, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    p.put("headerSliverBuilder", nextCallbackId++);
+    p.put("body", byId.get(body.getId()));
+    dragStartBehavior.ifPresent(v -> p.put("dragStartBehavior", v.ordinal()));
+    floatHeaderSlivers.ifPresent(v -> p.put("floatHeaderSlivers", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    record(id, "nestedScrollViewNestedScrollView", p);
+    MemorySegment st = NestedScrollViewObjSt.allocate(arena);
+    NestedScrollViewObjSt.id(st, id);
+    return st;
   }
 
   @Override

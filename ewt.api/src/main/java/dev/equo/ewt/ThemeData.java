@@ -17,8 +17,9 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   }
   ThemeData(int id) { this.id = id; }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj.I> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> appBarTheme, Optional<ColorI> dialogBackgroundColor, Optional<ColorI> indicatorColor) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeDataI> cupertinoOverrideTheme, Optional<NativeObj.I> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> primaryIconTheme, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> appBarTheme, Optional<ColorI> dialogBackgroundColor, Optional<ColorI> indicatorColor) {
     var st = factories.themeDataThemeData(applyElevationOverlayColor,
+      cupertinoOverrideTheme.map(NoDefaultCupertinoThemeDataI::build),
       inputDecorationTheme.map(NativeObj.I::build),
       materialTapTargetSize,
       platform,
@@ -48,6 +49,8 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
       fontFamily,
       fontFamilyFallback,
       _package,
+      iconTheme.map(IconThemeDataI::build),
+      primaryIconTheme.map(IconThemeDataI::build),
       primaryTextTheme.map(TextThemeI::build),
       textTheme.map(TextThemeI::build),
       appBarTheme.map(NativeObj.I::build),
@@ -119,6 +122,16 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   public boolean applyElevationOverlayColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("themeDataApplyElevationOverlayColor not supported on web");
     return intToBool(ThemeDataObjSt.applyElevationOverlayColor(st));
+  }
+  public NoDefaultCupertinoThemeData cupertinoOverrideTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataCupertinoOverrideTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.NoDefaultCupertinoThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.NoDefaultCupertinoThemeDataObjSt.id(__st, __nid);
+      return new NoDefaultCupertinoThemeData(__st);
+    }
+    return new NoDefaultCupertinoThemeData(ThemeDataObjSt.cupertinoOverrideTheme(st));
   }
   public MaterialTapTargetSize materialTapTargetSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("themeDataMaterialTapTargetSize not supported on web");
@@ -279,6 +292,26 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
       return new Color(__nid);
     }
     return new Color(ThemeDataObjSt.unselectedWidgetColor(st));
+  }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ThemeDataObjSt.iconTheme(st));
+  }
+  public IconThemeData primaryIconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataPrimaryIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ThemeDataObjSt.primaryIconTheme(st));
   }
   public TextTheme primaryTextTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {

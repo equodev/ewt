@@ -17,7 +17,7 @@ public class AppBarTheme extends InheritedTheme implements AppBarThemeI {
   }
   AppBarTheme(int id) { this.id = id; }
   @Builder.Factory
-  static AppBarTheme appBarThemeAppBarTheme(Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<WidgetI> child) {
+  static AppBarTheme appBarThemeAppBarTheme(Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<WidgetI> child) {
     var st = factories.appBarThemeAppBarTheme(color.map(ColorI::build),
       backgroundColor.map(ColorI::build),
       foregroundColor.map(ColorI::build),
@@ -26,6 +26,8 @@ public class AppBarTheme extends InheritedTheme implements AppBarThemeI {
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
       shape.map(ShapeBorderI::build),
+      iconTheme.map(IconThemeDataI::build),
+      actionsIconTheme.map(IconThemeDataI::build),
       centerTitle,
       titleSpacing,
       leadingWidth,
@@ -90,6 +92,26 @@ public class AppBarTheme extends InheritedTheme implements AppBarThemeI {
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarThemeShape not supported on web");
     return new ShapeBorder(AppBarThemeObjSt.shape(st)) {};
+  }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("appBarThemeIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(AppBarThemeObjSt.iconTheme(st));
+  }
+  public IconThemeData actionsIconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("appBarThemeActionsIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(AppBarThemeObjSt.actionsIconTheme(st));
   }
   public boolean centerTitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarThemeCenterTitle not supported on web");

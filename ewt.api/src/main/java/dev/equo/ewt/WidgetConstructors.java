@@ -2988,7 +2988,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(height));
   }
 
-  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment choiceChipChoiceChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
     var st = WidgetFactories.choiceChip(factories);
     var fn = WidgetFactories.ChoiceChipSt.choiceChip(st);
     return WidgetFactories.ChoiceChipSt.choiceChip.invoke(fn, arena, ptrObj(avatar),
@@ -3013,13 +3013,14 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(selectedShadowColor),
       ptrBool(showCheckmark),
       ptrObj(checkmarkColor),
       ptrObj(avatarBorder),
       ptrObj(avatarBoxConstraints));
   }
-  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment choiceChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<Color> selectedColor, Optional<Color> disabledColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints) {
     var st = WidgetFactories.choiceChip(factories);
     var fn = WidgetFactories.ChoiceChipSt.elevated(st);
     return WidgetFactories.ChoiceChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
@@ -3044,6 +3045,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(selectedShadowColor),
       ptrBool(showCheckmark),
       ptrObj(checkmarkColor),
@@ -3070,7 +3072,33 @@ class WidgetConstructors extends WidgetConstructorsBase {
       t);
   }
 
-  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment iconThemeDataIconThemeData(OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, OptionalDouble opacity, Optional<List<Shadow>> shadows, Optional<Boolean> applyTextScaling) {
+    var st = WidgetFactories.iconThemeData(factories);
+    var fn = WidgetFactories.IconThemeDataSt.iconThemeData(st);
+    return WidgetFactories.IconThemeDataSt.iconThemeData.invoke(fn, arena, ptr(size),
+      ptr(fill),
+      ptr(weight),
+      ptr(grade),
+      ptr(opticalSize),
+      ptrObj(color),
+      ptr(opacity),
+      ptrList(shadows),
+      ptrBool(applyTextScaling));
+  }
+  MemorySegment iconThemeDataFallback() {
+    var st = WidgetFactories.iconThemeData(factories);
+    var fn = WidgetFactories.IconThemeDataSt.fallback(st);
+    return WidgetFactories.IconThemeDataSt.fallback.invoke(fn, arena);
+  }
+  MemorySegment iconThemeDataLerp(IconThemeData a, IconThemeData b, double t) {
+    var st = WidgetFactories.iconThemeData(factories);
+    var fn = WidgetFactories.IconThemeDataSt.lerp(st);
+    return WidgetFactories.IconThemeDataSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment filterChipFilterChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.filterChip(factories);
     var fn = WidgetFactories.FilterChipSt.filterChip(st);
     return WidgetFactories.FilterChipSt.filterChip.invoke(fn, arena, ptrObj(avatar),
@@ -3099,6 +3127,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(selectedShadowColor),
       ptrBool(showCheckmark),
       ptrObj(checkmarkColor),
@@ -3106,7 +3135,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(avatarBoxConstraints),
       ptrObj(deleteIconBoxConstraints));
   }
-  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment filterChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.filterChip(factories);
     var fn = WidgetFactories.FilterChipSt.elevated(st);
     return WidgetFactories.FilterChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
@@ -3135,6 +3164,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(selectedShadowColor),
       ptrBool(showCheckmark),
       ptrObj(checkmarkColor),
@@ -3143,7 +3173,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(deleteIconBoxConstraints));
   }
 
-  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment actionChipActionChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<BoxConstraints> avatarBoxConstraints) {
     var st = WidgetFactories.actionChip(factories);
     var fn = WidgetFactories.ActionChipSt.actionChip(st);
     return WidgetFactories.ActionChipSt.actionChip.invoke(fn, arena, ptrObj(avatar),
@@ -3166,9 +3196,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(avatarBoxConstraints));
   }
-  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints) {
+  MemorySegment actionChipElevated(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> disabledColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<BoxConstraints> avatarBoxConstraints) {
     var st = WidgetFactories.actionChip(factories);
     var fn = WidgetFactories.ActionChipSt.elevated(st);
     return WidgetFactories.ActionChipSt.elevated.invoke(fn, arena, ptrObj(avatar),
@@ -3191,6 +3222,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(avatarBoxConstraints));
   }
 
@@ -3582,7 +3614,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(arrowColor));
   }
 
-  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment inputChipInputChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Consumer<Boolean>> onSelected, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.inputChip(factories);
     var fn = WidgetFactories.InputChipSt.inputChip(st);
     return WidgetFactories.InputChipSt.inputChip.invoke(fn, arena, ptrObj(avatar),
@@ -3613,6 +3645,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(selectedShadowColor),
       ptrBool(showCheckmark),
       ptrObj(checkmarkColor),
@@ -4158,10 +4191,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.TextThemeSt.primaryOf.invoke(fn, arena, context.build().getId());
   }
 
-  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
+  MemorySegment themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeData> cupertinoOverrideTheme, Optional<NativeObj> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensity> visualDensity, Optional<ColorScheme> colorScheme, Optional<Brightness> brightness, Optional<Color> colorSchemeSeed, Optional<Color> canvasColor, Optional<Color> cardColor, Optional<Color> disabledColor, Optional<Color> dividerColor, Optional<Color> focusColor, Optional<Color> highlightColor, Optional<Color> hintColor, Optional<Color> hoverColor, Optional<Color> primaryColor, Optional<Color> primaryColorDark, Optional<Color> primaryColorLight, Optional<MaterialColor> primarySwatch, Optional<Color> scaffoldBackgroundColor, Optional<Color> secondaryHeaderColor, Optional<Color> shadowColor, Optional<Color> splashColor, Optional<Color> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeData> iconTheme, Optional<IconThemeData> primaryIconTheme, Optional<TextTheme> primaryTextTheme, Optional<TextTheme> textTheme, Optional<NativeObj> appBarTheme, Optional<Color> dialogBackgroundColor, Optional<Color> indicatorColor) {
     var st = WidgetFactories.themeData(factories);
     var fn = WidgetFactories.ThemeDataSt.themeData(st);
     return WidgetFactories.ThemeDataSt.themeData.invoke(fn, arena, ptrBool(applyElevationOverlayColor),
+      ptrObj(cupertinoOverrideTheme),
       ptrObj(inputDecorationTheme),
       ptrEnum(materialTapTargetSize),
       ptrEnum(platform),
@@ -4191,6 +4225,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(fontFamily),
       ptrStrList(fontFamilyFallback),
       ptrStr(_package),
+      ptrObj(iconTheme),
+      ptrObj(primaryIconTheme),
       ptrObj(primaryTextTheme),
       ptrObj(textTheme),
       ptrObj(appBarTheme),
@@ -4236,6 +4272,34 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.ThemeDataSt.lerp.invoke(fn, arena, a.build().getId(),
       b.build().getId(),
       t);
+  }
+
+  MemorySegment noDefaultCupertinoThemeDataNoDefaultCupertinoThemeData(Optional<Brightness> brightness, Optional<Color> primaryColor, Optional<Color> primaryContrastingColor, Optional<CupertinoTextThemeData> textTheme, Optional<Color> barBackgroundColor, Optional<Color> scaffoldBackgroundColor, Optional<Color> selectionHandleColor, Optional<Boolean> applyThemeToAll) {
+    var st = WidgetFactories.noDefaultCupertinoThemeData(factories);
+    var fn = WidgetFactories.NoDefaultCupertinoThemeDataSt.noDefaultCupertinoThemeData(st);
+    return WidgetFactories.NoDefaultCupertinoThemeDataSt.noDefaultCupertinoThemeData.invoke(fn, arena, ptrEnum(brightness),
+      ptrObj(primaryColor),
+      ptrObj(primaryContrastingColor),
+      ptrObj(textTheme),
+      ptrObj(barBackgroundColor),
+      ptrObj(scaffoldBackgroundColor),
+      ptrObj(selectionHandleColor),
+      ptrBool(applyThemeToAll));
+  }
+
+  MemorySegment cupertinoTextThemeDataCupertinoTextThemeData(Optional<Color> primaryColor, Optional<TextStyle> textStyle, Optional<TextStyle> actionTextStyle, Optional<TextStyle> actionSmallTextStyle, Optional<TextStyle> tabLabelTextStyle, Optional<TextStyle> navTitleTextStyle, Optional<TextStyle> navLargeTitleTextStyle, Optional<TextStyle> navActionTextStyle, Optional<TextStyle> pickerTextStyle, Optional<TextStyle> dateTimePickerTextStyle) {
+    var st = WidgetFactories.cupertinoTextThemeData(factories);
+    var fn = WidgetFactories.CupertinoTextThemeDataSt.cupertinoTextThemeData(st);
+    return WidgetFactories.CupertinoTextThemeDataSt.cupertinoTextThemeData.invoke(fn, arena, ptrObj(primaryColor),
+      ptrObj(textStyle),
+      ptrObj(actionTextStyle),
+      ptrObj(actionSmallTextStyle),
+      ptrObj(tabLabelTextStyle),
+      ptrObj(navTitleTextStyle),
+      ptrObj(navLargeTitleTextStyle),
+      ptrObj(navActionTextStyle),
+      ptrObj(pickerTextStyle),
+      ptrObj(dateTimePickerTextStyle));
   }
 
   MemorySegment materialAccentColorMaterialAccentColor(int primary, Map<Integer, Color> swatch) {
@@ -4364,7 +4428,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       icon.build().getId());
   }
 
-  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Boolean> animateColor) {
+  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Boolean> animateColor) {
     var st = WidgetFactories.appBar(factories);
     var fn = WidgetFactories.AppBarSt.appBar(st);
     return WidgetFactories.AppBarSt.appBar.invoke(fn, arena, ptrObj(leading),
@@ -4380,6 +4444,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(shape),
       ptrObj(backgroundColor),
       ptrObj(foregroundColor),
+      ptrObj(iconTheme),
+      ptrObj(actionsIconTheme),
       ptrBool(primary),
       ptrBool(centerTitle),
       ptrBool(excludeHeaderSemantics),
@@ -5110,7 +5176,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(semanticContainer));
   }
 
-  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment chipChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.chip(factories);
     var fn = WidgetFactories.ChipSt.chip(st);
     return WidgetFactories.ChipSt.chip.invoke(fn, arena, ptrObj(avatar),
@@ -5133,6 +5199,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(avatarBoxConstraints),
       ptrObj(deleteIconBoxConstraints));
   }
@@ -6140,7 +6207,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(highlightColor));
   }
 
-  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, Optional<IconThemeData> unselectedIconTheme, Optional<IconThemeData> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
     var st = WidgetFactories.navigationRail(factories);
     var fn = WidgetFactories.NavigationRailSt.navigationRail(st);
     return WidgetFactories.NavigationRailSt.navigationRail.invoke(fn, arena, ptrObj(backgroundColor),
@@ -6155,6 +6222,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(labelType),
       ptrObj(unselectedLabelTextStyle),
       ptrObj(selectedLabelTextStyle),
+      ptrObj(unselectedIconTheme),
+      ptrObj(selectedIconTheme),
       ptr(minWidth),
       ptr(minExtendedWidth),
       ptrBool(useIndicator),
@@ -6554,10 +6623,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(scrollPadding));
   }
 
-  MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  MemorySegment cupertinoAppCupertinoApp(Optional<Widget> home, Optional<CupertinoThemeData> theme, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.cupertinoApp(factories);
     var fn = WidgetFactories.CupertinoAppSt.cupertinoApp(st);
     return WidgetFactories.CupertinoAppSt.cupertinoApp.invoke(fn, arena, ptrObj(home),
+      ptrObj(theme),
       ptrStr(initialRoute),
       builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
       ptrStr(title),
@@ -6571,10 +6641,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrStr(restorationScopeId),
       ptrBool(useInheritedMediaQuery));
   }
-  MemorySegment cupertinoAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  MemorySegment cupertinoAppRouter(Optional<CupertinoThemeData> theme, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<Color> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = WidgetFactories.cupertinoApp(factories);
     var fn = WidgetFactories.CupertinoAppSt.router(st);
-    return WidgetFactories.CupertinoAppSt.router.invoke(fn, arena, builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
+    return WidgetFactories.CupertinoAppSt.router.invoke(fn, arena, ptrObj(theme),
+      builder.isPresent() ? ptrHolder(ptrTransitionBuilderFn(builder.get())) : MemorySegment.NULL,
       ptrStr(title),
       onGenerateTitle.isPresent() ? ptrHolder(ptrGenerateAppTitleFn(onGenerateTitle.get())) : MemorySegment.NULL,
       ptrObj(color),
@@ -6585,6 +6656,31 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(debugShowCheckedModeBanner),
       ptrStr(restorationScopeId),
       ptrBool(useInheritedMediaQuery));
+  }
+
+  MemorySegment cupertinoThemeDataCupertinoThemeData(Optional<Brightness> brightness, Optional<Color> primaryColor, Optional<Color> primaryContrastingColor, Optional<CupertinoTextThemeData> textTheme, Optional<Color> barBackgroundColor, Optional<Color> scaffoldBackgroundColor, Optional<Color> selectionHandleColor, Optional<Boolean> applyThemeToAll) {
+    var st = WidgetFactories.cupertinoThemeData(factories);
+    var fn = WidgetFactories.CupertinoThemeDataSt.cupertinoThemeData(st);
+    return WidgetFactories.CupertinoThemeDataSt.cupertinoThemeData.invoke(fn, arena, ptrEnum(brightness),
+      ptrObj(primaryColor),
+      ptrObj(primaryContrastingColor),
+      ptrObj(textTheme),
+      ptrObj(barBackgroundColor),
+      ptrObj(scaffoldBackgroundColor),
+      ptrObj(selectionHandleColor),
+      ptrBool(applyThemeToAll));
+  }
+  MemorySegment cupertinoThemeDataRaw(Brightness brightness, Color primaryColor, Color primaryContrastingColor, CupertinoTextThemeData textTheme, Color barBackgroundColor, Color scaffoldBackgroundColor, Color selectionHandleColor, boolean applyThemeToAll) {
+    var st = WidgetFactories.cupertinoThemeData(factories);
+    var fn = WidgetFactories.CupertinoThemeDataSt.raw(st);
+    return WidgetFactories.CupertinoThemeDataSt.raw.invoke(fn, arena, brightness.ordinal(),
+      primaryColor != null ? primaryColor.build().getId() : null,
+      primaryContrastingColor != null ? primaryContrastingColor.build().getId() : null,
+      textTheme != null ? textTheme.build().getId() : null,
+      barBackgroundColor != null ? barBackgroundColor.build().getId() : null,
+      scaffoldBackgroundColor != null ? scaffoldBackgroundColor.build().getId() : null,
+      selectionHandleColor != null ? selectionHandleColor.build().getId() : null,
+      (applyThemeToAll ? 1 : 0));
   }
 
   MemorySegment cupertinoPageScaffoldCupertinoPageScaffold(Optional<ObstructingPreferredSizeWidget> navigationBar, Optional<Color> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Widget child) {
@@ -7247,6 +7343,24 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.OrientationBuilderSt.orientationBuilder.invoke(fn, arena, ptrOrientationWidgetBuilderFn(builder));
   }
 
+  MemorySegment iconThemeIconTheme(IconThemeData data, Widget child) {
+    var st = WidgetFactories.iconTheme(factories);
+    var fn = WidgetFactories.IconThemeSt.iconTheme(st);
+    return WidgetFactories.IconThemeSt.iconTheme.invoke(fn, arena, data.build().getId(),
+      child.build().getId());
+  }
+  int iconThemeMerge(IconThemeData data, Widget child) {
+    var st = WidgetFactories.iconTheme(factories);
+    var fn = WidgetFactories.IconThemeSt.merge(st);
+    return WidgetFactories.IconThemeSt.merge.invoke(fn, data.build().getId(),
+      child.build().getId());
+  }
+  MemorySegment iconThemeOf(BuildContext context) {
+    var st = WidgetFactories.iconTheme(factories);
+    var fn = WidgetFactories.IconThemeSt.of(st);
+    return WidgetFactories.IconThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
   MemorySegment backButtonIconBackButtonIcon() {
     var st = WidgetFactories.backButtonIcon(factories);
     var fn = WidgetFactories.BackButtonIconSt.backButtonIcon(st);
@@ -7472,7 +7586,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.DrawerControllerSt.of.invoke(fn, arena, context.build().getId());
   }
 
-  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
+  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
     var st = WidgetFactories.appBarTheme(factories);
     var fn = WidgetFactories.AppBarThemeSt.appBarTheme(st);
     return WidgetFactories.AppBarThemeSt.appBarTheme.invoke(fn, arena, ptrObj(color),
@@ -7483,6 +7597,8 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
       ptrObj(shape),
+      ptrObj(iconTheme),
+      ptrObj(actionsIconTheme),
       ptrBool(centerTitle),
       ptr(titleSpacing),
       ptr(leadingWidth),
@@ -8133,7 +8249,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(padding));
   }
 
-  MemorySegment rawChipRawChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
+  MemorySegment rawChipRawChip(Optional<Widget> avatar, Widget label, Optional<TextStyle> labelStyle, Optional<EdgeInsetsGeometry> padding, Optional<VisualDensity> visualDensity, Optional<EdgeInsetsGeometry> labelPadding, Optional<Widget> deleteIcon, Optional<Runnable> onDeleted, Optional<Color> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<Color> disabledColor, Optional<Color> selectedColor, Optional<String> tooltip, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<Color> color, Optional<Color> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<IconThemeData> iconTheme, Optional<Color> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<Color> checkmarkColor, Optional<ShapeBorder> avatarBorder, Optional<BoxConstraints> avatarBoxConstraints, Optional<BoxConstraints> deleteIconBoxConstraints) {
     var st = WidgetFactories.rawChip(factories);
     var fn = WidgetFactories.RawChipSt.rawChip(st);
     return WidgetFactories.RawChipSt.rawChip.invoke(fn, arena, ptrObj(avatar),
@@ -8165,6 +8281,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation),
       ptrObj(shadowColor),
       ptrObj(surfaceTintColor),
+      ptrObj(iconTheme),
       ptrObj(selectedShadowColor),
       ptrBool(showCheckmark),
       ptrObj(checkmarkColor),
@@ -8229,6 +8346,41 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.CupertinoDynamicColorSt.maybeResolve(st);
     return WidgetFactories.CupertinoDynamicColorSt.maybeResolve.invoke(fn, resolvable != null ? resolvable.build().getId() : null,
       context.build().getId());
+  }
+
+  MemorySegment tableRowTableRow(Optional<Decoration> decoration, Optional<List<Widget>> children) {
+    var st = WidgetFactories.tableRow(factories);
+    var fn = WidgetFactories.TableRowSt.tableRow(st);
+    return WidgetFactories.TableRowSt.tableRow.invoke(fn, arena, ptrObj(decoration),
+      ptrList(children));
+  }
+
+  MemorySegment cupertinoIconThemeDataCupertinoIconThemeData(OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, OptionalDouble opacity, Optional<List<Shadow>> shadows, Optional<Boolean> applyTextScaling) {
+    var st = WidgetFactories.cupertinoIconThemeData(factories);
+    var fn = WidgetFactories.CupertinoIconThemeDataSt.cupertinoIconThemeData(st);
+    return WidgetFactories.CupertinoIconThemeDataSt.cupertinoIconThemeData.invoke(fn, arena, ptr(size),
+      ptr(fill),
+      ptr(weight),
+      ptr(grade),
+      ptr(opticalSize),
+      ptrObj(color),
+      ptr(opacity),
+      ptrList(shadows),
+      ptrBool(applyTextScaling));
+  }
+
+  MemorySegment nestedScrollViewNestedScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, BiFunction<BuildContext, Boolean, List<Widget>> headerSliverBuilder, Widget body, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> floatHeaderSlivers, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId) {
+    var st = WidgetFactories.nestedScrollView(factories);
+    var fn = WidgetFactories.NestedScrollViewSt.nestedScrollView(st);
+    return WidgetFactories.NestedScrollViewSt.nestedScrollView.invoke(fn, arena, ptrEnum(scrollDirection),
+      ptrBool(reverse),
+      ptrNestedScrollViewHeaderSliversBuilderFn(headerSliverBuilder),
+      body.build().getId(),
+      ptrEnum(dragStartBehavior),
+      ptrBool(floatHeaderSlivers),
+      ptrEnum(clipBehavior),
+      ptrEnum(hitTestBehavior),
+      ptrStr(restorationId));
   }
 
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
@@ -8742,6 +8894,12 @@ MemorySegment ptrStepIconBuilderFn(BiFunction<Integer, StepState, Widget> jFn) {
   return StepIconBuilderFFI.allocate((stepIndex, stepState) -> {
     final var jFnRet = jFn.apply(stepIndex, StepState.values()[stepState]);
     return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrNestedScrollViewHeaderSliversBuilderFn(BiFunction<BuildContext, Boolean, List<Widget>> jFn) {
+  return NestedScrollViewHeaderSliversBuilderFFI.allocate((context, innerBoxIsScrolled) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, intToBool(innerBoxIsScrolled));
+    return ptrList(jFnRet);
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<NativeObj> jFn) {

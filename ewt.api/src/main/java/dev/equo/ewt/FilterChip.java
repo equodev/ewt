@@ -17,7 +17,7 @@ public class FilterChip extends StatelessWidget implements FilterChipI {
   }
   FilterChip(int id) { this.id = id; }
   @Builder.Factory
-  static FilterChip filterChipFilterChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
+  static FilterChip filterChipFilterChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
     var st = factories.filterChipFilterChip(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -44,6 +44,7 @@ public class FilterChip extends StatelessWidget implements FilterChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       selectedShadowColor.map(ColorI::build),
       showCheckmark,
       checkmarkColor.map(ColorI::build),
@@ -57,7 +58,7 @@ public class FilterChip extends StatelessWidget implements FilterChipI {
     return FilterChipFilterChipBuilder.filterChipFilterChip();
   }
   @Builder.Factory
-  static FilterChip filterChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
+  static FilterChip filterChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelected, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, OptionalDouble pressElevation, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
     var st = factories.filterChipElevated(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -84,6 +85,7 @@ public class FilterChip extends StatelessWidget implements FilterChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       selectedShadowColor.map(ColorI::build),
       showCheckmark,
       checkmarkColor.map(ColorI::build),
@@ -253,6 +255,16 @@ public class FilterChip extends StatelessWidget implements FilterChipI {
   public ShapeBorder avatarBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("filterChipAvatarBorder not supported on web");
     return new ShapeBorder(FilterChipObjSt.avatarBorder(st)) {};
+  }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("filterChipIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(FilterChipObjSt.iconTheme(st));
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {

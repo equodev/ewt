@@ -990,6 +990,13 @@ public class EWT {
     return VisualDensityVisualDensityBuilder.visualDensityVisualDensity();
   }
 
+  public static IconThemeDataIconThemeDataBuilder IconThemeData() {
+    return IconThemeDataIconThemeDataBuilder.iconThemeDataIconThemeData();
+  }
+  public static IconThemeDataFallbackBuilder IconThemeData_fallback() {
+    return IconThemeDataFallbackBuilder.iconThemeDataFallback();
+  }
+
   public static FilterChipFilterChipBuilder FilterChip() {
     return FilterChipFilterChipBuilder.filterChipFilterChip();
   }
@@ -1211,6 +1218,14 @@ public class EWT {
   }
   public static ThemeDataFallbackBuilder ThemeData_fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
+  }
+
+  public static NoDefaultCupertinoThemeDataNoDefaultCupertinoThemeDataBuilder NoDefaultCupertinoThemeData() {
+    return NoDefaultCupertinoThemeDataNoDefaultCupertinoThemeDataBuilder.noDefaultCupertinoThemeDataNoDefaultCupertinoThemeData();
+  }
+
+  public static CupertinoTextThemeDataCupertinoTextThemeDataBuilder CupertinoTextThemeData() {
+    return CupertinoTextThemeDataCupertinoTextThemeDataBuilder.cupertinoTextThemeDataCupertinoTextThemeData();
   }
 
   public static MaterialAccentColorMaterialAccentColorBuilder MaterialAccentColor(int primary, Map<Integer, Color> swatch) {
@@ -1620,6 +1635,13 @@ public class EWT {
     return CupertinoAppRouterBuilder.cupertinoAppRouter();
   }
 
+  public static CupertinoThemeDataCupertinoThemeDataBuilder CupertinoThemeData() {
+    return CupertinoThemeDataCupertinoThemeDataBuilder.cupertinoThemeDataCupertinoThemeData();
+  }
+  public static CupertinoThemeDataRawBuilder CupertinoThemeData_raw(Brightness brightness, ColorI primaryColor, ColorI primaryContrastingColor, CupertinoTextThemeDataI textTheme, ColorI barBackgroundColor, ColorI scaffoldBackgroundColor, ColorI selectionHandleColor, boolean applyThemeToAll) {
+    return CupertinoThemeDataRawBuilder.cupertinoThemeDataRaw(brightness, primaryColor, primaryContrastingColor, textTheme, barBackgroundColor, scaffoldBackgroundColor, selectionHandleColor, applyThemeToAll);
+  }
+
   public static CupertinoPageScaffoldCupertinoPageScaffoldBuilder CupertinoPageScaffold() {
     return CupertinoPageScaffoldCupertinoPageScaffoldBuilder.cupertinoPageScaffoldCupertinoPageScaffold();
   }
@@ -1775,6 +1797,10 @@ public class EWT {
 
   public static OrientationBuilderOrientationBuilderBuilder OrientationBuilder(BiFunction<BuildContext, Orientation, Widget> builder) {
     return OrientationBuilderOrientationBuilderBuilder.orientationBuilderOrientationBuilder(builder);
+  }
+
+  public static IconThemeIconThemeBuilder IconTheme(IconThemeDataI data, WidgetI child) {
+    return IconThemeIconThemeBuilder.iconThemeIconTheme(data, child);
   }
 
   public static BackButtonIconBackButtonIconBuilder BackButtonIcon() {
@@ -2029,6 +2055,18 @@ public class EWT {
   }
   public static CupertinoDynamicColorWithBrightnessBuilder CupertinoDynamicColor_withBrightness() {
     return CupertinoDynamicColorWithBrightnessBuilder.cupertinoDynamicColorWithBrightness();
+  }
+
+  public static TableRowTableRowBuilder TableRow() {
+    return TableRowTableRowBuilder.tableRowTableRow();
+  }
+
+  public static CupertinoIconThemeDataCupertinoIconThemeDataBuilder CupertinoIconThemeData() {
+    return CupertinoIconThemeDataCupertinoIconThemeDataBuilder.cupertinoIconThemeDataCupertinoIconThemeData();
+  }
+
+  public static NestedScrollViewNestedScrollViewBuilder NestedScrollView() {
+    return NestedScrollViewNestedScrollViewBuilder.nestedScrollViewNestedScrollView();
   }
 
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}

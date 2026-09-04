@@ -17,7 +17,7 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
   }
   NavigationRail(int id) { this.id = id; }
   @Builder.Factory
-  static NavigationRail navigationRailNavigationRail(Optional<ColorI> backgroundColor, Optional<Boolean> extended, Optional<WidgetI> leading, Optional<WidgetI> trailing, List<NavigationRailDestinationI> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyleI> unselectedLabelTextStyle, Optional<TextStyleI> selectedLabelTextStyle, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+  static NavigationRail navigationRailNavigationRail(Optional<ColorI> backgroundColor, Optional<Boolean> extended, Optional<WidgetI> leading, Optional<WidgetI> trailing, List<NavigationRailDestinationI> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyleI> unselectedLabelTextStyle, Optional<TextStyleI> selectedLabelTextStyle, Optional<IconThemeDataI> unselectedIconTheme, Optional<IconThemeDataI> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
     var st = factories.navigationRailNavigationRail(backgroundColor.map(ColorI::build),
       extended,
       leading.map(WidgetI::build),
@@ -30,6 +30,8 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
       labelType,
       unselectedLabelTextStyle.map(TextStyleI::build),
       selectedLabelTextStyle.map(TextStyleI::build),
+      unselectedIconTheme.map(IconThemeDataI::build),
+      selectedIconTheme.map(IconThemeDataI::build),
       minWidth,
       minExtendedWidth,
       useIndicator,
@@ -105,6 +107,26 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
       return new TextStyle(__st);
     }
     return new TextStyle(NavigationRailObjSt.selectedLabelTextStyle(st));
+  }
+  public IconThemeData unselectedIconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("navigationRailUnselectedIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(NavigationRailObjSt.unselectedIconTheme(st));
+  }
+  public IconThemeData selectedIconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("navigationRailSelectedIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(NavigationRailObjSt.selectedIconTheme(st));
   }
   public double minWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationRailMinWidth not supported on web");

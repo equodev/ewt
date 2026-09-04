@@ -17,8 +17,9 @@ public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
   }
   CupertinoApp(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoApp cupertinoAppCupertinoApp(Optional<WidgetI> home, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+  static CupertinoApp cupertinoAppCupertinoApp(Optional<WidgetI> home, Optional<CupertinoThemeDataI> theme, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
     var st = factories.cupertinoAppCupertinoApp(home.map(WidgetI::build),
+      theme.map(CupertinoThemeDataI::build),
       initialRoute,
       builder,
       title,
@@ -38,8 +39,9 @@ public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
     return CupertinoAppCupertinoAppBuilder.cupertinoAppCupertinoApp();
   }
   @Builder.Factory
-  static CupertinoApp cupertinoAppRouter(Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    var st = factories.cupertinoAppRouter(builder,
+  static CupertinoApp cupertinoAppRouter(Optional<CupertinoThemeDataI> theme, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
+    var st = factories.cupertinoAppRouter(theme.map(CupertinoThemeDataI::build),
+      builder,
       title,
       onGenerateTitle,
       color.map(ColorI::build),
@@ -59,6 +61,16 @@ public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
   public Widget home() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppHome not supported on web");
     return new Widget(CupertinoAppObjSt.home(st)) {};
+  }
+  public CupertinoThemeData theme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoAppTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CupertinoThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.CupertinoThemeDataObjSt.id(__st, __nid);
+      return new CupertinoThemeData(__st);
+    }
+    return new CupertinoThemeData(CupertinoAppObjSt.theme(st));
   }
   public String initialRoute() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppInitialRoute not supported on web");

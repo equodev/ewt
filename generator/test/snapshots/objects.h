@@ -950,6 +950,18 @@ typedef struct {
 } VisualDensityObjSt;
 typedef struct {
   int id;
+  double size;
+  double fill;
+  double weight;
+  double grade;
+  double opticalSize;
+  DartObj color;
+  int applyTextScaling;
+  int isConcrete;
+  double opacity;
+} IconThemeDataObjSt;
+typedef struct {
+  int id;
   DartObj avatar;
   DartObj label;
   TextStyleObjSt labelStyle;
@@ -974,6 +986,7 @@ typedef struct {
   int showCheckmark;
   DartObj checkmarkColor;
   DartObj avatarBorder;
+  IconThemeDataObjSt iconTheme;
   BoxConstraintsObjSt avatarBoxConstraints;
 } ChoiceChipObjSt;
 typedef struct {
@@ -1005,6 +1018,7 @@ typedef struct {
   int showCheckmark;
   DartObj checkmarkColor;
   DartObj avatarBorder;
+  IconThemeDataObjSt iconTheme;
   BoxConstraintsObjSt avatarBoxConstraints;
   BoxConstraintsObjSt deleteIconBoxConstraints;
 } FilterChipObjSt;
@@ -1028,6 +1042,7 @@ typedef struct {
   double elevation;
   DartObj shadowColor;
   DartObj surfaceTintColor;
+  IconThemeDataObjSt iconTheme;
   BoxConstraintsObjSt avatarBoxConstraints;
 } ActionChipObjSt;
 typedef struct {
@@ -1278,6 +1293,7 @@ typedef struct {
   int showCheckmark;
   DartObj checkmarkColor;
   DartObj avatarBorder;
+  IconThemeDataObjSt iconTheme;
   BoxConstraintsObjSt avatarBoxConstraints;
   BoxConstraintsObjSt deleteIconBoxConstraints;
 } InputChipObjSt;
@@ -1450,7 +1466,31 @@ typedef struct {
 } TextThemeObjSt;
 typedef struct {
   int id;
+  TextStyleObjSt textStyle;
+  TextStyleObjSt actionTextStyle;
+  TextStyleObjSt actionSmallTextStyle;
+  TextStyleObjSt tabLabelTextStyle;
+  TextStyleObjSt navTitleTextStyle;
+  TextStyleObjSt navLargeTitleTextStyle;
+  TextStyleObjSt navActionTextStyle;
+  TextStyleObjSt pickerTextStyle;
+  TextStyleObjSt dateTimePickerTextStyle;
+} CupertinoTextThemeDataObjSt;
+typedef struct {
+  int id;
+  int brightness;
+  DartObj primaryColor;
+  DartObj primaryContrastingColor;
+  CupertinoTextThemeDataObjSt textTheme;
+  DartObj barBackgroundColor;
+  DartObj scaffoldBackgroundColor;
+  DartObj selectionHandleColor;
+  int applyThemeToAll;
+} NoDefaultCupertinoThemeDataObjSt;
+typedef struct {
+  int id;
   int applyElevationOverlayColor;
+  NoDefaultCupertinoThemeDataObjSt cupertinoOverrideTheme;
   int materialTapTargetSize;
   int platform;
   int useMaterial3;
@@ -1472,6 +1512,8 @@ typedef struct {
   DartObj shadowColor;
   DartObj splashColor;
   DartObj unselectedWidgetColor;
+  IconThemeDataObjSt iconTheme;
+  IconThemeDataObjSt primaryIconTheme;
   TextThemeObjSt primaryTextTheme;
   TextThemeObjSt textTheme;
   DartObj dialogBackgroundColor;
@@ -1536,6 +1578,8 @@ typedef struct {
   DartObj shape;
   DartObj backgroundColor;
   DartObj foregroundColor;
+  IconThemeDataObjSt iconTheme;
+  IconThemeDataObjSt actionsIconTheme;
   int primary;
   int centerTitle;
   int excludeHeaderSemantics;
@@ -1804,6 +1848,7 @@ typedef struct {
   double elevation;
   DartObj shadowColor;
   DartObj surfaceTintColor;
+  IconThemeDataObjSt iconTheme;
   BoxConstraintsObjSt avatarBoxConstraints;
   BoxConstraintsObjSt deleteIconBoxConstraints;
 } ChipObjSt;
@@ -2266,6 +2311,8 @@ typedef struct {
   int labelType;
   TextStyleObjSt unselectedLabelTextStyle;
   TextStyleObjSt selectedLabelTextStyle;
+  IconThemeDataObjSt unselectedIconTheme;
+  IconThemeDataObjSt selectedIconTheme;
   double minWidth;
   double minExtendedWidth;
   int useIndicator;
@@ -2537,7 +2584,11 @@ typedef struct {
 } SearchBarObjSt;
 typedef struct {
   int id;
+} CupertinoThemeDataObjSt;
+typedef struct {
+  int id;
   DartObj home;
+  CupertinoThemeDataObjSt theme;
   char* initialRoute;
   char* title;
   DartObj color;
@@ -2890,6 +2941,7 @@ typedef struct {
 } PreferredSizeObjSt;
 typedef struct {
   int id;
+  IconThemeDataObjSt data;
 } IconThemeObjSt;
 typedef struct {
   int id;
@@ -3015,6 +3067,8 @@ typedef struct {
   DartObj shadowColor;
   DartObj surfaceTintColor;
   DartObj shape;
+  IconThemeDataObjSt iconTheme;
+  IconThemeDataObjSt actionsIconTheme;
   int centerTitle;
   double titleSpacing;
   double leadingWidth;
@@ -3525,6 +3579,7 @@ typedef struct {
   double elevation;
   DartObj shadowColor;
   DartObj surfaceTintColor;
+  IconThemeDataObjSt iconTheme;
   DartObj selectedShadowColor;
   int showCheckmark;
   DartObj checkmarkColor;
@@ -3586,6 +3641,28 @@ typedef struct {
   int includeSemantics;
   DartObj child;
 } RawKeyboardListenerObjSt;
+typedef struct {
+  int id;
+  DartObj decoration;
+} TableRowObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+} SelectionListenerObjSt;
+typedef struct {
+  int id;
+} CupertinoIconThemeDataObjSt;
+typedef struct {
+  int id;
+  int scrollDirection;
+  int reverse;
+  DartObj body;
+  int dragStartBehavior;
+  int floatHeaderSlivers;
+  int clipBehavior;
+  int hitTestBehavior;
+  char* restorationId;
+} NestedScrollViewObjSt;
 typedef struct {
   int id;
   DartObj (*context)(void);

@@ -564,6 +564,18 @@ w.RawKeyboardListener? rawKeyboardListener;
 c.CupertinoModalPopup? cupertinoModalPopup;
 c.CupertinoActionSheetLabel? cupertinoActionSheetLabel;
 
+// --- Batch 11: sliver layout builder + Cupertino theme data ---
+// SliverLayoutBuilder skipped: extends `ConstrainedLayoutBuilder<SliverConstraints>` — SliverConstraints is a Constraints subclass not currently emitted. Add SliverConstraints to the emitted set (or make it opaque like other Constraints subclasses) to enable.
+w.TableRow? tableRow;
+w.SelectionListener? selectionListener;
+c.CupertinoThemeData? cupertinoThemeData;
+c.CupertinoTextThemeData? cupertinoTextThemeData;
+c.CupertinoIconThemeData? cupertinoIconThemeData;
+// ExpansionTileController skipped: pulls ChangeNotifier into the emitted set; emitter writes `extends NativeObj, ChangeNotifierI` (invalid Java — should be `extends NativeObj implements ChangeNotifierI`). Generator bug in the interface-vs-supertype split.
+w.NestedScrollView? nestedScrollView;
+m.SliderComponentShape? sliderComponentShape;
+// MaterialInkController skipped: same ChangeNotifier landmine (`extends NativeObj, ChangeNotifierI`).
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

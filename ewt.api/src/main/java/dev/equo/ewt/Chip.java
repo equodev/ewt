@@ -17,7 +17,7 @@ public class Chip extends StatelessWidget implements ChipI {
   }
   Chip(int id) { this.id = id; }
   @Builder.Factory
-  static Chip chipChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
+  static Chip chipChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
     var st = factories.chipChip(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -38,6 +38,7 @@ public class Chip extends StatelessWidget implements ChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build),
       deleteIconBoxConstraints.map(BoxConstraintsI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Chip");
@@ -151,6 +152,16 @@ public class Chip extends StatelessWidget implements ChipI {
       return new Color(__nid);
     }
     return new Color(ChipObjSt.surfaceTintColor(st));
+  }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("chipIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ChipObjSt.iconTheme(st));
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {

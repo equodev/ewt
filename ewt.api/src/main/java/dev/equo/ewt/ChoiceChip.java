@@ -17,7 +17,7 @@ public class ChoiceChip extends StatelessWidget implements ChoiceChipI {
   }
   ChoiceChip(int id) { this.id = id; }
   @Builder.Factory
-  static ChoiceChip choiceChipChoiceChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<ColorI> selectedColor, Optional<ColorI> disabledColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints) {
+  static ChoiceChip choiceChipChoiceChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<ColorI> selectedColor, Optional<ColorI> disabledColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints) {
     var st = factories.choiceChipChoiceChip(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -40,6 +40,7 @@ public class ChoiceChip extends StatelessWidget implements ChoiceChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       selectedShadowColor.map(ColorI::build),
       showCheckmark,
       checkmarkColor.map(ColorI::build),
@@ -52,7 +53,7 @@ public class ChoiceChip extends StatelessWidget implements ChoiceChipI {
     return ChoiceChipChoiceChipBuilder.choiceChipChoiceChip();
   }
   @Builder.Factory
-  static ChoiceChip choiceChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<ColorI> selectedColor, Optional<ColorI> disabledColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints) {
+  static ChoiceChip choiceChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, boolean selected, Optional<ColorI> selectedColor, Optional<ColorI> disabledColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints) {
     var st = factories.choiceChipElevated(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -75,6 +76,7 @@ public class ChoiceChip extends StatelessWidget implements ChoiceChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       selectedShadowColor.map(ColorI::build),
       showCheckmark,
       checkmarkColor.map(ColorI::build),
@@ -227,6 +229,16 @@ public class ChoiceChip extends StatelessWidget implements ChoiceChipI {
   public ShapeBorder avatarBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("choiceChipAvatarBorder not supported on web");
     return new ShapeBorder(ChoiceChipObjSt.avatarBorder(st)) {};
+  }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("choiceChipIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ChoiceChipObjSt.iconTheme(st));
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
