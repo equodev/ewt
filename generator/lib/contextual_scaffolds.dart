@@ -29,10 +29,27 @@ String? scaffoldFor(String widgetName) => _scaffolds[widgetName];
 // Scaffold table (hand-curated — see file header)
 // ---------------------------------------------------------------------------
 
+const _sliverScaffold =
+    'CustomScrollView.customScrollView().slivers(List.<WidgetI>of({inner})).build()';
+
+const _stackScaffold =
+    'dev.equo.ewt.Stack.stack().children(List.<WidgetI>of({inner})).build()';
+
+const _materialScaffold = 'Material.material().child({inner}).build()';
+
+const _defaultTabCtrlScaffold =
+    'DefaultTabController.defaultTabController(1).child({inner}).build()';
+
 const Map<String, String> _scaffolds = {
-  // Widgets that must be inside a Stack
-  'Positioned': 'dev.equo.ewt.Stack.stack().children(List.<WidgetI>of({inner})).build()',
-  'Positioned_fill': 'dev.equo.ewt.Stack.stack().children(List.<WidgetI>of({inner})).build()',
+  // Widgets that must be inside a Stack — they carry StackParentData / read
+  // Stack layout knobs from the ParentData their ancestor writes. Includes
+  // implicit-animation and transition variants of the same shape.
+  'Positioned': _stackScaffold,
+  'PositionedDirectional': _stackScaffold,
+  'AnimatedPositioned': _stackScaffold,
+  'AnimatedPositionedDirectional': _stackScaffold,
+  'PositionedTransition': _stackScaffold,
+  'RelativePositionedTransition': _stackScaffold,
 
   // Widgets that must be inside a flex container
   'Expanded': 'Row.row().children(List.<WidgetI>of({inner})).build()',
@@ -40,27 +57,31 @@ const Map<String, String> _scaffolds = {
   'Spacer': 'Row.row().children(List.<WidgetI>of({inner})).build()',
 
   // Tab system widgets
-  'Tab': 'DefaultTabController.defaultTabController(1).child({inner}).build()',
-  'TabBar':
-      'DefaultTabController.defaultTabController(1).child({inner}).build()',
-  'TabBarView':
-      'DefaultTabController.defaultTabController(1).child({inner}).build()',
+  'Tab': _defaultTabCtrlScaffold,
+  'TabBar': _defaultTabCtrlScaffold,
+  'TabBarView': _defaultTabCtrlScaffold,
+  'TabPageSelector': _defaultTabCtrlScaffold,
 
   // Widgets that use Ink / Material.of internally need an actual Material
-  // ancestor — MaterialApp alone is not enough.
-  'ListTile': 'Material.material().child({inner}).build()',
-  'CheckboxListTile': 'Material.material().child({inner}).build()',
-  'SwitchListTile': 'Material.material().child({inner}).build()',
-  'CheckedPopupMenuItem': 'Material.material().child({inner}).build()',
-
-  // Drawer must be placed inside a Scaffold
-  'Drawer':
-      'Scaffold.scaffold().drawer({inner}).build()',
-
-  // PopupMenuItem must be inside a PopupMenuButton context; use a simple
-  // Column wrapper so the item can render for snapshot purposes
-  'PopupMenuItem':
-      'Column.column().children(List.<WidgetI>of({inner})).build()',
+  // ancestor — MaterialApp alone is not enough. Includes the button family
+  // (ElevatedButton / FilledButton / OutlinedButton / TextButton), the
+  // ink-based visuals (Ink, InkWell), and Slider / Tooltip / ExpansionTile.
+  'ListTile': _materialScaffold,
+  'AboutListTile': _materialScaffold,
+  'CheckboxListTile': _materialScaffold,
+  'SwitchListTile': _materialScaffold,
+  'CheckedPopupMenuItem': _materialScaffold,
+  'PopupMenuItem': _materialScaffold,
+  'Ink': _materialScaffold,
+  'ElevatedButton': _materialScaffold,
+  'FilledButton': _materialScaffold,
+  'OutlinedButton': _materialScaffold,
+  'TextButton': _materialScaffold,
+  'Slider': _materialScaffold,
+  'Tooltip': _materialScaffold,
+  'ExpansionTile': _materialScaffold,
+  'BottomAppBar': _materialScaffold,
+  'Drawer': 'Scaffold.scaffold().drawer({inner}).build()',
 
   // NavigationDestination reads _NavigationDestinationInfo.of(context), which
   // is only provided by NavigationBar. NavigationBar asserts
@@ -73,4 +94,35 @@ const Map<String, String> _scaffolds = {
   'NavigationDrawerDestination':
       'NavigationDrawer.navigationDrawer(List.<WidgetI>of({inner}, {inner})).build()',
 
+  // Sliver widgets carry SliverConstraints / SliverGeometry — they need to
+  // be mounted as slivers inside a `CustomScrollView.slivers`. Without this
+  // wrapper the harness's default MaterialApp scaffold treats them as
+  // RenderBoxes and Flutter throws `RenderSliver* is not a subtype of
+  // RenderBox?` at layout time.
+  'SliverList': _sliverScaffold,
+  'SliverGrid': _sliverScaffold,
+  'SliverPadding': _sliverScaffold,
+  'SliverToBoxAdapter': _sliverScaffold,
+  'SliverAnimatedOpacity': _sliverScaffold,
+  'SliverFadeTransition': _sliverScaffold,
+  'SliverSemantics': _sliverScaffold,
+  'SliverEnsureSemantics': _sliverScaffold,
+  'SliverVisibility': _sliverScaffold,
+  'SliverOpacity': _sliverScaffold,
+  'SliverOffstage': _sliverScaffold,
+  'SliverSafeArea': _sliverScaffold,
+  'SliverIgnorePointer': _sliverScaffold,
+  'SliverFillRemaining': _sliverScaffold,
+  'SliverFixedExtentList': _sliverScaffold,
+  'SliverPrototypeExtentList': _sliverScaffold,
+  'SliverVariedExtentList': _sliverScaffold,
+  'SliverResizingHeader': _sliverScaffold,
+  'SliverFloatingHeader': _sliverScaffold,
+  'SliverConstrainedCrossAxis': _sliverScaffold,
+  'SliverMainAxisGroup': _sliverScaffold,
+  'SliverCrossAxisGroup': _sliverScaffold,
+  'PinnedHeaderSliver': _sliverScaffold,
+  'DecoratedSliver': _sliverScaffold,
+  // Cupertino version of a scroll-sliver navbar has the same host requirement.
+  'CupertinoSliverNavigationBar': _sliverScaffold,
 };
