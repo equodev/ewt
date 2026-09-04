@@ -91,6 +91,7 @@ typedef void (*PopResultCallbackForTFFI)(DartObj result);
 typedef DartObj (*StepIconBuilderFFI)(int stepIndex, int stepState);
 typedef DartObj (*RefreshCallbackFFI)(void);
 typedef void (*ValueChangedForRefreshIndicatorStatusOptFFI)(int* value);
+typedef DartObj (*ValueGetterForFutureFFI)(void);
 typedef void (*FormFieldSetterForStringFFI)(char* newValue);
 typedef char* (*FormFieldValidatorForStringFFI)(char* value);
 typedef ArrayC (*NestedScrollViewHeaderSliversBuilderFFI)(DartObj context, int innerBoxIsScrolled);

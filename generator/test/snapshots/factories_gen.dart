@@ -15997,6 +15997,22 @@ RefreshIndicatorObjSt _createRefreshIndicatorObjSt(RefreshIndicator? w) {
   return stObj;
 }
 
+void _setupBackButtonListener(WidgetFactories f) {
+  f.backButtonListener.backButtonListener = ffi.Pointer.fromFunction(backButtonListenerBackButtonListener);
+}
+BackButtonListenerObjSt backButtonListenerBackButtonListener(DartDartObj child, ValueGetterForFutureFFI onBackButtonPressed) {
+  final w = BackButtonListener(child: _widgetsMap[child]! as Widget,
+      onBackButtonPressed: onBackButtonPressed.toValueGetterForFutureFn());
+  return _createBackButtonListenerObjSt(w);
+}
+BackButtonListenerObjSt _createBackButtonListenerObjSt(BackButtonListener? w) {
+  final BackButtonListenerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
 void _setupFocusableActionDetector(WidgetFactories f) {
   f.focusableActionDetector.focusableActionDetector = ffi.Pointer.fromFunction(focusableActionDetectorFocusableActionDetector);
 }
@@ -16882,6 +16898,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupDesktopTextSelectionToolbarButton(f);
   _setupTextSelectionToolbarTextButton(f);
   _setupRefreshIndicator(f);
+  _setupBackButtonListener(f);
   _setupFocusableActionDetector(f);
   _setupHeroControllerScope(f);
   _setupRawScrollbar(f);
@@ -18104,6 +18121,19 @@ extension on ValueChangedForRefreshIndicatorStatusOptFFI {
 }
 extension on ffi.Pointer<ValueChangedForRefreshIndicatorStatusOptFFI> {
   ValueChanged<RefreshIndicatorStatus?>? toValueChangedForRefreshIndicatorStatusOptFn() => (this != ffi.nullptr) ? this.value.toValueChangedForRefreshIndicatorStatusOptFn() : null;
+}
+
+extension on ValueGetterForFutureFFI {
+  ValueGetter<Future<bool>> toValueGetterForFutureFn<T>() {
+    return () => _runBuildScope(() {
+      DartValueGetterForFutureFFIFunction dFn = asFunction();
+      final dFnRet = dFn();
+      return _widgetsMap[dFnRet]! as Future<bool>;
+    });
+  }
+}
+extension on ffi.Pointer<ValueGetterForFutureFFI> {
+  ValueGetter<Future<bool>>? toValueGetterForFutureFn<T>() => (this != ffi.nullptr) ? this.value.toValueGetterForFutureFn() : null;
 }
 
 extension on FormFieldSetterForStringFFI {

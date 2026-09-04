@@ -774,7 +774,22 @@ class FunctionHandler with TypeHandler {
   String type4J(DartType t, [List<DartType>? typeArguments]) {
     var fn = t as FunctionType;
     var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => boxedType(types.type4J(p.type).firstUpper())).join(', ');
-    final ret = _effectiveReturn(fn.returnType);
+    // Bind the return type against the alias's type arguments too: for
+    // `ValueGetter<T>` instantiated with `T = Future<bool>`, the wrapper's
+    // Java signature should read `Supplier<Future>` — matching the widget
+    // factory's substituted call site — not `Supplier<NativeObj>` from the
+    // unresolved `T`. Without this, the alias-typedef path (line 222 in
+    // generation.dart) fails to compile against the caller.
+    // `bindTypeParameters` implicitly assumes single-T aliases (`tpi=0`),
+    // so mirror the same convention here: for a single-type-arg alias,
+    // any `TypeParameterType` return substitutes with `typeArguments[0]`.
+    var boundReturn = fn.returnType;
+    if (boundReturn is TypeParameterType &&
+        typeArguments != null &&
+        typeArguments.length == 1) {
+      boundReturn = typeArguments[0];
+    }
+    final ret = _effectiveReturn(boundReturn);
     if (ret is VoidType) {
       if (fn.parameters.isEmpty) {
         return 'Runnable';

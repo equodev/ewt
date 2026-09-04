@@ -13476,6 +13476,18 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment backButtonListenerBackButtonListener(Widget child, Supplier<Future> onBackButtonPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    int __cb_onBackButtonPressed = nextCallbackId++; p.put("onBackButtonPressed", __cb_onBackButtonPressed); callbacks.put(__cb_onBackButtonPressed, onBackButtonPressed);
+    record(id, "backButtonListenerBackButtonListener", p);
+    MemorySegment st = BackButtonListenerObjSt.allocate(arena);
+    BackButtonListenerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

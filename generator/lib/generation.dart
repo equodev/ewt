@@ -230,8 +230,14 @@ class Generation {
                   '      $_dartFnTypeName dFn = asFunction();\n'
                   '      ${fnType.returnType is! VoidType ? 'final dFnRet = ' : ''}dFn(${allParams.map((p) => Params.paramValueDtoC(types, p, fromCallback: true)).join(', ')});');
           if (fnType.returnType is! VoidType) {
+            // Bind `T` in the return type against the alias's type arguments
+            // so `ValueGetter<Future<bool>>`'s return marshals via
+            // `_widgetsMap[dFnRet]! as Future<bool>` (the concrete Future path)
+            // instead of `return dFnRet` — which pushes an int through a
+            // `Future<bool>` return slot.
+            final boundReturn = _substTypeParam(fnType.returnType);
             dartFactories.writeln(
-                  '      return ${Params.paramValue4D(types, paramElement('dFnRet', fnType.returnType))};');
+                  '      return ${Params.paramValue4D(types, paramElement('dFnRet', boundReturn))};');
           }
           dartFactories.writeln(
                   '    }${needsScope ? ')' : ''};\n'

@@ -9774,6 +9774,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation));
   }
 
+  MemorySegment backButtonListenerBackButtonListener(Widget child, Supplier<Future> onBackButtonPressed) {
+    var st = WidgetFactories.backButtonListener(factories);
+    var fn = WidgetFactories.BackButtonListenerSt.backButtonListener(st);
+    return WidgetFactories.BackButtonListenerSt.backButtonListener.invoke(fn, arena, child.build().getId(),
+      ptrValueGetterForFutureFn(onBackButtonPressed));
+  }
+
   MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
     var st = WidgetFactories.focusableActionDetector(factories);
     var fn = WidgetFactories.FocusableActionDetectorSt.focusableActionDetector(st);
@@ -10539,6 +10546,12 @@ MemorySegment ptrRefreshCallbackFn(Supplier<Future> jFn) {
 <T> MemorySegment ptrValueChangedForRefreshIndicatorStatusOptFn(Consumer<RefreshIndicatorStatus> jFn) {
   return ValueChangedForRefreshIndicatorStatusOptFFI.allocate((value) -> {
     jFn.accept(memToEnum(value, RefreshIndicatorStatus.values()));
+  }, arena);
+}
+<T> MemorySegment ptrValueGetterForFutureFn(Supplier<Future> jFn) {
+  return ValueGetterForFutureFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
   }, arena);
 }
 <T> MemorySegment ptrFormFieldSetterForStringFn(Consumer<String> jFn) {

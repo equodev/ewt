@@ -2366,6 +2366,10 @@ public class EWT {
     return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(child, onRefresh);
   }
 
+  public static BackButtonListenerBackButtonListenerBuilder BackButtonListener(WidgetI child, Supplier<Future> onBackButtonPressed) {
+    return BackButtonListenerBackButtonListenerBuilder.backButtonListenerBackButtonListener(child, onBackButtonPressed);
+  }
+
   public static FocusableActionDetectorFocusableActionDetectorBuilder FocusableActionDetector() {
     return FocusableActionDetectorFocusableActionDetectorBuilder.focusableActionDetectorFocusableActionDetector();
   }

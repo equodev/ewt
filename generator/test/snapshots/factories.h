@@ -2297,6 +2297,10 @@ typedef struct {
     RefreshIndicatorObjSt (*noSpinner)(DartObj child, RefreshCallbackFFI onRefresh, ValueChangedForRefreshIndicatorStatusOptFFI* onStatusChange, char* semanticsLabel, char* semanticsValue, int* triggerMode, double* elevation);
   } refreshIndicator;
 
+  struct BackButtonListenerSt {
+    BackButtonListenerObjSt (*backButtonListener)(DartObj child, ValueGetterForFutureFFI onBackButtonPressed);
+  } backButtonListener;
+
   struct FocusableActionDetectorSt {
     FocusableActionDetectorObjSt (*focusableActionDetector)(int* enabled, int* autofocus, int* descendantsAreFocusable, int* descendantsAreTraversable, ValueChangedForBoolFFI* onShowFocusHighlight, ValueChangedForBoolFFI* onShowHoverHighlight, ValueChangedForBoolFFI* onFocusChange, int* includeFocusSemantics, DartObj child);
   } focusableActionDetector;

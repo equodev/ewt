@@ -4116,6 +4116,10 @@ typedef struct {
 } RefreshIndicatorObjSt;
 typedef struct {
   int id;
+  DartObj child;
+} BackButtonListenerObjSt;
+typedef struct {
+  int id;
   int enabled;
   int autofocus;
   int descendantsAreFocusable;
