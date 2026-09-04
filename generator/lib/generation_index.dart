@@ -519,6 +519,23 @@ m.Step? step;
 m.TabPageSelector? tabPageSelector;
 m.CarouselView? carouselView;
 
+// --- Batch 8: mergeable material, selection toolbars, extras ---
+m.MergeableMaterial? mergeableMaterial;
+m.MaterialSlice? materialSlice;
+m.MaterialGap? materialGap;
+m.DesktopTextSelectionToolbar? desktopTextSelectionToolbar;
+m.DesktopTextSelectionToolbarButton? desktopTextSelectionToolbarButton;
+// TextSelectionToolbar skipped: `toolbarBuilder: ToolbarBuilder` where `ToolbarBuilder = Widget Function(BuildContext, Widget)`. When the caller doesn't wire it, the emitted Dart-side fallback is `(p0, p1) => null` — but the callback's return type is `Widget`, not `Widget?`, so `factories_gen.dart` fails to compile. Generator's null-fallback for Widget-returning callbacks needs a sensible non-null default.
+m.TextSelectionToolbarTextButton? textSelectionToolbarTextButton;
+// RefreshIndicator skipped: `onStatusChange` is a callback that receives `RefreshIndicatorStatus?` (enum). The FFI wrapper marshals the enum arg as a raw `MemorySegment` on the Java side but the emitted body indexes an enum array — `RefreshIndicatorStatus.values()[value]` where value is MemorySegment — so `WidgetConstructors` doesn't type-check. Related to the enum-arg callback path.
+// BackButtonListener skipped: `onBackButtonPressed` returns `Future<bool>`; the `Supplier<Future>` marshaling shape doesn't line up with the FFI wrapper that expects `Supplier<NativeObj>`. Needs a Future-return callback strategy.
+// AdaptiveTextSelectionToolbar skipped: generator crashes with "Null check operator used on a null value" in Types.getGen — one of the static factories takes an unbounded type parameter (`T` with no `extends`) which the emitter dereferences via `bound!.element!`.
+// SharedAppData skipped: static `getValue<K, V>(...)` factory has unbounded type parameters — generator's static-factory emitter dereferences `bound!.element!` in Types.getGen and crashes with "Null check operator used on a null value".
+// DefaultTextEditingShortcuts skipped: emitted Java literal-inlines a Dart Map with named-arg constructor calls (`SingleActivator(LogicalKeyboardKey.backspace, shift: true)`) which is invalid Java. The default-value inliner needs to strip / translate Dart named args.
+w.FocusableActionDetector? focusableActionDetector;
+w.OverlayPortal? overlayPortal;
+w.HeroControllerScope? heroControllerScope;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

@@ -13009,6 +13009,135 @@ CarouselViewObjSt _createCarouselViewObjSt(CarouselView? w) {
   return stObj;
 }
 
+void _setupMergeableMaterial(WidgetFactories f) {
+  f.mergeableMaterial.mergeableMaterial = ffi.Pointer.fromFunction(mergeableMaterialMergeableMaterial);
+}
+MergeableMaterialObjSt mergeableMaterialMergeableMaterial(ffi.Pointer<ffi.Int> mainAxis, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Int> hasDividers, ffi.Pointer<ArrayC> children, ffi.Pointer<DartObj> dividerColor) {
+  final w = MergeableMaterial(mainAxis: mainAxis.enumOr(Axis.values, Axis.vertical),
+      elevation: elevation.doubleOr(2),
+      hasDividers: hasDividers.boolOr(false),
+      children: children.listOrEmpty(),
+      dividerColor: dividerColor.objOrNul());
+  return _createMergeableMaterialObjSt(w);
+}
+MergeableMaterialObjSt _createMergeableMaterialObjSt(MergeableMaterial? w) {
+  final MergeableMaterialObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.mainAxis = w.mainAxis.index;
+  stObj.elevation = w.elevation;
+  stObj.hasDividers = w.hasDividers.toInt();
+  stObj.dividerColor = _addWidget(w.dividerColor);
+  return stObj;
+}
+
+void _setupDesktopTextSelectionToolbar(WidgetFactories f) {
+  f.desktopTextSelectionToolbar.desktopTextSelectionToolbar = ffi.Pointer.fromFunction(desktopTextSelectionToolbarDesktopTextSelectionToolbar);
+}
+DesktopTextSelectionToolbarObjSt desktopTextSelectionToolbarDesktopTextSelectionToolbar(DartDartObj anchor, ArrayC children) {
+  final w = DesktopTextSelectionToolbar(anchor: _widgetsMap[anchor]! as Offset,
+      children: children.listOrEmpty());
+  return _createDesktopTextSelectionToolbarObjSt(w);
+}
+DesktopTextSelectionToolbarObjSt _createDesktopTextSelectionToolbarObjSt(DesktopTextSelectionToolbar? w) {
+  final DesktopTextSelectionToolbarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.anchor = _addWidget(w.anchor);
+  return stObj;
+}
+
+void _setupDesktopTextSelectionToolbarButton(WidgetFactories f) {
+  f.desktopTextSelectionToolbarButton.desktopTextSelectionToolbarButton = ffi.Pointer.fromFunction(desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton);
+  f.desktopTextSelectionToolbarButton.text = ffi.Pointer.fromFunction(desktopTextSelectionToolbarButtonText);
+}
+DesktopTextSelectionToolbarButtonObjSt desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton(ffi.Pointer<VoidCallbackFFI> onPressed, DartDartObj child) {
+  final w = DesktopTextSelectionToolbarButton(onPressed: onPressed.toVoidCallbackFn(),
+      child: _widgetsMap[child]! as Widget);
+  return _createDesktopTextSelectionToolbarButtonObjSt(w);
+}
+DesktopTextSelectionToolbarButtonObjSt desktopTextSelectionToolbarButtonText(DartDartObj context, ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<ffi.Char> text) {
+  final w = DesktopTextSelectionToolbarButton.text(context: _widgetsMap[context]! as BuildContext,
+      onPressed: onPressed.toVoidCallbackFn(),
+      text: text.cast<Utf8>().toDartString());
+  return _createDesktopTextSelectionToolbarButtonObjSt(w);
+}
+DesktopTextSelectionToolbarButtonObjSt _createDesktopTextSelectionToolbarButtonObjSt(DesktopTextSelectionToolbarButton? w) {
+  final DesktopTextSelectionToolbarButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupTextSelectionToolbarTextButton(WidgetFactories f) {
+  f.textSelectionToolbarTextButton.textSelectionToolbarTextButton = ffi.Pointer.fromFunction(textSelectionToolbarTextButtonTextSelectionToolbarTextButton);
+  f.textSelectionToolbarTextButton.getPadding = ffi.Pointer.fromFunction(textSelectionToolbarTextButtonGetPadding, exception);
+}
+TextSelectionToolbarTextButtonObjSt textSelectionToolbarTextButtonTextSelectionToolbarTextButton(DartDartObj child, DartDartObj padding, ffi.Pointer<VoidCallbackFFI> onPressed, ffi.Pointer<DartObj> alignment) {
+  final w = TextSelectionToolbarTextButton(child: _widgetsMap[child]! as Widget,
+      padding: _widgetsMap[padding]! as EdgeInsetsGeometry,
+      onPressed: onPressed.toVoidCallbackFn(),
+      alignment: alignment.objOrNul());
+  return _createTextSelectionToolbarTextButtonObjSt(w);
+}
+int textSelectionToolbarTextButtonGetPadding(int index, int total) {
+  final w = TextSelectionToolbarTextButton.getPadding(index,
+      total);
+  return _addWidget(w);
+}
+TextSelectionToolbarTextButtonObjSt _createTextSelectionToolbarTextButtonObjSt(TextSelectionToolbarTextButton? w) {
+  final TextSelectionToolbarTextButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.padding = _addWidget(w.padding);
+  stObj.alignment = _addWidget(w.alignment);
+  return stObj;
+}
+
+void _setupFocusableActionDetector(WidgetFactories f) {
+  f.focusableActionDetector.focusableActionDetector = ffi.Pointer.fromFunction(focusableActionDetectorFocusableActionDetector);
+}
+FocusableActionDetectorObjSt focusableActionDetectorFocusableActionDetector(ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ffi.Int> descendantsAreFocusable, ffi.Pointer<ffi.Int> descendantsAreTraversable, ffi.Pointer<ValueChangedForBoolFFI> onShowFocusHighlight, ffi.Pointer<ValueChangedForBoolFFI> onShowHoverHighlight, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> includeFocusSemantics, DartDartObj child) {
+  final w = FocusableActionDetector(enabled: enabled.boolOr(true),
+      autofocus: autofocus.boolOr(false),
+      descendantsAreFocusable: descendantsAreFocusable.boolOr(true),
+      descendantsAreTraversable: descendantsAreTraversable.boolOr(true),
+      onShowFocusHighlight: onShowFocusHighlight.toValueChangedForBoolFn(),
+      onShowHoverHighlight: onShowHoverHighlight.toValueChangedForBoolFn(),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      includeFocusSemantics: includeFocusSemantics.boolOr(true),
+      child: _widgetsMap[child]! as Widget);
+  return _createFocusableActionDetectorObjSt(w);
+}
+FocusableActionDetectorObjSt _createFocusableActionDetectorObjSt(FocusableActionDetector? w) {
+  final FocusableActionDetectorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.enabled = w.enabled.toInt();
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.descendantsAreFocusable = w.descendantsAreFocusable.toInt();
+  stObj.descendantsAreTraversable = w.descendantsAreTraversable.toInt();
+  stObj.includeFocusSemantics = w.includeFocusSemantics.toInt();
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupHeroControllerScope(WidgetFactories f) {
+  f.heroControllerScope.none = ffi.Pointer.fromFunction(heroControllerScopeNone);
+}
+HeroControllerScopeObjSt heroControllerScopeNone(DartDartObj child) {
+  final w = HeroControllerScope.none(child: _widgetsMap[child]! as Widget);
+  return _createHeroControllerScopeObjSt(w);
+}
+HeroControllerScopeObjSt _createHeroControllerScopeObjSt(HeroControllerScope? w) {
+  final HeroControllerScopeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -13459,6 +13588,12 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupStep(f);
   _setupTabPageSelector(f);
   _setupCarouselView(f);
+  _setupMergeableMaterial(f);
+  _setupDesktopTextSelectionToolbar(f);
+  _setupDesktopTextSelectionToolbarButton(f);
+  _setupTextSelectionToolbarTextButton(f);
+  _setupFocusableActionDetector(f);
+  _setupHeroControllerScope(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

@@ -4814,6 +4814,42 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       itemExtent: (p['itemExtent'] as num).toDouble(),
       children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
 
+  'mergeableMaterialMergeableMaterial': (p) => MergeableMaterial(mainAxis: p['mainAxis'] == null ? Axis.vertical : Axis.values[p['mainAxis'] as int],
+      elevation: ((p['elevation'] as num?)?.toDouble()) ?? 2,
+      hasDividers: (p['hasDividers'] as bool?) ?? false,
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtNode(e as Map<String,dynamic>) as MergeableMaterialItem).toList(),
+      dividerColor: p['dividerColor'] == null ? null : decodeEwtNode(p['dividerColor'] as Map<String,dynamic>) as Color),
+
+  'materialSliceColor': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialSlice).color,
+
+  'desktopTextSelectionToolbarDesktopTextSelectionToolbar': (p) => DesktopTextSelectionToolbar(anchor: decodeEwtNode(p['anchor'] as Map<String,dynamic>) as Offset,
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton': (p) => DesktopTextSelectionToolbarButton(onPressed: ewtWireCallback(p['onPressed']),
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+  'desktopTextSelectionToolbarButtonText': (p) => DesktopTextSelectionToolbarButton.text(context: ewtActiveBuildContext!,
+      onPressed: ewtWireCallback(p['onPressed']),
+      text: p['text'] as String),
+
+  'textSelectionToolbarTextButtonTextSelectionToolbarTextButton': (p) => TextSelectionToolbarTextButton(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      padding: decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      onPressed: ewtWireCallback(p['onPressed']),
+      alignment: p['alignment'] == null ? null : decodeEwtNode(p['alignment'] as Map<String,dynamic>) as AlignmentGeometry),
+  'textSelectionToolbarTextButtonGetPadding': (p) => TextSelectionToolbarTextButton.getPadding(p['index'] as int,
+      p['total'] as int),
+
+  'focusableActionDetectorFocusableActionDetector': (p) => FocusableActionDetector(enabled: (p['enabled'] as bool?) ?? true,
+      autofocus: (p['autofocus'] as bool?) ?? false,
+      descendantsAreFocusable: (p['descendantsAreFocusable'] as bool?) ?? true,
+      descendantsAreTraversable: (p['descendantsAreTraversable'] as bool?) ?? true,
+      onShowFocusHighlight: ewtWireValueCallback(p['onShowFocusHighlight']),
+      onShowHoverHighlight: ewtWireValueCallback(p['onShowHoverHighlight']),
+      onFocusChange: ewtWireValueCallback(p['onFocusChange']),
+      includeFocusSemantics: (p['includeFocusSemantics'] as bool?) ?? true,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'heroControllerScopeNone': (p) => HeroControllerScope.none(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
 
   // SubmenuButton and PopupMenuButton are excluded from auto web decoding
   // (MenuController + itemBuilder returns a value); hand-maintained here.

@@ -3409,6 +3409,52 @@ typedef struct {
 } CarouselViewObjSt;
 typedef struct {
   int id;
+  int mainAxis;
+  double elevation;
+  int hasDividers;
+  DartObj dividerColor;
+} MergeableMaterialObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj color;
+} MaterialSliceObjSt;
+typedef struct {
+  int id;
+  double size;
+} MaterialGapObjSt;
+typedef struct {
+  int id;
+  DartObj anchor;
+} DesktopTextSelectionToolbarObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+} DesktopTextSelectionToolbarButtonObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  DartObj padding;
+  DartObj alignment;
+} TextSelectionToolbarTextButtonObjSt;
+typedef struct {
+  int id;
+  int enabled;
+  int autofocus;
+  int descendantsAreFocusable;
+  int descendantsAreTraversable;
+  int includeFocusSemantics;
+  DartObj child;
+} FocusableActionDetectorObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+} OverlayPortalObjSt;
+typedef struct {
+  int id;
+} HeroControllerScopeObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

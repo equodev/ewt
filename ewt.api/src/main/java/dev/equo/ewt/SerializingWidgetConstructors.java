@@ -10806,6 +10806,110 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment mergeableMaterialMergeableMaterial(Optional<Axis> mainAxis, OptionalDouble elevation, Optional<Boolean> hasDividers, Optional<List<MergeableMaterialItem>> children, Optional<Color> dividerColor) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    mainAxis.ifPresent(v -> p.put("mainAxis", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    hasDividers.ifPresent(v -> p.put("hasDividers", v));
+    children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    dividerColor.ifPresent(v -> p.put("dividerColor", byId.get(v.getId())));
+    record(id, "mergeableMaterialMergeableMaterial", p);
+    MemorySegment st = MergeableMaterialObjSt.allocate(arena);
+    MergeableMaterialObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment desktopTextSelectionToolbarDesktopTextSelectionToolbar(Offset anchor, List<Widget> children) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("anchor", byId.get(anchor.getId()));
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    record(id, "desktopTextSelectionToolbarDesktopTextSelectionToolbar", p);
+    MemorySegment st = DesktopTextSelectionToolbarObjSt.allocate(arena);
+    DesktopTextSelectionToolbarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton(Optional<Runnable> onPressed, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    p.put("child", byId.get(child.getId()));
+    record(id, "desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton", p);
+    MemorySegment st = DesktopTextSelectionToolbarButtonObjSt.allocate(arena);
+    DesktopTextSelectionToolbarButtonObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment desktopTextSelectionToolbarButtonText(BuildContext context, Optional<Runnable> onPressed, String text) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    p.put("text", text);
+    record(id, "desktopTextSelectionToolbarButtonText", p);
+    MemorySegment st = DesktopTextSelectionToolbarButtonObjSt.allocate(arena);
+    DesktopTextSelectionToolbarButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment textSelectionToolbarTextButtonTextSelectionToolbarTextButton(Widget child, EdgeInsetsGeometry padding, Optional<Runnable> onPressed, Optional<AlignmentGeometry> alignment) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    p.put("padding", byId.get(padding.getId()));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    record(id, "textSelectionToolbarTextButtonTextSelectionToolbarTextButton", p);
+    MemorySegment st = TextSelectionToolbarTextButtonObjSt.allocate(arena);
+    TextSelectionToolbarTextButtonObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  int textSelectionToolbarTextButtonGetPadding(int index, int total) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("index", index);
+    p.put("total", total);
+    record(id, "textSelectionToolbarTextButtonGetPadding", p);
+    return id;
+  }
+
+  @Override
+  MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    enabled.ifPresent(v -> p.put("enabled", v));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    descendantsAreFocusable.ifPresent(v -> p.put("descendantsAreFocusable", v));
+    descendantsAreTraversable.ifPresent(v -> p.put("descendantsAreTraversable", v));
+    if (onShowFocusHighlight.isPresent()) { int __cb_onShowFocusHighlight = nextCallbackId++; p.put("onShowFocusHighlight", __cb_onShowFocusHighlight); java.util.function.Consumer<Boolean> __h_onShowFocusHighlight = onShowFocusHighlight.get(); callbacks.put(__cb_onShowFocusHighlight, (java.util.function.Consumer<Object>)(v -> __h_onShowFocusHighlight.accept((Boolean) v))); }
+    if (onShowHoverHighlight.isPresent()) { int __cb_onShowHoverHighlight = nextCallbackId++; p.put("onShowHoverHighlight", __cb_onShowHoverHighlight); java.util.function.Consumer<Boolean> __h_onShowHoverHighlight = onShowHoverHighlight.get(); callbacks.put(__cb_onShowHoverHighlight, (java.util.function.Consumer<Object>)(v -> __h_onShowHoverHighlight.accept((Boolean) v))); }
+    if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
+    includeFocusSemantics.ifPresent(v -> p.put("includeFocusSemantics", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "focusableActionDetectorFocusableActionDetector", p);
+    MemorySegment st = FocusableActionDetectorObjSt.allocate(arena);
+    FocusableActionDetectorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment heroControllerScopeNone(Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    record(id, "heroControllerScopeNone", p);
+    MemorySegment st = HeroControllerScopeObjSt.allocate(arena);
+    HeroControllerScopeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

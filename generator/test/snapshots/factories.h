@@ -1837,6 +1837,32 @@ typedef struct {
     CarouselViewObjSt (*carouselView)(DartObj* padding, DartObj* backgroundColor, double* elevation, DartObj* shape, DartObj* overlayColor, int* itemSnapping, double* shrinkExtent, int* scrollDirection, int* reverse, ValueChangedForIntFFI* onTap, int* enableSplash, double itemExtent, ArrayC children);
   } carouselView;
 
+  struct MergeableMaterialSt {
+    MergeableMaterialObjSt (*mergeableMaterial)(int* mainAxis, double* elevation, int* hasDividers, ArrayC* children, DartObj* dividerColor);
+  } mergeableMaterial;
+
+  struct DesktopTextSelectionToolbarSt {
+    DesktopTextSelectionToolbarObjSt (*desktopTextSelectionToolbar)(DartObj anchor, ArrayC children);
+  } desktopTextSelectionToolbar;
+
+  struct DesktopTextSelectionToolbarButtonSt {
+    DesktopTextSelectionToolbarButtonObjSt (*desktopTextSelectionToolbarButton)(VoidCallbackFFI* onPressed, DartObj child);
+    DesktopTextSelectionToolbarButtonObjSt (*text)(DartObj context, VoidCallbackFFI* onPressed, char* text);
+  } desktopTextSelectionToolbarButton;
+
+  struct TextSelectionToolbarTextButtonSt {
+    TextSelectionToolbarTextButtonObjSt (*textSelectionToolbarTextButton)(DartObj child, DartObj padding, VoidCallbackFFI* onPressed, DartObj* alignment);
+    DartObj (*getPadding)(int index, int total);
+  } textSelectionToolbarTextButton;
+
+  struct FocusableActionDetectorSt {
+    FocusableActionDetectorObjSt (*focusableActionDetector)(int* enabled, int* autofocus, int* descendantsAreFocusable, int* descendantsAreTraversable, ValueChangedForBoolFFI* onShowFocusHighlight, ValueChangedForBoolFFI* onShowHoverHighlight, ValueChangedForBoolFFI* onFocusChange, int* includeFocusSemantics, DartObj child);
+  } focusableActionDetector;
+
+  struct HeroControllerScopeSt {
+    HeroControllerScopeObjSt (*none)(DartObj child);
+  } heroControllerScope;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

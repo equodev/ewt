@@ -1982,6 +1982,33 @@ public class EWT {
     return CarouselViewCarouselViewBuilder.carouselViewCarouselView();
   }
 
+  public static MergeableMaterialMergeableMaterialBuilder MergeableMaterial() {
+    return MergeableMaterialMergeableMaterialBuilder.mergeableMaterialMergeableMaterial();
+  }
+
+  public static DesktopTextSelectionToolbarDesktopTextSelectionToolbarBuilder DesktopTextSelectionToolbar(OffsetI anchor, List<WidgetI> children) {
+    return DesktopTextSelectionToolbarDesktopTextSelectionToolbarBuilder.desktopTextSelectionToolbarDesktopTextSelectionToolbar(anchor, children);
+  }
+
+  public static DesktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButtonBuilder DesktopTextSelectionToolbarButton() {
+    return DesktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButtonBuilder.desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton();
+  }
+  public static DesktopTextSelectionToolbarButtonTextBuilder DesktopTextSelectionToolbarButton_text(BuildContextI context) {
+    return DesktopTextSelectionToolbarButtonTextBuilder.desktopTextSelectionToolbarButtonText(context);
+  }
+
+  public static TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder TextSelectionToolbarTextButton(WidgetI child, EdgeInsetsGeometryI padding) {
+    return TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child, padding);
+  }
+
+  public static FocusableActionDetectorFocusableActionDetectorBuilder FocusableActionDetector() {
+    return FocusableActionDetectorFocusableActionDetectorBuilder.focusableActionDetectorFocusableActionDetector();
+  }
+
+  public static HeroControllerScopeNoneBuilder HeroControllerScope_none(WidgetI child) {
+    return HeroControllerScopeNoneBuilder.heroControllerScopeNone(child);
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

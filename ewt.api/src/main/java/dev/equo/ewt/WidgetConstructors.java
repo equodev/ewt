@@ -8042,6 +8042,72 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
+  MemorySegment mergeableMaterialMergeableMaterial(Optional<Axis> mainAxis, OptionalDouble elevation, Optional<Boolean> hasDividers, Optional<List<MergeableMaterialItem>> children, Optional<Color> dividerColor) {
+    var st = WidgetFactories.mergeableMaterial(factories);
+    var fn = WidgetFactories.MergeableMaterialSt.mergeableMaterial(st);
+    return WidgetFactories.MergeableMaterialSt.mergeableMaterial.invoke(fn, arena, ptrEnum(mainAxis),
+      ptr(elevation),
+      ptrBool(hasDividers),
+      ptrList(children),
+      ptrObj(dividerColor));
+  }
+
+  MemorySegment desktopTextSelectionToolbarDesktopTextSelectionToolbar(Offset anchor, List<Widget> children) {
+    var st = WidgetFactories.desktopTextSelectionToolbar(factories);
+    var fn = WidgetFactories.DesktopTextSelectionToolbarSt.desktopTextSelectionToolbar(st);
+    return WidgetFactories.DesktopTextSelectionToolbarSt.desktopTextSelectionToolbar.invoke(fn, arena, anchor.build().getId(),
+      ptrList(children));
+  }
+
+  MemorySegment desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton(Optional<Runnable> onPressed, Widget child) {
+    var st = WidgetFactories.desktopTextSelectionToolbarButton(factories);
+    var fn = WidgetFactories.DesktopTextSelectionToolbarButtonSt.desktopTextSelectionToolbarButton(st);
+    return WidgetFactories.DesktopTextSelectionToolbarButtonSt.desktopTextSelectionToolbarButton.invoke(fn, arena, onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      child.build().getId());
+  }
+  MemorySegment desktopTextSelectionToolbarButtonText(BuildContext context, Optional<Runnable> onPressed, String text) {
+    var st = WidgetFactories.desktopTextSelectionToolbarButton(factories);
+    var fn = WidgetFactories.DesktopTextSelectionToolbarButtonSt.text(st);
+    return WidgetFactories.DesktopTextSelectionToolbarButtonSt.text.invoke(fn, arena, context.build().getId(),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      arena.allocateFrom(text));
+  }
+
+  MemorySegment textSelectionToolbarTextButtonTextSelectionToolbarTextButton(Widget child, EdgeInsetsGeometry padding, Optional<Runnable> onPressed, Optional<AlignmentGeometry> alignment) {
+    var st = WidgetFactories.textSelectionToolbarTextButton(factories);
+    var fn = WidgetFactories.TextSelectionToolbarTextButtonSt.textSelectionToolbarTextButton(st);
+    return WidgetFactories.TextSelectionToolbarTextButtonSt.textSelectionToolbarTextButton.invoke(fn, arena, child.build().getId(),
+      padding.build().getId(),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL,
+      ptrObj(alignment));
+  }
+  int textSelectionToolbarTextButtonGetPadding(int index, int total) {
+    var st = WidgetFactories.textSelectionToolbarTextButton(factories);
+    var fn = WidgetFactories.TextSelectionToolbarTextButtonSt.getPadding(st);
+    return WidgetFactories.TextSelectionToolbarTextButtonSt.getPadding.invoke(fn, index,
+      total);
+  }
+
+  MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
+    var st = WidgetFactories.focusableActionDetector(factories);
+    var fn = WidgetFactories.FocusableActionDetectorSt.focusableActionDetector(st);
+    return WidgetFactories.FocusableActionDetectorSt.focusableActionDetector.invoke(fn, arena, ptrBool(enabled),
+      ptrBool(autofocus),
+      ptrBool(descendantsAreFocusable),
+      ptrBool(descendantsAreTraversable),
+      onShowFocusHighlight.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onShowFocusHighlight.get())) : MemorySegment.NULL,
+      onShowHoverHighlight.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onShowHoverHighlight.get())) : MemorySegment.NULL,
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(includeFocusSemantics),
+      child.build().getId());
+  }
+
+  MemorySegment heroControllerScopeNone(Widget child) {
+    var st = WidgetFactories.heroControllerScope(factories);
+    var fn = WidgetFactories.HeroControllerScopeSt.none(st);
+    return WidgetFactories.HeroControllerScopeSt.none.invoke(fn, arena, child.build().getId());
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
