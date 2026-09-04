@@ -3008,6 +3008,94 @@ typedef struct {
 } DrawerControllerObjSt;
 typedef struct {
   int id;
+  DartObj backgroundColor;
+  DartObj foregroundColor;
+  double elevation;
+  double scrolledUnderElevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj shape;
+  int centerTitle;
+  double titleSpacing;
+  double leadingWidth;
+  double toolbarHeight;
+  TextStyleObjSt toolbarTextStyle;
+  TextStyleObjSt titleTextStyle;
+  DartObj actionsPadding;
+} AppBarThemeObjSt;
+typedef struct {
+  int id;
+  int clipBehavior;
+  DartObj color;
+  DartObj surfaceTintColor;
+  DartObj shadowColor;
+  double elevation;
+  DartObj margin;
+  DartObj shape;
+} CardThemeObjSt;
+typedef struct {
+  int id;
+  DartObj backgroundColor;
+  double elevation;
+  DartObj shadowColor;
+  DartObj surfaceTintColor;
+  DartObj shape;
+  DartObj alignment;
+  TextStyleObjSt titleTextStyle;
+  TextStyleObjSt contentTextStyle;
+  DartObj actionsPadding;
+  DartObj iconColor;
+  DartObj barrierColor;
+  EdgeInsetsObjSt insetPadding;
+  int clipBehavior;
+} DialogThemeObjSt;
+typedef struct {
+  int id;
+} DividerThemeObjSt;
+typedef struct {
+  int id;
+} ChipThemeObjSt;
+typedef struct {
+  int id;
+} CheckboxThemeObjSt;
+typedef struct {
+  int id;
+} RadioThemeObjSt;
+typedef struct {
+  int id;
+} SwitchThemeObjSt;
+typedef struct {
+  int id;
+} SliderThemeObjSt;
+typedef struct {
+  int id;
+  DartObj indicator;
+  DartObj indicatorColor;
+  int indicatorSize;
+  DartObj dividerColor;
+  double dividerHeight;
+  DartObj labelColor;
+  DartObj labelPadding;
+  TextStyleObjSt labelStyle;
+  DartObj unselectedLabelColor;
+  TextStyleObjSt unselectedLabelStyle;
+  int tabAlignment;
+  int indicatorAnimation;
+} TabBarThemeObjSt;
+typedef struct {
+  int id;
+} TooltipThemeObjSt;
+typedef struct {
+  int id;
+} BadgeThemeObjSt;
+typedef struct {
+  int id;
+} ProgressIndicatorThemeObjSt;
+typedef struct {
+  int id;
+} PopupMenuThemeObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

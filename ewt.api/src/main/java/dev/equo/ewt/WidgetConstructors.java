@@ -7472,6 +7472,106 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.DrawerControllerSt.of.invoke(fn, arena, context.build().getId());
   }
 
+  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
+    var st = WidgetFactories.appBarTheme(factories);
+    var fn = WidgetFactories.AppBarThemeSt.appBarTheme(st);
+    return WidgetFactories.AppBarThemeSt.appBarTheme.invoke(fn, arena, ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptr(elevation),
+      ptr(scrolledUnderElevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(shape),
+      ptrBool(centerTitle),
+      ptr(titleSpacing),
+      ptr(leadingWidth),
+      ptr(toolbarHeight),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
+      ptrObj(actionsPadding),
+      ptrObj(child));
+  }
+  MemorySegment appBarThemeLerp(AppBarTheme a, AppBarTheme b, double t) {
+    var st = WidgetFactories.appBarTheme(factories);
+    var fn = WidgetFactories.AppBarThemeSt.lerp(st);
+    return WidgetFactories.AppBarThemeSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment cardThemeCardTheme(Optional<Clip> clipBehavior, Optional<Color> color, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<ShapeBorder> shape, Optional<Widget> child) {
+    var st = WidgetFactories.cardTheme(factories);
+    var fn = WidgetFactories.CardThemeSt.cardTheme(st);
+    return WidgetFactories.CardThemeSt.cardTheme.invoke(fn, arena, ptrEnum(clipBehavior),
+      ptrObj(color),
+      ptrObj(surfaceTintColor),
+      ptrObj(shadowColor),
+      ptr(elevation),
+      ptrObj(margin),
+      ptrObj(shape),
+      ptrObj(child));
+  }
+  MemorySegment cardThemeLerp(CardTheme a, CardTheme b, double t) {
+    var st = WidgetFactories.cardTheme(factories);
+    var fn = WidgetFactories.CardThemeSt.lerp(st);
+    return WidgetFactories.CardThemeSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment dialogThemeDialogTheme(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<Color> iconColor, Optional<TextStyle> titleTextStyle, Optional<TextStyle> contentTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Color> barrierColor, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<Widget> child) {
+    var st = WidgetFactories.dialogTheme(factories);
+    var fn = WidgetFactories.DialogThemeSt.dialogTheme(st);
+    return WidgetFactories.DialogThemeSt.dialogTheme.invoke(fn, arena, ptrObj(backgroundColor),
+      ptr(elevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrObj(shape),
+      ptrObj(alignment),
+      ptrObj(iconColor),
+      ptrObj(titleTextStyle),
+      ptrObj(contentTextStyle),
+      ptrObj(actionsPadding),
+      ptrObj(barrierColor),
+      ptrObj(insetPadding),
+      ptrEnum(clipBehavior),
+      ptrObj(child));
+  }
+  MemorySegment dialogThemeLerp(DialogTheme a, DialogTheme b, double t) {
+    var st = WidgetFactories.dialogTheme(factories);
+    var fn = WidgetFactories.DialogThemeSt.lerp(st);
+    return WidgetFactories.DialogThemeSt.lerp.invoke(fn, arena, a != null ? a.build().getId() : null,
+      b != null ? b.build().getId() : null,
+      t);
+  }
+
+  MemorySegment tabBarThemeTabBarTheme(Optional<Decoration> indicator, Optional<Color> indicatorColor, Optional<TabBarIndicatorSize> indicatorSize, Optional<Color> dividerColor, OptionalDouble dividerHeight, Optional<Color> labelColor, Optional<EdgeInsetsGeometry> labelPadding, Optional<TextStyle> labelStyle, Optional<Color> unselectedLabelColor, Optional<TextStyle> unselectedLabelStyle, Optional<Color> overlayColor, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation, Optional<Widget> child) {
+    var st = WidgetFactories.tabBarTheme(factories);
+    var fn = WidgetFactories.TabBarThemeSt.tabBarTheme(st);
+    return WidgetFactories.TabBarThemeSt.tabBarTheme.invoke(fn, arena, ptrObj(indicator),
+      ptrObj(indicatorColor),
+      ptrEnum(indicatorSize),
+      ptrObj(dividerColor),
+      ptr(dividerHeight),
+      ptrObj(labelColor),
+      ptrObj(labelPadding),
+      ptrObj(labelStyle),
+      ptrObj(unselectedLabelColor),
+      ptrObj(unselectedLabelStyle),
+      ptrObj(overlayColor),
+      ptrEnum(tabAlignment),
+      ptrEnum(indicatorAnimation),
+      ptrObj(child));
+  }
+  MemorySegment tabBarThemeLerp(TabBarTheme a, TabBarTheme b, double t) {
+    var st = WidgetFactories.tabBarTheme(factories);
+    var fn = WidgetFactories.TabBarThemeSt.lerp(st);
+    return WidgetFactories.TabBarThemeSt.lerp.invoke(fn, arena, a.build().getId(),
+      b.build().getId(),
+      t);
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);

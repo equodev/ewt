@@ -12007,6 +12007,184 @@ DrawerControllerObjSt _createDrawerControllerObjSt(DrawerController? w) {
   return stObj;
 }
 
+void _setupAppBarTheme(WidgetFactories f) {
+  f.appBarTheme.appBarTheme = ffi.Pointer.fromFunction(appBarThemeAppBarTheme);
+  f.appBarTheme.lerp = ffi.Pointer.fromFunction(appBarThemeLerp);
+}
+AppBarThemeObjSt appBarThemeAppBarTheme(ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> child) {
+  final w = AppBarTheme(color: color.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      foregroundColor: foregroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shape: shape.objOrNul(),
+      centerTitle: centerTitle.boolOrNul(),
+      titleSpacing: titleSpacing.doubleOrNul(),
+      leadingWidth: leadingWidth.doubleOrNul(),
+      toolbarHeight: toolbarHeight.doubleOrNul(),
+      toolbarTextStyle: toolbarTextStyle.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      actionsPadding: actionsPadding.objOrNul(),
+      child: child.objOrNul());
+  return _createAppBarThemeObjSt(w);
+}
+AppBarThemeObjSt appBarThemeLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = AppBarTheme.lerp(_widgetsMap[a]! as AppBarTheme?,
+      _widgetsMap[b]! as AppBarTheme?,
+      t);
+  return _createAppBarThemeObjSt(w);
+}
+AppBarThemeObjSt _createAppBarThemeObjSt(AppBarTheme? w) {
+  final AppBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.foregroundColor = _addWidget(w.foregroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.scrolledUnderElevation = (w.scrolledUnderElevation != null) ? w.scrolledUnderElevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shape = _addWidget(w.shape);
+  stObj.centerTitle = (w.centerTitle != null) ? w.centerTitle!.toInt() : 0;
+  stObj.titleSpacing = (w.titleSpacing != null) ? w.titleSpacing! : 0;
+  stObj.leadingWidth = (w.leadingWidth != null) ? w.leadingWidth! : 0;
+  stObj.toolbarHeight = (w.toolbarHeight != null) ? w.toolbarHeight! : 0;
+  stObj.toolbarTextStyle = _createTextStyleObjSt(w.toolbarTextStyle);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.actionsPadding = _addWidget(w.actionsPadding);
+  return stObj;
+}
+
+void _setupCardTheme(WidgetFactories f) {
+  f.cardTheme.cardTheme = ffi.Pointer.fromFunction(cardThemeCardTheme);
+  f.cardTheme.lerp = ffi.Pointer.fromFunction(cardThemeLerp);
+}
+CardThemeObjSt cardThemeCardTheme(ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> margin, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> child) {
+  final w = CardTheme(clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      color: color.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      margin: margin.objOrNul(),
+      shape: shape.objOrNul(),
+      child: child.objOrNul());
+  return _createCardThemeObjSt(w);
+}
+CardThemeObjSt cardThemeLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = CardTheme.lerp(_widgetsMap[a]! as CardTheme?,
+      _widgetsMap[b]! as CardTheme?,
+      t);
+  return _createCardThemeObjSt(w);
+}
+CardThemeObjSt _createCardThemeObjSt(CardTheme? w) {
+  final CardThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.color = _addWidget(w.color);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.margin = _addWidget(w.margin);
+  stObj.shape = _addWidget(w.shape);
+  return stObj;
+}
+
+void _setupDialogTheme(WidgetFactories f) {
+  f.dialogTheme.dialogTheme = ffi.Pointer.fromFunction(dialogThemeDialogTheme);
+  f.dialogTheme.lerp = ffi.Pointer.fromFunction(dialogThemeLerp);
+}
+DialogThemeObjSt dialogThemeDialogTheme(ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<DartObj> shape, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> iconColor, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<DartObj> contentTextStyle, ffi.Pointer<DartObj> actionsPadding, ffi.Pointer<DartObj> barrierColor, ffi.Pointer<DartObj> insetPadding, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> child) {
+  final w = DialogTheme(backgroundColor: backgroundColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      shape: shape.objOrNul(),
+      alignment: alignment.objOrNul(),
+      iconColor: iconColor.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      contentTextStyle: contentTextStyle.objOrNul(),
+      actionsPadding: actionsPadding.objOrNul(),
+      barrierColor: barrierColor.objOrNul(),
+      insetPadding: insetPadding.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      child: child.objOrNul());
+  return _createDialogThemeObjSt(w);
+}
+DialogThemeObjSt dialogThemeLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = DialogTheme.lerp(_widgetsMap[a]! as DialogTheme?,
+      _widgetsMap[b]! as DialogTheme?,
+      t);
+  return _createDialogThemeObjSt(w);
+}
+DialogThemeObjSt _createDialogThemeObjSt(DialogTheme? w) {
+  final DialogThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.shape = _addWidget(w.shape);
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.contentTextStyle = _createTextStyleObjSt(w.contentTextStyle);
+  stObj.actionsPadding = _addWidget(w.actionsPadding);
+  stObj.iconColor = _addWidget(w.iconColor);
+  stObj.barrierColor = _addWidget(w.barrierColor);
+  stObj.insetPadding = _createEdgeInsetsObjSt(w.insetPadding);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  return stObj;
+}
+
+void _setupTabBarTheme(WidgetFactories f) {
+  f.tabBarTheme.tabBarTheme = ffi.Pointer.fromFunction(tabBarThemeTabBarTheme);
+  f.tabBarTheme.lerp = ffi.Pointer.fromFunction(tabBarThemeLerp);
+}
+TabBarThemeObjSt tabBarThemeTabBarTheme(ffi.Pointer<DartObj> indicator, ffi.Pointer<DartObj> indicatorColor, ffi.Pointer<ffi.Int> indicatorSize, ffi.Pointer<DartObj> dividerColor, ffi.Pointer<ffi.Double> dividerHeight, ffi.Pointer<DartObj> labelColor, ffi.Pointer<DartObj> labelPadding, ffi.Pointer<DartObj> labelStyle, ffi.Pointer<DartObj> unselectedLabelColor, ffi.Pointer<DartObj> unselectedLabelStyle, ffi.Pointer<DartObj> overlayColor, ffi.Pointer<ffi.Int> tabAlignment, ffi.Pointer<ffi.Int> indicatorAnimation, ffi.Pointer<DartObj> child) {
+  final w = TabBarTheme(indicator: indicator.objOrNul(),
+      indicatorColor: indicatorColor.objOrNul(),
+      indicatorSize: indicatorSize.enumOrNul(TabBarIndicatorSize.values),
+      dividerColor: dividerColor.objOrNul(),
+      dividerHeight: dividerHeight.doubleOrNul(),
+      labelColor: labelColor.objOrNul(),
+      labelPadding: labelPadding.objOrNul(),
+      labelStyle: labelStyle.objOrNul(),
+      unselectedLabelColor: unselectedLabelColor.objOrNul(),
+      unselectedLabelStyle: unselectedLabelStyle.objOrNul(),
+      overlayColor: _wspNul<Color?>(overlayColor.objOrNul()),
+      tabAlignment: tabAlignment.enumOrNul(TabAlignment.values),
+      indicatorAnimation: indicatorAnimation.enumOrNul(TabIndicatorAnimation.values),
+      child: child.objOrNul());
+  return _createTabBarThemeObjSt(w);
+}
+TabBarThemeObjSt tabBarThemeLerp(DartDartObj a, DartDartObj b, double t) {
+  final w = TabBarTheme.lerp(_widgetsMap[a]! as TabBarTheme,
+      _widgetsMap[b]! as TabBarTheme,
+      t);
+  return _createTabBarThemeObjSt(w);
+}
+TabBarThemeObjSt _createTabBarThemeObjSt(TabBarTheme? w) {
+  final TabBarThemeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.indicator = _addWidget(w.indicator);
+  stObj.indicatorColor = _addWidget(w.indicatorColor);
+  stObj.indicatorSize = (w.indicatorSize != null) ? w.indicatorSize!.index : 0;
+  stObj.dividerColor = _addWidget(w.dividerColor);
+  stObj.dividerHeight = (w.dividerHeight != null) ? w.dividerHeight! : 0;
+  stObj.labelColor = _addWidget(w.labelColor);
+  stObj.labelPadding = _addWidget(w.labelPadding);
+  stObj.labelStyle = _createTextStyleObjSt(w.labelStyle);
+  stObj.unselectedLabelColor = _addWidget(w.unselectedLabelColor);
+  stObj.unselectedLabelStyle = _createTextStyleObjSt(w.unselectedLabelStyle);
+  stObj.tabAlignment = (w.tabAlignment != null) ? w.tabAlignment!.index : 0;
+  stObj.indicatorAnimation = (w.indicatorAnimation != null) ? w.indicatorAnimation!.index : 0;
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -12426,6 +12604,10 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupBottomSheet(f);
   _setupRangeValues(f);
   _setupDrawerController(f);
+  _setupAppBarTheme(f);
+  _setupCardTheme(f);
+  _setupDialogTheme(f);
+  _setupTabBarTheme(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);

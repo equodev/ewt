@@ -10028,6 +10028,146 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment appBarThemeAppBarTheme(Optional<Color> color, Optional<Color> backgroundColor, Optional<Color> foregroundColor, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Boolean> centerTitle, OptionalDouble titleSpacing, OptionalDouble leadingWidth, OptionalDouble toolbarHeight, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (scrolledUnderElevation.isPresent()) { p.put("scrolledUnderElevation", scrolledUnderElevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    centerTitle.ifPresent(v -> p.put("centerTitle", v));
+    if (titleSpacing.isPresent()) { p.put("titleSpacing", titleSpacing.getAsDouble()); }
+    if (leadingWidth.isPresent()) { p.put("leadingWidth", leadingWidth.getAsDouble()); }
+    if (toolbarHeight.isPresent()) { p.put("toolbarHeight", toolbarHeight.getAsDouble()); }
+    toolbarTextStyle.ifPresent(v -> p.put("toolbarTextStyle", byId.get(v.getId())));
+    titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
+    actionsPadding.ifPresent(v -> p.put("actionsPadding", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "appBarThemeAppBarTheme", p);
+    MemorySegment st = AppBarThemeObjSt.allocate(arena);
+    AppBarThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment appBarThemeLerp(AppBarTheme a, AppBarTheme b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "appBarThemeLerp", p);
+    MemorySegment st = AppBarThemeObjSt.allocate(arena);
+    AppBarThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cardThemeCardTheme(Optional<Clip> clipBehavior, Optional<Color> color, Optional<Color> surfaceTintColor, Optional<Color> shadowColor, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<ShapeBorder> shape, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    margin.ifPresent(v -> p.put("margin", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "cardThemeCardTheme", p);
+    MemorySegment st = CardThemeObjSt.allocate(arena);
+    CardThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment cardThemeLerp(CardTheme a, CardTheme b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "cardThemeLerp", p);
+    MemorySegment st = CardThemeObjSt.allocate(arena);
+    CardThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment dialogThemeDialogTheme(Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<Color> iconColor, Optional<TextStyle> titleTextStyle, Optional<TextStyle> contentTextStyle, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Color> barrierColor, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    iconColor.ifPresent(v -> p.put("iconColor", byId.get(v.getId())));
+    titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
+    contentTextStyle.ifPresent(v -> p.put("contentTextStyle", byId.get(v.getId())));
+    actionsPadding.ifPresent(v -> p.put("actionsPadding", byId.get(v.getId())));
+    barrierColor.ifPresent(v -> p.put("barrierColor", byId.get(v.getId())));
+    insetPadding.ifPresent(v -> p.put("insetPadding", byId.get(v.getId())));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "dialogThemeDialogTheme", p);
+    MemorySegment st = DialogThemeObjSt.allocate(arena);
+    DialogThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment dialogThemeLerp(DialogTheme a, DialogTheme b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "dialogThemeLerp", p);
+    MemorySegment st = DialogThemeObjSt.allocate(arena);
+    DialogThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment tabBarThemeTabBarTheme(Optional<Decoration> indicator, Optional<Color> indicatorColor, Optional<TabBarIndicatorSize> indicatorSize, Optional<Color> dividerColor, OptionalDouble dividerHeight, Optional<Color> labelColor, Optional<EdgeInsetsGeometry> labelPadding, Optional<TextStyle> labelStyle, Optional<Color> unselectedLabelColor, Optional<TextStyle> unselectedLabelStyle, Optional<Color> overlayColor, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation, Optional<Widget> child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    indicator.ifPresent(v -> p.put("indicator", byId.get(v.getId())));
+    indicatorColor.ifPresent(v -> p.put("indicatorColor", byId.get(v.getId())));
+    indicatorSize.ifPresent(v -> p.put("indicatorSize", v.ordinal()));
+    dividerColor.ifPresent(v -> p.put("dividerColor", byId.get(v.getId())));
+    if (dividerHeight.isPresent()) { p.put("dividerHeight", dividerHeight.getAsDouble()); }
+    labelColor.ifPresent(v -> p.put("labelColor", byId.get(v.getId())));
+    labelPadding.ifPresent(v -> p.put("labelPadding", byId.get(v.getId())));
+    labelStyle.ifPresent(v -> p.put("labelStyle", byId.get(v.getId())));
+    unselectedLabelColor.ifPresent(v -> p.put("unselectedLabelColor", byId.get(v.getId())));
+    unselectedLabelStyle.ifPresent(v -> p.put("unselectedLabelStyle", byId.get(v.getId())));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
+    tabAlignment.ifPresent(v -> p.put("tabAlignment", v.ordinal()));
+    indicatorAnimation.ifPresent(v -> p.put("indicatorAnimation", v.ordinal()));
+    child.ifPresent(v -> p.put("child", byId.get(v.getId())));
+    record(id, "tabBarThemeTabBarTheme", p);
+    MemorySegment st = TabBarThemeObjSt.allocate(arena);
+    TabBarThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment tabBarThemeLerp(TabBarTheme a, TabBarTheme b, double t) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("a", byId.get(a.getId()));
+    p.put("b", byId.get(b.getId()));
+    p.put("t", t);
+    record(id, "tabBarThemeLerp", p);
+    MemorySegment st = TabBarThemeObjSt.allocate(arena);
+    TabBarThemeObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

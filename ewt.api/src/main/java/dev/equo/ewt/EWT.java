@@ -1843,6 +1843,22 @@ public class EWT {
     return DrawerControllerDrawerControllerBuilder.drawerControllerDrawerController(child, alignment);
   }
 
+  public static AppBarThemeAppBarThemeBuilder AppBarTheme() {
+    return AppBarThemeAppBarThemeBuilder.appBarThemeAppBarTheme();
+  }
+
+  public static CardThemeCardThemeBuilder CardTheme() {
+    return CardThemeCardThemeBuilder.cardThemeCardTheme();
+  }
+
+  public static DialogThemeDialogThemeBuilder DialogTheme() {
+    return DialogThemeDialogThemeBuilder.dialogThemeDialogTheme();
+  }
+
+  public static TabBarThemeTabBarThemeBuilder TabBarTheme() {
+    return TabBarThemeTabBarThemeBuilder.tabBarThemeTabBarTheme();
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

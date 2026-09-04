@@ -1701,6 +1701,26 @@ typedef struct {
     DrawerControllerObjSt (*of)(DartObj context);
   } drawerController;
 
+  struct AppBarThemeSt {
+    AppBarThemeObjSt (*appBarTheme)(DartObj* color, DartObj* backgroundColor, DartObj* foregroundColor, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, int* centerTitle, double* titleSpacing, double* leadingWidth, double* toolbarHeight, DartObj* toolbarTextStyle, DartObj* titleTextStyle, DartObj* actionsPadding, DartObj* child);
+    AppBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } appBarTheme;
+
+  struct CardThemeSt {
+    CardThemeObjSt (*cardTheme)(int* clipBehavior, DartObj* color, DartObj* surfaceTintColor, DartObj* shadowColor, double* elevation, DartObj* margin, DartObj* shape, DartObj* child);
+    CardThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } cardTheme;
+
+  struct DialogThemeSt {
+    DialogThemeObjSt (*dialogTheme)(DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* alignment, DartObj* iconColor, DartObj* titleTextStyle, DartObj* contentTextStyle, DartObj* actionsPadding, DartObj* barrierColor, DartObj* insetPadding, int* clipBehavior, DartObj* child);
+    DialogThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } dialogTheme;
+
+  struct TabBarThemeSt {
+    TabBarThemeObjSt (*tabBarTheme)(DartObj* indicator, DartObj* indicatorColor, int* indicatorSize, DartObj* dividerColor, double* dividerHeight, DartObj* labelColor, DartObj* labelPadding, DartObj* labelStyle, DartObj* unselectedLabelColor, DartObj* unselectedLabelStyle, DartObj* overlayColor, int* tabAlignment, int* indicatorAnimation, DartObj* child);
+    TabBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } tabBarTheme;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

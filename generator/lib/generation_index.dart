@@ -434,6 +434,23 @@ m.RangeValues? rangeValues;
 m.DropdownMenuTheme? dropdownMenuTheme;
 m.DrawerController? drawerController;
 
+// --- Batch 3: Material theme wrappers ---
+m.AppBarTheme? appBarTheme;
+m.CardTheme? cardTheme;
+m.DialogTheme? dialogTheme;
+m.DividerTheme? dividerTheme;
+m.ChipTheme? chipTheme;
+m.CheckboxTheme? checkboxTheme;
+m.RadioTheme? radioTheme;
+m.SwitchTheme? switchTheme;
+m.SliderTheme? sliderTheme;
+m.TabBarTheme? tabBarTheme;
+m.TooltipTheme? tooltipTheme;
+m.SnackBarTheme? snackBarTheme;
+m.BadgeTheme? badgeTheme;
+m.ProgressIndicatorTheme? progressIndicatorTheme;
+m.PopupMenuTheme? popupMenuTheme;
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;
