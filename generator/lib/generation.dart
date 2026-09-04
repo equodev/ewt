@@ -491,7 +491,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'dart:ui' show ColorSpace, ImageFilter;
+// `SemanticsInputType` / `SemanticsValidationResult` are exposed from
+// `dart:ui`, not from any Flutter facade — SliverSemantics decoders
+// reference them by bare name so add them to the ui import.
+import 'dart:ui' show ColorSpace, ImageFilter, SemanticsInputType, SemanticsValidationResult;
 import 'decode.dart';
 import 'callbacks.dart';
 
