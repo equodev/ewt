@@ -2917,6 +2917,97 @@ typedef struct {
 } AboutDialogObjSt;
 typedef struct {
   int id;
+  DartObj child;
+  int autofocus;
+  int includeSemantics;
+  int canRequestFocus;
+  int skipTraversal;
+  int descendantsAreFocusable;
+  int descendantsAreTraversable;
+  char* debugLabel;
+} FocusObjSt;
+typedef struct {
+  int id;
+} FocusScopeObjSt;
+typedef struct {
+  int id;
+  int scrollDirection;
+} PrimaryScrollControllerObjSt;
+typedef struct {
+  int id;
+  int verticalAlignment;
+  DartObj child;
+} TableCellObjSt;
+typedef struct {
+  int id;
+  double width;
+  double height;
+  DartObj color;
+  DartObj opacity;
+  int filterQuality;
+  int colorBlendMode;
+  int fit;
+  DartObj alignment;
+  int repeat;
+  int matchTextDirection;
+  int gaplessPlayback;
+  char* semanticLabel;
+  int excludeFromSemantics;
+  int isAntiAlias;
+} ImageObjSt;
+typedef struct {
+  int id;
+  double size;
+  DartObj color;
+  char* semanticLabel;
+} ImageIconObjSt;
+typedef struct {
+  int id;
+  int alignment;
+  int mainAxisSize;
+  int buttonTextTheme;
+  double buttonMinWidth;
+  double buttonHeight;
+  DartObj buttonPadding;
+  int buttonAlignedDropdown;
+  int layoutBehavior;
+  int overflowDirection;
+  double overflowButtonSpacing;
+} ButtonBarObjSt;
+typedef struct {
+  int id;
+  DartObj animationController;
+  int enableDrag;
+  int showDragHandle;
+  DartObj dragHandleColor;
+  DartObj backgroundColor;
+  DartObj shadowColor;
+  double elevation;
+  DartObj shape;
+  int clipBehavior;
+  BoxConstraintsObjSt constraints;
+} BottomSheetObjSt;
+typedef struct {
+  int id;
+  double start;
+  double end;
+} RangeValuesObjSt;
+typedef struct {
+  int id;
+} DropdownMenuThemeObjSt;
+typedef struct {
+  int id;
+  DartObj child;
+  int alignment;
+  int drawerBarrierDismissible;
+  int dragStartBehavior;
+  DartObj scrimColor;
+  int enableOpenDragGesture;
+  double edgeDragWidth;
+  int isDrawerOpen;
+} DrawerControllerObjSt;
+typedef struct {
+  int id;
   DartObj (*context)(void);
   int (*mounted)(void);
   void (*setState)(VoidCallbackFFI fn);

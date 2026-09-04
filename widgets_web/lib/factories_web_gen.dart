@@ -4381,6 +4381,63 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       onEnd: ewtWireCallback(p['onEnd']),
       child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
 
+  'focusFocus': (p) => Focus(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      autofocus: (p['autofocus'] as bool?) ?? false,
+      onFocusChange: ewtWireValueCallback(p['onFocusChange']),
+      canRequestFocus: p['canRequestFocus'] as bool?,
+      skipTraversal: p['skipTraversal'] as bool?,
+      descendantsAreFocusable: p['descendantsAreFocusable'] as bool?,
+      descendantsAreTraversable: p['descendantsAreTraversable'] as bool?,
+      includeSemantics: (p['includeSemantics'] as bool?) ?? true,
+      debugLabel: p['debugLabel'] as String?),
+  'focusIsAt': (p) => Focus.isAt(ewtActiveBuildContext!),
+
+  'focusScopeFocusScope': (p) => FocusScope(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      autofocus: (p['autofocus'] as bool?) ?? false,
+      onFocusChange: ewtWireValueCallback(p['onFocusChange']),
+      canRequestFocus: p['canRequestFocus'] as bool?,
+      skipTraversal: p['skipTraversal'] as bool?,
+      debugLabel: p['debugLabel'] as String?,
+      includeSemantics: (p['includeSemantics'] as bool?) ?? true,
+      descendantsAreFocusable: p['descendantsAreFocusable'] as bool?,
+      descendantsAreTraversable: p['descendantsAreTraversable'] as bool?),
+
+  'primaryScrollControllerNone': (p) => PrimaryScrollController.none(child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+  'primaryScrollControllerShouldInherit': (p) => PrimaryScrollController.shouldInherit(ewtActiveBuildContext!,
+      Axis.values[p['scrollDirection'] as int]),
+
+  'tableCellTableCell': (p) => TableCell(verticalAlignment: p['verticalAlignment'] == null ? null : TableCellVerticalAlignment.values[p['verticalAlignment'] as int],
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'buttonBarButtonBar': (p) => ButtonBar(alignment: p['alignment'] == null ? null : MainAxisAlignment.values[p['alignment'] as int],
+      mainAxisSize: p['mainAxisSize'] == null ? null : MainAxisSize.values[p['mainAxisSize'] as int],
+      buttonTextTheme: p['buttonTextTheme'] == null ? null : ButtonTextTheme.values[p['buttonTextTheme'] as int],
+      buttonMinWidth: (p['buttonMinWidth'] as num?)?.toDouble(),
+      buttonHeight: (p['buttonHeight'] as num?)?.toDouble(),
+      buttonPadding: p['buttonPadding'] == null ? null : decodeEwtNode(p['buttonPadding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      buttonAlignedDropdown: p['buttonAlignedDropdown'] as bool?,
+      layoutBehavior: p['layoutBehavior'] == null ? null : ButtonBarLayoutBehavior.values[p['layoutBehavior'] as int],
+      overflowDirection: p['overflowDirection'] == null ? null : VerticalDirection.values[p['overflowDirection'] as int],
+      overflowButtonSpacing: (p['overflowButtonSpacing'] as num?)?.toDouble(),
+      children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'bottomSheetCreateAnimationController': (p) => BottomSheet.createAnimationController(decodeEwtNode(p['vsync'] as Map<String,dynamic>) as TickerProvider),
+
+  'rangeValuesRangeValues': (p) => RangeValues((p['start'] as num).toDouble(),
+      (p['end'] as num).toDouble()),
+
+  'drawerControllerDrawerController': (p) => DrawerController(child: decodeEwtWidget(p['child'] as Map<String,dynamic>),
+      alignment: DrawerAlignment.values[p['alignment'] as int],
+      isDrawerOpen: (p['isDrawerOpen'] as bool?) ?? false,
+      drawerCallback: ewtWireValueCallback(p['drawerCallback']),
+      dragStartBehavior: p['dragStartBehavior'] == null ? DragStartBehavior.start : DragStartBehavior.values[p['dragStartBehavior'] as int],
+      scrimColor: p['scrimColor'] == null ? null : decodeEwtNode(p['scrimColor'] as Map<String,dynamic>) as Color,
+      edgeDragWidth: (p['edgeDragWidth'] as num?)?.toDouble(),
+      enableOpenDragGesture: (p['enableOpenDragGesture'] as bool?) ?? true,
+      drawerBarrierDismissible: (p['drawerBarrierDismissible'] as bool?) ?? true),
+  'drawerControllerMaybeOf': (p) => DrawerController.maybeOf(ewtActiveBuildContext!),
+  'drawerControllerOf': (p) => DrawerController.of(ewtActiveBuildContext!),
+
 
   // SubmenuButton and PopupMenuButton are excluded from auto web decoding
   // (MenuController + itemBuilder returns a value); hand-maintained here.

@@ -1804,6 +1804,45 @@ public class EWT {
     return AboutDialogAdaptiveBuilder.aboutDialogAdaptive();
   }
 
+  public static FocusFocusBuilder Focus(WidgetI child) {
+    return FocusFocusBuilder.focusFocus(child);
+  }
+
+  public static FocusScopeFocusScopeBuilder FocusScope(WidgetI child) {
+    return FocusScopeFocusScopeBuilder.focusScopeFocusScope(child);
+  }
+
+  public static PrimaryScrollControllerNoneBuilder PrimaryScrollController_none(WidgetI child) {
+    return PrimaryScrollControllerNoneBuilder.primaryScrollControllerNone(child);
+  }
+
+  public static TableCellTableCellBuilder TableCell() {
+    return TableCellTableCellBuilder.tableCellTableCell();
+  }
+
+  public static ImageNetworkBuilder Image_network(String src) {
+    return ImageNetworkBuilder.imageNetwork(src);
+  }
+  public static ImageAssetBuilder Image_asset(String name) {
+    return ImageAssetBuilder.imageAsset(name);
+  }
+
+  public static ButtonBarButtonBarBuilder ButtonBar() {
+    return ButtonBarButtonBarBuilder.buttonBarButtonBar();
+  }
+
+  public static BottomSheetBottomSheetBuilder BottomSheet() {
+    return BottomSheetBottomSheetBuilder.bottomSheetBottomSheet();
+  }
+
+  public static RangeValuesRangeValuesBuilder RangeValues(double start, double end) {
+    return RangeValuesRangeValuesBuilder.rangeValuesRangeValues(start, end);
+  }
+
+  public static DrawerControllerDrawerControllerBuilder DrawerController(WidgetI child, DrawerAlignment alignment) {
+    return DrawerControllerDrawerControllerBuilder.drawerControllerDrawerController(child, alignment);
+  }
+
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}
    *  driven by {@code parent}. Web-only; see {@link OffsetAnimation}. */
   public static OffsetAnimation OffsetTween(OffsetI begin, OffsetI end, AnimationI parent) {

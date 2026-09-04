@@ -11708,6 +11708,305 @@ AboutDialogObjSt _createAboutDialogObjSt(AboutDialog? w) {
   return stObj;
 }
 
+void _setupFocus(WidgetFactories f) {
+  f.focus.focus = ffi.Pointer.fromFunction(focusFocus);
+  f.focus.isAt = ffi.Pointer.fromFunction(focusIsAt, exception);
+}
+FocusObjSt focusFocus(DartDartObj child, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> canRequestFocus, ffi.Pointer<ffi.Int> skipTraversal, ffi.Pointer<ffi.Int> descendantsAreFocusable, ffi.Pointer<ffi.Int> descendantsAreTraversable, ffi.Pointer<ffi.Int> includeSemantics, ffi.Pointer<ffi.Char> debugLabel) {
+  final w = Focus(child: _widgetsMap[child]! as Widget,
+      autofocus: autofocus.boolOr(false),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      canRequestFocus: canRequestFocus.boolOrNul(),
+      skipTraversal: skipTraversal.boolOrNul(),
+      descendantsAreFocusable: descendantsAreFocusable.boolOrNul(),
+      descendantsAreTraversable: descendantsAreTraversable.boolOrNul(),
+      includeSemantics: includeSemantics.boolOr(true),
+      debugLabel: debugLabel.strOrNul());
+  return _createFocusObjSt(w);
+}
+int focusIsAt(DartDartObj context) {
+  final w = Focus.isAt(_widgetsMap[context]! as BuildContext);
+  return w.toInt();
+}
+FocusObjSt _createFocusObjSt(Focus? w) {
+  final FocusObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.includeSemantics = w.includeSemantics.toInt();
+  stObj.canRequestFocus = w.canRequestFocus.toInt();
+  stObj.skipTraversal = w.skipTraversal.toInt();
+  stObj.descendantsAreFocusable = w.descendantsAreFocusable.toInt();
+  stObj.descendantsAreTraversable = w.descendantsAreTraversable.toInt();
+  stObj.debugLabel = (w.debugLabel != null) ? w.debugLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  return stObj;
+}
+
+void _setupFocusScope(WidgetFactories f) {
+  f.focusScope.focusScope = ffi.Pointer.fromFunction(focusScopeFocusScope);
+}
+FocusScopeObjSt focusScopeFocusScope(DartDartObj child, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<ValueChangedForBoolFFI> onFocusChange, ffi.Pointer<ffi.Int> canRequestFocus, ffi.Pointer<ffi.Int> skipTraversal, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Int> includeSemantics, ffi.Pointer<ffi.Int> descendantsAreFocusable, ffi.Pointer<ffi.Int> descendantsAreTraversable) {
+  final w = FocusScope(child: _widgetsMap[child]! as Widget,
+      autofocus: autofocus.boolOr(false),
+      onFocusChange: onFocusChange.toValueChangedForBoolFn(),
+      canRequestFocus: canRequestFocus.boolOrNul(),
+      skipTraversal: skipTraversal.boolOrNul(),
+      debugLabel: debugLabel.strOrNul(),
+      includeSemantics: includeSemantics.boolOr(true),
+      descendantsAreFocusable: descendantsAreFocusable.boolOrNul(),
+      descendantsAreTraversable: descendantsAreTraversable.boolOrNul());
+  return _createFocusScopeObjSt(w);
+}
+FocusScopeObjSt _createFocusScopeObjSt(FocusScope? w) {
+  final FocusScopeObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupPrimaryScrollController(WidgetFactories f) {
+  f.primaryScrollController.none = ffi.Pointer.fromFunction(primaryScrollControllerNone);
+  f.primaryScrollController.shouldInherit = ffi.Pointer.fromFunction(primaryScrollControllerShouldInherit, exception);
+}
+PrimaryScrollControllerObjSt primaryScrollControllerNone(DartDartObj child) {
+  final w = PrimaryScrollController.none(child: _widgetsMap[child]! as Widget);
+  return _createPrimaryScrollControllerObjSt(w);
+}
+int primaryScrollControllerShouldInherit(DartDartObj context, int scrollDirection) {
+  final w = PrimaryScrollController.shouldInherit(_widgetsMap[context]! as BuildContext,
+      Axis.values[scrollDirection]);
+  return w.toInt();
+}
+PrimaryScrollControllerObjSt _createPrimaryScrollControllerObjSt(PrimaryScrollController? w) {
+  final PrimaryScrollControllerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.scrollDirection = (w.scrollDirection != null) ? w.scrollDirection!.index : 0;
+  return stObj;
+}
+
+void _setupTableCell(WidgetFactories f) {
+  f.tableCell.tableCell = ffi.Pointer.fromFunction(tableCellTableCell);
+}
+TableCellObjSt tableCellTableCell(ffi.Pointer<ffi.Int> verticalAlignment, DartDartObj child) {
+  final w = TableCell(verticalAlignment: verticalAlignment.enumOrNul(TableCellVerticalAlignment.values),
+      child: _widgetsMap[child]! as Widget);
+  return _createTableCellObjSt(w);
+}
+TableCellObjSt _createTableCellObjSt(TableCell? w) {
+  final TableCellObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.verticalAlignment = (w.verticalAlignment != null) ? w.verticalAlignment!.index : 0;
+  stObj.child = _addWidget(w.child);
+  return stObj;
+}
+
+void _setupImage(WidgetFactories f) {
+  f.image.network = ffi.Pointer.fromFunction(imageNetwork);
+  f.image.asset = ffi.Pointer.fromFunction(imageAsset);
+}
+ImageObjSt imageNetwork(ffi.Pointer<ffi.Char> src, ffi.Pointer<ffi.Double> scale, ffi.Pointer<ImageFrameBuilderFFI> frameBuilder, ffi.Pointer<ffi.Char> semanticLabel, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> opacity, ffi.Pointer<ffi.Int> colorBlendMode, ffi.Pointer<ffi.Int> fit, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> repeat, ffi.Pointer<ffi.Int> matchTextDirection, ffi.Pointer<ffi.Int> gaplessPlayback, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<ffi.Int> isAntiAlias, ffi.Pointer<ffi.Int> cacheWidth, ffi.Pointer<ffi.Int> cacheHeight, ffi.Pointer<ffi.Int> webHtmlElementStrategy) {
+  final w = Image.network(src.cast<Utf8>().toDartString(),
+      scale: scale.doubleOr(1.0),
+      frameBuilder: frameBuilder.toImageFrameBuilderFn(),
+      semanticLabel: semanticLabel.strOrNul(),
+      excludeFromSemantics: excludeFromSemantics.boolOr(false),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      color: color.objOrNul(),
+      opacity: opacity.objOrNul(),
+      colorBlendMode: colorBlendMode.enumOrNul(BlendMode.values),
+      fit: fit.enumOrNul(BoxFit.values),
+      alignment: alignment.objOr(Alignment.center),
+      repeat: repeat.enumOr(ImageRepeat.values, ImageRepeat.noRepeat),
+      matchTextDirection: matchTextDirection.boolOr(false),
+      gaplessPlayback: gaplessPlayback.boolOr(false),
+      filterQuality: filterQuality.enumOr(FilterQuality.values, FilterQuality.medium),
+      isAntiAlias: isAntiAlias.boolOr(false),
+      cacheWidth: cacheWidth.intOrNul(),
+      cacheHeight: cacheHeight.intOrNul(),
+      webHtmlElementStrategy: webHtmlElementStrategy.enumOr(WebHtmlElementStrategy.values, WebHtmlElementStrategy.never));
+  return _createImageObjSt(w);
+}
+ImageObjSt imageAsset(ffi.Pointer<ffi.Char> name, ffi.Pointer<ImageFrameBuilderFFI> frameBuilder, ffi.Pointer<ffi.Char> semanticLabel, ffi.Pointer<ffi.Int> excludeFromSemantics, ffi.Pointer<ffi.Double> scale, ffi.Pointer<ffi.Double> width, ffi.Pointer<ffi.Double> height, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> opacity, ffi.Pointer<ffi.Int> colorBlendMode, ffi.Pointer<ffi.Int> fit, ffi.Pointer<DartObj> alignment, ffi.Pointer<ffi.Int> repeat, ffi.Pointer<ffi.Int> matchTextDirection, ffi.Pointer<ffi.Int> gaplessPlayback, ffi.Pointer<ffi.Int> isAntiAlias, ffi.Pointer<ffi.Char> package, ffi.Pointer<ffi.Int> filterQuality, ffi.Pointer<ffi.Int> cacheWidth, ffi.Pointer<ffi.Int> cacheHeight) {
+  final w = Image.asset(name.cast<Utf8>().toDartString(),
+      frameBuilder: frameBuilder.toImageFrameBuilderFn(),
+      semanticLabel: semanticLabel.strOrNul(),
+      excludeFromSemantics: excludeFromSemantics.boolOr(false),
+      scale: scale.doubleOrNul(),
+      width: width.doubleOrNul(),
+      height: height.doubleOrNul(),
+      color: color.objOrNul(),
+      opacity: opacity.objOrNul(),
+      colorBlendMode: colorBlendMode.enumOrNul(BlendMode.values),
+      fit: fit.enumOrNul(BoxFit.values),
+      alignment: alignment.objOr(Alignment.center),
+      repeat: repeat.enumOr(ImageRepeat.values, ImageRepeat.noRepeat),
+      matchTextDirection: matchTextDirection.boolOr(false),
+      gaplessPlayback: gaplessPlayback.boolOr(false),
+      isAntiAlias: isAntiAlias.boolOr(false),
+      package: package.strOrNul(),
+      filterQuality: filterQuality.enumOr(FilterQuality.values, FilterQuality.medium),
+      cacheWidth: cacheWidth.intOrNul(),
+      cacheHeight: cacheHeight.intOrNul());
+  return _createImageObjSt(w);
+}
+ImageObjSt _createImageObjSt(Image? w) {
+  final ImageObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.width = (w.width != null) ? w.width! : 0;
+  stObj.height = (w.height != null) ? w.height! : 0;
+  stObj.color = _addWidget(w.color);
+  stObj.opacity = _addWidget(w.opacity);
+  stObj.filterQuality = w.filterQuality.index;
+  stObj.colorBlendMode = (w.colorBlendMode != null) ? w.colorBlendMode!.index : 0;
+  stObj.fit = (w.fit != null) ? w.fit!.index : 0;
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.repeat = w.repeat.index;
+  stObj.matchTextDirection = w.matchTextDirection.toInt();
+  stObj.gaplessPlayback = w.gaplessPlayback.toInt();
+  stObj.semanticLabel = (w.semanticLabel != null) ? w.semanticLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.excludeFromSemantics = w.excludeFromSemantics.toInt();
+  stObj.isAntiAlias = w.isAntiAlias.toInt();
+  return stObj;
+}
+
+void _setupButtonBar(WidgetFactories f) {
+  f.buttonBar.buttonBar = ffi.Pointer.fromFunction(buttonBarButtonBar);
+}
+ButtonBarObjSt buttonBarButtonBar(ffi.Pointer<ffi.Int> alignment, ffi.Pointer<ffi.Int> mainAxisSize, ffi.Pointer<ffi.Int> buttonTextTheme, ffi.Pointer<ffi.Double> buttonMinWidth, ffi.Pointer<ffi.Double> buttonHeight, ffi.Pointer<DartObj> buttonPadding, ffi.Pointer<ffi.Int> buttonAlignedDropdown, ffi.Pointer<ffi.Int> layoutBehavior, ffi.Pointer<ffi.Int> overflowDirection, ffi.Pointer<ffi.Double> overflowButtonSpacing, ffi.Pointer<ArrayC> children) {
+  final w = ButtonBar(alignment: alignment.enumOrNul(MainAxisAlignment.values),
+      mainAxisSize: mainAxisSize.enumOrNul(MainAxisSize.values),
+      buttonTextTheme: buttonTextTheme.enumOrNul(ButtonTextTheme.values),
+      buttonMinWidth: buttonMinWidth.doubleOrNul(),
+      buttonHeight: buttonHeight.doubleOrNul(),
+      buttonPadding: buttonPadding.objOrNul(),
+      buttonAlignedDropdown: buttonAlignedDropdown.boolOrNul(),
+      layoutBehavior: layoutBehavior.enumOrNul(ButtonBarLayoutBehavior.values),
+      overflowDirection: overflowDirection.enumOrNul(VerticalDirection.values),
+      overflowButtonSpacing: overflowButtonSpacing.doubleOrNul(),
+      children: children.listOrEmpty());
+  return _createButtonBarObjSt(w);
+}
+ButtonBarObjSt _createButtonBarObjSt(ButtonBar? w) {
+  final ButtonBarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.alignment = (w.alignment != null) ? w.alignment!.index : 0;
+  stObj.mainAxisSize = (w.mainAxisSize != null) ? w.mainAxisSize!.index : 0;
+  stObj.buttonTextTheme = (w.buttonTextTheme != null) ? w.buttonTextTheme!.index : 0;
+  stObj.buttonMinWidth = (w.buttonMinWidth != null) ? w.buttonMinWidth! : 0;
+  stObj.buttonHeight = (w.buttonHeight != null) ? w.buttonHeight! : 0;
+  stObj.buttonPadding = _addWidget(w.buttonPadding);
+  stObj.buttonAlignedDropdown = (w.buttonAlignedDropdown != null) ? w.buttonAlignedDropdown!.toInt() : 0;
+  stObj.layoutBehavior = (w.layoutBehavior != null) ? w.layoutBehavior!.index : 0;
+  stObj.overflowDirection = (w.overflowDirection != null) ? w.overflowDirection!.index : 0;
+  stObj.overflowButtonSpacing = (w.overflowButtonSpacing != null) ? w.overflowButtonSpacing! : 0;
+  return stObj;
+}
+
+void _setupBottomSheet(WidgetFactories f) {
+  f.bottomSheet.bottomSheet = ffi.Pointer.fromFunction(bottomSheetBottomSheet);
+  f.bottomSheet.createAnimationController = ffi.Pointer.fromFunction(bottomSheetCreateAnimationController, exception);
+}
+BottomSheetObjSt bottomSheetBottomSheet(ffi.Pointer<DartObj> animationController, ffi.Pointer<ffi.Int> enableDrag, ffi.Pointer<ffi.Int> showDragHandle, ffi.Pointer<DartObj> dragHandleColor, ffi.Pointer<BottomSheetDragStartHandlerFFI> onDragStart, ffi.Pointer<BottomSheetDragEndHandlerFFI> onDragEnd, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> constraints, VoidCallbackFFI onClosing, WidgetBuilderFFI builder) {
+  final w = BottomSheet(animationController: animationController.objOrNul(),
+      enableDrag: enableDrag.boolOr(true),
+      showDragHandle: showDragHandle.boolOrNul(),
+      dragHandleColor: dragHandleColor.objOrNul(),
+      onDragStart: onDragStart.toBottomSheetDragStartHandlerFn(),
+      onDragEnd: onDragEnd.toBottomSheetDragEndHandlerFn(),
+      backgroundColor: backgroundColor.objOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      shape: shape.objOrNul(),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      constraints: constraints.objOrNul(),
+      onClosing: onClosing.toVoidCallbackFn(),
+      builder: builder.toWidgetBuilderFn());
+  return _createBottomSheetObjSt(w);
+}
+int bottomSheetCreateAnimationController(DartDartObj vsync) {
+  final w = BottomSheet.createAnimationController(_widgetsMap[vsync]! as TickerProvider);
+  return _addWidget(w);
+}
+BottomSheetObjSt _createBottomSheetObjSt(BottomSheet? w) {
+  final BottomSheetObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.animationController = _addWidget(w.animationController);
+  stObj.enableDrag = w.enableDrag.toInt();
+  stObj.showDragHandle = (w.showDragHandle != null) ? w.showDragHandle!.toInt() : 0;
+  stObj.dragHandleColor = _addWidget(w.dragHandleColor);
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.shape = _addWidget(w.shape);
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.constraints = _createBoxConstraintsObjSt(w.constraints);
+  return stObj;
+}
+
+void _setupRangeValues(WidgetFactories f) {
+  f.rangeValues.rangeValues = ffi.Pointer.fromFunction(rangeValuesRangeValues);
+}
+RangeValuesObjSt rangeValuesRangeValues(double start, double end) {
+  final w = RangeValues(start,
+      end);
+  return _createRangeValuesObjSt(w);
+}
+RangeValuesObjSt _createRangeValuesObjSt(RangeValues? w) {
+  final RangeValuesObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.start = w.start;
+  stObj.end = w.end;
+  return stObj;
+}
+
+void _setupDrawerController(WidgetFactories f) {
+  f.drawerController.drawerController = ffi.Pointer.fromFunction(drawerControllerDrawerController);
+  f.drawerController.maybeOf = ffi.Pointer.fromFunction(drawerControllerMaybeOf);
+  f.drawerController.of = ffi.Pointer.fromFunction(drawerControllerOf);
+}
+DrawerControllerObjSt drawerControllerDrawerController(DartDartObj child, int alignment, ffi.Pointer<ffi.Int> isDrawerOpen, ffi.Pointer<DrawerCallbackFFI> drawerCallback, ffi.Pointer<ffi.Int> dragStartBehavior, ffi.Pointer<DartObj> scrimColor, ffi.Pointer<ffi.Double> edgeDragWidth, ffi.Pointer<ffi.Int> enableOpenDragGesture, ffi.Pointer<ffi.Int> drawerBarrierDismissible) {
+  final w = DrawerController(child: _widgetsMap[child]! as Widget,
+      alignment: DrawerAlignment.values[alignment],
+      isDrawerOpen: isDrawerOpen.boolOr(false),
+      drawerCallback: drawerCallback.toDrawerCallbackFn(),
+      dragStartBehavior: dragStartBehavior.enumOr(DragStartBehavior.values, DragStartBehavior.start),
+      scrimColor: scrimColor.objOrNul(),
+      edgeDragWidth: edgeDragWidth.doubleOrNul(),
+      enableOpenDragGesture: enableOpenDragGesture.boolOr(true),
+      drawerBarrierDismissible: drawerBarrierDismissible.boolOr(true));
+  return _createDrawerControllerObjSt(w);
+}
+DrawerControllerObjSt drawerControllerMaybeOf(DartDartObj context) {
+  final w = DrawerController.maybeOf(_widgetsMap[context]! as BuildContext);
+  return _createDrawerControllerObjSt(w);
+}
+DrawerControllerObjSt drawerControllerOf(DartDartObj context) {
+  final w = DrawerController.of(_widgetsMap[context]! as BuildContext);
+  return _createDrawerControllerObjSt(w);
+}
+DrawerControllerObjSt _createDrawerControllerObjSt(DrawerController? w) {
+  final DrawerControllerObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.alignment = w.alignment.index;
+  stObj.drawerBarrierDismissible = w.drawerBarrierDismissible.toInt();
+  stObj.dragStartBehavior = w.dragStartBehavior.index;
+  stObj.scrimColor = _addWidget(w.scrimColor);
+  stObj.enableOpenDragGesture = w.enableOpenDragGesture.toInt();
+  stObj.edgeDragWidth = (w.edgeDragWidth != null) ? w.edgeDragWidth! : 0;
+  stObj.isDrawerOpen = w.isDrawerOpen.toInt();
+  return stObj;
+}
+
 void _setupSubState(WidgetFactories f) {
   f.subState.subState = ffi.Pointer.fromFunction(subStateSubState);
 }
@@ -12118,6 +12417,15 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupEndDrawerButtonIcon(f);
   _setupAnimatedTheme(f);
   _setupAboutDialog(f);
+  _setupFocus(f);
+  _setupFocusScope(f);
+  _setupPrimaryScrollController(f);
+  _setupTableCell(f);
+  _setupImage(f);
+  _setupButtonBar(f);
+  _setupBottomSheet(f);
+  _setupRangeValues(f);
+  _setupDrawerController(f);
   _setupSubState(f);
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
@@ -13132,6 +13440,43 @@ extension on OrientationWidgetBuilderFFI {
 }
 extension on ffi.Pointer<OrientationWidgetBuilderFFI> {
   OrientationWidgetBuilder? toOrientationWidgetBuilderFn() => (this != ffi.nullptr) ? this.value.toOrientationWidgetBuilderFn() : null;
+}
+
+extension on ImageFrameBuilderFFI {
+  ImageFrameBuilder toImageFrameBuilderFn() {
+    return (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) => _runBuildScope(() {
+      DartImageFrameBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context), _addWidget(child), frame!, wasSynchronouslyLoaded.toInt());
+      return _widgetsMap[dFnRet]! as Widget;
+    });
+  }
+}
+extension on ffi.Pointer<ImageFrameBuilderFFI> {
+  ImageFrameBuilder? toImageFrameBuilderFn() => (this != ffi.nullptr) ? this.value.toImageFrameBuilderFn() : null;
+}
+
+extension on BottomSheetDragStartHandlerFFI {
+  BottomSheetDragStartHandler toBottomSheetDragStartHandlerFn() {
+    return (DragStartDetails details) {
+      DartBottomSheetDragStartHandlerFFIFunction dFn = asFunction();
+      dFn(_addWidget(details));
+    };
+  }
+}
+extension on ffi.Pointer<BottomSheetDragStartHandlerFFI> {
+  BottomSheetDragStartHandler? toBottomSheetDragStartHandlerFn() => (this != ffi.nullptr) ? this.value.toBottomSheetDragStartHandlerFn() : null;
+}
+
+extension on BottomSheetDragEndHandlerFFI {
+  BottomSheetDragEndHandler toBottomSheetDragEndHandlerFn() {
+    return (DragEndDetails details, {required bool isClosing}) {
+      DartBottomSheetDragEndHandlerFFIFunction dFn = asFunction();
+      dFn(_addWidget(details), isClosing.toInt());
+    };
+  }
+}
+extension on ffi.Pointer<BottomSheetDragEndHandlerFFI> {
+  BottomSheetDragEndHandler? toBottomSheetDragEndHandlerFn() => (this != ffi.nullptr) ? this.value.toBottomSheetDragEndHandlerFn() : null;
 }
 
 extension on VoidCallbackDartObjFFI {

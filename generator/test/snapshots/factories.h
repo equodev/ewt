@@ -1659,6 +1659,48 @@ typedef struct {
     AboutDialogObjSt (*adaptive)(char* applicationName, char* applicationVersion, DartObj* applicationIcon, char* applicationLegalese, ArrayC* children);
   } aboutDialog;
 
+  struct FocusSt {
+    FocusObjSt (*focus)(DartObj child, int* autofocus, ValueChangedForBoolFFI* onFocusChange, int* canRequestFocus, int* skipTraversal, int* descendantsAreFocusable, int* descendantsAreTraversable, int* includeSemantics, char* debugLabel);
+    int (*isAt)(DartObj context);
+  } focus;
+
+  struct FocusScopeSt {
+    FocusScopeObjSt (*focusScope)(DartObj child, int* autofocus, ValueChangedForBoolFFI* onFocusChange, int* canRequestFocus, int* skipTraversal, char* debugLabel, int* includeSemantics, int* descendantsAreFocusable, int* descendantsAreTraversable);
+  } focusScope;
+
+  struct PrimaryScrollControllerSt {
+    PrimaryScrollControllerObjSt (*none)(DartObj child);
+    int (*shouldInherit)(DartObj context, int scrollDirection);
+  } primaryScrollController;
+
+  struct TableCellSt {
+    TableCellObjSt (*tableCell)(int* verticalAlignment, DartObj child);
+  } tableCell;
+
+  struct ImageSt {
+    ImageObjSt (*network)(char* src, double* scale, ImageFrameBuilderFFI* frameBuilder, char* semanticLabel, int* excludeFromSemantics, double* width, double* height, DartObj* color, DartObj* opacity, int* colorBlendMode, int* fit, DartObj* alignment, int* repeat, int* matchTextDirection, int* gaplessPlayback, int* filterQuality, int* isAntiAlias, int* cacheWidth, int* cacheHeight, int* webHtmlElementStrategy);
+    ImageObjSt (*asset)(char* name, ImageFrameBuilderFFI* frameBuilder, char* semanticLabel, int* excludeFromSemantics, double* scale, double* width, double* height, DartObj* color, DartObj* opacity, int* colorBlendMode, int* fit, DartObj* alignment, int* repeat, int* matchTextDirection, int* gaplessPlayback, int* isAntiAlias, char* package, int* filterQuality, int* cacheWidth, int* cacheHeight);
+  } image;
+
+  struct ButtonBarSt {
+    ButtonBarObjSt (*buttonBar)(int* alignment, int* mainAxisSize, int* buttonTextTheme, double* buttonMinWidth, double* buttonHeight, DartObj* buttonPadding, int* buttonAlignedDropdown, int* layoutBehavior, int* overflowDirection, double* overflowButtonSpacing, ArrayC* children);
+  } buttonBar;
+
+  struct BottomSheetSt {
+    BottomSheetObjSt (*bottomSheet)(DartObj* animationController, int* enableDrag, int* showDragHandle, DartObj* dragHandleColor, BottomSheetDragStartHandlerFFI* onDragStart, BottomSheetDragEndHandlerFFI* onDragEnd, DartObj* backgroundColor, DartObj* shadowColor, double* elevation, DartObj* shape, int* clipBehavior, DartObj* constraints, VoidCallbackFFI onClosing, WidgetBuilderFFI builder);
+    DartObj (*createAnimationController)(DartObj vsync);
+  } bottomSheet;
+
+  struct RangeValuesSt {
+    RangeValuesObjSt (*rangeValues)(double start, double end);
+  } rangeValues;
+
+  struct DrawerControllerSt {
+    DrawerControllerObjSt (*drawerController)(DartObj child, int alignment, int* isDrawerOpen, DrawerCallbackFFI* drawerCallback, int* dragStartBehavior, DartObj* scrimColor, double* edgeDragWidth, int* enableOpenDragGesture, int* drawerBarrierDismissible);
+    DrawerControllerObjSt (*maybeOf)(DartObj context);
+    DrawerControllerObjSt (*of)(DartObj context);
+  } drawerController;
+
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);
   } subState;

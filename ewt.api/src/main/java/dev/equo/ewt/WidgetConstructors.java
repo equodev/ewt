@@ -7300,6 +7300,178 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrList(children));
   }
 
+  MemorySegment focusFocus(Widget child, Optional<Boolean> autofocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> canRequestFocus, Optional<Boolean> skipTraversal, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Boolean> includeSemantics, Optional<String> debugLabel) {
+    var st = WidgetFactories.focus(factories);
+    var fn = WidgetFactories.FocusSt.focus(st);
+    return WidgetFactories.FocusSt.focus.invoke(fn, arena, child.build().getId(),
+      ptrBool(autofocus),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(canRequestFocus),
+      ptrBool(skipTraversal),
+      ptrBool(descendantsAreFocusable),
+      ptrBool(descendantsAreTraversable),
+      ptrBool(includeSemantics),
+      ptrStr(debugLabel));
+  }
+  int focusIsAt(BuildContext context) {
+    var st = WidgetFactories.focus(factories);
+    var fn = WidgetFactories.FocusSt.isAt(st);
+    return WidgetFactories.FocusSt.isAt.invoke(fn, context.build().getId());
+  }
+
+  MemorySegment focusScopeFocusScope(Widget child, Optional<Boolean> autofocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> canRequestFocus, Optional<Boolean> skipTraversal, Optional<String> debugLabel, Optional<Boolean> includeSemantics, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable) {
+    var st = WidgetFactories.focusScope(factories);
+    var fn = WidgetFactories.FocusScopeSt.focusScope(st);
+    return WidgetFactories.FocusScopeSt.focusScope.invoke(fn, arena, child.build().getId(),
+      ptrBool(autofocus),
+      onFocusChange.isPresent() ? ptrHolder(ptrValueChangedForBoolFn(onFocusChange.get())) : MemorySegment.NULL,
+      ptrBool(canRequestFocus),
+      ptrBool(skipTraversal),
+      ptrStr(debugLabel),
+      ptrBool(includeSemantics),
+      ptrBool(descendantsAreFocusable),
+      ptrBool(descendantsAreTraversable));
+  }
+
+  MemorySegment primaryScrollControllerNone(Widget child) {
+    var st = WidgetFactories.primaryScrollController(factories);
+    var fn = WidgetFactories.PrimaryScrollControllerSt.none(st);
+    return WidgetFactories.PrimaryScrollControllerSt.none.invoke(fn, arena, child.build().getId());
+  }
+  int primaryScrollControllerShouldInherit(BuildContext context, Axis scrollDirection) {
+    var st = WidgetFactories.primaryScrollController(factories);
+    var fn = WidgetFactories.PrimaryScrollControllerSt.shouldInherit(st);
+    return WidgetFactories.PrimaryScrollControllerSt.shouldInherit.invoke(fn, context.build().getId(),
+      scrollDirection.ordinal());
+  }
+
+  MemorySegment tableCellTableCell(Optional<TableCellVerticalAlignment> verticalAlignment, Widget child) {
+    var st = WidgetFactories.tableCell(factories);
+    var fn = WidgetFactories.TableCellSt.tableCell(st);
+    return WidgetFactories.TableCellSt.tableCell.invoke(fn, arena, ptrEnum(verticalAlignment),
+      child.build().getId());
+  }
+
+  MemorySegment imageNetwork(String src, OptionalDouble scale, Optional<QuadFunction<BuildContext, Widget, Integer, Boolean, Widget>> frameBuilder, Optional<String> semanticLabel, Optional<Boolean> excludeFromSemantics, OptionalDouble width, OptionalDouble height, Optional<Color> color, Optional<Animation> opacity, Optional<BlendMode> colorBlendMode, Optional<BoxFit> fit, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, Optional<Boolean> gaplessPlayback, Optional<FilterQuality> filterQuality, Optional<Boolean> isAntiAlias, OptionalInt cacheWidth, OptionalInt cacheHeight, Optional<WebHtmlElementStrategy> webHtmlElementStrategy) {
+    var st = WidgetFactories.image(factories);
+    var fn = WidgetFactories.ImageSt.network(st);
+    return WidgetFactories.ImageSt.network.invoke(fn, arena, arena.allocateFrom(src),
+      ptr(scale),
+      frameBuilder.isPresent() ? ptrHolder(ptrImageFrameBuilderFn(frameBuilder.get())) : MemorySegment.NULL,
+      ptrStr(semanticLabel),
+      ptrBool(excludeFromSemantics),
+      ptr(width),
+      ptr(height),
+      ptrObj(color),
+      ptrObj(opacity),
+      ptrEnum(colorBlendMode),
+      ptrEnum(fit),
+      ptrObj(alignment),
+      ptrEnum(repeat),
+      ptrBool(matchTextDirection),
+      ptrBool(gaplessPlayback),
+      ptrEnum(filterQuality),
+      ptrBool(isAntiAlias),
+      ptr(cacheWidth),
+      ptr(cacheHeight),
+      ptrEnum(webHtmlElementStrategy));
+  }
+  MemorySegment imageAsset(String name, Optional<QuadFunction<BuildContext, Widget, Integer, Boolean, Widget>> frameBuilder, Optional<String> semanticLabel, Optional<Boolean> excludeFromSemantics, OptionalDouble scale, OptionalDouble width, OptionalDouble height, Optional<Color> color, Optional<Animation> opacity, Optional<BlendMode> colorBlendMode, Optional<BoxFit> fit, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, Optional<Boolean> gaplessPlayback, Optional<Boolean> isAntiAlias, Optional<String> _package, Optional<FilterQuality> filterQuality, OptionalInt cacheWidth, OptionalInt cacheHeight) {
+    var st = WidgetFactories.image(factories);
+    var fn = WidgetFactories.ImageSt.asset(st);
+    return WidgetFactories.ImageSt.asset.invoke(fn, arena, arena.allocateFrom(name),
+      frameBuilder.isPresent() ? ptrHolder(ptrImageFrameBuilderFn(frameBuilder.get())) : MemorySegment.NULL,
+      ptrStr(semanticLabel),
+      ptrBool(excludeFromSemantics),
+      ptr(scale),
+      ptr(width),
+      ptr(height),
+      ptrObj(color),
+      ptrObj(opacity),
+      ptrEnum(colorBlendMode),
+      ptrEnum(fit),
+      ptrObj(alignment),
+      ptrEnum(repeat),
+      ptrBool(matchTextDirection),
+      ptrBool(gaplessPlayback),
+      ptrBool(isAntiAlias),
+      ptrStr(_package),
+      ptrEnum(filterQuality),
+      ptr(cacheWidth),
+      ptr(cacheHeight));
+  }
+
+  MemorySegment buttonBarButtonBar(Optional<MainAxisAlignment> alignment, Optional<MainAxisSize> mainAxisSize, Optional<ButtonTextTheme> buttonTextTheme, OptionalDouble buttonMinWidth, OptionalDouble buttonHeight, Optional<EdgeInsetsGeometry> buttonPadding, Optional<Boolean> buttonAlignedDropdown, Optional<ButtonBarLayoutBehavior> layoutBehavior, Optional<VerticalDirection> overflowDirection, OptionalDouble overflowButtonSpacing, Optional<List<Widget>> children) {
+    var st = WidgetFactories.buttonBar(factories);
+    var fn = WidgetFactories.ButtonBarSt.buttonBar(st);
+    return WidgetFactories.ButtonBarSt.buttonBar.invoke(fn, arena, ptrEnum(alignment),
+      ptrEnum(mainAxisSize),
+      ptrEnum(buttonTextTheme),
+      ptr(buttonMinWidth),
+      ptr(buttonHeight),
+      ptrObj(buttonPadding),
+      ptrBool(buttonAlignedDropdown),
+      ptrEnum(layoutBehavior),
+      ptrEnum(overflowDirection),
+      ptr(overflowButtonSpacing),
+      ptrList(children));
+  }
+
+  MemorySegment bottomSheetBottomSheet(Optional<AnimationController> animationController, Optional<Boolean> enableDrag, Optional<Boolean> showDragHandle, Optional<Color> dragHandleColor, Optional<Consumer<DragStartDetails>> onDragStart, Optional<BiConsumer<DragEndDetails, Boolean>> onDragEnd, Optional<Color> backgroundColor, Optional<Color> shadowColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Clip> clipBehavior, Optional<BoxConstraints> constraints, Runnable onClosing, Function<BuildContext, Widget> builder) {
+    var st = WidgetFactories.bottomSheet(factories);
+    var fn = WidgetFactories.BottomSheetSt.bottomSheet(st);
+    return WidgetFactories.BottomSheetSt.bottomSheet.invoke(fn, arena, ptrObj(animationController),
+      ptrBool(enableDrag),
+      ptrBool(showDragHandle),
+      ptrObj(dragHandleColor),
+      onDragStart.isPresent() ? ptrHolder(ptrBottomSheetDragStartHandlerFn(onDragStart.get())) : MemorySegment.NULL,
+      onDragEnd.isPresent() ? ptrHolder(ptrBottomSheetDragEndHandlerFn(onDragEnd.get())) : MemorySegment.NULL,
+      ptrObj(backgroundColor),
+      ptrObj(shadowColor),
+      ptr(elevation),
+      ptrObj(shape),
+      ptrEnum(clipBehavior),
+      ptrObj(constraints),
+      ptrVoidCallbackFn(onClosing),
+      ptrWidgetBuilderFn(builder));
+  }
+  int bottomSheetCreateAnimationController(TickerProvider vsync) {
+    var st = WidgetFactories.bottomSheet(factories);
+    var fn = WidgetFactories.BottomSheetSt.createAnimationController(st);
+    return WidgetFactories.BottomSheetSt.createAnimationController.invoke(fn, vsync.build().getId());
+  }
+
+  MemorySegment rangeValuesRangeValues(double start, double end) {
+    var st = WidgetFactories.rangeValues(factories);
+    var fn = WidgetFactories.RangeValuesSt.rangeValues(st);
+    return WidgetFactories.RangeValuesSt.rangeValues.invoke(fn, arena, start,
+      end);
+  }
+
+  MemorySegment drawerControllerDrawerController(Widget child, DrawerAlignment alignment, Optional<Boolean> isDrawerOpen, Optional<Consumer<Boolean>> drawerCallback, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> scrimColor, OptionalDouble edgeDragWidth, Optional<Boolean> enableOpenDragGesture, Optional<Boolean> drawerBarrierDismissible) {
+    var st = WidgetFactories.drawerController(factories);
+    var fn = WidgetFactories.DrawerControllerSt.drawerController(st);
+    return WidgetFactories.DrawerControllerSt.drawerController.invoke(fn, arena, child.build().getId(),
+      alignment.ordinal(),
+      ptrBool(isDrawerOpen),
+      drawerCallback.isPresent() ? ptrHolder(ptrDrawerCallbackFn(drawerCallback.get())) : MemorySegment.NULL,
+      ptrEnum(dragStartBehavior),
+      ptrObj(scrimColor),
+      ptr(edgeDragWidth),
+      ptrBool(enableOpenDragGesture),
+      ptrBool(drawerBarrierDismissible));
+  }
+  MemorySegment drawerControllerMaybeOf(BuildContext context) {
+    var st = WidgetFactories.drawerController(factories);
+    var fn = WidgetFactories.DrawerControllerSt.maybeOf(st);
+    return WidgetFactories.DrawerControllerSt.maybeOf.invoke(fn, arena, context.build().getId());
+  }
+  MemorySegment drawerControllerOf(BuildContext context) {
+    var st = WidgetFactories.drawerController(factories);
+    var fn = WidgetFactories.DrawerControllerSt.of(st);
+    return WidgetFactories.DrawerControllerSt.of.invoke(fn, arena, context.build().getId());
+  }
+
   <T extends StatefulWidget> MemorySegment subStateSubState(Runnable initStateFn, Consumer<NativeObj> didUpdateWidgetFn, Runnable reassembleFn, Runnable deactivateFn, Runnable activateFn, Runnable disposeFn, Function<BuildContext, Widget> buildFn, Runnable didChangeDependenciesFn) {
     var st = WidgetFactories.subState(factories);
     var fn = WidgetFactories.SubStateSt.subState(st);
@@ -7774,6 +7946,22 @@ MemorySegment ptrOrientationWidgetBuilderFn(BiFunction<BuildContext, Orientation
   return OrientationWidgetBuilderFFI.allocate((context, orientation) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, Orientation.values()[orientation]);
     return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrImageFrameBuilderFn(QuadFunction<BuildContext, Widget, Integer, Boolean, Widget> jFn) {
+  return ImageFrameBuilderFFI.allocate((context, child, frame, wasSynchronouslyLoaded) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Widget(child) {}, frame, intToBool(wasSynchronouslyLoaded));
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrBottomSheetDragStartHandlerFn(Consumer<DragStartDetails> jFn) {
+  return BottomSheetDragStartHandlerFFI.allocate((details) -> {
+    jFn.accept(new DragStartDetails(details));
+  }, arena);
+}
+MemorySegment ptrBottomSheetDragEndHandlerFn(BiConsumer<DragEndDetails, Boolean> jFn) {
+  return BottomSheetDragEndHandlerFFI.allocate((details, isClosing) -> {
+    jFn.accept(new DragEndDetails(details), intToBool(isClosing));
   }, arena);
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<NativeObj> jFn) {

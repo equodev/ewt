@@ -79,6 +79,9 @@ typedef DartObj (*SelectionOverlayBuilderFFI)(DartObj context, int columnCount, 
 typedef DartObj (*CupertinoContextMenuBuilderFFI)(DartObj context, DartObj animation);
 typedef DartObj (*DartObjCallbackDartObjBoxConstraintsObjStFFI)(DartObj context, DartObj constraints);
 typedef DartObj (*OrientationWidgetBuilderFFI)(DartObj context, int orientation);
+typedef DartObj (*ImageFrameBuilderFFI)(DartObj context, DartObj child, int frame, int wasSynchronouslyLoaded);
+typedef void (*BottomSheetDragStartHandlerFFI)(DartObj details);
+typedef void (*BottomSheetDragEndHandlerFFI)(DartObj details, int isClosing);
 typedef void (*VoidCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackFFI)(void);
