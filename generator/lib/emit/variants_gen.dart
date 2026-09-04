@@ -27,7 +27,11 @@ const _deferred = {'SubmenuButton', 'PopupMenuButton', 'DragTarget',
   // Getter round-trip on debugLabel() SIGSEGVs (reads null MemorySegment).
   // Pre-existing bug — same shape as Chip.deleteButtonTooltipMessage — but
   // this is the first widget whose all-optional-string is exercised.
-  'TapRegion'};
+  'TapRegion',
+  // CarouselView.weighted takes `List<int> flexWeights` — variants emitter
+  // writes `List.<intI>of(1)` (primitive boxed as `intI` — no such class) and
+  // `.weighted()` isn't in the generated Immutables surface either.
+  'CarouselView'};
 
 // ---------------------------------------------------------------------------
 // Non-widget and helper classes that should not get variant files
@@ -235,6 +239,16 @@ class VariantsEmitter {
     // (except abstract factory hosts like ImageFilter/ColorFilter — skip those too
     // since they're value objects, not widgets).
     if (dartClass.isAbstract) return;
+
+    // Value-object types (ThemeData subclasses, PageStorageBucket, dynamic-color
+    // helpers, etc.) reach the emitter when they're indexed alongside real
+    // widgets. Their static factory returns the value type, not `Widget`, so
+    // `public static Widget xxx_required()` fails to compile in the emitted
+    // variants file. The render harness only mounts Widgets anyway, so skip
+    // anything that isn't a Widget subclass.
+    final isWidgetSubclass = dartClass.name == 'Widget' ||
+        dartClass.allSupertypes.any((s) => s.element.name == 'Widget');
+    if (!isWidgetSubclass) return;
 
     // Collect all constructors (same filter as WidgetGen.gen)
     final constructors = dartClass.constructors
