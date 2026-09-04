@@ -13402,6 +13402,63 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    if (displacement.isPresent()) { p.put("displacement", displacement.getAsDouble()); }
+    if (edgeOffset.isPresent()) { p.put("edgeOffset", edgeOffset.getAsDouble()); }
+    int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    record(id, "refreshIndicatorRefreshIndicator", p);
+    MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
+    RefreshIndicatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    if (displacement.isPresent()) { p.put("displacement", displacement.getAsDouble()); }
+    if (edgeOffset.isPresent()) { p.put("edgeOffset", edgeOffset.getAsDouble()); }
+    int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    record(id, "refreshIndicatorAdaptive", p);
+    MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
+    RefreshIndicatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
+    if (onStatusChange != null) { p.put("onStatusChange", nextCallbackId++); }
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    record(id, "refreshIndicatorNoSpinner", p);
+    MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
+    RefreshIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

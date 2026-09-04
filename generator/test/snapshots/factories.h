@@ -2287,6 +2287,12 @@ typedef struct {
     DartObj (*getPadding)(int index, int total);
   } textSelectionToolbarTextButton;
 
+  struct RefreshIndicatorSt {
+    RefreshIndicatorObjSt (*refreshIndicator)(DartObj child, double* displacement, double* edgeOffset, RefreshCallbackFFI onRefresh, DartObj* color, DartObj* backgroundColor, char* semanticsLabel, char* semanticsValue, double* strokeWidth, int* triggerMode, double* elevation);
+    RefreshIndicatorObjSt (*adaptive)(DartObj child, double* displacement, double* edgeOffset, RefreshCallbackFFI onRefresh, DartObj* color, DartObj* backgroundColor, char* semanticsLabel, char* semanticsValue, double* strokeWidth, int* triggerMode, double* elevation);
+    RefreshIndicatorObjSt (*noSpinner)(DartObj child, RefreshCallbackFFI onRefresh, ValueChangedForRefreshIndicatorStatusOptFFI* onStatusChange, char* semanticsLabel, char* semanticsValue, int* triggerMode, double* elevation);
+  } refreshIndicator;
+
   struct FocusableActionDetectorSt {
     FocusableActionDetectorObjSt (*focusableActionDetector)(int* enabled, int* autofocus, int* descendantsAreFocusable, int* descendantsAreTraversable, ValueChangedForBoolFFI* onShowFocusHighlight, ValueChangedForBoolFFI* onShowHoverHighlight, ValueChangedForBoolFFI* onFocusChange, int* includeFocusSemantics, DartObj child);
   } focusableActionDetector;

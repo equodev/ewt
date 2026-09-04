@@ -4097,6 +4097,19 @@ typedef struct {
 } TextSelectionToolbarTextButtonObjSt;
 typedef struct {
   int id;
+  DartObj child;
+  double displacement;
+  double edgeOffset;
+  DartObj color;
+  DartObj backgroundColor;
+  char* semanticsLabel;
+  char* semanticsValue;
+  double strokeWidth;
+  int triggerMode;
+  double elevation;
+} RefreshIndicatorObjSt;
+typedef struct {
+  int id;
   int enabled;
   int autofocus;
   int descendantsAreFocusable;

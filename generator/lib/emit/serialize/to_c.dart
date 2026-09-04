@@ -39,6 +39,14 @@ class DartToC extends SerializeStrategy {
       final value = ensureName(param);
       return '($value != null) ? (calloc<ffi.Int>()..value = ($value! ? 1 : 0)) : ffi.nullptr';
     }
+    // Nullable enums on the callback path follow the same `int*` shape —
+    // marshal the ordinal through a heap-allocated int, or nullptr for null.
+    // Java side reads via `memToEnum(ptr, EnumType.values())`.
+    if (fromCallback && t.element is EnumElement &&
+        t.nullabilitySuffix == NullabilitySuffix.question) {
+      final value = ensureName(param);
+      return '($value != null) ? (calloc<ffi.Int>()..value = $value!.index) : ffi.nullptr';
+    }
     if (t is! InterfaceType) return ensureName(param);
     final inner = dispatchInterface(types, param, t);
     // Non-primitive objects encode their own null-passing — the base

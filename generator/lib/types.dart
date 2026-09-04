@@ -397,6 +397,12 @@ class Types {
       return '$value.getString(0)';
     }
     else if (t.element is EnumElement) {
+      // Nullable enum callback args cross as `int*` (see `int*` for `bool?` above).
+      // The FFI stub hands us a `MemorySegment` — dereference through `memToEnum`
+      // instead of indexing `values()[MemorySegment]`, which won't type-check.
+      if (fromCallback && t.nullabilitySuffix == NullabilitySuffix.question) {
+        return 'memToEnum($value, ${t.element!.name}.values())';
+      }
       value = '${t.element!.name}.values()[$value]';
     }
     else if (t.isDartCoreList) {

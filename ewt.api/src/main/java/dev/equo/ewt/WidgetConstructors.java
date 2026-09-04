@@ -9720,6 +9720,48 @@ class WidgetConstructors extends WidgetConstructorsBase {
       total);
   }
 
+  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    var st = WidgetFactories.refreshIndicator(factories);
+    var fn = WidgetFactories.RefreshIndicatorSt.refreshIndicator(st);
+    return WidgetFactories.RefreshIndicatorSt.refreshIndicator.invoke(fn, arena, child.build().getId(),
+      ptr(displacement),
+      ptr(edgeOffset),
+      ptrRefreshCallbackFn(onRefresh),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptr(strokeWidth),
+      ptrEnum(triggerMode),
+      ptr(elevation));
+  }
+  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    var st = WidgetFactories.refreshIndicator(factories);
+    var fn = WidgetFactories.RefreshIndicatorSt.adaptive(st);
+    return WidgetFactories.RefreshIndicatorSt.adaptive.invoke(fn, arena, child.build().getId(),
+      ptr(displacement),
+      ptr(edgeOffset),
+      ptrRefreshCallbackFn(onRefresh),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptr(strokeWidth),
+      ptrEnum(triggerMode),
+      ptr(elevation));
+  }
+  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    var st = WidgetFactories.refreshIndicator(factories);
+    var fn = WidgetFactories.RefreshIndicatorSt.noSpinner(st);
+    return WidgetFactories.RefreshIndicatorSt.noSpinner.invoke(fn, arena, child.build().getId(),
+      ptrRefreshCallbackFn(onRefresh),
+      onStatusChange.isPresent() ? ptrHolder(ptrValueChangedForRefreshIndicatorStatusOptFn(onStatusChange.get())) : MemorySegment.NULL,
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(triggerMode),
+      ptr(elevation));
+  }
+
   MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
     var st = WidgetFactories.focusableActionDetector(factories);
     var fn = WidgetFactories.FocusableActionDetectorSt.focusableActionDetector(st);
@@ -10411,6 +10453,17 @@ MemorySegment ptrStepIconBuilderFn(BiFunction<Integer, StepState, Widget> jFn) {
   return StepIconBuilderFFI.allocate((stepIndex, stepState) -> {
     final var jFnRet = jFn.apply(stepIndex, StepState.values()[stepState]);
     return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrRefreshCallbackFn(Supplier<Future> jFn) {
+  return RefreshCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForRefreshIndicatorStatusOptFn(Consumer<RefreshIndicatorStatus> jFn) {
+  return ValueChangedForRefreshIndicatorStatusOptFFI.allocate((value) -> {
+    jFn.accept(memToEnum(value, RefreshIndicatorStatus.values()));
   }, arena);
 }
 MemorySegment ptrNestedScrollViewHeaderSliversBuilderFn(BiFunction<BuildContext, Boolean, List<Widget>> jFn) {

@@ -27,6 +27,17 @@ class WidgetConstructorsBase implements AutoCloseable {
     return intToBool(ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0));
   }
 
+  /// Reads an `int*` carrying a nullable enum ordinal. Null pointer -> null enum.
+  /// Used on the callback upcall path for `EnumType?` arguments (e.g.
+  /// `RefreshIndicator.onStatusChange: (RefreshIndicatorStatus?) -> void`).
+  static <E extends Enum<E>> E memToEnum(MemorySegment ptr, E[] values) {
+    if (ptr == null || MemorySegment.NULL.equals(ptr)) {
+      return null;
+    }
+    int i = ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0);
+    return values[i];
+  }
+
   /// Reads an {@link ArrayC} struct (size + int* of widget ids) back into a
   /// {@code List<Widget>}. Used on the callback upcall path when Flutter hands us
   /// a list of widgets (e.g. {@code AnimatedSwitcher.layoutBuilder}).

@@ -86,6 +86,8 @@ typedef void (*MoveCursorHandlerFFI)(int extendSelection);
 typedef void (*SetTextHandlerFFI)(char* text);
 typedef void (*PopResultCallbackForTFFI)(DartObj result);
 typedef DartObj (*StepIconBuilderFFI)(int stepIndex, int stepState);
+typedef DartObj (*RefreshCallbackFFI)(void);
+typedef void (*ValueChangedForRefreshIndicatorStatusOptFFI)(int* value);
 typedef ArrayC (*NestedScrollViewHeaderSliversBuilderFFI)(DartObj context, int innerBoxIsScrolled);
 typedef void (*VoidCallbackDartObjFFI)(DartObj );
 typedef DartObj (*DartObjCallbackDartObjFFI)(DartObj );

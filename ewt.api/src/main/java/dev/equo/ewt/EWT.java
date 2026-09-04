@@ -2352,6 +2352,16 @@ public class EWT {
     return TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child, padding);
   }
 
+  public static RefreshIndicatorRefreshIndicatorBuilder RefreshIndicator(WidgetI child) {
+    return RefreshIndicatorRefreshIndicatorBuilder.refreshIndicatorRefreshIndicator(child);
+  }
+  public static RefreshIndicatorAdaptiveBuilder RefreshIndicator_adaptive(WidgetI child) {
+    return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive(child);
+  }
+  public static RefreshIndicatorNoSpinnerBuilder RefreshIndicator_noSpinner(WidgetI child, Supplier<Future> onRefresh) {
+    return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(child, onRefresh);
+  }
+
   public static FocusableActionDetectorFocusableActionDetectorBuilder FocusableActionDetector() {
     return FocusableActionDetectorFocusableActionDetectorBuilder.focusableActionDetectorFocusableActionDetector();
   }

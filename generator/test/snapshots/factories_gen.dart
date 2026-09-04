@@ -15914,6 +15914,66 @@ TextSelectionToolbarTextButtonObjSt _createTextSelectionToolbarTextButtonObjSt(T
   return stObj;
 }
 
+void _setupRefreshIndicator(WidgetFactories f) {
+  f.refreshIndicator.refreshIndicator = ffi.Pointer.fromFunction(refreshIndicatorRefreshIndicator);
+  f.refreshIndicator.adaptive = ffi.Pointer.fromFunction(refreshIndicatorAdaptive);
+  f.refreshIndicator.noSpinner = ffi.Pointer.fromFunction(refreshIndicatorNoSpinner);
+}
+RefreshIndicatorObjSt refreshIndicatorRefreshIndicator(DartDartObj child, ffi.Pointer<ffi.Double> displacement, ffi.Pointer<ffi.Double> edgeOffset, RefreshCallbackFFI onRefresh, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Int> triggerMode, ffi.Pointer<ffi.Double> elevation) {
+  final w = RefreshIndicator(child: _widgetsMap[child]! as Widget,
+      displacement: displacement.doubleOr(40.0),
+      edgeOffset: edgeOffset.doubleOr(0.0),
+      onRefresh: onRefresh.toRefreshCallbackFn(),
+      color: color.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeWidth: strokeWidth.doubleOr(RefreshProgressIndicator.defaultStrokeWidth),
+      triggerMode: triggerMode.enumOr(RefreshIndicatorTriggerMode.values, RefreshIndicatorTriggerMode.onEdge),
+      elevation: elevation.doubleOr(2.0));
+  return _createRefreshIndicatorObjSt(w);
+}
+RefreshIndicatorObjSt refreshIndicatorAdaptive(DartDartObj child, ffi.Pointer<ffi.Double> displacement, ffi.Pointer<ffi.Double> edgeOffset, RefreshCallbackFFI onRefresh, ffi.Pointer<DartObj> color, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Double> strokeWidth, ffi.Pointer<ffi.Int> triggerMode, ffi.Pointer<ffi.Double> elevation) {
+  final w = RefreshIndicator.adaptive(child: _widgetsMap[child]! as Widget,
+      displacement: displacement.doubleOr(40.0),
+      edgeOffset: edgeOffset.doubleOr(0.0),
+      onRefresh: onRefresh.toRefreshCallbackFn(),
+      color: color.objOrNul(),
+      backgroundColor: backgroundColor.objOrNul(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      strokeWidth: strokeWidth.doubleOr(RefreshProgressIndicator.defaultStrokeWidth),
+      triggerMode: triggerMode.enumOr(RefreshIndicatorTriggerMode.values, RefreshIndicatorTriggerMode.onEdge),
+      elevation: elevation.doubleOr(2.0));
+  return _createRefreshIndicatorObjSt(w);
+}
+RefreshIndicatorObjSt refreshIndicatorNoSpinner(DartDartObj child, RefreshCallbackFFI onRefresh, ffi.Pointer<ValueChangedForRefreshIndicatorStatusOptFFI> onStatusChange, ffi.Pointer<ffi.Char> semanticsLabel, ffi.Pointer<ffi.Char> semanticsValue, ffi.Pointer<ffi.Int> triggerMode, ffi.Pointer<ffi.Double> elevation) {
+  final w = RefreshIndicator.noSpinner(child: _widgetsMap[child]! as Widget,
+      onRefresh: onRefresh.toRefreshCallbackFn(),
+      onStatusChange: onStatusChange.toValueChangedForRefreshIndicatorStatusOptFn(),
+      semanticsLabel: semanticsLabel.strOrNul(),
+      semanticsValue: semanticsValue.strOrNul(),
+      triggerMode: triggerMode.enumOr(RefreshIndicatorTriggerMode.values, RefreshIndicatorTriggerMode.onEdge),
+      elevation: elevation.doubleOr(2.0));
+  return _createRefreshIndicatorObjSt(w);
+}
+RefreshIndicatorObjSt _createRefreshIndicatorObjSt(RefreshIndicator? w) {
+  final RefreshIndicatorObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.child = _addWidget(w.child);
+  stObj.displacement = w.displacement;
+  stObj.edgeOffset = w.edgeOffset;
+  stObj.color = _addWidget(w.color);
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.semanticsLabel = (w.semanticsLabel != null) ? w.semanticsLabel!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.semanticsValue = (w.semanticsValue != null) ? w.semanticsValue!.toNativeUtf8().cast<ffi.Char>() : ffi.nullptr;
+  stObj.strokeWidth = w.strokeWidth;
+  stObj.triggerMode = w.triggerMode.index;
+  stObj.elevation = w.elevation;
+  return stObj;
+}
+
 void _setupFocusableActionDetector(WidgetFactories f) {
   f.focusableActionDetector.focusableActionDetector = ffi.Pointer.fromFunction(focusableActionDetectorFocusableActionDetector);
 }
@@ -16740,6 +16800,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupDesktopTextSelectionToolbar(f);
   _setupDesktopTextSelectionToolbarButton(f);
   _setupTextSelectionToolbarTextButton(f);
+  _setupRefreshIndicator(f);
   _setupFocusableActionDetector(f);
   _setupHeroControllerScope(f);
   _setupRawScrollbar(f);
@@ -17899,6 +17960,31 @@ extension on StepIconBuilderFFI {
 }
 extension on ffi.Pointer<StepIconBuilderFFI> {
   StepIconBuilder? toStepIconBuilderFn() => (this != ffi.nullptr) ? this.value.toStepIconBuilderFn() : null;
+}
+
+extension on RefreshCallbackFFI {
+  RefreshCallback toRefreshCallbackFn() {
+    return () => _runBuildScope(() {
+      DartRefreshCallbackFFIFunction dFn = asFunction();
+      final dFnRet = dFn();
+      return _widgetsMap[dFnRet]! as Future<void>;
+    });
+  }
+}
+extension on ffi.Pointer<RefreshCallbackFFI> {
+  RefreshCallback? toRefreshCallbackFn() => (this != ffi.nullptr) ? this.value.toRefreshCallbackFn() : null;
+}
+
+extension on ValueChangedForRefreshIndicatorStatusOptFFI {
+  ValueChanged<RefreshIndicatorStatus?> toValueChangedForRefreshIndicatorStatusOptFn() {
+    return (RefreshIndicatorStatus? value) {
+      DartValueChangedForRefreshIndicatorStatusOptFFIFunction dFn = asFunction();
+      dFn((value != null) ? (calloc<ffi.Int>()..value = value!.index) : ffi.nullptr);
+    };
+  }
+}
+extension on ffi.Pointer<ValueChangedForRefreshIndicatorStatusOptFFI> {
+  ValueChanged<RefreshIndicatorStatus?>? toValueChangedForRefreshIndicatorStatusOptFn() => (this != ffi.nullptr) ? this.value.toValueChangedForRefreshIndicatorStatusOptFn() : null;
 }
 
 extension on NestedScrollViewHeaderSliversBuilderFFI {

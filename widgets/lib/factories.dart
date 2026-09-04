@@ -6,7 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+// hide RefreshCallback: same name is exported by both material and cupertino
+// (`Future<void> Function()` in both). Pick a single visible declaration so
+// the ambient import isn't ambiguous — unblocks RefreshIndicator and
+// CupertinoSliverRefreshControl in the generator output.
+import 'package:flutter/cupertino.dart' hide RefreshCallback;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:widgets/subwidgets.dart';
