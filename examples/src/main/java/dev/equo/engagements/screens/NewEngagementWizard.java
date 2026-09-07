@@ -50,9 +50,10 @@ import static dev.equo.ewt.EWT.FilledButton;
 import static dev.equo.ewt.EWT.FilterChip;
 import static dev.equo.ewt.EWT.Icon;
 import static dev.equo.ewt.EWT.InputDecoration;
-import static dev.equo.ewt.EWT.MenuAnchor;
-import static dev.equo.ewt.EWT.MenuItemButton;
 import static dev.equo.ewt.EWT.OutlineInputBorder;
+import static dev.equo.ewt.EWT.PopupMenuButton;
+import static dev.equo.ewt.EWT.PopupMenuDivider;
+import static dev.equo.ewt.EWT.PopupMenuItem;
 import static dev.equo.ewt.EWT.Padding;
 import static dev.equo.ewt.EWT.Row;
 import static dev.equo.ewt.EWT.SingleChildScrollView;
@@ -177,17 +178,25 @@ public final class NewEngagementWizard {
     }
 
     private WidgetI clientMenu(AppState s, Client selected, boolean dark) {
-      List<WidgetI> items = new ArrayList<>();
+      String label = selected != null
+          ? selected.name() + " · " + selected.industry()
+          : "Pick a client…";
+      return Padding(EdgeInsets_symmetric().vertical(8.0).build())
+          .child(PopupMenuButton(ctx -> clientMenuItems(s))
+              .tooltip("Choose a client")
+              .child(pickerBox(label, dark))
+              .build());
+    }
+
+    private List<dev.equo.ewt.PopupMenuEntry> clientMenuItems(AppState s) {
+      List<dev.equo.ewt.PopupMenuEntry> items = new ArrayList<>();
       for (Client c : s.clients()) {
-        items.add(MenuItemButton()
-            .onPressed(() -> setState(() -> clientId = c.id()))
+        final String id = c.id();
+        items.add(PopupMenuItem()
+            .onTap(() -> setState(() -> clientId = id))
             .child(Text(c.name() + " — " + c.industry())).build());
       }
-      return Padding(EdgeInsets_symmetric().vertical(8.0).build()).child(MenuAnchor()
-          .addAllMenuChildren(items)
-          .consumeOutsideTap(true)
-          .child(pickerBox(selected != null ? selected.name() + " · " + selected.industry() : "Pick a client…", dark))
-          .build());
+      return items;
     }
 
     // --- step: scope ----------------------------------------------------
@@ -226,26 +235,62 @@ public final class NewEngagementWizard {
     }
 
     private WidgetI dateRow() {
-      return Row().children(List.of(
-          Expanded().child(dateField("Starts", start, d -> start = d)),
+      return Row().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
+          Expanded().child(datePicker("Starts", start,
+              startPresets(), d -> setState(() -> start = d))),
           SizedBox().width(12.0),
-          Expanded().child(dateField("Target end", targetEnd, d -> targetEnd = d))));
+          Expanded().child(datePicker("Target end", targetEnd,
+              targetEndPresets(), d -> setState(() -> targetEnd = d)))));
     }
 
-    private WidgetI dateField(String label, LocalDate current, Consumer<LocalDate> onChange) {
-      return TextField()
-          .decoration(InputDecoration()
-              .labelText(label)
-              .helperText(current.toString())
-              .border(OutlineInputBorder().build())
-              .isDense(true)
-              .contentPadding(EdgeInsets_symmetric().horizontal(12.0).vertical(12.0).build())
-              .build())
-          .onChanged(v -> {
-            try { onChange.accept(LocalDate.parse(v)); } catch (Exception ignore) {}
-          })
-          .build();
+    private WidgetI datePicker(String label, LocalDate current,
+                               List<DatePreset> presets, Consumer<LocalDate> onPick) {
+      boolean dark = state.darkMode();
+      return Column().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
+          Text(label).style(TextStyle().fontSize(11.0).letterSpacing(0.6)
+              .fontWeight(FontWeight.w600()).color(EngagementsTheme.muted(dark))),
+          SizedBox().height(6.0),
+          PopupMenuButton(ctx -> datePresetItems(presets, onPick))
+              .tooltip("Pick " + label.toLowerCase())
+              .child(pickerBox(current.toString(), dark))
+              .build()));
     }
+
+    private List<dev.equo.ewt.PopupMenuEntry> datePresetItems(
+        List<DatePreset> presets, Consumer<LocalDate> onPick) {
+      List<dev.equo.ewt.PopupMenuEntry> items = new ArrayList<>();
+      for (DatePreset p : presets) {
+        final LocalDate d = p.date();
+        items.add(PopupMenuItem()
+            .onTap(() -> onPick.accept(d))
+            .child(Row().children(List.of(
+                Expanded().child(Text(p.label())),
+                SizedBox().width(12.0),
+                Text(d.toString()).style(TextStyle().fontSize(11.0)
+                    .color(EngagementsTheme.muted(state.darkMode())))))).build());
+      }
+      return items;
+    }
+
+    private List<DatePreset> startPresets() {
+      LocalDate today = LocalDate.now();
+      return List.of(
+          new DatePreset("Today", today),
+          new DatePreset("In 1 week", today.plusWeeks(1)),
+          new DatePreset("In 2 weeks", today.plusWeeks(2)),
+          new DatePreset("In 1 month", today.plusMonths(1)));
+    }
+
+    private List<DatePreset> targetEndPresets() {
+      LocalDate today = LocalDate.now();
+      return List.of(
+          new DatePreset("In 1 month", today.plusMonths(1)),
+          new DatePreset("In 3 months", today.plusMonths(3)),
+          new DatePreset("In 6 months", today.plusMonths(6)),
+          new DatePreset("In 1 year", today.plusYears(1)));
+    }
+
+    private record DatePreset(String label, LocalDate date) {}
 
     private WidgetI budgetSlider(boolean dark) {
       return Column().crossAxisAlignment(CrossAxisAlignment.stretch).children(List.of(

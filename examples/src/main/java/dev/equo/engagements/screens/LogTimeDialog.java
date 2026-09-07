@@ -40,8 +40,8 @@ import static dev.equo.ewt.EWT.Expanded;
 import static dev.equo.ewt.EWT.FilledButton;
 import static dev.equo.ewt.EWT.Icon;
 import static dev.equo.ewt.EWT.InputDecoration;
-import static dev.equo.ewt.EWT.MenuAnchor;
-import static dev.equo.ewt.EWT.MenuItemButton;
+import static dev.equo.ewt.EWT.PopupMenuButton;
+import static dev.equo.ewt.EWT.PopupMenuItem;
 import static dev.equo.ewt.EWT.Row;
 import static dev.equo.ewt.EWT.SizedBox;
 import static dev.equo.ewt.EWT.Slider;
@@ -86,14 +86,6 @@ public final class LogTimeDialog {
       Engagement e = engagement;
       boolean dark = s.darkMode();
 
-      List<WidgetI> menuChildren = new ArrayList<>();
-      for (String pid : e.teamPersonIds()) {
-        Person p = s.person(pid);
-        if (p == null) continue;
-        menuChildren.add(MenuItemButton()
-            .onPressed(() -> setState(() -> personId = pid))
-            .child(Text(p.name())).build());
-      }
       Person selected = s.person(personId);
 
       return AlertDialog()
@@ -104,8 +96,8 @@ public final class LogTimeDialog {
 
                   Text("Team member").style(labelStyle(dark)),
                   SizedBox().height(6.0),
-                  MenuAnchor().addAllMenuChildren(menuChildren)
-                      .consumeOutsideTap(true)
+                  PopupMenuButton(ctx -> teamMemberItems(s, e))
+                      .tooltip("Pick a team member")
                       .child(Container()
                           .decoration(BoxDecoration()
                               .border(Border_all().color(EngagementsTheme.hairline(dark)).width(1.0).build())
@@ -113,7 +105,7 @@ public final class LogTimeDialog {
                           .padding(EdgeInsets_symmetric().horizontal(12.0).vertical(10.0).build())
                           .child(Row().children(List.of(
                               Expanded().child(Text(selected != null ? selected.name() : "Select…")),
-                              Icon(Icons.arrow_forward()).size(14.0)))))
+                              Icon(Icons.arrow_drop_down()).size(18.0)))))
                       .build(),
 
                   SizedBox().height(16.0),
@@ -154,6 +146,19 @@ public final class LogTimeDialog {
     private TextStyle labelStyle(boolean dark) {
       return TextStyle().fontSize(11.0).letterSpacing(0.6).fontWeight(FontWeight.w600())
           .color(EngagementsTheme.muted(dark)).build();
+    }
+
+    private List<dev.equo.ewt.PopupMenuEntry> teamMemberItems(AppState s, Engagement e) {
+      List<dev.equo.ewt.PopupMenuEntry> items = new ArrayList<>();
+      for (String pid : e.teamPersonIds()) {
+        Person p = s.person(pid);
+        if (p == null) continue;
+        final String id = pid;
+        items.add(PopupMenuItem()
+            .onTap(() -> setState(() -> personId = id))
+            .child(Text(p.name())).build());
+      }
+      return items;
     }
   }
 }
