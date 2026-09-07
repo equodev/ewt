@@ -13,25 +13,19 @@ import dev.equo.ewt.Colors;
 import dev.equo.ewt.CrossAxisAlignment;
 import dev.equo.ewt.EdgeInsets;
 import dev.equo.ewt.FontWeight;
-import dev.equo.ewt.IconDataI;
 import dev.equo.ewt.Navigator;
 import dev.equo.ewt.State;
 import dev.equo.ewt.SubState;
 import dev.equo.ewt.SubStatefulWidget;
 import dev.equo.ewt.Widget;
 import dev.equo.ewt.WidgetI;
-import dev.equo.ewt.Card;
-import dev.equo.ewt.ElevatedButton;
-import dev.equo.ewt.GridView;
-import dev.equo.ewt.IconDataI;
 import dev.equo.ewt.Icons;
 import dev.equo.ewt.ListView;
 import dev.equo.ewt.PreferredSizeWidget;
 import dev.equo.ewt.TextStyle;
 
-import static dev.equo.ewt.EWT.BorderRadius_circular;
+import static dev.equo.ewt.EWT.CircleAvatar;
 import static dev.equo.ewt.EWT.Column;
-import static dev.equo.ewt.EWT.Container;
 import static dev.equo.ewt.EWT.Dialog;
 import static dev.equo.ewt.EWT.Divider;
 import static dev.equo.ewt.EWT.EdgeInsets_all;
@@ -112,11 +106,9 @@ public final class CommandPalette {
     private Widget resultTile(BuildContext ctx, AppState s, Result r, boolean dark) {
       return ListTile()
           .dense(true)
-          .leading(Container().width(28.0).height(28.0)
-              .decoration(dev.equo.ewt.EWT.BoxDecoration()
-                  .color(EngagementsTheme.subtle(dark))
-                  .borderRadius(BorderRadius_circular(6.0)))
-              .child(Icon(r.icon).size(16.0).color(EngagementsTheme.accent())))
+          .leading(CircleAvatar().radius(14.0).backgroundColor(EngagementsTheme.accent())
+              .child(Text(r.badge).style(TextStyle().fontSize(9.0)
+                  .fontWeight(FontWeight.w600()).letterSpacing(0.4).color(Colors.white()))))
           .title(Text(r.title).style(TextStyle().fontSize(13.0).fontWeight(FontWeight.w600())))
           .subtitle(Text(r.subtitle).style(TextStyle().fontSize(11.0)
               .color(EngagementsTheme.muted(dark))))
@@ -141,7 +133,7 @@ public final class CommandPalette {
         if (!matches(q, e.name())) continue;
         Client c = s.client(e.clientId());
         out.add(new Result(
-            "ENG", Icons.assignment(),
+            "ENG", "EN",
             e.name(),
             (c != null ? c.name() : "?") + " · " + e.status().name(),
             () -> s.openEngagementTab(e.id())));
@@ -153,7 +145,7 @@ public final class CommandPalette {
         if (!matches(q, c.name()) && !matches(q, c.industry())) continue;
         int n = s.engagementsForClient(c.id()).size();
         out.add(new Result(
-            "CLIENT", Icons.business(),
+            "CLIENT", "CL",
             c.name(),
             c.industry() + " · " + n + " engagements",
             () -> {}));
@@ -164,7 +156,7 @@ public final class CommandPalette {
       for (Person p : s.people()) {
         if (!matches(q, p.name()) && !matches(q, p.role())) continue;
         out.add(new Result(
-            "PERSON", Icons.people(),
+            "PERSON", "PE",
             p.name(),
             p.role(),
             () -> {}));
@@ -177,5 +169,5 @@ public final class CommandPalette {
     }
   }
 
-  private record Result(String kind, IconDataI icon, String title, String subtitle, Runnable action) {}
+  private record Result(String kind, String badge, String title, String subtitle, Runnable action) {}
 }

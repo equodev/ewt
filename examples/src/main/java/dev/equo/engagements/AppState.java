@@ -154,6 +154,23 @@ public class AppState {
         .mapToDouble(TimeEntry::hours).sum();
   }
 
+  /** Monday of the current week (client-clock). */
+  public LocalDate weekStart() {
+    return LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+  }
+
+  /** Hours logged per day (Mon..Sun, length 7) for one person, current week. */
+  public double[] weeklyHoursPerDay(String personId) {
+    LocalDate mon = weekStart();
+    double[] out = new double[7];
+    for (TimeEntry t : timeEntries) {
+      if (!t.personId().equals(personId)) continue;
+      int idx = (int) java.time.temporal.ChronoUnit.DAYS.between(mon, t.day());
+      if (idx >= 0 && idx < 7) out[idx] += t.hours();
+    }
+    return out;
+  }
+
   /** Hours logged this week per engagement, ordered by hours desc. */
   public Map<String, Double> weekHoursByEngagement(String personId) {
     LocalDate mon = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));

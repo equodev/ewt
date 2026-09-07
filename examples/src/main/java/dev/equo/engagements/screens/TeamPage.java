@@ -32,17 +32,22 @@ import static dev.equo.ewt.EWT.Border_all;
 import static dev.equo.ewt.EWT.BoxDecoration;
 import static dev.equo.ewt.EWT.Chip;
 import static dev.equo.ewt.EWT.CircleAvatar;
+import static dev.equo.ewt.EWT.Color_fromARGB;
 import static dev.equo.ewt.EWT.Column;
 import static dev.equo.ewt.EWT.Container;
 import static dev.equo.ewt.EWT.Dialog;
+import static dev.equo.ewt.EWT.Divider;
 import static dev.equo.ewt.EWT.EdgeInsets_all;
+import static dev.equo.ewt.EWT.EdgeInsets_only;
 import static dev.equo.ewt.EWT.EdgeInsets_symmetric;
+import static dev.equo.ewt.EWT.Expanded;
 import static dev.equo.ewt.EWT.Icon;
 import static dev.equo.ewt.EWT.IconButton;
 import static dev.equo.ewt.EWT.LinearProgressIndicator;
 import static dev.equo.ewt.EWT.Padding;
 import static dev.equo.ewt.EWT.Row;
 import static dev.equo.ewt.EWT.Scaffold;
+import static dev.equo.ewt.EWT.SingleChildScrollView;
 import static dev.equo.ewt.EWT.SizedBox;
 import static dev.equo.ewt.EWT.Text;
 import static dev.equo.ewt.EWT.TextStyle;
@@ -54,8 +59,12 @@ import static dev.equo.ewt.EWT.showDialog;
 public final class TeamPage {
 
   private static final double DIALOG_WIDTH = 1000.0;
-  private static final double DIALOG_HEIGHT = 640.0;
+  private static final double DIALOG_HEIGHT = 720.0;
   private static final int CROSS_AXIS_COUNT = 3;
+
+  private static final String[] WEEKDAYS = { "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" };
+  private static final double CELL_SIZE = 34.0;
+  private static final double NAME_COL = 130.0;
 
   private TeamPage() {}
 
@@ -70,7 +79,10 @@ public final class TeamPage {
     boolean dark = state.darkMode();
     return Scaffold()
         .appBar(header(ctx))
-        .body(grid(ctx, state, dark));
+        .body(Column().children(List.of(
+            heatmap(state, dark),
+            Divider().height(1.0).color(EngagementsTheme.hairline(dark)),
+            Expanded().child(grid(ctx, state, dark)))));
   }
 
   private static PreferredSizeWidget header(BuildContext ctx) {
@@ -93,6 +105,88 @@ public final class TeamPage {
         .childAspectRatio(1.6)
         .children(cards)
         .build();
+  }
+
+  // --- weekly hours heatmap ----------------------------------------------
+
+  private static Widget heatmap(AppState state, boolean dark) {
+    List<Person> people = state.people();
+    List<WidgetI> rows = new ArrayList<>();
+    rows.add(weekdayHeader(dark));
+    for (Person p : people) rows.add(heatmapRow(state, p, dark));
+    return Padding(EdgeInsets_symmetric().horizontal(20.0).vertical(14.0).build())
+        .child(Column().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
+            Text("Hours this week").style(TextStyle().fontSize(11.0).letterSpacing(0.8)
+                .fontWeight(FontWeight.w600()).color(EngagementsTheme.muted(dark))),
+            SizedBox().height(8.0),
+            SingleChildScrollView().scrollDirection(dev.equo.ewt.Axis.horizontal)
+                .child(Column().crossAxisAlignment(CrossAxisAlignment.start).children(rows))
+                .build())));
+  }
+
+  private static WidgetI weekdayHeader(boolean dark) {
+    List<WidgetI> cells = new ArrayList<>();
+    cells.add(SizedBox().width(NAME_COL).height(20.0));
+    for (String d : WEEKDAYS) cells.add(headerCell(d, dark));
+    return Row().children(cells);
+  }
+
+  private static WidgetI headerCell(String label, boolean dark) {
+    return Container().width(CELL_SIZE).height(20.0)
+        .alignment(dev.equo.ewt.Alignment.center())
+        .padding(EdgeInsets_only().left(2.0).right(2.0).build())
+        .child(Text(label).style(TextStyle().fontSize(10.0).letterSpacing(0.6)
+            .color(EngagementsTheme.muted(dark))))
+        .build();
+  }
+
+  private static WidgetI heatmapRow(AppState state, Person p, boolean dark) {
+    double[] hours = state.weeklyHoursPerDay(p.id());
+    double weekly = p.weeklyCapacityHours();
+    double dailyCap = weekly > 0 ? weekly / 5.0 : 8.0;
+    List<WidgetI> cells = new ArrayList<>();
+    cells.add(nameCell(p, dark));
+    for (int i = 0; i < 7; i++) cells.add(heatCell(hours[i], dailyCap, dark));
+    return Padding(EdgeInsets_only().top(4.0).build())
+        .child(Row().crossAxisAlignment(CrossAxisAlignment.center).children(cells))
+        .build();
+  }
+
+  private static WidgetI nameCell(Person p, boolean dark) {
+    return SizedBox().width(NAME_COL).height(CELL_SIZE - 4.0).child(Row()
+        .crossAxisAlignment(CrossAxisAlignment.center).children(List.of(
+            CircleAvatar().radius(11.0).backgroundColor(EngagementsTheme.accent())
+                .child(Text(p.initials()).style(TextStyle().fontSize(10.0)
+                    .color(Colors.white()).fontWeight(FontWeight.w600()))),
+            SizedBox().width(8.0),
+            Expanded().child(Text(p.name()).style(TextStyle().fontSize(12.0)
+                .fontWeight(FontWeight.w500()))))).build());
+  }
+
+  private static WidgetI heatCell(double h, double dailyCap, boolean dark) {
+    double intensity = dailyCap == 0 ? 0.0 : Math.min(1.0, h / dailyCap);
+    int alpha = (int) (30 + intensity * 210);
+    int r = 189, g = 102, b = 79; // terracotta accent
+    return Padding(EdgeInsets_only().left(2.0).right(2.0).build())
+        .child(Container().width(CELL_SIZE - 4.0).height(CELL_SIZE - 4.0)
+            .alignment(dev.equo.ewt.Alignment.center())
+            .decoration(BoxDecoration()
+                .color(h == 0
+                    ? EngagementsTheme.subtle(dark)
+                    : Color_fromARGB(alpha, r, g, b).build())
+                .borderRadius(BorderRadius_circular(4.0)))
+            .child(h == 0
+                ? SizedBox()
+                : Text(formatHours(h)).style(TextStyle().fontSize(10.0)
+                    .fontWeight(FontWeight.w600())
+                    .color(intensity > 0.55 ? Colors.white()
+                        : (dark ? Colors.white() : Colors.black87())))))
+        .build();
+  }
+
+  private static String formatHours(double h) {
+    if (h == Math.floor(h)) return String.valueOf((int) h);
+    return String.format(java.util.Locale.ROOT, "%.1f", h);
   }
 
   // --- one card -----------------------------------------------------------
