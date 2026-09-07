@@ -122,10 +122,35 @@ generate:
     # subwidgets.dart is gitignored but imported by generation_index.dart; the pregeneration
     # step that writes it is cached against pregeneration_index.dart.ts. Delete the cache so
     # it always regenerates subwidgets.dart before the main generator run.
+    # Snapshot the committed *Variants.java files BEFORE the generator overwrites them,
+    # so the post-generator diff below has something to compare against. The runner's
+    # container mounts the working tree only (no .git/), so `git diff` is not available
+    # here — every other CI job that uses git does so against externally-cloned repos.
+    - cp -r ewt.api/src/test/java/dev/equo/ewt/support/variants ewt.api/src/test/java/dev/equo/ewt/support/variants.snapshot
     - rm -f generator/build/pregeneration_index.dart.ts
     # finalizedBy in generator/build.gradle.kts automatically runs :widgets:ffigen and
     # :ewt.api:jextract after the generator finishes — no need to call them separately.
     - ./gradlew :generator:generator
+    # Enforce that committed *Variants.java files match generator output exactly.
+    # WidgetVariantsRegistry.java stays gitignored (monolithic aggregator, removal
+    # tracked in #55) so exclude it. Without this check, a hand-edited file would
+    # ride green: `needs: generate` overwrites the runner's checkout with these
+    # artifacts before the downstream test job compiles.
+    - |
+      if ! diff -r --exclude=WidgetVariantsRegistry.java \
+                    ewt.api/src/test/java/dev/equo/ewt/support/variants.snapshot \
+                    ewt.api/src/test/java/dev/equo/ewt/support/variants; then
+        echo "================================================================"
+        echo "ERROR: committed *Variants.java drift from generator output."
+        echo "Regenerate locally and amend/commit the diff:"
+        echo "  rm -f generator/build/pregeneration_index.dart.ts"
+        echo "  ./gradlew :generator:generator"
+        echo "  git add ewt.api/src/test/java/dev/equo/ewt/support/variants/"
+        echo "  git commit --amend --no-edit"
+        echo "================================================================"
+        exit 1
+      fi
+    - rm -rf ewt.api/src/test/java/dev/equo/ewt/support/variants.snapshot
   artifacts:
     paths:
       - widgets/src/factories.h
