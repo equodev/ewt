@@ -990,6 +990,13 @@ public class EWT {
     return VisualDensityVisualDensityBuilder.visualDensityVisualDensity();
   }
 
+  public static IconThemeDataIconThemeDataBuilder IconThemeData() {
+    return IconThemeDataIconThemeDataBuilder.iconThemeDataIconThemeData();
+  }
+  public static IconThemeDataFallbackBuilder IconThemeData_fallback() {
+    return IconThemeDataFallbackBuilder.iconThemeDataFallback();
+  }
+
   public static FilterChipFilterChipBuilder FilterChip() {
     return FilterChipFilterChipBuilder.filterChipFilterChip();
   }
@@ -1211,6 +1218,196 @@ public class EWT {
   }
   public static ThemeDataFallbackBuilder ThemeData_fallback() {
     return ThemeDataFallbackBuilder.themeDataFallback();
+  }
+
+  public static NoDefaultCupertinoThemeDataNoDefaultCupertinoThemeDataBuilder NoDefaultCupertinoThemeData() {
+    return NoDefaultCupertinoThemeDataNoDefaultCupertinoThemeDataBuilder.noDefaultCupertinoThemeDataNoDefaultCupertinoThemeData();
+  }
+
+  public static ActionIconThemeDataActionIconThemeDataBuilder ActionIconThemeData() {
+    return ActionIconThemeDataActionIconThemeDataBuilder.actionIconThemeDataActionIconThemeData();
+  }
+
+  public static BadgeThemeDataBadgeThemeDataBuilder BadgeThemeData() {
+    return BadgeThemeDataBadgeThemeDataBuilder.badgeThemeDataBadgeThemeData();
+  }
+
+  public static BottomAppBarThemeDataBottomAppBarThemeDataBuilder BottomAppBarThemeData() {
+    return BottomAppBarThemeDataBottomAppBarThemeDataBuilder.bottomAppBarThemeDataBottomAppBarThemeData();
+  }
+
+  public static BottomNavigationBarThemeDataBottomNavigationBarThemeDataBuilder BottomNavigationBarThemeData() {
+    return BottomNavigationBarThemeDataBottomNavigationBarThemeDataBuilder.bottomNavigationBarThemeDataBottomNavigationBarThemeData();
+  }
+
+  public static BottomSheetThemeDataBottomSheetThemeDataBuilder BottomSheetThemeData() {
+    return BottomSheetThemeDataBottomSheetThemeDataBuilder.bottomSheetThemeDataBottomSheetThemeData();
+  }
+
+  public static ButtonThemeDataButtonThemeDataBuilder ButtonThemeData() {
+    return ButtonThemeDataButtonThemeDataBuilder.buttonThemeDataButtonThemeData();
+  }
+
+  public static CardThemeDataCardThemeDataBuilder CardThemeData() {
+    return CardThemeDataCardThemeDataBuilder.cardThemeDataCardThemeData();
+  }
+
+  public static CarouselViewThemeDataCarouselViewThemeDataBuilder CarouselViewThemeData() {
+    return CarouselViewThemeDataCarouselViewThemeDataBuilder.carouselViewThemeDataCarouselViewThemeData();
+  }
+
+  public static CheckboxThemeDataCheckboxThemeDataBuilder CheckboxThemeData() {
+    return CheckboxThemeDataCheckboxThemeDataBuilder.checkboxThemeDataCheckboxThemeData();
+  }
+
+  public static ChipThemeDataChipThemeDataBuilder ChipThemeData() {
+    return ChipThemeDataChipThemeDataBuilder.chipThemeDataChipThemeData();
+  }
+  public static ChipThemeDataFromDefaultsBuilder ChipThemeData_fromDefaults() {
+    return ChipThemeDataFromDefaultsBuilder.chipThemeDataFromDefaults();
+  }
+
+  public static DataTableThemeDataDataTableThemeDataBuilder DataTableThemeData() {
+    return DataTableThemeDataDataTableThemeDataBuilder.dataTableThemeDataDataTableThemeData();
+  }
+
+  public static DatePickerThemeDataDatePickerThemeDataBuilder DatePickerThemeData() {
+    return DatePickerThemeDataDatePickerThemeDataBuilder.datePickerThemeDataDatePickerThemeData();
+  }
+
+  public static DialogThemeDataDialogThemeDataBuilder DialogThemeData() {
+    return DialogThemeDataDialogThemeDataBuilder.dialogThemeDataDialogThemeData();
+  }
+
+  public static DividerThemeDataDividerThemeDataBuilder DividerThemeData() {
+    return DividerThemeDataDividerThemeDataBuilder.dividerThemeDataDividerThemeData();
+  }
+
+  public static DrawerThemeDataDrawerThemeDataBuilder DrawerThemeData() {
+    return DrawerThemeDataDrawerThemeDataBuilder.drawerThemeDataDrawerThemeData();
+  }
+
+  public static DropdownMenuThemeDataDropdownMenuThemeDataBuilder DropdownMenuThemeData() {
+    return DropdownMenuThemeDataDropdownMenuThemeDataBuilder.dropdownMenuThemeDataDropdownMenuThemeData();
+  }
+
+  public static ElevatedButtonThemeDataElevatedButtonThemeDataBuilder ElevatedButtonThemeData() {
+    return ElevatedButtonThemeDataElevatedButtonThemeDataBuilder.elevatedButtonThemeDataElevatedButtonThemeData();
+  }
+
+  public static ExpansionTileThemeDataExpansionTileThemeDataBuilder ExpansionTileThemeData() {
+    return ExpansionTileThemeDataExpansionTileThemeDataBuilder.expansionTileThemeDataExpansionTileThemeData();
+  }
+
+  public static FilledButtonThemeDataFilledButtonThemeDataBuilder FilledButtonThemeData() {
+    return FilledButtonThemeDataFilledButtonThemeDataBuilder.filledButtonThemeDataFilledButtonThemeData();
+  }
+
+  public static FloatingActionButtonThemeDataFloatingActionButtonThemeDataBuilder FloatingActionButtonThemeData() {
+    return FloatingActionButtonThemeDataFloatingActionButtonThemeDataBuilder.floatingActionButtonThemeDataFloatingActionButtonThemeData();
+  }
+
+  public static IconButtonThemeDataIconButtonThemeDataBuilder IconButtonThemeData() {
+    return IconButtonThemeDataIconButtonThemeDataBuilder.iconButtonThemeDataIconButtonThemeData();
+  }
+
+  public static MenuBarThemeDataMenuBarThemeDataBuilder MenuBarThemeData() {
+    return MenuBarThemeDataMenuBarThemeDataBuilder.menuBarThemeDataMenuBarThemeData();
+  }
+
+  public static MenuButtonThemeDataMenuButtonThemeDataBuilder MenuButtonThemeData() {
+    return MenuButtonThemeDataMenuButtonThemeDataBuilder.menuButtonThemeDataMenuButtonThemeData();
+  }
+
+  public static MenuThemeDataMenuThemeDataBuilder MenuThemeData() {
+    return MenuThemeDataMenuThemeDataBuilder.menuThemeDataMenuThemeData();
+  }
+
+  public static NavigationBarThemeDataNavigationBarThemeDataBuilder NavigationBarThemeData() {
+    return NavigationBarThemeDataNavigationBarThemeDataBuilder.navigationBarThemeDataNavigationBarThemeData();
+  }
+
+  public static NavigationDrawerThemeDataNavigationDrawerThemeDataBuilder NavigationDrawerThemeData() {
+    return NavigationDrawerThemeDataNavigationDrawerThemeDataBuilder.navigationDrawerThemeDataNavigationDrawerThemeData();
+  }
+
+  public static NavigationRailThemeDataNavigationRailThemeDataBuilder NavigationRailThemeData() {
+    return NavigationRailThemeDataNavigationRailThemeDataBuilder.navigationRailThemeDataNavigationRailThemeData();
+  }
+
+  public static OutlinedButtonThemeDataOutlinedButtonThemeDataBuilder OutlinedButtonThemeData() {
+    return OutlinedButtonThemeDataOutlinedButtonThemeDataBuilder.outlinedButtonThemeDataOutlinedButtonThemeData();
+  }
+
+  public static PopupMenuThemeDataPopupMenuThemeDataBuilder PopupMenuThemeData() {
+    return PopupMenuThemeDataPopupMenuThemeDataBuilder.popupMenuThemeDataPopupMenuThemeData();
+  }
+
+  public static ProgressIndicatorThemeDataProgressIndicatorThemeDataBuilder ProgressIndicatorThemeData() {
+    return ProgressIndicatorThemeDataProgressIndicatorThemeDataBuilder.progressIndicatorThemeDataProgressIndicatorThemeData();
+  }
+
+  public static RadioThemeDataRadioThemeDataBuilder RadioThemeData() {
+    return RadioThemeDataRadioThemeDataBuilder.radioThemeDataRadioThemeData();
+  }
+
+  public static SearchBarThemeDataSearchBarThemeDataBuilder SearchBarThemeData() {
+    return SearchBarThemeDataSearchBarThemeDataBuilder.searchBarThemeDataSearchBarThemeData();
+  }
+
+  public static SearchViewThemeDataSearchViewThemeDataBuilder SearchViewThemeData() {
+    return SearchViewThemeDataSearchViewThemeDataBuilder.searchViewThemeDataSearchViewThemeData();
+  }
+
+  public static SegmentedButtonThemeDataSegmentedButtonThemeDataBuilder SegmentedButtonThemeData() {
+    return SegmentedButtonThemeDataSegmentedButtonThemeDataBuilder.segmentedButtonThemeDataSegmentedButtonThemeData();
+  }
+
+  public static SliderThemeDataSliderThemeDataBuilder SliderThemeData() {
+    return SliderThemeDataSliderThemeDataBuilder.sliderThemeDataSliderThemeData();
+  }
+  public static SliderThemeDataFromPrimaryColorsBuilder SliderThemeData_fromPrimaryColors(ColorI primaryColor, ColorI primaryColorDark, ColorI primaryColorLight, TextStyleI valueIndicatorTextStyle) {
+    return SliderThemeDataFromPrimaryColorsBuilder.sliderThemeDataFromPrimaryColors(primaryColor, primaryColorDark, primaryColorLight, valueIndicatorTextStyle);
+  }
+
+  public static SnackBarThemeDataSnackBarThemeDataBuilder SnackBarThemeData() {
+    return SnackBarThemeDataSnackBarThemeDataBuilder.snackBarThemeDataSnackBarThemeData();
+  }
+
+  public static SwitchThemeDataSwitchThemeDataBuilder SwitchThemeData() {
+    return SwitchThemeDataSwitchThemeDataBuilder.switchThemeDataSwitchThemeData();
+  }
+
+  public static TabBarThemeDataTabBarThemeDataBuilder TabBarThemeData() {
+    return TabBarThemeDataTabBarThemeDataBuilder.tabBarThemeDataTabBarThemeData();
+  }
+
+  public static TextButtonThemeDataTextButtonThemeDataBuilder TextButtonThemeData() {
+    return TextButtonThemeDataTextButtonThemeDataBuilder.textButtonThemeDataTextButtonThemeData();
+  }
+
+  public static TextSelectionThemeDataTextSelectionThemeDataBuilder TextSelectionThemeData() {
+    return TextSelectionThemeDataTextSelectionThemeDataBuilder.textSelectionThemeDataTextSelectionThemeData();
+  }
+
+  public static TimePickerThemeDataTimePickerThemeDataBuilder TimePickerThemeData() {
+    return TimePickerThemeDataTimePickerThemeDataBuilder.timePickerThemeDataTimePickerThemeData();
+  }
+
+  public static ToggleButtonsThemeDataToggleButtonsThemeDataBuilder ToggleButtonsThemeData() {
+    return ToggleButtonsThemeDataToggleButtonsThemeDataBuilder.toggleButtonsThemeDataToggleButtonsThemeData();
+  }
+
+  public static TooltipThemeDataTooltipThemeDataBuilder TooltipThemeData() {
+    return TooltipThemeDataTooltipThemeDataBuilder.tooltipThemeDataTooltipThemeData();
+  }
+
+  public static AppBarThemeDataAppBarThemeDataBuilder AppBarThemeData() {
+    return AppBarThemeDataAppBarThemeDataBuilder.appBarThemeDataAppBarThemeData();
+  }
+
+  public static CupertinoTextThemeDataCupertinoTextThemeDataBuilder CupertinoTextThemeData() {
+    return CupertinoTextThemeDataCupertinoTextThemeDataBuilder.cupertinoTextThemeDataCupertinoTextThemeData();
   }
 
   public static MaterialAccentColorMaterialAccentColorBuilder MaterialAccentColor(int primary, Map<Integer, Color> swatch) {
@@ -1620,6 +1817,13 @@ public class EWT {
     return CupertinoAppRouterBuilder.cupertinoAppRouter();
   }
 
+  public static CupertinoThemeDataCupertinoThemeDataBuilder CupertinoThemeData() {
+    return CupertinoThemeDataCupertinoThemeDataBuilder.cupertinoThemeDataCupertinoThemeData();
+  }
+  public static CupertinoThemeDataRawBuilder CupertinoThemeData_raw(Brightness brightness, ColorI primaryColor, ColorI primaryContrastingColor, CupertinoTextThemeDataI textTheme, ColorI barBackgroundColor, ColorI scaffoldBackgroundColor, ColorI selectionHandleColor, boolean applyThemeToAll) {
+    return CupertinoThemeDataRawBuilder.cupertinoThemeDataRaw(brightness, primaryColor, primaryContrastingColor, textTheme, barBackgroundColor, scaffoldBackgroundColor, selectionHandleColor, applyThemeToAll);
+  }
+
   public static CupertinoPageScaffoldCupertinoPageScaffoldBuilder CupertinoPageScaffold() {
     return CupertinoPageScaffoldCupertinoPageScaffoldBuilder.cupertinoPageScaffoldCupertinoPageScaffold();
   }
@@ -1767,6 +1971,427 @@ public class EWT {
 
   public static CupertinoContextMenuActionCupertinoContextMenuActionBuilder CupertinoContextMenuAction(WidgetI child) {
     return CupertinoContextMenuActionCupertinoContextMenuActionBuilder.cupertinoContextMenuActionCupertinoContextMenuAction(child);
+  }
+
+  public static LayoutBuilderLayoutBuilderBuilder LayoutBuilder(BiFunction<BuildContext, BoxConstraints, Widget> builder) {
+    return LayoutBuilderLayoutBuilderBuilder.layoutBuilderLayoutBuilder(builder);
+  }
+
+  public static OrientationBuilderOrientationBuilderBuilder OrientationBuilder(BiFunction<BuildContext, Orientation, Widget> builder) {
+    return OrientationBuilderOrientationBuilderBuilder.orientationBuilderOrientationBuilder(builder);
+  }
+
+  public static IconThemeIconThemeBuilder IconTheme(IconThemeDataI data, WidgetI child) {
+    return IconThemeIconThemeBuilder.iconThemeIconTheme(data, child);
+  }
+
+  public static BackButtonIconBackButtonIconBuilder BackButtonIcon() {
+    return BackButtonIconBackButtonIconBuilder.backButtonIconBackButtonIcon();
+  }
+
+  public static CloseButtonIconCloseButtonIconBuilder CloseButtonIcon() {
+    return CloseButtonIconCloseButtonIconBuilder.closeButtonIconCloseButtonIcon();
+  }
+
+  public static DrawerButtonIconDrawerButtonIconBuilder DrawerButtonIcon() {
+    return DrawerButtonIconDrawerButtonIconBuilder.drawerButtonIconDrawerButtonIcon();
+  }
+
+  public static EndDrawerButtonIconEndDrawerButtonIconBuilder EndDrawerButtonIcon() {
+    return EndDrawerButtonIconEndDrawerButtonIconBuilder.endDrawerButtonIconEndDrawerButtonIcon();
+  }
+
+  public static AnimatedThemeAnimatedThemeBuilder AnimatedTheme(ThemeDataI data) {
+    return AnimatedThemeAnimatedThemeBuilder.animatedThemeAnimatedTheme(data);
+  }
+
+  public static AboutDialogAboutDialogBuilder AboutDialog() {
+    return AboutDialogAboutDialogBuilder.aboutDialogAboutDialog();
+  }
+  public static AboutDialogAdaptiveBuilder AboutDialog_adaptive() {
+    return AboutDialogAdaptiveBuilder.aboutDialogAdaptive();
+  }
+
+  public static FocusFocusBuilder Focus(WidgetI child) {
+    return FocusFocusBuilder.focusFocus(child);
+  }
+
+  public static FocusScopeFocusScopeBuilder FocusScope(WidgetI child) {
+    return FocusScopeFocusScopeBuilder.focusScopeFocusScope(child);
+  }
+
+  public static PrimaryScrollControllerNoneBuilder PrimaryScrollController_none(WidgetI child) {
+    return PrimaryScrollControllerNoneBuilder.primaryScrollControllerNone(child);
+  }
+
+  public static TableCellTableCellBuilder TableCell() {
+    return TableCellTableCellBuilder.tableCellTableCell();
+  }
+
+  public static ImageNetworkBuilder Image_network(String src) {
+    return ImageNetworkBuilder.imageNetwork(src);
+  }
+  public static ImageAssetBuilder Image_asset(String name) {
+    return ImageAssetBuilder.imageAsset(name);
+  }
+
+  public static ButtonBarButtonBarBuilder ButtonBar() {
+    return ButtonBarButtonBarBuilder.buttonBarButtonBar();
+  }
+
+  public static BottomSheetBottomSheetBuilder BottomSheet() {
+    return BottomSheetBottomSheetBuilder.bottomSheetBottomSheet();
+  }
+
+  public static RangeValuesRangeValuesBuilder RangeValues(double start, double end) {
+    return RangeValuesRangeValuesBuilder.rangeValuesRangeValues(start, end);
+  }
+
+  public static DropdownMenuThemeDropdownMenuThemeBuilder DropdownMenuTheme(DropdownMenuThemeDataI data, WidgetI child) {
+    return DropdownMenuThemeDropdownMenuThemeBuilder.dropdownMenuThemeDropdownMenuTheme(data, child);
+  }
+
+  public static DrawerControllerDrawerControllerBuilder DrawerController(WidgetI child, DrawerAlignment alignment) {
+    return DrawerControllerDrawerControllerBuilder.drawerControllerDrawerController(child, alignment);
+  }
+
+  public static AppBarThemeAppBarThemeBuilder AppBarTheme() {
+    return AppBarThemeAppBarThemeBuilder.appBarThemeAppBarTheme();
+  }
+
+  public static CardThemeCardThemeBuilder CardTheme() {
+    return CardThemeCardThemeBuilder.cardThemeCardTheme();
+  }
+
+  public static DialogThemeDialogThemeBuilder DialogTheme() {
+    return DialogThemeDialogThemeBuilder.dialogThemeDialogTheme();
+  }
+
+  public static DividerThemeDividerThemeBuilder DividerTheme(DividerThemeDataI data, WidgetI child) {
+    return DividerThemeDividerThemeBuilder.dividerThemeDividerTheme(data, child);
+  }
+
+  public static ChipThemeChipThemeBuilder ChipTheme(ChipThemeDataI data, WidgetI child) {
+    return ChipThemeChipThemeBuilder.chipThemeChipTheme(data, child);
+  }
+
+  public static CheckboxThemeCheckboxThemeBuilder CheckboxTheme(CheckboxThemeDataI data, WidgetI child) {
+    return CheckboxThemeCheckboxThemeBuilder.checkboxThemeCheckboxTheme(data, child);
+  }
+
+  public static RadioThemeRadioThemeBuilder RadioTheme(RadioThemeDataI data, WidgetI child) {
+    return RadioThemeRadioThemeBuilder.radioThemeRadioTheme(data, child);
+  }
+
+  public static SwitchThemeSwitchThemeBuilder SwitchTheme(SwitchThemeDataI data, WidgetI child) {
+    return SwitchThemeSwitchThemeBuilder.switchThemeSwitchTheme(data, child);
+  }
+
+  public static SliderThemeSliderThemeBuilder SliderTheme(SliderThemeDataI data, WidgetI child) {
+    return SliderThemeSliderThemeBuilder.sliderThemeSliderTheme(data, child);
+  }
+
+  public static TabBarThemeTabBarThemeBuilder TabBarTheme() {
+    return TabBarThemeTabBarThemeBuilder.tabBarThemeTabBarTheme();
+  }
+
+  public static TooltipThemeTooltipThemeBuilder TooltipTheme(TooltipThemeDataI data, WidgetI child) {
+    return TooltipThemeTooltipThemeBuilder.tooltipThemeTooltipTheme(data, child);
+  }
+
+  public static BadgeThemeBadgeThemeBuilder BadgeTheme(BadgeThemeDataI data, WidgetI child) {
+    return BadgeThemeBadgeThemeBuilder.badgeThemeBadgeTheme(data, child);
+  }
+
+  public static ProgressIndicatorThemeProgressIndicatorThemeBuilder ProgressIndicatorTheme(ProgressIndicatorThemeDataI data, WidgetI child) {
+    return ProgressIndicatorThemeProgressIndicatorThemeBuilder.progressIndicatorThemeProgressIndicatorTheme(data, child);
+  }
+
+  public static PopupMenuThemePopupMenuThemeBuilder PopupMenuTheme(PopupMenuThemeDataI data, WidgetI child) {
+    return PopupMenuThemePopupMenuThemeBuilder.popupMenuThemePopupMenuTheme(data, child);
+  }
+
+  public static BottomNavigationBarThemeBottomNavigationBarThemeBuilder BottomNavigationBarTheme(BottomNavigationBarThemeDataI data, WidgetI child) {
+    return BottomNavigationBarThemeBottomNavigationBarThemeBuilder.bottomNavigationBarThemeBottomNavigationBarTheme(data, child);
+  }
+
+  public static DrawerThemeDrawerThemeBuilder DrawerTheme(DrawerThemeDataI data, WidgetI child) {
+    return DrawerThemeDrawerThemeBuilder.drawerThemeDrawerTheme(data, child);
+  }
+
+  public static NavigationBarThemeNavigationBarThemeBuilder NavigationBarTheme(NavigationBarThemeDataI data, WidgetI child) {
+    return NavigationBarThemeNavigationBarThemeBuilder.navigationBarThemeNavigationBarTheme(data, child);
+  }
+
+  public static NavigationDrawerThemeNavigationDrawerThemeBuilder NavigationDrawerTheme(NavigationDrawerThemeDataI data, WidgetI child) {
+    return NavigationDrawerThemeNavigationDrawerThemeBuilder.navigationDrawerThemeNavigationDrawerTheme(data, child);
+  }
+
+  public static NavigationRailThemeNavigationRailThemeBuilder NavigationRailTheme(NavigationRailThemeDataI data, WidgetI child) {
+    return NavigationRailThemeNavigationRailThemeBuilder.navigationRailThemeNavigationRailTheme(data, child);
+  }
+
+  public static MenuThemeMenuThemeBuilder MenuTheme(MenuThemeDataI data, WidgetI child) {
+    return MenuThemeMenuThemeBuilder.menuThemeMenuTheme(data, child);
+  }
+
+  public static MenuBarThemeMenuBarThemeBuilder MenuBarTheme(MenuBarThemeDataI data, WidgetI child) {
+    return MenuBarThemeMenuBarThemeBuilder.menuBarThemeMenuBarTheme(data, child);
+  }
+
+  public static MenuButtonThemeMenuButtonThemeBuilder MenuButtonTheme(MenuButtonThemeDataI data, WidgetI child) {
+    return MenuButtonThemeMenuButtonThemeBuilder.menuButtonThemeMenuButtonTheme(data, child);
+  }
+
+  public static SearchBarThemeSearchBarThemeBuilder SearchBarTheme(SearchBarThemeDataI data, WidgetI child) {
+    return SearchBarThemeSearchBarThemeBuilder.searchBarThemeSearchBarTheme(data, child);
+  }
+
+  public static SearchViewThemeSearchViewThemeBuilder SearchViewTheme(SearchViewThemeDataI data, WidgetI child) {
+    return SearchViewThemeSearchViewThemeBuilder.searchViewThemeSearchViewTheme(data, child);
+  }
+
+  public static ExpansionTileThemeExpansionTileThemeBuilder ExpansionTileTheme(ExpansionTileThemeDataI data, WidgetI child) {
+    return ExpansionTileThemeExpansionTileThemeBuilder.expansionTileThemeExpansionTileTheme(data, child);
+  }
+
+  public static TextSelectionThemeTextSelectionThemeBuilder TextSelectionTheme(TextSelectionThemeDataI data, WidgetI child) {
+    return TextSelectionThemeTextSelectionThemeBuilder.textSelectionThemeTextSelectionTheme(data, child);
+  }
+
+  public static DatePickerThemeDatePickerThemeBuilder DatePickerTheme(DatePickerThemeDataI data, WidgetI child) {
+    return DatePickerThemeDatePickerThemeBuilder.datePickerThemeDatePickerTheme(data, child);
+  }
+
+  public static TimePickerThemeTimePickerThemeBuilder TimePickerTheme(TimePickerThemeDataI data, WidgetI child) {
+    return TimePickerThemeTimePickerThemeBuilder.timePickerThemeTimePickerTheme(data, child);
+  }
+
+  public static ElevatedButtonThemeElevatedButtonThemeBuilder ElevatedButtonTheme(ElevatedButtonThemeDataI data, WidgetI child) {
+    return ElevatedButtonThemeElevatedButtonThemeBuilder.elevatedButtonThemeElevatedButtonTheme(data, child);
+  }
+
+  public static TextButtonThemeTextButtonThemeBuilder TextButtonTheme(TextButtonThemeDataI data, WidgetI child) {
+    return TextButtonThemeTextButtonThemeBuilder.textButtonThemeTextButtonTheme(data, child);
+  }
+
+  public static OutlinedButtonThemeOutlinedButtonThemeBuilder OutlinedButtonTheme(OutlinedButtonThemeDataI data, WidgetI child) {
+    return OutlinedButtonThemeOutlinedButtonThemeBuilder.outlinedButtonThemeOutlinedButtonTheme(data, child);
+  }
+
+  public static FilledButtonThemeFilledButtonThemeBuilder FilledButtonTheme(FilledButtonThemeDataI data, WidgetI child) {
+    return FilledButtonThemeFilledButtonThemeBuilder.filledButtonThemeFilledButtonTheme(data, child);
+  }
+
+  public static IconButtonThemeIconButtonThemeBuilder IconButtonTheme(IconButtonThemeDataI data, WidgetI child) {
+    return IconButtonThemeIconButtonThemeBuilder.iconButtonThemeIconButtonTheme(data, child);
+  }
+
+  public static SegmentedButtonThemeSegmentedButtonThemeBuilder SegmentedButtonTheme(SegmentedButtonThemeDataI data, WidgetI child) {
+    return SegmentedButtonThemeSegmentedButtonThemeBuilder.segmentedButtonThemeSegmentedButtonTheme(data, child);
+  }
+
+  public static DataTableThemeDataTableThemeBuilder DataTableTheme(DataTableThemeDataI data, WidgetI child) {
+    return DataTableThemeDataTableThemeBuilder.dataTableThemeDataTableTheme(data, child);
+  }
+
+  public static ToggleButtonsThemeToggleButtonsThemeBuilder ToggleButtonsTheme(ToggleButtonsThemeDataI data, WidgetI child) {
+    return ToggleButtonsThemeToggleButtonsThemeBuilder.toggleButtonsThemeToggleButtonsTheme(data, child);
+  }
+
+  public static ActionIconThemeActionIconThemeBuilder ActionIconTheme(ActionIconThemeDataI data, WidgetI child) {
+    return ActionIconThemeActionIconThemeBuilder.actionIconThemeActionIconTheme(data, child);
+  }
+
+  public static CarouselViewThemeCarouselViewThemeBuilder CarouselViewTheme(CarouselViewThemeDataI data, WidgetI child) {
+    return CarouselViewThemeCarouselViewThemeBuilder.carouselViewThemeCarouselViewTheme(data, child);
+  }
+
+  public static BottomAppBarThemeBottomAppBarThemeBuilder BottomAppBarTheme() {
+    return BottomAppBarThemeBottomAppBarThemeBuilder.bottomAppBarThemeBottomAppBarTheme();
+  }
+
+  public static ButtonThemeButtonThemeBuilder ButtonTheme() {
+    return ButtonThemeButtonThemeBuilder.buttonThemeButtonTheme();
+  }
+  public static ButtonThemeFromButtonThemeDataBuilder ButtonTheme_fromButtonThemeData(ButtonThemeDataI data, WidgetI child) {
+    return ButtonThemeFromButtonThemeDataBuilder.buttonThemeFromButtonThemeData(data, child);
+  }
+
+  public static MaterialButtonMaterialButtonBuilder MaterialButton() {
+    return MaterialButtonMaterialButtonBuilder.materialButtonMaterialButton();
+  }
+
+  public static RawMaterialButtonRawMaterialButtonBuilder RawMaterialButton() {
+    return RawMaterialButtonRawMaterialButtonBuilder.rawMaterialButtonRawMaterialButton();
+  }
+
+  public static PageStoragePageStorageBuilder PageStorage(PageStorageBucketI bucket, WidgetI child) {
+    return PageStoragePageStorageBuilder.pageStoragePageStorage(bucket, child);
+  }
+
+  public static PageStorageBucketPageStorageBucketBuilder PageStorageBucket() {
+    return PageStorageBucketPageStorageBucketBuilder.pageStorageBucketPageStorageBucket();
+  }
+
+  public static PositionedTransitionPositionedTransitionBuilder PositionedTransition(AnimationI rect, WidgetI child) {
+    return PositionedTransitionPositionedTransitionBuilder.positionedTransitionPositionedTransition(rect, child);
+  }
+
+  public static DecoratedBoxTransitionDecoratedBoxTransitionBuilder DecoratedBoxTransition(AnimationI decoration) {
+    return DecoratedBoxTransitionDecoratedBoxTransitionBuilder.decoratedBoxTransitionDecoratedBoxTransition(decoration);
+  }
+
+  public static DecoratedSliverDecoratedSliverBuilder DecoratedSliver(DecorationI decoration) {
+    return DecoratedSliverDecoratedSliverBuilder.decoratedSliverDecoratedSliver(decoration);
+  }
+
+  public static SliverListBuilderBuilder SliverList_builder(BiFunction<BuildContext, Integer, Widget> itemBuilder) {
+    return SliverListBuilderBuilder.sliverListBuilder(itemBuilder);
+  }
+  public static SliverListSeparatedBuilder SliverList_separated(BiFunction<BuildContext, Integer, Widget> itemBuilder, BiFunction<BuildContext, Integer, Widget> separatorBuilder) {
+    return SliverListSeparatedBuilder.sliverListSeparated(itemBuilder, separatorBuilder);
+  }
+  public static SliverListListBuilder SliverList_list(List<WidgetI> children) {
+    return SliverListListBuilder.sliverListList(children);
+  }
+
+  public static SliverGridCountBuilder SliverGrid_count(int crossAxisCount) {
+    return SliverGridCountBuilder.sliverGridCount(crossAxisCount);
+  }
+  public static SliverGridExtentBuilder SliverGrid_extent(double maxCrossAxisExtent) {
+    return SliverGridExtentBuilder.sliverGridExtent(maxCrossAxisExtent);
+  }
+
+  public static SliverAnimatedOpacitySliverAnimatedOpacityBuilder SliverAnimatedOpacity() {
+    return SliverAnimatedOpacitySliverAnimatedOpacityBuilder.sliverAnimatedOpacitySliverAnimatedOpacity();
+  }
+
+  public static PinnedHeaderSliverPinnedHeaderSliverBuilder PinnedHeaderSliver() {
+    return PinnedHeaderSliverPinnedHeaderSliverBuilder.pinnedHeaderSliverPinnedHeaderSliver();
+  }
+
+  public static FocusTraversalGroupFocusTraversalGroupBuilder FocusTraversalGroup() {
+    return FocusTraversalGroupFocusTraversalGroupBuilder.focusTraversalGroupFocusTraversalGroup();
+  }
+
+  public static SliverFadeTransitionSliverFadeTransitionBuilder SliverFadeTransition(AnimationI opacity) {
+    return SliverFadeTransitionSliverFadeTransitionBuilder.sliverFadeTransitionSliverFadeTransition(opacity);
+  }
+
+  public static SliverFixedExtentListBuilderBuilder SliverFixedExtentList_builder(BiFunction<BuildContext, Integer, Widget> itemBuilder, double itemExtent) {
+    return SliverFixedExtentListBuilderBuilder.sliverFixedExtentListBuilder(itemBuilder, itemExtent);
+  }
+  public static SliverFixedExtentListListBuilder SliverFixedExtentList_list(List<WidgetI> children, double itemExtent) {
+    return SliverFixedExtentListListBuilder.sliverFixedExtentListList(children, itemExtent);
+  }
+
+  public static SliverPrototypeExtentListBuilderBuilder SliverPrototypeExtentList_builder(BiFunction<BuildContext, Integer, Widget> itemBuilder, WidgetI prototypeItem) {
+    return SliverPrototypeExtentListBuilderBuilder.sliverPrototypeExtentListBuilder(itemBuilder, prototypeItem);
+  }
+  public static SliverPrototypeExtentListListBuilder SliverPrototypeExtentList_list(List<WidgetI> children, WidgetI prototypeItem) {
+    return SliverPrototypeExtentListListBuilder.sliverPrototypeExtentListList(children, prototypeItem);
+  }
+
+  public static SliverResizingHeaderSliverResizingHeaderBuilder SliverResizingHeader() {
+    return SliverResizingHeaderSliverResizingHeaderBuilder.sliverResizingHeaderSliverResizingHeader();
+  }
+
+  public static SliverFloatingHeaderSliverFloatingHeaderBuilder SliverFloatingHeader() {
+    return SliverFloatingHeaderSliverFloatingHeaderBuilder.sliverFloatingHeaderSliverFloatingHeader();
+  }
+
+  public static SliverSemanticsSliverSemanticsBuilder SliverSemantics(WidgetI sliver) {
+    return SliverSemanticsSliverSemanticsBuilder.sliverSemanticsSliverSemantics(sliver);
+  }
+
+  public static FadeInImageAssetNetworkBuilder FadeInImage_assetNetwork(String placeholder, String image) {
+    return FadeInImageAssetNetworkBuilder.fadeInImageAssetNetwork(placeholder, image);
+  }
+
+  public static <T extends NativeObj> NavigatorPopHandlerNavigatorPopHandlerBuilder<T> NavigatorPopHandler() {
+    return NavigatorPopHandlerNavigatorPopHandlerBuilder.navigatorPopHandlerNavigatorPopHandler();
+  }
+
+  public static RawImageRawImageBuilder RawImage() {
+    return RawImageRawImageBuilder.rawImageRawImage();
+  }
+
+  public static StepperStepperBuilder Stepper(List<StepI> steps) {
+    return StepperStepperBuilder.stepperStepper(steps);
+  }
+
+  public static StepStepBuilder Step(WidgetI title) {
+    return StepStepBuilder.stepStep(title);
+  }
+
+  public static TabPageSelectorTabPageSelectorBuilder TabPageSelector() {
+    return TabPageSelectorTabPageSelectorBuilder.tabPageSelectorTabPageSelector();
+  }
+
+  public static CarouselViewCarouselViewBuilder CarouselView() {
+    return CarouselViewCarouselViewBuilder.carouselViewCarouselView();
+  }
+
+  public static MergeableMaterialMergeableMaterialBuilder MergeableMaterial() {
+    return MergeableMaterialMergeableMaterialBuilder.mergeableMaterialMergeableMaterial();
+  }
+
+  public static DesktopTextSelectionToolbarDesktopTextSelectionToolbarBuilder DesktopTextSelectionToolbar(OffsetI anchor, List<WidgetI> children) {
+    return DesktopTextSelectionToolbarDesktopTextSelectionToolbarBuilder.desktopTextSelectionToolbarDesktopTextSelectionToolbar(anchor, children);
+  }
+
+  public static DesktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButtonBuilder DesktopTextSelectionToolbarButton() {
+    return DesktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButtonBuilder.desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton();
+  }
+  public static DesktopTextSelectionToolbarButtonTextBuilder DesktopTextSelectionToolbarButton_text(BuildContextI context) {
+    return DesktopTextSelectionToolbarButtonTextBuilder.desktopTextSelectionToolbarButtonText(context);
+  }
+
+  public static TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder TextSelectionToolbarTextButton(WidgetI child, EdgeInsetsGeometryI padding) {
+    return TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child, padding);
+  }
+
+  public static FocusableActionDetectorFocusableActionDetectorBuilder FocusableActionDetector() {
+    return FocusableActionDetectorFocusableActionDetectorBuilder.focusableActionDetectorFocusableActionDetector();
+  }
+
+  public static HeroControllerScopeNoneBuilder HeroControllerScope_none(WidgetI child) {
+    return HeroControllerScopeNoneBuilder.heroControllerScopeNone(child);
+  }
+
+  public static RawScrollbarRawScrollbarBuilder RawScrollbar(WidgetI child) {
+    return RawScrollbarRawScrollbarBuilder.rawScrollbarRawScrollbar(child);
+  }
+
+  public static RawChipRawChipBuilder RawChip() {
+    return RawChipRawChipBuilder.rawChipRawChip();
+  }
+
+  public static <T extends NativeObj> CupertinoRadioCupertinoRadioBuilder<T> CupertinoRadio(NativeObj value) {
+    return CupertinoRadioCupertinoRadioBuilder.cupertinoRadioCupertinoRadio(value);
+  }
+
+  public static CupertinoDynamicColorCupertinoDynamicColorBuilder CupertinoDynamicColor() {
+    return CupertinoDynamicColorCupertinoDynamicColorBuilder.cupertinoDynamicColorCupertinoDynamicColor();
+  }
+  public static CupertinoDynamicColorWithBrightnessAndContrastBuilder CupertinoDynamicColor_withBrightnessAndContrast() {
+    return CupertinoDynamicColorWithBrightnessAndContrastBuilder.cupertinoDynamicColorWithBrightnessAndContrast();
+  }
+  public static CupertinoDynamicColorWithBrightnessBuilder CupertinoDynamicColor_withBrightness() {
+    return CupertinoDynamicColorWithBrightnessBuilder.cupertinoDynamicColorWithBrightness();
+  }
+
+  public static TableRowTableRowBuilder TableRow() {
+    return TableRowTableRowBuilder.tableRowTableRow();
+  }
+
+  public static CupertinoIconThemeDataCupertinoIconThemeDataBuilder CupertinoIconThemeData() {
+    return CupertinoIconThemeDataCupertinoIconThemeDataBuilder.cupertinoIconThemeDataCupertinoIconThemeData();
+  }
+
+  public static NestedScrollViewNestedScrollViewBuilder NestedScrollView() {
+    return NestedScrollViewNestedScrollViewBuilder.nestedScrollViewNestedScrollView();
   }
 
   /** Creates an {@code Animation<Offset>} that interpolates from {@code begin} to {@code end}

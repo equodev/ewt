@@ -912,8 +912,8 @@ typedef struct {
   } bottomAppBar;
 
   struct ChoiceChipSt {
-    ChoiceChipObjSt (*choiceChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, ValueChangedForBoolFFI* onSelected, double* pressElevation, int selected, DartObj* selectedColor, DartObj* disabledColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints);
-    ChoiceChipObjSt (*elevated)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, ValueChangedForBoolFFI* onSelected, double* pressElevation, int selected, DartObj* selectedColor, DartObj* disabledColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints);
+    ChoiceChipObjSt (*choiceChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, ValueChangedForBoolFFI* onSelected, double* pressElevation, int selected, DartObj* selectedColor, DartObj* disabledColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints);
+    ChoiceChipObjSt (*elevated)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, ValueChangedForBoolFFI* onSelected, double* pressElevation, int selected, DartObj* selectedColor, DartObj* disabledColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints);
   } choiceChip;
 
   struct VisualDensitySt {
@@ -922,14 +922,20 @@ typedef struct {
     VisualDensityObjSt (*lerp)(DartObj a, DartObj b, double t);
   } visualDensity;
 
+  struct IconThemeDataSt {
+    IconThemeDataObjSt (*iconThemeData)(double* size, double* fill, double* weight, double* grade, double* opticalSize, DartObj* color, double* opacity, ArrayC* shadows, int* applyTextScaling);
+    IconThemeDataObjSt (*fallback)(void);
+    IconThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } iconThemeData;
+
   struct FilterChipSt {
-    FilterChipObjSt (*filterChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
-    FilterChipObjSt (*elevated)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+    FilterChipObjSt (*filterChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+    FilterChipObjSt (*elevated)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
   } filterChip;
 
   struct ActionChipSt {
-    ActionChipObjSt (*actionChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, VoidCallbackFFI* onPressed, double* pressElevation, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* disabledColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* avatarBoxConstraints);
-    ActionChipObjSt (*elevated)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, VoidCallbackFFI* onPressed, double* pressElevation, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* disabledColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* avatarBoxConstraints);
+    ActionChipObjSt (*actionChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, VoidCallbackFFI* onPressed, double* pressElevation, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* disabledColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* avatarBoxConstraints);
+    ActionChipObjSt (*elevated)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, VoidCallbackFFI* onPressed, double* pressElevation, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* disabledColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* avatarBoxConstraints);
   } actionChip;
 
   struct SimpleDialogSt {
@@ -1031,7 +1037,7 @@ typedef struct {
   } userAccountsDrawerHeader;
 
   struct InputChipSt {
-    InputChipObjSt (*inputChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, int* isEnabled, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, VoidCallbackFFI* onPressed, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+    InputChipObjSt (*inputChip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, int* selected, int* isEnabled, ValueChangedForBoolFFI* onSelected, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, VoidCallbackFFI* onPressed, double* pressElevation, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
   } inputChip;
 
   struct AlignTransitionSt {
@@ -1111,7 +1117,7 @@ typedef struct {
   } textTheme;
 
   struct ThemeDataSt {
-    ThemeDataObjSt (*themeData)(int* applyElevationOverlayColor, DartObj* inputDecorationTheme, int* materialTapTargetSize, int* platform, int* useMaterial3, int* useSystemColors, DartObj* visualDensity, DartObj* colorScheme, int* brightness, DartObj* colorSchemeSeed, DartObj* canvasColor, DartObj* cardColor, DartObj* disabledColor, DartObj* dividerColor, DartObj* focusColor, DartObj* highlightColor, DartObj* hintColor, DartObj* hoverColor, DartObj* primaryColor, DartObj* primaryColorDark, DartObj* primaryColorLight, DartObj* primarySwatch, DartObj* scaffoldBackgroundColor, DartObj* secondaryHeaderColor, DartObj* shadowColor, DartObj* splashColor, DartObj* unselectedWidgetColor, char* fontFamily, char*** fontFamilyFallback, char* package, DartObj* primaryTextTheme, DartObj* textTheme, DartObj* appBarTheme, DartObj* dialogBackgroundColor, DartObj* indicatorColor);
+    ThemeDataObjSt (*themeData)(int* applyElevationOverlayColor, DartObj* cupertinoOverrideTheme, DartObj* inputDecorationTheme, int* materialTapTargetSize, int* platform, int* useMaterial3, int* useSystemColors, DartObj* visualDensity, DartObj* colorScheme, int* brightness, DartObj* colorSchemeSeed, DartObj* canvasColor, DartObj* cardColor, DartObj* disabledColor, DartObj* dividerColor, DartObj* focusColor, DartObj* highlightColor, DartObj* hintColor, DartObj* hoverColor, DartObj* primaryColor, DartObj* primaryColorDark, DartObj* primaryColorLight, DartObj* primarySwatch, DartObj* scaffoldBackgroundColor, DartObj* secondaryHeaderColor, DartObj* shadowColor, DartObj* splashColor, DartObj* unselectedWidgetColor, char* fontFamily, char*** fontFamilyFallback, char* package, DartObj* iconTheme, DartObj* primaryIconTheme, DartObj* primaryTextTheme, DartObj* textTheme, DartObj* actionIconTheme, DartObj* appBarTheme, DartObj* badgeTheme, DartObj* bottomAppBarTheme, DartObj* bottomNavigationBarTheme, DartObj* bottomSheetTheme, DartObj* buttonTheme, DartObj* cardTheme, DartObj* carouselViewTheme, DartObj* checkboxTheme, DartObj* chipTheme, DartObj* dataTableTheme, DartObj* datePickerTheme, DartObj* dialogTheme, DartObj* dividerTheme, DartObj* drawerTheme, DartObj* dropdownMenuTheme, DartObj* elevatedButtonTheme, DartObj* expansionTileTheme, DartObj* filledButtonTheme, DartObj* floatingActionButtonTheme, DartObj* iconButtonTheme, DartObj* menuBarTheme, DartObj* menuButtonTheme, DartObj* menuTheme, DartObj* navigationBarTheme, DartObj* navigationDrawerTheme, DartObj* navigationRailTheme, DartObj* outlinedButtonTheme, DartObj* popupMenuTheme, DartObj* progressIndicatorTheme, DartObj* radioTheme, DartObj* searchBarTheme, DartObj* searchViewTheme, DartObj* segmentedButtonTheme, DartObj* sliderTheme, DartObj* snackBarTheme, DartObj* switchTheme, DartObj* tabBarTheme, DartObj* textButtonTheme, DartObj* textSelectionTheme, DartObj* timePickerTheme, DartObj* toggleButtonsTheme, DartObj* tooltipTheme, DartObj* dialogBackgroundColor, DartObj* indicatorColor);
     ThemeDataObjSt (*from)(DartObj colorScheme, DartObj* textTheme, int* useMaterial3);
     ThemeDataObjSt (*light)(int* useMaterial3);
     ThemeDataObjSt (*dark)(int* useMaterial3);
@@ -1120,6 +1126,235 @@ typedef struct {
     int (*estimateBrightnessForColor)(DartObj color);
     ThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
   } themeData;
+
+  struct NoDefaultCupertinoThemeDataSt {
+    NoDefaultCupertinoThemeDataObjSt (*noDefaultCupertinoThemeData)(int* brightness, DartObj* primaryColor, DartObj* primaryContrastingColor, DartObj* textTheme, DartObj* barBackgroundColor, DartObj* scaffoldBackgroundColor, DartObj* selectionHandleColor, int* applyThemeToAll);
+  } noDefaultCupertinoThemeData;
+
+  struct ActionIconThemeDataSt {
+    ActionIconThemeDataObjSt (*actionIconThemeData)(WidgetBuilderFFI* backButtonIconBuilder, WidgetBuilderFFI* closeButtonIconBuilder, WidgetBuilderFFI* drawerButtonIconBuilder, WidgetBuilderFFI* endDrawerButtonIconBuilder);
+    ActionIconThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } actionIconThemeData;
+
+  struct BadgeThemeDataSt {
+    BadgeThemeDataObjSt (*badgeThemeData)(DartObj* backgroundColor, DartObj* textColor, double* smallSize, double* largeSize, DartObj* textStyle, DartObj* padding, DartObj* alignment, DartObj* offset);
+    BadgeThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } badgeThemeData;
+
+  struct BottomAppBarThemeDataSt {
+    BottomAppBarThemeDataObjSt (*bottomAppBarThemeData)(DartObj* color, double* elevation, double* height, DartObj* surfaceTintColor, DartObj* shadowColor, DartObj* padding);
+    BottomAppBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } bottomAppBarThemeData;
+
+  struct BottomNavigationBarThemeDataSt {
+    BottomNavigationBarThemeDataObjSt (*bottomNavigationBarThemeData)(DartObj* backgroundColor, double* elevation, DartObj* selectedIconTheme, DartObj* unselectedIconTheme, DartObj* selectedItemColor, DartObj* unselectedItemColor, DartObj* selectedLabelStyle, DartObj* unselectedLabelStyle, int* showSelectedLabels, int* showUnselectedLabels, int* type, int* enableFeedback, int* landscapeLayout);
+    BottomNavigationBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } bottomNavigationBarThemeData;
+
+  struct BottomSheetThemeDataSt {
+    BottomSheetThemeDataObjSt (*bottomSheetThemeData)(DartObj* backgroundColor, DartObj* surfaceTintColor, double* elevation, DartObj* modalBackgroundColor, DartObj* modalBarrierColor, DartObj* shadowColor, double* modalElevation, DartObj* shape, int* showDragHandle, DartObj* dragHandleColor, int* clipBehavior, DartObj* constraints);
+    BottomSheetThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } bottomSheetThemeData;
+
+  struct ButtonThemeDataSt {
+    ButtonThemeDataObjSt (*buttonThemeData)(int* textTheme, double* minWidth, double* height, DartObj* padding, DartObj* shape, int* layoutBehavior, int* alignedDropdown, DartObj* buttonColor, DartObj* disabledColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* colorScheme, int* materialTapTargetSize);
+  } buttonThemeData;
+
+  struct CardThemeDataSt {
+    CardThemeDataObjSt (*cardThemeData)(int* clipBehavior, DartObj* color, DartObj* shadowColor, DartObj* surfaceTintColor, double* elevation, DartObj* margin, DartObj* shape);
+    CardThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } cardThemeData;
+
+  struct CarouselViewThemeDataSt {
+    CarouselViewThemeDataObjSt (*carouselViewThemeData)(double* elevation, DartObj* backgroundColor, DartObj* overlayColor, DartObj* shape, DartObj* padding);
+    CarouselViewThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } carouselViewThemeData;
+
+  struct CheckboxThemeDataSt {
+    CheckboxThemeDataObjSt (*checkboxThemeData)(DartObj* fillColor, DartObj* checkColor, DartObj* overlayColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, DartObj* shape, DartObj* side);
+    CheckboxThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } checkboxThemeData;
+
+  struct ChipThemeDataSt {
+    ChipThemeDataObjSt (*chipThemeData)(DartObj* color, DartObj* backgroundColor, DartObj* deleteIconColor, DartObj* disabledColor, DartObj* selectedColor, DartObj* secondarySelectedColor, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* labelPadding, DartObj* padding, DartObj* side, DartObj* shape, DartObj* labelStyle, DartObj* secondaryLabelStyle, int* brightness, double* elevation, double* pressElevation, DartObj* iconTheme, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+    ChipThemeDataObjSt (*fromDefaults)(int* brightness, DartObj* primaryColor, DartObj secondaryColor, DartObj labelStyle);
+    ChipThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } chipThemeData;
+
+  struct DataTableThemeDataSt {
+    DataTableThemeDataObjSt (*dataTableThemeData)(DartObj* decoration, DartObj* dataRowColor, double* dataRowHeight, double* dataRowMinHeight, double* dataRowMaxHeight, DartObj* dataTextStyle, DartObj* headingRowColor, double* headingRowHeight, DartObj* headingTextStyle, double* horizontalMargin, double* columnSpacing, double* dividerThickness, double* checkboxHorizontalMargin, int* headingRowAlignment);
+    DataTableThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } dataTableThemeData;
+
+  struct DatePickerThemeDataSt {
+    DatePickerThemeDataObjSt (*datePickerThemeData)(DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* headerBackgroundColor, DartObj* headerForegroundColor, DartObj* headerHeadlineStyle, DartObj* headerHelpStyle, DartObj* weekdayStyle, DartObj* dayStyle, DartObj* dayForegroundColor, DartObj* dayBackgroundColor, DartObj* dayOverlayColor, DartObj* dayShape, DartObj* todayForegroundColor, DartObj* todayBackgroundColor, DartObj* todayBorder, DartObj* yearStyle, DartObj* yearForegroundColor, DartObj* yearBackgroundColor, DartObj* yearOverlayColor, DartObj* yearShape, DartObj* rangePickerBackgroundColor, double* rangePickerElevation, DartObj* rangePickerShadowColor, DartObj* rangePickerSurfaceTintColor, DartObj* rangePickerShape, DartObj* rangePickerHeaderBackgroundColor, DartObj* rangePickerHeaderForegroundColor, DartObj* rangePickerHeaderHeadlineStyle, DartObj* rangePickerHeaderHelpStyle, DartObj* rangeSelectionBackgroundColor, DartObj* rangeSelectionOverlayColor, DartObj* dividerColor, DartObj* inputDecorationTheme, DartObj* toggleButtonTextStyle, DartObj* subHeaderForegroundColor);
+    DatePickerThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } datePickerThemeData;
+
+  struct DialogThemeDataSt {
+    DialogThemeDataObjSt (*dialogThemeData)(DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* alignment, DartObj* iconColor, DartObj* titleTextStyle, DartObj* contentTextStyle, DartObj* actionsPadding, DartObj* barrierColor, DartObj* insetPadding, int* clipBehavior, DartObj* constraints);
+    DialogThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } dialogThemeData;
+
+  struct DividerThemeDataSt {
+    DividerThemeDataObjSt (*dividerThemeData)(DartObj* color, double* space, double* thickness, double* indent, double* endIndent, DartObj* radius);
+    DividerThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } dividerThemeData;
+
+  struct DrawerThemeDataSt {
+    DrawerThemeDataObjSt (*drawerThemeData)(DartObj* backgroundColor, DartObj* scrimColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* endShape, double* width, int* clipBehavior);
+    DrawerThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } drawerThemeData;
+
+  struct DropdownMenuThemeDataSt {
+    DropdownMenuThemeDataObjSt (*dropdownMenuThemeData)(DartObj* textStyle, DartObj* inputDecorationTheme, DartObj* disabledColor);
+    DropdownMenuThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } dropdownMenuThemeData;
+
+  struct ElevatedButtonThemeDataSt {
+    ElevatedButtonThemeDataObjSt (*elevatedButtonThemeData)(void);
+    ElevatedButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } elevatedButtonThemeData;
+
+  struct ExpansionTileThemeDataSt {
+    ExpansionTileThemeDataObjSt (*expansionTileThemeData)(DartObj* backgroundColor, DartObj* collapsedBackgroundColor, DartObj* tilePadding, DartObj* expandedAlignment, DartObj* childrenPadding, DartObj* iconColor, DartObj* collapsedIconColor, DartObj* textColor, DartObj* collapsedTextColor, DartObj* shape, DartObj* collapsedShape, int* clipBehavior);
+    ExpansionTileThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } expansionTileThemeData;
+
+  struct FilledButtonThemeDataSt {
+    FilledButtonThemeDataObjSt (*filledButtonThemeData)(void);
+    FilledButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } filledButtonThemeData;
+
+  struct FloatingActionButtonThemeDataSt {
+    FloatingActionButtonThemeDataObjSt (*floatingActionButtonThemeData)(DartObj* foregroundColor, DartObj* backgroundColor, DartObj* focusColor, DartObj* hoverColor, DartObj* splashColor, double* elevation, double* focusElevation, double* hoverElevation, double* disabledElevation, double* highlightElevation, DartObj* shape, int* enableFeedback, double* iconSize, DartObj* sizeConstraints, DartObj* smallSizeConstraints, DartObj* largeSizeConstraints, DartObj* extendedSizeConstraints, double* extendedIconLabelSpacing, DartObj* extendedPadding, DartObj* extendedTextStyle);
+    FloatingActionButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } floatingActionButtonThemeData;
+
+  struct IconButtonThemeDataSt {
+    IconButtonThemeDataObjSt (*iconButtonThemeData)(void);
+    IconButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } iconButtonThemeData;
+
+  struct MenuBarThemeDataSt {
+    MenuBarThemeDataObjSt (*menuBarThemeData)(void);
+    MenuBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } menuBarThemeData;
+
+  struct MenuButtonThemeDataSt {
+    MenuButtonThemeDataObjSt (*menuButtonThemeData)(void);
+    MenuButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } menuButtonThemeData;
+
+  struct MenuThemeDataSt {
+    MenuThemeDataObjSt (*menuThemeData)(DartObj* submenuIcon);
+    MenuThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } menuThemeData;
+
+  struct NavigationBarThemeDataSt {
+    NavigationBarThemeDataObjSt (*navigationBarThemeData)(double* height, DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* indicatorColor, DartObj* indicatorShape, DartObj* labelTextStyle, DartObj* iconTheme, int* labelBehavior, DartObj* overlayColor, DartObj* labelPadding);
+    NavigationBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } navigationBarThemeData;
+
+  struct NavigationDrawerThemeDataSt {
+    NavigationDrawerThemeDataObjSt (*navigationDrawerThemeData)(double* tileHeight, DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* indicatorColor, DartObj* indicatorShape, DartObj* labelTextStyle, DartObj* iconTheme);
+    NavigationDrawerThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } navigationDrawerThemeData;
+
+  struct NavigationRailThemeDataSt {
+    NavigationRailThemeDataObjSt (*navigationRailThemeData)(DartObj* backgroundColor, double* elevation, DartObj* unselectedLabelTextStyle, DartObj* selectedLabelTextStyle, DartObj* unselectedIconTheme, DartObj* selectedIconTheme, double* groupAlignment, int* labelType, int* useIndicator, DartObj* indicatorColor, DartObj* indicatorShape, double* minWidth, double* minExtendedWidth);
+    NavigationRailThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } navigationRailThemeData;
+
+  struct OutlinedButtonThemeDataSt {
+    OutlinedButtonThemeDataObjSt (*outlinedButtonThemeData)(void);
+    OutlinedButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } outlinedButtonThemeData;
+
+  struct PopupMenuThemeDataSt {
+    PopupMenuThemeDataObjSt (*popupMenuThemeData)(DartObj* color, DartObj* shape, DartObj* menuPadding, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* textStyle, DartObj* labelTextStyle, int* enableFeedback, int* position, DartObj* iconColor, double* iconSize);
+    PopupMenuThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } popupMenuThemeData;
+
+  struct ProgressIndicatorThemeDataSt {
+    ProgressIndicatorThemeDataObjSt (*progressIndicatorThemeData)(DartObj* color, DartObj* linearTrackColor, double* linearMinHeight, DartObj* circularTrackColor, DartObj* refreshBackgroundColor, DartObj* borderRadius, DartObj* stopIndicatorColor, double* stopIndicatorRadius, double* strokeWidth, double* strokeAlign, int* strokeCap, DartObj* constraints, double* trackGap, DartObj* circularTrackPadding, int* year2023);
+    ProgressIndicatorThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } progressIndicatorThemeData;
+
+  struct RadioThemeDataSt {
+    RadioThemeDataObjSt (*radioThemeData)(DartObj* fillColor, DartObj* overlayColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, DartObj* backgroundColor);
+    RadioThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } radioThemeData;
+
+  struct SearchBarThemeDataSt {
+    SearchBarThemeDataObjSt (*searchBarThemeData)(double* elevation, DartObj* backgroundColor, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* overlayColor, DartObj* side, DartObj* shape, DartObj* padding, DartObj* textStyle, DartObj* hintStyle, DartObj* constraints, int* textCapitalization);
+    SearchBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } searchBarThemeData;
+
+  struct SearchViewThemeDataSt {
+    SearchViewThemeDataObjSt (*searchViewThemeData)(DartObj* backgroundColor, double* elevation, DartObj* surfaceTintColor, DartObj* constraints, DartObj* padding, DartObj* barPadding, int* shrinkWrap, DartObj* side, DartObj* shape, double* headerHeight, DartObj* headerTextStyle, DartObj* headerHintStyle, DartObj* dividerColor);
+    SearchViewThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } searchViewThemeData;
+
+  struct SegmentedButtonThemeDataSt {
+    SegmentedButtonThemeDataObjSt (*segmentedButtonThemeData)(DartObj* selectedIcon);
+    SegmentedButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } segmentedButtonThemeData;
+
+  struct SliderThemeDataSt {
+    SliderThemeDataObjSt (*sliderThemeData)(double* trackHeight, DartObj* activeTrackColor, DartObj* inactiveTrackColor, DartObj* secondaryActiveTrackColor, DartObj* disabledActiveTrackColor, DartObj* disabledInactiveTrackColor, DartObj* disabledSecondaryActiveTrackColor, DartObj* activeTickMarkColor, DartObj* inactiveTickMarkColor, DartObj* disabledActiveTickMarkColor, DartObj* disabledInactiveTickMarkColor, DartObj* thumbColor, DartObj* overlappingShapeStrokeColor, DartObj* disabledThumbColor, DartObj* overlayColor, DartObj* valueIndicatorColor, DartObj* valueIndicatorStrokeColor, DartObj* overlayShape, DartObj* thumbShape, DartObj* valueIndicatorShape, int* showValueIndicator, DartObj* valueIndicatorTextStyle, double* minThumbSeparation, int* allowedInteraction, DartObj* padding, double* trackGap, int* year2023);
+    SliderThemeDataObjSt (*fromPrimaryColors)(DartObj primaryColor, DartObj primaryColorDark, DartObj primaryColorLight, DartObj valueIndicatorTextStyle);
+    SliderThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } sliderThemeData;
+
+  struct SnackBarThemeDataSt {
+    SnackBarThemeDataObjSt (*snackBarThemeData)(DartObj* backgroundColor, DartObj* actionTextColor, DartObj* disabledActionTextColor, DartObj* contentTextStyle, double* elevation, DartObj* shape, int* behavior, double* width, DartObj* insetPadding, int* showCloseIcon, DartObj* closeIconColor, double* actionOverflowThreshold, DartObj* actionBackgroundColor, DartObj* disabledActionBackgroundColor, int* dismissDirection);
+    SnackBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } snackBarThemeData;
+
+  struct SwitchThemeDataSt {
+    SwitchThemeDataObjSt (*switchThemeData)(DartObj* thumbColor, DartObj* trackColor, DartObj* trackOutlineColor, double* trackOutlineWidth, int* materialTapTargetSize, DartObj* overlayColor, double* splashRadius, DartObj* thumbIcon, DartObj* padding);
+    SwitchThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } switchThemeData;
+
+  struct TabBarThemeDataSt {
+    TabBarThemeDataObjSt (*tabBarThemeData)(DartObj* indicator, DartObj* indicatorColor, int* indicatorSize, DartObj* dividerColor, double* dividerHeight, DartObj* labelColor, DartObj* labelPadding, DartObj* labelStyle, DartObj* unselectedLabelColor, DartObj* unselectedLabelStyle, DartObj* overlayColor, int* tabAlignment, int* indicatorAnimation, DartObj* splashBorderRadius);
+    TabBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } tabBarThemeData;
+
+  struct TextButtonThemeDataSt {
+    TextButtonThemeDataObjSt (*textButtonThemeData)(void);
+    TextButtonThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } textButtonThemeData;
+
+  struct TextSelectionThemeDataSt {
+    TextSelectionThemeDataObjSt (*textSelectionThemeData)(DartObj* cursorColor, DartObj* selectionColor, DartObj* selectionHandleColor);
+    TextSelectionThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } textSelectionThemeData;
+
+  struct TimePickerThemeDataSt {
+    TimePickerThemeDataObjSt (*timePickerThemeData)(DartObj* backgroundColor, DartObj* dayPeriodBorderSide, DartObj* dayPeriodColor, DartObj* dayPeriodShape, DartObj* dayPeriodTextColor, DartObj* dayPeriodTextStyle, DartObj* dialBackgroundColor, DartObj* dialHandColor, DartObj* dialTextColor, DartObj* dialTextStyle, double* elevation, DartObj* entryModeIconColor, DartObj* helpTextStyle, DartObj* hourMinuteColor, DartObj* hourMinuteShape, DartObj* hourMinuteTextColor, DartObj* hourMinuteTextStyle, DartObj* inputDecorationTheme, DartObj* padding, DartObj* shape, DartObj* timeSelectorSeparatorColor, DartObj* timeSelectorSeparatorTextStyle);
+    TimePickerThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } timePickerThemeData;
+
+  struct ToggleButtonsThemeDataSt {
+    ToggleButtonsThemeDataObjSt (*toggleButtonsThemeData)(DartObj* textStyle, DartObj* constraints, DartObj* color, DartObj* selectedColor, DartObj* disabledColor, DartObj* fillColor, DartObj* focusColor, DartObj* highlightColor, DartObj* hoverColor, DartObj* splashColor, DartObj* borderColor, DartObj* selectedBorderColor, DartObj* disabledBorderColor, DartObj* borderRadius, double* borderWidth);
+    ToggleButtonsThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } toggleButtonsThemeData;
+
+  struct TooltipThemeDataSt {
+    TooltipThemeDataObjSt (*tooltipThemeData)(double* height, DartObj* constraints, DartObj* padding, DartObj* margin, double* verticalOffset, int* preferBelow, int* excludeFromSemantics, DartObj* decoration, DartObj* textStyle, int* textAlign, DartObj* waitDuration, DartObj* showDuration, DartObj* exitDuration, int* triggerMode, int* enableFeedback);
+    TooltipThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } tooltipThemeData;
+
+  struct AppBarThemeDataSt {
+    AppBarThemeDataObjSt (*appBarThemeData)(DartObj* backgroundColor, DartObj* foregroundColor, DartObj* color, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* iconTheme, DartObj* actionsIconTheme, int* centerTitle, double* titleSpacing, double* leadingWidth, double* toolbarHeight, DartObj* toolbarTextStyle, DartObj* titleTextStyle, DartObj* actionsPadding);
+    AppBarThemeDataObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } appBarThemeData;
+
+  struct CupertinoTextThemeDataSt {
+    CupertinoTextThemeDataObjSt (*cupertinoTextThemeData)(DartObj* primaryColor, DartObj* textStyle, DartObj* actionTextStyle, DartObj* actionSmallTextStyle, DartObj* tabLabelTextStyle, DartObj* navTitleTextStyle, DartObj* navLargeTitleTextStyle, DartObj* navActionTextStyle, DartObj* pickerTextStyle, DartObj* dateTimePickerTextStyle);
+  } cupertinoTextThemeData;
 
   struct MaterialAccentColorSt {
     MaterialAccentColorObjSt (*materialAccentColor)(int primary, MapC swatch);
@@ -1137,7 +1372,7 @@ typedef struct {
   } iconButton;
 
   struct AppBarSt {
-    AppBarObjSt (*appBar)(DartObj* leading, int* automaticallyImplyLeading, DartObj* title, ArrayC* actions, DartObj* flexibleSpace, DartObj* bottom, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* backgroundColor, DartObj* foregroundColor, int* primary, int* centerTitle, int* excludeHeaderSemantics, double* titleSpacing, double* toolbarOpacity, double* bottomOpacity, double* toolbarHeight, double* leadingWidth, DartObj* toolbarTextStyle, DartObj* titleTextStyle, int* forceMaterialTransparency, int* useDefaultSemanticsOrder, int* clipBehavior, DartObj* actionsPadding, int* animateColor);
+    AppBarObjSt (*appBar)(DartObj* leading, int* automaticallyImplyLeading, DartObj* title, ArrayC* actions, DartObj* flexibleSpace, DartObj* bottom, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* backgroundColor, DartObj* foregroundColor, DartObj* iconTheme, DartObj* actionsIconTheme, int* primary, int* centerTitle, int* excludeHeaderSemantics, double* titleSpacing, double* toolbarOpacity, double* bottomOpacity, double* toolbarHeight, double* leadingWidth, DartObj* toolbarTextStyle, DartObj* titleTextStyle, int* forceMaterialTransparency, int* useDefaultSemanticsOrder, int* clipBehavior, DartObj* actionsPadding, int* animateColor);
   } appBar;
 
   struct ScaffoldSt {
@@ -1252,7 +1487,7 @@ typedef struct {
   } card;
 
   struct ChipSt {
-    ChipObjSt (*chip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+    ChipObjSt (*chip)(DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* labelPadding, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, DartObj* padding, DartObj* visualDensity, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
   } chip;
 
   struct GestureDetectorSt {
@@ -1393,7 +1628,7 @@ typedef struct {
   } expansionPanelRadio;
 
   struct NavigationRailSt {
-    NavigationRailObjSt (*navigationRail)(DartObj* backgroundColor, int* extended, DartObj* leading, DartObj* trailing, ArrayC destinations, int* selectedIndex, ValueChangedForIntFFI* onDestinationSelected, double* elevation, double* groupAlignment, int* labelType, DartObj* unselectedLabelTextStyle, DartObj* selectedLabelTextStyle, double* minWidth, double* minExtendedWidth, int* useIndicator, DartObj* indicatorColor, DartObj* indicatorShape, int* leadingAtTop, int* trailingAtBottom, int* scrollable);
+    NavigationRailObjSt (*navigationRail)(DartObj* backgroundColor, int* extended, DartObj* leading, DartObj* trailing, ArrayC destinations, int* selectedIndex, ValueChangedForIntFFI* onDestinationSelected, double* elevation, double* groupAlignment, int* labelType, DartObj* unselectedLabelTextStyle, DartObj* selectedLabelTextStyle, DartObj* unselectedIconTheme, DartObj* selectedIconTheme, double* minWidth, double* minExtendedWidth, int* useIndicator, DartObj* indicatorColor, DartObj* indicatorShape, int* leadingAtTop, int* trailingAtBottom, int* scrollable);
     DartObj (*extendedAnimation)(DartObj context);
   } navigationRail;
 
@@ -1494,9 +1729,14 @@ typedef struct {
   } searchBar;
 
   struct CupertinoAppSt {
-    CupertinoAppObjSt (*cupertinoApp)(DartObj* home, char* initialRoute, TransitionBuilderFFI* builder, char* title, GenerateAppTitleFFI* onGenerateTitle, DartObj* color, int* showPerformanceOverlay, int* checkerboardRasterCacheImages, int* checkerboardOffscreenLayers, int* showSemanticsDebugger, int* debugShowCheckedModeBanner, char* restorationScopeId, int* useInheritedMediaQuery);
-    CupertinoAppObjSt (*router)(TransitionBuilderFFI* builder, char* title, GenerateAppTitleFFI* onGenerateTitle, DartObj* color, int* showPerformanceOverlay, int* checkerboardRasterCacheImages, int* checkerboardOffscreenLayers, int* showSemanticsDebugger, int* debugShowCheckedModeBanner, char* restorationScopeId, int* useInheritedMediaQuery);
+    CupertinoAppObjSt (*cupertinoApp)(DartObj* home, DartObj* theme, char* initialRoute, TransitionBuilderFFI* builder, char* title, GenerateAppTitleFFI* onGenerateTitle, DartObj* color, int* showPerformanceOverlay, int* checkerboardRasterCacheImages, int* checkerboardOffscreenLayers, int* showSemanticsDebugger, int* debugShowCheckedModeBanner, char* restorationScopeId, int* useInheritedMediaQuery);
+    CupertinoAppObjSt (*router)(DartObj* theme, TransitionBuilderFFI* builder, char* title, GenerateAppTitleFFI* onGenerateTitle, DartObj* color, int* showPerformanceOverlay, int* checkerboardRasterCacheImages, int* checkerboardOffscreenLayers, int* showSemanticsDebugger, int* debugShowCheckedModeBanner, char* restorationScopeId, int* useInheritedMediaQuery);
   } cupertinoApp;
+
+  struct CupertinoThemeDataSt {
+    CupertinoThemeDataObjSt (*cupertinoThemeData)(int* brightness, DartObj* primaryColor, DartObj* primaryContrastingColor, DartObj* textTheme, DartObj* barBackgroundColor, DartObj* scaffoldBackgroundColor, DartObj* selectionHandleColor, int* applyThemeToAll);
+    CupertinoThemeDataObjSt (*raw)(int brightness, DartObj primaryColor, DartObj primaryContrastingColor, DartObj textTheme, DartObj barBackgroundColor, DartObj scaffoldBackgroundColor, DartObj selectionHandleColor, int applyThemeToAll);
+  } cupertinoThemeData;
 
   struct CupertinoPageScaffoldSt {
     CupertinoPageScaffoldObjSt (*cupertinoPageScaffold)(DartObj* navigationBar, DartObj* backgroundColor, int* resizeToAvoidBottomInset, DartObj child);
@@ -1625,6 +1865,467 @@ typedef struct {
   struct CupertinoContextMenuActionSt {
     CupertinoContextMenuActionObjSt (*cupertinoContextMenuAction)(DartObj child, int* isDefaultAction, int* isDestructiveAction, VoidCallbackFFI* onPressed, DartObj* trailingIcon);
   } cupertinoContextMenuAction;
+
+  struct LayoutBuilderSt {
+    LayoutBuilderObjSt (*layoutBuilder)(DartObjCallbackDartObjBoxConstraintsObjStFFI builder);
+  } layoutBuilder;
+
+  struct OrientationBuilderSt {
+    OrientationBuilderObjSt (*orientationBuilder)(OrientationWidgetBuilderFFI builder);
+  } orientationBuilder;
+
+  struct IconThemeSt {
+    IconThemeObjSt (*iconTheme)(DartObj data, DartObj child);
+    DartObj (*merge)(DartObj data, DartObj child);
+    IconThemeDataObjSt (*of)(DartObj context);
+  } iconTheme;
+
+  struct BackButtonIconSt {
+    BackButtonIconObjSt (*backButtonIcon)(void);
+  } backButtonIcon;
+
+  struct CloseButtonIconSt {
+    CloseButtonIconObjSt (*closeButtonIcon)(void);
+  } closeButtonIcon;
+
+  struct DrawerButtonIconSt {
+    DrawerButtonIconObjSt (*drawerButtonIcon)(void);
+  } drawerButtonIcon;
+
+  struct EndDrawerButtonIconSt {
+    EndDrawerButtonIconObjSt (*endDrawerButtonIcon)(void);
+  } endDrawerButtonIcon;
+
+  struct AnimatedThemeSt {
+    AnimatedThemeObjSt (*animatedTheme)(DartObj data, DartObj* curve, DartObj* duration, VoidCallbackFFI* onEnd, DartObj child);
+  } animatedTheme;
+
+  struct AboutDialogSt {
+    AboutDialogObjSt (*aboutDialog)(char* applicationName, char* applicationVersion, DartObj* applicationIcon, char* applicationLegalese, ArrayC* children);
+    AboutDialogObjSt (*adaptive)(char* applicationName, char* applicationVersion, DartObj* applicationIcon, char* applicationLegalese, ArrayC* children);
+  } aboutDialog;
+
+  struct FocusSt {
+    FocusObjSt (*focus)(DartObj child, int* autofocus, ValueChangedForBoolFFI* onFocusChange, int* canRequestFocus, int* skipTraversal, int* descendantsAreFocusable, int* descendantsAreTraversable, int* includeSemantics, char* debugLabel);
+    int (*isAt)(DartObj context);
+  } focus;
+
+  struct FocusScopeSt {
+    FocusScopeObjSt (*focusScope)(DartObj child, int* autofocus, ValueChangedForBoolFFI* onFocusChange, int* canRequestFocus, int* skipTraversal, char* debugLabel, int* includeSemantics, int* descendantsAreFocusable, int* descendantsAreTraversable);
+  } focusScope;
+
+  struct PrimaryScrollControllerSt {
+    PrimaryScrollControllerObjSt (*none)(DartObj child);
+    int (*shouldInherit)(DartObj context, int scrollDirection);
+  } primaryScrollController;
+
+  struct TableCellSt {
+    TableCellObjSt (*tableCell)(int* verticalAlignment, DartObj child);
+  } tableCell;
+
+  struct ImageSt {
+    ImageObjSt (*network)(char* src, double* scale, ImageFrameBuilderFFI* frameBuilder, char* semanticLabel, int* excludeFromSemantics, double* width, double* height, DartObj* color, DartObj* opacity, int* colorBlendMode, int* fit, DartObj* alignment, int* repeat, int* matchTextDirection, int* gaplessPlayback, int* filterQuality, int* isAntiAlias, int* cacheWidth, int* cacheHeight, int* webHtmlElementStrategy);
+    ImageObjSt (*asset)(char* name, ImageFrameBuilderFFI* frameBuilder, char* semanticLabel, int* excludeFromSemantics, double* scale, double* width, double* height, DartObj* color, DartObj* opacity, int* colorBlendMode, int* fit, DartObj* alignment, int* repeat, int* matchTextDirection, int* gaplessPlayback, int* isAntiAlias, char* package, int* filterQuality, int* cacheWidth, int* cacheHeight);
+  } image;
+
+  struct ButtonBarSt {
+    ButtonBarObjSt (*buttonBar)(int* alignment, int* mainAxisSize, int* buttonTextTheme, double* buttonMinWidth, double* buttonHeight, DartObj* buttonPadding, int* buttonAlignedDropdown, int* layoutBehavior, int* overflowDirection, double* overflowButtonSpacing, ArrayC* children);
+  } buttonBar;
+
+  struct BottomSheetSt {
+    BottomSheetObjSt (*bottomSheet)(DartObj* animationController, int* enableDrag, int* showDragHandle, DartObj* dragHandleColor, BottomSheetDragStartHandlerFFI* onDragStart, BottomSheetDragEndHandlerFFI* onDragEnd, DartObj* backgroundColor, DartObj* shadowColor, double* elevation, DartObj* shape, int* clipBehavior, DartObj* constraints, VoidCallbackFFI onClosing, WidgetBuilderFFI builder);
+    DartObj (*createAnimationController)(DartObj vsync);
+  } bottomSheet;
+
+  struct RangeValuesSt {
+    RangeValuesObjSt (*rangeValues)(double start, double end);
+  } rangeValues;
+
+  struct DropdownMenuThemeSt {
+    DropdownMenuThemeObjSt (*dropdownMenuTheme)(DartObj data, DartObj child);
+    DropdownMenuThemeDataObjSt (*of)(DartObj context);
+    DropdownMenuThemeDataObjSt (*maybeOf)(DartObj context);
+  } dropdownMenuTheme;
+
+  struct DrawerControllerSt {
+    DrawerControllerObjSt (*drawerController)(DartObj child, int alignment, int* isDrawerOpen, DrawerCallbackFFI* drawerCallback, int* dragStartBehavior, DartObj* scrimColor, double* edgeDragWidth, int* enableOpenDragGesture, int* drawerBarrierDismissible);
+    DrawerControllerObjSt (*maybeOf)(DartObj context);
+    DrawerControllerObjSt (*of)(DartObj context);
+  } drawerController;
+
+  struct AppBarThemeSt {
+    AppBarThemeObjSt (*appBarTheme)(DartObj* color, DartObj* backgroundColor, DartObj* foregroundColor, double* elevation, double* scrolledUnderElevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* iconTheme, DartObj* actionsIconTheme, int* centerTitle, double* titleSpacing, double* leadingWidth, double* toolbarHeight, DartObj* toolbarTextStyle, DartObj* titleTextStyle, DartObj* actionsPadding, DartObj* data, DartObj* child);
+    AppBarThemeDataObjSt (*of)(DartObj context);
+    AppBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } appBarTheme;
+
+  struct CardThemeSt {
+    CardThemeObjSt (*cardTheme)(int* clipBehavior, DartObj* color, DartObj* surfaceTintColor, DartObj* shadowColor, double* elevation, DartObj* margin, DartObj* shape, DartObj* data, DartObj* child);
+    CardThemeDataObjSt (*of)(DartObj context);
+    CardThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } cardTheme;
+
+  struct DialogThemeSt {
+    DialogThemeObjSt (*dialogTheme)(DartObj* backgroundColor, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* shape, DartObj* alignment, DartObj* iconColor, DartObj* titleTextStyle, DartObj* contentTextStyle, DartObj* actionsPadding, DartObj* barrierColor, DartObj* insetPadding, int* clipBehavior, DartObj* data, DartObj* child);
+    DialogThemeDataObjSt (*of)(DartObj context);
+    DialogThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } dialogTheme;
+
+  struct DividerThemeSt {
+    DividerThemeObjSt (*dividerTheme)(DartObj data, DartObj child);
+    DividerThemeDataObjSt (*of)(DartObj context);
+  } dividerTheme;
+
+  struct ChipThemeSt {
+    ChipThemeObjSt (*chipTheme)(DartObj data, DartObj child);
+    ChipThemeDataObjSt (*of)(DartObj context);
+  } chipTheme;
+
+  struct CheckboxThemeSt {
+    CheckboxThemeObjSt (*checkboxTheme)(DartObj data, DartObj child);
+    CheckboxThemeDataObjSt (*of)(DartObj context);
+  } checkboxTheme;
+
+  struct RadioThemeSt {
+    RadioThemeObjSt (*radioTheme)(DartObj data, DartObj child);
+    RadioThemeDataObjSt (*of)(DartObj context);
+  } radioTheme;
+
+  struct SwitchThemeSt {
+    SwitchThemeObjSt (*switchTheme)(DartObj data, DartObj child);
+    SwitchThemeDataObjSt (*of)(DartObj context);
+  } switchTheme;
+
+  struct SliderThemeSt {
+    SliderThemeObjSt (*sliderTheme)(DartObj data, DartObj child);
+    SliderThemeDataObjSt (*of)(DartObj context);
+  } sliderTheme;
+
+  struct TabBarThemeSt {
+    TabBarThemeObjSt (*tabBarTheme)(DartObj* indicator, DartObj* indicatorColor, int* indicatorSize, DartObj* dividerColor, double* dividerHeight, DartObj* labelColor, DartObj* labelPadding, DartObj* labelStyle, DartObj* unselectedLabelColor, DartObj* unselectedLabelStyle, DartObj* overlayColor, int* tabAlignment, int* indicatorAnimation, DartObj* data, DartObj* child);
+    TabBarThemeDataObjSt (*of)(DartObj context);
+    TabBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } tabBarTheme;
+
+  struct TooltipThemeSt {
+    TooltipThemeObjSt (*tooltipTheme)(DartObj data, DartObj child);
+    TooltipThemeDataObjSt (*of)(DartObj context);
+  } tooltipTheme;
+
+  struct BadgeThemeSt {
+    BadgeThemeObjSt (*badgeTheme)(DartObj data, DartObj child);
+    BadgeThemeDataObjSt (*of)(DartObj context);
+  } badgeTheme;
+
+  struct ProgressIndicatorThemeSt {
+    ProgressIndicatorThemeObjSt (*progressIndicatorTheme)(DartObj data, DartObj child);
+    ProgressIndicatorThemeDataObjSt (*of)(DartObj context);
+  } progressIndicatorTheme;
+
+  struct PopupMenuThemeSt {
+    PopupMenuThemeObjSt (*popupMenuTheme)(DartObj data, DartObj child);
+    PopupMenuThemeDataObjSt (*of)(DartObj context);
+  } popupMenuTheme;
+
+  struct BottomNavigationBarThemeSt {
+    BottomNavigationBarThemeObjSt (*bottomNavigationBarTheme)(DartObj data, DartObj child);
+    BottomNavigationBarThemeDataObjSt (*of)(DartObj context);
+  } bottomNavigationBarTheme;
+
+  struct DrawerThemeSt {
+    DrawerThemeObjSt (*drawerTheme)(DartObj data, DartObj child);
+    DrawerThemeDataObjSt (*of)(DartObj context);
+  } drawerTheme;
+
+  struct NavigationBarThemeSt {
+    NavigationBarThemeObjSt (*navigationBarTheme)(DartObj data, DartObj child);
+    NavigationBarThemeDataObjSt (*of)(DartObj context);
+  } navigationBarTheme;
+
+  struct NavigationDrawerThemeSt {
+    NavigationDrawerThemeObjSt (*navigationDrawerTheme)(DartObj data, DartObj child);
+    NavigationDrawerThemeDataObjSt (*of)(DartObj context);
+  } navigationDrawerTheme;
+
+  struct NavigationRailThemeSt {
+    NavigationRailThemeObjSt (*navigationRailTheme)(DartObj data, DartObj child);
+    NavigationRailThemeDataObjSt (*of)(DartObj context);
+  } navigationRailTheme;
+
+  struct MenuThemeSt {
+    MenuThemeObjSt (*menuTheme)(DartObj data, DartObj child);
+    MenuThemeDataObjSt (*of)(DartObj context);
+  } menuTheme;
+
+  struct MenuBarThemeSt {
+    MenuBarThemeObjSt (*menuBarTheme)(DartObj data, DartObj child);
+    MenuBarThemeDataObjSt (*of)(DartObj context);
+  } menuBarTheme;
+
+  struct MenuButtonThemeSt {
+    MenuButtonThemeObjSt (*menuButtonTheme)(DartObj data, DartObj child);
+    MenuButtonThemeDataObjSt (*of)(DartObj context);
+  } menuButtonTheme;
+
+  struct SearchBarThemeSt {
+    SearchBarThemeObjSt (*searchBarTheme)(DartObj data, DartObj child);
+    SearchBarThemeDataObjSt (*of)(DartObj context);
+  } searchBarTheme;
+
+  struct SearchViewThemeSt {
+    SearchViewThemeObjSt (*searchViewTheme)(DartObj data, DartObj child);
+    SearchViewThemeDataObjSt (*of)(DartObj context);
+  } searchViewTheme;
+
+  struct ExpansionTileThemeSt {
+    ExpansionTileThemeObjSt (*expansionTileTheme)(DartObj data, DartObj child);
+    ExpansionTileThemeDataObjSt (*of)(DartObj context);
+  } expansionTileTheme;
+
+  struct TextSelectionThemeSt {
+    TextSelectionThemeObjSt (*textSelectionTheme)(DartObj data, DartObj child);
+    TextSelectionThemeDataObjSt (*of)(DartObj context);
+  } textSelectionTheme;
+
+  struct DatePickerThemeSt {
+    DatePickerThemeObjSt (*datePickerTheme)(DartObj data, DartObj child);
+    DatePickerThemeDataObjSt (*of)(DartObj context);
+    DatePickerThemeDataObjSt (*maybeOf)(DartObj context);
+    DatePickerThemeDataObjSt (*defaults)(DartObj context);
+  } datePickerTheme;
+
+  struct TimePickerThemeSt {
+    TimePickerThemeObjSt (*timePickerTheme)(DartObj data, DartObj child);
+    TimePickerThemeDataObjSt (*of)(DartObj context);
+  } timePickerTheme;
+
+  struct ElevatedButtonThemeSt {
+    ElevatedButtonThemeObjSt (*elevatedButtonTheme)(DartObj data, DartObj child);
+    ElevatedButtonThemeDataObjSt (*of)(DartObj context);
+  } elevatedButtonTheme;
+
+  struct TextButtonThemeSt {
+    TextButtonThemeObjSt (*textButtonTheme)(DartObj data, DartObj child);
+    TextButtonThemeDataObjSt (*of)(DartObj context);
+  } textButtonTheme;
+
+  struct OutlinedButtonThemeSt {
+    OutlinedButtonThemeObjSt (*outlinedButtonTheme)(DartObj data, DartObj child);
+    OutlinedButtonThemeDataObjSt (*of)(DartObj context);
+  } outlinedButtonTheme;
+
+  struct FilledButtonThemeSt {
+    FilledButtonThemeObjSt (*filledButtonTheme)(DartObj data, DartObj child);
+    FilledButtonThemeDataObjSt (*of)(DartObj context);
+  } filledButtonTheme;
+
+  struct IconButtonThemeSt {
+    IconButtonThemeObjSt (*iconButtonTheme)(DartObj data, DartObj child);
+    IconButtonThemeDataObjSt (*of)(DartObj context);
+  } iconButtonTheme;
+
+  struct SegmentedButtonThemeSt {
+    SegmentedButtonThemeObjSt (*segmentedButtonTheme)(DartObj data, DartObj child);
+    SegmentedButtonThemeDataObjSt (*of)(DartObj context);
+    SegmentedButtonThemeDataObjSt (*maybeOf)(DartObj context);
+  } segmentedButtonTheme;
+
+  struct DataTableThemeSt {
+    DataTableThemeObjSt (*dataTableTheme)(DartObj data, DartObj child);
+    DataTableThemeDataObjSt (*of)(DartObj context);
+  } dataTableTheme;
+
+  struct ToggleButtonsThemeSt {
+    ToggleButtonsThemeObjSt (*toggleButtonsTheme)(DartObj data, DartObj child);
+    ToggleButtonsThemeDataObjSt (*of)(DartObj context);
+  } toggleButtonsTheme;
+
+  struct ActionIconThemeSt {
+    ActionIconThemeObjSt (*actionIconTheme)(DartObj data, DartObj child);
+    ActionIconThemeDataObjSt (*of)(DartObj context);
+  } actionIconTheme;
+
+  struct CarouselViewThemeSt {
+    CarouselViewThemeObjSt (*carouselViewTheme)(DartObj data, DartObj child);
+    CarouselViewThemeDataObjSt (*of)(DartObj context);
+  } carouselViewTheme;
+
+  struct BottomAppBarThemeSt {
+    BottomAppBarThemeObjSt (*bottomAppBarTheme)(DartObj* color, double* elevation, double* height, DartObj* surfaceTintColor, DartObj* shadowColor, DartObj* padding, DartObj* data, DartObj* child);
+    BottomAppBarThemeDataObjSt (*of)(DartObj context);
+    BottomAppBarThemeObjSt (*lerp)(DartObj a, DartObj b, double t);
+  } bottomAppBarTheme;
+
+  struct ButtonThemeSt {
+    ButtonThemeObjSt (*buttonTheme)(int* textTheme, int* layoutBehavior, double* minWidth, double* height, DartObj* padding, DartObj* shape, int* alignedDropdown, DartObj* buttonColor, DartObj* disabledColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, DartObj* colorScheme, int* materialTapTargetSize, DartObj child);
+    ButtonThemeObjSt (*fromButtonThemeData)(DartObj data, DartObj child);
+    ButtonThemeDataObjSt (*of)(DartObj context);
+  } buttonTheme;
+
+  struct MaterialButtonSt {
+    MaterialButtonObjSt (*materialButton)(VoidCallbackFFI* onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHighlightChanged, int* textTheme, DartObj* textColor, DartObj* disabledTextColor, DartObj* color, DartObj* disabledColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, int* colorBrightness, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, DartObj* padding, DartObj* visualDensity, DartObj* shape, int* clipBehavior, int* autofocus, int* materialTapTargetSize, DartObj* animationDuration, double* minWidth, double* height, int* enableFeedback, DartObj* child);
+  } materialButton;
+
+  struct RawMaterialButtonSt {
+    RawMaterialButtonObjSt (*rawMaterialButton)(VoidCallbackFFI* onPressed, VoidCallbackFFI* onLongPress, ValueChangedForBoolFFI* onHighlightChanged, DartObj* textStyle, DartObj* fillColor, DartObj* focusColor, DartObj* hoverColor, DartObj* highlightColor, DartObj* splashColor, double* elevation, double* focusElevation, double* hoverElevation, double* highlightElevation, double* disabledElevation, DartObj* padding, DartObj* visualDensity, DartObj* constraints, DartObj* shape, DartObj* animationDuration, int* clipBehavior, int* autofocus, int* materialTapTargetSize, DartObj* child, int* enableFeedback);
+  } rawMaterialButton;
+
+  struct PageStorageSt {
+    PageStorageObjSt (*pageStorage)(DartObj bucket, DartObj child);
+    DartObj (*maybeOf)(DartObj context);
+    DartObj (*of)(DartObj context);
+  } pageStorage;
+
+  struct PageStorageBucketSt {
+    DartObj (*pageStorageBucket)(void);
+  } pageStorageBucket;
+
+  struct PositionedTransitionSt {
+    PositionedTransitionObjSt (*positionedTransition)(DartObj rect, DartObj child);
+  } positionedTransition;
+
+  struct DecoratedBoxTransitionSt {
+    DecoratedBoxTransitionObjSt (*decoratedBoxTransition)(DartObj decoration, int* position, DartObj child);
+  } decoratedBoxTransition;
+
+  struct DecoratedSliverSt {
+    DecoratedSliverObjSt (*decoratedSliver)(DartObj decoration, int* position, DartObj* sliver);
+  } decoratedSliver;
+
+  struct SliverListSt {
+    SliverListObjSt (*builder)(NullableIndexedWidgetBuilderFFI itemBuilder, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverListObjSt (*separated)(NullableIndexedWidgetBuilderFFI itemBuilder, NullableIndexedWidgetBuilderFFI separatorBuilder, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverListObjSt (*list)(ArrayC children, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+  } sliverList;
+
+  struct SliverGridSt {
+    SliverGridObjSt (*count)(int crossAxisCount, double* mainAxisSpacing, double* crossAxisSpacing, double* childAspectRatio, ArrayC* children);
+    SliverGridObjSt (*extent)(double maxCrossAxisExtent, double* mainAxisSpacing, double* crossAxisSpacing, double* childAspectRatio, ArrayC* children);
+  } sliverGrid;
+
+  struct SliverAnimatedOpacitySt {
+    SliverAnimatedOpacityObjSt (*sliverAnimatedOpacity)(DartObj* sliver, double opacity, DartObj* curve, DartObj duration, VoidCallbackFFI* onEnd, int* alwaysIncludeSemantics);
+  } sliverAnimatedOpacity;
+
+  struct PinnedHeaderSliverSt {
+    PinnedHeaderSliverObjSt (*pinnedHeaderSliver)(DartObj* child);
+  } pinnedHeaderSliver;
+
+  struct FocusTraversalGroupSt {
+    FocusTraversalGroupObjSt (*focusTraversalGroup)(int* descendantsAreFocusable, int* descendantsAreTraversable, DartObj child);
+  } focusTraversalGroup;
+
+  struct SliverFadeTransitionSt {
+    SliverFadeTransitionObjSt (*sliverFadeTransition)(DartObj opacity, int* alwaysIncludeSemantics, DartObj* sliver);
+  } sliverFadeTransition;
+
+  struct SliverFixedExtentListSt {
+    SliverFixedExtentListObjSt (*builder)(NullableIndexedWidgetBuilderFFI itemBuilder, double itemExtent, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverFixedExtentListObjSt (*list)(ArrayC children, double itemExtent, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+  } sliverFixedExtentList;
+
+  struct SliverPrototypeExtentListSt {
+    SliverPrototypeExtentListObjSt (*builder)(NullableIndexedWidgetBuilderFFI itemBuilder, DartObj prototypeItem, int* itemCount, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+    SliverPrototypeExtentListObjSt (*list)(ArrayC children, DartObj prototypeItem, int* addAutomaticKeepAlives, int* addRepaintBoundaries, int* addSemanticIndexes);
+  } sliverPrototypeExtentList;
+
+  struct SliverResizingHeaderSt {
+    SliverResizingHeaderObjSt (*sliverResizingHeader)(DartObj* minExtentPrototype, DartObj* maxExtentPrototype, DartObj* child);
+  } sliverResizingHeader;
+
+  struct SliverFloatingHeaderSt {
+    SliverFloatingHeaderObjSt (*sliverFloatingHeader)(int* snapMode, DartObj child);
+  } sliverFloatingHeader;
+
+  struct SliverSemanticsSt {
+    SliverSemanticsObjSt (*sliverSemantics)(DartObj sliver, int* container, int* explicitChildNodes, int* excludeSemantics, int* blockUserActions, int* enabled, int* checked, int* mixed, int* selected, int* toggled, int* button, int* slider, int* keyboardKey, int* link, int* header, int* headingLevel, int* textField, int* readOnly, int* focusable, int* focused, int* inMutuallyExclusiveGroup, int* obscured, int* multiline, int* scopesRoute, int* namesRoute, int* hidden, int* image, int* liveRegion, int* expanded, int* isRequired, int* maxValueLength, int* currentValueLength, char* identifier, char* label, char* value, char* increasedValue, char* decreasedValue, char* hint, char* tooltip, char* onTapHint, char* onLongPressHint, int* textDirection, VoidCallbackFFI* onTap, VoidCallbackFFI* onLongPress, VoidCallbackFFI* onScrollLeft, VoidCallbackFFI* onScrollRight, VoidCallbackFFI* onScrollUp, VoidCallbackFFI* onScrollDown, VoidCallbackFFI* onIncrease, VoidCallbackFFI* onDecrease, VoidCallbackFFI* onCopy, VoidCallbackFFI* onCut, VoidCallbackFFI* onPaste, VoidCallbackFFI* onDismiss, MoveCursorHandlerFFI* onMoveCursorForwardByCharacter, MoveCursorHandlerFFI* onMoveCursorBackwardByCharacter, SetTextHandlerFFI* onSetText, VoidCallbackFFI* onDidGainAccessibilityFocus, VoidCallbackFFI* onDidLoseAccessibilityFocus, VoidCallbackFFI* onFocus, int* role, int* validationResult, int* inputType);
+  } sliverSemantics;
+
+  struct FadeInImageSt {
+    FadeInImageObjSt (*assetNetwork)(char* placeholder, char* image, double* placeholderScale, double* imageScale, int* excludeFromSemantics, char* imageSemanticLabel, DartObj* fadeOutDuration, DartObj* fadeOutCurve, DartObj* fadeInDuration, DartObj* fadeInCurve, double* width, double* height, int* fit, DartObj* color, int* colorBlendMode, DartObj* placeholderColor, int* placeholderColorBlendMode, int* placeholderFit, int* filterQuality, int* placeholderFilterQuality, DartObj* alignment, int* repeat, int* matchTextDirection, int* placeholderCacheWidth, int* placeholderCacheHeight, int* imageCacheWidth, int* imageCacheHeight);
+  } fadeInImage;
+
+  struct NavigatorPopHandlerSt {
+    NavigatorPopHandlerObjSt (*navigatorPopHandler)(VoidCallbackFFI* onPop, PopResultCallbackForTFFI* onPopWithResult, int* enabled, DartObj child);
+  } navigatorPopHandler;
+
+  struct RawImageSt {
+    RawImageObjSt (*rawImage)(char* debugImageLabel, double* width, double* height, double* scale, DartObj* color, DartObj* opacity, int* colorBlendMode, int* fit, DartObj* alignment, int* repeat, int* matchTextDirection, int* invertColors, int* filterQuality, int* isAntiAlias);
+  } rawImage;
+
+  struct StepperSt {
+    StepperObjSt (*stepper)(ArrayC steps, int* type, int* currentStep, ValueChangedForIntFFI* onStepTapped, VoidCallbackFFI* onStepContinue, VoidCallbackFFI* onStepCancel, double* elevation, DartObj* margin, DartObj* connectorColor, double* connectorThickness, StepIconBuilderFFI* stepIconBuilder, double* stepIconHeight, double* stepIconWidth, DartObj* stepIconMargin, int* clipBehavior);
+  } stepper;
+
+  struct StepSt {
+    StepObjSt (*step)(DartObj title, DartObj* subtitle, DartObj content, int* state, int* isActive, DartObj* label);
+  } step;
+
+  struct TabPageSelectorSt {
+    TabPageSelectorObjSt (*tabPageSelector)(double* indicatorSize, DartObj* color, DartObj* selectedColor, int* borderStyle);
+  } tabPageSelector;
+
+  struct CarouselViewSt {
+    CarouselViewObjSt (*carouselView)(DartObj* padding, DartObj* backgroundColor, double* elevation, DartObj* shape, DartObj* overlayColor, int* itemSnapping, double* shrinkExtent, int* scrollDirection, int* reverse, ValueChangedForIntFFI* onTap, int* enableSplash, double itemExtent, ArrayC children);
+  } carouselView;
+
+  struct MergeableMaterialSt {
+    MergeableMaterialObjSt (*mergeableMaterial)(int* mainAxis, double* elevation, int* hasDividers, ArrayC* children, DartObj* dividerColor);
+  } mergeableMaterial;
+
+  struct DesktopTextSelectionToolbarSt {
+    DesktopTextSelectionToolbarObjSt (*desktopTextSelectionToolbar)(DartObj anchor, ArrayC children);
+  } desktopTextSelectionToolbar;
+
+  struct DesktopTextSelectionToolbarButtonSt {
+    DesktopTextSelectionToolbarButtonObjSt (*desktopTextSelectionToolbarButton)(VoidCallbackFFI* onPressed, DartObj child);
+    DesktopTextSelectionToolbarButtonObjSt (*text)(DartObj context, VoidCallbackFFI* onPressed, char* text);
+  } desktopTextSelectionToolbarButton;
+
+  struct TextSelectionToolbarTextButtonSt {
+    TextSelectionToolbarTextButtonObjSt (*textSelectionToolbarTextButton)(DartObj child, DartObj padding, VoidCallbackFFI* onPressed, DartObj* alignment);
+    DartObj (*getPadding)(int index, int total);
+  } textSelectionToolbarTextButton;
+
+  struct FocusableActionDetectorSt {
+    FocusableActionDetectorObjSt (*focusableActionDetector)(int* enabled, int* autofocus, int* descendantsAreFocusable, int* descendantsAreTraversable, ValueChangedForBoolFFI* onShowFocusHighlight, ValueChangedForBoolFFI* onShowHoverHighlight, ValueChangedForBoolFFI* onFocusChange, int* includeFocusSemantics, DartObj child);
+  } focusableActionDetector;
+
+  struct HeroControllerScopeSt {
+    HeroControllerScopeObjSt (*none)(DartObj child);
+  } heroControllerScope;
+
+  struct RawScrollbarSt {
+    RawScrollbarObjSt (*rawScrollbar)(DartObj child, int* thumbVisibility, DartObj* shape, DartObj* radius, double* thickness, DartObj* thumbColor, double* minThumbLength, double* minOverscrollLength, int* trackVisibility, DartObj* trackRadius, DartObj* trackColor, DartObj* trackBorderColor, DartObj* fadeDuration, DartObj* timeToFade, DartObj* pressDuration, int* interactive, int* scrollbarOrientation, double* mainAxisMargin, double* crossAxisMargin, DartObj* padding);
+  } rawScrollbar;
+
+  struct RawChipSt {
+    RawChipObjSt (*rawChip)(DartObj* defaultProperties, DartObj* avatar, DartObj label, DartObj* labelStyle, DartObj* padding, DartObj* visualDensity, DartObj* labelPadding, DartObj* deleteIcon, VoidCallbackFFI* onDeleted, DartObj* deleteIconColor, char* deleteButtonTooltipMessage, VoidCallbackFFI* onPressed, ValueChangedForBoolFFI* onSelected, double* pressElevation, int* tapEnabled, int* selected, int* isEnabled, DartObj* disabledColor, DartObj* selectedColor, char* tooltip, DartObj* side, DartObj* shape, int* clipBehavior, int* autofocus, DartObj* color, DartObj* backgroundColor, int* materialTapTargetSize, double* elevation, DartObj* shadowColor, DartObj* surfaceTintColor, DartObj* iconTheme, DartObj* selectedShadowColor, int* showCheckmark, DartObj* checkmarkColor, DartObj* avatarBorder, DartObj* avatarBoxConstraints, DartObj* deleteIconBoxConstraints);
+  } rawChip;
+
+  struct CupertinoRadioSt {
+    CupertinoRadioObjSt (*cupertinoRadio)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* inactiveColor, DartObj* fillColor, DartObj* focusColor, int* autofocus, int* useCheckmarkStyle, int* enabled);
+  } cupertinoRadio;
+
+  struct CupertinoDynamicColorSt {
+    CupertinoDynamicColorObjSt (*cupertinoDynamicColor)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor, DartObj elevatedColor, DartObj darkElevatedColor, DartObj highContrastElevatedColor, DartObj darkHighContrastElevatedColor);
+    CupertinoDynamicColorObjSt (*withBrightnessAndContrast)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor);
+    CupertinoDynamicColorObjSt (*withBrightness)(char* debugLabel, DartObj color, DartObj darkColor);
+    DartObj (*resolve)(DartObj resolvable, DartObj context);
+    DartObj (*maybeResolve)(DartObj resolvable, DartObj context);
+  } cupertinoDynamicColor;
+
+  struct TableRowSt {
+    TableRowObjSt (*tableRow)(DartObj* decoration, ArrayC* children);
+  } tableRow;
+
+  struct CupertinoIconThemeDataSt {
+    CupertinoIconThemeDataObjSt (*cupertinoIconThemeData)(double* size, double* fill, double* weight, double* grade, double* opticalSize, DartObj* color, double* opacity, ArrayC* shadows, int* applyTextScaling);
+  } cupertinoIconThemeData;
+
+  struct NestedScrollViewSt {
+    NestedScrollViewObjSt (*nestedScrollView)(int* scrollDirection, int* reverse, NestedScrollViewHeaderSliversBuilderFFI headerSliverBuilder, DartObj body, int* dragStartBehavior, int* floatHeaderSlivers, int* clipBehavior, int* hitTestBehavior, char* restorationId);
+  } nestedScrollView;
 
   struct SubStateSt {
     SubStateObjSt (*subState)(VoidCallbackFFI initStateFn, VoidCallbackDartObjFFI didUpdateWidgetFn, VoidCallbackFFI reassembleFn, VoidCallbackFFI deactivateFn, VoidCallbackFFI activateFn, VoidCallbackFFI disposeFn, DartObjCallbackDartObjFFI buildFn, VoidCallbackFFI didChangeDependenciesFn);

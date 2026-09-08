@@ -17,7 +17,7 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
   }
   ActionChip(int id) { this.id = id; }
   @Builder.Factory
-  static ActionChip actionChipActionChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> disabledColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<BoxConstraintsI> avatarBoxConstraints) {
+  static ActionChip actionChipActionChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> disabledColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<BoxConstraintsI> avatarBoxConstraints) {
     var st = factories.actionChipActionChip(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -38,6 +38,7 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ActionChip");
     return new ActionChip(st);
@@ -46,7 +47,7 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
     return ActionChipActionChipBuilder.actionChipActionChip();
   }
   @Builder.Factory
-  static ActionChip actionChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> disabledColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<BoxConstraintsI> avatarBoxConstraints) {
+  static ActionChip actionChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> disabledColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<BoxConstraintsI> avatarBoxConstraints) {
     var st = factories.actionChipElevated(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -67,6 +68,7 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
+      iconTheme.map(IconThemeDataI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ActionChip");
     return new ActionChip(st);
@@ -179,6 +181,16 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       return new Color(__nid);
     }
     return new Color(ActionChipObjSt.surfaceTintColor(st));
+  }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("actionChipIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ActionChipObjSt.iconTheme(st));
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {

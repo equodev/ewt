@@ -401,6 +401,241 @@ c.CupertinoContextMenu? cupertinoContextMenu;
 c.CupertinoContextMenuAction? cupertinoContextMenuAction;
 w.BottomNavigationBarItem? bottomNavigationBarItem;
 
+// --- Batch 1: basic builders, semantics, and Material button icons ---
+// Builder skipped: the emitted Java class name `Builder` collides with `import org.immutables.builder.Builder`, so `@Builder.Factory` resolves to the widget class itself (no inner Factory) and Immutables silently drops the entire round — every other widget's `@Builder.Factory` builder disappears too.
+w.LayoutBuilder? layoutBuilder;
+w.OrientationBuilder? orientationBuilder;
+w.PreferredSize? preferredSize;
+// Semantics skipped: extends private `_SemanticsBase` which carries a `dynamic` field — generator hits "No AGen for dynamic" (same shape as private-supertype landmine noted for DropdownMenuItem).
+// MetaData skipped: `dynamic metaData` field — ObjStGen.writeJavaFieldAccessor calls getGen(dynamic) and throws "No AGen for dynamic".
+w.IconTheme? iconTheme;
+// BackButton / CloseButton / DrawerButton / EndDrawerButton skipped: all extend Flutter's private `_ActionButton`; the emitted Java `extends _ActionButton` compiles fine on its own but Immutables silently drops the whole processing round when it sees a `@Builder.Factory` on a class with a private-underscore supertype (same shape as the DropdownMenuItem / `_DropdownMenuItemContainer` landmine — see gen_structure §4).
+m.BackButtonIcon? backButtonIcon;
+m.CloseButtonIcon? closeButtonIcon;
+m.DrawerButtonIcon? drawerButtonIcon;
+m.EndDrawerButtonIcon? endDrawerButtonIcon;
+m.AnimatedTheme? animatedTheme;
+m.AboutDialog? aboutDialog;
+
+// --- Batch 2: interaction (focus/form/table/image) + Material controls ---
+w.Focus? focus;
+w.FocusScope? focusScope;
+// Form skipped: `onPopInvokedWithResult` is `PopInvokedWithResultCallback<Object?>` — the Object-typed generic result trips the callback marshaller (emits `new Object() { public int getId() { return result; } }` against `MemorySegment result`, plus `intToBool(didPop)` where `didPop` is `MemorySegment`). Needs a proper `Object?` callback-argument path.
+w.PrimaryScrollController? primaryScrollController;
+// StatefulBuilder skipped: `builder` is `StatefulWidgetBuilder = Widget Function(BuildContext, StateSetter)` and `StateSetter` itself is `void Function(VoidCallback fn)`. The nested callback path emits `Consumer<Runnable>` on the Java surface but the FFI wrapper passes `MemorySegment` for the inner callback, so the generated `WidgetConstructors` doesn't type-check.
+// Table skipped: `columnWidths: Map<int, TableColumnWidth>` — TableColumnWidth is an abstract Flutter class; the emitter picks it up as a Java type but never emits `TableColumnWidth.java`, so the Immutables-generated `TableTableBuilder` can't resolve the type. Same abstract-factory-host shape as ShapeBorder would need.
+w.TableCell? tableCell;
+w.Image? image;
+w.ImageIcon? imageIcon;
+m.ButtonBar? buttonBar;
+m.BottomSheet? bottomSheet;
+// RangeSlider skipped: references `kMinInteractiveDimension()` — a private top-level Flutter constant — in the emitted `getMinInteractiveDimension` accessor. Same private-member-default landmine noted in generator-limits memory.
+m.RangeValues? rangeValues;
+m.DropdownMenuTheme? dropdownMenuTheme;
+m.DrawerController? drawerController;
+
+// --- Batch 3: Material theme wrappers ---
+m.AppBarTheme? appBarTheme;
+m.CardTheme? cardTheme;
+m.DialogTheme? dialogTheme;
+m.DividerTheme? dividerTheme;
+m.ChipTheme? chipTheme;
+m.CheckboxTheme? checkboxTheme;
+m.RadioTheme? radioTheme;
+m.SwitchTheme? switchTheme;
+m.SliderTheme? sliderTheme;
+m.TabBarTheme? tabBarTheme;
+m.TooltipTheme? tooltipTheme;
+m.SnackBarTheme? snackBarTheme;
+m.BadgeTheme? badgeTheme;
+m.ProgressIndicatorTheme? progressIndicatorTheme;
+m.PopupMenuTheme? popupMenuTheme;
+
+// --- Batch 4: more theme wrappers ---
+m.BottomNavigationBarTheme? bottomNavigationBarTheme;
+m.BottomSheetTheme? bottomSheetTheme;
+m.DrawerTheme? drawerTheme;
+m.NavigationBarTheme? navigationBarTheme;
+m.NavigationDrawerTheme? navigationDrawerTheme;
+m.NavigationRailTheme? navigationRailTheme;
+m.MenuTheme? menuTheme;
+m.MenuBarTheme? menuBarTheme;
+m.MenuButtonTheme? menuButtonTheme;
+m.SearchBarTheme? searchBarTheme;
+m.SearchViewTheme? searchViewTheme;
+m.ExpansionTileTheme? expansionTileTheme;
+m.TextSelectionTheme? textSelectionTheme;
+m.DatePickerTheme? datePickerTheme;
+m.TimePickerTheme? timePickerTheme;
+
+// --- Batch 5: button themes + misc Material ---
+m.ElevatedButtonTheme? elevatedButtonTheme;
+m.TextButtonTheme? textButtonTheme;
+m.OutlinedButtonTheme? outlinedButtonTheme;
+m.FilledButtonTheme? filledButtonTheme;
+m.IconButtonTheme? iconButtonTheme;
+m.FloatingActionButtonTheme? floatingActionButtonTheme;
+m.SegmentedButtonTheme? segmentedButtonTheme;
+m.DataTableTheme? dataTableTheme;
+m.ToggleButtonsTheme? toggleButtonsTheme;
+m.ActionIconTheme? actionIconTheme;
+m.CarouselViewTheme? carouselViewTheme;
+m.BottomAppBarTheme? bottomAppBarTheme;
+m.ButtonTheme? buttonTheme;
+m.MaterialButton? materialButton;
+m.RawMaterialButton? rawMaterialButton;
+
+// --- Batch 6: transitions, slivers, keep-alive / defaults ---
+// KeepAlive skipped: extends `ParentDataWidget<KeepAliveParentDataMixin>` — KeepAliveParentDataMixin is a Flutter mixin the generator does not emit as a Java class, so the emitted `extends ParentDataWidget<KeepAliveParentDataMixin>` fails to resolve.
+w.DefaultTextHeightBehavior? defaultTextHeightBehavior;
+w.DefaultAssetBundle? defaultAssetBundle;
+w.PageStorage? pageStorage;
+w.PageStorageBucket? pageStorageBucket;
+w.PositionedTransition? positionedTransition;
+w.DecoratedBoxTransition? decoratedBoxTransition;
+w.RelativePositionedTransition? relativePositionedTransition;
+w.DecoratedSliver? decoratedSliver;
+w.SliverList? sliverList;
+w.SliverGrid? sliverGrid;
+w.SliverFillViewport? sliverFillViewport;
+w.SliverAnimatedOpacity? sliverAnimatedOpacity;
+w.PinnedHeaderSliver? pinnedHeaderSliver;
+w.FocusTraversalGroup? focusTraversalGroup;
+
+// --- Batch 7: more slivers + FadeInImage + Material Stepper ---
+w.SliverFadeTransition? sliverFadeTransition;
+w.SliverFixedExtentList? sliverFixedExtentList;
+w.SliverPrototypeExtentList? sliverPrototypeExtentList;
+w.SliverResizingHeader? sliverResizingHeader;
+// SliverCrossAxisExpanded skipped: extends `ParentDataWidget<SliverPhysicalContainerParentData>` — SliverPhysicalContainerParentData is a Flutter parent-data class the generator does not emit, same shape as KeepAlive/KeepAliveParentDataMixin.
+w.SliverFloatingHeader? sliverFloatingHeader;
+w.SliverSemantics? sliverSemantics;
+w.SliverVariedExtentList? sliverVariedExtentList;
+w.FadeInImage? fadeInImage;
+w.NavigatorPopHandler? navigatorPopHandler;
+w.RawImage? rawImage;
+m.Stepper? stepper;
+m.Step? step;
+m.TabPageSelector? tabPageSelector;
+m.CarouselView? carouselView;
+
+// --- Batch 8: mergeable material, selection toolbars, extras ---
+m.MergeableMaterial? mergeableMaterial;
+m.MaterialSlice? materialSlice;
+m.MaterialGap? materialGap;
+m.DesktopTextSelectionToolbar? desktopTextSelectionToolbar;
+m.DesktopTextSelectionToolbarButton? desktopTextSelectionToolbarButton;
+// TextSelectionToolbar skipped: `toolbarBuilder: ToolbarBuilder` where `ToolbarBuilder = Widget Function(BuildContext, Widget)`. When the caller doesn't wire it, the emitted Dart-side fallback is `(p0, p1) => null` — but the callback's return type is `Widget`, not `Widget?`, so `factories_gen.dart` fails to compile. Generator's null-fallback for Widget-returning callbacks needs a sensible non-null default.
+m.TextSelectionToolbarTextButton? textSelectionToolbarTextButton;
+// RefreshIndicator skipped: `onStatusChange` is a callback that receives `RefreshIndicatorStatus?` (enum). The FFI wrapper marshals the enum arg as a raw `MemorySegment` on the Java side but the emitted body indexes an enum array — `RefreshIndicatorStatus.values()[value]` where value is MemorySegment — so `WidgetConstructors` doesn't type-check. Related to the enum-arg callback path.
+// BackButtonListener skipped: `onBackButtonPressed` returns `Future<bool>`; the `Supplier<Future>` marshaling shape doesn't line up with the FFI wrapper that expects `Supplier<NativeObj>`. Needs a Future-return callback strategy.
+// AdaptiveTextSelectionToolbar skipped: generator crashes with "Null check operator used on a null value" in Types.getGen — one of the static factories takes an unbounded type parameter (`T` with no `extends`) which the emitter dereferences via `bound!.element!`.
+// SharedAppData skipped: static `getValue<K, V>(...)` factory has unbounded type parameters — generator's static-factory emitter dereferences `bound!.element!` in Types.getGen and crashes with "Null check operator used on a null value".
+// DefaultTextEditingShortcuts skipped: emitted Java literal-inlines a Dart Map with named-arg constructor calls (`SingleActivator(LogicalKeyboardKey.backspace, shift: true)`) which is invalid Java. The default-value inliner needs to strip / translate Dart named args.
+w.FocusableActionDetector? focusableActionDetector;
+w.OverlayPortal? overlayPortal;
+w.HeroControllerScope? heroControllerScope;
+
+// --- Batch 9: composited transforms, magnifier, more Material ---
+w.CompositedTransformTarget? compositedTransformTarget;
+w.CompositedTransformFollower? compositedTransformFollower;
+w.RawMagnifier? rawMagnifier;
+w.KeyboardListener? keyboardListener;
+w.RawScrollbar? rawScrollbar;
+m.RawChip? rawChip;
+m.SegmentedButton? segmentedButton;
+c.CupertinoRadio? cupertinoRadio;
+// CupertinoTheme skipped: has static methods (`brightnessOf`, `maybeBrightnessOf`) that make the generator emit `_createCupertinoThemeObjSt(CupertinoTheme?)` in factories_gen.dart — but the ObjSt struct is `typedef struct { int id; DartObj child; } CupertinoThemeObjSt;`, whose body ffigen dedupes with other identically-shaped anonymous structs, so the type never lands in `widgets_bindings_generated.dart`. Same shape hits any widget with static returns + trivial ObjSt.
+// CupertinoTextFormFieldRow skipped: `onSaved: FormFieldSetter<String>` and `validator: FormFieldValidator<String>` are `void Function(String?)` and `String? Function(String?)`. The generated FFI wrapper hands a non-nullable `String` to the Java callback (via `Pointer<Char>`), so factories_gen.dart fails type-checking on the nullable-string-arg mismatch. Nullable-string callback-arg marshaling gap.
+// CupertinoScrollBehavior skipped: pulls its `ScrollBehavior` supertype into the Java surface, which references `_bouncingPhysics()` / `_clampingPhysics()` / `BouncingScrollPhysics` / `RangeMaintainingScrollPhysics` / `ClampingScrollPhysics` / `ScrollDecelerationRate` — none of them emitted (private helpers + unregistered ScrollPhysics subclasses).
+w.SnapshotWidget? snapshotWidget;
+w.ShrinkWrappingViewport? shrinkWrappingViewport;
+// Viewport skipped: same ffigen-drops-trivial-ObjSt landmine as CupertinoTheme — the static `getDefaultCrossAxisDirection` makes the generator emit `_createViewportObjSt`, and ffigen doesn't emit the type.
+w.ScrollNotificationObserverScope? scrollNotificationObserverScope;
+
+// --- Batch 10: more Cupertino + simple basics ---
+w.SizedOverflowBox? sizedOverflowBox;
+c.CupertinoDynamicColor? cupertinoDynamicColor;
+c.CupertinoTypography? cupertinoTypography;
+// PageTransitionsTheme skipped: emitted `_defaultBuilders()` inlines a Java Map referencing `ZoomPageTransitionsBuilder`, `CupertinoPageTransitionsBuilder` — PageTransitionsBuilder subclasses that aren't in the emitted set. Same private-defaults + missing-subclass shape as CupertinoScrollBehavior.
+m.RawSnackBar? rawSnackBar;
+m.MergeableMaterialItem? mergeableMaterialItem;
+w.RawKeyboardListener? rawKeyboardListener;
+c.CupertinoModalPopup? cupertinoModalPopup;
+c.CupertinoActionSheetLabel? cupertinoActionSheetLabel;
+
+// --- Batch 11: sliver layout builder + Cupertino theme data ---
+// SliverLayoutBuilder skipped: extends `ConstrainedLayoutBuilder<SliverConstraints>` — SliverConstraints is a Constraints subclass not currently emitted. Add SliverConstraints to the emitted set (or make it opaque like other Constraints subclasses) to enable.
+w.TableRow? tableRow;
+w.SelectionListener? selectionListener;
+c.CupertinoThemeData? cupertinoThemeData;
+c.CupertinoTextThemeData? cupertinoTextThemeData;
+c.CupertinoIconThemeData? cupertinoIconThemeData;
+// ExpansionTileController skipped: pulls ChangeNotifier into the emitted set; emitter writes `extends NativeObj, ChangeNotifierI` (invalid Java — should be `extends NativeObj implements ChangeNotifierI`). Generator bug in the interface-vs-supertype split.
+w.NestedScrollView? nestedScrollView;
+m.SliderComponentShape? sliderComponentShape;
+
+// --- Batch 12: scroll physics family — skipped as a group ---
+// ScrollPhysics + subclasses (BouncingScrollPhysics, ClampingScrollPhysics,
+// RangeMaintainingScrollPhysics, AlwaysScrollableScrollPhysics,
+// NeverScrollableScrollPhysics, PageScrollPhysics) cannot be added yet:
+// adding them causes jextract to fail (exit 5) — the appended structs push
+// the C header past a size / recursion limit jextract enforces. The physics
+// samples in type_samples.dart still work because they emit as opaque
+// NativeObj references; giving them real ObjSt structs breaks the toolchain.
+m.Feedback? feedback;
+
+// --- Batch 13: theme DATA value types ---
+m.CardThemeData? cardThemeData;
+m.DialogThemeData? dialogThemeData;
+m.DividerThemeData? dividerThemeData;
+m.ChipThemeData? chipThemeData;
+m.CheckboxThemeData? checkboxThemeData;
+m.RadioThemeData? radioThemeData;
+m.SwitchThemeData? switchThemeData;
+m.SliderThemeData? sliderThemeData;
+m.TabBarThemeData? tabBarThemeData;
+m.TooltipThemeData? tooltipThemeData;
+m.SnackBarThemeData? snackBarThemeData;
+m.BadgeThemeData? badgeThemeData;
+m.PopupMenuThemeData? popupMenuThemeData;
+m.MenuThemeData? menuThemeData;
+m.MenuBarThemeData? menuBarThemeData;
+
+// --- Batch 14: more theme data value types ---
+m.AppBarThemeData? appBarThemeData;
+m.ActionIconThemeData? actionIconThemeData;
+m.BottomAppBarThemeData? bottomAppBarThemeData;
+m.BottomNavigationBarThemeData? bottomNavigationBarThemeData;
+m.BottomSheetThemeData? bottomSheetThemeData;
+m.DrawerThemeData? drawerThemeData;
+m.DropdownMenuThemeData? dropdownMenuThemeData;
+m.ExpansionTileThemeData? expansionTileThemeData;
+m.NavigationBarThemeData? navigationBarThemeData;
+m.NavigationDrawerThemeData? navigationDrawerThemeData;
+m.NavigationRailThemeData? navigationRailThemeData;
+m.ProgressIndicatorThemeData? progressIndicatorThemeData;
+m.MenuButtonThemeData? menuButtonThemeData;
+m.SearchBarThemeData? searchBarThemeData;
+m.SearchViewThemeData? searchViewThemeData;
+
+// --- Batch 15: button + picker theme data types ---
+m.CarouselViewThemeData? carouselViewThemeData;
+m.DataTableThemeData? dataTableThemeData;
+m.DatePickerThemeData? datePickerThemeData;
+m.TimePickerThemeData? timePickerThemeData;
+m.ElevatedButtonThemeData? elevatedButtonThemeData;
+m.FilledButtonThemeData? filledButtonThemeData;
+m.OutlinedButtonThemeData? outlinedButtonThemeData;
+m.TextButtonThemeData? textButtonThemeData;
+m.IconButtonThemeData? iconButtonThemeData;
+m.FloatingActionButtonThemeData? floatingActionButtonThemeData;
+m.SegmentedButtonThemeData? segmentedButtonThemeData;
+m.ToggleButtonsThemeData? toggleButtonsThemeData;
+m.TextSelectionThemeData? textSelectionThemeData;
+m.ButtonThemeData? buttonThemeData;
+// MaterialInkController skipped: same ChangeNotifier landmine (`extends NativeObj, ChangeNotifierI`).
+
 s.SubState? subState;
 s.SubStatefulWidget? subStatefulWidget;
 s.SubStatelessWidget? subStatelessWidget;

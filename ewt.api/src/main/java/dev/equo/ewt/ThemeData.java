@@ -17,8 +17,9 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   }
   ThemeData(int id) { this.id = id; }
   @Builder.Factory
-  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NativeObj.I> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<NativeObj.I> appBarTheme, Optional<ColorI> dialogBackgroundColor, Optional<ColorI> indicatorColor) {
+  static ThemeData themeDataThemeData(Optional<Boolean> applyElevationOverlayColor, Optional<NoDefaultCupertinoThemeDataI> cupertinoOverrideTheme, Optional<NativeObj.I> inputDecorationTheme, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<TargetPlatform> platform, Optional<Boolean> useMaterial3, Optional<Boolean> useSystemColors, Optional<VisualDensityI> visualDensity, Optional<ColorSchemeI> colorScheme, Optional<Brightness> brightness, Optional<ColorI> colorSchemeSeed, Optional<ColorI> canvasColor, Optional<ColorI> cardColor, Optional<ColorI> disabledColor, Optional<ColorI> dividerColor, Optional<ColorI> focusColor, Optional<ColorI> highlightColor, Optional<ColorI> hintColor, Optional<ColorI> hoverColor, Optional<ColorI> primaryColor, Optional<ColorI> primaryColorDark, Optional<ColorI> primaryColorLight, Optional<MaterialColorI> primarySwatch, Optional<ColorI> scaffoldBackgroundColor, Optional<ColorI> secondaryHeaderColor, Optional<ColorI> shadowColor, Optional<ColorI> splashColor, Optional<ColorI> unselectedWidgetColor, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> primaryIconTheme, Optional<TextThemeI> primaryTextTheme, Optional<TextThemeI> textTheme, Optional<ActionIconThemeDataI> actionIconTheme, Optional<NativeObj.I> appBarTheme, Optional<BadgeThemeDataI> badgeTheme, Optional<BottomAppBarThemeDataI> bottomAppBarTheme, Optional<BottomNavigationBarThemeDataI> bottomNavigationBarTheme, Optional<BottomSheetThemeDataI> bottomSheetTheme, Optional<ButtonThemeDataI> buttonTheme, Optional<CardThemeDataI> cardTheme, Optional<CarouselViewThemeDataI> carouselViewTheme, Optional<CheckboxThemeDataI> checkboxTheme, Optional<ChipThemeDataI> chipTheme, Optional<DataTableThemeDataI> dataTableTheme, Optional<DatePickerThemeDataI> datePickerTheme, Optional<DialogThemeDataI> dialogTheme, Optional<DividerThemeDataI> dividerTheme, Optional<DrawerThemeDataI> drawerTheme, Optional<DropdownMenuThemeDataI> dropdownMenuTheme, Optional<ElevatedButtonThemeDataI> elevatedButtonTheme, Optional<ExpansionTileThemeDataI> expansionTileTheme, Optional<FilledButtonThemeDataI> filledButtonTheme, Optional<FloatingActionButtonThemeDataI> floatingActionButtonTheme, Optional<IconButtonThemeDataI> iconButtonTheme, Optional<MenuBarThemeDataI> menuBarTheme, Optional<MenuButtonThemeDataI> menuButtonTheme, Optional<MenuThemeDataI> menuTheme, Optional<NavigationBarThemeDataI> navigationBarTheme, Optional<NavigationDrawerThemeDataI> navigationDrawerTheme, Optional<NavigationRailThemeDataI> navigationRailTheme, Optional<OutlinedButtonThemeDataI> outlinedButtonTheme, Optional<PopupMenuThemeDataI> popupMenuTheme, Optional<ProgressIndicatorThemeDataI> progressIndicatorTheme, Optional<RadioThemeDataI> radioTheme, Optional<SearchBarThemeDataI> searchBarTheme, Optional<SearchViewThemeDataI> searchViewTheme, Optional<SegmentedButtonThemeDataI> segmentedButtonTheme, Optional<SliderThemeDataI> sliderTheme, Optional<SnackBarThemeDataI> snackBarTheme, Optional<SwitchThemeDataI> switchTheme, Optional<TabBarThemeDataI> tabBarTheme, Optional<TextButtonThemeDataI> textButtonTheme, Optional<TextSelectionThemeDataI> textSelectionTheme, Optional<TimePickerThemeDataI> timePickerTheme, Optional<ToggleButtonsThemeDataI> toggleButtonsTheme, Optional<TooltipThemeDataI> tooltipTheme, Optional<ColorI> dialogBackgroundColor, Optional<ColorI> indicatorColor) {
     var st = factories.themeDataThemeData(applyElevationOverlayColor,
+      cupertinoOverrideTheme.map(NoDefaultCupertinoThemeDataI::build),
       inputDecorationTheme.map(NativeObj.I::build),
       materialTapTargetSize,
       platform,
@@ -48,9 +49,54 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
       fontFamily,
       fontFamilyFallback,
       _package,
+      iconTheme.map(IconThemeDataI::build),
+      primaryIconTheme.map(IconThemeDataI::build),
       primaryTextTheme.map(TextThemeI::build),
       textTheme.map(TextThemeI::build),
+      actionIconTheme.map(ActionIconThemeDataI::build),
       appBarTheme.map(NativeObj.I::build),
+      badgeTheme.map(BadgeThemeDataI::build),
+      bottomAppBarTheme.map(BottomAppBarThemeDataI::build),
+      bottomNavigationBarTheme.map(BottomNavigationBarThemeDataI::build),
+      bottomSheetTheme.map(BottomSheetThemeDataI::build),
+      buttonTheme.map(ButtonThemeDataI::build),
+      cardTheme.map(CardThemeDataI::build),
+      carouselViewTheme.map(CarouselViewThemeDataI::build),
+      checkboxTheme.map(CheckboxThemeDataI::build),
+      chipTheme.map(ChipThemeDataI::build),
+      dataTableTheme.map(DataTableThemeDataI::build),
+      datePickerTheme.map(DatePickerThemeDataI::build),
+      dialogTheme.map(DialogThemeDataI::build),
+      dividerTheme.map(DividerThemeDataI::build),
+      drawerTheme.map(DrawerThemeDataI::build),
+      dropdownMenuTheme.map(DropdownMenuThemeDataI::build),
+      elevatedButtonTheme.map(ElevatedButtonThemeDataI::build),
+      expansionTileTheme.map(ExpansionTileThemeDataI::build),
+      filledButtonTheme.map(FilledButtonThemeDataI::build),
+      floatingActionButtonTheme.map(FloatingActionButtonThemeDataI::build),
+      iconButtonTheme.map(IconButtonThemeDataI::build),
+      menuBarTheme.map(MenuBarThemeDataI::build),
+      menuButtonTheme.map(MenuButtonThemeDataI::build),
+      menuTheme.map(MenuThemeDataI::build),
+      navigationBarTheme.map(NavigationBarThemeDataI::build),
+      navigationDrawerTheme.map(NavigationDrawerThemeDataI::build),
+      navigationRailTheme.map(NavigationRailThemeDataI::build),
+      outlinedButtonTheme.map(OutlinedButtonThemeDataI::build),
+      popupMenuTheme.map(PopupMenuThemeDataI::build),
+      progressIndicatorTheme.map(ProgressIndicatorThemeDataI::build),
+      radioTheme.map(RadioThemeDataI::build),
+      searchBarTheme.map(SearchBarThemeDataI::build),
+      searchViewTheme.map(SearchViewThemeDataI::build),
+      segmentedButtonTheme.map(SegmentedButtonThemeDataI::build),
+      sliderTheme.map(SliderThemeDataI::build),
+      snackBarTheme.map(SnackBarThemeDataI::build),
+      switchTheme.map(SwitchThemeDataI::build),
+      tabBarTheme.map(TabBarThemeDataI::build),
+      textButtonTheme.map(TextButtonThemeDataI::build),
+      textSelectionTheme.map(TextSelectionThemeDataI::build),
+      timePickerTheme.map(TimePickerThemeDataI::build),
+      toggleButtonsTheme.map(ToggleButtonsThemeDataI::build),
+      tooltipTheme.map(TooltipThemeDataI::build),
       dialogBackgroundColor.map(ColorI::build),
       indicatorColor.map(ColorI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
@@ -119,6 +165,16 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   public boolean applyElevationOverlayColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("themeDataApplyElevationOverlayColor not supported on web");
     return intToBool(ThemeDataObjSt.applyElevationOverlayColor(st));
+  }
+  public NoDefaultCupertinoThemeData cupertinoOverrideTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataCupertinoOverrideTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.NoDefaultCupertinoThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.NoDefaultCupertinoThemeDataObjSt.id(__st, __nid);
+      return new NoDefaultCupertinoThemeData(__st);
+    }
+    return new NoDefaultCupertinoThemeData(ThemeDataObjSt.cupertinoOverrideTheme(st));
   }
   public MaterialTapTargetSize materialTapTargetSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("themeDataMaterialTapTargetSize not supported on web");
@@ -280,6 +336,26 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
     }
     return new Color(ThemeDataObjSt.unselectedWidgetColor(st));
   }
+  public IconThemeData iconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ThemeDataObjSt.iconTheme(st));
+  }
+  public IconThemeData primaryIconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataPrimaryIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
+      return new IconThemeData(__st);
+    }
+    return new IconThemeData(ThemeDataObjSt.primaryIconTheme(st));
+  }
   public TextTheme primaryTextTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
@@ -299,6 +375,446 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
       return new TextTheme(__st);
     }
     return new TextTheme(ThemeDataObjSt.textTheme(st));
+  }
+  public ActionIconThemeData actionIconTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataActionIconTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ActionIconThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ActionIconThemeDataObjSt.id(__st, __nid);
+      return new ActionIconThemeData(__st);
+    }
+    return new ActionIconThemeData(ThemeDataObjSt.actionIconTheme(st));
+  }
+  public AppBarThemeData appBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataAppBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.AppBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.AppBarThemeDataObjSt.id(__st, __nid);
+      return new AppBarThemeData(__st);
+    }
+    return new AppBarThemeData(ThemeDataObjSt.appBarTheme(st));
+  }
+  public BadgeThemeData badgeTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataBadgeTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BadgeThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BadgeThemeDataObjSt.id(__st, __nid);
+      return new BadgeThemeData(__st);
+    }
+    return new BadgeThemeData(ThemeDataObjSt.badgeTheme(st));
+  }
+  public BottomAppBarThemeData bottomAppBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataBottomAppBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BottomAppBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BottomAppBarThemeDataObjSt.id(__st, __nid);
+      return new BottomAppBarThemeData(__st);
+    }
+    return new BottomAppBarThemeData(ThemeDataObjSt.bottomAppBarTheme(st));
+  }
+  public BottomNavigationBarThemeData bottomNavigationBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataBottomNavigationBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BottomNavigationBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BottomNavigationBarThemeDataObjSt.id(__st, __nid);
+      return new BottomNavigationBarThemeData(__st);
+    }
+    return new BottomNavigationBarThemeData(ThemeDataObjSt.bottomNavigationBarTheme(st));
+  }
+  public BottomSheetThemeData bottomSheetTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataBottomSheetTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BottomSheetThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BottomSheetThemeDataObjSt.id(__st, __nid);
+      return new BottomSheetThemeData(__st);
+    }
+    return new BottomSheetThemeData(ThemeDataObjSt.bottomSheetTheme(st));
+  }
+  public ButtonThemeData buttonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ButtonThemeDataObjSt.id(__st, __nid);
+      return new ButtonThemeData(__st);
+    }
+    return new ButtonThemeData(ThemeDataObjSt.buttonTheme(st));
+  }
+  public CardThemeData cardTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataCardTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CardThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.CardThemeDataObjSt.id(__st, __nid);
+      return new CardThemeData(__st);
+    }
+    return new CardThemeData(ThemeDataObjSt.cardTheme(st));
+  }
+  public CarouselViewThemeData carouselViewTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataCarouselViewTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CarouselViewThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.CarouselViewThemeDataObjSt.id(__st, __nid);
+      return new CarouselViewThemeData(__st);
+    }
+    return new CarouselViewThemeData(ThemeDataObjSt.carouselViewTheme(st));
+  }
+  public CheckboxThemeData checkboxTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataCheckboxTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CheckboxThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.CheckboxThemeDataObjSt.id(__st, __nid);
+      return new CheckboxThemeData(__st);
+    }
+    return new CheckboxThemeData(ThemeDataObjSt.checkboxTheme(st));
+  }
+  public ChipThemeData chipTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataChipTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ChipThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ChipThemeDataObjSt.id(__st, __nid);
+      return new ChipThemeData(__st);
+    }
+    return new ChipThemeData(ThemeDataObjSt.chipTheme(st));
+  }
+  public DataTableThemeData dataTableTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataDataTableTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DataTableThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DataTableThemeDataObjSt.id(__st, __nid);
+      return new DataTableThemeData(__st);
+    }
+    return new DataTableThemeData(ThemeDataObjSt.dataTableTheme(st));
+  }
+  public DatePickerThemeData datePickerTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataDatePickerTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DatePickerThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DatePickerThemeDataObjSt.id(__st, __nid);
+      return new DatePickerThemeData(__st);
+    }
+    return new DatePickerThemeData(ThemeDataObjSt.datePickerTheme(st));
+  }
+  public DialogThemeData dialogTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataDialogTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DialogThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DialogThemeDataObjSt.id(__st, __nid);
+      return new DialogThemeData(__st);
+    }
+    return new DialogThemeData(ThemeDataObjSt.dialogTheme(st));
+  }
+  public DividerThemeData dividerTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataDividerTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DividerThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DividerThemeDataObjSt.id(__st, __nid);
+      return new DividerThemeData(__st);
+    }
+    return new DividerThemeData(ThemeDataObjSt.dividerTheme(st));
+  }
+  public DrawerThemeData drawerTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataDrawerTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DrawerThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DrawerThemeDataObjSt.id(__st, __nid);
+      return new DrawerThemeData(__st);
+    }
+    return new DrawerThemeData(ThemeDataObjSt.drawerTheme(st));
+  }
+  public DropdownMenuThemeData dropdownMenuTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataDropdownMenuTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DropdownMenuThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.DropdownMenuThemeDataObjSt.id(__st, __nid);
+      return new DropdownMenuThemeData(__st);
+    }
+    return new DropdownMenuThemeData(ThemeDataObjSt.dropdownMenuTheme(st));
+  }
+  public ElevatedButtonThemeData elevatedButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataElevatedButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ElevatedButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ElevatedButtonThemeDataObjSt.id(__st, __nid);
+      return new ElevatedButtonThemeData(__st);
+    }
+    return new ElevatedButtonThemeData(ThemeDataObjSt.elevatedButtonTheme(st));
+  }
+  public ExpansionTileThemeData expansionTileTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataExpansionTileTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ExpansionTileThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ExpansionTileThemeDataObjSt.id(__st, __nid);
+      return new ExpansionTileThemeData(__st);
+    }
+    return new ExpansionTileThemeData(ThemeDataObjSt.expansionTileTheme(st));
+  }
+  public FilledButtonThemeData filledButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataFilledButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.FilledButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.FilledButtonThemeDataObjSt.id(__st, __nid);
+      return new FilledButtonThemeData(__st);
+    }
+    return new FilledButtonThemeData(ThemeDataObjSt.filledButtonTheme(st));
+  }
+  public FloatingActionButtonThemeData floatingActionButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataFloatingActionButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.FloatingActionButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.FloatingActionButtonThemeDataObjSt.id(__st, __nid);
+      return new FloatingActionButtonThemeData(__st);
+    }
+    return new FloatingActionButtonThemeData(ThemeDataObjSt.floatingActionButtonTheme(st));
+  }
+  public IconButtonThemeData iconButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataIconButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.IconButtonThemeDataObjSt.id(__st, __nid);
+      return new IconButtonThemeData(__st);
+    }
+    return new IconButtonThemeData(ThemeDataObjSt.iconButtonTheme(st));
+  }
+  public MenuBarThemeData menuBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataMenuBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.MenuBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.MenuBarThemeDataObjSt.id(__st, __nid);
+      return new MenuBarThemeData(__st);
+    }
+    return new MenuBarThemeData(ThemeDataObjSt.menuBarTheme(st));
+  }
+  public MenuButtonThemeData menuButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataMenuButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.MenuButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.MenuButtonThemeDataObjSt.id(__st, __nid);
+      return new MenuButtonThemeData(__st);
+    }
+    return new MenuButtonThemeData(ThemeDataObjSt.menuButtonTheme(st));
+  }
+  public MenuThemeData menuTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataMenuTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.MenuThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.MenuThemeDataObjSt.id(__st, __nid);
+      return new MenuThemeData(__st);
+    }
+    return new MenuThemeData(ThemeDataObjSt.menuTheme(st));
+  }
+  public NavigationBarThemeData navigationBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataNavigationBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.NavigationBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.NavigationBarThemeDataObjSt.id(__st, __nid);
+      return new NavigationBarThemeData(__st);
+    }
+    return new NavigationBarThemeData(ThemeDataObjSt.navigationBarTheme(st));
+  }
+  public NavigationDrawerThemeData navigationDrawerTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataNavigationDrawerTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.NavigationDrawerThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.NavigationDrawerThemeDataObjSt.id(__st, __nid);
+      return new NavigationDrawerThemeData(__st);
+    }
+    return new NavigationDrawerThemeData(ThemeDataObjSt.navigationDrawerTheme(st));
+  }
+  public NavigationRailThemeData navigationRailTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataNavigationRailTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.NavigationRailThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.NavigationRailThemeDataObjSt.id(__st, __nid);
+      return new NavigationRailThemeData(__st);
+    }
+    return new NavigationRailThemeData(ThemeDataObjSt.navigationRailTheme(st));
+  }
+  public OutlinedButtonThemeData outlinedButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataOutlinedButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.OutlinedButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.OutlinedButtonThemeDataObjSt.id(__st, __nid);
+      return new OutlinedButtonThemeData(__st);
+    }
+    return new OutlinedButtonThemeData(ThemeDataObjSt.outlinedButtonTheme(st));
+  }
+  public PopupMenuThemeData popupMenuTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataPopupMenuTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.PopupMenuThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.PopupMenuThemeDataObjSt.id(__st, __nid);
+      return new PopupMenuThemeData(__st);
+    }
+    return new PopupMenuThemeData(ThemeDataObjSt.popupMenuTheme(st));
+  }
+  public ProgressIndicatorThemeData progressIndicatorTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataProgressIndicatorTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ProgressIndicatorThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ProgressIndicatorThemeDataObjSt.id(__st, __nid);
+      return new ProgressIndicatorThemeData(__st);
+    }
+    return new ProgressIndicatorThemeData(ThemeDataObjSt.progressIndicatorTheme(st));
+  }
+  public RadioThemeData radioTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataRadioTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.RadioThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.RadioThemeDataObjSt.id(__st, __nid);
+      return new RadioThemeData(__st);
+    }
+    return new RadioThemeData(ThemeDataObjSt.radioTheme(st));
+  }
+  public SearchBarThemeData searchBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataSearchBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SearchBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.SearchBarThemeDataObjSt.id(__st, __nid);
+      return new SearchBarThemeData(__st);
+    }
+    return new SearchBarThemeData(ThemeDataObjSt.searchBarTheme(st));
+  }
+  public SearchViewThemeData searchViewTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataSearchViewTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SearchViewThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.SearchViewThemeDataObjSt.id(__st, __nid);
+      return new SearchViewThemeData(__st);
+    }
+    return new SearchViewThemeData(ThemeDataObjSt.searchViewTheme(st));
+  }
+  public SegmentedButtonThemeData segmentedButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataSegmentedButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SegmentedButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.SegmentedButtonThemeDataObjSt.id(__st, __nid);
+      return new SegmentedButtonThemeData(__st);
+    }
+    return new SegmentedButtonThemeData(ThemeDataObjSt.segmentedButtonTheme(st));
+  }
+  public SliderThemeData sliderTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataSliderTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SliderThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.SliderThemeDataObjSt.id(__st, __nid);
+      return new SliderThemeData(__st);
+    }
+    return new SliderThemeData(ThemeDataObjSt.sliderTheme(st));
+  }
+  public SnackBarThemeData snackBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataSnackBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SnackBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.SnackBarThemeDataObjSt.id(__st, __nid);
+      return new SnackBarThemeData(__st);
+    }
+    return new SnackBarThemeData(ThemeDataObjSt.snackBarTheme(st));
+  }
+  public SwitchThemeData switchTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataSwitchTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SwitchThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.SwitchThemeDataObjSt.id(__st, __nid);
+      return new SwitchThemeData(__st);
+    }
+    return new SwitchThemeData(ThemeDataObjSt.switchTheme(st));
+  }
+  public TabBarThemeData tabBarTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataTabBarTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TabBarThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TabBarThemeDataObjSt.id(__st, __nid);
+      return new TabBarThemeData(__st);
+    }
+    return new TabBarThemeData(ThemeDataObjSt.tabBarTheme(st));
+  }
+  public TextButtonThemeData textButtonTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataTextButtonTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextButtonThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextButtonThemeDataObjSt.id(__st, __nid);
+      return new TextButtonThemeData(__st);
+    }
+    return new TextButtonThemeData(ThemeDataObjSt.textButtonTheme(st));
+  }
+  public TextSelectionThemeData textSelectionTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataTextSelectionTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextSelectionThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextSelectionThemeDataObjSt.id(__st, __nid);
+      return new TextSelectionThemeData(__st);
+    }
+    return new TextSelectionThemeData(ThemeDataObjSt.textSelectionTheme(st));
+  }
+  public TimePickerThemeData timePickerTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataTimePickerTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TimePickerThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TimePickerThemeDataObjSt.id(__st, __nid);
+      return new TimePickerThemeData(__st);
+    }
+    return new TimePickerThemeData(ThemeDataObjSt.timePickerTheme(st));
+  }
+  public ToggleButtonsThemeData toggleButtonsTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataToggleButtonsTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ToggleButtonsThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.ToggleButtonsThemeDataObjSt.id(__st, __nid);
+      return new ToggleButtonsThemeData(__st);
+    }
+    return new ToggleButtonsThemeData(ThemeDataObjSt.toggleButtonsTheme(st));
+  }
+  public TooltipThemeData tooltipTheme() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("themeDataTooltipTheme", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TooltipThemeDataObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TooltipThemeDataObjSt.id(__st, __nid);
+      return new TooltipThemeData(__st);
+    }
+    return new TooltipThemeData(ThemeDataObjSt.tooltipTheme(st));
   }
   public Color dialogBackgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
