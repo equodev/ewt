@@ -6,16 +6,16 @@ Flutter 3.35.7
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 181 | 291 | 62% |
-| Material | 147 | 187 | 78% |
-| Cupertino | 30 | 53 | 56% |
-| **Total** | **358** | **531** | **67%** |
+| Basic widgets | 184 | 291 | 63% |
+| Material | 148 | 187 | 79% |
+| Cupertino | 31 | 53 | 58% |
+| **Total** | **363** | **531** | **68%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**181 of 291 supported**
+**184 of 291 supported**
 
 - [x] AbsorbPointer
 - [x] Align
@@ -38,6 +38,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] AspectRatio
 - [x] AutofillGroup
 - [x] AutomaticKeepAlive
+- [x] BackButtonListener
 - [x] BackdropFilter
 - [x] Banner
 - [x] Baseline
@@ -83,6 +84,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] FocusScope
 - [x] FocusTraversalGroup
 - [x] FocusableActionDetector
+- [x] Form
 - [x] FractionalTranslation
 - [x] FractionallySizedBox
 - [x] GestureDetector
@@ -187,6 +189,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [x] SnapshotWidget
 - [x] Spacer
 - [x] Stack
+- [x] StatefulBuilder
 - [x] StretchingOverscrollIndicator
 - [x] TableCell
 - [x] TapRegion
@@ -209,7 +212,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] AnnotatedRegion
 - [ ] AppKitView
 - [ ] AutocompleteHighlightedOption
-- [ ] BackButtonListener
 - [ ] BackdropGroup
 - [ ] Builder
 - [ ] CallbackShortcuts
@@ -230,7 +232,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] Expansible
 - [ ] Flow
 - [ ] FocusTraversalOrder
-- [ ] Form
 - [ ] FormField
 - [ ] FutureBuilder
 - [ ] GlowingOverscrollIndicator
@@ -286,7 +287,6 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] SliverOverlapInjector
 - [ ] SliverPersistentHeader
 - [ ] SliverReorderableList
-- [ ] StatefulBuilder
 - [ ] StreamBuilder
 - [ ] SystemContextMenu
 - [ ] Table
@@ -313,7 +313,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**147 of 187 supported**
+**148 of 187 supported**
 
 - [x] AboutDialog
 - [x] AboutListTile
@@ -420,6 +420,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] RadioTheme
 - [x] RawChip
 - [x] RawMaterialButton
+- [x] RefreshIndicator
 - [x] RefreshProgressIndicator
 - [x] Scaffold
 - [x] ScaffoldMessenger
@@ -490,7 +491,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] NavigationIndicator
 - [ ] PaginatedDataTable
 - [ ] RangeSlider
-- [ ] RefreshIndicator
 - [ ] ReorderableListView
 - [ ] ScrollbarTheme
 - [ ] SearchAnchor
@@ -507,7 +507,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 
 _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 
-**30 of 53 supported**
+**31 of 53 supported**
 
 - [x] CupertinoActionSheet
 - [x] CupertinoActionSheetAction
@@ -538,6 +538,7 @@ _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 - [x] CupertinoTabScaffold
 - [x] CupertinoTabView
 - [x] CupertinoTextField
+- [x] CupertinoTextFormFieldRow
 - [x] CupertinoTimerPicker
 - [ ] CupertinoAdaptiveTextSelectionToolbar
 - [ ] CupertinoDatePicker
@@ -555,7 +556,6 @@ _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 - [ ] CupertinoSlidingSegmentedControl
 - [ ] CupertinoSliverRefreshControl
 - [ ] CupertinoSpellCheckSuggestionsToolbar
-- [ ] CupertinoTextFormFieldRow
 - [ ] CupertinoTextMagnifier
 - [ ] CupertinoTextSelectionToolbar
 - [ ] CupertinoTextSelectionToolbarButton
