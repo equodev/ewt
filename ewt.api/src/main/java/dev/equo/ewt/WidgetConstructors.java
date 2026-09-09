@@ -8482,6 +8482,18 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(descendantsAreTraversable));
   }
 
+  MemorySegment formForm(Widget child, Optional<Boolean> canPop, Optional<Consumer<Boolean>> onPopInvoked, Optional<BiConsumer<Boolean, NativeObj>> onPopInvokedWithResult, Optional<Supplier<Future>> onWillPop, Optional<Runnable> onChanged, Optional<AutovalidateMode> autovalidateMode) {
+    var st = WidgetFactories.form(factories);
+    var fn = WidgetFactories.FormSt.form(st);
+    return WidgetFactories.FormSt.form.invoke(fn, arena, child.build().getId(),
+      ptrBool(canPop),
+      onPopInvoked.isPresent() ? ptrHolder(ptrPopInvokedCallbackFn(onPopInvoked.get())) : MemorySegment.NULL,
+      onPopInvokedWithResult.isPresent() ? ptrHolder(ptrPopInvokedWithResultCallbackForObjectOptFn(onPopInvokedWithResult.get())) : MemorySegment.NULL,
+      onWillPop.isPresent() ? ptrHolder(ptrWillPopCallbackFn(onWillPop.get())) : MemorySegment.NULL,
+      onChanged.isPresent() ? ptrHolder(ptrVoidCallbackFn(onChanged.get())) : MemorySegment.NULL,
+      ptrEnum(autovalidateMode));
+  }
+
   MemorySegment primaryScrollControllerNone(Widget child) {
     var st = WidgetFactories.primaryScrollController(factories);
     var fn = WidgetFactories.PrimaryScrollControllerSt.none(st);
@@ -8492,6 +8504,12 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.PrimaryScrollControllerSt.shouldInherit(st);
     return WidgetFactories.PrimaryScrollControllerSt.shouldInherit.invoke(fn, context.build().getId(),
       scrollDirection.ordinal());
+  }
+
+  MemorySegment statefulBuilderStatefulBuilder(BiFunction<BuildContext, Consumer<Runnable>, Widget> builder) {
+    var st = WidgetFactories.statefulBuilder(factories);
+    var fn = WidgetFactories.StatefulBuilderSt.statefulBuilder(st);
+    return WidgetFactories.StatefulBuilderSt.statefulBuilder.invoke(fn, arena, ptrStatefulWidgetBuilderFn(builder));
   }
 
   MemorySegment tableCellTableCell(Optional<TableCellVerticalAlignment> verticalAlignment, Widget child) {
@@ -9720,6 +9738,55 @@ class WidgetConstructors extends WidgetConstructorsBase {
       total);
   }
 
+  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    var st = WidgetFactories.refreshIndicator(factories);
+    var fn = WidgetFactories.RefreshIndicatorSt.refreshIndicator(st);
+    return WidgetFactories.RefreshIndicatorSt.refreshIndicator.invoke(fn, arena, child.build().getId(),
+      ptr(displacement),
+      ptr(edgeOffset),
+      ptrRefreshCallbackFn(onRefresh),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptr(strokeWidth),
+      ptrEnum(triggerMode),
+      ptr(elevation));
+  }
+  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    var st = WidgetFactories.refreshIndicator(factories);
+    var fn = WidgetFactories.RefreshIndicatorSt.adaptive(st);
+    return WidgetFactories.RefreshIndicatorSt.adaptive.invoke(fn, arena, child.build().getId(),
+      ptr(displacement),
+      ptr(edgeOffset),
+      ptrRefreshCallbackFn(onRefresh),
+      ptrObj(color),
+      ptrObj(backgroundColor),
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptr(strokeWidth),
+      ptrEnum(triggerMode),
+      ptr(elevation));
+  }
+  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    var st = WidgetFactories.refreshIndicator(factories);
+    var fn = WidgetFactories.RefreshIndicatorSt.noSpinner(st);
+    return WidgetFactories.RefreshIndicatorSt.noSpinner.invoke(fn, arena, child.build().getId(),
+      ptrRefreshCallbackFn(onRefresh),
+      onStatusChange.isPresent() ? ptrHolder(ptrValueChangedForRefreshIndicatorStatusOptFn(onStatusChange.get())) : MemorySegment.NULL,
+      ptrStr(semanticsLabel),
+      ptrStr(semanticsValue),
+      ptrEnum(triggerMode),
+      ptr(elevation));
+  }
+
+  MemorySegment backButtonListenerBackButtonListener(Widget child, Supplier<Future> onBackButtonPressed) {
+    var st = WidgetFactories.backButtonListener(factories);
+    var fn = WidgetFactories.BackButtonListenerSt.backButtonListener(st);
+    return WidgetFactories.BackButtonListenerSt.backButtonListener.invoke(fn, arena, child.build().getId(),
+      ptrValueGetterForFutureFn(onBackButtonPressed));
+  }
+
   MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
     var st = WidgetFactories.focusableActionDetector(factories);
     var fn = WidgetFactories.FocusableActionDetectorSt.focusableActionDetector(st);
@@ -9821,6 +9888,53 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(autofocus),
       ptrBool(useCheckmarkStyle),
       ptrBool(enabled));
+  }
+
+  MemorySegment cupertinoTextFormFieldRowCupertinoTextFormFieldRow(Optional<Widget> prefix, Optional<EdgeInsetsGeometry> padding, Optional<String> initialValue, Optional<BoxDecoration> decoration, Optional<TextCapitalization> textCapitalization, Optional<TextInputAction> textInputAction, Optional<TextStyle> style, Optional<TextDirection> textDirection, Optional<TextAlign> textAlign, Optional<Boolean> autofocus, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<Consumer<String>> onChanged, Optional<Runnable> onTap, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onFieldSubmitted, Optional<Consumer<String>> onSaved, Optional<Function<String, String>> validator, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Color> cursorColor, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<Boolean> enableInteractiveSelection, Optional<List<String>> autofillHints, Optional<AutovalidateMode> autovalidateMode, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<String> restorationId) {
+    var st = WidgetFactories.cupertinoTextFormFieldRow(factories);
+    var fn = WidgetFactories.CupertinoTextFormFieldRowSt.cupertinoTextFormFieldRow(st);
+    return WidgetFactories.CupertinoTextFormFieldRowSt.cupertinoTextFormFieldRow.invoke(fn, arena, ptrObj(prefix),
+      ptrObj(padding),
+      ptrStr(initialValue),
+      ptrObj(decoration),
+      ptrEnum(textCapitalization),
+      ptrEnum(textInputAction),
+      ptrObj(style),
+      ptrEnum(textDirection),
+      ptrEnum(textAlign),
+      ptrBool(autofocus),
+      ptrBool(readOnly),
+      ptrBool(showCursor),
+      ptrStr(obscuringCharacter),
+      ptrBool(obscureText),
+      ptrBool(autocorrect),
+      ptrEnum(smartDashesType),
+      ptrEnum(smartQuotesType),
+      ptrBool(enableSuggestions),
+      ptr(maxLines),
+      ptr(minLines),
+      ptrBool(expands),
+      ptr(maxLength),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onChanged.get())) : MemorySegment.NULL,
+      onTap.isPresent() ? ptrHolder(ptrGestureTapCallbackFn(onTap.get())) : MemorySegment.NULL,
+      onEditingComplete.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEditingComplete.get())) : MemorySegment.NULL,
+      onFieldSubmitted.isPresent() ? ptrHolder(ptrValueChangedForStringFn(onFieldSubmitted.get())) : MemorySegment.NULL,
+      onSaved.isPresent() ? ptrHolder(ptrFormFieldSetterForStringFn(onSaved.get())) : MemorySegment.NULL,
+      validator.isPresent() ? ptrHolder(ptrFormFieldValidatorForStringFn(validator.get())) : MemorySegment.NULL,
+      ptrBool(enabled),
+      ptr(cursorWidth),
+      ptr(cursorHeight),
+      ptrObj(cursorColor),
+      ptrEnum(keyboardAppearance),
+      ptrObj(scrollPadding),
+      ptrBool(enableInteractiveSelection),
+      ptrStrList(autofillHints),
+      ptrEnum(autovalidateMode),
+      ptrStr(placeholder),
+      ptrObj(placeholderStyle),
+      ptrEnum(selectionHeightStyle),
+      ptrEnum(selectionWidthStyle),
+      ptrStr(restorationId));
   }
 
   MemorySegment cupertinoDynamicColorCupertinoDynamicColor(Optional<String> debugLabel, Color color, Color darkColor, Color highContrastColor, Color darkHighContrastColor, Color elevatedColor, Color darkElevatedColor, Color highContrastElevatedColor, Color darkHighContrastElevatedColor) {
@@ -10376,6 +10490,33 @@ MemorySegment ptrOrientationWidgetBuilderFn(BiFunction<BuildContext, Orientation
     return jFnRet.build().getId();
   }, arena);
 }
+MemorySegment ptrPopInvokedCallbackFn(Consumer<Boolean> jFn) {
+  return PopInvokedCallbackFFI.allocate((didPop) -> {
+    jFn.accept(intToBool(didPop));
+  }, arena);
+}
+<T> MemorySegment ptrPopInvokedWithResultCallbackForObjectOptFn(BiConsumer<Boolean, NativeObj> jFn) {
+  return PopInvokedWithResultCallbackForObjectOptFFI.allocate((didPop, result) -> {
+    jFn.accept(intToBool(didPop), (NativeObj) new NativeObj.Base() {{ this.id = result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
+  }, arena);
+}
+MemorySegment ptrWillPopCallbackFn(Supplier<Future> jFn) {
+  return WillPopCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
+  }, arena);
+}
+MemorySegment ptrStateSetterFn(Consumer<Runnable> jFn) {
+  return StateSetterFFI.allocate((fn) -> {
+    jFn.accept(memToVoidCallback(fn));
+  }, arena);
+}
+MemorySegment ptrStatefulWidgetBuilderFn(BiFunction<BuildContext, Consumer<Runnable>, Widget> jFn) {
+  return StatefulWidgetBuilderFFI.allocate((context, setState) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, memToStateSetter(setState));
+    return jFnRet.build().getId();
+  }, arena);
+}
 MemorySegment ptrImageFrameBuilderFn(QuadFunction<BuildContext, Widget, Integer, Boolean, Widget> jFn) {
   return ImageFrameBuilderFFI.allocate((context, child, frame, wasSynchronouslyLoaded) -> {
     final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } }, new Widget(child) {}, frame, intToBool(wasSynchronouslyLoaded));
@@ -10411,6 +10552,34 @@ MemorySegment ptrStepIconBuilderFn(BiFunction<Integer, StepState, Widget> jFn) {
   return StepIconBuilderFFI.allocate((stepIndex, stepState) -> {
     final var jFnRet = jFn.apply(stepIndex, StepState.values()[stepState]);
     return jFnRet != null ? jFnRet.build().getId() : null;
+  }, arena);
+}
+MemorySegment ptrRefreshCallbackFn(Supplier<Future> jFn) {
+  return RefreshCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
+  }, arena);
+}
+<T> MemorySegment ptrValueChangedForRefreshIndicatorStatusOptFn(Consumer<RefreshIndicatorStatus> jFn) {
+  return ValueChangedForRefreshIndicatorStatusOptFFI.allocate((value) -> {
+    jFn.accept(memToEnum(value, RefreshIndicatorStatus.values()));
+  }, arena);
+}
+<T> MemorySegment ptrValueGetterForFutureFn(Supplier<Future> jFn) {
+  return ValueGetterForFutureFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
+  }, arena);
+}
+<T> MemorySegment ptrFormFieldSetterForStringFn(Consumer<String> jFn) {
+  return FormFieldSetterForStringFFI.allocate((newValue) -> {
+    jFn.accept(newValue.getString(0));
+  }, arena);
+}
+<T> MemorySegment ptrFormFieldValidatorForStringFn(Function<String, String> jFn) {
+  return FormFieldValidatorForStringFFI.allocate((value) -> {
+    final var jFnRet = jFn.apply(value.getString(0));
+    return arena.allocateFrom(jFnRet);
   }, arena);
 }
 MemorySegment ptrNestedScrollViewHeaderSliversBuilderFn(BiFunction<BuildContext, Boolean, List<Widget>> jFn) {

@@ -1914,10 +1914,18 @@ typedef struct {
     FocusScopeObjSt (*focusScope)(DartObj child, int* autofocus, ValueChangedForBoolFFI* onFocusChange, int* canRequestFocus, int* skipTraversal, char* debugLabel, int* includeSemantics, int* descendantsAreFocusable, int* descendantsAreTraversable);
   } focusScope;
 
+  struct FormSt {
+    FormObjSt (*form)(DartObj child, int* canPop, PopInvokedCallbackFFI* onPopInvoked, PopInvokedWithResultCallbackForObjectOptFFI* onPopInvokedWithResult, WillPopCallbackFFI* onWillPop, VoidCallbackFFI* onChanged, int* autovalidateMode);
+  } form;
+
   struct PrimaryScrollControllerSt {
     PrimaryScrollControllerObjSt (*none)(DartObj child);
     int (*shouldInherit)(DartObj context, int scrollDirection);
   } primaryScrollController;
+
+  struct StatefulBuilderSt {
+    StatefulBuilderObjSt (*statefulBuilder)(StatefulWidgetBuilderFFI builder);
+  } statefulBuilder;
 
   struct TableCellSt {
     TableCellObjSt (*tableCell)(int* verticalAlignment, DartObj child);
@@ -2287,6 +2295,16 @@ typedef struct {
     DartObj (*getPadding)(int index, int total);
   } textSelectionToolbarTextButton;
 
+  struct RefreshIndicatorSt {
+    RefreshIndicatorObjSt (*refreshIndicator)(DartObj child, double* displacement, double* edgeOffset, RefreshCallbackFFI onRefresh, DartObj* color, DartObj* backgroundColor, char* semanticsLabel, char* semanticsValue, double* strokeWidth, int* triggerMode, double* elevation);
+    RefreshIndicatorObjSt (*adaptive)(DartObj child, double* displacement, double* edgeOffset, RefreshCallbackFFI onRefresh, DartObj* color, DartObj* backgroundColor, char* semanticsLabel, char* semanticsValue, double* strokeWidth, int* triggerMode, double* elevation);
+    RefreshIndicatorObjSt (*noSpinner)(DartObj child, RefreshCallbackFFI onRefresh, ValueChangedForRefreshIndicatorStatusOptFFI* onStatusChange, char* semanticsLabel, char* semanticsValue, int* triggerMode, double* elevation);
+  } refreshIndicator;
+
+  struct BackButtonListenerSt {
+    BackButtonListenerObjSt (*backButtonListener)(DartObj child, ValueGetterForFutureFFI onBackButtonPressed);
+  } backButtonListener;
+
   struct FocusableActionDetectorSt {
     FocusableActionDetectorObjSt (*focusableActionDetector)(int* enabled, int* autofocus, int* descendantsAreFocusable, int* descendantsAreTraversable, ValueChangedForBoolFFI* onShowFocusHighlight, ValueChangedForBoolFFI* onShowHoverHighlight, ValueChangedForBoolFFI* onFocusChange, int* includeFocusSemantics, DartObj child);
   } focusableActionDetector;
@@ -2306,6 +2324,10 @@ typedef struct {
   struct CupertinoRadioSt {
     CupertinoRadioObjSt (*cupertinoRadio)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* inactiveColor, DartObj* fillColor, DartObj* focusColor, int* autofocus, int* useCheckmarkStyle, int* enabled);
   } cupertinoRadio;
+
+  struct CupertinoTextFormFieldRowSt {
+    CupertinoTextFormFieldRowObjSt (*cupertinoTextFormFieldRow)(DartObj* prefix, DartObj* padding, char* initialValue, DartObj* decoration, int* textCapitalization, int* textInputAction, DartObj* style, int* textDirection, int* textAlign, int* autofocus, int* readOnly, int* showCursor, char* obscuringCharacter, int* obscureText, int* autocorrect, int* smartDashesType, int* smartQuotesType, int* enableSuggestions, int* maxLines, int* minLines, int* expands, int* maxLength, ValueChangedForStringFFI* onChanged, GestureTapCallbackFFI* onTap, VoidCallbackFFI* onEditingComplete, ValueChangedForStringFFI* onFieldSubmitted, FormFieldSetterForStringFFI* onSaved, FormFieldValidatorForStringFFI* validator, int* enabled, double* cursorWidth, double* cursorHeight, DartObj* cursorColor, int* keyboardAppearance, DartObj* scrollPadding, int* enableInteractiveSelection, char*** autofillHints, int* autovalidateMode, char* placeholder, DartObj* placeholderStyle, int* selectionHeightStyle, int* selectionWidthStyle, char* restorationId);
+  } cupertinoTextFormFieldRow;
 
   struct CupertinoDynamicColorSt {
     CupertinoDynamicColorObjSt (*cupertinoDynamicColor)(char* debugLabel, DartObj color, DartObj darkColor, DartObj highContrastColor, DartObj darkHighContrastColor, DartObj elevatedColor, DartObj darkElevatedColor, DartObj highContrastElevatedColor, DartObj darkHighContrastElevatedColor);

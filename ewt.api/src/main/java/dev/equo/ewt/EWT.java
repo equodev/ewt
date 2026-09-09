@@ -2020,8 +2020,16 @@ public class EWT {
     return FocusScopeFocusScopeBuilder.focusScopeFocusScope(child);
   }
 
+  public static FormFormBuilder Form(WidgetI child) {
+    return FormFormBuilder.formForm(child);
+  }
+
   public static PrimaryScrollControllerNoneBuilder PrimaryScrollController_none(WidgetI child) {
     return PrimaryScrollControllerNoneBuilder.primaryScrollControllerNone(child);
+  }
+
+  public static StatefulBuilderStatefulBuilderBuilder StatefulBuilder(BiFunction<BuildContext, Consumer<Runnable>, Widget> builder) {
+    return StatefulBuilderStatefulBuilderBuilder.statefulBuilderStatefulBuilder(builder);
   }
 
   public static TableCellTableCellBuilder TableCell() {
@@ -2352,6 +2360,20 @@ public class EWT {
     return TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child, padding);
   }
 
+  public static RefreshIndicatorRefreshIndicatorBuilder RefreshIndicator(WidgetI child) {
+    return RefreshIndicatorRefreshIndicatorBuilder.refreshIndicatorRefreshIndicator(child);
+  }
+  public static RefreshIndicatorAdaptiveBuilder RefreshIndicator_adaptive(WidgetI child) {
+    return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive(child);
+  }
+  public static RefreshIndicatorNoSpinnerBuilder RefreshIndicator_noSpinner(WidgetI child, Supplier<Future> onRefresh) {
+    return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(child, onRefresh);
+  }
+
+  public static BackButtonListenerBackButtonListenerBuilder BackButtonListener(WidgetI child, Supplier<Future> onBackButtonPressed) {
+    return BackButtonListenerBackButtonListenerBuilder.backButtonListenerBackButtonListener(child, onBackButtonPressed);
+  }
+
   public static FocusableActionDetectorFocusableActionDetectorBuilder FocusableActionDetector() {
     return FocusableActionDetectorFocusableActionDetectorBuilder.focusableActionDetectorFocusableActionDetector();
   }
@@ -2370,6 +2392,10 @@ public class EWT {
 
   public static <T extends NativeObj> CupertinoRadioCupertinoRadioBuilder<T> CupertinoRadio(NativeObj value) {
     return CupertinoRadioCupertinoRadioBuilder.cupertinoRadioCupertinoRadio(value);
+  }
+
+  public static CupertinoTextFormFieldRowCupertinoTextFormFieldRowBuilder CupertinoTextFormFieldRow() {
+    return CupertinoTextFormFieldRowCupertinoTextFormFieldRowBuilder.cupertinoTextFormFieldRowCupertinoTextFormFieldRow();
   }
 
   public static CupertinoDynamicColorCupertinoDynamicColorBuilder CupertinoDynamicColor() {

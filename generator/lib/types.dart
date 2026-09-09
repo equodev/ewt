@@ -369,20 +369,26 @@ class Types {
     // the struct. We can't marshall arbitrary values so — with `_sanitizeTypeParam`
     // constraining `T extends NativeObj` — the only viable value is a NativeObj
     // wrapper cast to T so Java's return-type check is satisfied.
+    // Same path applies to `Object` / `Object?` (opaque widened to NativeObj by
+    // TypeMapping.resolve).
     String? tpCast;
     if (t is TypeParameterType) {
       tpCast = '(NativeObj) ';
       t = t.bound;
+    } else if (t.isDartCoreObject) {
+      tpCast = '(NativeObj) ';
     }
     var value = Params.escape4J(types, param);
     if (tpCast != null) {
-      // On the callback upcall path, TypeParameterType params may arrive as either:
+      // On the callback upcall path, TypeParameterType / Object params may
+      // arrive as either:
       //   - DartObj (int) when non-nullable: wrap=false in paramDef4C → Java int param
       //   - DartObj* (MemorySegment) when nullable/optional: wrap=true → Java MemorySegment param
       // `_dartTypeStr` always widens TypeParameterType to nullable T?, so in practice
       // callback TypeParameterType params are DartObj* (MemorySegment). We detect this
-      // by checking param.isOptional (nullable T → optional positional → isOptional=true).
-      if (fromCallback && param.isOptional) {
+      // by checking param.isOptional (nullable T / Object? → optional positional → isOptional=true).
+      if (fromCallback && (param.isOptional ||
+          t.nullabilitySuffix == NullabilitySuffix.question)) {
         // `value` is MemorySegment (DartObj* pointer); dereference as C_INT to get the id.
         return '(NativeObj) new NativeObj.Base() {{ this.id = $value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }}';
       }
@@ -397,7 +403,35 @@ class Types {
       return '$value.getString(0)';
     }
     else if (t.element is EnumElement) {
+      // Nullable enum callback args cross as `int*` (see `int*` for `bool?` above).
+      // The FFI stub hands us a `MemorySegment` — dereference through `memToEnum`
+      // instead of indexing `values()[MemorySegment]`, which won't type-check.
+      if (fromCallback && t.nullabilitySuffix == NullabilitySuffix.question) {
+        return 'memToEnum($value, ${t.element!.name}.values())';
+      }
       value = '${t.element!.name}.values()[$value]';
+    }
+    else if (fromCallback && t is FunctionType) {
+      // A callback arg that is itself a callback (StateSetter = void
+      // Function(VoidCallback) in StatefulBuilder.builder). The FFI stub
+      // hands us the inner callback as a MemorySegment (native fn pointer);
+      // wrap it as a Java lambda that downcalls the C address.
+      if (t.returnType is VoidType && t.parameters.isEmpty) {
+        // void () — simplest Runnable shape.
+        return 'memToVoidCallback($value)';
+      }
+      final ps = t.parameters;
+      if (t.returnType is VoidType &&
+          ps.length == 1 &&
+          ps[0].type is FunctionType) {
+        final inner = ps[0].type as FunctionType;
+        if (inner.returnType is VoidType && inner.parameters.isEmpty) {
+          // void (VoidCallback) — StateSetter shape.
+          return 'memToStateSetter($value)';
+        }
+      }
+      // Fall through to the default `value` — will fail to compile and
+      // surface any other nested-callback shape not yet handled.
     }
     else if (t.isDartCoreList) {
       final arrayType = (t as InterfaceType).typeArguments[0];
@@ -762,7 +796,22 @@ class FunctionHandler with TypeHandler {
   String type4J(DartType t, [List<DartType>? typeArguments]) {
     var fn = t as FunctionType;
     var params = bindTypeParameters(fn.parameters, typeArguments ?? []).map((p) => boxedType(types.type4J(p.type).firstUpper())).join(', ');
-    final ret = _effectiveReturn(fn.returnType);
+    // Bind the return type against the alias's type arguments too: for
+    // `ValueGetter<T>` instantiated with `T = Future<bool>`, the wrapper's
+    // Java signature should read `Supplier<Future>` — matching the widget
+    // factory's substituted call site — not `Supplier<NativeObj>` from the
+    // unresolved `T`. Without this, the alias-typedef path (line 222 in
+    // generation.dart) fails to compile against the caller.
+    // `bindTypeParameters` implicitly assumes single-T aliases (`tpi=0`),
+    // so mirror the same convention here: for a single-type-arg alias,
+    // any `TypeParameterType` return substitutes with `typeArguments[0]`.
+    var boundReturn = fn.returnType;
+    if (boundReturn is TypeParameterType &&
+        typeArguments != null &&
+        typeArguments.length == 1) {
+      boundReturn = typeArguments[0];
+    }
+    final ret = _effectiveReturn(boundReturn);
     if (ret is VoidType) {
       if (fn.parameters.isEmpty) {
         return 'Runnable';
@@ -885,7 +934,18 @@ List<ParameterElement> bindTypeParameters(List<ParameterElement> parameters, Lis
       if (arg is TypeParameterType && arg.element == (parameter.type as TypeParameterType).element) {
         continue;
       }
-      newParams[i] = paramElement(parameter.name, arg);
+      // Preserve the original parameter's nullability. `FormFieldSetter<T>` is
+      // declared as `void Function(T? newValue)` in Flutter — instantiating T
+      // as `String` must yield `String?`, not `String`. Without this, the
+      // emitted lambda `(String newValue) { … }` is `void Function(String)`
+      // and doesn't satisfy the alias's `void Function(String?)` contract.
+      var boundType = arg;
+      if (parameter.type.nullabilitySuffix == NullabilitySuffix.question &&
+          arg.nullabilitySuffix != NullabilitySuffix.question &&
+          arg is InterfaceTypeImpl) {
+        boundType = arg.withNullability(NullabilitySuffix.question);
+      }
+      newParams[i] = paramElement(parameter.name, boundType);
     }
   }
   return newParams;

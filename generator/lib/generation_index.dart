@@ -420,9 +420,9 @@ m.AboutDialog? aboutDialog;
 // --- Batch 2: interaction (focus/form/table/image) + Material controls ---
 w.Focus? focus;
 w.FocusScope? focusScope;
-// Form skipped: `onPopInvokedWithResult` is `PopInvokedWithResultCallback<Object?>` — the Object-typed generic result trips the callback marshaller (emits `new Object() { public int getId() { return result; } }` against `MemorySegment result`, plus `intToBool(didPop)` where `didPop` is `MemorySegment`). Needs a proper `Object?` callback-argument path.
+w.Form? form;
 w.PrimaryScrollController? primaryScrollController;
-// StatefulBuilder skipped: `builder` is `StatefulWidgetBuilder = Widget Function(BuildContext, StateSetter)` and `StateSetter` itself is `void Function(VoidCallback fn)`. The nested callback path emits `Consumer<Runnable>` on the Java surface but the FFI wrapper passes `MemorySegment` for the inner callback, so the generated `WidgetConstructors` doesn't type-check.
+w.StatefulBuilder? statefulBuilder;
 // Table skipped: `columnWidths: Map<int, TableColumnWidth>` — TableColumnWidth is an abstract Flutter class; the emitter picks it up as a Java type but never emits `TableColumnWidth.java`, so the Immutables-generated `TableTableBuilder` can't resolve the type. Same abstract-factory-host shape as ShapeBorder would need.
 w.TableCell? tableCell;
 w.Image? image;
@@ -527,8 +527,8 @@ m.DesktopTextSelectionToolbar? desktopTextSelectionToolbar;
 m.DesktopTextSelectionToolbarButton? desktopTextSelectionToolbarButton;
 // TextSelectionToolbar skipped: `toolbarBuilder: ToolbarBuilder` where `ToolbarBuilder = Widget Function(BuildContext, Widget)`. When the caller doesn't wire it, the emitted Dart-side fallback is `(p0, p1) => null` — but the callback's return type is `Widget`, not `Widget?`, so `factories_gen.dart` fails to compile. Generator's null-fallback for Widget-returning callbacks needs a sensible non-null default.
 m.TextSelectionToolbarTextButton? textSelectionToolbarTextButton;
-// RefreshIndicator skipped: `onStatusChange` is a callback that receives `RefreshIndicatorStatus?` (enum). The FFI wrapper marshals the enum arg as a raw `MemorySegment` on the Java side but the emitted body indexes an enum array — `RefreshIndicatorStatus.values()[value]` where value is MemorySegment — so `WidgetConstructors` doesn't type-check. Related to the enum-arg callback path.
-// BackButtonListener skipped: `onBackButtonPressed` returns `Future<bool>`; the `Supplier<Future>` marshaling shape doesn't line up with the FFI wrapper that expects `Supplier<NativeObj>`. Needs a Future-return callback strategy.
+m.RefreshIndicator? refreshIndicator;
+m.BackButtonListener? backButtonListener;
 // AdaptiveTextSelectionToolbar skipped: generator crashes with "Null check operator used on a null value" in Types.getGen — one of the static factories takes an unbounded type parameter (`T` with no `extends`) which the emitter dereferences via `bound!.element!`.
 // SharedAppData skipped: static `getValue<K, V>(...)` factory has unbounded type parameters — generator's static-factory emitter dereferences `bound!.element!` in Types.getGen and crashes with "Null check operator used on a null value".
 // DefaultTextEditingShortcuts skipped: emitted Java literal-inlines a Dart Map with named-arg constructor calls (`SingleActivator(LogicalKeyboardKey.backspace, shift: true)`) which is invalid Java. The default-value inliner needs to strip / translate Dart named args.
@@ -546,7 +546,7 @@ m.RawChip? rawChip;
 m.SegmentedButton? segmentedButton;
 c.CupertinoRadio? cupertinoRadio;
 // CupertinoTheme skipped: has static methods (`brightnessOf`, `maybeBrightnessOf`) that make the generator emit `_createCupertinoThemeObjSt(CupertinoTheme?)` in factories_gen.dart — but the ObjSt struct is `typedef struct { int id; DartObj child; } CupertinoThemeObjSt;`, whose body ffigen dedupes with other identically-shaped anonymous structs, so the type never lands in `widgets_bindings_generated.dart`. Same shape hits any widget with static returns + trivial ObjSt.
-// CupertinoTextFormFieldRow skipped: `onSaved: FormFieldSetter<String>` and `validator: FormFieldValidator<String>` are `void Function(String?)` and `String? Function(String?)`. The generated FFI wrapper hands a non-nullable `String` to the Java callback (via `Pointer<Char>`), so factories_gen.dart fails type-checking on the nullable-string-arg mismatch. Nullable-string callback-arg marshaling gap.
+c.CupertinoTextFormFieldRow? cupertinoTextFormFieldRow;
 // CupertinoScrollBehavior skipped: pulls its `ScrollBehavior` supertype into the Java surface, which references `_bouncingPhysics()` / `_clampingPhysics()` / `BouncingScrollPhysics` / `RangeMaintainingScrollPhysics` / `ClampingScrollPhysics` / `ScrollDecelerationRate` — none of them emitted (private helpers + unregistered ScrollPhysics subclasses).
 w.SnapshotWidget? snapshotWidget;
 w.ShrinkWrappingViewport? shrinkWrappingViewport;

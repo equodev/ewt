@@ -11467,6 +11467,23 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment formForm(Widget child, Optional<Boolean> canPop, Optional<Consumer<Boolean>> onPopInvoked, Optional<BiConsumer<Boolean, NativeObj>> onPopInvokedWithResult, Optional<Supplier<Future>> onWillPop, Optional<Runnable> onChanged, Optional<AutovalidateMode> autovalidateMode) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    canPop.ifPresent(v -> p.put("canPop", v));
+    if (onPopInvoked.isPresent()) { int __cb_onPopInvoked = nextCallbackId++; p.put("onPopInvoked", __cb_onPopInvoked); java.util.function.Consumer<Boolean> __h_onPopInvoked = onPopInvoked.get(); callbacks.put(__cb_onPopInvoked, (java.util.function.Consumer<Object>)(v -> __h_onPopInvoked.accept((Boolean) v))); }
+    if (onPopInvokedWithResult != null) { p.put("onPopInvokedWithResult", nextCallbackId++); }
+    if (onWillPop.isPresent()) { int __cb_onWillPop = nextCallbackId++; p.put("onWillPop", __cb_onWillPop); callbacks.put(__cb_onWillPop, onWillPop.get()); }
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); callbacks.put(__cb_onChanged, onChanged.get()); }
+    autovalidateMode.ifPresent(v -> p.put("autovalidateMode", v.ordinal()));
+    record(id, "formForm", p);
+    MemorySegment st = FormObjSt.allocate(arena);
+    FormObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment primaryScrollControllerNone(Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -11484,6 +11501,17 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("scrollDirection", scrollDirection.ordinal());
     record(id, "primaryScrollControllerShouldInherit", p);
     return id;
+  }
+
+  @Override
+  MemorySegment statefulBuilderStatefulBuilder(BiFunction<BuildContext, Consumer<Runnable>, Widget> builder) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("builder", nextCallbackId++);
+    record(id, "statefulBuilderStatefulBuilder", p);
+    MemorySegment st = StatefulBuilderObjSt.allocate(arena);
+    StatefulBuilderObjSt.id(st, id);
+    return st;
   }
 
   @Override
@@ -13402,6 +13430,75 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    if (displacement.isPresent()) { p.put("displacement", displacement.getAsDouble()); }
+    if (edgeOffset.isPresent()) { p.put("edgeOffset", edgeOffset.getAsDouble()); }
+    int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    record(id, "refreshIndicatorRefreshIndicator", p);
+    MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
+    RefreshIndicatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    if (displacement.isPresent()) { p.put("displacement", displacement.getAsDouble()); }
+    if (edgeOffset.isPresent()) { p.put("edgeOffset", edgeOffset.getAsDouble()); }
+    int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
+    triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    record(id, "refreshIndicatorAdaptive", p);
+    MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
+    RefreshIndicatorObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
+    if (onStatusChange != null) { p.put("onStatusChange", nextCallbackId++); }
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
+    semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
+    triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    record(id, "refreshIndicatorNoSpinner", p);
+    MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
+    RefreshIndicatorObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment backButtonListenerBackButtonListener(Widget child, Supplier<Future> onBackButtonPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("child", byId.get(child.getId()));
+    int __cb_onBackButtonPressed = nextCallbackId++; p.put("onBackButtonPressed", __cb_onBackButtonPressed); callbacks.put(__cb_onBackButtonPressed, onBackButtonPressed);
+    record(id, "backButtonListenerBackButtonListener", p);
+    MemorySegment st = BackButtonListenerObjSt.allocate(arena);
+    BackButtonListenerObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment focusableActionDetectorFocusableActionDetector(Optional<Boolean> enabled, Optional<Boolean> autofocus, Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, Optional<Consumer<Boolean>> onShowFocusHighlight, Optional<Consumer<Boolean>> onShowHoverHighlight, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> includeFocusSemantics, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -13526,6 +13623,58 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "cupertinoRadioCupertinoRadio", p);
     MemorySegment st = CupertinoRadioObjSt.allocate(arena);
     CupertinoRadioObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment cupertinoTextFormFieldRowCupertinoTextFormFieldRow(Optional<Widget> prefix, Optional<EdgeInsetsGeometry> padding, Optional<String> initialValue, Optional<BoxDecoration> decoration, Optional<TextCapitalization> textCapitalization, Optional<TextInputAction> textInputAction, Optional<TextStyle> style, Optional<TextDirection> textDirection, Optional<TextAlign> textAlign, Optional<Boolean> autofocus, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<Consumer<String>> onChanged, Optional<Runnable> onTap, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onFieldSubmitted, Optional<Consumer<String>> onSaved, Optional<Function<String, String>> validator, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Color> cursorColor, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<Boolean> enableInteractiveSelection, Optional<List<String>> autofillHints, Optional<AutovalidateMode> autovalidateMode, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<String> restorationId) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    prefix.ifPresent(v -> p.put("prefix", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    initialValue.ifPresent(v -> p.put("initialValue", v));
+    decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
+    textCapitalization.ifPresent(v -> p.put("textCapitalization", v.ordinal()));
+    textInputAction.ifPresent(v -> p.put("textInputAction", v.ordinal()));
+    style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    textDirection.ifPresent(v -> p.put("textDirection", v.ordinal()));
+    textAlign.ifPresent(v -> p.put("textAlign", v.ordinal()));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    readOnly.ifPresent(v -> p.put("readOnly", v));
+    showCursor.ifPresent(v -> p.put("showCursor", v));
+    obscuringCharacter.ifPresent(v -> p.put("obscuringCharacter", v));
+    obscureText.ifPresent(v -> p.put("obscureText", v));
+    autocorrect.ifPresent(v -> p.put("autocorrect", v));
+    smartDashesType.ifPresent(v -> p.put("smartDashesType", v.ordinal()));
+    smartQuotesType.ifPresent(v -> p.put("smartQuotesType", v.ordinal()));
+    enableSuggestions.ifPresent(v -> p.put("enableSuggestions", v));
+    if (maxLines.isPresent()) { p.put("maxLines", maxLines.getAsInt()); }
+    if (minLines.isPresent()) { p.put("minLines", minLines.getAsInt()); }
+    expands.ifPresent(v -> p.put("expands", v));
+    if (maxLength.isPresent()) { p.put("maxLength", maxLength.getAsInt()); }
+    if (onChanged.isPresent()) { int __cb_onChanged = nextCallbackId++; p.put("onChanged", __cb_onChanged); java.util.function.Consumer<String> __h_onChanged = onChanged.get(); callbacks.put(__cb_onChanged, (java.util.function.Consumer<Object>)(v -> __h_onChanged.accept((String) v))); }
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (onEditingComplete.isPresent()) { int __cb_onEditingComplete = nextCallbackId++; p.put("onEditingComplete", __cb_onEditingComplete); callbacks.put(__cb_onEditingComplete, onEditingComplete.get()); }
+    if (onFieldSubmitted.isPresent()) { int __cb_onFieldSubmitted = nextCallbackId++; p.put("onFieldSubmitted", __cb_onFieldSubmitted); java.util.function.Consumer<String> __h_onFieldSubmitted = onFieldSubmitted.get(); callbacks.put(__cb_onFieldSubmitted, (java.util.function.Consumer<Object>)(v -> __h_onFieldSubmitted.accept((String) v))); }
+    if (onSaved.isPresent()) { int __cb_onSaved = nextCallbackId++; p.put("onSaved", __cb_onSaved); java.util.function.Consumer<String> __h_onSaved = onSaved.get(); callbacks.put(__cb_onSaved, (java.util.function.Consumer<Object>)(v -> __h_onSaved.accept((String) v))); }
+    if (validator != null) { p.put("validator", nextCallbackId++); }
+    enabled.ifPresent(v -> p.put("enabled", v));
+    if (cursorWidth.isPresent()) { p.put("cursorWidth", cursorWidth.getAsDouble()); }
+    if (cursorHeight.isPresent()) { p.put("cursorHeight", cursorHeight.getAsDouble()); }
+    cursorColor.ifPresent(v -> p.put("cursorColor", byId.get(v.getId())));
+    keyboardAppearance.ifPresent(v -> p.put("keyboardAppearance", v.ordinal()));
+    scrollPadding.ifPresent(v -> p.put("scrollPadding", byId.get(v.getId())));
+    enableInteractiveSelection.ifPresent(v -> p.put("enableInteractiveSelection", v));
+    autofillHints.ifPresent(v -> p.put("autofillHints", v.stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
+    autovalidateMode.ifPresent(v -> p.put("autovalidateMode", v.ordinal()));
+    placeholder.ifPresent(v -> p.put("placeholder", v));
+    placeholderStyle.ifPresent(v -> p.put("placeholderStyle", byId.get(v.getId())));
+    selectionHeightStyle.ifPresent(v -> p.put("selectionHeightStyle", v.ordinal()));
+    selectionWidthStyle.ifPresent(v -> p.put("selectionWidthStyle", v.ordinal()));
+    restorationId.ifPresent(v -> p.put("restorationId", v));
+    record(id, "cupertinoTextFormFieldRowCupertinoTextFormFieldRow", p);
+    MemorySegment st = CupertinoTextFormFieldRowObjSt.allocate(arena);
+    CupertinoTextFormFieldRowObjSt.id(st, id);
     return st;
   }
 
