@@ -66,7 +66,11 @@ class TypeSamples {
       case 'Key':
         return 'ValueKey("key").build()';
       case 'Widget':
-        return 'SizedBox.builder().build()';
+        // A tiny non-zero SizedBox — a size-less SizedBox contributes 0 to its
+        // parent's layout, which fails the harness's `w>0 && h>0` assertion
+        // when the widget-under-test IS the enclosing Sliver / Positioned
+        // that derives its extent from the child.
+        return 'SizedBox.builder().width(1.0).height(1.0).build()';
       case 'Icon':
         return 'Icon.builder().build()';
       case 'ImageProvider':

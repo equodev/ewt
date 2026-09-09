@@ -99,8 +99,13 @@ const _nonWidgetClasses = {
 // A value of null means "no sample available for this type".
 // ---------------------------------------------------------------------------
 const _sampleOverrides = <String, String?>{
-  // Widget → EWT.SizedBox() via static import
-  'Widget': 'SizedBox().build()',
+  // Widget → EWT.SizedBox() via static import. A tiny 1×1 SizedBox is enough
+  // to give the enclosing widget-under-test a positive layout extent — a
+  // dimension-less SizedBox contributes 0 to its parent's paint extent and
+  // fails the harness's `w>0 && h>0` check when the widget-under-test IS the
+  // enclosing Sliver / Positioned / Container that derives its size from the
+  // child.
+  'Widget': 'SizedBox().width(1.0).height(1.0).build()',
 
   // Icon.builder() does not exist; use the real factory
   'Icon': 'Icon.icon(IconData(0xe000).build()).build()',
@@ -155,8 +160,10 @@ const _sampleOverrides = <String, String?>{
 };
 
 const _boundaryOverrides = <String, String?>{
-  // Widget boundary — use same override as sample
-  'Widget': 'SizedBox().build()',
+  // Widget boundary — use same 1×1 SizedBox as sample so layout-extent
+  // checks pass for slivers / Positioned / any parent whose size follows
+  // the child.
+  'Widget': 'SizedBox().width(1.0).height(1.0).build()',
   'Icon': 'Icon.icon(IconData(0xe000).build()).build()',
   'TextStyle': 'TextStyle.textStyle().build()',
   'TextSpan': 'TextSpan.textSpan().build()',
@@ -332,12 +339,12 @@ class VariantsEmitter {
 
       // Build the required-args call expression
       final reqArgs =
-          positionalRequired.map((p) => _sampleCode(p.type)!).join(', ');
+          positionalRequired.map((p) => _sampleForParam(name, p)!).join(', ');
       // Immutables generates `addAll<Name>(Iterable)` (plus `add<Name>(T)`) for
       // a raw `List<T>` builder param and no top-level `<Name>(List)` setter,
       // so the trailing-required chain has to pick the right shape per type.
       final trailingReqChain = trailingRequired.map((p) {
-        final sample = _sampleCode(p.type)!;
+        final sample = _sampleForParam(name, p)!;
         final pName = _escapedName(p);
         if (p.type is InterfaceType && (p.type as InterfaceType).isDartCoreList) {
           return '.addAll${_firstUpper(pName)}($sample)';
@@ -348,7 +355,7 @@ class VariantsEmitter {
 
       // Collect optional params with samples (forOptionalChain=true to skip List<T>)
       final optsWithSamples = optionalParams
-          .map((p) => (p, _sampleCode(p.type, forOptionalChain: true)))
+          .map((p) => (p, _sampleForParam(name, p, forOptionalChain: true)))
           .where((t) => t.$2 != null)
           .toList();
       final optsWithBoundaries = optionalParams
@@ -529,6 +536,29 @@ class VariantsEmitter {
     final scaffold = scaffoldFor(widgetName);
     if (scaffold == null) return inner;
     return scaffold.replaceAll('{inner}', inner);
+  }
+
+  /// Wraps [_sampleCode] with widget-and-param aware overrides. When the
+  /// enclosing widget is a Sliver (name starts with "Sliver" or is
+  /// `PinnedHeaderSliver` / `DecoratedSliver`) and the parameter takes a
+  /// `Widget` slot whose name hints "sliver" (e.g. `sliver`,
+  /// `replacementSliver`), swap the default `SizedBox` sample for a
+  /// `SliverToBoxAdapter` wrapping the same SizedBox. The parent expects a
+  /// sliver child; a plain RenderBox tripped `RenderConstrainedBox is not a
+  /// subtype of RenderSliver`.
+  String? _sampleForParam(String widgetName, ParameterElement p,
+      {bool forOptionalChain = false}) {
+    final base = _sampleCode(p.type, forOptionalChain: forOptionalChain);
+    if (base == null) return null;
+    final isSliverHost = widgetName.startsWith('Sliver') ||
+        widgetName == 'PinnedHeaderSliver' ||
+        widgetName == 'DecoratedSliver';
+    if (!isSliverHost) return base;
+    final isWidgetType = p.type.element?.name == 'Widget';
+    if (!isWidgetType) return base;
+    final name = p.name.toLowerCase();
+    if (!name.contains('sliver')) return base;
+    return 'SliverToBoxAdapter.sliverToBoxAdapter().child($base).build()';
   }
 
   /// Returns the sample Java expression for type [t], applying local overrides.

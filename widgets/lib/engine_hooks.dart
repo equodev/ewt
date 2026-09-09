@@ -20,6 +20,7 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart' show RenderSliver;
 
 import 'widgets.dart' as w;
 
@@ -179,6 +180,11 @@ String _captureElementTreeSnapshot() {
     final ro = element.renderObject;
     final hasRO = ro != null;
     final isBox = ro is RenderBox && ro.hasSize;
+    // Slivers don't have a Size — their layout output is SliverGeometry. Treat
+    // paintExtent as "width" and the constrained cross-axis extent as "height"
+    // so the harness's `hasSize + w>0 + h>0` assertion works for slivers too
+    // (the sliver is either mounted with a positive extent or it isn't).
+    final isSliverGeom = !isBox && ro is RenderSliver && ro.geometry != null;
     final key = element.widget.key;
 
     sb.write('{"t":');
@@ -194,6 +200,12 @@ String _captureElementTreeSnapshot() {
       sb.write(sz.width);
       sb.write(',"h":');
       sb.write(sz.height);
+    } else if (isSliverGeom) {
+      final g = (ro).geometry!;
+      sb.write(',"s":true,"w":');
+      sb.write(g.paintExtent);
+      sb.write(',"h":');
+      sb.write(ro.constraints.crossAxisExtent);
     }
 
     if (key != null) {
