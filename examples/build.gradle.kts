@@ -100,7 +100,8 @@ dependencies {
 if (!evolveAvailable) {
     sourceSets["main"].java.exclude(
         "dev/equo/EvolveEwtButtons.java",
-        "dev/equo/EvolveSamples.java"
+        "dev/equo/EvolveSamples.java",
+        "dev/equo/engagements/EngagementsWebSamples.java"
     )
 }
 
@@ -363,6 +364,25 @@ tasks.register<JavaExec>("runShowcaseWeb") {
     description = "Run the EWT Web Showcase."
     classpath = sourceSets["main"].runtimeClasspath + evolveClasses
     mainClass.set("dev.equo.EvolveSamples")
+    val webDir = combinedBuild.resolve("web")
+    doFirst {
+        if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        if (!webDir.resolve("index.html").exists()) throw GradleException(
+            "Combined web build not found at $webDir. " +
+            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+    }
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
+
+// WEB: runs the Engagements Console POC in a browser.
+// Same 4-step recipe as runShowcaseWeb — see EngagementsWebSamples for the walkthrough.
+tasks.register<JavaExec>("runEngagementsWeb") {
+    group = "examples"
+    description = "Run the Engagements Console POC in the browser (web transport)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.engagements.EngagementsWebSamples")
     val webDir = combinedBuild.resolve("web")
     doFirst {
         if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
