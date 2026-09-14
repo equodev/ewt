@@ -34,14 +34,29 @@ const _deferred = {'SubmenuButton', 'PopupMenuButton', 'DragTarget',
   'CarouselView'};
 
 // ---------------------------------------------------------------------------
-// Per-widget factory deny-list. Some Flutter widgets expose a `.fallback`
-// factory that is only valid as an internal `InheritedTheme` sentinel — it
-// asserts on mount ("cannot be incorporated into the widget tree"). Skip
-// these factories in the variant emitter so only the real factory is exercised.
+// Per-widget factory deny-list. Some Flutter factories are only valid under
+// contracts the emitter cannot express through the type system:
+//
+//   * `DefaultTextStyle.fallback` / `DefaultSelectionStyle.fallback`:
+//     sentinel-only factories used inside `InheritedTheme`, asserting on
+//     mount ("cannot be incorporated into the widget tree").
+//
+//   * `MaterialApp.router` / `CupertinoApp.router`: dev-mode `assert`s
+//     require `routerDelegate != null || routerConfig != null`. Both are
+//     declared nullable at field level, so the emitter cannot detect the
+//     XOR-required constraint from types alone and generates variants
+//     with both null. In release mode the assert is a no-op, so the
+//     ctor initialiser `navigatorObservers = null` survives to
+//     `_MaterialAppState._buildWidgetApp`, which dereferences
+//     `widget.navigatorObservers!` and crashes. This is issue #44
+//     territory (XOR-required detection); until that lands, skipping
+//     the factory is the correct behaviour.
 // ---------------------------------------------------------------------------
 const _factoryDenyList = <String>{
   'DefaultTextStyle.fallback',
   'DefaultSelectionStyle.fallback',
+  'MaterialApp.router',
+  'CupertinoApp.router',
 };
 
 // ---------------------------------------------------------------------------
