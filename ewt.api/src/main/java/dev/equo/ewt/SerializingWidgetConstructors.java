@@ -13203,6 +13203,140 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment sliverAppBarSliverAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
+    bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (scrolledUnderElevation.isPresent()) { p.put("scrolledUnderElevation", scrolledUnderElevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    forceElevated.ifPresent(v -> p.put("forceElevated", v));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
+    actionsIconTheme.ifPresent(v -> p.put("actionsIconTheme", byId.get(v.getId())));
+    primary.ifPresent(v -> p.put("primary", v));
+    centerTitle.ifPresent(v -> p.put("centerTitle", v));
+    excludeHeaderSemantics.ifPresent(v -> p.put("excludeHeaderSemantics", v));
+    if (titleSpacing.isPresent()) { p.put("titleSpacing", titleSpacing.getAsDouble()); }
+    if (collapsedHeight.isPresent()) { p.put("collapsedHeight", collapsedHeight.getAsDouble()); }
+    if (expandedHeight.isPresent()) { p.put("expandedHeight", expandedHeight.getAsDouble()); }
+    floating.ifPresent(v -> p.put("floating", v));
+    pinned.ifPresent(v -> p.put("pinned", v));
+    snap.ifPresent(v -> p.put("snap", v));
+    stretch.ifPresent(v -> p.put("stretch", v));
+    if (stretchTriggerOffset.isPresent()) { p.put("stretchTriggerOffset", stretchTriggerOffset.getAsDouble()); }
+    if (onStretchTrigger.isPresent()) { int __cb_onStretchTrigger = nextCallbackId++; p.put("onStretchTrigger", __cb_onStretchTrigger); callbacks.put(__cb_onStretchTrigger, onStretchTrigger.get()); }
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    if (toolbarHeight.isPresent()) { p.put("toolbarHeight", toolbarHeight.getAsDouble()); }
+    if (leadingWidth.isPresent()) { p.put("leadingWidth", leadingWidth.getAsDouble()); }
+    toolbarTextStyle.ifPresent(v -> p.put("toolbarTextStyle", byId.get(v.getId())));
+    titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
+    forceMaterialTransparency.ifPresent(v -> p.put("forceMaterialTransparency", v));
+    useDefaultSemanticsOrder.ifPresent(v -> p.put("useDefaultSemanticsOrder", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    actionsPadding.ifPresent(v -> p.put("actionsPadding", byId.get(v.getId())));
+    record(id, "sliverAppBarSliverAppBar", p);
+    MemorySegment st = SliverAppBarObjSt.allocate(arena);
+    SliverAppBarObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverAppBarMedium(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
+    bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (scrolledUnderElevation.isPresent()) { p.put("scrolledUnderElevation", scrolledUnderElevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    forceElevated.ifPresent(v -> p.put("forceElevated", v));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
+    actionsIconTheme.ifPresent(v -> p.put("actionsIconTheme", byId.get(v.getId())));
+    primary.ifPresent(v -> p.put("primary", v));
+    centerTitle.ifPresent(v -> p.put("centerTitle", v));
+    excludeHeaderSemantics.ifPresent(v -> p.put("excludeHeaderSemantics", v));
+    if (titleSpacing.isPresent()) { p.put("titleSpacing", titleSpacing.getAsDouble()); }
+    if (collapsedHeight.isPresent()) { p.put("collapsedHeight", collapsedHeight.getAsDouble()); }
+    if (expandedHeight.isPresent()) { p.put("expandedHeight", expandedHeight.getAsDouble()); }
+    floating.ifPresent(v -> p.put("floating", v));
+    pinned.ifPresent(v -> p.put("pinned", v));
+    snap.ifPresent(v -> p.put("snap", v));
+    stretch.ifPresent(v -> p.put("stretch", v));
+    if (stretchTriggerOffset.isPresent()) { p.put("stretchTriggerOffset", stretchTriggerOffset.getAsDouble()); }
+    if (onStretchTrigger.isPresent()) { int __cb_onStretchTrigger = nextCallbackId++; p.put("onStretchTrigger", __cb_onStretchTrigger); callbacks.put(__cb_onStretchTrigger, onStretchTrigger.get()); }
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    if (leadingWidth.isPresent()) { p.put("leadingWidth", leadingWidth.getAsDouble()); }
+    toolbarTextStyle.ifPresent(v -> p.put("toolbarTextStyle", byId.get(v.getId())));
+    titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
+    forceMaterialTransparency.ifPresent(v -> p.put("forceMaterialTransparency", v));
+    useDefaultSemanticsOrder.ifPresent(v -> p.put("useDefaultSemanticsOrder", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    actionsPadding.ifPresent(v -> p.put("actionsPadding", byId.get(v.getId())));
+    record(id, "sliverAppBarMedium", p);
+    MemorySegment st = SliverAppBarObjSt.allocate(arena);
+    SliverAppBarObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment sliverAppBarLarge(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
+    automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
+    title.ifPresent(v -> p.put("title", byId.get(v.getId())));
+    actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
+    bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    if (scrolledUnderElevation.isPresent()) { p.put("scrolledUnderElevation", scrolledUnderElevation.getAsDouble()); }
+    shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
+    surfaceTintColor.ifPresent(v -> p.put("surfaceTintColor", byId.get(v.getId())));
+    forceElevated.ifPresent(v -> p.put("forceElevated", v));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    foregroundColor.ifPresent(v -> p.put("foregroundColor", byId.get(v.getId())));
+    iconTheme.ifPresent(v -> p.put("iconTheme", byId.get(v.getId())));
+    actionsIconTheme.ifPresent(v -> p.put("actionsIconTheme", byId.get(v.getId())));
+    primary.ifPresent(v -> p.put("primary", v));
+    centerTitle.ifPresent(v -> p.put("centerTitle", v));
+    excludeHeaderSemantics.ifPresent(v -> p.put("excludeHeaderSemantics", v));
+    if (titleSpacing.isPresent()) { p.put("titleSpacing", titleSpacing.getAsDouble()); }
+    if (collapsedHeight.isPresent()) { p.put("collapsedHeight", collapsedHeight.getAsDouble()); }
+    if (expandedHeight.isPresent()) { p.put("expandedHeight", expandedHeight.getAsDouble()); }
+    floating.ifPresent(v -> p.put("floating", v));
+    pinned.ifPresent(v -> p.put("pinned", v));
+    snap.ifPresent(v -> p.put("snap", v));
+    stretch.ifPresent(v -> p.put("stretch", v));
+    if (stretchTriggerOffset.isPresent()) { p.put("stretchTriggerOffset", stretchTriggerOffset.getAsDouble()); }
+    if (onStretchTrigger.isPresent()) { int __cb_onStretchTrigger = nextCallbackId++; p.put("onStretchTrigger", __cb_onStretchTrigger); callbacks.put(__cb_onStretchTrigger, onStretchTrigger.get()); }
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    if (leadingWidth.isPresent()) { p.put("leadingWidth", leadingWidth.getAsDouble()); }
+    toolbarTextStyle.ifPresent(v -> p.put("toolbarTextStyle", byId.get(v.getId())));
+    titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
+    forceMaterialTransparency.ifPresent(v -> p.put("forceMaterialTransparency", v));
+    useDefaultSemanticsOrder.ifPresent(v -> p.put("useDefaultSemanticsOrder", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    actionsPadding.ifPresent(v -> p.put("actionsPadding", byId.get(v.getId())));
+    record(id, "sliverAppBarLarge", p);
+    MemorySegment st = SliverAppBarObjSt.allocate(arena);
+    SliverAppBarObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment fadeInImageAssetNetwork(String placeholder, String image, OptionalDouble placeholderScale, OptionalDouble imageScale, Optional<Boolean> excludeFromSemantics, Optional<String> imageSemanticLabel, Optional<Duration> fadeOutDuration, Optional<Curve> fadeOutCurve, Optional<Duration> fadeInDuration, Optional<Curve> fadeInCurve, OptionalDouble width, OptionalDouble height, Optional<BoxFit> fit, Optional<Color> color, Optional<BlendMode> colorBlendMode, Optional<Color> placeholderColor, Optional<BlendMode> placeholderColorBlendMode, Optional<BoxFit> placeholderFit, Optional<FilterQuality> filterQuality, Optional<FilterQuality> placeholderFilterQuality, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, OptionalInt placeholderCacheWidth, OptionalInt placeholderCacheHeight, OptionalInt imageCacheWidth, OptionalInt imageCacheHeight) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

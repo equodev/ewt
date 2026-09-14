@@ -511,6 +511,7 @@ w.SliverResizingHeader? sliverResizingHeader;
 w.SliverFloatingHeader? sliverFloatingHeader;
 w.SliverSemantics? sliverSemantics;
 w.SliverVariedExtentList? sliverVariedExtentList;
+m.SliverAppBar? sliverAppBar;
 w.FadeInImage? fadeInImage;
 w.NavigatorPopHandler? navigatorPopHandler;
 w.RawImage? rawImage;

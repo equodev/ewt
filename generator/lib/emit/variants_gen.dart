@@ -264,6 +264,20 @@ const _boundaryParamOverrides = <String, String?>{
   'Slider.slider.divisions': '1',
   'Slider.adaptive.divisions': '1',
   'CupertinoSlider.cupertinoSlider.divisions': '1',
+
+  // SliverAppBar height fields: the type-level double boundary (0.0) collapses
+  // the sliver's main-axis extent to 0 (also trips Flutter's
+  // `collapsedHeight >= toolbarHeight` assert in debug), failing the size
+  // assertion. Skip these params (null → drop the setter) so each constructor's
+  // documented defaults (kToolbarHeight for `.sliverAppBar`, Material 3
+  // scroll-under configs for `.medium` / `.large`) keep the header renderable.
+  'SliverAppBar.sliverAppBar.toolbarHeight': null,
+  'SliverAppBar.sliverAppBar.collapsedHeight': null,
+  'SliverAppBar.sliverAppBar.expandedHeight': null,
+  'SliverAppBar.medium.collapsedHeight': null,
+  'SliverAppBar.medium.expandedHeight': null,
+  'SliverAppBar.large.collapsedHeight': null,
+  'SliverAppBar.large.expandedHeight': null,
 };
 
 // ---------------------------------------------------------------------------

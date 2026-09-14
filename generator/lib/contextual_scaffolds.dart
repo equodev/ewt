@@ -201,6 +201,7 @@ const Map<String, ScaffoldEntry> _scaffolds = {
   'SliverCrossAxisGroup': ScaffoldEntry(_sliverScaffold),
   'PinnedHeaderSliver': ScaffoldEntry(_sliverScaffold),
   'DecoratedSliver': ScaffoldEntry(_sliverScaffold),
+  'SliverAppBar': ScaffoldEntry(_sliverScaffold),
   // Cupertino version of a scroll-sliver navbar has the same host requirement.
   'CupertinoSliverNavigationBar': ScaffoldEntry(_sliverScaffold),
 };
