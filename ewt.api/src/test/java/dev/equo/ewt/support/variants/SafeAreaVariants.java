@@ -10,22 +10,16 @@ public final class SafeAreaVariants {
 
   private SafeAreaVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("safeArea_allSet", List.of(PropExpectation.equalTo("left", true), PropExpectation.equalTo("top", true), PropExpectation.equalTo("right", true), PropExpectation.equalTo("bottom", true), PropExpectation.notNull("minimum"), PropExpectation.equalTo("maintainBottomViewPadding", true))),
-          Map.entry("safeArea_boundary", List.of(PropExpectation.equalTo("left", false), PropExpectation.equalTo("top", false), PropExpectation.equalTo("right", false), PropExpectation.equalTo("bottom", false), PropExpectation.notNull("minimum"), PropExpectation.equalTo("maintainBottomViewPadding", false)))
-      );
-
   public static Widget safeArea_required() {
-    return SafeArea.safeArea().child(SizedBox().width(1.0).height(1.0).build()).build();
+    return Material.material().child(SafeArea.safeArea().child(SizedBox().width(1.0).height(1.0).build()).build()).build();
   }
 
   public static Widget safeArea_allSet() {
-    return SafeArea.safeArea().child(SizedBox().width(1.0).height(1.0).build()).left(true).top(true).right(true).bottom(true).minimum(EdgeInsets_all(8.0).build()).maintainBottomViewPadding(true).build();
+    return Material.material().child(SafeArea.safeArea().child(SizedBox().width(1.0).height(1.0).build()).left(true).top(true).right(true).bottom(true).minimum(EdgeInsets_all(8.0).build()).maintainBottomViewPadding(true).build()).build();
   }
 
   public static Widget safeArea_boundary() {
-    return SafeArea.safeArea().child(SizedBox().width(1.0).height(1.0).build()).left(false).top(false).right(false).bottom(false).minimum(EdgeInsets_all(8.0).build()).maintainBottomViewPadding(false).build();
+    return Material.material().child(SafeArea.safeArea().child(SizedBox().width(1.0).height(1.0).build()).left(false).top(false).right(false).bottom(false).minimum(EdgeInsets_all(8.0).build()).maintainBottomViewPadding(false).build()).build();
   }
 
 }

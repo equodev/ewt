@@ -13,7 +13,7 @@ public final class PositionedDirectionalVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("positionedDirectional_allSet", List.of(PropExpectation.equalTo("start", 1.0), PropExpectation.equalTo("top", 1.0), PropExpectation.equalTo("end", 1.0), PropExpectation.equalTo("bottom", 1.0), PropExpectation.equalTo("width", 1.0), PropExpectation.equalTo("height", 1.0))),
-          Map.entry("positionedDirectional_boundary", List.of(PropExpectation.equalTo("start", 0.0), PropExpectation.equalTo("top", 0.0), PropExpectation.equalTo("end", 0.0), PropExpectation.equalTo("bottom", 0.0), PropExpectation.equalTo("width", 0.0), PropExpectation.equalTo("height", 0.0)))
+          Map.entry("positionedDirectional_boundary", List.of(PropExpectation.equalTo("start", 0.0), PropExpectation.equalTo("top", 0.0), PropExpectation.equalTo("end", 0.0), PropExpectation.equalTo("bottom", 0.0), PropExpectation.equalTo("width", 1.0), PropExpectation.equalTo("height", 1.0)))
       );
 
   public static Widget positionedDirectional_required() {
@@ -25,7 +25,7 @@ public final class PositionedDirectionalVariants {
   }
 
   public static Widget positionedDirectional_boundary() {
-    return dev.equo.ewt.Stack.stack().children(List.<WidgetI>of(PositionedDirectional.positionedDirectional().child(SizedBox().width(1.0).height(1.0).build()).start(0.0).top(0.0).end(0.0).bottom(0.0).width(0.0).height(0.0).build())).build();
+    return dev.equo.ewt.Stack.stack().children(List.<WidgetI>of(PositionedDirectional.positionedDirectional().child(SizedBox().width(1.0).height(1.0).build()).start(0.0).top(0.0).end(0.0).bottom(0.0).width(1.0).height(1.0).build())).build();
   }
 
 }

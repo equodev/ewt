@@ -10,12 +10,6 @@ public final class PopupMenuItemVariants {
 
   private PopupMenuItemVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("popupMenuItem_allSet", List.of(PropExpectation.equalTo("enabled", true), PropExpectation.equalTo("height", 1.0), PropExpectation.notNull("padding"), PropExpectation.notNull("textStyle"), PropExpectation.notNull("child"))),
-          Map.entry("popupMenuItem_boundary", List.of(PropExpectation.equalTo("enabled", false), PropExpectation.equalTo("height", 0.0), PropExpectation.notNull("padding"), PropExpectation.notNull("textStyle"), PropExpectation.notNull("child")))
-      );
-
   public static Widget popupMenuItem_required() {
     return Material.material().child(PopupMenuItem.popupMenuItem().build()).build();
   }

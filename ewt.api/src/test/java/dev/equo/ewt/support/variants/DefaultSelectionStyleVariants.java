@@ -28,8 +28,4 @@ public final class DefaultSelectionStyleVariants {
     return DefaultSelectionStyle.defaultSelectionStyle().child(SizedBox().width(1.0).height(1.0).build()).cursorColor(Color(0xff0000ff).build()).selectionColor(Color(0xff0000ff).build()).build();
   }
 
-  public static Widget fallback_required() {
-    return DefaultSelectionStyle.fallback().build();
-  }
-
 }

@@ -10,12 +10,6 @@ public final class TooltipVariants {
 
   private TooltipVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("tooltip_allSet", List.of(PropExpectation.equalTo("message", "hello"), PropExpectation.equalTo("height", 1.0), PropExpectation.notNull("constraints"), PropExpectation.notNull("padding"), PropExpectation.notNull("margin"), PropExpectation.equalTo("verticalOffset", 1.0), PropExpectation.equalTo("preferBelow", true), PropExpectation.equalTo("excludeFromSemantics", true), PropExpectation.notNull("decoration"), PropExpectation.notNull("textStyle"), PropExpectation.equalTo("textAlign", TextAlign.left), PropExpectation.notNull("waitDuration"), PropExpectation.notNull("showDuration"), PropExpectation.notNull("exitDuration"), PropExpectation.equalTo("enableTapToDismiss", true), PropExpectation.equalTo("triggerMode", TooltipTriggerMode.manual), PropExpectation.equalTo("enableFeedback", true), PropExpectation.equalTo("ignorePointer", true), PropExpectation.notNull("child"))),
-          Map.entry("tooltip_boundary", List.of(PropExpectation.equalTo("message", ""), PropExpectation.equalTo("height", 0.0), PropExpectation.notNull("constraints"), PropExpectation.notNull("padding"), PropExpectation.notNull("margin"), PropExpectation.equalTo("verticalOffset", 0.0), PropExpectation.equalTo("preferBelow", false), PropExpectation.equalTo("excludeFromSemantics", false), PropExpectation.notNull("decoration"), PropExpectation.notNull("textStyle"), PropExpectation.equalTo("textAlign", TextAlign.left), PropExpectation.notNull("waitDuration"), PropExpectation.notNull("showDuration"), PropExpectation.notNull("exitDuration"), PropExpectation.equalTo("enableTapToDismiss", false), PropExpectation.equalTo("triggerMode", TooltipTriggerMode.manual), PropExpectation.equalTo("enableFeedback", false), PropExpectation.equalTo("ignorePointer", false), PropExpectation.notNull("child")))
-      );
-
   public static Widget tooltip_required() {
     return Material.material().child(Tooltip.tooltip().build()).build();
   }

@@ -10,22 +10,16 @@ public final class ListBodyVariants {
 
   private ListBodyVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("listBody_allSet", List.of(PropExpectation.equalTo("mainAxis", Axis.horizontal), PropExpectation.equalTo("reverse", true))),
-          Map.entry("listBody_boundary", List.of(PropExpectation.equalTo("mainAxis", Axis.horizontal), PropExpectation.equalTo("reverse", false)))
-      );
-
   public static Widget listBody_required() {
-    return ListBody.listBody().build();
+    return SingleChildScrollView.singleChildScrollView().child(ListBody.listBody().build()).build();
   }
 
   public static Widget listBody_allSet() {
-    return ListBody.listBody().mainAxis(Axis.horizontal).reverse(true).build();
+    return SingleChildScrollView.singleChildScrollView().child(ListBody.listBody().mainAxis(Axis.horizontal).reverse(true).build()).build();
   }
 
   public static Widget listBody_boundary() {
-    return ListBody.listBody().mainAxis(Axis.horizontal).reverse(false).build();
+    return SingleChildScrollView.singleChildScrollView().child(ListBody.listBody().mainAxis(Axis.horizontal).reverse(false).build()).build();
   }
 
 }

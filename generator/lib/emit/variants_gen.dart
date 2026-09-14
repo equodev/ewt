@@ -34,6 +34,17 @@ const _deferred = {'SubmenuButton', 'PopupMenuButton', 'DragTarget',
   'CarouselView'};
 
 // ---------------------------------------------------------------------------
+// Per-widget factory deny-list. Some Flutter widgets expose a `.fallback`
+// factory that is only valid as an internal `InheritedTheme` sentinel — it
+// asserts on mount ("cannot be incorporated into the widget tree"). Skip
+// these factories in the variant emitter so only the real factory is exercised.
+// ---------------------------------------------------------------------------
+const _factoryDenyList = <String>{
+  'DefaultTextStyle.fallback',
+  'DefaultSelectionStyle.fallback',
+};
+
+// ---------------------------------------------------------------------------
 // Non-widget and helper classes that should not get variant files
 // ---------------------------------------------------------------------------
 const _nonWidgetClasses = {
@@ -207,6 +218,27 @@ const _boundaryParamOverrides = <String, String?>{
   'GridView.extent.childAspectRatio': '1.0',
   'GridView.count.crossAxisCount': '1',
   'GridView.extent.maxCrossAxisExtent': '1.0',
+
+  // Positioned* / AnimatedPositioned*: the type-level double boundary (0.0)
+  // for `width`/`height` produces a 0-sized child inside the Stack scaffold,
+  // failing the harness's `width > 0` / `height > 0` render assertion. Force
+  // a small positive value so boundary variants still render measurable.
+  'Positioned.positioned.width': '1.0',
+  'Positioned.positioned.height': '1.0',
+  'Positioned.directional.width': '1.0',
+  'Positioned.directional.height': '1.0',
+  'PositionedDirectional.positionedDirectional.width': '1.0',
+  'PositionedDirectional.positionedDirectional.height': '1.0',
+  'AnimatedPositioned.animatedPositioned.width': '1.0',
+  'AnimatedPositioned.animatedPositioned.height': '1.0',
+  'AnimatedPositionedDirectional.animatedPositionedDirectional.width': '1.0',
+  'AnimatedPositionedDirectional.animatedPositionedDirectional.height': '1.0',
+
+  // Expanded / Flexible / Spacer: flex=0 collapses the flex child to 0 in the
+  // Row scaffold, failing the size assertion. Force flex=1 for boundary.
+  'Expanded.expanded.flex': '1',
+  'Flexible.flexible.flex': '1',
+  'Spacer.spacer.flex': '1',
 };
 
 // ---------------------------------------------------------------------------
@@ -282,10 +314,27 @@ class VariantsEmitter {
     final buf = StringBuffer();
     final variantMethods = <_VariantMethod>[];
 
+    // A contaminating scaffold wraps the variant in an outer Widget whose
+    // class exposes public getters that collide with the inner widget's
+    // param names (e.g. Scaffold.restorationId, Material.child). Since
+    // `lastMountedVariant` in the test harness captures the OUTER Widget,
+    // GetterRoundTrip would resolve expectation names against the wrapper
+    // and SIGSEGV on unset FFM getters. Drop the expectations column so
+    // getter round-trip is skipped for these variants — the render-time
+    // in-tree / size assertions still run.
+    final contaminated = _wrapContaminatesGetters(name);
+
     // Process each factory
     for (final node in allFactories) {
       final factoryLabel =
           (node.name == null || node.name!.isEmpty) ? widgetField : node.name!;
+
+      // Skip factories on the deny-list (e.g. DefaultTextStyle.fallback —
+      // sentinel-only, asserts on mount).
+      if (_factoryDenyList.contains('$name.$factoryLabel')) {
+        stderr.writeln('variants: skipping $name.$factoryLabel — factory deny-list');
+        continue;
+      }
       // factoryName is widgetField + _firstUpper(factory) — matches WidgetGen
       // (kept for reference; publicFactory is what we use in Java calls)
       // ignore: unused_local_variable
@@ -384,7 +433,8 @@ class VariantsEmitter {
         }).join('');
         final expr = _wrap(name, '$baseCall$chain.build()');
         final label = '${factoryLabel}_allSet';
-        final expectations = _buildExpectations(optsWithSamples);
+        final expectations =
+            contaminated ? null : _buildExpectations(optsWithSamples);
         variantMethods.add(_VariantMethod(label, expr));
         _registryEntries
             .add(_RegistryEntry(name, label, '${name}Variants::$label', expectations));
@@ -399,7 +449,8 @@ class VariantsEmitter {
         }).join('');
         final expr = _wrap(name, '$baseCall$chain.build()');
         final label = '${factoryLabel}_boundary';
-        final expectations = _buildExpectations(optsWithBoundaries);
+        final expectations =
+            contaminated ? null : _buildExpectations(optsWithBoundaries);
         variantMethods.add(_VariantMethod(label, expr));
         _registryEntries
             .add(_RegistryEntry(name, label, '${name}Variants::$label', expectations));
@@ -535,7 +586,21 @@ class VariantsEmitter {
   String _wrap(String widgetName, String inner) {
     final scaffold = scaffoldFor(widgetName);
     if (scaffold == null) return inner;
-    return scaffold.replaceAll('{inner}', inner);
+    return scaffold.template.replaceAll('{inner}', inner);
+  }
+
+  /// True iff the widget's contextual scaffold wraps it in an outer Widget
+  /// whose class exposes getters that collide with common inner-widget getter
+  /// names (Scaffold, Material, SingleChildScrollView, ...). For these the
+  /// emitter must drop the getter round-trip expectations, because
+  /// `WidgetNativeRenderTest.rendersVariant` invokes the getter on the
+  /// OUTER Widget class (`lastMountedVariant.get()`), and reading an unset
+  /// FFM MemorySegment on the outer wrapper (e.g. `Scaffold.restorationId()`
+  /// when the outer Scaffold was constructed with no restorationId) SIGSEGVs
+  /// and takes down the JVM mid-suite.
+  bool _wrapContaminatesGetters(String widgetName) {
+    final scaffold = scaffoldFor(widgetName);
+    return scaffold != null && scaffold.contaminatesGetters;
   }
 
   /// Wraps [_sampleCode] with widget-and-param aware overrides. When the

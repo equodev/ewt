@@ -10,14 +10,6 @@ public final class TextButtonVariants {
 
   private TextButtonVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("textButton_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("isSemanticButton", true))),
-          Map.entry("textButton_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("isSemanticButton", false))),
-          Map.entry("icon_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start))),
-          Map.entry("icon_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start)))
-      );
-
   public static Widget textButton_required() {
     return Material.material().child(TextButton.textButton().child(SizedBox().width(1.0).height(1.0).build()).build()).build();
   }

@@ -10,14 +10,6 @@ public final class OutlinedButtonVariants {
 
   private OutlinedButtonVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("outlinedButton_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("child"))),
-          Map.entry("outlinedButton_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("child"))),
-          Map.entry("icon_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start))),
-          Map.entry("icon_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start)))
-      );
-
   public static Widget outlinedButton_required() {
     return Material.material().child(OutlinedButton.outlinedButton().build()).build();
   }

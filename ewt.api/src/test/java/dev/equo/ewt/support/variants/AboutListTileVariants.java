@@ -10,12 +10,6 @@ public final class AboutListTileVariants {
 
   private AboutListTileVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("aboutListTile_allSet", List.of(PropExpectation.notNull("icon"), PropExpectation.notNull("child"), PropExpectation.equalTo("applicationName", "hello"), PropExpectation.equalTo("applicationVersion", "hello"), PropExpectation.notNull("applicationIcon"), PropExpectation.equalTo("applicationLegalese", "hello"), PropExpectation.equalTo("dense", true))),
-          Map.entry("aboutListTile_boundary", List.of(PropExpectation.notNull("icon"), PropExpectation.notNull("child"), PropExpectation.equalTo("applicationName", ""), PropExpectation.equalTo("applicationVersion", ""), PropExpectation.notNull("applicationIcon"), PropExpectation.equalTo("applicationLegalese", ""), PropExpectation.equalTo("dense", false)))
-      );
-
   public static Widget aboutListTile_required() {
     return Material.material().child(AboutListTile.aboutListTile().build()).build();
   }

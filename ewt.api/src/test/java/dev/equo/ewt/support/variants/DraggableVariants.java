@@ -10,26 +10,20 @@ public final class DraggableVariants {
 
   private DraggableVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("draggable_allSet", List.of(PropExpectation.equalTo("axis", Axis.horizontal), PropExpectation.notNull("childWhenDragging"), PropExpectation.notNull("feedbackOffset"), PropExpectation.equalTo("affinity", Axis.horizontal), PropExpectation.equalTo("maxSimultaneousDrags", 1), PropExpectation.equalTo("ignoringFeedbackSemantics", true), PropExpectation.equalTo("ignoringFeedbackPointer", true), PropExpectation.equalTo("rootOverlay", true), PropExpectation.equalTo("hitTestBehavior", HitTestBehavior.deferToChild))),
-          Map.entry("draggable_boundary", List.of(PropExpectation.equalTo("axis", Axis.horizontal), PropExpectation.notNull("childWhenDragging"), PropExpectation.notNull("feedbackOffset"), PropExpectation.equalTo("affinity", Axis.horizontal), PropExpectation.equalTo("maxSimultaneousDrags", 0), PropExpectation.equalTo("ignoringFeedbackSemantics", false), PropExpectation.equalTo("ignoringFeedbackPointer", false), PropExpectation.equalTo("rootOverlay", false), PropExpectation.equalTo("hitTestBehavior", HitTestBehavior.deferToChild)))
-      );
-
   public static Widget draggable_required() {
-    return Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).build();
+    return Scaffold.scaffold().body(Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).build()).build();
   }
 
   public static Widget draggable_allSet() {
-    return Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).axis(Axis.horizontal).childWhenDragging(SizedBox().width(1.0).height(1.0).build()).feedbackOffset(Offset.zero()).affinity(Axis.horizontal).maxSimultaneousDrags(1).onDragStarted(() -> {}).onDragUpdate((_a0) -> {}).onDragEnd((_a0) -> {}).onDragCompleted(() -> {}).ignoringFeedbackSemantics(true).ignoringFeedbackPointer(true).rootOverlay(true).hitTestBehavior(HitTestBehavior.deferToChild).build();
+    return Scaffold.scaffold().body(Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).axis(Axis.horizontal).childWhenDragging(SizedBox().width(1.0).height(1.0).build()).feedbackOffset(Offset.zero()).affinity(Axis.horizontal).maxSimultaneousDrags(1).onDragStarted(() -> {}).onDragUpdate((_a0) -> {}).onDragEnd((_a0) -> {}).onDragCompleted(() -> {}).ignoringFeedbackSemantics(true).ignoringFeedbackPointer(true).rootOverlay(true).hitTestBehavior(HitTestBehavior.deferToChild).build()).build();
   }
 
   public static Widget draggable_boundary() {
-    return Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).axis(Axis.horizontal).childWhenDragging(SizedBox().width(1.0).height(1.0).build()).feedbackOffset(Offset.zero()).affinity(Axis.horizontal).maxSimultaneousDrags(0).onDragStarted(() -> {}).onDragUpdate((_a0) -> {}).onDragEnd((_a0) -> {}).onDragCompleted(() -> {}).ignoringFeedbackSemantics(false).ignoringFeedbackPointer(false).rootOverlay(false).hitTestBehavior(HitTestBehavior.deferToChild).build();
+    return Scaffold.scaffold().body(Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).axis(Axis.horizontal).childWhenDragging(SizedBox().width(1.0).height(1.0).build()).feedbackOffset(Offset.zero()).affinity(Axis.horizontal).maxSimultaneousDrags(0).onDragStarted(() -> {}).onDragUpdate((_a0) -> {}).onDragEnd((_a0) -> {}).onDragCompleted(() -> {}).ignoringFeedbackSemantics(false).ignoringFeedbackPointer(false).rootOverlay(false).hitTestBehavior(HitTestBehavior.deferToChild).build()).build();
   }
 
   public static Widget draggable_callbackWired() {
-    return Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).onDragStarted(() -> {}).onDragUpdate((_a0) -> {}).onDragEnd((_a0) -> {}).onDragCompleted(() -> {}).build();
+    return Scaffold.scaffold().body(Draggable.draggable(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).onDragStarted(() -> {}).onDragUpdate((_a0) -> {}).onDragEnd((_a0) -> {}).onDragCompleted(() -> {}).build()).build();
   }
 
 }

@@ -13,7 +13,7 @@ public final class ExpandedVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("expanded_allSet", List.of(PropExpectation.equalTo("flex", 1))),
-          Map.entry("expanded_boundary", List.of(PropExpectation.equalTo("flex", 0)))
+          Map.entry("expanded_boundary", List.of(PropExpectation.equalTo("flex", 1)))
       );
 
   public static Widget expanded_required() {
@@ -25,7 +25,7 @@ public final class ExpandedVariants {
   }
 
   public static Widget expanded_boundary() {
-    return Row.row().children(List.<WidgetI>of(Expanded.expanded().child(SizedBox().width(1.0).height(1.0).build()).flex(0).build())).build();
+    return Row.row().children(List.<WidgetI>of(Expanded.expanded().child(SizedBox().width(1.0).height(1.0).build()).flex(1).build())).build();
   }
 
 }

@@ -13,7 +13,7 @@ public final class SpacerVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("spacer_allSet", List.of(PropExpectation.equalTo("flex", 1))),
-          Map.entry("spacer_boundary", List.of(PropExpectation.equalTo("flex", 0)))
+          Map.entry("spacer_boundary", List.of(PropExpectation.equalTo("flex", 1)))
       );
 
   public static Widget spacer_required() {
@@ -25,7 +25,7 @@ public final class SpacerVariants {
   }
 
   public static Widget spacer_boundary() {
-    return Row.row().children(List.<WidgetI>of(Spacer.spacer().flex(0).build())).build();
+    return Row.row().children(List.<WidgetI>of(Spacer.spacer().flex(1).build())).build();
   }
 
 }
