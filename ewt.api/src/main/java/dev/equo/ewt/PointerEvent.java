@@ -1,5 +1,6 @@
 package dev.equo.ewt;
 import java.util.*;
+import java.util.function.*;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
 public abstract class PointerEvent extends NativeObj.Base implements PointerEventI {
   protected PointerEvent() {}

@@ -19,7 +19,7 @@ public class EWT {
     System.out.println("New Future<T?> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
-  public static Future showDatePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
+  public static Future<DateTime> showDatePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
     int id = WidgetConstructors.instance.date_pickerShowDatePicker(context.build(),
       Optional.empty(),
       firstDate.build(),
@@ -49,7 +49,7 @@ public class EWT {
     System.out.println("New Future<DateTime?> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
-  public static Future showTimePicker(BuildContextI context, TimeOfDayI initialTime) {
+  public static Future<TimeOfDay> showTimePicker(BuildContextI context, TimeOfDayI initialTime) {
     int id = WidgetConstructors.instance.time_pickerShowTimePicker(context.build(),
       initialTime.build(),
       Optional.empty(),
@@ -2376,11 +2376,11 @@ public class EWT {
   public static RefreshIndicatorAdaptiveBuilder RefreshIndicator_adaptive(WidgetI child) {
     return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive(child);
   }
-  public static RefreshIndicatorNoSpinnerBuilder RefreshIndicator_noSpinner(WidgetI child, Supplier<Future> onRefresh) {
+  public static RefreshIndicatorNoSpinnerBuilder RefreshIndicator_noSpinner(WidgetI child, Supplier<Future<Void>> onRefresh) {
     return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(child, onRefresh);
   }
 
-  public static BackButtonListenerBackButtonListenerBuilder BackButtonListener(WidgetI child, Supplier<Future> onBackButtonPressed) {
+  public static BackButtonListenerBackButtonListenerBuilder BackButtonListener(WidgetI child, Supplier<Future<Boolean>> onBackButtonPressed) {
     return BackButtonListenerBackButtonListenerBuilder.backButtonListenerBackButtonListener(child, onBackButtonPressed);
   }
 

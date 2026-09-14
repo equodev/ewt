@@ -17,13 +17,13 @@ public class BackButtonListener extends StatefulWidget implements BackButtonList
   }
   BackButtonListener(int id) { this.id = id; }
   @Builder.Factory
-  static BackButtonListener backButtonListenerBackButtonListener(@Builder.Parameter WidgetI child, @Builder.Parameter Supplier<Future> onBackButtonPressed) {
+  static BackButtonListener backButtonListenerBackButtonListener(@Builder.Parameter WidgetI child, @Builder.Parameter Supplier<Future<Boolean>> onBackButtonPressed) {
     var st = factories.backButtonListenerBackButtonListener(child.build(),
       onBackButtonPressed);
     if (st == null) throw new RuntimeException("Failed to created widget BackButtonListener");
     return new BackButtonListener(st);
   }
-  public static BackButtonListenerBackButtonListenerBuilder backButtonListener(WidgetI child, Supplier<Future> onBackButtonPressed) {
+  public static BackButtonListenerBackButtonListenerBuilder backButtonListener(WidgetI child, Supplier<Future<Boolean>> onBackButtonPressed) {
     return BackButtonListenerBackButtonListenerBuilder.backButtonListenerBackButtonListener(child, onBackButtonPressed);
   }
   public Widget child() {

@@ -339,6 +339,14 @@ class WidgetGen implements AGen {
       if (_needsForeignImport()) {
         ctx.javaFile.writeln('import java.lang.foreign.MemorySegment;');
       }
+      // Companion methods often take `Consumer` / `Function` / `Supplier`
+      // callback params (Future.then, etc.), which live in java.util.function.
+      // The abstract-class-no-factory branch above only imports java.util
+      // (no `.function.*`), so add it here when a companion is present to
+      // avoid unresolved-symbol errors in the emitted body.
+      if (dartClass.isAbstract && !_hasAbstractFactoryCtors) {
+        ctx.javaFile.writeln('import java.util.function.*;');
+      }
       ctx.javaFile.writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;');
     }
     writeJavaDecl(extend, _isInterface);

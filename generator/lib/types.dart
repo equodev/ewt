@@ -21,7 +21,7 @@ class Types {
   Types(Iterable<ClassElement> widgets) :
         widgetElement = widgets.first,
         widgets = widgets.skip(1),
-        handlers = [MapHandler(), FutureOrHandler(), IterableHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
+        handlers = [MapHandler(), FutureHandler(), FutureOrHandler(), IterableHandler(), WidgetStatePropertyHandler(), FunctionHandler()];
 
   /// Maps a Dart element to its generator. Single dispatch site: no
   /// downstream code branches on class name; every emitter uses
@@ -540,6 +540,85 @@ class MapHandler with TypeHandler {
   String value4D(ParameterElement param) => '${param.name}.toMap()';
   @override
   String value4FFM(ParameterElement param) => 'ptrMap(${Params.escape4J(types, param)})';
+}
+
+/// `Future<T>` — an in-flight async result. Preserves `T` on the Java surface
+/// (`Future<T>` on the Java side, not raw `Future`) so callers can invoke the
+/// typed `then(Consumer<T>)` default on `Future.java` without an unchecked
+/// cast at the return site.
+///
+/// The C / FFI-Dart surfaces stay as the opaque `Future` element type (crosses
+/// as a `DartObj` widget-id), same as if this handler weren't installed — the
+/// only thing this handler adds is the `<T>` type parameter in the Java
+/// signature. Actual `.then` wiring is done by the `futureThen` top-level
+/// function in `future_helpers.dart` + the hand-written `Future.java` default
+/// method.
+///
+/// Only matches when `T` is supported by the generator; otherwise falls
+/// through to the plain `InterfaceType` branch of `TypeMapping` (which emits
+/// raw `Future`) so unsupported `Future<X>` types don't break the build.
+class FutureHandler with TypeHandler {
+  @override
+  bool matches(DartType t) {
+    if (t is! ParameterizedType) return false;
+    if (!t.isDartAsyncFuture) return false;
+    if (t.typeArguments.length != 1) return false;
+    final inner = t.typeArguments[0];
+    if (inner is VoidType) return true;
+    if (inner is TypeParameterType) return false;
+    return types.supportedType(inner);
+  }
+
+  DartType _inner(DartType t) => (t as ParameterizedType).typeArguments[0];
+
+  @override
+  String type4J(DartType t) {
+    final inner = _inner(t);
+    if (inner is VoidType) return 'Future<Void>';
+    // Boxed inner for Java generics (List<Double> not List<double>).
+    final javaInner = types.type4J(inner);
+    return 'Future<${_boxed(javaInner)}>';
+  }
+
+  // C / FFI-Dart surfaces treat the Future as an opaque widget-id — same as
+  // any NativeObj-backed interface. The generator's `type_mapping.dart`
+  // InterfaceType branch would produce identical strings; we spell them here
+  // explicitly so the handler is self-contained.
+  @override
+  String type4C(DartType t) => 'DartObj';
+  @override
+  String type4D(DartType t) => 'DartObj';
+
+  @override
+  String value4D(ParameterElement param) {
+    // Mirror `FfiToDart.onObject`'s target-type selection so Dart's strict
+    // generic-cast check (introduced in Dart 3) accepts the emitted body.
+    // For a callback returning `Future<bool>`, an `as Future` raw cast is
+    // rejected — must be `as Future<bool>`. Unbound generic arg falls back
+    // to raw so `Future<T>` stays as `Future`.
+    final t = param.type as InterfaceType;
+    final target = t.typeArguments.isNotEmpty &&
+            t.typeArguments.any((p) => p is TypeParameterType)
+        ? t.element.name
+        : t.toString();
+    return '_widgetsMap[${param.name}]! as $target';
+  }
+  @override
+  String value4FFM(ParameterElement param) =>
+      param.isOptional ? 'ptrObj(${Params.escape4J(types, param)})'
+                       : '${Params.escape4J(types, param)}.getId()';
+
+  String _boxed(String s) => switch (s) {
+        'boolean' => 'Boolean',
+        'int' => 'Integer',
+        'double' => 'Double',
+        'float' => 'Float',
+        'long' => 'Long',
+        'short' => 'Short',
+        'byte' => 'Byte',
+        'char' => 'Character',
+        _ => s,
+      };
 }
 
 /// `FutureOr<T>` is `dart:async`'s "T or Future<T>" union. From the Java side

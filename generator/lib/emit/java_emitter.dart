@@ -19,16 +19,34 @@ extension _JavaEmit on WidgetGen {
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
 
+    // Java interfaces (`_isInterface == true`) can't hold plain `public`
+    // method bodies — they need `default` (or `static`). Companion methods
+    // are always instance-level, so pick `default` when the target is an
+    // interface. Non-interface targets stay `public`.
+    final modifier = _isInterface ? 'public default' : 'public';
+    // `factories` (the FFM shim) is a static field on `NativeObj.Base`, so
+    // concrete classes that `extend NativeObj.Base` see it as an inherited
+    // simple name. Interfaces can't inherit static state, so from an
+    // interface body we have to reach it via the fully-qualified path.
+    final factoriesRef = _isInterface ? 'NativeObj.Base.factories' : 'factories';
     ctx.javaFile
-        .writeln('  public ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
+        .writeln('  $modifier ${types.type4J(node.returnType)} $factory(${jParamsDecl.decl}) {');
     final restCallNames = jParamsValuesOpt.names;
-    final callArgs = restCallNames.isEmpty ? 'this' : 'this,\n      $restCallNames';
+    // Interface target: `this` is `Widget<T>` (where `T` is the interface's
+    // own type parameter) but the companion FFM method signature uses the
+    // companion's receiver-arg type (e.g. `Future<NativeObj>` for a
+    // `Future<Object?> self` companion). Java's invariant generics reject the
+    // direct pass, so cast through the raw type — the runtime FFI marshaller
+    // reads the id off `NativeObj.getId()`, not the parametric T, so the
+    // cast is safe.
+    final selfExpr = _isInterface ? '(($widgetClass) this)' : 'this';
+    final callArgs = restCallNames.isEmpty ? selfExpr : '$selfExpr,\n      $restCallNames';
     if (node.returnType is VoidType) {
       writeVoidMethodWebPrelude(factory);
-      ctx.javaFile.writeln('    factories.$factoryName($callArgs);');
+      ctx.javaFile.writeln('    $factoriesRef.$factoryName($callArgs);');
     } else {
       final retType = types.type4FFMRet(node.returnType);
-      ctx.javaFile.writeln('    $retType id = factories.$factoryName($callArgs);');
+      ctx.javaFile.writeln('    $retType id = $factoriesRef.$factoryName($callArgs);');
       if (retType == 'int') {
         ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
