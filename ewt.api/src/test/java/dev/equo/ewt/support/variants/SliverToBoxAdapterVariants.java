@@ -10,21 +10,7 @@ public final class SliverToBoxAdapterVariants {
 
   private SliverToBoxAdapterVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("sliverToBoxAdapter_allSet", List.of(PropExpectation.notNull("child"))),
-          Map.entry("sliverToBoxAdapter_boundary", List.of(PropExpectation.notNull("child")))
-      );
-
   public static Widget sliverToBoxAdapter_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverToBoxAdapter.sliverToBoxAdapter().build())).build();
-  }
-
-  public static Widget sliverToBoxAdapter_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build())).build();
-  }
-
-  public static Widget sliverToBoxAdapter_boundary() {
     return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build())).build();
   }
 

@@ -12,20 +12,20 @@ public final class SliverResizingHeaderVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("sliverResizingHeader_allSet", List.of(PropExpectation.notNull("minExtentPrototype"), PropExpectation.notNull("maxExtentPrototype"), PropExpectation.notNull("child"))),
-          Map.entry("sliverResizingHeader_boundary", List.of(PropExpectation.notNull("minExtentPrototype"), PropExpectation.notNull("maxExtentPrototype"), PropExpectation.notNull("child")))
+          Map.entry("sliverResizingHeader_allSet", List.of(PropExpectation.notNull("minExtentPrototype"), PropExpectation.notNull("maxExtentPrototype"))),
+          Map.entry("sliverResizingHeader_boundary", List.of(PropExpectation.notNull("minExtentPrototype"), PropExpectation.notNull("maxExtentPrototype")))
       );
 
   public static Widget sliverResizingHeader_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverResizingHeader.sliverResizingHeader().build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverResizingHeader.sliverResizingHeader().child(SizedBox().width(1.0).height(1.0).build()).build())).build();
   }
 
   public static Widget sliverResizingHeader_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverResizingHeader.sliverResizingHeader().minExtentPrototype(SizedBox().width(1.0).height(1.0).build()).maxExtentPrototype(SizedBox().width(1.0).height(1.0).build()).child(SizedBox().width(1.0).height(1.0).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverResizingHeader.sliverResizingHeader().child(SizedBox().width(1.0).height(1.0).build()).minExtentPrototype(SizedBox().width(1.0).height(1.0).build()).maxExtentPrototype(SizedBox().width(1.0).height(1.0).build()).build())).build();
   }
 
   public static Widget sliverResizingHeader_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverResizingHeader.sliverResizingHeader().minExtentPrototype(SizedBox().width(1.0).height(1.0).build()).maxExtentPrototype(SizedBox().width(1.0).height(1.0).build()).child(SizedBox().width(1.0).height(1.0).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverResizingHeader.sliverResizingHeader().child(SizedBox().width(1.0).height(1.0).build()).minExtentPrototype(SizedBox().width(1.0).height(1.0).build()).maxExtentPrototype(SizedBox().width(1.0).height(1.0).build()).build())).build();
   }
 
 }

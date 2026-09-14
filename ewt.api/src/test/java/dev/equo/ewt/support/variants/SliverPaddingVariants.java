@@ -10,22 +10,8 @@ public final class SliverPaddingVariants {
 
   private SliverPaddingVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("sliverPadding_allSet", List.of(PropExpectation.notNull("sliver"))),
-          Map.entry("sliverPadding_boundary", List.of(PropExpectation.notNull("sliver")))
-      );
-
   public static Widget sliverPadding_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverPadding.sliverPadding(EdgeInsets_all(8.0).build()).build())).build();
-  }
-
-  public static Widget sliverPadding_allSet() {
     return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverPadding.sliverPadding(EdgeInsets_all(8.0).build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
-  }
-
-  public static Widget sliverPadding_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverPadding.sliverPadding(EdgeInsets_all(8.0).build()).sliver(SizedBox().width(1.0).height(1.0).build()).build())).build();
   }
 
 }

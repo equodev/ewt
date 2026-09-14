@@ -12,20 +12,20 @@ public final class SliverOpacityVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("sliverOpacity_allSet", List.of(PropExpectation.equalTo("alwaysIncludeSemantics", true), PropExpectation.notNull("sliver"))),
-          Map.entry("sliverOpacity_boundary", List.of(PropExpectation.equalTo("alwaysIncludeSemantics", false), PropExpectation.notNull("sliver")))
+          Map.entry("sliverOpacity_allSet", List.of(PropExpectation.equalTo("alwaysIncludeSemantics", true))),
+          Map.entry("sliverOpacity_boundary", List.of(PropExpectation.equalTo("alwaysIncludeSemantics", false)))
       );
 
   public static Widget sliverOpacity_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOpacity.sliverOpacity(1.0).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOpacity.sliverOpacity(1.0).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget sliverOpacity_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOpacity.sliverOpacity(1.0).alwaysIncludeSemantics(true).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOpacity.sliverOpacity(1.0).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).alwaysIncludeSemantics(true).build())).build();
   }
 
   public static Widget sliverOpacity_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOpacity.sliverOpacity(1.0).alwaysIncludeSemantics(false).sliver(SizedBox().width(1.0).height(1.0).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOpacity.sliverOpacity(1.0).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).alwaysIncludeSemantics(false).build())).build();
   }
 
 }

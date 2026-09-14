@@ -12,12 +12,12 @@ public final class SliverAnimatedOpacityVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("sliverAnimatedOpacity_allSet", List.of(PropExpectation.notNull("sliver"), PropExpectation.notNull("curve"), PropExpectation.equalTo("alwaysIncludeSemantics", true))),
-          Map.entry("sliverAnimatedOpacity_boundary", List.of(PropExpectation.notNull("sliver"), PropExpectation.notNull("curve"), PropExpectation.equalTo("alwaysIncludeSemantics", false)))
+          Map.entry("sliverAnimatedOpacity_allSet", List.of(PropExpectation.notNull("curve"), PropExpectation.equalTo("alwaysIncludeSemantics", true))),
+          Map.entry("sliverAnimatedOpacity_boundary", List.of(PropExpectation.notNull("curve"), PropExpectation.equalTo("alwaysIncludeSemantics", false)))
       );
 
   public static Widget sliverAnimatedOpacity_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverAnimatedOpacity.sliverAnimatedOpacity().opacity(1.0).duration(Duration.duration().milliseconds(200).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverAnimatedOpacity.sliverAnimatedOpacity().opacity(1.0).duration(Duration.duration().milliseconds(200).build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget sliverAnimatedOpacity_allSet() {
@@ -25,11 +25,11 @@ public final class SliverAnimatedOpacityVariants {
   }
 
   public static Widget sliverAnimatedOpacity_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverAnimatedOpacity.sliverAnimatedOpacity().opacity(1.0).duration(Duration.duration().milliseconds(200).build()).sliver(SizedBox().width(1.0).height(1.0).build()).curve(Curves.linear()).onEnd(() -> {}).alwaysIncludeSemantics(false).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverAnimatedOpacity.sliverAnimatedOpacity().opacity(1.0).duration(Duration.duration().milliseconds(200).build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).curve(Curves.linear()).onEnd(() -> {}).alwaysIncludeSemantics(false).build())).build();
   }
 
   public static Widget sliverAnimatedOpacity_callbackWired() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverAnimatedOpacity.sliverAnimatedOpacity().opacity(1.0).duration(Duration.duration().milliseconds(200).build()).onEnd(() -> {}).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverAnimatedOpacity.sliverAnimatedOpacity().opacity(1.0).duration(Duration.duration().milliseconds(200).build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).onEnd(() -> {}).build())).build();
   }
 
 }

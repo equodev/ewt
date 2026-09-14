@@ -278,6 +278,14 @@ const _boundaryParamOverrides = <String, String?>{
   'SliverAppBar.medium.expandedHeight': null,
   'SliverAppBar.large.collapsedHeight': null,
   'SliverAppBar.large.expandedHeight': null,
+
+  // SliverGrid.count/extent childAspectRatio: type-level 0.0 boundary trips
+  // `SliverGridRegularTileLayout` division-by-zero (child extent = usable /
+  // (crossAxisCount * childAspectRatio)) → children lay out to 0 width.
+  // Force 1.0 for the boundary so the grid still tiles a measurable cell,
+  // mirroring the existing `GridView.count.childAspectRatio` override.
+  'SliverGrid.count.childAspectRatio': '1.0',
+  'SliverGrid.extent.childAspectRatio': '1.0',
 };
 
 // ---------------------------------------------------------------------------
@@ -420,9 +428,15 @@ class VariantsEmitter {
           .skip(positionalRequired.length)
           .where((p) => p.isRequired && !p.isOptionalOnSurface)
           .toList();
-      final optionalParams = supportedParams
+      final allOptionalParams = supportedParams
           .skip(positionalRequired.length)
           .where((p) => !(p.isRequired && !p.isOptionalOnSurface))
+          .toList();
+      // Sliver-host runtime-required slots are injected into baseCall (see
+      // _requiredSliverInjections); exclude them from the natural optional
+      // chain to prevent Immutables' duplicate-setter IllegalStateException.
+      final optionalParams = allOptionalParams
+          .where((p) => !_isInjectedSliverParam(name, p))
           .toList();
 
       // Build the required-args call expression
@@ -439,7 +453,10 @@ class VariantsEmitter {
         }
         return '.$pName($sample)';
       }).join('');
-      final baseCall = '$name.$publicFactory($reqArgs)$trailingReqChain';
+      final requiredInjections =
+          _requiredSliverInjections(name, allOptionalParams);
+      final baseCall =
+          '$name.$publicFactory($reqArgs)$trailingReqChain$requiredInjections';
 
       // Collect optional params with samples (forOptionalChain=true to skip List<T>)
       final optsWithSamples = optionalParams
@@ -447,7 +464,16 @@ class VariantsEmitter {
           .where((t) => t.$2 != null)
           .toList();
       final optsWithBoundaries = optionalParams
-          .map((p) => (p, _boundaryCode(p.type, widget: name, factory: factoryLabel, param: p.name)))
+          .map((p) {
+            final raw = _boundaryCode(p.type,
+                widget: name, factory: factoryLabel, param: p.name);
+            if (raw == null) return (p, null);
+            // Symmetric with _sampleForParam: sliver-host slots must contain
+            // a RenderSliver, not a raw RenderBox.
+            final wrapped =
+                _isSliverHost(name) ? _sliverWrapSample(name, p, raw) : raw;
+            return (p, wrapped);
+          })
           .where((t) => t.$2 != null)
           .toList();
       final callbackOpts = optionalParams
@@ -642,27 +668,156 @@ class VariantsEmitter {
     return scaffold != null && scaffold.contaminatesGetters;
   }
 
+  /// Returns true when [widgetName] is a Sliver widget host — its child /
+  /// children / sliver slots must be populated with valid RenderSliver or
+  /// RenderBox children (depending on [_sliverBoxChildHosts]) or the layout
+  /// throws `RenderProxySliver.performLayout` NPE (null child) or
+  /// `RenderConstrainedBox is not a subtype of RenderSliver` (wrong type).
+  bool _isSliverHost(String widgetName) =>
+      widgetName.startsWith('Sliver') ||
+      widgetName == 'PinnedHeaderSliver' ||
+      widgetName == 'DecoratedSliver';
+
+  /// Sliver-host widgets whose `child` / `children` slot expects RenderBox
+  /// children (not RenderSliver). Their child list is tiled/laid out as boxes
+  /// by the widget itself; the sliver semantics come from the outer widget.
+  ///
+  /// Contrast with "sliver-container" hosts (SliverPadding, SliverOpacity,
+  /// SliverMainAxisGroup, etc.) whose child slot expects a RenderSliver and
+  /// so must be wrapped in `SliverToBoxAdapter`.
+  static const _sliverBoxChildHosts = <String>{
+    'SliverToBoxAdapter',
+    'PinnedHeaderSliver',
+    'SliverResizingHeader',
+    'SliverFloatingHeader',
+    'SliverList',
+    'SliverGrid',
+    'SliverFixedExtentList',
+    'SliverPrototypeExtentList',
+    'SliverVariedExtentList',
+    'SliverFillViewport',
+  };
+
+  /// Default child expression for a sliver-host slot, choosing between a
+  /// raw `SizedBox` (for box-child hosts) and a `SliverToBoxAdapter`-wrapped
+  /// SizedBox (for sliver-container hosts).
+  static const _defaultSliverChild =
+      'SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()';
+  static const _defaultBoxChild =
+      'SizedBox().width(1.0).height(1.0).build()';
+
+  String _defaultChildForHost(String widgetName) =>
+      _sliverBoxChildHosts.contains(widgetName)
+          ? _defaultBoxChild
+          : _defaultSliverChild;
+
   /// Wraps [_sampleCode] with widget-and-param aware overrides. When the
-  /// enclosing widget is a Sliver (name starts with "Sliver" or is
-  /// `PinnedHeaderSliver` / `DecoratedSliver`) and the parameter takes a
-  /// `Widget` slot whose name hints "sliver" (e.g. `sliver`,
-  /// `replacementSliver`), swap the default `SizedBox` sample for a
-  /// `SliverToBoxAdapter` wrapping the same SizedBox. The parent expects a
-  /// sliver child; a plain RenderBox tripped `RenderConstrainedBox is not a
-  /// subtype of RenderSliver`.
+  /// enclosing widget is a Sliver host (see [_isSliverHost]) and the
+  /// parameter takes a `Widget` slot whose name hints "sliver" (e.g.
+  /// `sliver`, `replacementSliver`), swap the default `SizedBox` sample for a
+  /// `SliverToBoxAdapter` wrapping the same SizedBox. Same treatment for
+  /// `List<Widget>` positional params on sliver hosts (`SliverMainAxisGroup`,
+  /// `SliverCrossAxisGroup`).
   String? _sampleForParam(String widgetName, ParameterElement p,
       {bool forOptionalChain = false}) {
     final base = _sampleCode(p.type, forOptionalChain: forOptionalChain);
     if (base == null) return null;
-    final isSliverHost = widgetName.startsWith('Sliver') ||
-        widgetName == 'PinnedHeaderSliver' ||
-        widgetName == 'DecoratedSliver';
-    if (!isSliverHost) return base;
-    final isWidgetType = p.type.element?.name == 'Widget';
-    if (!isWidgetType) return base;
-    final name = p.name.toLowerCase();
-    if (!name.contains('sliver')) return base;
-    return 'SliverToBoxAdapter.sliverToBoxAdapter().child($base).build()';
+    if (!_isSliverHost(widgetName)) return base;
+    return _sliverWrapSample(widgetName, p, base);
+  }
+
+  /// Applies the sliver-child wrap to [base] when [p] is a Widget-typed
+  /// sliver slot on a sliver-container host. Box-child hosts (SliverList,
+  /// SliverGrid, PinnedHeaderSliver, etc.) pass through unwrapped — they
+  /// want raw RenderBox children.
+  String _sliverWrapSample(String widgetName, ParameterElement p, String base) {
+    if (_sliverBoxChildHosts.contains(widgetName)) return base;
+    final pTypeName = p.type.element?.name;
+    // Direct Widget slot with sliver-named param: wrap.
+    if (pTypeName == 'Widget' && p.name.toLowerCase().contains('sliver')) {
+      return 'SliverToBoxAdapter.sliverToBoxAdapter().child($base).build()';
+    }
+    // List<Widget> positional slot on a sliver-container host: children must
+    // be slivers, so rewrap each element.
+    if (p.type is InterfaceType && (p.type as InterfaceType).isDartCoreList) {
+      final args = (p.type as InterfaceType).typeArguments;
+      if (args.isNotEmpty && args.first.element?.name == 'Widget') {
+        return base.replaceFirstMapped(
+          RegExp(r'^List\.<WidgetI>of\((.*)\)$'),
+          (m) =>
+              'List.<WidgetI>of(SliverToBoxAdapter.sliverToBoxAdapter().child(${m.group(1)}).build())',
+        );
+      }
+    }
+    return base;
+  }
+
+  /// Emits `.setter(defaultSliver)` setters that must be present in EVERY
+  /// variant for sliver-host widgets whose runtime asserts a non-null
+  /// RenderSliver child even though the Dart constructor param is optional.
+  /// Without this, `_required` NPEs in `RenderProxySliver.performLayout`, and
+  /// `_boundary` mounts a raw RenderBox where a RenderSliver is required.
+  ///
+  /// The returned setters are appended to `baseCall`, so they carry into
+  /// `_required`, `_allSet`, `_boundary`, and `_callbackWired`. Params that
+  /// [_requiredSliverInjections] handles are then filtered out of the
+  /// natural optional chain via [_injectedParamNames] to avoid duplicate
+  /// setter calls (Immutables' `IllegalStateException`).
+  ///
+  /// Covers three shapes:
+  ///   (a) sliver-container hosts: optional `Widget?` param named like
+  ///       `sliver` / `replacementSliver` → inject `SliverToBoxAdapter(SizedBox)`.
+  ///   (b) sliver-box-child hosts (see [_sliverBoxChildHosts]): optional
+  ///       `Widget? child` → inject a plain `SizedBox` (the widget wraps it
+  ///       into sliver geometry itself).
+  ///   (c) sliver-box-list hosts: optional `List<Widget>? children` on
+  ///       `SliverGrid.count/extent` → inject a single-element list of the
+  ///       host's expected child shape.
+  String _requiredSliverInjections(
+      String widgetName, List<ParameterElement> optionalParams) {
+    if (!_isSliverHost(widgetName)) return '';
+    final buf = StringBuffer();
+    final defaultChild = _defaultChildForHost(widgetName);
+    for (final p in optionalParams.where((p) => _isInjectedSliverParam(widgetName, p))) {
+      final pName = _escapedName(p);
+      if (p.type is InterfaceType && (p.type as InterfaceType).isDartCoreList) {
+        // Optional-on-surface List<T> — Immutables emits `<name>(List<T>)`.
+        // (Injection only fires for optionalParams, so we never hit the
+        // required-list case here, which would use `addAll<Name>` instead.)
+        buf.write('.$pName(List.<WidgetI>of($defaultChild))');
+      } else {
+        // Widget slot (either sliver-named on a container host, or `child`
+        // on a box-child host).
+        buf.write('.$pName($defaultChild)');
+      }
+    }
+    return buf.toString();
+  }
+
+  /// Returns true when [p] is a param that [_requiredSliverInjections] will
+  /// set for [widgetName]. Used to filter the natural optional chain so
+  /// injected params aren't set twice.
+  bool _isInjectedSliverParam(String widgetName, ParameterElement p) {
+    if (!_isSliverHost(widgetName)) return false;
+    final pTypeName = p.type.element?.name;
+    final lname = p.name.toLowerCase();
+    final isBoxHost = _sliverBoxChildHosts.contains(widgetName);
+    // (a) Sliver-container: any `Widget?` slot whose name hints "sliver".
+    if (!isBoxHost && pTypeName == 'Widget' && lname.contains('sliver')) {
+      return true;
+    }
+    // (b) Box-child host: optional `Widget? child`.
+    if (isBoxHost && pTypeName == 'Widget' && lname == 'child') return true;
+    // (c) Optional `List<Widget>? children` on box-list hosts.
+    if (isBoxHost &&
+        p.type is InterfaceType &&
+        (p.type as InterfaceType).isDartCoreList) {
+      final args = (p.type as InterfaceType).typeArguments;
+      if (args.isNotEmpty &&
+          args.first.element?.name == 'Widget' &&
+          lname == 'children') return true;
+    }
+    return false;
   }
 
   /// Returns the sample Java expression for type [t], applying local overrides.

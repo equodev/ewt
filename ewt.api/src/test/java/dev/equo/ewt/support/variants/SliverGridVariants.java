@@ -13,33 +13,33 @@ public final class SliverGridVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("count_allSet", List.of(PropExpectation.equalTo("mainAxisSpacing", 1.0), PropExpectation.equalTo("crossAxisSpacing", 1.0), PropExpectation.equalTo("childAspectRatio", 1.0))),
-          Map.entry("count_boundary", List.of(PropExpectation.equalTo("mainAxisSpacing", 0.0), PropExpectation.equalTo("crossAxisSpacing", 0.0), PropExpectation.equalTo("childAspectRatio", 0.0))),
+          Map.entry("count_boundary", List.of(PropExpectation.equalTo("mainAxisSpacing", 0.0), PropExpectation.equalTo("crossAxisSpacing", 0.0), PropExpectation.equalTo("childAspectRatio", 1.0))),
           Map.entry("extent_allSet", List.of(PropExpectation.equalTo("mainAxisSpacing", 1.0), PropExpectation.equalTo("crossAxisSpacing", 1.0), PropExpectation.equalTo("childAspectRatio", 1.0))),
-          Map.entry("extent_boundary", List.of(PropExpectation.equalTo("mainAxisSpacing", 0.0), PropExpectation.equalTo("crossAxisSpacing", 0.0), PropExpectation.equalTo("childAspectRatio", 0.0)))
+          Map.entry("extent_boundary", List.of(PropExpectation.equalTo("mainAxisSpacing", 0.0), PropExpectation.equalTo("crossAxisSpacing", 0.0), PropExpectation.equalTo("childAspectRatio", 1.0)))
       );
 
   public static Widget count_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.count(1).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.count(1).children(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).build())).build();
   }
 
   public static Widget count_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.count(1).mainAxisSpacing(1.0).crossAxisSpacing(1.0).childAspectRatio(1.0).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.count(1).children(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).mainAxisSpacing(1.0).crossAxisSpacing(1.0).childAspectRatio(1.0).build())).build();
   }
 
   public static Widget count_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.count(1).mainAxisSpacing(0.0).crossAxisSpacing(0.0).childAspectRatio(0.0).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.count(1).children(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).mainAxisSpacing(0.0).crossAxisSpacing(0.0).childAspectRatio(1.0).build())).build();
   }
 
   public static Widget extent_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.extent(1.0).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.extent(1.0).children(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).build())).build();
   }
 
   public static Widget extent_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.extent(1.0).mainAxisSpacing(1.0).crossAxisSpacing(1.0).childAspectRatio(1.0).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.extent(1.0).children(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).mainAxisSpacing(1.0).crossAxisSpacing(1.0).childAspectRatio(1.0).build())).build();
   }
 
   public static Widget extent_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.extent(1.0).mainAxisSpacing(0.0).crossAxisSpacing(0.0).childAspectRatio(0.0).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverGrid.extent(1.0).children(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).mainAxisSpacing(0.0).crossAxisSpacing(0.0).childAspectRatio(1.0).build())).build();
   }
 
 }
