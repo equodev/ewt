@@ -19,7 +19,7 @@ public final class SliderVariants {
   }
 
   public static Widget slider_boundary() {
-    return Material.material().child(Slider.slider(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).padding(EdgeInsets_all(8.0).build()).year2023(false).build()).build();
+    return Material.material().child(Slider.slider(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(1).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).padding(EdgeInsets_all(8.0).build()).year2023(false).build()).build();
   }
 
   public static Widget slider_callbackWired() {
@@ -35,7 +35,7 @@ public final class SliderVariants {
   }
 
   public static Widget adaptive_boundary() {
-    return Material.material().child(Slider.adaptive(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).year2023(false).build()).build();
+    return Material.material().child(Slider.adaptive(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(1).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).year2023(false).build()).build();
   }
 
   public static Widget adaptive_callbackWired() {

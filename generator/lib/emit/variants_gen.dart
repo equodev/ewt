@@ -244,10 +244,11 @@ const _boundaryParamOverrides = <String, String?>{
   // but Flutter's `_RenderSlider.describeSemanticsConfiguration` computes
   // `1.0 / divisions!` when non-null → 1.0 / 0 == Infinity, and the semantic
   // conversion later calls `.toInt()` on it → `UnsupportedError: Infinity or
-  // NaN toInt`. Skip the param from the boundary chain (null value drops it).
-  'Slider.slider.divisions': null,
-  'Slider.adaptive.divisions': null,
-  'CupertinoSlider.cupertinoSlider.divisions': null,
+  // NaN toInt`. Force 1 (Flutter's documented minimum: "divisions >= 1 if
+  // provided") so the setter is still exercised with a legit value.
+  'Slider.slider.divisions': '1',
+  'Slider.adaptive.divisions': '1',
+  'CupertinoSlider.cupertinoSlider.divisions': '1',
 };
 
 // ---------------------------------------------------------------------------
