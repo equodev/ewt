@@ -239,6 +239,15 @@ const _boundaryParamOverrides = <String, String?>{
   'Expanded.expanded.flex': '1',
   'Flexible.flexible.flex': '1',
   'Spacer.spacer.flex': '1',
+
+  // Slider / CupertinoSlider divisions: the type-level int? boundary is 0,
+  // but Flutter's `_RenderSlider.describeSemanticsConfiguration` computes
+  // `1.0 / divisions!` when non-null → 1.0 / 0 == Infinity, and the semantic
+  // conversion later calls `.toInt()` on it → `UnsupportedError: Infinity or
+  // NaN toInt`. Skip the param from the boundary chain (null value drops it).
+  'Slider.slider.divisions': null,
+  'Slider.adaptive.divisions': null,
+  'CupertinoSlider.cupertinoSlider.divisions': null,
 };
 
 // ---------------------------------------------------------------------------
