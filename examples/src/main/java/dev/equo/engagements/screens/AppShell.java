@@ -106,6 +106,8 @@ public class AppShell extends SubStatefulWidget {
           () -> ClientsDirectory.show(ctx, s)));
       actions.add(iconAction(Icons.group(), "Team",
           () -> TeamPage.show(ctx, s)));
+      actions.add(iconAction(Icons.insights(), "Portfolio overview",
+          () -> PortfolioPage.show(ctx, s)));
       actions.add(iconAction(dark ? Icons.light_mode() : Icons.dark_mode(),
           dark ? "Switch to light" : "Switch to dark",
           s::toggleDarkMode));

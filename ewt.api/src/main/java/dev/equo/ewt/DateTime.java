@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
+import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DateTime extends NativeObj.Base implements DateTimeI {
   protected DateTime() {}
   DateTime(int id) {
@@ -96,6 +97,41 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime?");
     System.out.println("New DateTime? id:"+id);
     return new DateTime(id);
+  }
+  public int year() {
+    int id = factories.dateTimeYear(this);
+    if (id <= 0) throw new RuntimeException("Failed to call year");
+    return id;
+  }
+  public int month() {
+    int id = factories.dateTimeMonth(this);
+    if (id <= 0) throw new RuntimeException("Failed to call month");
+    return id;
+  }
+  public int day() {
+    int id = factories.dateTimeDay(this);
+    if (id <= 0) throw new RuntimeException("Failed to call day");
+    return id;
+  }
+  public int hour() {
+    int id = factories.dateTimeHour(this);
+    if (id <= 0) throw new RuntimeException("Failed to call hour");
+    return id;
+  }
+  public int minute() {
+    int id = factories.dateTimeMinute(this);
+    if (id <= 0) throw new RuntimeException("Failed to call minute");
+    return id;
+  }
+  public int second() {
+    int id = factories.dateTimeSecond(this);
+    if (id <= 0) throw new RuntimeException("Failed to call second");
+    return id;
+  }
+  public int millisecondsSinceEpoch() {
+    int id = factories.dateTimeMillisecondsSinceEpoch(this);
+    if (id <= 0) throw new RuntimeException("Failed to call millisecondsSinceEpoch");
+    return id;
   }
   public static int monday() {
     return 1;

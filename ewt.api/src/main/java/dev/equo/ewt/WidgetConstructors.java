@@ -270,6 +270,41 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.DateTimeSt.tryParse(st);
     return WidgetFactories.DateTimeSt.tryParse.invoke(fn, arena.allocateFrom(formattedString));
   }
+  int dateTimeYear(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.year(st);
+    return WidgetFactories.DateTimeSt.year.invoke(fn, self.build().getId());
+  }
+  int dateTimeMonth(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.month(st);
+    return WidgetFactories.DateTimeSt.month.invoke(fn, self.build().getId());
+  }
+  int dateTimeDay(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.day(st);
+    return WidgetFactories.DateTimeSt.day.invoke(fn, self.build().getId());
+  }
+  int dateTimeHour(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.hour(st);
+    return WidgetFactories.DateTimeSt.hour.invoke(fn, self.build().getId());
+  }
+  int dateTimeMinute(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.minute(st);
+    return WidgetFactories.DateTimeSt.minute.invoke(fn, self.build().getId());
+  }
+  int dateTimeSecond(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.second(st);
+    return WidgetFactories.DateTimeSt.second.invoke(fn, self.build().getId());
+  }
+  int dateTimeMillisecondsSinceEpoch(DateTime self) {
+    var st = WidgetFactories.dateTime(factories);
+    var fn = WidgetFactories.DateTimeSt.millisecondsSinceEpoch(st);
+    return WidgetFactories.DateTimeSt.millisecondsSinceEpoch.invoke(fn, self.build().getId());
+  }
 
   MemorySegment iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<List<Shadow>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode, Optional<FontWeight> fontWeight) {
     var st = WidgetFactories.icon(factories);

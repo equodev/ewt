@@ -261,6 +261,62 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "dateTimeTryParse", p);
     return id;
   }
+  @Override
+  int dateTimeYear(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeYear", p);
+    return id;
+  }
+  @Override
+  int dateTimeMonth(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeMonth", p);
+    return id;
+  }
+  @Override
+  int dateTimeDay(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeDay", p);
+    return id;
+  }
+  @Override
+  int dateTimeHour(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeHour", p);
+    return id;
+  }
+  @Override
+  int dateTimeMinute(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeMinute", p);
+    return id;
+  }
+  @Override
+  int dateTimeSecond(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeSecond", p);
+    return id;
+  }
+  @Override
+  int dateTimeMillisecondsSinceEpoch(DateTime self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "dateTimeMillisecondsSinceEpoch", p);
+    return id;
+  }
 
   @Override
   MemorySegment iconIcon(IconData icon, OptionalDouble size, OptionalDouble fill, OptionalDouble weight, OptionalDouble grade, OptionalDouble opticalSize, Optional<Color> color, Optional<List<Shadow>> shadows, Optional<String> semanticLabel, Optional<TextDirection> textDirection, Optional<Boolean> applyTextScaling, Optional<BlendMode> blendMode, Optional<FontWeight> fontWeight) {
