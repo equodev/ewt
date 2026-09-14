@@ -10,6 +10,7 @@ public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
     this.id = id;
   }
   public static TapUpDetails byId(int id) { return new TapUpDetails(id); }
+  static { NativeObj.register("TapUpDetails", TapUpDetails::byId); }
   @Builder.Factory
   static TapUpDetails tapUpDetailsTapUpDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, PointerDeviceKind kind) {
     int id = factories.tapUpDetailsTapUpDetails(globalPosition.map(OffsetI::build),

@@ -9,6 +9,7 @@ public class DropdownMenuEntry<T> extends NativeObj.Base implements DropdownMenu
     this.id = id;
   }
   public static DropdownMenuEntry byId(int id) { return new DropdownMenuEntry(id); }
+  static { NativeObj.register("DropdownMenuEntry", DropdownMenuEntry::byId); }
   @Builder.Factory
   static <T extends NativeObj> DropdownMenuEntry<T> dropdownMenuEntryDropdownMenuEntry(@Builder.Parameter NativeObj value, @Builder.Parameter String label, Optional<WidgetI> labelWidget, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<Boolean> enabled) {
     int id = factories.dropdownMenuEntryDropdownMenuEntry(value,

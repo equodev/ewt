@@ -1,10 +1,11 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
+import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.util.*;
 public class EWT {
   public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
-    int id = WidgetConstructors.instance.dialogShowDialog(context.build(),
+    int _ret = WidgetConstructors.instance.dialogShowDialog(context.build(),
       builder,
       Optional.empty(),
       Optional.empty(),
@@ -15,12 +16,12 @@ public class EWT {
       Optional.empty(),
       Optional.empty(),
       Optional.empty());
-    if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
-    System.out.println("New Future<T?> id:"+id);
-    return new Future() { public int getId() { return id; } };
+    if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
+    System.out.println("New Future<T?> id:"+_ret);
+    return new Future() { public int getId() { return _ret; } };
   }
   public static Future<DateTime> showDatePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
-    int id = WidgetConstructors.instance.date_pickerShowDatePicker(context.build(),
+    int _ret = WidgetConstructors.instance.date_pickerShowDatePicker(context.build(),
       Optional.empty(),
       firstDate.build(),
       lastDate.build(),
@@ -45,12 +46,12 @@ public class EWT {
       Optional.empty(),
       Optional.empty(),
       Optional.empty());
-    if (id <= 0) throw new RuntimeException("Failed to created widget Future<DateTime?>");
-    System.out.println("New Future<DateTime?> id:"+id);
-    return new Future() { public int getId() { return id; } };
+    if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<DateTime?>");
+    System.out.println("New Future<DateTime?> id:"+_ret);
+    return new Future() { public int getId() { return _ret; } };
   }
   public static Future<TimeOfDay> showTimePicker(BuildContextI context, TimeOfDayI initialTime) {
-    int id = WidgetConstructors.instance.time_pickerShowTimePicker(context.build(),
+    int _ret = WidgetConstructors.instance.time_pickerShowTimePicker(context.build(),
       initialTime.build(),
       Optional.empty(),
       Optional.empty(),
@@ -69,12 +70,12 @@ public class EWT {
       Optional.empty(),
       Optional.empty(),
       Optional.empty());
-    if (id <= 0) throw new RuntimeException("Failed to created widget Future<TimeOfDay?>");
-    System.out.println("New Future<TimeOfDay?> id:"+id);
-    return new Future() { public int getId() { return id; } };
+    if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<TimeOfDay?>");
+    System.out.println("New Future<TimeOfDay?> id:"+_ret);
+    return new Future() { public int getId() { return _ret; } };
   }
   public static Future showDateRangePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
-    int id = WidgetConstructors.instance.date_pickerShowDateRangePicker(context.build(),
+    int _ret = WidgetConstructors.instance.date_pickerShowDateRangePicker(context.build(),
       firstDate.build(),
       lastDate.build(),
       Optional.empty(),
@@ -100,9 +101,14 @@ public class EWT {
       Optional.empty(),
       Optional.empty(),
       Optional.empty());
-    if (id <= 0) throw new RuntimeException("Failed to created widget Future<DateTimeRange<DateTime>?>");
-    System.out.println("New Future<DateTimeRange<DateTime>?> id:"+id);
-    return new Future() { public int getId() { return id; } };
+    if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<DateTimeRange<DateTime>?>");
+    System.out.println("New Future<DateTimeRange<DateTime>?> id:"+_ret);
+    return new Future() { public int getId() { return _ret; } };
+  }
+  public static String widgetTypeOf(int id) {
+    MemorySegment _ret = WidgetConstructors.instance.type_registry_helpersWidgetTypeOf(id);
+    System.out.println("New String id:"+_ret);
+    return _ret.getString(0);
   }
   public static TextStyleTextStyleBuilder TextStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();

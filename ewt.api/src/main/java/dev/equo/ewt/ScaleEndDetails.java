@@ -11,6 +11,7 @@ public class ScaleEndDetails extends NativeObj.Base implements ScaleEndDetailsI 
     this.id = id;
   }
   public static ScaleEndDetails byId(int id) { return new ScaleEndDetails(id); }
+  static { NativeObj.register("ScaleEndDetails", ScaleEndDetails::byId); }
   @Builder.Factory
   static ScaleEndDetails scaleEndDetailsScaleEndDetails(Optional<VelocityI> velocity, OptionalDouble scaleVelocity, OptionalInt pointerCount) {
     int id = factories.scaleEndDetailsScaleEndDetails(velocity.map(VelocityI::build),

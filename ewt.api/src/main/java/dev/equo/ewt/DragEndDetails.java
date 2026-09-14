@@ -11,6 +11,7 @@ public class DragEndDetails extends NativeObj.Base implements DragEndDetailsI {
     this.id = id;
   }
   public static DragEndDetails byId(int id) { return new DragEndDetails(id); }
+  static { NativeObj.register("DragEndDetails", DragEndDetails::byId); }
   @Builder.Factory
   static DragEndDetails dragEndDetailsDragEndDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<VelocityI> velocity, OptionalDouble primaryVelocity) {
     int id = factories.dragEndDetailsDragEndDetails(globalPosition.map(OffsetI::build),

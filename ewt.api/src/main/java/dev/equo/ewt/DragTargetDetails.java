@@ -9,6 +9,7 @@ public class DragTargetDetails<T> extends NativeObj.Base implements DragTargetDe
     this.id = id;
   }
   public static DragTargetDetails byId(int id) { return new DragTargetDetails(id); }
+  static { NativeObj.register("DragTargetDetails", DragTargetDetails::byId); }
   @Builder.Factory
   static <T extends NativeObj> DragTargetDetails<T> dragTargetDetailsDragTargetDetails(@Builder.Parameter NativeObj data, @Builder.Parameter OffsetI offset) {
     int id = factories.dragTargetDetailsDragTargetDetails(data,

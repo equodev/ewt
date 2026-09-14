@@ -42,6 +42,7 @@ part 'pointer_event_methods.dart';
 part 'offset_methods.dart';
 part 'date_time_methods.dart';
 part 'future_methods.dart';
+part 'type_registry_helpers.dart';
 
 final ffi.Pointer<WidgetFactories> factories = _setupFactories();
 const exception = -1;

@@ -9,6 +9,7 @@ public class ParentData extends NativeObj.Base implements ParentDataI {
     this.id = id;
   }
   public static ParentData byId(int id) { return new ParentData(id); }
+  static { NativeObj.register("ParentData", ParentData::byId); }
   @Builder.Factory
   static ParentData parentDataParentData() {
     int id = factories.parentDataParentData();

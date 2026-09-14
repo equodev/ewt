@@ -10,6 +10,7 @@ public class LongPressDownDetails extends NativeObj.Base implements LongPressDow
     this.id = id;
   }
   public static LongPressDownDetails byId(int id) { return new LongPressDownDetails(id); }
+  static { NativeObj.register("LongPressDownDetails", LongPressDownDetails::byId); }
   @Builder.Factory
   static LongPressDownDetails longPressDownDetailsLongPressDownDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<PointerDeviceKind> kind) {
     int id = factories.longPressDownDetailsLongPressDownDetails(globalPosition.map(OffsetI::build),

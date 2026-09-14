@@ -9,6 +9,7 @@ public class PageStorageBucket extends NativeObj.Base implements PageStorageBuck
     this.id = id;
   }
   public static PageStorageBucket byId(int id) { return new PageStorageBucket(id); }
+  static { NativeObj.register("PageStorageBucket", PageStorageBucket::byId); }
   @Builder.Factory
   static PageStorageBucket pageStorageBucketPageStorageBucket() {
     int id = factories.pageStorageBucketPageStorageBucket();

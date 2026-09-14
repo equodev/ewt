@@ -9,6 +9,7 @@ public class BoxParentData extends ParentData implements BoxParentDataI {
     this.id = id;
   }
   public static BoxParentData byId(int id) { return new BoxParentData(id); }
+  static { NativeObj.register("BoxParentData", BoxParentData::byId); }
   @Builder.Factory
   static BoxParentData boxParentDataBoxParentData() {
     int id = factories.boxParentDataBoxParentData();

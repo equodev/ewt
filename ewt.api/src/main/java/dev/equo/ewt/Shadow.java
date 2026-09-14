@@ -9,6 +9,7 @@ public class Shadow extends NativeObj.Base implements ShadowI {
     this.id = id;
   }
   public static Shadow byId(int id) { return new Shadow(id); }
+  static { NativeObj.register("Shadow", Shadow::byId); }
   @Builder.Factory
   static Shadow shadowShadow(Optional<ColorI> color, Optional<OffsetI> offset, OptionalDouble blurRadius) {
     int id = factories.shadowShadow(color.map(ColorI::build),

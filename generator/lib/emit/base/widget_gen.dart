@@ -232,6 +232,13 @@ class WidgetGen implements AGen {
           '    this.id = id;')..writeln('  }');
       if (!dartClass.isAbstract) {
         ctx.javaFile.writeln('  public static $widgetClass byId(int id) { return new $widgetClass(id); }');
+        // Register this class with the NativeObj type registry so callback-
+        // arg marshallers that receive an `Object?` id + Dart runtimeType
+        // name can reconstruct a properly-typed wrapper (see
+        // `NativeObj.byIdAndType`). Keyed on the Dart class name — matches
+        // what `value.runtimeType.toString()` returns for a plain instance.
+        ctx.javaFile.writeln(
+            '  static { NativeObj.register("$widgetClass", $widgetClass::byId); }');
       }
     }
   }

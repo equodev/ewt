@@ -10,6 +10,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     this.id = id;
   }
   public static AnimationController byId(int id) { return new AnimationController(id); }
+  static { NativeObj.register("AnimationController", AnimationController::byId); }
   @Builder.Factory
   static AnimationController animationControllerAnimationController(OptionalDouble value, Optional<DurationI> duration, Optional<DurationI> reverseDuration, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProviderI vsync) {
     int id = factories.animationControllerAnimationController(value,

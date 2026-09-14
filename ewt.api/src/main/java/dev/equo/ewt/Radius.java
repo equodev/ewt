@@ -9,6 +9,7 @@ public class Radius extends NativeObj.Base implements RadiusI {
     this.id = id;
   }
   public static Radius byId(int id) { return new Radius(id); }
+  static { NativeObj.register("Radius", Radius::byId); }
   @Builder.Factory
   static Radius radiusCircular(@Builder.Parameter double radius) {
     int id = factories.radiusCircular(radius);

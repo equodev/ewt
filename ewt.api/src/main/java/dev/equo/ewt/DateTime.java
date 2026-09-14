@@ -10,6 +10,7 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
     this.id = id;
   }
   public static DateTime byId(int id) { return new DateTime(id); }
+  static { NativeObj.register("DateTime", DateTime::byId); }
   @Builder.Factory
   static DateTime dateTimeDateTime(@Builder.Parameter int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
     int id = factories.dateTimeDateTime(year,

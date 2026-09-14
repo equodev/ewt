@@ -11,6 +11,7 @@ public class DraggableDetails extends NativeObj.Base implements DraggableDetails
     this.id = id;
   }
   public static DraggableDetails byId(int id) { return new DraggableDetails(id); }
+  static { NativeObj.register("DraggableDetails", DraggableDetails::byId); }
   @Builder.Factory
   static DraggableDetails draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, VelocityI velocity, OffsetI offset) {
     int id = factories.draggableDetailsDraggableDetails(wasAccepted,

@@ -9,6 +9,7 @@ public class Color extends NativeObj.Base implements ColorI {
     this.id = id;
   }
   public static Color byId(int id) { return new Color(id); }
+  static { NativeObj.register("Color", Color::byId); }
   @Builder.Factory
   static Color colorColor(@Builder.Parameter int value) {
     int id = factories.colorColor(value);

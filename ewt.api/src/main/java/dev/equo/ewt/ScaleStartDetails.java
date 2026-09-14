@@ -10,6 +10,7 @@ public class ScaleStartDetails extends NativeObj.Base implements ScaleStartDetai
     this.id = id;
   }
   public static ScaleStartDetails byId(int id) { return new ScaleStartDetails(id); }
+  static { NativeObj.register("ScaleStartDetails", ScaleStartDetails::byId); }
   @Builder.Factory
   static ScaleStartDetails scaleStartDetailsScaleStartDetails(Optional<OffsetI> focalPoint, Optional<OffsetI> localFocalPoint, OptionalInt pointerCount, Optional<DurationI> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
     int id = factories.scaleStartDetailsScaleStartDetails(focalPoint.map(OffsetI::build),

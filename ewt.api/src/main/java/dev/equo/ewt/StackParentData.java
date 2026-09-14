@@ -9,6 +9,7 @@ public class StackParentData extends ContainerBoxParentData<RenderBox> implement
     this.id = id;
   }
   public static StackParentData byId(int id) { return new StackParentData(id); }
+  static { NativeObj.register("StackParentData", StackParentData::byId); }
   @Builder.Factory
   static StackParentData stackParentDataStackParentData() {
     int id = factories.stackParentDataStackParentData();

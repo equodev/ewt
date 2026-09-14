@@ -10,6 +10,7 @@ public class ForcePressDetails extends NativeObj.Base implements ForcePressDetai
     this.id = id;
   }
   public static ForcePressDetails byId(int id) { return new ForcePressDetails(id); }
+  static { NativeObj.register("ForcePressDetails", ForcePressDetails::byId); }
   @Builder.Factory
   static ForcePressDetails forcePressDetailsForcePressDetails(@Builder.Parameter OffsetI globalPosition, Optional<OffsetI> localPosition, double pressure) {
     int id = factories.forcePressDetailsForcePressDetails(globalPosition.build(),

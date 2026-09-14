@@ -10,6 +10,7 @@ public class DragDownDetails extends NativeObj.Base implements DragDownDetailsI 
     this.id = id;
   }
   public static DragDownDetails byId(int id) { return new DragDownDetails(id); }
+  static { NativeObj.register("DragDownDetails", DragDownDetails::byId); }
   @Builder.Factory
   static DragDownDetails dragDownDetailsDragDownDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition) {
     int id = factories.dragDownDetailsDragDownDetails(globalPosition.map(OffsetI::build),

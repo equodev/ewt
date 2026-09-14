@@ -10,6 +10,7 @@ public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetai
     this.id = id;
   }
   public static DragUpdateDetails byId(int id) { return new DragUpdateDetails(id); }
+  static { NativeObj.register("DragUpdateDetails", DragUpdateDetails::byId); }
   @Builder.Factory
   static DragUpdateDetails dragUpdateDetailsDragUpdateDetails(@Builder.Parameter OffsetI globalPosition, Optional<OffsetI> localPosition, Optional<DurationI> sourceTimeStamp, Optional<OffsetI> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
     int id = factories.dragUpdateDetailsDragUpdateDetails(globalPosition.build(),
