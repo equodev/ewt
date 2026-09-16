@@ -741,6 +741,7 @@ ewt_evolve_p2:
   stage: deploy
   image: $FLUTTER_IMAGE_TAG
   needs:
+    - resolve_evolve_ref   # provides EVOLVE_REF (the Evolve tag) via dotenv — it's the pin version
     - ewt_evolve_build
     - job: ewt_evolve_build:macos
       optional: true
@@ -758,27 +759,32 @@ ewt_evolve_p2:
     # Eclipse into the CI image (.docker/Dockerfile) and set ECLIPSE_HOME there.
     ECLIPSE_HOME: ""
     ECLIPSE_PLATFORM_URL: "https://download.eclipse.org/eclipse/downloads/drops4/R-4.33-202409030240/eclipse-platform-4.33-linux-gtk-x86_64.tar.gz"
-    # Evolve's published desktop-hybrid p2 (the exact repo the CLI installs from). We read the
-    # dev.equo.swt.evolve.feat.hybrid.feature.group version from its content.jar and pin our feature
-    # to it EXACTLY. TODO(Mati/Q1): confirm this URL (the CLI's evolve p2 for the release) + that the
-    # feature-group version changes per Evolve release. Empty ⇒ the job skips (no wrong pin shipped).
-    EVOLVE_P2_URL: ""
+    # An Evolve desktop-hybrid p2 used ONLY to verify the pinned version exists (per Mati). The pin
+    # itself is the Evolve tag version — see below. One p2 per Eclipse release; full list at
+    # https://dl.equo.dev/evolve/versions.json (field p2Hybrid). Lines publish one at a time, so a
+    # given line may lag; verification only warns.
+    EVOLVE_P2_URL: "https://dl.equo.dev/evolve/2026-06/desktop-hybrid/p2"
   script:
     - >-
       if [ -z "$ECLIPSE_HOME" ]; then
         curl -fsSL "$ECLIPSE_PLATFORM_URL" -o eclipse.tar.gz && tar xzf eclipse.tar.gz && export ECLIPSE_HOME="$PWD/eclipse";
       fi
-    # The pin is Evolve's SWT-layer FEATURE GROUP version (per Mati), which is NOT in any jar we build
-    # (it's assembled by the CLI-side pipeline). Read it from Evolve's published p2. Skip cleanly until
-    # EVOLVE_P2_URL is configured, so pipelines never ship an incorrect pin.
+    # The pin is Evolve's SWT-layer FEATURE GROUP (dev.equo.swt.evolve.feat.hybrid.feature.group), whose
+    # version == the Evolve release version and is the SAME across all Eclipse lines (per Mati). So it's
+    # exactly the Evolve tag we build against: EVOLVE_REF (e.g. v0.336.0) → 0.336.0. NOT org.eclipse.swt
+    # (whose version also encodes the SWT line, tying us to one release).
+    - test -n "$EVOLVE_REF" || { echo "EVOLVE_REF not set (needs resolve_evolve_ref)"; exit 1; }
+    - EVOLVE_FEAT_VERSION="${EVOLVE_REF#v}"
+    # Verify that version is actually published (Mati: "usen la URL para verificar que existe"). Warn
+    # only — a given Eclipse line can still lag (publishes one at a time).
     - >-
-      if [ -z "$EVOLVE_P2_URL" ]; then
-        echo "EVOLVE_P2_URL not set (Q1 pending with Mati) — skipping p2 assembly."; exit 0;
+      if [ -n "$EVOLVE_P2_URL" ] && curl -fsSL "$EVOLVE_P2_URL/content.jar" -o evolve-content.jar 2>/dev/null && unzip -o -q evolve-content.jar -d evolve-p2meta 2>/dev/null; then
+        if grep -q "dev.equo.swt.evolve.feat.hybrid.feature.group' version='$EVOLVE_FEAT_VERSION'" evolve-p2meta/content.xml; then
+          echo "verified: feat.hybrid.feature.group $EVOLVE_FEAT_VERSION exists at $EVOLVE_P2_URL";
+        else
+          echo "WARN: feat.hybrid.feature.group $EVOLVE_FEAT_VERSION not found at $EVOLVE_P2_URL — that Eclipse line may still lag (lines publish one at a time).";
+        fi;
       fi
-    - curl -fsSL "$EVOLVE_P2_URL/content.jar" -o evolve-content.jar
-    - unzip -o -q evolve-content.jar -d evolve-p2meta
-    - EVOLVE_FEAT_VERSION=$(grep -oE "dev.equo.swt.evolve.feat.hybrid.feature.group' version='[^']*'" evolve-p2meta/content.xml | head -1 | sed -E "s/.*version='([^']*)'.*/\1/")
-    - test -n "$EVOLVE_FEAT_VERSION" || { echo "feat.hybrid.feature.group not found in $EVOLVE_P2_URL/content.jar"; exit 1; }
     - echo "EVOLVE_VERSION=$EVOLVE_FEAT_VERSION" > p2.env    # keys the publish job's versioned bucket path
     - echo "Pinning ewt-evolve.feature to dev.equo.swt.evolve.feat.hybrid.feature.group [$EVOLVE_FEAT_VERSION]"
     # ONE p2 repo carrying every per-platform fragment that arrived (each has a distinct
