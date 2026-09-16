@@ -36,11 +36,13 @@ variables:
   # --- EWT ↔ Evolve integration (ewt-evolve jar) ---
   # The combined bundle merges Evolve's Dart (swtflutter) with EWT's into ONE snapshot, so the
   # ewt-evolve jar is tied to a SPECIFIC swt-evolve version: the consumer must run that same
-  # swt-evolve jar at runtime. We PIN to a swt-evolve GitHub release tag so every pipeline bakes
-  # the identical Evolve Dart (reproducible). Bump deliberately when adopting a newer release —
-  # verify the tag builds at FLUTTER_SDK above. The release tags live on GitHub (equodev/swt-evolve),
-  # NOT the GitLab dev repo (which carries different versioning), so CI clones GitHub below.
-  EVOLVE_REF: "2cf56e6b274dfb5cb4ff3cdd92b9158e1bf7ed31"
+  # swt-evolve jar at runtime. We FOLLOW the LATEST swt-evolve GitHub release: the resolve_evolve_ref
+  # job picks the highest v* tag ONCE per pipeline and exports it as EVOLVE_REF (dotenv), so all
+  # three ewt_evolve_build:* jobs (linux/macos/windows) bake the IDENTICAL Evolve version even if a
+  # new release lands mid-pipeline. The release tags live on GitHub (equodev/swt-evolve), NOT the
+  # GitLab dev repo (which carries different versioning), so CI clones GitHub below.
+  # (No hardcoded EVOLVE_REF here — resolve_evolve_ref sets it. To pin to a fixed release instead,
+  # disable resolve_evolve_ref and set EVOLVE_REF to the desired tag in this block.)
   # Public GitHub repo that publishes swt-evolve releases — cloned anonymously over HTTPS (no
   # token, no allowlist). Also a full source mirror (flutter-lib + swt_native), so it builds.
   EVOLVE_PROJECT_PATH: "equodev/swt-evolve"
@@ -420,8 +422,29 @@ ewt_build:
       dotenv: build/published/version.env
     expire_in: 1 week
 
+# Resolves the LATEST swt-evolve release ONCE per pipeline and exports it as EVOLVE_REF via dotenv,
+# so every ewt_evolve_build:* job (linux/macos/windows) checks out the SAME tag — no cross-OS skew
+# if a new release is published mid-pipeline. Picks the highest v* tag by version sort (swt-evolve
+# uses linear v0.N.0 release tags on GitHub). GIT_STRATEGY:none — we don't need the EWT checkout,
+# only an anonymous `git ls-remote` against the public GitHub repo.
+resolve_evolve_ref:
+  stage: check
+  image: alpine/git:latest
+  needs: []
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    - EVOLVE_REF=$(git ls-remote --tags --refs "$EVOLVE_URL" 'v*' | sed 's#.*refs/tags/##' | sort -V | tail -1)
+    - test -n "$EVOLVE_REF" || (echo "No swt-evolve release tag (v*) found at $EVOLVE_URL"; exit 1)
+    - echo "Latest swt-evolve release resolved to $EVOLVE_REF"
+    - echo "EVOLVE_REF=$EVOLVE_REF" > evolve.env
+  artifacts:
+    reports:
+      dotenv: evolve.env
+
 # Builds the self-contained ewt-evolve jar (EWT toolkit + EwtWidget + SPI provider + the
-# combined Evolve/EWT Dart bundle). Needs the sibling swt-evolve at the PINNED EVOLVE_REF:
+# combined Evolve/EWT Dart bundle). Needs the sibling swt-evolve at the resolved EVOLVE_REF:
 # its flutter-lib (Dart, merged into libapp.so) and its full jar (compiled against + shipped
 # to the consumer). Also builds the standalone ewt.api jar + compiles the examples so the
 # smoke job can run the packaged app from artifacts alone (no clone, no gradle).
@@ -430,6 +453,7 @@ ewt_evolve_build:
   image: $FLUTTER_IMAGE_TAG
   # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
   needs:
+    - resolve_evolve_ref   # provides EVOLVE_REF (latest release) via dotenv
     - generate
     - generator_tests
     - ewt_api_tests:linux
@@ -446,7 +470,7 @@ ewt_evolve_build:
       allow_failure: true
     - when: on_success
   script:
-    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first (or set it to pin)"; exit 1)
     # Clone swt-evolve as a clean sibling (../swt-evolve, same parent as this repo). CI is not
     # bound to the local ../../swt-evolve convention: it points both build sides at the clone
     # explicitly — gradle via -PevolveHome, and the Dart via a generated pubspec_overrides.yaml
@@ -482,6 +506,7 @@ ewt_evolve_build:macos:
   extends: .flutter:macos
   stage: build
   needs:
+    - resolve_evolve_ref   # provides EVOLVE_REF (latest release) via dotenv
     - job: generate
       optional: true
     - job: release_gate
@@ -510,7 +535,7 @@ ewt_evolve_build:macos:
     # not strictly needed for it, but set it for parity with the other OSes.
     - export FLUTTER_ROOT="$HOME/flutter"
   script:
-    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first (or set it to pin)"; exit 1)
     - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
     - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
     - git -C ../swt-evolve checkout "$EVOLVE_REF"
@@ -549,6 +574,7 @@ ewt_evolve_build:windows:
       - api_failure
       - scheduler_failure
   needs:
+    - resolve_evolve_ref   # provides EVOLVE_REF (latest release) via dotenv
     - job: generate
       optional: true
     - job: release_gate
@@ -563,7 +589,7 @@ ewt_evolve_build:windows:
     - curl -L -o jdk.zip "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_x64_windows_hotspot_22.0.2_9.zip"
     - powershell.exe -C "Expand-Archive -Force jdk.zip -DestinationPath C:\\jdk"
   script:
-    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF must be set (pin a tag/SHA)"; exit 1)
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first (or set it to pin)"; exit 1)
     - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
     - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
     - git -C ../swt-evolve checkout "$EVOLVE_REF"
