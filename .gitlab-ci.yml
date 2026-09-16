@@ -758,18 +758,29 @@ ewt_evolve_p2:
     # Eclipse into the CI image (.docker/Dockerfile) and set ECLIPSE_HOME there.
     ECLIPSE_HOME: ""
     ECLIPSE_PLATFORM_URL: "https://download.eclipse.org/eclipse/downloads/drops4/R-4.33-202409030240/eclipse-platform-4.33-linux-gtk-x86_64.tar.gz"
+    # Evolve's published desktop-hybrid p2 (the exact repo the CLI installs from). We read the
+    # dev.equo.swt.evolve.feat.hybrid.feature.group version from its content.jar and pin our feature
+    # to it EXACTLY. TODO(Mati/Q1): confirm this URL (the CLI's evolve p2 for the release) + that the
+    # feature-group version changes per Evolve release. Empty ⇒ the job skips (no wrong pin shipped).
+    EVOLVE_P2_URL: ""
   script:
     - >-
       if [ -z "$ECLIPSE_HOME" ]; then
         curl -fsSL "$ECLIPSE_PLATFORM_URL" -o eclipse.tar.gz && tar xzf eclipse.tar.gz && export ECLIPSE_HOME="$PWD/eclipse";
       fi
-    # The Evolve version pin is read from any swt_evolve hybrid jar (the fragment carries the host
-    # Bundle-Version). swt_evolve-linux-x86_64.jar is staged by ewt_evolve_build.
-    - EVOLVE_HOST_JAR="$PWD/ewt.api/build/libs/swt_evolve-linux-x86_64.jar"
-    # Record the pinned Evolve version for the publish job's versioned bucket path (requirement 3).
-    - EVOLVE_VERSION=$(unzip -p "$EVOLVE_HOST_JAR" META-INF/MANIFEST.MF | tr -d '\r' | awk '/^Bundle-Version/{print $2}')
-    - echo "EVOLVE_VERSION=$EVOLVE_VERSION" > p2.env
-    - echo "Pinning ewt-evolve.feature to Evolve $EVOLVE_VERSION"
+    # The pin is Evolve's SWT-layer FEATURE GROUP version (per Mati), which is NOT in any jar we build
+    # (it's assembled by the CLI-side pipeline). Read it from Evolve's published p2. Skip cleanly until
+    # EVOLVE_P2_URL is configured, so pipelines never ship an incorrect pin.
+    - >-
+      if [ -z "$EVOLVE_P2_URL" ]; then
+        echo "EVOLVE_P2_URL not set (Q1 pending with Mati) — skipping p2 assembly."; exit 0;
+      fi
+    - curl -fsSL "$EVOLVE_P2_URL/content.jar" -o evolve-content.jar
+    - unzip -o -q evolve-content.jar -d evolve-p2meta
+    - EVOLVE_FEAT_VERSION=$(grep -oE "dev.equo.swt.evolve.feat.hybrid.feature.group' version='[^']*'" evolve-p2meta/content.xml | head -1 | sed -E "s/.*version='([^']*)'.*/\1/")
+    - test -n "$EVOLVE_FEAT_VERSION" || { echo "feat.hybrid.feature.group not found in $EVOLVE_P2_URL/content.jar"; exit 1; }
+    - echo "EVOLVE_VERSION=$EVOLVE_FEAT_VERSION" > p2.env    # keys the publish job's versioned bucket path
+    - echo "Pinning ewt-evolve.feature to dev.equo.swt.evolve.feat.hybrid.feature.group [$EVOLVE_FEAT_VERSION]"
     # One per-OS p2 repo per ewt-evolve fragment artifact that arrived (linux always; mac/win if built).
     - |
       shopt -s nullglob
@@ -779,7 +790,7 @@ ewt_evolve_p2:
         ./gradlew -p ewt-evolve-p2 assembleP2 \
           -Pp2Out="$os" \
           -PewtEvolveJar="$PWD/$jar" \
-          -PevolveHostJar="$EVOLVE_HOST_JAR" \
+          -PevolveVersion="$EVOLVE_FEAT_VERSION" \
           -PeclipseHome="$ECLIPSE_HOME" \
           --no-daemon;
       done

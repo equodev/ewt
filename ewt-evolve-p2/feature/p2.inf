@@ -4,21 +4,20 @@
 # This mirrors swt-evolve's own host requirement generation
 # (swt_native/build.gradle.kts:genHostP2Inf, `requires.N.range = [v,v]`).
 #
-# Q1 RESOLVED (2026-09-16): all three swt-evolve host jars share Bundle-SymbolicName
-# `org.eclipse.swt` (the -hybrid/-embed/-web difference is only the jar FILENAME/archiveBaseName,
-# not the IU). The variant + Evolve version live in the Bundle-VERSION:
-#   hostVersion("hyb") = <swtBase>.v<evolveVersion underscored>-hyb   e.g. 3.134.0.v0_335_0-hyb
-# So for the desktop-hybrid variant the CLI installs:
-#   @EVOLVE_IU@      = org.eclipse.swt
-#   @EVOLVE_VERSION@ = the built host Bundle-Version, e.g. 3.134.0.v0_335_0-hyb
-# The Gradle build reads @EVOLVE_VERSION@ from the BUILT swt-evolve host jar manifest (NOT the git
-# tag, NOT hardcoded — it also encodes the SWT base version). Why this pin is needed: our fragment's
-# Fragment-Host range is loose [3.100,4.0.0) (matches any SWT); this requires closes it to the exact
-# Evolve build, so p2 fails on a product carrying stock SWT or a different Evolve.
+# Q1 — CORRECTED per Mati/CLI (2026-09-16): pin Evolve's SWT-layer FEATURE GROUP, the same unit the
+# p2 director installs, NOT the org.eclipse.swt host bundle:
+#   @EVOLVE_IU@      = dev.equo.swt.evolve.feat.hybrid.feature.group
+#   @EVOLVE_VERSION@ = that feature group's version in the Evolve desktop-hybrid p2 (e.g. matching
+#                      the Evolve release the ewt-evolve fragment was built against)
+# That feature group is assembled by the CLI-side publishing pipeline (NOT swt-evolve), so its
+# version is NOT in any jar we build — the Gradle build takes it via -PevolveVersion, which CI reads
+# from Evolve's published desktop-hybrid p2 (the exact repo the director installs from). Pinning it
+# exactly means p2 refuses to install onto a product with a different Evolve → a bad refresh fails
+# instead of shipping a blank IDE.
 #
 # Example after substitution:
-#   requires.1.name  = org.eclipse.swt
-#   requires.1.range = [3.134.0.v0_335_0-hyb,3.134.0.v0_335_0-hyb]
+#   requires.1.name  = dev.equo.swt.evolve.feat.hybrid.feature.group
+#   requires.1.range = [<evolveFeatureGroupVersion>,<evolveFeatureGroupVersion>]
 
 requires.1.namespace = org.eclipse.equinox.p2.iu
 requires.1.name = @EVOLVE_IU@
