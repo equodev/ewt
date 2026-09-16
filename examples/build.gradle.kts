@@ -357,8 +357,28 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
     }
 }
 
+// Assemble the EWT+Evolve combined WEB bundle (evolve-app built for web). Unlike the desktop
+// buildCombinedBundle this needs no C/native step or per-OS layout — it's a single `flutter build
+// web`: evolve-app deps swtflutter (Evolve) + widgets_web (EWT's pure-Dart decoders), so the one web
+// bundle renders both. Output: evolve-app/build/web/ (served by Evolve's WebFlutterServer via the
+// dev.equo.swt.web.dir override, or the web p2 feature's ExternalWebBundleProvider). --no-tree-shake-icons
+// is required for EWT (non-const IconData); --pwa-strategy=none keeps the service worker out.
+tasks.register<Exec>("buildCombinedWebBundle") {
+    group = "examples"
+    description = "Assemble the EWT+Evolve combined web bundle (flutter build web, no runner)."
+    workingDir = rootProject.projectDir.resolve("evolve-app")
+    commandLine("bash", "-lc",
+        "flutter pub get && flutter build web --no-tree-shake-icons --pwa-strategy=none")
+    doLast {
+        val webDir = combinedBuild.resolve("web")
+        if (!webDir.resolve("index.html").exists())
+            throw GradleException("flutter build web did not produce $webDir/index.html")
+        logger.lifecycle("Combined web bundle at $webDir")
+    }
+}
+
 // WEB: runs the EWT Web Showcase.
-// Build the web bundle first: (cd evolve-app && flutter build web --no-tree-shake-icons)
+// Build the web bundle first: ./gradlew :examples:buildCombinedWebBundle
 tasks.register<JavaExec>("runShowcaseWeb") {
     group = "examples"
     description = "Run the EWT Web Showcase."
