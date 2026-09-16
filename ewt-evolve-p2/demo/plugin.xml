@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.views">
+      <category
+            id="dev.equo.ewt.evolve.demo.category"
+            name="EWT"/>
+      <view
+            id="dev.equo.ewt.evolve.demo.showcase"
+            name="EWT Showcase"
+            category="dev.equo.ewt.evolve.demo.category"
+            class="dev.equo.ewt.evolve.demo.EwtShowcaseView"
+            restorable="true"/>
+   </extension>
+</plugin>

@@ -1,0 +1,25 @@
+# Pins the EXACT swt-evolve version this feature was built against, so p2 refuses to
+# install onto a product carrying a different Evolve (fail-closed — no blank IDE).
+#
+# This mirrors swt-evolve's own host requirement generation
+# (swt_native/build.gradle.kts:genHostP2Inf, `requires.N.range = [v,v]`).
+#
+# Q1 RESOLVED (2026-09-16): all three swt-evolve host jars share Bundle-SymbolicName
+# `org.eclipse.swt` (the -hybrid/-embed/-web difference is only the jar FILENAME/archiveBaseName,
+# not the IU). The variant + Evolve version live in the Bundle-VERSION:
+#   hostVersion("hyb") = <swtBase>.v<evolveVersion underscored>-hyb   e.g. 3.134.0.v0_335_0-hyb
+# So for the desktop-hybrid variant the CLI installs:
+#   @EVOLVE_IU@      = org.eclipse.swt
+#   @EVOLVE_VERSION@ = the built host Bundle-Version, e.g. 3.134.0.v0_335_0-hyb
+# The Gradle build reads @EVOLVE_VERSION@ from the BUILT swt-evolve host jar manifest (NOT the git
+# tag, NOT hardcoded — it also encodes the SWT base version). Why this pin is needed: our fragment's
+# Fragment-Host range is loose [3.100,4.0.0) (matches any SWT); this requires closes it to the exact
+# Evolve build, so p2 fails on a product carrying stock SWT or a different Evolve.
+#
+# Example after substitution:
+#   requires.1.name  = org.eclipse.swt
+#   requires.1.range = [3.134.0.v0_335_0-hyb,3.134.0.v0_335_0-hyb]
+
+requires.1.namespace = org.eclipse.equinox.p2.iu
+requires.1.name = @EVOLVE_IU@
+requires.1.range = [@EVOLVE_VERSION@,@EVOLVE_VERSION@]

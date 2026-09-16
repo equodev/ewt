@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="dev.equo.ewt.evolve.feature"
+      label="EWT to Evolve Integration"
+      version="0.1.0.qualifier"
+      provider-name="Equo Tech, Inc.">
+
+   <description>
+      Embeds EWT (Flutter) widgets in an SWT Evolve surface. Bundles the per-OS
+      ewt-evolve fragment and a demo view. This feature is pinned to the EXACT
+      SWT Evolve version it was built against (see p2.inf) so p2 refuses to install
+      it onto a product carrying a different Evolve — a mismatch fails the patch
+      instead of publishing a blank IDE.
+   </description>
+
+   <copyright>
+      Copyright (c) Equo Tech, Inc.
+   </copyright>
+
+   <!--
+     The ewt-evolve fragment (Fragment-Host: org.eclipse.swt, provided by Evolve).
+     version="0.0.0" => resolved at publish time. NOTE (spec Q1): the fragment is
+     currently ONE symbolic name (dev.equo.ewt.evolve) with an OS classifier on the
+     maven side; for p2 the per-OS content is carried by the per-platform p2 repo we
+     publish. If we move to per-arch symbolic names (as swt-evolve does), add one
+     <plugin> per os/ws/arch with the matching filter attributes here.
+   -->
+   <plugin
+         id="dev.equo.ewt.evolve"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <!-- The demo plugin with the showcase view. -->
+   <plugin
+         id="dev.equo.ewt.evolve.demo"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

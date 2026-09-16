@@ -730,8 +730,100 @@ upload_to_gcs:
       allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
+# --- p2 distribution (workstream 10 — see ewt-evolve-p2/ + ewt-evolve-p2-distribution-spec.md) ---
+# Assemble the CLI-installable p2 repo(s) from the per-OS ewt-evolve fragments so `equo modernize`
+# can p2-install ewt+evolve (the CLI installs features, not maven jars). The Eclipse p2 publisher is
+# OS-agnostic Java, so this ONE Linux job builds the linux/macos/windows repos from whatever fragment
+# artifacts arrived. The feature pins the EXACT Evolve version it was built against (p2.inf requires
+# [X,X]), so p2 refuses to install onto a mismatched Evolve — a bad refresh fails instead of shipping
+# a blank IDE. Runs the standalone ewt-evolve-p2 Gradle build (kept out of the main build).
+ewt_evolve_p2:
+  stage: deploy
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - ewt_evolve_build
+    - job: ewt_evolve_build:macos
+      optional: true
+    - job: ewt_evolve_build:windows
+      optional: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  variables:
+    # Eclipse providing the equinox launcher + p2 publisher apps + platform bundles (to compile the
+    # demo ViewPart). Set ECLIPSE_HOME as a CI/CD variable pointing at a baked/cached Eclipse to skip
+    # the download. TODO(infra): confirm this pinned Platform URL resolves on the runner, or bake
+    # Eclipse into the CI image (.docker/Dockerfile) and set ECLIPSE_HOME there.
+    ECLIPSE_HOME: ""
+    ECLIPSE_PLATFORM_URL: "https://download.eclipse.org/eclipse/downloads/drops4/R-4.33-202409030240/eclipse-platform-4.33-linux-gtk-x86_64.tar.gz"
+  script:
+    - >-
+      if [ -z "$ECLIPSE_HOME" ]; then
+        curl -fsSL "$ECLIPSE_PLATFORM_URL" -o eclipse.tar.gz && tar xzf eclipse.tar.gz && export ECLIPSE_HOME="$PWD/eclipse";
+      fi
+    # The Evolve version pin is read from any swt_evolve hybrid jar (the fragment carries the host
+    # Bundle-Version). swt_evolve-linux-x86_64.jar is staged by ewt_evolve_build.
+    - EVOLVE_HOST_JAR="$PWD/ewt.api/build/libs/swt_evolve-linux-x86_64.jar"
+    # Record the pinned Evolve version for the publish job's versioned bucket path (requirement 3).
+    - EVOLVE_VERSION=$(unzip -p "$EVOLVE_HOST_JAR" META-INF/MANIFEST.MF | tr -d '\r' | awk '/^Bundle-Version/{print $2}')
+    - echo "EVOLVE_VERSION=$EVOLVE_VERSION" > p2.env
+    - echo "Pinning ewt-evolve.feature to Evolve $EVOLVE_VERSION"
+    # One per-OS p2 repo per ewt-evolve fragment artifact that arrived (linux always; mac/win if built).
+    - |
+      shopt -s nullglob
+      for jar in ewt.api/build/libs/ewt-evolve-*.jar; do
+        os=$(echo "$jar" | sed -E 's/.*-([a-z]+)\.jar$/\1/')
+        echo "== assembling p2 for $os from $(basename "$jar") ==";
+        ./gradlew -p ewt-evolve-p2 assembleP2 \
+          -Pp2Out="$os" \
+          -PewtEvolveJar="$PWD/$jar" \
+          -PevolveHostJar="$EVOLVE_HOST_JAR" \
+          -PeclipseHome="$ECLIPSE_HOME" \
+          --no-daemon;
+      done
+  artifacts:
+    paths:
+      - ewt-evolve-p2/build/*/p2-repo/
+    reports:
+      dotenv: p2.env
+    expire_in: 1 week
+
 # =============================================================================
 # RELEASE STAGE
+# =============================================================================
+
+# Publish the assembled ewt-evolve p2 repo(s) to the versioned bucket layout. Immutable per Evolve
+# version + a rolling `latest/` moved only on success (a failed refresh keeps the prior working repo
+# — requirement 3). Bucket is Q2 (proposed gs://equo-ewt/ewt-evolve; the CLI must point p2director
+# there — Q5). Reuses .gcs_upload's gcloud auth; no-op-safe if EVOLVE_VERSION didn't propagate.
+publish_ewt_evolve_p2:
+  extends: .gcs_upload
+  stage: release
+  needs:
+    - ewt_evolve_p2
+  variables:
+    P2_BUCKET: "gs://equo-ewt/ewt-evolve"   # Q2 — set empty to disable
+  script:
+    - test -n "$P2_BUCKET" || { echo "P2_BUCKET empty — skipping p2 publish"; exit 0; }
+    - test -n "$EVOLVE_VERSION"   # from ewt_evolve_p2 dotenv
+    - |
+      for dir in ewt-evolve-p2/build/*/p2-repo; do
+        [ -d "$dir" ] || continue
+        os=$(basename "$(dirname "$dir")")
+        echo "== publishing $os p2 → $P2_BUCKET/$EVOLVE_VERSION/$os/p2 =="
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$dir" "$P2_BUCKET/$EVOLVE_VERSION/$os/p2"
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$dir" "$P2_BUCKET/latest/$os/p2"
+      done
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
+
+# =============================================================================
+# RELEASE STAGE (cont.)
 # =============================================================================
 
 github_release:
