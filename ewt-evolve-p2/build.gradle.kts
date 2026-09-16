@@ -28,10 +28,19 @@ val eclipseHome: String = (findProperty("eclipseHome") as String?)
     ?: System.getenv("ECLIPSE_HOME")
     ?: "/home/equo/Downloads/renesas_linux_x64/eclipse"
 
-/** The per-OS ewt-evolve fragment jar (dev.equo.ewt.evolve). Built by :ewt.api:ewtEvolveJar. */
-val ewtEvolveJar: File? = (findProperty("ewtEvolveJar") as String?)?.let { file(it) }
-    ?: fileTree("../ewt.api/build/libs") { include("ewt-evolve-*.jar") }.files
-        .sortedBy { it.name }.firstOrNull()
+/**
+ * The per-platform ewt-evolve fragment jars — each a distinct Bundle-SymbolicName
+ * (dev.equo.ewt.evolve.<ws>.<os>.<arch>). ONE p2 repo carries them all; p2 installs the match.
+ * -PewtEvolveJar=<one jar> (single, for local tests) OR -PewtEvolveJarsDir=<dir> (glob all).
+ * Default globs the sibling ewt.api build output.
+ */
+val ewtEvolveJars: List<File> = when {
+    findProperty("ewtEvolveJar") != null -> listOf(file(findProperty("ewtEvolveJar") as String))
+    else -> fileTree((findProperty("ewtEvolveJarsDir") as String?)?.let { file(it) }
+        ?: file("../ewt.api/build/libs")) { include("ewt-evolve-*.jar") }
+        .files.sortedBy { it.name }.toList()
+}
+val firstFragment: File? = ewtEvolveJars.firstOrNull()   // any one carries the demo's compile deps
 
 /** swt-evolve hybrid host jar — its Bundle-Version is the exact-version pin. */
 val evolveHostJar: File = (findProperty("evolveHostJar") as String?)?.let { file(it) }
@@ -126,15 +135,16 @@ val featureJar = tasks.register<Jar>("featureJar") {
 val compileDemo = tasks.register<JavaCompile>("compileDemo") {
     description = "Compile the demo ViewPart against the Eclipse platform + ewt-evolve fragment."
     doFirst {
-        if (ewtEvolveJar == null) throw GradleException(
-            "ewt-evolve fragment jar not found. Build it first:\n" +
+        if (firstFragment == null) throw GradleException(
+            "No ewt-evolve fragment jar found. Build it first:\n" +
             "  (cd .. && ./gradlew :ewt.api:ewtEvolveJar -PuseLocal=true -PevolveHome=../../swt-evolve)\n" +
-            "or pass -PewtEvolveJar=<path>.")
+            "or pass -PewtEvolveJar=<path> / -PewtEvolveJarsDir=<dir>.")
     }
     source = fileTree("demo/src")
-    // Eclipse platform (ViewPart, SWT, core.runtime, …) + the fragment (EwtWidget, dev.equo.ewt.*).
+    // Eclipse platform (ViewPart, SWT, core.runtime, …) + a fragment (EwtWidget, dev.equo.ewt.* —
+    // the Java is identical across platforms, so any one fragment resolves the demo's compile deps).
     classpath = files(fileTree("$eclipseHome/plugins") { include("*.jar") }) +
-        (ewtEvolveJar?.let { files(it) } ?: files())
+        (firstFragment?.let { files(it) } ?: files())
     destinationDirectory.set(layout.buildDirectory.dir("demo/classes"))
     options.release.set(22)
 }
@@ -156,7 +166,7 @@ val demoJar = tasks.register<Jar>("demoJar") {
 
 val stageFragment = tasks.register<Copy>("stageFragment") {
     dependsOn(compileDemo)   // shares the same missing-input guard message via compileDemo.doFirst
-    from(ewtEvolveJar ?: files())
+    from(ewtEvolveJars)      // all per-platform fragments → one repo; p2 filters at install
     into(p2SourceDir.map { it.dir("plugins") })
 }
 

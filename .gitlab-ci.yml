@@ -781,22 +781,16 @@ ewt_evolve_p2:
     - test -n "$EVOLVE_FEAT_VERSION" || { echo "feat.hybrid.feature.group not found in $EVOLVE_P2_URL/content.jar"; exit 1; }
     - echo "EVOLVE_VERSION=$EVOLVE_FEAT_VERSION" > p2.env    # keys the publish job's versioned bucket path
     - echo "Pinning ewt-evolve.feature to dev.equo.swt.evolve.feat.hybrid.feature.group [$EVOLVE_FEAT_VERSION]"
-    # One per-OS p2 repo per ewt-evolve fragment artifact that arrived (linux always; mac/win if built).
-    - |
-      shopt -s nullglob
-      for jar in ewt.api/build/libs/ewt-evolve-*.jar; do
-        os=$(echo "$jar" | sed -E 's/.*-([a-z]+)\.jar$/\1/')
-        echo "== assembling p2 for $os from $(basename "$jar") ==";
-        ./gradlew -p ewt-evolve-p2 assembleP2 \
-          -Pp2Out="$os" \
-          -PewtEvolveJar="$PWD/$jar" \
-          -PevolveVersion="$EVOLVE_FEAT_VERSION" \
-          -PeclipseHome="$ECLIPSE_HOME" \
-          --no-daemon;
-      done
+    # ONE p2 repo carrying every per-platform fragment that arrived (each has a distinct
+    # Bundle-SymbolicName + Eclipse-PlatformFilter, so p2 installs only the matching one).
+    - ./gradlew -p ewt-evolve-p2 assembleP2
+        -PewtEvolveJarsDir="$PWD/ewt.api/build/libs"
+        -PevolveVersion="$EVOLVE_FEAT_VERSION"
+        -PeclipseHome="$ECLIPSE_HOME"
+        --no-daemon
   artifacts:
     paths:
-      - ewt-evolve-p2/build/*/p2-repo/
+      - ewt-evolve-p2/build/p2-repo/
     reports:
       dotenv: p2.env
     expire_in: 1 week
@@ -819,14 +813,13 @@ publish_ewt_evolve_p2:
   script:
     - test -n "$P2_BUCKET" || { echo "P2_BUCKET empty — skipping p2 publish"; exit 0; }
     - test -n "$EVOLVE_VERSION"   # from ewt_evolve_p2 dotenv
-    - |
-      for dir in ewt-evolve-p2/build/*/p2-repo; do
-        [ -d "$dir" ] || continue
-        os=$(basename "$(dirname "$dir")")
-        echo "== publishing $os p2 → $P2_BUCKET/$EVOLVE_VERSION/$os/p2 =="
-        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$dir" "$P2_BUCKET/$EVOLVE_VERSION/$os/p2"
-        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$dir" "$P2_BUCKET/latest/$os/p2"
-      done
+    - REPO="ewt-evolve-p2/build/p2-repo"
+    - test -d "$REPO" || { echo "no p2 repo at $REPO (assembly skipped?)"; exit 0; }
+    # ONE repo serves all platforms (fragments carry Eclipse-PlatformFilter). Immutable per Evolve
+    # version + a rolling latest/ moved only on success (a failed refresh keeps the prior repo).
+    - echo "== publishing p2 → $P2_BUCKET/$EVOLVE_VERSION/p2 =="
+    - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/p2"
+    - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/p2"
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: manual

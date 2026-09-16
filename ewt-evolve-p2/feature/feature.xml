@@ -18,22 +18,27 @@
    </copyright>
 
    <!--
-     The ewt-evolve fragment (Fragment-Host: org.eclipse.swt, provided by Evolve).
-     version="0.0.0" => resolved at publish time. NOTE (spec Q1): the fragment is
-     currently ONE symbolic name (dev.equo.ewt.evolve) with an OS classifier on the
-     maven side; for p2 the per-OS content is carried by the per-platform p2 repo we
-     publish. If we move to per-arch symbolic names (as swt-evolve does), add one
-     <plugin> per os/ws/arch with the matching filter attributes here.
+     Per-platform ewt-evolve fragments (Fragment-Host: org.eclipse.swt, provided by Evolve). Each has
+     a distinct Bundle-SymbolicName dev.equo.ewt.evolve.<ws>.<os>.<arch> + Eclipse-PlatformFilter, so
+     ONE feature/repo carries every platform and p2 installs only the matching one (the fragment's
+     content is per-OS — it carries the native combined bundle). The os/ws/arch attributes here scope
+     each entry so a non-matching platform's requirement is dropped at install (a partial repo still
+     installs on the platforms it does carry). version="0.0.0" => resolved at publish time.
    -->
-   <plugin
-         id="dev.equo.ewt.evolve"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+   <plugin id="dev.equo.ewt.evolve.gtk.linux.x86_64"
+         os="linux" ws="gtk" arch="x86_64"
+         download-size="0" install-size="0" version="0.0.0" fragment="true" unpack="false"/>
+   <plugin id="dev.equo.ewt.evolve.win32.win32.x86_64"
+         os="win32" ws="win32" arch="x86_64"
+         download-size="0" install-size="0" version="0.0.0" fragment="true" unpack="false"/>
+   <plugin id="dev.equo.ewt.evolve.cocoa.macosx.x86_64"
+         os="macosx" ws="cocoa" arch="x86_64"
+         download-size="0" install-size="0" version="0.0.0" fragment="true" unpack="false"/>
+   <plugin id="dev.equo.ewt.evolve.cocoa.macosx.aarch64"
+         os="macosx" ws="cocoa" arch="aarch64"
+         download-size="0" install-size="0" version="0.0.0" fragment="true" unpack="false"/>
 
-   <!-- The demo plugin with the showcase view. -->
+   <!-- The demo plugin with the showcase view (platform-independent). -->
    <plugin
          id="dev.equo.ewt.evolve.demo"
          download-size="0"
