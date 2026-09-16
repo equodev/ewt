@@ -103,6 +103,46 @@ class EvolveBundleExtractorTest {
             .isEqualTo("APP_V2");
     }
 
+    private Path makeWebJar(String indexContent) throws IOException {
+        Path jar = tempDir.resolve("ewt-evolve-web.jar");
+        try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(jar))) {
+            zos.putNextEntry(new ZipEntry("web-bundle/index.html"));
+            zos.write(indexContent.getBytes());
+            zos.closeEntry();
+            zos.putNextEntry(new ZipEntry("web-bundle/main.dart.js"));
+            zos.write("JS".getBytes());
+            zos.closeEntry();
+            zos.putNextEntry(new ZipEntry("web-bundle/assets/AssetManifest.json"));
+            zos.write("{}".getBytes());
+            zos.closeEntry();
+        }
+        return jar;
+    }
+
+    @Test
+    void extractsWebBundleTreeAndReturnsServedDir() throws IOException {
+        Path jar = makeWebJar("<html>V1</html>");
+        Path root = tempDir.resolve("web-out");
+
+        String dir = EvolveBundleExtractor.extractWebBundle(jar, root);
+
+        // The served dir is the root itself (the web-bundle/ prefix is stripped), containing index.html.
+        assertThat(dir).isEqualTo(root.toString());
+        assertThat(root.resolve("index.html")).exists();
+        assertThat(root.resolve("main.dart.js")).exists();
+        assertThat(root.resolve("assets/AssetManifest.json")).exists();
+        assertThat(Files.readString(root.resolve("index.html"))).isEqualTo("<html>V1</html>");
+    }
+
+    @Test
+    void reExtractsWebWhenJarKeyChanges() throws IOException {
+        Path root = tempDir.resolve("web-out");
+        EvolveBundleExtractor.extractWebBundle(makeWebJar("<html>V1</html>"), root);
+        EvolveBundleExtractor.extractWebBundle(makeWebJar("<html>V2</html>"), root);
+
+        assertThat(Files.readString(root.resolve("index.html"))).isEqualTo("<html>V2</html>");
+    }
+
     @Test
     void skipsWhenAlreadyExtractedWithSameJar() throws IOException {
         Path jar = makeBundleJar("APP_V1");

@@ -730,6 +730,45 @@ upload_to_gcs:
       allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
+# WEB variant of the ewt-evolve build. Platform-INDEPENDENT (the web bundle is JS/wasm), so ONE Linux
+# job: `flutter build web` on evolve-app (Evolve web + EWT's widgets_web decoders) → the web fragment
+# jar (ewt-evolve-<v>-web.jar). Feeds the web p2 variant. Uses -DskipFlutterLib for the swt-evolve jar
+# (web needs its Java, not the native bridge); the Dart web side comes via the pubspec override.
+ewt_evolve_build:web:
+  stage: build
+  image: $FLUTTER_IMAGE_TAG
+  needs:
+    - resolve_evolve_ref
+    - generate
+    - generator_tests
+    - ewt_api_tests:linux
+    - job: build_docker_image
+      optional: true
+    - job: release_gate
+      optional: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: manual
+      allow_failure: true
+    - when: on_success
+  script:
+    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first"; exit 1)
+    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
+    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
+    - git -C ../swt-evolve checkout "$EVOLVE_REF"
+    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
+    - >-
+      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
+      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    # swt-evolve jar (Java only — web needs no native bridge) for compileEvolveJava.
+    - (cd ../swt-evolve && ./gradlew :swt_native:linux-x86_64Jar -DskipFlutterLib --no-daemon)
+    # buildCombinedWebBundle (flutter build web) + the web fragment jar.
+    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveWebJar -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
+  artifacts:
+    paths:
+      - ewt.api/build/libs/ewt-evolve-*-web.jar
+    expire_in: 1 week
+
 # --- p2 distribution (workstream 10 — see ewt-evolve-p2/ + ewt-evolve-p2-distribution-spec.md) ---
 # Assemble the CLI-installable p2 repo(s) from the per-OS ewt-evolve fragments so `equo modernize`
 # can p2-install ewt+evolve (the CLI installs features, not maven jars). The Eclipse p2 publisher is
@@ -746,6 +785,8 @@ ewt_evolve_p2:
     - job: ewt_evolve_build:macos
       optional: true
     - job: ewt_evolve_build:windows
+      optional: true
+    - job: ewt_evolve_build:web
       optional: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -786,17 +827,25 @@ ewt_evolve_p2:
         fi;
       fi
     - echo "EVOLVE_VERSION=$EVOLVE_FEAT_VERSION" > p2.env    # keys the publish job's versioned bucket path
-    - echo "Pinning ewt-evolve.feature to dev.equo.swt.evolve.feat.hybrid.feature.group [$EVOLVE_FEAT_VERSION]"
-    # ONE p2 repo carrying every per-platform fragment that arrived (each has a distinct
-    # Bundle-SymbolicName + Eclipse-PlatformFilter, so p2 installs only the matching one).
-    - ./gradlew -p ewt-evolve-p2 assembleP2
+    # DESKTOP repo: all per-platform native fragments (each with an Eclipse-PlatformFilter, so p2
+    # installs only the match), pinned to feat.hybrid. WEB repo: the single web fragment, pinned to
+    # feat.web (the build picks the IU per -Pvariant). Each variant → build/<variant>/p2-repo.
+    - echo "Assembling DESKTOP p2 (feat.hybrid [$EVOLVE_FEAT_VERSION])"
+    - ./gradlew -p ewt-evolve-p2 assembleP2 -Pvariant=desktop
         -PewtEvolveJarsDir="$PWD/ewt.api/build/libs"
-        -PevolveVersion="$EVOLVE_FEAT_VERSION"
-        -PeclipseHome="$ECLIPSE_HOME"
-        --no-daemon
+        -PevolveVersion="$EVOLVE_FEAT_VERSION" -PeclipseHome="$ECLIPSE_HOME" --no-daemon
+    # WEB only when the web fragment arrived (ewt_evolve_build:web is manual/optional on MRs).
+    - >-
+      if ls ewt.api/build/libs/ewt-evolve-*-web.jar >/dev/null 2>&1; then
+        echo "Assembling WEB p2 (feat.web [$EVOLVE_FEAT_VERSION])";
+        ./gradlew -p ewt-evolve-p2 assembleP2 -Pvariant=web
+          -PewtEvolveJarsDir="$PWD/ewt.api/build/libs"
+          -PevolveVersion="$EVOLVE_FEAT_VERSION" -PeclipseHome="$ECLIPSE_HOME" --no-daemon;
+      else echo "no web fragment — skipping web p2 (run ewt_evolve_build:web to include it)"; fi
   artifacts:
     paths:
-      - ewt-evolve-p2/build/p2-repo/
+      - ewt-evolve-p2/build/desktop/p2-repo/
+      - ewt-evolve-p2/build/web/p2-repo/
     reports:
       dotenv: p2.env
     expire_in: 1 week
@@ -819,13 +868,19 @@ publish_ewt_evolve_p2:
   script:
     - test -n "$P2_BUCKET" || { echo "P2_BUCKET empty — skipping p2 publish"; exit 0; }
     - test -n "$EVOLVE_VERSION"   # from ewt_evolve_p2 dotenv
-    - REPO="ewt-evolve-p2/build/p2-repo"
-    - test -d "$REPO" || { echo "no p2 repo at $REPO (assembly skipped?)"; exit 0; }
-    # ONE repo serves all platforms (fragments carry Eclipse-PlatformFilter). Immutable per Evolve
-    # version + a rolling latest/ moved only on success (a failed refresh keeps the prior repo).
-    - echo "== publishing p2 → $P2_BUCKET/$EVOLVE_VERSION/p2 =="
-    - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/p2"
-    - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/p2"
+    # One repo per variant. Immutable per Evolve version + a rolling latest/ moved only on success (a
+    # failed refresh keeps the prior working repo). CLI URLs: <bucket>/latest/{desktop,web}/p2.
+    - |
+      published=0
+      for variant in desktop web; do
+        REPO="ewt-evolve-p2/build/$variant/p2-repo"
+        [ -d "$REPO" ] || { echo "no $variant p2 repo — skipping"; continue; }
+        echo "== publishing $variant p2 → $P2_BUCKET/$EVOLVE_VERSION/$variant/p2 =="
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/$variant/p2"
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/$variant/p2"
+        published=1
+      done
+      [ "$published" = 1 ] || { echo "no p2 repos to publish (assembly skipped?)"; exit 0; }
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: manual

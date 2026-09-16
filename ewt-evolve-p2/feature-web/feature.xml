@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="dev.equo.ewt.evolve.web.feature"
+      label="EWT to Evolve Integration (web)"
+      version="0.1.0.qualifier"
+      provider-name="Equo Tech, Inc.">
+
+   <description>
+      Embeds EWT (Flutter) widgets in a WEB SWT Evolve surface. Bundles the single,
+      platform-independent web fragment and a demo view. Pinned to the EXACT Evolve WEB
+      version it was built against (see p2.inf) so p2 refuses to install onto a mismatched
+      Evolve — a bad refresh fails instead of publishing a blank IDE.
+   </description>
+
+   <copyright>
+      Copyright (c) Equo Tech, Inc.
+   </copyright>
+
+   <!--
+     The web ewt-evolve fragment (Fragment-Host: org.eclipse.swt, provided by web Evolve). Single
+     Bundle-SymbolicName dev.equo.ewt.evolve.web with NO platform filter — the web bundle is JS/wasm
+     and runs in any browser. It carries the combined web bundle (Evolve web + EWT's widgets_web
+     decoders) that Evolve's WebFlutterServer serves via the ExternalWebBundleProvider SPI.
+   -->
+   <plugin
+         id="dev.equo.ewt.evolve.web"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <!-- The demo plugin with the showcase view (mode-independent — EwtWidget handles web + desktop). -->
+   <plugin
+         id="dev.equo.ewt.evolve.demo"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -98,17 +98,24 @@ public final class EvolveBundleExtractor {
 
     /** An {@link BundleSource} backed by this class's OSGi {@code Bundle}, reached reflectively. */
     static BundleSource osgiSourceOrNull() {
+        return osgiSourceOrNull(RESOURCE_PREFIX);
+    }
+
+    /** As {@link #osgiSourceOrNull()} but for an arbitrary resource prefix (desktop or web). */
+    static BundleSource osgiSourceOrNull(String prefix) {
         ClassLoader cl = EvolveBundleExtractor.class.getClassLoader();
         if (!isOsgi(cl)) {
             return null;
         }
-        return new OsgiBundleSource();
+        return new OsgiBundleSource(prefix);
     }
 
     private static final class OsgiBundleSource implements BundleSource {
         private final Object bundle; // org.osgi.framework.Bundle
+        private final String prefix;
 
-        OsgiBundleSource() {
+        OsgiBundleSource(String prefix) {
+            this.prefix = prefix;
             try {
                 Class<?> frameworkUtil = Class.forName("org.osgi.framework.FrameworkUtil");
                 this.bundle = frameworkUtil.getMethod("getBundle", Class.class)
@@ -134,7 +141,7 @@ public final class EvolveBundleExtractor {
         @Override
         @SuppressWarnings("unchecked")
         public Map<String, IoSupplier> entries() throws IOException {
-            String dir = RESOURCE_PREFIX.substring(0, RESOURCE_PREFIX.length() - 1); // "evolve-bundle"
+            String dir = prefix.substring(0, prefix.length() - 1); // e.g. "evolve-bundle" / "web-bundle"
             Enumeration<URL> found;
             try {
                 found = (Enumeration<URL>) bundle.getClass()
@@ -150,11 +157,11 @@ public final class EvolveBundleExtractor {
             while (found.hasMoreElements()) {
                 URL url = found.nextElement();
                 String path = url.getPath();
-                int at = path.indexOf(RESOURCE_PREFIX);
+                int at = path.indexOf(prefix);
                 if (at < 0) {
                     continue;
                 }
-                String rel = path.substring(at + RESOURCE_PREFIX.length());
+                String rel = path.substring(at + prefix.length());
                 if (rel.isEmpty() || rel.endsWith("/")) {
                     continue; // directory entry
                 }
@@ -226,7 +233,12 @@ public final class EvolveBundleExtractor {
      * inside a jar (e.g. a classes dir during tests).
      */
     static Path locateBundleJar() {
-        URL res = EvolveBundleExtractor.class.getClassLoader().getResource(PROBE_RESOURCE);
+        return locateJar(PROBE_RESOURCE);
+    }
+
+    /** Locates the jar shipping {@code probe} (a resource inside it), or null. See locateBundleJar. */
+    static Path locateJar(String probe) {
+        URL res = EvolveBundleExtractor.class.getClassLoader().getResource(probe);
         if (res == null || !"jar".equals(res.getProtocol())) {
             return null;
         }
@@ -240,5 +252,51 @@ public final class EvolveBundleExtractor {
 
     static Path defaultEquoEwtRoot() {
         return Path.of(System.getProperty("user.home"), ".equo", "ewt");
+    }
+
+    // ---- Web variant --------------------------------------------------------------------------
+    // The combined WEB bundle (evolve-app `flutter build web`) is packaged as the platform-independent
+    // `web-bundle/` resource tree in the ewt-evolve WEB fragment jar. It extracts to ~/.equo/ewt-web,
+    // whose contents (index.html, main.dart.js, assets/…) Evolve's WebFlutterServer serves. Reuses the
+    // same OSGi-aware machinery as the desktop bundle (osgiSourceOrNull(prefix) / extractFrom).
+
+    static final String WEB_RESOURCE_PREFIX = "web-bundle/";
+    private static final String WEB_PROBE_RESOURCE = WEB_RESOURCE_PREFIX + "index.html";
+
+    /**
+     * Extracts the combined web bundle to {@code ~/.equo/ewt-web} and returns that served dir
+     * (it contains {@code index.html}), or {@code null} when no web bundle is on the classpath.
+     */
+    public static String extractAndGetWebDir() {
+        BundleSource osgi = osgiSourceOrNull(WEB_RESOURCE_PREFIX);
+        if (osgi != null) {
+            try {
+                return extractFrom(osgi, defaultEquoEwtWebRoot());
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to extract the EWT web bundle", e);
+            }
+        }
+        Path webJar = locateJar(WEB_PROBE_RESOURCE);
+        if (webJar == null || !Files.isRegularFile(webJar)) {
+            return null;
+        }
+        try {
+            return extractWebBundle(webJar, defaultEquoEwtWebRoot());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to extract the EWT web bundle", e);
+        }
+    }
+
+    /** Extracts {@code ownJar}'s {@code web-bundle/} tree into {@code webRoot} (once, sha-keyed). */
+    static String extractWebBundle(Path ownJar, Path webRoot) throws IOException {
+        String key = NativeLibLoader.computeJarSha256(ownJar);
+        NativeLibLoader.invalidateCacheIfStale(webRoot, key);
+        NativeLibLoader.extractDirFromZip(ownJar, WEB_RESOURCE_PREFIX, webRoot);
+        NativeLibLoader.writeCacheKey(webRoot, key);
+        return webRoot.toString();
+    }
+
+    static Path defaultEquoEwtWebRoot() {
+        return Path.of(System.getProperty("user.home"), ".equo", "ewt-web");
     }
 }

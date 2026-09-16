@@ -34,11 +34,19 @@ val eclipseHome: String = (findProperty("eclipseHome") as String?)
  * -PewtEvolveJar=<one jar> (single, for local tests) OR -PewtEvolveJarsDir=<dir> (glob all).
  * Default globs the sibling ewt.api build output.
  */
+// Which Evolve mode this p2 repo targets. desktop = per-platform native fragments, pins feat.hybrid;
+// web = the single platform-independent web fragment, pins feat.web. Separate feature + repo per
+// variant (they install from different Evolve p2 variants: <release>/desktop-hybrid vs <release>/web).
+val variant: String = (findProperty("variant") as String?) ?: "desktop"   // desktop | web
+val isWeb: Boolean = variant == "web"
+
 val ewtEvolveJars: List<File> = when {
     findProperty("ewtEvolveJar") != null -> listOf(file(findProperty("ewtEvolveJar") as String))
     else -> fileTree((findProperty("ewtEvolveJarsDir") as String?)?.let { file(it) }
-        ?: file("../ewt.api/build/libs")) { include("ewt-evolve-*.jar") }
-        .files.sortedBy { it.name }.toList()
+        ?: file("../ewt.api/build/libs")) {
+        if (isWeb) include("ewt-evolve-*-web.jar")
+        else { include("ewt-evolve-*.jar"); exclude("ewt-evolve-*-web.jar") }
+    }.files.sortedBy { it.name }.toList()
 }
 val firstFragment: File? = ewtEvolveJars.firstOrNull()   // any one carries the demo's compile deps
 
@@ -53,13 +61,20 @@ val evolveHostJar: File = (findProperty("evolveHostJar") as String?)?.let { file
  * jar: pass it via -PevolveVersion (CI reads it from Evolve's published desktop-hybrid p2).
  * For LOCAL testing you can still pin the host: -PevolveIu=org.eclipse.swt (version read from the host jar).
  */
-val evolveIu: String = (findProperty("evolveIu") as String?) ?: "dev.equo.swt.evolve.feat.hybrid.feature.group"
+val evolveIu: String = (findProperty("evolveIu") as String?)
+    ?: if (isWeb) "dev.equo.swt.evolve.feat.web.feature.group"
+       else "dev.equo.swt.evolve.feat.hybrid.feature.group"
 
 /** Exact version to pin. Required unless evolveIu is org.eclipse.swt (then read from the host jar). */
 val evolveVersionOverride: String? = findProperty("evolveVersion") as String?
 
 val featureVersion: String = (findProperty("featureVersion") as String?) ?: "0.1.0"
 val demoVersion: String = (findProperty("demoVersion") as String?) ?: "0.1.0"
+
+// Per-variant feature sources: desktop uses feature/ (+ category.xml), web uses feature-web/.
+val featureDir: String = if (isWeb) "feature-web" else "feature"
+val featureId: String = if (isWeb) "dev.equo.ewt.evolve.web.feature" else "dev.equo.ewt.evolve.feature"
+val categoryFile: String = if (isWeb) "category-web.xml" else "category.xml"
 
 // ---- Helpers ----
 
@@ -73,20 +88,17 @@ fun firstJar(glob: String): File = fileTree("$eclipseHome/plugins") { include(gl
     .sortedBy { it.name }.lastOrNull()
     ?: throw GradleException("Not found in $eclipseHome/plugins: $glob (set -PeclipseHome)")
 
-// Output root — set -Pp2Out=<os> to build a per-OS repo (build/<os>/p2-repo), so ONE Linux CI job
-// can assemble linux/macos/windows repos in a loop (the p2 publisher is OS-agnostic Java).
-val p2Out: String? = findProperty("p2Out") as String?
-fun bdir(sub: String) = if (p2Out == null) layout.buildDirectory.dir(sub)
-                        else layout.buildDirectory.dir("$p2Out/$sub")
+// Output rooted at the variant so desktop + web repos don't collide: build/<variant>/p2-repo.
+fun bdir(sub: String) = layout.buildDirectory.dir("$variant/$sub")
 val p2SourceDir = bdir("p2-source")   // plugins/ + features/ the publisher reads
 val p2RepoDir = bdir("p2-repo")       // the assembled p2 repository (output)
 
 // ---- Feature p2.inf: substitute the exact Evolve version read from the built host jar ----
 
 val genFeatureP2Inf = tasks.register("genFeatureP2Inf") {
-    description = "Generate feature/p2.inf pinned to the built swt-evolve Bundle-Version."
-    val template = file("feature/p2.inf")
-    val outFile = layout.buildDirectory.file("feature-staged/p2.inf")
+    description = "Generate the feature p2.inf pinned to the exact Evolve version."
+    val template = file("$featureDir/p2.inf")
+    val outFile = bdir("feature-staged").map { it.file("p2.inf") }
     inputs.file(template)
     inputs.property("evolveIu", evolveIu)
     inputs.property("evolveVersion", evolveVersionOverride ?: "")
@@ -118,16 +130,16 @@ val genFeatureP2Inf = tasks.register("genFeatureP2Inf") {
 // ---- Feature jar (feature.xml + generated p2.inf) → p2-source/features/ ----
 
 val stageFeatureXml = tasks.register<Copy>("stageFeatureXml") {
-    from("feature/feature.xml") { filter { it.replace("0.1.0.qualifier", featureVersion) } }
-    into(layout.buildDirectory.dir("feature-staged"))
+    from("$featureDir/feature.xml") { filter { it.replace("0.1.0.qualifier", featureVersion) } }
+    into(bdir("feature-staged"))
 }
 
 val featureJar = tasks.register<Jar>("featureJar") {
-    description = "Package dev.equo.ewt.evolve.feature (feature.xml + exact-version p2.inf)."
+    description = "Package $featureId (feature.xml + exact-version p2.inf)."
     dependsOn(stageFeatureXml, genFeatureP2Inf)
     destinationDirectory.set(p2SourceDir.map { it.dir("features") })
-    archiveFileName.set("dev.equo.ewt.evolve.feature_$featureVersion.jar")
-    from(layout.buildDirectory.dir("feature-staged")) { include("feature.xml", "p2.inf") }
+    archiveFileName.set("${featureId}_$featureVersion.jar")
+    from(bdir("feature-staged")) { include("feature.xml", "p2.inf") }
 }
 
 // ---- Demo plugin: compile the ViewPart, jar it → p2-source/plugins/ ----
@@ -200,7 +212,7 @@ val publishCategory = p2App(
     "publishCategory",
     "org.eclipse.equinox.p2.publisher.CategoryPublisher",
     listOf(
-        "-categoryDefinition", file("category.xml").toURI().toString(),
+        "-categoryDefinition", file(categoryFile).toURI().toString(),
         "-compress",
     ),
 ).apply { configure { dependsOn(publishBundlesAndFeatures) } }

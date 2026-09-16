@@ -68,4 +68,4 @@ pubspec_overrides.yaml
 # window is created by Evolve, so its generated platform runner scaffolding is not needed.
 evolve-app/linux/
 evolve-app/macos/
-evolve-app/windows/
+evolve-app/windows//ewt.api/bin/
