@@ -10,18 +10,6 @@ public final class FilledButtonVariants {
 
   private FilledButtonVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("filledButton_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("child"))),
-          Map.entry("filledButton_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("child"))),
-          Map.entry("icon_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start))),
-          Map.entry("icon_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start))),
-          Map.entry("tonal_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("child"))),
-          Map.entry("tonal_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("child"))),
-          Map.entry("tonalIcon_allSet", List.of(PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start))),
-          Map.entry("tonalIcon_boundary", List.of(PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.notNull("icon"), PropExpectation.equalTo("iconAlignment", IconAlignment.start)))
-      );
-
   public static Widget filledButton_required() {
     return Material.material().child(FilledButton.filledButton().build()).build();
   }

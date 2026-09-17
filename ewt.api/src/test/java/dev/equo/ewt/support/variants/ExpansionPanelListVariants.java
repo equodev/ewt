@@ -10,44 +10,36 @@ public final class ExpansionPanelListVariants {
 
   private ExpansionPanelListVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("expansionPanelList_allSet", List.of(PropExpectation.notNull("animationDuration"), PropExpectation.notNull("dividerColor"), PropExpectation.equalTo("elevation", 1.0), PropExpectation.notNull("expandIconColor"), PropExpectation.equalTo("materialGapSize", 1.0))),
-          Map.entry("expansionPanelList_boundary", List.of(PropExpectation.notNull("animationDuration"), PropExpectation.notNull("dividerColor"), PropExpectation.equalTo("elevation", 0.0), PropExpectation.notNull("expandIconColor"), PropExpectation.equalTo("materialGapSize", 0.0))),
-          Map.entry("radio_allSet", List.of(PropExpectation.notNull("animationDuration"), PropExpectation.notNull("dividerColor"), PropExpectation.equalTo("elevation", 1.0), PropExpectation.notNull("expandIconColor"), PropExpectation.equalTo("materialGapSize", 1.0))),
-          Map.entry("radio_boundary", List.of(PropExpectation.notNull("animationDuration"), PropExpectation.notNull("dividerColor"), PropExpectation.equalTo("elevation", 0.0), PropExpectation.notNull("expandIconColor"), PropExpectation.equalTo("materialGapSize", 0.0)))
-      );
-
   public static Widget expansionPanelList_required() {
-    return ExpansionPanelList.expansionPanelList().build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.expansionPanelList().build()).build();
   }
 
   public static Widget expansionPanelList_allSet() {
-    return ExpansionPanelList.expansionPanelList().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().milliseconds(200).build()).dividerColor(Color(0xff0000ff).build()).elevation(1.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(1.0).build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.expansionPanelList().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().milliseconds(200).build()).dividerColor(Color(0xff0000ff).build()).elevation(1.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(1.0).build()).build();
   }
 
   public static Widget expansionPanelList_boundary() {
-    return ExpansionPanelList.expansionPanelList().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().build()).dividerColor(Color(0xff0000ff).build()).elevation(0.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(0.0).build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.expansionPanelList().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().build()).dividerColor(Color(0xff0000ff).build()).elevation(0.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(0.0).build()).build();
   }
 
   public static Widget expansionPanelList_callbackWired() {
-    return ExpansionPanelList.expansionPanelList().expansionCallback((_a0, _a1) -> {}).build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.expansionPanelList().expansionCallback((_a0, _a1) -> {}).build()).build();
   }
 
   public static Widget radio_required() {
-    return ExpansionPanelList.radio().build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.radio().build()).build();
   }
 
   public static Widget radio_allSet() {
-    return ExpansionPanelList.radio().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().milliseconds(200).build()).dividerColor(Color(0xff0000ff).build()).elevation(1.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(1.0).build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.radio().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().milliseconds(200).build()).dividerColor(Color(0xff0000ff).build()).elevation(1.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(1.0).build()).build();
   }
 
   public static Widget radio_boundary() {
-    return ExpansionPanelList.radio().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().build()).dividerColor(Color(0xff0000ff).build()).elevation(0.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(0.0).build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.radio().expansionCallback((_a0, _a1) -> {}).animationDuration(Duration.duration().build()).dividerColor(Color(0xff0000ff).build()).elevation(0.0).expandIconColor(Color(0xff0000ff).build()).materialGapSize(0.0).build()).build();
   }
 
   public static Widget radio_callbackWired() {
-    return ExpansionPanelList.radio().expansionCallback((_a0, _a1) -> {}).build();
+    return SingleChildScrollView.singleChildScrollView().child(ExpansionPanelList.radio().expansionCallback((_a0, _a1) -> {}).build()).build();
   }
 
 }

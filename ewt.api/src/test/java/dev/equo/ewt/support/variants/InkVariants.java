@@ -10,12 +10,6 @@ public final class InkVariants {
 
   private InkVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("ink_allSet", List.of(PropExpectation.notNull("padding"), PropExpectation.notNull("color"), PropExpectation.notNull("decoration"), PropExpectation.equalTo("width", 1.0), PropExpectation.equalTo("height", 1.0), PropExpectation.notNull("child"))),
-          Map.entry("ink_boundary", List.of(PropExpectation.notNull("padding"), PropExpectation.notNull("color"), PropExpectation.notNull("decoration"), PropExpectation.equalTo("width", 0.0), PropExpectation.equalTo("height", 0.0), PropExpectation.notNull("child")))
-      );
-
   public static Widget ink_required() {
     return Material.material().child(Ink.ink().build()).build();
   }

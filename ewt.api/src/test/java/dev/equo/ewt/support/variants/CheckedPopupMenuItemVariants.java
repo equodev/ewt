@@ -10,12 +10,6 @@ public final class CheckedPopupMenuItemVariants {
 
   private CheckedPopupMenuItemVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("checkedPopupMenuItem_allSet", List.of(PropExpectation.equalTo("checked", true), PropExpectation.equalTo("enabled", true), PropExpectation.notNull("padding"), PropExpectation.equalTo("height", 1.0), PropExpectation.notNull("child"))),
-          Map.entry("checkedPopupMenuItem_boundary", List.of(PropExpectation.equalTo("checked", false), PropExpectation.equalTo("enabled", false), PropExpectation.notNull("padding"), PropExpectation.equalTo("height", 0.0), PropExpectation.notNull("child")))
-      );
-
   public static Widget checkedPopupMenuItem_required() {
     return Material.material().child(CheckedPopupMenuItem.checkedPopupMenuItem().build()).build();
   }

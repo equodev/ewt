@@ -10,22 +10,16 @@ public final class BottomAppBarVariants {
 
   private BottomAppBarVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("bottomAppBar_allSet", List.of(PropExpectation.notNull("color"), PropExpectation.equalTo("elevation", 1.0), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("notchMargin", 1.0), PropExpectation.notNull("child"), PropExpectation.notNull("padding"), PropExpectation.notNull("surfaceTintColor"), PropExpectation.notNull("shadowColor"), PropExpectation.equalTo("height", 1.0))),
-          Map.entry("bottomAppBar_boundary", List.of(PropExpectation.notNull("color"), PropExpectation.equalTo("elevation", 0.0), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("notchMargin", 0.0), PropExpectation.notNull("child"), PropExpectation.notNull("padding"), PropExpectation.notNull("surfaceTintColor"), PropExpectation.notNull("shadowColor"), PropExpectation.equalTo("height", 0.0)))
-      );
-
   public static Widget bottomAppBar_required() {
-    return Material.material().child(BottomAppBar.bottomAppBar().build()).build();
+    return Scaffold.scaffold().body(BottomAppBar.bottomAppBar().build()).build();
   }
 
   public static Widget bottomAppBar_allSet() {
-    return Material.material().child(BottomAppBar.bottomAppBar().color(Color(0xff0000ff).build()).elevation(1.0).clipBehavior(Clip.none).notchMargin(1.0).child(SizedBox().width(1.0).height(1.0).build()).padding(EdgeInsets_all(8.0).build()).surfaceTintColor(Color(0xff0000ff).build()).shadowColor(Color(0xff0000ff).build()).height(1.0).build()).build();
+    return Scaffold.scaffold().body(BottomAppBar.bottomAppBar().color(Color(0xff0000ff).build()).elevation(1.0).clipBehavior(Clip.none).notchMargin(1.0).child(SizedBox().width(1.0).height(1.0).build()).padding(EdgeInsets_all(8.0).build()).surfaceTintColor(Color(0xff0000ff).build()).shadowColor(Color(0xff0000ff).build()).height(1.0).build()).build();
   }
 
   public static Widget bottomAppBar_boundary() {
-    return Material.material().child(BottomAppBar.bottomAppBar().color(Color(0xff0000ff).build()).elevation(0.0).clipBehavior(Clip.none).notchMargin(0.0).child(SizedBox().width(1.0).height(1.0).build()).padding(EdgeInsets_all(8.0).build()).surfaceTintColor(Color(0xff0000ff).build()).shadowColor(Color(0xff0000ff).build()).height(0.0).build()).build();
+    return Scaffold.scaffold().body(BottomAppBar.bottomAppBar().color(Color(0xff0000ff).build()).elevation(0.0).clipBehavior(Clip.none).notchMargin(0.0).child(SizedBox().width(1.0).height(1.0).build()).padding(EdgeInsets_all(8.0).build()).surfaceTintColor(Color(0xff0000ff).build()).shadowColor(Color(0xff0000ff).build()).height(0.0).build()).build();
   }
 
 }

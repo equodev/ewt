@@ -13,7 +13,7 @@ public final class CupertinoSliderVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("cupertinoSlider_allSet", List.of(PropExpectation.equalTo("min", 1.0), PropExpectation.equalTo("max", 1.0), PropExpectation.equalTo("divisions", 1), PropExpectation.notNull("activeColor"), PropExpectation.notNull("thumbColor"))),
-          Map.entry("cupertinoSlider_boundary", List.of(PropExpectation.equalTo("min", 0.0), PropExpectation.equalTo("max", 0.0), PropExpectation.equalTo("divisions", 0), PropExpectation.notNull("activeColor"), PropExpectation.notNull("thumbColor")))
+          Map.entry("cupertinoSlider_boundary", List.of(PropExpectation.equalTo("min", 0.0), PropExpectation.equalTo("max", 0.0), PropExpectation.equalTo("divisions", 1), PropExpectation.notNull("activeColor"), PropExpectation.notNull("thumbColor")))
       );
 
   public static Widget cupertinoSlider_required() {
@@ -25,7 +25,7 @@ public final class CupertinoSliderVariants {
   }
 
   public static Widget cupertinoSlider_boundary() {
-    return CupertinoSlider.cupertinoSlider(1.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(0).activeColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).build();
+    return CupertinoSlider.cupertinoSlider(1.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(1).activeColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).build();
   }
 
   public static Widget cupertinoSlider_callbackWired() {

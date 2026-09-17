@@ -10,26 +10,20 @@ public final class InteractiveViewerVariants {
 
   private InteractiveViewerVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("interactiveViewer_allSet", List.of(PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("panAxis", PanAxis.horizontal), PropExpectation.notNull("boundaryMargin"), PropExpectation.equalTo("constrained", true), PropExpectation.equalTo("maxScale", 1.0), PropExpectation.equalTo("minScale", 1.0), PropExpectation.equalTo("interactionEndFrictionCoefficient", 1.0), PropExpectation.equalTo("panEnabled", true), PropExpectation.equalTo("scaleEnabled", true), PropExpectation.equalTo("scaleFactor", 1.0), PropExpectation.notNull("alignment"), PropExpectation.equalTo("trackpadScrollCausesScale", true))),
-          Map.entry("interactiveViewer_boundary", List.of(PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("panAxis", PanAxis.horizontal), PropExpectation.notNull("boundaryMargin"), PropExpectation.equalTo("constrained", false), PropExpectation.equalTo("maxScale", 0.0), PropExpectation.equalTo("minScale", 0.0), PropExpectation.equalTo("interactionEndFrictionCoefficient", 0.0), PropExpectation.equalTo("panEnabled", false), PropExpectation.equalTo("scaleEnabled", false), PropExpectation.equalTo("scaleFactor", 0.0), PropExpectation.notNull("alignment"), PropExpectation.equalTo("trackpadScrollCausesScale", false)))
-      );
-
   public static Widget interactiveViewer_required() {
-    return InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).build();
+    return Material.material().child(InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).build()).build();
   }
 
   public static Widget interactiveViewer_allSet() {
-    return InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).panAxis(PanAxis.horizontal).boundaryMargin(EdgeInsets_all(8.0).build()).constrained(true).maxScale(1.0).minScale(1.0).interactionEndFrictionCoefficient(1.0).onInteractionEnd((_a0) -> {}).onInteractionStart((_a0) -> {}).onInteractionUpdate((_a0) -> {}).panEnabled(true).scaleEnabled(true).scaleFactor(1.0).alignment(Alignment.center()).trackpadScrollCausesScale(true).build();
+    return Material.material().child(InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).panAxis(PanAxis.horizontal).boundaryMargin(EdgeInsets_all(8.0).build()).constrained(true).maxScale(1.0).minScale(1.0).interactionEndFrictionCoefficient(1.0).onInteractionEnd((_a0) -> {}).onInteractionStart((_a0) -> {}).onInteractionUpdate((_a0) -> {}).panEnabled(true).scaleEnabled(true).scaleFactor(1.0).alignment(Alignment.center()).trackpadScrollCausesScale(true).build()).build();
   }
 
   public static Widget interactiveViewer_boundary() {
-    return InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).panAxis(PanAxis.horizontal).boundaryMargin(EdgeInsets_all(8.0).build()).constrained(false).maxScale(0.0).minScale(0.0).interactionEndFrictionCoefficient(0.0).onInteractionEnd((_a0) -> {}).onInteractionStart((_a0) -> {}).onInteractionUpdate((_a0) -> {}).panEnabled(false).scaleEnabled(false).scaleFactor(0.0).alignment(Alignment.center()).trackpadScrollCausesScale(false).build();
+    return Material.material().child(InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).panAxis(PanAxis.horizontal).boundaryMargin(EdgeInsets_all(8.0).build()).constrained(false).maxScale(0.0).minScale(0.0).interactionEndFrictionCoefficient(0.0).onInteractionEnd((_a0) -> {}).onInteractionStart((_a0) -> {}).onInteractionUpdate((_a0) -> {}).panEnabled(false).scaleEnabled(false).scaleFactor(0.0).alignment(Alignment.center()).trackpadScrollCausesScale(false).build()).build();
   }
 
   public static Widget interactiveViewer_callbackWired() {
-    return InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).onInteractionEnd((_a0) -> {}).onInteractionStart((_a0) -> {}).onInteractionUpdate((_a0) -> {}).build();
+    return Material.material().child(InteractiveViewer.interactiveViewer().child(SizedBox().width(1.0).height(1.0).build()).onInteractionEnd((_a0) -> {}).onInteractionStart((_a0) -> {}).onInteractionUpdate((_a0) -> {}).build()).build();
   }
 
 }

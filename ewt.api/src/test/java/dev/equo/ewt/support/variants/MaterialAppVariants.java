@@ -13,9 +13,7 @@ public final class MaterialAppVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("materialApp_allSet", List.of(PropExpectation.notNull("home"), PropExpectation.equalTo("initialRoute", "hello"), PropExpectation.equalTo("title", "hello"), PropExpectation.notNull("color"), PropExpectation.equalTo("themeMode", ThemeMode.system), PropExpectation.notNull("themeAnimationDuration"), PropExpectation.notNull("themeAnimationCurve"), PropExpectation.equalTo("debugShowMaterialGrid", true), PropExpectation.equalTo("showPerformanceOverlay", true), PropExpectation.equalTo("checkerboardRasterCacheImages", true), PropExpectation.equalTo("checkerboardOffscreenLayers", true), PropExpectation.equalTo("showSemanticsDebugger", true), PropExpectation.equalTo("debugShowCheckedModeBanner", true), PropExpectation.equalTo("restorationScopeId", "hello"), PropExpectation.equalTo("useInheritedMediaQuery", true))),
-          Map.entry("materialApp_boundary", List.of(PropExpectation.notNull("home"), PropExpectation.equalTo("initialRoute", ""), PropExpectation.equalTo("title", ""), PropExpectation.notNull("color"), PropExpectation.equalTo("themeMode", ThemeMode.system), PropExpectation.notNull("themeAnimationDuration"), PropExpectation.notNull("themeAnimationCurve"), PropExpectation.equalTo("debugShowMaterialGrid", false), PropExpectation.equalTo("showPerformanceOverlay", false), PropExpectation.equalTo("checkerboardRasterCacheImages", false), PropExpectation.equalTo("checkerboardOffscreenLayers", false), PropExpectation.equalTo("showSemanticsDebugger", false), PropExpectation.equalTo("debugShowCheckedModeBanner", false), PropExpectation.equalTo("restorationScopeId", ""), PropExpectation.equalTo("useInheritedMediaQuery", false))),
-          Map.entry("router_allSet", List.of(PropExpectation.equalTo("title", "hello"), PropExpectation.notNull("color"), PropExpectation.equalTo("themeMode", ThemeMode.system), PropExpectation.notNull("themeAnimationDuration"), PropExpectation.notNull("themeAnimationCurve"), PropExpectation.equalTo("debugShowMaterialGrid", true), PropExpectation.equalTo("showPerformanceOverlay", true), PropExpectation.equalTo("checkerboardRasterCacheImages", true), PropExpectation.equalTo("checkerboardOffscreenLayers", true), PropExpectation.equalTo("showSemanticsDebugger", true), PropExpectation.equalTo("debugShowCheckedModeBanner", true), PropExpectation.equalTo("restorationScopeId", "hello"), PropExpectation.equalTo("useInheritedMediaQuery", true))),
-          Map.entry("router_boundary", List.of(PropExpectation.equalTo("title", ""), PropExpectation.notNull("color"), PropExpectation.equalTo("themeMode", ThemeMode.system), PropExpectation.notNull("themeAnimationDuration"), PropExpectation.notNull("themeAnimationCurve"), PropExpectation.equalTo("debugShowMaterialGrid", false), PropExpectation.equalTo("showPerformanceOverlay", false), PropExpectation.equalTo("checkerboardRasterCacheImages", false), PropExpectation.equalTo("checkerboardOffscreenLayers", false), PropExpectation.equalTo("showSemanticsDebugger", false), PropExpectation.equalTo("debugShowCheckedModeBanner", false), PropExpectation.equalTo("restorationScopeId", ""), PropExpectation.equalTo("useInheritedMediaQuery", false)))
+          Map.entry("materialApp_boundary", List.of(PropExpectation.notNull("home"), PropExpectation.equalTo("initialRoute", ""), PropExpectation.equalTo("title", ""), PropExpectation.notNull("color"), PropExpectation.equalTo("themeMode", ThemeMode.system), PropExpectation.notNull("themeAnimationDuration"), PropExpectation.notNull("themeAnimationCurve"), PropExpectation.equalTo("debugShowMaterialGrid", false), PropExpectation.equalTo("showPerformanceOverlay", false), PropExpectation.equalTo("checkerboardRasterCacheImages", false), PropExpectation.equalTo("checkerboardOffscreenLayers", false), PropExpectation.equalTo("showSemanticsDebugger", false), PropExpectation.equalTo("debugShowCheckedModeBanner", false), PropExpectation.equalTo("restorationScopeId", ""), PropExpectation.equalTo("useInheritedMediaQuery", false)))
       );
 
   public static Widget materialApp_required() {
@@ -28,18 +26,6 @@ public final class MaterialAppVariants {
 
   public static Widget materialApp_boundary() {
     return MaterialApp.materialApp().home(SizedBox().width(1.0).height(1.0).build()).initialRoute("").title("").color(Color(0xff0000ff).build()).themeMode(ThemeMode.system).themeAnimationDuration(Duration.duration().build()).themeAnimationCurve(Curves.linear()).debugShowMaterialGrid(false).showPerformanceOverlay(false).checkerboardRasterCacheImages(false).checkerboardOffscreenLayers(false).showSemanticsDebugger(false).debugShowCheckedModeBanner(false).restorationScopeId("").useInheritedMediaQuery(false).build();
-  }
-
-  public static Widget router_required() {
-    return MaterialApp.router().build();
-  }
-
-  public static Widget router_allSet() {
-    return MaterialApp.router().title("hello").color(Color(0xff0000ff).build()).themeMode(ThemeMode.system).themeAnimationDuration(Duration.duration().milliseconds(200).build()).themeAnimationCurve(Curves.linear()).debugShowMaterialGrid(true).showPerformanceOverlay(true).checkerboardRasterCacheImages(true).checkerboardOffscreenLayers(true).showSemanticsDebugger(true).debugShowCheckedModeBanner(true).restorationScopeId("hello").useInheritedMediaQuery(true).build();
-  }
-
-  public static Widget router_boundary() {
-    return MaterialApp.router().title("").color(Color(0xff0000ff).build()).themeMode(ThemeMode.system).themeAnimationDuration(Duration.duration().build()).themeAnimationCurve(Curves.linear()).debugShowMaterialGrid(false).showPerformanceOverlay(false).checkerboardRasterCacheImages(false).checkerboardOffscreenLayers(false).showSemanticsDebugger(false).debugShowCheckedModeBanner(false).restorationScopeId("").useInheritedMediaQuery(false).build();
   }
 
 }

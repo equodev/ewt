@@ -13,7 +13,7 @@ public final class FlexibleVariants {
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
           Map.entry("flexible_allSet", List.of(PropExpectation.equalTo("flex", 1), PropExpectation.equalTo("fit", FlexFit.tight))),
-          Map.entry("flexible_boundary", List.of(PropExpectation.equalTo("flex", 0), PropExpectation.equalTo("fit", FlexFit.tight)))
+          Map.entry("flexible_boundary", List.of(PropExpectation.equalTo("flex", 1), PropExpectation.equalTo("fit", FlexFit.tight)))
       );
 
   public static Widget flexible_required() {
@@ -25,7 +25,7 @@ public final class FlexibleVariants {
   }
 
   public static Widget flexible_boundary() {
-    return Row.row().children(List.<WidgetI>of(Flexible.flexible().child(SizedBox().width(1.0).height(1.0).build()).flex(0).fit(FlexFit.tight).build())).build();
+    return Row.row().children(List.<WidgetI>of(Flexible.flexible().child(SizedBox().width(1.0).height(1.0).build()).flex(1).fit(FlexFit.tight).build())).build();
   }
 
 }

@@ -10,14 +10,6 @@ public final class SliderVariants {
 
   private SliderVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("slider_allSet", List.of(PropExpectation.equalTo("secondaryTrackValue", 1.0), PropExpectation.equalTo("min", 1.0), PropExpectation.equalTo("max", 1.0), PropExpectation.equalTo("divisions", 1), PropExpectation.equalTo("label", "hello"), PropExpectation.notNull("activeColor"), PropExpectation.notNull("inactiveColor"), PropExpectation.notNull("secondaryActiveColor"), PropExpectation.notNull("thumbColor"), PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("allowedInteraction", SliderInteraction.tapAndSlide), PropExpectation.notNull("padding"), PropExpectation.equalTo("year2023", true))),
-          Map.entry("slider_boundary", List.of(PropExpectation.equalTo("secondaryTrackValue", 0.0), PropExpectation.equalTo("min", 0.0), PropExpectation.equalTo("max", 0.0), PropExpectation.equalTo("divisions", 0), PropExpectation.equalTo("label", ""), PropExpectation.notNull("activeColor"), PropExpectation.notNull("inactiveColor"), PropExpectation.notNull("secondaryActiveColor"), PropExpectation.notNull("thumbColor"), PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("allowedInteraction", SliderInteraction.tapAndSlide), PropExpectation.notNull("padding"), PropExpectation.equalTo("year2023", false))),
-          Map.entry("adaptive_allSet", List.of(PropExpectation.equalTo("secondaryTrackValue", 1.0), PropExpectation.equalTo("min", 1.0), PropExpectation.equalTo("max", 1.0), PropExpectation.equalTo("divisions", 1), PropExpectation.equalTo("label", "hello"), PropExpectation.notNull("activeColor"), PropExpectation.notNull("inactiveColor"), PropExpectation.notNull("secondaryActiveColor"), PropExpectation.notNull("thumbColor"), PropExpectation.equalTo("autofocus", true), PropExpectation.equalTo("allowedInteraction", SliderInteraction.tapAndSlide), PropExpectation.equalTo("year2023", true))),
-          Map.entry("adaptive_boundary", List.of(PropExpectation.equalTo("secondaryTrackValue", 0.0), PropExpectation.equalTo("min", 0.0), PropExpectation.equalTo("max", 0.0), PropExpectation.equalTo("divisions", 0), PropExpectation.equalTo("label", ""), PropExpectation.notNull("activeColor"), PropExpectation.notNull("inactiveColor"), PropExpectation.notNull("secondaryActiveColor"), PropExpectation.notNull("thumbColor"), PropExpectation.equalTo("autofocus", false), PropExpectation.equalTo("allowedInteraction", SliderInteraction.tapAndSlide), PropExpectation.equalTo("year2023", false)))
-      );
-
   public static Widget slider_required() {
     return Material.material().child(Slider.slider(1.0).build()).build();
   }
@@ -27,7 +19,7 @@ public final class SliderVariants {
   }
 
   public static Widget slider_boundary() {
-    return Material.material().child(Slider.slider(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(0).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).padding(EdgeInsets_all(8.0).build()).year2023(false).build()).build();
+    return Material.material().child(Slider.slider(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(1).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).padding(EdgeInsets_all(8.0).build()).year2023(false).build()).build();
   }
 
   public static Widget slider_callbackWired() {
@@ -43,7 +35,7 @@ public final class SliderVariants {
   }
 
   public static Widget adaptive_boundary() {
-    return Material.material().child(Slider.adaptive(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(0).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).year2023(false).build()).build();
+    return Material.material().child(Slider.adaptive(1.0).secondaryTrackValue(0.0).onChanged((_a0) -> {}).onChangeStart((_a0) -> {}).onChangeEnd((_a0) -> {}).min(0.0).max(0.0).divisions(1).label("").activeColor(Color(0xff0000ff).build()).inactiveColor(Color(0xff0000ff).build()).secondaryActiveColor(Color(0xff0000ff).build()).thumbColor(Color(0xff0000ff).build()).autofocus(false).allowedInteraction(SliderInteraction.tapAndSlide).year2023(false).build()).build();
   }
 
   public static Widget adaptive_callbackWired() {

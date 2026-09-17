@@ -8,7 +8,7 @@
 //
 //   final wrap = scaffoldFor(widgetName);
 //   if (wrap != null) {
-//     code = wrap.replaceAll('{inner}', code);
+//     code = wrap.template.replaceAll('{inner}', code);
 //   }
 //
 // The `{inner}` placeholder is replaced with the widget-under-test expression.
@@ -21,9 +21,23 @@
 
 // ignore_for_file: unused_element
 
-/// Maps a Flutter widget class name to a Java-template scaffold string with a
-/// `{inner}` placeholder, or returns `null` when no scaffold is needed.
-String? scaffoldFor(String widgetName) => _scaffolds[widgetName];
+/// A contextual-scaffold entry. `template` is the Java expression with an
+/// `{inner}` placeholder; `contaminatesGetters` marks wrappers whose outer
+/// Widget class exposes public getters that collide with common widget-under-
+/// test getter names (e.g. `Scaffold.restorationId`, `Material.child`) — for
+/// those, the variant emitter drops the getter round-trip EXPECTATIONS so
+/// `WidgetNativeRenderTest`'s `GetterRoundTrip.verify` never resolves the
+/// inner-widget-under-test's getter name against the outer wrapper's class,
+/// which would call an unset FFM getter and SIGSEGV.
+class ScaffoldEntry {
+  final String template;
+  final bool contaminatesGetters;
+  const ScaffoldEntry(this.template, {this.contaminatesGetters = false});
+}
+
+/// Maps a Flutter widget class name to a scaffold entry, or returns `null`
+/// when no scaffold is needed.
+ScaffoldEntry? scaffoldFor(String widgetName) => _scaffolds[widgetName];
 
 // ---------------------------------------------------------------------------
 // Scaffold table (hand-curated — see file header)
@@ -35,94 +49,158 @@ const _sliverScaffold =
 const _stackScaffold =
     'dev.equo.ewt.Stack.stack().children(List.<WidgetI>of({inner})).build()';
 
+const _rowScaffold = 'Row.row().children(List.<WidgetI>of({inner})).build()';
+
 const _materialScaffold = 'Material.material().child({inner}).build()';
 
 const _defaultTabCtrlScaffold =
     'DefaultTabController.defaultTabController(1).child({inner}).build()';
 
-const Map<String, String> _scaffolds = {
+const _singleChildScrollScaffold =
+    'SingleChildScrollView.singleChildScrollView().child({inner}).build()';
+
+const Map<String, ScaffoldEntry> _scaffolds = {
   // Widgets that must be inside a Stack — they carry StackParentData / read
   // Stack layout knobs from the ParentData their ancestor writes. Includes
-  // implicit-animation and transition variants of the same shape.
-  'Positioned': _stackScaffold,
-  'PositionedDirectional': _stackScaffold,
-  'AnimatedPositioned': _stackScaffold,
-  'AnimatedPositionedDirectional': _stackScaffold,
-  'PositionedTransition': _stackScaffold,
-  'RelativePositionedTransition': _stackScaffold,
+  // implicit-animation and transition variants of the same shape. Stack does
+  // not share getter names with these widgets, so expectations are safe.
+  'Positioned': ScaffoldEntry(_stackScaffold),
+  'PositionedDirectional': ScaffoldEntry(_stackScaffold),
+  'AnimatedPositioned': ScaffoldEntry(_stackScaffold),
+  'AnimatedPositionedDirectional': ScaffoldEntry(_stackScaffold),
+  'PositionedTransition': ScaffoldEntry(_stackScaffold),
+  'RelativePositionedTransition': ScaffoldEntry(_stackScaffold),
 
-  // Widgets that must be inside a flex container
-  'Expanded': 'Row.row().children(List.<WidgetI>of({inner})).build()',
-  'Flexible': 'Row.row().children(List.<WidgetI>of({inner})).build()',
-  'Spacer': 'Row.row().children(List.<WidgetI>of({inner})).build()',
+  // Widgets that must be inside a flex container (bounded main-axis)
+  'Expanded': ScaffoldEntry(_rowScaffold),
+  'Flexible': ScaffoldEntry(_rowScaffold),
+  'Spacer': ScaffoldEntry(_rowScaffold),
 
   // Tab system widgets
-  'Tab': _defaultTabCtrlScaffold,
-  'TabBar': _defaultTabCtrlScaffold,
-  'TabBarView': _defaultTabCtrlScaffold,
-  'TabPageSelector': _defaultTabCtrlScaffold,
+  'Tab': ScaffoldEntry(_defaultTabCtrlScaffold),
+  'TabBar': ScaffoldEntry(_defaultTabCtrlScaffold),
+  'TabBarView': ScaffoldEntry(_defaultTabCtrlScaffold),
+  'TabPageSelector': ScaffoldEntry(_defaultTabCtrlScaffold),
 
   // Widgets that use Ink / Material.of internally need an actual Material
-  // ancestor — MaterialApp alone is not enough. Includes the button family
-  // (ElevatedButton / FilledButton / OutlinedButton / TextButton), the
-  // ink-based visuals (Ink, InkWell), and Slider / Tooltip / ExpansionTile.
-  'ListTile': _materialScaffold,
-  'AboutListTile': _materialScaffold,
-  'CheckboxListTile': _materialScaffold,
-  'SwitchListTile': _materialScaffold,
-  'CheckedPopupMenuItem': _materialScaffold,
-  'PopupMenuItem': _materialScaffold,
-  'Ink': _materialScaffold,
-  'ElevatedButton': _materialScaffold,
-  'FilledButton': _materialScaffold,
-  'OutlinedButton': _materialScaffold,
-  'TextButton': _materialScaffold,
-  'Slider': _materialScaffold,
-  'Tooltip': _materialScaffold,
-  'ExpansionTile': _materialScaffold,
-  'BottomAppBar': _materialScaffold,
-  'Drawer': 'Scaffold.scaffold().drawer({inner}).build()',
+  // ancestor — MaterialApp alone is not enough. Material's public getters
+  // (child, color, clipBehavior, elevation, shape, shadowColor,
+  // surfaceTintColor, textStyle, borderRadius, animationDuration) overlap
+  // with many wrapped widgets' param names → contaminatesGetters.
+  'ListTile':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'AboutListTile':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'CheckboxListTile':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'SwitchListTile':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'CheckedPopupMenuItem':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'PopupMenuItem':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'Ink':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'ElevatedButton':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'FilledButton':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'OutlinedButton':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'TextButton':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'TextField':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'Slider':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'Tooltip':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'ChoiceChip':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'ExpansionTile':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'InteractiveViewer':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  'SafeArea':
+      ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+  // BottomAppBar's State calls Scaffold.geometryOf(context) in
+  // didChangeDependencies, which throws unless there is an actual Scaffold
+  // ancestor — a plain Material is not enough.
+  'BottomAppBar': ScaffoldEntry(
+      'Scaffold.scaffold().body({inner}).build()',
+      contaminatesGetters: true),
+
+  // Widgets that require an Overlay ancestor — must be inside a Scaffold.
+  // Scaffold contaminates getters (restorationId, backgroundColor, primary,
+  // body, drawer), so expectations are dropped for these variants.
+  'Draggable': ScaffoldEntry(
+      'Scaffold.scaffold().body({inner}).build()',
+      contaminatesGetters: true),
+  'FloatingActionButton': ScaffoldEntry(
+      'Scaffold.scaffold().floatingActionButton({inner}).build()',
+      contaminatesGetters: true),
+
+  // Drawer normally lives in Scaffold.drawer, but that slot only mounts its
+  // child when the drawer is *open* — a closed drawer produces a
+  // DrawerController with the Drawer widget lazily built, so the harness never
+  // finds `Drawer` in the element tree. Mount the Drawer inline inside a
+  // Material instead: Drawer is itself a Material-styled panel and lays out
+  // fine as a regular child, which is enough for the render-in-tree assertion.
+  'Drawer': ScaffoldEntry(_materialScaffold, contaminatesGetters: true),
+
+  // Widgets that need a bounded scroll axis
+  'ListBody': ScaffoldEntry(
+      _singleChildScrollScaffold,
+      contaminatesGetters: true),
+  'ExpansionPanelList': ScaffoldEntry(
+      _singleChildScrollScaffold,
+      contaminatesGetters: true),
+
+  // PopupMenuDivider is a bare ListTile-like row that needs a Column parent
+  // so it lays out (no size intrinsics of its own).
+  'PopupMenuDivider': ScaffoldEntry(
+      'Column.column().children(List.<WidgetI>of({inner})).build()'),
 
   // NavigationDestination reads _NavigationDestinationInfo.of(context), which
   // is only provided by NavigationBar. NavigationBar asserts
   // destinations.length >= 2, so mount two copies of the variant.
-  'NavigationDestination':
-      'NavigationBar.navigationBar().addDestinations({inner}, {inner}).build()',
+  'NavigationDestination': ScaffoldEntry(
+      'NavigationBar.navigationBar().addDestinations({inner}, {inner}).build()'),
 
   // NavigationDrawerDestination reads _NavigationDrawerDestinationInfo.of(
   // context), only provided by NavigationDrawer.
-  'NavigationDrawerDestination':
-      'NavigationDrawer.navigationDrawer(List.<WidgetI>of({inner}, {inner})).build()',
+  'NavigationDrawerDestination': ScaffoldEntry(
+      'NavigationDrawer.navigationDrawer(List.<WidgetI>of({inner}, {inner})).build()'),
 
   // Sliver widgets carry SliverConstraints / SliverGeometry — they need to
   // be mounted as slivers inside a `CustomScrollView.slivers`. Without this
   // wrapper the harness's default MaterialApp scaffold treats them as
   // RenderBoxes and Flutter throws `RenderSliver* is not a subtype of
   // RenderBox?` at layout time.
-  'SliverList': _sliverScaffold,
-  'SliverGrid': _sliverScaffold,
-  'SliverPadding': _sliverScaffold,
-  'SliverToBoxAdapter': _sliverScaffold,
-  'SliverAnimatedOpacity': _sliverScaffold,
-  'SliverFadeTransition': _sliverScaffold,
-  'SliverSemantics': _sliverScaffold,
-  'SliverEnsureSemantics': _sliverScaffold,
-  'SliverVisibility': _sliverScaffold,
-  'SliverOpacity': _sliverScaffold,
-  'SliverOffstage': _sliverScaffold,
-  'SliverSafeArea': _sliverScaffold,
-  'SliverIgnorePointer': _sliverScaffold,
-  'SliverFillRemaining': _sliverScaffold,
-  'SliverFixedExtentList': _sliverScaffold,
-  'SliverPrototypeExtentList': _sliverScaffold,
-  'SliverVariedExtentList': _sliverScaffold,
-  'SliverResizingHeader': _sliverScaffold,
-  'SliverFloatingHeader': _sliverScaffold,
-  'SliverConstrainedCrossAxis': _sliverScaffold,
-  'SliverMainAxisGroup': _sliverScaffold,
-  'SliverCrossAxisGroup': _sliverScaffold,
-  'PinnedHeaderSliver': _sliverScaffold,
-  'DecoratedSliver': _sliverScaffold,
+  'SliverList': ScaffoldEntry(_sliverScaffold),
+  'SliverGrid': ScaffoldEntry(_sliverScaffold),
+  'SliverPadding': ScaffoldEntry(_sliverScaffold),
+  'SliverToBoxAdapter': ScaffoldEntry(_sliverScaffold),
+  'SliverAnimatedOpacity': ScaffoldEntry(_sliverScaffold),
+  'SliverFadeTransition': ScaffoldEntry(_sliverScaffold),
+  'SliverSemantics': ScaffoldEntry(_sliverScaffold),
+  'SliverEnsureSemantics': ScaffoldEntry(_sliverScaffold),
+  'SliverVisibility': ScaffoldEntry(_sliverScaffold),
+  'SliverOpacity': ScaffoldEntry(_sliverScaffold),
+  'SliverOffstage': ScaffoldEntry(_sliverScaffold),
+  'SliverSafeArea': ScaffoldEntry(_sliverScaffold),
+  'SliverIgnorePointer': ScaffoldEntry(_sliverScaffold),
+  'SliverFillRemaining': ScaffoldEntry(_sliverScaffold),
+  'SliverFixedExtentList': ScaffoldEntry(_sliverScaffold),
+  'SliverPrototypeExtentList': ScaffoldEntry(_sliverScaffold),
+  'SliverVariedExtentList': ScaffoldEntry(_sliverScaffold),
+  'SliverResizingHeader': ScaffoldEntry(_sliverScaffold),
+  'SliverFloatingHeader': ScaffoldEntry(_sliverScaffold),
+  'SliverConstrainedCrossAxis': ScaffoldEntry(_sliverScaffold),
+  'SliverMainAxisGroup': ScaffoldEntry(_sliverScaffold),
+  'SliverCrossAxisGroup': ScaffoldEntry(_sliverScaffold),
+  'PinnedHeaderSliver': ScaffoldEntry(_sliverScaffold),
+  'DecoratedSliver': ScaffoldEntry(_sliverScaffold),
   // Cupertino version of a scroll-sliver navbar has the same host requirement.
-  'CupertinoSliverNavigationBar': _sliverScaffold,
+  'CupertinoSliverNavigationBar': ScaffoldEntry(_sliverScaffold),
 };

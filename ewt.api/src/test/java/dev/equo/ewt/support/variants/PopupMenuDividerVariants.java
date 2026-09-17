@@ -17,15 +17,15 @@ public final class PopupMenuDividerVariants {
       );
 
   public static Widget popupMenuDivider_required() {
-    return PopupMenuDivider.popupMenuDivider().build();
+    return Column.column().children(List.<WidgetI>of(PopupMenuDivider.popupMenuDivider().build())).build();
   }
 
   public static Widget popupMenuDivider_allSet() {
-    return PopupMenuDivider.popupMenuDivider().height(1.0).thickness(1.0).indent(1.0).endIndent(1.0).radius(BorderRadius_all(Radius_circular(8.0).build()).build()).color(Color(0xff0000ff).build()).build();
+    return Column.column().children(List.<WidgetI>of(PopupMenuDivider.popupMenuDivider().height(1.0).thickness(1.0).indent(1.0).endIndent(1.0).radius(BorderRadius_all(Radius_circular(8.0).build()).build()).color(Color(0xff0000ff).build()).build())).build();
   }
 
   public static Widget popupMenuDivider_boundary() {
-    return PopupMenuDivider.popupMenuDivider().height(0.0).thickness(0.0).indent(0.0).endIndent(0.0).radius(BorderRadius_all(Radius_circular(8.0).build()).build()).color(Color(0xff0000ff).build()).build();
+    return Column.column().children(List.<WidgetI>of(PopupMenuDivider.popupMenuDivider().height(0.0).thickness(0.0).indent(0.0).endIndent(0.0).radius(BorderRadius_all(Radius_circular(8.0).build()).build()).color(Color(0xff0000ff).build()).build())).build();
   }
 
 }

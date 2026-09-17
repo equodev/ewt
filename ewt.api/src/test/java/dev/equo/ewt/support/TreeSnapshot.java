@@ -27,12 +27,46 @@ public final class TreeSnapshot {
         this.nodes = nodes;
     }
 
-    /** Returns the first node in traversal order whose widget-type name equals {@code widgetType}. */
+    /**
+     * Returns the first node in traversal order whose widget-type name matches
+     * {@code widgetType}. Matching tolerates the two Flutter-idiomatic ways the
+     * runtimeType of a mounted widget diverges from its public class name:
+     *
+     *   1. Generic type parameters — a widget declared as {@code PopupMenuItem<T>}
+     *      mounts as e.g. {@code PopupMenuItem<Pointer<Int>>} because Dart's
+     *      {@code runtimeType.toString()} substitutes concrete type arguments.
+     *      Accepted iff the runtime type starts with {@code widgetType + "<"}.
+     *
+     *   2. Private subclasses used by named factories or adaptive delegates:
+     *      {@code FilledButton.icon()} mounts {@code _FilledButtonWithIcon},
+     *      {@code AboutDialog} builds {@code _AdaptiveAboutDialog}, etc.
+     *      Accepted for the two conventional patterns
+     *      {@code _<Widget>WithIcon(Child)?} and {@code _Adaptive<Widget>}
+     *      only — narrow enough to avoid false positives from unrelated
+     *      private classes that happen to share a substring.
+     */
     public Optional<SnapshotNode> findFirst(String widgetType) {
         for (SnapshotNode n : nodes) {
-            if (widgetType.equals(n.type())) return Optional.of(n);
+            if (matches(widgetType, n.type())) return Optional.of(n);
         }
         return Optional.empty();
+    }
+
+    private static boolean matches(String widgetType, String runtimeType) {
+        if (widgetType.equals(runtimeType)) return true;
+        // Generic: `Widget<...>`
+        if (runtimeType.startsWith(widgetType) &&
+                runtimeType.length() > widgetType.length() &&
+                runtimeType.charAt(widgetType.length()) == '<') {
+            return true;
+        }
+        // Private factory subclass: `_<Widget>WithIcon` (optionally followed by
+        // `Child`, matching Flutter's `_FilledButtonWithIcon` /
+        // `_FilledButtonWithIconChild` pair). Also allow a generic tail.
+        if (runtimeType.startsWith("_" + widgetType + "WithIcon")) return true;
+        // Adaptive delegate: `_Adaptive<Widget>`
+        if (runtimeType.startsWith("_Adaptive" + widgetType)) return true;
+        return false;
     }
 
     /** All parsed nodes, in the depth-first order Dart emitted them. */

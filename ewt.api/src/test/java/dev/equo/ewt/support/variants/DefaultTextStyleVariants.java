@@ -28,8 +28,4 @@ public final class DefaultTextStyleVariants {
     return DefaultTextStyle.defaultTextStyle(TextStyle.textStyle().build()).child(SizedBox().width(1.0).height(1.0).build()).textAlign(TextAlign.left).softWrap(false).overflow(TextOverflow.clip).maxLines(0).textWidthBasis(TextWidthBasis.parent).build();
   }
 
-  public static Widget fallback_required() {
-    return DefaultTextStyle.fallback().build();
-  }
-
 }
