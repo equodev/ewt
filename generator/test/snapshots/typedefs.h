@@ -4,6 +4,7 @@ typedef DartObj (*TransitionBuilderFFI)(DartObj context, DartObj child);
 typedef void (*ValueChangedForDatePickerEntryModeFFI)(int value);
 typedef void (*EntryModeChangeCallbackFFI)(int mode);
 typedef int (*SelectableDayForRangePredicateFFI)(DartObj day, DartObj selectedStartDay, DartObj selectedEndDay);
+typedef void (*FutureThenCallbackForObjectOptFFI)(DartObj* value);
 typedef void (*PointerEnterEventListenerFFI)(DartObj event);
 typedef void (*PointerExitEventListenerFFI)(DartObj event);
 typedef void (*PointerHoverEventListenerFFI)(DartObj event);

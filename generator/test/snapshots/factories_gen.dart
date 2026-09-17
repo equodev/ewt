@@ -240,6 +240,14 @@ double offsetDy(DartDartObj self) {
   return w;
 }
 
+void _setupFuture(WidgetFactories f) {
+  f.future.then = ffi.Pointer.fromFunction(futureThen);
+}
+void futureThen(DartDartObj self, FutureThenCallbackForObjectOptFFI onValue) {
+  FutureMethods.then(_widgetsMap[self]! as Future<Object?>,
+      onValue.toFutureThenCallbackForObjectOptFn());
+}
+
 void _setupDateTime(WidgetFactories f) {
   f.dateTime.dateTime = ffi.Pointer.fromFunction(dateTimeDateTime, exception);
   f.dateTime.utc = ffi.Pointer.fromFunction(dateTimeUtc, exception);
@@ -17171,6 +17179,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSubStatefulWidget(f);
   _setupSubStatelessWidget(f);
   _setupSubAnimatedState(f);
+  _setupFuture(f);
+  _setupFuture(f);
   _setupShadow(f);
   _setupShadow(f);
   _setupPointerEvent(f);
@@ -17187,6 +17197,9 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupColorSwatch(f);
   _setupNoDefaultCupertinoThemeData(f);
   _setupNoDefaultCupertinoThemeData(f);
+  _setupFuture(f);
+  _setupFuture(f);
+  _setupFuture(f);
   _setupInputBorder(f);
   _setupInkResponse(f);
   return fp;
@@ -17265,6 +17278,18 @@ extension on SelectableDayForRangePredicateFFI {
 }
 extension on ffi.Pointer<SelectableDayForRangePredicateFFI> {
   SelectableDayForRangePredicate? toSelectableDayForRangePredicateFn() => (this != ffi.nullptr) ? this.value.toSelectableDayForRangePredicateFn() : null;
+}
+
+extension on FutureThenCallbackForObjectOptFFI {
+  FutureThenCallback<Object?> toFutureThenCallbackForObjectOptFn() {
+    return (Object? value) {
+      DartFutureThenCallbackForObjectOptFFIFunction dFn = asFunction();
+      dFn((value != null) ? (calloc<ffi.Int>()..value = _addWidget(value)) : ffi.nullptr);
+    };
+  }
+}
+extension on ffi.Pointer<FutureThenCallbackForObjectOptFFI> {
+  FutureThenCallback<Object?>? toFutureThenCallbackForObjectOptFn() => (this != ffi.nullptr) ? this.value.toFutureThenCallbackForObjectOptFn() : null;
 }
 
 extension on PointerEnterEventListenerFFI {
