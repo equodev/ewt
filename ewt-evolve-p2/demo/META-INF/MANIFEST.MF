@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EWT Evolve Demo View
+Bundle-SymbolicName: dev.equo.ewt.evolve.demo;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: Equo Tech, Inc.
+Bundle-RequiredExecutionEnvironment: JavaSE-22
+Automatic-Module-Name: dev.equo.ewt.evolve.demo
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Import-Package: dev.equo.ewt,
+ dev.equo.ewt.util,
+ org.eclipse.swt,
+ org.eclipse.swt.widgets
