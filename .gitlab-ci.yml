@@ -30,6 +30,11 @@ variables:
     -Dorg.gradle.daemon=false
     -Dorg.gradle.console=plain
     -Dorg.gradle.vfs.watch=false
+  # Anchor GRADLE_USER_HOME inside the project dir so the GitLab `cache:` block
+  # below (which can only cache paths under $CI_PROJECT_DIR) picks up the
+  # wrapper distribution (~gradle-8.10.2-bin.zip, ~6-7 min cold download on
+  # services.gradle.org) and the dependency cache across jobs and pipelines.
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
   FLUTTER_SDK: "3.35.7"
   FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
   JEXTRACT_URL: "https://download.java.net/java/early_access/jextract/25/2/openjdk-25-jextract+2-4_linux-x64_bin.tar.gz"
@@ -46,6 +51,19 @@ variables:
   # Public GitHub repo that publishes swt-evolve releases — cloned anonymously over HTTPS (no
   # token, no allowlist). Also a full source mirror (flutter-lib + swt_native), so it builds.
   EVOLVE_PROJECT_PATH: "equodev/swt-evolve"
+
+# Shared Gradle cache for every job that runs `./gradlew`. Keyed on the
+# wrapper properties file so a Gradle version bump auto-invalidates. Jobs
+# that don't run gradle (docker build, alpine curl helpers) inherit this
+# but never touch it — the cache upload is a no-op when the paths are empty.
+.gradle_cache: &gradle_cache
+  key:
+    files:
+      - gradle/wrapper/gradle-wrapper.properties
+  paths:
+    - .gradle/wrapper/
+    - .gradle/caches/
+  policy: pull-push
 
 build_docker_image:
   stage: docker_build
@@ -115,6 +133,7 @@ release_gate:
 generate:
   stage: flutter
   image: $FLUTTER_IMAGE_TAG
+  cache: *gradle_cache
   needs:
     - job: build_docker_image
       optional: true
@@ -315,6 +334,7 @@ generator_tests:
 ewt_api_tests:linux:
   stage: test
   image: $FLUTTER_IMAGE_TAG
+  cache: *gradle_cache
   needs:
     - generate
     - job: build_docker_image
@@ -354,6 +374,7 @@ ewt_api_tests:linux:
 ewt_native_render:
   stage: test
   image: $FLUTTER_IMAGE_TAG
+  cache: *gradle_cache
   allow_failure: true
   needs:
     - generate
@@ -364,14 +385,21 @@ ewt_native_render:
     - job: release_gate
       optional: true
   timeout: 15m
+  parallel:
+    matrix:
+      - EWT_SHARD_INDEX: ["0", "1", "2", "3"]
   variables:
-    EWT_SHARD_INDEX: "0"
-    EWT_SHARD_COUNT: "1"
+    EWT_SHARD_COUNT: "4"
+  # -DskipFlutterBuild: the `flutter:linux` needs dep already downloaded
+  # widgets/example/build/linux/ into the workspace, so copyNativeLibs /
+  # copyFlutterData can read the built bundle directly. Without this flag
+  # `buildFlutter` re-runs from scratch (~2.5 min) because it sets
+  # outputs.upToDateWhen { false } in ewt.api/build.gradle.kts.
   script:
-    - xvfb-run -a ./gradlew :ewt.api:test -DrunNativeTests=1
+    - xvfb-run -a ./gradlew :ewt.api:test -DrunNativeTests=1 -DskipFlutterBuild
         --tests dev.equo.ewt.NativeRenderSmokeTest
         --tests dev.equo.ewt.WidgetNativeRenderTest
-        --info --no-daemon
+        --no-daemon
   artifacts:
     when: always
     reports:
@@ -394,6 +422,7 @@ ewt_native_render:
 ewt_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
+  cache: *gradle_cache
   # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
   # ewt_native_render intentionally NOT in this list — see its soft-gate note above.
   needs:
