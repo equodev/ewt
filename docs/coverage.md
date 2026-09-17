@@ -7,9 +7,9 @@ Flutter 3.35.7
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
 | Basic widgets | 184 | 291 | 63% |
-| Material | 148 | 187 | 79% |
+| Material | 149 | 187 | 79% |
 | Cupertino | 31 | 53 | 58% |
-| **Total** | **363** | **531** | **68%** |
+| **Total** | **364** | **531** | **68%** |
 
 ## Basic widgets
 
@@ -313,7 +313,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**148 of 187 supported**
+**149 of 187 supported**
 
 - [x] AboutDialog
 - [x] AboutListTile
@@ -436,6 +436,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] SimpleDialogOption
 - [x] Slider
 - [x] SliderTheme
+- [x] SliverAppBar
 - [x] SnackBar
 - [x] SnackBarAction
 - [x] Stepper
@@ -494,7 +495,6 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] ReorderableListView
 - [ ] ScrollbarTheme
 - [ ] SearchAnchor
-- [ ] SliverAppBar
 - [ ] SpellCheckSuggestionsToolbar
 - [ ] TableRowInkWell
 - [ ] TextFormField
