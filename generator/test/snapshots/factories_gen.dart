@@ -15625,6 +15625,167 @@ SliverSemanticsObjSt _createSliverSemanticsObjSt(SliverSemantics? w) {
   return stObj;
 }
 
+void _setupSliverAppBar(WidgetFactories f) {
+  f.sliverAppBar.sliverAppBar = ffi.Pointer.fromFunction(sliverAppBarSliverAppBar);
+  f.sliverAppBar.medium = ffi.Pointer.fromFunction(sliverAppBarMedium);
+  f.sliverAppBar.large = ffi.Pointer.fromFunction(sliverAppBarLarge);
+}
+SliverAppBarObjSt sliverAppBarSliverAppBar(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticallyImplyLeading, ffi.Pointer<DartObj> title, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> flexibleSpace, ffi.Pointer<DartObj> bottom, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Int> forceElevated, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> actionsIconTheme, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Int> excludeHeaderSemantics, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> collapsedHeight, ffi.Pointer<ffi.Double> expandedHeight, ffi.Pointer<ffi.Int> floating, ffi.Pointer<ffi.Int> pinned, ffi.Pointer<ffi.Int> snap, ffi.Pointer<ffi.Int> stretch, ffi.Pointer<ffi.Double> stretchTriggerOffset, ffi.Pointer<AsyncCallbackFFI> onStretchTrigger, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Double> toolbarHeight, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<ffi.Int> forceMaterialTransparency, ffi.Pointer<ffi.Int> useDefaultSemanticsOrder, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> actionsPadding) {
+  final w = SliverAppBar(leading: leading.objOrNul(),
+      automaticallyImplyLeading: automaticallyImplyLeading.boolOr(true),
+      title: title.objOrNul(),
+      actions: actions.listOrNul(),
+      flexibleSpace: flexibleSpace.objOrNul(),
+      bottom: bottom.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      forceElevated: forceElevated.boolOr(false),
+      backgroundColor: backgroundColor.objOrNul(),
+      foregroundColor: foregroundColor.objOrNul(),
+      iconTheme: iconTheme.objOrNul(),
+      actionsIconTheme: actionsIconTheme.objOrNul(),
+      primary: primary.boolOr(true),
+      centerTitle: centerTitle.boolOrNul(),
+      excludeHeaderSemantics: excludeHeaderSemantics.boolOr(false),
+      titleSpacing: titleSpacing.doubleOrNul(),
+      collapsedHeight: collapsedHeight.doubleOrNul(),
+      expandedHeight: expandedHeight.doubleOrNul(),
+      floating: floating.boolOr(false),
+      pinned: pinned.boolOr(false),
+      snap: snap.boolOr(false),
+      stretch: stretch.boolOr(false),
+      stretchTriggerOffset: stretchTriggerOffset.doubleOr(100.0),
+      onStretchTrigger: onStretchTrigger.toAsyncCallbackFn(),
+      shape: shape.objOrNul(),
+      toolbarHeight: toolbarHeight.doubleOr(56.0),
+      leadingWidth: leadingWidth.doubleOrNul(),
+      toolbarTextStyle: toolbarTextStyle.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      forceMaterialTransparency: forceMaterialTransparency.boolOr(false),
+      useDefaultSemanticsOrder: useDefaultSemanticsOrder.boolOr(true),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      actionsPadding: actionsPadding.objOrNul());
+  return _createSliverAppBarObjSt(w);
+}
+SliverAppBarObjSt sliverAppBarMedium(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticallyImplyLeading, ffi.Pointer<DartObj> title, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> flexibleSpace, ffi.Pointer<DartObj> bottom, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Int> forceElevated, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> actionsIconTheme, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Int> excludeHeaderSemantics, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> collapsedHeight, ffi.Pointer<ffi.Double> expandedHeight, ffi.Pointer<ffi.Int> floating, ffi.Pointer<ffi.Int> pinned, ffi.Pointer<ffi.Int> snap, ffi.Pointer<ffi.Int> stretch, ffi.Pointer<ffi.Double> stretchTriggerOffset, ffi.Pointer<AsyncCallbackFFI> onStretchTrigger, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<ffi.Int> forceMaterialTransparency, ffi.Pointer<ffi.Int> useDefaultSemanticsOrder, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> actionsPadding) {
+  final w = SliverAppBar.medium(leading: leading.objOrNul(),
+      automaticallyImplyLeading: automaticallyImplyLeading.boolOr(true),
+      title: title.objOrNul(),
+      actions: actions.listOrNul(),
+      flexibleSpace: flexibleSpace.objOrNul(),
+      bottom: bottom.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      forceElevated: forceElevated.boolOr(false),
+      backgroundColor: backgroundColor.objOrNul(),
+      foregroundColor: foregroundColor.objOrNul(),
+      iconTheme: iconTheme.objOrNul(),
+      actionsIconTheme: actionsIconTheme.objOrNul(),
+      primary: primary.boolOr(true),
+      centerTitle: centerTitle.boolOrNul(),
+      excludeHeaderSemantics: excludeHeaderSemantics.boolOr(false),
+      titleSpacing: titleSpacing.doubleOrNul(),
+      collapsedHeight: collapsedHeight.doubleOrNul(),
+      expandedHeight: expandedHeight.doubleOrNul(),
+      floating: floating.boolOr(false),
+      pinned: pinned.boolOr(true),
+      snap: snap.boolOr(false),
+      stretch: stretch.boolOr(false),
+      stretchTriggerOffset: stretchTriggerOffset.doubleOr(100.0),
+      onStretchTrigger: onStretchTrigger.toAsyncCallbackFn(),
+      shape: shape.objOrNul(),
+      leadingWidth: leadingWidth.doubleOrNul(),
+      toolbarTextStyle: toolbarTextStyle.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      forceMaterialTransparency: forceMaterialTransparency.boolOr(false),
+      useDefaultSemanticsOrder: useDefaultSemanticsOrder.boolOr(true),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      actionsPadding: actionsPadding.objOrNul());
+  return _createSliverAppBarObjSt(w);
+}
+SliverAppBarObjSt sliverAppBarLarge(ffi.Pointer<DartObj> leading, ffi.Pointer<ffi.Int> automaticallyImplyLeading, ffi.Pointer<DartObj> title, ffi.Pointer<ArrayC> actions, ffi.Pointer<DartObj> flexibleSpace, ffi.Pointer<DartObj> bottom, ffi.Pointer<ffi.Double> elevation, ffi.Pointer<ffi.Double> scrolledUnderElevation, ffi.Pointer<DartObj> shadowColor, ffi.Pointer<DartObj> surfaceTintColor, ffi.Pointer<ffi.Int> forceElevated, ffi.Pointer<DartObj> backgroundColor, ffi.Pointer<DartObj> foregroundColor, ffi.Pointer<DartObj> iconTheme, ffi.Pointer<DartObj> actionsIconTheme, ffi.Pointer<ffi.Int> primary, ffi.Pointer<ffi.Int> centerTitle, ffi.Pointer<ffi.Int> excludeHeaderSemantics, ffi.Pointer<ffi.Double> titleSpacing, ffi.Pointer<ffi.Double> collapsedHeight, ffi.Pointer<ffi.Double> expandedHeight, ffi.Pointer<ffi.Int> floating, ffi.Pointer<ffi.Int> pinned, ffi.Pointer<ffi.Int> snap, ffi.Pointer<ffi.Int> stretch, ffi.Pointer<ffi.Double> stretchTriggerOffset, ffi.Pointer<AsyncCallbackFFI> onStretchTrigger, ffi.Pointer<DartObj> shape, ffi.Pointer<ffi.Double> leadingWidth, ffi.Pointer<DartObj> toolbarTextStyle, ffi.Pointer<DartObj> titleTextStyle, ffi.Pointer<ffi.Int> forceMaterialTransparency, ffi.Pointer<ffi.Int> useDefaultSemanticsOrder, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<DartObj> actionsPadding) {
+  final w = SliverAppBar.large(leading: leading.objOrNul(),
+      automaticallyImplyLeading: automaticallyImplyLeading.boolOr(true),
+      title: title.objOrNul(),
+      actions: actions.listOrNul(),
+      flexibleSpace: flexibleSpace.objOrNul(),
+      bottom: bottom.objOrNul(),
+      elevation: elevation.doubleOrNul(),
+      scrolledUnderElevation: scrolledUnderElevation.doubleOrNul(),
+      shadowColor: shadowColor.objOrNul(),
+      surfaceTintColor: surfaceTintColor.objOrNul(),
+      forceElevated: forceElevated.boolOr(false),
+      backgroundColor: backgroundColor.objOrNul(),
+      foregroundColor: foregroundColor.objOrNul(),
+      iconTheme: iconTheme.objOrNul(),
+      actionsIconTheme: actionsIconTheme.objOrNul(),
+      primary: primary.boolOr(true),
+      centerTitle: centerTitle.boolOrNul(),
+      excludeHeaderSemantics: excludeHeaderSemantics.boolOr(false),
+      titleSpacing: titleSpacing.doubleOrNul(),
+      collapsedHeight: collapsedHeight.doubleOrNul(),
+      expandedHeight: expandedHeight.doubleOrNul(),
+      floating: floating.boolOr(false),
+      pinned: pinned.boolOr(true),
+      snap: snap.boolOr(false),
+      stretch: stretch.boolOr(false),
+      stretchTriggerOffset: stretchTriggerOffset.doubleOr(100.0),
+      onStretchTrigger: onStretchTrigger.toAsyncCallbackFn(),
+      shape: shape.objOrNul(),
+      leadingWidth: leadingWidth.doubleOrNul(),
+      toolbarTextStyle: toolbarTextStyle.objOrNul(),
+      titleTextStyle: titleTextStyle.objOrNul(),
+      forceMaterialTransparency: forceMaterialTransparency.boolOr(false),
+      useDefaultSemanticsOrder: useDefaultSemanticsOrder.boolOr(true),
+      clipBehavior: clipBehavior.enumOrNul(Clip.values),
+      actionsPadding: actionsPadding.objOrNul());
+  return _createSliverAppBarObjSt(w);
+}
+SliverAppBarObjSt _createSliverAppBarObjSt(SliverAppBar? w) {
+  final SliverAppBarObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.leading = _addWidget(w.leading);
+  stObj.automaticallyImplyLeading = w.automaticallyImplyLeading.toInt();
+  stObj.title = _addWidget(w.title);
+  stObj.flexibleSpace = _addWidget(w.flexibleSpace);
+  stObj.bottom = _addWidget(w.bottom);
+  stObj.elevation = (w.elevation != null) ? w.elevation! : 0;
+  stObj.scrolledUnderElevation = (w.scrolledUnderElevation != null) ? w.scrolledUnderElevation! : 0;
+  stObj.shadowColor = _addWidget(w.shadowColor);
+  stObj.surfaceTintColor = _addWidget(w.surfaceTintColor);
+  stObj.forceElevated = w.forceElevated.toInt();
+  stObj.backgroundColor = _addWidget(w.backgroundColor);
+  stObj.foregroundColor = _addWidget(w.foregroundColor);
+  stObj.iconTheme = _createIconThemeDataObjSt(w.iconTheme);
+  stObj.actionsIconTheme = _createIconThemeDataObjSt(w.actionsIconTheme);
+  stObj.primary = w.primary.toInt();
+  stObj.centerTitle = (w.centerTitle != null) ? w.centerTitle!.toInt() : 0;
+  stObj.excludeHeaderSemantics = w.excludeHeaderSemantics.toInt();
+  stObj.titleSpacing = (w.titleSpacing != null) ? w.titleSpacing! : 0;
+  stObj.collapsedHeight = (w.collapsedHeight != null) ? w.collapsedHeight! : 0;
+  stObj.expandedHeight = (w.expandedHeight != null) ? w.expandedHeight! : 0;
+  stObj.floating = w.floating.toInt();
+  stObj.pinned = w.pinned.toInt();
+  stObj.shape = _addWidget(w.shape);
+  stObj.snap = w.snap.toInt();
+  stObj.stretch = w.stretch.toInt();
+  stObj.stretchTriggerOffset = w.stretchTriggerOffset;
+  stObj.toolbarHeight = w.toolbarHeight;
+  stObj.leadingWidth = (w.leadingWidth != null) ? w.leadingWidth! : 0;
+  stObj.toolbarTextStyle = _createTextStyleObjSt(w.toolbarTextStyle);
+  stObj.titleTextStyle = _createTextStyleObjSt(w.titleTextStyle);
+  stObj.forceMaterialTransparency = w.forceMaterialTransparency.toInt();
+  stObj.useDefaultSemanticsOrder = w.useDefaultSemanticsOrder.toInt();
+  stObj.clipBehavior = (w.clipBehavior != null) ? w.clipBehavior!.index : 0;
+  stObj.actionsPadding = _addWidget(w.actionsPadding);
+  return stObj;
+}
+
 void _setupFadeInImage(WidgetFactories f) {
   f.fadeInImage.assetNetwork = ffi.Pointer.fromFunction(fadeInImageAssetNetwork);
 }
@@ -16901,6 +17062,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupSliverResizingHeader(f);
   _setupSliverFloatingHeader(f);
   _setupSliverSemantics(f);
+  _setupSliverAppBar(f);
   _setupFadeInImage(f);
   _setupNavigatorPopHandler(f);
   _setupRawImage(f);
@@ -18111,6 +18273,19 @@ extension on SetTextHandlerFFI {
 }
 extension on ffi.Pointer<SetTextHandlerFFI> {
   SetTextHandler? toSetTextHandlerFn() => (this != ffi.nullptr) ? this.value.toSetTextHandlerFn() : null;
+}
+
+extension on AsyncCallbackFFI {
+  AsyncCallback toAsyncCallbackFn() {
+    return () => _runBuildScope(() {
+      DartAsyncCallbackFFIFunction dFn = asFunction();
+      final dFnRet = dFn();
+      return _widgetsMap[dFnRet]! as Future<void>;
+    });
+  }
+}
+extension on ffi.Pointer<AsyncCallbackFFI> {
+  AsyncCallback? toAsyncCallbackFn() => (this != ffi.nullptr) ? this.value.toAsyncCallbackFn() : null;
 }
 
 extension on PopResultCallbackForTFFI {
