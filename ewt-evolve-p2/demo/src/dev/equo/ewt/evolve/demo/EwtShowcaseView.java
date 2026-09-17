@@ -44,8 +44,12 @@ public class EwtShowcaseView extends ViewPart {
                     .children(List.of(
                         Icon(Icons.verified()).size(46.0).color(Colors.indigo()),
                         SizedBox().height(16.0),
+                        // The card is always white, but a text with no colour of its own takes the
+                        // host product's theme — on a dark one (the eclipse POC ships dark) the title
+                        // came out white on white. Every text here names its colour, as the subtitle does.
                         Text("EWT running inside Evolve")
-                            .style(TextStyle().fontSize(20.0).fontWeight(FontWeight.bold())),
+                            .style(TextStyle().fontSize(20.0).fontWeight(FontWeight.bold())
+                                .color(Colors.black87())),
                         SizedBox().height(6.0),
                         Text("Rendered from an Eclipse ViewPart via the ewt-evolve feature")
                             .style(TextStyle().fontSize(13.0).color(Colors.grey().shade600()))))));
