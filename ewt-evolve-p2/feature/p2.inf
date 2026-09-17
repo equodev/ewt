@@ -5,17 +5,17 @@
 # Pins the EXACT Evolve version so p2 refuses to install onto a mismatched Evolve (fail-closed — no
 # blank IDE; a failed refresh keeps the prior working artifact).
 #
-# We pin **org.eclipse.swt** (Evolve's SWT host), NOT a mode-specific feature group. The addon is
-# COMBINED (carries both the desktop and web bundles, one artifact for both modes); feat.hybrid /
-# feat.web only exist in their own mode, whereas org.eclipse.swt is the single bundle serving both.
-# Its version encodes the Eclipse line (e.g. 3.133.0.v0_336_0-hyb for 2026-03, 3.134.0.v0_336_0-hyb
-# for 2026-06), so the p2 repo is published PER LINE; CI passes each line's exact version.
+# We pin **dev.equo.swt.evolve.feat.hybrid.feature.group** (per Matias' handoff): `equo modernize`
+# always installs feat.hybrid (in BOTH web and desktop mode — the -Ddev.equo.swt.mode flag is a runtime
+# rendering toggle, not a different install; feat.web is only used by cloudify, which never installs
+# add-ons). feat.hybrid's version == the Evolve release version, the SAME across every Eclipse line, so
+# ONE repo + ONE pin. The version is the Evolve tag we built against (e.g. 0.336.0).
 #
-# Example after generation (Evolve 0.336 on the 2026-03 line):
+# Example after generation (Evolve 0.336):
 #   requires.1.namespace = org.eclipse.equinox.p2.iu
-#   requires.1.name = org.eclipse.swt
-#   requires.1.range = [3.133.0.v0_336_0-hyb,3.133.0.v0_336_0-hyb]
+#   requires.1.name = dev.equo.swt.evolve.feat.hybrid.feature.group
+#   requires.1.range = [0.336.0,0.336.0]
 
 requires.1.namespace = org.eclipse.equinox.p2.iu
-requires.1.name = org.eclipse.swt
+requires.1.name = dev.equo.swt.evolve.feat.hybrid.feature.group
 requires.1.range = [0.0.0,0.0.0]
