@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature id="dev.equo.ewt.evolve.web.feature" version="0.0.0">
-      <category name="dev.equo.ewt.evolve.web"/>
-   </feature>
-   <category-def name="dev.equo.ewt.evolve.web" label="EWT to Evolve (web)"/>
-</site>

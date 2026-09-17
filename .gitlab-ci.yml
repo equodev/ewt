@@ -730,63 +730,23 @@ upload_to_gcs:
       allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
-# WEB variant of the ewt-evolve build. Platform-INDEPENDENT (the web bundle is JS/wasm), so ONE Linux
-# job: `flutter build web` on evolve-app (Evolve web + EWT's widgets_web decoders) → the web fragment
-# jar (ewt-evolve-<v>-web.jar). Feeds the web p2 variant. Uses -DskipFlutterLib for the swt-evolve jar
-# (web needs its Java, not the native bridge); the Dart web side comes via the pubspec override.
-ewt_evolve_build:web:
-  stage: build
-  image: $FLUTTER_IMAGE_TAG
-  needs:
-    - resolve_evolve_ref
-    - generate
-    - generator_tests
-    - ewt_api_tests:linux
-    - job: build_docker_image
-      optional: true
-    - job: release_gate
-      optional: true
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: manual
-      allow_failure: true
-    - when: on_success
-  script:
-    - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first"; exit 1)
-    - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
-    - git clone --filter=blob:none "$EVOLVE_URL" ../swt-evolve
-    - git -C ../swt-evolve checkout "$EVOLVE_REF"
-    - EVOLVE_ABS="$(cd ../swt-evolve && pwd)"
-    - >-
-      printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
-      "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
-    # swt-evolve jar (Java only — web needs no native bridge) for compileEvolveJava.
-    - (cd ../swt-evolve && ./gradlew :swt_native:linux-x86_64Jar -DskipFlutterLib --no-daemon)
-    # buildCombinedWebBundle (flutter build web) + the web fragment jar.
-    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveWebJar -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
-  artifacts:
-    paths:
-      - ewt.api/build/libs/ewt-evolve-*-web.jar
-    expire_in: 1 week
-
 # --- p2 distribution (workstream 10 — see ewt-evolve-p2/ + ewt-evolve-p2-distribution-spec.md) ---
-# Assemble the CLI-installable p2 repo(s) from the per-OS ewt-evolve fragments so `equo modernize`
-# can p2-install ewt+evolve (the CLI installs features, not maven jars). The Eclipse p2 publisher is
-# OS-agnostic Java, so this ONE Linux job builds the linux/macos/windows repos from whatever fragment
-# artifacts arrived. The feature pins the EXACT Evolve version it was built against (p2.inf requires
-# [X,X]), so p2 refuses to install onto a mismatched Evolve — a bad refresh fails instead of shipping
-# a blank IDE. Runs the standalone ewt-evolve-p2 Gradle build (kept out of the main build).
+# Assemble the CLI-installable p2 repo — ONE combined addon (each per-OS fragment carries BOTH the
+# desktop and web bundle + both SPI providers, so it works whichever mode the POC runs). Published
+# PER ECLIPSE LINE: for every line that already has our Evolve version, we pin org.eclipse.swt to that
+# line's EXACT hyb version (read from the line's Evolve p2) and assemble a repo → build/<release>/p2-repo.
+# The Eclipse p2 publisher is OS-agnostic Java, so this ONE Linux job builds every line from the fragment
+# artifacts. Pinning org.eclipse.swt (mode-agnostic; a combined addon can't pin a mode-specific
+# feat.hybrid/feat.web) makes p2 fail-closed on a mismatched Evolve — a bad refresh keeps the prior repo.
 ewt_evolve_p2:
   stage: deploy
   image: $FLUTTER_IMAGE_TAG
   needs:
-    - resolve_evolve_ref   # provides EVOLVE_REF (the Evolve tag) via dotenv — it's the pin version
+    - resolve_evolve_ref   # provides EVOLVE_REF (the Evolve tag) via dotenv
     - ewt_evolve_build
     - job: ewt_evolve_build:macos
       optional: true
     - job: ewt_evolve_build:windows
-      optional: true
-    - job: ewt_evolve_build:web
       optional: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -800,84 +760,61 @@ ewt_evolve_p2:
     # Eclipse into the CI image (.docker/Dockerfile) and set ECLIPSE_HOME there.
     ECLIPSE_HOME: ""
     ECLIPSE_PLATFORM_URL: "https://download.eclipse.org/eclipse/downloads/drops4/R-4.33-202409030240/eclipse-platform-4.33-linux-gtk-x86_64.tar.gz"
-    # An Evolve desktop-hybrid p2 used ONLY to verify the pinned version exists (per Mati). The pin
-    # itself is the Evolve tag version — see below. One p2 per Eclipse release; full list at
-    # https://dl.equo.dev/evolve/versions.json (field p2Hybrid). Lines publish one at a time, so a
-    # given line may lag; verification only warns.
-    EVOLVE_P2_URL: "https://dl.equo.dev/evolve/2026-06/desktop-hybrid/p2"
   script:
     - >-
       if [ -z "$ECLIPSE_HOME" ]; then
         curl -fsSL "$ECLIPSE_PLATFORM_URL" -o eclipse.tar.gz && tar xzf eclipse.tar.gz && export ECLIPSE_HOME="$PWD/eclipse";
       fi
-    # The pin is Evolve's SWT-layer FEATURE GROUP (dev.equo.swt.evolve.feat.hybrid.feature.group), whose
-    # version == the Evolve release version and is the SAME across all Eclipse lines (per Mati). So it's
-    # exactly the Evolve tag we build against: EVOLVE_REF (e.g. v0.336.0) → 0.336.0. NOT org.eclipse.swt
-    # (whose version also encodes the SWT line, tying us to one release).
     - test -n "$EVOLVE_REF" || { echo "EVOLVE_REF not set (needs resolve_evolve_ref)"; exit 1; }
-    - EVOLVE_FEAT_VERSION="${EVOLVE_REF#v}"
-    # Verify that version is actually published (Mati: "usen la URL para verificar que existe"). Warn
-    # only — a given Eclipse line can still lag (publishes one at a time).
-    - >-
-      if [ -n "$EVOLVE_P2_URL" ] && curl -fsSL "$EVOLVE_P2_URL/content.jar" -o evolve-content.jar 2>/dev/null && unzip -o -q evolve-content.jar -d evolve-p2meta 2>/dev/null; then
-        if grep -q "dev.equo.swt.evolve.feat.hybrid.feature.group' version='$EVOLVE_FEAT_VERSION'" evolve-p2meta/content.xml; then
-          echo "verified: feat.hybrid.feature.group $EVOLVE_FEAT_VERSION exists at $EVOLVE_P2_URL";
-        else
-          echo "WARN: feat.hybrid.feature.group $EVOLVE_FEAT_VERSION not found at $EVOLVE_P2_URL — that Eclipse line may still lag (lines publish one at a time).";
-        fi;
-      fi
-    - echo "EVOLVE_VERSION=$EVOLVE_FEAT_VERSION" > p2.env    # keys the publish job's versioned bucket path
-    # DESKTOP repo: all per-platform native fragments (each with an Eclipse-PlatformFilter, so p2
-    # installs only the match), pinned to feat.hybrid. WEB repo: the single web fragment, pinned to
-    # feat.web (the build picks the IU per -Pvariant). Each variant → build/<variant>/p2-repo.
-    - echo "Assembling DESKTOP p2 (feat.hybrid [$EVOLVE_FEAT_VERSION])"
-    - ./gradlew -p ewt-evolve-p2 assembleP2 -Pvariant=desktop
-        -PewtEvolveJarsDir="$PWD/ewt.api/build/libs"
-        -PevolveVersion="$EVOLVE_FEAT_VERSION" -PeclipseHome="$ECLIPSE_HOME" --no-daemon
-    # WEB only when the web fragment arrived (ewt_evolve_build:web is manual/optional on MRs).
-    - >-
-      if ls ewt.api/build/libs/ewt-evolve-*-web.jar >/dev/null 2>&1; then
-        echo "Assembling WEB p2 (feat.web [$EVOLVE_FEAT_VERSION])";
-        ./gradlew -p ewt-evolve-p2 assembleP2 -Pvariant=web
-          -PewtEvolveJarsDir="$PWD/ewt.api/build/libs"
-          -PevolveVersion="$EVOLVE_FEAT_VERSION" -PeclipseHome="$ECLIPSE_HOME" --no-daemon;
-      else echo "no web fragment — skipping web p2 (run ewt_evolve_build:web to include it)"; fi
+    # Our Evolve version, underscored for the SWT qualifier: v0.336.0 → 0_336_0 (matches …v0_336_0-hyb).
+    - EVOLVE="${EVOLVE_REF#v}"; EVOLVE_US=$(echo "$EVOLVE" | tr '.' '_')
+    - curl -fsSL https://dl.equo.dev/evolve/versions.json -o versions.json
+    - python3 -c "import json;[print(v['eclipseRelease'],v['p2Hybrid']) for v in json.load(open('versions.json'))['versions']]" > lines.txt
+    # For each Eclipse line already at our Evolve version, pin that line's exact org.eclipse.swt hyb
+    # version (read from its Evolve p2) and assemble a per-line repo. Lines not yet at our version are
+    # skipped (they publish one at a time).
+    - |
+      set -e
+      while read release p2url; do
+        rm -rf meta c.jar
+        curl -fsSL "$p2url/content.jar" -o c.jar 2>/dev/null && unzip -o -q c.jar -d meta 2>/dev/null || { echo "no Evolve p2 for $release — skip"; continue; }
+        SWT_VER=$(grep -oE "org\.eclipse\.swt' version='[^']*v${EVOLVE_US}-hyb'" meta/content.xml | head -1 | sed -E "s/.*version='([^']*)'/\1/")
+        if [ -z "$SWT_VER" ]; then echo "$release not at Evolve $EVOLVE yet — skip"; continue; fi
+        echo "== $release: assembling p2, pin org.eclipse.swt [$SWT_VER] =="
+        ./gradlew -p ewt-evolve-p2 assembleP2 -Pp2Out="$release" \
+          -PewtEvolveJarsDir="$PWD/ewt.api/build/libs" \
+          -PevolveVersion="$SWT_VER" -PeclipseHome="$ECLIPSE_HOME" --no-daemon
+      done < lines.txt
   artifacts:
     paths:
-      - ewt-evolve-p2/build/desktop/p2-repo/
-      - ewt-evolve-p2/build/web/p2-repo/
-    reports:
-      dotenv: p2.env
+      - ewt-evolve-p2/build/*/p2-repo/
     expire_in: 1 week
 
 # =============================================================================
 # RELEASE STAGE
 # =============================================================================
 
-# Publish the assembled ewt-evolve p2 repo(s) to the versioned bucket layout. Immutable per Evolve
-# version + a rolling `latest/` moved only on success (a failed refresh keeps the prior working repo
-# — requirement 3). Bucket is Q2 (proposed gs://equo-ewt/ewt-evolve; the CLI must point p2director
-# there — Q5). Reuses .gcs_upload's gcloud auth; no-op-safe if EVOLVE_VERSION didn't propagate.
+# Publish each Eclipse line's assembled p2 repo to <bucket>/ewt-evolve/<eclipseRelease>/p2 — one repo
+# per line, mirroring Evolve's own per-release p2 layout. The CLI installs from
+# https://dl.equo.dev/ewt/ewt-evolve/<release>/p2 (the release it already resolves for the POC). Each
+# rsync overwrites that line's repo with the current Evolve version (a bad build never gets here, so the
+# prior working repo stays). Reuses .gcs_upload's gcloud auth.
 publish_ewt_evolve_p2:
   extends: .gcs_upload
   stage: release
   needs:
     - ewt_evolve_p2
   variables:
-    P2_BUCKET: "gs://equo-ewt/ewt-evolve"   # Q2 — set empty to disable
+    P2_BUCKET: "gs://equo-ewt/ewt-evolve"   # served at https://dl.equo.dev/ewt/ewt-evolve
   script:
     - test -n "$P2_BUCKET" || { echo "P2_BUCKET empty — skipping p2 publish"; exit 0; }
-    - test -n "$EVOLVE_VERSION"   # from ewt_evolve_p2 dotenv
-    # One repo per variant. Immutable per Evolve version + a rolling latest/ moved only on success (a
-    # failed refresh keeps the prior working repo). CLI URLs: <bucket>/latest/{desktop,web}/p2.
     - |
       published=0
-      for variant in desktop web; do
-        REPO="ewt-evolve-p2/build/$variant/p2-repo"
-        [ -d "$REPO" ] || { echo "no $variant p2 repo — skipping"; continue; }
-        echo "== publishing $variant p2 → $P2_BUCKET/$EVOLVE_VERSION/$variant/p2 =="
-        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/$variant/p2"
-        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/$variant/p2"
+      for dir in ewt-evolve-p2/build/*/p2-repo; do
+        [ -d "$dir" ] || continue
+        release=$(basename "$(dirname "$dir")")
+        echo "== publishing $release → $P2_BUCKET/$release/p2 =="
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$dir" "$P2_BUCKET/$release/p2"
         published=1
       done
       [ "$published" = 1 ] || { echo "no p2 repos to publish (assembly skipped?)"; exit 0; }

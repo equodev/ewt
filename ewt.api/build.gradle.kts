@@ -167,26 +167,35 @@ if (evolveAvailable) {
     }
     val ewtEvolvePlatformId = "$ewtEvolveWs.$ewtEvolveSwtOs.$ewtEvolveArch"   // e.g. gtk.linux.x86_64
 
-    // Self-contained integration artifact (dev.equo:ewt-evolve). A consumer that already ships
-    // Evolve (as its swt.jar replacement) adds only this jar + the Evolve jar — no separate base
-    // ewt.api. It bundles the whole EWT toolkit, EwtWidget, the SPI provider and the combined
-    // Flutter bundle, minus the standalone native resources (dead weight in attach mode).
+    // The combined WEB bundle (evolve-app `flutter build web`, from :examples:buildCombinedWebBundle).
+    // Platform-independent (JS/wasm), but shipped INSIDE every per-OS ewt-evolve jar so ONE artifact
+    // serves both modes — exactly like Evolve's own SWT jar carries web/ + bundle/lib/libapp.so.
+    val ewtEvolveWebBundleDir = rootProject.projectDir.resolve("evolve-app/build/web")
+
+    // Self-contained integration artifact (dev.equo:ewt-evolve). A consumer that already ships Evolve
+    // (as its swt.jar replacement) adds only this jar + the Evolve jar — no separate base ewt.api. It
+    // bundles the whole EWT toolkit, EwtWidget, BOTH SPI providers (desktop + web) and BOTH combined
+    // bundles (native desktop + web), minus the standalone native resources (dead weight in attach mode).
+    // The runtime mode flag (-Ddev.equo.swt.mode) picks which bundle Evolve loads, so one addon works
+    // whether the POC runs desktop or web.
     tasks.register<Jar>("ewtEvolveJar") {
         group = "native"
-        description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve, per-OS)."
+        description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve, per-OS, both modes)."
         archiveBaseName.set("ewt-evolve")
         archiveClassifier.set(ewtEvolveOs)
-        dependsOn(":examples:buildCombinedBundle", "compileEvolveJava")
+        dependsOn(":examples:buildCombinedBundle", ":examples:buildCombinedWebBundle", "compileEvolveJava")
         // The EWT toolkit classes (EWT.*, App, NativeLibLoader, EvolveBundleExtractor, the
         // generated builders and the ffm bindings). Taken straight from compileJava's output,
         // NOT the main resources: those are just the standalone native libs under native/, which
         // are dead weight in attach mode (EWT uses Evolve's engine and the combined libwidgets
         // from the bundle). Keeping them out holds this jar to classes + the combined bundle.
         from(tasks.named<JavaCompile>("compileJava").flatMap { it.destinationDirectory })
-        // Provider classes + META-INF/services + EwtWidget.
+        // Provider classes (both EvolveBundleProvider + EvolveWebBundleProvider) + META-INF/services + EwtWidget.
         from(sourceSets["evolve"].output)
-        // The combined bundle as a resource tree mirroring the property contract.
+        // The desktop combined bundle (native), mirroring the property contract path.
         from(combinedBundleDir) { into(ewtEvolveIntoPath) }
+        // The web combined bundle under web-bundle/ (extracted by EvolveBundleExtractor.extractAndGetWebDir).
+        from(ewtEvolveWebBundleDir) { into("web-bundle") }
         manifest {
             attributes(
                 "Bundle-ManifestVersion" to 2,
@@ -219,41 +228,11 @@ if (evolveAvailable) {
                     "Combined bundle missing at ${combinedBundleDir}. " +
                     "Run :examples:buildCombinedBundle first (needs the sibling swt-evolve).")
             }
-        }
-    }
-
-    // WEB variant — platform-INDEPENDENT (the web bundle is JS/wasm, one build for every OS). Packages
-    // the combined web bundle (evolve-app/build/web, from :examples:buildCombinedWebBundle) under
-    // web-bundle/, so EvolveBundleExtractor.extractAndGetWebDir() extracts it and EvolveWebBundleProvider
-    // hands the dir to Evolve's WebFlutterServer via the ExternalWebBundleProvider SPI. classifier=web.
-    val ewtEvolveWebBundleDir = rootProject.projectDir.resolve("evolve-app/build/web")
-    tasks.register<Jar>("ewtEvolveWebJar") {
-        group = "native"
-        description = "Package the self-contained EWT↔Evolve WEB integration jar (dev.equo:ewt-evolve:web)."
-        archiveBaseName.set("ewt-evolve")
-        archiveClassifier.set("web")
-        dependsOn(":examples:buildCombinedWebBundle", "compileEvolveJava")
-        from(tasks.named<JavaCompile>("compileJava").flatMap { it.destinationDirectory })
-        from(sourceSets["evolve"].output)   // EwtWidget + both SPI providers + META-INF/services
-        from(ewtEvolveWebBundleDir) { into("web-bundle") }
-        manifest {
-            attributes(
-                "Bundle-ManifestVersion" to 2,
-                "Bundle-Name" to "EWT to Evolve integration (web)",
-                "Bundle-Vendor" to "Equo Tech, Inc.",
-                // Single, platform-independent BSN — no Eclipse-PlatformFilter (runs in any browser).
-                "Bundle-SymbolicName" to "dev.equo.ewt.evolve.web",
-                "Bundle-Version" to osgiVersion(project.version.toString()),
-                "Fragment-Host" to "org.eclipse.swt;bundle-version=\"[3.100,4.0.0)\"",
-                "Export-Package" to "dev.equo.ewt,dev.equo.ewt.util",
-                "Import-Package" to "org.osgi.framework",
-                "Automatic-Module-Name" to "dev.equo.ewt.evolve.web",
-            )
-        }
-        doFirst {
-            if (!ewtEvolveWebBundleDir.resolve("index.html").exists())
-                throw GradleException("Combined web bundle missing at $ewtEvolveWebBundleDir. " +
+            if (!ewtEvolveWebBundleDir.resolve("index.html").exists()) {
+                throw GradleException(
+                    "Combined web bundle missing at ${ewtEvolveWebBundleDir}. " +
                     "Run :examples:buildCombinedWebBundle first.")
+            }
         }
     }
 
@@ -274,24 +253,9 @@ if (evolveAvailable) {
                 pom {
                     name.set("EWT ↔ Evolve integration")
                     description.set(
-                        "Self-contained EWT toolkit + EwtWidget + SPI provider + combined " +
-                        "Flutter bundle for embedding EWT widgets in an SWT Evolve surface (per-OS)."
-                    )
-                }
-            }
-            // Web variant (platform-independent, classifier=web).
-            create<MavenPublication>("ewtEvolveWeb") {
-                groupId = "dev.equo"
-                artifactId = "ewt-evolve"
-                version = project.version.toString()
-                artifact(file("build/libs/ewt-evolve-${project.version}-web.jar")) {
-                    classifier = "web"
-                }
-                pom {
-                    name.set("EWT ↔ Evolve integration (web)")
-                    description.set(
-                        "Self-contained EWT toolkit + EwtWidget + web SPI provider + combined " +
-                        "Flutter WEB bundle for embedding EWT widgets in a web SWT Evolve surface."
+                        "Self-contained EWT toolkit + EwtWidget + SPI providers + both combined " +
+                        "Flutter bundles (desktop + web) for embedding EWT widgets in an SWT Evolve " +
+                        "surface (per-OS, both modes)."
                     )
                 }
             }
