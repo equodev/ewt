@@ -249,6 +249,13 @@ void _setupDateTime(WidgetFactories f) {
   f.dateTime.fromMicrosecondsSinceEpoch = ffi.Pointer.fromFunction(dateTimeFromMicrosecondsSinceEpoch, exception);
   f.dateTime.parse = ffi.Pointer.fromFunction(dateTimeParse, exception);
   f.dateTime.tryParse = ffi.Pointer.fromFunction(dateTimeTryParse, exception);
+  f.dateTime.year = ffi.Pointer.fromFunction(dateTimeYear, exception);
+  f.dateTime.month = ffi.Pointer.fromFunction(dateTimeMonth, exception);
+  f.dateTime.day = ffi.Pointer.fromFunction(dateTimeDay, exception);
+  f.dateTime.hour = ffi.Pointer.fromFunction(dateTimeHour, exception);
+  f.dateTime.minute = ffi.Pointer.fromFunction(dateTimeMinute, exception);
+  f.dateTime.second = ffi.Pointer.fromFunction(dateTimeSecond, exception);
+  f.dateTime.millisecondsSinceEpoch = ffi.Pointer.fromFunction(dateTimeMillisecondsSinceEpoch, exception);
 }
 int dateTimeDateTime(int year, ffi.Pointer<ffi.Int> month, ffi.Pointer<ffi.Int> day, ffi.Pointer<ffi.Int> hour, ffi.Pointer<ffi.Int> minute, ffi.Pointer<ffi.Int> second, ffi.Pointer<ffi.Int> millisecond, ffi.Pointer<ffi.Int> microsecond) {
   final w = DateTime(year,
@@ -297,6 +304,34 @@ int dateTimeParse(ffi.Pointer<ffi.Char> formattedString) {
 int dateTimeTryParse(ffi.Pointer<ffi.Char> formattedString) {
   final w = DateTime.tryParse(formattedString.cast<Utf8>().toDartString());
   return _addWidget(w);
+}
+int dateTimeYear(DartDartObj self) {
+  final w = DateTimeMethods.year(_widgetsMap[self]! as DateTime);
+  return w;
+}
+int dateTimeMonth(DartDartObj self) {
+  final w = DateTimeMethods.month(_widgetsMap[self]! as DateTime);
+  return w;
+}
+int dateTimeDay(DartDartObj self) {
+  final w = DateTimeMethods.day(_widgetsMap[self]! as DateTime);
+  return w;
+}
+int dateTimeHour(DartDartObj self) {
+  final w = DateTimeMethods.hour(_widgetsMap[self]! as DateTime);
+  return w;
+}
+int dateTimeMinute(DartDartObj self) {
+  final w = DateTimeMethods.minute(_widgetsMap[self]! as DateTime);
+  return w;
+}
+int dateTimeSecond(DartDartObj self) {
+  final w = DateTimeMethods.second(_widgetsMap[self]! as DateTime);
+  return w;
+}
+int dateTimeMillisecondsSinceEpoch(DartDartObj self) {
+  final w = DateTimeMethods.millisecondsSinceEpoch(_widgetsMap[self]! as DateTime);
+  return w;
 }
 
 void _setupIcon(WidgetFactories f) {
