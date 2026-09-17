@@ -144,15 +144,18 @@ generate:
     # step that writes it is cached against pregeneration_index.dart.ts. Delete the cache so
     # it always regenerates subwidgets.dart before the main generator run.
     # Snapshot the committed *Variants.java files BEFORE the generator overwrites them,
-    # so the post-generator diff below has something to compare against. The runner's
-    # container mounts the working tree only (no .git/), so `git diff` is not available
-    # here — every other CI job that uses git does so against externally-cloned repos.
+    # so the post-generator diff below has something to compare against.
     - cp -r ewt.api/src/test/java/dev/equo/ewt/support/variants ewt.api/src/test/java/dev/equo/ewt/support/variants.snapshot
     - rm -f generator/build/pregeneration_index.dart.ts
     # finalizedBy in generator/build.gradle.kts automatically runs :widgets:ffigen and
     # :ewt.api:jextract after the generator finishes — no need to call them separately.
-    - ./gradlew :generator:generator
-    # Enforce that committed *Variants.java files match generator output exactly.
+    # `2>&1 | tee` captures the combined output so the diagnostics check below can grep
+    # for `warn:` lines emitted by generator/lib/diagnostics.dart. `pipefail` propagates
+    # gradle's exit code past `tee` — without it a failing gradle would ride green here.
+    - |
+      set -o pipefail
+      ./gradlew :generator:generator 2>&1 | tee generate.log
+    # (1) Enforce that committed *Variants.java files match generator output exactly.
     # WidgetVariantsRegistry.java stays gitignored (monolithic aggregator, removal
     # tracked in #55) so exclude it. Without this check, a hand-edited file would
     # ride green: `needs: generate` overwrites the runner's checkout with these
@@ -172,6 +175,60 @@ generate:
         exit 1
       fi
     - rm -rf ewt.api/src/test/java/dev/equo/ewt/support/variants.snapshot
+    # (2) Byte-compare the 6 monolithic gitignored outputs against the frozen
+    # references under generator/test/snapshots/. Catches emitter regressions that
+    # would silently change bytes for the fixed set of monolithic files. Update the
+    # references with `dart run tool/update_snapshots.dart` when the change is intentional.
+    - |
+      diverged=0
+      for pair in \
+          "widgets/src/factories.h:factories.h" \
+          "widgets/src/objects.h:objects.h" \
+          "widgets/src/typedefs.h:typedefs.h" \
+          "widgets/lib/factories_gen.dart:factories_gen.dart" \
+          "widgets/lib/subwidgets.dart:subwidgets_widgets.dart" \
+          "generator/lib/subwidgets.dart:subwidgets_generator.dart"; do
+        actual="${pair%%:*}"
+        snap="generator/test/snapshots/${pair##*:}"
+        if ! diff -q "$actual" "$snap" > /dev/null 2>&1; then
+          echo "ERROR: $actual diverged from $snap"
+          diverged=1
+        fi
+      done
+      if [ $diverged -ne 0 ]; then
+        echo "================================================================"
+        echo "Run \`(cd generator && dart run tool/update_snapshots.dart)\` if intentional."
+        echo "================================================================"
+        exit 1
+      fi
+    # (3) Committed generator outputs (per-widget Java builders + web decoder) must
+    # match the current run. Catches hand-edits to ewt.api/src/main/java/dev/equo/ewt
+    # or widgets_web/lib/factories_web_gen.dart. `-c safe.directory=*` bypasses git's
+    # ownership guard, which fires because the k8s runner's init container writes the
+    # checkout under one UID while the job runs as another.
+    - |
+      git -c safe.directory=* status --porcelain -- \
+          ewt.api/src/main/java/dev/equo/ewt \
+          widgets_web/lib/factories_web_gen.dart > committed-drift.log
+      if [ -s committed-drift.log ]; then
+        echo "================================================================"
+        echo "ERROR: committed generator outputs diverged from generator run:"
+        cat committed-drift.log
+        echo "Regenerate locally and commit the diff."
+        echo "================================================================"
+        exit 1
+      fi
+      rm -f committed-drift.log
+    # (4) Diagnostics smoke check: the generator must surface silent-skip widgets via
+    # `warn:` on stderr (see generator/lib/diagnostics.dart). If this ever stops firing,
+    # either the diagnostics module got unwired OR every widget in the index became
+    # supportable — in the second case, update this expectation.
+    - |
+      if ! grep -q 'warn:' generate.log; then
+        echo "ERROR: expected 'warn:' lines from generator/lib/diagnostics.dart in generator output"
+        exit 1
+      fi
+      rm -f generate.log
   artifacts:
     paths:
       - widgets/src/factories.h
@@ -285,10 +342,20 @@ flutter:windows:
 # TEST STAGE
 # =============================================================================
 
-# Hermetic Dart tests for the generator (WidgetGen/EnumGen/Params + Dart→Java
-# snapshot transpiler). Uses the minimal fixture in test/fixtures/index_min.dart,
-# so it does NOT depend on `generate` — dart test runs the unit suite directly,
-# never invoking `dart run bin/generator.dart`.
+# Hermetic Dart tests for the generator emitter (WidgetGen/EnumGen/Params). Uses the
+# minimal fixture in test/fixtures/index_min.dart, so it does NOT depend on `generate`
+# — dart test runs the unit suite directly, never invoking `dart run bin/generator.dart`.
+#
+# Only generation_test.dart runs in CI:
+#   - transpiler_test.dart validates bin/transpiler.dart, a one-off Dart→Java migration
+#     helper that isn't consumed by EWT's build chain (grep confirms zero call sites
+#     outside its own tests + tool/regenerate_fixtures.dart). Kept in the repo as a
+#     local dev guardrail (`dart test test/transpiler_test.dart`) but skipped here —
+#     it accounts for ~10 min of the wall-clock (18 cold AnalysisContextCollection
+#     boots against the Flutter SDK, one per transpile() call).
+#   - snapshot_test.dart's three checks moved into the `generate` job above, which
+#     already runs the generator (so we avoid a second full run + broaden drift
+#     coverage to the committed widget builders). Kept in the repo for local runs.
 generator_tests:
   stage: test
   image: $FLUTTER_IMAGE_TAG
@@ -312,7 +379,7 @@ generator_tests:
     # run `dart test --reporter expanded` — the exit code still gates the job.
     - dart pub global activate junitreport
     - export PATH="$PATH:$HOME/.pub-cache/bin"
-    - dart test --reporter json | tojunit --output test-results.xml
+    - dart test test/generation_test.dart --reporter json | tojunit --output test-results.xml
   artifacts:
     when: always
     reports:
