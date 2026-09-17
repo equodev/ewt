@@ -158,7 +158,10 @@ val compileDemo = tasks.register<JavaCompile>("compileDemo") {
     classpath = files(fileTree("$eclipseHome/plugins") { include("*.jar") }) +
         (firstFragment?.let { files(it) } ?: files())
     destinationDirectory.set(layout.buildDirectory.dir("demo/classes"))
-    options.release.set(22)
+    // Standalone JavaCompile (no source set) → set both explicitly, else Gradle's task validation
+    // fails with "targetCompatibility not set". JDK 22 floor (matches the ewt-evolve fragment).
+    sourceCompatibility = "22"
+    targetCompatibility = "22"
 }
 
 val demoJar = tasks.register<Jar>("demoJar") {
