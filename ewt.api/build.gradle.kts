@@ -247,6 +247,20 @@ if (evolveAvailable) {
                     "Combined bundle missing at ${combinedBundleDir}. " +
                     "Run :examples:buildCombinedBundle first (needs the sibling swt-evolve).")
             }
+            // A macOS fragment installs on one arch only (its Eclipse-PlatformFilter), so every binary the
+            // loader opens must be built for that arch: a bundle built for the host once put arm64-only
+            // binaries in the x86_64 fragment.
+            if (ewtEvolveOs == "macos") {
+                val want = if (ewtEvolveArch == "aarch64") "arm64" else "x86_64"
+                for (bin in listOf("App.framework/App", "FlutterMacOS.framework/FlutterMacOS", "widgets.framework/widgets")) {
+                    val path = combinedBundleDir.resolve("Frameworks/$bin").absolutePath
+                    val archs = ProcessBuilder("lipo", "-archs", path).redirectErrorStream(true).start()
+                        .inputStream.bufferedReader().readText().trim()
+                    if (want !in archs.split(" ")) throw GradleException(
+                        "$bin in the combined bundle is [$archs], but this is the $ewtEvolveArch fragment. " +
+                        "Build it with -Parch=$ewtEvolveArch, which also sets the bundle's arch.")
+                }
+            }
             if (!ewtEvolveWebBundleDir.resolve("index.html").exists()) {
                 throw GradleException(
                     "Combined web bundle missing at ${ewtEvolveWebBundleDir}. " +

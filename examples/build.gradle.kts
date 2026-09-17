@@ -153,8 +153,15 @@ tasks.register<Exec>("buildCombinedBundle") {
         // macOS does NOT use the Linux/Windows bundle/{lib,data} layout. Flutter emits the
         // merged Dart AOT snapshot as the `App` binary inside App.framework, plus a separate
         // FlutterMacOS.framework (engine + icudtl.dat). The Dart target that produces this
-        // framework layout is release_macos_bundle_flutter_assets. Arch follows the host JVM.
-        val darwinArch = if (System.getProperty("os.arch").lowercase().contains("aarch64")) "arm64" else "x86_64"
+        // framework layout is release_macos_bundle_flutter_assets.
+        // Arch: -Parch, the ewt-evolve fragment being built (aarch64|x86_64), else the host JVM. It sets
+        // BOTH the Dart side (assemble thins App.framework and FlutterMacOS.framework to -dDarwinArchs)
+        // and libwidgets (cmake builds for the host unless told), so each fragment carries its own arch.
+        val fragmentArch = (project.findProperty("arch") as String?)?.takeIf { it.isNotEmpty() }
+            ?: System.getProperty("os.arch").lowercase()
+        val darwinArch = if (fragmentArch.contains("aarch64") || fragmentArch.contains("arm64")) "arm64" else "x86_64"
+        // One cmake build dir per arch: a cache configured for one arch must not be reused for the other.
+        val widgetsArchBuild = rootProject.projectDir.resolve("widgets/build/native-$darwinArch")
         commandLine(
             "bash", "-lc",
             "flutter pub get && flutter assemble --no-version-check --output=build " +
@@ -164,8 +171,11 @@ tasks.register<Exec>("buildCombinedBundle") {
         )
         doLast {
             // libwidgets.dylib (standalone C FFI lib, no engine/runner)
-            exec { commandLine("cmake", "-S", widgetsSrc, "-B", widgetsBuild, "-DCMAKE_BUILD_TYPE=Release") }
-            exec { commandLine("cmake", "--build", widgetsBuild) }
+            exec {
+                commandLine("cmake", "-S", widgetsSrc, "-B", widgetsArchBuild, "-DCMAKE_BUILD_TYPE=Release",
+                    "-DCMAKE_OSX_ARCHITECTURES=$darwinArch")
+            }
+            exec { commandLine("cmake", "--build", widgetsArchBuild) }
             // Arrange the layout Evolve+EWT expect: everything under
             // swtflutter.app/Contents/Frameworks, matching FlutterLibraryLoader.SWTFLUTTER_APP_CONTENTS
             // and the native bridge's bundleBase() + "/Frameworks/App.framework".
@@ -178,7 +188,7 @@ tasks.register<Exec>("buildCombinedBundle") {
             // The EWT FFI plugin: package the cmake dylib as widgets.framework/widgets — the path
             // EWT's NativeLibLoader attach-loads and widgets.dart's DynamicLibrary.open resolves.
             val widgetsFw = frameworks.resolve("widgets.framework").apply { mkdirs() }
-            copy { from(widgetsBuild.resolve("libwidgets.dylib")); into(widgetsFw); rename { "widgets" } }
+            copy { from(widgetsArchBuild.resolve("libwidgets.dylib")); into(widgetsFw); rename { "widgets" } }
             // Set the install name (LC_ID_DYLIB) to the EXACT relative string widgets.dart opens
             // ("widgets.framework/widgets"), NOT @rpath/…. NativeLibLoader preloads this dylib by
             // absolute path; the embedded Evolve process has no cwd/rpath pointing at Frameworks/,
