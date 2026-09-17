@@ -30,18 +30,20 @@ public class NativeLibLoader {
     static void load() {
         String os = System.getProperty("os.name").toLowerCase();
 
-        if (os.contains("mac")) {
-            ensureMacOSMainThread();
-        }
-
         // Attach mode (EWT↔Evolve same-surface): Evolve owns and already loaded the
         // Flutter engine. We load ONLY the combined bundle's libwidgets — the SAME copy
         // the engine runs — so its setBuildWidgetTree/callToBuildWidgetTree symbols
         // resolve to one instance and the FFM callback connects. No engine/window libs.
+        // Resolved before the macOS relaunch: the host already owns the first thread, and
+        // relaunching it (e.g. Eclipse) starts a second host that the UI thread waits on forever.
         Path attachLib = attachModeLibwidgets(os);
         if (attachLib != null) {
             System.load(attachLib.toString());
             return;
+        }
+
+        if (os.contains("mac")) {
+            ensureMacOSMainThread();
         }
 
         String osDir;
@@ -161,7 +163,7 @@ public class NativeLibLoader {
      * returns {@code null} for the standalone base jar (no bundle on the classpath), leaving
      * this method to signal the full standalone lib set. The lib lives inside the base dir,
      * at the per-OS location Flutter emits it, mirroring how the standalone path names libs
-     * per-OS above. Linux and Windows are wired; macOS is not built yet.
+     * per-OS above. Linux, Windows and macOS are wired.
      */
     private static Path attachModeLibwidgets(String os) {
         String buildDir = System.getProperty(EWT_BUNDLE_DIR);

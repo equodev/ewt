@@ -308,12 +308,9 @@ tasks.register<JavaExec>("runEvolveEwtDev") {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
     // macOS: Evolve's window controller bootstraps NSApp and sets the main menu, which Cocoa
     // only allows on the first thread — so the JVM must own it (as the `run` task already does).
-    // We pass -XstartOnFirstThread here, so also signal NativeLibLoader that the first-thread
-    // requirement is already met: otherwise it self-relaunches a second JVM to add the flag
-    // itself, leaving a phantom waiter process and an unclean shutdown.
+    // EWT is in attach mode here, so NativeLibLoader does not relaunch.
     if (currentOs == "macos") {
         jvmArgs("-XstartOnFirstThread")
-        environment("_EWT_MACOS_RELAUNCHED", "1")
     }
 }
 
@@ -348,12 +345,9 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
     // macOS: Evolve's window controller bootstraps NSApp and sets the main menu, which Cocoa
     // only allows on the first thread — so the JVM must own it (as the `run` task already does).
-    // We pass -XstartOnFirstThread here, so also signal NativeLibLoader that the first-thread
-    // requirement is already met: otherwise it self-relaunches a second JVM to add the flag
-    // itself, leaving a phantom waiter process and an unclean shutdown.
+    // EWT is in attach mode here, so NativeLibLoader does not relaunch.
     if (currentOs == "macos") {
         jvmArgs("-XstartOnFirstThread")
-        environment("_EWT_MACOS_RELAUNCHED", "1")
     }
 }
 
