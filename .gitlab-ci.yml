@@ -642,10 +642,9 @@ ewt_evolve_build:macos:
     - MAC_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x86_64)
     - (cd ../swt-evolve && ./gradlew ":swt_native:macos-${MAC_ARCH}Jar" --no-daemon)
     - ./gradlew :ewt.api:jar -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
-    # The macOS Flutter combined bundle is universal (arm64 + x86_64), so ONE build serves BOTH arches;
-    # emit a fragment per arch (distinct Bundle-SymbolicName + PlatformFilter via -Parch), each pointing
-    # at the same universal bundle. The eclipse POC ships a macOS x64 build, so both are needed.
-    # TODO(mac runner): verify the bundle is actually fat; if not, build each arch separately.
+    # One fragment per arch (distinct Bundle-SymbolicName + PlatformFilter via -Parch). -Parch also sets the
+    # combined bundle's arch, so each iteration rebuilds App/FlutterMacOS/widgets for that arch, and
+    # ewtEvolveJar checks them with lipo. The eclipse POC ships a macOS x64 build, so both are needed.
     - |
       for A in aarch64 x86_64; do
         ./gradlew :ewt.api:ewtEvolveJar -Pclassifier=macos -Parch=$A -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
