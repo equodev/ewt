@@ -12,20 +12,20 @@ public final class DecoratedSliverVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("decoratedSliver_allSet", List.of(PropExpectation.equalTo("position", DecorationPosition.background), PropExpectation.notNull("sliver"))),
-          Map.entry("decoratedSliver_boundary", List.of(PropExpectation.equalTo("position", DecorationPosition.background), PropExpectation.notNull("sliver")))
+          Map.entry("decoratedSliver_allSet", List.of(PropExpectation.equalTo("position", DecorationPosition.background))),
+          Map.entry("decoratedSliver_boundary", List.of(PropExpectation.equalTo("position", DecorationPosition.background)))
       );
 
   public static Widget decoratedSliver_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(DecoratedSliver.decoratedSliver(BoxDecoration.boxDecoration().build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(DecoratedSliver.decoratedSliver(BoxDecoration.boxDecoration().build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget decoratedSliver_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(DecoratedSliver.decoratedSliver(BoxDecoration.boxDecoration().build()).position(DecorationPosition.background).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(DecoratedSliver.decoratedSliver(BoxDecoration.boxDecoration().build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).position(DecorationPosition.background).build())).build();
   }
 
   public static Widget decoratedSliver_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(DecoratedSliver.decoratedSliver(BoxDecoration.boxDecoration().build()).position(DecorationPosition.background).sliver(SizedBox().width(1.0).height(1.0).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(DecoratedSliver.decoratedSliver(BoxDecoration.boxDecoration().build()).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).position(DecorationPosition.background).build())).build();
   }
 
 }

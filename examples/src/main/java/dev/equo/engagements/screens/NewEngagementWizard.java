@@ -15,6 +15,7 @@ import dev.equo.engagements.model.Person;
 import dev.equo.engagements.ui.EngagementsTheme;
 import dev.equo.ewt.BuildContext;
 import dev.equo.ewt.Colors;
+import dev.equo.ewt.EWT;
 import dev.equo.ewt.CrossAxisAlignment;
 import dev.equo.ewt.EdgeInsets;
 import dev.equo.ewt.FontWeight;
@@ -49,7 +50,9 @@ import static dev.equo.ewt.EWT.Expanded;
 import static dev.equo.ewt.EWT.FilledButton;
 import static dev.equo.ewt.EWT.FilterChip;
 import static dev.equo.ewt.EWT.Icon;
+import static dev.equo.ewt.EWT.InkWell;
 import static dev.equo.ewt.EWT.InputDecoration;
+import static dev.equo.ewt.EWT.Material;
 import static dev.equo.ewt.EWT.OutlineInputBorder;
 import static dev.equo.ewt.EWT.PopupMenuButton;
 import static dev.equo.ewt.EWT.PopupMenuDivider;
@@ -237,60 +240,82 @@ public final class NewEngagementWizard {
     private WidgetI dateRow() {
       return Row().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
           Expanded().child(datePicker("Starts", start,
-              startPresets(), d -> setState(() -> start = d))),
+              d -> setState(() -> start = d))),
           SizedBox().width(12.0),
           Expanded().child(datePicker("Target end", targetEnd,
-              targetEndPresets(), d -> setState(() -> targetEnd = d)))));
+              d -> setState(() -> targetEnd = d)))));
     }
 
+    /** A labelled cell that opens a real Material {@link CalendarDatePicker}
+     *  dialog on tap. Uses {@link InkWell} for the tap surface and the shared
+     *  {@link #pickerBox} for the visual, so it matches the client menu below. */
     private WidgetI datePicker(String label, LocalDate current,
-                               List<DatePreset> presets, Consumer<LocalDate> onPick) {
+                               Consumer<LocalDate> onPick) {
       boolean dark = state.darkMode();
       return Column().crossAxisAlignment(CrossAxisAlignment.start).children(List.of(
           Text(label).style(TextStyle().fontSize(11.0).letterSpacing(0.6)
               .fontWeight(FontWeight.w600()).color(EngagementsTheme.muted(dark))),
           SizedBox().height(6.0),
-          PopupMenuButton(ctx -> datePresetItems(presets, onPick))
-              .tooltip("Pick " + label.toLowerCase())
-              .child(pickerBox(current.toString(), dark))
-              .build()));
+          Material().color(Colors.transparent()).child(InkWell()
+              .borderRadius(BorderRadius_circular(4.0))
+              .onTap(() -> openCalendar(current, onPick))
+              .child(pickerBoxWithIcon(current.toString(),
+                  Icons.calendar_today(), dark)).build())));
     }
 
-    private List<dev.equo.ewt.PopupMenuEntry> datePresetItems(
-        List<DatePreset> presets, Consumer<LocalDate> onPick) {
-      List<dev.equo.ewt.PopupMenuEntry> items = new ArrayList<>();
-      for (DatePreset p : presets) {
-        final LocalDate d = p.date();
-        items.add(PopupMenuItem()
-            .onTap(() -> onPick.accept(d))
-            .child(Row().children(List.of(
-                Expanded().child(Text(p.label())),
-                SizedBox().width(12.0),
-                Text(d.toString()).style(TextStyle().fontSize(11.0)
-                    .color(EngagementsTheme.muted(state.darkMode())))))).build());
-      }
-      return items;
+    /** Fires a modal with a Material {@link CalendarDatePicker}. The picker's
+     *  {@code onDateChanged} callback fires when the user taps any day cell;
+     *  the picked value is committed via the {@code pending} holder + OK
+     *  button so a mis-tap in the calendar doesn't immediately close/apply. */
+    private void openCalendar(LocalDate initial, Consumer<LocalDate> onPick) {
+      // Anchor firstDate/lastDate to a generous window (one year back through
+      // three years forward) so the calendar renders arrows in both directions.
+      LocalDate first = LocalDate.now().minusYears(1);
+      LocalDate last  = LocalDate.now().plusYears(3);
+      // Mutable holder so `onDateChanged` can update the pending selection
+      // from within the picker without another setState roundtrip.
+      final LocalDate[] pending = { initial };
+      dev.equo.ewt.EWT.showDialog(context(), dctx -> Dialog()
+          .insetPadding(EdgeInsets_symmetric().horizontal(60.0).vertical(60.0).build())
+          .child(SizedBox().width(360.0).child(Padding(EdgeInsets_all(8.0))
+              .child(Column().mainAxisSize(MainAxisSize.min).children(List.of(
+                  dev.equo.ewt.EWT.CalendarDatePicker()
+                      .initialDate(toDateTime(initial))
+                      .firstDate(toDateTime(first))
+                      .lastDate(toDateTime(last))
+                      .onDateChanged(dt ->
+                          pending[0] = LocalDate.of(dt.year(), dt.month(), dt.day()))
+                      .build(),
+                  Padding(EdgeInsets_symmetric().horizontal(8.0).build())
+                      .child(Row().mainAxisAlignment(MainAxisAlignment.end)
+                          .children(List.of(
+                              TextButton().onPressed(() -> Navigator.pop(dctx))
+                                  .child(Text("Cancel")).build(),
+                              SizedBox().width(8.0),
+                              FilledButton().onPressed(() -> {
+                                    onPick.accept(pending[0]);
+                                    Navigator.pop(dctx);
+                                  })
+                                  .child(Text("Select")).build())))))))));
     }
 
-    private List<DatePreset> startPresets() {
-      LocalDate today = LocalDate.now();
-      return List.of(
-          new DatePreset("Today", today),
-          new DatePreset("In 1 week", today.plusWeeks(1)),
-          new DatePreset("In 2 weeks", today.plusWeeks(2)),
-          new DatePreset("In 1 month", today.plusMonths(1)));
+    private dev.equo.ewt.DateTime toDateTime(LocalDate d) {
+      return dev.equo.ewt.EWT.DateTime(d.getYear())
+          .month(d.getMonthValue())
+          .day(d.getDayOfMonth())
+          .build();
     }
 
-    private List<DatePreset> targetEndPresets() {
-      LocalDate today = LocalDate.now();
-      return List.of(
-          new DatePreset("In 1 month", today.plusMonths(1)),
-          new DatePreset("In 3 months", today.plusMonths(3)),
-          new DatePreset("In 6 months", today.plusMonths(6)),
-          new DatePreset("In 1 year", today.plusYears(1)));
+    private WidgetI pickerBoxWithIcon(String text, dev.equo.ewt.IconDataI icon, boolean dark) {
+      return Container()
+          .decoration(BoxDecoration()
+              .border(Border_all().color(EngagementsTheme.hairline(dark)).width(1.0).build())
+              .borderRadius(BorderRadius_circular(4.0)))
+          .padding(EdgeInsets_symmetric().horizontal(12.0).vertical(12.0).build())
+          .child(Row().children(List.of(
+              Expanded().child(Text(text)),
+              Icon(icon).size(16.0))));
     }
-
-    private record DatePreset(String label, LocalDate date) {}
 
     private WidgetI budgetSlider(boolean dark) {
       return Column().crossAxisAlignment(CrossAxisAlignment.stretch).children(List.of(

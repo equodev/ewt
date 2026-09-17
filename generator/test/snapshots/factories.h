@@ -35,6 +35,13 @@ typedef struct {
     DartObj (*fromMicrosecondsSinceEpoch)(int microsecondsSinceEpoch, int* isUtc);
     DartObj (*parse)(char* formattedString);
     DartObj (*tryParse)(char* formattedString);
+    int (*year)(DartObj self);
+    int (*month)(DartObj self);
+    int (*day)(DartObj self);
+    int (*hour)(DartObj self);
+    int (*minute)(DartObj self);
+    int (*second)(DartObj self);
+    int (*millisecondsSinceEpoch)(DartObj self);
   } dateTime;
 
   struct IconSt {

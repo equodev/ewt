@@ -16,9 +16,14 @@ had to be substituted so the demo could ship.
 - **`SharedAppData`** — not generated. AppState is threaded through by
   constructor instead. This works but every screen has to remember to register
   / unregister on `AppState.addDataListener`.
-- **`showDatePicker`** — the wizard's date fields fall back to a
-  parse-on-change `TextField(LocalDate)` because there's no exposed pattern
-  for the standard Material date picker.
+- **`showDatePicker` (Future result unavailable)** — `EWT.showDatePicker`
+  fires Flutter's built-in dialog but the returned `Future` has no
+  Java-consumable `.then(Consumer<DateTime>)`, so the picked value can't
+  reach Java. Worked around by opening a modal with `CalendarDatePicker`
+  whose `onDateChanged(Consumer<DateTime>)` callback IS reachable — and
+  by adding a `DateTimeMethods` companion so `.year()` / `.month()` /
+  `.day()` are exposed on Java's `DateTime` (needed to convert the
+  callback's `DateTime` into a `java.time.LocalDate`).
 - **`TabBar.onTap`** — not generated on `TabBar` nor on
   `DefaultTabController`. Programmatic switches work via `initialIndex`, but
   user tab clicks don't propagate to Java, so `AppState.activeTabIndex` is

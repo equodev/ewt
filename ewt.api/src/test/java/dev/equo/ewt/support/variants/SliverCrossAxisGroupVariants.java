@@ -11,7 +11,7 @@ public final class SliverCrossAxisGroupVariants {
   private SliverCrossAxisGroupVariants() {}
 
   public static Widget sliverCrossAxisGroup_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverCrossAxisGroup.sliverCrossAxisGroup(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverCrossAxisGroup.sliverCrossAxisGroup(List.<WidgetI>of(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build())).build())).build();
   }
 
 }

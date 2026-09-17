@@ -12,20 +12,20 @@ public final class SliverIgnorePointerVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("sliverIgnorePointer_allSet", List.of(PropExpectation.equalTo("ignoring", true), PropExpectation.equalTo("ignoringSemantics", true), PropExpectation.notNull("sliver"))),
-          Map.entry("sliverIgnorePointer_boundary", List.of(PropExpectation.equalTo("ignoring", false), PropExpectation.equalTo("ignoringSemantics", false), PropExpectation.notNull("sliver")))
+          Map.entry("sliverIgnorePointer_allSet", List.of(PropExpectation.equalTo("ignoring", true), PropExpectation.equalTo("ignoringSemantics", true))),
+          Map.entry("sliverIgnorePointer_boundary", List.of(PropExpectation.equalTo("ignoring", false), PropExpectation.equalTo("ignoringSemantics", false)))
       );
 
   public static Widget sliverIgnorePointer_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverIgnorePointer.sliverIgnorePointer().build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverIgnorePointer.sliverIgnorePointer().sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget sliverIgnorePointer_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverIgnorePointer.sliverIgnorePointer().ignoring(true).ignoringSemantics(true).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverIgnorePointer.sliverIgnorePointer().sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).ignoring(true).ignoringSemantics(true).build())).build();
   }
 
   public static Widget sliverIgnorePointer_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverIgnorePointer.sliverIgnorePointer().ignoring(false).ignoringSemantics(false).sliver(SizedBox().width(1.0).height(1.0).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverIgnorePointer.sliverIgnorePointer().sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).ignoring(false).ignoringSemantics(false).build())).build();
   }
 
 }

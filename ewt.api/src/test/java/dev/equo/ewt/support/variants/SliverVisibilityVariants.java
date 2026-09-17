@@ -12,14 +12,14 @@ public final class SliverVisibilityVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("sliverVisibility_allSet", List.of(PropExpectation.notNull("replacementSliver"), PropExpectation.equalTo("visible", true), PropExpectation.equalTo("maintainState", true), PropExpectation.equalTo("maintainAnimation", true), PropExpectation.equalTo("maintainSize", true), PropExpectation.equalTo("maintainSemantics", true), PropExpectation.equalTo("maintainInteractivity", true))),
-          Map.entry("sliverVisibility_boundary", List.of(PropExpectation.notNull("replacementSliver"), PropExpectation.equalTo("visible", false), PropExpectation.equalTo("maintainState", false), PropExpectation.equalTo("maintainAnimation", false), PropExpectation.equalTo("maintainSize", false), PropExpectation.equalTo("maintainSemantics", false), PropExpectation.equalTo("maintainInteractivity", false))),
-          Map.entry("maintain_allSet", List.of(PropExpectation.notNull("replacementSliver"), PropExpectation.equalTo("visible", true))),
-          Map.entry("maintain_boundary", List.of(PropExpectation.notNull("replacementSliver"), PropExpectation.equalTo("visible", false)))
+          Map.entry("sliverVisibility_allSet", List.of(PropExpectation.equalTo("visible", true), PropExpectation.equalTo("maintainState", true), PropExpectation.equalTo("maintainAnimation", true), PropExpectation.equalTo("maintainSize", true), PropExpectation.equalTo("maintainSemantics", true), PropExpectation.equalTo("maintainInteractivity", true))),
+          Map.entry("sliverVisibility_boundary", List.of(PropExpectation.equalTo("visible", false), PropExpectation.equalTo("maintainState", false), PropExpectation.equalTo("maintainAnimation", false), PropExpectation.equalTo("maintainSize", false), PropExpectation.equalTo("maintainSemantics", false), PropExpectation.equalTo("maintainInteractivity", false))),
+          Map.entry("maintain_allSet", List.of(PropExpectation.equalTo("visible", true))),
+          Map.entry("maintain_boundary", List.of(PropExpectation.equalTo("visible", false)))
       );
 
   public static Widget sliverVisibility_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.sliverVisibility(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.sliverVisibility(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).replacementSliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget sliverVisibility_allSet() {
@@ -27,11 +27,11 @@ public final class SliverVisibilityVariants {
   }
 
   public static Widget sliverVisibility_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.sliverVisibility(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).replacementSliver(SizedBox().width(1.0).height(1.0).build()).visible(false).maintainState(false).maintainAnimation(false).maintainSize(false).maintainSemantics(false).maintainInteractivity(false).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.sliverVisibility(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).replacementSliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).visible(false).maintainState(false).maintainAnimation(false).maintainSize(false).maintainSemantics(false).maintainInteractivity(false).build())).build();
   }
 
   public static Widget maintain_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.maintain(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.maintain(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).replacementSliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget maintain_allSet() {
@@ -39,7 +39,7 @@ public final class SliverVisibilityVariants {
   }
 
   public static Widget maintain_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.maintain(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).replacementSliver(SizedBox().width(1.0).height(1.0).build()).visible(false).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverVisibility.maintain(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).replacementSliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).visible(false).build())).build();
   }
 
 }

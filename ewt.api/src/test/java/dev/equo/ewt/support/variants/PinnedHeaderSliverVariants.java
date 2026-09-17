@@ -10,21 +10,7 @@ public final class PinnedHeaderSliverVariants {
 
   private PinnedHeaderSliverVariants() {}
 
-  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
-      Map.ofEntries(
-          Map.entry("pinnedHeaderSliver_allSet", List.of(PropExpectation.notNull("child"))),
-          Map.entry("pinnedHeaderSliver_boundary", List.of(PropExpectation.notNull("child")))
-      );
-
   public static Widget pinnedHeaderSliver_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(PinnedHeaderSliver.pinnedHeaderSliver().build())).build();
-  }
-
-  public static Widget pinnedHeaderSliver_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(PinnedHeaderSliver.pinnedHeaderSliver().child(SizedBox().width(1.0).height(1.0).build()).build())).build();
-  }
-
-  public static Widget pinnedHeaderSliver_boundary() {
     return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(PinnedHeaderSliver.pinnedHeaderSliver().child(SizedBox().width(1.0).height(1.0).build()).build())).build();
   }
 

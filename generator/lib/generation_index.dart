@@ -25,6 +25,7 @@ import 'force_press_details_methods.dart' as fpdm;
 import 'draggable_details_methods.dart' as ddmm;
 import 'pointer_event_methods.dart' as pem;
 import 'offset_methods.dart' as om;
+import 'date_time_methods.dart' as dtm;
 
 // Index of Dart types the generator emits Java + FFI code for.
 // See docs/gen_structure.md for the deferred-widgets list and the reasons —
@@ -662,6 +663,7 @@ fpdm.ForcePressDetailsMethods? forcePressDetailsMethods;
 ddmm.DraggableDetailsMethods? draggableDetailsMethods;
 pem.PointerEventMethods? pointerEventMethods;
 om.OffsetMethods? offsetMethods;
+dtm.DateTimeMethods? dateTimeMethods;
 
 const showDialog = m.showDialog;
 const showDatePicker = m.showDatePicker;

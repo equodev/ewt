@@ -12,20 +12,20 @@ public final class SliverOffstageVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("sliverOffstage_allSet", List.of(PropExpectation.equalTo("offstage", true), PropExpectation.notNull("sliver"))),
-          Map.entry("sliverOffstage_boundary", List.of(PropExpectation.equalTo("offstage", false), PropExpectation.notNull("sliver")))
+          Map.entry("sliverOffstage_allSet", List.of(PropExpectation.equalTo("offstage", true))),
+          Map.entry("sliverOffstage_boundary", List.of(PropExpectation.equalTo("offstage", false)))
       );
 
   public static Widget sliverOffstage_required() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOffstage.sliverOffstage().build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOffstage.sliverOffstage().sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
   }
 
   public static Widget sliverOffstage_allSet() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOffstage.sliverOffstage().offstage(true).sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOffstage.sliverOffstage().sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).offstage(true).build())).build();
   }
 
   public static Widget sliverOffstage_boundary() {
-    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOffstage.sliverOffstage().offstage(false).sliver(SizedBox().width(1.0).height(1.0).build()).build())).build();
+    return CustomScrollView.customScrollView().slivers(List.<WidgetI>of(SliverOffstage.sliverOffstage().sliver(SliverToBoxAdapter.sliverToBoxAdapter().child(SizedBox().width(1.0).height(1.0).build()).build()).offstage(false).build())).build();
   }
 
 }

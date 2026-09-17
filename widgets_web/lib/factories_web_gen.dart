@@ -100,6 +100,13 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       isUtc: (p['isUtc'] as bool?) ?? false),
   'dateTimeParse': (p) => DateTime.parse(p['formattedString'] as String),
   'dateTimeTryParse': (p) => DateTime.tryParse(p['formattedString'] as String),
+  'dateTimeYear': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).year,
+  'dateTimeMonth': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).month,
+  'dateTimeDay': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).day,
+  'dateTimeHour': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).hour,
+  'dateTimeMinute': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).minute,
+  'dateTimeSecond': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).second,
+  'dateTimeMillisecondsSinceEpoch': (p) => (decodeEwtNode(p['self'] as Map<String,dynamic>) as DateTime).millisecondsSinceEpoch,
 
   'iconIcon': (p) => Icon(decodeEwtNode(p['icon'] as Map<String,dynamic>) as IconData,
       size: (p['size'] as num?)?.toDouble(),
