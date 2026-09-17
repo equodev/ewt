@@ -1,3 +1,7 @@
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+
 plugins {
     id("java")
     id("maven-publish")
@@ -13,6 +17,21 @@ fun osgiVersion(v: String): String {
     val (maj, min, mic, q) = m.destructured
     return if (q.isEmpty()) "$maj.$min.$mic"
            else "$maj.$min.$mic." + q.replace(Regex("[^A-Za-z0-9_-]"), "_")
+}
+
+// Build qualifier for the OSGi units this build publishes, Eclipse-style (vYYYYMMDD-HHMM, UTC). Without
+// it every rebuild of 0.1.6 is the same version to p2, which then keeps the unit it already has, and to
+// the CLI's add-on stamp, which then skips the refresh. One value per CI pipeline (CI_PIPELINE_CREATED_AT),
+// so the per-OS fragments of a pipeline share it; -PbuildQualifier pins it; otherwise the local build time.
+val buildQualifier: String = (findProperty("buildQualifier") as String?)?.takeIf { it.isNotEmpty() }
+    ?: (System.getenv("CI_PIPELINE_CREATED_AT")?.let { Instant.parse(it) } ?: Instant.now())
+        .atZone(ZoneOffset.UTC)
+        .format(DateTimeFormatter.ofPattern("'v'yyyyMMdd-HHmm"))
+
+// osgiVersion plus the build qualifier: "0.1.6" -> "0.1.6.v20260917-1702", "0.1.6-SNAPSHOT" ->
+// "0.1.6.SNAPSHOT-v20260917-1702".
+fun qualifiedOsgiVersion(v: String): String = osgiVersion(v).let {
+    if (it.count { c -> c == '.' } >= 3) "$it-$buildQualifier" else "$it.$buildQualifier"
 }
 
 // Target JDK 22 bytecode (class file v66) so JDK 22 stays the minimum runtime requirement,
@@ -202,7 +221,7 @@ if (evolveAvailable) {
                 "Bundle-Name" to "EWT to Evolve integration",
                 "Bundle-Vendor" to "Equo Tech, Inc.",
                 "Bundle-SymbolicName" to "dev.equo.ewt.evolve.$ewtEvolvePlatformId",
-                "Bundle-Version" to osgiVersion(project.version.toString()),
+                "Bundle-Version" to qualifiedOsgiVersion(project.version.toString()),
                 // Attach to the org.eclipse.swt host Evolve provides, so EwtWidget joins the
                 // host-exported org.eclipse.swt.widgets package (host has Eclipse-ExtensibleAPI:true)
                 // and this fragment's META-INF/services is visible to the host classloader.

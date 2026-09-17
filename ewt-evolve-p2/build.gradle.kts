@@ -56,8 +56,15 @@ val evolveIu: String = (findProperty("evolveIu") as String?) ?: "dev.equo.swt.ev
 /** Exact version to pin = the Evolve tag we built against (e.g. 0.336.0). Required (-PevolveVersion). */
 val evolveVersionOverride: String? = findProperty("evolveVersion") as String?
 
-val featureVersion: String = (findProperty("featureVersion") as String?) ?: "0.1.0"
-val demoVersion: String = (findProperty("demoVersion") as String?) ?: "0.1.0"
+/**
+ * The feature and the demo take the fragments' Bundle-Version (x.y.z.vYYYYMMDD-HHMM, stamped by
+ * :ewt.api:ewtEvolveJar), so each rebuild publishes a version that p2 and the CLI's add-on stamp tell
+ * apart from the last one, and the feature names the build of the fragments it ships. The fragments of
+ * one CI pipeline share it; fragments from separate local builds may not, and the newest wins.
+ */
+val fragmentVersion: String? = ewtEvolveJars.map(::bundleVersion).maxWithOrNull(osgiVersionOrder())
+val featureVersion: String = (findProperty("featureVersion") as String?) ?: fragmentVersion ?: "0.0.0"
+val demoVersion: String = (findProperty("demoVersion") as String?) ?: featureVersion
 val featureId = "dev.equo.ewt.evolve.feature"
 
 // ---- Helpers ----
@@ -68,6 +75,14 @@ fun bundleVersion(jar: File): String = JarFile(jar).use { jf ->
         ?: throw GradleException("No Bundle-Version in $jar")).trim()
 }
 
+/** OSGi version order: major, minor, micro numerically, then the qualifier as a string. */
+fun osgiVersionOrder(): Comparator<String> = compareBy(
+    { it.split('.').getOrNull(0)?.toIntOrNull() ?: 0 },
+    { it.split('.').getOrNull(1)?.toIntOrNull() ?: 0 },
+    { it.split('.').getOrNull(2)?.toIntOrNull() ?: 0 },
+    { it.split('.', limit = 4).getOrNull(3) ?: "" },
+)
+
 fun firstJar(glob: String): File = fileTree("$eclipseHome/plugins") { include(glob) }.files
     .sortedBy { it.name }.lastOrNull()
     ?: throw GradleException("Not found in $eclipseHome/plugins: $glob (set -PeclipseHome)")
@@ -75,6 +90,12 @@ fun firstJar(glob: String): File = fileTree("$eclipseHome/plugins") { include(gl
 fun bdir(sub: String) = layout.buildDirectory.dir(sub)
 val p2SourceDir = bdir("p2-source")   // plugins/ + features/ the publisher reads
 val p2RepoDir = bdir("p2-repo")       // the assembled p2 repository (output)
+
+// Every build names its feature and demo jars with a new version, and the publisher appends to an existing
+// repo, so start both from empty: otherwise a local re-run publishes the previous build's units beside the new.
+val cleanP2 = tasks.register<Delete>("cleanP2") {
+    delete(p2SourceDir, p2RepoDir)
+}
 
 // ---- Feature p2.inf: pin feat.hybrid at the exact Evolve version (-PevolveVersion, required) ----
 
@@ -104,13 +125,14 @@ val genFeatureP2Inf = tasks.register("genFeatureP2Inf") {
 // ---- Feature jar (feature.xml + generated p2.inf) → p2-source/features/ ----
 
 val stageFeatureXml = tasks.register<Copy>("stageFeatureXml") {
+    inputs.property("featureVersion", featureVersion)   // the filter's value is not tracked on its own
     from("feature/feature.xml") { filter { it.replace("0.1.0.qualifier", featureVersion) } }
     into(bdir("feature-staged"))
 }
 
 val featureJar = tasks.register<Jar>("featureJar") {
     description = "Package $featureId (feature.xml + exact-version p2.inf)."
-    dependsOn(stageFeatureXml, genFeatureP2Inf)
+    dependsOn(cleanP2, stageFeatureXml, genFeatureP2Inf)
     destinationDirectory.set(p2SourceDir.map { it.dir("features") })
     archiveFileName.set("${featureId}_$featureVersion.jar")
     from(bdir("feature-staged")) { include("feature.xml", "p2.inf") }
@@ -140,12 +162,15 @@ val compileDemo = tasks.register<JavaCompile>("compileDemo") {
 
 val demoJar = tasks.register<Jar>("demoJar") {
     description = "Package dev.equo.ewt.evolve.demo (ViewPart + plugin.xml)."
-    dependsOn(compileDemo)
+    dependsOn(cleanP2, compileDemo)
     destinationDirectory.set(p2SourceDir.map { it.dir("plugins") })
     archiveFileName.set("dev.equo.ewt.evolve.demo_$demoVersion.jar")
     manifest {
-        from("demo/META-INF/MANIFEST.MF")
-        attributes("Bundle-Version" to demoVersion)   // concretise 0.1.0.qualifier
+        // Concretise 0.1.0.qualifier on the merge itself: on a clash the merged file's value wins over
+        // attributes(), which is how the demo used to ship as 0.1.0.qualifier.
+        from("demo/META-INF/MANIFEST.MF") {
+            eachEntry { if (key == "Bundle-Version") value = demoVersion }
+        }
     }
     from(compileDemo.map { it.destinationDirectory })
     from("demo") { include("plugin.xml") }
@@ -154,7 +179,7 @@ val demoJar = tasks.register<Jar>("demoJar") {
 // ---- Stage the prebuilt ewt-evolve fragment jar into p2-source/plugins/ (publisher reads its manifest) ----
 
 val stageFragment = tasks.register<Copy>("stageFragment") {
-    dependsOn(compileDemo)   // shares the same missing-input guard message via compileDemo.doFirst
+    dependsOn(cleanP2, compileDemo)   // compileDemo: shares its missing-input guard message
     from(ewtEvolveJars)      // all per-platform fragments → one repo; p2 filters at install
     into(p2SourceDir.map { it.dir("plugins") })
 }
@@ -198,7 +223,7 @@ val assembleP2 = tasks.register("assembleP2") {
     group = "p2"
     description = "Build the ewt-evolve p2 repository into build/p2-repo/."
     dependsOn(publishCategory)
-    doLast { logger.lifecycle("p2 repository assembled at ${p2RepoDir.get().asFile}") }
+    doLast { logger.lifecycle("p2 repository assembled at ${p2RepoDir.get().asFile} ($featureId $featureVersion)") }
 }
 
 // ---- Publish stub. The CI job publishes the ONE assembled repo to <bucket>/latest/p2. This local
