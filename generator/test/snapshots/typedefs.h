@@ -89,6 +89,7 @@ typedef void (*BottomSheetDragStartHandlerFFI)(DartObj details);
 typedef void (*BottomSheetDragEndHandlerFFI)(DartObj details, int isClosing);
 typedef void (*MoveCursorHandlerFFI)(int extendSelection);
 typedef void (*SetTextHandlerFFI)(char* text);
+typedef DartObj (*AsyncCallbackFFI)(void);
 typedef void (*PopResultCallbackForTFFI)(DartObj result);
 typedef DartObj (*StepIconBuilderFFI)(int stepIndex, int stepState);
 typedef DartObj (*RefreshCallbackFFI)(void);

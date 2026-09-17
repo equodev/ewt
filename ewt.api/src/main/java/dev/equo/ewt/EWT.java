@@ -2313,6 +2313,16 @@ public class EWT {
     return SliverSemanticsSliverSemanticsBuilder.sliverSemanticsSliverSemantics(sliver);
   }
 
+  public static SliverAppBarSliverAppBarBuilder SliverAppBar() {
+    return SliverAppBarSliverAppBarBuilder.sliverAppBarSliverAppBar();
+  }
+  public static SliverAppBarMediumBuilder SliverAppBar_medium() {
+    return SliverAppBarMediumBuilder.sliverAppBarMedium();
+  }
+  public static SliverAppBarLargeBuilder SliverAppBar_large() {
+    return SliverAppBarLargeBuilder.sliverAppBarLarge();
+  }
+
   public static FadeInImageAssetNetworkBuilder FadeInImage_assetNetwork(String placeholder, String image) {
     return FadeInImageAssetNetworkBuilder.fadeInImageAssetNetwork(placeholder, image);
   }

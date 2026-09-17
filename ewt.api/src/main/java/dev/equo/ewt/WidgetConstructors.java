@@ -9574,6 +9574,125 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(inputType));
   }
 
+  MemorySegment sliverAppBarSliverAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+    var st = WidgetFactories.sliverAppBar(factories);
+    var fn = WidgetFactories.SliverAppBarSt.sliverAppBar(st);
+    return WidgetFactories.SliverAppBarSt.sliverAppBar.invoke(fn, arena, ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrObj(title),
+      ptrList(actions),
+      ptrObj(flexibleSpace),
+      ptrObj(bottom),
+      ptr(elevation),
+      ptr(scrolledUnderElevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrBool(forceElevated),
+      ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptrObj(iconTheme),
+      ptrObj(actionsIconTheme),
+      ptrBool(primary),
+      ptrBool(centerTitle),
+      ptrBool(excludeHeaderSemantics),
+      ptr(titleSpacing),
+      ptr(collapsedHeight),
+      ptr(expandedHeight),
+      ptrBool(floating),
+      ptrBool(pinned),
+      ptrBool(snap),
+      ptrBool(stretch),
+      ptr(stretchTriggerOffset),
+      onStretchTrigger.isPresent() ? ptrHolder(ptrAsyncCallbackFn(onStretchTrigger.get())) : MemorySegment.NULL,
+      ptrObj(shape),
+      ptr(toolbarHeight),
+      ptr(leadingWidth),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
+      ptrBool(forceMaterialTransparency),
+      ptrBool(useDefaultSemanticsOrder),
+      ptrEnum(clipBehavior),
+      ptrObj(actionsPadding));
+  }
+  MemorySegment sliverAppBarMedium(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+    var st = WidgetFactories.sliverAppBar(factories);
+    var fn = WidgetFactories.SliverAppBarSt.medium(st);
+    return WidgetFactories.SliverAppBarSt.medium.invoke(fn, arena, ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrObj(title),
+      ptrList(actions),
+      ptrObj(flexibleSpace),
+      ptrObj(bottom),
+      ptr(elevation),
+      ptr(scrolledUnderElevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrBool(forceElevated),
+      ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptrObj(iconTheme),
+      ptrObj(actionsIconTheme),
+      ptrBool(primary),
+      ptrBool(centerTitle),
+      ptrBool(excludeHeaderSemantics),
+      ptr(titleSpacing),
+      ptr(collapsedHeight),
+      ptr(expandedHeight),
+      ptrBool(floating),
+      ptrBool(pinned),
+      ptrBool(snap),
+      ptrBool(stretch),
+      ptr(stretchTriggerOffset),
+      onStretchTrigger.isPresent() ? ptrHolder(ptrAsyncCallbackFn(onStretchTrigger.get())) : MemorySegment.NULL,
+      ptrObj(shape),
+      ptr(leadingWidth),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
+      ptrBool(forceMaterialTransparency),
+      ptrBool(useDefaultSemanticsOrder),
+      ptrEnum(clipBehavior),
+      ptrObj(actionsPadding));
+  }
+  MemorySegment sliverAppBarLarge(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+    var st = WidgetFactories.sliverAppBar(factories);
+    var fn = WidgetFactories.SliverAppBarSt.large(st);
+    return WidgetFactories.SliverAppBarSt.large.invoke(fn, arena, ptrObj(leading),
+      ptrBool(automaticallyImplyLeading),
+      ptrObj(title),
+      ptrList(actions),
+      ptrObj(flexibleSpace),
+      ptrObj(bottom),
+      ptr(elevation),
+      ptr(scrolledUnderElevation),
+      ptrObj(shadowColor),
+      ptrObj(surfaceTintColor),
+      ptrBool(forceElevated),
+      ptrObj(backgroundColor),
+      ptrObj(foregroundColor),
+      ptrObj(iconTheme),
+      ptrObj(actionsIconTheme),
+      ptrBool(primary),
+      ptrBool(centerTitle),
+      ptrBool(excludeHeaderSemantics),
+      ptr(titleSpacing),
+      ptr(collapsedHeight),
+      ptr(expandedHeight),
+      ptrBool(floating),
+      ptrBool(pinned),
+      ptrBool(snap),
+      ptrBool(stretch),
+      ptr(stretchTriggerOffset),
+      onStretchTrigger.isPresent() ? ptrHolder(ptrAsyncCallbackFn(onStretchTrigger.get())) : MemorySegment.NULL,
+      ptrObj(shape),
+      ptr(leadingWidth),
+      ptrObj(toolbarTextStyle),
+      ptrObj(titleTextStyle),
+      ptrBool(forceMaterialTransparency),
+      ptrBool(useDefaultSemanticsOrder),
+      ptrEnum(clipBehavior),
+      ptrObj(actionsPadding));
+  }
+
   MemorySegment fadeInImageAssetNetwork(String placeholder, String image, OptionalDouble placeholderScale, OptionalDouble imageScale, Optional<Boolean> excludeFromSemantics, Optional<String> imageSemanticLabel, Optional<Duration> fadeOutDuration, Optional<Curve> fadeOutCurve, Optional<Duration> fadeInDuration, Optional<Curve> fadeInCurve, OptionalDouble width, OptionalDouble height, Optional<BoxFit> fit, Optional<Color> color, Optional<BlendMode> colorBlendMode, Optional<Color> placeholderColor, Optional<BlendMode> placeholderColorBlendMode, Optional<BoxFit> placeholderFit, Optional<FilterQuality> filterQuality, Optional<FilterQuality> placeholderFilterQuality, Optional<AlignmentGeometry> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, OptionalInt placeholderCacheWidth, OptionalInt placeholderCacheHeight, OptionalInt imageCacheWidth, OptionalInt imageCacheHeight) {
     var st = WidgetFactories.fadeInImage(factories);
     var fn = WidgetFactories.FadeInImageSt.assetNetwork(st);
@@ -10541,6 +10660,12 @@ MemorySegment ptrMoveCursorHandlerFn(Consumer<Boolean> jFn) {
 MemorySegment ptrSetTextHandlerFn(Consumer<String> jFn) {
   return SetTextHandlerFFI.allocate((text) -> {
     jFn.accept(text.getString(0));
+  }, arena);
+}
+MemorySegment ptrAsyncCallbackFn(Supplier<Future> jFn) {
+  return AsyncCallbackFFI.allocate(() -> {
+    final var jFnRet = jFn.get();
+    return jFnRet.build().getId();
   }, arena);
 }
 <T> MemorySegment ptrPopResultCallbackForTFn(Consumer<NativeObj> jFn) {
