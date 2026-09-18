@@ -86,7 +86,7 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     System.out.println("New bool id:"+id);
     return intToBool(id);
   }
-  public static Future maybePop(BuildContextI context) {
+  public static Future<Boolean> maybePop(BuildContextI context) {
     int id = factories.navigatorMaybePop(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<bool>");

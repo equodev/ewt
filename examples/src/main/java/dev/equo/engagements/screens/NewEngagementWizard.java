@@ -246,9 +246,10 @@ public final class NewEngagementWizard {
               d -> setState(() -> targetEnd = d)))));
     }
 
-    /** A labelled cell that opens a real Material {@link CalendarDatePicker}
-     *  dialog on tap. Uses {@link InkWell} for the tap surface and the shared
-     *  {@link #pickerBox} for the visual, so it matches the client menu below. */
+    /** A labelled cell that opens the native Material calendar dialog on tap.
+     *  Uses {@link InkWell} for the tap surface and the shared
+     *  {@link #pickerBoxWithIcon} for the visual, so it matches the client
+     *  menu below. */
     private WidgetI datePicker(String label, LocalDate current,
                                Consumer<LocalDate> onPick) {
       boolean dark = state.darkMode();
@@ -258,49 +259,33 @@ public final class NewEngagementWizard {
           SizedBox().height(6.0),
           Material().color(Colors.transparent()).child(InkWell()
               .borderRadius(BorderRadius_circular(4.0))
-              .onTap(() -> openCalendar(current, onPick))
+              .onTap(() -> openDatePicker(current, onPick))
               .child(pickerBoxWithIcon(current.toString(),
                   Icons.calendar_today(), dark)).build())));
     }
 
-    /** Fires a modal with a Material {@link CalendarDatePicker}. The picker's
-     *  {@code onDateChanged} callback fires when the user taps any day cell;
-     *  the picked value is committed via the {@code pending} holder + OK
-     *  button so a mis-tap in the calendar doesn't immediately close/apply. */
-    private void openCalendar(LocalDate initial, Consumer<LocalDate> onPick) {
-      // Anchor firstDate/lastDate to a generous window (one year back through
-      // three years forward) so the calendar renders arrows in both directions.
+    /** Fires Flutter's built-in Material date-picker dialog and wires the
+     *  resolved {@link dev.equo.ewt.DateTime} back into Java via
+     *  {@link dev.equo.ewt.Future#then Future.then}. Cancel resolves to
+     *  {@code null}. */
+    private void openDatePicker(LocalDate initial, Consumer<LocalDate> onPick) {
+      // Generous window so the picker renders arrows in both directions.
       LocalDate first = LocalDate.now().minusYears(1);
       LocalDate last  = LocalDate.now().plusYears(3);
-      // Mutable holder so `onDateChanged` can update the pending selection
-      // from within the picker without another setState roundtrip.
-      final LocalDate[] pending = { initial };
-      dev.equo.ewt.EWT.showDialog(context(), dctx -> Dialog()
-          .insetPadding(EdgeInsets_symmetric().horizontal(60.0).vertical(60.0).build())
-          .child(SizedBox().width(360.0).child(Padding(EdgeInsets_all(8.0))
-              .child(Column().mainAxisSize(MainAxisSize.min).children(List.of(
-                  dev.equo.ewt.EWT.CalendarDatePicker()
-                      .initialDate(toDateTime(initial))
-                      .firstDate(toDateTime(first))
-                      .lastDate(toDateTime(last))
-                      .onDateChanged(dt ->
-                          pending[0] = LocalDate.of(dt.year(), dt.month(), dt.day()))
-                      .build(),
-                  Padding(EdgeInsets_symmetric().horizontal(8.0).build())
-                      .child(Row().mainAxisAlignment(MainAxisAlignment.end)
-                          .children(List.of(
-                              TextButton().onPressed(() -> Navigator.pop(dctx))
-                                  .child(Text("Cancel")).build(),
-                              SizedBox().width(8.0),
-                              FilledButton().onPressed(() -> {
-                                    onPick.accept(pending[0]);
-                                    Navigator.pop(dctx);
-                                  })
-                                  .child(Text("Select")).build())))))))));
+      EWT.showDatePicker(context(), toDateTime(first), toDateTime(last))
+          .then(v -> {
+            // The emitted callback arg is a generic NativeObj wrapper (the
+            // T of `Future<T>` is erased across the FFI), so re-wrap the id
+            // into the concrete Java class via its `byId` constructor —
+            // a straight `(DateTime) v` cast fails on the anonymous Base.
+            if (v == null || v.getId() <= 0) return;      // Cancel → null
+            dev.equo.ewt.DateTime dt = dev.equo.ewt.DateTime.byId(v.getId());
+            onPick.accept(LocalDate.of(dt.year(), dt.month(), dt.day()));
+          });
     }
 
     private dev.equo.ewt.DateTime toDateTime(LocalDate d) {
-      return dev.equo.ewt.EWT.DateTime(d.getYear())
+      return EWT.DateTime(d.getYear())
           .month(d.getMonthValue())
           .day(d.getDayOfMonth())
           .build();

@@ -214,6 +214,13 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.OffsetSt.dy.invoke(fn, self.build().getId());
   }
 
+  void futureThen(Future<NativeObj> self, Consumer<NativeObj> onValue) {
+    var st = WidgetFactories.future(factories);
+    var fn = WidgetFactories.FutureSt.then(st);
+    WidgetFactories.FutureSt.then.invoke(fn, self.getId(),
+      ptrFutureThenCallbackForObjectOptFn(onValue));
+  }
+
   int dateTimeDateTime(int year, OptionalInt month, OptionalInt day, OptionalInt hour, OptionalInt minute, OptionalInt second, OptionalInt millisecond, OptionalInt microsecond) {
     var st = WidgetFactories.dateTime(factories);
     var fn = WidgetFactories.DateTimeSt.dateTime(st);
@@ -8517,7 +8524,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(descendantsAreTraversable));
   }
 
-  MemorySegment formForm(Widget child, Optional<Boolean> canPop, Optional<Consumer<Boolean>> onPopInvoked, Optional<BiConsumer<Boolean, NativeObj>> onPopInvokedWithResult, Optional<Supplier<Future>> onWillPop, Optional<Runnable> onChanged, Optional<AutovalidateMode> autovalidateMode) {
+  MemorySegment formForm(Widget child, Optional<Boolean> canPop, Optional<Consumer<Boolean>> onPopInvoked, Optional<BiConsumer<Boolean, NativeObj>> onPopInvokedWithResult, Optional<Supplier<Future<Boolean>>> onWillPop, Optional<Runnable> onChanged, Optional<AutovalidateMode> autovalidateMode) {
     var st = WidgetFactories.form(factories);
     var fn = WidgetFactories.FormSt.form(st);
     return WidgetFactories.FormSt.form.invoke(fn, arena, child.build().getId(),
@@ -9609,7 +9616,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(inputType));
   }
 
-  MemorySegment sliverAppBarSliverAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment sliverAppBarSliverAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     var st = WidgetFactories.sliverAppBar(factories);
     var fn = WidgetFactories.SliverAppBarSt.sliverAppBar(st);
     return WidgetFactories.SliverAppBarSt.sliverAppBar.invoke(fn, arena, ptrObj(leading),
@@ -9649,7 +9656,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(clipBehavior),
       ptrObj(actionsPadding));
   }
-  MemorySegment sliverAppBarMedium(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment sliverAppBarMedium(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     var st = WidgetFactories.sliverAppBar(factories);
     var fn = WidgetFactories.SliverAppBarSt.medium(st);
     return WidgetFactories.SliverAppBarSt.medium.invoke(fn, arena, ptrObj(leading),
@@ -9688,7 +9695,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(clipBehavior),
       ptrObj(actionsPadding));
   }
-  MemorySegment sliverAppBarLarge(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment sliverAppBarLarge(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     var st = WidgetFactories.sliverAppBar(factories);
     var fn = WidgetFactories.SliverAppBarSt.large(st);
     return WidgetFactories.SliverAppBarSt.large.invoke(fn, arena, ptrObj(leading),
@@ -9892,7 +9899,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       total);
   }
 
-  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
     var st = WidgetFactories.refreshIndicator(factories);
     var fn = WidgetFactories.RefreshIndicatorSt.refreshIndicator(st);
     return WidgetFactories.RefreshIndicatorSt.refreshIndicator.invoke(fn, arena, child.build().getId(),
@@ -9907,7 +9914,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(triggerMode),
       ptr(elevation));
   }
-  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
     var st = WidgetFactories.refreshIndicator(factories);
     var fn = WidgetFactories.RefreshIndicatorSt.adaptive(st);
     return WidgetFactories.RefreshIndicatorSt.adaptive.invoke(fn, arena, child.build().getId(),
@@ -9922,7 +9929,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrEnum(triggerMode),
       ptr(elevation));
   }
-  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future<Void>> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
     var st = WidgetFactories.refreshIndicator(factories);
     var fn = WidgetFactories.RefreshIndicatorSt.noSpinner(st);
     return WidgetFactories.RefreshIndicatorSt.noSpinner.invoke(fn, arena, child.build().getId(),
@@ -9934,7 +9941,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptr(elevation));
   }
 
-  MemorySegment backButtonListenerBackButtonListener(Widget child, Supplier<Future> onBackButtonPressed) {
+  MemorySegment backButtonListenerBackButtonListener(Widget child, Supplier<Future<Boolean>> onBackButtonPressed) {
     var st = WidgetFactories.backButtonListener(factories);
     var fn = WidgetFactories.BackButtonListenerSt.backButtonListener(st);
     return WidgetFactories.BackButtonListenerSt.backButtonListener.invoke(fn, arena, child.build().getId(),
@@ -10247,6 +10254,11 @@ MemorySegment ptrSelectableDayForRangePredicateFn(TriFunction<DateTime, DateTime
   return SelectableDayForRangePredicateFFI.allocate((day, selectedStartDay, selectedEndDay) -> {
     final var jFnRet = jFn.apply(new DateTime(day), new DateTime(selectedStartDay), new DateTime(selectedEndDay));
     return (jFnRet ? 1 : 0);
+  }, arena);
+}
+<T> MemorySegment ptrFutureThenCallbackForObjectOptFn(Consumer<NativeObj> jFn) {
+  return FutureThenCallbackForObjectOptFFI.allocate((value) -> {
+    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
   }, arena);
 }
 MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
@@ -10654,10 +10666,10 @@ MemorySegment ptrPopInvokedCallbackFn(Consumer<Boolean> jFn) {
     jFn.accept(intToBool(didPop), (NativeObj) new NativeObj.Base() {{ this.id = result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
   }, arena);
 }
-MemorySegment ptrWillPopCallbackFn(Supplier<Future> jFn) {
+MemorySegment ptrWillPopCallbackFn(Supplier<Future<Boolean>> jFn) {
   return WillPopCallbackFFI.allocate(() -> {
     final var jFnRet = jFn.get();
-    return jFnRet.build().getId();
+    return jFnRet.getId();
   }, arena);
 }
 MemorySegment ptrStateSetterFn(Consumer<Runnable> jFn) {
@@ -10697,10 +10709,10 @@ MemorySegment ptrSetTextHandlerFn(Consumer<String> jFn) {
     jFn.accept(text.getString(0));
   }, arena);
 }
-MemorySegment ptrAsyncCallbackFn(Supplier<Future> jFn) {
+MemorySegment ptrAsyncCallbackFn(Supplier<Future<Void>> jFn) {
   return AsyncCallbackFFI.allocate(() -> {
     final var jFnRet = jFn.get();
-    return jFnRet.build().getId();
+    return jFnRet.getId();
   }, arena);
 }
 <T> MemorySegment ptrPopResultCallbackForTFn(Consumer<NativeObj> jFn) {
@@ -10714,10 +10726,10 @@ MemorySegment ptrStepIconBuilderFn(BiFunction<Integer, StepState, Widget> jFn) {
     return jFnRet != null ? jFnRet.build().getId() : null;
   }, arena);
 }
-MemorySegment ptrRefreshCallbackFn(Supplier<Future> jFn) {
+MemorySegment ptrRefreshCallbackFn(Supplier<Future<Void>> jFn) {
   return RefreshCallbackFFI.allocate(() -> {
     final var jFnRet = jFn.get();
-    return jFnRet.build().getId();
+    return jFnRet.getId();
   }, arena);
 }
 <T> MemorySegment ptrValueChangedForRefreshIndicatorStatusOptFn(Consumer<RefreshIndicatorStatus> jFn) {
@@ -10725,7 +10737,7 @@ MemorySegment ptrRefreshCallbackFn(Supplier<Future> jFn) {
     jFn.accept(memToEnum(value, RefreshIndicatorStatus.values()));
   }, arena);
 }
-<T> MemorySegment ptrValueGetterForFutureFn(Supplier<Future> jFn) {
+<T> MemorySegment ptrValueGetterForFutureFn(Supplier<Future<Boolean>> jFn) {
   return ValueGetterForFutureFFI.allocate(() -> {
     final var jFnRet = jFn.get();
     return jFnRet.build().getId();

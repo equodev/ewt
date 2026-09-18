@@ -26,6 +26,10 @@ typedef struct {
     double (*dy)(DartObj self);
   } offset;
 
+  struct FutureSt {
+    void (*then)(DartObj self, FutureThenCallbackForObjectOptFFI onValue);
+  } future;
+
   struct DateTimeSt {
     DartObj (*dateTime)(int year, int* month, int* day, int* hour, int* minute, int* second, int* millisecond, int* microsecond);
     DartObj (*utc)(int year, int* month, int* day, int* hour, int* minute, int* second, int* millisecond, int* microsecond);
