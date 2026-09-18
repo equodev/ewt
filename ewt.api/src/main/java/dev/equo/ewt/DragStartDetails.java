@@ -10,6 +10,7 @@ public class DragStartDetails extends NativeObj.Base implements DragStartDetails
     this.id = id;
   }
   public static DragStartDetails byId(int id) { return new DragStartDetails(id); }
+  static { NativeObj.register("DragStartDetails", DragStartDetails::byId); }
   @Builder.Factory
   static DragStartDetails dragStartDetailsDragStartDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<DurationI> sourceTimeStamp, Optional<PointerDeviceKind> kind) {
     int id = factories.dragStartDetailsDragStartDetails(globalPosition.map(OffsetI::build),

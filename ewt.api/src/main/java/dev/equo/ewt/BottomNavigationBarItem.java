@@ -9,6 +9,7 @@ public class BottomNavigationBarItem extends NativeObj.Base implements BottomNav
     this.id = id;
   }
   public static BottomNavigationBarItem byId(int id) { return new BottomNavigationBarItem(id); }
+  static { NativeObj.register("BottomNavigationBarItem", BottomNavigationBarItem::byId); }
   @Builder.Factory
   static BottomNavigationBarItem bottomNavigationBarItemBottomNavigationBarItem(@Builder.Parameter WidgetI icon, Optional<String> label, Optional<WidgetI> activeIcon, Optional<ColorI> backgroundColor, Optional<String> tooltip) {
     int id = factories.bottomNavigationBarItemBottomNavigationBarItem(icon.build(),

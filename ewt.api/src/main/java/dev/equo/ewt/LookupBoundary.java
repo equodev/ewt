@@ -30,31 +30,31 @@ public class LookupBoundary extends InheritedWidget implements LookupBoundaryI {
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget T?");
     System.out.println("New T? id:"+id);
-    return (NativeObj) new NativeObj.Base() {{ this.id = id; }};
+    return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
   }
   public static NativeObj findAncestorWidgetOfExactType(BuildContextI context) {
     int id = factories.lookupBoundaryFindAncestorWidgetOfExactType(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget T?");
     System.out.println("New T? id:"+id);
-    return (NativeObj) new NativeObj.Base() {{ this.id = id; }};
+    return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
   }
   public static NativeObj findAncestorStateOfType(BuildContextI context) {
     int id = factories.lookupBoundaryFindAncestorStateOfType(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget T?");
     System.out.println("New T? id:"+id);
-    return (NativeObj) new NativeObj.Base() {{ this.id = id; }};
+    return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
   }
   public static NativeObj findRootAncestorStateOfType(BuildContextI context) {
     int id = factories.lookupBoundaryFindRootAncestorStateOfType(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget T?");
     System.out.println("New T? id:"+id);
-    return (NativeObj) new NativeObj.Base() {{ this.id = id; }};
+    return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
   }
   public static NativeObj findAncestorRenderObjectOfType(BuildContextI context) {
     int id = factories.lookupBoundaryFindAncestorRenderObjectOfType(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget T?");
     System.out.println("New T? id:"+id);
-    return (NativeObj) new NativeObj.Base() {{ this.id = id; }};
+    return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
   }
   public static boolean debugIsHidingAncestorWidgetOfExactType(BuildContextI context) {
     int id = factories.lookupBoundaryDebugIsHidingAncestorWidgetOfExactType(context.build());

@@ -387,12 +387,23 @@ class Types {
       // `_dartTypeStr` always widens TypeParameterType to nullable T?, so in practice
       // callback TypeParameterType params are DartObj* (MemorySegment). We detect this
       // by checking param.isOptional (nullable T / Object? → optional positional → isOptional=true).
+      //
+      // Type preservation: the raw id alone can't reconstruct the concrete
+      // Java wrapper the caller expects (`(DateTime) v` fails on a bare
+      // `NativeObj.Base`). Query `widgetTypeOf(id)` — resolved on the Dart
+      // side from `_widgetsMap[id]?.runtimeType.toString()` — and dispatch
+      // through the class registry populated by each generator-emitted
+      // NativeObj class's static block. See `NativeObj.byIdAndType`.
       if (fromCallback && (param.isOptional ||
           t.nullabilitySuffix == NullabilitySuffix.question)) {
         // `value` is MemorySegment (DartObj* pointer); dereference as C_INT to get the id.
-        return '(NativeObj) new NativeObj.Base() {{ this.id = $value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }}';
+        return 'NativeObj.byIdAndType('
+            '$value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), '
+            'dev.equo.ewt.EWT.widgetTypeOf($value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0)))';
       }
-      return '(NativeObj) new NativeObj.Base() {{ this.id = $value; }}';
+      // Non-callback (or non-nullable) path: raw int id in hand. Look up
+      // the concrete class via the registry the same way.
+      return 'NativeObj.byIdAndType($value, dev.equo.ewt.EWT.widgetTypeOf($value))';
     }
     if (t.isDartCoreBool) {
       return fromCallback && t.nullabilitySuffix == NullabilitySuffix.question

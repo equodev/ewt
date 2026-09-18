@@ -4,6 +4,7 @@ void _setupTopFunctions(WidgetFactories f) {
   f.showDatePicker = ffi.Pointer.fromFunction(date_pickerShowDatePicker, exception);
   f.showTimePicker = ffi.Pointer.fromFunction(time_pickerShowTimePicker, exception);
   f.showDateRangePicker = ffi.Pointer.fromFunction(date_pickerShowDateRangePicker, exception);
+  f.widgetTypeOf = ffi.Pointer.fromFunction(type_registry_helpersWidgetTypeOf);
 }
 int dialogShowDialog(DartDartObj context, WidgetBuilderFFI builder, ffi.Pointer<ffi.Int> barrierDismissible, ffi.Pointer<DartObj> barrierColor, ffi.Pointer<ffi.Char> barrierLabel, ffi.Pointer<ffi.Int> useSafeArea, ffi.Pointer<ffi.Int> useRootNavigator, ffi.Pointer<DartObj> anchorPoint, ffi.Pointer<ffi.Int> traversalEdgeBehavior, ffi.Pointer<ffi.Int> fullscreenDialog, ffi.Pointer<ffi.Int> requestFocus) {
   final w = showDialog(context: _widgetsMap[context]! as BuildContext,
@@ -97,6 +98,10 @@ int date_pickerShowDateRangePicker(DartDartObj context, DartDartObj firstDate, D
       switchToCalendarEntryModeIcon: switchToCalendarEntryModeIcon.objOrNul(),
       selectableDayPredicate: selectableDayPredicate.toSelectableDayForRangePredicateFn());
   return _addWidget(w);
+}
+ffi.Pointer<ffi.Char> type_registry_helpersWidgetTypeOf(int id) {
+  final w = widgetTypeOf(id);
+  return w.toNativeUtf8().cast<ffi.Char>();
 }
 void _setupTextStyle(WidgetFactories f) {
   f.textStyle.textStyle = ffi.Pointer.fromFunction(textStyleTextStyle);

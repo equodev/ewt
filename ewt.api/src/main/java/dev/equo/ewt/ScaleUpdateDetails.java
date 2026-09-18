@@ -10,6 +10,7 @@ public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDet
     this.id = id;
   }
   public static ScaleUpdateDetails byId(int id) { return new ScaleUpdateDetails(id); }
+  static { NativeObj.register("ScaleUpdateDetails", ScaleUpdateDetails::byId); }
   @Builder.Factory
   static ScaleUpdateDetails scaleUpdateDetailsScaleUpdateDetails(Optional<OffsetI> focalPoint, Optional<OffsetI> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<OffsetI> focalPointDelta, Optional<DurationI> sourceTimeStamp) {
     int id = factories.scaleUpdateDetailsScaleUpdateDetails(focalPoint.map(OffsetI::build),

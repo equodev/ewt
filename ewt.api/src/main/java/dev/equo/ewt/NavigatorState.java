@@ -9,6 +9,7 @@ public class NavigatorState extends State<Navigator> implements NavigatorStateI 
     this.id = id;
   }
   public static NavigatorState byId(int id) { return new NavigatorState(id); }
+  static { NativeObj.register("NavigatorState", NavigatorState::byId); }
   @Builder.Factory
   static NavigatorState navigatorStateNavigatorState() {
     int id = factories.navigatorStateNavigatorState();

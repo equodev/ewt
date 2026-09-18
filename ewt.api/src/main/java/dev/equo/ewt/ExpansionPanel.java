@@ -9,6 +9,7 @@ public class ExpansionPanel extends NativeObj.Base implements ExpansionPanelI {
     this.id = id;
   }
   public static ExpansionPanel byId(int id) { return new ExpansionPanel(id); }
+  static { NativeObj.register("ExpansionPanel", ExpansionPanel::byId); }
   @Builder.Factory
   static ExpansionPanel expansionPanelExpansionPanel(@Builder.Parameter BiFunction<BuildContext, Boolean, Widget> headerBuilder, @Builder.Parameter WidgetI body, Optional<Boolean> isExpanded, Optional<Boolean> canTapOnHeader, Optional<ColorI> backgroundColor, Optional<ColorI> splashColor, Optional<ColorI> highlightColor) {
     int id = factories.expansionPanelExpansionPanel(headerBuilder,

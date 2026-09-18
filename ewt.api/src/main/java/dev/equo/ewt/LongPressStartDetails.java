@@ -10,6 +10,7 @@ public class LongPressStartDetails extends NativeObj.Base implements LongPressSt
     this.id = id;
   }
   public static LongPressStartDetails byId(int id) { return new LongPressStartDetails(id); }
+  static { NativeObj.register("LongPressStartDetails", LongPressStartDetails::byId); }
   @Builder.Factory
   static LongPressStartDetails longPressStartDetailsLongPressStartDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition) {
     int id = factories.longPressStartDetailsLongPressStartDetails(globalPosition.map(OffsetI::build),

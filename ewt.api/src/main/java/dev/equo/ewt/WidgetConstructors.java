@@ -102,6 +102,10 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrObj(switchToCalendarEntryModeIcon),
       selectableDayPredicate.isPresent() ? ptrHolder(ptrSelectableDayForRangePredicateFn(selectableDayPredicate.get())) : MemorySegment.NULL);
   }
+  MemorySegment type_registry_helpersWidgetTypeOf(int id) {
+    var fn = WidgetFactories.widgetTypeOf(factories);
+    return WidgetFactories.widgetTypeOf.invoke(fn, id);
+  }
   MemorySegment textStyleTextStyle(Optional<Boolean> inherit, Optional<Color> color, Optional<Color> backgroundColor, OptionalDouble fontSize, Optional<FontWeight> fontWeight, Optional<FontStyle> fontStyle, OptionalDouble letterSpacing, OptionalDouble wordSpacing, Optional<TextBaseline> textBaseline, OptionalDouble height, Optional<TextLeadingDistribution> leadingDistribution, Optional<List<Shadow>> shadows, Optional<TextDecoration> decoration, Optional<Color> decorationColor, Optional<TextDecorationStyle> decorationStyle, OptionalDouble decorationThickness, Optional<String> debugLabel, Optional<String> fontFamily, Optional<List<String>> fontFamilyFallback, Optional<String> _package, Optional<TextOverflow> overflow) {
     var st = WidgetFactories.textStyle(factories);
     var fn = WidgetFactories.TextStyleSt.textStyle(st);
@@ -10258,7 +10262,7 @@ MemorySegment ptrSelectableDayForRangePredicateFn(TriFunction<DateTime, DateTime
 }
 <T> MemorySegment ptrFutureThenCallbackForObjectOptFn(Consumer<NativeObj> jFn) {
   return FutureThenCallbackForObjectOptFFI.allocate((value) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
+    jFn.accept(NativeObj.byIdAndType(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
   }, arena);
 }
 MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
@@ -10348,7 +10352,7 @@ MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
 }
 <T> MemorySegment ptrDragTargetWillAcceptForTFn(Function<NativeObj, Boolean> jFn) {
   return DragTargetWillAcceptForTFFI.allocate((data) -> {
-    final var jFnRet = jFn.apply((NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    final var jFnRet = jFn.apply(NativeObj.byIdAndType(data, dev.equo.ewt.EWT.widgetTypeOf(data)));
     return (jFnRet ? 1 : 0);
   }, arena);
 }
@@ -10360,7 +10364,7 @@ MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
 }
 <T> MemorySegment ptrDragTargetAcceptForTFn(Consumer<NativeObj> jFn) {
   return DragTargetAcceptForTFFI.allocate((data) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    jFn.accept(NativeObj.byIdAndType(data, dev.equo.ewt.EWT.widgetTypeOf(data)));
   }, arena);
 }
 <T> MemorySegment ptrDragTargetAcceptWithDetailsForTFn(Consumer<DragTargetDetails> jFn) {
@@ -10370,7 +10374,7 @@ MemorySegment ptrAllowedButtonsFilterFn(Function<Integer, Boolean> jFn) {
 }
 <T> MemorySegment ptrDragTargetLeaveForTFn(Consumer<NativeObj> jFn) {
   return DragTargetLeaveForTFFI.allocate((data) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = data; }});
+    jFn.accept(NativeObj.byIdAndType(data, dev.equo.ewt.EWT.widgetTypeOf(data)));
   }, arena);
 }
 <T> MemorySegment ptrDragTargetMoveForTFn(Consumer<DragTargetDetails> jFn) {
@@ -10592,7 +10596,7 @@ MemorySegment ptrDataColumnSortCallbackFn(BiConsumer<Integer, Boolean> jFn) {
 }
 <T> MemorySegment ptrValueChangedForTOptFn(Consumer<NativeObj> jFn) {
   return ValueChangedForTOptFFI.allocate((value) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
+    jFn.accept(NativeObj.byIdAndType(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
   }, arena);
 }
 MemorySegment ptrExpansionPanelHeaderBuilderFn(BiFunction<BuildContext, Boolean, Widget> jFn) {
@@ -10614,7 +10618,7 @@ MemorySegment ptrExpansionPanelCallbackFn(BiConsumer<Integer, Boolean> jFn) {
 }
 <T> MemorySegment ptrPopupMenuItemSelectedForTFn(Consumer<NativeObj> jFn) {
   return PopupMenuItemSelectedForTFFI.allocate((value) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = value; }});
+    jFn.accept(NativeObj.byIdAndType(value, dev.equo.ewt.EWT.widgetTypeOf(value)));
   }, arena);
 }
 MemorySegment ptrPopupMenuCanceledFn(Runnable jFn) {
@@ -10663,7 +10667,7 @@ MemorySegment ptrPopInvokedCallbackFn(Consumer<Boolean> jFn) {
 }
 <T> MemorySegment ptrPopInvokedWithResultCallbackForObjectOptFn(BiConsumer<Boolean, NativeObj> jFn) {
   return PopInvokedWithResultCallbackForObjectOptFFI.allocate((didPop, result) -> {
-    jFn.accept(intToBool(didPop), (NativeObj) new NativeObj.Base() {{ this.id = result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0); }});
+    jFn.accept(intToBool(didPop), NativeObj.byIdAndType(result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
   }, arena);
 }
 MemorySegment ptrWillPopCallbackFn(Supplier<Future<Boolean>> jFn) {
@@ -10717,7 +10721,7 @@ MemorySegment ptrAsyncCallbackFn(Supplier<Future<Void>> jFn) {
 }
 <T> MemorySegment ptrPopResultCallbackForTFn(Consumer<NativeObj> jFn) {
   return PopResultCallbackForTFFI.allocate((result) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = result; }});
+    jFn.accept(NativeObj.byIdAndType(result, dev.equo.ewt.EWT.widgetTypeOf(result)));
   }, arena);
 }
 MemorySegment ptrStepIconBuilderFn(BiFunction<Integer, StepState, Widget> jFn) {
@@ -10762,7 +10766,7 @@ MemorySegment ptrNestedScrollViewHeaderSliversBuilderFn(BiFunction<BuildContext,
 }
 <T extends StatefulWidget> MemorySegment ptrVoidCallbackDartObjFn(Consumer<NativeObj> jFn) {
   return VoidCallbackDartObjFFI.allocate((t) -> {
-    jFn.accept((NativeObj) new NativeObj.Base() {{ this.id = t; }});
+    jFn.accept(NativeObj.byIdAndType(t, dev.equo.ewt.EWT.widgetTypeOf(t)));
   }, arena);
 }
 MemorySegment ptrDartObjCallbackDartObjFn(Function<BuildContext, Widget> jFn) {

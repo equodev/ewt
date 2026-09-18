@@ -66,6 +66,7 @@ class Generation {
       ..writeln('package dev.equo.ewt;')
       ..writeln('import java.util.*;')
       ..writeln('import java.util.function.*;')
+      ..writeln('import java.lang.foreign.MemorySegment;')
       ..writeln('import dev.equo.ewt.util.*;')
       ..writeln('public class EWT {');
 
@@ -75,9 +76,15 @@ class Generation {
       var gen = types.getGen(node.returnType.element!);
       String factory = node.name3!;
       String factoryName = '${path.basenameWithoutExtension(node.library2.identifier)}${factory.firstUpper()}';
+      // `Pointer.fromFunction` requires an exceptional-return sentinel for
+      // scalar returns (int/double/bool) but rejects it for Pointer/struct
+      // returns. Suppress the sentinel for ObjSt (struct) and String
+      // (Pointer<Char>) returns.
+      final skipException = gen.objType().endsWith('ObjSt') ||
+          node.returnType.isDartCoreString;
       dartFactories
           .writeln(
-          '  f.$factory = ffi.Pointer.fromFunction($factoryName${gen.objType().endsWith('ObjSt') ? '' : ', exception'});');
+          '  f.$factory = ffi.Pointer.fromFunction($factoryName${skipException ? '' : ', exception'});');
     }
     dartFactories.writeln('}');
     for (final top in topFunctions) {
@@ -650,34 +657,67 @@ final Set<String> unsupportedFactories = {};
     }
     String factory = node.name3!;
     String factoryName = '${path.basenameWithoutExtension(node.library2.identifier)}${factory.firstUpper()}';
-    // String builderClass = '$widgetClass${factory.firstUpper()}Builder';
-    // writeJavaFactoryForStatic(node, factoryName, factory);
-    // writeCFactory(factory, node, 'int');
-    headerFile.writeln('  ${CLang(types).field(factory, types.getGen(node.returnType.element!).objType(), params: sortParameters(node))}');
+    // For non-widget primitive returns (String / int / bool / double / enum),
+    // the C typedef must use the primitive's C type (e.g. `char*` for String)
+    // rather than DartObj — otherwise the value would be treated as a widget
+    // id and neither side would know how to unmarshal it. `type4C` resolves
+    // primitives correctly; widget/ObjSt returns still route through
+    // `getGen().objType()`.
+    final cRet = _isPrimitiveReturn(node.returnType)
+        ? types.type4C(node.returnType)
+        : types.getGen(node.returnType.element!).objType();
+    headerFile.writeln('  ${CLang(types).field(factory, cRet, params: sortParameters(node))}');
     writeDFactory(factory, factoryName, node);
     writeJavaFactoryForStatic(node, factoryName, factory);
   }
 
+  bool _isPrimitiveReturn(DartType t) =>
+      isPrimitive(t) || t.element is EnumElement;
+
   void writeDFactory(String factory, String factoryName, TopLevelFunctionElement node) {
     var gen = types.getGen(node.returnType.element!);
-    // dartFactories
-    //     .writeln('  f.$factory = ffi.Pointer.fromFunction($factoryName${gen.objType().endsWith('ObjSt') ? '' : ', exception'});');
+    final ret = node.returnType;
     final dartParams = Params(types, sortParameters(node), Params.paramDef4D, paramValue: Params.paramValue4D);
-    var nullabilitySuffix = node.returnType.nullabilitySuffix == NullabilitySuffix.question ? '?' : '' ;
-    dartFactories
-      ..writeln('${gen.objType() == 'DartObj' ? 'int' : '${gen.objType()}$nullabilitySuffix'} $factoryName(${dartParams.decl}) {')
-      ..writeln('  final w = $factory(${dartParams.names});');
+    var nullabilitySuffix = ret.nullabilitySuffix == NullabilitySuffix.question ? '?' : '' ;
+
+    // Pick the Dart-side return type + body based on what the C typedef will
+    // carry (see `_isPrimitiveReturn` in writeTopLevelFactory). ObjSt returns
+    // wrap through `_create<X>ObjSt`; primitives cross as their raw FFI type;
+    // widget/opaque returns cross as a widget id via `_addWidget`.
+    final String dartRetType;
+    final String dartRetBody;
     if (gen.objType().endsWith('ObjSt')) {
-      if (node.returnType.nullabilitySuffix == NullabilitySuffix.question) {
-        dartFactories.writeln('  return w != null ? _create${gen.objType()}(w) : null;');
-      } else {
-        dartFactories.writeln('  return _create${gen.objType()}(w);');
-      }
+      dartRetType = '${gen.objType()}$nullabilitySuffix';
+      dartRetBody = ret.nullabilitySuffix == NullabilitySuffix.question
+          ? '  return w != null ? _create${gen.objType()}(w) : null;'
+          : '  return _create${gen.objType()}(w);';
+    } else if (ret.element is EnumElement) {
+      dartRetType = 'int';
+      dartRetBody = '  return w.index;';
+    } else if (ret.isDartCoreString) {
+      // Allocate a C string owned by the caller. C typedef says `char*`
+      // (Dart FFI's `Pointer<Char>`), so cast from the utf8 variant.
+      // Java receives a MemorySegment and reads via .getString(0).
+      dartRetType = 'ffi.Pointer<ffi.Char>';
+      dartRetBody = ret.nullabilitySuffix == NullabilitySuffix.question
+          ? '  return w == null ? ffi.nullptr : w.toNativeUtf8().cast<ffi.Char>();'
+          : '  return w.toNativeUtf8().cast<ffi.Char>();';
+    } else if (ret.isDartCoreBool) {
+      dartRetType = 'int';
+      dartRetBody = '  return w ? 1 : 0;';
+    } else if (isPrimitive(ret)) {
+      dartRetType = types.type4DRet(ret);
+      dartRetBody = '  return w;';
+    } else {
+      dartRetType = 'int';
+      dartRetBody = '  return _addWidget(w);';
     }
-    else {
-      dartFactories.writeln('  return ${node.returnType.element is EnumElement ? 'w.index' : '_addWidget(w)'};');
-    }
-    dartFactories.writeln('}');
+
+    dartFactories
+      ..writeln('$dartRetType $factoryName(${dartParams.decl}) {')
+      ..writeln('  final w = $factory(${dartParams.names});')
+      ..writeln(dartRetBody)
+      ..writeln('}');
   }
 
   void writeJavaFactoryForStatic(TopLevelFunctionElement node, String factoryName, String factory) {
@@ -709,20 +749,38 @@ final Set<String> unsupportedFactories = {};
 
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, TopLevelFunctionElement node) {
     var gen = types.getGen(node.returnType.element!);
+    // Route return type through `type4FFMRet` so String returns are declared
+    // as MemorySegment (matches the C `char*` typedef) and primitive returns
+    // as their own Java primitive. The hard-coded `int-or-MemorySegment`
+    // split ignored String returns entirely — MemorySegment must be selected
+    // for both ObjSt AND `char*` C signatures.
+    final retType = types.type4FFMRet(node.returnType);
+    final useArena = gen.objType().endsWith('ObjSt');
     javaFactories
-      ..writeln('  ${JLang().methodTypeParameters(node.type)}${gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int'} $factoryName(${jParams.decl}) {')
-      // ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+      ..writeln('  ${JLang().methodTypeParameters(node.type)}$retType $factoryName(${jParams.decl}) {')
       ..writeln('    var fn = WidgetFactories.$factory(factories);')
-      ..writeln('    return WidgetFactories.$factory.invoke(${['fn${gen.objType().endsWith('ObjSt') ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
+      ..writeln('    return WidgetFactories.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
       ..writeln('  }');
   }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, TopLevelFunctionElement node) {
+    final retType = types.type4FFMRet(node.returnType);
+    // Local variable can't be named `id` — top functions often take an `id`
+    // parameter (e.g. `String widgetTypeOf(int id)`), and reusing the same
+    // name in the body redeclares it → Java compile error.
+    const local = '_ret';
     javaStatics
-      ..writeln('    int id = WidgetConstructors.instance.$factoryName(${jParams.names});')
-      ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");')
-      ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
-      ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+      ..writeln('    $retType $local = WidgetConstructors.instance.$factoryName(${jParams.names});');
+    // The `<= 0` liveness check only makes sense for widget-id (int) returns.
+    // MemorySegment (String/ObjSt) and primitive returns (double/enum) don't
+    // use zero as a sentinel and would either not compile or reject legitimate
+    // values. Skip.
+    if (retType == 'int') {
+      javaStatics.writeln('    if ($local <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
+    }
+    javaStatics
+      ..writeln('    System.out.println("New ${node.returnType} id:"+$local);')
+      ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement(local, node.returnType))};');
   }
 
 }

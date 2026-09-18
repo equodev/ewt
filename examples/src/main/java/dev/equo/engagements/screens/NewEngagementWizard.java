@@ -274,12 +274,8 @@ public final class NewEngagementWizard {
       LocalDate last  = LocalDate.now().plusYears(3);
       EWT.showDatePicker(context(), toDateTime(first), toDateTime(last))
           .then(v -> {
-            // The emitted callback arg is a generic NativeObj wrapper (the
-            // T of `Future<T>` is erased across the FFI), so re-wrap the id
-            // into the concrete Java class via its `byId` constructor —
-            // a straight `(DateTime) v` cast fails on the anonymous Base.
-            if (v == null || v.getId() <= 0) return;      // Cancel → null
-            dev.equo.ewt.DateTime dt = dev.equo.ewt.DateTime.byId(v.getId());
+            if (v == null) return;                       // Cancel → null
+            dev.equo.ewt.DateTime dt = (dev.equo.ewt.DateTime) v;
             onPick.accept(LocalDate.of(dt.year(), dt.month(), dt.day()));
           });
     }

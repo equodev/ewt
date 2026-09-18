@@ -9,6 +9,7 @@ public class ColorFilter extends NativeObj.Base implements ColorFilterI {
     this.id = id;
   }
   public static ColorFilter byId(int id) { return new ColorFilter(id); }
+  static { NativeObj.register("ColorFilter", ColorFilter::byId); }
   @Builder.Factory
   static ColorFilter colorFilterMode(@Builder.Parameter ColorI color, @Builder.Parameter BlendMode blendMode) {
     int id = factories.colorFilterMode(color.build(),

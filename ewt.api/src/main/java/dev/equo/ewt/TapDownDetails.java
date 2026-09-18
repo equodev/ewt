@@ -10,6 +10,7 @@ public class TapDownDetails extends NativeObj.Base implements TapDownDetailsI {
     this.id = id;
   }
   public static TapDownDetails byId(int id) { return new TapDownDetails(id); }
+  static { NativeObj.register("TapDownDetails", TapDownDetails::byId); }
   @Builder.Factory
   static TapDownDetails tapDownDetailsTapDownDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<PointerDeviceKind> kind) {
     int id = factories.tapDownDetailsTapDownDetails(globalPosition.map(OffsetI::build),

@@ -27,6 +27,7 @@ import 'pointer_event_methods.dart' as pem;
 import 'offset_methods.dart' as om;
 import 'date_time_methods.dart' as dtm;
 import 'future_methods.dart' as fm;
+import 'type_registry_helpers.dart' as trh;
 
 // Index of Dart types the generator emits Java + FFI code for.
 // See docs/gen_structure.md for the deferred-widgets list and the reasons —
@@ -671,6 +672,7 @@ const showDialog = m.showDialog;
 const showDatePicker = m.showDatePicker;
 const showTimePicker = m.showTimePicker;
 const showDateRangePicker = m.showDateRangePicker;
+const widgetTypeOf = trh.widgetTypeOf;
 
 void main() {
   //print('I am an index with the widgets to generate');

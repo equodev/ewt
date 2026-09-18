@@ -10,6 +10,7 @@ public class LongPressMoveUpdateDetails extends NativeObj.Base implements LongPr
     this.id = id;
   }
   public static LongPressMoveUpdateDetails byId(int id) { return new LongPressMoveUpdateDetails(id); }
+  static { NativeObj.register("LongPressMoveUpdateDetails", LongPressMoveUpdateDetails::byId); }
   @Builder.Factory
   static LongPressMoveUpdateDetails longPressMoveUpdateDetailsLongPressMoveUpdateDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<OffsetI> offsetFromOrigin, Optional<OffsetI> localOffsetFromOrigin) {
     int id = factories.longPressMoveUpdateDetailsLongPressMoveUpdateDetails(globalPosition.map(OffsetI::build),

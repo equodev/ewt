@@ -9,6 +9,7 @@ public class FontWeight extends NativeObj.Base implements FontWeightI {
     this.id = id;
   }
   public static FontWeight byId(int id) { return new FontWeight(id); }
+  static { NativeObj.register("FontWeight", FontWeight::byId); }
   public static FontWeight lerp(FontWeightI a, FontWeightI b, double t) {
     int id = factories.fontWeightLerp(a.build(),
       b.build(),

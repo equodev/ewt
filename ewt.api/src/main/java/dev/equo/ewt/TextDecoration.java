@@ -9,6 +9,7 @@ public class TextDecoration extends NativeObj.Base implements TextDecorationI {
     this.id = id;
   }
   public static TextDecoration byId(int id) { return new TextDecoration(id); }
+  static { NativeObj.register("TextDecoration", TextDecoration::byId); }
   @Builder.Factory
   static TextDecoration textDecorationCombine(@Builder.Parameter List<TextDecorationI> decorations) {
     int id = factories.textDecorationCombine(decorations.stream().map(TextDecorationI::build).toList());

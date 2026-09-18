@@ -11,6 +11,7 @@ public class LongPressEndDetails extends NativeObj.Base implements LongPressEndD
     this.id = id;
   }
   public static LongPressEndDetails byId(int id) { return new LongPressEndDetails(id); }
+  static { NativeObj.register("LongPressEndDetails", LongPressEndDetails::byId); }
   @Builder.Factory
   static LongPressEndDetails longPressEndDetailsLongPressEndDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<VelocityI> velocity) {
     int id = factories.longPressEndDetailsLongPressEndDetails(globalPosition.map(OffsetI::build),
