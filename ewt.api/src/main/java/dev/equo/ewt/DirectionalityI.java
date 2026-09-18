@@ -1,5 +1,5 @@
 package dev.equo.ewt;
-public interface DirectionalityI extends _UbiquitousInheritedWidgetI {
+public interface DirectionalityI extends InheritedWidgetI {
   @Override
   Directionality build();
 }

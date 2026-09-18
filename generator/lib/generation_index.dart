@@ -332,6 +332,8 @@ m.DataColumn? dataColumn;
 m.DataRow? dataRow;
 m.DataCell? dataCell;
 m.DropdownMenuEntry? dropdownMenuEntry;
+m.DropdownMenuItem? dropdownMenuItem;
+m.DropdownButton? dropdownButton;
 m.Radio? radio;
 m.RadioListTile? radioListTile;
 m.ExpansionTile? expansionTile;
@@ -412,7 +414,10 @@ w.PreferredSize? preferredSize;
 // Semantics skipped: extends private `_SemanticsBase` which carries a `dynamic` field — generator hits "No AGen for dynamic" (same shape as private-supertype landmine noted for DropdownMenuItem).
 // MetaData skipped: `dynamic metaData` field — ObjStGen.writeJavaFieldAccessor calls getGen(dynamic) and throws "No AGen for dynamic".
 w.IconTheme? iconTheme;
-// BackButton / CloseButton / DrawerButton / EndDrawerButton skipped: all extend Flutter's private `_ActionButton`; the emitted Java `extends _ActionButton` compiles fine on its own but Immutables silently drops the whole processing round when it sees a `@Builder.Factory` on a class with a private-underscore supertype (same shape as the DropdownMenuItem / `_DropdownMenuItemContainer` landmine — see gen_structure §4).
+m.BackButton? backButton;
+m.CloseButton? closeButton;
+m.DrawerButton? drawerButton;
+m.EndDrawerButton? endDrawerButton;
 m.BackButtonIcon? backButtonIcon;
 m.CloseButtonIcon? closeButtonIcon;
 m.DrawerButtonIcon? drawerButtonIcon;

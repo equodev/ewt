@@ -7128,6 +7128,48 @@ class WidgetConstructors extends WidgetConstructorsBase {
       ptrBool(enabled));
   }
 
+  <T> MemorySegment dropdownMenuItemDropdownMenuItem(Optional<Runnable> onTap, Optional<NativeObj> value, Optional<Boolean> enabled, Optional<AlignmentGeometry> alignment, Widget child) {
+    var st = WidgetFactories.dropdownMenuItem(factories);
+    var fn = WidgetFactories.DropdownMenuItemSt.dropdownMenuItem(st);
+    return WidgetFactories.DropdownMenuItemSt.dropdownMenuItem.invoke(fn, arena, onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptrObj(value),
+      ptrBool(enabled),
+      ptrObj(alignment),
+      child.build().getId());
+  }
+
+  <T> MemorySegment dropdownButtonDropdownButton(Optional<List<DropdownMenuItem>> items, Optional<Function<BuildContext, List<Widget>>> selectedItemBuilder, Optional<NativeObj> value, Optional<Widget> hint, Optional<Widget> disabledHint, Optional<Consumer<NativeObj>> onChanged, Optional<Runnable> onTap, OptionalInt elevation, Optional<TextStyle> style, Optional<Widget> underline, Optional<Widget> icon, Optional<Color> iconDisabledColor, Optional<Color> iconEnabledColor, OptionalDouble iconSize, Optional<Boolean> isDense, Optional<Boolean> isExpanded, OptionalDouble itemHeight, OptionalDouble menuWidth, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<Color> dropdownColor, OptionalDouble menuMaxHeight, Optional<Boolean> enableFeedback, Optional<AlignmentGeometry> alignment, Optional<BorderRadius> borderRadius, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> barrierDismissible) {
+    var st = WidgetFactories.dropdownButton(factories);
+    var fn = WidgetFactories.DropdownButtonSt.dropdownButton(st);
+    return WidgetFactories.DropdownButtonSt.dropdownButton.invoke(fn, arena, ptrList(items),
+      selectedItemBuilder.isPresent() ? ptrHolder(ptrDropdownButtonBuilderFn(selectedItemBuilder.get())) : MemorySegment.NULL,
+      ptrObj(value),
+      ptrObj(hint),
+      ptrObj(disabledHint),
+      onChanged.isPresent() ? ptrHolder(ptrValueChangedForTOptFn(onChanged.get())) : MemorySegment.NULL,
+      onTap.isPresent() ? ptrHolder(ptrVoidCallbackFn(onTap.get())) : MemorySegment.NULL,
+      ptr(elevation),
+      ptrObj(style),
+      ptrObj(underline),
+      ptrObj(icon),
+      ptrObj(iconDisabledColor),
+      ptrObj(iconEnabledColor),
+      ptr(iconSize),
+      ptrBool(isDense),
+      ptrBool(isExpanded),
+      ptr(itemHeight),
+      ptr(menuWidth),
+      ptrObj(focusColor),
+      ptrBool(autofocus),
+      ptrObj(dropdownColor),
+      ptr(menuMaxHeight),
+      ptrBool(enableFeedback),
+      ptrObj(alignment),
+      ptrObj(borderRadius),
+      ptrObj(padding),
+      ptrBool(barrierDismissible));
+  }
+
   <T> MemorySegment radioRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<Color> backgroundColor, Optional<BorderSide> side, OptionalDouble innerRadius) {
     var st = WidgetFactories.radio(factories);
     var fn = WidgetFactories.RadioSt.radio(st);
@@ -8504,6 +8546,34 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.iconTheme(factories);
     var fn = WidgetFactories.IconThemeSt.of(st);
     return WidgetFactories.IconThemeSt.of.invoke(fn, arena, context.build().getId());
+  }
+
+  MemorySegment backButtonBackButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    var st = WidgetFactories.backButton(factories);
+    var fn = WidgetFactories.BackButtonSt.backButton(st);
+    return WidgetFactories.BackButtonSt.backButton.invoke(fn, arena, ptrObj(color),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment closeButtonCloseButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    var st = WidgetFactories.closeButton(factories);
+    var fn = WidgetFactories.CloseButtonSt.closeButton(st);
+    return WidgetFactories.CloseButtonSt.closeButton.invoke(fn, arena, ptrObj(color),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment drawerButtonDrawerButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    var st = WidgetFactories.drawerButton(factories);
+    var fn = WidgetFactories.DrawerButtonSt.drawerButton(st);
+    return WidgetFactories.DrawerButtonSt.drawerButton.invoke(fn, arena, ptrObj(color),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
+  }
+
+  MemorySegment endDrawerButtonEndDrawerButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    var st = WidgetFactories.endDrawerButton(factories);
+    var fn = WidgetFactories.EndDrawerButtonSt.endDrawerButton(st);
+    return WidgetFactories.EndDrawerButtonSt.endDrawerButton.invoke(fn, arena, ptrObj(color),
+      onPressed.isPresent() ? ptrHolder(ptrVoidCallbackFn(onPressed.get())) : MemorySegment.NULL);
   }
 
   MemorySegment backButtonIconBackButtonIcon() {
@@ -10719,6 +10789,12 @@ MemorySegment ptrTooltipTriggeredCallbackFn(Runnable jFn) {
 MemorySegment ptrDataColumnSortCallbackFn(BiConsumer<Integer, Boolean> jFn) {
   return DataColumnSortCallbackFFI.allocate((columnIndex, ascending) -> {
     jFn.accept(columnIndex, intToBool(ascending));
+  }, arena);
+}
+MemorySegment ptrDropdownButtonBuilderFn(Function<BuildContext, List<Widget>> jFn) {
+  return DropdownButtonBuilderFFI.allocate((context) -> {
+    final var jFnRet = jFn.apply(new BuildContext() { public int getId() { return context; } });
+    return ptrList(jFnRet);
   }, arena);
 }
 <T> MemorySegment ptrValueChangedForTOptFn(Consumer<NativeObj> jFn) {

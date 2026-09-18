@@ -9657,6 +9657,58 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  <T> MemorySegment dropdownMenuItemDropdownMenuItem(Optional<Runnable> onTap, Optional<NativeObj> value, Optional<Boolean> enabled, Optional<AlignmentGeometry> alignment, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    p.put("value", value);
+    enabled.ifPresent(v -> p.put("enabled", v));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    p.put("child", byId.get(child.getId()));
+    record(id, "dropdownMenuItemDropdownMenuItem", p);
+    MemorySegment st = DropdownMenuItemObjSt.allocate(arena);
+    DropdownMenuItemObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  <T> MemorySegment dropdownButtonDropdownButton(Optional<List<DropdownMenuItem>> items, Optional<Function<BuildContext, List<Widget>>> selectedItemBuilder, Optional<NativeObj> value, Optional<Widget> hint, Optional<Widget> disabledHint, Optional<Consumer<NativeObj>> onChanged, Optional<Runnable> onTap, OptionalInt elevation, Optional<TextStyle> style, Optional<Widget> underline, Optional<Widget> icon, Optional<Color> iconDisabledColor, Optional<Color> iconEnabledColor, OptionalDouble iconSize, Optional<Boolean> isDense, Optional<Boolean> isExpanded, OptionalDouble itemHeight, OptionalDouble menuWidth, Optional<Color> focusColor, Optional<Boolean> autofocus, Optional<Color> dropdownColor, OptionalDouble menuMaxHeight, Optional<Boolean> enableFeedback, Optional<AlignmentGeometry> alignment, Optional<BorderRadius> borderRadius, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> barrierDismissible) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    items.ifPresent(v -> p.put("items", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    if (selectedItemBuilder != null) { p.put("selectedItemBuilder", nextCallbackId++); }
+    p.put("value", value);
+    hint.ifPresent(v -> p.put("hint", byId.get(v.getId())));
+    disabledHint.ifPresent(v -> p.put("disabledHint", byId.get(v.getId())));
+    if (onChanged != null) { p.put("onChanged", nextCallbackId++); }
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsInt()); }
+    style.ifPresent(v -> p.put("style", byId.get(v.getId())));
+    underline.ifPresent(v -> p.put("underline", byId.get(v.getId())));
+    icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
+    iconDisabledColor.ifPresent(v -> p.put("iconDisabledColor", byId.get(v.getId())));
+    iconEnabledColor.ifPresent(v -> p.put("iconEnabledColor", byId.get(v.getId())));
+    if (iconSize.isPresent()) { p.put("iconSize", iconSize.getAsDouble()); }
+    isDense.ifPresent(v -> p.put("isDense", v));
+    isExpanded.ifPresent(v -> p.put("isExpanded", v));
+    if (itemHeight.isPresent()) { p.put("itemHeight", itemHeight.getAsDouble()); }
+    if (menuWidth.isPresent()) { p.put("menuWidth", menuWidth.getAsDouble()); }
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
+    autofocus.ifPresent(v -> p.put("autofocus", v));
+    dropdownColor.ifPresent(v -> p.put("dropdownColor", byId.get(v.getId())));
+    if (menuMaxHeight.isPresent()) { p.put("menuMaxHeight", menuMaxHeight.getAsDouble()); }
+    enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
+    borderRadius.ifPresent(v -> p.put("borderRadius", byId.get(v.getId())));
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    barrierDismissible.ifPresent(v -> p.put("barrierDismissible", v));
+    record(id, "dropdownButtonDropdownButton", p);
+    MemorySegment st = DropdownButtonObjSt.allocate(arena);
+    DropdownButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   <T> MemorySegment radioRadio(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<Boolean> enabled, Optional<Color> backgroundColor, Optional<BorderSide> side, OptionalDouble innerRadius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -11440,6 +11492,54 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "iconThemeOf", p);
     MemorySegment st = IconThemeDataObjSt.allocate(arena);
     IconThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment backButtonBackButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    record(id, "backButtonBackButton", p);
+    MemorySegment st = BackButtonObjSt.allocate(arena);
+    BackButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment closeButtonCloseButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    record(id, "closeButtonCloseButton", p);
+    MemorySegment st = CloseButtonObjSt.allocate(arena);
+    CloseButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment drawerButtonDrawerButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    record(id, "drawerButtonDrawerButton", p);
+    MemorySegment st = DrawerButtonObjSt.allocate(arena);
+    DrawerButtonObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
+  MemorySegment endDrawerButtonEndDrawerButton(Optional<Color> color, Optional<Runnable> onPressed) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    if (onPressed.isPresent()) { int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed.get()); }
+    record(id, "endDrawerButtonEndDrawerButton", p);
+    MemorySegment st = EndDrawerButtonObjSt.allocate(arena);
+    EndDrawerButtonObjSt.id(st, id);
     return st;
   }
 

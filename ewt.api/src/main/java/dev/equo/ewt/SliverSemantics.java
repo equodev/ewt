@@ -6,7 +6,7 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.SliverSemanticsObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class SliverSemantics extends _SemanticsBase implements SliverSemanticsI {
+public class SliverSemantics extends SingleChildRenderObjectWidget implements SliverSemanticsI {
   private MemorySegment st;
   protected SliverSemantics() {}
   SliverSemantics(MemorySegment st) {

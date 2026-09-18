@@ -4585,6 +4585,39 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       trailingIcon: p['trailingIcon'] == null ? null : decodeEwtWidget(p['trailingIcon'] as Map<String,dynamic>),
       enabled: (p['enabled'] as bool?) ?? true),
 
+  'dropdownMenuItemDropdownMenuItem': (p) => DropdownMenuItem(onTap: ewtWireCallback(p['onTap']),
+      value: p['value'],
+      enabled: (p['enabled'] as bool?) ?? true,
+      alignment: p['alignment'] == null ? AlignmentDirectional.centerStart : decodeEwtNode(p['alignment'] as Map<String,dynamic>) as AlignmentGeometry,
+      child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
+
+  'dropdownButtonDropdownButton': (p) => DropdownButton(items: ((p['items'] as List?) ?? const []).map((e) => decodeEwtNode(e as Map<String,dynamic>) as DropdownMenuItem).toList(),
+      value: p['value'],
+      hint: p['hint'] == null ? null : decodeEwtWidget(p['hint'] as Map<String,dynamic>),
+      disabledHint: p['disabledHint'] == null ? null : decodeEwtWidget(p['disabledHint'] as Map<String,dynamic>),
+      onChanged: ([Object? a, Object? b, Object? c]) {},
+      onTap: ewtWireCallback(p['onTap']),
+      elevation: (p['elevation'] as int?) ?? 8,
+      style: p['style'] == null ? null : decodeEwtNode(p['style'] as Map<String,dynamic>) as TextStyle,
+      underline: p['underline'] == null ? null : decodeEwtWidget(p['underline'] as Map<String,dynamic>),
+      icon: p['icon'] == null ? null : decodeEwtWidget(p['icon'] as Map<String,dynamic>),
+      iconDisabledColor: p['iconDisabledColor'] == null ? null : decodeEwtNode(p['iconDisabledColor'] as Map<String,dynamic>) as Color,
+      iconEnabledColor: p['iconEnabledColor'] == null ? null : decodeEwtNode(p['iconEnabledColor'] as Map<String,dynamic>) as Color,
+      iconSize: ((p['iconSize'] as num?)?.toDouble()) ?? 24.0,
+      isDense: (p['isDense'] as bool?) ?? false,
+      isExpanded: (p['isExpanded'] as bool?) ?? false,
+      itemHeight: (p['itemHeight'] as num?)?.toDouble(),
+      menuWidth: (p['menuWidth'] as num?)?.toDouble(),
+      focusColor: p['focusColor'] == null ? null : decodeEwtNode(p['focusColor'] as Map<String,dynamic>) as Color,
+      autofocus: (p['autofocus'] as bool?) ?? false,
+      dropdownColor: p['dropdownColor'] == null ? null : decodeEwtNode(p['dropdownColor'] as Map<String,dynamic>) as Color,
+      menuMaxHeight: (p['menuMaxHeight'] as num?)?.toDouble(),
+      enableFeedback: p['enableFeedback'] as bool?,
+      alignment: p['alignment'] == null ? AlignmentDirectional.centerStart : decodeEwtNode(p['alignment'] as Map<String,dynamic>) as AlignmentGeometry,
+      borderRadius: p['borderRadius'] == null ? null : decodeEwtNode(p['borderRadius'] as Map<String,dynamic>) as BorderRadius,
+      padding: p['padding'] == null ? null : decodeEwtNode(p['padding'] as Map<String,dynamic>) as EdgeInsetsGeometry,
+      barrierDismissible: (p['barrierDismissible'] as bool?) ?? true),
+
   'radioRadio': (p) => Radio(value: p['value'],
       groupValue: p['groupValue'],
       onChanged: ([Object? a, Object? b, Object? c]) {},
@@ -5463,6 +5496,18 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       child: decodeEwtWidget(p['child'] as Map<String,dynamic>)),
   'iconThemeOf': (p) => IconTheme.of(ewtActiveBuildContext!),
   'iconThemeData': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as IconTheme).data,
+
+  'backButtonBackButton': (p) => BackButton(color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      onPressed: ewtWireCallback(p['onPressed'])),
+
+  'closeButtonCloseButton': (p) => CloseButton(color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      onPressed: ewtWireCallback(p['onPressed'])),
+
+  'drawerButtonDrawerButton': (p) => DrawerButton(color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      onPressed: ewtWireCallback(p['onPressed'])),
+
+  'endDrawerButtonEndDrawerButton': (p) => EndDrawerButton(color: p['color'] == null ? null : decodeEwtNode(p['color'] as Map<String,dynamic>) as Color,
+      onPressed: ewtWireCallback(p['onPressed'])),
 
   'backButtonIconBackButtonIcon': (p) => BackButtonIcon(),
 

@@ -107,6 +107,18 @@ class Types {
     if (getHandler(requiredType) != null) {
       return;
     }
+    // Private Flutter types (name starts with `_`) can't be referenced from
+    // our emitted Dart in `factories_gen.dart` — Dart's library-private
+    // identifier rule kicks in and every reference fails to resolve. Concrete
+    // ones (e.g. `_DropdownMenuItemContainer`) blocked `DropdownMenuItem`
+    // until this skip landed; abstract ones (`_ActionButton`) used to slip
+    // through because they had no factory to emit, but this makes the policy
+    // uniform. `WidgetGen.writeHeaders` walks past the private link so the
+    // Java `extends` clause targets the first public ancestor.
+    final elementName = requiredType.element?.name;
+    if (elementName != null && elementName.startsWith('_')) {
+      return;
+    }
     // if (processed.contains(requiredType.element)) {
     //   return;
     // }
