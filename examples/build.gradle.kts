@@ -371,8 +371,11 @@ tasks.register<Exec>("buildCombinedWebBundle") {
     group = "examples"
     description = "Assemble the EWT+Evolve combined web bundle (flutter build web, no runner)."
     workingDir = rootProject.projectDir.resolve("evolve-app")
-    commandLine("bash", "-lc",
-        "flutter pub get && flutter build web --no-tree-shake-icons --pwa-strategy=none")
+    val flutterBuildWeb = "flutter pub get && flutter build web --no-tree-shake-icons --pwa-strategy=none"
+    // Windows goes through cmd, as buildCombinedBundle does: there `bash` can be WSL's launcher (the
+    // CI runner's), whose Linux shell then runs the Windows SDK's CRLF flutter script and fails.
+    if (currentOs == "windows") commandLine("cmd", "/c", flutterBuildWeb)
+    else commandLine("bash", "-lc", flutterBuildWeb)
     doLast {
         val webDir = combinedBuild.resolve("web")
         if (!webDir.resolve("index.html").exists())
