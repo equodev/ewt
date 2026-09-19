@@ -1428,6 +1428,11 @@ void _setupAnimationController(WidgetFactories f) {
   f.animationController.reset = ffi.Pointer.fromFunction(animationControllerReset);
   f.animationController.setDuration = ffi.Pointer.fromFunction(animationControllerSetDuration);
   f.animationController.setReverseDuration = ffi.Pointer.fromFunction(animationControllerSetReverseDuration);
+  f.animationController.animateTo = ffi.Pointer.fromFunction(animationControllerAnimateTo);
+  f.animationController.animateBack = ffi.Pointer.fromFunction(animationControllerAnimateBack);
+  f.animationController.toggle = ffi.Pointer.fromFunction(animationControllerToggle);
+  f.animationController.fling = ffi.Pointer.fromFunction(animationControllerFling);
+  f.animationController.setValue = ffi.Pointer.fromFunction(animationControllerSetValue);
 }
 int animationControllerAnimationController(ffi.Pointer<ffi.Double> value, ffi.Pointer<DartObj> duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Char> debugLabel, ffi.Pointer<ffi.Double> lowerBound, ffi.Pointer<ffi.Double> upperBound, ffi.Pointer<ffi.Int> animationBehavior, DartDartObj vsync) {
   final w = AnimationController(value: value.doubleOrNul(),
@@ -1471,6 +1476,29 @@ void animationControllerSetDuration(DartDartObj self, DartDartObj d) {
 void animationControllerSetReverseDuration(DartDartObj self, DartDartObj d) {
   AnimationControllerMethods.setReverseDuration(_widgetsMap[self]! as AnimationController,
       _widgetsMap[d]! as Duration);
+}
+void animationControllerAnimateTo(DartDartObj self, double target, DartDartObj duration, DartDartObj curve) {
+  AnimationControllerMethods.animateTo(_widgetsMap[self]! as AnimationController,
+      target,
+      _widgetsMap[duration]! as Duration,
+      _widgetsMap[curve]! as Curve);
+}
+void animationControllerAnimateBack(DartDartObj self, double target, DartDartObj duration, DartDartObj curve) {
+  AnimationControllerMethods.animateBack(_widgetsMap[self]! as AnimationController,
+      target,
+      _widgetsMap[duration]! as Duration,
+      _widgetsMap[curve]! as Curve);
+}
+void animationControllerToggle(DartDartObj self) {
+  AnimationControllerMethods.toggle(_widgetsMap[self]! as AnimationController);
+}
+void animationControllerFling(DartDartObj self, double velocity) {
+  AnimationControllerMethods.fling(_widgetsMap[self]! as AnimationController,
+      velocity);
+}
+void animationControllerSetValue(DartDartObj self, double v) {
+  AnimationControllerMethods.setValue(_widgetsMap[self]! as AnimationController,
+      v);
 }
 
 void _setupAnimatedBuilder(WidgetFactories f) {

@@ -11,4 +11,12 @@ class AnimationControllerMethods {
   static void reset(AnimationController self) => self.reset();
   static void setDuration(AnimationController self, Duration d) => self.duration = d;
   static void setReverseDuration(AnimationController self, Duration d) => self.reverseDuration = d;
+
+  static void animateTo(AnimationController self, double target, Duration duration, Curve curve) =>
+      self.animateTo(target, duration: duration, curve: curve);
+  static void animateBack(AnimationController self, double target, Duration duration, Curve curve) =>
+      self.animateBack(target, duration: duration, curve: curve);
+  static void toggle(AnimationController self) => self.toggle();
+  static void fling(AnimationController self, double velocity) => self.fling(velocity: velocity);
+  static void setValue(AnimationController self, double v) => self.value = v;
 }

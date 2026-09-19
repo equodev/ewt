@@ -260,6 +260,11 @@ typedef struct {
     void (*reset)(DartObj self);
     void (*setDuration)(DartObj self, DartObj d);
     void (*setReverseDuration)(DartObj self, DartObj d);
+    void (*animateTo)(DartObj self, double target, DartObj duration, DartObj curve);
+    void (*animateBack)(DartObj self, double target, DartObj duration, DartObj curve);
+    void (*toggle)(DartObj self);
+    void (*fling)(DartObj self, double velocity);
+    void (*setValue)(DartObj self, double v);
   } animationController;
 
   struct AnimatedBuilderSt {
