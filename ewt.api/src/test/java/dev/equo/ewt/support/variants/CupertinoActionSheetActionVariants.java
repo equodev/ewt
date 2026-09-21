@@ -12,8 +12,8 @@ public final class CupertinoActionSheetActionVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("cupertinoActionSheetAction_allSet", List.of(PropExpectation.equalTo("isDefaultAction", true), PropExpectation.equalTo("isDestructiveAction", true))),
-          Map.entry("cupertinoActionSheetAction_boundary", List.of(PropExpectation.equalTo("isDefaultAction", false), PropExpectation.equalTo("isDestructiveAction", false)))
+          Map.entry("cupertinoActionSheetAction_allSet", List.of(PropExpectation.equalTo("isDefaultAction", true), PropExpectation.equalTo("isDestructiveAction", true), PropExpectation.notNull("focusColor"))),
+          Map.entry("cupertinoActionSheetAction_boundary", List.of(PropExpectation.equalTo("isDefaultAction", false), PropExpectation.equalTo("isDestructiveAction", false), PropExpectation.notNull("focusColor")))
       );
 
   public static Widget cupertinoActionSheetAction_required() {
@@ -21,11 +21,11 @@ public final class CupertinoActionSheetActionVariants {
   }
 
   public static Widget cupertinoActionSheetAction_allSet() {
-    return CupertinoActionSheetAction.cupertinoActionSheetAction(() -> {}).child(SizedBox().width(1.0).height(1.0).build()).isDefaultAction(true).isDestructiveAction(true).build();
+    return CupertinoActionSheetAction.cupertinoActionSheetAction(() -> {}).child(SizedBox().width(1.0).height(1.0).build()).isDefaultAction(true).isDestructiveAction(true).focusColor(Color(0xff0000ff).build()).build();
   }
 
   public static Widget cupertinoActionSheetAction_boundary() {
-    return CupertinoActionSheetAction.cupertinoActionSheetAction(() -> {}).child(SizedBox().width(1.0).height(1.0).build()).isDefaultAction(false).isDestructiveAction(false).build();
+    return CupertinoActionSheetAction.cupertinoActionSheetAction(() -> {}).child(SizedBox().width(1.0).height(1.0).build()).isDefaultAction(false).isDestructiveAction(false).focusColor(Color(0xff0000ff).build()).build();
   }
 
 }

@@ -14,8 +14,8 @@ public final class BadgeVariants {
       Map.ofEntries(
           Map.entry("badge_allSet", List.of(PropExpectation.notNull("backgroundColor"), PropExpectation.notNull("textColor"), PropExpectation.equalTo("smallSize", 1.0), PropExpectation.equalTo("largeSize", 1.0), PropExpectation.notNull("textStyle"), PropExpectation.notNull("padding"), PropExpectation.notNull("alignment"), PropExpectation.notNull("offset"), PropExpectation.notNull("label"), PropExpectation.equalTo("isLabelVisible", true), PropExpectation.notNull("child"))),
           Map.entry("badge_boundary", List.of(PropExpectation.notNull("backgroundColor"), PropExpectation.notNull("textColor"), PropExpectation.equalTo("smallSize", 0.0), PropExpectation.equalTo("largeSize", 0.0), PropExpectation.notNull("textStyle"), PropExpectation.notNull("padding"), PropExpectation.notNull("alignment"), PropExpectation.notNull("offset"), PropExpectation.notNull("label"), PropExpectation.equalTo("isLabelVisible", false), PropExpectation.notNull("child"))),
-          Map.entry("count_allSet", List.of(PropExpectation.notNull("backgroundColor"), PropExpectation.notNull("textColor"), PropExpectation.equalTo("smallSize", 1.0), PropExpectation.equalTo("largeSize", 1.0), PropExpectation.notNull("textStyle"), PropExpectation.notNull("padding"), PropExpectation.notNull("alignment"), PropExpectation.notNull("offset"), PropExpectation.equalTo("isLabelVisible", true), PropExpectation.notNull("child"))),
-          Map.entry("count_boundary", List.of(PropExpectation.notNull("backgroundColor"), PropExpectation.notNull("textColor"), PropExpectation.equalTo("smallSize", 0.0), PropExpectation.equalTo("largeSize", 0.0), PropExpectation.notNull("textStyle"), PropExpectation.notNull("padding"), PropExpectation.notNull("alignment"), PropExpectation.notNull("offset"), PropExpectation.equalTo("isLabelVisible", false), PropExpectation.notNull("child")))
+          Map.entry("count_allSet", List.of(PropExpectation.notNull("backgroundColor"), PropExpectation.notNull("textColor"), PropExpectation.equalTo("smallSize", 1.0), PropExpectation.equalTo("largeSize", 1.0), PropExpectation.notNull("textStyle"), PropExpectation.notNull("padding"), PropExpectation.notNull("alignment"), PropExpectation.notNull("offset"), PropExpectation.equalTo("maxCount", 1), PropExpectation.equalTo("isLabelVisible", true), PropExpectation.notNull("child"))),
+          Map.entry("count_boundary", List.of(PropExpectation.notNull("backgroundColor"), PropExpectation.notNull("textColor"), PropExpectation.equalTo("smallSize", 0.0), PropExpectation.equalTo("largeSize", 0.0), PropExpectation.notNull("textStyle"), PropExpectation.notNull("padding"), PropExpectation.notNull("alignment"), PropExpectation.notNull("offset"), PropExpectation.equalTo("maxCount", 0), PropExpectation.equalTo("isLabelVisible", false), PropExpectation.notNull("child")))
       );
 
   public static Widget badge_required() {
@@ -35,11 +35,11 @@ public final class BadgeVariants {
   }
 
   public static Widget count_allSet() {
-    return Badge.count().count(1).backgroundColor(Color(0xff0000ff).build()).textColor(Color(0xff0000ff).build()).smallSize(1.0).largeSize(1.0).textStyle(TextStyle.textStyle().build()).padding(EdgeInsets_all(8.0).build()).alignment(Alignment.center()).offset(Offset.zero()).isLabelVisible(true).child(SizedBox().width(1.0).height(1.0).build()).build();
+    return Badge.count().count(1).backgroundColor(Color(0xff0000ff).build()).textColor(Color(0xff0000ff).build()).smallSize(1.0).largeSize(1.0).textStyle(TextStyle.textStyle().build()).padding(EdgeInsets_all(8.0).build()).alignment(Alignment.center()).offset(Offset.zero()).maxCount(1).isLabelVisible(true).child(SizedBox().width(1.0).height(1.0).build()).build();
   }
 
   public static Widget count_boundary() {
-    return Badge.count().count(1).backgroundColor(Color(0xff0000ff).build()).textColor(Color(0xff0000ff).build()).smallSize(0.0).largeSize(0.0).textStyle(TextStyle.textStyle().build()).padding(EdgeInsets_all(8.0).build()).alignment(Alignment.center()).offset(Offset.zero()).isLabelVisible(false).child(SizedBox().width(1.0).height(1.0).build()).build();
+    return Badge.count().count(1).backgroundColor(Color(0xff0000ff).build()).textColor(Color(0xff0000ff).build()).smallSize(0.0).largeSize(0.0).textStyle(TextStyle.textStyle().build()).padding(EdgeInsets_all(8.0).build()).alignment(Alignment.center()).offset(Offset.zero()).maxCount(0).isLabelVisible(false).child(SizedBox().width(1.0).height(1.0).build()).build();
   }
 
 }
