@@ -35,7 +35,7 @@ variables:
   # wrapper distribution (~gradle-8.10.2-bin.zip, ~6-7 min cold download on
   # services.gradle.org) and the dependency cache across jobs and pipelines.
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
-  FLUTTER_SDK: "3.35.7"
+  FLUTTER_SDK: "3.44.4"
   FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
   JEXTRACT_URL: "https://download.java.net/java/early_access/jextract/25/2/openjdk-25-jextract+2-4_linux-x64_bin.tar.gz"
   # --- EWT ↔ Evolve integration (ewt-evolve jar) ---

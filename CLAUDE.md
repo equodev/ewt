@@ -32,7 +32,7 @@ EWT (Equo Widget Toolkit) is a framework that lets Java developers build Flutter
 
 | Tool | Version | Notes |
 |---|---|---|
-| Flutter | 3.35.7 | |
+| Flutter | 3.44.4 | |
 | JDK | 23 | The build sets `options.release = 22`, but `./gradlew` itself needs 23. Set `JAVA_HOME` if your shell default is older. |
 | jextract | 25 | Must be at `~/bin/jextract-25/bin/jextract` (see the `jextract` task in `ewt.api/build.gradle.kts`). Download from https://jdk.java.net/jextract/ and untar into `~/bin`. |
 
