@@ -32,6 +32,14 @@ public class ShrinkWrappingViewport extends MultiChildRenderObjectWidget impleme
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("shrinkWrappingViewportClipBehavior not supported on web");
     return Clip.values()[ShrinkWrappingViewportObjSt.clipBehavior(st)];
   }
+  public double cacheExtent() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("shrinkWrappingViewportCacheExtent not supported on web");
+    return ShrinkWrappingViewportObjSt.cacheExtent(st);
+  }
+  public CacheExtentStyle cacheExtentStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("shrinkWrappingViewportCacheExtentStyle not supported on web");
+    return CacheExtentStyle.values()[ShrinkWrappingViewportObjSt.cacheExtentStyle(st)];
+  }
   @Override
   public ShrinkWrappingViewport build() {
     return this;

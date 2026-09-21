@@ -17,9 +17,8 @@ public class RefreshIndicator extends StatefulWidget implements RefreshIndicator
   }
   RefreshIndicator(int id) { this.id = id; }
   @Builder.Factory
-  static RefreshIndicator refreshIndicatorRefreshIndicator(@Builder.Parameter WidgetI child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
-    var st = factories.refreshIndicatorRefreshIndicator(child.build(),
-      displacement,
+  static RefreshIndicator refreshIndicatorRefreshIndicator(OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation, WidgetI child) {
+    var st = factories.refreshIndicatorRefreshIndicator(displacement,
       edgeOffset,
       onRefresh,
       color.map(ColorI::build),
@@ -28,17 +27,17 @@ public class RefreshIndicator extends StatefulWidget implements RefreshIndicator
       semanticsValue,
       strokeWidth,
       triggerMode,
-      elevation);
+      elevation,
+      child.build());
     if (st == null) throw new RuntimeException("Failed to created widget RefreshIndicator");
     return new RefreshIndicator(st);
   }
-  public static RefreshIndicatorRefreshIndicatorBuilder refreshIndicator(WidgetI child) {
-    return RefreshIndicatorRefreshIndicatorBuilder.refreshIndicatorRefreshIndicator(child);
+  public static RefreshIndicatorRefreshIndicatorBuilder refreshIndicator() {
+    return RefreshIndicatorRefreshIndicatorBuilder.refreshIndicatorRefreshIndicator();
   }
   @Builder.Factory
-  static RefreshIndicator refreshIndicatorAdaptive(@Builder.Parameter WidgetI child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
-    var st = factories.refreshIndicatorAdaptive(child.build(),
-      displacement,
+  static RefreshIndicator refreshIndicatorAdaptive(OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation, WidgetI child) {
+    var st = factories.refreshIndicatorAdaptive(displacement,
       edgeOffset,
       onRefresh,
       color.map(ColorI::build),
@@ -47,27 +46,28 @@ public class RefreshIndicator extends StatefulWidget implements RefreshIndicator
       semanticsValue,
       strokeWidth,
       triggerMode,
-      elevation);
+      elevation,
+      child.build());
     if (st == null) throw new RuntimeException("Failed to created widget RefreshIndicator");
     return new RefreshIndicator(st);
   }
-  public static RefreshIndicatorAdaptiveBuilder adaptive(WidgetI child) {
-    return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive(child);
+  public static RefreshIndicatorAdaptiveBuilder adaptive() {
+    return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive();
   }
   @Builder.Factory
-  static RefreshIndicator refreshIndicatorNoSpinner(@Builder.Parameter WidgetI child, @Builder.Parameter Supplier<Future<Void>> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
-    var st = factories.refreshIndicatorNoSpinner(child.build(),
-      onRefresh,
+  static RefreshIndicator refreshIndicatorNoSpinner(@Builder.Parameter Supplier<Future<Void>> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation, WidgetI child) {
+    var st = factories.refreshIndicatorNoSpinner(onRefresh,
       onStatusChange,
       semanticsLabel,
       semanticsValue,
       triggerMode,
-      elevation);
+      elevation,
+      child.build());
     if (st == null) throw new RuntimeException("Failed to created widget RefreshIndicator");
     return new RefreshIndicator(st);
   }
-  public static RefreshIndicatorNoSpinnerBuilder noSpinner(WidgetI child, Supplier<Future<Void>> onRefresh) {
-    return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(child, onRefresh);
+  public static RefreshIndicatorNoSpinnerBuilder noSpinner(Supplier<Future<Void>> onRefresh) {
+    return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(onRefresh);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("refreshIndicatorChild not supported on web");

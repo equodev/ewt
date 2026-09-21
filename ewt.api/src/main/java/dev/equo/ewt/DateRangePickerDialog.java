@@ -59,14 +59,6 @@ public class DateRangePickerDialog extends StatefulWidget implements DateRangePi
     }
     return new DateTime(DateRangePickerDialogObjSt.lastDate(st));
   }
-  public DateTime currentDate() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
-      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
-      int __nid = __s.recordAccessor("dateRangePickerDialogCurrentDate", getId());
-      return new DateTime(__nid);
-    }
-    return new DateTime(DateRangePickerDialogObjSt.currentDate(st));
-  }
   public DatePickerEntryMode initialEntryMode() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dateRangePickerDialogInitialEntryMode not supported on web");
     return DatePickerEntryMode.values()[DateRangePickerDialogObjSt.initialEntryMode(st)];
@@ -138,6 +130,14 @@ public class DateRangePickerDialog extends StatefulWidget implements DateRangePi
       return new Icon(__st);
     }
     return new Icon(DateRangePickerDialogObjSt.switchToCalendarEntryModeIcon(st));
+  }
+  public DateTime currentDate() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("dateRangePickerDialogCurrentDate", getId());
+      return new DateTime(__nid);
+    }
+    return new DateTime(DateRangePickerDialogObjSt.currentDate(st));
   }
   @Override
   public DateRangePickerDialog build() {

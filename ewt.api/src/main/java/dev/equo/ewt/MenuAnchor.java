@@ -17,8 +17,9 @@ public class MenuAnchor extends StatefulWidget implements MenuAnchorI {
   }
   MenuAnchor(int id) { this.id = id; }
   @Builder.Factory
-  static MenuAnchor menuAnchorMenuAnchor(Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<Boolean> anchorTapClosesMenu, Optional<Boolean> consumeOutsideTap, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Boolean> crossAxisUnconstrained, Optional<Boolean> useRootOverlay, List<WidgetI> menuChildren, Optional<WidgetI> child) {
+  static MenuAnchor menuAnchorMenuAnchor(Optional<OffsetI> alignmentOffset, Optional<EdgeInsetsGeometryI> reservedPadding, Optional<Clip> clipBehavior, Optional<Boolean> anchorTapClosesMenu, Optional<Boolean> consumeOutsideTap, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Boolean> crossAxisUnconstrained, Optional<Boolean> useRootOverlay, Optional<Boolean> animated, Optional<Consumer<AnimationStatus>> onAnimationStatusChanged, List<WidgetI> menuChildren, Optional<WidgetI> child) {
     var st = factories.menuAnchorMenuAnchor(alignmentOffset.map(OffsetI::build),
+      reservedPadding.map(EdgeInsetsGeometryI::build),
       clipBehavior,
       anchorTapClosesMenu,
       consumeOutsideTap,
@@ -26,6 +27,8 @@ public class MenuAnchor extends StatefulWidget implements MenuAnchorI {
       onClose,
       crossAxisUnconstrained,
       useRootOverlay,
+      animated,
+      onAnimationStatusChanged,
       menuChildren.stream().map(WidgetI::build).toList(),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget MenuAnchor");
@@ -62,9 +65,17 @@ public class MenuAnchor extends StatefulWidget implements MenuAnchorI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorUseRootOverlay not supported on web");
     return intToBool(MenuAnchorObjSt.useRootOverlay(st));
   }
+  public boolean animated() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorAnimated not supported on web");
+    return intToBool(MenuAnchorObjSt.animated(st));
+  }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorChild not supported on web");
     return new Widget(MenuAnchorObjSt.child(st)) {};
+  }
+  public EdgeInsetsGeometry reservedPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorReservedPadding not supported on web");
+    return new EdgeInsetsGeometry(MenuAnchorObjSt.reservedPadding(st)) {};
   }
   @Override
   public MenuAnchor build() {

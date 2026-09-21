@@ -17,11 +17,36 @@ public class CarouselView extends StatefulWidget implements CarouselViewI {
   }
   CarouselView(int id) { this.id = id; }
   @Builder.Factory
-  static CarouselView carouselViewCarouselView(Optional<EdgeInsetsI> padding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<ColorI> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, double itemExtent, List<WidgetI> children) {
+  static CarouselView carouselViewCarouselView(Optional<EdgeInsetsI> padding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<Clip> itemClipBehavior, Optional<ColorI> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, Optional<Boolean> infinite, double itemExtent, List<WidgetI> children, Optional<Consumer<Integer>> onIndexChanged) {
     var st = factories.carouselViewCarouselView(padding.map(EdgeInsetsI::build),
       backgroundColor.map(ColorI::build),
       elevation,
       shape.map(ShapeBorderI::build),
+      itemClipBehavior,
+      overlayColor.map(ColorI::build),
+      itemSnapping,
+      shrinkExtent,
+      scrollDirection,
+      reverse,
+      onTap,
+      enableSplash,
+      infinite,
+      itemExtent,
+      children.stream().map(WidgetI::build).toList(),
+      onIndexChanged);
+    if (st == null) throw new RuntimeException("Failed to created widget CarouselView");
+    return new CarouselView(st);
+  }
+  public static CarouselViewCarouselViewBuilder carouselView() {
+    return CarouselViewCarouselViewBuilder.carouselViewCarouselView();
+  }
+  @Builder.Factory
+  static CarouselView carouselViewBuilder(Optional<EdgeInsetsI> padding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<Clip> itemClipBehavior, Optional<ColorI> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, double itemExtent, Optional<BiFunction<BuildContext, Integer, Widget>> itemBuilder, OptionalInt itemCount, Optional<Consumer<Integer>> onIndexChanged, Optional<Boolean> infinite) {
+    var st = factories.carouselViewBuilder(padding.map(EdgeInsetsI::build),
+      backgroundColor.map(ColorI::build),
+      elevation,
+      shape.map(ShapeBorderI::build),
+      itemClipBehavior,
       overlayColor.map(ColorI::build),
       itemSnapping,
       shrinkExtent,
@@ -30,12 +55,15 @@ public class CarouselView extends StatefulWidget implements CarouselViewI {
       onTap,
       enableSplash,
       itemExtent,
-      children.stream().map(WidgetI::build).toList());
+      itemBuilder,
+      itemCount,
+      onIndexChanged,
+      infinite);
     if (st == null) throw new RuntimeException("Failed to created widget CarouselView");
     return new CarouselView(st);
   }
-  public static CarouselViewCarouselViewBuilder carouselView() {
-    return CarouselViewCarouselViewBuilder.carouselViewCarouselView();
+  public static CarouselViewBuilderBuilder builder() {
+    return CarouselViewBuilderBuilder.carouselViewBuilder();
   }
   public EdgeInsets padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -62,6 +90,10 @@ public class CarouselView extends StatefulWidget implements CarouselViewI {
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewShape not supported on web");
     return new ShapeBorder(CarouselViewObjSt.shape(st)) {};
+  }
+  public Clip itemClipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewItemClipBehavior not supported on web");
+    return Clip.values()[CarouselViewObjSt.itemClipBehavior(st)];
   }
   public double shrinkExtent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewShrinkExtent not supported on web");
@@ -90,6 +122,14 @@ public class CarouselView extends StatefulWidget implements CarouselViewI {
   public double itemExtent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewItemExtent not supported on web");
     return CarouselViewObjSt.itemExtent(st);
+  }
+  public int itemCount() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewItemCount not supported on web");
+    return CarouselViewObjSt.itemCount(st);
+  }
+  public boolean infinite() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewInfinite not supported on web");
+    return intToBool(CarouselViewObjSt.infinite(st));
   }
   @Override
   public CarouselView build() {

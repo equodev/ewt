@@ -17,12 +17,13 @@ public class SliverList extends SliverMultiBoxAdaptorWidget implements SliverLis
   }
   SliverList(int id) { this.id = id; }
   @Builder.Factory
-  static SliverList sliverListBuilder(@Builder.Parameter BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+  static SliverList sliverListBuilder(@Builder.Parameter BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalInt semanticIndexOffset) {
     var st = factories.sliverListBuilder(itemBuilder,
       itemCount,
       addAutomaticKeepAlives,
       addRepaintBoundaries,
-      addSemanticIndexes);
+      addSemanticIndexes,
+      semanticIndexOffset);
     if (st == null) throw new RuntimeException("Failed to created widget SliverList");
     return new SliverList(st);
   }

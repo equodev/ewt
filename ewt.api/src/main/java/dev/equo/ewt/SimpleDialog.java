@@ -17,12 +17,13 @@ public class SimpleDialog extends StatelessWidget implements SimpleDialogI {
   }
   SimpleDialog(int id) { this.id = id; }
   @Builder.Factory
-  static SimpleDialog simpleDialogSimpleDialog(Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<List<WidgetI>> children, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<BoxConstraintsI> constraints) {
+  static SimpleDialog simpleDialogSimpleDialog(Optional<WidgetI> title, Optional<EdgeInsetsGeometryI> titlePadding, Optional<TextStyleI> titleTextStyle, Optional<List<WidgetI>> children, Optional<EdgeInsetsGeometryI> contentPadding, Optional<TextStyleI> contentTextStyle, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<BoxConstraintsI> constraints) {
     var st = factories.simpleDialogSimpleDialog(title.map(WidgetI::build),
       titlePadding.map(EdgeInsetsGeometryI::build),
       titleTextStyle.map(TextStyleI::build),
       children.map(i -> i.stream().map(WidgetI::build).toList()),
       contentPadding.map(EdgeInsetsGeometryI::build),
+      contentTextStyle.map(TextStyleI::build),
       backgroundColor.map(ColorI::build),
       elevation,
       shadowColor.map(ColorI::build),
@@ -88,6 +89,16 @@ public class SimpleDialog extends StatelessWidget implements SimpleDialogI {
       return new Color(__nid);
     }
     return new Color(SimpleDialogObjSt.surfaceTintColor(st));
+  }
+  public TextStyle contentTextStyle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("simpleDialogContentTextStyle", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
+      return new TextStyle(__st);
+    }
+    return new TextStyle(SimpleDialogObjSt.contentTextStyle(st));
   }
   public String semanticLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("simpleDialogSemanticLabel not supported on web");

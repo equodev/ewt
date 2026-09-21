@@ -17,10 +17,11 @@ public class DataRow extends NativeObj.Base implements DataRowI {
   }
   DataRow(int id) { this.id = id; }
   @Builder.Factory
-  static DataRow dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<ColorI> color, List<DataCellI> cells) {
+  static DataRow dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<ColorI> color, List<DataCellI> cells) {
     var st = factories.dataRowDataRow(selected,
       onSelectChanged,
       onLongPress,
+      onHover,
       color.map(ColorI::build),
       cells.stream().map(DataCellI::build).toList());
     if (st == null) throw new RuntimeException("Failed to created widget DataRow");
@@ -30,11 +31,12 @@ public class DataRow extends NativeObj.Base implements DataRowI {
     return DataRowDataRowBuilder.dataRowDataRow();
   }
   @Builder.Factory
-  static DataRow dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<ColorI> color, List<DataCellI> cells) {
+  static DataRow dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<ColorI> color, List<DataCellI> cells) {
     var st = factories.dataRowByIndex(index,
       selected,
       onSelectChanged,
       onLongPress,
+      onHover,
       color.map(ColorI::build),
       cells.stream().map(DataCellI::build).toList());
     if (st == null) throw new RuntimeException("Failed to created widget DataRow");

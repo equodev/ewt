@@ -17,7 +17,7 @@ public class CheckboxListTile extends StatelessWidget implements CheckboxListTil
   }
   CheckboxListTile(int id) { this.id = id; }
   @Builder.Factory
-  static CheckboxListTile checkboxListTileCheckboxListTile(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometryI> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorderI> checkboxShape, Optional<ColorI> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  static CheckboxListTile checkboxListTileCheckboxListTile(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometryI> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorderI> checkboxShape, Optional<ColorI> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.checkboxListTileCheckboxListTile(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -47,6 +47,10 @@ public class CheckboxListTile extends StatelessWidget implements CheckboxListTil
       selectedTileColor.map(ColorI::build),
       onFocusChange,
       enableFeedback,
+      horizontalTitleGap,
+      minVerticalPadding,
+      minLeadingWidth,
+      minTileHeight,
       checkboxSemanticLabel,
       checkboxScaleFactor,
       titleAlignment,
@@ -58,7 +62,7 @@ public class CheckboxListTile extends StatelessWidget implements CheckboxListTil
     return CheckboxListTileCheckboxListTileBuilder.checkboxListTileCheckboxListTile();
   }
   @Builder.Factory
-  static CheckboxListTile checkboxListTileAdaptive(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometryI> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorderI> checkboxShape, Optional<ColorI> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  static CheckboxListTile checkboxListTileAdaptive(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorderI> shape, Optional<BorderSideI> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<ColorI> tileColor, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometryI> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorderI> checkboxShape, Optional<ColorI> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.checkboxListTileAdaptive(value,
       onChanged,
       activeColor.map(ColorI::build),
@@ -88,6 +92,10 @@ public class CheckboxListTile extends StatelessWidget implements CheckboxListTil
       selectedTileColor.map(ColorI::build),
       onFocusChange,
       enableFeedback,
+      horizontalTitleGap,
+      minVerticalPadding,
+      minLeadingWidth,
+      minTileHeight,
       checkboxSemanticLabel,
       checkboxScaleFactor,
       titleAlignment,
@@ -225,6 +233,22 @@ public class CheckboxListTile extends StatelessWidget implements CheckboxListTil
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxListTileEnableFeedback not supported on web");
     return intToBool(CheckboxListTileObjSt.enableFeedback(st));
+  }
+  public double horizontalTitleGap() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxListTileHorizontalTitleGap not supported on web");
+    return CheckboxListTileObjSt.horizontalTitleGap(st);
+  }
+  public double minVerticalPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxListTileMinVerticalPadding not supported on web");
+    return CheckboxListTileObjSt.minVerticalPadding(st);
+  }
+  public double minLeadingWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxListTileMinLeadingWidth not supported on web");
+    return CheckboxListTileObjSt.minLeadingWidth(st);
+  }
+  public double minTileHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxListTileMinTileHeight not supported on web");
+    return CheckboxListTileObjSt.minTileHeight(st);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("checkboxListTileEnabled not supported on web");

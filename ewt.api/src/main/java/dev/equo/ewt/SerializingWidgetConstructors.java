@@ -1004,12 +1004,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment containerContainer(Optional<AlignmentGeometry> alignment, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Decoration> decoration, Optional<Decoration> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraints> constraints, Optional<EdgeInsetsGeometry> margin, Optional<AlignmentGeometry> transformAlignment, Optional<Widget> child, Optional<Clip> clipBehavior) {
+  MemorySegment containerContainer(Optional<AlignmentGeometry> alignment, Optional<EdgeInsetsGeometry> padding, Optional<Color> color, Optional<Boolean> isAntiAlias, Optional<Decoration> decoration, Optional<Decoration> foregroundDecoration, OptionalDouble width, OptionalDouble height, Optional<BoxConstraints> constraints, Optional<EdgeInsetsGeometry> margin, Optional<AlignmentGeometry> transformAlignment, Optional<Widget> child, Optional<Clip> clipBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
     color.ifPresent(v -> p.put("color", byId.get(v.getId())));
+    isAntiAlias.ifPresent(v -> p.put("isAntiAlias", v));
     decoration.ifPresent(v -> p.put("decoration", byId.get(v.getId())));
     foregroundDecoration.ifPresent(v -> p.put("foregroundDecoration", byId.get(v.getId())));
     if (width.isPresent()) { p.put("width", width.getAsDouble()); }
@@ -2588,10 +2589,11 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment coloredBoxColoredBox(Color color, Optional<Widget> child) {
+  MemorySegment coloredBoxColoredBox(Color color, Optional<Boolean> isAntiAlias, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("color", byId.get(color.getId()));
+    isAntiAlias.ifPresent(v -> p.put("isAntiAlias", v));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     record(id, "coloredBoxColoredBox", p);
     MemorySegment st = ColoredBoxObjSt.allocate(arena);
@@ -3162,7 +3164,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment gridViewCount(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, int crossAxisCount, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<Widget>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+  MemorySegment gridViewCount(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, int crossAxisCount, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, OptionalDouble mainAxisExtent, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<Widget>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
@@ -3174,6 +3176,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (mainAxisSpacing.isPresent()) { p.put("mainAxisSpacing", mainAxisSpacing.getAsDouble()); }
     if (crossAxisSpacing.isPresent()) { p.put("crossAxisSpacing", crossAxisSpacing.getAsDouble()); }
     if (childAspectRatio.isPresent()) { p.put("childAspectRatio", childAspectRatio.getAsDouble()); }
+    if (mainAxisExtent.isPresent()) { p.put("mainAxisExtent", mainAxisExtent.getAsDouble()); }
     addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
     addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
     addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
@@ -3191,7 +3194,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment gridViewExtent(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, double maxCrossAxisExtent, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<Widget>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
+  MemorySegment gridViewExtent(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> primary, Optional<Boolean> shrinkWrap, Optional<EdgeInsetsGeometry> padding, double maxCrossAxisExtent, OptionalDouble mainAxisSpacing, OptionalDouble crossAxisSpacing, OptionalDouble childAspectRatio, OptionalDouble mainAxisExtent, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalDouble cacheExtent, Optional<List<Widget>> children, OptionalInt semanticChildCount, Optional<DragStartBehavior> dragStartBehavior, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
@@ -3203,6 +3206,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (mainAxisSpacing.isPresent()) { p.put("mainAxisSpacing", mainAxisSpacing.getAsDouble()); }
     if (crossAxisSpacing.isPresent()) { p.put("crossAxisSpacing", crossAxisSpacing.getAsDouble()); }
     if (childAspectRatio.isPresent()) { p.put("childAspectRatio", childAspectRatio.getAsDouble()); }
+    if (mainAxisExtent.isPresent()) { p.put("mainAxisExtent", mainAxisExtent.getAsDouble()); }
     addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
     addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
     addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
@@ -3355,7 +3359,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus) {
+  MemorySegment animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Runnable> onEnd) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("firstChild", byId.get(firstChild.getId()));
@@ -3368,6 +3372,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("duration", byId.get(duration.getId()));
     reverseDuration.ifPresent(v -> p.put("reverseDuration", byId.get(v.getId())));
     excludeBottomFocus.ifPresent(v -> p.put("excludeBottomFocus", v));
+    if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
     record(id, "animatedCrossFadeAnimatedCrossFade", p);
     MemorySegment st = AnimatedCrossFadeObjSt.allocate(arena);
     AnimatedCrossFadeObjSt.id(st, id);
@@ -3389,12 +3394,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sizeTransitionSizeTransition(Optional<Axis> axis, Animation sizeFactor, OptionalDouble axisAlignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<Widget> child) {
+  MemorySegment sizeTransitionSizeTransition(Optional<Axis> axis, Animation sizeFactor, OptionalDouble axisAlignment, Optional<AlignmentGeometry> alignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     axis.ifPresent(v -> p.put("axis", v.ordinal()));
     p.put("sizeFactor", byId.get(sizeFactor.getId()));
     if (axisAlignment.isPresent()) { p.put("axisAlignment", axisAlignment.getAsDouble()); }
+    alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
     if (fixedCrossAxisSizeFactor.isPresent()) { p.put("fixedCrossAxisSizeFactor", fixedCrossAxisSizeFactor.getAsDouble()); }
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     record(id, "sizeTransitionSizeTransition", p);
@@ -3494,12 +3500,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment heroHero(NativeObj tag, Optional<PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget>> flightShuttleBuilder, Optional<Boolean> transitionOnUserGestures, Widget child) {
+  MemorySegment heroHero(NativeObj tag, Optional<PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget>> flightShuttleBuilder, Optional<Boolean> transitionOnUserGestures, Optional<Curve> curve, Optional<Curve> reverseCurve, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("tag", byId.get(tag.getId()));
     if (flightShuttleBuilder != null) { p.put("flightShuttleBuilder", nextCallbackId++); }
     transitionOnUserGestures.ifPresent(v -> p.put("transitionOnUserGestures", v));
+    curve.ifPresent(v -> p.put("curve", byId.get(v.getId())));
+    reverseCurve.ifPresent(v -> p.put("reverseCurve", byId.get(v.getId())));
     p.put("child", byId.get(child.getId()));
     record(id, "heroHero", p);
     MemorySegment st = HeroObjSt.allocate(arena);
@@ -3567,10 +3575,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment backdropFilterBackdropFilter(ImageFilter filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+  MemorySegment backdropFilterBackdropFilter(Optional<ImageFilter> filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("filter", byId.get(filter.getId()));
+    filter.ifPresent(v -> p.put("filter", byId.get(v.getId())));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     blendMode.ifPresent(v -> p.put("blendMode", v.ordinal()));
     enabled.ifPresent(v -> p.put("enabled", v));
@@ -3580,10 +3588,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment backdropFilterGrouped(ImageFilter filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+  MemorySegment backdropFilterGrouped(Optional<ImageFilter> filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("filter", byId.get(filter.getId()));
+    filter.ifPresent(v -> p.put("filter", byId.get(v.getId())));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     blendMode.ifPresent(v -> p.put("blendMode", v.ordinal()));
     enabled.ifPresent(v -> p.put("enabled", v));
@@ -3803,11 +3811,12 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment tickerModeTickerMode(boolean enabled, Widget child) {
+  MemorySegment tickerModeTickerMode(boolean enabled, Widget child, Optional<Boolean> forceFrames) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("enabled", enabled);
     p.put("child", byId.get(child.getId()));
+    forceFrames.ifPresent(v -> p.put("forceFrames", v));
     record(id, "tickerModeTickerMode", p);
     MemorySegment st = TickerModeObjSt.allocate(arena);
     TickerModeObjSt.id(st, id);
@@ -3827,6 +3836,24 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("context", byId.get(context.getId()));
     record(id, "tickerModeGetNotifier", p);
+    return id;
+  }
+  @Override
+  int tickerModeGetValuesNotifier(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "tickerModeGetValuesNotifier", p);
+    return id;
+  }
+  @Override
+  int tickerModeMerge(Optional<Boolean> enabled, Optional<Boolean> forceFrames, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    enabled.ifPresent(v -> p.put("enabled", v));
+    forceFrames.ifPresent(v -> p.put("forceFrames", v));
+    p.put("child", byId.get(child.getId()));
+    record(id, "tickerModeMerge", p);
     return id;
   }
 
@@ -3858,6 +3885,15 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("context", byId.get(context.getId()));
     aspect.ifPresent(v -> p.put("aspect", byId.get(v.getId())));
     record(id, "lookupBoundaryDependOnInheritedWidgetOfExactType", p);
+    return id;
+  }
+  @Override
+  <T extends InheritedWidget> int lookupBoundaryGetInheritedWidgetOfExactType(BuildContext context, Optional<NativeObj> aspect) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    aspect.ifPresent(v -> p.put("aspect", byId.get(v.getId())));
+    record(id, "lookupBoundaryGetInheritedWidgetOfExactType", p);
     return id;
   }
   @Override
@@ -4686,7 +4722,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment simpleDialogSimpleDialog(Optional<Widget> title, Optional<EdgeInsetsGeometry> titlePadding, Optional<TextStyle> titleTextStyle, Optional<List<Widget>> children, Optional<EdgeInsetsGeometry> contentPadding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<BoxConstraints> constraints) {
+  MemorySegment simpleDialogSimpleDialog(Optional<Widget> title, Optional<EdgeInsetsGeometry> titlePadding, Optional<TextStyle> titleTextStyle, Optional<List<Widget>> children, Optional<EdgeInsetsGeometry> contentPadding, Optional<TextStyle> contentTextStyle, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<String> semanticLabel, Optional<EdgeInsets> insetPadding, Optional<Clip> clipBehavior, Optional<ShapeBorder> shape, Optional<AlignmentGeometry> alignment, Optional<BoxConstraints> constraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
@@ -4694,6 +4730,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     titleTextStyle.ifPresent(v -> p.put("titleTextStyle", byId.get(v.getId())));
     children.ifPresent(v -> p.put("children", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
     contentPadding.ifPresent(v -> p.put("contentPadding", byId.get(v.getId())));
+    contentTextStyle.ifPresent(v -> p.put("contentTextStyle", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shadowColor.ifPresent(v -> p.put("shadowColor", byId.get(v.getId())));
@@ -5041,7 +5078,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+  MemorySegment circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding, Optional<AnimationController> controller) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (value.isPresent()) { p.put("value", value.getAsDouble()); }
@@ -5057,13 +5094,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
     year2023.ifPresent(v -> p.put("year2023", v));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    controller.ifPresent(v -> p.put("controller", byId.get(v.getId())));
     record(id, "circularProgressIndicatorCircularProgressIndicator", p);
     MemorySegment st = CircularProgressIndicatorObjSt.allocate(arena);
     CircularProgressIndicatorObjSt.id(st, id);
     return st;
   }
   @Override
-  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding) {
+  MemorySegment circularProgressIndicatorAdaptive(OptionalDouble value, Optional<Color> backgroundColor, Optional<Animation> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometry> padding, Optional<AnimationController> controller) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (value.isPresent()) { p.put("value", value.getAsDouble()); }
@@ -5078,6 +5116,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
     year2023.ifPresent(v -> p.put("year2023", v));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    controller.ifPresent(v -> p.put("controller", byId.get(v.getId())));
     record(id, "circularProgressIndicatorAdaptive", p);
     MemorySegment st = CircularProgressIndicatorObjSt.allocate(arena);
     CircularProgressIndicatorObjSt.id(st, id);
@@ -5111,7 +5150,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
+  MemorySegment inputDecorationInputDecoration(Optional<Widget> icon, Optional<Color> iconColor, Optional<Widget> label, Optional<String> labelText, Optional<TextStyle> labelStyle, Optional<TextStyle> floatingLabelStyle, Optional<Widget> helper, Optional<String> helperText, Optional<TextStyle> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<Widget> hint, Optional<TextStyle> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> maintainLabelSize, Optional<Widget> error, Optional<String> errorText, Optional<TextStyle> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> prefixIcon, Optional<BoxConstraints> prefixIconConstraints, Optional<Widget> prefix, Optional<String> prefixText, Optional<TextStyle> prefixStyle, Optional<Color> prefixIconColor, Optional<Widget> suffixIcon, Optional<Widget> suffix, Optional<String> suffixText, Optional<TextStyle> suffixStyle, Optional<Color> suffixIconColor, Optional<BoxConstraints> suffixIconConstraints, Optional<Widget> counter, Optional<String> counterText, Optional<TextStyle> counterStyle, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> errorBorder, Optional<InputBorder> focusedBorder, Optional<InputBorder> focusedErrorBorder, Optional<InputBorder> disabledBorder, Optional<InputBorder> enabledBorder, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraints> constraints, Optional<VisualDensity> visualDensity) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     icon.ifPresent(v -> p.put("icon", byId.get(v.getId())));
@@ -5132,6 +5171,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     hintFadeDuration.ifPresent(v -> p.put("hintFadeDuration", byId.get(v.getId())));
     maintainHintHeight.ifPresent(v -> p.put("maintainHintHeight", v));
     maintainHintSize.ifPresent(v -> p.put("maintainHintSize", v));
+    maintainLabelSize.ifPresent(v -> p.put("maintainLabelSize", v));
     error.ifPresent(v -> p.put("error", byId.get(v.getId())));
     errorText.ifPresent(v -> p.put("errorText", v));
     errorStyle.ifPresent(v -> p.put("errorStyle", byId.get(v.getId())));
@@ -5176,7 +5216,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment inputDecorationCollapsed(Optional<String> hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
+  MemorySegment inputDecorationCollapsed(Optional<String> hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyle> hintStyle, Optional<Widget> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<Duration> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> maintainLabelSize, Optional<Boolean> filled, Optional<Color> fillColor, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<InputBorder> border, Optional<Boolean> enabled, Optional<BoxConstraints> constraints) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     hintText.ifPresent(v -> p.put("hintText", v));
@@ -5188,6 +5228,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     hintFadeDuration.ifPresent(v -> p.put("hintFadeDuration", byId.get(v.getId())));
     maintainHintHeight.ifPresent(v -> p.put("maintainHintHeight", v));
     maintainHintSize.ifPresent(v -> p.put("maintainHintSize", v));
+    maintainLabelSize.ifPresent(v -> p.put("maintainLabelSize", v));
     filled.ifPresent(v -> p.put("filled", v));
     fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
     focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
@@ -6349,7 +6390,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment carouselViewThemeDataCarouselViewThemeData(OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> overlayColor, Optional<OutlinedBorder> shape, Optional<EdgeInsets> padding) {
+  MemorySegment carouselViewThemeDataCarouselViewThemeData(OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> overlayColor, Optional<OutlinedBorder> shape, Optional<EdgeInsets> padding, Optional<Clip> itemClipBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
@@ -6357,6 +6398,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    itemClipBehavior.ifPresent(v -> p.put("itemClipBehavior", v.ordinal()));
     record(id, "carouselViewThemeDataCarouselViewThemeData", p);
     MemorySegment st = CarouselViewThemeDataObjSt.allocate(arena);
     CarouselViewThemeDataObjSt.id(st, id);
@@ -7045,7 +7087,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment progressIndicatorThemeDataProgressIndicatorThemeData(Optional<Color> color, Optional<Color> linearTrackColor, OptionalDouble linearMinHeight, Optional<Color> circularTrackColor, Optional<Color> refreshBackgroundColor, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<EdgeInsetsGeometry> circularTrackPadding, Optional<Boolean> year2023) {
+  MemorySegment progressIndicatorThemeDataProgressIndicatorThemeData(Optional<Color> color, Optional<Color> linearTrackColor, OptionalDouble linearMinHeight, Optional<Color> circularTrackColor, Optional<Color> refreshBackgroundColor, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<StrokeCap> strokeCap, Optional<BoxConstraints> constraints, OptionalDouble trackGap, Optional<EdgeInsetsGeometry> circularTrackPadding, Optional<Boolean> year2023, Optional<AnimationController> controller) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     color.ifPresent(v -> p.put("color", byId.get(v.getId())));
@@ -7063,6 +7105,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
     circularTrackPadding.ifPresent(v -> p.put("circularTrackPadding", byId.get(v.getId())));
     year2023.ifPresent(v -> p.put("year2023", v));
+    controller.ifPresent(v -> p.put("controller", byId.get(v.getId())));
     record(id, "progressIndicatorThemeDataProgressIndicatorThemeData", p);
     MemorySegment st = ProgressIndicatorThemeDataObjSt.allocate(arena);
     ProgressIndicatorThemeDataObjSt.id(st, id);
@@ -7082,7 +7125,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment radioThemeDataRadioThemeData(Optional<Color> fillColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Color> backgroundColor) {
+  MemorySegment radioThemeDataRadioThemeData(Optional<Color> fillColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Color> backgroundColor, Optional<BorderSide> side, OptionalDouble innerRadius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     fillColor.ifPresent(v -> p.put("fillColor", byId.get(v.getId())));
@@ -7091,6 +7134,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     materialTapTargetSize.ifPresent(v -> p.put("materialTapTargetSize", v.ordinal()));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    side.ifPresent(v -> p.put("side", byId.get(v.getId())));
+    if (innerRadius.isPresent()) { p.put("innerRadius", innerRadius.getAsDouble()); }
     record(id, "radioThemeDataRadioThemeData", p);
     MemorySegment st = RadioThemeDataObjSt.allocate(arena);
     RadioThemeDataObjSt.id(st, id);
@@ -7748,13 +7793,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Boolean> animateColor) {
+  MemorySegment appBarAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Boolean> automaticallyImplyActions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<ShapeBorder> shape, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding, Optional<Boolean> animateColor) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
     actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    automaticallyImplyActions.ifPresent(v -> p.put("automaticallyImplyActions", v));
     flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
     bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
@@ -8330,7 +8376,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> canRequestFocus) {
+  MemorySegment textFieldTextField(Optional<NativeObj> groupId, Optional<InputDecoration> decoration, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Boolean> enabled, Optional<Boolean> ignorePointers, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<Color> cursorErrorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<Boolean> onTapAlwaysCalled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<QuadFunction<BuildContext, Integer, Boolean, Integer, Widget>> buildCounter, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> enableInlinePrediction, Optional<Boolean> canRequestFocus) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -8383,6 +8429,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     scribbleEnabled.ifPresent(v -> p.put("scribbleEnabled", v));
     stylusHandwritingEnabled.ifPresent(v -> p.put("stylusHandwritingEnabled", v));
     enableIMEPersonalizedLearning.ifPresent(v -> p.put("enableIMEPersonalizedLearning", v));
+    enableInlinePrediction.ifPresent(v -> p.put("enableInlinePrediction", v));
     canRequestFocus.ifPresent(v -> p.put("canRequestFocus", v));
     record(id, "textFieldTextField", p);
     MemorySegment st = TextFieldObjSt.allocate(arena);
@@ -8517,7 +8564,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment snackBarSnackBar(Widget content, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, OptionalDouble width, Optional<ShapeBorder> shape, Optional<HitTestBehavior> hitTestBehavior, Optional<SnackBarBehavior> behavior, Optional<SnackBarAction> action, OptionalDouble actionOverflowThreshold, Optional<Boolean> showCloseIcon, Optional<Color> closeIconColor, Optional<Duration> duration, Optional<Animation> animation, Optional<Runnable> onVisible, Optional<DismissDirection> dismissDirection, Optional<Clip> clipBehavior) {
+  MemorySegment snackBarSnackBar(Widget content, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<EdgeInsetsGeometry> padding, OptionalDouble width, Optional<ShapeBorder> shape, Optional<HitTestBehavior> hitTestBehavior, Optional<SnackBarBehavior> behavior, Optional<SnackBarAction> action, OptionalDouble actionOverflowThreshold, Optional<Boolean> showCloseIcon, Optional<Color> closeIconColor, Optional<Duration> duration, Optional<Boolean> persist, Optional<Animation> animation, Optional<Runnable> onVisible, Optional<DismissDirection> dismissDirection, Optional<Clip> clipBehavior) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("content", byId.get(content.getId()));
@@ -8534,6 +8581,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     showCloseIcon.ifPresent(v -> p.put("showCloseIcon", v));
     closeIconColor.ifPresent(v -> p.put("closeIconColor", byId.get(v.getId())));
     duration.ifPresent(v -> p.put("duration", byId.get(v.getId())));
+    persist.ifPresent(v -> p.put("persist", v));
     animation.ifPresent(v -> p.put("animation", byId.get(v.getId())));
     if (onVisible.isPresent()) { int __cb_onVisible = nextCallbackId++; p.put("onVisible", __cb_onVisible); callbacks.put(__cb_onVisible, onVisible.get()); }
     dismissDirection.ifPresent(v -> p.put("dismissDirection", v.ordinal()));
@@ -8815,7 +8863,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023) {
+  MemorySegment linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<Color> backgroundColor, Optional<Color> color, Optional<Animation> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometry> borderRadius, Optional<Color> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<AnimationController> controller) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (value.isPresent()) { p.put("value", value.getAsDouble()); }
@@ -8830,6 +8878,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (stopIndicatorRadius.isPresent()) { p.put("stopIndicatorRadius", stopIndicatorRadius.getAsDouble()); }
     if (trackGap.isPresent()) { p.put("trackGap", trackGap.getAsDouble()); }
     year2023.ifPresent(v -> p.put("year2023", v));
+    controller.ifPresent(v -> p.put("controller", byId.get(v.getId())));
     record(id, "linearProgressIndicatorLinearProgressIndicator", p);
     MemorySegment st = LinearProgressIndicatorObjSt.allocate(arena);
     LinearProgressIndicatorObjSt.id(st, id);
@@ -8952,7 +9001,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliderSlider(double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, Optional<Boolean> year2023) {
+  MemorySegment sliderSlider(double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometry> padding, Optional<ShowValueIndicator> showValueIndicator, Optional<Boolean> year2023) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -8973,6 +9022,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     autofocus.ifPresent(v -> p.put("autofocus", v));
     allowedInteraction.ifPresent(v -> p.put("allowedInteraction", v.ordinal()));
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    showValueIndicator.ifPresent(v -> p.put("showValueIndicator", v.ordinal()));
     year2023.ifPresent(v -> p.put("year2023", v));
     record(id, "sliderSlider", p);
     MemorySegment st = SliderObjSt.allocate(arena);
@@ -8980,7 +9030,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment sliderAdaptive(double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
+  MemorySegment sliderAdaptive(double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<Color> activeColor, Optional<Color> inactiveColor, Optional<Color> secondaryActiveColor, Optional<Color> thumbColor, Optional<Color> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<ShowValueIndicator> showValueIndicator, Optional<Boolean> year2023) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -9000,6 +9050,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (semanticFormatterCallback != null) { p.put("semanticFormatterCallback", nextCallbackId++); }
     autofocus.ifPresent(v -> p.put("autofocus", v));
     allowedInteraction.ifPresent(v -> p.put("allowedInteraction", v.ordinal()));
+    showValueIndicator.ifPresent(v -> p.put("showValueIndicator", v.ordinal()));
     year2023.ifPresent(v -> p.put("year2023", v));
     record(id, "sliderAdaptive", p);
     MemorySegment st = SliderObjSt.allocate(arena);
@@ -9177,7 +9228,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment checkboxListTileCheckboxListTile(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment checkboxListTileCheckboxListTile(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     value.ifPresent(v -> p.put("value", v));
@@ -9209,6 +9260,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     selectedTileColor.ifPresent(v -> p.put("selectedTileColor", byId.get(v.getId())));
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (horizontalTitleGap.isPresent()) { p.put("horizontalTitleGap", horizontalTitleGap.getAsDouble()); }
+    if (minVerticalPadding.isPresent()) { p.put("minVerticalPadding", minVerticalPadding.getAsDouble()); }
+    if (minLeadingWidth.isPresent()) { p.put("minLeadingWidth", minLeadingWidth.getAsDouble()); }
+    if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     checkboxSemanticLabel.ifPresent(v -> p.put("checkboxSemanticLabel", v));
     if (checkboxScaleFactor.isPresent()) { p.put("checkboxScaleFactor", checkboxScaleFactor.getAsDouble()); }
     titleAlignment.ifPresent(v -> p.put("titleAlignment", v.ordinal()));
@@ -9219,7 +9274,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment checkboxListTileAdaptive(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment checkboxListTileAdaptive(Optional<Boolean> value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> checkColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensity> visualDensity, Optional<Boolean> autofocus, Optional<ShapeBorder> shape, Optional<BorderSide> side, Optional<Boolean> isError, Optional<Boolean> enabled, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<EdgeInsetsGeometry> contentPadding, Optional<Boolean> tristate, Optional<OutlinedBorder> checkboxShape, Optional<Color> selectedTileColor, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<String> checkboxSemanticLabel, OptionalDouble checkboxScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     value.ifPresent(v -> p.put("value", v));
@@ -9251,6 +9306,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     selectedTileColor.ifPresent(v -> p.put("selectedTileColor", byId.get(v.getId())));
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (horizontalTitleGap.isPresent()) { p.put("horizontalTitleGap", horizontalTitleGap.getAsDouble()); }
+    if (minVerticalPadding.isPresent()) { p.put("minVerticalPadding", minVerticalPadding.getAsDouble()); }
+    if (minLeadingWidth.isPresent()) { p.put("minLeadingWidth", minLeadingWidth.getAsDouble()); }
+    if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     checkboxSemanticLabel.ifPresent(v -> p.put("checkboxSemanticLabel", v));
     if (checkboxScaleFactor.isPresent()) { p.put("checkboxScaleFactor", checkboxScaleFactor.getAsDouble()); }
     titleAlignment.ifPresent(v -> p.put("titleAlignment", v.ordinal()));
@@ -9262,7 +9321,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment switchListTileSwitchListTile(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment switchListTileSwitchListTile(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -9295,6 +9354,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     selectedTileColor.ifPresent(v -> p.put("selectedTileColor", byId.get(v.getId())));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (horizontalTitleGap.isPresent()) { p.put("horizontalTitleGap", horizontalTitleGap.getAsDouble()); }
+    if (minVerticalPadding.isPresent()) { p.put("minVerticalPadding", minVerticalPadding.getAsDouble()); }
+    if (minLeadingWidth.isPresent()) { p.put("minLeadingWidth", minLeadingWidth.getAsDouble()); }
+    if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
     internalAddSemanticForOnTap.ifPresent(v -> p.put("internalAddSemanticForOnTap", v));
     record(id, "switchListTileSwitchListTile", p);
@@ -9303,7 +9366,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment switchListTileAdaptive(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment switchListTileAdaptive(boolean value, Optional<Consumer<Boolean>> onChanged, Optional<Color> activeColor, Optional<Color> activeThumbColor, Optional<Color> activeTrackColor, Optional<Color> inactiveThumbColor, Optional<Color> inactiveTrackColor, Optional<Color> thumbColor, Optional<Color> trackColor, Optional<Color> trackOutlineColor, Optional<Icon> thumbIcon, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<DragStartBehavior> dragStartBehavior, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Boolean> applyCupertinoTheme, Optional<Color> tileColor, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<EdgeInsetsGeometry> contentPadding, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<ShapeBorder> shape, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<Color> hoverColor, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -9337,6 +9400,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     selectedTileColor.ifPresent(v -> p.put("selectedTileColor", byId.get(v.getId())));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (horizontalTitleGap.isPresent()) { p.put("horizontalTitleGap", horizontalTitleGap.getAsDouble()); }
+    if (minVerticalPadding.isPresent()) { p.put("minVerticalPadding", minVerticalPadding.getAsDouble()); }
+    if (minLeadingWidth.isPresent()) { p.put("minLeadingWidth", minLeadingWidth.getAsDouble()); }
+    if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     hoverColor.ifPresent(v -> p.put("hoverColor", byId.get(v.getId())));
     internalAddSemanticForOnTap.ifPresent(v -> p.put("internalAddSemanticForOnTap", v));
     record(id, "switchListTileAdaptive", p);
@@ -9366,7 +9433,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment badgeCount(Optional<Color> backgroundColor, Optional<Color> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyle> textStyle, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, Optional<Offset> offset, int count, Optional<Boolean> isLabelVisible, Optional<Widget> child) {
+  MemorySegment badgeCount(Optional<Color> backgroundColor, Optional<Color> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyle> textStyle, Optional<EdgeInsetsGeometry> padding, Optional<AlignmentGeometry> alignment, Optional<Offset> offset, int count, OptionalInt maxCount, Optional<Boolean> isLabelVisible, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
@@ -9378,6 +9445,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     alignment.ifPresent(v -> p.put("alignment", byId.get(v.getId())));
     offset.ifPresent(v -> p.put("offset", byId.get(v.getId())));
     p.put("count", count);
+    if (maxCount.isPresent()) { p.put("maxCount", maxCount.getAsInt()); }
     isLabelVisible.ifPresent(v -> p.put("isLabelVisible", v));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     record(id, "badgeCount", p);
@@ -9448,13 +9516,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkWellInkWell(Optional<Widget> child, Optional<Runnable> onTap, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); callbacks.put(__cb_onTap, onTap.get()); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onLongPressUp.isPresent()) { int __cb_onLongPressUp = nextCallbackId++; p.put("onLongPressUp", __cb_onLongPressUp); callbacks.put(__cb_onLongPressUp, onLongPressUp.get()); }
     if (onTapDown != null) { p.put("onTapDown", nextCallbackId++); }
     if (onTapUp != null) { p.put("onTapUp", nextCallbackId++); }
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
@@ -9485,7 +9554,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
+  MemorySegment inkResponseInkResponse(Optional<Widget> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadius> borderRadius, Optional<ShapeBorder> customBorder, Optional<Color> focusColor, Optional<Color> hoverColor, Optional<Color> highlightColor, Optional<Color> overlayColor, Optional<Color> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Duration> hoverDuration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
@@ -9495,6 +9564,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onTapCancel.isPresent()) { int __cb_onTapCancel = nextCallbackId++; p.put("onTapCancel", __cb_onTapCancel); callbacks.put(__cb_onTapCancel, onTapCancel.get()); }
     if (onDoubleTap.isPresent()) { int __cb_onDoubleTap = nextCallbackId++; p.put("onDoubleTap", __cb_onDoubleTap); callbacks.put(__cb_onDoubleTap, onDoubleTap.get()); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onLongPressUp.isPresent()) { int __cb_onLongPressUp = nextCallbackId++; p.put("onLongPressUp", __cb_onLongPressUp); callbacks.put(__cb_onLongPressUp, onLongPressUp.get()); }
     if (onSecondaryTap.isPresent()) { int __cb_onSecondaryTap = nextCallbackId++; p.put("onSecondaryTap", __cb_onSecondaryTap); callbacks.put(__cb_onSecondaryTap, onSecondaryTap.get()); }
     if (onSecondaryTapUp != null) { p.put("onSecondaryTapUp", nextCallbackId++); }
     if (onSecondaryTapDown != null) { p.put("onSecondaryTapDown", nextCallbackId++); }
@@ -9570,12 +9640,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Color> color, List<DataCell> cells) {
+  MemorySegment dataRowDataRow(Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Color> color, List<DataCell> cells) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     selected.ifPresent(v -> p.put("selected", v));
     if (onSelectChanged.isPresent()) { int __cb_onSelectChanged = nextCallbackId++; p.put("onSelectChanged", __cb_onSelectChanged); java.util.function.Consumer<Boolean> __h_onSelectChanged = onSelectChanged.get(); callbacks.put(__cb_onSelectChanged, (java.util.function.Consumer<Object>)(v -> __h_onSelectChanged.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
     color.ifPresent(v -> p.put("color", byId.get(v.getId())));
     p.put("cells", cells.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     record(id, "dataRowDataRow", p);
@@ -9584,13 +9655,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Color> color, List<DataCell> cells) {
+  MemorySegment dataRowByIndex(OptionalInt index, Optional<Boolean> selected, Optional<Consumer<Boolean>> onSelectChanged, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Color> color, List<DataCell> cells) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (index.isPresent()) { p.put("index", index.getAsInt()); }
     selected.ifPresent(v -> p.put("selected", v));
     if (onSelectChanged.isPresent()) { int __cb_onSelectChanged = nextCallbackId++; p.put("onSelectChanged", __cb_onSelectChanged); java.util.function.Consumer<Boolean> __h_onSelectChanged = onSelectChanged.get(); callbacks.put(__cb_onSelectChanged, (java.util.function.Consumer<Object>)(v -> __h_onSelectChanged.accept((Boolean) v))); }
     if (onLongPress.isPresent()) { int __cb_onLongPress = nextCallbackId++; p.put("onLongPress", __cb_onLongPress); callbacks.put(__cb_onLongPress, onLongPress.get()); }
+    if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
     color.ifPresent(v -> p.put("color", byId.get(v.getId())));
     p.put("cells", cells.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     record(id, "dataRowByIndex", p);
@@ -9686,7 +9758,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  <T> MemorySegment radioListTileRadioListTile(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<Color> radioBackgroundColor, Optional<BorderSide> radioSide) {
+  <T> MemorySegment radioListTileRadioListTile(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<Color> radioBackgroundColor, Optional<BorderSide> radioSide, OptionalDouble radioInnerRadius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -9714,19 +9786,24 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (horizontalTitleGap.isPresent()) { p.put("horizontalTitleGap", horizontalTitleGap.getAsDouble()); }
+    if (minVerticalPadding.isPresent()) { p.put("minVerticalPadding", minVerticalPadding.getAsDouble()); }
+    if (minLeadingWidth.isPresent()) { p.put("minLeadingWidth", minLeadingWidth.getAsDouble()); }
+    if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     if (radioScaleFactor.isPresent()) { p.put("radioScaleFactor", radioScaleFactor.getAsDouble()); }
     titleAlignment.ifPresent(v -> p.put("titleAlignment", v.ordinal()));
     enabled.ifPresent(v -> p.put("enabled", v));
     internalAddSemanticForOnTap.ifPresent(v -> p.put("internalAddSemanticForOnTap", v));
     radioBackgroundColor.ifPresent(v -> p.put("radioBackgroundColor", byId.get(v.getId())));
     radioSide.ifPresent(v -> p.put("radioSide", byId.get(v.getId())));
+    if (radioInnerRadius.isPresent()) { p.put("radioInnerRadius", radioInnerRadius.getAsDouble()); }
     record(id, "radioListTileRadioListTile", p);
     MemorySegment st = RadioListTileObjSt.allocate(arena);
     RadioListTileObjSt.id(st, id);
     return st;
   }
   @Override
-  <T> MemorySegment radioListTileAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<Color> radioBackgroundColor, Optional<BorderSide> radioSide) {
+  <T> MemorySegment radioListTileAdaptive(NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<Color> activeColor, Optional<Color> fillColor, Optional<Color> hoverColor, Optional<Color> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<Widget> title, Optional<Widget> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<Widget> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometry> contentPadding, Optional<ShapeBorder> shape, Optional<Color> tileColor, Optional<Color> selectedTileColor, Optional<VisualDensity> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<Color> radioBackgroundColor, Optional<BorderSide> radioSide, OptionalDouble radioInnerRadius) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("value", value);
@@ -9754,6 +9831,10 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     if (onFocusChange.isPresent()) { int __cb_onFocusChange = nextCallbackId++; p.put("onFocusChange", __cb_onFocusChange); java.util.function.Consumer<Boolean> __h_onFocusChange = onFocusChange.get(); callbacks.put(__cb_onFocusChange, (java.util.function.Consumer<Object>)(v -> __h_onFocusChange.accept((Boolean) v))); }
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
+    if (horizontalTitleGap.isPresent()) { p.put("horizontalTitleGap", horizontalTitleGap.getAsDouble()); }
+    if (minVerticalPadding.isPresent()) { p.put("minVerticalPadding", minVerticalPadding.getAsDouble()); }
+    if (minLeadingWidth.isPresent()) { p.put("minLeadingWidth", minLeadingWidth.getAsDouble()); }
+    if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     if (radioScaleFactor.isPresent()) { p.put("radioScaleFactor", radioScaleFactor.getAsDouble()); }
     enabled.ifPresent(v -> p.put("enabled", v));
     useCupertinoCheckmarkStyle.ifPresent(v -> p.put("useCupertinoCheckmarkStyle", v));
@@ -9761,6 +9842,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     internalAddSemanticForOnTap.ifPresent(v -> p.put("internalAddSemanticForOnTap", v));
     radioBackgroundColor.ifPresent(v -> p.put("radioBackgroundColor", byId.get(v.getId())));
     radioSide.ifPresent(v -> p.put("radioSide", byId.get(v.getId())));
+    if (radioInnerRadius.isPresent()) { p.put("radioInnerRadius", radioInnerRadius.getAsDouble()); }
     record(id, "radioListTileAdaptive", p);
     MemorySegment st = RadioListTileObjSt.allocate(arena);
     RadioListTileObjSt.id(st, id);
@@ -9768,7 +9850,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment expansionTileExpansionTile(Optional<Widget> leading, Widget title, Optional<Widget> subtitle, Optional<Consumer<Boolean>> onExpansionChanged, Optional<List<Widget>> children, Optional<Widget> trailing, Optional<Boolean> showTrailingIcon, Optional<Boolean> initiallyExpanded, Optional<Boolean> maintainState, Optional<EdgeInsetsGeometry> tilePadding, Optional<CrossAxisAlignment> expandedCrossAxisAlignment, Optional<Alignment> expandedAlignment, Optional<EdgeInsetsGeometry> childrenPadding, Optional<Color> backgroundColor, Optional<Color> collapsedBackgroundColor, Optional<Color> textColor, Optional<Color> collapsedTextColor, Optional<Color> iconColor, Optional<Color> collapsedIconColor, Optional<ShapeBorder> shape, Optional<ShapeBorder> collapsedShape, Optional<Clip> clipBehavior, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> dense, Optional<VisualDensity> visualDensity, OptionalDouble minTileHeight, Optional<Boolean> enableFeedback, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap) {
+  MemorySegment expansionTileExpansionTile(Optional<Widget> leading, Widget title, Optional<Widget> subtitle, Optional<Consumer<Boolean>> onExpansionChanged, Optional<List<Widget>> children, Optional<Widget> trailing, Optional<Boolean> showTrailingIcon, Optional<Boolean> initiallyExpanded, Optional<Boolean> maintainState, Optional<EdgeInsetsGeometry> tilePadding, Optional<CrossAxisAlignment> expandedCrossAxisAlignment, Optional<AlignmentGeometry> expandedAlignment, Optional<EdgeInsetsGeometry> childrenPadding, Optional<Color> backgroundColor, Optional<Color> collapsedBackgroundColor, Optional<Color> textColor, Optional<Color> collapsedTextColor, Optional<Color> iconColor, Optional<Color> collapsedIconColor, Optional<ShapeBorder> shape, Optional<ShapeBorder> collapsedShape, Optional<Clip> clipBehavior, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> dense, Optional<Color> splashColor, Optional<VisualDensity> visualDensity, OptionalDouble minTileHeight, Optional<Boolean> enableFeedback, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
@@ -9795,6 +9877,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     controlAffinity.ifPresent(v -> p.put("controlAffinity", v.ordinal()));
     dense.ifPresent(v -> p.put("dense", v));
+    splashColor.ifPresent(v -> p.put("splashColor", byId.get(v.getId())));
     visualDensity.ifPresent(v -> p.put("visualDensity", byId.get(v.getId())));
     if (minTileHeight.isPresent()) { p.put("minTileHeight", minTileHeight.getAsDouble()); }
     enableFeedback.ifPresent(v -> p.put("enableFeedback", v));
@@ -9871,7 +9954,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, Optional<IconThemeData> unselectedIconTheme, Optional<IconThemeData> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+  MemorySegment navigationRailNavigationRail(Optional<Color> backgroundColor, Optional<Boolean> extended, Optional<Widget> leading, Optional<Widget> trailing, List<NavigationRailDestination> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyle> unselectedLabelTextStyle, Optional<TextStyle> selectedLabelTextStyle, Optional<IconThemeData> unselectedIconTheme, Optional<IconThemeData> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<Color> indicatorColor, Optional<ShapeBorder> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable, Optional<MainAxisAlignment> mainAxisAlignment) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
@@ -9896,6 +9979,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     leadingAtTop.ifPresent(v -> p.put("leadingAtTop", v));
     trailingAtBottom.ifPresent(v -> p.put("trailingAtBottom", v));
     scrollable.ifPresent(v -> p.put("scrollable", v));
+    mainAxisAlignment.ifPresent(v -> p.put("mainAxisAlignment", v.ordinal()));
     record(id, "navigationRailNavigationRail", p);
     MemorySegment st = NavigationRailObjSt.allocate(arena);
     NavigationRailObjSt.id(st, id);
@@ -10138,10 +10222,11 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment menuAnchorMenuAnchor(Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Boolean> anchorTapClosesMenu, Optional<Boolean> consumeOutsideTap, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Boolean> crossAxisUnconstrained, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Optional<Widget> child) {
+  MemorySegment menuAnchorMenuAnchor(Optional<Offset> alignmentOffset, Optional<EdgeInsetsGeometry> reservedPadding, Optional<Clip> clipBehavior, Optional<Boolean> anchorTapClosesMenu, Optional<Boolean> consumeOutsideTap, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Boolean> crossAxisUnconstrained, Optional<Boolean> useRootOverlay, Optional<Boolean> animated, Optional<Consumer<AnimationStatus>> onAnimationStatusChanged, List<Widget> menuChildren, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     alignmentOffset.ifPresent(v -> p.put("alignmentOffset", byId.get(v.getId())));
+    reservedPadding.ifPresent(v -> p.put("reservedPadding", byId.get(v.getId())));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     anchorTapClosesMenu.ifPresent(v -> p.put("anchorTapClosesMenu", v));
     consumeOutsideTap.ifPresent(v -> p.put("consumeOutsideTap", v));
@@ -10149,6 +10234,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onClose.isPresent()) { int __cb_onClose = nextCallbackId++; p.put("onClose", __cb_onClose); callbacks.put(__cb_onClose, onClose.get()); }
     crossAxisUnconstrained.ifPresent(v -> p.put("crossAxisUnconstrained", v));
     useRootOverlay.ifPresent(v -> p.put("useRootOverlay", v));
+    animated.ifPresent(v -> p.put("animated", v));
+    if (onAnimationStatusChanged != null) { p.put("onAnimationStatusChanged", nextCallbackId++); }
     p.put("menuChildren", menuChildren.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     record(id, "menuAnchorMenuAnchor", p);
@@ -10158,7 +10245,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Widget> submenuIcon, Optional<Boolean> useRootOverlay, List<Widget> menuChildren, Optional<Widget> child) {
+  MemorySegment submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Offset> alignmentOffset, Optional<Clip> clipBehavior, Optional<Widget> leadingIcon, Optional<Widget> trailingIcon, Optional<Widget> submenuIcon, Optional<Boolean> useRootOverlay, Optional<Duration> hoverOpenDelay, Optional<Boolean> animated, Optional<Consumer<AnimationStatus>> onAnimationStatusChanged, List<Widget> menuChildren, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     if (onHover.isPresent()) { int __cb_onHover = nextCallbackId++; p.put("onHover", __cb_onHover); java.util.function.Consumer<Boolean> __h_onHover = onHover.get(); callbacks.put(__cb_onHover, (java.util.function.Consumer<Object>)(v -> __h_onHover.accept((Boolean) v))); }
@@ -10171,6 +10258,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     trailingIcon.ifPresent(v -> p.put("trailingIcon", byId.get(v.getId())));
     submenuIcon.ifPresent(v -> p.put("submenuIcon", byId.get(v.getId())));
     useRootOverlay.ifPresent(v -> p.put("useRootOverlay", v));
+    hoverOpenDelay.ifPresent(v -> p.put("hoverOpenDelay", byId.get(v.getId())));
+    animated.ifPresent(v -> p.put("animated", v));
+    if (onAnimationStatusChanged != null) { p.put("onAnimationStatusChanged", nextCallbackId++); }
     p.put("menuChildren", menuChildren.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
     child.ifPresent(v -> p.put("child", byId.get(v.getId())));
     record(id, "submenuButtonSubmenuButton", p);
@@ -10289,7 +10379,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment timePickerDialogTimePickerDialog(TimeOfDay initialTime, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<String> errorInvalidText, Optional<String> hourLabelText, Optional<String> minuteLabelText, Optional<String> restorationId, Optional<TimePickerEntryMode> initialEntryMode, Optional<Orientation> orientation, Optional<Consumer<TimePickerEntryMode>> onEntryModeChanged, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToTimerEntryModeIcon) {
+  MemorySegment timePickerDialogTimePickerDialog(TimeOfDay initialTime, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<String> errorInvalidText, Optional<String> hourLabelText, Optional<String> minuteLabelText, Optional<String> restorationId, Optional<TimePickerEntryMode> initialEntryMode, Optional<Orientation> orientation, Optional<Consumer<TimePickerEntryMode>> onEntryModeChanged, Optional<Icon> switchToInputEntryModeIcon, Optional<Icon> switchToTimerEntryModeIcon, Optional<Boolean> emptyInitialInput) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("initialTime", byId.get(initialTime.getId()));
@@ -10305,6 +10395,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onEntryModeChanged != null) { p.put("onEntryModeChanged", nextCallbackId++); }
     switchToInputEntryModeIcon.ifPresent(v -> p.put("switchToInputEntryModeIcon", byId.get(v.getId())));
     switchToTimerEntryModeIcon.ifPresent(v -> p.put("switchToTimerEntryModeIcon", byId.get(v.getId())));
+    emptyInitialInput.ifPresent(v -> p.put("emptyInitialInput", v));
     record(id, "timePickerDialogTimePickerDialog", p);
     MemorySegment st = TimePickerDialogObjSt.allocate(arena);
     TimePickerDialogObjSt.id(st, id);
@@ -10380,7 +10471,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding) {
+  MemorySegment searchBarSearchBar(Optional<String> hintText, Optional<Widget> leading, Optional<List<Widget>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraints> constraints, OptionalDouble elevation, Optional<Color> backgroundColor, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Color> overlayColor, Optional<BorderSide> side, Optional<OutlinedBorder> shape, Optional<EdgeInsetsGeometry> padding, Optional<TextStyle> textStyle, Optional<TextStyle> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsets> scrollPadding, Optional<Boolean> readOnly, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     hintText.ifPresent(v -> p.put("hintText", v));
@@ -10406,6 +10497,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     autoFocus.ifPresent(v -> p.put("autoFocus", v));
     textInputAction.ifPresent(v -> p.put("textInputAction", v.ordinal()));
     scrollPadding.ifPresent(v -> p.put("scrollPadding", byId.get(v.getId())));
+    readOnly.ifPresent(v -> p.put("readOnly", v));
+    smartDashesType.ifPresent(v -> p.put("smartDashesType", v.ordinal()));
+    smartQuotesType.ifPresent(v -> p.put("smartQuotesType", v.ordinal()));
     record(id, "searchBarSearchBar", p);
     MemorySegment st = SearchBarObjSt.allocate(arena);
     SearchBarObjSt.id(st, id);
@@ -11040,12 +11134,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoActionSheetActionCupertinoActionSheetAction(Runnable onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Widget child) {
+  MemorySegment cupertinoActionSheetActionCupertinoActionSheetAction(Runnable onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Optional<Color> focusColor, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     int __cb_onPressed = nextCallbackId++; p.put("onPressed", __cb_onPressed); callbacks.put(__cb_onPressed, onPressed);
     isDefaultAction.ifPresent(v -> p.put("isDefaultAction", v));
     isDestructiveAction.ifPresent(v -> p.put("isDestructiveAction", v));
+    focusColor.ifPresent(v -> p.put("focusColor", byId.get(v.getId())));
     p.put("child", byId.get(child.getId()));
     record(id, "cupertinoActionSheetActionCupertinoActionSheetAction", p);
     MemorySegment st = CupertinoActionSheetActionObjSt.allocate(arena);
@@ -11054,7 +11149,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldCupertinoTextField(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> enableInlinePrediction) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -11113,13 +11208,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     scribbleEnabled.ifPresent(v -> p.put("scribbleEnabled", v));
     stylusHandwritingEnabled.ifPresent(v -> p.put("stylusHandwritingEnabled", v));
     enableIMEPersonalizedLearning.ifPresent(v -> p.put("enableIMEPersonalizedLearning", v));
+    enableInlinePrediction.ifPresent(v -> p.put("enableInlinePrediction", v));
     record(id, "cupertinoTextFieldCupertinoTextField", p);
     MemorySegment st = CupertinoTextFieldObjSt.allocate(arena);
     CupertinoTextFieldObjSt.id(st, id);
     return st;
   }
   @Override
-  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning) {
+  MemorySegment cupertinoTextFieldBorderless(Optional<NativeObj> groupId, Optional<BoxDecoration> decoration, Optional<EdgeInsetsGeometry> padding, Optional<String> placeholder, Optional<TextStyle> placeholderStyle, Optional<Widget> prefix, Optional<OverlayVisibilityMode> prefixMode, Optional<Widget> suffix, Optional<OverlayVisibilityMode> suffixMode, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<OverlayVisibilityMode> clearButtonMode, Optional<String> clearButtonSemanticLabel, Optional<TextInputAction> textInputAction, Optional<TextCapitalization> textCapitalization, Optional<TextStyle> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> readOnly, Optional<Boolean> showCursor, Optional<Boolean> autofocus, Optional<String> obscuringCharacter, Optional<Boolean> obscureText, Optional<Boolean> autocorrect, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType, Optional<Boolean> enableSuggestions, OptionalInt maxLines, OptionalInt minLines, Optional<Boolean> expands, OptionalInt maxLength, Optional<MaxLengthEnforcement> maxLengthEnforcement, Optional<Consumer<String>> onChanged, Optional<Runnable> onEditingComplete, Optional<Consumer<String>> onSubmitted, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapUpOutside, Optional<Boolean> enabled, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<Radius> cursorRadius, Optional<Boolean> cursorOpacityAnimates, Optional<Color> cursorColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<Brightness> keyboardAppearance, Optional<EdgeInsets> scrollPadding, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Boolean> selectAllOnFocus, Optional<Runnable> onTap, Optional<List<String>> autofillHints, Optional<Clip> clipBehavior, Optional<String> restorationId, Optional<Boolean> scribbleEnabled, Optional<Boolean> stylusHandwritingEnabled, Optional<Boolean> enableIMEPersonalizedLearning, Optional<Boolean> enableInlinePrediction) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     groupId.ifPresent(v -> p.put("groupId", byId.get(v.getId())));
@@ -11178,6 +11274,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     scribbleEnabled.ifPresent(v -> p.put("scribbleEnabled", v));
     stylusHandwritingEnabled.ifPresent(v -> p.put("stylusHandwritingEnabled", v));
     enableIMEPersonalizedLearning.ifPresent(v -> p.put("enableIMEPersonalizedLearning", v));
+    enableInlinePrediction.ifPresent(v -> p.put("enableInlinePrediction", v));
     record(id, "cupertinoTextFieldBorderless", p);
     MemorySegment st = CupertinoTextFieldObjSt.allocate(arena);
     CupertinoTextFieldObjSt.id(st, id);
@@ -11272,7 +11369,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  int bottomNavigationBarItemBottomNavigationBarItem(Widget icon, Optional<String> label, Optional<Widget> activeIcon, Optional<Color> backgroundColor, Optional<String> tooltip) {
+  int bottomNavigationBarItemBottomNavigationBarItem(Widget icon, Optional<String> label, Optional<Widget> activeIcon, Optional<Color> backgroundColor, Optional<String> tooltip, Optional<String> semanticsLabel) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("icon", byId.get(icon.getId()));
@@ -11280,6 +11377,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     activeIcon.ifPresent(v -> p.put("activeIcon", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     tooltip.ifPresent(v -> p.put("tooltip", v));
+    semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
     record(id, "bottomNavigationBarItemBottomNavigationBarItem", p);
     return id;
   }
@@ -12118,6 +12216,28 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment snackBarThemeSnackBarTheme(SnackBarThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "snackBarThemeSnackBarTheme", p);
+    MemorySegment st = SnackBarThemeObjSt.allocate(arena);
+    SnackBarThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment snackBarThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "snackBarThemeOf", p);
+    MemorySegment st = SnackBarThemeDataObjSt.allocate(arena);
+    SnackBarThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment badgeThemeBadgeTheme(BadgeThemeData data, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -12622,6 +12742,28 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  MemorySegment floatingActionButtonThemeFloatingActionButtonTheme(FloatingActionButtonThemeData data, Widget child) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("data", byId.get(data.getId()));
+    p.put("child", byId.get(child.getId()));
+    record(id, "floatingActionButtonThemeFloatingActionButtonTheme", p);
+    MemorySegment st = FloatingActionButtonThemeObjSt.allocate(arena);
+    FloatingActionButtonThemeObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment floatingActionButtonThemeOf(BuildContext context) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("context", byId.get(context.getId()));
+    record(id, "floatingActionButtonThemeOf", p);
+    MemorySegment st = FloatingActionButtonThemeDataObjSt.allocate(arena);
+    FloatingActionButtonThemeDataObjSt.id(st, id);
+    return st;
+  }
+
+  @Override
   MemorySegment segmentedButtonThemeSegmentedButtonTheme(SegmentedButtonThemeData data, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -12976,7 +13118,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliverListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+  MemorySegment sliverListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalInt semanticIndexOffset) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("itemBuilder", nextCallbackId++);
@@ -12984,6 +13126,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
     addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
     addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    if (semanticIndexOffset.isPresent()) { p.put("semanticIndexOffset", semanticIndexOffset.getAsInt()); }
     record(id, "sliverListBuilder", p);
     MemorySegment st = SliverListObjSt.allocate(arena);
     SliverListObjSt.id(st, id);
@@ -13101,7 +13244,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliverFixedExtentListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, double itemExtent, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+  MemorySegment sliverFixedExtentListBuilder(BiFunction<BuildContext, Integer, Widget> itemBuilder, double itemExtent, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalInt semanticIndexOffset) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("itemBuilder", nextCallbackId++);
@@ -13110,6 +13253,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     addAutomaticKeepAlives.ifPresent(v -> p.put("addAutomaticKeepAlives", v));
     addRepaintBoundaries.ifPresent(v -> p.put("addRepaintBoundaries", v));
     addSemanticIndexes.ifPresent(v -> p.put("addSemanticIndexes", v));
+    if (semanticIndexOffset.isPresent()) { p.put("semanticIndexOffset", semanticIndexOffset.getAsInt()); }
     record(id, "sliverFixedExtentListBuilder", p);
     MemorySegment st = SliverFixedExtentListObjSt.allocate(arena);
     SliverFixedExtentListObjSt.id(st, id);
@@ -13186,7 +13330,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsInputType> inputType) {
+  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<AccessibilityFocusBlockType> accessibilityFocusBlockType, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<NativeObj> traversalParentIdentifier, Optional<NativeObj> traversalChildIdentifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<Runnable> onExpand, Optional<Runnable> onCollapse, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsInputType> inputType, Optional<String> minValue, Optional<String> maxValue) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("sliver", byId.get(sliver.getId()));
@@ -13209,6 +13353,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     readOnly.ifPresent(v -> p.put("readOnly", v));
     focusable.ifPresent(v -> p.put("focusable", v));
     focused.ifPresent(v -> p.put("focused", v));
+    accessibilityFocusBlockType.ifPresent(v -> p.put("accessibilityFocusBlockType", v.ordinal()));
     inMutuallyExclusiveGroup.ifPresent(v -> p.put("inMutuallyExclusiveGroup", v));
     obscured.ifPresent(v -> p.put("obscured", v));
     multiline.ifPresent(v -> p.put("multiline", v));
@@ -13222,6 +13367,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (maxValueLength.isPresent()) { p.put("maxValueLength", maxValueLength.getAsInt()); }
     if (currentValueLength.isPresent()) { p.put("currentValueLength", currentValueLength.getAsInt()); }
     identifier.ifPresent(v -> p.put("identifier", v));
+    traversalParentIdentifier.ifPresent(v -> p.put("traversalParentIdentifier", byId.get(v.getId())));
+    traversalChildIdentifier.ifPresent(v -> p.put("traversalChildIdentifier", byId.get(v.getId())));
     label.ifPresent(v -> p.put("label", v));
     value.ifPresent(v -> p.put("value", v));
     increasedValue.ifPresent(v -> p.put("increasedValue", v));
@@ -13249,9 +13396,13 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onDidGainAccessibilityFocus.isPresent()) { int __cb_onDidGainAccessibilityFocus = nextCallbackId++; p.put("onDidGainAccessibilityFocus", __cb_onDidGainAccessibilityFocus); callbacks.put(__cb_onDidGainAccessibilityFocus, onDidGainAccessibilityFocus.get()); }
     if (onDidLoseAccessibilityFocus.isPresent()) { int __cb_onDidLoseAccessibilityFocus = nextCallbackId++; p.put("onDidLoseAccessibilityFocus", __cb_onDidLoseAccessibilityFocus); callbacks.put(__cb_onDidLoseAccessibilityFocus, onDidLoseAccessibilityFocus.get()); }
     if (onFocus.isPresent()) { int __cb_onFocus = nextCallbackId++; p.put("onFocus", __cb_onFocus); callbacks.put(__cb_onFocus, onFocus.get()); }
+    if (onExpand.isPresent()) { int __cb_onExpand = nextCallbackId++; p.put("onExpand", __cb_onExpand); callbacks.put(__cb_onExpand, onExpand.get()); }
+    if (onCollapse.isPresent()) { int __cb_onCollapse = nextCallbackId++; p.put("onCollapse", __cb_onCollapse); callbacks.put(__cb_onCollapse, onCollapse.get()); }
     role.ifPresent(v -> p.put("role", v.ordinal()));
     validationResult.ifPresent(v -> p.put("validationResult", v.ordinal()));
     inputType.ifPresent(v -> p.put("inputType", v.ordinal()));
+    minValue.ifPresent(v -> p.put("minValue", v));
+    maxValue.ifPresent(v -> p.put("maxValue", v));
     record(id, "sliverSemanticsSliverSemantics", p);
     MemorySegment st = SliverSemanticsObjSt.allocate(arena);
     SliverSemanticsObjSt.id(st, id);
@@ -13259,13 +13410,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliverAppBarSliverAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment sliverAppBarSliverAppBar(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Boolean> automaticallyImplyActions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
     actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    automaticallyImplyActions.ifPresent(v -> p.put("automaticallyImplyActions", v));
     flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
     bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
@@ -13304,13 +13456,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment sliverAppBarMedium(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment sliverAppBarMedium(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Boolean> automaticallyImplyActions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
     actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    automaticallyImplyActions.ifPresent(v -> p.put("automaticallyImplyActions", v));
     flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
     bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
@@ -13348,13 +13501,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     return st;
   }
   @Override
-  MemorySegment sliverAppBarLarge(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
+  MemorySegment sliverAppBarLarge(Optional<Widget> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Widget> title, Optional<List<Widget>> actions, Optional<Boolean> automaticallyImplyActions, Optional<Widget> flexibleSpace, Optional<PreferredSizeWidget> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<Color> shadowColor, Optional<Color> surfaceTintColor, Optional<Boolean> forceElevated, Optional<Color> backgroundColor, Optional<Color> foregroundColor, Optional<IconThemeData> iconTheme, Optional<IconThemeData> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble collapsedHeight, OptionalDouble expandedHeight, Optional<Boolean> floating, Optional<Boolean> pinned, Optional<Boolean> snap, Optional<Boolean> stretch, OptionalDouble stretchTriggerOffset, Optional<Supplier<Future<Void>>> onStretchTrigger, Optional<ShapeBorder> shape, OptionalDouble leadingWidth, Optional<TextStyle> toolbarTextStyle, Optional<TextStyle> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> actionsPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     leading.ifPresent(v -> p.put("leading", byId.get(v.getId())));
     automaticallyImplyLeading.ifPresent(v -> p.put("automaticallyImplyLeading", v));
     title.ifPresent(v -> p.put("title", byId.get(v.getId())));
     actions.ifPresent(v -> p.put("actions", v.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList())));
+    automaticallyImplyActions.ifPresent(v -> p.put("automaticallyImplyActions", v));
     flexibleSpace.ifPresent(v -> p.put("flexibleSpace", byId.get(v.getId())));
     bottom.ifPresent(v -> p.put("bottom", byId.get(v.getId())));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
@@ -13468,7 +13622,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment stepperStepper(List<Step> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<Color> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsets> stepIconMargin, Optional<Clip> clipBehavior) {
+  MemorySegment stepperStepper(List<Step> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometry> margin, Optional<Color> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsets> stepIconMargin, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometry> headerPadding, Optional<EdgeInsetsGeometry> contentPadding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("steps", steps.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
@@ -13486,6 +13640,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (stepIconWidth.isPresent()) { p.put("stepIconWidth", stepIconWidth.getAsDouble()); }
     stepIconMargin.ifPresent(v -> p.put("stepIconMargin", byId.get(v.getId())));
     clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
+    headerPadding.ifPresent(v -> p.put("headerPadding", byId.get(v.getId())));
+    contentPadding.ifPresent(v -> p.put("contentPadding", byId.get(v.getId())));
     record(id, "stepperStepper", p);
     MemorySegment st = StepperObjSt.allocate(arena);
     StepperObjSt.id(st, id);
@@ -13523,13 +13679,39 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment carouselViewCarouselView(Optional<EdgeInsets> padding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Color> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, double itemExtent, List<Widget> children) {
+  MemorySegment carouselViewCarouselView(Optional<EdgeInsets> padding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Clip> itemClipBehavior, Optional<Color> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, Optional<Boolean> infinite, double itemExtent, List<Widget> children, Optional<Consumer<Integer>> onIndexChanged) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
     backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
     shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    itemClipBehavior.ifPresent(v -> p.put("itemClipBehavior", v.ordinal()));
+    overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
+    itemSnapping.ifPresent(v -> p.put("itemSnapping", v));
+    if (shrinkExtent.isPresent()) { p.put("shrinkExtent", shrinkExtent.getAsDouble()); }
+    scrollDirection.ifPresent(v -> p.put("scrollDirection", v.ordinal()));
+    reverse.ifPresent(v -> p.put("reverse", v));
+    if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
+    enableSplash.ifPresent(v -> p.put("enableSplash", v));
+    infinite.ifPresent(v -> p.put("infinite", v));
+    p.put("itemExtent", itemExtent);
+    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    if (onIndexChanged.isPresent()) { int __cb_onIndexChanged = nextCallbackId++; p.put("onIndexChanged", __cb_onIndexChanged); java.util.function.Consumer<Integer> __h_onIndexChanged = onIndexChanged.get(); callbacks.put(__cb_onIndexChanged, (java.util.function.Consumer<Object>)(v -> __h_onIndexChanged.accept(((Number) v).intValue()))); }
+    record(id, "carouselViewCarouselView", p);
+    MemorySegment st = CarouselViewObjSt.allocate(arena);
+    CarouselViewObjSt.id(st, id);
+    return st;
+  }
+  @Override
+  MemorySegment carouselViewBuilder(Optional<EdgeInsets> padding, Optional<Color> backgroundColor, OptionalDouble elevation, Optional<ShapeBorder> shape, Optional<Clip> itemClipBehavior, Optional<Color> overlayColor, Optional<Boolean> itemSnapping, OptionalDouble shrinkExtent, Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Consumer<Integer>> onTap, Optional<Boolean> enableSplash, double itemExtent, Optional<BiFunction<BuildContext, Integer, Widget>> itemBuilder, OptionalInt itemCount, Optional<Consumer<Integer>> onIndexChanged, Optional<Boolean> infinite) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    padding.ifPresent(v -> p.put("padding", byId.get(v.getId())));
+    backgroundColor.ifPresent(v -> p.put("backgroundColor", byId.get(v.getId())));
+    if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    shape.ifPresent(v -> p.put("shape", byId.get(v.getId())));
+    itemClipBehavior.ifPresent(v -> p.put("itemClipBehavior", v.ordinal()));
     overlayColor.ifPresent(v -> p.put("overlayColor", byId.get(v.getId())));
     itemSnapping.ifPresent(v -> p.put("itemSnapping", v));
     if (shrinkExtent.isPresent()) { p.put("shrinkExtent", shrinkExtent.getAsDouble()); }
@@ -13538,8 +13720,11 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onTap.isPresent()) { int __cb_onTap = nextCallbackId++; p.put("onTap", __cb_onTap); java.util.function.Consumer<Integer> __h_onTap = onTap.get(); callbacks.put(__cb_onTap, (java.util.function.Consumer<Object>)(v -> __h_onTap.accept(((Number) v).intValue()))); }
     enableSplash.ifPresent(v -> p.put("enableSplash", v));
     p.put("itemExtent", itemExtent);
-    p.put("children", children.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
-    record(id, "carouselViewCarouselView", p);
+    if (itemBuilder != null) { p.put("itemBuilder", nextCallbackId++); }
+    if (itemCount.isPresent()) { p.put("itemCount", itemCount.getAsInt()); }
+    if (onIndexChanged.isPresent()) { int __cb_onIndexChanged = nextCallbackId++; p.put("onIndexChanged", __cb_onIndexChanged); java.util.function.Consumer<Integer> __h_onIndexChanged = onIndexChanged.get(); callbacks.put(__cb_onIndexChanged, (java.util.function.Consumer<Object>)(v -> __h_onIndexChanged.accept(((Number) v).intValue()))); }
+    infinite.ifPresent(v -> p.put("infinite", v));
+    record(id, "carouselViewBuilder", p);
     MemorySegment st = CarouselViewObjSt.allocate(arena);
     CarouselViewObjSt.id(st, id);
     return st;
@@ -13620,10 +13805,9 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment refreshIndicatorRefreshIndicator(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+  MemorySegment refreshIndicatorRefreshIndicator(OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("child", byId.get(child.getId()));
     if (displacement.isPresent()) { p.put("displacement", displacement.getAsDouble()); }
     if (edgeOffset.isPresent()) { p.put("edgeOffset", edgeOffset.getAsDouble()); }
     int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
@@ -13634,16 +13818,16 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
     triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    p.put("child", byId.get(child.getId()));
     record(id, "refreshIndicatorRefreshIndicator", p);
     MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
     RefreshIndicatorObjSt.id(st, id);
     return st;
   }
   @Override
-  MemorySegment refreshIndicatorAdaptive(Widget child, OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+  MemorySegment refreshIndicatorAdaptive(OptionalDouble displacement, OptionalDouble edgeOffset, Supplier<Future<Void>> onRefresh, Optional<Color> color, Optional<Color> backgroundColor, Optional<String> semanticsLabel, Optional<String> semanticsValue, OptionalDouble strokeWidth, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("child", byId.get(child.getId()));
     if (displacement.isPresent()) { p.put("displacement", displacement.getAsDouble()); }
     if (edgeOffset.isPresent()) { p.put("edgeOffset", edgeOffset.getAsDouble()); }
     int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
@@ -13654,22 +13838,23 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (strokeWidth.isPresent()) { p.put("strokeWidth", strokeWidth.getAsDouble()); }
     triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    p.put("child", byId.get(child.getId()));
     record(id, "refreshIndicatorAdaptive", p);
     MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
     RefreshIndicatorObjSt.id(st, id);
     return st;
   }
   @Override
-  MemorySegment refreshIndicatorNoSpinner(Widget child, Supplier<Future<Void>> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation) {
+  MemorySegment refreshIndicatorNoSpinner(Supplier<Future<Void>> onRefresh, Optional<Consumer<RefreshIndicatorStatus>> onStatusChange, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<RefreshIndicatorTriggerMode> triggerMode, OptionalDouble elevation, Widget child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    p.put("child", byId.get(child.getId()));
     int __cb_onRefresh = nextCallbackId++; p.put("onRefresh", __cb_onRefresh); callbacks.put(__cb_onRefresh, onRefresh);
     if (onStatusChange != null) { p.put("onStatusChange", nextCallbackId++); }
     semanticsLabel.ifPresent(v -> p.put("semanticsLabel", v));
     semanticsValue.ifPresent(v -> p.put("semanticsValue", v));
     triggerMode.ifPresent(v -> p.put("triggerMode", v.ordinal()));
     if (elevation.isPresent()) { p.put("elevation", elevation.getAsDouble()); }
+    p.put("child", byId.get(child.getId()));
     record(id, "refreshIndicatorNoSpinner", p);
     MemorySegment st = RefreshIndicatorObjSt.allocate(arena);
     RefreshIndicatorObjSt.id(st, id);
@@ -13719,7 +13904,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment rawScrollbarRawScrollbar(Widget child, Optional<Boolean> thumbVisibility, Optional<OutlinedBorder> shape, Optional<Radius> radius, OptionalDouble thickness, Optional<Color> thumbColor, OptionalDouble minThumbLength, OptionalDouble minOverscrollLength, Optional<Boolean> trackVisibility, Optional<Radius> trackRadius, Optional<Color> trackColor, Optional<Color> trackBorderColor, Optional<Duration> fadeDuration, Optional<Duration> timeToFade, Optional<Duration> pressDuration, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation, OptionalDouble mainAxisMargin, OptionalDouble crossAxisMargin, Optional<EdgeInsets> padding) {
+  MemorySegment rawScrollbarRawScrollbar(Widget child, Optional<Boolean> thumbVisibility, Optional<OutlinedBorder> shape, Optional<Radius> radius, OptionalDouble thickness, Optional<Color> thumbColor, OptionalDouble minThumbLength, OptionalDouble minOverscrollLength, Optional<Boolean> trackVisibility, Optional<Radius> trackRadius, Optional<Color> trackColor, Optional<Color> trackBorderColor, Optional<Duration> fadeDuration, Optional<Duration> timeToFade, Optional<Duration> pressDuration, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation, OptionalDouble mainAxisMargin, OptionalDouble crossAxisMargin, Optional<EdgeInsetsGeometry> padding) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("child", byId.get(child.getId()));

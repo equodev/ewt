@@ -17,10 +17,12 @@ public class Hero extends StatefulWidget implements HeroI {
   }
   Hero(int id) { this.id = id; }
   @Builder.Factory
-  static Hero heroHero(@Builder.Parameter NativeObj.I tag, Optional<PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget>> flightShuttleBuilder, Optional<Boolean> transitionOnUserGestures, WidgetI child) {
+  static Hero heroHero(@Builder.Parameter NativeObj.I tag, Optional<PentaFunction<BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext, Widget>> flightShuttleBuilder, Optional<Boolean> transitionOnUserGestures, Optional<CurveI> curve, Optional<CurveI> reverseCurve, WidgetI child) {
     var st = factories.heroHero(tag.build(),
       flightShuttleBuilder,
       transitionOnUserGestures,
+      curve.map(CurveI::build),
+      reverseCurve.map(CurveI::build),
       child.build());
     if (st == null) throw new RuntimeException("Failed to created widget Hero");
     return new Hero(st);
@@ -35,6 +37,14 @@ public class Hero extends StatefulWidget implements HeroI {
   public boolean transitionOnUserGestures() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroTransitionOnUserGestures not supported on web");
     return intToBool(HeroObjSt.transitionOnUserGestures(st));
+  }
+  public Curve curve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroCurve not supported on web");
+    return new Curve(HeroObjSt.curve(st)) {};
+  }
+  public Curve reverseCurve() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroReverseCurve not supported on web");
+    return new Curve(HeroObjSt.reverseCurve(st)) {};
   }
   @Override
   public Hero build() {

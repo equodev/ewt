@@ -11,12 +11,13 @@ public class BottomNavigationBarItem extends NativeObj.Base implements BottomNav
   public static BottomNavigationBarItem byId(int id) { return new BottomNavigationBarItem(id); }
   static { NativeObj.register("BottomNavigationBarItem", BottomNavigationBarItem::byId); }
   @Builder.Factory
-  static BottomNavigationBarItem bottomNavigationBarItemBottomNavigationBarItem(@Builder.Parameter WidgetI icon, Optional<String> label, Optional<WidgetI> activeIcon, Optional<ColorI> backgroundColor, Optional<String> tooltip) {
+  static BottomNavigationBarItem bottomNavigationBarItemBottomNavigationBarItem(@Builder.Parameter WidgetI icon, Optional<String> label, Optional<WidgetI> activeIcon, Optional<ColorI> backgroundColor, Optional<String> tooltip, Optional<String> semanticsLabel) {
     int id = factories.bottomNavigationBarItemBottomNavigationBarItem(icon.build(),
       label,
       activeIcon.map(WidgetI::build),
       backgroundColor.map(ColorI::build),
-      tooltip);
+      tooltip,
+      semanticsLabel);
     if (id <= 0) throw new RuntimeException("Failed to created widget BottomNavigationBarItem");
     System.out.println("New BottomNavigationBarItem id:"+id);
     return new BottomNavigationBarItem(id);

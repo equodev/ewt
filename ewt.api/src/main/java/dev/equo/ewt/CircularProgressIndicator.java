@@ -17,7 +17,7 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
   }
   CircularProgressIndicator(int id) { this.id = id; }
   @Builder.Factory
-  static CircularProgressIndicator circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometryI> padding) {
+  static CircularProgressIndicator circularProgressIndicatorCircularProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometryI> padding, Optional<AnimationControllerI> controller) {
     var st = factories.circularProgressIndicatorCircularProgressIndicator(value,
       backgroundColor.map(ColorI::build),
       color.map(ColorI::build),
@@ -30,7 +30,8 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
       constraints.map(BoxConstraintsI::build),
       trackGap,
       year2023,
-      padding.map(EdgeInsetsGeometryI::build));
+      padding.map(EdgeInsetsGeometryI::build),
+      controller.map(AnimationControllerI::build));
     if (st == null) throw new RuntimeException("Failed to created widget CircularProgressIndicator");
     return new CircularProgressIndicator(st);
   }
@@ -38,7 +39,7 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
     return CircularProgressIndicatorCircularProgressIndicatorBuilder.circularProgressIndicatorCircularProgressIndicator();
   }
   @Builder.Factory
-  static CircularProgressIndicator circularProgressIndicatorAdaptive(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<AnimationI> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometryI> padding) {
+  static CircularProgressIndicator circularProgressIndicatorAdaptive(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<AnimationI> valueColor, OptionalDouble strokeWidth, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<StrokeCap> strokeCap, OptionalDouble strokeAlign, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<EdgeInsetsGeometryI> padding, Optional<AnimationControllerI> controller) {
     var st = factories.circularProgressIndicatorAdaptive(value,
       backgroundColor.map(ColorI::build),
       valueColor.map(AnimationI::build),
@@ -50,7 +51,8 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
       constraints.map(BoxConstraintsI::build),
       trackGap,
       year2023,
-      padding.map(EdgeInsetsGeometryI::build));
+      padding.map(EdgeInsetsGeometryI::build),
+      controller.map(AnimationControllerI::build));
     if (st == null) throw new RuntimeException("Failed to created widget CircularProgressIndicator");
     return new CircularProgressIndicator(st);
   }
@@ -91,6 +93,14 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("circularProgressIndicatorPadding not supported on web");
     return new EdgeInsetsGeometry(CircularProgressIndicatorObjSt.padding(st)) {};
   }
+  public AnimationController controller() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("circularProgressIndicatorController", getId());
+      return new AnimationController(__nid);
+    }
+    return new AnimationController(CircularProgressIndicatorObjSt.controller(st));
+  }
   public static double strokeAlignInside() {
     return -1.0;
   }
@@ -99,6 +109,9 @@ public class CircularProgressIndicator extends ProgressIndicator implements Circ
   }
   public static double strokeAlignOutside() {
     return 1.0;
+  }
+  public static Duration defaultAnimationDuration() {
+    return Duration.duration().milliseconds(2961926).build();
   }
   @Override
   public CircularProgressIndicator build() {

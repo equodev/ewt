@@ -17,10 +17,11 @@ public class CupertinoActionSheetAction extends StatefulWidget implements Cupert
   }
   CupertinoActionSheetAction(int id) { this.id = id; }
   @Builder.Factory
-  static CupertinoActionSheetAction cupertinoActionSheetActionCupertinoActionSheetAction(@Builder.Parameter Runnable onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, WidgetI child) {
+  static CupertinoActionSheetAction cupertinoActionSheetActionCupertinoActionSheetAction(@Builder.Parameter Runnable onPressed, Optional<Boolean> isDefaultAction, Optional<Boolean> isDestructiveAction, Optional<ColorI> focusColor, WidgetI child) {
     var st = factories.cupertinoActionSheetActionCupertinoActionSheetAction(onPressed,
       isDefaultAction,
       isDestructiveAction,
+      focusColor.map(ColorI::build),
       child.build());
     if (st == null) throw new RuntimeException("Failed to created widget CupertinoActionSheetAction");
     return new CupertinoActionSheetAction(st);
@@ -35,6 +36,14 @@ public class CupertinoActionSheetAction extends StatefulWidget implements Cupert
   public boolean isDestructiveAction() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetActionIsDestructiveAction not supported on web");
     return intToBool(CupertinoActionSheetActionObjSt.isDestructiveAction(st));
+  }
+  public Color focusColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("cupertinoActionSheetActionFocusColor", getId());
+      return new Color(__nid);
+    }
+    return new Color(CupertinoActionSheetActionObjSt.focusColor(st));
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActionSheetActionChild not supported on web");

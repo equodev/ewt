@@ -24,6 +24,10 @@ public class SliverFillViewport extends StatelessWidget implements SliverFillVie
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliverFillViewportPadEnds not supported on web");
     return intToBool(SliverFillViewportObjSt.padEnds(st));
   }
+  public boolean allowImplicitScrolling() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliverFillViewportAllowImplicitScrolling not supported on web");
+    return intToBool(SliverFillViewportObjSt.allowImplicitScrolling(st));
+  }
   @Override
   public SliverFillViewport build() {
     return this;

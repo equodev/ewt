@@ -36,7 +36,7 @@ public class Badge extends StatelessWidget implements BadgeI {
     return BadgeBadgeBuilder.badgeBadge();
   }
   @Builder.Factory
-  static Badge badgeCount(Optional<ColorI> backgroundColor, Optional<ColorI> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyleI> textStyle, Optional<EdgeInsetsGeometryI> padding, Optional<AlignmentGeometryI> alignment, Optional<OffsetI> offset, int count, Optional<Boolean> isLabelVisible, Optional<WidgetI> child) {
+  static Badge badgeCount(Optional<ColorI> backgroundColor, Optional<ColorI> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyleI> textStyle, Optional<EdgeInsetsGeometryI> padding, Optional<AlignmentGeometryI> alignment, Optional<OffsetI> offset, int count, OptionalInt maxCount, Optional<Boolean> isLabelVisible, Optional<WidgetI> child) {
     var st = factories.badgeCount(backgroundColor.map(ColorI::build),
       textColor.map(ColorI::build),
       smallSize,
@@ -46,6 +46,7 @@ public class Badge extends StatelessWidget implements BadgeI {
       alignment.map(AlignmentGeometryI::build),
       offset.map(OffsetI::build),
       count,
+      maxCount,
       isLabelVisible,
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Badge");

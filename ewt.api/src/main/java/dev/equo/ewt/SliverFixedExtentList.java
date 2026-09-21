@@ -17,13 +17,14 @@ public class SliverFixedExtentList extends SliverMultiBoxAdaptorWidget implement
   }
   SliverFixedExtentList(int id) { this.id = id; }
   @Builder.Factory
-  static SliverFixedExtentList sliverFixedExtentListBuilder(@Builder.Parameter BiFunction<BuildContext, Integer, Widget> itemBuilder, @Builder.Parameter double itemExtent, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes) {
+  static SliverFixedExtentList sliverFixedExtentListBuilder(@Builder.Parameter BiFunction<BuildContext, Integer, Widget> itemBuilder, @Builder.Parameter double itemExtent, OptionalInt itemCount, Optional<Boolean> addAutomaticKeepAlives, Optional<Boolean> addRepaintBoundaries, Optional<Boolean> addSemanticIndexes, OptionalInt semanticIndexOffset) {
     var st = factories.sliverFixedExtentListBuilder(itemBuilder,
       itemExtent,
       itemCount,
       addAutomaticKeepAlives,
       addRepaintBoundaries,
-      addSemanticIndexes);
+      addSemanticIndexes,
+      semanticIndexOffset);
     if (st == null) throw new RuntimeException("Failed to created widget SliverFixedExtentList");
     return new SliverFixedExtentList(st);
   }

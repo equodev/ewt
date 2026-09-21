@@ -32,6 +32,13 @@ public class LookupBoundary extends InheritedWidget implements LookupBoundaryI {
     System.out.println("New T? id:"+id);
     return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
   }
+  public static NativeObj getInheritedWidgetOfExactType(BuildContextI context) {
+    int id = factories.lookupBoundaryGetInheritedWidgetOfExactType(context.build(),
+      Optional.empty());
+    if (id <= 0) throw new RuntimeException("Failed to created widget T?");
+    System.out.println("New T? id:"+id);
+    return NativeObj.byIdAndType(id, dev.equo.ewt.EWT.widgetTypeOf(id));
+  }
   public static NativeObj findAncestorWidgetOfExactType(BuildContextI context) {
     int id = factories.lookupBoundaryFindAncestorWidgetOfExactType(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget T?");

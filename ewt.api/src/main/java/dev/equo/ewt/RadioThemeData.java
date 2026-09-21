@@ -17,13 +17,15 @@ public class RadioThemeData extends NativeObj.Base implements RadioThemeDataI {
   }
   RadioThemeData(int id) { this.id = id; }
   @Builder.Factory
-  static RadioThemeData radioThemeDataRadioThemeData(Optional<ColorI> fillColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<ColorI> backgroundColor) {
+  static RadioThemeData radioThemeDataRadioThemeData(Optional<ColorI> fillColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<VisualDensityI> visualDensity, Optional<ColorI> backgroundColor, Optional<BorderSideI> side, OptionalDouble innerRadius) {
     var st = factories.radioThemeDataRadioThemeData(fillColor.map(ColorI::build),
       overlayColor.map(ColorI::build),
       splashRadius,
       materialTapTargetSize,
       visualDensity.map(VisualDensityI::build),
-      backgroundColor.map(ColorI::build));
+      backgroundColor.map(ColorI::build),
+      side.map(BorderSideI::build),
+      innerRadius);
     if (st == null) throw new RuntimeException("Failed to created widget RadioThemeData");
     return new RadioThemeData(st);
   }
@@ -54,6 +56,16 @@ public class RadioThemeData extends NativeObj.Base implements RadioThemeDataI {
       return new VisualDensity(__st);
     }
     return new VisualDensity(RadioThemeDataObjSt.visualDensity(st));
+  }
+  public BorderSide side() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("radioThemeDataSide", getId());
+      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
+      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
+      return new BorderSide(__st);
+    }
+    return new BorderSide(RadioThemeDataObjSt.side(st));
   }
   @Override
   public RadioThemeData build() {

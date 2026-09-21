@@ -17,7 +17,7 @@ public class SearchBar extends StatefulWidget implements SearchBarI {
   }
   SearchBar(int id) { this.id = id; }
   @Builder.Factory
-  static SearchBar searchBarSearchBar(Optional<String> hintText, Optional<WidgetI> leading, Optional<List<WidgetI>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraintsI> constraints, OptionalDouble elevation, Optional<ColorI> backgroundColor, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> overlayColor, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<EdgeInsetsGeometryI> padding, Optional<TextStyleI> textStyle, Optional<TextStyleI> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsetsI> scrollPadding) {
+  static SearchBar searchBarSearchBar(Optional<String> hintText, Optional<WidgetI> leading, Optional<List<WidgetI>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraintsI> constraints, OptionalDouble elevation, Optional<ColorI> backgroundColor, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> overlayColor, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<EdgeInsetsGeometryI> padding, Optional<TextStyleI> textStyle, Optional<TextStyleI> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsetsI> scrollPadding, Optional<Boolean> readOnly, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType) {
     var st = factories.searchBarSearchBar(hintText,
       leading.map(WidgetI::build),
       trailing.map(i -> i.stream().map(WidgetI::build).toList()),
@@ -40,7 +40,10 @@ public class SearchBar extends StatefulWidget implements SearchBarI {
       enabled,
       autoFocus,
       textInputAction,
-      scrollPadding.map(EdgeInsetsI::build));
+      scrollPadding.map(EdgeInsetsI::build),
+      readOnly,
+      smartDashesType,
+      smartQuotesType);
     if (st == null) throw new RuntimeException("Failed to created widget SearchBar");
     return new SearchBar(st);
   }
@@ -90,6 +93,18 @@ public class SearchBar extends StatefulWidget implements SearchBarI {
       return new EdgeInsets(__st);
     }
     return new EdgeInsets(SearchBarObjSt.scrollPadding(st));
+  }
+  public boolean readOnly() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarReadOnly not supported on web");
+    return intToBool(SearchBarObjSt.readOnly(st));
+  }
+  public SmartDashesType smartDashesType() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarSmartDashesType not supported on web");
+    return SmartDashesType.values()[SearchBarObjSt.smartDashesType(st)];
+  }
+  public SmartQuotesType smartQuotesType() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarSmartQuotesType not supported on web");
+    return SmartQuotesType.values()[SearchBarObjSt.smartQuotesType(st)];
   }
   @Override
   public SearchBar build() {

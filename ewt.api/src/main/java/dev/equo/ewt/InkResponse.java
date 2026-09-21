@@ -17,7 +17,7 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
   }
   InkResponse(int id) { this.id = id; }
   @Builder.Factory
-  static InkResponse inkResponseInkResponse(Optional<WidgetI> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadiusI> borderRadius, Optional<ShapeBorderI> customBorder, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> highlightColor, Optional<ColorI> overlayColor, Optional<ColorI> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DurationI> hoverDuration) {
+  static InkResponse inkResponseInkResponse(Optional<WidgetI> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadiusI> borderRadius, Optional<ShapeBorderI> customBorder, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> highlightColor, Optional<ColorI> overlayColor, Optional<ColorI> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DurationI> hoverDuration) {
     var st = factories.inkResponseInkResponse(child.map(WidgetI::build),
       onTap,
       onTapDown,
@@ -25,6 +25,7 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       onTapCancel,
       onDoubleTap,
       onLongPress,
+      onLongPressUp,
       onSecondaryTap,
       onSecondaryTapUp,
       onSecondaryTapDown,

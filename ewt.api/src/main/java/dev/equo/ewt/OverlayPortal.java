@@ -20,6 +20,10 @@ public class OverlayPortal extends StatefulWidget implements OverlayPortalI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overlayPortalChild not supported on web");
     return new Widget(OverlayPortalObjSt.child(st)) {};
   }
+  public OverlayChildLocation overlayLocation() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overlayPortalOverlayLocation not supported on web");
+    return OverlayChildLocation.values()[OverlayPortalObjSt.overlayLocation(st)];
+  }
   @Override
   public OverlayPortal build() {
     return this;

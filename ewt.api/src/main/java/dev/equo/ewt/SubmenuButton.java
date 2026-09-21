@@ -17,7 +17,7 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
   }
   SubmenuButton(int id) { this.id = id; }
   @Builder.Factory
-  static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<WidgetI> submenuIcon, Optional<Boolean> useRootOverlay, List<WidgetI> menuChildren, Optional<WidgetI> child) {
+  static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<WidgetI> submenuIcon, Optional<Boolean> useRootOverlay, Optional<DurationI> hoverOpenDelay, Optional<Boolean> animated, Optional<Consumer<AnimationStatus>> onAnimationStatusChanged, List<WidgetI> menuChildren, Optional<WidgetI> child) {
     var st = factories.submenuButtonSubmenuButton(onHover,
       onFocusChange,
       onOpen,
@@ -28,6 +28,9 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
       trailingIcon.map(WidgetI::build),
       submenuIcon.map(WidgetI::build),
       useRootOverlay,
+      hoverOpenDelay.map(DurationI::build),
+      animated,
+      onAnimationStatusChanged,
       menuChildren.stream().map(WidgetI::build).toList(),
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget SubmenuButton");
@@ -59,6 +62,18 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
   public boolean useRootOverlay() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonUseRootOverlay not supported on web");
     return intToBool(SubmenuButtonObjSt.useRootOverlay(st));
+  }
+  public Duration hoverOpenDelay() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("submenuButtonHoverOpenDelay", getId());
+      return new Duration(__nid);
+    }
+    return new Duration(SubmenuButtonObjSt.hoverOpenDelay(st));
+  }
+  public boolean animated() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonAnimated not supported on web");
+    return intToBool(SubmenuButtonObjSt.animated(st));
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonChild not supported on web");

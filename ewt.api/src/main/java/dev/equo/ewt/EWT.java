@@ -69,6 +69,7 @@ public class EWT {
       Optional.empty(),
       Optional.empty(),
       Optional.empty(),
+      Optional.empty(),
       Optional.empty());
     if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<TimeOfDay?>");
     System.out.println("New Future<TimeOfDay?> id:"+_ret);
@@ -771,11 +772,11 @@ public class EWT {
     return ColorFilterSrgbToLinearGammaBuilder.colorFilterSrgbToLinearGamma();
   }
 
-  public static BackdropFilterBackdropFilterBuilder BackdropFilter(ImageFilterI filter) {
-    return BackdropFilterBackdropFilterBuilder.backdropFilterBackdropFilter(filter);
+  public static BackdropFilterBackdropFilterBuilder BackdropFilter() {
+    return BackdropFilterBackdropFilterBuilder.backdropFilterBackdropFilter();
   }
-  public static BackdropFilterGroupedBuilder BackdropFilter_grouped(ImageFilterI filter) {
-    return BackdropFilterGroupedBuilder.backdropFilterGrouped(filter);
+  public static BackdropFilterGroupedBuilder BackdropFilter_grouped() {
+    return BackdropFilterGroupedBuilder.backdropFilterGrouped();
   }
 
   public static ImageFilterBlurBuilder ImageFilter_blur() {
@@ -2113,6 +2114,10 @@ public class EWT {
     return TooltipThemeTooltipThemeBuilder.tooltipThemeTooltipTheme(data, child);
   }
 
+  public static SnackBarThemeSnackBarThemeBuilder SnackBarTheme(SnackBarThemeDataI data, WidgetI child) {
+    return SnackBarThemeSnackBarThemeBuilder.snackBarThemeSnackBarTheme(data, child);
+  }
+
   public static BadgeThemeBadgeThemeBuilder BadgeTheme(BadgeThemeDataI data, WidgetI child) {
     return BadgeThemeBadgeThemeBuilder.badgeThemeBadgeTheme(data, child);
   }
@@ -2199,6 +2204,10 @@ public class EWT {
 
   public static IconButtonThemeIconButtonThemeBuilder IconButtonTheme(IconButtonThemeDataI data, WidgetI child) {
     return IconButtonThemeIconButtonThemeBuilder.iconButtonThemeIconButtonTheme(data, child);
+  }
+
+  public static FloatingActionButtonThemeFloatingActionButtonThemeBuilder FloatingActionButtonTheme(FloatingActionButtonThemeDataI data, WidgetI child) {
+    return FloatingActionButtonThemeFloatingActionButtonThemeBuilder.floatingActionButtonThemeFloatingActionButtonTheme(data, child);
   }
 
   public static SegmentedButtonThemeSegmentedButtonThemeBuilder SegmentedButtonTheme(SegmentedButtonThemeDataI data, WidgetI child) {
@@ -2356,6 +2365,9 @@ public class EWT {
   public static CarouselViewCarouselViewBuilder CarouselView() {
     return CarouselViewCarouselViewBuilder.carouselViewCarouselView();
   }
+  public static CarouselViewBuilderBuilder CarouselView_builder() {
+    return CarouselViewBuilderBuilder.carouselViewBuilder();
+  }
 
   public static MergeableMaterialMergeableMaterialBuilder MergeableMaterial() {
     return MergeableMaterialMergeableMaterialBuilder.mergeableMaterialMergeableMaterial();
@@ -2376,14 +2388,14 @@ public class EWT {
     return TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child, padding);
   }
 
-  public static RefreshIndicatorRefreshIndicatorBuilder RefreshIndicator(WidgetI child) {
-    return RefreshIndicatorRefreshIndicatorBuilder.refreshIndicatorRefreshIndicator(child);
+  public static RefreshIndicatorRefreshIndicatorBuilder RefreshIndicator() {
+    return RefreshIndicatorRefreshIndicatorBuilder.refreshIndicatorRefreshIndicator();
   }
-  public static RefreshIndicatorAdaptiveBuilder RefreshIndicator_adaptive(WidgetI child) {
-    return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive(child);
+  public static RefreshIndicatorAdaptiveBuilder RefreshIndicator_adaptive() {
+    return RefreshIndicatorAdaptiveBuilder.refreshIndicatorAdaptive();
   }
-  public static RefreshIndicatorNoSpinnerBuilder RefreshIndicator_noSpinner(WidgetI child, Supplier<Future<Void>> onRefresh) {
-    return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(child, onRefresh);
+  public static RefreshIndicatorNoSpinnerBuilder RefreshIndicator_noSpinner(Supplier<Future<Void>> onRefresh) {
+    return RefreshIndicatorNoSpinnerBuilder.refreshIndicatorNoSpinner(onRefresh);
   }
 
   public static BackButtonListenerBackButtonListenerBuilder BackButtonListener(WidgetI child, Supplier<Future<Boolean>> onBackButtonPressed) {

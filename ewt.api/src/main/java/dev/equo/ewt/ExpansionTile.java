@@ -17,7 +17,7 @@ public class ExpansionTile extends StatefulWidget implements ExpansionTileI {
   }
   ExpansionTile(int id) { this.id = id; }
   @Builder.Factory
-  static ExpansionTile expansionTileExpansionTile(Optional<WidgetI> leading, WidgetI title, Optional<WidgetI> subtitle, Optional<Consumer<Boolean>> onExpansionChanged, Optional<List<WidgetI>> children, Optional<WidgetI> trailing, Optional<Boolean> showTrailingIcon, Optional<Boolean> initiallyExpanded, Optional<Boolean> maintainState, Optional<EdgeInsetsGeometryI> tilePadding, Optional<CrossAxisAlignment> expandedCrossAxisAlignment, Optional<AlignmentI> expandedAlignment, Optional<EdgeInsetsGeometryI> childrenPadding, Optional<ColorI> backgroundColor, Optional<ColorI> collapsedBackgroundColor, Optional<ColorI> textColor, Optional<ColorI> collapsedTextColor, Optional<ColorI> iconColor, Optional<ColorI> collapsedIconColor, Optional<ShapeBorderI> shape, Optional<ShapeBorderI> collapsedShape, Optional<Clip> clipBehavior, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> dense, Optional<VisualDensityI> visualDensity, OptionalDouble minTileHeight, Optional<Boolean> enableFeedback, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap) {
+  static ExpansionTile expansionTileExpansionTile(Optional<WidgetI> leading, WidgetI title, Optional<WidgetI> subtitle, Optional<Consumer<Boolean>> onExpansionChanged, Optional<List<WidgetI>> children, Optional<WidgetI> trailing, Optional<Boolean> showTrailingIcon, Optional<Boolean> initiallyExpanded, Optional<Boolean> maintainState, Optional<EdgeInsetsGeometryI> tilePadding, Optional<CrossAxisAlignment> expandedCrossAxisAlignment, Optional<AlignmentGeometryI> expandedAlignment, Optional<EdgeInsetsGeometryI> childrenPadding, Optional<ColorI> backgroundColor, Optional<ColorI> collapsedBackgroundColor, Optional<ColorI> textColor, Optional<ColorI> collapsedTextColor, Optional<ColorI> iconColor, Optional<ColorI> collapsedIconColor, Optional<ShapeBorderI> shape, Optional<ShapeBorderI> collapsedShape, Optional<Clip> clipBehavior, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> dense, Optional<ColorI> splashColor, Optional<VisualDensityI> visualDensity, OptionalDouble minTileHeight, Optional<Boolean> enableFeedback, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap) {
     var st = factories.expansionTileExpansionTile(leading.map(WidgetI::build),
       title.build(),
       subtitle.map(WidgetI::build),
@@ -29,7 +29,7 @@ public class ExpansionTile extends StatefulWidget implements ExpansionTileI {
       maintainState,
       tilePadding.map(EdgeInsetsGeometryI::build),
       expandedCrossAxisAlignment,
-      expandedAlignment.map(AlignmentI::build),
+      expandedAlignment.map(AlignmentGeometryI::build),
       childrenPadding.map(EdgeInsetsGeometryI::build),
       backgroundColor.map(ColorI::build),
       collapsedBackgroundColor.map(ColorI::build),
@@ -42,6 +42,7 @@ public class ExpansionTile extends StatefulWidget implements ExpansionTileI {
       clipBehavior,
       controlAffinity,
       dense,
+      splashColor.map(ColorI::build),
       visualDensity.map(VisualDensityI::build),
       minTileHeight,
       enableFeedback,
@@ -101,15 +102,9 @@ public class ExpansionTile extends StatefulWidget implements ExpansionTileI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("expansionTileTilePadding not supported on web");
     return new EdgeInsetsGeometry(ExpansionTileObjSt.tilePadding(st)) {};
   }
-  public Alignment expandedAlignment() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
-      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
-      int __nid = __s.recordAccessor("expansionTileExpandedAlignment", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.AlignmentObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.AlignmentObjSt.id(__st, __nid);
-      return new Alignment(__st);
-    }
-    return new Alignment(ExpansionTileObjSt.expandedAlignment(st));
+  public AlignmentGeometry expandedAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("expansionTileExpandedAlignment not supported on web");
+    return new AlignmentGeometry(ExpansionTileObjSt.expandedAlignment(st)) {};
   }
   public CrossAxisAlignment expandedCrossAxisAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("expansionTileExpandedCrossAxisAlignment not supported on web");
@@ -170,6 +165,14 @@ public class ExpansionTile extends StatefulWidget implements ExpansionTileI {
   public boolean dense() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("expansionTileDense not supported on web");
     return intToBool(ExpansionTileObjSt.dense(st));
+  }
+  public Color splashColor() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("expansionTileSplashColor", getId());
+      return new Color(__nid);
+    }
+    return new Color(ExpansionTileObjSt.splashColor(st));
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {

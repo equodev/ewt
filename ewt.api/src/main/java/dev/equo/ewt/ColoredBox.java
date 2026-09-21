@@ -17,8 +17,9 @@ public class ColoredBox extends SingleChildRenderObjectWidget implements Colored
   }
   ColoredBox(int id) { this.id = id; }
   @Builder.Factory
-  static ColoredBox coloredBoxColoredBox(@Builder.Parameter ColorI color, Optional<WidgetI> child) {
+  static ColoredBox coloredBoxColoredBox(@Builder.Parameter ColorI color, Optional<Boolean> isAntiAlias, Optional<WidgetI> child) {
     var st = factories.coloredBoxColoredBox(color.build(),
+      isAntiAlias,
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ColoredBox");
     return new ColoredBox(st);
@@ -33,6 +34,10 @@ public class ColoredBox extends SingleChildRenderObjectWidget implements Colored
       return new Color(__nid);
     }
     return new Color(ColoredBoxObjSt.color(st));
+  }
+  public boolean isAntiAlias() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("coloredBoxIsAntiAlias not supported on web");
+    return intToBool(ColoredBoxObjSt.isAntiAlias(st));
   }
   @Override
   public ColoredBox build() {
