@@ -155,6 +155,7 @@ typedef struct {
   DartObj alignment;
   DartObj padding;
   DartObj color;
+  int isAntiAlias;
   DartObj decoration;
   DartObj foregroundDecoration;
   BoxConstraintsObjSt constraints;
@@ -358,6 +359,7 @@ typedef struct {
 typedef struct {
   int id;
   DartObj color;
+  int isAntiAlias;
 } ColoredBoxObjSt;
 typedef struct {
   int id;
@@ -621,6 +623,7 @@ typedef struct {
   int id;
   int axis;
   double axisAlignment;
+  DartObj alignment;
   double fixedCrossAxisSizeFactor;
   DartObj child;
   DartObj sizeFactor;
@@ -671,6 +674,8 @@ typedef struct {
   int id;
   DartObj child;
   int transitionOnUserGestures;
+  DartObj curve;
+  DartObj reverseCurve;
 } HeroObjSt;
 typedef struct {
   int id;
@@ -753,6 +758,7 @@ typedef struct {
 typedef struct {
   int id;
   int enabled;
+  int forceFrames;
   DartObj child;
 } TickerModeObjSt;
 typedef struct {
@@ -1055,6 +1061,7 @@ typedef struct {
   double elevation;
   DartObj shadowColor;
   DartObj surfaceTintColor;
+  TextStyleObjSt contentTextStyle;
   char* semanticLabel;
   EdgeInsetsObjSt insetPadding;
   int clipBehavior;
@@ -1183,6 +1190,7 @@ typedef struct {
   double trackGap;
   int year2023;
   DartObj padding;
+  DartObj controller;
 } CircularProgressIndicatorObjSt;
 typedef struct {
   int id;
@@ -1204,6 +1212,7 @@ typedef struct {
   DartObj hintFadeDuration;
   int maintainHintHeight;
   int maintainHintSize;
+  int maintainLabelSize;
   DartObj error;
   char* errorText;
   TextStyleObjSt errorStyle;
@@ -1588,6 +1597,7 @@ typedef struct {
   DartObj backgroundColor;
   double elevation;
   DartObj shape;
+  int itemClipBehavior;
 } CarouselViewThemeDataObjSt;
 typedef struct {
   int id;
@@ -1837,12 +1847,14 @@ typedef struct {
   double trackGap;
   DartObj circularTrackPadding;
   int year2023;
+  DartObj controller;
 } ProgressIndicatorThemeDataObjSt;
 typedef struct {
   int id;
   double splashRadius;
   int materialTapTargetSize;
   VisualDensityObjSt visualDensity;
+  BorderSideObjSt side;
 } RadioThemeDataObjSt;
 typedef struct {
   int id;
@@ -2132,6 +2144,7 @@ typedef struct {
   DartObj leading;
   int automaticallyImplyLeading;
   DartObj title;
+  int automaticallyImplyActions;
   DartObj flexibleSpace;
   DartObj bottom;
   double elevation;
@@ -2326,6 +2339,7 @@ typedef struct {
   int scribbleEnabled;
   int stylusHandwritingEnabled;
   int enableIMEPersonalizedLearning;
+  int enableInlinePrediction;
   int canRequestFocus;
   int selectionEnabled;
 } TextFieldObjSt;
@@ -2370,6 +2384,7 @@ typedef struct {
   int showCloseIcon;
   DartObj closeIconColor;
   DartObj duration;
+  int persist;
   DartObj animation;
   int dismissDirection;
   int clipBehavior;
@@ -2491,6 +2506,7 @@ typedef struct {
   double stopIndicatorRadius;
   double trackGap;
   int year2023;
+  DartObj controller;
 } LinearProgressIndicatorObjSt;
 typedef struct {
   int id;
@@ -2541,6 +2557,7 @@ typedef struct {
   int autofocus;
   int allowedInteraction;
   DartObj padding;
+  int showValueIndicator;
   int year2023;
 } SliderObjSt;
 typedef struct {
@@ -2649,6 +2666,10 @@ typedef struct {
   DartObj checkboxShape;
   DartObj selectedTileColor;
   int enableFeedback;
+  double horizontalTitleGap;
+  double minVerticalPadding;
+  double minLeadingWidth;
+  double minTileHeight;
   int enabled;
   int titleAlignment;
   int internalAddSemanticForOnTap;
@@ -2680,6 +2701,10 @@ typedef struct {
   DartObj selectedTileColor;
   VisualDensityObjSt visualDensity;
   int enableFeedback;
+  double horizontalTitleGap;
+  double minVerticalPadding;
+  double minLeadingWidth;
+  double minTileHeight;
   DartObj hoverColor;
   int applyCupertinoTheme;
   int internalAddSemanticForOnTap;
@@ -2815,6 +2840,10 @@ typedef struct {
   DartObj selectedTileColor;
   VisualDensityObjSt visualDensity;
   int enableFeedback;
+  double horizontalTitleGap;
+  double minVerticalPadding;
+  double minLeadingWidth;
+  double minTileHeight;
   int titleAlignment;
   int internalAddSemanticForOnTap;
   int useCupertinoCheckmarkStyle;
@@ -2835,7 +2864,7 @@ typedef struct {
   int initiallyExpanded;
   int maintainState;
   DartObj tilePadding;
-  AlignmentObjSt expandedAlignment;
+  DartObj expandedAlignment;
   int expandedCrossAxisAlignment;
   DartObj childrenPadding;
   DartObj iconColor;
@@ -2847,6 +2876,7 @@ typedef struct {
   int clipBehavior;
   int controlAffinity;
   int dense;
+  DartObj splashColor;
   VisualDensityObjSt visualDensity;
   double minTileHeight;
   int enableFeedback;
@@ -2884,6 +2914,7 @@ typedef struct {
   int leadingAtTop;
   int trailingAtBottom;
   int scrollable;
+  int mainAxisAlignment;
 } NavigationRailObjSt;
 typedef struct {
   int id;
@@ -3006,7 +3037,9 @@ typedef struct {
   int consumeOutsideTap;
   int crossAxisUnconstrained;
   int useRootOverlay;
+  int animated;
   DartObj child;
+  DartObj reservedPadding;
 } MenuAnchorObjSt;
 typedef struct {
   int id;
@@ -3015,6 +3048,8 @@ typedef struct {
   DartObj leadingIcon;
   DartObj trailingIcon;
   int useRootOverlay;
+  DartObj hoverOpenDelay;
+  int animated;
   DartObj child;
 } SubmenuButtonObjSt;
 typedef struct {
@@ -3092,12 +3127,12 @@ typedef struct {
   int orientation;
   IconObjSt switchToInputEntryModeIcon;
   IconObjSt switchToTimerEntryModeIcon;
+  int emptyInitialInput;
 } TimePickerDialogObjSt;
 typedef struct {
   int id;
   DartObj firstDate;
   DartObj lastDate;
-  DartObj currentDate;
   int initialEntryMode;
   char* cancelText;
   char* confirmText;
@@ -3113,6 +3148,7 @@ typedef struct {
   char* restorationId;
   IconObjSt switchToInputEntryModeIcon;
   IconObjSt switchToCalendarEntryModeIcon;
+  DartObj currentDate;
 } DateRangePickerDialogObjSt;
 typedef struct {
   int id;
@@ -3144,6 +3180,9 @@ typedef struct {
   int autoFocus;
   int textInputAction;
   EdgeInsetsObjSt scrollPadding;
+  int readOnly;
+  int smartDashesType;
+  int smartQuotesType;
 } SearchBarObjSt;
 typedef struct {
   int id;
@@ -3374,6 +3413,7 @@ typedef struct {
   int id;
   int isDefaultAction;
   int isDestructiveAction;
+  DartObj focusColor;
   DartObj child;
 } CupertinoActionSheetActionObjSt;
 typedef struct {
@@ -3426,6 +3466,7 @@ typedef struct {
   int scribbleEnabled;
   int stylusHandwritingEnabled;
   int enableIMEPersonalizedLearning;
+  int enableInlinePrediction;
   int selectionEnabled;
 } CupertinoTextFieldObjSt;
 typedef struct {
@@ -3725,6 +3766,10 @@ typedef struct {
 } TooltipThemeObjSt;
 typedef struct {
   int id;
+  SnackBarThemeDataObjSt data;
+} SnackBarThemeObjSt;
+typedef struct {
+  int id;
   BadgeThemeDataObjSt data;
 } BadgeThemeObjSt;
 typedef struct {
@@ -3811,6 +3856,10 @@ typedef struct {
   int id;
   IconButtonThemeDataObjSt data;
 } IconButtonThemeObjSt;
+typedef struct {
+  int id;
+  FloatingActionButtonThemeDataObjSt data;
+} FloatingActionButtonThemeObjSt;
 typedef struct {
   int id;
   SegmentedButtonThemeDataObjSt data;
@@ -3942,6 +3991,7 @@ typedef struct {
   int id;
   double viewportFraction;
   int padEnds;
+  int allowImplicitScrolling;
 } SliverFillViewportObjSt;
 typedef struct {
   int id;
@@ -3951,6 +4001,7 @@ typedef struct {
 } SliverAnimatedOpacityObjSt;
 typedef struct {
   int id;
+  DartObj child;
 } PinnedHeaderSliverObjSt;
 typedef struct {
   int id;
@@ -3993,6 +4044,7 @@ typedef struct {
   DartObj leading;
   int automaticallyImplyLeading;
   DartObj title;
+  int automaticallyImplyActions;
   DartObj flexibleSpace;
   DartObj bottom;
   double elevation;
@@ -4080,6 +4132,8 @@ typedef struct {
   double stepIconWidth;
   EdgeInsetsObjSt stepIconMargin;
   int clipBehavior;
+  DartObj headerPadding;
+  DartObj contentPadding;
 } StepperObjSt;
 typedef struct {
   int id;
@@ -4103,6 +4157,7 @@ typedef struct {
   DartObj backgroundColor;
   double elevation;
   DartObj shape;
+  int itemClipBehavior;
   double shrinkExtent;
   int itemSnapping;
   int scrollDirection;
@@ -4110,6 +4165,8 @@ typedef struct {
   int consumeMaxWeight;
   int enableSplash;
   double itemExtent;
+  int itemCount;
+  int infinite;
 } CarouselViewObjSt;
 typedef struct {
   int id;
@@ -4170,6 +4227,7 @@ typedef struct {
 typedef struct {
   int id;
   DartObj child;
+  int overlayLocation;
 } OverlayPortalObjSt;
 typedef struct {
   int id;
@@ -4218,7 +4276,7 @@ typedef struct {
   int scrollbarOrientation;
   double mainAxisMargin;
   double crossAxisMargin;
-  EdgeInsetsObjSt padding;
+  DartObj padding;
 } RawScrollbarObjSt;
 typedef struct {
   int id;
@@ -4299,6 +4357,8 @@ typedef struct {
   int crossAxisDirection;
   int paintOrder;
   int clipBehavior;
+  double cacheExtent;
+  int cacheExtentStyle;
 } ShrinkWrappingViewportObjSt;
 typedef struct {
   int id;
