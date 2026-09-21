@@ -373,6 +373,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
+  int fontWeightFontWeight(int value) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("value", value);
+    record(id, "fontWeightFontWeight", p);
+    return id;
+  }
+  @Override
   int fontWeightLerp(FontWeight a, FontWeight b, double t) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
@@ -380,69 +388,6 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     p.put("b", byId.get(b.getId()));
     p.put("t", t);
     record(id, "fontWeightLerp", p);
-    return id;
-  }
-  @Override
-  int fontWeightW100() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW100", p);
-    return id;
-  }
-  @Override
-  int fontWeightW200() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW200", p);
-    return id;
-  }
-  @Override
-  int fontWeightW300() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW300", p);
-    return id;
-  }
-  @Override
-  int fontWeightW400() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW400", p);
-    return id;
-  }
-  @Override
-  int fontWeightW500() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW500", p);
-    return id;
-  }
-  @Override
-  int fontWeightW600() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW600", p);
-    return id;
-  }
-  @Override
-  int fontWeightW700() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW700", p);
-    return id;
-  }
-  @Override
-  int fontWeightW800() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW800", p);
-    return id;
-  }
-  @Override
-  int fontWeightW900() {
-    int id = nextId++;
-    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
-    record(id, "fontWeightW900", p);
     return id;
   }
 
@@ -3571,6 +3516,14 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     record(id, "colorFilterSrgbToLinearGamma", p);
+    return id;
+  }
+  @Override
+  int colorFilterSaturation(double saturation) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("saturation", saturation);
+    record(id, "colorFilterSaturation", p);
     return id;
   }
 
@@ -13330,7 +13283,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
   }
 
   @Override
-  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<AccessibilityFocusBlockType> accessibilityFocusBlockType, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<NativeObj> traversalParentIdentifier, Optional<NativeObj> traversalChildIdentifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<Runnable> onExpand, Optional<Runnable> onCollapse, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsInputType> inputType, Optional<String> minValue, Optional<String> maxValue) {
+  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<AccessibilityFocusBlockType> accessibilityFocusBlockType, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<NativeObj> traversalParentIdentifier, Optional<NativeObj> traversalChildIdentifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<Runnable> onExpand, Optional<Runnable> onCollapse, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsHitTestBehavior> hitTestBehavior, Optional<SemanticsInputType> inputType, Optional<String> minValue, Optional<String> maxValue) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("sliver", byId.get(sliver.getId()));
@@ -13400,6 +13353,7 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     if (onCollapse.isPresent()) { int __cb_onCollapse = nextCallbackId++; p.put("onCollapse", __cb_onCollapse); callbacks.put(__cb_onCollapse, onCollapse.get()); }
     role.ifPresent(v -> p.put("role", v.ordinal()));
     validationResult.ifPresent(v -> p.put("validationResult", v.ordinal()));
+    hitTestBehavior.ifPresent(v -> p.put("hitTestBehavior", v.ordinal()));
     inputType.ifPresent(v -> p.put("inputType", v.ordinal()));
     minValue.ifPresent(v -> p.put("minValue", v));
     maxValue.ifPresent(v -> p.put("maxValue", v));

@@ -41,6 +41,16 @@ public class ColorFilter extends NativeObj.Base implements ColorFilterI {
   public static ColorFilterSrgbToLinearGammaBuilder srgbToLinearGamma() {
     return ColorFilterSrgbToLinearGammaBuilder.colorFilterSrgbToLinearGamma();
   }
+  @Builder.Factory
+  static ColorFilter colorFilterSaturation(@Builder.Parameter double saturation) {
+    int id = factories.colorFilterSaturation(saturation);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ColorFilter");
+    System.out.println("New ColorFilter id:"+id);
+    return new ColorFilter(id);
+  }
+  public static ColorFilterSaturationBuilder saturation(double saturation) {
+    return ColorFilterSaturationBuilder.colorFilterSaturation(saturation);
+  }
   private static int _kTypeMode() {
     return 1;
   }

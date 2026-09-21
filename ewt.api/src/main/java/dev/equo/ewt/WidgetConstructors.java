@@ -353,48 +353,17 @@ class WidgetConstructors extends WidgetConstructorsBase {
     return WidgetFactories.TimeOfDaySt.now.invoke(fn, arena);
   }
 
+  int fontWeightFontWeight(int value) {
+    var st = WidgetFactories.fontWeight(factories);
+    var fn = WidgetFactories.FontWeightSt.fontWeight(st);
+    return WidgetFactories.FontWeightSt.fontWeight.invoke(fn, value);
+  }
   int fontWeightLerp(FontWeight a, FontWeight b, double t) {
     var st = WidgetFactories.fontWeight(factories);
     var fn = WidgetFactories.FontWeightSt.lerp(st);
     return WidgetFactories.FontWeightSt.lerp.invoke(fn, a != null ? a.build().getId() : null,
       b != null ? b.build().getId() : null,
       t);
-  }
-  int fontWeightW100() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w100(st);
-  }
-  int fontWeightW200() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w200(st);
-  }
-  int fontWeightW300() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w300(st);
-  }
-  int fontWeightW400() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w400(st);
-  }
-  int fontWeightW500() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w500(st);
-  }
-  int fontWeightW600() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w600(st);
-  }
-  int fontWeightW700() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w700(st);
-  }
-  int fontWeightW800() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w800(st);
-  }
-  int fontWeightW900() {
-    var st = WidgetFactories.fontWeight(factories);
-    return WidgetFactories.FontWeightSt.w900(st);
   }
 
   int shadowShadow(Optional<Color> color, Optional<Offset> offset, OptionalDouble blurRadius) {
@@ -2526,6 +2495,11 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var st = WidgetFactories.colorFilter(factories);
     var fn = WidgetFactories.ColorFilterSt.srgbToLinearGamma(st);
     return WidgetFactories.ColorFilterSt.srgbToLinearGamma.invoke(fn);
+  }
+  int colorFilterSaturation(double saturation) {
+    var st = WidgetFactories.colorFilter(factories);
+    var fn = WidgetFactories.ColorFilterSt.saturation(st);
+    return WidgetFactories.ColorFilterSt.saturation.invoke(fn, saturation);
   }
 
   MemorySegment backdropFilterBackdropFilter(Optional<ImageFilter> filter, Optional<Widget> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
@@ -9668,7 +9642,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       child.build().getId());
   }
 
-  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<AccessibilityFocusBlockType> accessibilityFocusBlockType, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<NativeObj> traversalParentIdentifier, Optional<NativeObj> traversalChildIdentifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<Runnable> onExpand, Optional<Runnable> onCollapse, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsInputType> inputType, Optional<String> minValue, Optional<String> maxValue) {
+  MemorySegment sliverSemanticsSliverSemantics(Widget sliver, Optional<Boolean> container, Optional<Boolean> explicitChildNodes, Optional<Boolean> excludeSemantics, Optional<Boolean> blockUserActions, Optional<Boolean> enabled, Optional<Boolean> checked, Optional<Boolean> mixed, Optional<Boolean> selected, Optional<Boolean> toggled, Optional<Boolean> button, Optional<Boolean> slider, Optional<Boolean> keyboardKey, Optional<Boolean> link, Optional<Boolean> header, OptionalInt headingLevel, Optional<Boolean> textField, Optional<Boolean> readOnly, Optional<Boolean> focusable, Optional<Boolean> focused, Optional<AccessibilityFocusBlockType> accessibilityFocusBlockType, Optional<Boolean> inMutuallyExclusiveGroup, Optional<Boolean> obscured, Optional<Boolean> multiline, Optional<Boolean> scopesRoute, Optional<Boolean> namesRoute, Optional<Boolean> hidden, Optional<Boolean> image, Optional<Boolean> liveRegion, Optional<Boolean> expanded, Optional<Boolean> isRequired, OptionalInt maxValueLength, OptionalInt currentValueLength, Optional<String> identifier, Optional<NativeObj> traversalParentIdentifier, Optional<NativeObj> traversalChildIdentifier, Optional<String> label, Optional<String> value, Optional<String> increasedValue, Optional<String> decreasedValue, Optional<String> hint, Optional<String> tooltip, Optional<String> onTapHint, Optional<String> onLongPressHint, Optional<TextDirection> textDirection, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Runnable> onScrollLeft, Optional<Runnable> onScrollRight, Optional<Runnable> onScrollUp, Optional<Runnable> onScrollDown, Optional<Runnable> onIncrease, Optional<Runnable> onDecrease, Optional<Runnable> onCopy, Optional<Runnable> onCut, Optional<Runnable> onPaste, Optional<Runnable> onDismiss, Optional<Consumer<Boolean>> onMoveCursorForwardByCharacter, Optional<Consumer<Boolean>> onMoveCursorBackwardByCharacter, Optional<Consumer<String>> onSetText, Optional<Runnable> onDidGainAccessibilityFocus, Optional<Runnable> onDidLoseAccessibilityFocus, Optional<Runnable> onFocus, Optional<Runnable> onExpand, Optional<Runnable> onCollapse, Optional<SemanticsRole> role, Optional<SemanticsValidationResult> validationResult, Optional<SemanticsHitTestBehavior> hitTestBehavior, Optional<SemanticsInputType> inputType, Optional<String> minValue, Optional<String> maxValue) {
     var st = WidgetFactories.sliverSemantics(factories);
     var fn = WidgetFactories.SliverSemanticsSt.sliverSemantics(st);
     return WidgetFactories.SliverSemanticsSt.sliverSemantics.invoke(fn, arena, sliver.build().getId(),
@@ -9738,6 +9712,7 @@ class WidgetConstructors extends WidgetConstructorsBase {
       onCollapse.isPresent() ? ptrHolder(ptrVoidCallbackFn(onCollapse.get())) : MemorySegment.NULL,
       ptrEnum(role),
       ptrEnum(validationResult),
+      ptrEnum(hitTestBehavior),
       ptrEnum(inputType),
       ptrStr(minValue),
       ptrStr(maxValue));

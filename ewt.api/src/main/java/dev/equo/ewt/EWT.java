@@ -168,6 +168,10 @@ public class EWT {
     return TimeOfDayNowBuilder.timeOfDayNow();
   }
 
+  public static FontWeightFontWeightBuilder FontWeight(int value) {
+    return FontWeightFontWeightBuilder.fontWeightFontWeight(value);
+  }
+
   public static ShadowShadowBuilder Shadow() {
     return ShadowShadowBuilder.shadowShadow();
   }
@@ -770,6 +774,9 @@ public class EWT {
   }
   public static ColorFilterSrgbToLinearGammaBuilder ColorFilter_srgbToLinearGamma() {
     return ColorFilterSrgbToLinearGammaBuilder.colorFilterSrgbToLinearGamma();
+  }
+  public static ColorFilterSaturationBuilder ColorFilter_saturation(double saturation) {
+    return ColorFilterSaturationBuilder.colorFilterSaturation(saturation);
   }
 
   public static BackdropFilterBackdropFilterBuilder BackdropFilter() {

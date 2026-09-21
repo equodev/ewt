@@ -60,16 +60,8 @@ typedef struct {
   } timeOfDay;
 
   struct FontWeightSt {
+    DartObj (*fontWeight)(int value);
     DartObj (*lerp)(DartObj a, DartObj b, double t);
-    DartObj w100;
-    DartObj w200;
-    DartObj w300;
-    DartObj w400;
-    DartObj w500;
-    DartObj w600;
-    DartObj w700;
-    DartObj w800;
-    DartObj w900;
   } fontWeight;
 
   struct ShadowSt {
@@ -706,6 +698,7 @@ typedef struct {
     DartObj (*mode)(DartObj color, int blendMode);
     DartObj (*linearToSrgbGamma)(void);
     DartObj (*srgbToLinearGamma)(void);
+    DartObj (*saturation)(double saturation);
   } colorFilter;
 
   struct BackdropFilterSt {
@@ -2271,7 +2264,7 @@ typedef struct {
   } sliverFloatingHeader;
 
   struct SliverSemanticsSt {
-    SliverSemanticsObjSt (*sliverSemantics)(DartObj sliver, int* container, int* explicitChildNodes, int* excludeSemantics, int* blockUserActions, int* enabled, int* checked, int* mixed, int* selected, int* toggled, int* button, int* slider, int* keyboardKey, int* link, int* header, int* headingLevel, int* textField, int* readOnly, int* focusable, int* focused, int* accessibilityFocusBlockType, int* inMutuallyExclusiveGroup, int* obscured, int* multiline, int* scopesRoute, int* namesRoute, int* hidden, int* image, int* liveRegion, int* expanded, int* isRequired, int* maxValueLength, int* currentValueLength, char* identifier, DartObj* traversalParentIdentifier, DartObj* traversalChildIdentifier, char* label, char* value, char* increasedValue, char* decreasedValue, char* hint, char* tooltip, char* onTapHint, char* onLongPressHint, int* textDirection, VoidCallbackFFI* onTap, VoidCallbackFFI* onLongPress, VoidCallbackFFI* onScrollLeft, VoidCallbackFFI* onScrollRight, VoidCallbackFFI* onScrollUp, VoidCallbackFFI* onScrollDown, VoidCallbackFFI* onIncrease, VoidCallbackFFI* onDecrease, VoidCallbackFFI* onCopy, VoidCallbackFFI* onCut, VoidCallbackFFI* onPaste, VoidCallbackFFI* onDismiss, MoveCursorHandlerFFI* onMoveCursorForwardByCharacter, MoveCursorHandlerFFI* onMoveCursorBackwardByCharacter, SetTextHandlerFFI* onSetText, VoidCallbackFFI* onDidGainAccessibilityFocus, VoidCallbackFFI* onDidLoseAccessibilityFocus, VoidCallbackFFI* onFocus, VoidCallbackFFI* onExpand, VoidCallbackFFI* onCollapse, int* role, int* validationResult, int* inputType, char* minValue, char* maxValue);
+    SliverSemanticsObjSt (*sliverSemantics)(DartObj sliver, int* container, int* explicitChildNodes, int* excludeSemantics, int* blockUserActions, int* enabled, int* checked, int* mixed, int* selected, int* toggled, int* button, int* slider, int* keyboardKey, int* link, int* header, int* headingLevel, int* textField, int* readOnly, int* focusable, int* focused, int* accessibilityFocusBlockType, int* inMutuallyExclusiveGroup, int* obscured, int* multiline, int* scopesRoute, int* namesRoute, int* hidden, int* image, int* liveRegion, int* expanded, int* isRequired, int* maxValueLength, int* currentValueLength, char* identifier, DartObj* traversalParentIdentifier, DartObj* traversalChildIdentifier, char* label, char* value, char* increasedValue, char* decreasedValue, char* hint, char* tooltip, char* onTapHint, char* onLongPressHint, int* textDirection, VoidCallbackFFI* onTap, VoidCallbackFFI* onLongPress, VoidCallbackFFI* onScrollLeft, VoidCallbackFFI* onScrollRight, VoidCallbackFFI* onScrollUp, VoidCallbackFFI* onScrollDown, VoidCallbackFFI* onIncrease, VoidCallbackFFI* onDecrease, VoidCallbackFFI* onCopy, VoidCallbackFFI* onCut, VoidCallbackFFI* onPaste, VoidCallbackFFI* onDismiss, MoveCursorHandlerFFI* onMoveCursorForwardByCharacter, MoveCursorHandlerFFI* onMoveCursorBackwardByCharacter, SetTextHandlerFFI* onSetText, VoidCallbackFFI* onDidGainAccessibilityFocus, VoidCallbackFFI* onDidLoseAccessibilityFocus, VoidCallbackFFI* onFocus, VoidCallbackFFI* onExpand, VoidCallbackFFI* onCollapse, int* role, int* validationResult, int* hitTestBehavior, int* inputType, char* minValue, char* maxValue);
   } sliverSemantics;
 
   struct SliverAppBarSt {

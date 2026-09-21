@@ -417,16 +417,12 @@ TimeOfDayObjSt _createTimeOfDayObjSt(TimeOfDay? w) {
 }
 
 void _setupFontWeight(WidgetFactories f) {
+  f.fontWeight.fontWeight = ffi.Pointer.fromFunction(fontWeightFontWeight, exception);
   f.fontWeight.lerp = ffi.Pointer.fromFunction(fontWeightLerp, exception);
-  f.fontWeight.w100 = _addWidget(FontWeight.w100);
-  f.fontWeight.w200 = _addWidget(FontWeight.w200);
-  f.fontWeight.w300 = _addWidget(FontWeight.w300);
-  f.fontWeight.w400 = _addWidget(FontWeight.w400);
-  f.fontWeight.w500 = _addWidget(FontWeight.w500);
-  f.fontWeight.w600 = _addWidget(FontWeight.w600);
-  f.fontWeight.w700 = _addWidget(FontWeight.w700);
-  f.fontWeight.w800 = _addWidget(FontWeight.w800);
-  f.fontWeight.w900 = _addWidget(FontWeight.w900);
+}
+int fontWeightFontWeight(int value) {
+  final w = FontWeight(value);
+  return _addWidget(w);
 }
 int fontWeightLerp(DartDartObj a, DartDartObj b, double t) {
   final w = FontWeight.lerp(_widgetsMap[a]! as FontWeight?,
@@ -3692,6 +3688,7 @@ void _setupColorFilter(WidgetFactories f) {
   f.colorFilter.mode = ffi.Pointer.fromFunction(colorFilterMode, exception);
   f.colorFilter.linearToSrgbGamma = ffi.Pointer.fromFunction(colorFilterLinearToSrgbGamma, exception);
   f.colorFilter.srgbToLinearGamma = ffi.Pointer.fromFunction(colorFilterSrgbToLinearGamma, exception);
+  f.colorFilter.saturation = ffi.Pointer.fromFunction(colorFilterSaturation, exception);
 }
 int colorFilterMode(DartDartObj color, int blendMode) {
   final w = ColorFilter.mode(_widgetsMap[color]! as Color,
@@ -3704,6 +3701,10 @@ int colorFilterLinearToSrgbGamma() {
 }
 int colorFilterSrgbToLinearGamma() {
   final w = ColorFilter.srgbToLinearGamma();
+  return _addWidget(w);
+}
+int colorFilterSaturation(double saturation) {
+  final w = ColorFilter.saturation(saturation);
   return _addWidget(w);
 }
 
@@ -15776,7 +15777,7 @@ SliverFloatingHeaderObjSt _createSliverFloatingHeaderObjSt(SliverFloatingHeader?
 void _setupSliverSemantics(WidgetFactories f) {
   f.sliverSemantics.sliverSemantics = ffi.Pointer.fromFunction(sliverSemanticsSliverSemantics);
 }
-SliverSemanticsObjSt sliverSemanticsSliverSemantics(DartDartObj sliver, ffi.Pointer<ffi.Int> container, ffi.Pointer<ffi.Int> explicitChildNodes, ffi.Pointer<ffi.Int> excludeSemantics, ffi.Pointer<ffi.Int> blockUserActions, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> checked, ffi.Pointer<ffi.Int> mixed, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Int> toggled, ffi.Pointer<ffi.Int> button, ffi.Pointer<ffi.Int> slider, ffi.Pointer<ffi.Int> keyboardKey, ffi.Pointer<ffi.Int> link, ffi.Pointer<ffi.Int> header, ffi.Pointer<ffi.Int> headingLevel, ffi.Pointer<ffi.Int> textField, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> focusable, ffi.Pointer<ffi.Int> focused, ffi.Pointer<ffi.Int> accessibilityFocusBlockType, ffi.Pointer<ffi.Int> inMutuallyExclusiveGroup, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Int> multiline, ffi.Pointer<ffi.Int> scopesRoute, ffi.Pointer<ffi.Int> namesRoute, ffi.Pointer<ffi.Int> hidden, ffi.Pointer<ffi.Int> image, ffi.Pointer<ffi.Int> liveRegion, ffi.Pointer<ffi.Int> expanded, ffi.Pointer<ffi.Int> isRequired, ffi.Pointer<ffi.Int> maxValueLength, ffi.Pointer<ffi.Int> currentValueLength, ffi.Pointer<ffi.Char> identifier, ffi.Pointer<DartObj> traversalParentIdentifier, ffi.Pointer<DartObj> traversalChildIdentifier, ffi.Pointer<ffi.Char> label, ffi.Pointer<ffi.Char> value, ffi.Pointer<ffi.Char> increasedValue, ffi.Pointer<ffi.Char> decreasedValue, ffi.Pointer<ffi.Char> hint, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Char> onTapHint, ffi.Pointer<ffi.Char> onLongPressHint, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<VoidCallbackFFI> onTap, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<VoidCallbackFFI> onScrollLeft, ffi.Pointer<VoidCallbackFFI> onScrollRight, ffi.Pointer<VoidCallbackFFI> onScrollUp, ffi.Pointer<VoidCallbackFFI> onScrollDown, ffi.Pointer<VoidCallbackFFI> onIncrease, ffi.Pointer<VoidCallbackFFI> onDecrease, ffi.Pointer<VoidCallbackFFI> onCopy, ffi.Pointer<VoidCallbackFFI> onCut, ffi.Pointer<VoidCallbackFFI> onPaste, ffi.Pointer<VoidCallbackFFI> onDismiss, ffi.Pointer<MoveCursorHandlerFFI> onMoveCursorForwardByCharacter, ffi.Pointer<MoveCursorHandlerFFI> onMoveCursorBackwardByCharacter, ffi.Pointer<SetTextHandlerFFI> onSetText, ffi.Pointer<VoidCallbackFFI> onDidGainAccessibilityFocus, ffi.Pointer<VoidCallbackFFI> onDidLoseAccessibilityFocus, ffi.Pointer<VoidCallbackFFI> onFocus, ffi.Pointer<VoidCallbackFFI> onExpand, ffi.Pointer<VoidCallbackFFI> onCollapse, ffi.Pointer<ffi.Int> role, ffi.Pointer<ffi.Int> validationResult, ffi.Pointer<ffi.Int> inputType, ffi.Pointer<ffi.Char> minValue, ffi.Pointer<ffi.Char> maxValue) {
+SliverSemanticsObjSt sliverSemanticsSliverSemantics(DartDartObj sliver, ffi.Pointer<ffi.Int> container, ffi.Pointer<ffi.Int> explicitChildNodes, ffi.Pointer<ffi.Int> excludeSemantics, ffi.Pointer<ffi.Int> blockUserActions, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<ffi.Int> checked, ffi.Pointer<ffi.Int> mixed, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Int> toggled, ffi.Pointer<ffi.Int> button, ffi.Pointer<ffi.Int> slider, ffi.Pointer<ffi.Int> keyboardKey, ffi.Pointer<ffi.Int> link, ffi.Pointer<ffi.Int> header, ffi.Pointer<ffi.Int> headingLevel, ffi.Pointer<ffi.Int> textField, ffi.Pointer<ffi.Int> readOnly, ffi.Pointer<ffi.Int> focusable, ffi.Pointer<ffi.Int> focused, ffi.Pointer<ffi.Int> accessibilityFocusBlockType, ffi.Pointer<ffi.Int> inMutuallyExclusiveGroup, ffi.Pointer<ffi.Int> obscured, ffi.Pointer<ffi.Int> multiline, ffi.Pointer<ffi.Int> scopesRoute, ffi.Pointer<ffi.Int> namesRoute, ffi.Pointer<ffi.Int> hidden, ffi.Pointer<ffi.Int> image, ffi.Pointer<ffi.Int> liveRegion, ffi.Pointer<ffi.Int> expanded, ffi.Pointer<ffi.Int> isRequired, ffi.Pointer<ffi.Int> maxValueLength, ffi.Pointer<ffi.Int> currentValueLength, ffi.Pointer<ffi.Char> identifier, ffi.Pointer<DartObj> traversalParentIdentifier, ffi.Pointer<DartObj> traversalChildIdentifier, ffi.Pointer<ffi.Char> label, ffi.Pointer<ffi.Char> value, ffi.Pointer<ffi.Char> increasedValue, ffi.Pointer<ffi.Char> decreasedValue, ffi.Pointer<ffi.Char> hint, ffi.Pointer<ffi.Char> tooltip, ffi.Pointer<ffi.Char> onTapHint, ffi.Pointer<ffi.Char> onLongPressHint, ffi.Pointer<ffi.Int> textDirection, ffi.Pointer<VoidCallbackFFI> onTap, ffi.Pointer<VoidCallbackFFI> onLongPress, ffi.Pointer<VoidCallbackFFI> onScrollLeft, ffi.Pointer<VoidCallbackFFI> onScrollRight, ffi.Pointer<VoidCallbackFFI> onScrollUp, ffi.Pointer<VoidCallbackFFI> onScrollDown, ffi.Pointer<VoidCallbackFFI> onIncrease, ffi.Pointer<VoidCallbackFFI> onDecrease, ffi.Pointer<VoidCallbackFFI> onCopy, ffi.Pointer<VoidCallbackFFI> onCut, ffi.Pointer<VoidCallbackFFI> onPaste, ffi.Pointer<VoidCallbackFFI> onDismiss, ffi.Pointer<MoveCursorHandlerFFI> onMoveCursorForwardByCharacter, ffi.Pointer<MoveCursorHandlerFFI> onMoveCursorBackwardByCharacter, ffi.Pointer<SetTextHandlerFFI> onSetText, ffi.Pointer<VoidCallbackFFI> onDidGainAccessibilityFocus, ffi.Pointer<VoidCallbackFFI> onDidLoseAccessibilityFocus, ffi.Pointer<VoidCallbackFFI> onFocus, ffi.Pointer<VoidCallbackFFI> onExpand, ffi.Pointer<VoidCallbackFFI> onCollapse, ffi.Pointer<ffi.Int> role, ffi.Pointer<ffi.Int> validationResult, ffi.Pointer<ffi.Int> hitTestBehavior, ffi.Pointer<ffi.Int> inputType, ffi.Pointer<ffi.Char> minValue, ffi.Pointer<ffi.Char> maxValue) {
   final w = SliverSemantics(sliver: _widgetsMap[sliver]! as Widget,
       container: container.boolOr(false),
       explicitChildNodes: explicitChildNodes.boolOr(false),
@@ -15844,6 +15845,7 @@ SliverSemanticsObjSt sliverSemanticsSliverSemantics(DartDartObj sliver, ffi.Poin
       onCollapse: onCollapse.toVoidCallbackFn(),
       role: role.enumOrNul(SemanticsRole.values),
       validationResult: validationResult.enumOr(SemanticsValidationResult.values, SemanticsValidationResult.none),
+      hitTestBehavior: hitTestBehavior.enumOrNul(SemanticsHitTestBehavior.values),
       inputType: inputType.enumOrNul(SemanticsInputType.values),
       minValue: minValue.strOrNul(),
       maxValue: maxValue.strOrNul());
