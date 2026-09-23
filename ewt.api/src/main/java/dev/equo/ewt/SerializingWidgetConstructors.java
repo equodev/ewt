@@ -1439,6 +1439,67 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, "animationControllerUnbounded", p);
     return id;
   }
+  @Override
+  int animationControllerForward(AnimationController self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "animationControllerForward", p);
+    return id;
+  }
+  @Override
+  int animationControllerReverse(AnimationController self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "animationControllerReverse", p);
+    return id;
+  }
+  @Override
+  int animationControllerRepeat(AnimationController self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "animationControllerRepeat", p);
+    return id;
+  }
+  @Override
+  int animationControllerToggle(AnimationController self) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    record(id, "animationControllerToggle", p);
+    return id;
+  }
+  @Override
+  int animationControllerFling(AnimationController self, double velocity) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    p.put("velocity", velocity);
+    record(id, "animationControllerFling", p);
+    return id;
+  }
+  @Override
+  int animationControllerAnimateTo(AnimationController self, double target, Duration duration) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    p.put("target", target);
+    p.put("duration", byId.get(duration.getId()));
+    record(id, "animationControllerAnimateTo", p);
+    return id;
+  }
+  @Override
+  int animationControllerAnimateBack(AnimationController self, double target, Duration duration) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("self", byId.get(self.getId()));
+    p.put("target", target);
+    p.put("duration", byId.get(duration.getId()));
+    record(id, "animationControllerAnimateBack", p);
+    return id;
+  }
 
   @Override
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {

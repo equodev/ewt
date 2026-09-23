@@ -78,26 +78,94 @@ class _EwtWebRegionState extends State<EwtWebRegion>
       final ctrl = _controllers[ctrlId];
       if (ctrl == null) {
         debugPrint('EWT web anim: unknown ctrlId=$ctrlId action=$action');
+        _maybeReplyCallback(cmd, ok: false);
         return;
       }
+
+      // Async format: `{"ctrlId":..,"action":"..","callbackId":..,"args":[..]}`.
+      // Distinguished from the legacy void format by the presence of `callbackId`.
+      // Actions in this branch return a TickerFuture (or a plain Future) that we
+      // subscribe to; the callback id round-trips through the callback channel.
+      if (cmd.containsKey('callbackId')) {
+        final args = (cmd['args'] as List?) ?? const [];
+        final fut = _invokeAsyncAction(ctrl, action, args);
+        if (fut == null) {
+          debugPrint('EWT web anim: unknown async action=$action');
+          _maybeReplyCallback(cmd, ok: false);
+          return;
+        }
+        fut.whenComplete(() => _maybeReplyCallback(cmd, ok: true));
+        return;
+      }
+
+      // Legacy void format — kept for setDuration/setReverseDuration/setValue,
+      // plus stop/reset. Encoded as `action:<primitive>` for the setters that
+      // need a value payload.
       if (action.startsWith('setDuration:')) {
-        final ms = int.parse(action.substring('setDuration:'.length));
-        ctrl.duration = Duration(milliseconds: ms);
+        ctrl.duration = Duration(milliseconds: int.parse(action.substring('setDuration:'.length)));
       } else if (action.startsWith('setReverseDuration:')) {
-        final ms = int.parse(action.substring('setReverseDuration:'.length));
-        ctrl.reverseDuration = Duration(milliseconds: ms);
+        ctrl.reverseDuration = Duration(milliseconds: int.parse(action.substring('setReverseDuration:'.length)));
+      } else if (action.startsWith('setValue:')) {
+        ctrl.value = double.parse(action.substring('setValue:'.length));
       } else switch (action) {
-        case 'forward': ctrl.forward();
-        case 'reverse': ctrl.reverse();
-        case 'repeat':         ctrl.repeat();
+        case 'stop':   ctrl.stop();
+        case 'reset':  ctrl.reset();
+        // repeat:reverse remains for the boolean-arg repeat overload injected
+        // by ImperativeControllerGen's extraJavaBody; the plain repeat/forward/
+        // reverse cases moved to the async branch above.
         case 'repeat:reverse': ctrl.repeat(reverse: true);
-        case 'stop':           ctrl.stop();
-        case 'reset':   ctrl.reset();
-        default: debugPrint('EWT web anim: unknown action=$action');
+        default: debugPrint('EWT web anim: unknown legacy action=$action');
       }
     } catch (e, st) {
       debugPrint('EWT web region ${widget.id} anim command failed: $e\n$st');
     }
+  }
+
+  /// Dispatches an async command by name. Returns the resulting Future, or null
+  /// if the action name is not recognized. Args come from the JSON payload —
+  /// primitives only (double, int for milliseconds, etc.).
+  Future<void>? _invokeAsyncAction(AnimationController ctrl, String action, List<dynamic> args) {
+    switch (action) {
+      case 'forward':
+        return ctrl.forward();
+      case 'reverse':
+        return ctrl.reverse();
+      case 'repeat':
+        return ctrl.repeat();
+      case 'toggle':
+        return ctrl.toggle();
+      case 'fling':
+        final velocity = (args.isNotEmpty ? (args[0] as num).toDouble() : 1.0);
+        return ctrl.fling(velocity: velocity);
+      case 'animateTo':
+        // args: [target: double, durationMs: int]. Curve is deferred (see
+        // docs/gen_structure.md §4); default is linear on both sides.
+        final target = (args[0] as num).toDouble();
+        final ms = (args[1] as num).toInt();
+        return ctrl.animateTo(target, duration: Duration(milliseconds: ms));
+      case 'animateBack':
+        final target = (args[0] as num).toDouble();
+        final ms = (args[1] as num).toInt();
+        return ctrl.animateBack(target, duration: Duration(milliseconds: ms));
+      default:
+        return null;
+    }
+  }
+
+  /// Replies to a callback command via the region's callback channel, matching
+  /// what `ewtActiveCallbackSink` sends for regular UI callbacks (button taps,
+  /// text changes). Value is always null for animation completion — the Java
+  /// side does not care about the return value of TickerFuture-typed methods.
+  void _maybeReplyCallback(Map<String, dynamic> cmd, {required bool ok}) {
+    final cbId = cmd['callbackId'];
+    if (cbId is! int) return;
+    // Failure-vs-success is not distinguished on the Java side today (the
+    // broker only exposes `complete`, not `completeExceptionally`, over the
+    // channel). `ok=false` still resolves the future to unblock the caller,
+    // but a stderr trace tells operators what went wrong. Extending the
+    // channel with an error variant is a follow-up.
+    EquoCommService.sendPayload(
+        'EwtWidget/${widget.id}/callback', <Object?>[cbId, null]);
   }
 
   @override

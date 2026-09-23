@@ -45,6 +45,7 @@ extension _JavaEmit on WidgetGen {
       writeVoidMethodWebPrelude(factory);
       ctx.javaFile.writeln('    $factoriesRef.$factoryName($callArgs);');
     } else {
+      writeNonVoidMethodWebPrelude(factory, node.returnType, restCallNames);
       final retType = types.type4FFMRet(node.returnType);
       ctx.javaFile.writeln('    $retType id = $factoriesRef.$factoryName($callArgs);');
       if (retType == 'int') {

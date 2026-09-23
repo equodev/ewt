@@ -253,18 +253,18 @@ typedef struct {
   struct AnimationControllerSt {
     DartObj (*animationController)(double* value, DartObj* duration, DartObj* reverseDuration, char* debugLabel, double* lowerBound, double* upperBound, int* animationBehavior, DartObj vsync);
     DartObj (*unbounded)(double* value, DartObj* duration, DartObj* reverseDuration, char* debugLabel, DartObj vsync, int* animationBehavior);
-    void (*forward)(DartObj self);
-    void (*reverse)(DartObj self);
+    DartObj (*forward)(DartObj self);
+    DartObj (*reverse)(DartObj self);
+    DartObj (*repeat)(DartObj self);
+    DartObj (*toggle)(DartObj self);
+    DartObj (*fling)(DartObj self, double velocity);
+    DartObj (*animateTo)(DartObj self, double target, DartObj duration);
+    DartObj (*animateBack)(DartObj self, double target, DartObj duration);
     void (*stop)(DartObj self);
-    void (*repeat)(DartObj self);
     void (*reset)(DartObj self);
+    void (*setValue)(DartObj self, double v);
     void (*setDuration)(DartObj self, DartObj d);
     void (*setReverseDuration)(DartObj self, DartObj d);
-    void (*animateTo)(DartObj self, double target, DartObj duration, DartObj curve);
-    void (*animateBack)(DartObj self, double target, DartObj duration, DartObj curve);
-    void (*toggle)(DartObj self);
-    void (*fling)(DartObj self, double velocity);
-    void (*setValue)(DartObj self, double v);
   } animationController;
 
   struct AnimatedBuilderSt {
