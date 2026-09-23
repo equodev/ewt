@@ -397,7 +397,18 @@ class Types {
       if (fromCallback && (param.isOptional ||
           t.nullabilitySuffix == NullabilitySuffix.question)) {
         // `value` is MemorySegment (DartObj* pointer); dereference as C_INT to get the id.
-        return 'NativeObj.byIdAndType('
+        // Guard against null pointer: Dart passes MemorySegment.NULL (address 0) when
+        // the underlying value is `null` on the Dart side. This happens in two real
+        // paths today:
+        //   * TickerFuture completes — its value is `void`, marshaled as null.
+        //     Every AnimationController.forward/reverse/animateTo/… `.then(consumer)`
+        //     lands here after issue #60 flipped these to return Future<Object?>.
+        //   * Future<T?> resolves to null (e.g. showDatePicker when the user
+        //     cancels). Was latently broken before but reachable only from user
+        //     code that observed the cancel path.
+        // Reading through a null MemorySegment crashes the JVM with SIGSEGV in
+        // `Unsafe.getIntUnaligned` — see hs_err_pid trace in issue #61.
+        return '$value.address() == 0 ? null : NativeObj.byIdAndType('
             '$value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), '
             'dev.equo.ewt.EWT.widgetTypeOf($value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0)))';
       }
