@@ -17,7 +17,7 @@ public class Stepper extends StatefulWidget implements StepperI {
   }
   Stepper(int id) { this.id = id; }
   @Builder.Factory
-  static Stepper stepperStepper(@Builder.Parameter List<StepI> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsetsI> stepIconMargin, Optional<Clip> clipBehavior) {
+  static Stepper stepperStepper(@Builder.Parameter List<StepI> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsetsI> stepIconMargin, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> headerPadding, Optional<EdgeInsetsGeometryI> contentPadding) {
     var st = factories.stepperStepper(steps.stream().map(StepI::build).toList(),
       type,
       currentStep,
@@ -32,7 +32,9 @@ public class Stepper extends StatefulWidget implements StepperI {
       stepIconHeight,
       stepIconWidth,
       stepIconMargin.map(EdgeInsetsI::build),
-      clipBehavior);
+      clipBehavior,
+      headerPadding.map(EdgeInsetsGeometryI::build),
+      contentPadding.map(EdgeInsetsGeometryI::build));
     if (st == null) throw new RuntimeException("Failed to created widget Stepper");
     return new Stepper(st);
   }
@@ -80,6 +82,14 @@ public class Stepper extends StatefulWidget implements StepperI {
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperClipBehavior not supported on web");
     return Clip.values()[StepperObjSt.clipBehavior(st)];
+  }
+  public EdgeInsetsGeometry headerPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperHeaderPadding not supported on web");
+    return new EdgeInsetsGeometry(StepperObjSt.headerPadding(st)) {};
+  }
+  public EdgeInsetsGeometry contentPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperContentPadding not supported on web");
+    return new EdgeInsetsGeometry(StepperObjSt.contentPadding(st)) {};
   }
   @Override
   public Stepper build() {

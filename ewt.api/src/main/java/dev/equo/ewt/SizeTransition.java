@@ -17,10 +17,11 @@ public class SizeTransition extends AnimatedWidget implements SizeTransitionI {
   }
   SizeTransition(int id) { this.id = id; }
   @Builder.Factory
-  static SizeTransition sizeTransitionSizeTransition(Optional<Axis> axis, AnimationI sizeFactor, OptionalDouble axisAlignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<WidgetI> child) {
+  static SizeTransition sizeTransitionSizeTransition(Optional<Axis> axis, AnimationI sizeFactor, OptionalDouble axisAlignment, Optional<AlignmentGeometryI> alignment, OptionalDouble fixedCrossAxisSizeFactor, Optional<WidgetI> child) {
     var st = factories.sizeTransitionSizeTransition(axis,
       sizeFactor.build(),
       axisAlignment,
+      alignment.map(AlignmentGeometryI::build),
       fixedCrossAxisSizeFactor,
       child.map(WidgetI::build));
     if (st == null) throw new RuntimeException("Failed to created widget SizeTransition");
@@ -36,6 +37,10 @@ public class SizeTransition extends AnimatedWidget implements SizeTransitionI {
   public double axisAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionAxisAlignment not supported on web");
     return SizeTransitionObjSt.axisAlignment(st);
+  }
+  public AlignmentGeometry alignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionAlignment not supported on web");
+    return new AlignmentGeometry(SizeTransitionObjSt.alignment(st)) {};
   }
   public double fixedCrossAxisSizeFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sizeTransitionFixedCrossAxisSizeFactor not supported on web");

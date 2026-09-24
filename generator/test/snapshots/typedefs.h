@@ -74,6 +74,7 @@ typedef void (*ExpansionPanelCallbackFFI)(int panelIndex, int isExpanded);
 typedef ArrayC (*PopupMenuItemBuilderForTFFI)(DartObj context);
 typedef void (*PopupMenuItemSelectedForTFFI)(DartObj value);
 typedef void (*PopupMenuCanceledFFI)(void);
+typedef void (*ValueChangedForAnimationStatusFFI)(int value);
 typedef void (*ValueChangedForDateTimeFFI)(DartObj value);
 typedef void (*ValueChangedForDurationFFI)(DartObj value);
 typedef DartObj (*SelectionOverlayBuilderFFI)(DartObj context, int columnCount, int selectedIndex);

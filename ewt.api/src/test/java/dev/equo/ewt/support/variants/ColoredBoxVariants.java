@@ -12,8 +12,8 @@ public final class ColoredBoxVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("coloredBox_allSet", List.of(PropExpectation.notNull("child"))),
-          Map.entry("coloredBox_boundary", List.of(PropExpectation.notNull("child")))
+          Map.entry("coloredBox_allSet", List.of(PropExpectation.equalTo("isAntiAlias", true), PropExpectation.notNull("child"))),
+          Map.entry("coloredBox_boundary", List.of(PropExpectation.equalTo("isAntiAlias", false), PropExpectation.notNull("child")))
       );
 
   public static Widget coloredBox_required() {
@@ -21,11 +21,11 @@ public final class ColoredBoxVariants {
   }
 
   public static Widget coloredBox_allSet() {
-    return ColoredBox.coloredBox(Color(0xff0000ff).build()).child(SizedBox().width(1.0).height(1.0).build()).build();
+    return ColoredBox.coloredBox(Color(0xff0000ff).build()).isAntiAlias(true).child(SizedBox().width(1.0).height(1.0).build()).build();
   }
 
   public static Widget coloredBox_boundary() {
-    return ColoredBox.coloredBox(Color(0xff0000ff).build()).child(SizedBox().width(1.0).height(1.0).build()).build();
+    return ColoredBox.coloredBox(Color(0xff0000ff).build()).isAntiAlias(false).child(SizedBox().width(1.0).height(1.0).build()).build();
   }
 
 }

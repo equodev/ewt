@@ -17,7 +17,7 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
   }
   AnimatedCrossFade(int id) { this.id = id; }
   @Builder.Factory
-  static AnimatedCrossFade animatedCrossFadeAnimatedCrossFade(@Builder.Parameter WidgetI firstChild, @Builder.Parameter WidgetI secondChild, Optional<CurveI> firstCurve, Optional<CurveI> secondCurve, Optional<CurveI> sizeCurve, Optional<AlignmentGeometryI> alignment, CrossFadeState crossFadeState, DurationI duration, Optional<DurationI> reverseDuration, Optional<Boolean> excludeBottomFocus) {
+  static AnimatedCrossFade animatedCrossFadeAnimatedCrossFade(@Builder.Parameter WidgetI firstChild, @Builder.Parameter WidgetI secondChild, Optional<CurveI> firstCurve, Optional<CurveI> secondCurve, Optional<CurveI> sizeCurve, Optional<AlignmentGeometryI> alignment, CrossFadeState crossFadeState, DurationI duration, Optional<DurationI> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Runnable> onEnd) {
     var st = factories.animatedCrossFadeAnimatedCrossFade(firstChild.build(),
       secondChild.build(),
       firstCurve.map(CurveI::build),
@@ -27,7 +27,8 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
       crossFadeState,
       duration.build(),
       reverseDuration.map(DurationI::build),
-      excludeBottomFocus);
+      excludeBottomFocus,
+      onEnd);
     if (st == null) throw new RuntimeException("Failed to created widget AnimatedCrossFade");
     return new AnimatedCrossFade(st);
   }

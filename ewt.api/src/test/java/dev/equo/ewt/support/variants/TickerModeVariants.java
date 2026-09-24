@@ -10,8 +10,22 @@ public final class TickerModeVariants {
 
   private TickerModeVariants() {}
 
+  public static final Map<String, List<PropExpectation>> EXPECTATIONS =
+      Map.ofEntries(
+          Map.entry("tickerMode_allSet", List.of(PropExpectation.equalTo("forceFrames", true))),
+          Map.entry("tickerMode_boundary", List.of(PropExpectation.equalTo("forceFrames", false)))
+      );
+
   public static Widget tickerMode_required() {
     return TickerMode.tickerMode(true, SizedBox().width(1.0).height(1.0).build()).build();
+  }
+
+  public static Widget tickerMode_allSet() {
+    return TickerMode.tickerMode(true, SizedBox().width(1.0).height(1.0).build()).forceFrames(true).build();
+  }
+
+  public static Widget tickerMode_boundary() {
+    return TickerMode.tickerMode(true, SizedBox().width(1.0).height(1.0).build()).forceFrames(false).build();
   }
 
 }

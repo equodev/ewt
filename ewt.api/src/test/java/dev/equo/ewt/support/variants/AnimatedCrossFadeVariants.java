@@ -21,11 +21,15 @@ public final class AnimatedCrossFadeVariants {
   }
 
   public static Widget animatedCrossFade_allSet() {
-    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().milliseconds(200).build()).excludeBottomFocus(true).build();
+    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().milliseconds(200).build()).excludeBottomFocus(true).onEnd(() -> {}).build();
   }
 
   public static Widget animatedCrossFade_boundary() {
-    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().build()).excludeBottomFocus(false).build();
+    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().build()).excludeBottomFocus(false).onEnd(() -> {}).build();
+  }
+
+  public static Widget animatedCrossFade_callbackWired() {
+    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).onEnd(() -> {}).build();
   }
 
 }

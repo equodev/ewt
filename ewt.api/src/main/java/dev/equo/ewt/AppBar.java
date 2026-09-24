@@ -17,11 +17,12 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   }
   AppBar(int id) { this.id = id; }
   @Builder.Factory
-  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<Boolean> animateColor) {
+  static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<Boolean> automaticallyImplyActions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<Boolean> animateColor) {
     var st = factories.appBarAppBar(leading.map(WidgetI::build),
       automaticallyImplyLeading,
       title.map(WidgetI::build),
       actions.map(i -> i.stream().map(WidgetI::build).toList()),
+      automaticallyImplyActions,
       flexibleSpace.map(WidgetI::build),
       bottom.map(PreferredSizeWidgetI::build),
       elevation,
@@ -65,6 +66,10 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarTitle not supported on web");
     return new Widget(AppBarObjSt.title(st)) {};
+  }
+  public boolean automaticallyImplyActions() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarAutomaticallyImplyActions not supported on web");
+    return intToBool(AppBarObjSt.automaticallyImplyActions(st));
   }
   public Widget flexibleSpace() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarFlexibleSpace not supported on web");

@@ -17,7 +17,7 @@ public class Slider extends StatefulWidget implements SliderI {
   }
   Slider(int id) { this.id = id; }
   @Builder.Factory
-  static Slider sliderSlider(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<ColorI> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> year2023) {
+  static Slider sliderSlider(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<ColorI> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<EdgeInsetsGeometryI> padding, Optional<ShowValueIndicator> showValueIndicator, Optional<Boolean> year2023) {
     var st = factories.sliderSlider(value,
       secondaryTrackValue,
       onChanged,
@@ -36,6 +36,7 @@ public class Slider extends StatefulWidget implements SliderI {
       autofocus,
       allowedInteraction,
       padding.map(EdgeInsetsGeometryI::build),
+      showValueIndicator,
       year2023);
     if (st == null) throw new RuntimeException("Failed to created widget Slider");
     return new Slider(st);
@@ -44,7 +45,7 @@ public class Slider extends StatefulWidget implements SliderI {
     return SliderSliderBuilder.sliderSlider(value);
   }
   @Builder.Factory
-  static Slider sliderAdaptive(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<ColorI> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<Boolean> year2023) {
+  static Slider sliderAdaptive(@Builder.Parameter double value, OptionalDouble secondaryTrackValue, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<String> label, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> secondaryActiveColor, Optional<ColorI> thumbColor, Optional<ColorI> overlayColor, Optional<Function<Double, String>> semanticFormatterCallback, Optional<Boolean> autofocus, Optional<SliderInteraction> allowedInteraction, Optional<ShowValueIndicator> showValueIndicator, Optional<Boolean> year2023) {
     var st = factories.sliderAdaptive(value,
       secondaryTrackValue,
       onChanged,
@@ -62,6 +63,7 @@ public class Slider extends StatefulWidget implements SliderI {
       semanticFormatterCallback,
       autofocus,
       allowedInteraction,
+      showValueIndicator,
       year2023);
     if (st == null) throw new RuntimeException("Failed to created widget Slider");
     return new Slider(st);
@@ -136,6 +138,10 @@ public class Slider extends StatefulWidget implements SliderI {
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderPadding not supported on web");
     return new EdgeInsetsGeometry(SliderObjSt.padding(st)) {};
+  }
+  public ShowValueIndicator showValueIndicator() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderShowValueIndicator not supported on web");
+    return ShowValueIndicator.values()[SliderObjSt.showValueIndicator(st)];
   }
   public boolean year2023() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("sliderYear2023 not supported on web");

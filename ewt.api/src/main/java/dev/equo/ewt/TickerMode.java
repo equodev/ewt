@@ -17,9 +17,10 @@ public class TickerMode extends StatefulWidget implements TickerModeI {
   }
   TickerMode(int id) { this.id = id; }
   @Builder.Factory
-  static TickerMode tickerModeTickerMode(@Builder.Parameter boolean enabled, @Builder.Parameter WidgetI child) {
+  static TickerMode tickerModeTickerMode(@Builder.Parameter boolean enabled, @Builder.Parameter WidgetI child, Optional<Boolean> forceFrames) {
     var st = factories.tickerModeTickerMode(enabled,
-      child.build());
+      child.build(),
+      forceFrames);
     if (st == null) throw new RuntimeException("Failed to created widget TickerMode");
     return new TickerMode(st);
   }
@@ -38,9 +39,27 @@ public class TickerMode extends StatefulWidget implements TickerModeI {
     System.out.println("New ValueListenable<bool> id:"+id);
     return new ValueListenable() { public int getId() { return id; } };
   }
+  public static ValueListenable getValuesNotifier(BuildContextI context) {
+    int id = factories.tickerModeGetValuesNotifier(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget ValueListenable<TickerModeData>");
+    System.out.println("New ValueListenable<TickerModeData> id:"+id);
+    return new ValueListenable() { public int getId() { return id; } };
+  }
+  public static Widget merge(WidgetI child) {
+    int id = factories.tickerModeMerge(Optional.empty(),
+      Optional.empty(),
+      child.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
+    System.out.println("New Widget id:"+id);
+    return new Widget(id) {};
+  }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tickerModeEnabled not supported on web");
     return intToBool(TickerModeObjSt.enabled(st));
+  }
+  public boolean forceFrames() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tickerModeForceFrames not supported on web");
+    return intToBool(TickerModeObjSt.forceFrames(st));
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tickerModeChild not supported on web");

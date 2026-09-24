@@ -12,8 +12,8 @@ public final class MenuAnchorVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("menuAnchor_allSet", List.of(PropExpectation.notNull("alignmentOffset"), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("anchorTapClosesMenu", true), PropExpectation.equalTo("consumeOutsideTap", true), PropExpectation.equalTo("crossAxisUnconstrained", true), PropExpectation.equalTo("useRootOverlay", true), PropExpectation.notNull("child"))),
-          Map.entry("menuAnchor_boundary", List.of(PropExpectation.notNull("alignmentOffset"), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("anchorTapClosesMenu", false), PropExpectation.equalTo("consumeOutsideTap", false), PropExpectation.equalTo("crossAxisUnconstrained", false), PropExpectation.equalTo("useRootOverlay", false), PropExpectation.notNull("child")))
+          Map.entry("menuAnchor_allSet", List.of(PropExpectation.notNull("alignmentOffset"), PropExpectation.notNull("reservedPadding"), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("anchorTapClosesMenu", true), PropExpectation.equalTo("consumeOutsideTap", true), PropExpectation.equalTo("crossAxisUnconstrained", true), PropExpectation.equalTo("useRootOverlay", true), PropExpectation.equalTo("animated", true), PropExpectation.notNull("child"))),
+          Map.entry("menuAnchor_boundary", List.of(PropExpectation.notNull("alignmentOffset"), PropExpectation.notNull("reservedPadding"), PropExpectation.equalTo("clipBehavior", Clip.none), PropExpectation.equalTo("anchorTapClosesMenu", false), PropExpectation.equalTo("consumeOutsideTap", false), PropExpectation.equalTo("crossAxisUnconstrained", false), PropExpectation.equalTo("useRootOverlay", false), PropExpectation.equalTo("animated", false), PropExpectation.notNull("child")))
       );
 
   public static Widget menuAnchor_required() {
@@ -21,15 +21,15 @@ public final class MenuAnchorVariants {
   }
 
   public static Widget menuAnchor_allSet() {
-    return MenuAnchor.menuAnchor().addAllMenuChildren(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).alignmentOffset(Offset.zero()).clipBehavior(Clip.none).anchorTapClosesMenu(true).consumeOutsideTap(true).onOpen(() -> {}).onClose(() -> {}).crossAxisUnconstrained(true).useRootOverlay(true).child(SizedBox().width(1.0).height(1.0).build()).build();
+    return MenuAnchor.menuAnchor().addAllMenuChildren(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).alignmentOffset(Offset.zero()).reservedPadding(EdgeInsets_all(8.0).build()).clipBehavior(Clip.none).anchorTapClosesMenu(true).consumeOutsideTap(true).onOpen(() -> {}).onClose(() -> {}).crossAxisUnconstrained(true).useRootOverlay(true).animated(true).onAnimationStatusChanged((_a0) -> {}).child(SizedBox().width(1.0).height(1.0).build()).build();
   }
 
   public static Widget menuAnchor_boundary() {
-    return MenuAnchor.menuAnchor().addAllMenuChildren(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).alignmentOffset(Offset.zero()).clipBehavior(Clip.none).anchorTapClosesMenu(false).consumeOutsideTap(false).onOpen(() -> {}).onClose(() -> {}).crossAxisUnconstrained(false).useRootOverlay(false).child(SizedBox().width(1.0).height(1.0).build()).build();
+    return MenuAnchor.menuAnchor().addAllMenuChildren(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).alignmentOffset(Offset.zero()).reservedPadding(EdgeInsets_all(8.0).build()).clipBehavior(Clip.none).anchorTapClosesMenu(false).consumeOutsideTap(false).onOpen(() -> {}).onClose(() -> {}).crossAxisUnconstrained(false).useRootOverlay(false).animated(false).onAnimationStatusChanged((_a0) -> {}).child(SizedBox().width(1.0).height(1.0).build()).build();
   }
 
   public static Widget menuAnchor_callbackWired() {
-    return MenuAnchor.menuAnchor().addAllMenuChildren(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).onOpen(() -> {}).onClose(() -> {}).build();
+    return MenuAnchor.menuAnchor().addAllMenuChildren(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).onOpen(() -> {}).onClose(() -> {}).onAnimationStatusChanged((_a0) -> {}).build();
   }
 
 }

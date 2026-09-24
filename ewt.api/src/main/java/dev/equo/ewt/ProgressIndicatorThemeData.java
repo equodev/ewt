@@ -17,7 +17,7 @@ public class ProgressIndicatorThemeData extends NativeObj.Base implements Progre
   }
   ProgressIndicatorThemeData(int id) { this.id = id; }
   @Builder.Factory
-  static ProgressIndicatorThemeData progressIndicatorThemeDataProgressIndicatorThemeData(Optional<ColorI> color, Optional<ColorI> linearTrackColor, OptionalDouble linearMinHeight, Optional<ColorI> circularTrackColor, Optional<ColorI> refreshBackgroundColor, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<StrokeCap> strokeCap, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<EdgeInsetsGeometryI> circularTrackPadding, Optional<Boolean> year2023) {
+  static ProgressIndicatorThemeData progressIndicatorThemeDataProgressIndicatorThemeData(Optional<ColorI> color, Optional<ColorI> linearTrackColor, OptionalDouble linearMinHeight, Optional<ColorI> circularTrackColor, Optional<ColorI> refreshBackgroundColor, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble strokeWidth, OptionalDouble strokeAlign, Optional<StrokeCap> strokeCap, Optional<BoxConstraintsI> constraints, OptionalDouble trackGap, Optional<EdgeInsetsGeometryI> circularTrackPadding, Optional<Boolean> year2023, Optional<AnimationControllerI> controller) {
     var st = factories.progressIndicatorThemeDataProgressIndicatorThemeData(color.map(ColorI::build),
       linearTrackColor.map(ColorI::build),
       linearMinHeight,
@@ -32,7 +32,8 @@ public class ProgressIndicatorThemeData extends NativeObj.Base implements Progre
       constraints.map(BoxConstraintsI::build),
       trackGap,
       circularTrackPadding.map(EdgeInsetsGeometryI::build),
-      year2023);
+      year2023,
+      controller.map(AnimationControllerI::build));
     if (st == null) throw new RuntimeException("Failed to created widget ProgressIndicatorThemeData");
     return new ProgressIndicatorThemeData(st);
   }
@@ -131,6 +132,14 @@ public class ProgressIndicatorThemeData extends NativeObj.Base implements Progre
   public boolean year2023() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("progressIndicatorThemeDataYear2023 not supported on web");
     return intToBool(ProgressIndicatorThemeDataObjSt.year2023(st));
+  }
+  public AnimationController controller() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("progressIndicatorThemeDataController", getId());
+      return new AnimationController(__nid);
+    }
+    return new AnimationController(ProgressIndicatorThemeDataObjSt.controller(st));
   }
   @Override
   public ProgressIndicatorThemeData build() {

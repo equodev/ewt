@@ -109,7 +109,7 @@ public final class WidgetBuilderCatalog {
         w("coloredBox", () -> ColoredBox(Color(0xff000000).build()).build()),
         w("colorFiltered", () -> ColorFiltered(ColorFilter.linearToSrgbGamma().build()).build()),
         w("imageFiltered", () -> ImageFiltered(ImageFilter.blur().build()).build()),
-        w("backdropFilter", () -> BackdropFilter(ImageFilter.blur().build()).build()),
+        w("backdropFilter", () -> BackdropFilter().filter(ImageFilter.blur()).build()),
         w("opacity", () -> Opacity(1.0).build()),
         w("physicalModel", () -> PhysicalModel().color(Color(0xff000000).build()).build()),
         w("repaintBoundary", () -> RepaintBoundary().build()),

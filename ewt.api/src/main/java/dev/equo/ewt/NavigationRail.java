@@ -17,7 +17,7 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
   }
   NavigationRail(int id) { this.id = id; }
   @Builder.Factory
-  static NavigationRail navigationRailNavigationRail(Optional<ColorI> backgroundColor, Optional<Boolean> extended, Optional<WidgetI> leading, Optional<WidgetI> trailing, List<NavigationRailDestinationI> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyleI> unselectedLabelTextStyle, Optional<TextStyleI> selectedLabelTextStyle, Optional<IconThemeDataI> unselectedIconTheme, Optional<IconThemeDataI> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable) {
+  static NavigationRail navigationRailNavigationRail(Optional<ColorI> backgroundColor, Optional<Boolean> extended, Optional<WidgetI> leading, Optional<WidgetI> trailing, List<NavigationRailDestinationI> destinations, OptionalInt selectedIndex, Optional<Consumer<Integer>> onDestinationSelected, OptionalDouble elevation, OptionalDouble groupAlignment, Optional<NavigationRailLabelType> labelType, Optional<TextStyleI> unselectedLabelTextStyle, Optional<TextStyleI> selectedLabelTextStyle, Optional<IconThemeDataI> unselectedIconTheme, Optional<IconThemeDataI> selectedIconTheme, OptionalDouble minWidth, OptionalDouble minExtendedWidth, Optional<Boolean> useIndicator, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, Optional<Boolean> leadingAtTop, Optional<Boolean> trailingAtBottom, Optional<Boolean> scrollable, Optional<MainAxisAlignment> mainAxisAlignment) {
     var st = factories.navigationRailNavigationRail(backgroundColor.map(ColorI::build),
       extended,
       leading.map(WidgetI::build),
@@ -39,7 +39,8 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
       indicatorShape.map(ShapeBorderI::build),
       leadingAtTop,
       trailingAtBottom,
-      scrollable);
+      scrollable,
+      mainAxisAlignment);
     if (st == null) throw new RuntimeException("Failed to created widget NavigationRail");
     return new NavigationRail(st);
   }
@@ -163,6 +164,10 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
   public boolean scrollable() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationRailScrollable not supported on web");
     return intToBool(NavigationRailObjSt.scrollable(st));
+  }
+  public MainAxisAlignment mainAxisAlignment() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationRailMainAxisAlignment not supported on web");
+    return MainAxisAlignment.values()[NavigationRailObjSt.mainAxisAlignment(st)];
   }
   @Override
   public NavigationRail build() {

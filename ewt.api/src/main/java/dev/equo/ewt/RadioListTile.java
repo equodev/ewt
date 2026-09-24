@@ -17,7 +17,7 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
   }
   RadioListTile(int id) { this.id = id; }
   @Builder.Factory
-  static <T extends NativeObj> RadioListTile<T> radioListTileRadioListTile(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<ColorI> radioBackgroundColor, Optional<BorderSideI> radioSide) {
+  static <T extends NativeObj> RadioListTile<T> radioListTileRadioListTile(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, OptionalDouble radioScaleFactor, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> enabled, Optional<Boolean> internalAddSemanticForOnTap, Optional<ColorI> radioBackgroundColor, Optional<BorderSideI> radioSide, OptionalDouble radioInnerRadius) {
     var st = factories.radioListTileRadioListTile(value,
       groupValue,
       onChanged,
@@ -43,12 +43,17 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
       visualDensity.map(VisualDensityI::build),
       onFocusChange,
       enableFeedback,
+      horizontalTitleGap,
+      minVerticalPadding,
+      minLeadingWidth,
+      minTileHeight,
       radioScaleFactor,
       titleAlignment,
       enabled,
       internalAddSemanticForOnTap,
       radioBackgroundColor.map(ColorI::build),
-      radioSide.map(BorderSideI::build));
+      radioSide.map(BorderSideI::build),
+      radioInnerRadius);
     if (st == null) throw new RuntimeException("Failed to created widget RadioListTile");
     return new RadioListTile(st);
   }
@@ -56,7 +61,7 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
     return RadioListTileRadioListTileBuilder.radioListTileRadioListTile(value);
   }
   @Builder.Factory
-  static <T extends NativeObj> RadioListTile<T> radioListTileAdaptive(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<ColorI> radioBackgroundColor, Optional<BorderSideI> radioSide) {
+  static <T extends NativeObj> RadioListTile<T> radioListTileAdaptive(@Builder.Parameter NativeObj value, Optional<NativeObj> groupValue, Optional<Consumer<NativeObj>> onChanged, Optional<Boolean> toggleable, Optional<ColorI> activeColor, Optional<ColorI> fillColor, Optional<ColorI> hoverColor, Optional<ColorI> overlayColor, OptionalDouble splashRadius, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<WidgetI> secondary, Optional<Boolean> selected, Optional<ListTileControlAffinity> controlAffinity, Optional<Boolean> autofocus, Optional<EdgeInsetsGeometryI> contentPadding, Optional<ShapeBorderI> shape, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<VisualDensityI> visualDensity, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, OptionalDouble radioScaleFactor, Optional<Boolean> enabled, Optional<Boolean> useCupertinoCheckmarkStyle, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap, Optional<ColorI> radioBackgroundColor, Optional<BorderSideI> radioSide, OptionalDouble radioInnerRadius) {
     var st = factories.radioListTileAdaptive(value,
       groupValue,
       onChanged,
@@ -82,13 +87,18 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
       visualDensity.map(VisualDensityI::build),
       onFocusChange,
       enableFeedback,
+      horizontalTitleGap,
+      minVerticalPadding,
+      minLeadingWidth,
+      minTileHeight,
       radioScaleFactor,
       enabled,
       useCupertinoCheckmarkStyle,
       titleAlignment,
       internalAddSemanticForOnTap,
       radioBackgroundColor.map(ColorI::build),
-      radioSide.map(BorderSideI::build));
+      radioSide.map(BorderSideI::build),
+      radioInnerRadius);
     if (st == null) throw new RuntimeException("Failed to created widget RadioListTile");
     return new RadioListTile(st);
   }
@@ -192,6 +202,22 @@ public class RadioListTile<T> extends StatefulWidget implements RadioListTileI {
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioListTileEnableFeedback not supported on web");
     return intToBool(RadioListTileObjSt.enableFeedback(st));
+  }
+  public double horizontalTitleGap() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioListTileHorizontalTitleGap not supported on web");
+    return RadioListTileObjSt.horizontalTitleGap(st);
+  }
+  public double minVerticalPadding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioListTileMinVerticalPadding not supported on web");
+    return RadioListTileObjSt.minVerticalPadding(st);
+  }
+  public double minLeadingWidth() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioListTileMinLeadingWidth not supported on web");
+    return RadioListTileObjSt.minLeadingWidth(st);
+  }
+  public double minTileHeight() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioListTileMinTileHeight not supported on web");
+    return RadioListTileObjSt.minTileHeight(st);
   }
   public ListTileTitleAlignment titleAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("radioListTileTitleAlignment not supported on web");

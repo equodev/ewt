@@ -1,5 +1,5 @@
 package dev.equo.ewt;
-public interface PinnedHeaderSliverI extends SingleChildRenderObjectWidgetI {
+public interface PinnedHeaderSliverI extends StatelessWidgetI {
   @Override
   PinnedHeaderSliver build();
 }

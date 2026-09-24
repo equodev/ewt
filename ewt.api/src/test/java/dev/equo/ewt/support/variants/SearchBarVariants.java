@@ -12,8 +12,8 @@ public final class SearchBarVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("searchBar_allSet", List.of(PropExpectation.equalTo("hintText", "hello"), PropExpectation.notNull("leading"), PropExpectation.notNull("constraints"), PropExpectation.equalTo("textCapitalization", TextCapitalization.words), PropExpectation.equalTo("enabled", true), PropExpectation.equalTo("autoFocus", true), PropExpectation.equalTo("textInputAction", TextInputAction.none), PropExpectation.notNull("scrollPadding"))),
-          Map.entry("searchBar_boundary", List.of(PropExpectation.equalTo("hintText", ""), PropExpectation.notNull("leading"), PropExpectation.notNull("constraints"), PropExpectation.equalTo("textCapitalization", TextCapitalization.words), PropExpectation.equalTo("enabled", false), PropExpectation.equalTo("autoFocus", false), PropExpectation.equalTo("textInputAction", TextInputAction.none), PropExpectation.notNull("scrollPadding")))
+          Map.entry("searchBar_allSet", List.of(PropExpectation.equalTo("hintText", "hello"), PropExpectation.notNull("leading"), PropExpectation.notNull("constraints"), PropExpectation.equalTo("textCapitalization", TextCapitalization.words), PropExpectation.equalTo("enabled", true), PropExpectation.equalTo("autoFocus", true), PropExpectation.equalTo("textInputAction", TextInputAction.none), PropExpectation.notNull("scrollPadding"), PropExpectation.equalTo("readOnly", true), PropExpectation.equalTo("smartDashesType", SmartDashesType.disabled), PropExpectation.equalTo("smartQuotesType", SmartQuotesType.disabled))),
+          Map.entry("searchBar_boundary", List.of(PropExpectation.equalTo("hintText", ""), PropExpectation.notNull("leading"), PropExpectation.notNull("constraints"), PropExpectation.equalTo("textCapitalization", TextCapitalization.words), PropExpectation.equalTo("enabled", false), PropExpectation.equalTo("autoFocus", false), PropExpectation.equalTo("textInputAction", TextInputAction.none), PropExpectation.notNull("scrollPadding"), PropExpectation.equalTo("readOnly", false), PropExpectation.equalTo("smartDashesType", SmartDashesType.disabled), PropExpectation.equalTo("smartQuotesType", SmartQuotesType.disabled)))
       );
 
   public static Widget searchBar_required() {
@@ -21,11 +21,11 @@ public final class SearchBarVariants {
   }
 
   public static Widget searchBar_allSet() {
-    return SearchBar.searchBar().hintText("hello").leading(SizedBox().width(1.0).height(1.0).build()).onTap(() -> {}).onTapOutside((_a0) -> {}).onChanged((_a0) -> {}).onSubmitted((_a0) -> {}).constraints(BoxConstraints.boxConstraints().build()).textCapitalization(TextCapitalization.words).enabled(true).autoFocus(true).textInputAction(TextInputAction.none).scrollPadding(EdgeInsets_all(8.0).build()).build();
+    return SearchBar.searchBar().hintText("hello").leading(SizedBox().width(1.0).height(1.0).build()).onTap(() -> {}).onTapOutside((_a0) -> {}).onChanged((_a0) -> {}).onSubmitted((_a0) -> {}).constraints(BoxConstraints.boxConstraints().build()).textCapitalization(TextCapitalization.words).enabled(true).autoFocus(true).textInputAction(TextInputAction.none).scrollPadding(EdgeInsets_all(8.0).build()).readOnly(true).smartDashesType(SmartDashesType.disabled).smartQuotesType(SmartQuotesType.disabled).build();
   }
 
   public static Widget searchBar_boundary() {
-    return SearchBar.searchBar().hintText("").leading(SizedBox().width(1.0).height(1.0).build()).onTap(() -> {}).onTapOutside((_a0) -> {}).onChanged((_a0) -> {}).onSubmitted((_a0) -> {}).constraints(BoxConstraints.boxConstraints().build()).textCapitalization(TextCapitalization.words).enabled(false).autoFocus(false).textInputAction(TextInputAction.none).scrollPadding(EdgeInsets_all(8.0).build()).build();
+    return SearchBar.searchBar().hintText("").leading(SizedBox().width(1.0).height(1.0).build()).onTap(() -> {}).onTapOutside((_a0) -> {}).onChanged((_a0) -> {}).onSubmitted((_a0) -> {}).constraints(BoxConstraints.boxConstraints().build()).textCapitalization(TextCapitalization.words).enabled(false).autoFocus(false).textInputAction(TextInputAction.none).scrollPadding(EdgeInsets_all(8.0).build()).readOnly(false).smartDashesType(SmartDashesType.disabled).smartQuotesType(SmartQuotesType.disabled).build();
   }
 
   public static Widget searchBar_callbackWired() {

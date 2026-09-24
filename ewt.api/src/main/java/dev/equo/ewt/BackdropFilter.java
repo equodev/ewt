@@ -17,28 +17,28 @@ public class BackdropFilter extends SingleChildRenderObjectWidget implements Bac
   }
   BackdropFilter(int id) { this.id = id; }
   @Builder.Factory
-  static BackdropFilter backdropFilterBackdropFilter(@Builder.Parameter ImageFilterI filter, Optional<WidgetI> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
-    var st = factories.backdropFilterBackdropFilter(filter.build(),
+  static BackdropFilter backdropFilterBackdropFilter(Optional<ImageFilterI> filter, Optional<WidgetI> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+    var st = factories.backdropFilterBackdropFilter(filter.map(ImageFilterI::build),
       child.map(WidgetI::build),
       blendMode,
       enabled);
     if (st == null) throw new RuntimeException("Failed to created widget BackdropFilter");
     return new BackdropFilter(st);
   }
-  public static BackdropFilterBackdropFilterBuilder backdropFilter(ImageFilterI filter) {
-    return BackdropFilterBackdropFilterBuilder.backdropFilterBackdropFilter(filter);
+  public static BackdropFilterBackdropFilterBuilder backdropFilter() {
+    return BackdropFilterBackdropFilterBuilder.backdropFilterBackdropFilter();
   }
   @Builder.Factory
-  static BackdropFilter backdropFilterGrouped(@Builder.Parameter ImageFilterI filter, Optional<WidgetI> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
-    var st = factories.backdropFilterGrouped(filter.build(),
+  static BackdropFilter backdropFilterGrouped(Optional<ImageFilterI> filter, Optional<WidgetI> child, Optional<BlendMode> blendMode, Optional<Boolean> enabled) {
+    var st = factories.backdropFilterGrouped(filter.map(ImageFilterI::build),
       child.map(WidgetI::build),
       blendMode,
       enabled);
     if (st == null) throw new RuntimeException("Failed to created widget BackdropFilter");
     return new BackdropFilter(st);
   }
-  public static BackdropFilterGroupedBuilder grouped(ImageFilterI filter) {
-    return BackdropFilterGroupedBuilder.backdropFilterGrouped(filter);
+  public static BackdropFilterGroupedBuilder grouped() {
+    return BackdropFilterGroupedBuilder.backdropFilterGrouped();
   }
   public ImageFilter filter() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("backdropFilterFilter not supported on web");

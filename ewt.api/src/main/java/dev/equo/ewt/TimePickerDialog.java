@@ -17,7 +17,7 @@ public class TimePickerDialog extends StatefulWidget implements TimePickerDialog
   }
   TimePickerDialog(int id) { this.id = id; }
   @Builder.Factory
-  static TimePickerDialog timePickerDialogTimePickerDialog(@Builder.Parameter TimeOfDayI initialTime, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<String> errorInvalidText, Optional<String> hourLabelText, Optional<String> minuteLabelText, Optional<String> restorationId, Optional<TimePickerEntryMode> initialEntryMode, Optional<Orientation> orientation, Optional<Consumer<TimePickerEntryMode>> onEntryModeChanged, Optional<IconI> switchToInputEntryModeIcon, Optional<IconI> switchToTimerEntryModeIcon) {
+  static TimePickerDialog timePickerDialogTimePickerDialog(@Builder.Parameter TimeOfDayI initialTime, Optional<String> cancelText, Optional<String> confirmText, Optional<String> helpText, Optional<String> errorInvalidText, Optional<String> hourLabelText, Optional<String> minuteLabelText, Optional<String> restorationId, Optional<TimePickerEntryMode> initialEntryMode, Optional<Orientation> orientation, Optional<Consumer<TimePickerEntryMode>> onEntryModeChanged, Optional<IconI> switchToInputEntryModeIcon, Optional<IconI> switchToTimerEntryModeIcon, Optional<Boolean> emptyInitialInput) {
     var st = factories.timePickerDialogTimePickerDialog(initialTime.build(),
       cancelText,
       confirmText,
@@ -30,7 +30,8 @@ public class TimePickerDialog extends StatefulWidget implements TimePickerDialog
       orientation,
       onEntryModeChanged,
       switchToInputEntryModeIcon.map(IconI::build),
-      switchToTimerEntryModeIcon.map(IconI::build));
+      switchToTimerEntryModeIcon.map(IconI::build),
+      emptyInitialInput);
     if (st == null) throw new RuntimeException("Failed to created widget TimePickerDialog");
     return new TimePickerDialog(st);
   }
@@ -102,6 +103,10 @@ public class TimePickerDialog extends StatefulWidget implements TimePickerDialog
       return new Icon(__st);
     }
     return new Icon(TimePickerDialogObjSt.switchToTimerEntryModeIcon(st));
+  }
+  public boolean emptyInitialInput() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("timePickerDialogEmptyInitialInput not supported on web");
+    return intToBool(TimePickerDialogObjSt.emptyInitialInput(st));
   }
   @Override
   public TimePickerDialog build() {

@@ -17,7 +17,7 @@ public class RawScrollbar extends StatefulWidget implements RawScrollbarI {
   }
   RawScrollbar(int id) { this.id = id; }
   @Builder.Factory
-  static RawScrollbar rawScrollbarRawScrollbar(@Builder.Parameter WidgetI child, Optional<Boolean> thumbVisibility, Optional<OutlinedBorderI> shape, Optional<RadiusI> radius, OptionalDouble thickness, Optional<ColorI> thumbColor, OptionalDouble minThumbLength, OptionalDouble minOverscrollLength, Optional<Boolean> trackVisibility, Optional<RadiusI> trackRadius, Optional<ColorI> trackColor, Optional<ColorI> trackBorderColor, Optional<DurationI> fadeDuration, Optional<DurationI> timeToFade, Optional<DurationI> pressDuration, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation, OptionalDouble mainAxisMargin, OptionalDouble crossAxisMargin, Optional<EdgeInsetsI> padding) {
+  static RawScrollbar rawScrollbarRawScrollbar(@Builder.Parameter WidgetI child, Optional<Boolean> thumbVisibility, Optional<OutlinedBorderI> shape, Optional<RadiusI> radius, OptionalDouble thickness, Optional<ColorI> thumbColor, OptionalDouble minThumbLength, OptionalDouble minOverscrollLength, Optional<Boolean> trackVisibility, Optional<RadiusI> trackRadius, Optional<ColorI> trackColor, Optional<ColorI> trackBorderColor, Optional<DurationI> fadeDuration, Optional<DurationI> timeToFade, Optional<DurationI> pressDuration, Optional<Boolean> interactive, Optional<ScrollbarOrientation> scrollbarOrientation, OptionalDouble mainAxisMargin, OptionalDouble crossAxisMargin, Optional<EdgeInsetsGeometryI> padding) {
     var st = factories.rawScrollbarRawScrollbar(child.build(),
       thumbVisibility,
       shape.map(OutlinedBorderI::build),
@@ -37,7 +37,7 @@ public class RawScrollbar extends StatefulWidget implements RawScrollbarI {
       scrollbarOrientation,
       mainAxisMargin,
       crossAxisMargin,
-      padding.map(EdgeInsetsI::build));
+      padding.map(EdgeInsetsGeometryI::build));
     if (st == null) throw new RuntimeException("Failed to created widget RawScrollbar");
     return new RawScrollbar(st);
   }
@@ -152,15 +152,9 @@ public class RawScrollbar extends StatefulWidget implements RawScrollbarI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawScrollbarCrossAxisMargin not supported on web");
     return RawScrollbarObjSt.crossAxisMargin(st);
   }
-  public EdgeInsets padding() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
-      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
-      int __nid = __s.recordAccessor("rawScrollbarPadding", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
-    }
-    return new EdgeInsets(RawScrollbarObjSt.padding(st));
+  public EdgeInsetsGeometry padding() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawScrollbarPadding not supported on web");
+    return new EdgeInsetsGeometry(RawScrollbarObjSt.padding(st)) {};
   }
   @Override
   public RawScrollbar build() {

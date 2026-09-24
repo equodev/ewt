@@ -17,7 +17,7 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
   }
   LinearProgressIndicator(int id) { this.id = id; }
   @Builder.Factory
-  static LinearProgressIndicator linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023) {
+  static LinearProgressIndicator linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<AnimationControllerI> controller) {
     var st = factories.linearProgressIndicatorLinearProgressIndicator(value,
       backgroundColor.map(ColorI::build),
       color.map(ColorI::build),
@@ -29,7 +29,8 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
       stopIndicatorColor.map(ColorI::build),
       stopIndicatorRadius,
       trackGap,
-      year2023);
+      year2023,
+      controller.map(AnimationControllerI::build));
     if (st == null) throw new RuntimeException("Failed to created widget LinearProgressIndicator");
     return new LinearProgressIndicator(st);
   }
@@ -63,6 +64,17 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
   public boolean year2023() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorYear2023 not supported on web");
     return intToBool(LinearProgressIndicatorObjSt.year2023(st));
+  }
+  public AnimationController controller() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("linearProgressIndicatorController", getId());
+      return new AnimationController(__nid);
+    }
+    return new AnimationController(LinearProgressIndicatorObjSt.controller(st));
+  }
+  public static Duration defaultAnimationDuration() {
+    return Duration.duration().milliseconds(1800).build();
   }
   @Override
   public LinearProgressIndicator build() {

@@ -6,7 +6,7 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.PinnedHeaderSliverObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class PinnedHeaderSliver extends SingleChildRenderObjectWidget implements PinnedHeaderSliverI {
+public class PinnedHeaderSliver extends StatelessWidget implements PinnedHeaderSliverI {
   private MemorySegment st;
   protected PinnedHeaderSliver() {}
   PinnedHeaderSliver(MemorySegment st) {
@@ -24,6 +24,10 @@ public class PinnedHeaderSliver extends SingleChildRenderObjectWidget implements
   }
   public static PinnedHeaderSliverPinnedHeaderSliverBuilder pinnedHeaderSliver() {
     return PinnedHeaderSliverPinnedHeaderSliverBuilder.pinnedHeaderSliverPinnedHeaderSliver();
+  }
+  public Widget child() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pinnedHeaderSliverChild not supported on web");
+    return new Widget(PinnedHeaderSliverObjSt.child(st)) {};
   }
   @Override
   public PinnedHeaderSliver build() {

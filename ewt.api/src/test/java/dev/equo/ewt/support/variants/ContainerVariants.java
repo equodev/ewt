@@ -12,8 +12,8 @@ public final class ContainerVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("container_allSet", List.of(PropExpectation.notNull("alignment"), PropExpectation.notNull("padding"), PropExpectation.notNull("color"), PropExpectation.notNull("decoration"), PropExpectation.notNull("foregroundDecoration"), PropExpectation.equalTo("width", 1.0), PropExpectation.equalTo("height", 1.0), PropExpectation.notNull("constraints"), PropExpectation.notNull("margin"), PropExpectation.notNull("transformAlignment"), PropExpectation.notNull("child"), PropExpectation.equalTo("clipBehavior", Clip.none))),
-          Map.entry("container_boundary", List.of(PropExpectation.notNull("alignment"), PropExpectation.notNull("padding"), PropExpectation.notNull("color"), PropExpectation.notNull("decoration"), PropExpectation.notNull("foregroundDecoration"), PropExpectation.equalTo("width", 0.0), PropExpectation.equalTo("height", 0.0), PropExpectation.notNull("constraints"), PropExpectation.notNull("margin"), PropExpectation.notNull("transformAlignment"), PropExpectation.notNull("child"), PropExpectation.equalTo("clipBehavior", Clip.none)))
+          Map.entry("container_allSet", List.of(PropExpectation.notNull("alignment"), PropExpectation.notNull("padding"), PropExpectation.notNull("color"), PropExpectation.equalTo("isAntiAlias", true), PropExpectation.notNull("decoration"), PropExpectation.notNull("foregroundDecoration"), PropExpectation.equalTo("width", 1.0), PropExpectation.equalTo("height", 1.0), PropExpectation.notNull("constraints"), PropExpectation.notNull("margin"), PropExpectation.notNull("transformAlignment"), PropExpectation.notNull("child"), PropExpectation.equalTo("clipBehavior", Clip.none))),
+          Map.entry("container_boundary", List.of(PropExpectation.notNull("alignment"), PropExpectation.notNull("padding"), PropExpectation.notNull("color"), PropExpectation.equalTo("isAntiAlias", false), PropExpectation.notNull("decoration"), PropExpectation.notNull("foregroundDecoration"), PropExpectation.equalTo("width", 0.0), PropExpectation.equalTo("height", 0.0), PropExpectation.notNull("constraints"), PropExpectation.notNull("margin"), PropExpectation.notNull("transformAlignment"), PropExpectation.notNull("child"), PropExpectation.equalTo("clipBehavior", Clip.none)))
       );
 
   public static Widget container_required() {
@@ -21,11 +21,11 @@ public final class ContainerVariants {
   }
 
   public static Widget container_allSet() {
-    return Container.container().alignment(Alignment.center()).padding(EdgeInsets_all(8.0).build()).color(Color(0xff0000ff).build()).decoration(BoxDecoration.boxDecoration().build()).foregroundDecoration(BoxDecoration.boxDecoration().build()).width(1.0).height(1.0).constraints(BoxConstraints.boxConstraints().build()).margin(EdgeInsets_all(8.0).build()).transformAlignment(Alignment.center()).child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).build();
+    return Container.container().alignment(Alignment.center()).padding(EdgeInsets_all(8.0).build()).color(Color(0xff0000ff).build()).isAntiAlias(true).decoration(BoxDecoration.boxDecoration().build()).foregroundDecoration(BoxDecoration.boxDecoration().build()).width(1.0).height(1.0).constraints(BoxConstraints.boxConstraints().build()).margin(EdgeInsets_all(8.0).build()).transformAlignment(Alignment.center()).child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).build();
   }
 
   public static Widget container_boundary() {
-    return Container.container().alignment(Alignment.center()).padding(EdgeInsets_all(8.0).build()).color(Color(0xff0000ff).build()).decoration(BoxDecoration.boxDecoration().build()).foregroundDecoration(BoxDecoration.boxDecoration().build()).width(0.0).height(0.0).constraints(BoxConstraints.boxConstraints().build()).margin(EdgeInsets_all(8.0).build()).transformAlignment(Alignment.center()).child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).build();
+    return Container.container().alignment(Alignment.center()).padding(EdgeInsets_all(8.0).build()).color(Color(0xff0000ff).build()).isAntiAlias(false).decoration(BoxDecoration.boxDecoration().build()).foregroundDecoration(BoxDecoration.boxDecoration().build()).width(0.0).height(0.0).constraints(BoxConstraints.boxConstraints().build()).margin(EdgeInsets_all(8.0).build()).transformAlignment(Alignment.center()).child(SizedBox().width(1.0).height(1.0).build()).clipBehavior(Clip.none).build();
   }
 
 }
