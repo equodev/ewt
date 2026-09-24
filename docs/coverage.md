@@ -1,21 +1,21 @@
 # EWT — Flutter widget coverage
 
-Flutter 3.35.7
+Flutter 3.44.4
 
 ## Summary
 
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
-| Basic widgets | 184 | 291 | 63% |
-| Material | 149 | 187 | 79% |
-| Cupertino | 31 | 53 | 58% |
-| **Total** | **364** | **531** | **68%** |
+| Basic widgets | 184 | 295 | 62% |
+| Material | 151 | 189 | 79% |
+| Cupertino | 31 | 58 | 53% |
+| **Total** | **366** | **542** | **67%** |
 
 ## Basic widgets
 
 _package:flutter/widgets.dart — raw building blocks, no default styling_
 
-**184 of 291 supported**
+**184 of 295 supported**
 
 - [x] AbsorbPointer
 - [x] Align
@@ -222,6 +222,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] CustomSingleChildLayout
 - [ ] DefaultTextEditingShortcuts
 - [ ] DefaultTextStyleTransition
+- [ ] DeviceOrientationBuilder
 - [ ] DisableWidgetInspectorScope
 - [ ] Dismissible
 - [ ] DragBoundary
@@ -262,9 +263,11 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] RawMenuAnchor
 - [ ] RawMenuAnchorGroup
 - [ ] RawRadio
+- [ ] RawTooltip
 - [ ] RawView
 - [ ] RenderObjectToWidgetAdapter
 - [ ] ReorderableList
+- [ ] RepeatingAnimationBuilder
 - [ ] RootWidget
 - [ ] Router
 - [ ] ScrollConfiguration
@@ -288,6 +291,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 - [ ] SliverPersistentHeader
 - [ ] SliverReorderableList
 - [ ] StreamBuilder
+- [ ] StretchEffect
 - [ ] SystemContextMenu
 - [ ] Table
 - [ ] TextSelectionGestureDetector
@@ -313,7 +317,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**149 of 187 supported**
+**151 of 189 supported**
 
 - [x] AboutDialog
 - [x] AboutListTile
@@ -377,6 +381,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] FilledButtonTheme
 - [x] FilterChip
 - [x] FloatingActionButton
+- [x] FloatingActionButtonTheme
 - [x] GridTile
 - [x] GridTileBar
 - [x] IconButton
@@ -439,6 +444,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] SliverAppBar
 - [x] SnackBar
 - [x] SnackBarAction
+- [x] SnackBarTheme
 - [x] Stepper
 - [x] SubmenuButton
 - [x] Switch
@@ -507,7 +513,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 
 _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 
-**31 of 53 supported**
+**31 of 58 supported**
 
 - [x] CupertinoActionSheet
 - [x] CupertinoActionSheetAction
@@ -544,8 +550,13 @@ _package:flutter/cupertino.dart — iOS / macOS styled components (Apple)_
 - [ ] CupertinoDatePicker
 - [ ] CupertinoDesktopTextSelectionToolbar
 - [ ] CupertinoDesktopTextSelectionToolbarButton
+- [ ] CupertinoFocusHalo
 - [ ] CupertinoFullscreenDialogTransition
+- [ ] CupertinoLinearActivityIndicator
 - [ ] CupertinoMagnifier
+- [ ] CupertinoMenuAnchor
+- [ ] CupertinoMenuDivider
+- [ ] CupertinoMenuItem
 - [ ] CupertinoPageScaffoldBackgroundColor
 - [ ] CupertinoPageTransition
 - [ ] CupertinoPickerDefaultSelectionOverlay
