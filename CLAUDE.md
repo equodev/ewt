@@ -95,6 +95,7 @@ per widget family, named `<Family>Gallery`:
 | `LayoutWidgetsGallery` | sizing, clipping, alignment, painting, transforms |
 | `MaterialControlsGallery` | Switch, Checkbox, Slider, list tiles, Badge, Tooltip, Drawer |
 | `ImplicitAnimationsGallery` | the `Animated*` widgets |
+| `ChainedAnimationsGallery` | `AnimationController` imperative methods sequenced with `Future.then(...)` — runs on desktop + web |
 | `ScrollWidgetsGallery` | ListView, GridView, PageView |
 | `TabsGallery` | DefaultTabController, TabBar, Tab, TabBarView |
 

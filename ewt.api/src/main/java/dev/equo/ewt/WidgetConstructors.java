@@ -1059,30 +1059,61 @@ class WidgetConstructors extends WidgetConstructorsBase {
       vsync.build().getId(),
       ptrEnum(animationBehavior));
   }
-  void animationControllerForward(AnimationController self) {
+  int animationControllerForward(AnimationController self) {
     var st = WidgetFactories.animationController(factories);
     var fn = WidgetFactories.AnimationControllerSt.forward(st);
-    WidgetFactories.AnimationControllerSt.forward.invoke(fn, self.build().getId());
+    return WidgetFactories.AnimationControllerSt.forward.invoke(fn, self.build().getId());
   }
-  void animationControllerReverse(AnimationController self) {
+  int animationControllerReverse(AnimationController self) {
     var st = WidgetFactories.animationController(factories);
     var fn = WidgetFactories.AnimationControllerSt.reverse(st);
-    WidgetFactories.AnimationControllerSt.reverse.invoke(fn, self.build().getId());
+    return WidgetFactories.AnimationControllerSt.reverse.invoke(fn, self.build().getId());
+  }
+  int animationControllerRepeat(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.repeat(st);
+    return WidgetFactories.AnimationControllerSt.repeat.invoke(fn, self.build().getId());
+  }
+  int animationControllerToggle(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.toggle(st);
+    return WidgetFactories.AnimationControllerSt.toggle.invoke(fn, self.build().getId());
+  }
+  int animationControllerFling(AnimationController self, double velocity) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.fling(st);
+    return WidgetFactories.AnimationControllerSt.fling.invoke(fn, self.build().getId(),
+      velocity);
+  }
+  int animationControllerAnimateTo(AnimationController self, double target, Duration duration) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.animateTo(st);
+    return WidgetFactories.AnimationControllerSt.animateTo.invoke(fn, self.build().getId(),
+      target,
+      duration.build().getId());
+  }
+  int animationControllerAnimateBack(AnimationController self, double target, Duration duration) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.animateBack(st);
+    return WidgetFactories.AnimationControllerSt.animateBack.invoke(fn, self.build().getId(),
+      target,
+      duration.build().getId());
   }
   void animationControllerStop(AnimationController self) {
     var st = WidgetFactories.animationController(factories);
     var fn = WidgetFactories.AnimationControllerSt.stop(st);
     WidgetFactories.AnimationControllerSt.stop.invoke(fn, self.build().getId());
   }
-  void animationControllerRepeat(AnimationController self) {
-    var st = WidgetFactories.animationController(factories);
-    var fn = WidgetFactories.AnimationControllerSt.repeat(st);
-    WidgetFactories.AnimationControllerSt.repeat.invoke(fn, self.build().getId());
-  }
   void animationControllerReset(AnimationController self) {
     var st = WidgetFactories.animationController(factories);
     var fn = WidgetFactories.AnimationControllerSt.reset(st);
     WidgetFactories.AnimationControllerSt.reset.invoke(fn, self.build().getId());
+  }
+  void animationControllerSetValue(AnimationController self, double v) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.setValue(st);
+    WidgetFactories.AnimationControllerSt.setValue.invoke(fn, self.build().getId(),
+      v);
   }
   void animationControllerSetDuration(AnimationController self, Duration d) {
     var st = WidgetFactories.animationController(factories);
@@ -1095,39 +1126,6 @@ class WidgetConstructors extends WidgetConstructorsBase {
     var fn = WidgetFactories.AnimationControllerSt.setReverseDuration(st);
     WidgetFactories.AnimationControllerSt.setReverseDuration.invoke(fn, self.build().getId(),
       d.build().getId());
-  }
-  void animationControllerAnimateTo(AnimationController self, double target, Duration duration, Curve curve) {
-    var st = WidgetFactories.animationController(factories);
-    var fn = WidgetFactories.AnimationControllerSt.animateTo(st);
-    WidgetFactories.AnimationControllerSt.animateTo.invoke(fn, self.build().getId(),
-      target,
-      duration.build().getId(),
-      curve.build().getId());
-  }
-  void animationControllerAnimateBack(AnimationController self, double target, Duration duration, Curve curve) {
-    var st = WidgetFactories.animationController(factories);
-    var fn = WidgetFactories.AnimationControllerSt.animateBack(st);
-    WidgetFactories.AnimationControllerSt.animateBack.invoke(fn, self.build().getId(),
-      target,
-      duration.build().getId(),
-      curve.build().getId());
-  }
-  void animationControllerToggle(AnimationController self) {
-    var st = WidgetFactories.animationController(factories);
-    var fn = WidgetFactories.AnimationControllerSt.toggle(st);
-    WidgetFactories.AnimationControllerSt.toggle.invoke(fn, self.build().getId());
-  }
-  void animationControllerFling(AnimationController self, double velocity) {
-    var st = WidgetFactories.animationController(factories);
-    var fn = WidgetFactories.AnimationControllerSt.fling(st);
-    WidgetFactories.AnimationControllerSt.fling.invoke(fn, self.build().getId(),
-      velocity);
-  }
-  void animationControllerSetValue(AnimationController self, double v) {
-    var st = WidgetFactories.animationController(factories);
-    var fn = WidgetFactories.AnimationControllerSt.setValue(st);
-    WidgetFactories.AnimationControllerSt.setValue.invoke(fn, self.build().getId(),
-      v);
   }
 
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {

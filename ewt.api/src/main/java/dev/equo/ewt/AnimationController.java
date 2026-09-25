@@ -43,25 +43,79 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   public static AnimationControllerUnboundedBuilder unbounded() {
     return AnimationControllerUnboundedBuilder.animationControllerUnbounded();
   }
-  public void forward() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("forward"); return; }
-    factories.animationControllerForward(this);
+  public Future<NativeObj> forward() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("forward", java.util.Collections.emptyList());
+    }
+    int id = factories.animationControllerForward(this);
+    if (id <= 0) throw new RuntimeException("Failed to call forward");
+    return new Future() { public int getId() { return id; } };
   }
-  public void reverse() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("reverse"); return; }
-    factories.animationControllerReverse(this);
+  public Future<NativeObj> reverse() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("reverse", java.util.Collections.emptyList());
+    }
+    int id = factories.animationControllerReverse(this);
+    if (id <= 0) throw new RuntimeException("Failed to call reverse");
+    return new Future() { public int getId() { return id; } };
+  }
+  public Future<NativeObj> repeat() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("repeat", java.util.Collections.emptyList());
+    }
+    int id = factories.animationControllerRepeat(this);
+    if (id <= 0) throw new RuntimeException("Failed to call repeat");
+    return new Future() { public int getId() { return id; } };
+  }
+  public Future<NativeObj> toggle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("toggle", java.util.Collections.emptyList());
+    }
+    int id = factories.animationControllerToggle(this);
+    if (id <= 0) throw new RuntimeException("Failed to call toggle");
+    return new Future() { public int getId() { return id; } };
+  }
+  public Future<NativeObj> fling(double velocity) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("fling", java.util.Arrays.<Object>asList(velocity));
+    }
+    int id = factories.animationControllerFling(this,
+      velocity);
+    if (id <= 0) throw new RuntimeException("Failed to call fling");
+    return new Future() { public int getId() { return id; } };
+  }
+  public Future<NativeObj> animateTo(double target, DurationI duration) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("animateTo", java.util.Arrays.<Object>asList(target, EwtWebCapture.buildDurationMillis(duration.build())));
+    }
+    int id = factories.animationControllerAnimateTo(this,
+      target,
+      duration.build());
+    if (id <= 0) throw new RuntimeException("Failed to call animateTo");
+    return new Future() { public int getId() { return id; } };
+  }
+  public Future<NativeObj> animateBack(double target, DurationI duration) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      return webAsyncCommand("animateBack", java.util.Arrays.<Object>asList(target, EwtWebCapture.buildDurationMillis(duration.build())));
+    }
+    int id = factories.animationControllerAnimateBack(this,
+      target,
+      duration.build());
+    if (id <= 0) throw new RuntimeException("Failed to call animateBack");
+    return new Future() { public int getId() { return id; } };
   }
   public void stop() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("stop"); return; }
     factories.animationControllerStop(this);
   }
-  public void repeat() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("repeat"); return; }
-    factories.animationControllerRepeat(this);
-  }
   public void reset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("reset"); return; }
     factories.animationControllerReset(this);
+  }
+  public void setValue(double v) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("setValue"); return; }
+    factories.animationControllerSetValue(this,
+      v);
   }
   public void setDuration(DurationI d) {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -81,40 +135,37 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     factories.animationControllerSetReverseDuration(this,
       d.build());
   }
-  public void animateTo(double target, DurationI duration, CurveI curve) {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("animateTo"); return; }
-    factories.animationControllerAnimateTo(this,
-      target,
-      duration.build(),
-      curve.build());
-  }
-  public void animateBack(double target, DurationI duration, CurveI curve) {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("animateBack"); return; }
-    factories.animationControllerAnimateBack(this,
-      target,
-      duration.build(),
-      curve.build());
-  }
-  public void toggle() {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("toggle"); return; }
-    factories.animationControllerToggle(this);
-  }
-  public void fling(double velocity) {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("fling"); return; }
-    factories.animationControllerFling(this,
-      velocity);
-  }
-  public void setValue(double v) {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("setValue"); return; }
-    factories.animationControllerSetValue(this,
-      v);
-  }
   /** Set in web mode by SubAnimatedState.animationController() so commands can route back. */
   private SubAnimatedState<?> webOwner;
   void setWebOwner(SubAnimatedState<?> owner) { this.webOwner = owner; }
   private void webCommand(String action) {
     if (webOwner != null) webOwner.sendAnimCommand(this.id, action);
     else System.out.println("EWT web: AnimationController " + id + " has no owner for action=" + action);
+  }
+  /** Async web command: allocates a callback id, registers a CompletableFuture, and ships the
+   *  primitive args. Returns an EWT Future whose .then(consumer) fires once the web side echoes
+   *  the callback id back — bridging java.util.concurrent.CompletableFuture (broker-side) to the
+   *  Future<NativeObj> surface the generator emits (Flutter-side). */
+  private Future<NativeObj> webAsyncCommand(String action, java.util.List<Object> args) {
+    final java.util.concurrent.CompletableFuture<Object> cf;
+    if (webOwner == null) {
+      cf = new java.util.concurrent.CompletableFuture<>();
+      cf.completeExceptionally(new IllegalStateException("AnimationController " + id + " has no web owner for async action=" + action));
+    } else {
+      int cbId = dev.equo.ewt.EwtWebState.nextAsyncCallbackId();
+      cf = dev.equo.ewt.EwtWebState.registerAsyncCallback(cbId, this.id);
+      dev.equo.ewt.EwtWebState.sendAsyncAnimCommand(this.id, action, cbId, args);
+    }
+    return new Future<NativeObj>() {
+      @Override public int getId() { return -1; }
+      @Override public Future build() { return this; }
+      @Override public void then(java.util.function.Consumer<NativeObj> onValue) {
+        cf.whenComplete((v, t) -> {
+          if (t == null) onValue.accept(null);
+          else System.out.println("EWT web: AnimationController " + id + " async " + action + " failed: " + t);
+        });
+      }
+    };
   }
   public void repeat(boolean reverse) {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand(reverse ? "repeat:reverse" : "repeat"); return; }

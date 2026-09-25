@@ -336,6 +336,29 @@ callbacks whose parameters are `List<T>` of an ObjSt-emitted type can
 round-trip. Same infrastructure would unblock any future widget with a
 callback taking a widget list.
 
+### Curve serialization on the web transport
+
+**What works today.** Any `Future<T>`-returning companion method (e.g.
+`AnimationController.animateTo`, `animateBack`) round-trips through the
+web transport via `WebAsyncCallbackBroker` + `EwtWebState.sendAsyncAnimCommand`
++ the evolve-app dispatcher — issue #60 closed this.
+
+**What is still deferred.** Curve values (`Curves.linear`, `Curves.easeInOut`,
+custom `Cubic(...)`) cannot yet be shipped as a primitive over the async
+command channel — the channel encodes arg lists as JSON scalars, and a
+`Curve` is an EwtNode subtree. As a consequence, the two-arg forms
+`animateTo(target, duration)` and `animateBack(target, duration)` are
+what the companion exposes; the underlying Flutter default (linear) applies
+on both desktop and web.
+
+**To enable:** either (a) map a small allowlist of well-known Curves to
+string names (`"linear"`, `"easeIn"`, `"easeInOut"`, …) plus a helper in
+`EwtWebCapture` that translates `CurveI` → name, or (b) inline the
+`CurveI.build()` EwtNode payload into the async command's `args` field
+and teach the evolve-app dispatcher to decode it via `decodeEwtNode`.
+Option (b) is more general and reuses infrastructure already in
+`widgets_web/lib/factories_web_gen.dart`.
+
 ### `Autocomplete<T>`
 
 **Why:** `optionsBuilder` returns `FutureOr<Iterable<T>>`. Neither

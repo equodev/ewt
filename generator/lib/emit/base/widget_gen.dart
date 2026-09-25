@@ -101,6 +101,20 @@ class WidgetGen implements AGen {
   /// `return types.paramValueFFMtoJ(...)`. Default: false.
   bool tryWriteCustomInstanceMethodReturn(String factory, DartType returnType) => false;
 
+  /// Emitted at the start of the non-void-return branch in the Java instance
+  /// method wrapper, BEFORE the FFM call. Symmetric with
+  /// [writeVoidMethodWebPrelude]: the override emits an
+  /// `if (isWebMode()) { return ...; }` guard; the FFM path emits
+  /// unconditionally afterwards (unreachable in web mode because of the
+  /// early return). Default: no-op.
+  ///
+  /// [restParamNames] is the comma-joined list of the non-receiver Java arg
+  /// names (matching what would be passed to the FFM call), so the override
+  /// can forward primitive values verbatim into a JSON payload. Empty when
+  /// the method takes only the receiver.
+  void writeNonVoidMethodWebPrelude(
+      String factory, DartType returnType, String restParamNames) {}
+
   /// Whether to skip emitting a @Override into javaSerializer for this
   /// factory. Used by widgets whose serializer form is hand-maintained
   /// downstream (e.g. SubAnimatedState.animationController is threaded
@@ -137,6 +151,17 @@ class WidgetGen implements AGen {
   /// emission (either because a bespoke entry was written or because the
   /// factory has no useful web decoder). Default: false.
   bool tryEmitCustomWebDecoder(String factory, String factoryName, FunctionTypedElement node) => false;
+
+  /// Whether to emit a `factories_web_gen.dart` decoder entry for a companion
+  /// instance method. Return false for methods that don't participate in the
+  /// decoder table because they route via a dedicated side-channel in web
+  /// mode — [ImperativeControllerGen.futureAsyncMethods] is the canonical
+  /// case (async futures ship through [EwtWebState.sendAsyncAnimCommand] and
+  /// never look up the decoder). Emitting a dead entry would still have to
+  /// compile against Flutter's real signature, which uses named args for
+  /// most non-primitive params (velocity, duration, curve) and would fail.
+  /// Default: true.
+  bool shouldEmitWebInstanceDecoder(String factory) => true;
 
   /// Whether to skip the "web mode" branch in [ObjStGen.writeJavaFieldAccessor].
   /// True for widgets whose field accessors are pre-resolved at serialize

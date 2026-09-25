@@ -421,3 +421,22 @@ tasks.register<JavaExec>("runEngagementsWeb") {
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
+
+// WEB: chained-animations demo (Future.then round-trip over the async broker — issue #60).
+// Same 4-step recipe as runShowcaseWeb; see ChainedAnimationsWebLauncher for the entry point.
+tasks.register<JavaExec>("runChainedAnimationsWeb") {
+    group = "examples"
+    description = "Run the Chained Animations demo in the browser (web transport)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.gallery.ChainedAnimationsWebLauncher")
+    val webDir = combinedBuild.resolve("web")
+    doFirst {
+        if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        if (!webDir.resolve("index.html").exists()) throw GradleException(
+            "Combined web build not found at $webDir. " +
+            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+    }
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}

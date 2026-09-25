@@ -26,6 +26,7 @@ extension _WebEmit on WidgetGen {
   /// (matches Flutter getters like MaterialColor.shade600).
   void writeWebInstanceDecoder(String factory, String factoryName, FunctionTypedElement node) {
     if (node.returnType is VoidType) return;
+    if (!shouldEmitWebInstanceDecoder(factory)) return;
     if (!_webDecodable(node)) return;
     final recv = node.parameters.first;
     final recvType = recv.type is InterfaceType ? (recv.type as InterfaceType).element.name : 'dynamic';

@@ -235,7 +235,26 @@ public class EwtWidget extends Composite {
     private void fireCallback(Object payload) {
         if (isDisposed()) return;
         Runnable r = resolveCallback(webCallbacks, payload);
-        if (r != null) getDisplay().asyncExec(r);
+        if (r != null) {
+            getDisplay().asyncExec(r);
+            return;
+        }
+        // Fall through to the async-callback broker (Future-returning method
+        // completions from AnimationController etc.). Async ids come from a
+        // disjoint range (>= WebAsyncCallbackBroker.ASYNC_CALLBACK_ID_BASE) so
+        // they cannot mask a UI callback id. Runs immediately on the transport
+        // thread — CompletableFuture handlers are not required to be on the
+        // Display thread, and any UI work in them will re-post via asyncExec.
+        tryCompleteAsyncCallback(payload);
+    }
+
+    private static void tryCompleteAsyncCallback(Object payload) {
+        if (!(payload instanceof java.util.List<?> list) || list.isEmpty()) return;
+        if (!(list.get(0) instanceof Number n)) return;
+        int cbId = n.intValue();
+        if (cbId < dev.equo.ewt.web.WebAsyncCallbackBroker.ASYNC_CALLBACK_ID_BASE) return;
+        Object value = list.size() > 1 ? list.get(1) : null;
+        dev.equo.ewt.EwtWebState.completeAsyncCallback(cbId, value);
     }
 
     /**

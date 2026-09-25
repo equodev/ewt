@@ -38,7 +38,13 @@ class SubAnimatedStateGen extends SubclassGen {
       ..writeln('  private SubStatefulWidget webWidget;')
       ..writeln('  void setWebWidget(SubStatefulWidget w) { this.webWidget = w; }')
       ..writeln('  private java.util.function.Consumer<String> webAnimCommandSink;')
-      ..writeln('  public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) { this.webAnimCommandSink = sink; }')
+      ..writeln('  public void setWebAnimCommandSink(java.util.function.Consumer<String> sink) {')
+      ..writeln('    this.webAnimCommandSink = sink;')
+      // Controllers created before the sink was installed also need the async
+      // path wired — EwtWebState.sendAsyncAnimCommand routes via ANIM_SINKS
+      // by ctrlId, so late binding of the sink must fan out to each of them.
+      ..writeln('    if (sink != null) for (AnimationController c : controllers) EwtWebState.registerAnimSink(c.getId(), sink);')
+      ..writeln('  }')
       ..writeln('  void sendAnimCommand(int ctrlId, String action) {')
       ..writeln('    if (webAnimCommandSink != null) webAnimCommandSink.accept("{\\"ctrlId\\":" + ctrlId + ",\\"action\\":\\"" + action + "\\"}");')
       ..writeln('    else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);')
@@ -64,7 +70,14 @@ class SubAnimatedStateGen extends SubclassGen {
     if (factory != 'animationController') return false;
     ctx.javaFile
       ..writeln('    AnimationController ctrl = new AnimationController(id);')
-      ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) ctrl.setWebOwner(this);')
+      ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
+      ..writeln('      ctrl.setWebOwner(this);')
+      // Register the ctrlId → sink mapping now that we know the id, so the
+      // async command path (webAsyncCommand → sendAsyncAnimCommand) can route.
+      // The retroactive loop in setWebAnimCommandSink covers the reverse
+      // ordering (controller-first, sink-second) — e.g. from initState.
+      ..writeln('      if (webAnimCommandSink != null) EwtWebState.registerAnimSink(id, webAnimCommandSink);')
+      ..writeln('    }')
       ..writeln('    controllers.add(ctrl);')
       ..writeln('    return ctrl;');
     return true;
