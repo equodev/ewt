@@ -81,6 +81,34 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     factories.animationControllerSetReverseDuration(this,
       d.build());
   }
+  public void animateTo(double target, DurationI duration, CurveI curve) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("animateTo"); return; }
+    factories.animationControllerAnimateTo(this,
+      target,
+      duration.build(),
+      curve.build());
+  }
+  public void animateBack(double target, DurationI duration, CurveI curve) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("animateBack"); return; }
+    factories.animationControllerAnimateBack(this,
+      target,
+      duration.build(),
+      curve.build());
+  }
+  public void toggle() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("toggle"); return; }
+    factories.animationControllerToggle(this);
+  }
+  public void fling(double velocity) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("fling"); return; }
+    factories.animationControllerFling(this,
+      velocity);
+  }
+  public void setValue(double v) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("setValue"); return; }
+    factories.animationControllerSetValue(this,
+      v);
+  }
   /** Set in web mode by SubAnimatedState.animationController() so commands can route back. */
   private SubAnimatedState<?> webOwner;
   void setWebOwner(SubAnimatedState<?> owner) { this.webOwner = owner; }

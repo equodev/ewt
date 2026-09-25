@@ -1096,6 +1096,39 @@ class WidgetConstructors extends WidgetConstructorsBase {
     WidgetFactories.AnimationControllerSt.setReverseDuration.invoke(fn, self.build().getId(),
       d.build().getId());
   }
+  void animationControllerAnimateTo(AnimationController self, double target, Duration duration, Curve curve) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.animateTo(st);
+    WidgetFactories.AnimationControllerSt.animateTo.invoke(fn, self.build().getId(),
+      target,
+      duration.build().getId(),
+      curve.build().getId());
+  }
+  void animationControllerAnimateBack(AnimationController self, double target, Duration duration, Curve curve) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.animateBack(st);
+    WidgetFactories.AnimationControllerSt.animateBack.invoke(fn, self.build().getId(),
+      target,
+      duration.build().getId(),
+      curve.build().getId());
+  }
+  void animationControllerToggle(AnimationController self) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.toggle(st);
+    WidgetFactories.AnimationControllerSt.toggle.invoke(fn, self.build().getId());
+  }
+  void animationControllerFling(AnimationController self, double velocity) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.fling(st);
+    WidgetFactories.AnimationControllerSt.fling.invoke(fn, self.build().getId(),
+      velocity);
+  }
+  void animationControllerSetValue(AnimationController self, double v) {
+    var st = WidgetFactories.animationController(factories);
+    var fn = WidgetFactories.AnimationControllerSt.setValue(st);
+    WidgetFactories.AnimationControllerSt.setValue.invoke(fn, self.build().getId(),
+      v);
+  }
 
   MemorySegment animatedBuilderAnimatedBuilder(Listenable animation, BiFunction<BuildContext, Widget, Widget> builder, Optional<Widget> child) {
     var st = WidgetFactories.animatedBuilder(factories);
