@@ -68,6 +68,7 @@ typedef void (*TooltipTriggeredCallbackFFI)(void);
 typedef void (*TabValueChangedForBoolFFI)(int value, int index);
 typedef void (*ValueSetterForBoolOptFFI)(int* value);
 typedef void (*DataColumnSortCallbackFFI)(int columnIndex, int ascending);
+typedef ArrayC (*DropdownButtonBuilderFFI)(DartObj context);
 typedef void (*ValueChangedForTOptFFI)(DartObj* value);
 typedef DartObj (*ExpansionPanelHeaderBuilderFFI)(DartObj context, int isExpanded);
 typedef void (*ExpansionPanelCallbackFFI)(int panelIndex, int isExpanded);

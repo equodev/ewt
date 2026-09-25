@@ -11364,6 +11364,87 @@ int dropdownMenuEntryDropdownMenuEntry(DartDartObj value, ffi.Pointer<ffi.Char> 
   return _addWidget(w);
 }
 
+void _setupDropdownMenuItem(WidgetFactories f) {
+  f.dropdownMenuItem.dropdownMenuItem = ffi.Pointer.fromFunction(dropdownMenuItemDropdownMenuItem);
+}
+DropdownMenuItemObjSt dropdownMenuItemDropdownMenuItem(ffi.Pointer<VoidCallbackFFI> onTap, ffi.Pointer<DartObj> value, ffi.Pointer<ffi.Int> enabled, ffi.Pointer<DartObj> alignment, DartDartObj child) {
+  final w = DropdownMenuItem(onTap: onTap.toVoidCallbackFn(),
+      value: value,
+      enabled: enabled.boolOr(true),
+      alignment: alignment.objOr(AlignmentDirectional.centerStart),
+      child: _widgetsMap[child]! as Widget);
+  return _createDropdownMenuItemObjSt(w);
+}
+DropdownMenuItemObjSt _createDropdownMenuItemObjSt(DropdownMenuItem? w) {
+  final DropdownMenuItemObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.enabled = w.enabled.toInt();
+  return stObj;
+}
+
+void _setupDropdownButton(WidgetFactories f) {
+  f.dropdownButton.dropdownButton = ffi.Pointer.fromFunction(dropdownButtonDropdownButton);
+}
+DropdownButtonObjSt dropdownButtonDropdownButton(ffi.Pointer<ArrayC> items, ffi.Pointer<DropdownButtonBuilderFFI> selectedItemBuilder, ffi.Pointer<DartObj> value, ffi.Pointer<DartObj> hint, ffi.Pointer<DartObj> disabledHint, ffi.Pointer<ValueChangedForTOptFFI> onChanged, ffi.Pointer<VoidCallbackFFI> onTap, ffi.Pointer<ffi.Int> elevation, ffi.Pointer<DartObj> style, ffi.Pointer<DartObj> underline, ffi.Pointer<DartObj> icon, ffi.Pointer<DartObj> iconDisabledColor, ffi.Pointer<DartObj> iconEnabledColor, ffi.Pointer<ffi.Double> iconSize, ffi.Pointer<ffi.Int> isDense, ffi.Pointer<ffi.Int> isExpanded, ffi.Pointer<ffi.Double> itemHeight, ffi.Pointer<ffi.Double> menuWidth, ffi.Pointer<DartObj> focusColor, ffi.Pointer<ffi.Int> autofocus, ffi.Pointer<DartObj> dropdownColor, ffi.Pointer<ffi.Double> menuMaxHeight, ffi.Pointer<ffi.Int> enableFeedback, ffi.Pointer<DartObj> alignment, ffi.Pointer<DartObj> borderRadius, ffi.Pointer<DartObj> padding, ffi.Pointer<ffi.Int> barrierDismissible) {
+  final w = DropdownButton(items: items.listOrNul(),
+      selectedItemBuilder: selectedItemBuilder.toDropdownButtonBuilderFn(),
+      value: value,
+      hint: hint.objOrNul(),
+      disabledHint: disabledHint.objOrNul(),
+      onChanged: onChanged.toValueChangedForTOptFn(),
+      onTap: onTap.toVoidCallbackFn(),
+      elevation: elevation.intOr(8),
+      style: style.objOrNul(),
+      underline: underline.objOrNul(),
+      icon: icon.objOrNul(),
+      iconDisabledColor: iconDisabledColor.objOrNul(),
+      iconEnabledColor: iconEnabledColor.objOrNul(),
+      iconSize: iconSize.doubleOr(24.0),
+      isDense: isDense.boolOr(false),
+      isExpanded: isExpanded.boolOr(false),
+      itemHeight: itemHeight.doubleOrNul(),
+      menuWidth: menuWidth.doubleOrNul(),
+      focusColor: focusColor.objOrNul(),
+      autofocus: autofocus.boolOr(false),
+      dropdownColor: dropdownColor.objOrNul(),
+      menuMaxHeight: menuMaxHeight.doubleOrNul(),
+      enableFeedback: enableFeedback.boolOrNul(),
+      alignment: alignment.objOr(AlignmentDirectional.centerStart),
+      borderRadius: borderRadius.objOrNul(),
+      padding: padding.objOrNul(),
+      barrierDismissible: barrierDismissible.boolOr(true));
+  return _createDropdownButtonObjSt(w);
+}
+DropdownButtonObjSt _createDropdownButtonObjSt(DropdownButton? w) {
+  final DropdownButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.hint = _addWidget(w.hint);
+  stObj.disabledHint = _addWidget(w.disabledHint);
+  stObj.elevation = w.elevation;
+  stObj.style = _createTextStyleObjSt(w.style);
+  stObj.underline = _addWidget(w.underline);
+  stObj.icon = _addWidget(w.icon);
+  stObj.iconDisabledColor = _addWidget(w.iconDisabledColor);
+  stObj.iconEnabledColor = _addWidget(w.iconEnabledColor);
+  stObj.iconSize = w.iconSize;
+  stObj.isDense = w.isDense.toInt();
+  stObj.isExpanded = w.isExpanded.toInt();
+  stObj.itemHeight = (w.itemHeight != null) ? w.itemHeight! : 0;
+  stObj.menuWidth = (w.menuWidth != null) ? w.menuWidth! : 0;
+  stObj.focusColor = _addWidget(w.focusColor);
+  stObj.autofocus = w.autofocus.toInt();
+  stObj.dropdownColor = _addWidget(w.dropdownColor);
+  stObj.padding = _addWidget(w.padding);
+  stObj.menuMaxHeight = (w.menuMaxHeight != null) ? w.menuMaxHeight! : 0;
+  stObj.enableFeedback = (w.enableFeedback != null) ? w.enableFeedback!.toInt() : 0;
+  stObj.alignment = _addWidget(w.alignment);
+  stObj.borderRadius = _createBorderRadiusObjSt(w.borderRadius);
+  stObj.barrierDismissible = w.barrierDismissible.toInt();
+  return stObj;
+}
+
 void _setupRadio(WidgetFactories f) {
   f.radio.radio = ffi.Pointer.fromFunction(radioRadio);
   f.radio.adaptive = ffi.Pointer.fromFunction(radioAdaptive);
@@ -13790,6 +13871,66 @@ IconThemeObjSt _createIconThemeObjSt(IconTheme? w) {
   stObj.id = _addWidget(w);
   if (w == null) return stObj;
   stObj.data = _createIconThemeDataObjSt(w.data);
+  return stObj;
+}
+
+void _setupBackButton(WidgetFactories f) {
+  f.backButton.backButton = ffi.Pointer.fromFunction(backButtonBackButton);
+}
+BackButtonObjSt backButtonBackButton(ffi.Pointer<DartObj> color, ffi.Pointer<VoidCallbackFFI> onPressed) {
+  final w = BackButton(color: color.objOrNul(),
+      onPressed: onPressed.toVoidCallbackFn());
+  return _createBackButtonObjSt(w);
+}
+BackButtonObjSt _createBackButtonObjSt(BackButton? w) {
+  final BackButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupCloseButton(WidgetFactories f) {
+  f.closeButton.closeButton = ffi.Pointer.fromFunction(closeButtonCloseButton);
+}
+CloseButtonObjSt closeButtonCloseButton(ffi.Pointer<DartObj> color, ffi.Pointer<VoidCallbackFFI> onPressed) {
+  final w = CloseButton(color: color.objOrNul(),
+      onPressed: onPressed.toVoidCallbackFn());
+  return _createCloseButtonObjSt(w);
+}
+CloseButtonObjSt _createCloseButtonObjSt(CloseButton? w) {
+  final CloseButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupDrawerButton(WidgetFactories f) {
+  f.drawerButton.drawerButton = ffi.Pointer.fromFunction(drawerButtonDrawerButton);
+}
+DrawerButtonObjSt drawerButtonDrawerButton(ffi.Pointer<DartObj> color, ffi.Pointer<VoidCallbackFFI> onPressed) {
+  final w = DrawerButton(color: color.objOrNul(),
+      onPressed: onPressed.toVoidCallbackFn());
+  return _createDrawerButtonObjSt(w);
+}
+DrawerButtonObjSt _createDrawerButtonObjSt(DrawerButton? w) {
+  final DrawerButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  return stObj;
+}
+
+void _setupEndDrawerButton(WidgetFactories f) {
+  f.endDrawerButton.endDrawerButton = ffi.Pointer.fromFunction(endDrawerButtonEndDrawerButton);
+}
+EndDrawerButtonObjSt endDrawerButtonEndDrawerButton(ffi.Pointer<DartObj> color, ffi.Pointer<VoidCallbackFFI> onPressed) {
+  final w = EndDrawerButton(color: color.objOrNul(),
+      onPressed: onPressed.toVoidCallbackFn());
+  return _createEndDrawerButtonObjSt(w);
+}
+EndDrawerButtonObjSt _createEndDrawerButtonObjSt(EndDrawerButton? w) {
+  final EndDrawerButtonObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
   return stObj;
 }
 
@@ -17188,6 +17329,8 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupDataRow(f);
   _setupDataCell(f);
   _setupDropdownMenuEntry(f);
+  _setupDropdownMenuItem(f);
+  _setupDropdownButton(f);
   _setupRadio(f);
   _setupRadioListTile(f);
   _setupExpansionTile(f);
@@ -17254,6 +17397,10 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupLayoutBuilder(f);
   _setupOrientationBuilder(f);
   _setupIconTheme(f);
+  _setupBackButton(f);
+  _setupCloseButton(f);
+  _setupDrawerButton(f);
+  _setupEndDrawerButton(f);
   _setupBackButtonIcon(f);
   _setupCloseButtonIcon(f);
   _setupDrawerButtonIcon(f);
@@ -18288,6 +18435,19 @@ extension on DataColumnSortCallbackFFI {
 }
 extension on ffi.Pointer<DataColumnSortCallbackFFI> {
   DataColumnSortCallback? toDataColumnSortCallbackFn() => (this != ffi.nullptr) ? this.value.toDataColumnSortCallbackFn() : null;
+}
+
+extension on DropdownButtonBuilderFFI {
+  DropdownButtonBuilder toDropdownButtonBuilderFn() {
+    return (BuildContext context) => _runBuildScope(() {
+      DartDropdownButtonBuilderFFIFunction dFn = asFunction();
+      final dFnRet = dFn(_addWidget(context));
+      return dFnRet.listOrEmpty();
+    });
+  }
+}
+extension on ffi.Pointer<DropdownButtonBuilderFFI> {
+  DropdownButtonBuilder? toDropdownButtonBuilderFn() => (this != ffi.nullptr) ? this.value.toDropdownButtonBuilderFn() : null;
 }
 
 extension on ValueChangedForTOptFFI {

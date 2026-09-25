@@ -6,7 +6,7 @@ import org.immutables.builder.Builder;
 import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.ffm.DirectionalityObjSt;
 import static dev.equo.ewt.WidgetConstructorsBase.*;
-public class Directionality extends _UbiquitousInheritedWidget implements DirectionalityI {
+public class Directionality extends InheritedWidget implements DirectionalityI {
   private MemorySegment st;
   protected Directionality() {}
   Directionality(MemorySegment st) {

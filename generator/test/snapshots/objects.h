@@ -2807,6 +2807,35 @@ typedef struct {
 } DataCellObjSt;
 typedef struct {
   int id;
+  int enabled;
+} DropdownMenuItemObjSt;
+typedef struct {
+  int id;
+  DartObj hint;
+  DartObj disabledHint;
+  int elevation;
+  TextStyleObjSt style;
+  DartObj underline;
+  DartObj icon;
+  DartObj iconDisabledColor;
+  DartObj iconEnabledColor;
+  double iconSize;
+  int isDense;
+  int isExpanded;
+  double itemHeight;
+  double menuWidth;
+  DartObj focusColor;
+  int autofocus;
+  DartObj dropdownColor;
+  DartObj padding;
+  double menuMaxHeight;
+  int enableFeedback;
+  DartObj alignment;
+  BorderRadiusObjSt borderRadius;
+  int barrierDismissible;
+} DropdownButtonObjSt;
+typedef struct {
+  int id;
   int toggleable;
   DartObj activeColor;
   int materialTapTargetSize;
@@ -3547,6 +3576,18 @@ typedef struct {
   int id;
   IconThemeDataObjSt data;
 } IconThemeObjSt;
+typedef struct {
+  int id;
+} BackButtonObjSt;
+typedef struct {
+  int id;
+} CloseButtonObjSt;
+typedef struct {
+  int id;
+} DrawerButtonObjSt;
+typedef struct {
+  int id;
+} EndDrawerButtonObjSt;
 typedef struct {
   int id;
 } BackButtonIconObjSt;

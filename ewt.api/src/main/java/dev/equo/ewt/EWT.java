@@ -1691,6 +1691,14 @@ public class EWT {
     return DropdownMenuEntryDropdownMenuEntryBuilder.dropdownMenuEntryDropdownMenuEntry(value, label);
   }
 
+  public static <T extends NativeObj> DropdownMenuItemDropdownMenuItemBuilder<T> DropdownMenuItem() {
+    return DropdownMenuItemDropdownMenuItemBuilder.dropdownMenuItemDropdownMenuItem();
+  }
+
+  public static <T extends NativeObj> DropdownButtonDropdownButtonBuilder<T> DropdownButton() {
+    return DropdownButtonDropdownButtonBuilder.dropdownButtonDropdownButton();
+  }
+
   public static <T extends NativeObj> RadioRadioBuilder<T> Radio(NativeObj value) {
     return RadioRadioBuilder.radioRadio(value);
   }
@@ -1997,6 +2005,22 @@ public class EWT {
 
   public static IconThemeIconThemeBuilder IconTheme(IconThemeDataI data, WidgetI child) {
     return IconThemeIconThemeBuilder.iconThemeIconTheme(data, child);
+  }
+
+  public static BackButtonBackButtonBuilder BackButton() {
+    return BackButtonBackButtonBuilder.backButtonBackButton();
+  }
+
+  public static CloseButtonCloseButtonBuilder CloseButton() {
+    return CloseButtonCloseButtonBuilder.closeButtonCloseButton();
+  }
+
+  public static DrawerButtonDrawerButtonBuilder DrawerButton() {
+    return DrawerButtonDrawerButtonBuilder.drawerButtonDrawerButton();
+  }
+
+  public static EndDrawerButtonEndDrawerButtonBuilder EndDrawerButton() {
+    return EndDrawerButtonEndDrawerButtonBuilder.endDrawerButtonEndDrawerButton();
   }
 
   public static BackButtonIconBackButtonIconBuilder BackButtonIcon() {

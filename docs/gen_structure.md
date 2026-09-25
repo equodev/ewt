@@ -278,6 +278,15 @@ Enforced by convention, not by tooling:
   for review) but they are outputs, not sources. Edit the generator.
 - **Hardcoding widget names in helpers.** If a helper needs
   widget-specific behaviour, expose a hook on `WidgetGen` (see §2c).
+- **Referencing Flutter's private (`_`-prefixed) classes from emitted
+  code.** Dart's library-private rule makes `_PrivateClass` inaccessible
+  from `widgets/lib/factories_gen.dart`, so any generated Dart that
+  names such a class fails to compile. `Types.addRequiredType` skips
+  private types entirely, and `WidgetGen.writeHeaders` walks past
+  private intermediate supertypes to the first public ancestor when
+  emitting the Java `extends` clause. Do not re-introduce a code path
+  that queues a private type for emission — grep for
+  `element.name.startsWith('_')` before adding a new discovery hook.
 
 ---
 
@@ -308,30 +317,24 @@ abstract with a free type parameter.
 value type carrying `begin`/`end` of the bound type, similar to how
 `Curve` is handled today.
 
-### `DropdownButton<T>`, `DropdownMenuItem<T>`, `DropdownMenu<T>`
+### `DropdownMenu<T>`
 
-**Why:** `DropdownMenuItem<T>` in Flutter extends the **private**
-`_DropdownMenuItemContainer`. When the generator processes
-`DropdownMenuItem` it walks the type hierarchy and pulls
-`_DropdownMenuItemContainer` in as a subwidget, then emits FFI setup
-against a private symbol — both `f._DropdownMenuItemContainer._Dropdown…`
-field access and `ffi.Struct.create()` on a private class fail to
-compile in the generated `factories_gen.dart`.
+`DropdownButton<T>` and `DropdownMenuItem<T>` are **now supported** —
+the private-supertype skip (see §3c anti-patterns and `Types.addRequiredType`
++ `WidgetGen.writeHeaders`) landed and unblocked them together with
+`BackButton` / `CloseButton` / `DrawerButton` / `EndDrawerButton`,
+which had the same shape (concrete widget extending a Flutter
+implementation-private class).
 
-Same-shape landmine hits `BackButton` / `CloseButton` / `DrawerButton` /
-`EndDrawerButton` (all extend private `_ActionButton`) — Immutables
-silently drops the whole processing round when it sees a
-`@Builder.Factory` on a class with a private-underscore supertype. See
-the inline comment at `generation_index.dart:415`.
+`DropdownMenu<T>` is still deferred for a different reason:
+`filterCallback` and `searchCallback` pass `List<DropdownMenuEntry<T>>`
+through the FFI boundary, and the current callback path doesn't marshal
+that shape.
 
-`DropdownMenu<T>` has a separate landmine: `filterCallback` /
-`searchCallback` pass `List<DropdownMenuEntry<T>>` through the FFI
-boundary, and the current callback path doesn't marshal that shape.
-
-**To enable:** teach the subwidget-discovery loop in
-`generator/lib/gen.dart` to skip supertypes whose Dart name begins with
-`_`. Then re-enable `DropdownButton` and `DropdownMenuItem`.
-`DropdownMenu` needs the additional callback work.
+**To enable:** extend `paramValueDtoC` in `generator/lib/gen.dart` so
+callbacks whose parameters are `List<T>` of an ObjSt-emitted type can
+round-trip. Same infrastructure would unblock any future widget with a
+callback taking a widget list.
 
 ### `Autocomplete<T>`
 

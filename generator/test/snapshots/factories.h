@@ -1608,6 +1608,14 @@ typedef struct {
     DartObj (*dropdownMenuEntry)(DartObj value, char* label, DartObj* labelWidget, DartObj* leadingIcon, DartObj* trailingIcon, int* enabled);
   } dropdownMenuEntry;
 
+  struct DropdownMenuItemSt {
+    DropdownMenuItemObjSt (*dropdownMenuItem)(VoidCallbackFFI* onTap, DartObj* value, int* enabled, DartObj* alignment, DartObj child);
+  } dropdownMenuItem;
+
+  struct DropdownButtonSt {
+    DropdownButtonObjSt (*dropdownButton)(ArrayC* items, DropdownButtonBuilderFFI* selectedItemBuilder, DartObj* value, DartObj* hint, DartObj* disabledHint, ValueChangedForTOptFFI* onChanged, VoidCallbackFFI* onTap, int* elevation, DartObj* style, DartObj* underline, DartObj* icon, DartObj* iconDisabledColor, DartObj* iconEnabledColor, double* iconSize, int* isDense, int* isExpanded, double* itemHeight, double* menuWidth, DartObj* focusColor, int* autofocus, DartObj* dropdownColor, double* menuMaxHeight, int* enableFeedback, DartObj* alignment, DartObj* borderRadius, DartObj* padding, int* barrierDismissible);
+  } dropdownButton;
+
   struct RadioSt {
     RadioObjSt (*radio)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* fillColor, DartObj* focusColor, DartObj* hoverColor, DartObj* overlayColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, int* autofocus, int* enabled, DartObj* backgroundColor, DartObj* side, double* innerRadius);
     RadioObjSt (*adaptive)(DartObj value, DartObj* groupValue, ValueChangedForTOptFFI* onChanged, int* toggleable, DartObj* activeColor, DartObj* fillColor, DartObj* focusColor, DartObj* hoverColor, DartObj* overlayColor, double* splashRadius, int* materialTapTargetSize, DartObj* visualDensity, int* autofocus, int* useCupertinoCheckmarkStyle, int* enabled, DartObj* backgroundColor, DartObj* side, double* innerRadius);
@@ -1887,6 +1895,22 @@ typedef struct {
     DartObj (*merge)(DartObj data, DartObj child);
     IconThemeDataObjSt (*of)(DartObj context);
   } iconTheme;
+
+  struct BackButtonSt {
+    BackButtonObjSt (*backButton)(DartObj* color, VoidCallbackFFI* onPressed);
+  } backButton;
+
+  struct CloseButtonSt {
+    CloseButtonObjSt (*closeButton)(DartObj* color, VoidCallbackFFI* onPressed);
+  } closeButton;
+
+  struct DrawerButtonSt {
+    DrawerButtonObjSt (*drawerButton)(DartObj* color, VoidCallbackFFI* onPressed);
+  } drawerButton;
+
+  struct EndDrawerButtonSt {
+    EndDrawerButtonObjSt (*endDrawerButton)(DartObj* color, VoidCallbackFFI* onPressed);
+  } endDrawerButton;
 
   struct BackButtonIconSt {
     BackButtonIconObjSt (*backButtonIcon)(void);

@@ -284,18 +284,25 @@ class WidgetGen implements AGen {
     var extend = dartClass.typeParameters.isNotEmpty ? '<${dartClass.typeParameters.map(_sanitizeTypeParam).join(', ')}>' : '';
     List<String> builderExtend = [];
     List<InterfaceType> trulyInterfaces = [];
-    if (dartClass.supertype != null && !dartClass.supertype!.isDartCoreObject) {
-      if (!_isInterface && isInterface(dartClass.supertype!.element)) {
+    // Walk past private-named intermediate supertypes. Referencing a Flutter
+    // `_PrivateClass` from our emitted Java leaks an implementation-private
+    // identifier into our surface, and — more critically — pulling a private
+    // *concrete* Flutter class into `factories_gen.dart` fails Dart's
+    // library-private identifier rules (see the `_DropdownMenuItemContainer`
+    // landmine that blocked `DropdownMenuItem`). Symmetric with the skip in
+    // `Types.addRequiredType`, so the private class is never queued at all.
+    InterfaceType? effectiveSupertype = dartClass.supertype;
+    while (effectiveSupertype != null && effectiveSupertype.element.name.startsWith('_')) {
+      effectiveSupertype = effectiveSupertype.element.supertype;
+    }
+    if (effectiveSupertype != null && !effectiveSupertype.isDartCoreObject) {
+      if (!_isInterface && isInterface(effectiveSupertype.element)) {
         extend += ' extends NativeObj.Base';
-        trulyInterfaces = [dartClass.supertype!];
-        // builderExtend = ' extends ';
+        trulyInterfaces = [effectiveSupertype];
       } else {
-        extend += ' extends ${toJavaClass(dartClass.supertype!)}';
-        // builderExtend = ' extends ${toJavaClassUngeneric(dartClass.supertype!)}I';
-        builderExtend = ['${toJavaClassUngeneric(dartClass.supertype!)}I'];
+        extend += ' extends ${toJavaClass(effectiveSupertype)}';
+        builderExtend = ['${toJavaClassUngeneric(effectiveSupertype)}I'];
       }
-      // extend += ' extends ${dartClass.supertype!.element.name}${dartClass.supertype!.typeArguments.isNotEmpty ? '<${dartClass.typeParameters.map((p) => p.name).join(', ')}>' : ''}';
-      // builderExtend = ' extends ${toJavaClassUngeneric(dartClass.supertype!)}I';
     }
     else {
       extend += ' extends ${!_isInterface ? 'NativeObj.Base' : 'NativeObj, ${widgetClass}I'}';
