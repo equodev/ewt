@@ -10389,7 +10389,7 @@ MemorySegment ptrSelectableDayForRangePredicateFn(TriFunction<DateTime, DateTime
 }
 <T> MemorySegment ptrFutureThenCallbackForObjectOptFn(Consumer<NativeObj> jFn) {
   return FutureThenCallbackForObjectOptFFI.allocate((value) -> {
-    jFn.accept(NativeObj.byIdAndType(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
+    jFn.accept(value.address() == 0 ? null : NativeObj.byIdAndType(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
   }, arena);
 }
 MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
@@ -10723,7 +10723,7 @@ MemorySegment ptrDataColumnSortCallbackFn(BiConsumer<Integer, Boolean> jFn) {
 }
 <T> MemorySegment ptrValueChangedForTOptFn(Consumer<NativeObj> jFn) {
   return ValueChangedForTOptFFI.allocate((value) -> {
-    jFn.accept(NativeObj.byIdAndType(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
+    jFn.accept(value.address() == 0 ? null : NativeObj.byIdAndType(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(value.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
   }, arena);
 }
 MemorySegment ptrExpansionPanelHeaderBuilderFn(BiFunction<BuildContext, Boolean, Widget> jFn) {
@@ -10799,7 +10799,7 @@ MemorySegment ptrPopInvokedCallbackFn(Consumer<Boolean> jFn) {
 }
 <T> MemorySegment ptrPopInvokedWithResultCallbackForObjectOptFn(BiConsumer<Boolean, NativeObj> jFn) {
   return PopInvokedWithResultCallbackForObjectOptFFI.allocate((didPop, result) -> {
-    jFn.accept(intToBool(didPop), NativeObj.byIdAndType(result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
+    jFn.accept(intToBool(didPop), result.address() == 0 ? null : NativeObj.byIdAndType(result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0), dev.equo.ewt.EWT.widgetTypeOf(result.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0))));
   }, arena);
 }
 MemorySegment ptrWillPopCallbackFn(Supplier<Future<Boolean>> jFn) {
