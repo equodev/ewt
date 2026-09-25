@@ -7,9 +7,9 @@ Flutter 3.44.4
 | Library | Supported | Total | % |
 |---|---:|---:|---:|
 | Basic widgets | 184 | 295 | 62% |
-| Material | 151 | 189 | 79% |
+| Material | 157 | 189 | 83% |
 | Cupertino | 31 | 58 | 53% |
-| **Total** | **366** | **542** | **67%** |
+| **Total** | **372** | **542** | **68%** |
 
 ## Basic widgets
 
@@ -317,7 +317,7 @@ _package:flutter/widgets.dart — raw building blocks, no default styling_
 
 _package:flutter/material.dart — Material Design components (Google)_
 
-**151 of 189 supported**
+**157 of 189 supported**
 
 - [x] AboutDialog
 - [x] AboutListTile
@@ -327,6 +327,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] AnimatedTheme
 - [x] AppBar
 - [x] AppBarTheme
+- [x] BackButton
 - [x] BackButtonIcon
 - [x] Badge
 - [x] BadgeTheme
@@ -351,6 +352,7 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] ChoiceChip
 - [x] CircleAvatar
 - [x] CircularProgressIndicator
+- [x] CloseButton
 - [x] CloseButtonIcon
 - [x] DataTable
 - [x] DataTableTheme
@@ -365,13 +367,17 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [x] Divider
 - [x] DividerTheme
 - [x] Drawer
+- [x] DrawerButton
 - [x] DrawerButtonIcon
 - [x] DrawerController
 - [x] DrawerHeader
 - [x] DrawerTheme
+- [x] DropdownButton
+- [x] DropdownMenuItem
 - [x] DropdownMenuTheme
 - [x] ElevatedButton
 - [x] ElevatedButtonTheme
+- [x] EndDrawerButton
 - [x] EndDrawerButtonIcon
 - [x] ExpandIcon
 - [x] ExpansionPanelList
@@ -473,18 +479,12 @@ _package:flutter/material.dart — Material Design components (Google)_
 - [ ] AdaptiveTextSelectionToolbar
 - [ ] AnimatedIcon
 - [ ] Autocomplete
-- [ ] BackButton
 - [ ] BottomNavigationBar
 - [ ] ButtonBarTheme
-- [ ] CloseButton
-- [ ] DrawerButton
-- [ ] DropdownButton
 - [ ] DropdownButtonFormField
 - [ ] DropdownButtonHideUnderline
 - [ ] DropdownMenu
 - [ ] DropdownMenuFormField
-- [ ] DropdownMenuItem
-- [ ] EndDrawerButton
 - [ ] FlexibleSpaceBar
 - [ ] FlexibleSpaceBarSettings
 - [ ] InkResponse
