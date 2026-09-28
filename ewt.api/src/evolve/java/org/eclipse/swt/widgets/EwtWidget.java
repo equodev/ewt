@@ -59,11 +59,32 @@ public class EwtWidget extends Composite {
      * the api Composite, so {@code hashCode()} is exactly that id.
      */
     public void setWidget(Callable<Widget> builder) {
-        if (EwtWebTransport.isWebMode()) {
+        boolean comm = EwtWebTransport.isWebMode();
+        // Tell the native Dart region which transport to render with: comm (java<22 / web) publishes
+        // the subtree, FFM (java>=22 desktop) registers a native builder. The desktop engine's region
+        // defaults to comm; this signal flips it to the FFM region when needed. Sent over the comm
+        // Evolve already runs on desktop (the Java<->engine channel).
+        announceTransport(comm);
+        if (comm) {
             publishWebSubtree(builder);
         } else {
             App.registerBuilder(hashCode(), builder);
         }
+    }
+
+    /** Whether this region has registered the transport-resend handler yet. */
+    private boolean transportHandlerRegistered = false;
+
+    /** Publishes the render transport for this region and (once) answers resend requests from the
+     *  Dart region — which may subscribe after the first announcement was flushed. */
+    private void announceTransport(boolean comm) {
+        byte[] value = (comm ? "comm" : "ffm").getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        if (!transportHandlerRegistered) {
+            EvolveComm.onEvent(getImpl(), EwtWebTransport.transportRequestEvent(hashCode()),
+                () -> EvolveComm.send(getImpl(), EwtWebTransport.transportEvent(hashCode()), value));
+            transportHandlerRegistered = true;
+        }
+        EvolveComm.send(getImpl(), EwtWebTransport.transportEvent(hashCode()), value);
     }
 
     private volatile EwtNode lastTree;
@@ -96,15 +117,16 @@ public class EwtWidget extends Composite {
             clearWebState();
             webState = capture.state;
             webNestedStates = capture.nestedStates;
-            if (capture.state instanceof SubState<?> ss) {
-                EwtWebState.register(ss, this::rebuild);
-            } else if (capture.state instanceof SubAnimatedState<?> as) {
+            if (capture.state instanceof SubState<?>) {
+                EwtWebState.register((SubState<?>) capture.state, this::rebuild);
+            } else if (capture.state instanceof SubAnimatedState<?>) {
+                SubAnimatedState<?> as = (SubAnimatedState<?>) capture.state;
                 EwtWebState.register(as, this::rebuild);
                 as.setWebAnimCommandSink(this::sendAnimCommand);
             }
             for (Object ns : capture.nestedStates) {
-                if (ns instanceof SubState<?> ss) EwtWebState.register(ss, this::rebuild);
-                else if (ns instanceof SubAnimatedState<?> as) EwtWebState.register(as, this::rebuild);
+                if (ns instanceof SubState<?>) EwtWebState.register((SubState<?>) ns, this::rebuild);
+                else if (ns instanceof SubAnimatedState<?>) EwtWebState.register((SubAnimatedState<?>) ns, this::rebuild);
             }
             if (!webHandlersRegistered) {
                 EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
@@ -130,15 +152,16 @@ public class EwtWidget extends Composite {
     /** Unregisters the current web state (root + nested) from EwtWebState and clears anim sinks. */
     private void clearWebState() {
         Object prev = webState;
-        if (prev instanceof SubState<?> ss) EwtWebState.unregister(ss);
-        else if (prev instanceof SubAnimatedState<?> as) {
+        if (prev instanceof SubState<?>) EwtWebState.unregister((SubState<?>) prev);
+        else if (prev instanceof SubAnimatedState<?>) {
+            SubAnimatedState<?> as = (SubAnimatedState<?>) prev;
             EwtWebState.unregister(as);
             as.setWebAnimCommandSink(null);
         }
         webState = null;
         for (Object ns : webNestedStates) {
-            if (ns instanceof SubState<?> ss) EwtWebState.unregister(ss);
-            else if (ns instanceof SubAnimatedState<?> as) EwtWebState.unregister(as);
+            if (ns instanceof SubState<?>) EwtWebState.unregister((SubState<?>) ns);
+            else if (ns instanceof SubAnimatedState<?>) EwtWebState.unregister((SubAnimatedState<?>) ns);
         }
         webNestedStates = java.util.List.of();
     }
@@ -150,20 +173,20 @@ public class EwtWidget extends Composite {
         if (s == null) return;
         try {
             EwtCapture capture;
-            if (s instanceof SubState<?> ss) {
-                capture = EwtWebCapture.rebuild(ss);
-            } else if (s instanceof SubAnimatedState<?> as) {
-                capture = EwtWebCapture.rebuildAnimated(as);
+            if (s instanceof SubState<?>) {
+                capture = EwtWebCapture.rebuild((SubState<?>) s);
+            } else if (s instanceof SubAnimatedState<?>) {
+                capture = EwtWebCapture.rebuildAnimated((SubAnimatedState<?>) s);
             } else return;
             webCallbacks = capture.callbacks;
             for (Object ns : webNestedStates) {
-                if (ns instanceof SubState<?> ss) EwtWebState.unregister(ss);
-                else if (ns instanceof SubAnimatedState<?> as) EwtWebState.unregister(as);
+                if (ns instanceof SubState<?>) EwtWebState.unregister((SubState<?>) ns);
+                else if (ns instanceof SubAnimatedState<?>) EwtWebState.unregister((SubAnimatedState<?>) ns);
             }
             webNestedStates = capture.nestedStates;
             for (Object ns : webNestedStates) {
-                if (ns instanceof SubState<?> ss) EwtWebState.register(ss, this::rebuild);
-                else if (ns instanceof SubAnimatedState<?> as) EwtWebState.register(as, this::rebuild);
+                if (ns instanceof SubState<?>) EwtWebState.register((SubState<?>) ns, this::rebuild);
+                else if (ns instanceof SubAnimatedState<?>) EwtWebState.register((SubAnimatedState<?>) ns, this::rebuild);
             }
             EwtNode prev = lastTree;
             lastTree = capture.root;
@@ -219,9 +242,10 @@ public class EwtWidget extends Composite {
      *  the stored Consumer with the arg. */
     @SuppressWarnings("unchecked")
     static Runnable resolveCallback(java.util.Map<Integer, Object> cbs, Object payload) {
-        if (cbs == null || !(payload instanceof java.util.List<?> list) || list.isEmpty()) return null;
-        if (!(list.get(0) instanceof Number n)) return null;
-        Object cb = cbs.get(n.intValue());
+        if (cbs == null || !(payload instanceof java.util.List<?>)) return null;
+        java.util.List<?> list = (java.util.List<?>) payload;
+        if (list.isEmpty() || !(list.get(0) instanceof Number)) return null;
+        Object cb = cbs.get(((Number) list.get(0)).intValue());
         if (list.size() == 1) {
             return cb instanceof Runnable ? (Runnable) cb : null;
         }

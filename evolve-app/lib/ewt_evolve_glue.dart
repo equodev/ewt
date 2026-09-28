@@ -4,7 +4,9 @@
 // build never pulls in the FFI plugin.
 import 'package:swtflutter/src/custom/ewt_evolve.dart' as evolve;
 
-import 'ewt_region_ffi.dart' if (dart.library.js_interop) 'ewt_region_web.dart' as region;
+// java-11 split: desktop (native) renders EWT over comm too (java<22 has no FFM), so both native and
+// web use a comm-fed region. ewt_region_native.dart pulls no dart:ffi, so it loads on any JVM.
+import 'ewt_region_native.dart' if (dart.library.js_interop) 'ewt_region_web.dart' as region;
 
 /// Registers EWT as the provider for Evolve's EwtWidget region.
 void installEwtRegion() {
