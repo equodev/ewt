@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.NavigatorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Navigator extends StatefulWidget implements NavigatorI {
-  private MemorySegment st;
   protected Navigator() {}
-  Navigator(MemorySegment st) {
-    this.id = NavigatorObjSt.id(st);
-    this.st = st;
+  Navigator(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Navigator");
-    System.out.println("New Navigator id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Navigator(int id) { this.id = id; }
   @Builder.Factory
   static Navigator navigatorNavigator(Optional<String> initialRoute, Optional<Boolean> reportsRouteUpdateToEngine, Optional<Clip> clipBehavior, Optional<Boolean> requestFocus, Optional<String> restorationScopeId, Optional<TraversalEdgeBehavior> routeTraversalEdgeBehavior, Optional<TraversalEdgeBehavior> routeDirectionalTraversalEdgeBehavior) {
-    var st = factories.navigatorNavigator(initialRoute,
+    int id = factories.navigatorNavigator(initialRoute,
       reportsRouteUpdateToEngine,
       clipBehavior,
       requestFocus,
       restorationScopeId,
       routeTraversalEdgeBehavior,
       routeDirectionalTraversalEdgeBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget Navigator");
-    return new Navigator(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Navigator");
+    return new Navigator(id);
   }
   public static NavigatorNavigatorBuilder navigator() {
     return NavigatorNavigatorBuilder.navigatorNavigator();
   }
   public static Future pushNamed(BuildContextI context, String routeName) {
-    int id = factories.navigatorPushNamed(context.build(),
+    var id = factories.navigatorPushNamed(context.build(),
       routeName,
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
@@ -40,14 +34,14 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     return new Future() { public int getId() { return id; } };
   }
   public static String restorablePushNamed(BuildContextI context, String routeName) {
-    MemorySegment id = factories.navigatorRestorablePushNamed(context.build(),
+    var id = factories.navigatorRestorablePushNamed(context.build(),
       routeName,
       Optional.empty());
     System.out.println("New String id:"+id);
-    return id.getString(0);
+    return id;
   }
   public static Future pushReplacementNamed(BuildContextI context, String routeName) {
-    int id = factories.navigatorPushReplacementNamed(context.build(),
+    var id = factories.navigatorPushReplacementNamed(context.build(),
       routeName,
       Optional.empty(),
       Optional.empty());
@@ -56,15 +50,15 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     return new Future() { public int getId() { return id; } };
   }
   public static String restorablePushReplacementNamed(BuildContextI context, String routeName) {
-    MemorySegment id = factories.navigatorRestorablePushReplacementNamed(context.build(),
+    var id = factories.navigatorRestorablePushReplacementNamed(context.build(),
       routeName,
       Optional.empty(),
       Optional.empty());
     System.out.println("New String id:"+id);
-    return id.getString(0);
+    return id;
   }
   public static Future popAndPushNamed(BuildContextI context, String routeName) {
-    int id = factories.navigatorPopAndPushNamed(context.build(),
+    var id = factories.navigatorPopAndPushNamed(context.build(),
       routeName,
       Optional.empty(),
       Optional.empty());
@@ -73,21 +67,21 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     return new Future() { public int getId() { return id; } };
   }
   public static String restorablePopAndPushNamed(BuildContextI context, String routeName) {
-    MemorySegment id = factories.navigatorRestorablePopAndPushNamed(context.build(),
+    var id = factories.navigatorRestorablePopAndPushNamed(context.build(),
       routeName,
       Optional.empty(),
       Optional.empty());
     System.out.println("New String id:"+id);
-    return id.getString(0);
+    return id;
   }
   public static boolean canPop(BuildContextI context) {
-    int id = factories.navigatorCanPop(context.build());
+    var id = factories.navigatorCanPop(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
     System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public static Future<Boolean> maybePop(BuildContextI context) {
-    int id = factories.navigatorMaybePop(context.build(),
+    var id = factories.navigatorMaybePop(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<bool>");
     System.out.println("New Future<bool> id:"+id);
@@ -98,14 +92,14 @@ public class Navigator extends StatefulWidget implements NavigatorI {
       Optional.empty());
   }
   public static NavigatorState of(BuildContextI context) {
-    int id = factories.navigatorOf(context.build(),
+    var id = factories.navigatorOf(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState");
     System.out.println("New NavigatorState id:"+id);
     return new NavigatorState(id);
   }
   public static NavigatorState maybeOf(BuildContextI context) {
-    int id = factories.navigatorMaybeOf(context.build(),
+    var id = factories.navigatorMaybeOf(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState?");
     System.out.println("New NavigatorState? id:"+id);
@@ -113,31 +107,31 @@ public class Navigator extends StatefulWidget implements NavigatorI {
   }
   public String initialRoute() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorInitialRoute not supported on web");
-    return NavigatorObjSt.initialRoute(st).getString(0);
+    return factories.Navigator_readBack_initialRoute(nativeStruct);
   }
   public String restorationScopeId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRestorationScopeId not supported on web");
-    return NavigatorObjSt.restorationScopeId(st).getString(0);
+    return factories.Navigator_readBack_restorationScopeId(nativeStruct);
   }
   public TraversalEdgeBehavior routeTraversalEdgeBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRouteTraversalEdgeBehavior not supported on web");
-    return TraversalEdgeBehavior.values()[NavigatorObjSt.routeTraversalEdgeBehavior(st)];
+    return factories.Navigator_readBack_routeTraversalEdgeBehavior(nativeStruct);
   }
   public TraversalEdgeBehavior routeDirectionalTraversalEdgeBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRouteDirectionalTraversalEdgeBehavior not supported on web");
-    return TraversalEdgeBehavior.values()[NavigatorObjSt.routeDirectionalTraversalEdgeBehavior(st)];
+    return factories.Navigator_readBack_routeDirectionalTraversalEdgeBehavior(nativeStruct);
   }
   public boolean reportsRouteUpdateToEngine() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorReportsRouteUpdateToEngine not supported on web");
-    return intToBool(NavigatorObjSt.reportsRouteUpdateToEngine(st));
+    return factories.Navigator_readBack_reportsRouteUpdateToEngine(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorClipBehavior not supported on web");
-    return Clip.values()[NavigatorObjSt.clipBehavior(st)];
+    return factories.Navigator_readBack_clipBehavior(nativeStruct);
   }
   public boolean requestFocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorRequestFocus not supported on web");
-    return intToBool(NavigatorObjSt.requestFocus(st));
+    return factories.Navigator_readBack_requestFocus(nativeStruct);
   }
   public static String defaultRouteName() {
     return "/";

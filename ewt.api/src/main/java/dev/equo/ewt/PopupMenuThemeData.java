@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.PopupMenuThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class PopupMenuThemeData extends NativeObj.Base implements PopupMenuThemeDataI {
-  private MemorySegment st;
   protected PopupMenuThemeData() {}
-  PopupMenuThemeData(MemorySegment st) {
-    this.id = PopupMenuThemeDataObjSt.id(st);
-    this.st = st;
+  PopupMenuThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget PopupMenuThemeData");
-    System.out.println("New PopupMenuThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  PopupMenuThemeData(int id) { this.id = id; }
   @Builder.Factory
   static PopupMenuThemeData popupMenuThemeDataPopupMenuThemeData(Optional<ColorI> color, Optional<ShapeBorderI> shape, Optional<EdgeInsetsGeometryI> menuPadding, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<TextStyleI> labelTextStyle, Optional<Boolean> enableFeedback, Optional<PopupMenuPosition> position, Optional<ColorI> iconColor, OptionalDouble iconSize) {
-    var st = factories.popupMenuThemeDataPopupMenuThemeData(color.map(ColorI::build),
+    int id = factories.popupMenuThemeDataPopupMenuThemeData(color.map(ColorI::build),
       shape.map(ShapeBorderI::build),
       menuPadding.map(EdgeInsetsGeometryI::build),
       elevation,
@@ -30,18 +24,18 @@ public class PopupMenuThemeData extends NativeObj.Base implements PopupMenuTheme
       position,
       iconColor.map(ColorI::build),
       iconSize);
-    if (st == null) throw new RuntimeException("Failed to created widget PopupMenuThemeData");
-    return new PopupMenuThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PopupMenuThemeData");
+    return new PopupMenuThemeData(id);
   }
   public static PopupMenuThemeDataPopupMenuThemeDataBuilder popupMenuThemeData() {
     return PopupMenuThemeDataPopupMenuThemeDataBuilder.popupMenuThemeDataPopupMenuThemeData();
   }
   public static PopupMenuThemeData lerp(PopupMenuThemeDataI a, PopupMenuThemeDataI b, double t) {
-    var st = factories.popupMenuThemeDataLerp(a.build(),
+    int id = factories.popupMenuThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget PopupMenuThemeData");
-    return new PopupMenuThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PopupMenuThemeData");
+    return new PopupMenuThemeData(id);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -49,19 +43,19 @@ public class PopupMenuThemeData extends NativeObj.Base implements PopupMenuTheme
       int __nid = __s.recordAccessor("popupMenuThemeDataColor", getId());
       return new Color(__nid);
     }
-    return new Color(PopupMenuThemeDataObjSt.color(st));
+    return factories.PopupMenuThemeData_readBack_color(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuThemeDataShape not supported on web");
-    return new ShapeBorder(PopupMenuThemeDataObjSt.shape(st)) {};
+    return factories.PopupMenuThemeData_readBack_shape(nativeStruct);
   }
   public EdgeInsetsGeometry menuPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuThemeDataMenuPadding not supported on web");
-    return new EdgeInsetsGeometry(PopupMenuThemeDataObjSt.menuPadding(st)) {};
+    return factories.PopupMenuThemeData_readBack_menuPadding(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuThemeDataElevation not supported on web");
-    return PopupMenuThemeDataObjSt.elevation(st);
+    return factories.PopupMenuThemeData_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -69,7 +63,7 @@ public class PopupMenuThemeData extends NativeObj.Base implements PopupMenuTheme
       int __nid = __s.recordAccessor("popupMenuThemeDataShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(PopupMenuThemeDataObjSt.shadowColor(st));
+    return factories.PopupMenuThemeData_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -77,25 +71,23 @@ public class PopupMenuThemeData extends NativeObj.Base implements PopupMenuTheme
       int __nid = __s.recordAccessor("popupMenuThemeDataSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(PopupMenuThemeDataObjSt.surfaceTintColor(st));
+    return factories.PopupMenuThemeData_readBack_surfaceTintColor(nativeStruct);
   }
   public TextStyle textStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("popupMenuThemeDataTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(PopupMenuThemeDataObjSt.textStyle(st));
+    return factories.PopupMenuThemeData_readBack_textStyle(nativeStruct);
   }
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuThemeDataEnableFeedback not supported on web");
-    return intToBool(PopupMenuThemeDataObjSt.enableFeedback(st));
+    return factories.PopupMenuThemeData_readBack_enableFeedback(nativeStruct);
   }
   public PopupMenuPosition position() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuThemeDataPosition not supported on web");
-    return PopupMenuPosition.values()[PopupMenuThemeDataObjSt.position(st)];
+    return factories.PopupMenuThemeData_readBack_position(nativeStruct);
   }
   public Color iconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -103,11 +95,11 @@ public class PopupMenuThemeData extends NativeObj.Base implements PopupMenuTheme
       int __nid = __s.recordAccessor("popupMenuThemeDataIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(PopupMenuThemeDataObjSt.iconColor(st));
+    return factories.PopupMenuThemeData_readBack_iconColor(nativeStruct);
   }
   public double iconSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuThemeDataIconSize not supported on web");
-    return PopupMenuThemeDataObjSt.iconSize(st);
+    return factories.PopupMenuThemeData_readBack_iconSize(nativeStruct);
   }
   @Override
   public PopupMenuThemeData build() {

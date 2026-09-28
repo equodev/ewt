@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class AnimationController extends NativeObj.Base implements Animation<Double>, AnimationControllerI {
   protected AnimationController() {}
   AnimationController(int id) {
@@ -13,7 +13,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   static { NativeObj.register("AnimationController", AnimationController::byId); }
   @Builder.Factory
   static AnimationController animationControllerAnimationController(OptionalDouble value, Optional<DurationI> duration, Optional<DurationI> reverseDuration, Optional<String> debugLabel, OptionalDouble lowerBound, OptionalDouble upperBound, Optional<AnimationBehavior> animationBehavior, TickerProviderI vsync) {
-    int id = factories.animationControllerAnimationController(value,
+    var id = factories.animationControllerAnimationController(value,
       duration.map(DurationI::build),
       reverseDuration.map(DurationI::build),
       debugLabel,
@@ -30,7 +30,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
   }
   @Builder.Factory
   static AnimationController animationControllerUnbounded(OptionalDouble value, Optional<DurationI> duration, Optional<DurationI> reverseDuration, Optional<String> debugLabel, TickerProviderI vsync, Optional<AnimationBehavior> animationBehavior) {
-    int id = factories.animationControllerUnbounded(value,
+    var id = factories.animationControllerUnbounded(value,
       duration.map(DurationI::build),
       reverseDuration.map(DurationI::build),
       debugLabel,
@@ -47,7 +47,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("forward", java.util.Collections.emptyList());
     }
-    int id = factories.animationControllerForward(this);
+    var id = factories.animationControllerForward(this);
     if (id <= 0) throw new RuntimeException("Failed to call forward");
     return new Future() { public int getId() { return id; } };
   }
@@ -55,7 +55,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("reverse", java.util.Collections.emptyList());
     }
-    int id = factories.animationControllerReverse(this);
+    var id = factories.animationControllerReverse(this);
     if (id <= 0) throw new RuntimeException("Failed to call reverse");
     return new Future() { public int getId() { return id; } };
   }
@@ -63,7 +63,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("repeat", java.util.Collections.emptyList());
     }
-    int id = factories.animationControllerRepeat(this);
+    var id = factories.animationControllerRepeat(this);
     if (id <= 0) throw new RuntimeException("Failed to call repeat");
     return new Future() { public int getId() { return id; } };
   }
@@ -71,7 +71,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("toggle", java.util.Collections.emptyList());
     }
-    int id = factories.animationControllerToggle(this);
+    var id = factories.animationControllerToggle(this);
     if (id <= 0) throw new RuntimeException("Failed to call toggle");
     return new Future() { public int getId() { return id; } };
   }
@@ -79,7 +79,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("fling", java.util.Arrays.<Object>asList(velocity));
     }
-    int id = factories.animationControllerFling(this,
+    var id = factories.animationControllerFling(this,
       velocity);
     if (id <= 0) throw new RuntimeException("Failed to call fling");
     return new Future() { public int getId() { return id; } };
@@ -88,7 +88,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("animateTo", java.util.Arrays.<Object>asList(target, EwtWebCapture.buildDurationMillis(duration.build())));
     }
-    int id = factories.animationControllerAnimateTo(this,
+    var id = factories.animationControllerAnimateTo(this,
       target,
       duration.build());
     if (id <= 0) throw new RuntimeException("Failed to call animateTo");
@@ -98,7 +98,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       return webAsyncCommand("animateBack", java.util.Arrays.<Object>asList(target, EwtWebCapture.buildDurationMillis(duration.build())));
     }
-    int id = factories.animationControllerAnimateBack(this,
+    var id = factories.animationControllerAnimateBack(this,
       target,
       duration.build());
     if (id <= 0) throw new RuntimeException("Failed to call animateBack");

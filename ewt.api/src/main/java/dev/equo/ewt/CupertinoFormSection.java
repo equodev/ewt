@@ -3,70 +3,62 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoFormSectionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoFormSection extends StatelessWidget implements CupertinoFormSectionI {
-  private MemorySegment st;
   protected CupertinoFormSection() {}
-  CupertinoFormSection(MemorySegment st) {
-    this.id = CupertinoFormSectionObjSt.id(st);
-    this.st = st;
+  CupertinoFormSection(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoFormSection");
-    System.out.println("New CupertinoFormSection id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoFormSection(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoFormSection cupertinoFormSectionCupertinoFormSection(@Builder.Parameter List<WidgetI> children, Optional<WidgetI> header, Optional<WidgetI> footer, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> backgroundColor, Optional<BoxDecorationI> decoration, Optional<Clip> clipBehavior) {
-    var st = factories.cupertinoFormSectionCupertinoFormSection(children.stream().map(WidgetI::build).toList(),
+    int id = factories.cupertinoFormSectionCupertinoFormSection(children.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       header.map(WidgetI::build),
       footer.map(WidgetI::build),
       margin.map(EdgeInsetsGeometryI::build),
       backgroundColor.map(ColorI::build),
       decoration.map(BoxDecorationI::build),
       clipBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoFormSection");
-    return new CupertinoFormSection(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoFormSection");
+    return new CupertinoFormSection(id);
   }
   public static CupertinoFormSectionCupertinoFormSectionBuilder cupertinoFormSection(List<WidgetI> children) {
     return CupertinoFormSectionCupertinoFormSectionBuilder.cupertinoFormSectionCupertinoFormSection(children);
   }
   @Builder.Factory
   static CupertinoFormSection cupertinoFormSectionInsetGrouped(@Builder.Parameter List<WidgetI> children, Optional<WidgetI> header, Optional<WidgetI> footer, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> backgroundColor, Optional<BoxDecorationI> decoration, Optional<Clip> clipBehavior) {
-    var st = factories.cupertinoFormSectionInsetGrouped(children.stream().map(WidgetI::build).toList(),
+    int id = factories.cupertinoFormSectionInsetGrouped(children.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       header.map(WidgetI::build),
       footer.map(WidgetI::build),
       margin.map(EdgeInsetsGeometryI::build),
       backgroundColor.map(ColorI::build),
       decoration.map(BoxDecorationI::build),
       clipBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoFormSection");
-    return new CupertinoFormSection(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoFormSection");
+    return new CupertinoFormSection(id);
   }
   public static CupertinoFormSectionInsetGroupedBuilder insetGrouped(List<WidgetI> children) {
     return CupertinoFormSectionInsetGroupedBuilder.cupertinoFormSectionInsetGrouped(children);
   }
   public Widget header() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionHeader not supported on web");
-    return new Widget(CupertinoFormSectionObjSt.header(st)) {};
+    return factories.CupertinoFormSection_readBack_header(nativeStruct);
   }
   public Widget footer() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionFooter not supported on web");
-    return new Widget(CupertinoFormSectionObjSt.footer(st)) {};
+    return factories.CupertinoFormSection_readBack_footer(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionMargin not supported on web");
-    return new EdgeInsetsGeometry(CupertinoFormSectionObjSt.margin(st)) {};
+    return factories.CupertinoFormSection_readBack_margin(nativeStruct);
   }
   public BoxDecoration decoration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("cupertinoFormSectionDecoration", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxDecorationObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxDecorationObjSt.id(__st, __nid);
-      return new BoxDecoration(__st);
+      return new BoxDecoration(__nid);
     }
-    return new BoxDecoration(CupertinoFormSectionObjSt.decoration(st));
+    return factories.CupertinoFormSection_readBack_decoration(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -74,11 +66,11 @@ public class CupertinoFormSection extends StatelessWidget implements CupertinoFo
       int __nid = __s.recordAccessor("cupertinoFormSectionBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoFormSectionObjSt.backgroundColor(st));
+    return factories.CupertinoFormSection_readBack_backgroundColor(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormSectionClipBehavior not supported on web");
-    return Clip.values()[CupertinoFormSectionObjSt.clipBehavior(st)];
+    return factories.CupertinoFormSection_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public CupertinoFormSection build() {

@@ -12,7 +12,7 @@ public class TextDecoration extends NativeObj.Base implements TextDecorationI {
   static { NativeObj.register("TextDecoration", TextDecoration::byId); }
   @Builder.Factory
   static TextDecoration textDecorationCombine(@Builder.Parameter List<TextDecorationI> decorations) {
-    int id = factories.textDecorationCombine(decorations.stream().map(TextDecorationI::build).toList());
+    var id = factories.textDecorationCombine(decorations.stream().map(TextDecorationI::build).collect(java.util.stream.Collectors.toList()));
     if (id <= 0) throw new RuntimeException("Failed to created widget TextDecoration");
     System.out.println("New TextDecoration id:"+id);
     return new TextDecoration(id);

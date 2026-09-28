@@ -3,43 +3,37 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DesktopTextSelectionToolbarButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DesktopTextSelectionToolbarButton extends StatelessWidget implements DesktopTextSelectionToolbarButtonI {
-  private MemorySegment st;
   protected DesktopTextSelectionToolbarButton() {}
-  DesktopTextSelectionToolbarButton(MemorySegment st) {
-    this.id = DesktopTextSelectionToolbarButtonObjSt.id(st);
-    this.st = st;
+  DesktopTextSelectionToolbarButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbarButton");
-    System.out.println("New DesktopTextSelectionToolbarButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DesktopTextSelectionToolbarButton(int id) { this.id = id; }
   @Builder.Factory
   static DesktopTextSelectionToolbarButton desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton(Optional<Runnable> onPressed, WidgetI child) {
-    var st = factories.desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton(onPressed,
+    int id = factories.desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton(onPressed,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbarButton");
-    return new DesktopTextSelectionToolbarButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbarButton");
+    return new DesktopTextSelectionToolbarButton(id);
   }
   public static DesktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButtonBuilder desktopTextSelectionToolbarButton() {
     return DesktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButtonBuilder.desktopTextSelectionToolbarButtonDesktopTextSelectionToolbarButton();
   }
   @Builder.Factory
   static DesktopTextSelectionToolbarButton desktopTextSelectionToolbarButtonText(@Builder.Parameter BuildContextI context, Optional<Runnable> onPressed, String text) {
-    var st = factories.desktopTextSelectionToolbarButtonText(context.build(),
+    int id = factories.desktopTextSelectionToolbarButtonText(context.build(),
       onPressed,
       text);
-    if (st == null) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbarButton");
-    return new DesktopTextSelectionToolbarButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbarButton");
+    return new DesktopTextSelectionToolbarButton(id);
   }
   public static DesktopTextSelectionToolbarButtonTextBuilder text(BuildContextI context) {
     return DesktopTextSelectionToolbarButtonTextBuilder.desktopTextSelectionToolbarButtonText(context);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("desktopTextSelectionToolbarButtonChild not supported on web");
-    return new Widget(DesktopTextSelectionToolbarButtonObjSt.child(st)) {};
+    return factories.DesktopTextSelectionToolbarButton_readBack_child(nativeStruct);
   }
   @Override
   public DesktopTextSelectionToolbarButton build() {

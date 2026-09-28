@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.InputDecorationObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class InputDecoration extends NativeObj.Base implements InputDecorationI {
-  private MemorySegment st;
   protected InputDecoration() {}
-  InputDecoration(MemorySegment st) {
-    this.id = InputDecorationObjSt.id(st);
-    this.st = st;
+  InputDecoration(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget InputDecoration");
-    System.out.println("New InputDecoration id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  InputDecoration(int id) { this.id = id; }
   @Builder.Factory
   static InputDecoration inputDecorationInputDecoration(Optional<WidgetI> icon, Optional<ColorI> iconColor, Optional<WidgetI> label, Optional<String> labelText, Optional<TextStyleI> labelStyle, Optional<TextStyleI> floatingLabelStyle, Optional<WidgetI> helper, Optional<String> helperText, Optional<TextStyleI> helperStyle, OptionalInt helperMaxLines, Optional<String> hintText, Optional<WidgetI> hint, Optional<TextStyleI> hintStyle, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> maintainLabelSize, Optional<WidgetI> error, Optional<String> errorText, Optional<TextStyleI> errorStyle, OptionalInt errorMaxLines, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<Boolean> isCollapsed, Optional<Boolean> isDense, Optional<EdgeInsetsGeometryI> contentPadding, Optional<WidgetI> prefixIcon, Optional<BoxConstraintsI> prefixIconConstraints, Optional<WidgetI> prefix, Optional<String> prefixText, Optional<TextStyleI> prefixStyle, Optional<ColorI> prefixIconColor, Optional<WidgetI> suffixIcon, Optional<WidgetI> suffix, Optional<String> suffixText, Optional<TextStyleI> suffixStyle, Optional<ColorI> suffixIconColor, Optional<BoxConstraintsI> suffixIconConstraints, Optional<WidgetI> counter, Optional<String> counterText, Optional<TextStyleI> counterStyle, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> errorBorder, Optional<InputBorderI> focusedBorder, Optional<InputBorderI> focusedErrorBorder, Optional<InputBorderI> disabledBorder, Optional<InputBorderI> enabledBorder, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<String> semanticCounterText, Optional<Boolean> alignLabelWithHint, Optional<BoxConstraintsI> constraints, Optional<VisualDensityI> visualDensity) {
-    var st = factories.inputDecorationInputDecoration(icon.map(WidgetI::build),
+    int id = factories.inputDecorationInputDecoration(icon.map(WidgetI::build),
       iconColor.map(ColorI::build),
       label.map(WidgetI::build),
       labelText,
@@ -75,15 +69,15 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       alignLabelWithHint,
       constraints.map(BoxConstraintsI::build),
       visualDensity.map(VisualDensityI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget InputDecoration");
-    return new InputDecoration(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget InputDecoration");
+    return new InputDecoration(id);
   }
   public static InputDecorationInputDecorationBuilder inputDecoration() {
     return InputDecorationInputDecorationBuilder.inputDecorationInputDecoration();
   }
   @Builder.Factory
   static InputDecoration inputDecorationCollapsed(Optional<String> hintText, Optional<FloatingLabelBehavior> floatingLabelBehavior, Optional<TextStyleI> hintStyle, Optional<WidgetI> hint, Optional<TextDirection> hintTextDirection, OptionalInt hintMaxLines, Optional<DurationI> hintFadeDuration, Optional<Boolean> maintainHintHeight, Optional<Boolean> maintainHintSize, Optional<Boolean> maintainLabelSize, Optional<Boolean> filled, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<InputBorderI> border, Optional<Boolean> enabled, Optional<BoxConstraintsI> constraints) {
-    var st = factories.inputDecorationCollapsed(hintText,
+    int id = factories.inputDecorationCollapsed(hintText,
       floatingLabelBehavior,
       hintStyle.map(TextStyleI::build),
       hint.map(WidgetI::build),
@@ -100,15 +94,15 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       border.map(InputBorderI::build),
       enabled,
       constraints.map(BoxConstraintsI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget InputDecoration");
-    return new InputDecoration(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget InputDecoration");
+    return new InputDecoration(id);
   }
   public static InputDecorationCollapsedBuilder collapsed() {
     return InputDecorationCollapsedBuilder.inputDecorationCollapsed();
   }
   public Widget icon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationIcon not supported on web");
-    return new Widget(InputDecorationObjSt.icon(st)) {};
+    return factories.InputDecoration_readBack_icon(nativeStruct);
   }
   public Color iconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -116,83 +110,75 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(InputDecorationObjSt.iconColor(st));
+    return factories.InputDecoration_readBack_iconColor(nativeStruct);
   }
   public Widget label() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationLabel not supported on web");
-    return new Widget(InputDecorationObjSt.label(st)) {};
+    return factories.InputDecoration_readBack_label(nativeStruct);
   }
   public String labelText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationLabelText not supported on web");
-    return InputDecorationObjSt.labelText(st).getString(0);
+    return factories.InputDecoration_readBack_labelText(nativeStruct);
   }
   public TextStyle labelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.labelStyle(st));
+    return factories.InputDecoration_readBack_labelStyle(nativeStruct);
   }
   public TextStyle floatingLabelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationFloatingLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.floatingLabelStyle(st));
+    return factories.InputDecoration_readBack_floatingLabelStyle(nativeStruct);
   }
   public Widget helper() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHelper not supported on web");
-    return new Widget(InputDecorationObjSt.helper(st)) {};
+    return factories.InputDecoration_readBack_helper(nativeStruct);
   }
   public String helperText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHelperText not supported on web");
-    return InputDecorationObjSt.helperText(st).getString(0);
+    return factories.InputDecoration_readBack_helperText(nativeStruct);
   }
   public TextStyle helperStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationHelperStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.helperStyle(st));
+    return factories.InputDecoration_readBack_helperStyle(nativeStruct);
   }
   public int helperMaxLines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHelperMaxLines not supported on web");
-    return InputDecorationObjSt.helperMaxLines(st);
+    return factories.InputDecoration_readBack_helperMaxLines(nativeStruct);
   }
   public String hintText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHintText not supported on web");
-    return InputDecorationObjSt.hintText(st).getString(0);
+    return factories.InputDecoration_readBack_hintText(nativeStruct);
   }
   public Widget hint() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHint not supported on web");
-    return new Widget(InputDecorationObjSt.hint(st)) {};
+    return factories.InputDecoration_readBack_hint(nativeStruct);
   }
   public TextStyle hintStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationHintStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.hintStyle(st));
+    return factories.InputDecoration_readBack_hintStyle(nativeStruct);
   }
   public TextDirection hintTextDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHintTextDirection not supported on web");
-    return TextDirection.values()[InputDecorationObjSt.hintTextDirection(st)];
+    return factories.InputDecoration_readBack_hintTextDirection(nativeStruct);
   }
   public int hintMaxLines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationHintMaxLines not supported on web");
-    return InputDecorationObjSt.hintMaxLines(st);
+    return factories.InputDecoration_readBack_hintMaxLines(nativeStruct);
   }
   public Duration hintFadeDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -200,89 +186,83 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationHintFadeDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(InputDecorationObjSt.hintFadeDuration(st));
+    return factories.InputDecoration_readBack_hintFadeDuration(nativeStruct);
   }
   public boolean maintainHintHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationMaintainHintHeight not supported on web");
-    return intToBool(InputDecorationObjSt.maintainHintHeight(st));
+    return factories.InputDecoration_readBack_maintainHintHeight(nativeStruct);
   }
   public boolean maintainHintSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationMaintainHintSize not supported on web");
-    return intToBool(InputDecorationObjSt.maintainHintSize(st));
+    return factories.InputDecoration_readBack_maintainHintSize(nativeStruct);
   }
   public boolean maintainLabelSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationMaintainLabelSize not supported on web");
-    return intToBool(InputDecorationObjSt.maintainLabelSize(st));
+    return factories.InputDecoration_readBack_maintainLabelSize(nativeStruct);
   }
   public Widget error() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationError not supported on web");
-    return new Widget(InputDecorationObjSt.error(st)) {};
+    return factories.InputDecoration_readBack_error(nativeStruct);
   }
   public String errorText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationErrorText not supported on web");
-    return InputDecorationObjSt.errorText(st).getString(0);
+    return factories.InputDecoration_readBack_errorText(nativeStruct);
   }
   public TextStyle errorStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationErrorStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.errorStyle(st));
+    return factories.InputDecoration_readBack_errorStyle(nativeStruct);
   }
   public int errorMaxLines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationErrorMaxLines not supported on web");
-    return InputDecorationObjSt.errorMaxLines(st);
+    return factories.InputDecoration_readBack_errorMaxLines(nativeStruct);
   }
   public FloatingLabelBehavior floatingLabelBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationFloatingLabelBehavior not supported on web");
-    return FloatingLabelBehavior.values()[InputDecorationObjSt.floatingLabelBehavior(st)];
+    return factories.InputDecoration_readBack_floatingLabelBehavior(nativeStruct);
   }
   public boolean isDense() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationIsDense not supported on web");
-    return intToBool(InputDecorationObjSt.isDense(st));
+    return factories.InputDecoration_readBack_isDense(nativeStruct);
   }
   public EdgeInsetsGeometry contentPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationContentPadding not supported on web");
-    return new EdgeInsetsGeometry(InputDecorationObjSt.contentPadding(st)) {};
+    return factories.InputDecoration_readBack_contentPadding(nativeStruct);
   }
   public boolean isCollapsed() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationIsCollapsed not supported on web");
-    return intToBool(InputDecorationObjSt.isCollapsed(st));
+    return factories.InputDecoration_readBack_isCollapsed(nativeStruct);
   }
   public Widget prefixIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationPrefixIcon not supported on web");
-    return new Widget(InputDecorationObjSt.prefixIcon(st)) {};
+    return factories.InputDecoration_readBack_prefixIcon(nativeStruct);
   }
   public BoxConstraints prefixIconConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationPrefixIconConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(InputDecorationObjSt.prefixIconConstraints(st));
+    return factories.InputDecoration_readBack_prefixIconConstraints(nativeStruct);
   }
   public Widget prefix() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationPrefix not supported on web");
-    return new Widget(InputDecorationObjSt.prefix(st)) {};
+    return factories.InputDecoration_readBack_prefix(nativeStruct);
   }
   public String prefixText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationPrefixText not supported on web");
-    return InputDecorationObjSt.prefixText(st).getString(0);
+    return factories.InputDecoration_readBack_prefixText(nativeStruct);
   }
   public TextStyle prefixStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationPrefixStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.prefixStyle(st));
+    return factories.InputDecoration_readBack_prefixStyle(nativeStruct);
   }
   public Color prefixIconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -290,29 +270,27 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationPrefixIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(InputDecorationObjSt.prefixIconColor(st));
+    return factories.InputDecoration_readBack_prefixIconColor(nativeStruct);
   }
   public Widget suffixIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationSuffixIcon not supported on web");
-    return new Widget(InputDecorationObjSt.suffixIcon(st)) {};
+    return factories.InputDecoration_readBack_suffixIcon(nativeStruct);
   }
   public Widget suffix() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationSuffix not supported on web");
-    return new Widget(InputDecorationObjSt.suffix(st)) {};
+    return factories.InputDecoration_readBack_suffix(nativeStruct);
   }
   public String suffixText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationSuffixText not supported on web");
-    return InputDecorationObjSt.suffixText(st).getString(0);
+    return factories.InputDecoration_readBack_suffixText(nativeStruct);
   }
   public TextStyle suffixStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationSuffixStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.suffixStyle(st));
+    return factories.InputDecoration_readBack_suffixStyle(nativeStruct);
   }
   public Color suffixIconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -320,39 +298,35 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationSuffixIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(InputDecorationObjSt.suffixIconColor(st));
+    return factories.InputDecoration_readBack_suffixIconColor(nativeStruct);
   }
   public BoxConstraints suffixIconConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationSuffixIconConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(InputDecorationObjSt.suffixIconConstraints(st));
+    return factories.InputDecoration_readBack_suffixIconConstraints(nativeStruct);
   }
   public String counterText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationCounterText not supported on web");
-    return InputDecorationObjSt.counterText(st).getString(0);
+    return factories.InputDecoration_readBack_counterText(nativeStruct);
   }
   public Widget counter() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationCounter not supported on web");
-    return new Widget(InputDecorationObjSt.counter(st)) {};
+    return factories.InputDecoration_readBack_counter(nativeStruct);
   }
   public TextStyle counterStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationCounterStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(InputDecorationObjSt.counterStyle(st));
+    return factories.InputDecoration_readBack_counterStyle(nativeStruct);
   }
   public boolean filled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationFilled not supported on web");
-    return intToBool(InputDecorationObjSt.filled(st));
+    return factories.InputDecoration_readBack_filled(nativeStruct);
   }
   public Color fillColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -360,7 +334,7 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationFillColor", getId());
       return new Color(__nid);
     }
-    return new Color(InputDecorationObjSt.fillColor(st));
+    return factories.InputDecoration_readBack_fillColor(nativeStruct);
   }
   public Color focusColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -368,7 +342,7 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationFocusColor", getId());
       return new Color(__nid);
     }
-    return new Color(InputDecorationObjSt.focusColor(st));
+    return factories.InputDecoration_readBack_focusColor(nativeStruct);
   }
   public Color hoverColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -376,63 +350,59 @@ public class InputDecoration extends NativeObj.Base implements InputDecorationI 
       int __nid = __s.recordAccessor("inputDecorationHoverColor", getId());
       return new Color(__nid);
     }
-    return new Color(InputDecorationObjSt.hoverColor(st));
+    return factories.InputDecoration_readBack_hoverColor(nativeStruct);
   }
   public InputBorder errorBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationErrorBorder not supported on web");
-    return new InputBorder(InputDecorationObjSt.errorBorder(st)) {};
+    return factories.InputDecoration_readBack_errorBorder(nativeStruct);
   }
   public InputBorder focusedBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationFocusedBorder not supported on web");
-    return new InputBorder(InputDecorationObjSt.focusedBorder(st)) {};
+    return factories.InputDecoration_readBack_focusedBorder(nativeStruct);
   }
   public InputBorder focusedErrorBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationFocusedErrorBorder not supported on web");
-    return new InputBorder(InputDecorationObjSt.focusedErrorBorder(st)) {};
+    return factories.InputDecoration_readBack_focusedErrorBorder(nativeStruct);
   }
   public InputBorder disabledBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationDisabledBorder not supported on web");
-    return new InputBorder(InputDecorationObjSt.disabledBorder(st)) {};
+    return factories.InputDecoration_readBack_disabledBorder(nativeStruct);
   }
   public InputBorder enabledBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationEnabledBorder not supported on web");
-    return new InputBorder(InputDecorationObjSt.enabledBorder(st)) {};
+    return factories.InputDecoration_readBack_enabledBorder(nativeStruct);
   }
   public InputBorder border() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationBorder not supported on web");
-    return new InputBorder(InputDecorationObjSt.border(st)) {};
+    return factories.InputDecoration_readBack_border(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationEnabled not supported on web");
-    return intToBool(InputDecorationObjSt.enabled(st));
+    return factories.InputDecoration_readBack_enabled(nativeStruct);
   }
   public String semanticCounterText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationSemanticCounterText not supported on web");
-    return InputDecorationObjSt.semanticCounterText(st).getString(0);
+    return factories.InputDecoration_readBack_semanticCounterText(nativeStruct);
   }
   public boolean alignLabelWithHint() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDecorationAlignLabelWithHint not supported on web");
-    return intToBool(InputDecorationObjSt.alignLabelWithHint(st));
+    return factories.InputDecoration_readBack_alignLabelWithHint(nativeStruct);
   }
   public BoxConstraints constraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(InputDecorationObjSt.constraints(st));
+    return factories.InputDecoration_readBack_constraints(nativeStruct);
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inputDecorationVisualDensity", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
-      return new VisualDensity(__st);
+      return new VisualDensity(__nid);
     }
-    return new VisualDensity(InputDecorationObjSt.visualDensity(st));
+    return factories.InputDecoration_readBack_visualDensity(nativeStruct);
   }
   @Override
   public InputDecoration build() {

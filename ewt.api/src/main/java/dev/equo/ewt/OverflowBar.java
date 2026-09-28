@@ -3,57 +3,51 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.OverflowBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class OverflowBar extends MultiChildRenderObjectWidget implements OverflowBarI {
-  private MemorySegment st;
   protected OverflowBar() {}
-  OverflowBar(MemorySegment st) {
-    this.id = OverflowBarObjSt.id(st);
-    this.st = st;
+  OverflowBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget OverflowBar");
-    System.out.println("New OverflowBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  OverflowBar(int id) { this.id = id; }
   @Builder.Factory
   static OverflowBar overflowBarOverflowBar(OptionalDouble spacing, Optional<MainAxisAlignment> alignment, OptionalDouble overflowSpacing, Optional<OverflowBarAlignment> overflowAlignment, Optional<VerticalDirection> overflowDirection, Optional<TextDirection> textDirection, Optional<List<WidgetI>> children) {
-    var st = factories.overflowBarOverflowBar(spacing,
+    int id = factories.overflowBarOverflowBar(spacing,
       alignment,
       overflowSpacing,
       overflowAlignment,
       overflowDirection,
       textDirection,
-      children.map(i -> i.stream().map(WidgetI::build).toList()));
-    if (st == null) throw new RuntimeException("Failed to created widget OverflowBar");
-    return new OverflowBar(st);
+      children.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())));
+    if (id <= 0) throw new RuntimeException("Failed to created widget OverflowBar");
+    return new OverflowBar(id);
   }
   public static OverflowBarOverflowBarBuilder overflowBar() {
     return OverflowBarOverflowBarBuilder.overflowBarOverflowBar();
   }
   public double spacing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBarSpacing not supported on web");
-    return OverflowBarObjSt.spacing(st);
+    return factories.OverflowBar_readBack_spacing(nativeStruct);
   }
   public MainAxisAlignment alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBarAlignment not supported on web");
-    return MainAxisAlignment.values()[OverflowBarObjSt.alignment(st)];
+    return factories.OverflowBar_readBack_alignment(nativeStruct);
   }
   public double overflowSpacing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBarOverflowSpacing not supported on web");
-    return OverflowBarObjSt.overflowSpacing(st);
+    return factories.OverflowBar_readBack_overflowSpacing(nativeStruct);
   }
   public OverflowBarAlignment overflowAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBarOverflowAlignment not supported on web");
-    return OverflowBarAlignment.values()[OverflowBarObjSt.overflowAlignment(st)];
+    return factories.OverflowBar_readBack_overflowAlignment(nativeStruct);
   }
   public VerticalDirection overflowDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBarOverflowDirection not supported on web");
-    return VerticalDirection.values()[OverflowBarObjSt.overflowDirection(st)];
+    return factories.OverflowBar_readBack_overflowDirection(nativeStruct);
   }
   public TextDirection textDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overflowBarTextDirection not supported on web");
-    return TextDirection.values()[OverflowBarObjSt.textDirection(st)];
+    return factories.OverflowBar_readBack_textDirection(nativeStruct);
   }
   @Override
   public OverflowBar build() {

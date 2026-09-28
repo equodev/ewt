@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BadgeThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class BadgeThemeData extends NativeObj.Base implements BadgeThemeDataI {
-  private MemorySegment st;
   protected BadgeThemeData() {}
-  BadgeThemeData(MemorySegment st) {
-    this.id = BadgeThemeDataObjSt.id(st);
-    this.st = st;
+  BadgeThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget BadgeThemeData");
-    System.out.println("New BadgeThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  BadgeThemeData(int id) { this.id = id; }
   @Builder.Factory
   static BadgeThemeData badgeThemeDataBadgeThemeData(Optional<ColorI> backgroundColor, Optional<ColorI> textColor, OptionalDouble smallSize, OptionalDouble largeSize, Optional<TextStyleI> textStyle, Optional<EdgeInsetsGeometryI> padding, Optional<AlignmentGeometryI> alignment, Optional<OffsetI> offset) {
-    var st = factories.badgeThemeDataBadgeThemeData(backgroundColor.map(ColorI::build),
+    int id = factories.badgeThemeDataBadgeThemeData(backgroundColor.map(ColorI::build),
       textColor.map(ColorI::build),
       smallSize,
       largeSize,
@@ -26,18 +20,18 @@ public class BadgeThemeData extends NativeObj.Base implements BadgeThemeDataI {
       padding.map(EdgeInsetsGeometryI::build),
       alignment.map(AlignmentGeometryI::build),
       offset.map(OffsetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget BadgeThemeData");
-    return new BadgeThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BadgeThemeData");
+    return new BadgeThemeData(id);
   }
   public static BadgeThemeDataBadgeThemeDataBuilder badgeThemeData() {
     return BadgeThemeDataBadgeThemeDataBuilder.badgeThemeDataBadgeThemeData();
   }
   public static BadgeThemeData lerp(BadgeThemeDataI a, BadgeThemeDataI b, double t) {
-    var st = factories.badgeThemeDataLerp(a.build(),
+    int id = factories.badgeThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget BadgeThemeData");
-    return new BadgeThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BadgeThemeData");
+    return new BadgeThemeData(id);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -45,7 +39,7 @@ public class BadgeThemeData extends NativeObj.Base implements BadgeThemeDataI {
       int __nid = __s.recordAccessor("badgeThemeDataBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(BadgeThemeDataObjSt.backgroundColor(st));
+    return factories.BadgeThemeData_readBack_backgroundColor(nativeStruct);
   }
   public Color textColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -53,33 +47,31 @@ public class BadgeThemeData extends NativeObj.Base implements BadgeThemeDataI {
       int __nid = __s.recordAccessor("badgeThemeDataTextColor", getId());
       return new Color(__nid);
     }
-    return new Color(BadgeThemeDataObjSt.textColor(st));
+    return factories.BadgeThemeData_readBack_textColor(nativeStruct);
   }
   public double smallSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeThemeDataSmallSize not supported on web");
-    return BadgeThemeDataObjSt.smallSize(st);
+    return factories.BadgeThemeData_readBack_smallSize(nativeStruct);
   }
   public double largeSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeThemeDataLargeSize not supported on web");
-    return BadgeThemeDataObjSt.largeSize(st);
+    return factories.BadgeThemeData_readBack_largeSize(nativeStruct);
   }
   public TextStyle textStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("badgeThemeDataTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(BadgeThemeDataObjSt.textStyle(st));
+    return factories.BadgeThemeData_readBack_textStyle(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeThemeDataPadding not supported on web");
-    return new EdgeInsetsGeometry(BadgeThemeDataObjSt.padding(st)) {};
+    return factories.BadgeThemeData_readBack_padding(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("badgeThemeDataAlignment not supported on web");
-    return new AlignmentGeometry(BadgeThemeDataObjSt.alignment(st)) {};
+    return factories.BadgeThemeData_readBack_alignment(nativeStruct);
   }
   public Offset offset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -87,7 +79,7 @@ public class BadgeThemeData extends NativeObj.Base implements BadgeThemeDataI {
       int __nid = __s.recordAccessor("badgeThemeDataOffset", getId());
       return new Offset(__nid);
     }
-    return new Offset(BadgeThemeDataObjSt.offset(st));
+    return factories.BadgeThemeData_readBack_offset(nativeStruct);
   }
   @Override
   public BadgeThemeData build() {

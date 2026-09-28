@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDetailsI {
   protected ScaleUpdateDetails() {}
   ScaleUpdateDetails(int id) {
@@ -13,7 +13,7 @@ public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDet
   static { NativeObj.register("ScaleUpdateDetails", ScaleUpdateDetails::byId); }
   @Builder.Factory
   static ScaleUpdateDetails scaleUpdateDetailsScaleUpdateDetails(Optional<OffsetI> focalPoint, Optional<OffsetI> localFocalPoint, OptionalDouble scale, OptionalDouble horizontalScale, OptionalDouble verticalScale, OptionalDouble rotation, OptionalInt pointerCount, Optional<OffsetI> focalPointDelta, Optional<DurationI> sourceTimeStamp) {
-    int id = factories.scaleUpdateDetailsScaleUpdateDetails(focalPoint.map(OffsetI::build),
+    var id = factories.scaleUpdateDetailsScaleUpdateDetails(focalPoint.map(OffsetI::build),
       localFocalPoint.map(OffsetI::build),
       scale,
       horizontalScale,
@@ -30,38 +30,38 @@ public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDet
     return ScaleUpdateDetailsScaleUpdateDetailsBuilder.scaleUpdateDetailsScaleUpdateDetails();
   }
   public Offset focalPoint() {
-    int id = factories.scaleUpdateDetailsFocalPoint(this);
+    var id = factories.scaleUpdateDetailsFocalPoint(this);
     if (id <= 0) throw new RuntimeException("Failed to call focalPoint");
     return new Offset(id);
   }
   public Offset localFocalPoint() {
-    int id = factories.scaleUpdateDetailsLocalFocalPoint(this);
+    var id = factories.scaleUpdateDetailsLocalFocalPoint(this);
     if (id <= 0) throw new RuntimeException("Failed to call localFocalPoint");
     return new Offset(id);
   }
   public Offset focalPointDelta() {
-    int id = factories.scaleUpdateDetailsFocalPointDelta(this);
+    var id = factories.scaleUpdateDetailsFocalPointDelta(this);
     if (id <= 0) throw new RuntimeException("Failed to call focalPointDelta");
     return new Offset(id);
   }
   public double scale() {
-    double id = factories.scaleUpdateDetailsScale(this);
+    var id = factories.scaleUpdateDetailsScale(this);
     return id;
   }
   public double horizontalScale() {
-    double id = factories.scaleUpdateDetailsHorizontalScale(this);
+    var id = factories.scaleUpdateDetailsHorizontalScale(this);
     return id;
   }
   public double verticalScale() {
-    double id = factories.scaleUpdateDetailsVerticalScale(this);
+    var id = factories.scaleUpdateDetailsVerticalScale(this);
     return id;
   }
   public double rotation() {
-    double id = factories.scaleUpdateDetailsRotation(this);
+    var id = factories.scaleUpdateDetailsRotation(this);
     return id;
   }
   public int pointerCount() {
-    int id = factories.scaleUpdateDetailsPointerCount(this);
+    var id = factories.scaleUpdateDetailsPointerCount(this);
     if (id <= 0) throw new RuntimeException("Failed to call pointerCount");
     return id;
   }

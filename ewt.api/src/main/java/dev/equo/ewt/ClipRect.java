@@ -3,32 +3,26 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ClipRectObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ClipRect extends SingleChildRenderObjectWidget implements ClipRectI {
-  private MemorySegment st;
   protected ClipRect() {}
-  ClipRect(MemorySegment st) {
-    this.id = ClipRectObjSt.id(st);
-    this.st = st;
+  ClipRect(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ClipRect");
-    System.out.println("New ClipRect id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ClipRect(int id) { this.id = id; }
   @Builder.Factory
   static ClipRect clipRectClipRect(Optional<Clip> clipBehavior, Optional<WidgetI> child) {
-    var st = factories.clipRectClipRect(clipBehavior,
+    int id = factories.clipRectClipRect(clipBehavior,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ClipRect");
-    return new ClipRect(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ClipRect");
+    return new ClipRect(id);
   }
   public static ClipRectClipRectBuilder clipRect() {
     return ClipRectClipRectBuilder.clipRectClipRect();
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("clipRectClipBehavior not supported on web");
-    return Clip.values()[ClipRectObjSt.clipBehavior(st)];
+    return factories.ClipRect_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public ClipRect build() {

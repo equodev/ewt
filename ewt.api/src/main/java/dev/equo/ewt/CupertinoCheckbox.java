@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoCheckboxObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckboxI {
-  private MemorySegment st;
   protected CupertinoCheckbox() {}
-  CupertinoCheckbox(MemorySegment st) {
-    this.id = CupertinoCheckboxObjSt.id(st);
-    this.st = st;
+  CupertinoCheckbox(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoCheckbox");
-    System.out.println("New CupertinoCheckbox id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoCheckbox(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoCheckbox cupertinoCheckboxCupertinoCheckbox(Optional<Boolean> value, Optional<Boolean> tristate, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> inactiveColor, Optional<ColorI> fillColor, Optional<ColorI> checkColor, Optional<ColorI> focusColor, Optional<Boolean> autofocus, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<String> semanticLabel) {
-    var st = factories.cupertinoCheckboxCupertinoCheckbox(value,
+    int id = factories.cupertinoCheckboxCupertinoCheckbox(value,
       tristate,
       onChanged,
       activeColor.map(ColorI::build),
@@ -30,15 +24,15 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
       side.map(BorderSideI::build),
       shape.map(OutlinedBorderI::build),
       semanticLabel);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoCheckbox");
-    return new CupertinoCheckbox(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoCheckbox");
+    return new CupertinoCheckbox(id);
   }
   public static CupertinoCheckboxCupertinoCheckboxBuilder cupertinoCheckbox() {
     return CupertinoCheckboxCupertinoCheckboxBuilder.cupertinoCheckboxCupertinoCheckbox();
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoCheckboxValue not supported on web");
-    return intToBool(CupertinoCheckboxObjSt.value(st));
+    return factories.CupertinoCheckbox_readBack_value(nativeStruct);
   }
   public Color activeColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -46,7 +40,7 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
       int __nid = __s.recordAccessor("cupertinoCheckboxActiveColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoCheckboxObjSt.activeColor(st));
+    return factories.CupertinoCheckbox_readBack_activeColor(nativeStruct);
   }
   public Color inactiveColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -54,7 +48,7 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
       int __nid = __s.recordAccessor("cupertinoCheckboxInactiveColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoCheckboxObjSt.inactiveColor(st));
+    return factories.CupertinoCheckbox_readBack_inactiveColor(nativeStruct);
   }
   public Color checkColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -62,11 +56,11 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
       int __nid = __s.recordAccessor("cupertinoCheckboxCheckColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoCheckboxObjSt.checkColor(st));
+    return factories.CupertinoCheckbox_readBack_checkColor(nativeStruct);
   }
   public boolean tristate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoCheckboxTristate not supported on web");
-    return intToBool(CupertinoCheckboxObjSt.tristate(st));
+    return factories.CupertinoCheckbox_readBack_tristate(nativeStruct);
   }
   public Color focusColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -74,29 +68,27 @@ public class CupertinoCheckbox extends StatefulWidget implements CupertinoCheckb
       int __nid = __s.recordAccessor("cupertinoCheckboxFocusColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoCheckboxObjSt.focusColor(st));
+    return factories.CupertinoCheckbox_readBack_focusColor(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoCheckboxAutofocus not supported on web");
-    return intToBool(CupertinoCheckboxObjSt.autofocus(st));
+    return factories.CupertinoCheckbox_readBack_autofocus(nativeStruct);
   }
   public BorderSide side() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("cupertinoCheckboxSide", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(CupertinoCheckboxObjSt.side(st));
+    return factories.CupertinoCheckbox_readBack_side(nativeStruct);
   }
   public OutlinedBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoCheckboxShape not supported on web");
-    return new OutlinedBorder(CupertinoCheckboxObjSt.shape(st)) {};
+    return factories.CupertinoCheckbox_readBack_shape(nativeStruct);
   }
   public String semanticLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoCheckboxSemanticLabel not supported on web");
-    return CupertinoCheckboxObjSt.semanticLabel(st).getString(0);
+    return factories.CupertinoCheckbox_readBack_semanticLabel(nativeStruct);
   }
   public static double width() {
     return 14.0;

@@ -3,56 +3,50 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.StepObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Step extends NativeObj.Base implements StepI {
-  private MemorySegment st;
   protected Step() {}
-  Step(MemorySegment st) {
-    this.id = StepObjSt.id(st);
-    this.st = st;
+  Step(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Step");
-    System.out.println("New Step id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Step(int id) { this.id = id; }
   @Builder.Factory
   static Step stepStep(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, WidgetI content, Optional<StepState> state, Optional<Boolean> isActive, Optional<WidgetI> label) {
-    var st = factories.stepStep(title.build(),
+    int id = factories.stepStep(title.build(),
       subtitle.map(WidgetI::build),
       content.build(),
       state,
       isActive,
       label.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Step");
-    return new Step(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Step");
+    return new Step(id);
   }
   public static StepStepBuilder step(WidgetI title) {
     return StepStepBuilder.stepStep(title);
   }
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepTitle not supported on web");
-    return new Widget(StepObjSt.title(st)) {};
+    return factories.Step_readBack_title(nativeStruct);
   }
   public Widget subtitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepSubtitle not supported on web");
-    return new Widget(StepObjSt.subtitle(st)) {};
+    return factories.Step_readBack_subtitle(nativeStruct);
   }
   public Widget content() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepContent not supported on web");
-    return new Widget(StepObjSt.content(st)) {};
+    return factories.Step_readBack_content(nativeStruct);
   }
   public StepState state() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepState not supported on web");
-    return StepState.values()[StepObjSt.state(st)];
+    return factories.Step_readBack_state(nativeStruct);
   }
   public boolean isActive() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepIsActive not supported on web");
-    return intToBool(StepObjSt.isActive(st));
+    return factories.Step_readBack_isActive(nativeStruct);
   }
   public Widget label() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepLabel not supported on web");
-    return new Widget(StepObjSt.label(st)) {};
+    return factories.Step_readBack_label(nativeStruct);
   }
   @Override
   public Step build() {

@@ -114,7 +114,7 @@ public final class EngineHandle {
         // --- 1. Build-widget-tree upcall ---
         MemorySegment buildFn = buildWidgetTreeFn.allocate(
                 (MemorySegment widgetFactories, int regionId) -> {
-                    WidgetConstructors.instance.set(
+                    WidgetConstructorsBase.instance.set(
                             WidgetFactories.reinterpret(widgetFactories, arena, ms -> {}));
                     try {
                         Widget w = rootSupplier.get().build();

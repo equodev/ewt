@@ -3,35 +3,29 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AnimatedSlideObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AnimatedSlide extends ImplicitlyAnimatedWidget implements AnimatedSlideI {
-  private MemorySegment st;
   protected AnimatedSlide() {}
-  AnimatedSlide(MemorySegment st) {
-    this.id = AnimatedSlideObjSt.id(st);
-    this.st = st;
+  AnimatedSlide(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedSlide");
-    System.out.println("New AnimatedSlide id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  AnimatedSlide(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedSlide animatedSlideAnimatedSlide(Optional<WidgetI> child, OffsetI offset, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
-    var st = factories.animatedSlideAnimatedSlide(child.map(WidgetI::build),
+    int id = factories.animatedSlideAnimatedSlide(child.map(WidgetI::build),
       offset.build(),
       curve.map(CurveI::build),
       duration.build(),
       onEnd);
-    if (st == null) throw new RuntimeException("Failed to created widget AnimatedSlide");
-    return new AnimatedSlide(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedSlide");
+    return new AnimatedSlide(id);
   }
   public static AnimatedSlideAnimatedSlideBuilder animatedSlide() {
     return AnimatedSlideAnimatedSlideBuilder.animatedSlideAnimatedSlide();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedSlideChild not supported on web");
-    return new Widget(AnimatedSlideObjSt.child(st)) {};
+    return factories.AnimatedSlide_readBack_child(nativeStruct);
   }
   public Offset offset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -39,7 +33,7 @@ public class AnimatedSlide extends ImplicitlyAnimatedWidget implements AnimatedS
       int __nid = __s.recordAccessor("animatedSlideOffset", getId());
       return new Offset(__nid);
     }
-    return new Offset(AnimatedSlideObjSt.offset(st));
+    return factories.AnimatedSlide_readBack_offset(nativeStruct);
   }
   @Override
   public AnimatedSlide build() {

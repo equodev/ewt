@@ -219,8 +219,10 @@ class Types {
     if (isPrimitive(namedType)) {
       return type4J(namedType);
     }
-    var gen = getGen(namedType.element!);
-    return gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int';
+    getGen(namedType.element!);
+    // java-11 split: the widget/value-object handle is a foreign-free `int id` in BOTH modes.
+    // ObjSt structs stay inside the FFM impl (WidgetConstructors), never on the core surface.
+    return 'int';
   }
 
   /// Java surface of a Dart type. Thin shim over [TypeMapping.resolve]; kept

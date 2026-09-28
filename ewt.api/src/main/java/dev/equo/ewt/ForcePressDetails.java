@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class ForcePressDetails extends NativeObj.Base implements ForcePressDetailsI {
   protected ForcePressDetails() {}
   ForcePressDetails(int id) {
@@ -13,7 +13,7 @@ public class ForcePressDetails extends NativeObj.Base implements ForcePressDetai
   static { NativeObj.register("ForcePressDetails", ForcePressDetails::byId); }
   @Builder.Factory
   static ForcePressDetails forcePressDetailsForcePressDetails(@Builder.Parameter OffsetI globalPosition, Optional<OffsetI> localPosition, double pressure) {
-    int id = factories.forcePressDetailsForcePressDetails(globalPosition.build(),
+    var id = factories.forcePressDetailsForcePressDetails(globalPosition.build(),
       localPosition.map(OffsetI::build),
       pressure);
     if (id <= 0) throw new RuntimeException("Failed to created widget ForcePressDetails");
@@ -24,17 +24,17 @@ public class ForcePressDetails extends NativeObj.Base implements ForcePressDetai
     return ForcePressDetailsForcePressDetailsBuilder.forcePressDetailsForcePressDetails(globalPosition);
   }
   public Offset globalPosition() {
-    int id = factories.forcePressDetailsGlobalPosition(this);
+    var id = factories.forcePressDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.forcePressDetailsLocalPosition(this);
+    var id = factories.forcePressDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }
   public double pressure() {
-    double id = factories.forcePressDetailsPressure(this);
+    var id = factories.forcePressDetailsPressure(this);
     return id;
   }
   @Override

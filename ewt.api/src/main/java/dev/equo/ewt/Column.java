@@ -3,31 +3,25 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ColumnObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Column extends Flex implements ColumnI {
-  private MemorySegment st;
   protected Column() {}
-  Column(MemorySegment st) {
-    this.id = ColumnObjSt.id(st);
-    this.st = st;
+  Column(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Column");
-    System.out.println("New Column id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Column(int id) { this.id = id; }
   @Builder.Factory
   static Column columnColumn(Optional<MainAxisAlignment> mainAxisAlignment, Optional<MainAxisSize> mainAxisSize, Optional<CrossAxisAlignment> crossAxisAlignment, Optional<TextDirection> textDirection, Optional<VerticalDirection> verticalDirection, Optional<TextBaseline> textBaseline, OptionalDouble spacing, Optional<List<WidgetI>> children) {
-    var st = factories.columnColumn(mainAxisAlignment,
+    int id = factories.columnColumn(mainAxisAlignment,
       mainAxisSize,
       crossAxisAlignment,
       textDirection,
       verticalDirection,
       textBaseline,
       spacing,
-      children.map(i -> i.stream().map(WidgetI::build).toList()));
-    if (st == null) throw new RuntimeException("Failed to created widget Column");
-    return new Column(st);
+      children.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())));
+    if (id <= 0) throw new RuntimeException("Failed to created widget Column");
+    return new Column(id);
   }
   public static ColumnColumnBuilder column() {
     return ColumnColumnBuilder.columnColumn();

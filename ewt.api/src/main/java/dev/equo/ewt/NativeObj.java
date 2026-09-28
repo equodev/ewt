@@ -83,8 +83,14 @@ public interface NativeObj {
     }
 
     abstract class Base implements NativeObj, I {
-        static volatile WidgetConstructors factories = WidgetConstructorsBase.instance;
+        // java-11 split: resolve the active impl foreign-free — FFM on java>=22 (via ServiceLoader),
+        // else the comm/serializing impl. The core never references the FFM class directly.
+        static volatile WidgetConstructors factories = Bootstrap.resolve();
         int id;
+        // java-11 split: the FFM-mode native struct for this widget (a java.lang.foreign.MemorySegment),
+        // held as Object so the core stays foreign-free. Null on the comm path. Read-back getters hand it
+        // to the FFM impl, which casts it back and reads the field. GC'd with the widget — no central map.
+        Object nativeStruct;
 
         public int getId() {
             return id;
@@ -93,6 +99,15 @@ public interface NativeObj {
         @Override
         public NativeObj build() {
             return this;
+        }
+
+        /**
+         * Marshals a native {@code bool}, delivered as an int by the factory, to a Java boolean.
+         * A pure helper (no foreign types), so bool-returning builder methods can call it inherited
+         * and unqualified without pulling the FFM layer onto the classpath.
+         */
+        protected static boolean intToBool(int i) {
+            return i != 0;
         }
     }
 

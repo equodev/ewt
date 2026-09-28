@@ -12,7 +12,7 @@ public class StackParentData extends ContainerBoxParentData<RenderBox> implement
   static { NativeObj.register("StackParentData", StackParentData::byId); }
   @Builder.Factory
   static StackParentData stackParentDataStackParentData() {
-    int id = factories.stackParentDataStackParentData();
+    var id = factories.stackParentDataStackParentData();
     if (id <= 0) throw new RuntimeException("Failed to created widget StackParentData");
     System.out.println("New StackParentData id:"+id);
     return new StackParentData(id);

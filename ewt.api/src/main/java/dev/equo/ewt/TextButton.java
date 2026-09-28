@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TextButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextButton extends ButtonStyleButton implements TextButtonI {
-  private MemorySegment st;
   protected TextButton() {}
-  TextButton(MemorySegment st) {
-    this.id = TextButtonObjSt.id(st);
-    this.st = st;
+  TextButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TextButton");
-    System.out.println("New TextButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TextButton(int id) { this.id = id; }
   @Builder.Factory
   static TextButton textButtonTextButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<Boolean> isSemanticButton, WidgetI child) {
-    var st = factories.textButtonTextButton(onPressed,
+    int id = factories.textButtonTextButton(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
@@ -26,15 +20,15 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
       clipBehavior,
       isSemanticButton,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget TextButton");
-    return new TextButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextButton");
+    return new TextButton(id);
   }
   public static TextButtonTextButtonBuilder textButton() {
     return TextButtonTextButtonBuilder.textButtonTextButton();
   }
   @Builder.Factory
   static TextButton textButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
-    var st = factories.textButtonIcon(onPressed,
+    int id = factories.textButtonIcon(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
@@ -43,8 +37,8 @@ public class TextButton extends ButtonStyleButton implements TextButtonI {
       icon.map(WidgetI::build),
       label.build(),
       iconAlignment);
-    if (st == null) throw new RuntimeException("Failed to created widget TextButton");
-    return new TextButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextButton");
+    return new TextButton(id);
   }
   public static TextButtonIconBuilder icon() {
     return TextButtonIconBuilder.textButtonIcon();

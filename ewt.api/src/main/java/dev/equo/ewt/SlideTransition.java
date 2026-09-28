@@ -3,46 +3,40 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SlideTransitionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SlideTransition extends AnimatedWidget implements SlideTransitionI {
-  private MemorySegment st;
   protected SlideTransition() {}
-  SlideTransition(MemorySegment st) {
-    this.id = SlideTransitionObjSt.id(st);
-    this.st = st;
+  SlideTransition(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SlideTransition");
-    System.out.println("New SlideTransition id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SlideTransition(int id) { this.id = id; }
   @Builder.Factory
   static SlideTransition slideTransitionSlideTransition(@Builder.Parameter AnimationI position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<WidgetI> child) {
-    var st = factories.slideTransitionSlideTransition(position.build(),
+    int id = factories.slideTransitionSlideTransition(position.build(),
       transformHitTests,
       textDirection,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget SlideTransition");
-    return new SlideTransition(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SlideTransition");
+    return new SlideTransition(id);
   }
   public static SlideTransitionSlideTransitionBuilder slideTransition(AnimationI position) {
     return SlideTransitionSlideTransitionBuilder.slideTransitionSlideTransition(position);
   }
   public TextDirection textDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionTextDirection not supported on web");
-    return TextDirection.values()[SlideTransitionObjSt.textDirection(st)];
+    return factories.SlideTransition_readBack_textDirection(nativeStruct);
   }
   public boolean transformHitTests() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionTransformHitTests not supported on web");
-    return intToBool(SlideTransitionObjSt.transformHitTests(st));
+    return factories.SlideTransition_readBack_transformHitTests(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionChild not supported on web");
-    return new Widget(SlideTransitionObjSt.child(st)) {};
+    return factories.SlideTransition_readBack_child(nativeStruct);
   }
   public Animation position() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("slideTransitionPosition not supported on web");
-    return new Animation() { public int getId() { return SlideTransitionObjSt.position(st); } };
+    return factories.SlideTransition_readBack_position(nativeStruct);
   }
   @Override
   public SlideTransition build() {

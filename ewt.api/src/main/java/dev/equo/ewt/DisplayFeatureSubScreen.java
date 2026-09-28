@@ -3,25 +3,19 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DisplayFeatureSubScreenObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DisplayFeatureSubScreen extends StatelessWidget implements DisplayFeatureSubScreenI {
-  private MemorySegment st;
   protected DisplayFeatureSubScreen() {}
-  DisplayFeatureSubScreen(MemorySegment st) {
-    this.id = DisplayFeatureSubScreenObjSt.id(st);
-    this.st = st;
+  DisplayFeatureSubScreen(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DisplayFeatureSubScreen");
-    System.out.println("New DisplayFeatureSubScreen id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DisplayFeatureSubScreen(int id) { this.id = id; }
   @Builder.Factory
   static DisplayFeatureSubScreen displayFeatureSubScreenDisplayFeatureSubScreen(Optional<OffsetI> anchorPoint, WidgetI child) {
-    var st = factories.displayFeatureSubScreenDisplayFeatureSubScreen(anchorPoint.map(OffsetI::build),
+    int id = factories.displayFeatureSubScreenDisplayFeatureSubScreen(anchorPoint.map(OffsetI::build),
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget DisplayFeatureSubScreen");
-    return new DisplayFeatureSubScreen(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DisplayFeatureSubScreen");
+    return new DisplayFeatureSubScreen(id);
   }
   public static DisplayFeatureSubScreenDisplayFeatureSubScreenBuilder displayFeatureSubScreen() {
     return DisplayFeatureSubScreenDisplayFeatureSubScreenBuilder.displayFeatureSubScreenDisplayFeatureSubScreen();
@@ -32,11 +26,11 @@ public class DisplayFeatureSubScreen extends StatelessWidget implements DisplayF
       int __nid = __s.recordAccessor("displayFeatureSubScreenAnchorPoint", getId());
       return new Offset(__nid);
     }
-    return new Offset(DisplayFeatureSubScreenObjSt.anchorPoint(st));
+    return factories.DisplayFeatureSubScreen_readBack_anchorPoint(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("displayFeatureSubScreenChild not supported on web");
-    return new Widget(DisplayFeatureSubScreenObjSt.child(st)) {};
+    return factories.DisplayFeatureSubScreen_readBack_child(nativeStruct);
   }
   @Override
   public DisplayFeatureSubScreen build() {

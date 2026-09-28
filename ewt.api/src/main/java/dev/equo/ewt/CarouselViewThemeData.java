@@ -3,49 +3,41 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CarouselViewThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CarouselViewThemeData extends NativeObj.Base implements CarouselViewThemeDataI {
-  private MemorySegment st;
   protected CarouselViewThemeData() {}
-  CarouselViewThemeData(MemorySegment st) {
-    this.id = CarouselViewThemeDataObjSt.id(st);
-    this.st = st;
+  CarouselViewThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CarouselViewThemeData");
-    System.out.println("New CarouselViewThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CarouselViewThemeData(int id) { this.id = id; }
   @Builder.Factory
   static CarouselViewThemeData carouselViewThemeDataCarouselViewThemeData(OptionalDouble elevation, Optional<ColorI> backgroundColor, Optional<ColorI> overlayColor, Optional<OutlinedBorderI> shape, Optional<EdgeInsetsI> padding, Optional<Clip> itemClipBehavior) {
-    var st = factories.carouselViewThemeDataCarouselViewThemeData(elevation,
+    int id = factories.carouselViewThemeDataCarouselViewThemeData(elevation,
       backgroundColor.map(ColorI::build),
       overlayColor.map(ColorI::build),
       shape.map(OutlinedBorderI::build),
       padding.map(EdgeInsetsI::build),
       itemClipBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget CarouselViewThemeData");
-    return new CarouselViewThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CarouselViewThemeData");
+    return new CarouselViewThemeData(id);
   }
   public static CarouselViewThemeDataCarouselViewThemeDataBuilder carouselViewThemeData() {
     return CarouselViewThemeDataCarouselViewThemeDataBuilder.carouselViewThemeDataCarouselViewThemeData();
   }
   public static CarouselViewThemeData lerp(CarouselViewThemeDataI a, CarouselViewThemeDataI b, double t) {
-    var st = factories.carouselViewThemeDataLerp(a.build(),
+    int id = factories.carouselViewThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget CarouselViewThemeData");
-    return new CarouselViewThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CarouselViewThemeData");
+    return new CarouselViewThemeData(id);
   }
   public EdgeInsets padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("carouselViewThemeDataPadding", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
+      return new EdgeInsets(__nid);
     }
-    return new EdgeInsets(CarouselViewThemeDataObjSt.padding(st));
+    return factories.CarouselViewThemeData_readBack_padding(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -53,19 +45,19 @@ public class CarouselViewThemeData extends NativeObj.Base implements CarouselVie
       int __nid = __s.recordAccessor("carouselViewThemeDataBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(CarouselViewThemeDataObjSt.backgroundColor(st));
+    return factories.CarouselViewThemeData_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewThemeDataElevation not supported on web");
-    return CarouselViewThemeDataObjSt.elevation(st);
+    return factories.CarouselViewThemeData_readBack_elevation(nativeStruct);
   }
   public OutlinedBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewThemeDataShape not supported on web");
-    return new OutlinedBorder(CarouselViewThemeDataObjSt.shape(st)) {};
+    return factories.CarouselViewThemeData_readBack_shape(nativeStruct);
   }
   public Clip itemClipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("carouselViewThemeDataItemClipBehavior not supported on web");
-    return Clip.values()[CarouselViewThemeDataObjSt.itemClipBehavior(st)];
+    return factories.CarouselViewThemeData_readBack_itemClipBehavior(nativeStruct);
   }
   @Override
   public CarouselViewThemeData build() {

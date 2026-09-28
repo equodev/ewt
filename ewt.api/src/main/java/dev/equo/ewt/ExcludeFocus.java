@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ExcludeFocusObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ExcludeFocus extends StatelessWidget implements ExcludeFocusI {
-  private MemorySegment st;
   protected ExcludeFocus() {}
-  ExcludeFocus(MemorySegment st) {
-    this.id = ExcludeFocusObjSt.id(st);
-    this.st = st;
+  ExcludeFocus(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ExcludeFocus");
-    System.out.println("New ExcludeFocus id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ExcludeFocus(int id) { this.id = id; }
   @Builder.Factory
   static ExcludeFocus excludeFocusExcludeFocus(Optional<Boolean> excluding, WidgetI child) {
-    var st = factories.excludeFocusExcludeFocus(excluding,
+    int id = factories.excludeFocusExcludeFocus(excluding,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget ExcludeFocus");
-    return new ExcludeFocus(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ExcludeFocus");
+    return new ExcludeFocus(id);
   }
   public static ExcludeFocusExcludeFocusBuilder excludeFocus() {
     return ExcludeFocusExcludeFocusBuilder.excludeFocusExcludeFocus();
   }
   public boolean excluding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("excludeFocusExcluding not supported on web");
-    return intToBool(ExcludeFocusObjSt.excluding(st));
+    return factories.ExcludeFocus_readBack_excluding(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("excludeFocusChild not supported on web");
-    return new Widget(ExcludeFocusObjSt.child(st)) {};
+    return factories.ExcludeFocus_readBack_child(nativeStruct);
   }
   @Override
   public ExcludeFocus build() {

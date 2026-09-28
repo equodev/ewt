@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.HeroModeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class HeroMode extends StatelessWidget implements HeroModeI {
-  private MemorySegment st;
   protected HeroMode() {}
-  HeroMode(MemorySegment st) {
-    this.id = HeroModeObjSt.id(st);
-    this.st = st;
+  HeroMode(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget HeroMode");
-    System.out.println("New HeroMode id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  HeroMode(int id) { this.id = id; }
   @Builder.Factory
   static HeroMode heroModeHeroMode(@Builder.Parameter WidgetI child, Optional<Boolean> enabled) {
-    var st = factories.heroModeHeroMode(child.build(),
+    int id = factories.heroModeHeroMode(child.build(),
       enabled);
-    if (st == null) throw new RuntimeException("Failed to created widget HeroMode");
-    return new HeroMode(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget HeroMode");
+    return new HeroMode(id);
   }
   public static HeroModeHeroModeBuilder heroMode(WidgetI child) {
     return HeroModeHeroModeBuilder.heroModeHeroMode(child);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroModeChild not supported on web");
-    return new Widget(HeroModeObjSt.child(st)) {};
+    return factories.HeroMode_readBack_child(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("heroModeEnabled not supported on web");
-    return intToBool(HeroModeObjSt.enabled(st));
+    return factories.HeroMode_readBack_enabled(nativeStruct);
   }
   @Override
   public HeroMode build() {

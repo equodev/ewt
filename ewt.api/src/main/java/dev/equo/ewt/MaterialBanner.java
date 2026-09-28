@@ -3,24 +3,18 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MaterialBannerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
-  private MemorySegment st;
   protected MaterialBanner() {}
-  MaterialBanner(MemorySegment st) {
-    this.id = MaterialBannerObjSt.id(st);
-    this.st = st;
+  MaterialBanner(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget MaterialBanner");
-    System.out.println("New MaterialBanner id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  MaterialBanner(int id) { this.id = id; }
   @Builder.Factory
   static MaterialBanner materialBannerMaterialBanner(@Builder.Parameter WidgetI content, Optional<TextStyleI> contentTextStyle, List<WidgetI> actions, OptionalDouble elevation, Optional<WidgetI> leading, Optional<ColorI> backgroundColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> shadowColor, Optional<ColorI> dividerColor, Optional<EdgeInsetsGeometryI> padding, Optional<EdgeInsetsGeometryI> margin, Optional<EdgeInsetsGeometryI> leadingPadding, Optional<Boolean> forceActionsBelow, Optional<OverflowBarAlignment> overflowAlignment, Optional<AnimationI> animation, Optional<Runnable> onVisible, OptionalDouble minActionBarHeight) {
-    var st = factories.materialBannerMaterialBanner(content.build(),
+    int id = factories.materialBannerMaterialBanner(content.build(),
       contentTextStyle.map(TextStyleI::build),
-      actions.stream().map(WidgetI::build).toList(),
+      actions.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       elevation,
       leading.map(WidgetI::build),
       backgroundColor.map(ColorI::build),
@@ -35,43 +29,41 @@ public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
       animation.map(AnimationI::build),
       onVisible,
       minActionBarHeight);
-    if (st == null) throw new RuntimeException("Failed to created widget MaterialBanner");
-    return new MaterialBanner(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialBanner");
+    return new MaterialBanner(id);
   }
   public static MaterialBannerMaterialBannerBuilder materialBanner(WidgetI content) {
     return MaterialBannerMaterialBannerBuilder.materialBannerMaterialBanner(content);
   }
   public static AnimationController createAnimationController(TickerProviderI vsync) {
-    int id = factories.materialBannerCreateAnimationController(vsync.build());
+    var id = factories.materialBannerCreateAnimationController(vsync.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
     System.out.println("New AnimationController id:"+id);
     return new AnimationController(id);
   }
   public Widget content() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerContent not supported on web");
-    return new Widget(MaterialBannerObjSt.content(st)) {};
+    return factories.MaterialBanner_readBack_content(nativeStruct);
   }
   public TextStyle contentTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("materialBannerContentTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(MaterialBannerObjSt.contentTextStyle(st));
+    return factories.MaterialBanner_readBack_contentTextStyle(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerElevation not supported on web");
-    return MaterialBannerObjSt.elevation(st);
+    return factories.MaterialBanner_readBack_elevation(nativeStruct);
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerLeading not supported on web");
-    return new Widget(MaterialBannerObjSt.leading(st)) {};
+    return factories.MaterialBanner_readBack_leading(nativeStruct);
   }
   public double minActionBarHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerMinActionBarHeight not supported on web");
-    return MaterialBannerObjSt.minActionBarHeight(st);
+    return factories.MaterialBanner_readBack_minActionBarHeight(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -79,7 +71,7 @@ public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
       int __nid = __s.recordAccessor("materialBannerBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialBannerObjSt.backgroundColor(st));
+    return factories.MaterialBanner_readBack_backgroundColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -87,7 +79,7 @@ public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
       int __nid = __s.recordAccessor("materialBannerSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialBannerObjSt.surfaceTintColor(st));
+    return factories.MaterialBanner_readBack_surfaceTintColor(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -95,7 +87,7 @@ public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
       int __nid = __s.recordAccessor("materialBannerShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialBannerObjSt.shadowColor(st));
+    return factories.MaterialBanner_readBack_shadowColor(nativeStruct);
   }
   public Color dividerColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -103,31 +95,31 @@ public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
       int __nid = __s.recordAccessor("materialBannerDividerColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialBannerObjSt.dividerColor(st));
+    return factories.MaterialBanner_readBack_dividerColor(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerPadding not supported on web");
-    return new EdgeInsetsGeometry(MaterialBannerObjSt.padding(st)) {};
+    return factories.MaterialBanner_readBack_padding(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerMargin not supported on web");
-    return new EdgeInsetsGeometry(MaterialBannerObjSt.margin(st)) {};
+    return factories.MaterialBanner_readBack_margin(nativeStruct);
   }
   public EdgeInsetsGeometry leadingPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerLeadingPadding not supported on web");
-    return new EdgeInsetsGeometry(MaterialBannerObjSt.leadingPadding(st)) {};
+    return factories.MaterialBanner_readBack_leadingPadding(nativeStruct);
   }
   public boolean forceActionsBelow() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerForceActionsBelow not supported on web");
-    return intToBool(MaterialBannerObjSt.forceActionsBelow(st));
+    return factories.MaterialBanner_readBack_forceActionsBelow(nativeStruct);
   }
   public OverflowBarAlignment overflowAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerOverflowAlignment not supported on web");
-    return OverflowBarAlignment.values()[MaterialBannerObjSt.overflowAlignment(st)];
+    return factories.MaterialBanner_readBack_overflowAlignment(nativeStruct);
   }
   public Animation animation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBannerAnimation not supported on web");
-    return new Animation() { public int getId() { return MaterialBannerObjSt.animation(st); } };
+    return factories.MaterialBanner_readBack_animation(nativeStruct);
   }
   @Override
   public MaterialBanner build() {

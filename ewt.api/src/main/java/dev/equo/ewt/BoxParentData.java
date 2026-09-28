@@ -12,7 +12,7 @@ public class BoxParentData extends ParentData implements BoxParentDataI {
   static { NativeObj.register("BoxParentData", BoxParentData::byId); }
   @Builder.Factory
   static BoxParentData boxParentDataBoxParentData() {
-    int id = factories.boxParentDataBoxParentData();
+    var id = factories.boxParentDataBoxParentData();
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxParentData");
     System.out.println("New BoxParentData id:"+id);
     return new BoxParentData(id);

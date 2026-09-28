@@ -3,50 +3,44 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.PositionedObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Positioned extends ParentDataWidget<StackParentData> implements PositionedI {
-  private MemorySegment st;
   protected Positioned() {}
-  Positioned(MemorySegment st) {
-    this.id = PositionedObjSt.id(st);
-    this.st = st;
+  Positioned(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Positioned");
-    System.out.println("New Positioned id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Positioned(int id) { this.id = id; }
   @Builder.Factory
   static Positioned positionedPositioned(OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, WidgetI child) {
-    var st = factories.positionedPositioned(left,
+    int id = factories.positionedPositioned(left,
       top,
       right,
       bottom,
       width,
       height,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Positioned");
-    return new Positioned(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Positioned");
+    return new Positioned(id);
   }
   public static PositionedPositionedBuilder positioned() {
     return PositionedPositionedBuilder.positionedPositioned();
   }
   @Builder.Factory
   static Positioned positionedFill(OptionalDouble left, OptionalDouble top, OptionalDouble right, OptionalDouble bottom, WidgetI child) {
-    var st = factories.positionedFill(left,
+    int id = factories.positionedFill(left,
       top,
       right,
       bottom,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Positioned");
-    return new Positioned(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Positioned");
+    return new Positioned(id);
   }
   public static PositionedFillBuilder fill() {
     return PositionedFillBuilder.positionedFill();
   }
   @Builder.Factory
   static Positioned positionedDirectional(@Builder.Parameter TextDirection textDirection, OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, WidgetI child) {
-    var st = factories.positionedDirectional(textDirection,
+    int id = factories.positionedDirectional(textDirection,
       start,
       top,
       end,
@@ -54,35 +48,35 @@ public class Positioned extends ParentDataWidget<StackParentData> implements Pos
       width,
       height,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Positioned");
-    return new Positioned(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Positioned");
+    return new Positioned(id);
   }
   public static PositionedDirectionalBuilder directional(TextDirection textDirection) {
     return PositionedDirectionalBuilder.positionedDirectional(textDirection);
   }
   public double left() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedLeft not supported on web");
-    return PositionedObjSt.left(st);
+    return factories.Positioned_readBack_left(nativeStruct);
   }
   public double top() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedTop not supported on web");
-    return PositionedObjSt.top(st);
+    return factories.Positioned_readBack_top(nativeStruct);
   }
   public double right() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedRight not supported on web");
-    return PositionedObjSt.right(st);
+    return factories.Positioned_readBack_right(nativeStruct);
   }
   public double bottom() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedBottom not supported on web");
-    return PositionedObjSt.bottom(st);
+    return factories.Positioned_readBack_bottom(nativeStruct);
   }
   public double width() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedWidth not supported on web");
-    return PositionedObjSt.width(st);
+    return factories.Positioned_readBack_width(nativeStruct);
   }
   public double height() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedHeight not supported on web");
-    return PositionedObjSt.height(st);
+    return factories.Positioned_readBack_height(nativeStruct);
   }
   @Override
   public Positioned build() {

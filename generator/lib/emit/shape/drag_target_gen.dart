@@ -22,7 +22,7 @@ class DragTargetGen extends ImmutableGen {
     final retType = types.type4FFMRet(node.returnType);
     ctx.javaSerializer
       ..writeln('  @Override')
-      ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
+      ..writeln('  public $jtp$retType $factoryName(${jParamsFFM.decl}) {')
       ..writeln('    int id = nextId++;')
       ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();')
       ..writeln('    Widget __child = builder.apply(EwtWebCapture.stubContext(), java.util.List.of(), java.util.List.of());')
@@ -34,9 +34,7 @@ class DragTargetGen extends ImmutableGen {
     }
     ctx.javaSerializer
       ..writeln('    record(id, "$factoryName", p);')
-      ..writeln('    MemorySegment st = ${objStClass!}.allocate(arena);')
-      ..writeln('    $objStClass.id(st, id);')
-      ..writeln('    return st;')
+      ..writeln('    return id;') // java-11 split: foreign-free int handle
       ..writeln('  }');
     return true;
   }

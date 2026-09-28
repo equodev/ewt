@@ -3,26 +3,20 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CenterObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Center extends Align implements CenterI {
-  private MemorySegment st;
   protected Center() {}
-  Center(MemorySegment st) {
-    this.id = CenterObjSt.id(st);
-    this.st = st;
+  Center(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Center");
-    System.out.println("New Center id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Center(int id) { this.id = id; }
   @Builder.Factory
   static Center centerCenter(OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<WidgetI> child) {
-    var st = factories.centerCenter(widthFactor,
+    int id = factories.centerCenter(widthFactor,
       heightFactor,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Center");
-    return new Center(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Center");
+    return new Center(id);
   }
   public static CenterCenterBuilder center() {
     return CenterCenterBuilder.centerCenter();

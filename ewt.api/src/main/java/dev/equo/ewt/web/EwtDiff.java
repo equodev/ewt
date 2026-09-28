@@ -28,15 +28,16 @@ public final class EwtDiff {
     for (String k : np.keySet()) {
       Object ov = pp.get(k), nv = np.get(k);
       if ((ov == null) != (nv == null)) return false; // null<->non-null param flip -> structural (full resend)
-      if (ov instanceof EwtNode on && nv instanceof EwtNode nn) {
-        if (!walk(on, nn, append(path, k), ops)) return false;
-      } else if (ov instanceof List<?> ol && nv instanceof List<?> nl) {
+      if (ov instanceof EwtNode && nv instanceof EwtNode) {
+        if (!walk((EwtNode) ov, (EwtNode) nv, append(path, k), ops)) return false;
+      } else if (ov instanceof List<?> && nv instanceof List<?>) {
+        List<?> ol = (List<?>) ov, nl = (List<?>) nv;
         if (ol.size() != nl.size()) return false;
         boolean primitiveListChanged = false;
         for (int i = 0; i < nl.size(); i++) {
           Object oe = ol.get(i), ne = nl.get(i);
-          if (oe instanceof EwtNode oen && ne instanceof EwtNode nen) {
-            if (!walk(oen, nen, append(append(path, k), i), ops)) return false;
+          if (oe instanceof EwtNode && ne instanceof EwtNode) {
+            if (!walk((EwtNode) oe, (EwtNode) ne, append(append(path, k), i), ops)) return false;
           } else if (oe instanceof EwtNode || ne instanceof EwtNode) {
             return false; // node<->primitive at same index -> structural
           } else if (!Objects.equals(oe, ne)) {

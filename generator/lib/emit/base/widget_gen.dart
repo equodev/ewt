@@ -281,21 +281,6 @@ class WidgetGen implements AGen {
     _writeJ('${widgetClass}I', ctx.builderFile.toString());
   }
 
-  /// True when any companion method or emitted factory returns an ObjSt-backed
-  /// type — the emitted Java needs `MemorySegment` in scope in that case.
-  bool _needsForeignImport() {
-    final companion = methodsCompanion;
-    if (companion == null) return false;
-    for (final m in companion.methods.where((m) => m.isStatic && m.isPublic)) {
-      final ret = m.returnType;
-      if (ret is VoidType) continue;
-      final el = ret.element;
-      if (el == null) continue;
-      final gen = types.getGen(el);
-      if (gen.objType().endsWith('ObjSt')) return true;
-    }
-    return false;
-  }
 
   void writeHeaders(bool hasMembers) {
     ctx.javaFile
@@ -375,9 +360,6 @@ class WidgetGen implements AGen {
     //   - WidgetConstructorsBase.* for helpers like intToBool used by
     //     primitive returns (`boolean`, etc.)
     if (methodsCompanion != null) {
-      if (_needsForeignImport()) {
-        ctx.javaFile.writeln('import java.lang.foreign.MemorySegment;');
-      }
       // Companion methods often take `Consumer` / `Function` / `Supplier`
       // callback params (Future.then, etc.), which live in java.util.function.
       // The abstract-class-no-factory branch above only imports java.util
@@ -386,7 +368,9 @@ class WidgetGen implements AGen {
       if (dartClass.isAbstract && !_hasAbstractFactoryCtors) {
         ctx.javaFile.writeln('import java.util.function.*;');
       }
-      ctx.javaFile.writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;');
+      // Foreign-free: companion classes with primitive (boolean) returns need intToBool, which lives
+      // on NativeObj.Base. No MemorySegment / FFM import — returns marshal as int ids.
+      ctx.javaFile.writeln('import static dev.equo.ewt.NativeObj.Base.intToBool;');
     }
     writeJavaDecl(extend, _isInterface);
     if (hasMembers) {
@@ -577,23 +561,37 @@ class WidgetGen implements AGen {
       ctx.javaFile.writeln('    factories.$factoryName(${jParamsCall.names});');
     } else {
       final retFFM = types.type4FFMRet(ret);
-      ctx.javaFile.writeln('    $retFFM id = factories.$factoryName(${jParamsCall.names});');
+      ctx.javaFile.writeln('    var id = factories.$factoryName(${jParamsCall.names});'); // java-11 split: int handle (or String for niche String-returns)
       if (retFFM == 'int') {
         ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
-      ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', ret))};');
+      // java-11 split: String-returning factories already yield a Java String (id); skip getString.
+      ctx.javaFile.writeln('    return ${retFFM == 'MemorySegment' ? 'id' : types.paramValueFFMtoJ(types, paramElement('id', ret))};');
     }
     ctx.javaFile.writeln('  }');
 
-    // 2) Java FFM factory (WidgetConstructors).
+    // 2) Java FFM factory (FfmWidgetConstructors) + foreign-free interface default (java-11 split).
     final type4ffmRet = types.type4FFMRet(ret);
     final retGen = ret is VoidType ? null : types.getGen(ret.element!);
     final useArena = ret is! VoidType && retGen!.objType().endsWith('ObjSt');
-    ctx.javaFactories
-      ..writeln('  $type4ffmRet $factoryName(${jParams.decl}) {')
-      ..writeln('    var st = WidgetFactories.$widgetField(factories);')
-      ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
-      ..writeln('    ${ret is VoidType ? '' : 'return '}WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
+    final isStringRet = type4ffmRet == 'MemorySegment';
+    final retIface = isStringRet ? types.type4J(ret) : type4ffmRet;
+    final objSt = useArena ? retGen!.objType() : null;
+    final invoke = 'WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')})';
+    ctx.javaFactories..writeln('  public $retIface $factoryName(${jParams.decl}) {');
+    if (isStringRet) {
+      ctx.javaFactories.writeln('    throw new UnsupportedOperationException("$factoryName (String return) is a java-11 split v1 gap");');
+    } else {
+      ctx.javaFactories
+        ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+        ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
+        // java-11 split: retain(...) stashes the built struct for read-back, returns the foreign-free id.
+        ..writeln('    ${ret is VoidType ? '$invoke' : 'return ${useArena ? 'retain($invoke, $objSt::id)' : invoke}'};');
+    }
+    ctx.javaFactories.writeln('  }');
+    ctx.javaInterface
+      ..writeln('  default $retIface $factoryName(${jParams.decl}) {')
+      ..writeln('    throw new UnsupportedOperationException("$factoryName has no default (FFM/comm impl required)");')
       ..writeln('  }');
 
     // 3) C header field.
@@ -685,16 +683,17 @@ class WidgetGen implements AGen {
     if (node.returnType is VoidType) {
       ctx.javaFile.writeln('    factories.$factoryName(${jParams.names});');
     } else {
-      ctx.javaFile.writeln('    $retType id = factories.$factoryName(${jParams.names});');
+      ctx.javaFile.writeln('    var id = factories.$factoryName(${jParams.names});'); // java-11 split: int handle
     }
     if (retType == 'int') {
       ctx.javaFile
         .writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
     }
     if (node.returnType is! VoidType) {
+      // java-11 split: String-returning factories already yield a Java String (id); skip getString.
       ctx.javaFile
         ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
-        ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+        ..writeln('    return ${retType == 'MemorySegment' ? 'id' : types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
     }
   }
 

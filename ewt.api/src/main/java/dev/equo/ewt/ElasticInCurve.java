@@ -3,31 +3,25 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ElasticInCurveObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ElasticInCurve extends Curve implements ElasticInCurveI {
-  private MemorySegment st;
   protected ElasticInCurve() {}
-  ElasticInCurve(MemorySegment st) {
-    this.id = ElasticInCurveObjSt.id(st);
-    this.st = st;
+  ElasticInCurve(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ElasticInCurve");
-    System.out.println("New ElasticInCurve id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ElasticInCurve(int id) { this.id = id; }
   @Builder.Factory
   static ElasticInCurve elasticInCurveElasticInCurve(OptionalDouble period) {
-    var st = factories.elasticInCurveElasticInCurve(period);
-    if (st == null) throw new RuntimeException("Failed to created widget ElasticInCurve");
-    return new ElasticInCurve(st);
+    int id = factories.elasticInCurveElasticInCurve(period);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ElasticInCurve");
+    return new ElasticInCurve(id);
   }
   public static ElasticInCurveElasticInCurveBuilder elasticInCurve() {
     return ElasticInCurveElasticInCurveBuilder.elasticInCurveElasticInCurve();
   }
   public double period() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("elasticInCurvePeriod not supported on web");
-    return ElasticInCurveObjSt.period(st);
+    return factories.ElasticInCurve_readBack_period(nativeStruct);
   }
   @Override
   public ElasticInCurve build() {

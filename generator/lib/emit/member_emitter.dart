@@ -139,10 +139,21 @@ class SubclassMemberEmitter implements MemberEmitter {
       gen.ctx.javaFile
         ..writeln('  protected ${method.returnType} ${method.name}(${jParams.decl}) {');
       if (method.name == 'setState') gen.emitSetStateWebPrelude();
-      gen.ctx.javaFile
-        ..writeln('    MemorySegment funcPtr = ${gen.widgetSt}.${method.name}(st);')
-        ..writeln('    ${gen.widgetSt}.${method.name}.invoke(funcPtr, factories.${jParams.names});')
-        ..writeln('  }');
+      // java-11 split: the state is foreign-free (no struct). Comm mode is handled by the web prelude
+      // above; on FFM (java22) setState delegates to the FFM impl, which reads the struct back from
+      // its id->struct map. Other callable methods (rare) have no comm/id path yet, so they throw.
+      if (method.name == 'setState') {
+        final rawParams = Params(gen.types, method.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
+        final args = rawParams.names.isEmpty ? 'getId()' : 'getId(), ${rawParams.names}';
+        final stateFactory = '${gen.widgetClass.substring(0, 1).toLowerCase()}${gen.widgetClass.substring(1)}SetState';
+        gen.ctx.javaFile
+          ..writeln('    factories.$stateFactory($args);')
+          ..writeln('  }');
+      } else {
+        gen.ctx.javaFile
+          ..writeln('    throw new UnsupportedOperationException("${method.name}() requires FFM/java22 (java-11 split v1)");')
+          ..writeln('  }');
+      }
     }
 
     gen.emitStateWidgetAccessor();

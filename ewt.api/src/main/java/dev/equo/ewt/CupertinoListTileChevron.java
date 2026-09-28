@@ -3,24 +3,18 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoListTileChevronObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoListTileChevron extends StatelessWidget implements CupertinoListTileChevronI {
-  private MemorySegment st;
   protected CupertinoListTileChevron() {}
-  CupertinoListTileChevron(MemorySegment st) {
-    this.id = CupertinoListTileChevronObjSt.id(st);
-    this.st = st;
+  CupertinoListTileChevron(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListTileChevron");
-    System.out.println("New CupertinoListTileChevron id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoListTileChevron(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoListTileChevron cupertinoListTileChevronCupertinoListTileChevron() {
-    var st = factories.cupertinoListTileChevronCupertinoListTileChevron();
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoListTileChevron");
-    return new CupertinoListTileChevron(st);
+    int id = factories.cupertinoListTileChevronCupertinoListTileChevron();
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListTileChevron");
+    return new CupertinoListTileChevron(id);
   }
   public static CupertinoListTileChevronCupertinoListTileChevronBuilder cupertinoListTileChevron() {
     return CupertinoListTileChevronCupertinoListTileChevronBuilder.cupertinoListTileChevronCupertinoListTileChevron();

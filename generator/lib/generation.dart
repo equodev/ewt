@@ -9,6 +9,7 @@ class Generation {
   StringBuffer typedefFile = StringBuffer();
   StringBuffer dartFactories = StringBuffer();
   StringBuffer javaFactories = StringBuffer();
+  StringBuffer javaInterface = StringBuffer(); // java-11 split: foreign-free WidgetConstructors interface
   StringBuffer javaSerializer = StringBuffer();
   StringBuffer dartWebDecoders = StringBuffer();
   StringBuffer javaStatics = StringBuffer();
@@ -55,7 +56,39 @@ class Generation {
       ..writeln('import java.util.OptionalDouble;')
       ..writeln('import java.lang.foreign.*;')
       ..writeln('import java.util.function.*;')
-      ..writeln('class WidgetConstructors extends WidgetConstructorsBase {');
+      ..writeln('import static dev.equo.ewt.NativeObj.Base.intToBool;')
+      ..writeln('class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetConstructors {')
+      // State read-back (setState/widget) needs the native struct, which the foreign-free state no
+      // longer holds. States are few and long-lived, so the FFM impl keeps an id->struct map (recorded
+      // when a state factory runs) and exposes the read-back ops the core state delegates to.
+      ..writeln('  private final java.util.Map<Integer, MemorySegment> handles = new java.util.concurrent.ConcurrentHashMap<>();')
+      ..writeln('  public void subStateSetState(int id, Runnable fn) {')
+      ..writeln('    SubStateObjSt.setState.invoke(SubStateObjSt.setState(handles.get(id)), ptrVoidCallbackFn(fn));')
+      ..writeln('  }')
+      ..writeln('  public int subStateWidget(int id) {')
+      ..writeln('    return SubStateObjSt.widget.invoke(SubStateObjSt.widget(handles.get(id)));')
+      ..writeln('  }')
+      ..writeln('  public void subAnimatedStateSetState(int id, Runnable fn) {')
+      ..writeln('    SubAnimatedStateObjSt.setState.invoke(SubAnimatedStateObjSt.setState(handles.get(id)), ptrVoidCallbackFn(fn));')
+      ..writeln('  }')
+      ..writeln('  public int subAnimatedStateWidget(int id) {')
+      ..writeln('    return SubAnimatedStateObjSt.widget.invoke(SubAnimatedStateObjSt.widget(handles.get(id)));')
+      ..writeln('  }');
+    // java-11 split: WidgetConstructors is a foreign-free interface (int-id factory signatures).
+    // FfmWidgetConstructors (above, ffm layer) and SerializingWidgetConstructors (comm, core) implement it.
+    javaInterface
+      ..writeln('package dev.equo.ewt;')
+      ..writeln('import dev.equo.ewt.util.*;')
+      ..writeln('import java.util.List;')
+      ..writeln('import java.util.Map;')
+      ..writeln('import java.util.Optional;')
+      ..writeln('import java.util.OptionalInt;')
+      ..writeln('import java.util.OptionalDouble;')
+      ..writeln('import java.util.function.*;')
+      ..writeln('public interface WidgetConstructors {')
+      // java-11 split: FFM read-back plumbing. The FFM impl overrides this to hand a freshly built
+      // widget its native struct; the comm impl keeps the null default (its widgets carry no struct).
+      ..writeln('  default Object takeLastStruct() { return null; }');
     // ..writeln('  static WidgetConstructorsGen instance = new WidgetConstructors();')
     // ..writeln('  private MemorySegment factories;')
     // ..writeln('  private Arena arena = Arena.ofAuto();')
@@ -66,7 +99,7 @@ class Generation {
       ..writeln('package dev.equo.ewt;')
       ..writeln('import java.util.*;')
       ..writeln('import java.util.function.*;')
-      ..writeln('import java.lang.foreign.MemorySegment;')
+      // java-11 split: EWT statics are foreign-free (int-id/String handles), so no java.lang.foreign import.
       ..writeln('import dev.equo.ewt.util.*;')
       ..writeln('public class EWT {');
 
@@ -146,12 +179,28 @@ class Generation {
     javaStatics.writeln('}');
 
     // offsetTween is web-only (Animation<T> params cannot be auto-generated); native stub throws.
-    javaFactories.writeln('  int offsetTween(Offset begin, Offset end, Animation parent) {');
+    javaFactories.writeln('  public int offsetTween(Offset begin, Offset end, Animation parent) {');
     javaFactories.writeln('    throw new UnsupportedOperationException("offsetTween is web-only; use OffsetAnimation.create() or EWT.OffsetTween() in web mode");');
     javaFactories.writeln('  }');
+    javaInterface.writeln('  default int offsetTween(Offset begin, Offset end, Animation parent) {');
+    javaInterface.writeln('    throw new UnsupportedOperationException("offsetTween has no default (FFM/comm impl required)");');
+    javaInterface.writeln('  }');
+    // State read-back ops: the FFM impl reads the native struct; the comm impl reroutes through
+    // EwtWebState (setState) or the captured widget, so these defaults are only hit if neither runs.
+    for (final sig in const [
+      'void subStateSetState(int id, Runnable fn)',
+      'int subStateWidget(int id)',
+      'void subAnimatedStateSetState(int id, Runnable fn)',
+      'int subAnimatedStateWidget(int id)',
+    ]) {
+      javaInterface.writeln('  default $sig {');
+      javaInterface.writeln('    throw new UnsupportedOperationException("state read-back requires FFM (java22)");');
+      javaInterface.writeln('  }');
+    }
 
     addTypeDefs();
     javaFactories.writeln('}');
+    javaInterface.writeln('}');
   }
 
   void addTypeDefs() {
@@ -302,6 +351,9 @@ class Generation {
     if (widGen.ctx.javaFactories.isNotEmpty) {
       javaFactories.writeln(widGen.ctx.javaFactories);
     }
+    if (widGen.ctx.javaInterface.isNotEmpty) {
+      javaInterface.writeln(widGen.ctx.javaInterface);
+    }
     if (widGen.ctx.javaSerializer.isNotEmpty) {
       javaSerializer.writeln(widGen.ctx.javaSerializer);
     }
@@ -386,7 +438,8 @@ class Generation {
     _writeC('objects.h', _prependForwardDecls(objectsHFile.toString()));
     _writeC('typedefs.h', typedefFile.toString());
     _writeD('factories_gen.dart', dartFactories.toString());
-    _writeJ('WidgetConstructors', javaFactories.toString());
+    _writeJ('WidgetConstructors', javaInterface.toString());
+    _writeJ('FfmWidgetConstructors', javaFactories.toString());
     _writeJ('EWT', javaStatics.toString());
     _writeJ('SerializingWidgetConstructors', _buildSerializingClass(javaSerializer.toString()));
     _writeWW('factories_web_gen.dart', _buildWebDecoders(dartWebDecoders.toString()));
@@ -403,13 +456,11 @@ class Generation {
   /// SerializingWidgetConstructors class shell (package, imports, core fields).
   String _buildSerializingClass(String overrides) {
     return '''package dev.equo.ewt;
-import dev.equo.ewt.ffm.*;
 import dev.equo.ewt.util.*;
 import dev.equo.ewt.web.EwtNode;
-import java.lang.foreign.MemorySegment;
 import java.util.*;
 import java.util.function.*;
-public class SerializingWidgetConstructors extends WidgetConstructors {
+public class SerializingWidgetConstructors implements WidgetConstructors {
   private int nextId = 1;
   private int nextCallbackId = 1;
   private final Map<Integer, EwtNode> byId = new HashMap<>();
@@ -429,6 +480,8 @@ public class SerializingWidgetConstructors extends WidgetConstructors {
     record(id, type, p);
     return id;
   }
+  // java-11 split: no arena to release (foreign-free serializer); no-op close for AutoCloseable callers.
+  public void close() {}
 $overrides
   /** Called by rebuildAnimated to claim an AnimationController id in this serializer so SubStateless
    *  placeholder ids cannot collide with it. The stub carries only ctrlId; the Dart side matches
@@ -441,7 +494,7 @@ $overrides
   }
   // Animation<T> params cannot be auto-generated (parameterised type); hand-maintained in gen.dart.
   @Override
-  int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
+  public int subAnimatedStateAnimationController(SubAnimatedState self, Duration duration) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("ctrlId", id);
@@ -470,13 +523,15 @@ $overrides
         if (ownerWidget == null) continue;
         Object stateObj = ownerWidget.createStateFn();
         EwtNode resolved;
-        if (stateObj instanceof SubState<?> ss) {
+        if (stateObj instanceof SubState<?>) {
+          SubState<?> ss = (SubState<?>) stateObj;
           ss.setWebWidget(ownerWidget);
           ss.initStateFn();
           Widget built = ss.buildFn(ctx);
           resolved = byId.get(built.getId());
           nestedStatesOut.add(ss);
-        } else if (stateObj instanceof SubAnimatedState<?> as) {
+        } else if (stateObj instanceof SubAnimatedState<?>) {
+          SubAnimatedState<?> as = (SubAnimatedState<?>) stateObj;
           as.setWebWidget(ownerWidget);
           as.initStateFn();
           Widget built = as.buildFn(ctx);
@@ -496,20 +551,21 @@ $overrides
   private void replaceInParams(java.util.Map<String, Object> params, int oldId, EwtNode replacement) {
     for (var e : params.entrySet()) {
       Object v = e.getValue();
-      if (v instanceof EwtNode n && n.id() == oldId) e.setValue(replacement);
-      else if (v instanceof java.util.List<?> list) replaceInList((java.util.List<Object>) list, oldId, replacement);
+      if (v instanceof EwtNode && ((EwtNode) v).id() == oldId) e.setValue(replacement);
+      else if (v instanceof java.util.List<?>) replaceInList((java.util.List<Object>) v, oldId, replacement);
     }
   }
   @SuppressWarnings("unchecked")
   private void replaceInList(java.util.List<Object> list, int oldId, EwtNode replacement) {
     for (int i = 0; i < list.size(); i++) {
       Object v = list.get(i);
-      if (v instanceof EwtNode n && n.id() == oldId) list.set(i, replacement);
-      else if (v instanceof java.util.List<?> nested) replaceInList((java.util.List<Object>) nested, oldId, replacement);
+      if (v instanceof EwtNode && ((EwtNode) v).id() == oldId) list.set(i, replacement);
+      else if (v instanceof java.util.List<?>) replaceInList((java.util.List<Object>) v, oldId, replacement);
     }
   }
   // Animation<Offset> — serializes begin/end offsets + parent for Tween<Offset>.animate() on the Dart side.
-  int offsetTween(Offset begin, Offset end, Animation parent) {
+  @Override
+  public int offsetTween(Offset begin, Offset end, Animation parent) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("begin", byId.get(begin.getId()));
@@ -749,38 +805,50 @@ final Set<String> unsupportedFactories = {};
 
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, TopLevelFunctionElement node) {
     var gen = types.getGen(node.returnType.element!);
-    // Route return type through `type4FFMRet` so String returns are declared
-    // as MemorySegment (matches the C `char*` typedef) and primitive returns
-    // as their own Java primitive. The hard-coded `int-or-MemorySegment`
-    // split ignored String returns entirely — MemorySegment must be selected
-    // for both ObjSt AND `char*` C signatures.
-    final retType = types.type4FFMRet(node.returnType);
-    final useArena = gen.objType().endsWith('ObjSt');
+    var isObjSt = gen.objType().endsWith('ObjSt');
+    var invoke = 'WidgetFactories.$factory.invoke(${['fn${isObjSt ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')})';
+    var tp = JLang().methodTypeParameters(node.type);
+    // java-11 split: the core/comm surface can't expose FFM types. Widget/value-object returns marshal
+    // as a foreign-free int id (read off the ObjSt struct); String helpers (char*) convert to a Java
+    // String inside the FFM impl; primitives pass through. The interface default + comm impl throw.
+    String surface;
+    String retExpr;
+    if (isObjSt) {
+      surface = 'int';
+      // java-11 split: retain(...) stashes the built struct for read-back, returns the foreign-free id.
+      retExpr = 'retain($invoke, ${gen.objType()}::id)';
+    } else if (node.returnType.isDartCoreString) {
+      surface = 'String';
+      retExpr = '$invoke.getString(0)';
+    } else {
+      surface = types.type4FFMRet(node.returnType);
+      retExpr = invoke;
+    }
     javaFactories
-      ..writeln('  ${JLang().methodTypeParameters(node.type)}$retType $factoryName(${jParams.decl}) {')
+      ..writeln('  public ${tp}$surface $factoryName(${jParams.decl}) {')
       ..writeln('    var fn = WidgetFactories.$factory(factories);')
-      ..writeln('    return WidgetFactories.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
+      ..writeln('    return $retExpr;')
+      ..writeln('  }');
+    javaInterface
+      ..writeln('  default ${tp}$surface $factoryName(${jParams.decl}) {')
+      ..writeln('    throw new UnsupportedOperationException("$factoryName has no default (FFM/comm impl required)");')
       ..writeln('  }');
   }
 
   void writeJavaInstanceBody(String factoryName, Params jParams, TopLevelFunctionElement node) {
-    final retType = types.type4FFMRet(node.returnType);
-    // Local variable can't be named `id` — top functions often take an `id`
-    // parameter (e.g. `String widgetTypeOf(int id)`), and reusing the same
-    // name in the body redeclares it → Java compile error.
-    const local = '_ret';
-    javaStatics
-      ..writeln('    $retType $local = WidgetConstructors.instance.$factoryName(${jParams.names});');
-    // The `<= 0` liveness check only makes sense for widget-id (int) returns.
-    // MemorySegment (String/ObjSt) and primitive returns (double/enum) don't
-    // use zero as a sentinel and would either not compile or reject legitimate
-    // values. Skip.
-    if (retType == 'int') {
-      javaStatics.writeln('    if ($local <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");');
+    // Local named `_ret` (not `id`): some top funcs take an `id` param, e.g. widgetTypeOf(int id).
+    if (node.returnType.isDartCoreString) {
+      // java-11 split: String helpers (type registry) — the resolved impl returns the Java String directly.
+      javaStatics.writeln('    return NativeObj.Base.factories.$factoryName(${jParams.names});');
+      return;
     }
     javaStatics
-      ..writeln('    System.out.println("New ${node.returnType} id:"+$local);')
-      ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement(local, node.returnType))};');
+      // java-11 split: call the resolved impl (FFM on 22+, comm below) via NativeObj.Base.factories,
+      // which returns a foreign-free int id. Keeps EWT statics free of any direct FFM reference.
+      ..writeln('    int _ret = NativeObj.Base.factories.$factoryName(${jParams.names});')
+      ..writeln('    if (_ret <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");')
+      ..writeln('    System.out.println("New ${node.returnType} id:"+_ret);')
+      ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('_ret', node.returnType))};');
   }
 
 }

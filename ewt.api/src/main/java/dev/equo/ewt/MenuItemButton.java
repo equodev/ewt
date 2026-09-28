@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MenuItemButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MenuItemButton extends StatefulWidget implements MenuItemButtonI {
-  private MemorySegment st;
   protected MenuItemButton() {}
-  MenuItemButton(MemorySegment st) {
-    this.id = MenuItemButtonObjSt.id(st);
-    this.st = st;
+  MenuItemButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget MenuItemButton");
-    System.out.println("New MenuItemButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  MenuItemButton(int id) { this.id = id; }
   @Builder.Factory
   static MenuItemButton menuItemButtonMenuItemButton(Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onHover, Optional<Boolean> requestFocusOnHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<String> semanticsLabel, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<Boolean> closeOnActivate, Optional<Axis> overflowAxis, Optional<WidgetI> child) {
-    var st = factories.menuItemButtonMenuItemButton(onPressed,
+    int id = factories.menuItemButtonMenuItemButton(onPressed,
       onHover,
       requestFocusOnHover,
       onFocusChange,
@@ -30,51 +24,51 @@ public class MenuItemButton extends StatefulWidget implements MenuItemButtonI {
       closeOnActivate,
       overflowAxis,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget MenuItemButton");
-    return new MenuItemButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget MenuItemButton");
+    return new MenuItemButton(id);
   }
   public static MenuItemButtonMenuItemButtonBuilder menuItemButton() {
     return MenuItemButtonMenuItemButtonBuilder.menuItemButtonMenuItemButton();
   }
   public boolean requestFocusOnHover() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonRequestFocusOnHover not supported on web");
-    return intToBool(MenuItemButtonObjSt.requestFocusOnHover(st));
+    return factories.MenuItemButton_readBack_requestFocusOnHover(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonAutofocus not supported on web");
-    return intToBool(MenuItemButtonObjSt.autofocus(st));
+    return factories.MenuItemButton_readBack_autofocus(nativeStruct);
   }
   public String semanticsLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonSemanticsLabel not supported on web");
-    return MenuItemButtonObjSt.semanticsLabel(st).getString(0);
+    return factories.MenuItemButton_readBack_semanticsLabel(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonClipBehavior not supported on web");
-    return Clip.values()[MenuItemButtonObjSt.clipBehavior(st)];
+    return factories.MenuItemButton_readBack_clipBehavior(nativeStruct);
   }
   public Widget leadingIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonLeadingIcon not supported on web");
-    return new Widget(MenuItemButtonObjSt.leadingIcon(st)) {};
+    return factories.MenuItemButton_readBack_leadingIcon(nativeStruct);
   }
   public Widget trailingIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonTrailingIcon not supported on web");
-    return new Widget(MenuItemButtonObjSt.trailingIcon(st)) {};
+    return factories.MenuItemButton_readBack_trailingIcon(nativeStruct);
   }
   public boolean closeOnActivate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonCloseOnActivate not supported on web");
-    return intToBool(MenuItemButtonObjSt.closeOnActivate(st));
+    return factories.MenuItemButton_readBack_closeOnActivate(nativeStruct);
   }
   public Axis overflowAxis() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonOverflowAxis not supported on web");
-    return Axis.values()[MenuItemButtonObjSt.overflowAxis(st)];
+    return factories.MenuItemButton_readBack_overflowAxis(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonChild not supported on web");
-    return new Widget(MenuItemButtonObjSt.child(st)) {};
+    return factories.MenuItemButton_readBack_child(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuItemButtonEnabled not supported on web");
-    return intToBool(MenuItemButtonObjSt.enabled(st));
+    return factories.MenuItemButton_readBack_enabled(nativeStruct);
   }
   @Override
   public MenuItemButton build() {

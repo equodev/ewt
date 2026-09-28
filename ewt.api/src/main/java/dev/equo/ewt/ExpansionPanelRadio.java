@@ -12,7 +12,7 @@ public class ExpansionPanelRadio extends ExpansionPanel implements ExpansionPane
   static { NativeObj.register("ExpansionPanelRadio", ExpansionPanelRadio::byId); }
   @Builder.Factory
   static ExpansionPanelRadio expansionPanelRadioExpansionPanelRadio(@Builder.Parameter NativeObj.I value, @Builder.Parameter BiFunction<BuildContext, Boolean, Widget> headerBuilder, @Builder.Parameter WidgetI body, Optional<Boolean> canTapOnHeader, Optional<ColorI> backgroundColor, Optional<ColorI> splashColor, Optional<ColorI> highlightColor) {
-    int id = factories.expansionPanelRadioExpansionPanelRadio(value.build(),
+    var id = factories.expansionPanelRadioExpansionPanelRadio(value.build(),
       headerBuilder,
       body.build(),
       canTapOnHeader,

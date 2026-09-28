@@ -12,7 +12,7 @@ public class Color extends NativeObj.Base implements ColorI {
   static { NativeObj.register("Color", Color::byId); }
   @Builder.Factory
   static Color colorColor(@Builder.Parameter int value) {
-    int id = factories.colorColor(value);
+    var id = factories.colorColor(value);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
@@ -22,7 +22,7 @@ public class Color extends NativeObj.Base implements ColorI {
   }
   @Builder.Factory
   static Color colorFrom(@Builder.Parameter double alpha, @Builder.Parameter double red, @Builder.Parameter double green, @Builder.Parameter double blue, Optional<ColorSpace> colorSpace) {
-    int id = factories.colorFrom(alpha,
+    var id = factories.colorFrom(alpha,
       red,
       green,
       blue,
@@ -36,7 +36,7 @@ public class Color extends NativeObj.Base implements ColorI {
   }
   @Builder.Factory
   static Color colorFromARGB(@Builder.Parameter int a, @Builder.Parameter int r, @Builder.Parameter int g, @Builder.Parameter int b) {
-    int id = factories.colorFromARGB(a,
+    var id = factories.colorFromARGB(a,
       r,
       g,
       b);
@@ -49,7 +49,7 @@ public class Color extends NativeObj.Base implements ColorI {
   }
   @Builder.Factory
   static Color colorFromRGBO(@Builder.Parameter int r, @Builder.Parameter int g, @Builder.Parameter int b, @Builder.Parameter double opacity) {
-    int id = factories.colorFromRGBO(r,
+    var id = factories.colorFromRGBO(r,
       g,
       b,
       opacity);
@@ -61,7 +61,7 @@ public class Color extends NativeObj.Base implements ColorI {
     return ColorFromRGBOBuilder.colorFromRGBO(r, g, b, opacity);
   }
   public static Color lerp(ColorI x, ColorI y, double t) {
-    int id = factories.colorLerp(x.build(),
+    var id = factories.colorLerp(x.build(),
       y.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color?");
@@ -69,14 +69,14 @@ public class Color extends NativeObj.Base implements ColorI {
     return new Color(id);
   }
   public static Color alphaBlend(ColorI foreground, ColorI background) {
-    int id = factories.colorAlphaBlend(foreground.build(),
+    var id = factories.colorAlphaBlend(foreground.build(),
       background.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static int getAlphaFromOpacity(double opacity) {
-    int id = factories.colorGetAlphaFromOpacity(opacity);
+    var id = factories.colorGetAlphaFromOpacity(opacity);
     if (id <= 0) throw new RuntimeException("Failed to created widget int");
     System.out.println("New int id:"+id);
     return id;

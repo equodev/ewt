@@ -3,25 +3,19 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ColorFilteredObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ColorFiltered extends SingleChildRenderObjectWidget implements ColorFilteredI {
-  private MemorySegment st;
   protected ColorFiltered() {}
-  ColorFiltered(MemorySegment st) {
-    this.id = ColorFilteredObjSt.id(st);
-    this.st = st;
+  ColorFiltered(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ColorFiltered");
-    System.out.println("New ColorFiltered id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ColorFiltered(int id) { this.id = id; }
   @Builder.Factory
   static ColorFiltered colorFilteredColorFiltered(@Builder.Parameter ColorFilterI colorFilter, Optional<WidgetI> child) {
-    var st = factories.colorFilteredColorFiltered(colorFilter.build(),
+    int id = factories.colorFilteredColorFiltered(colorFilter.build(),
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ColorFiltered");
-    return new ColorFiltered(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ColorFiltered");
+    return new ColorFiltered(id);
   }
   public static ColorFilteredColorFilteredBuilder colorFiltered(ColorFilterI colorFilter) {
     return ColorFilteredColorFilteredBuilder.colorFilteredColorFiltered(colorFilter);
@@ -32,7 +26,7 @@ public class ColorFiltered extends SingleChildRenderObjectWidget implements Colo
       int __nid = __s.recordAccessor("colorFilteredColorFilter", getId());
       return new ColorFilter(__nid);
     }
-    return new ColorFilter(ColorFilteredObjSt.colorFilter(st));
+    return factories.ColorFiltered_readBack_colorFilter(nativeStruct);
   }
   @Override
   public ColorFiltered build() {

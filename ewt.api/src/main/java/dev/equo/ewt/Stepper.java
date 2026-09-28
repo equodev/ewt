@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.StepperObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Stepper extends StatefulWidget implements StepperI {
-  private MemorySegment st;
   protected Stepper() {}
-  Stepper(MemorySegment st) {
-    this.id = StepperObjSt.id(st);
-    this.st = st;
+  Stepper(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Stepper");
-    System.out.println("New Stepper id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Stepper(int id) { this.id = id; }
   @Builder.Factory
   static Stepper stepperStepper(@Builder.Parameter List<StepI> steps, Optional<StepperType> type, OptionalInt currentStep, Optional<Consumer<Integer>> onStepTapped, Optional<Runnable> onStepContinue, Optional<Runnable> onStepCancel, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> connectorColor, OptionalDouble connectorThickness, Optional<BiFunction<Integer, StepState, Widget>> stepIconBuilder, OptionalDouble stepIconHeight, OptionalDouble stepIconWidth, Optional<EdgeInsetsI> stepIconMargin, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> headerPadding, Optional<EdgeInsetsGeometryI> contentPadding) {
-    var st = factories.stepperStepper(steps.stream().map(StepI::build).toList(),
+    int id = factories.stepperStepper(steps.stream().map(StepI::build).collect(java.util.stream.Collectors.toList()),
       type,
       currentStep,
       onStepTapped,
@@ -35,61 +29,59 @@ public class Stepper extends StatefulWidget implements StepperI {
       clipBehavior,
       headerPadding.map(EdgeInsetsGeometryI::build),
       contentPadding.map(EdgeInsetsGeometryI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Stepper");
-    return new Stepper(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Stepper");
+    return new Stepper(id);
   }
   public static StepperStepperBuilder stepper(List<StepI> steps) {
     return StepperStepperBuilder.stepperStepper(steps);
   }
   public StepperType type() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperType not supported on web");
-    return StepperType.values()[StepperObjSt.type(st)];
+    return factories.Stepper_readBack_type(nativeStruct);
   }
   public int currentStep() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperCurrentStep not supported on web");
-    return StepperObjSt.currentStep(st);
+    return factories.Stepper_readBack_currentStep(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperElevation not supported on web");
-    return StepperObjSt.elevation(st);
+    return factories.Stepper_readBack_elevation(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperMargin not supported on web");
-    return new EdgeInsetsGeometry(StepperObjSt.margin(st)) {};
+    return factories.Stepper_readBack_margin(nativeStruct);
   }
   public double connectorThickness() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperConnectorThickness not supported on web");
-    return StepperObjSt.connectorThickness(st);
+    return factories.Stepper_readBack_connectorThickness(nativeStruct);
   }
   public double stepIconHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperStepIconHeight not supported on web");
-    return StepperObjSt.stepIconHeight(st);
+    return factories.Stepper_readBack_stepIconHeight(nativeStruct);
   }
   public double stepIconWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperStepIconWidth not supported on web");
-    return StepperObjSt.stepIconWidth(st);
+    return factories.Stepper_readBack_stepIconWidth(nativeStruct);
   }
   public EdgeInsets stepIconMargin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("stepperStepIconMargin", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
+      return new EdgeInsets(__nid);
     }
-    return new EdgeInsets(StepperObjSt.stepIconMargin(st));
+    return factories.Stepper_readBack_stepIconMargin(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperClipBehavior not supported on web");
-    return Clip.values()[StepperObjSt.clipBehavior(st)];
+    return factories.Stepper_readBack_clipBehavior(nativeStruct);
   }
   public EdgeInsetsGeometry headerPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperHeaderPadding not supported on web");
-    return new EdgeInsetsGeometry(StepperObjSt.headerPadding(st)) {};
+    return factories.Stepper_readBack_headerPadding(nativeStruct);
   }
   public EdgeInsetsGeometry contentPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("stepperContentPadding not supported on web");
-    return new EdgeInsetsGeometry(StepperObjSt.contentPadding(st)) {};
+    return factories.Stepper_readBack_contentPadding(nativeStruct);
   }
   @Override
   public Stepper build() {

@@ -3,49 +3,43 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AnimatedFractionallySizedBoxObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AnimatedFractionallySizedBox extends ImplicitlyAnimatedWidget implements AnimatedFractionallySizedBoxI {
-  private MemorySegment st;
   protected AnimatedFractionallySizedBox() {}
-  AnimatedFractionallySizedBox(MemorySegment st) {
-    this.id = AnimatedFractionallySizedBoxObjSt.id(st);
-    this.st = st;
+  AnimatedFractionallySizedBox(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedFractionallySizedBox");
-    System.out.println("New AnimatedFractionallySizedBox id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  AnimatedFractionallySizedBox(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedFractionallySizedBox animatedFractionallySizedBoxAnimatedFractionallySizedBox(Optional<AlignmentGeometryI> alignment, Optional<WidgetI> child, OptionalDouble heightFactor, OptionalDouble widthFactor, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
-    var st = factories.animatedFractionallySizedBoxAnimatedFractionallySizedBox(alignment.map(AlignmentGeometryI::build),
+    int id = factories.animatedFractionallySizedBoxAnimatedFractionallySizedBox(alignment.map(AlignmentGeometryI::build),
       child.map(WidgetI::build),
       heightFactor,
       widthFactor,
       curve.map(CurveI::build),
       duration.build(),
       onEnd);
-    if (st == null) throw new RuntimeException("Failed to created widget AnimatedFractionallySizedBox");
-    return new AnimatedFractionallySizedBox(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedFractionallySizedBox");
+    return new AnimatedFractionallySizedBox(id);
   }
   public static AnimatedFractionallySizedBoxAnimatedFractionallySizedBoxBuilder animatedFractionallySizedBox() {
     return AnimatedFractionallySizedBoxAnimatedFractionallySizedBoxBuilder.animatedFractionallySizedBoxAnimatedFractionallySizedBox();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedFractionallySizedBoxChild not supported on web");
-    return new Widget(AnimatedFractionallySizedBoxObjSt.child(st)) {};
+    return factories.AnimatedFractionallySizedBox_readBack_child(nativeStruct);
   }
   public double heightFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedFractionallySizedBoxHeightFactor not supported on web");
-    return AnimatedFractionallySizedBoxObjSt.heightFactor(st);
+    return factories.AnimatedFractionallySizedBox_readBack_heightFactor(nativeStruct);
   }
   public double widthFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedFractionallySizedBoxWidthFactor not supported on web");
-    return AnimatedFractionallySizedBoxObjSt.widthFactor(st);
+    return factories.AnimatedFractionallySizedBox_readBack_widthFactor(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedFractionallySizedBoxAlignment not supported on web");
-    return new AlignmentGeometry(AnimatedFractionallySizedBoxObjSt.alignment(st)) {};
+    return factories.AnimatedFractionallySizedBox_readBack_alignment(nativeStruct);
   }
   @Override
   public AnimatedFractionallySizedBox build() {

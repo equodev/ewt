@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MaterialObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Material extends StatefulWidget implements MaterialI {
-  private MemorySegment st;
   protected Material() {}
-  Material(MemorySegment st) {
-    this.id = MaterialObjSt.id(st);
-    this.st = st;
+  Material(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Material");
-    System.out.println("New Material id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Material(int id) { this.id = id; }
   @Builder.Factory
   static Material materialMaterial(Optional<MaterialType> type, OptionalDouble elevation, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<TextStyleI> textStyle, Optional<BorderRadiusGeometryI> borderRadius, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<Clip> clipBehavior, Optional<DurationI> animationDuration, Optional<WidgetI> child, Optional<Boolean> animateColor) {
-    var st = factories.materialMaterial(type,
+    int id = factories.materialMaterial(type,
       elevation,
       color.map(ColorI::build),
       shadowColor.map(ColorI::build),
@@ -31,27 +25,27 @@ public class Material extends StatefulWidget implements MaterialI {
       animationDuration.map(DurationI::build),
       child.map(WidgetI::build),
       animateColor);
-    if (st == null) throw new RuntimeException("Failed to created widget Material");
-    return new Material(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Material");
+    return new Material(id);
   }
   public static MaterialMaterialBuilder material() {
     return MaterialMaterialBuilder.materialMaterial();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialChild not supported on web");
-    return new Widget(MaterialObjSt.child(st)) {};
+    return factories.Material_readBack_child(nativeStruct);
   }
   public MaterialType type() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialType not supported on web");
-    return MaterialType.values()[MaterialObjSt.type(st)];
+    return factories.Material_readBack_type(nativeStruct);
   }
   public boolean animateColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialAnimateColor not supported on web");
-    return intToBool(MaterialObjSt.animateColor(st));
+    return factories.Material_readBack_animateColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialElevation not supported on web");
-    return MaterialObjSt.elevation(st);
+    return factories.Material_readBack_elevation(nativeStruct);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -59,7 +53,7 @@ public class Material extends StatefulWidget implements MaterialI {
       int __nid = __s.recordAccessor("materialColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialObjSt.color(st));
+    return factories.Material_readBack_color(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -67,7 +61,7 @@ public class Material extends StatefulWidget implements MaterialI {
       int __nid = __s.recordAccessor("materialShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialObjSt.shadowColor(st));
+    return factories.Material_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -75,29 +69,27 @@ public class Material extends StatefulWidget implements MaterialI {
       int __nid = __s.recordAccessor("materialSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialObjSt.surfaceTintColor(st));
+    return factories.Material_readBack_surfaceTintColor(nativeStruct);
   }
   public TextStyle textStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("materialTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(MaterialObjSt.textStyle(st));
+    return factories.Material_readBack_textStyle(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialShape not supported on web");
-    return new ShapeBorder(MaterialObjSt.shape(st)) {};
+    return factories.Material_readBack_shape(nativeStruct);
   }
   public boolean borderOnForeground() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBorderOnForeground not supported on web");
-    return intToBool(MaterialObjSt.borderOnForeground(st));
+    return factories.Material_readBack_borderOnForeground(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialClipBehavior not supported on web");
-    return Clip.values()[MaterialObjSt.clipBehavior(st)];
+    return factories.Material_readBack_clipBehavior(nativeStruct);
   }
   public Duration animationDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -105,11 +97,11 @@ public class Material extends StatefulWidget implements MaterialI {
       int __nid = __s.recordAccessor("materialAnimationDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(MaterialObjSt.animationDuration(st));
+    return factories.Material_readBack_animationDuration(nativeStruct);
   }
   public BorderRadiusGeometry borderRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialBorderRadius not supported on web");
-    return new BorderRadiusGeometry(MaterialObjSt.borderRadius(st)) {};
+    return factories.Material_readBack_borderRadius(nativeStruct);
   }
   public static double defaultSplashRadius() {
     return 35.0;

@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SearchViewThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SearchViewThemeData extends NativeObj.Base implements SearchViewThemeDataI {
-  private MemorySegment st;
   protected SearchViewThemeData() {}
-  SearchViewThemeData(MemorySegment st) {
-    this.id = SearchViewThemeDataObjSt.id(st);
-    this.st = st;
+  SearchViewThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SearchViewThemeData");
-    System.out.println("New SearchViewThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SearchViewThemeData(int id) { this.id = id; }
   @Builder.Factory
   static SearchViewThemeData searchViewThemeDataSearchViewThemeData(Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> surfaceTintColor, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> padding, Optional<EdgeInsetsGeometryI> barPadding, Optional<Boolean> shrinkWrap, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, OptionalDouble headerHeight, Optional<TextStyleI> headerTextStyle, Optional<TextStyleI> headerHintStyle, Optional<ColorI> dividerColor) {
-    var st = factories.searchViewThemeDataSearchViewThemeData(backgroundColor.map(ColorI::build),
+    int id = factories.searchViewThemeDataSearchViewThemeData(backgroundColor.map(ColorI::build),
       elevation,
       surfaceTintColor.map(ColorI::build),
       constraints.map(BoxConstraintsI::build),
@@ -31,18 +25,18 @@ public class SearchViewThemeData extends NativeObj.Base implements SearchViewThe
       headerTextStyle.map(TextStyleI::build),
       headerHintStyle.map(TextStyleI::build),
       dividerColor.map(ColorI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget SearchViewThemeData");
-    return new SearchViewThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SearchViewThemeData");
+    return new SearchViewThemeData(id);
   }
   public static SearchViewThemeDataSearchViewThemeDataBuilder searchViewThemeData() {
     return SearchViewThemeDataSearchViewThemeDataBuilder.searchViewThemeDataSearchViewThemeData();
   }
   public static SearchViewThemeData lerp(SearchViewThemeDataI a, SearchViewThemeDataI b, double t) {
-    var st = factories.searchViewThemeDataLerp(a.build(),
+    int id = factories.searchViewThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget SearchViewThemeData");
-    return new SearchViewThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SearchViewThemeData");
+    return new SearchViewThemeData(id);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -50,11 +44,11 @@ public class SearchViewThemeData extends NativeObj.Base implements SearchViewThe
       int __nid = __s.recordAccessor("searchViewThemeDataBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(SearchViewThemeDataObjSt.backgroundColor(st));
+    return factories.SearchViewThemeData_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchViewThemeDataElevation not supported on web");
-    return SearchViewThemeDataObjSt.elevation(st);
+    return factories.SearchViewThemeData_readBack_elevation(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -62,67 +56,59 @@ public class SearchViewThemeData extends NativeObj.Base implements SearchViewThe
       int __nid = __s.recordAccessor("searchViewThemeDataSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(SearchViewThemeDataObjSt.surfaceTintColor(st));
+    return factories.SearchViewThemeData_readBack_surfaceTintColor(nativeStruct);
   }
   public BorderSide side() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchViewThemeDataSide", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(SearchViewThemeDataObjSt.side(st));
+    return factories.SearchViewThemeData_readBack_side(nativeStruct);
   }
   public OutlinedBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchViewThemeDataShape not supported on web");
-    return new OutlinedBorder(SearchViewThemeDataObjSt.shape(st)) {};
+    return factories.SearchViewThemeData_readBack_shape(nativeStruct);
   }
   public double headerHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchViewThemeDataHeaderHeight not supported on web");
-    return SearchViewThemeDataObjSt.headerHeight(st);
+    return factories.SearchViewThemeData_readBack_headerHeight(nativeStruct);
   }
   public TextStyle headerTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchViewThemeDataHeaderTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(SearchViewThemeDataObjSt.headerTextStyle(st));
+    return factories.SearchViewThemeData_readBack_headerTextStyle(nativeStruct);
   }
   public TextStyle headerHintStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchViewThemeDataHeaderHintStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(SearchViewThemeDataObjSt.headerHintStyle(st));
+    return factories.SearchViewThemeData_readBack_headerHintStyle(nativeStruct);
   }
   public BoxConstraints constraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchViewThemeDataConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(SearchViewThemeDataObjSt.constraints(st));
+    return factories.SearchViewThemeData_readBack_constraints(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchViewThemeDataPadding not supported on web");
-    return new EdgeInsetsGeometry(SearchViewThemeDataObjSt.padding(st)) {};
+    return factories.SearchViewThemeData_readBack_padding(nativeStruct);
   }
   public EdgeInsetsGeometry barPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchViewThemeDataBarPadding not supported on web");
-    return new EdgeInsetsGeometry(SearchViewThemeDataObjSt.barPadding(st)) {};
+    return factories.SearchViewThemeData_readBack_barPadding(nativeStruct);
   }
   public boolean shrinkWrap() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchViewThemeDataShrinkWrap not supported on web");
-    return intToBool(SearchViewThemeDataObjSt.shrinkWrap(st));
+    return factories.SearchViewThemeData_readBack_shrinkWrap(nativeStruct);
   }
   public Color dividerColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -130,7 +116,7 @@ public class SearchViewThemeData extends NativeObj.Base implements SearchViewThe
       int __nid = __s.recordAccessor("searchViewThemeDataDividerColor", getId());
       return new Color(__nid);
     }
-    return new Color(SearchViewThemeDataObjSt.dividerColor(st));
+    return factories.SearchViewThemeData_readBack_dividerColor(nativeStruct);
   }
   @Override
   public SearchViewThemeData build() {

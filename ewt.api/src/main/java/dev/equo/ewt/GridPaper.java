@@ -3,28 +3,22 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.GridPaperObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class GridPaper extends StatelessWidget implements GridPaperI {
-  private MemorySegment st;
   protected GridPaper() {}
-  GridPaper(MemorySegment st) {
-    this.id = GridPaperObjSt.id(st);
-    this.st = st;
+  GridPaper(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget GridPaper");
-    System.out.println("New GridPaper id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  GridPaper(int id) { this.id = id; }
   @Builder.Factory
   static GridPaper gridPaperGridPaper(Optional<ColorI> color, OptionalDouble interval, OptionalInt divisions, OptionalInt subdivisions, Optional<WidgetI> child) {
-    var st = factories.gridPaperGridPaper(color.map(ColorI::build),
+    int id = factories.gridPaperGridPaper(color.map(ColorI::build),
       interval,
       divisions,
       subdivisions,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget GridPaper");
-    return new GridPaper(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget GridPaper");
+    return new GridPaper(id);
   }
   public static GridPaperGridPaperBuilder gridPaper() {
     return GridPaperGridPaperBuilder.gridPaperGridPaper();
@@ -35,23 +29,23 @@ public class GridPaper extends StatelessWidget implements GridPaperI {
       int __nid = __s.recordAccessor("gridPaperColor", getId());
       return new Color(__nid);
     }
-    return new Color(GridPaperObjSt.color(st));
+    return factories.GridPaper_readBack_color(nativeStruct);
   }
   public double interval() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridPaperInterval not supported on web");
-    return GridPaperObjSt.interval(st);
+    return factories.GridPaper_readBack_interval(nativeStruct);
   }
   public int divisions() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridPaperDivisions not supported on web");
-    return GridPaperObjSt.divisions(st);
+    return factories.GridPaper_readBack_divisions(nativeStruct);
   }
   public int subdivisions() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridPaperSubdivisions not supported on web");
-    return GridPaperObjSt.subdivisions(st);
+    return factories.GridPaper_readBack_subdivisions(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridPaperChild not supported on web");
-    return new Widget(GridPaperObjSt.child(st)) {};
+    return factories.GridPaper_readBack_child(nativeStruct);
   }
   @Override
   public GridPaper build() {

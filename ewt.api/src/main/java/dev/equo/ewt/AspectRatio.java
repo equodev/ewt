@@ -3,32 +3,26 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AspectRatioObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AspectRatio extends SingleChildRenderObjectWidget implements AspectRatioI {
-  private MemorySegment st;
   protected AspectRatio() {}
-  AspectRatio(MemorySegment st) {
-    this.id = AspectRatioObjSt.id(st);
-    this.st = st;
+  AspectRatio(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget AspectRatio");
-    System.out.println("New AspectRatio id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  AspectRatio(int id) { this.id = id; }
   @Builder.Factory
   static AspectRatio aspectRatioAspectRatio(@Builder.Parameter double aspectRatio, Optional<WidgetI> child) {
-    var st = factories.aspectRatioAspectRatio(aspectRatio,
+    int id = factories.aspectRatioAspectRatio(aspectRatio,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget AspectRatio");
-    return new AspectRatio(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget AspectRatio");
+    return new AspectRatio(id);
   }
   public static AspectRatioAspectRatioBuilder aspectRatio(double aspectRatio) {
     return AspectRatioAspectRatioBuilder.aspectRatioAspectRatio(aspectRatio);
   }
   public double aspectRatio() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("aspectRatioAspectRatio not supported on web");
-    return AspectRatioObjSt.aspectRatio(st);
+    return factories.AspectRatio_readBack_aspectRatio(nativeStruct);
   }
   @Override
   public AspectRatio build() {

@@ -3,33 +3,27 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ListenableBuilderObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ListenableBuilder extends AnimatedWidget implements ListenableBuilderI {
-  private MemorySegment st;
   protected ListenableBuilder() {}
-  ListenableBuilder(MemorySegment st) {
-    this.id = ListenableBuilderObjSt.id(st);
-    this.st = st;
+  ListenableBuilder(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ListenableBuilder");
-    System.out.println("New ListenableBuilder id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ListenableBuilder(int id) { this.id = id; }
   @Builder.Factory
   static ListenableBuilder listenableBuilderListenableBuilder(@Builder.Parameter ListenableI listenable, @Builder.Parameter BiFunction<BuildContext, Widget, Widget> builder, Optional<WidgetI> child) {
-    var st = factories.listenableBuilderListenableBuilder(listenable.build(),
+    int id = factories.listenableBuilderListenableBuilder(listenable.build(),
       builder,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ListenableBuilder");
-    return new ListenableBuilder(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ListenableBuilder");
+    return new ListenableBuilder(id);
   }
   public static ListenableBuilderListenableBuilderBuilder listenableBuilder(ListenableI listenable, BiFunction<BuildContext, Widget, Widget> builder) {
     return ListenableBuilderListenableBuilderBuilder.listenableBuilderListenableBuilder(listenable, builder);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listenableBuilderChild not supported on web");
-    return new Widget(ListenableBuilderObjSt.child(st)) {};
+    return factories.ListenableBuilder_readBack_child(nativeStruct);
   }
   @Override
   public ListenableBuilder build() {

@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ListTileObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ListTile extends StatelessWidget implements ListTileI {
-  private MemorySegment st;
   protected ListTile() {}
-  ListTile(MemorySegment st) {
-    this.id = ListTileObjSt.id(st);
-    this.st = st;
+  ListTile(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ListTile");
-    System.out.println("New ListTile id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ListTile(int id) { this.id = id; }
   @Builder.Factory
   static ListTile listTileListTile(Optional<WidgetI> leading, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<WidgetI> trailing, Optional<Boolean> isThreeLine, Optional<Boolean> dense, Optional<VisualDensityI> visualDensity, Optional<ShapeBorderI> shape, Optional<ListTileStyle> style, Optional<ColorI> selectedColor, Optional<ColorI> iconColor, Optional<ColorI> textColor, Optional<TextStyleI> titleTextStyle, Optional<TextStyleI> subtitleTextStyle, Optional<TextStyleI> leadingAndTrailingTextStyle, Optional<EdgeInsetsGeometryI> contentPadding, Optional<Boolean> enabled, Optional<Runnable> onTap, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> selected, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> splashColor, Optional<Boolean> autofocus, Optional<ColorI> tileColor, Optional<ColorI> selectedTileColor, Optional<Boolean> enableFeedback, OptionalDouble horizontalTitleGap, OptionalDouble minVerticalPadding, OptionalDouble minLeadingWidth, OptionalDouble minTileHeight, Optional<ListTileTitleAlignment> titleAlignment, Optional<Boolean> internalAddSemanticForOnTap) {
-    var st = factories.listTileListTile(leading.map(WidgetI::build),
+    int id = factories.listTileListTile(leading.map(WidgetI::build),
       title.map(WidgetI::build),
       subtitle.map(WidgetI::build),
       trailing.map(WidgetI::build),
@@ -52,49 +46,47 @@ public class ListTile extends StatelessWidget implements ListTileI {
       minTileHeight,
       titleAlignment,
       internalAddSemanticForOnTap);
-    if (st == null) throw new RuntimeException("Failed to created widget ListTile");
-    return new ListTile(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ListTile");
+    return new ListTile(id);
   }
   public static ListTileListTileBuilder listTile() {
     return ListTileListTileBuilder.listTileListTile();
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileLeading not supported on web");
-    return new Widget(ListTileObjSt.leading(st)) {};
+    return factories.ListTile_readBack_leading(nativeStruct);
   }
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileTitle not supported on web");
-    return new Widget(ListTileObjSt.title(st)) {};
+    return factories.ListTile_readBack_title(nativeStruct);
   }
   public Widget subtitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileSubtitle not supported on web");
-    return new Widget(ListTileObjSt.subtitle(st)) {};
+    return factories.ListTile_readBack_subtitle(nativeStruct);
   }
   public Widget trailing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileTrailing not supported on web");
-    return new Widget(ListTileObjSt.trailing(st)) {};
+    return factories.ListTile_readBack_trailing(nativeStruct);
   }
   public boolean isThreeLine() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileIsThreeLine not supported on web");
-    return intToBool(ListTileObjSt.isThreeLine(st));
+    return factories.ListTile_readBack_isThreeLine(nativeStruct);
   }
   public boolean dense() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileDense not supported on web");
-    return intToBool(ListTileObjSt.dense(st));
+    return factories.ListTile_readBack_dense(nativeStruct);
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("listTileVisualDensity", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
-      return new VisualDensity(__st);
+      return new VisualDensity(__nid);
     }
-    return new VisualDensity(ListTileObjSt.visualDensity(st));
+    return factories.ListTile_readBack_visualDensity(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileShape not supported on web");
-    return new ShapeBorder(ListTileObjSt.shape(st)) {};
+    return factories.ListTile_readBack_shape(nativeStruct);
   }
   public Color selectedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -102,7 +94,7 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileSelectedColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.selectedColor(st));
+    return factories.ListTile_readBack_selectedColor(nativeStruct);
   }
   public Color iconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -110,7 +102,7 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.iconColor(st));
+    return factories.ListTile_readBack_iconColor(nativeStruct);
   }
   public Color textColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -118,53 +110,47 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileTextColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.textColor(st));
+    return factories.ListTile_readBack_textColor(nativeStruct);
   }
   public TextStyle titleTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("listTileTitleTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(ListTileObjSt.titleTextStyle(st));
+    return factories.ListTile_readBack_titleTextStyle(nativeStruct);
   }
   public TextStyle subtitleTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("listTileSubtitleTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(ListTileObjSt.subtitleTextStyle(st));
+    return factories.ListTile_readBack_subtitleTextStyle(nativeStruct);
   }
   public TextStyle leadingAndTrailingTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("listTileLeadingAndTrailingTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(ListTileObjSt.leadingAndTrailingTextStyle(st));
+    return factories.ListTile_readBack_leadingAndTrailingTextStyle(nativeStruct);
   }
   public ListTileStyle style() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileStyle not supported on web");
-    return ListTileStyle.values()[ListTileObjSt.style(st)];
+    return factories.ListTile_readBack_style(nativeStruct);
   }
   public EdgeInsetsGeometry contentPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileContentPadding not supported on web");
-    return new EdgeInsetsGeometry(ListTileObjSt.contentPadding(st)) {};
+    return factories.ListTile_readBack_contentPadding(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileEnabled not supported on web");
-    return intToBool(ListTileObjSt.enabled(st));
+    return factories.ListTile_readBack_enabled(nativeStruct);
   }
   public boolean selected() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileSelected not supported on web");
-    return intToBool(ListTileObjSt.selected(st));
+    return factories.ListTile_readBack_selected(nativeStruct);
   }
   public Color focusColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -172,7 +158,7 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileFocusColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.focusColor(st));
+    return factories.ListTile_readBack_focusColor(nativeStruct);
   }
   public Color hoverColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -180,7 +166,7 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileHoverColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.hoverColor(st));
+    return factories.ListTile_readBack_hoverColor(nativeStruct);
   }
   public Color splashColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -188,11 +174,11 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileSplashColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.splashColor(st));
+    return factories.ListTile_readBack_splashColor(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileAutofocus not supported on web");
-    return intToBool(ListTileObjSt.autofocus(st));
+    return factories.ListTile_readBack_autofocus(nativeStruct);
   }
   public Color tileColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -200,7 +186,7 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileTileColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.tileColor(st));
+    return factories.ListTile_readBack_tileColor(nativeStruct);
   }
   public Color selectedTileColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -208,35 +194,35 @@ public class ListTile extends StatelessWidget implements ListTileI {
       int __nid = __s.recordAccessor("listTileSelectedTileColor", getId());
       return new Color(__nid);
     }
-    return new Color(ListTileObjSt.selectedTileColor(st));
+    return factories.ListTile_readBack_selectedTileColor(nativeStruct);
   }
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileEnableFeedback not supported on web");
-    return intToBool(ListTileObjSt.enableFeedback(st));
+    return factories.ListTile_readBack_enableFeedback(nativeStruct);
   }
   public double horizontalTitleGap() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileHorizontalTitleGap not supported on web");
-    return ListTileObjSt.horizontalTitleGap(st);
+    return factories.ListTile_readBack_horizontalTitleGap(nativeStruct);
   }
   public double minVerticalPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileMinVerticalPadding not supported on web");
-    return ListTileObjSt.minVerticalPadding(st);
+    return factories.ListTile_readBack_minVerticalPadding(nativeStruct);
   }
   public double minLeadingWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileMinLeadingWidth not supported on web");
-    return ListTileObjSt.minLeadingWidth(st);
+    return factories.ListTile_readBack_minLeadingWidth(nativeStruct);
   }
   public double minTileHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileMinTileHeight not supported on web");
-    return ListTileObjSt.minTileHeight(st);
+    return factories.ListTile_readBack_minTileHeight(nativeStruct);
   }
   public ListTileTitleAlignment titleAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileTitleAlignment not supported on web");
-    return ListTileTitleAlignment.values()[ListTileObjSt.titleAlignment(st)];
+    return factories.ListTile_readBack_titleAlignment(nativeStruct);
   }
   public boolean internalAddSemanticForOnTap() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listTileInternalAddSemanticForOnTap not supported on web");
-    return intToBool(ListTileObjSt.internalAddSemanticForOnTap(st));
+    return factories.ListTile_readBack_internalAddSemanticForOnTap(nativeStruct);
   }
   @Override
   public ListTile build() {

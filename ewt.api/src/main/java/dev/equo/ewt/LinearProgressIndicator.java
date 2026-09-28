@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.LinearProgressIndicatorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class LinearProgressIndicator extends ProgressIndicator implements LinearProgressIndicatorI {
-  private MemorySegment st;
   protected LinearProgressIndicator() {}
-  LinearProgressIndicator(MemorySegment st) {
-    this.id = LinearProgressIndicatorObjSt.id(st);
-    this.st = st;
+  LinearProgressIndicator(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget LinearProgressIndicator");
-    System.out.println("New LinearProgressIndicator id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  LinearProgressIndicator(int id) { this.id = id; }
   @Builder.Factory
   static LinearProgressIndicator linearProgressIndicatorLinearProgressIndicator(OptionalDouble value, Optional<ColorI> backgroundColor, Optional<ColorI> color, Optional<AnimationI> valueColor, OptionalDouble minHeight, Optional<String> semanticsLabel, Optional<String> semanticsValue, Optional<BorderRadiusGeometryI> borderRadius, Optional<ColorI> stopIndicatorColor, OptionalDouble stopIndicatorRadius, OptionalDouble trackGap, Optional<Boolean> year2023, Optional<AnimationControllerI> controller) {
-    var st = factories.linearProgressIndicatorLinearProgressIndicator(value,
+    int id = factories.linearProgressIndicatorLinearProgressIndicator(value,
       backgroundColor.map(ColorI::build),
       color.map(ColorI::build),
       valueColor.map(AnimationI::build),
@@ -31,19 +25,19 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
       trackGap,
       year2023,
       controller.map(AnimationControllerI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget LinearProgressIndicator");
-    return new LinearProgressIndicator(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget LinearProgressIndicator");
+    return new LinearProgressIndicator(id);
   }
   public static LinearProgressIndicatorLinearProgressIndicatorBuilder linearProgressIndicator() {
     return LinearProgressIndicatorLinearProgressIndicatorBuilder.linearProgressIndicatorLinearProgressIndicator();
   }
   public double minHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorMinHeight not supported on web");
-    return LinearProgressIndicatorObjSt.minHeight(st);
+    return factories.LinearProgressIndicator_readBack_minHeight(nativeStruct);
   }
   public BorderRadiusGeometry borderRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorBorderRadius not supported on web");
-    return new BorderRadiusGeometry(LinearProgressIndicatorObjSt.borderRadius(st)) {};
+    return factories.LinearProgressIndicator_readBack_borderRadius(nativeStruct);
   }
   public Color stopIndicatorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -51,19 +45,19 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
       int __nid = __s.recordAccessor("linearProgressIndicatorStopIndicatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(LinearProgressIndicatorObjSt.stopIndicatorColor(st));
+    return factories.LinearProgressIndicator_readBack_stopIndicatorColor(nativeStruct);
   }
   public double stopIndicatorRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorStopIndicatorRadius not supported on web");
-    return LinearProgressIndicatorObjSt.stopIndicatorRadius(st);
+    return factories.LinearProgressIndicator_readBack_stopIndicatorRadius(nativeStruct);
   }
   public double trackGap() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorTrackGap not supported on web");
-    return LinearProgressIndicatorObjSt.trackGap(st);
+    return factories.LinearProgressIndicator_readBack_trackGap(nativeStruct);
   }
   public boolean year2023() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("linearProgressIndicatorYear2023 not supported on web");
-    return intToBool(LinearProgressIndicatorObjSt.year2023(st));
+    return factories.LinearProgressIndicator_readBack_year2023(nativeStruct);
   }
   public AnimationController controller() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -71,7 +65,7 @@ public class LinearProgressIndicator extends ProgressIndicator implements Linear
       int __nid = __s.recordAccessor("linearProgressIndicatorController", getId());
       return new AnimationController(__nid);
     }
-    return new AnimationController(LinearProgressIndicatorObjSt.controller(st));
+    return factories.LinearProgressIndicator_readBack_controller(nativeStruct);
   }
   public static Duration defaultAnimationDuration() {
     return Duration.duration().milliseconds(1800).build();

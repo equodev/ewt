@@ -77,7 +77,7 @@ public class App {
         if (dispatcher != null) return;
         dispatcher = buildWidgetTreeFn.allocate((MemorySegment widgetFactories, int regionId) -> {
             try {
-                WidgetConstructors.instance.set(
+                WidgetConstructorsBase.instance.set(
                     WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), ms -> {}));
                 Callable<Widget> builder = builders.get(regionId);
                 if (builder == null) {
@@ -103,7 +103,7 @@ public class App {
         // calls callToBuildWidgetTree with the default 0).
         MemorySegment ffmFn = buildWidgetTreeFn.allocate((MemorySegment widgetFactories, int regionId)  -> {
             try {
-                WidgetConstructors.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {}));
+                WidgetConstructorsBase.instance.set(WidgetFactories.reinterpret(widgetFactories, Arena.ofShared(), (ms) -> {}));
                 Widget w = wrappedBuilder.call().build();
                 return ((NativeObj) w).getId();
             } catch (Exception e) {

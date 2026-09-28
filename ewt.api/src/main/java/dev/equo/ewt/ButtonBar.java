@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ButtonBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ButtonBar extends StatelessWidget implements ButtonBarI {
-  private MemorySegment st;
   protected ButtonBar() {}
-  ButtonBar(MemorySegment st) {
-    this.id = ButtonBarObjSt.id(st);
-    this.st = st;
+  ButtonBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ButtonBar");
-    System.out.println("New ButtonBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ButtonBar(int id) { this.id = id; }
   @Builder.Factory
   static ButtonBar buttonBarButtonBar(Optional<MainAxisAlignment> alignment, Optional<MainAxisSize> mainAxisSize, Optional<ButtonTextTheme> buttonTextTheme, OptionalDouble buttonMinWidth, OptionalDouble buttonHeight, Optional<EdgeInsetsGeometryI> buttonPadding, Optional<Boolean> buttonAlignedDropdown, Optional<ButtonBarLayoutBehavior> layoutBehavior, Optional<VerticalDirection> overflowDirection, OptionalDouble overflowButtonSpacing, Optional<List<WidgetI>> children) {
-    var st = factories.buttonBarButtonBar(alignment,
+    int id = factories.buttonBarButtonBar(alignment,
       mainAxisSize,
       buttonTextTheme,
       buttonMinWidth,
@@ -28,52 +22,52 @@ public class ButtonBar extends StatelessWidget implements ButtonBarI {
       layoutBehavior,
       overflowDirection,
       overflowButtonSpacing,
-      children.map(i -> i.stream().map(WidgetI::build).toList()));
-    if (st == null) throw new RuntimeException("Failed to created widget ButtonBar");
-    return new ButtonBar(st);
+      children.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())));
+    if (id <= 0) throw new RuntimeException("Failed to created widget ButtonBar");
+    return new ButtonBar(id);
   }
   public static ButtonBarButtonBarBuilder buttonBar() {
     return ButtonBarButtonBarBuilder.buttonBarButtonBar();
   }
   public MainAxisAlignment alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarAlignment not supported on web");
-    return MainAxisAlignment.values()[ButtonBarObjSt.alignment(st)];
+    return factories.ButtonBar_readBack_alignment(nativeStruct);
   }
   public MainAxisSize mainAxisSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarMainAxisSize not supported on web");
-    return MainAxisSize.values()[ButtonBarObjSt.mainAxisSize(st)];
+    return factories.ButtonBar_readBack_mainAxisSize(nativeStruct);
   }
   public ButtonTextTheme buttonTextTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarButtonTextTheme not supported on web");
-    return ButtonTextTheme.values()[ButtonBarObjSt.buttonTextTheme(st)];
+    return factories.ButtonBar_readBack_buttonTextTheme(nativeStruct);
   }
   public double buttonMinWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarButtonMinWidth not supported on web");
-    return ButtonBarObjSt.buttonMinWidth(st);
+    return factories.ButtonBar_readBack_buttonMinWidth(nativeStruct);
   }
   public double buttonHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarButtonHeight not supported on web");
-    return ButtonBarObjSt.buttonHeight(st);
+    return factories.ButtonBar_readBack_buttonHeight(nativeStruct);
   }
   public EdgeInsetsGeometry buttonPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarButtonPadding not supported on web");
-    return new EdgeInsetsGeometry(ButtonBarObjSt.buttonPadding(st)) {};
+    return factories.ButtonBar_readBack_buttonPadding(nativeStruct);
   }
   public boolean buttonAlignedDropdown() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarButtonAlignedDropdown not supported on web");
-    return intToBool(ButtonBarObjSt.buttonAlignedDropdown(st));
+    return factories.ButtonBar_readBack_buttonAlignedDropdown(nativeStruct);
   }
   public ButtonBarLayoutBehavior layoutBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarLayoutBehavior not supported on web");
-    return ButtonBarLayoutBehavior.values()[ButtonBarObjSt.layoutBehavior(st)];
+    return factories.ButtonBar_readBack_layoutBehavior(nativeStruct);
   }
   public VerticalDirection overflowDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarOverflowDirection not supported on web");
-    return VerticalDirection.values()[ButtonBarObjSt.overflowDirection(st)];
+    return factories.ButtonBar_readBack_overflowDirection(nativeStruct);
   }
   public double overflowButtonSpacing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("buttonBarOverflowButtonSpacing not supported on web");
-    return ButtonBarObjSt.overflowButtonSpacing(st);
+    return factories.ButtonBar_readBack_overflowButtonSpacing(nativeStruct);
   }
   @Override
   public ButtonBar build() {

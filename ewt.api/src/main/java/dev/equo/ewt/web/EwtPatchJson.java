@@ -31,7 +31,7 @@ public final class EwtPatchJson {
     for (int i = 0; i < path.size(); i++) {
       if (i > 0) sb.append(',');
       Object step = path.get(i);
-      if (step instanceof String s) EwtNodeJson.writeString(sb, s);
+      if (step instanceof String) EwtNodeJson.writeString(sb, (String) step);
       else sb.append(step); // Integer list index
     }
     sb.append("],\"set\":{");

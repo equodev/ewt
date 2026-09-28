@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ExcludeFocusTraversalObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ExcludeFocusTraversal extends StatelessWidget implements ExcludeFocusTraversalI {
-  private MemorySegment st;
   protected ExcludeFocusTraversal() {}
-  ExcludeFocusTraversal(MemorySegment st) {
-    this.id = ExcludeFocusTraversalObjSt.id(st);
-    this.st = st;
+  ExcludeFocusTraversal(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ExcludeFocusTraversal");
-    System.out.println("New ExcludeFocusTraversal id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ExcludeFocusTraversal(int id) { this.id = id; }
   @Builder.Factory
   static ExcludeFocusTraversal excludeFocusTraversalExcludeFocusTraversal(Optional<Boolean> excluding, WidgetI child) {
-    var st = factories.excludeFocusTraversalExcludeFocusTraversal(excluding,
+    int id = factories.excludeFocusTraversalExcludeFocusTraversal(excluding,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget ExcludeFocusTraversal");
-    return new ExcludeFocusTraversal(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ExcludeFocusTraversal");
+    return new ExcludeFocusTraversal(id);
   }
   public static ExcludeFocusTraversalExcludeFocusTraversalBuilder excludeFocusTraversal() {
     return ExcludeFocusTraversalExcludeFocusTraversalBuilder.excludeFocusTraversalExcludeFocusTraversal();
   }
   public boolean excluding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("excludeFocusTraversalExcluding not supported on web");
-    return intToBool(ExcludeFocusTraversalObjSt.excluding(st));
+    return factories.ExcludeFocusTraversal_readBack_excluding(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("excludeFocusTraversalChild not supported on web");
-    return new Widget(ExcludeFocusTraversalObjSt.child(st)) {};
+    return factories.ExcludeFocusTraversal_readBack_child(nativeStruct);
   }
   @Override
   public ExcludeFocusTraversal build() {

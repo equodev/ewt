@@ -3,24 +3,18 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.NavigationBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class NavigationBar extends StatelessWidget implements NavigationBarI {
-  private MemorySegment st;
   protected NavigationBar() {}
-  NavigationBar(MemorySegment st) {
-    this.id = NavigationBarObjSt.id(st);
-    this.st = st;
+  NavigationBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigationBar");
-    System.out.println("New NavigationBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  NavigationBar(int id) { this.id = id; }
   @Builder.Factory
   static NavigationBar navigationBarNavigationBar(Optional<DurationI> animationDuration, OptionalInt selectedIndex, List<WidgetI> destinations, Optional<Consumer<Integer>> onDestinationSelected, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, OptionalDouble height, Optional<NavigationDestinationLabelBehavior> labelBehavior, Optional<ColorI> overlayColor, Optional<TextStyleI> labelTextStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Boolean> maintainBottomViewPadding) {
-    var st = factories.navigationBarNavigationBar(animationDuration.map(DurationI::build),
+    int id = factories.navigationBarNavigationBar(animationDuration.map(DurationI::build),
       selectedIndex,
-      destinations.stream().map(WidgetI::build).toList(),
+      destinations.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       onDestinationSelected,
       backgroundColor.map(ColorI::build),
       elevation,
@@ -34,8 +28,8 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       labelTextStyle.map(TextStyleI::build),
       labelPadding.map(EdgeInsetsGeometryI::build),
       maintainBottomViewPadding);
-    if (st == null) throw new RuntimeException("Failed to created widget NavigationBar");
-    return new NavigationBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigationBar");
+    return new NavigationBar(id);
   }
   public static NavigationBarNavigationBarBuilder navigationBar() {
     return NavigationBarNavigationBarBuilder.navigationBarNavigationBar();
@@ -46,11 +40,11 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       int __nid = __s.recordAccessor("navigationBarAnimationDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(NavigationBarObjSt.animationDuration(st));
+    return factories.NavigationBar_readBack_animationDuration(nativeStruct);
   }
   public int selectedIndex() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarSelectedIndex not supported on web");
-    return NavigationBarObjSt.selectedIndex(st);
+    return factories.NavigationBar_readBack_selectedIndex(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -58,11 +52,11 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       int __nid = __s.recordAccessor("navigationBarBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationBarObjSt.backgroundColor(st));
+    return factories.NavigationBar_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarElevation not supported on web");
-    return NavigationBarObjSt.elevation(st);
+    return factories.NavigationBar_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -70,7 +64,7 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       int __nid = __s.recordAccessor("navigationBarShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationBarObjSt.shadowColor(st));
+    return factories.NavigationBar_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -78,7 +72,7 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       int __nid = __s.recordAccessor("navigationBarSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationBarObjSt.surfaceTintColor(st));
+    return factories.NavigationBar_readBack_surfaceTintColor(nativeStruct);
   }
   public Color indicatorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -86,27 +80,27 @@ public class NavigationBar extends StatelessWidget implements NavigationBarI {
       int __nid = __s.recordAccessor("navigationBarIndicatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationBarObjSt.indicatorColor(st));
+    return factories.NavigationBar_readBack_indicatorColor(nativeStruct);
   }
   public ShapeBorder indicatorShape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarIndicatorShape not supported on web");
-    return new ShapeBorder(NavigationBarObjSt.indicatorShape(st)) {};
+    return factories.NavigationBar_readBack_indicatorShape(nativeStruct);
   }
   public double height() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarHeight not supported on web");
-    return NavigationBarObjSt.height(st);
+    return factories.NavigationBar_readBack_height(nativeStruct);
   }
   public NavigationDestinationLabelBehavior labelBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarLabelBehavior not supported on web");
-    return NavigationDestinationLabelBehavior.values()[NavigationBarObjSt.labelBehavior(st)];
+    return factories.NavigationBar_readBack_labelBehavior(nativeStruct);
   }
   public EdgeInsetsGeometry labelPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarLabelPadding not supported on web");
-    return new EdgeInsetsGeometry(NavigationBarObjSt.labelPadding(st)) {};
+    return factories.NavigationBar_readBack_labelPadding(nativeStruct);
   }
   public boolean maintainBottomViewPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationBarMaintainBottomViewPadding not supported on web");
-    return intToBool(NavigationBarObjSt.maintainBottomViewPadding(st));
+    return factories.NavigationBar_readBack_maintainBottomViewPadding(nativeStruct);
   }
   @Override
   public NavigationBar build() {

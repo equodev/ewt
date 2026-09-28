@@ -3,44 +3,38 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AnimatedOpacityObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AnimatedOpacity extends ImplicitlyAnimatedWidget implements AnimatedOpacityI {
-  private MemorySegment st;
   protected AnimatedOpacity() {}
-  AnimatedOpacity(MemorySegment st) {
-    this.id = AnimatedOpacityObjSt.id(st);
-    this.st = st;
+  AnimatedOpacity(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedOpacity");
-    System.out.println("New AnimatedOpacity id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  AnimatedOpacity(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedOpacity animatedOpacityAnimatedOpacity(Optional<WidgetI> child, double opacity, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd, Optional<Boolean> alwaysIncludeSemantics) {
-    var st = factories.animatedOpacityAnimatedOpacity(child.map(WidgetI::build),
+    int id = factories.animatedOpacityAnimatedOpacity(child.map(WidgetI::build),
       opacity,
       curve.map(CurveI::build),
       duration.build(),
       onEnd,
       alwaysIncludeSemantics);
-    if (st == null) throw new RuntimeException("Failed to created widget AnimatedOpacity");
-    return new AnimatedOpacity(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedOpacity");
+    return new AnimatedOpacity(id);
   }
   public static AnimatedOpacityAnimatedOpacityBuilder animatedOpacity() {
     return AnimatedOpacityAnimatedOpacityBuilder.animatedOpacityAnimatedOpacity();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedOpacityChild not supported on web");
-    return new Widget(AnimatedOpacityObjSt.child(st)) {};
+    return factories.AnimatedOpacity_readBack_child(nativeStruct);
   }
   public double opacity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedOpacityOpacity not supported on web");
-    return AnimatedOpacityObjSt.opacity(st);
+    return factories.AnimatedOpacity_readBack_opacity(nativeStruct);
   }
   public boolean alwaysIncludeSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedOpacityAlwaysIncludeSemantics not supported on web");
-    return intToBool(AnimatedOpacityObjSt.alwaysIncludeSemantics(st));
+    return factories.AnimatedOpacity_readBack_alwaysIncludeSemantics(nativeStruct);
   }
   @Override
   public AnimatedOpacity build() {

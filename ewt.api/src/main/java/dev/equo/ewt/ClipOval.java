@@ -3,32 +3,26 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ClipOvalObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ClipOval extends SingleChildRenderObjectWidget implements ClipOvalI {
-  private MemorySegment st;
   protected ClipOval() {}
-  ClipOval(MemorySegment st) {
-    this.id = ClipOvalObjSt.id(st);
-    this.st = st;
+  ClipOval(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ClipOval");
-    System.out.println("New ClipOval id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ClipOval(int id) { this.id = id; }
   @Builder.Factory
   static ClipOval clipOvalClipOval(Optional<Clip> clipBehavior, Optional<WidgetI> child) {
-    var st = factories.clipOvalClipOval(clipBehavior,
+    int id = factories.clipOvalClipOval(clipBehavior,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ClipOval");
-    return new ClipOval(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ClipOval");
+    return new ClipOval(id);
   }
   public static ClipOvalClipOvalBuilder clipOval() {
     return ClipOvalClipOvalBuilder.clipOvalClipOval();
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("clipOvalClipBehavior not supported on web");
-    return Clip.values()[ClipOvalObjSt.clipBehavior(st)];
+    return factories.ClipOval_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public ClipOval build() {

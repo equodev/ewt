@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoActivityIndicatorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoActivityIndicator extends StatefulWidget implements CupertinoActivityIndicatorI {
-  private MemorySegment st;
   protected CupertinoActivityIndicator() {}
-  CupertinoActivityIndicator(MemorySegment st) {
-    this.id = CupertinoActivityIndicatorObjSt.id(st);
-    this.st = st;
+  CupertinoActivityIndicator(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoActivityIndicator");
-    System.out.println("New CupertinoActivityIndicator id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoActivityIndicator(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoActivityIndicator cupertinoActivityIndicatorCupertinoActivityIndicator(Optional<ColorI> color, Optional<Boolean> animating, OptionalDouble radius) {
-    var st = factories.cupertinoActivityIndicatorCupertinoActivityIndicator(color.map(ColorI::build),
+    int id = factories.cupertinoActivityIndicatorCupertinoActivityIndicator(color.map(ColorI::build),
       animating,
       radius);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoActivityIndicator");
-    return new CupertinoActivityIndicator(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoActivityIndicator");
+    return new CupertinoActivityIndicator(id);
   }
   public static CupertinoActivityIndicatorCupertinoActivityIndicatorBuilder cupertinoActivityIndicator() {
     return CupertinoActivityIndicatorCupertinoActivityIndicatorBuilder.cupertinoActivityIndicatorCupertinoActivityIndicator();
   }
   @Builder.Factory
   static CupertinoActivityIndicator cupertinoActivityIndicatorPartiallyRevealed(Optional<ColorI> color, OptionalDouble radius, OptionalDouble progress) {
-    var st = factories.cupertinoActivityIndicatorPartiallyRevealed(color.map(ColorI::build),
+    int id = factories.cupertinoActivityIndicatorPartiallyRevealed(color.map(ColorI::build),
       radius,
       progress);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoActivityIndicator");
-    return new CupertinoActivityIndicator(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoActivityIndicator");
+    return new CupertinoActivityIndicator(id);
   }
   public static CupertinoActivityIndicatorPartiallyRevealedBuilder partiallyRevealed() {
     return CupertinoActivityIndicatorPartiallyRevealedBuilder.cupertinoActivityIndicatorPartiallyRevealed();
@@ -44,19 +38,19 @@ public class CupertinoActivityIndicator extends StatefulWidget implements Cupert
       int __nid = __s.recordAccessor("cupertinoActivityIndicatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoActivityIndicatorObjSt.color(st));
+    return factories.CupertinoActivityIndicator_readBack_color(nativeStruct);
   }
   public boolean animating() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActivityIndicatorAnimating not supported on web");
-    return intToBool(CupertinoActivityIndicatorObjSt.animating(st));
+    return factories.CupertinoActivityIndicator_readBack_animating(nativeStruct);
   }
   public double radius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActivityIndicatorRadius not supported on web");
-    return CupertinoActivityIndicatorObjSt.radius(st);
+    return factories.CupertinoActivityIndicator_readBack_radius(nativeStruct);
   }
   public double progress() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoActivityIndicatorProgress not supported on web");
-    return CupertinoActivityIndicatorObjSt.progress(st);
+    return factories.CupertinoActivityIndicator_readBack_progress(nativeStruct);
   }
   @Override
   public CupertinoActivityIndicator build() {

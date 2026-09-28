@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoNavigationBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoNavigationBar extends StatefulWidget implements ObstructingPreferredSizeWidget, CupertinoNavigationBarI {
-  private MemorySegment st;
   protected CupertinoNavigationBar() {}
-  CupertinoNavigationBar(MemorySegment st) {
-    this.id = CupertinoNavigationBarObjSt.id(st);
-    this.st = st;
+  CupertinoNavigationBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoNavigationBar");
-    System.out.println("New CupertinoNavigationBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoNavigationBar(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoNavigationBar cupertinoNavigationBarCupertinoNavigationBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyMiddle, Optional<String> previousPageTitle, Optional<WidgetI> middle, Optional<WidgetI> trailing, Optional<BorderI> border, Optional<ColorI> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<PreferredSizeWidgetI> bottom) {
-    var st = factories.cupertinoNavigationBarCupertinoNavigationBar(leading.map(WidgetI::build),
+    int id = factories.cupertinoNavigationBarCupertinoNavigationBar(leading.map(WidgetI::build),
       automaticallyImplyLeading,
       automaticallyImplyMiddle,
       previousPageTitle,
@@ -31,15 +25,15 @@ public class CupertinoNavigationBar extends StatefulWidget implements Obstructin
       brightness,
       transitionBetweenRoutes,
       bottom.map(PreferredSizeWidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoNavigationBar");
-    return new CupertinoNavigationBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoNavigationBar");
+    return new CupertinoNavigationBar(id);
   }
   public static CupertinoNavigationBarCupertinoNavigationBarBuilder cupertinoNavigationBar() {
     return CupertinoNavigationBarCupertinoNavigationBarBuilder.cupertinoNavigationBarCupertinoNavigationBar();
   }
   @Builder.Factory
   static CupertinoNavigationBar cupertinoNavigationBarLarge(Optional<WidgetI> largeTitle, Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<Boolean> automaticallyImplyTitle, Optional<String> previousPageTitle, Optional<WidgetI> trailing, Optional<BorderI> border, Optional<ColorI> backgroundColor, Optional<Boolean> automaticBackgroundVisibility, Optional<Boolean> enableBackgroundFilterBlur, Optional<Brightness> brightness, Optional<Boolean> transitionBetweenRoutes, Optional<PreferredSizeWidgetI> bottom) {
-    var st = factories.cupertinoNavigationBarLarge(largeTitle.map(WidgetI::build),
+    int id = factories.cupertinoNavigationBarLarge(largeTitle.map(WidgetI::build),
       leading.map(WidgetI::build),
       automaticallyImplyLeading,
       automaticallyImplyTitle,
@@ -52,39 +46,39 @@ public class CupertinoNavigationBar extends StatefulWidget implements Obstructin
       brightness,
       transitionBetweenRoutes,
       bottom.map(PreferredSizeWidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoNavigationBar");
-    return new CupertinoNavigationBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoNavigationBar");
+    return new CupertinoNavigationBar(id);
   }
   public static CupertinoNavigationBarLargeBuilder large() {
     return CupertinoNavigationBarLargeBuilder.cupertinoNavigationBarLarge();
   }
   public Widget largeTitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarLargeTitle not supported on web");
-    return new Widget(CupertinoNavigationBarObjSt.largeTitle(st)) {};
+    return factories.CupertinoNavigationBar_readBack_largeTitle(nativeStruct);
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarLeading not supported on web");
-    return new Widget(CupertinoNavigationBarObjSt.leading(st)) {};
+    return factories.CupertinoNavigationBar_readBack_leading(nativeStruct);
   }
   public boolean automaticallyImplyLeading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarAutomaticallyImplyLeading not supported on web");
-    return intToBool(CupertinoNavigationBarObjSt.automaticallyImplyLeading(st));
+    return factories.CupertinoNavigationBar_readBack_automaticallyImplyLeading(nativeStruct);
   }
   public boolean automaticallyImplyMiddle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarAutomaticallyImplyMiddle not supported on web");
-    return intToBool(CupertinoNavigationBarObjSt.automaticallyImplyMiddle(st));
+    return factories.CupertinoNavigationBar_readBack_automaticallyImplyMiddle(nativeStruct);
   }
   public String previousPageTitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarPreviousPageTitle not supported on web");
-    return CupertinoNavigationBarObjSt.previousPageTitle(st).getString(0);
+    return factories.CupertinoNavigationBar_readBack_previousPageTitle(nativeStruct);
   }
   public Widget middle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarMiddle not supported on web");
-    return new Widget(CupertinoNavigationBarObjSt.middle(st)) {};
+    return factories.CupertinoNavigationBar_readBack_middle(nativeStruct);
   }
   public Widget trailing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarTrailing not supported on web");
-    return new Widget(CupertinoNavigationBarObjSt.trailing(st)) {};
+    return factories.CupertinoNavigationBar_readBack_trailing(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -92,37 +86,35 @@ public class CupertinoNavigationBar extends StatefulWidget implements Obstructin
       int __nid = __s.recordAccessor("cupertinoNavigationBarBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoNavigationBarObjSt.backgroundColor(st));
+    return factories.CupertinoNavigationBar_readBack_backgroundColor(nativeStruct);
   }
   public boolean automaticBackgroundVisibility() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarAutomaticBackgroundVisibility not supported on web");
-    return intToBool(CupertinoNavigationBarObjSt.automaticBackgroundVisibility(st));
+    return factories.CupertinoNavigationBar_readBack_automaticBackgroundVisibility(nativeStruct);
   }
   public Brightness brightness() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarBrightness not supported on web");
-    return Brightness.values()[CupertinoNavigationBarObjSt.brightness(st)];
+    return factories.CupertinoNavigationBar_readBack_brightness(nativeStruct);
   }
   public Border border() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("cupertinoNavigationBarBorder", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderObjSt.id(__st, __nid);
-      return new Border(__st);
+      return new Border(__nid);
     }
-    return new Border(CupertinoNavigationBarObjSt.border(st));
+    return factories.CupertinoNavigationBar_readBack_border(nativeStruct);
   }
   public boolean transitionBetweenRoutes() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarTransitionBetweenRoutes not supported on web");
-    return intToBool(CupertinoNavigationBarObjSt.transitionBetweenRoutes(st));
+    return factories.CupertinoNavigationBar_readBack_transitionBetweenRoutes(nativeStruct);
   }
   public boolean enableBackgroundFilterBlur() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarEnableBackgroundFilterBlur not supported on web");
-    return intToBool(CupertinoNavigationBarObjSt.enableBackgroundFilterBlur(st));
+    return factories.CupertinoNavigationBar_readBack_enableBackgroundFilterBlur(nativeStruct);
   }
   public PreferredSizeWidget bottom() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoNavigationBarBottom not supported on web");
-    return new PreferredSizeWidget() { public int getId() { return CupertinoNavigationBarObjSt.bottom(st); } };
+    return factories.CupertinoNavigationBar_readBack_bottom(nativeStruct);
   }
   @Override
   public CupertinoNavigationBar build() {

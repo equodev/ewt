@@ -3,31 +3,25 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SpacerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Spacer extends StatelessWidget implements SpacerI {
-  private MemorySegment st;
   protected Spacer() {}
-  Spacer(MemorySegment st) {
-    this.id = SpacerObjSt.id(st);
-    this.st = st;
+  Spacer(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Spacer");
-    System.out.println("New Spacer id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Spacer(int id) { this.id = id; }
   @Builder.Factory
   static Spacer spacerSpacer(OptionalInt flex) {
-    var st = factories.spacerSpacer(flex);
-    if (st == null) throw new RuntimeException("Failed to created widget Spacer");
-    return new Spacer(st);
+    int id = factories.spacerSpacer(flex);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Spacer");
+    return new Spacer(id);
   }
   public static SpacerSpacerBuilder spacer() {
     return SpacerSpacerBuilder.spacerSpacer();
   }
   public int flex() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("spacerFlex not supported on web");
-    return SpacerObjSt.flex(st);
+    return factories.Spacer_readBack_flex(nativeStruct);
   }
   @Override
   public Spacer build() {

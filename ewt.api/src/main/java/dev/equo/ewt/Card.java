@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CardObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Card extends StatelessWidget implements CardI {
-  private MemorySegment st;
   protected Card() {}
-  Card(MemorySegment st) {
-    this.id = CardObjSt.id(st);
-    this.st = st;
+  Card(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Card");
-    System.out.println("New Card id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Card(int id) { this.id = id; }
   @Builder.Factory
   static Card cardCard(Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometryI> margin, Optional<Clip> clipBehavior, Optional<WidgetI> child, Optional<Boolean> semanticContainer) {
-    var st = factories.cardCard(color.map(ColorI::build),
+    int id = factories.cardCard(color.map(ColorI::build),
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
       elevation,
@@ -28,15 +22,15 @@ public class Card extends StatelessWidget implements CardI {
       clipBehavior,
       child.map(WidgetI::build),
       semanticContainer);
-    if (st == null) throw new RuntimeException("Failed to created widget Card");
-    return new Card(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Card");
+    return new Card(id);
   }
   public static CardCardBuilder card() {
     return CardCardBuilder.cardCard();
   }
   @Builder.Factory
   static Card cardFilled(Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometryI> margin, Optional<Clip> clipBehavior, Optional<WidgetI> child, Optional<Boolean> semanticContainer) {
-    var st = factories.cardFilled(color.map(ColorI::build),
+    int id = factories.cardFilled(color.map(ColorI::build),
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
       elevation,
@@ -46,15 +40,15 @@ public class Card extends StatelessWidget implements CardI {
       clipBehavior,
       child.map(WidgetI::build),
       semanticContainer);
-    if (st == null) throw new RuntimeException("Failed to created widget Card");
-    return new Card(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Card");
+    return new Card(id);
   }
   public static CardFilledBuilder filled() {
     return CardFilledBuilder.cardFilled();
   }
   @Builder.Factory
   static Card cardOutlined(Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, OptionalDouble elevation, Optional<ShapeBorderI> shape, Optional<Boolean> borderOnForeground, Optional<EdgeInsetsGeometryI> margin, Optional<Clip> clipBehavior, Optional<WidgetI> child, Optional<Boolean> semanticContainer) {
-    var st = factories.cardOutlined(color.map(ColorI::build),
+    int id = factories.cardOutlined(color.map(ColorI::build),
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
       elevation,
@@ -64,8 +58,8 @@ public class Card extends StatelessWidget implements CardI {
       clipBehavior,
       child.map(WidgetI::build),
       semanticContainer);
-    if (st == null) throw new RuntimeException("Failed to created widget Card");
-    return new Card(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Card");
+    return new Card(id);
   }
   public static CardOutlinedBuilder outlined() {
     return CardOutlinedBuilder.cardOutlined();
@@ -76,7 +70,7 @@ public class Card extends StatelessWidget implements CardI {
       int __nid = __s.recordAccessor("cardColor", getId());
       return new Color(__nid);
     }
-    return new Color(CardObjSt.color(st));
+    return factories.Card_readBack_color(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -84,7 +78,7 @@ public class Card extends StatelessWidget implements CardI {
       int __nid = __s.recordAccessor("cardShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(CardObjSt.shadowColor(st));
+    return factories.Card_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -92,35 +86,35 @@ public class Card extends StatelessWidget implements CardI {
       int __nid = __s.recordAccessor("cardSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(CardObjSt.surfaceTintColor(st));
+    return factories.Card_readBack_surfaceTintColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardElevation not supported on web");
-    return CardObjSt.elevation(st);
+    return factories.Card_readBack_elevation(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardShape not supported on web");
-    return new ShapeBorder(CardObjSt.shape(st)) {};
+    return factories.Card_readBack_shape(nativeStruct);
   }
   public boolean borderOnForeground() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardBorderOnForeground not supported on web");
-    return intToBool(CardObjSt.borderOnForeground(st));
+    return factories.Card_readBack_borderOnForeground(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardClipBehavior not supported on web");
-    return Clip.values()[CardObjSt.clipBehavior(st)];
+    return factories.Card_readBack_clipBehavior(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardMargin not supported on web");
-    return new EdgeInsetsGeometry(CardObjSt.margin(st)) {};
+    return factories.Card_readBack_margin(nativeStruct);
   }
   public boolean semanticContainer() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardSemanticContainer not supported on web");
-    return intToBool(CardObjSt.semanticContainer(st));
+    return factories.Card_readBack_semanticContainer(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardChild not supported on web");
-    return new Widget(CardObjSt.child(st)) {};
+    return factories.Card_readBack_child(nativeStruct);
   }
   @Override
   public Card build() {

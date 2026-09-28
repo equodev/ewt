@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.InteractiveViewerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class InteractiveViewer extends StatefulWidget implements InteractiveViewerI {
-  private MemorySegment st;
   protected InteractiveViewer() {}
-  InteractiveViewer(MemorySegment st) {
-    this.id = InteractiveViewerObjSt.id(st);
-    this.st = st;
+  InteractiveViewer(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget InteractiveViewer");
-    System.out.println("New InteractiveViewer id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  InteractiveViewer(int id) { this.id = id; }
   @Builder.Factory
   static InteractiveViewer interactiveViewerInteractiveViewer(Optional<Clip> clipBehavior, Optional<PanAxis> panAxis, Optional<EdgeInsetsI> boundaryMargin, Optional<Boolean> constrained, OptionalDouble maxScale, OptionalDouble minScale, OptionalDouble interactionEndFrictionCoefficient, Optional<Consumer<ScaleEndDetails>> onInteractionEnd, Optional<Consumer<ScaleStartDetails>> onInteractionStart, Optional<Consumer<ScaleUpdateDetails>> onInteractionUpdate, Optional<Boolean> panEnabled, Optional<Boolean> scaleEnabled, OptionalDouble scaleFactor, Optional<AlignmentI> alignment, Optional<Boolean> trackpadScrollCausesScale, WidgetI child) {
-    var st = factories.interactiveViewerInteractiveViewer(clipBehavior,
+    int id = factories.interactiveViewerInteractiveViewer(clipBehavior,
       panAxis,
       boundaryMargin.map(EdgeInsetsI::build),
       constrained,
@@ -34,8 +28,8 @@ public class InteractiveViewer extends StatefulWidget implements InteractiveView
       alignment.map(AlignmentI::build),
       trackpadScrollCausesScale,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget InteractiveViewer");
-    return new InteractiveViewer(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget InteractiveViewer");
+    return new InteractiveViewer(id);
   }
   public static InteractiveViewerInteractiveViewerBuilder interactiveViewer() {
     return InteractiveViewerInteractiveViewerBuilder.interactiveViewerInteractiveViewer();
@@ -44,65 +38,61 @@ public class InteractiveViewer extends StatefulWidget implements InteractiveView
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("interactiveViewerAlignment", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.AlignmentObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.AlignmentObjSt.id(__st, __nid);
-      return new Alignment(__st);
+      return new Alignment(__nid);
     }
-    return new Alignment(InteractiveViewerObjSt.alignment(st));
+    return factories.InteractiveViewer_readBack_alignment(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerClipBehavior not supported on web");
-    return Clip.values()[InteractiveViewerObjSt.clipBehavior(st)];
+    return factories.InteractiveViewer_readBack_clipBehavior(nativeStruct);
   }
   public PanAxis panAxis() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerPanAxis not supported on web");
-    return PanAxis.values()[InteractiveViewerObjSt.panAxis(st)];
+    return factories.InteractiveViewer_readBack_panAxis(nativeStruct);
   }
   public EdgeInsets boundaryMargin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("interactiveViewerBoundaryMargin", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
+      return new EdgeInsets(__nid);
     }
-    return new EdgeInsets(InteractiveViewerObjSt.boundaryMargin(st));
+    return factories.InteractiveViewer_readBack_boundaryMargin(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerChild not supported on web");
-    return new Widget(InteractiveViewerObjSt.child(st)) {};
+    return factories.InteractiveViewer_readBack_child(nativeStruct);
   }
   public boolean constrained() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerConstrained not supported on web");
-    return intToBool(InteractiveViewerObjSt.constrained(st));
+    return factories.InteractiveViewer_readBack_constrained(nativeStruct);
   }
   public boolean panEnabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerPanEnabled not supported on web");
-    return intToBool(InteractiveViewerObjSt.panEnabled(st));
+    return factories.InteractiveViewer_readBack_panEnabled(nativeStruct);
   }
   public boolean scaleEnabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerScaleEnabled not supported on web");
-    return intToBool(InteractiveViewerObjSt.scaleEnabled(st));
+    return factories.InteractiveViewer_readBack_scaleEnabled(nativeStruct);
   }
   public boolean trackpadScrollCausesScale() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerTrackpadScrollCausesScale not supported on web");
-    return intToBool(InteractiveViewerObjSt.trackpadScrollCausesScale(st));
+    return factories.InteractiveViewer_readBack_trackpadScrollCausesScale(nativeStruct);
   }
   public double scaleFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerScaleFactor not supported on web");
-    return InteractiveViewerObjSt.scaleFactor(st);
+    return factories.InteractiveViewer_readBack_scaleFactor(nativeStruct);
   }
   public double maxScale() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerMaxScale not supported on web");
-    return InteractiveViewerObjSt.maxScale(st);
+    return factories.InteractiveViewer_readBack_maxScale(nativeStruct);
   }
   public double minScale() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerMinScale not supported on web");
-    return InteractiveViewerObjSt.minScale(st);
+    return factories.InteractiveViewer_readBack_minScale(nativeStruct);
   }
   public double interactionEndFrictionCoefficient() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("interactiveViewerInteractionEndFrictionCoefficient not supported on web");
-    return InteractiveViewerObjSt.interactionEndFrictionCoefficient(st);
+    return factories.InteractiveViewer_readBack_interactionEndFrictionCoefficient(nativeStruct);
   }
   private static double _kDrag() {
     return 0.0000135;

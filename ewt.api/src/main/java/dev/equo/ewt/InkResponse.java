@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.InkResponseObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class InkResponse extends StatelessWidget implements InkResponseI {
-  private MemorySegment st;
   protected InkResponse() {}
-  InkResponse(MemorySegment st) {
-    this.id = InkResponseObjSt.id(st);
-    this.st = st;
+  InkResponse(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget InkResponse");
-    System.out.println("New InkResponse id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  InkResponse(int id) { this.id = id; }
   @Builder.Factory
   static InkResponse inkResponseInkResponse(Optional<WidgetI> child, Optional<Runnable> onTap, Optional<Consumer<TapDownDetails>> onTapDown, Optional<Consumer<TapUpDetails>> onTapUp, Optional<Runnable> onTapCancel, Optional<Runnable> onDoubleTap, Optional<Runnable> onLongPress, Optional<Runnable> onLongPressUp, Optional<Runnable> onSecondaryTap, Optional<Consumer<TapUpDetails>> onSecondaryTapUp, Optional<Consumer<TapDownDetails>> onSecondaryTapDown, Optional<Runnable> onSecondaryTapCancel, Optional<Consumer<Boolean>> onHighlightChanged, Optional<Consumer<Boolean>> onHover, Optional<Boolean> containedInkWell, Optional<BoxShape> highlightShape, OptionalDouble radius, Optional<BorderRadiusI> borderRadius, Optional<ShapeBorderI> customBorder, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> highlightColor, Optional<ColorI> overlayColor, Optional<ColorI> splashColor, Optional<Boolean> enableFeedback, Optional<Boolean> excludeFromSemantics, Optional<Boolean> canRequestFocus, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DurationI> hoverDuration) {
-    var st = factories.inkResponseInkResponse(child.map(WidgetI::build),
+    int id = factories.inkResponseInkResponse(child.map(WidgetI::build),
       onTap,
       onTapDown,
       onTapUp,
@@ -48,41 +42,39 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       onFocusChange,
       autofocus,
       hoverDuration.map(DurationI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget InkResponse");
-    return new InkResponse(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget InkResponse");
+    return new InkResponse(id);
   }
   public static InkResponseInkResponseBuilder inkResponse() {
     return InkResponseInkResponseBuilder.inkResponseInkResponse();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseChild not supported on web");
-    return new Widget(InkResponseObjSt.child(st)) {};
+    return factories.InkResponse_readBack_child(nativeStruct);
   }
   public boolean containedInkWell() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseContainedInkWell not supported on web");
-    return intToBool(InkResponseObjSt.containedInkWell(st));
+    return factories.InkResponse_readBack_containedInkWell(nativeStruct);
   }
   public BoxShape highlightShape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseHighlightShape not supported on web");
-    return BoxShape.values()[InkResponseObjSt.highlightShape(st)];
+    return factories.InkResponse_readBack_highlightShape(nativeStruct);
   }
   public double radius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseRadius not supported on web");
-    return InkResponseObjSt.radius(st);
+    return factories.InkResponse_readBack_radius(nativeStruct);
   }
   public BorderRadius borderRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("inkResponseBorderRadius", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderRadiusObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderRadiusObjSt.id(__st, __nid);
-      return new BorderRadius(__st);
+      return new BorderRadius(__nid);
     }
-    return new BorderRadius(InkResponseObjSt.borderRadius(st));
+    return factories.InkResponse_readBack_borderRadius(nativeStruct);
   }
   public ShapeBorder customBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseCustomBorder not supported on web");
-    return new ShapeBorder(InkResponseObjSt.customBorder(st)) {};
+    return factories.InkResponse_readBack_customBorder(nativeStruct);
   }
   public Color focusColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -90,7 +82,7 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       int __nid = __s.recordAccessor("inkResponseFocusColor", getId());
       return new Color(__nid);
     }
-    return new Color(InkResponseObjSt.focusColor(st));
+    return factories.InkResponse_readBack_focusColor(nativeStruct);
   }
   public Color hoverColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -98,7 +90,7 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       int __nid = __s.recordAccessor("inkResponseHoverColor", getId());
       return new Color(__nid);
     }
-    return new Color(InkResponseObjSt.hoverColor(st));
+    return factories.InkResponse_readBack_hoverColor(nativeStruct);
   }
   public Color highlightColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -106,7 +98,7 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       int __nid = __s.recordAccessor("inkResponseHighlightColor", getId());
       return new Color(__nid);
     }
-    return new Color(InkResponseObjSt.highlightColor(st));
+    return factories.InkResponse_readBack_highlightColor(nativeStruct);
   }
   public Color splashColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -114,23 +106,23 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       int __nid = __s.recordAccessor("inkResponseSplashColor", getId());
       return new Color(__nid);
     }
-    return new Color(InkResponseObjSt.splashColor(st));
+    return factories.InkResponse_readBack_splashColor(nativeStruct);
   }
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseEnableFeedback not supported on web");
-    return intToBool(InkResponseObjSt.enableFeedback(st));
+    return factories.InkResponse_readBack_enableFeedback(nativeStruct);
   }
   public boolean excludeFromSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseExcludeFromSemantics not supported on web");
-    return intToBool(InkResponseObjSt.excludeFromSemantics(st));
+    return factories.InkResponse_readBack_excludeFromSemantics(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseAutofocus not supported on web");
-    return intToBool(InkResponseObjSt.autofocus(st));
+    return factories.InkResponse_readBack_autofocus(nativeStruct);
   }
   public boolean canRequestFocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inkResponseCanRequestFocus not supported on web");
-    return intToBool(InkResponseObjSt.canRequestFocus(st));
+    return factories.InkResponse_readBack_canRequestFocus(nativeStruct);
   }
   public Duration hoverDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -138,7 +130,7 @@ public class InkResponse extends StatelessWidget implements InkResponseI {
       int __nid = __s.recordAccessor("inkResponseHoverDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(InkResponseObjSt.hoverDuration(st));
+    return factories.InkResponse_readBack_hoverDuration(nativeStruct);
   }
   @Override
   public InkResponse build() {

@@ -3,44 +3,38 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.PageStorageObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class PageStorage extends StatelessWidget implements PageStorageI {
-  private MemorySegment st;
   protected PageStorage() {}
-  PageStorage(MemorySegment st) {
-    this.id = PageStorageObjSt.id(st);
-    this.st = st;
+  PageStorage(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget PageStorage");
-    System.out.println("New PageStorage id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  PageStorage(int id) { this.id = id; }
   @Builder.Factory
   static PageStorage pageStoragePageStorage(@Builder.Parameter PageStorageBucketI bucket, @Builder.Parameter WidgetI child) {
-    var st = factories.pageStoragePageStorage(bucket.build(),
+    int id = factories.pageStoragePageStorage(bucket.build(),
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget PageStorage");
-    return new PageStorage(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PageStorage");
+    return new PageStorage(id);
   }
   public static PageStoragePageStorageBuilder pageStorage(PageStorageBucketI bucket, WidgetI child) {
     return PageStoragePageStorageBuilder.pageStoragePageStorage(bucket, child);
   }
   public static PageStorageBucket maybeOf(BuildContextI context) {
-    int id = factories.pageStorageMaybeOf(context.build());
+    var id = factories.pageStorageMaybeOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget PageStorageBucket?");
     System.out.println("New PageStorageBucket? id:"+id);
     return new PageStorageBucket(id);
   }
   public static PageStorageBucket of(BuildContextI context) {
-    int id = factories.pageStorageOf(context.build());
+    var id = factories.pageStorageOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget PageStorageBucket");
     System.out.println("New PageStorageBucket id:"+id);
     return new PageStorageBucket(id);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageStorageChild not supported on web");
-    return new Widget(PageStorageObjSt.child(st)) {};
+    return factories.PageStorage_readBack_child(nativeStruct);
   }
   public PageStorageBucket bucket() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -48,7 +42,7 @@ public class PageStorage extends StatelessWidget implements PageStorageI {
       int __nid = __s.recordAccessor("pageStorageBucket", getId());
       return new PageStorageBucket(__nid);
     }
-    return new PageStorageBucket(PageStorageObjSt.bucket(st));
+    return factories.PageStorage_readBack_bucket(nativeStruct);
   }
   @Override
   public PageStorage build() {

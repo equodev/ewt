@@ -3,25 +3,19 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DesktopTextSelectionToolbarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DesktopTextSelectionToolbar extends StatelessWidget implements DesktopTextSelectionToolbarI {
-  private MemorySegment st;
   protected DesktopTextSelectionToolbar() {}
-  DesktopTextSelectionToolbar(MemorySegment st) {
-    this.id = DesktopTextSelectionToolbarObjSt.id(st);
-    this.st = st;
+  DesktopTextSelectionToolbar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbar");
-    System.out.println("New DesktopTextSelectionToolbar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DesktopTextSelectionToolbar(int id) { this.id = id; }
   @Builder.Factory
   static DesktopTextSelectionToolbar desktopTextSelectionToolbarDesktopTextSelectionToolbar(@Builder.Parameter OffsetI anchor, @Builder.Parameter List<WidgetI> children) {
-    var st = factories.desktopTextSelectionToolbarDesktopTextSelectionToolbar(anchor.build(),
-      children.stream().map(WidgetI::build).toList());
-    if (st == null) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbar");
-    return new DesktopTextSelectionToolbar(st);
+    int id = factories.desktopTextSelectionToolbarDesktopTextSelectionToolbar(anchor.build(),
+      children.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()));
+    if (id <= 0) throw new RuntimeException("Failed to created widget DesktopTextSelectionToolbar");
+    return new DesktopTextSelectionToolbar(id);
   }
   public static DesktopTextSelectionToolbarDesktopTextSelectionToolbarBuilder desktopTextSelectionToolbar(OffsetI anchor, List<WidgetI> children) {
     return DesktopTextSelectionToolbarDesktopTextSelectionToolbarBuilder.desktopTextSelectionToolbarDesktopTextSelectionToolbar(anchor, children);
@@ -32,7 +26,7 @@ public class DesktopTextSelectionToolbar extends StatelessWidget implements Desk
       int __nid = __s.recordAccessor("desktopTextSelectionToolbarAnchor", getId());
       return new Offset(__nid);
     }
-    return new Offset(DesktopTextSelectionToolbarObjSt.anchor(st));
+    return factories.DesktopTextSelectionToolbar_readBack_anchor(nativeStruct);
   }
   @Override
   public DesktopTextSelectionToolbar build() {

@@ -12,7 +12,7 @@ public class Radius extends NativeObj.Base implements RadiusI {
   static { NativeObj.register("Radius", Radius::byId); }
   @Builder.Factory
   static Radius radiusCircular(@Builder.Parameter double radius) {
-    int id = factories.radiusCircular(radius);
+    var id = factories.radiusCircular(radius);
     if (id <= 0) throw new RuntimeException("Failed to created widget Radius");
     System.out.println("New Radius id:"+id);
     return new Radius(id);
@@ -22,7 +22,7 @@ public class Radius extends NativeObj.Base implements RadiusI {
   }
   @Builder.Factory
   static Radius radiusElliptical(@Builder.Parameter double x, @Builder.Parameter double y) {
-    int id = factories.radiusElliptical(x,
+    var id = factories.radiusElliptical(x,
       y);
     if (id <= 0) throw new RuntimeException("Failed to created widget Radius");
     System.out.println("New Radius id:"+id);
@@ -32,7 +32,7 @@ public class Radius extends NativeObj.Base implements RadiusI {
     return RadiusEllipticalBuilder.radiusElliptical(x, y);
   }
   public static Radius lerp(RadiusI a, RadiusI b, double t) {
-    int id = factories.radiusLerp(a.build(),
+    var id = factories.radiusLerp(a.build(),
       b.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget Radius?");

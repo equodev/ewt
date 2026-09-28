@@ -3,41 +3,35 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.PageViewObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class PageView extends StatefulWidget implements PageViewI {
-  private MemorySegment st;
   protected PageView() {}
-  PageView(MemorySegment st) {
-    this.id = PageViewObjSt.id(st);
-    this.st = st;
+  PageView(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget PageView");
-    System.out.println("New PageView id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  PageView(int id) { this.id = id; }
   @Builder.Factory
   static PageView pageViewPageView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> pageSnapping, Optional<Consumer<Integer>> onPageChanged, Optional<List<WidgetI>> children, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> allowImplicitScrolling, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<Boolean> padEnds) {
-    var st = factories.pageViewPageView(scrollDirection,
+    int id = factories.pageViewPageView(scrollDirection,
       reverse,
       pageSnapping,
       onPageChanged,
-      children.map(i -> i.stream().map(WidgetI::build).toList()),
+      children.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())),
       dragStartBehavior,
       allowImplicitScrolling,
       restorationId,
       clipBehavior,
       hitTestBehavior,
       padEnds);
-    if (st == null) throw new RuntimeException("Failed to created widget PageView");
-    return new PageView(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PageView");
+    return new PageView(id);
   }
   public static PageViewPageViewBuilder pageView() {
     return PageViewPageViewBuilder.pageViewPageView();
   }
   @Builder.Factory
   static PageView pageViewBuilder(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<Boolean> pageSnapping, Optional<Consumer<Integer>> onPageChanged, BiFunction<BuildContext, Integer, Widget> itemBuilder, OptionalInt itemCount, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> allowImplicitScrolling, Optional<String> restorationId, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<Boolean> padEnds) {
-    var st = factories.pageViewBuilder(scrollDirection,
+    int id = factories.pageViewBuilder(scrollDirection,
       reverse,
       pageSnapping,
       onPageChanged,
@@ -49,47 +43,47 @@ public class PageView extends StatefulWidget implements PageViewI {
       clipBehavior,
       hitTestBehavior,
       padEnds);
-    if (st == null) throw new RuntimeException("Failed to created widget PageView");
-    return new PageView(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PageView");
+    return new PageView(id);
   }
   public static PageViewBuilderBuilder builder() {
     return PageViewBuilderBuilder.pageViewBuilder();
   }
   public boolean allowImplicitScrolling() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewAllowImplicitScrolling not supported on web");
-    return intToBool(PageViewObjSt.allowImplicitScrolling(st));
+    return factories.PageView_readBack_allowImplicitScrolling(nativeStruct);
   }
   public String restorationId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewRestorationId not supported on web");
-    return PageViewObjSt.restorationId(st).getString(0);
+    return factories.PageView_readBack_restorationId(nativeStruct);
   }
   public Axis scrollDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewScrollDirection not supported on web");
-    return Axis.values()[PageViewObjSt.scrollDirection(st)];
+    return factories.PageView_readBack_scrollDirection(nativeStruct);
   }
   public boolean reverse() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewReverse not supported on web");
-    return intToBool(PageViewObjSt.reverse(st));
+    return factories.PageView_readBack_reverse(nativeStruct);
   }
   public boolean pageSnapping() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewPageSnapping not supported on web");
-    return intToBool(PageViewObjSt.pageSnapping(st));
+    return factories.PageView_readBack_pageSnapping(nativeStruct);
   }
   public DragStartBehavior dragStartBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewDragStartBehavior not supported on web");
-    return DragStartBehavior.values()[PageViewObjSt.dragStartBehavior(st)];
+    return factories.PageView_readBack_dragStartBehavior(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewClipBehavior not supported on web");
-    return Clip.values()[PageViewObjSt.clipBehavior(st)];
+    return factories.PageView_readBack_clipBehavior(nativeStruct);
   }
   public HitTestBehavior hitTestBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewHitTestBehavior not supported on web");
-    return HitTestBehavior.values()[PageViewObjSt.hitTestBehavior(st)];
+    return factories.PageView_readBack_hitTestBehavior(nativeStruct);
   }
   public boolean padEnds() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("pageViewPadEnds not supported on web");
-    return intToBool(PageViewObjSt.padEnds(st));
+    return factories.PageView_readBack_padEnds(nativeStruct);
   }
   @Override
   public PageView build() {

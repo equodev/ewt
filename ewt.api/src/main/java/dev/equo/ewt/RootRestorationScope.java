@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RootRestorationScopeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RootRestorationScope extends StatefulWidget implements RootRestorationScopeI {
-  private MemorySegment st;
   protected RootRestorationScope() {}
-  RootRestorationScope(MemorySegment st) {
-    this.id = RootRestorationScopeObjSt.id(st);
-    this.st = st;
+  RootRestorationScope(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RootRestorationScope");
-    System.out.println("New RootRestorationScope id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RootRestorationScope(int id) { this.id = id; }
   @Builder.Factory
   static RootRestorationScope rootRestorationScopeRootRestorationScope(Optional<String> restorationId, WidgetI child) {
-    var st = factories.rootRestorationScopeRootRestorationScope(restorationId,
+    int id = factories.rootRestorationScopeRootRestorationScope(restorationId,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget RootRestorationScope");
-    return new RootRestorationScope(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget RootRestorationScope");
+    return new RootRestorationScope(id);
   }
   public static RootRestorationScopeRootRestorationScopeBuilder rootRestorationScope() {
     return RootRestorationScopeRootRestorationScopeBuilder.rootRestorationScopeRootRestorationScope();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rootRestorationScopeChild not supported on web");
-    return new Widget(RootRestorationScopeObjSt.child(st)) {};
+    return factories.RootRestorationScope_readBack_child(nativeStruct);
   }
   public String restorationId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rootRestorationScopeRestorationId not supported on web");
-    return RootRestorationScopeObjSt.restorationId(st).getString(0);
+    return factories.RootRestorationScope_readBack_restorationId(nativeStruct);
   }
   @Override
   public RootRestorationScope build() {

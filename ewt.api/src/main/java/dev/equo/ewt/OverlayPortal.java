@@ -3,26 +3,20 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.OverlayPortalObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class OverlayPortal extends StatefulWidget implements OverlayPortalI {
-  private MemorySegment st;
   protected OverlayPortal() {}
-  OverlayPortal(MemorySegment st) {
-    this.id = OverlayPortalObjSt.id(st);
-    this.st = st;
+  OverlayPortal(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget OverlayPortal");
-    System.out.println("New OverlayPortal id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  OverlayPortal(int id) { this.id = id; }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overlayPortalChild not supported on web");
-    return new Widget(OverlayPortalObjSt.child(st)) {};
+    return factories.OverlayPortal_readBack_child(nativeStruct);
   }
   public OverlayChildLocation overlayLocation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("overlayPortalOverlayLocation not supported on web");
-    return OverlayChildLocation.values()[OverlayPortalObjSt.overlayLocation(st)];
+    return factories.OverlayPortal_readBack_overlayLocation(nativeStruct);
   }
   @Override
   public OverlayPortal build() {

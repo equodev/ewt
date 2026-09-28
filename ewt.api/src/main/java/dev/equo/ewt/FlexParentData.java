@@ -12,7 +12,7 @@ public class FlexParentData extends ContainerBoxParentData<RenderBox> implements
   static { NativeObj.register("FlexParentData", FlexParentData::byId); }
   @Builder.Factory
   static FlexParentData flexParentDataFlexParentData() {
-    int id = factories.flexParentDataFlexParentData();
+    var id = factories.flexParentDataFlexParentData();
     if (id <= 0) throw new RuntimeException("Failed to created widget FlexParentData");
     System.out.println("New FlexParentData id:"+id);
     return new FlexParentData(id);

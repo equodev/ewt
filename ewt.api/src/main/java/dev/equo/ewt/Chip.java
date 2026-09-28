@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ChipObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Chip extends StatelessWidget implements ChipI {
-  private MemorySegment st;
   protected Chip() {}
-  Chip(MemorySegment st) {
-    this.id = ChipObjSt.id(st);
-    this.st = st;
+  Chip(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Chip");
-    System.out.println("New Chip id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Chip(int id) { this.id = id; }
   @Builder.Factory
   static Chip chipChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
-    var st = factories.chipChip(avatar.map(WidgetI::build),
+    int id = factories.chipChip(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
       labelPadding.map(EdgeInsetsGeometryI::build),
@@ -41,55 +35,51 @@ public class Chip extends StatelessWidget implements ChipI {
       iconTheme.map(IconThemeDataI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build),
       deleteIconBoxConstraints.map(BoxConstraintsI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Chip");
-    return new Chip(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Chip");
+    return new Chip(id);
   }
   public static ChipChipBuilder chip() {
     return ChipChipBuilder.chipChip();
   }
   public Widget avatar() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipAvatar not supported on web");
-    return new Widget(ChipObjSt.avatar(st)) {};
+    return factories.Chip_readBack_avatar(nativeStruct);
   }
   public Widget label() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipLabel not supported on web");
-    return new Widget(ChipObjSt.label(st)) {};
+    return factories.Chip_readBack_label(nativeStruct);
   }
   public TextStyle labelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("chipLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(ChipObjSt.labelStyle(st));
+    return factories.Chip_readBack_labelStyle(nativeStruct);
   }
   public EdgeInsetsGeometry labelPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipLabelPadding not supported on web");
-    return new EdgeInsetsGeometry(ChipObjSt.labelPadding(st)) {};
+    return factories.Chip_readBack_labelPadding(nativeStruct);
   }
   public BorderSide side() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("chipSide", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(ChipObjSt.side(st));
+    return factories.Chip_readBack_side(nativeStruct);
   }
   public OutlinedBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipShape not supported on web");
-    return new OutlinedBorder(ChipObjSt.shape(st)) {};
+    return factories.Chip_readBack_shape(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipClipBehavior not supported on web");
-    return Clip.values()[ChipObjSt.clipBehavior(st)];
+    return factories.Chip_readBack_clipBehavior(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipAutofocus not supported on web");
-    return intToBool(ChipObjSt.autofocus(st));
+    return factories.Chip_readBack_autofocus(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -97,25 +87,23 @@ public class Chip extends StatelessWidget implements ChipI {
       int __nid = __s.recordAccessor("chipBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(ChipObjSt.backgroundColor(st));
+    return factories.Chip_readBack_backgroundColor(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipPadding not supported on web");
-    return new EdgeInsetsGeometry(ChipObjSt.padding(st)) {};
+    return factories.Chip_readBack_padding(nativeStruct);
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("chipVisualDensity", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
-      return new VisualDensity(__st);
+      return new VisualDensity(__nid);
     }
-    return new VisualDensity(ChipObjSt.visualDensity(st));
+    return factories.Chip_readBack_visualDensity(nativeStruct);
   }
   public Widget deleteIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipDeleteIcon not supported on web");
-    return new Widget(ChipObjSt.deleteIcon(st)) {};
+    return factories.Chip_readBack_deleteIcon(nativeStruct);
   }
   public Color deleteIconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -123,19 +111,19 @@ public class Chip extends StatelessWidget implements ChipI {
       int __nid = __s.recordAccessor("chipDeleteIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(ChipObjSt.deleteIconColor(st));
+    return factories.Chip_readBack_deleteIconColor(nativeStruct);
   }
   public String deleteButtonTooltipMessage() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipDeleteButtonTooltipMessage not supported on web");
-    return ChipObjSt.deleteButtonTooltipMessage(st).getString(0);
+    return factories.Chip_readBack_deleteButtonTooltipMessage(nativeStruct);
   }
   public MaterialTapTargetSize materialTapTargetSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipMaterialTapTargetSize not supported on web");
-    return MaterialTapTargetSize.values()[ChipObjSt.materialTapTargetSize(st)];
+    return factories.Chip_readBack_materialTapTargetSize(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("chipElevation not supported on web");
-    return ChipObjSt.elevation(st);
+    return factories.Chip_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -143,7 +131,7 @@ public class Chip extends StatelessWidget implements ChipI {
       int __nid = __s.recordAccessor("chipShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(ChipObjSt.shadowColor(st));
+    return factories.Chip_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -151,37 +139,31 @@ public class Chip extends StatelessWidget implements ChipI {
       int __nid = __s.recordAccessor("chipSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(ChipObjSt.surfaceTintColor(st));
+    return factories.Chip_readBack_surfaceTintColor(nativeStruct);
   }
   public IconThemeData iconTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("chipIconTheme", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
-      return new IconThemeData(__st);
+      return new IconThemeData(__nid);
     }
-    return new IconThemeData(ChipObjSt.iconTheme(st));
+    return factories.Chip_readBack_iconTheme(nativeStruct);
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("chipAvatarBoxConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(ChipObjSt.avatarBoxConstraints(st));
+    return factories.Chip_readBack_avatarBoxConstraints(nativeStruct);
   }
   public BoxConstraints deleteIconBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("chipDeleteIconBoxConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(ChipObjSt.deleteIconBoxConstraints(st));
+    return factories.Chip_readBack_deleteIconBoxConstraints(nativeStruct);
   }
   @Override
   public Chip build() {

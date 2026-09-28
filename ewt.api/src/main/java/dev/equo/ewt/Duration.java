@@ -12,7 +12,7 @@ public class Duration extends NativeObj.Base implements DurationI {
   static { NativeObj.register("Duration", Duration::byId); }
   @Builder.Factory
   static Duration durationDuration(OptionalInt days, OptionalInt hours, OptionalInt minutes, OptionalInt seconds, OptionalInt milliseconds, OptionalInt microseconds) {
-    int id = factories.durationDuration(days,
+    var id = factories.durationDuration(days,
       hours,
       minutes,
       seconds,

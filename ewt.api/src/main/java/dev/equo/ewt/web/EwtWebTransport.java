@@ -13,10 +13,22 @@ public final class EwtWebTransport {
 
   private EwtWebTransport() {}
 
-  /** True when running under Evolve's web surface (mode unset); false for desktop/chromium. */
+  /**
+   * True when the widgets_web / comm renderer is active — i.e. widgets are serialized over Evolve's
+   * comm instead of built through the FFM native bridge. That is the case on Evolve's web surface
+   * (mode unset), and also on any surface running a JVM below 22, where the FFM layer is absent
+   * (it ships under META-INF/versions/22) so construction must go through the comm path.
+   *
+   * <p>The name is kept for the ~2900 generated guards that read it as "can this render without FFM";
+   * override with {@code -Ddev.equo.ewt.transport=comm|ffm} to force a path (tests / diagnostics).
+   */
   public static boolean isWebMode() {
+    String forced = System.getProperty("dev.equo.ewt.transport");
+    if ("comm".equalsIgnoreCase(forced)) return true;
+    if ("ffm".equalsIgnoreCase(forced)) return false;
     String mode = System.getProperty("dev.equo.swt.mode");
-    return mode == null || mode.isBlank();
+    boolean webSurface = mode == null || mode.isBlank() || mode.equalsIgnoreCase("web");
+    return webSurface || Runtime.version().feature() < 22;
   }
 
   /** The per-region channel carrying the serialized subtree (Java -> browser). */
@@ -27,6 +39,17 @@ public final class EwtWebTransport {
   /** The per-region channel on which the browser asks for a (re)send of its subtree. */
   public static String requestEvent(int regionId) {
     return subtreeEvent(regionId) + "/request";
+  }
+
+  /** The per-region channel carrying the render transport ("comm" or "ffm") so the native Dart region
+   *  knows whether to build the comm-fed region or the FFM one. Sent by Java in both modes. */
+  public static String transportEvent(int regionId) {
+    return "EwtWidget/" + regionId + "/transport";
+  }
+
+  /** The per-region channel on which the Dart region asks Java to (re)send the transport. */
+  public static String transportRequestEvent(int regionId) {
+    return transportEvent(regionId) + "/request";
   }
 
   /** The per-region channel on which the browser reports a callback invocation (browser -> Java). */

@@ -3,28 +3,22 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.GridTileBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class GridTileBar extends StatelessWidget implements GridTileBarI {
-  private MemorySegment st;
   protected GridTileBar() {}
-  GridTileBar(MemorySegment st) {
-    this.id = GridTileBarObjSt.id(st);
-    this.st = st;
+  GridTileBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget GridTileBar");
-    System.out.println("New GridTileBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  GridTileBar(int id) { this.id = id; }
   @Builder.Factory
   static GridTileBar gridTileBarGridTileBar(Optional<ColorI> backgroundColor, Optional<WidgetI> leading, Optional<WidgetI> title, Optional<WidgetI> subtitle, Optional<WidgetI> trailing) {
-    var st = factories.gridTileBarGridTileBar(backgroundColor.map(ColorI::build),
+    int id = factories.gridTileBarGridTileBar(backgroundColor.map(ColorI::build),
       leading.map(WidgetI::build),
       title.map(WidgetI::build),
       subtitle.map(WidgetI::build),
       trailing.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget GridTileBar");
-    return new GridTileBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget GridTileBar");
+    return new GridTileBar(id);
   }
   public static GridTileBarGridTileBarBuilder gridTileBar() {
     return GridTileBarGridTileBarBuilder.gridTileBarGridTileBar();
@@ -35,23 +29,23 @@ public class GridTileBar extends StatelessWidget implements GridTileBarI {
       int __nid = __s.recordAccessor("gridTileBarBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(GridTileBarObjSt.backgroundColor(st));
+    return factories.GridTileBar_readBack_backgroundColor(nativeStruct);
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridTileBarLeading not supported on web");
-    return new Widget(GridTileBarObjSt.leading(st)) {};
+    return factories.GridTileBar_readBack_leading(nativeStruct);
   }
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridTileBarTitle not supported on web");
-    return new Widget(GridTileBarObjSt.title(st)) {};
+    return factories.GridTileBar_readBack_title(nativeStruct);
   }
   public Widget subtitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridTileBarSubtitle not supported on web");
-    return new Widget(GridTileBarObjSt.subtitle(st)) {};
+    return factories.GridTileBar_readBack_subtitle(nativeStruct);
   }
   public Widget trailing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("gridTileBarTrailing not supported on web");
-    return new Widget(GridTileBarObjSt.trailing(st)) {};
+    return factories.GridTileBar_readBack_trailing(nativeStruct);
   }
   @Override
   public GridTileBar build() {

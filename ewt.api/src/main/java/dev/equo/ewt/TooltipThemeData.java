@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TooltipThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TooltipThemeData extends NativeObj.Base implements TooltipThemeDataI {
-  private MemorySegment st;
   protected TooltipThemeData() {}
-  TooltipThemeData(MemorySegment st) {
-    this.id = TooltipThemeDataObjSt.id(st);
-    this.st = st;
+  TooltipThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TooltipThemeData");
-    System.out.println("New TooltipThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TooltipThemeData(int id) { this.id = id; }
   @Builder.Factory
   static TooltipThemeData tooltipThemeDataTooltipThemeData(OptionalDouble height, Optional<BoxConstraintsI> constraints, Optional<EdgeInsetsGeometryI> padding, Optional<EdgeInsetsGeometryI> margin, OptionalDouble verticalOffset, Optional<Boolean> preferBelow, Optional<Boolean> excludeFromSemantics, Optional<DecorationI> decoration, Optional<TextStyleI> textStyle, Optional<TextAlign> textAlign, Optional<DurationI> waitDuration, Optional<DurationI> showDuration, Optional<DurationI> exitDuration, Optional<TooltipTriggerMode> triggerMode, Optional<Boolean> enableFeedback) {
-    var st = factories.tooltipThemeDataTooltipThemeData(height,
+    int id = factories.tooltipThemeDataTooltipThemeData(height,
       constraints.map(BoxConstraintsI::build),
       padding.map(EdgeInsetsGeometryI::build),
       margin.map(EdgeInsetsGeometryI::build),
@@ -33,70 +27,66 @@ public class TooltipThemeData extends NativeObj.Base implements TooltipThemeData
       exitDuration.map(DurationI::build),
       triggerMode,
       enableFeedback);
-    if (st == null) throw new RuntimeException("Failed to created widget TooltipThemeData");
-    return new TooltipThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TooltipThemeData");
+    return new TooltipThemeData(id);
   }
   public static TooltipThemeDataTooltipThemeDataBuilder tooltipThemeData() {
     return TooltipThemeDataTooltipThemeDataBuilder.tooltipThemeDataTooltipThemeData();
   }
   public static TooltipThemeData lerp(TooltipThemeDataI a, TooltipThemeDataI b, double t) {
-    var st = factories.tooltipThemeDataLerp(a.build(),
+    int id = factories.tooltipThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget TooltipThemeData");
-    return new TooltipThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TooltipThemeData");
+    return new TooltipThemeData(id);
   }
   public double height() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataHeight not supported on web");
-    return TooltipThemeDataObjSt.height(st);
+    return factories.TooltipThemeData_readBack_height(nativeStruct);
   }
   public BoxConstraints constraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("tooltipThemeDataConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(TooltipThemeDataObjSt.constraints(st));
+    return factories.TooltipThemeData_readBack_constraints(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataPadding not supported on web");
-    return new EdgeInsetsGeometry(TooltipThemeDataObjSt.padding(st)) {};
+    return factories.TooltipThemeData_readBack_padding(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataMargin not supported on web");
-    return new EdgeInsetsGeometry(TooltipThemeDataObjSt.margin(st)) {};
+    return factories.TooltipThemeData_readBack_margin(nativeStruct);
   }
   public double verticalOffset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataVerticalOffset not supported on web");
-    return TooltipThemeDataObjSt.verticalOffset(st);
+    return factories.TooltipThemeData_readBack_verticalOffset(nativeStruct);
   }
   public boolean preferBelow() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataPreferBelow not supported on web");
-    return intToBool(TooltipThemeDataObjSt.preferBelow(st));
+    return factories.TooltipThemeData_readBack_preferBelow(nativeStruct);
   }
   public boolean excludeFromSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataExcludeFromSemantics not supported on web");
-    return intToBool(TooltipThemeDataObjSt.excludeFromSemantics(st));
+    return factories.TooltipThemeData_readBack_excludeFromSemantics(nativeStruct);
   }
   public Decoration decoration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataDecoration not supported on web");
-    return new Decoration(TooltipThemeDataObjSt.decoration(st)) {};
+    return factories.TooltipThemeData_readBack_decoration(nativeStruct);
   }
   public TextStyle textStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("tooltipThemeDataTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TooltipThemeDataObjSt.textStyle(st));
+    return factories.TooltipThemeData_readBack_textStyle(nativeStruct);
   }
   public TextAlign textAlign() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataTextAlign not supported on web");
-    return TextAlign.values()[TooltipThemeDataObjSt.textAlign(st)];
+    return factories.TooltipThemeData_readBack_textAlign(nativeStruct);
   }
   public Duration waitDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -104,7 +94,7 @@ public class TooltipThemeData extends NativeObj.Base implements TooltipThemeData
       int __nid = __s.recordAccessor("tooltipThemeDataWaitDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(TooltipThemeDataObjSt.waitDuration(st));
+    return factories.TooltipThemeData_readBack_waitDuration(nativeStruct);
   }
   public Duration showDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -112,7 +102,7 @@ public class TooltipThemeData extends NativeObj.Base implements TooltipThemeData
       int __nid = __s.recordAccessor("tooltipThemeDataShowDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(TooltipThemeDataObjSt.showDuration(st));
+    return factories.TooltipThemeData_readBack_showDuration(nativeStruct);
   }
   public Duration exitDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -120,15 +110,15 @@ public class TooltipThemeData extends NativeObj.Base implements TooltipThemeData
       int __nid = __s.recordAccessor("tooltipThemeDataExitDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(TooltipThemeDataObjSt.exitDuration(st));
+    return factories.TooltipThemeData_readBack_exitDuration(nativeStruct);
   }
   public TooltipTriggerMode triggerMode() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataTriggerMode not supported on web");
-    return TooltipTriggerMode.values()[TooltipThemeDataObjSt.triggerMode(st)];
+    return factories.TooltipThemeData_readBack_triggerMode(nativeStruct);
   }
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tooltipThemeDataEnableFeedback not supported on web");
-    return intToBool(TooltipThemeDataObjSt.enableFeedback(st));
+    return factories.TooltipThemeData_readBack_enableFeedback(nativeStruct);
   }
   @Override
   public TooltipThemeData build() {

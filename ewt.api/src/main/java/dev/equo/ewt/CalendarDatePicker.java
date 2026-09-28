@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CalendarDatePickerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CalendarDatePicker extends StatefulWidget implements CalendarDatePickerI {
-  private MemorySegment st;
   protected CalendarDatePicker() {}
-  CalendarDatePicker(MemorySegment st) {
-    this.id = CalendarDatePickerObjSt.id(st);
-    this.st = st;
+  CalendarDatePicker(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CalendarDatePicker");
-    System.out.println("New CalendarDatePicker id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CalendarDatePicker(int id) { this.id = id; }
   @Builder.Factory
   static CalendarDatePicker calendarDatePickerCalendarDatePicker(Optional<DateTimeI> initialDate, DateTimeI firstDate, DateTimeI lastDate, Optional<DateTimeI> currentDate, Consumer<DateTime> onDateChanged, Optional<Consumer<DateTime>> onDisplayedMonthChanged, Optional<DatePickerMode> initialCalendarMode, Optional<Function<DateTime, Boolean>> selectableDayPredicate) {
-    var st = factories.calendarDatePickerCalendarDatePicker(initialDate.map(DateTimeI::build),
+    int id = factories.calendarDatePickerCalendarDatePicker(initialDate.map(DateTimeI::build),
       firstDate.build(),
       lastDate.build(),
       currentDate.map(DateTimeI::build),
@@ -26,8 +20,8 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
       onDisplayedMonthChanged,
       initialCalendarMode,
       selectableDayPredicate);
-    if (st == null) throw new RuntimeException("Failed to created widget CalendarDatePicker");
-    return new CalendarDatePicker(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CalendarDatePicker");
+    return new CalendarDatePicker(id);
   }
   public static CalendarDatePickerCalendarDatePickerBuilder calendarDatePicker() {
     return CalendarDatePickerCalendarDatePickerBuilder.calendarDatePickerCalendarDatePicker();
@@ -38,7 +32,7 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
       int __nid = __s.recordAccessor("calendarDatePickerInitialDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(CalendarDatePickerObjSt.initialDate(st));
+    return factories.CalendarDatePicker_readBack_initialDate(nativeStruct);
   }
   public DateTime firstDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -46,7 +40,7 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
       int __nid = __s.recordAccessor("calendarDatePickerFirstDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(CalendarDatePickerObjSt.firstDate(st));
+    return factories.CalendarDatePicker_readBack_firstDate(nativeStruct);
   }
   public DateTime lastDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -54,7 +48,7 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
       int __nid = __s.recordAccessor("calendarDatePickerLastDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(CalendarDatePickerObjSt.lastDate(st));
+    return factories.CalendarDatePicker_readBack_lastDate(nativeStruct);
   }
   public DateTime currentDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -62,11 +56,11 @@ public class CalendarDatePicker extends StatefulWidget implements CalendarDatePi
       int __nid = __s.recordAccessor("calendarDatePickerCurrentDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(CalendarDatePickerObjSt.currentDate(st));
+    return factories.CalendarDatePicker_readBack_currentDate(nativeStruct);
   }
   public DatePickerMode initialCalendarMode() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("calendarDatePickerInitialCalendarMode not supported on web");
-    return DatePickerMode.values()[CalendarDatePickerObjSt.initialCalendarMode(st)];
+    return factories.CalendarDatePicker_readBack_initialCalendarMode(nativeStruct);
   }
   @Override
   public CalendarDatePicker build() {

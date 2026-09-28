@@ -3,25 +3,19 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AppBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBarI {
-  private MemorySegment st;
   protected AppBar() {}
-  AppBar(MemorySegment st) {
-    this.id = AppBarObjSt.id(st);
-    this.st = st;
+  AppBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget AppBar");
-    System.out.println("New AppBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  AppBar(int id) { this.id = id; }
   @Builder.Factory
   static AppBar appBarAppBar(Optional<WidgetI> leading, Optional<Boolean> automaticallyImplyLeading, Optional<WidgetI> title, Optional<List<WidgetI>> actions, Optional<Boolean> automaticallyImplyActions, Optional<WidgetI> flexibleSpace, Optional<PreferredSizeWidgetI> bottom, OptionalDouble elevation, OptionalDouble scrolledUnderElevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<ColorI> backgroundColor, Optional<ColorI> foregroundColor, Optional<IconThemeDataI> iconTheme, Optional<IconThemeDataI> actionsIconTheme, Optional<Boolean> primary, Optional<Boolean> centerTitle, Optional<Boolean> excludeHeaderSemantics, OptionalDouble titleSpacing, OptionalDouble toolbarOpacity, OptionalDouble bottomOpacity, OptionalDouble toolbarHeight, OptionalDouble leadingWidth, Optional<TextStyleI> toolbarTextStyle, Optional<TextStyleI> titleTextStyle, Optional<Boolean> forceMaterialTransparency, Optional<Boolean> useDefaultSemanticsOrder, Optional<Clip> clipBehavior, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<Boolean> animateColor) {
-    var st = factories.appBarAppBar(leading.map(WidgetI::build),
+    int id = factories.appBarAppBar(leading.map(WidgetI::build),
       automaticallyImplyLeading,
       title.map(WidgetI::build),
-      actions.map(i -> i.stream().map(WidgetI::build).toList()),
+      actions.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())),
       automaticallyImplyActions,
       flexibleSpace.map(WidgetI::build),
       bottom.map(PreferredSizeWidgetI::build),
@@ -49,43 +43,43 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       clipBehavior,
       actionsPadding.map(EdgeInsetsGeometryI::build),
       animateColor);
-    if (st == null) throw new RuntimeException("Failed to created widget AppBar");
-    return new AppBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget AppBar");
+    return new AppBar(id);
   }
   public static AppBarAppBarBuilder appBar() {
     return AppBarAppBarBuilder.appBarAppBar();
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarLeading not supported on web");
-    return new Widget(AppBarObjSt.leading(st)) {};
+    return factories.AppBar_readBack_leading(nativeStruct);
   }
   public boolean automaticallyImplyLeading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarAutomaticallyImplyLeading not supported on web");
-    return intToBool(AppBarObjSt.automaticallyImplyLeading(st));
+    return factories.AppBar_readBack_automaticallyImplyLeading(nativeStruct);
   }
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarTitle not supported on web");
-    return new Widget(AppBarObjSt.title(st)) {};
+    return factories.AppBar_readBack_title(nativeStruct);
   }
   public boolean automaticallyImplyActions() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarAutomaticallyImplyActions not supported on web");
-    return intToBool(AppBarObjSt.automaticallyImplyActions(st));
+    return factories.AppBar_readBack_automaticallyImplyActions(nativeStruct);
   }
   public Widget flexibleSpace() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarFlexibleSpace not supported on web");
-    return new Widget(AppBarObjSt.flexibleSpace(st)) {};
+    return factories.AppBar_readBack_flexibleSpace(nativeStruct);
   }
   public PreferredSizeWidget bottom() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarBottom not supported on web");
-    return new PreferredSizeWidget() { public int getId() { return AppBarObjSt.bottom(st); } };
+    return factories.AppBar_readBack_bottom(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarElevation not supported on web");
-    return AppBarObjSt.elevation(st);
+    return factories.AppBar_readBack_elevation(nativeStruct);
   }
   public double scrolledUnderElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarScrolledUnderElevation not supported on web");
-    return AppBarObjSt.scrolledUnderElevation(st);
+    return factories.AppBar_readBack_scrolledUnderElevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -93,7 +87,7 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       int __nid = __s.recordAccessor("appBarShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(AppBarObjSt.shadowColor(st));
+    return factories.AppBar_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -101,11 +95,11 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       int __nid = __s.recordAccessor("appBarSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(AppBarObjSt.surfaceTintColor(st));
+    return factories.AppBar_readBack_surfaceTintColor(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarShape not supported on web");
-    return new ShapeBorder(AppBarObjSt.shape(st)) {};
+    return factories.AppBar_readBack_shape(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -113,7 +107,7 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       int __nid = __s.recordAccessor("appBarBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(AppBarObjSt.backgroundColor(st));
+    return factories.AppBar_readBack_backgroundColor(nativeStruct);
   }
   public Color foregroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -121,99 +115,91 @@ public class AppBar extends StatefulWidget implements PreferredSizeWidget, AppBa
       int __nid = __s.recordAccessor("appBarForegroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(AppBarObjSt.foregroundColor(st));
+    return factories.AppBar_readBack_foregroundColor(nativeStruct);
   }
   public IconThemeData iconTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("appBarIconTheme", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
-      return new IconThemeData(__st);
+      return new IconThemeData(__nid);
     }
-    return new IconThemeData(AppBarObjSt.iconTheme(st));
+    return factories.AppBar_readBack_iconTheme(nativeStruct);
   }
   public IconThemeData actionsIconTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("appBarActionsIconTheme", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
-      return new IconThemeData(__st);
+      return new IconThemeData(__nid);
     }
-    return new IconThemeData(AppBarObjSt.actionsIconTheme(st));
+    return factories.AppBar_readBack_actionsIconTheme(nativeStruct);
   }
   public boolean primary() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarPrimary not supported on web");
-    return intToBool(AppBarObjSt.primary(st));
+    return factories.AppBar_readBack_primary(nativeStruct);
   }
   public boolean centerTitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarCenterTitle not supported on web");
-    return intToBool(AppBarObjSt.centerTitle(st));
+    return factories.AppBar_readBack_centerTitle(nativeStruct);
   }
   public boolean excludeHeaderSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarExcludeHeaderSemantics not supported on web");
-    return intToBool(AppBarObjSt.excludeHeaderSemantics(st));
+    return factories.AppBar_readBack_excludeHeaderSemantics(nativeStruct);
   }
   public double titleSpacing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarTitleSpacing not supported on web");
-    return AppBarObjSt.titleSpacing(st);
+    return factories.AppBar_readBack_titleSpacing(nativeStruct);
   }
   public double toolbarOpacity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarToolbarOpacity not supported on web");
-    return AppBarObjSt.toolbarOpacity(st);
+    return factories.AppBar_readBack_toolbarOpacity(nativeStruct);
   }
   public double bottomOpacity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarBottomOpacity not supported on web");
-    return AppBarObjSt.bottomOpacity(st);
+    return factories.AppBar_readBack_bottomOpacity(nativeStruct);
   }
   public double toolbarHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarToolbarHeight not supported on web");
-    return AppBarObjSt.toolbarHeight(st);
+    return factories.AppBar_readBack_toolbarHeight(nativeStruct);
   }
   public double leadingWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarLeadingWidth not supported on web");
-    return AppBarObjSt.leadingWidth(st);
+    return factories.AppBar_readBack_leadingWidth(nativeStruct);
   }
   public TextStyle toolbarTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("appBarToolbarTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(AppBarObjSt.toolbarTextStyle(st));
+    return factories.AppBar_readBack_toolbarTextStyle(nativeStruct);
   }
   public TextStyle titleTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("appBarTitleTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(AppBarObjSt.titleTextStyle(st));
+    return factories.AppBar_readBack_titleTextStyle(nativeStruct);
   }
   public boolean forceMaterialTransparency() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarForceMaterialTransparency not supported on web");
-    return intToBool(AppBarObjSt.forceMaterialTransparency(st));
+    return factories.AppBar_readBack_forceMaterialTransparency(nativeStruct);
   }
   public boolean useDefaultSemanticsOrder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarUseDefaultSemanticsOrder not supported on web");
-    return intToBool(AppBarObjSt.useDefaultSemanticsOrder(st));
+    return factories.AppBar_readBack_useDefaultSemanticsOrder(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarClipBehavior not supported on web");
-    return Clip.values()[AppBarObjSt.clipBehavior(st)];
+    return factories.AppBar_readBack_clipBehavior(nativeStruct);
   }
   public EdgeInsetsGeometry actionsPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarActionsPadding not supported on web");
-    return new EdgeInsetsGeometry(AppBarObjSt.actionsPadding(st)) {};
+    return factories.AppBar_readBack_actionsPadding(nativeStruct);
   }
   public boolean animateColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("appBarAnimateColor not supported on web");
-    return intToBool(AppBarObjSt.animateColor(st));
+    return factories.AppBar_readBack_animateColor(nativeStruct);
   }
   @Override
   public AppBar build() {

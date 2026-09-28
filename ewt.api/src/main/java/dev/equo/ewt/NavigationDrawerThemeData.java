@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.NavigationDrawerThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class NavigationDrawerThemeData extends NativeObj.Base implements NavigationDrawerThemeDataI {
-  private MemorySegment st;
   protected NavigationDrawerThemeData() {}
-  NavigationDrawerThemeData(MemorySegment st) {
-    this.id = NavigationDrawerThemeDataObjSt.id(st);
-    this.st = st;
+  NavigationDrawerThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigationDrawerThemeData");
-    System.out.println("New NavigationDrawerThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  NavigationDrawerThemeData(int id) { this.id = id; }
   @Builder.Factory
   static NavigationDrawerThemeData navigationDrawerThemeDataNavigationDrawerThemeData(OptionalDouble tileHeight, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, Optional<TextStyleI> labelTextStyle, Optional<IconThemeDataI> iconTheme) {
-    var st = factories.navigationDrawerThemeDataNavigationDrawerThemeData(tileHeight,
+    int id = factories.navigationDrawerThemeDataNavigationDrawerThemeData(tileHeight,
       backgroundColor.map(ColorI::build),
       elevation,
       shadowColor.map(ColorI::build),
@@ -27,22 +21,22 @@ public class NavigationDrawerThemeData extends NativeObj.Base implements Navigat
       indicatorShape.map(ShapeBorderI::build),
       labelTextStyle.map(TextStyleI::build),
       iconTheme.map(IconThemeDataI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget NavigationDrawerThemeData");
-    return new NavigationDrawerThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigationDrawerThemeData");
+    return new NavigationDrawerThemeData(id);
   }
   public static NavigationDrawerThemeDataNavigationDrawerThemeDataBuilder navigationDrawerThemeData() {
     return NavigationDrawerThemeDataNavigationDrawerThemeDataBuilder.navigationDrawerThemeDataNavigationDrawerThemeData();
   }
   public static NavigationDrawerThemeData lerp(NavigationDrawerThemeDataI a, NavigationDrawerThemeDataI b, double t) {
-    var st = factories.navigationDrawerThemeDataLerp(a.build(),
+    int id = factories.navigationDrawerThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget NavigationDrawerThemeData");
-    return new NavigationDrawerThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigationDrawerThemeData");
+    return new NavigationDrawerThemeData(id);
   }
   public double tileHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerThemeDataTileHeight not supported on web");
-    return NavigationDrawerThemeDataObjSt.tileHeight(st);
+    return factories.NavigationDrawerThemeData_readBack_tileHeight(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -50,11 +44,11 @@ public class NavigationDrawerThemeData extends NativeObj.Base implements Navigat
       int __nid = __s.recordAccessor("navigationDrawerThemeDataBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerThemeDataObjSt.backgroundColor(st));
+    return factories.NavigationDrawerThemeData_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerThemeDataElevation not supported on web");
-    return NavigationDrawerThemeDataObjSt.elevation(st);
+    return factories.NavigationDrawerThemeData_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -62,7 +56,7 @@ public class NavigationDrawerThemeData extends NativeObj.Base implements Navigat
       int __nid = __s.recordAccessor("navigationDrawerThemeDataShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerThemeDataObjSt.shadowColor(st));
+    return factories.NavigationDrawerThemeData_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -70,7 +64,7 @@ public class NavigationDrawerThemeData extends NativeObj.Base implements Navigat
       int __nid = __s.recordAccessor("navigationDrawerThemeDataSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerThemeDataObjSt.surfaceTintColor(st));
+    return factories.NavigationDrawerThemeData_readBack_surfaceTintColor(nativeStruct);
   }
   public Color indicatorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -78,11 +72,11 @@ public class NavigationDrawerThemeData extends NativeObj.Base implements Navigat
       int __nid = __s.recordAccessor("navigationDrawerThemeDataIndicatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerThemeDataObjSt.indicatorColor(st));
+    return factories.NavigationDrawerThemeData_readBack_indicatorColor(nativeStruct);
   }
   public ShapeBorder indicatorShape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerThemeDataIndicatorShape not supported on web");
-    return new ShapeBorder(NavigationDrawerThemeDataObjSt.indicatorShape(st)) {};
+    return factories.NavigationDrawerThemeData_readBack_indicatorShape(nativeStruct);
   }
   @Override
   public NavigationDrawerThemeData build() {

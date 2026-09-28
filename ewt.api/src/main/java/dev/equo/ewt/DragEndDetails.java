@@ -3,8 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class DragEndDetails extends NativeObj.Base implements DragEndDetailsI {
   protected DragEndDetails() {}
   DragEndDetails(int id) {
@@ -14,7 +13,7 @@ public class DragEndDetails extends NativeObj.Base implements DragEndDetailsI {
   static { NativeObj.register("DragEndDetails", DragEndDetails::byId); }
   @Builder.Factory
   static DragEndDetails dragEndDetailsDragEndDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<VelocityI> velocity, OptionalDouble primaryVelocity) {
-    int id = factories.dragEndDetailsDragEndDetails(globalPosition.map(OffsetI::build),
+    var id = factories.dragEndDetailsDragEndDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build),
       velocity.map(VelocityI::build),
       primaryVelocity);
@@ -26,17 +25,18 @@ public class DragEndDetails extends NativeObj.Base implements DragEndDetailsI {
     return DragEndDetailsDragEndDetailsBuilder.dragEndDetailsDragEndDetails();
   }
   public Offset globalPosition() {
-    int id = factories.dragEndDetailsGlobalPosition(this);
+    var id = factories.dragEndDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.dragEndDetailsLocalPosition(this);
+    var id = factories.dragEndDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }
   public Velocity velocity() {
-    MemorySegment id = factories.dragEndDetailsVelocity(this);
+    var id = factories.dragEndDetailsVelocity(this);
+    if (id <= 0) throw new RuntimeException("Failed to call velocity");
     return new Velocity(id);
   }
   @Override

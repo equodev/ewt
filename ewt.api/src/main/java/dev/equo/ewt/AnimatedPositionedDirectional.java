@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AnimatedPositionedDirectionalObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class AnimatedPositionedDirectional extends ImplicitlyAnimatedWidget implements AnimatedPositionedDirectionalI {
-  private MemorySegment st;
   protected AnimatedPositionedDirectional() {}
-  AnimatedPositionedDirectional(MemorySegment st) {
-    this.id = AnimatedPositionedDirectionalObjSt.id(st);
-    this.st = st;
+  AnimatedPositionedDirectional(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedPositionedDirectional");
-    System.out.println("New AnimatedPositionedDirectional id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  AnimatedPositionedDirectional(int id) { this.id = id; }
   @Builder.Factory
   static AnimatedPositionedDirectional animatedPositionedDirectionalAnimatedPositionedDirectional(@Builder.Parameter WidgetI child, OptionalDouble start, OptionalDouble top, OptionalDouble end, OptionalDouble bottom, OptionalDouble width, OptionalDouble height, Optional<CurveI> curve, DurationI duration, Optional<Runnable> onEnd) {
-    var st = factories.animatedPositionedDirectionalAnimatedPositionedDirectional(child.build(),
+    int id = factories.animatedPositionedDirectionalAnimatedPositionedDirectional(child.build(),
       start,
       top,
       end,
@@ -28,39 +22,39 @@ public class AnimatedPositionedDirectional extends ImplicitlyAnimatedWidget impl
       curve.map(CurveI::build),
       duration.build(),
       onEnd);
-    if (st == null) throw new RuntimeException("Failed to created widget AnimatedPositionedDirectional");
-    return new AnimatedPositionedDirectional(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedPositionedDirectional");
+    return new AnimatedPositionedDirectional(id);
   }
   public static AnimatedPositionedDirectionalAnimatedPositionedDirectionalBuilder animatedPositionedDirectional(WidgetI child) {
     return AnimatedPositionedDirectionalAnimatedPositionedDirectionalBuilder.animatedPositionedDirectionalAnimatedPositionedDirectional(child);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalChild not supported on web");
-    return new Widget(AnimatedPositionedDirectionalObjSt.child(st)) {};
+    return factories.AnimatedPositionedDirectional_readBack_child(nativeStruct);
   }
   public double start() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalStart not supported on web");
-    return AnimatedPositionedDirectionalObjSt.start(st);
+    return factories.AnimatedPositionedDirectional_readBack_start(nativeStruct);
   }
   public double top() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalTop not supported on web");
-    return AnimatedPositionedDirectionalObjSt.top(st);
+    return factories.AnimatedPositionedDirectional_readBack_top(nativeStruct);
   }
   public double end() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalEnd not supported on web");
-    return AnimatedPositionedDirectionalObjSt.end(st);
+    return factories.AnimatedPositionedDirectional_readBack_end(nativeStruct);
   }
   public double bottom() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalBottom not supported on web");
-    return AnimatedPositionedDirectionalObjSt.bottom(st);
+    return factories.AnimatedPositionedDirectional_readBack_bottom(nativeStruct);
   }
   public double width() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalWidth not supported on web");
-    return AnimatedPositionedDirectionalObjSt.width(st);
+    return factories.AnimatedPositionedDirectional_readBack_width(nativeStruct);
   }
   public double height() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedPositionedDirectionalHeight not supported on web");
-    return AnimatedPositionedDirectionalObjSt.height(st);
+    return factories.AnimatedPositionedDirectional_readBack_height(nativeStruct);
   }
   @Override
   public AnimatedPositionedDirectional build() {

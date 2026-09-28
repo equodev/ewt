@@ -3,42 +3,36 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FractionallySizedBoxObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FractionallySizedBox extends SingleChildRenderObjectWidget implements FractionallySizedBoxI {
-  private MemorySegment st;
   protected FractionallySizedBox() {}
-  FractionallySizedBox(MemorySegment st) {
-    this.id = FractionallySizedBoxObjSt.id(st);
-    this.st = st;
+  FractionallySizedBox(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget FractionallySizedBox");
-    System.out.println("New FractionallySizedBox id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  FractionallySizedBox(int id) { this.id = id; }
   @Builder.Factory
   static FractionallySizedBox fractionallySizedBoxFractionallySizedBox(Optional<AlignmentGeometryI> alignment, OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<WidgetI> child) {
-    var st = factories.fractionallySizedBoxFractionallySizedBox(alignment.map(AlignmentGeometryI::build),
+    int id = factories.fractionallySizedBoxFractionallySizedBox(alignment.map(AlignmentGeometryI::build),
       widthFactor,
       heightFactor,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget FractionallySizedBox");
-    return new FractionallySizedBox(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FractionallySizedBox");
+    return new FractionallySizedBox(id);
   }
   public static FractionallySizedBoxFractionallySizedBoxBuilder fractionallySizedBox() {
     return FractionallySizedBoxFractionallySizedBoxBuilder.fractionallySizedBoxFractionallySizedBox();
   }
   public double widthFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fractionallySizedBoxWidthFactor not supported on web");
-    return FractionallySizedBoxObjSt.widthFactor(st);
+    return factories.FractionallySizedBox_readBack_widthFactor(nativeStruct);
   }
   public double heightFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fractionallySizedBoxHeightFactor not supported on web");
-    return FractionallySizedBoxObjSt.heightFactor(st);
+    return factories.FractionallySizedBox_readBack_heightFactor(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fractionallySizedBoxAlignment not supported on web");
-    return new AlignmentGeometry(FractionallySizedBoxObjSt.alignment(st)) {};
+    return factories.FractionallySizedBox_readBack_alignment(nativeStruct);
   }
   @Override
   public FractionallySizedBox build() {

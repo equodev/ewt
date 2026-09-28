@@ -26,19 +26,22 @@ public final class EwtWebCapture {
     try {
       Widget rootWidget = builder.call().build();
       java.util.List<Object> nestedStates = new java.util.ArrayList<>();
-      if (rootWidget instanceof SubStatefulWidget sw) {
+      if (rootWidget instanceof SubStatefulWidget) {
+        SubStatefulWidget sw = (SubStatefulWidget) rootWidget;
         // The root sub-widget is handled here directly; remove it from deferred so
         // resolveDeferred does not try to process it again without setWebWidget.
         serializing.deferredStateful.remove(sw.getId());
         Object stateObj = sw.createStateFn();
-        if (stateObj instanceof SubState<?> state) {
+        if (stateObj instanceof SubState<?>) {
+          SubState<?> state = (SubState<?>) stateObj;
           state.setWebWidget(sw);
           state.initStateFn();
           Widget built = state.buildFn(stubContext());
           serializing.resolveDeferred(stubContext(), nestedStates);
           return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), state, nestedStates);
         }
-        if (stateObj instanceof SubAnimatedState<?> animState) {
+        if (stateObj instanceof SubAnimatedState<?>) {
+          SubAnimatedState<?> animState = (SubAnimatedState<?>) stateObj;
           animState.setWebWidget(sw);
           if (animSink != null) animState.setWebAnimCommandSink(animSink);
           animState.initStateFn();
@@ -47,7 +50,8 @@ public final class EwtWebCapture {
           return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), animState, nestedStates);
         }
       }
-      if (rootWidget instanceof SubStatelessWidget slw) {
+      if (rootWidget instanceof SubStatelessWidget) {
+        SubStatelessWidget slw = (SubStatelessWidget) rootWidget;
         // Same: the root stateless sub-widget is handled here directly.
         serializing.deferredStateless.remove(slw.getId());
         Widget built = slw.buildFn(stubContext());

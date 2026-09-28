@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import java.lang.foreign.*;
 
 class WidgetConstructorsBase implements AutoCloseable {
-  static WidgetConstructors instance = new WidgetConstructors();
+  static FfmWidgetConstructors instance = new FfmWidgetConstructors();
   MemorySegment factories;
   Arena arena = Arena.ofShared();
 
@@ -14,10 +14,22 @@ class WidgetConstructorsBase implements AutoCloseable {
     this.factories = factories;
   }
 
-  static boolean intToBool(int i) {
-    // The Dart side marshals with `this == true ? 1 : 0` (factories.dart), so
-    // non-zero is true.
-    return i != 0;
+  // java-11 split: FFM read-back support. A freshly built widget's native struct is stashed here by
+  // retain(...) at construction and pulled by the widget ctor via takeLastStruct(), so the widget owns
+  // its own struct (as an Object) and is GC'd with it — no central id->struct map that would leak.
+  private final ThreadLocal<MemorySegment> lastStruct = new ThreadLocal<>();
+
+  /** Stash the just-built struct for the constructing widget to adopt, and return its foreign-free int id. */
+  int retain(MemorySegment st, java.util.function.ToIntFunction<MemorySegment> idOf) {
+    lastStruct.set(st);
+    return idOf.applyAsInt(st);
+  }
+
+  /** Hand the last-built struct to the constructing widget, clearing it so nothing else adopts it. */
+  public Object takeLastStruct() {
+    MemorySegment s = lastStruct.get();
+    lastStruct.remove();
+    return s;
   }
 
   /// Reads an `int*` carrying a nullable bool, as the Dart `boolOrNul()` does.
@@ -25,7 +37,9 @@ class WidgetConstructorsBase implements AutoCloseable {
     if (ptr == null || MemorySegment.NULL.equals(ptr)) {
       return null;
     }
-    return intToBool(ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0));
+    // intToBool lives on NativeObj.Base (foreign-free) so bool-returning builders can call it
+    // without importing this FFM class; reuse it here.
+    return NativeObj.Base.intToBool(ptr.reinterpret(StarterBridge.C_INT.byteSize()).get(StarterBridge.C_INT, 0));
   }
 
   /// Reads an `int*` carrying a nullable enum ordinal. Null pointer -> null enum.

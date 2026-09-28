@@ -12,6 +12,7 @@ class EmitContext {
   final StringBuffer dartAssigns = StringBuffer();
   final StringBuffer dartFns = StringBuffer();
   final StringBuffer javaFactories = StringBuffer();
+  final StringBuffer javaInterface = StringBuffer(); // java-11 split: foreign-free WidgetConstructors interface
   final StringBuffer javaSerializer = StringBuffer();
   final StringBuffer dartWebDecoders = StringBuffer();
   final StringBuffer javaStatics = StringBuffer();

@@ -3,34 +3,28 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TabPageSelectorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TabPageSelector extends StatefulWidget implements TabPageSelectorI {
-  private MemorySegment st;
   protected TabPageSelector() {}
-  TabPageSelector(MemorySegment st) {
-    this.id = TabPageSelectorObjSt.id(st);
-    this.st = st;
+  TabPageSelector(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TabPageSelector");
-    System.out.println("New TabPageSelector id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TabPageSelector(int id) { this.id = id; }
   @Builder.Factory
   static TabPageSelector tabPageSelectorTabPageSelector(OptionalDouble indicatorSize, Optional<ColorI> color, Optional<ColorI> selectedColor, Optional<BorderStyle> borderStyle) {
-    var st = factories.tabPageSelectorTabPageSelector(indicatorSize,
+    int id = factories.tabPageSelectorTabPageSelector(indicatorSize,
       color.map(ColorI::build),
       selectedColor.map(ColorI::build),
       borderStyle);
-    if (st == null) throw new RuntimeException("Failed to created widget TabPageSelector");
-    return new TabPageSelector(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TabPageSelector");
+    return new TabPageSelector(id);
   }
   public static TabPageSelectorTabPageSelectorBuilder tabPageSelector() {
     return TabPageSelectorTabPageSelectorBuilder.tabPageSelectorTabPageSelector();
   }
   public double indicatorSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabPageSelectorIndicatorSize not supported on web");
-    return TabPageSelectorObjSt.indicatorSize(st);
+    return factories.TabPageSelector_readBack_indicatorSize(nativeStruct);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -38,7 +32,7 @@ public class TabPageSelector extends StatefulWidget implements TabPageSelectorI 
       int __nid = __s.recordAccessor("tabPageSelectorColor", getId());
       return new Color(__nid);
     }
-    return new Color(TabPageSelectorObjSt.color(st));
+    return factories.TabPageSelector_readBack_color(nativeStruct);
   }
   public Color selectedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -46,11 +40,11 @@ public class TabPageSelector extends StatefulWidget implements TabPageSelectorI 
       int __nid = __s.recordAccessor("tabPageSelectorSelectedColor", getId());
       return new Color(__nid);
     }
-    return new Color(TabPageSelectorObjSt.selectedColor(st));
+    return factories.TabPageSelector_readBack_selectedColor(nativeStruct);
   }
   public BorderStyle borderStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabPageSelectorBorderStyle not supported on web");
-    return BorderStyle.values()[TabPageSelectorObjSt.borderStyle(st)];
+    return factories.TabPageSelector_readBack_borderStyle(nativeStruct);
   }
   @Override
   public TabPageSelector build() {

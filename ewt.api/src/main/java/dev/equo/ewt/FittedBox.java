@@ -3,42 +3,36 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FittedBoxObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FittedBox extends SingleChildRenderObjectWidget implements FittedBoxI {
-  private MemorySegment st;
   protected FittedBox() {}
-  FittedBox(MemorySegment st) {
-    this.id = FittedBoxObjSt.id(st);
-    this.st = st;
+  FittedBox(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget FittedBox");
-    System.out.println("New FittedBox id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  FittedBox(int id) { this.id = id; }
   @Builder.Factory
   static FittedBox fittedBoxFittedBox(Optional<BoxFit> fit, Optional<AlignmentGeometryI> alignment, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
-    var st = factories.fittedBoxFittedBox(fit,
+    int id = factories.fittedBoxFittedBox(fit,
       alignment.map(AlignmentGeometryI::build),
       clipBehavior,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget FittedBox");
-    return new FittedBox(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FittedBox");
+    return new FittedBox(id);
   }
   public static FittedBoxFittedBoxBuilder fittedBox() {
     return FittedBoxFittedBoxBuilder.fittedBoxFittedBox();
   }
   public BoxFit fit() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fittedBoxFit not supported on web");
-    return BoxFit.values()[FittedBoxObjSt.fit(st)];
+    return factories.FittedBox_readBack_fit(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fittedBoxAlignment not supported on web");
-    return new AlignmentGeometry(FittedBoxObjSt.alignment(st)) {};
+    return factories.FittedBox_readBack_alignment(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fittedBoxClipBehavior not supported on web");
-    return Clip.values()[FittedBoxObjSt.clipBehavior(st)];
+    return factories.FittedBox_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public FittedBox build() {

@@ -3,58 +3,52 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MaterialColorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialColor extends ColorSwatch<Integer> implements MaterialColorI {
-  private MemorySegment st;
   protected MaterialColor() {}
-  MaterialColor(MemorySegment st) {
-    this.id = MaterialColorObjSt.id(st);
-    this.st = st;
+  MaterialColor(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget MaterialColor");
-    System.out.println("New MaterialColor id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  MaterialColor(int id) { this.id = id; }
   @Builder.Factory
   static MaterialColor materialColorMaterialColor(@Builder.Parameter int primary, @Builder.Parameter Map<Integer, Color> swatch) {
-    var st = factories.materialColorMaterialColor(primary,
+    int id = factories.materialColorMaterialColor(primary,
       swatch);
-    if (st == null) throw new RuntimeException("Failed to created widget MaterialColor");
-    return new MaterialColor(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialColor");
+    return new MaterialColor(id);
   }
   public static MaterialColorMaterialColorBuilder materialColor(int primary, Map<Integer, Color> swatch) {
     return MaterialColorMaterialColorBuilder.materialColorMaterialColor(primary, swatch);
   }
   public Color shade50() {
-    return new Color(MaterialColorObjSt.shade50(st));
+    return factories.MaterialColor_readBack_shade50(nativeStruct);
   }
   public Color shade100() {
-    return new Color(MaterialColorObjSt.shade100(st));
+    return factories.MaterialColor_readBack_shade100(nativeStruct);
   }
   public Color shade200() {
-    return new Color(MaterialColorObjSt.shade200(st));
+    return factories.MaterialColor_readBack_shade200(nativeStruct);
   }
   public Color shade300() {
-    return new Color(MaterialColorObjSt.shade300(st));
+    return factories.MaterialColor_readBack_shade300(nativeStruct);
   }
   public Color shade400() {
-    return new Color(MaterialColorObjSt.shade400(st));
+    return factories.MaterialColor_readBack_shade400(nativeStruct);
   }
   public Color shade500() {
-    return new Color(MaterialColorObjSt.shade500(st));
+    return factories.MaterialColor_readBack_shade500(nativeStruct);
   }
   public Color shade600() {
-    return new Color(MaterialColorObjSt.shade600(st));
+    return factories.MaterialColor_readBack_shade600(nativeStruct);
   }
   public Color shade700() {
-    return new Color(MaterialColorObjSt.shade700(st));
+    return factories.MaterialColor_readBack_shade700(nativeStruct);
   }
   public Color shade800() {
-    return new Color(MaterialColorObjSt.shade800(st));
+    return factories.MaterialColor_readBack_shade800(nativeStruct);
   }
   public Color shade900() {
-    return new Color(MaterialColorObjSt.shade900(st));
+    return factories.MaterialColor_readBack_shade900(nativeStruct);
   }
   @Override
   public MaterialColor build() {

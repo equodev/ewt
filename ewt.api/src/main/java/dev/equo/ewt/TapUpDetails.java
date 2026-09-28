@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
   protected TapUpDetails() {}
   TapUpDetails(int id) {
@@ -13,7 +13,7 @@ public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
   static { NativeObj.register("TapUpDetails", TapUpDetails::byId); }
   @Builder.Factory
   static TapUpDetails tapUpDetailsTapUpDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, PointerDeviceKind kind) {
-    int id = factories.tapUpDetailsTapUpDetails(globalPosition.map(OffsetI::build),
+    var id = factories.tapUpDetailsTapUpDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build),
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget TapUpDetails");
@@ -24,12 +24,12 @@ public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
     return TapUpDetailsTapUpDetailsBuilder.tapUpDetailsTapUpDetails();
   }
   public Offset globalPosition() {
-    int id = factories.tapUpDetailsGlobalPosition(this);
+    var id = factories.tapUpDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.tapUpDetailsLocalPosition(this);
+    var id = factories.tapUpDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }

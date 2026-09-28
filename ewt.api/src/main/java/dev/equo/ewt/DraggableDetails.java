@@ -3,8 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class DraggableDetails extends NativeObj.Base implements DraggableDetailsI {
   protected DraggableDetails() {}
   DraggableDetails(int id) {
@@ -14,7 +13,7 @@ public class DraggableDetails extends NativeObj.Base implements DraggableDetails
   static { NativeObj.register("DraggableDetails", DraggableDetails::byId); }
   @Builder.Factory
   static DraggableDetails draggableDetailsDraggableDetails(Optional<Boolean> wasAccepted, VelocityI velocity, OffsetI offset) {
-    int id = factories.draggableDetailsDraggableDetails(wasAccepted,
+    var id = factories.draggableDetailsDraggableDetails(wasAccepted,
       velocity.build(),
       offset.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget DraggableDetails");
@@ -25,16 +24,17 @@ public class DraggableDetails extends NativeObj.Base implements DraggableDetails
     return DraggableDetailsDraggableDetailsBuilder.draggableDetailsDraggableDetails();
   }
   public boolean wasAccepted() {
-    int id = factories.draggableDetailsWasAccepted(this);
+    var id = factories.draggableDetailsWasAccepted(this);
     if (id <= 0) throw new RuntimeException("Failed to call wasAccepted");
     return intToBool(id);
   }
   public Velocity velocity() {
-    MemorySegment id = factories.draggableDetailsVelocity(this);
+    var id = factories.draggableDetailsVelocity(this);
+    if (id <= 0) throw new RuntimeException("Failed to call velocity");
     return new Velocity(id);
   }
   public Offset offset() {
-    int id = factories.draggableDetailsOffset(this);
+    var id = factories.draggableDetailsOffset(this);
     if (id <= 0) throw new RuntimeException("Failed to call offset");
     return new Offset(id);
   }

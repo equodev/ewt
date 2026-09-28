@@ -3,43 +3,35 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SimpleDialogOptionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SimpleDialogOption extends StatelessWidget implements SimpleDialogOptionI {
-  private MemorySegment st;
   protected SimpleDialogOption() {}
-  SimpleDialogOption(MemorySegment st) {
-    this.id = SimpleDialogOptionObjSt.id(st);
-    this.st = st;
+  SimpleDialogOption(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SimpleDialogOption");
-    System.out.println("New SimpleDialogOption id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SimpleDialogOption(int id) { this.id = id; }
   @Builder.Factory
   static SimpleDialogOption simpleDialogOptionSimpleDialogOption(Optional<Runnable> onPressed, Optional<EdgeInsetsI> padding, Optional<WidgetI> child) {
-    var st = factories.simpleDialogOptionSimpleDialogOption(onPressed,
+    int id = factories.simpleDialogOptionSimpleDialogOption(onPressed,
       padding.map(EdgeInsetsI::build),
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget SimpleDialogOption");
-    return new SimpleDialogOption(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SimpleDialogOption");
+    return new SimpleDialogOption(id);
   }
   public static SimpleDialogOptionSimpleDialogOptionBuilder simpleDialogOption() {
     return SimpleDialogOptionSimpleDialogOptionBuilder.simpleDialogOptionSimpleDialogOption();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("simpleDialogOptionChild not supported on web");
-    return new Widget(SimpleDialogOptionObjSt.child(st)) {};
+    return factories.SimpleDialogOption_readBack_child(nativeStruct);
   }
   public EdgeInsets padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("simpleDialogOptionPadding", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
+      return new EdgeInsets(__nid);
     }
-    return new EdgeInsets(SimpleDialogOptionObjSt.padding(st));
+    return factories.SimpleDialogOption_readBack_padding(nativeStruct);
   }
   @Override
   public SimpleDialogOption build() {

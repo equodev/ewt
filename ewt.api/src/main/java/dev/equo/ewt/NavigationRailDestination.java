@@ -12,7 +12,7 @@ public class NavigationRailDestination extends NativeObj.Base implements Navigat
   static { NativeObj.register("NavigationRailDestination", NavigationRailDestination::byId); }
   @Builder.Factory
   static NavigationRailDestination navigationRailDestinationNavigationRailDestination(@Builder.Parameter WidgetI icon, Optional<WidgetI> selectedIcon, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, WidgetI label, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> disabled) {
-    int id = factories.navigationRailDestinationNavigationRailDestination(icon.build(),
+    var id = factories.navigationRailDestinationNavigationRailDestination(icon.build(),
       selectedIcon.map(WidgetI::build),
       indicatorColor.map(ColorI::build),
       indicatorShape.map(ShapeBorderI::build),
