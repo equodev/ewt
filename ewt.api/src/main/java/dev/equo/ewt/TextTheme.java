@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TextThemeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextTheme extends NativeObj.Base implements TextThemeI {
-  private MemorySegment st;
   protected TextTheme() {}
-  TextTheme(MemorySegment st) {
-    this.id = TextThemeObjSt.id(st);
-    this.st = st;
+  TextTheme(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
-    System.out.println("New TextTheme id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TextTheme(int id) { this.id = id; }
   @Builder.Factory
   static TextTheme textThemeTextTheme(Optional<TextStyleI> displayLarge, Optional<TextStyleI> displayMedium, Optional<TextStyleI> displaySmall, Optional<TextStyleI> headlineLarge, Optional<TextStyleI> headlineMedium, Optional<TextStyleI> headlineSmall, Optional<TextStyleI> titleLarge, Optional<TextStyleI> titleMedium, Optional<TextStyleI> titleSmall, Optional<TextStyleI> bodyLarge, Optional<TextStyleI> bodyMedium, Optional<TextStyleI> bodySmall, Optional<TextStyleI> labelLarge, Optional<TextStyleI> labelMedium, Optional<TextStyleI> labelSmall) {
-    var st = factories.textThemeTextTheme(displayLarge.map(TextStyleI::build),
+    int id = factories.textThemeTextTheme(displayLarge.map(TextStyleI::build),
       displayMedium.map(TextStyleI::build),
       displaySmall.map(TextStyleI::build),
       headlineLarge.map(TextStyleI::build),
@@ -33,178 +27,148 @@ public class TextTheme extends NativeObj.Base implements TextThemeI {
       labelLarge.map(TextStyleI::build),
       labelMedium.map(TextStyleI::build),
       labelSmall.map(TextStyleI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
-    return new TextTheme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
+    return new TextTheme(id);
   }
   public static TextThemeTextThemeBuilder textTheme() {
     return TextThemeTextThemeBuilder.textThemeTextTheme();
   }
   public static TextTheme lerp(TextThemeI a, TextThemeI b, double t) {
-    var st = factories.textThemeLerp(a.build(),
+    int id = factories.textThemeLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
-    return new TextTheme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
+    return new TextTheme(id);
   }
   public static TextTheme of(BuildContextI context) {
-    var st = factories.textThemeOf(context.build());
-    if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
-    return new TextTheme(st);
+    int id = factories.textThemeOf(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
+    return new TextTheme(id);
   }
   public static TextTheme primaryOf(BuildContextI context) {
-    var st = factories.textThemePrimaryOf(context.build());
-    if (st == null) throw new RuntimeException("Failed to created widget TextTheme");
-    return new TextTheme(st);
+    int id = factories.textThemePrimaryOf(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextTheme");
+    return new TextTheme(id);
   }
   public TextStyle displayLarge() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeDisplayLarge", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.displayLarge(st));
+    return factories.TextTheme_readBack_displayLarge(nativeStruct);
   }
   public TextStyle displayMedium() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeDisplayMedium", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.displayMedium(st));
+    return factories.TextTheme_readBack_displayMedium(nativeStruct);
   }
   public TextStyle displaySmall() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeDisplaySmall", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.displaySmall(st));
+    return factories.TextTheme_readBack_displaySmall(nativeStruct);
   }
   public TextStyle headlineLarge() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeHeadlineLarge", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.headlineLarge(st));
+    return factories.TextTheme_readBack_headlineLarge(nativeStruct);
   }
   public TextStyle headlineMedium() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeHeadlineMedium", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.headlineMedium(st));
+    return factories.TextTheme_readBack_headlineMedium(nativeStruct);
   }
   public TextStyle headlineSmall() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeHeadlineSmall", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.headlineSmall(st));
+    return factories.TextTheme_readBack_headlineSmall(nativeStruct);
   }
   public TextStyle titleLarge() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeTitleLarge", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.titleLarge(st));
+    return factories.TextTheme_readBack_titleLarge(nativeStruct);
   }
   public TextStyle titleMedium() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeTitleMedium", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.titleMedium(st));
+    return factories.TextTheme_readBack_titleMedium(nativeStruct);
   }
   public TextStyle titleSmall() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeTitleSmall", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.titleSmall(st));
+    return factories.TextTheme_readBack_titleSmall(nativeStruct);
   }
   public TextStyle bodyLarge() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeBodyLarge", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.bodyLarge(st));
+    return factories.TextTheme_readBack_bodyLarge(nativeStruct);
   }
   public TextStyle bodyMedium() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeBodyMedium", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.bodyMedium(st));
+    return factories.TextTheme_readBack_bodyMedium(nativeStruct);
   }
   public TextStyle bodySmall() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeBodySmall", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.bodySmall(st));
+    return factories.TextTheme_readBack_bodySmall(nativeStruct);
   }
   public TextStyle labelLarge() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeLabelLarge", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.labelLarge(st));
+    return factories.TextTheme_readBack_labelLarge(nativeStruct);
   }
   public TextStyle labelMedium() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeLabelMedium", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.labelMedium(st));
+    return factories.TextTheme_readBack_labelMedium(nativeStruct);
   }
   public TextStyle labelSmall() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("textThemeLabelSmall", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TextThemeObjSt.labelSmall(st));
+    return factories.TextTheme_readBack_labelSmall(nativeStruct);
   }
   @Override
   public TextTheme build() {

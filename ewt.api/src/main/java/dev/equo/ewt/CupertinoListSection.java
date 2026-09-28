@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoListSectionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoListSection extends StatelessWidget implements CupertinoListSectionI {
-  private MemorySegment st;
   protected CupertinoListSection() {}
-  CupertinoListSection(MemorySegment st) {
-    this.id = CupertinoListSectionObjSt.id(st);
-    this.st = st;
+  CupertinoListSection(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListSection");
-    System.out.println("New CupertinoListSection id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoListSection(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoListSection cupertinoListSectionCupertinoListSection(Optional<List<WidgetI>> children, Optional<WidgetI> header, Optional<WidgetI> footer, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> backgroundColor, Optional<BoxDecorationI> decoration, Optional<Clip> clipBehavior, OptionalDouble dividerMargin, OptionalDouble additionalDividerMargin, OptionalDouble topMargin, Optional<Boolean> hasLeading, Optional<ColorI> separatorColor) {
-    var st = factories.cupertinoListSectionCupertinoListSection(children.map(i -> i.stream().map(WidgetI::build).toList()),
+    int id = factories.cupertinoListSectionCupertinoListSection(children.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())),
       header.map(WidgetI::build),
       footer.map(WidgetI::build),
       margin.map(EdgeInsetsGeometryI::build),
@@ -30,15 +24,15 @@ public class CupertinoListSection extends StatelessWidget implements CupertinoLi
       topMargin,
       hasLeading,
       separatorColor.map(ColorI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoListSection");
-    return new CupertinoListSection(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListSection");
+    return new CupertinoListSection(id);
   }
   public static CupertinoListSectionCupertinoListSectionBuilder cupertinoListSection() {
     return CupertinoListSectionCupertinoListSectionBuilder.cupertinoListSectionCupertinoListSection();
   }
   @Builder.Factory
   static CupertinoListSection cupertinoListSectionInsetGrouped(Optional<List<WidgetI>> children, Optional<WidgetI> header, Optional<WidgetI> footer, Optional<EdgeInsetsGeometryI> margin, Optional<ColorI> backgroundColor, Optional<BoxDecorationI> decoration, Optional<Clip> clipBehavior, OptionalDouble dividerMargin, OptionalDouble additionalDividerMargin, OptionalDouble topMargin, Optional<Boolean> hasLeading, Optional<ColorI> separatorColor) {
-    var st = factories.cupertinoListSectionInsetGrouped(children.map(i -> i.stream().map(WidgetI::build).toList()),
+    int id = factories.cupertinoListSectionInsetGrouped(children.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())),
       header.map(WidgetI::build),
       footer.map(WidgetI::build),
       margin.map(EdgeInsetsGeometryI::build),
@@ -50,37 +44,35 @@ public class CupertinoListSection extends StatelessWidget implements CupertinoLi
       topMargin,
       hasLeading,
       separatorColor.map(ColorI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoListSection");
-    return new CupertinoListSection(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListSection");
+    return new CupertinoListSection(id);
   }
   public static CupertinoListSectionInsetGroupedBuilder insetGrouped() {
     return CupertinoListSectionInsetGroupedBuilder.cupertinoListSectionInsetGrouped();
   }
   public CupertinoListSectionType type() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionType not supported on web");
-    return CupertinoListSectionType.values()[CupertinoListSectionObjSt.type(st)];
+    return factories.CupertinoListSection_readBack_type(nativeStruct);
   }
   public Widget header() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionHeader not supported on web");
-    return new Widget(CupertinoListSectionObjSt.header(st)) {};
+    return factories.CupertinoListSection_readBack_header(nativeStruct);
   }
   public Widget footer() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionFooter not supported on web");
-    return new Widget(CupertinoListSectionObjSt.footer(st)) {};
+    return factories.CupertinoListSection_readBack_footer(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionMargin not supported on web");
-    return new EdgeInsetsGeometry(CupertinoListSectionObjSt.margin(st)) {};
+    return factories.CupertinoListSection_readBack_margin(nativeStruct);
   }
   public BoxDecoration decoration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("cupertinoListSectionDecoration", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxDecorationObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxDecorationObjSt.id(__st, __nid);
-      return new BoxDecoration(__st);
+      return new BoxDecoration(__nid);
     }
-    return new BoxDecoration(CupertinoListSectionObjSt.decoration(st));
+    return factories.CupertinoListSection_readBack_decoration(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -88,23 +80,23 @@ public class CupertinoListSection extends StatelessWidget implements CupertinoLi
       int __nid = __s.recordAccessor("cupertinoListSectionBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoListSectionObjSt.backgroundColor(st));
+    return factories.CupertinoListSection_readBack_backgroundColor(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionClipBehavior not supported on web");
-    return Clip.values()[CupertinoListSectionObjSt.clipBehavior(st)];
+    return factories.CupertinoListSection_readBack_clipBehavior(nativeStruct);
   }
   public double dividerMargin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionDividerMargin not supported on web");
-    return CupertinoListSectionObjSt.dividerMargin(st);
+    return factories.CupertinoListSection_readBack_dividerMargin(nativeStruct);
   }
   public double additionalDividerMargin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionAdditionalDividerMargin not supported on web");
-    return CupertinoListSectionObjSt.additionalDividerMargin(st);
+    return factories.CupertinoListSection_readBack_additionalDividerMargin(nativeStruct);
   }
   public double topMargin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListSectionTopMargin not supported on web");
-    return CupertinoListSectionObjSt.topMargin(st);
+    return factories.CupertinoListSection_readBack_topMargin(nativeStruct);
   }
   public Color separatorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -112,7 +104,7 @@ public class CupertinoListSection extends StatelessWidget implements CupertinoLi
       int __nid = __s.recordAccessor("cupertinoListSectionSeparatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoListSectionObjSt.separatorColor(st));
+    return factories.CupertinoListSection_readBack_separatorColor(nativeStruct);
   }
   @Override
   public CupertinoListSection build() {

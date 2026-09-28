@@ -3,24 +3,18 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SearchBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SearchBar extends StatefulWidget implements SearchBarI {
-  private MemorySegment st;
   protected SearchBar() {}
-  SearchBar(MemorySegment st) {
-    this.id = SearchBarObjSt.id(st);
-    this.st = st;
+  SearchBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SearchBar");
-    System.out.println("New SearchBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SearchBar(int id) { this.id = id; }
   @Builder.Factory
   static SearchBar searchBarSearchBar(Optional<String> hintText, Optional<WidgetI> leading, Optional<List<WidgetI>> trailing, Optional<Runnable> onTap, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<String>> onChanged, Optional<Consumer<String>> onSubmitted, Optional<BoxConstraintsI> constraints, OptionalDouble elevation, Optional<ColorI> backgroundColor, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> overlayColor, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<EdgeInsetsGeometryI> padding, Optional<TextStyleI> textStyle, Optional<TextStyleI> hintStyle, Optional<TextCapitalization> textCapitalization, Optional<Boolean> enabled, Optional<Boolean> autoFocus, Optional<TextInputAction> textInputAction, Optional<EdgeInsetsI> scrollPadding, Optional<Boolean> readOnly, Optional<SmartDashesType> smartDashesType, Optional<SmartQuotesType> smartQuotesType) {
-    var st = factories.searchBarSearchBar(hintText,
+    int id = factories.searchBarSearchBar(hintText,
       leading.map(WidgetI::build),
-      trailing.map(i -> i.stream().map(WidgetI::build).toList()),
+      trailing.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())),
       onTap,
       onTapOutside,
       onChanged,
@@ -44,67 +38,63 @@ public class SearchBar extends StatefulWidget implements SearchBarI {
       readOnly,
       smartDashesType,
       smartQuotesType);
-    if (st == null) throw new RuntimeException("Failed to created widget SearchBar");
-    return new SearchBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SearchBar");
+    return new SearchBar(id);
   }
   public static SearchBarSearchBarBuilder searchBar() {
     return SearchBarSearchBarBuilder.searchBarSearchBar();
   }
   public String hintText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarHintText not supported on web");
-    return SearchBarObjSt.hintText(st).getString(0);
+    return factories.SearchBar_readBack_hintText(nativeStruct);
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarLeading not supported on web");
-    return new Widget(SearchBarObjSt.leading(st)) {};
+    return factories.SearchBar_readBack_leading(nativeStruct);
   }
   public BoxConstraints constraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchBarConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(SearchBarObjSt.constraints(st));
+    return factories.SearchBar_readBack_constraints(nativeStruct);
   }
   public TextCapitalization textCapitalization() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarTextCapitalization not supported on web");
-    return TextCapitalization.values()[SearchBarObjSt.textCapitalization(st)];
+    return factories.SearchBar_readBack_textCapitalization(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarEnabled not supported on web");
-    return intToBool(SearchBarObjSt.enabled(st));
+    return factories.SearchBar_readBack_enabled(nativeStruct);
   }
   public boolean autoFocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarAutoFocus not supported on web");
-    return intToBool(SearchBarObjSt.autoFocus(st));
+    return factories.SearchBar_readBack_autoFocus(nativeStruct);
   }
   public TextInputAction textInputAction() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarTextInputAction not supported on web");
-    return TextInputAction.values()[SearchBarObjSt.textInputAction(st)];
+    return factories.SearchBar_readBack_textInputAction(nativeStruct);
   }
   public EdgeInsets scrollPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchBarScrollPadding", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
+      return new EdgeInsets(__nid);
     }
-    return new EdgeInsets(SearchBarObjSt.scrollPadding(st));
+    return factories.SearchBar_readBack_scrollPadding(nativeStruct);
   }
   public boolean readOnly() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarReadOnly not supported on web");
-    return intToBool(SearchBarObjSt.readOnly(st));
+    return factories.SearchBar_readBack_readOnly(nativeStruct);
   }
   public SmartDashesType smartDashesType() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarSmartDashesType not supported on web");
-    return SmartDashesType.values()[SearchBarObjSt.smartDashesType(st)];
+    return factories.SearchBar_readBack_smartDashesType(nativeStruct);
   }
   public SmartQuotesType smartQuotesType() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarSmartQuotesType not supported on web");
-    return SmartQuotesType.values()[SearchBarObjSt.smartQuotesType(st)];
+    return factories.SearchBar_readBack_smartQuotesType(nativeStruct);
   }
   @Override
   public SearchBar build() {

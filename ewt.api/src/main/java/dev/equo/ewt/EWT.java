@@ -1,11 +1,10 @@
 package dev.equo.ewt;
 import java.util.*;
 import java.util.function.*;
-import java.lang.foreign.MemorySegment;
 import dev.equo.ewt.util.*;
 public class EWT {
   public static Future showDialog(BuildContextI context, Function<BuildContext, Widget> builder) {
-    int _ret = WidgetConstructors.instance.dialogShowDialog(context.build(),
+    int _ret = NativeObj.Base.factories.dialogShowDialog(context.build(),
       builder,
       Optional.empty(),
       Optional.empty(),
@@ -21,7 +20,7 @@ public class EWT {
     return new Future() { public int getId() { return _ret; } };
   }
   public static Future<DateTime> showDatePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
-    int _ret = WidgetConstructors.instance.date_pickerShowDatePicker(context.build(),
+    int _ret = NativeObj.Base.factories.date_pickerShowDatePicker(context.build(),
       Optional.empty(),
       firstDate.build(),
       lastDate.build(),
@@ -51,7 +50,7 @@ public class EWT {
     return new Future() { public int getId() { return _ret; } };
   }
   public static Future<TimeOfDay> showTimePicker(BuildContextI context, TimeOfDayI initialTime) {
-    int _ret = WidgetConstructors.instance.time_pickerShowTimePicker(context.build(),
+    int _ret = NativeObj.Base.factories.time_pickerShowTimePicker(context.build(),
       initialTime.build(),
       Optional.empty(),
       Optional.empty(),
@@ -76,7 +75,7 @@ public class EWT {
     return new Future() { public int getId() { return _ret; } };
   }
   public static Future showDateRangePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
-    int _ret = WidgetConstructors.instance.date_pickerShowDateRangePicker(context.build(),
+    int _ret = NativeObj.Base.factories.date_pickerShowDateRangePicker(context.build(),
       firstDate.build(),
       lastDate.build(),
       Optional.empty(),
@@ -107,9 +106,7 @@ public class EWT {
     return new Future() { public int getId() { return _ret; } };
   }
   public static String widgetTypeOf(int id) {
-    MemorySegment _ret = WidgetConstructors.instance.type_registry_helpersWidgetTypeOf(id);
-    System.out.println("New String id:"+_ret);
-    return _ret.getString(0);
+    return NativeObj.Base.factories.type_registry_helpersWidgetTypeOf(id);
   }
   public static TextStyleTextStyleBuilder TextStyle() {
     return TextStyleTextStyleBuilder.textStyleTextStyle();

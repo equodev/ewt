@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.InputDatePickerFormFieldObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class InputDatePickerFormField extends StatefulWidget implements InputDatePickerFormFieldI {
-  private MemorySegment st;
   protected InputDatePickerFormField() {}
-  InputDatePickerFormField(MemorySegment st) {
-    this.id = InputDatePickerFormFieldObjSt.id(st);
-    this.st = st;
+  InputDatePickerFormField(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget InputDatePickerFormField");
-    System.out.println("New InputDatePickerFormField id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  InputDatePickerFormField(int id) { this.id = id; }
   @Builder.Factory
   static InputDatePickerFormField inputDatePickerFormFieldInputDatePickerFormField(Optional<DateTimeI> initialDate, DateTimeI firstDate, DateTimeI lastDate, Optional<Consumer<DateTime>> onDateSubmitted, Optional<Consumer<DateTime>> onDateSaved, Optional<Function<DateTime, Boolean>> selectableDayPredicate, Optional<String> errorFormatText, Optional<String> errorInvalidText, Optional<String> fieldHintText, Optional<String> fieldLabelText, Optional<Boolean> autofocus, Optional<Boolean> acceptEmptyDate) {
-    var st = factories.inputDatePickerFormFieldInputDatePickerFormField(initialDate.map(DateTimeI::build),
+    int id = factories.inputDatePickerFormFieldInputDatePickerFormField(initialDate.map(DateTimeI::build),
       firstDate.build(),
       lastDate.build(),
       onDateSubmitted,
@@ -30,8 +24,8 @@ public class InputDatePickerFormField extends StatefulWidget implements InputDat
       fieldLabelText,
       autofocus,
       acceptEmptyDate);
-    if (st == null) throw new RuntimeException("Failed to created widget InputDatePickerFormField");
-    return new InputDatePickerFormField(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget InputDatePickerFormField");
+    return new InputDatePickerFormField(id);
   }
   public static InputDatePickerFormFieldInputDatePickerFormFieldBuilder inputDatePickerFormField() {
     return InputDatePickerFormFieldInputDatePickerFormFieldBuilder.inputDatePickerFormFieldInputDatePickerFormField();
@@ -42,7 +36,7 @@ public class InputDatePickerFormField extends StatefulWidget implements InputDat
       int __nid = __s.recordAccessor("inputDatePickerFormFieldInitialDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(InputDatePickerFormFieldObjSt.initialDate(st));
+    return factories.InputDatePickerFormField_readBack_initialDate(nativeStruct);
   }
   public DateTime firstDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -50,7 +44,7 @@ public class InputDatePickerFormField extends StatefulWidget implements InputDat
       int __nid = __s.recordAccessor("inputDatePickerFormFieldFirstDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(InputDatePickerFormFieldObjSt.firstDate(st));
+    return factories.InputDatePickerFormField_readBack_firstDate(nativeStruct);
   }
   public DateTime lastDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -58,31 +52,31 @@ public class InputDatePickerFormField extends StatefulWidget implements InputDat
       int __nid = __s.recordAccessor("inputDatePickerFormFieldLastDate", getId());
       return new DateTime(__nid);
     }
-    return new DateTime(InputDatePickerFormFieldObjSt.lastDate(st));
+    return factories.InputDatePickerFormField_readBack_lastDate(nativeStruct);
   }
   public String errorFormatText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDatePickerFormFieldErrorFormatText not supported on web");
-    return InputDatePickerFormFieldObjSt.errorFormatText(st).getString(0);
+    return factories.InputDatePickerFormField_readBack_errorFormatText(nativeStruct);
   }
   public String errorInvalidText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDatePickerFormFieldErrorInvalidText not supported on web");
-    return InputDatePickerFormFieldObjSt.errorInvalidText(st).getString(0);
+    return factories.InputDatePickerFormField_readBack_errorInvalidText(nativeStruct);
   }
   public String fieldHintText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDatePickerFormFieldFieldHintText not supported on web");
-    return InputDatePickerFormFieldObjSt.fieldHintText(st).getString(0);
+    return factories.InputDatePickerFormField_readBack_fieldHintText(nativeStruct);
   }
   public String fieldLabelText() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDatePickerFormFieldFieldLabelText not supported on web");
-    return InputDatePickerFormFieldObjSt.fieldLabelText(st).getString(0);
+    return factories.InputDatePickerFormField_readBack_fieldLabelText(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDatePickerFormFieldAutofocus not supported on web");
-    return intToBool(InputDatePickerFormFieldObjSt.autofocus(st));
+    return factories.InputDatePickerFormField_readBack_autofocus(nativeStruct);
   }
   public boolean acceptEmptyDate() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("inputDatePickerFormFieldAcceptEmptyDate not supported on web");
-    return intToBool(InputDatePickerFormFieldObjSt.acceptEmptyDate(st));
+    return factories.InputDatePickerFormField_readBack_acceptEmptyDate(nativeStruct);
   }
   @Override
   public InputDatePickerFormField build() {

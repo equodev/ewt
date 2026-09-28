@@ -3,17 +3,11 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SubStatefulWidgetObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public abstract class SubStatefulWidget extends StatefulWidget implements SubStatefulWidgetI, SubclassedInJava {
-  private final MemorySegment st;
   protected SubStatefulWidget() {
-    st = factories.subStatefulWidgetSubStatefulWidget(this::createStateFn);
-    if (st == null) throw new RuntimeException("Failed to created widget SubStatefulWidget");
-    id = SubStatefulWidgetObjSt.id(st);
+    id = factories.subStatefulWidgetSubStatefulWidget(this::createStateFn);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SubStatefulWidget");
     SubclassedInJava.addSubNatObj(this);
-    System.out.println("New SubStatefulWidget id:"+id);
   }
   protected abstract <S extends StatefulWidget> State<S> createState();
   <S extends StatefulWidget> State<S> createStateFn() {

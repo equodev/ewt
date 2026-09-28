@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SubmenuButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
-  private MemorySegment st;
   protected SubmenuButton() {}
-  SubmenuButton(MemorySegment st) {
-    this.id = SubmenuButtonObjSt.id(st);
-    this.st = st;
+  SubmenuButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SubmenuButton");
-    System.out.println("New SubmenuButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SubmenuButton(int id) { this.id = id; }
   @Builder.Factory
   static SubmenuButton submenuButtonSubmenuButton(Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<OffsetI> alignmentOffset, Optional<Clip> clipBehavior, Optional<WidgetI> leadingIcon, Optional<WidgetI> trailingIcon, Optional<WidgetI> submenuIcon, Optional<Boolean> useRootOverlay, Optional<DurationI> hoverOpenDelay, Optional<Boolean> animated, Optional<Consumer<AnimationStatus>> onAnimationStatusChanged, List<WidgetI> menuChildren, Optional<WidgetI> child) {
-    var st = factories.submenuButtonSubmenuButton(onHover,
+    int id = factories.submenuButtonSubmenuButton(onHover,
       onFocusChange,
       onOpen,
       onClose,
@@ -31,10 +25,10 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
       hoverOpenDelay.map(DurationI::build),
       animated,
       onAnimationStatusChanged,
-      menuChildren.stream().map(WidgetI::build).toList(),
+      menuChildren.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget SubmenuButton");
-    return new SubmenuButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SubmenuButton");
+    return new SubmenuButton(id);
   }
   public static SubmenuButtonSubmenuButtonBuilder submenuButton() {
     return SubmenuButtonSubmenuButtonBuilder.submenuButtonSubmenuButton();
@@ -45,23 +39,23 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
       int __nid = __s.recordAccessor("submenuButtonAlignmentOffset", getId());
       return new Offset(__nid);
     }
-    return new Offset(SubmenuButtonObjSt.alignmentOffset(st));
+    return factories.SubmenuButton_readBack_alignmentOffset(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonClipBehavior not supported on web");
-    return Clip.values()[SubmenuButtonObjSt.clipBehavior(st)];
+    return factories.SubmenuButton_readBack_clipBehavior(nativeStruct);
   }
   public Widget leadingIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonLeadingIcon not supported on web");
-    return new Widget(SubmenuButtonObjSt.leadingIcon(st)) {};
+    return factories.SubmenuButton_readBack_leadingIcon(nativeStruct);
   }
   public Widget trailingIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonTrailingIcon not supported on web");
-    return new Widget(SubmenuButtonObjSt.trailingIcon(st)) {};
+    return factories.SubmenuButton_readBack_trailingIcon(nativeStruct);
   }
   public boolean useRootOverlay() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonUseRootOverlay not supported on web");
-    return intToBool(SubmenuButtonObjSt.useRootOverlay(st));
+    return factories.SubmenuButton_readBack_useRootOverlay(nativeStruct);
   }
   public Duration hoverOpenDelay() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -69,15 +63,15 @@ public class SubmenuButton extends StatefulWidget implements SubmenuButtonI {
       int __nid = __s.recordAccessor("submenuButtonHoverOpenDelay", getId());
       return new Duration(__nid);
     }
-    return new Duration(SubmenuButtonObjSt.hoverOpenDelay(st));
+    return factories.SubmenuButton_readBack_hoverOpenDelay(nativeStruct);
   }
   public boolean animated() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonAnimated not supported on web");
-    return intToBool(SubmenuButtonObjSt.animated(st));
+    return factories.SubmenuButton_readBack_animated(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("submenuButtonChild not supported on web");
-    return new Widget(SubmenuButtonObjSt.child(st)) {};
+    return factories.SubmenuButton_readBack_child(nativeStruct);
   }
   @Override
   public SubmenuButton build() {

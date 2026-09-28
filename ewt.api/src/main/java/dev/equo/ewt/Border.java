@@ -3,114 +3,100 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BorderObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Border extends BoxBorder implements BorderI {
-  private MemorySegment st;
   protected Border() {}
-  Border(MemorySegment st) {
-    this.id = BorderObjSt.id(st);
-    this.st = st;
+  Border(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Border");
-    System.out.println("New Border id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Border(int id) { this.id = id; }
   @Builder.Factory
   static Border borderBorder(Optional<BorderSideI> top, Optional<BorderSideI> right, Optional<BorderSideI> bottom, Optional<BorderSideI> left) {
-    var st = factories.borderBorder(top.map(BorderSideI::build),
+    int id = factories.borderBorder(top.map(BorderSideI::build),
       right.map(BorderSideI::build),
       bottom.map(BorderSideI::build),
       left.map(BorderSideI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Border");
-    return new Border(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
+    return new Border(id);
   }
   public static BorderBorderBuilder border() {
     return BorderBorderBuilder.borderBorder();
   }
   @Builder.Factory
   static Border borderFromBorderSide(@Builder.Parameter BorderSideI side) {
-    var st = factories.borderFromBorderSide(side.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Border");
-    return new Border(st);
+    int id = factories.borderFromBorderSide(side.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
+    return new Border(id);
   }
   public static BorderFromBorderSideBuilder fromBorderSide(BorderSideI side) {
     return BorderFromBorderSideBuilder.borderFromBorderSide(side);
   }
   @Builder.Factory
   static Border borderSymmetric(Optional<BorderSideI> vertical, Optional<BorderSideI> horizontal) {
-    var st = factories.borderSymmetric(vertical.map(BorderSideI::build),
+    int id = factories.borderSymmetric(vertical.map(BorderSideI::build),
       horizontal.map(BorderSideI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Border");
-    return new Border(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
+    return new Border(id);
   }
   public static BorderSymmetricBuilder symmetric() {
     return BorderSymmetricBuilder.borderSymmetric();
   }
   @Builder.Factory
   static Border borderAll(Optional<ColorI> color, OptionalDouble width, Optional<BorderStyle> style, OptionalDouble strokeAlign) {
-    var st = factories.borderAll(color.map(ColorI::build),
+    int id = factories.borderAll(color.map(ColorI::build),
       width,
       style,
       strokeAlign);
-    if (st == null) throw new RuntimeException("Failed to created widget Border");
-    return new Border(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
+    return new Border(id);
   }
   public static BorderAllBuilder all() {
     return BorderAllBuilder.borderAll();
   }
   public static Border merge(BorderI a, BorderI b) {
-    var st = factories.borderMerge(a.build(),
+    int id = factories.borderMerge(a.build(),
       b.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Border");
-    return new Border(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
+    return new Border(id);
   }
   public static Border lerp(BorderI a, BorderI b, double t) {
-    var st = factories.borderLerp(a.build(),
+    int id = factories.borderLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget Border");
-    return new Border(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Border");
+    return new Border(id);
   }
   public BorderSide top() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("borderTop", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(BorderObjSt.top(st));
+    return factories.Border_readBack_top(nativeStruct);
   }
   public BorderSide right() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("borderRight", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(BorderObjSt.right(st));
+    return factories.Border_readBack_right(nativeStruct);
   }
   public BorderSide bottom() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("borderBottom", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(BorderObjSt.bottom(st));
+    return factories.Border_readBack_bottom(nativeStruct);
   }
   public BorderSide left() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("borderLeft", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(BorderObjSt.left(st));
+    return factories.Border_readBack_left(nativeStruct);
   }
   @Override
   public Border build() {

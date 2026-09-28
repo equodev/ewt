@@ -14,10 +14,9 @@ abstract class ObjStGen extends WidgetGen {
 
   @override
   void writeJavaDecl(String extend, bool isInterface) {
-    ctx.javaFile
-      ..writeln('import java.lang.foreign.MemorySegment;')
-      ..writeln('import dev.equo.ewt.ffm.$widgetSt;')
-      ..writeln('import static dev.equo.ewt.WidgetConstructorsBase.*;');
+    // No FFM imports: the builder is foreign-free (int-id handle). `factories` and `intToBool` come
+    // inherited from NativeObj.Base, so the class carries no reference to the FFM layer and compiles
+    // at a lower release than the FFM impl.
     // Let concrete implementations finish the declaration
   }
 
@@ -62,15 +61,8 @@ abstract class ObjStGen extends WidgetGen {
         ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
         ..writeln('      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;')
         ..writeln('      int __nid = __s.recordAccessor("$factoryName", getId());');
-      if (isObjSt) {
-        // Use fully-qualified ObjSt name: each class only imports its own ObjSt.
-        ctx.javaFile
-          ..writeln('      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.$objType.allocate(__s.arena);')
-          ..writeln('      dev.equo.ewt.ffm.$objType.id(__st, __nid);')
-          ..writeln('      return new $retJ(__st);');
-      } else {
-        ctx.javaFile.writeln('      return new $retJ(__nid);');
-      }
+      // java-11 split: build the value-object from its foreign-free int id (no ObjSt struct).
+      ctx.javaFile.writeln('      return new $retJ(__nid);');
       ctx.javaFile.writeln('    }');
       // Web decoder: only for value-objects — widget classes already have constructor factory
       // decoders with the same name, so accessor decoders would create duplicate map keys.
@@ -82,15 +74,42 @@ abstract class ObjStGen extends WidgetGen {
       ctx.javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("$factoryName not supported on web");');
     }
 
-    // Native branch (unchanged).
-    if (useInvoke) {
-      ctx.javaFile
-        ..writeln('    MemorySegment funcPtr = $widgetSt.${field.name}(st);')
-        ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}.invoke(funcPtr)', field.type))};');
-    } else {
-      ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('$widgetSt.${field.name}(st)', field.type))};');
-    }
+    // java-11 split: delegate the FFM read-back to the FFM impl, which owns the foreign struct read.
+    // The core getter hands this widget's native struct (an Object) across; on comm the branch above
+    // already returned, and the interface default throws on a pre-22 JVM (no FFM).
+    //
+    // The SPI method name is `<WidgetClass>_readBack_<field>`, NOT the web `factoryName`: the latter
+    // concatenates widgetField + Field and can collide across widgets (e.g. tabPageSelector+IndicatorSize
+    // == tabPageSelectorIndicator+Size), which is harmless for a message string but not for a method on
+    // the shared interface. The `_readBack_` delimiter + the unique class name keep this unambiguous.
+    final readSpi = '${widgetClass}_readBack_${field.name}';
+    ctx.javaFile.writeln('    return factories.$readSpi(nativeStruct);');
     ctx.javaFile.writeln('  }');
+
+    // FFM impl of the read SPI: cast the struct back and run the native field read (as main did inline).
+    // A nested ObjSt field reads as its embedded struct (MemorySegment), not an int id — convert it to
+    // an id for the foreign-free wrapper. When that wrapper is built via `new Type(int)` (concrete class),
+    // retain() also hands it the nested struct so its own read-back getters work (chain read-back);
+    // for the anonymous/subclassed wrappers (no int ctor) just read the id, no struct to adopt.
+    final buildsViaIntCtor = !types.hasSubClassInJava(field.type) && !isInterface(field.type.element);
+    String readVal(String structAccess) => !isObjSt
+        ? structAccess
+        : (buildsViaIntCtor ? 'retain($structAccess, $objType::id)' : '$objType.id($structAccess)');
+    ctx.javaFactories.writeln('  public $retJ $readSpi(Object __stObj) {');
+    ctx.javaFactories.writeln('    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;');
+    if (useInvoke) {
+      ctx.javaFactories
+        ..writeln('    java.lang.foreign.MemorySegment funcPtr = $widgetSt.${field.name}(st);')
+        ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement(readVal('$widgetSt.${field.name}.invoke(funcPtr)'), field.type))};');
+    } else {
+      ctx.javaFactories.writeln('    return ${types.paramValueFFMtoJ(types, paramElement(readVal('$widgetSt.${field.name}(st)'), field.type))};');
+    }
+    ctx.javaFactories.writeln('  }');
+
+    // Interface default: the FFM impl always overrides; comm never reaches here (web branch handles it).
+    ctx.javaInterface.writeln('  default $retJ $readSpi(Object st) {');
+    ctx.javaInterface.writeln('    throw new UnsupportedOperationException("$readSpi read-back requires FFM/java22");');
+    ctx.javaInterface.writeln('  }');
   }
 
 

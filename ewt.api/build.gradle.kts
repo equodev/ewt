@@ -72,6 +72,52 @@ tasks.named<JavaCompile>("compileJava") {
     dependsOn(processCustom)
 }
 
+// The FFM layer: the only classes allowed to reference java.lang.foreign / dev.equo.ewt.ffm.
+// Everything else is the foreign-free core, which must compile at a lower release so it loads on
+// pre-22 JVMs (the FFM layer ships under META-INF/versions/22 of a multi-release jar).
+val ffmLayerPatterns = listOf(
+    "dev/equo/ewt/App.java",
+    "dev/equo/ewt/EngineHandle.java",
+    "dev/equo/ewt/FfmWidgetConstructors.java",
+    "dev/equo/ewt/WidgetConstructorsBase.java",
+    "dev/equo/ewt/FfmNativeFactoryProvider.java",
+    "dev/equo/ewt/internal/EmbedBridge.java",
+    "dev/equo/ewt/ffm/**",
+)
+
+// Verification task: prove the core compiles at release 11 (no foreign, no java>11 language features).
+val compileCore11 = tasks.register<JavaCompile>("compileCore11") {
+    dependsOn(processCustom)
+    source = sourceSets.main.get().java.matching { exclude(ffmLayerPatterns) }
+    classpath = sourceSets.main.get().compileClasspath
+    destinationDirectory.set(layout.buildDirectory.dir("classes/java/core11"))
+    options.release.set(11)
+    options.compilerArgs.add("-proc:none")
+}
+
+// The FFM layer as .class globs (top-level + nested $ classes), for filtering the release-22 output.
+val ffmLayerClassPatterns = ffmLayerPatterns.flatMap { p ->
+    if (p.endsWith("/**")) listOf(p.removeSuffix(".java"))
+    else { val base = p.removeSuffix(".java"); listOf("$base.class", "$base\$*.class") }
+}
+
+// Multi-release jar: core classes (release 11) in the base, FFM layer (release 22) under
+// META-INF/versions/22. A pre-22 JVM sees only the foreign-free core + comm impl; a JVM >= 22 also
+// gets the FFM impl, which Bootstrap selects via ServiceLoader. The services file stays in the base
+// (versioned service resources are not resolved) — Bootstrap's java>=22 guard keeps a pre-22 JVM from
+// ever loading the FFM provider it names.
+val mrJar = tasks.register<Jar>("mrJar") {
+    dependsOn(compileCore11, "compileJava", "processResources")
+    archiveClassifier.set("mr")
+    manifest { attributes("Multi-Release" to "true") }
+    from(compileCore11.map { it.destinationDirectory })          // base: core @release 11
+    from(sourceSets.main.get().output.resourcesDir)              // base: resources (incl. META-INF/services)
+    from(layout.buildDirectory.dir("classes/java/main")) {       // versions/22: FFM layer @release 22
+        include(ffmLayerClassPatterns)
+        into("META-INF/versions/22")
+    }
+}
+
 sourceSets {
     main {
         java {

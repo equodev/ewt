@@ -3,47 +3,41 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DataColumnObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DataColumn extends NativeObj.Base implements DataColumnI {
-  private MemorySegment st;
   protected DataColumn() {}
-  DataColumn(MemorySegment st) {
-    this.id = DataColumnObjSt.id(st);
-    this.st = st;
+  DataColumn(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DataColumn");
-    System.out.println("New DataColumn id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DataColumn(int id) { this.id = id; }
   @Builder.Factory
   static DataColumn dataColumnDataColumn(@Builder.Parameter WidgetI label, Optional<String> tooltip, Optional<Boolean> numeric, Optional<BiConsumer<Integer, Boolean>> onSort, Optional<MainAxisAlignment> headingRowAlignment) {
-    var st = factories.dataColumnDataColumn(label.build(),
+    int id = factories.dataColumnDataColumn(label.build(),
       tooltip,
       numeric,
       onSort,
       headingRowAlignment);
-    if (st == null) throw new RuntimeException("Failed to created widget DataColumn");
-    return new DataColumn(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DataColumn");
+    return new DataColumn(id);
   }
   public static DataColumnDataColumnBuilder dataColumn(WidgetI label) {
     return DataColumnDataColumnBuilder.dataColumnDataColumn(label);
   }
   public Widget label() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dataColumnLabel not supported on web");
-    return new Widget(DataColumnObjSt.label(st)) {};
+    return factories.DataColumn_readBack_label(nativeStruct);
   }
   public String tooltip() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dataColumnTooltip not supported on web");
-    return DataColumnObjSt.tooltip(st).getString(0);
+    return factories.DataColumn_readBack_tooltip(nativeStruct);
   }
   public boolean numeric() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dataColumnNumeric not supported on web");
-    return intToBool(DataColumnObjSt.numeric(st));
+    return factories.DataColumn_readBack_numeric(nativeStruct);
   }
   public MainAxisAlignment headingRowAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dataColumnHeadingRowAlignment not supported on web");
-    return MainAxisAlignment.values()[DataColumnObjSt.headingRowAlignment(st)];
+    return factories.DataColumn_readBack_headingRowAlignment(nativeStruct);
   }
   @Override
   public DataColumn build() {

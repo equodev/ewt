@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class TapMoveDetails extends NativeObj.Base implements TapMoveDetailsI {
   protected TapMoveDetails() {}
   TapMoveDetails(int id) {
@@ -13,7 +13,7 @@ public class TapMoveDetails extends NativeObj.Base implements TapMoveDetailsI {
   static { NativeObj.register("TapMoveDetails", TapMoveDetails::byId); }
   @Builder.Factory
   static TapMoveDetails tapMoveDetailsTapMoveDetails(@Builder.Parameter PointerDeviceKind kind, Optional<OffsetI> globalPosition, Optional<OffsetI> delta, Optional<OffsetI> localPosition) {
-    int id = factories.tapMoveDetailsTapMoveDetails(kind,
+    var id = factories.tapMoveDetailsTapMoveDetails(kind,
       globalPosition.map(OffsetI::build),
       delta.map(OffsetI::build),
       localPosition.map(OffsetI::build));
@@ -25,17 +25,17 @@ public class TapMoveDetails extends NativeObj.Base implements TapMoveDetailsI {
     return TapMoveDetailsTapMoveDetailsBuilder.tapMoveDetailsTapMoveDetails(kind);
   }
   public Offset globalPosition() {
-    int id = factories.tapMoveDetailsGlobalPosition(this);
+    var id = factories.tapMoveDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.tapMoveDetailsLocalPosition(this);
+    var id = factories.tapMoveDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }
   public Offset delta() {
-    int id = factories.tapMoveDetailsDelta(this);
+    var id = factories.tapMoveDetailsDelta(this);
     if (id <= 0) throw new RuntimeException("Failed to call delta");
     return new Offset(id);
   }

@@ -3,25 +3,19 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MaterialAccentColorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialAccentColor extends ColorSwatch<Integer> implements MaterialAccentColorI {
-  private MemorySegment st;
   protected MaterialAccentColor() {}
-  MaterialAccentColor(MemorySegment st) {
-    this.id = MaterialAccentColorObjSt.id(st);
-    this.st = st;
+  MaterialAccentColor(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget MaterialAccentColor");
-    System.out.println("New MaterialAccentColor id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  MaterialAccentColor(int id) { this.id = id; }
   @Builder.Factory
   static MaterialAccentColor materialAccentColorMaterialAccentColor(@Builder.Parameter int primary, @Builder.Parameter Map<Integer, Color> swatch) {
-    var st = factories.materialAccentColorMaterialAccentColor(primary,
+    int id = factories.materialAccentColorMaterialAccentColor(primary,
       swatch);
-    if (st == null) throw new RuntimeException("Failed to created widget MaterialAccentColor");
-    return new MaterialAccentColor(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget MaterialAccentColor");
+    return new MaterialAccentColor(id);
   }
   public static MaterialAccentColorMaterialAccentColorBuilder materialAccentColor(int primary, Map<Integer, Color> swatch) {
     return MaterialAccentColorMaterialAccentColorBuilder.materialAccentColorMaterialAccentColor(primary, swatch);
@@ -32,7 +26,7 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
       int __nid = __s.recordAccessor("materialAccentColorShade100", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialAccentColorObjSt.shade100(st));
+    return factories.MaterialAccentColor_readBack_shade100(nativeStruct);
   }
   public Color shade200() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -40,7 +34,7 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
       int __nid = __s.recordAccessor("materialAccentColorShade200", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialAccentColorObjSt.shade200(st));
+    return factories.MaterialAccentColor_readBack_shade200(nativeStruct);
   }
   public Color shade400() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -48,7 +42,7 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
       int __nid = __s.recordAccessor("materialAccentColorShade400", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialAccentColorObjSt.shade400(st));
+    return factories.MaterialAccentColor_readBack_shade400(nativeStruct);
   }
   public Color shade700() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -56,7 +50,7 @@ public class MaterialAccentColor extends ColorSwatch<Integer> implements Materia
       int __nid = __s.recordAccessor("materialAccentColorShade700", getId());
       return new Color(__nid);
     }
-    return new Color(MaterialAccentColorObjSt.shade700(st));
+    return factories.MaterialAccentColor_readBack_shade700(nativeStruct);
   }
   @Override
   public MaterialAccentColor build() {

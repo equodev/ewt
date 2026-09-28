@@ -35,8 +35,9 @@ class SubStateGen extends SubclassGen {
       ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode() && webWidget != null) {')
       ..writeln('      return (T) webWidget;')
       ..writeln('    }')
-      ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
-      ..writeln('    return SubclassedInJava.getSubNatObj($widgetSt.widget.invoke(funcPtr));')
+      // java-11 split: on FFM (java22) delegate to the impl, which reads the widget from the state's
+      // struct via its id->struct map (the state is foreign-free and holds only the id).
+      ..writeln('    return SubclassedInJava.getSubNatObj(factories.subStateWidget(getId()));')
       ..writeln('  }');
   }
 

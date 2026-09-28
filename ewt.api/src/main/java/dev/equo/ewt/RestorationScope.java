@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RestorationScopeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RestorationScope extends StatefulWidget implements RestorationScopeI {
-  private MemorySegment st;
   protected RestorationScope() {}
-  RestorationScope(MemorySegment st) {
-    this.id = RestorationScopeObjSt.id(st);
-    this.st = st;
+  RestorationScope(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RestorationScope");
-    System.out.println("New RestorationScope id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RestorationScope(int id) { this.id = id; }
   @Builder.Factory
   static RestorationScope restorationScopeRestorationScope(Optional<String> restorationId, WidgetI child) {
-    var st = factories.restorationScopeRestorationScope(restorationId,
+    int id = factories.restorationScopeRestorationScope(restorationId,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget RestorationScope");
-    return new RestorationScope(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget RestorationScope");
+    return new RestorationScope(id);
   }
   public static RestorationScopeRestorationScopeBuilder restorationScope() {
     return RestorationScopeRestorationScopeBuilder.restorationScopeRestorationScope();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("restorationScopeChild not supported on web");
-    return new Widget(RestorationScopeObjSt.child(st)) {};
+    return factories.RestorationScope_readBack_child(nativeStruct);
   }
   public String restorationId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("restorationScopeRestorationId not supported on web");
-    return RestorationScopeObjSt.restorationId(st).getString(0);
+    return factories.RestorationScope_readBack_restorationId(nativeStruct);
   }
   @Override
   public RestorationScope build() {

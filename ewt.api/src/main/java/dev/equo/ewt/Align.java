@@ -3,42 +3,36 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AlignObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Align extends SingleChildRenderObjectWidget implements AlignI {
-  private MemorySegment st;
   protected Align() {}
-  Align(MemorySegment st) {
-    this.id = AlignObjSt.id(st);
-    this.st = st;
+  Align(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Align");
-    System.out.println("New Align id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Align(int id) { this.id = id; }
   @Builder.Factory
   static Align alignAlign(Optional<AlignmentGeometryI> alignment, OptionalDouble widthFactor, OptionalDouble heightFactor, Optional<WidgetI> child) {
-    var st = factories.alignAlign(alignment.map(AlignmentGeometryI::build),
+    int id = factories.alignAlign(alignment.map(AlignmentGeometryI::build),
       widthFactor,
       heightFactor,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Align");
-    return new Align(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Align");
+    return new Align(id);
   }
   public static AlignAlignBuilder align() {
     return AlignAlignBuilder.alignAlign();
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignAlignment not supported on web");
-    return new AlignmentGeometry(AlignObjSt.alignment(st)) {};
+    return factories.Align_readBack_alignment(nativeStruct);
   }
   public double widthFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignWidthFactor not supported on web");
-    return AlignObjSt.widthFactor(st);
+    return factories.Align_readBack_widthFactor(nativeStruct);
   }
   public double heightFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignHeightFactor not supported on web");
-    return AlignObjSt.heightFactor(st);
+    return factories.Align_readBack_heightFactor(nativeStruct);
   }
   @Override
   public Align build() {

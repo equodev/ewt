@@ -3,41 +3,35 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FocusTraversalGroupObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FocusTraversalGroup extends StatefulWidget implements FocusTraversalGroupI {
-  private MemorySegment st;
   protected FocusTraversalGroup() {}
-  FocusTraversalGroup(MemorySegment st) {
-    this.id = FocusTraversalGroupObjSt.id(st);
-    this.st = st;
+  FocusTraversalGroup(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget FocusTraversalGroup");
-    System.out.println("New FocusTraversalGroup id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  FocusTraversalGroup(int id) { this.id = id; }
   @Builder.Factory
   static FocusTraversalGroup focusTraversalGroupFocusTraversalGroup(Optional<Boolean> descendantsAreFocusable, Optional<Boolean> descendantsAreTraversable, WidgetI child) {
-    var st = factories.focusTraversalGroupFocusTraversalGroup(descendantsAreFocusable,
+    int id = factories.focusTraversalGroupFocusTraversalGroup(descendantsAreFocusable,
       descendantsAreTraversable,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget FocusTraversalGroup");
-    return new FocusTraversalGroup(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FocusTraversalGroup");
+    return new FocusTraversalGroup(id);
   }
   public static FocusTraversalGroupFocusTraversalGroupBuilder focusTraversalGroup() {
     return FocusTraversalGroupFocusTraversalGroupBuilder.focusTraversalGroupFocusTraversalGroup();
   }
   public boolean descendantsAreFocusable() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("focusTraversalGroupDescendantsAreFocusable not supported on web");
-    return intToBool(FocusTraversalGroupObjSt.descendantsAreFocusable(st));
+    return factories.FocusTraversalGroup_readBack_descendantsAreFocusable(nativeStruct);
   }
   public boolean descendantsAreTraversable() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("focusTraversalGroupDescendantsAreTraversable not supported on web");
-    return intToBool(FocusTraversalGroupObjSt.descendantsAreTraversable(st));
+    return factories.FocusTraversalGroup_readBack_descendantsAreTraversable(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("focusTraversalGroupChild not supported on web");
-    return new Widget(FocusTraversalGroupObjSt.child(st)) {};
+    return factories.FocusTraversalGroup_readBack_child(nativeStruct);
   }
   @Override
   public FocusTraversalGroup build() {

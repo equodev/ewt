@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DrawerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Drawer extends StatelessWidget implements DrawerI {
-  private MemorySegment st;
   protected Drawer() {}
-  Drawer(MemorySegment st) {
-    this.id = DrawerObjSt.id(st);
-    this.st = st;
+  Drawer(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Drawer");
-    System.out.println("New Drawer id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Drawer(int id) { this.id = id; }
   @Builder.Factory
   static Drawer drawerDrawer(Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, OptionalDouble width, Optional<WidgetI> child, Optional<String> semanticLabel, Optional<Clip> clipBehavior) {
-    var st = factories.drawerDrawer(backgroundColor.map(ColorI::build),
+    int id = factories.drawerDrawer(backgroundColor.map(ColorI::build),
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
@@ -27,8 +21,8 @@ public class Drawer extends StatelessWidget implements DrawerI {
       child.map(WidgetI::build),
       semanticLabel,
       clipBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget Drawer");
-    return new Drawer(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Drawer");
+    return new Drawer(id);
   }
   public static DrawerDrawerBuilder drawer() {
     return DrawerDrawerBuilder.drawerDrawer();
@@ -39,11 +33,11 @@ public class Drawer extends StatelessWidget implements DrawerI {
       int __nid = __s.recordAccessor("drawerBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(DrawerObjSt.backgroundColor(st));
+    return factories.Drawer_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerElevation not supported on web");
-    return DrawerObjSt.elevation(st);
+    return factories.Drawer_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -51,7 +45,7 @@ public class Drawer extends StatelessWidget implements DrawerI {
       int __nid = __s.recordAccessor("drawerShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(DrawerObjSt.shadowColor(st));
+    return factories.Drawer_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -59,27 +53,27 @@ public class Drawer extends StatelessWidget implements DrawerI {
       int __nid = __s.recordAccessor("drawerSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(DrawerObjSt.surfaceTintColor(st));
+    return factories.Drawer_readBack_surfaceTintColor(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerShape not supported on web");
-    return new ShapeBorder(DrawerObjSt.shape(st)) {};
+    return factories.Drawer_readBack_shape(nativeStruct);
   }
   public double width() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerWidth not supported on web");
-    return DrawerObjSt.width(st);
+    return factories.Drawer_readBack_width(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerChild not supported on web");
-    return new Widget(DrawerObjSt.child(st)) {};
+    return factories.Drawer_readBack_child(nativeStruct);
   }
   public String semanticLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerSemanticLabel not supported on web");
-    return DrawerObjSt.semanticLabel(st).getString(0);
+    return factories.Drawer_readBack_semanticLabel(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("drawerClipBehavior not supported on web");
-    return Clip.values()[DrawerObjSt.clipBehavior(st)];
+    return factories.Drawer_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public Drawer build() {

@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FlexibleObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Flexible extends ParentDataWidget<FlexParentData> implements FlexibleI {
-  private MemorySegment st;
   protected Flexible() {}
-  Flexible(MemorySegment st) {
-    this.id = FlexibleObjSt.id(st);
-    this.st = st;
+  Flexible(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Flexible");
-    System.out.println("New Flexible id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Flexible(int id) { this.id = id; }
   @Builder.Factory
   static Flexible flexibleFlexible(OptionalInt flex, Optional<FlexFit> fit, WidgetI child) {
-    var st = factories.flexibleFlexible(flex,
+    int id = factories.flexibleFlexible(flex,
       fit,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Flexible");
-    return new Flexible(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Flexible");
+    return new Flexible(id);
   }
   public static FlexibleFlexibleBuilder flexible() {
     return FlexibleFlexibleBuilder.flexibleFlexible();
   }
   public int flex() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexibleFlex not supported on web");
-    return FlexibleObjSt.flex(st);
+    return factories.Flexible_readBack_flex(nativeStruct);
   }
   public FlexFit fit() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flexibleFit not supported on web");
-    return FlexFit.values()[FlexibleObjSt.fit(st)];
+    return factories.Flexible_readBack_fit(nativeStruct);
   }
   @Override
   public Flexible build() {

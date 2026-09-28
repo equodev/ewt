@@ -3,48 +3,42 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.VisualDensityObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class VisualDensity extends NativeObj.Base implements VisualDensityI {
-  private MemorySegment st;
   protected VisualDensity() {}
-  VisualDensity(MemorySegment st) {
-    this.id = VisualDensityObjSt.id(st);
-    this.st = st;
+  VisualDensity(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget VisualDensity");
-    System.out.println("New VisualDensity id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  VisualDensity(int id) { this.id = id; }
   @Builder.Factory
   static VisualDensity visualDensityVisualDensity(OptionalDouble horizontal, OptionalDouble vertical) {
-    var st = factories.visualDensityVisualDensity(horizontal,
+    int id = factories.visualDensityVisualDensity(horizontal,
       vertical);
-    if (st == null) throw new RuntimeException("Failed to created widget VisualDensity");
-    return new VisualDensity(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget VisualDensity");
+    return new VisualDensity(id);
   }
   public static VisualDensityVisualDensityBuilder visualDensity() {
     return VisualDensityVisualDensityBuilder.visualDensityVisualDensity();
   }
   public static VisualDensity defaultDensityForPlatform(TargetPlatform platform) {
-    var st = factories.visualDensityDefaultDensityForPlatform(platform);
-    if (st == null) throw new RuntimeException("Failed to created widget VisualDensity");
-    return new VisualDensity(st);
+    int id = factories.visualDensityDefaultDensityForPlatform(platform);
+    if (id <= 0) throw new RuntimeException("Failed to created widget VisualDensity");
+    return new VisualDensity(id);
   }
   public static VisualDensity lerp(VisualDensityI a, VisualDensityI b, double t) {
-    var st = factories.visualDensityLerp(a.build(),
+    int id = factories.visualDensityLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget VisualDensity");
-    return new VisualDensity(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget VisualDensity");
+    return new VisualDensity(id);
   }
   public double horizontal() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("visualDensityHorizontal not supported on web");
-    return VisualDensityObjSt.horizontal(st);
+    return factories.VisualDensity_readBack_horizontal(nativeStruct);
   }
   public double vertical() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("visualDensityVertical not supported on web");
-    return VisualDensityObjSt.vertical(st);
+    return factories.VisualDensity_readBack_vertical(nativeStruct);
   }
   public Offset baseSizeAdjustment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -52,7 +46,7 @@ public class VisualDensity extends NativeObj.Base implements VisualDensityI {
       int __nid = __s.recordAccessor("visualDensityBaseSizeAdjustment", getId());
       return new Offset(__nid);
     }
-    return new Offset(VisualDensityObjSt.baseSizeAdjustment(st));
+    return factories.VisualDensity_readBack_baseSizeAdjustment(nativeStruct);
   }
   public static double minimumDensity() {
     return -4.0;

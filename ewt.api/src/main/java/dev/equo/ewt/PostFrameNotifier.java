@@ -30,7 +30,17 @@ public final class PostFrameNotifier {
     private final AtomicReference<PostFrame> last = new AtomicReference<>(INITIAL);
     private final ConcurrentLinkedQueue<Pending> waiters = new ConcurrentLinkedQueue<>();
 
-    private record Pending(long afterFrameId, CompletableFuture<PostFrame> fut) {}
+    // java-11 split: a plain class (not a record) so it compiles at --release 11.
+    private static final class Pending {
+        private final long afterFrameId;
+        private final CompletableFuture<PostFrame> fut;
+        Pending(long afterFrameId, CompletableFuture<PostFrame> fut) {
+            this.afterFrameId = afterFrameId;
+            this.fut = fut;
+        }
+        long afterFrameId() { return afterFrameId; }
+        CompletableFuture<PostFrame> fut() { return fut; }
+    }
 
     /** Returns the frame id of the most recently received post-frame notification, or {@code -1} if none yet. */
     public long lastFrameId() {

@@ -3,24 +3,18 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BackButtonIconObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class BackButtonIcon extends StatelessWidget implements BackButtonIconI {
-  private MemorySegment st;
   protected BackButtonIcon() {}
-  BackButtonIcon(MemorySegment st) {
-    this.id = BackButtonIconObjSt.id(st);
-    this.st = st;
+  BackButtonIcon(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget BackButtonIcon");
-    System.out.println("New BackButtonIcon id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  BackButtonIcon(int id) { this.id = id; }
   @Builder.Factory
   static BackButtonIcon backButtonIconBackButtonIcon() {
-    var st = factories.backButtonIconBackButtonIcon();
-    if (st == null) throw new RuntimeException("Failed to created widget BackButtonIcon");
-    return new BackButtonIcon(st);
+    int id = factories.backButtonIconBackButtonIcon();
+    if (id <= 0) throw new RuntimeException("Failed to created widget BackButtonIcon");
+    return new BackButtonIcon(id);
   }
   public static BackButtonIconBackButtonIconBuilder backButtonIcon() {
     return BackButtonIconBackButtonIconBuilder.backButtonIconBackButtonIcon();

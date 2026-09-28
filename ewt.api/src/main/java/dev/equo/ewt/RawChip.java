@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RawChipObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RawChip extends StatefulWidget implements RawChipI {
-  private MemorySegment st;
   protected RawChip() {}
-  RawChip(MemorySegment st) {
-    this.id = RawChipObjSt.id(st);
-    this.st = st;
+  RawChip(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RawChip");
-    System.out.println("New RawChip id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RawChip(int id) { this.id = id; }
   @Builder.Factory
   static RawChip rawChipRawChip(Optional<ChipThemeDataI> defaultProperties, Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<EdgeInsetsGeometryI> labelPadding, Optional<WidgetI> deleteIcon, Optional<Runnable> onDeleted, Optional<ColorI> deleteIconColor, Optional<String> deleteButtonTooltipMessage, Optional<Runnable> onPressed, Optional<Consumer<Boolean>> onSelected, OptionalDouble pressElevation, Optional<Boolean> tapEnabled, Optional<Boolean> selected, Optional<Boolean> isEnabled, Optional<ColorI> disabledColor, Optional<ColorI> selectedColor, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<ColorI> selectedShadowColor, Optional<Boolean> showCheckmark, Optional<ColorI> checkmarkColor, Optional<ShapeBorderI> avatarBorder, Optional<BoxConstraintsI> avatarBoxConstraints, Optional<BoxConstraintsI> deleteIconBoxConstraints) {
-    var st = factories.rawChipRawChip(defaultProperties.map(ChipThemeDataI::build),
+    int id = factories.rawChipRawChip(defaultProperties.map(ChipThemeDataI::build),
       avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
@@ -55,8 +49,8 @@ public class RawChip extends StatefulWidget implements RawChipI {
       avatarBorder.map(ShapeBorderI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build),
       deleteIconBoxConstraints.map(BoxConstraintsI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget RawChip");
-    return new RawChip(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget RawChip");
+    return new RawChip(id);
   }
   public static RawChipRawChipBuilder rawChip() {
     return RawChipRawChipBuilder.rawChipRawChip();
@@ -65,37 +59,33 @@ public class RawChip extends StatefulWidget implements RawChipI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipDefaultProperties", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ChipThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.ChipThemeDataObjSt.id(__st, __nid);
-      return new ChipThemeData(__st);
+      return new ChipThemeData(__nid);
     }
-    return new ChipThemeData(RawChipObjSt.defaultProperties(st));
+    return factories.RawChip_readBack_defaultProperties(nativeStruct);
   }
   public Widget avatar() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipAvatar not supported on web");
-    return new Widget(RawChipObjSt.avatar(st)) {};
+    return factories.RawChip_readBack_avatar(nativeStruct);
   }
   public Widget label() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipLabel not supported on web");
-    return new Widget(RawChipObjSt.label(st)) {};
+    return factories.RawChip_readBack_label(nativeStruct);
   }
   public TextStyle labelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(RawChipObjSt.labelStyle(st));
+    return factories.RawChip_readBack_labelStyle(nativeStruct);
   }
   public EdgeInsetsGeometry labelPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipLabelPadding not supported on web");
-    return new EdgeInsetsGeometry(RawChipObjSt.labelPadding(st)) {};
+    return factories.RawChip_readBack_labelPadding(nativeStruct);
   }
   public Widget deleteIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipDeleteIcon not supported on web");
-    return new Widget(RawChipObjSt.deleteIcon(st)) {};
+    return factories.RawChip_readBack_deleteIcon(nativeStruct);
   }
   public Color deleteIconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -103,23 +93,23 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipDeleteIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.deleteIconColor(st));
+    return factories.RawChip_readBack_deleteIconColor(nativeStruct);
   }
   public String deleteButtonTooltipMessage() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipDeleteButtonTooltipMessage not supported on web");
-    return RawChipObjSt.deleteButtonTooltipMessage(st).getString(0);
+    return factories.RawChip_readBack_deleteButtonTooltipMessage(nativeStruct);
   }
   public double pressElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipPressElevation not supported on web");
-    return RawChipObjSt.pressElevation(st);
+    return factories.RawChip_readBack_pressElevation(nativeStruct);
   }
   public boolean selected() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipSelected not supported on web");
-    return intToBool(RawChipObjSt.selected(st));
+    return factories.RawChip_readBack_selected(nativeStruct);
   }
   public boolean isEnabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipIsEnabled not supported on web");
-    return intToBool(RawChipObjSt.isEnabled(st));
+    return factories.RawChip_readBack_isEnabled(nativeStruct);
   }
   public Color disabledColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -127,7 +117,7 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipDisabledColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.disabledColor(st));
+    return factories.RawChip_readBack_disabledColor(nativeStruct);
   }
   public Color selectedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -135,33 +125,31 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipSelectedColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.selectedColor(st));
+    return factories.RawChip_readBack_selectedColor(nativeStruct);
   }
   public String tooltip() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipTooltip not supported on web");
-    return RawChipObjSt.tooltip(st).getString(0);
+    return factories.RawChip_readBack_tooltip(nativeStruct);
   }
   public BorderSide side() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipSide", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(RawChipObjSt.side(st));
+    return factories.RawChip_readBack_side(nativeStruct);
   }
   public OutlinedBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipShape not supported on web");
-    return new OutlinedBorder(RawChipObjSt.shape(st)) {};
+    return factories.RawChip_readBack_shape(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipClipBehavior not supported on web");
-    return Clip.values()[RawChipObjSt.clipBehavior(st)];
+    return factories.RawChip_readBack_clipBehavior(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipAutofocus not supported on web");
-    return intToBool(RawChipObjSt.autofocus(st));
+    return factories.RawChip_readBack_autofocus(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -169,29 +157,27 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.backgroundColor(st));
+    return factories.RawChip_readBack_backgroundColor(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipPadding not supported on web");
-    return new EdgeInsetsGeometry(RawChipObjSt.padding(st)) {};
+    return factories.RawChip_readBack_padding(nativeStruct);
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipVisualDensity", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
-      return new VisualDensity(__st);
+      return new VisualDensity(__nid);
     }
-    return new VisualDensity(RawChipObjSt.visualDensity(st));
+    return factories.RawChip_readBack_visualDensity(nativeStruct);
   }
   public MaterialTapTargetSize materialTapTargetSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipMaterialTapTargetSize not supported on web");
-    return MaterialTapTargetSize.values()[RawChipObjSt.materialTapTargetSize(st)];
+    return factories.RawChip_readBack_materialTapTargetSize(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipElevation not supported on web");
-    return RawChipObjSt.elevation(st);
+    return factories.RawChip_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -199,7 +185,7 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.shadowColor(st));
+    return factories.RawChip_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -207,17 +193,15 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.surfaceTintColor(st));
+    return factories.RawChip_readBack_surfaceTintColor(nativeStruct);
   }
   public IconThemeData iconTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipIconTheme", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
-      return new IconThemeData(__st);
+      return new IconThemeData(__nid);
     }
-    return new IconThemeData(RawChipObjSt.iconTheme(st));
+    return factories.RawChip_readBack_iconTheme(nativeStruct);
   }
   public Color selectedShadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -225,11 +209,11 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipSelectedShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.selectedShadowColor(st));
+    return factories.RawChip_readBack_selectedShadowColor(nativeStruct);
   }
   public boolean showCheckmark() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipShowCheckmark not supported on web");
-    return intToBool(RawChipObjSt.showCheckmark(st));
+    return factories.RawChip_readBack_showCheckmark(nativeStruct);
   }
   public Color checkmarkColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -237,35 +221,31 @@ public class RawChip extends StatefulWidget implements RawChipI {
       int __nid = __s.recordAccessor("rawChipCheckmarkColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawChipObjSt.checkmarkColor(st));
+    return factories.RawChip_readBack_checkmarkColor(nativeStruct);
   }
   public ShapeBorder avatarBorder() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipAvatarBorder not supported on web");
-    return new ShapeBorder(RawChipObjSt.avatarBorder(st)) {};
+    return factories.RawChip_readBack_avatarBorder(nativeStruct);
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipAvatarBoxConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(RawChipObjSt.avatarBoxConstraints(st));
+    return factories.RawChip_readBack_avatarBoxConstraints(nativeStruct);
   }
   public BoxConstraints deleteIconBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawChipDeleteIconBoxConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(RawChipObjSt.deleteIconBoxConstraints(st));
+    return factories.RawChip_readBack_deleteIconBoxConstraints(nativeStruct);
   }
   public boolean tapEnabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawChipTapEnabled not supported on web");
-    return intToBool(RawChipObjSt.tapEnabled(st));
+    return factories.RawChip_readBack_tapEnabled(nativeStruct);
   }
   @Override
   public RawChip build() {

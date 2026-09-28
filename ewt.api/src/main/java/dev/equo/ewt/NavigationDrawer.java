@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.NavigationDrawerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class NavigationDrawer extends StatelessWidget implements NavigationDrawerI {
-  private MemorySegment st;
   protected NavigationDrawer() {}
-  NavigationDrawer(MemorySegment st) {
-    this.id = NavigationDrawerObjSt.id(st);
-    this.st = st;
+  NavigationDrawer(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigationDrawer");
-    System.out.println("New NavigationDrawer id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  NavigationDrawer(int id) { this.id = id; }
   @Builder.Factory
   static NavigationDrawer navigationDrawerNavigationDrawer(@Builder.Parameter List<WidgetI> children, Optional<WidgetI> header, Optional<WidgetI> footer, Optional<ColorI> backgroundColor, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, OptionalDouble elevation, Optional<ColorI> indicatorColor, Optional<ShapeBorderI> indicatorShape, Optional<Consumer<Integer>> onDestinationSelected, OptionalInt selectedIndex, Optional<EdgeInsetsGeometryI> tilePadding) {
-    var st = factories.navigationDrawerNavigationDrawer(children.stream().map(WidgetI::build).toList(),
+    int id = factories.navigationDrawerNavigationDrawer(children.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       header.map(WidgetI::build),
       footer.map(WidgetI::build),
       backgroundColor.map(ColorI::build),
@@ -30,8 +24,8 @@ public class NavigationDrawer extends StatelessWidget implements NavigationDrawe
       onDestinationSelected,
       selectedIndex,
       tilePadding.map(EdgeInsetsGeometryI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget NavigationDrawer");
-    return new NavigationDrawer(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigationDrawer");
+    return new NavigationDrawer(id);
   }
   public static NavigationDrawerNavigationDrawerBuilder navigationDrawer(List<WidgetI> children) {
     return NavigationDrawerNavigationDrawerBuilder.navigationDrawerNavigationDrawer(children);
@@ -42,7 +36,7 @@ public class NavigationDrawer extends StatelessWidget implements NavigationDrawe
       int __nid = __s.recordAccessor("navigationDrawerBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerObjSt.backgroundColor(st));
+    return factories.NavigationDrawer_readBack_backgroundColor(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -50,7 +44,7 @@ public class NavigationDrawer extends StatelessWidget implements NavigationDrawe
       int __nid = __s.recordAccessor("navigationDrawerShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerObjSt.shadowColor(st));
+    return factories.NavigationDrawer_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -58,11 +52,11 @@ public class NavigationDrawer extends StatelessWidget implements NavigationDrawe
       int __nid = __s.recordAccessor("navigationDrawerSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerObjSt.surfaceTintColor(st));
+    return factories.NavigationDrawer_readBack_surfaceTintColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerElevation not supported on web");
-    return NavigationDrawerObjSt.elevation(st);
+    return factories.NavigationDrawer_readBack_elevation(nativeStruct);
   }
   public Color indicatorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -70,27 +64,27 @@ public class NavigationDrawer extends StatelessWidget implements NavigationDrawe
       int __nid = __s.recordAccessor("navigationDrawerIndicatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(NavigationDrawerObjSt.indicatorColor(st));
+    return factories.NavigationDrawer_readBack_indicatorColor(nativeStruct);
   }
   public ShapeBorder indicatorShape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerIndicatorShape not supported on web");
-    return new ShapeBorder(NavigationDrawerObjSt.indicatorShape(st)) {};
+    return factories.NavigationDrawer_readBack_indicatorShape(nativeStruct);
   }
   public Widget header() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerHeader not supported on web");
-    return new Widget(NavigationDrawerObjSt.header(st)) {};
+    return factories.NavigationDrawer_readBack_header(nativeStruct);
   }
   public Widget footer() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerFooter not supported on web");
-    return new Widget(NavigationDrawerObjSt.footer(st)) {};
+    return factories.NavigationDrawer_readBack_footer(nativeStruct);
   }
   public int selectedIndex() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerSelectedIndex not supported on web");
-    return NavigationDrawerObjSt.selectedIndex(st);
+    return factories.NavigationDrawer_readBack_selectedIndex(nativeStruct);
   }
   public EdgeInsetsGeometry tilePadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigationDrawerTilePadding not supported on web");
-    return new EdgeInsetsGeometry(NavigationDrawerObjSt.tilePadding(st)) {};
+    return factories.NavigationDrawer_readBack_tilePadding(nativeStruct);
   }
   @Override
   public NavigationDrawer build() {

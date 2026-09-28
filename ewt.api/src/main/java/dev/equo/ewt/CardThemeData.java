@@ -3,44 +3,38 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CardThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CardThemeData extends NativeObj.Base implements CardThemeDataI {
-  private MemorySegment st;
   protected CardThemeData() {}
-  CardThemeData(MemorySegment st) {
-    this.id = CardThemeDataObjSt.id(st);
-    this.st = st;
+  CardThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CardThemeData");
-    System.out.println("New CardThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CardThemeData(int id) { this.id = id; }
   @Builder.Factory
   static CardThemeData cardThemeDataCardThemeData(Optional<Clip> clipBehavior, Optional<ColorI> color, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<ShapeBorderI> shape) {
-    var st = factories.cardThemeDataCardThemeData(clipBehavior,
+    int id = factories.cardThemeDataCardThemeData(clipBehavior,
       color.map(ColorI::build),
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
       elevation,
       margin.map(EdgeInsetsGeometryI::build),
       shape.map(ShapeBorderI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CardThemeData");
-    return new CardThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CardThemeData");
+    return new CardThemeData(id);
   }
   public static CardThemeDataCardThemeDataBuilder cardThemeData() {
     return CardThemeDataCardThemeDataBuilder.cardThemeDataCardThemeData();
   }
   public static CardThemeData lerp(CardThemeDataI a, CardThemeDataI b, double t) {
-    var st = factories.cardThemeDataLerp(a.build(),
+    int id = factories.cardThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget CardThemeData");
-    return new CardThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CardThemeData");
+    return new CardThemeData(id);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardThemeDataClipBehavior not supported on web");
-    return Clip.values()[CardThemeDataObjSt.clipBehavior(st)];
+    return factories.CardThemeData_readBack_clipBehavior(nativeStruct);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -48,7 +42,7 @@ public class CardThemeData extends NativeObj.Base implements CardThemeDataI {
       int __nid = __s.recordAccessor("cardThemeDataColor", getId());
       return new Color(__nid);
     }
-    return new Color(CardThemeDataObjSt.color(st));
+    return factories.CardThemeData_readBack_color(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -56,7 +50,7 @@ public class CardThemeData extends NativeObj.Base implements CardThemeDataI {
       int __nid = __s.recordAccessor("cardThemeDataShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(CardThemeDataObjSt.shadowColor(st));
+    return factories.CardThemeData_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -64,19 +58,19 @@ public class CardThemeData extends NativeObj.Base implements CardThemeDataI {
       int __nid = __s.recordAccessor("cardThemeDataSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(CardThemeDataObjSt.surfaceTintColor(st));
+    return factories.CardThemeData_readBack_surfaceTintColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardThemeDataElevation not supported on web");
-    return CardThemeDataObjSt.elevation(st);
+    return factories.CardThemeData_readBack_elevation(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardThemeDataMargin not supported on web");
-    return new EdgeInsetsGeometry(CardThemeDataObjSt.margin(st)) {};
+    return factories.CardThemeData_readBack_margin(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cardThemeDataShape not supported on web");
-    return new ShapeBorder(CardThemeDataObjSt.shape(st)) {};
+    return factories.CardThemeData_readBack_shape(nativeStruct);
   }
   @Override
   public CardThemeData build() {

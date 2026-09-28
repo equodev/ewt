@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DialogThemeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DialogTheme extends InheritedTheme implements DialogThemeI {
-  private MemorySegment st;
   protected DialogTheme() {}
-  DialogTheme(MemorySegment st) {
-    this.id = DialogThemeObjSt.id(st);
-    this.st = st;
+  DialogTheme(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DialogTheme");
-    System.out.println("New DialogTheme id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DialogTheme(int id) { this.id = id; }
   @Builder.Factory
   static DialogTheme dialogThemeDialogTheme(Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ShapeBorderI> shape, Optional<AlignmentGeometryI> alignment, Optional<ColorI> iconColor, Optional<TextStyleI> titleTextStyle, Optional<TextStyleI> contentTextStyle, Optional<EdgeInsetsGeometryI> actionsPadding, Optional<ColorI> barrierColor, Optional<EdgeInsetsI> insetPadding, Optional<Clip> clipBehavior, Optional<DialogThemeDataI> data, Optional<WidgetI> child) {
-    var st = factories.dialogThemeDialogTheme(backgroundColor.map(ColorI::build),
+    int id = factories.dialogThemeDialogTheme(backgroundColor.map(ColorI::build),
       elevation,
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
@@ -33,23 +27,23 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       clipBehavior,
       data.map(DialogThemeDataI::build),
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget DialogTheme");
-    return new DialogTheme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DialogTheme");
+    return new DialogTheme(id);
   }
   public static DialogThemeDialogThemeBuilder dialogTheme() {
     return DialogThemeDialogThemeBuilder.dialogThemeDialogTheme();
   }
   public static DialogThemeData of(BuildContextI context) {
-    var st = factories.dialogThemeOf(context.build());
-    if (st == null) throw new RuntimeException("Failed to created widget DialogThemeData");
-    return new DialogThemeData(st);
+    int id = factories.dialogThemeOf(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget DialogThemeData");
+    return new DialogThemeData(id);
   }
   public static DialogTheme lerp(DialogThemeI a, DialogThemeI b, double t) {
-    var st = factories.dialogThemeLerp(a.build(),
+    int id = factories.dialogThemeLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget DialogTheme");
-    return new DialogTheme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DialogTheme");
+    return new DialogTheme(id);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -57,11 +51,11 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       int __nid = __s.recordAccessor("dialogThemeBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(DialogThemeObjSt.backgroundColor(st));
+    return factories.DialogTheme_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dialogThemeElevation not supported on web");
-    return DialogThemeObjSt.elevation(st);
+    return factories.DialogTheme_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -69,7 +63,7 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       int __nid = __s.recordAccessor("dialogThemeShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(DialogThemeObjSt.shadowColor(st));
+    return factories.DialogTheme_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -77,39 +71,35 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       int __nid = __s.recordAccessor("dialogThemeSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(DialogThemeObjSt.surfaceTintColor(st));
+    return factories.DialogTheme_readBack_surfaceTintColor(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dialogThemeShape not supported on web");
-    return new ShapeBorder(DialogThemeObjSt.shape(st)) {};
+    return factories.DialogTheme_readBack_shape(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dialogThemeAlignment not supported on web");
-    return new AlignmentGeometry(DialogThemeObjSt.alignment(st)) {};
+    return factories.DialogTheme_readBack_alignment(nativeStruct);
   }
   public TextStyle titleTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("dialogThemeTitleTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(DialogThemeObjSt.titleTextStyle(st));
+    return factories.DialogTheme_readBack_titleTextStyle(nativeStruct);
   }
   public TextStyle contentTextStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("dialogThemeContentTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(DialogThemeObjSt.contentTextStyle(st));
+    return factories.DialogTheme_readBack_contentTextStyle(nativeStruct);
   }
   public EdgeInsetsGeometry actionsPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dialogThemeActionsPadding not supported on web");
-    return new EdgeInsetsGeometry(DialogThemeObjSt.actionsPadding(st)) {};
+    return factories.DialogTheme_readBack_actionsPadding(nativeStruct);
   }
   public Color iconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -117,7 +107,7 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       int __nid = __s.recordAccessor("dialogThemeIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(DialogThemeObjSt.iconColor(st));
+    return factories.DialogTheme_readBack_iconColor(nativeStruct);
   }
   public Color barrierColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -125,31 +115,27 @@ public class DialogTheme extends InheritedTheme implements DialogThemeI {
       int __nid = __s.recordAccessor("dialogThemeBarrierColor", getId());
       return new Color(__nid);
     }
-    return new Color(DialogThemeObjSt.barrierColor(st));
+    return factories.DialogTheme_readBack_barrierColor(nativeStruct);
   }
   public EdgeInsets insetPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("dialogThemeInsetPadding", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.EdgeInsetsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.EdgeInsetsObjSt.id(__st, __nid);
-      return new EdgeInsets(__st);
+      return new EdgeInsets(__nid);
     }
-    return new EdgeInsets(DialogThemeObjSt.insetPadding(st));
+    return factories.DialogTheme_readBack_insetPadding(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dialogThemeClipBehavior not supported on web");
-    return Clip.values()[DialogThemeObjSt.clipBehavior(st)];
+    return factories.DialogTheme_readBack_clipBehavior(nativeStruct);
   }
   public DialogThemeData data() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("dialogThemeData", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.DialogThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.DialogThemeDataObjSt.id(__st, __nid);
-      return new DialogThemeData(__st);
+      return new DialogThemeData(__nid);
     }
-    return new DialogThemeData(DialogThemeObjSt.data(st));
+    return factories.DialogTheme_readBack_data(nativeStruct);
   }
   @Override
   public DialogTheme build() {

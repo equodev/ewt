@@ -3,32 +3,26 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RoundedRectangleBorderObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RoundedRectangleBorder extends OutlinedBorder implements RoundedRectangleBorderI {
-  private MemorySegment st;
   protected RoundedRectangleBorder() {}
-  RoundedRectangleBorder(MemorySegment st) {
-    this.id = RoundedRectangleBorderObjSt.id(st);
-    this.st = st;
+  RoundedRectangleBorder(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RoundedRectangleBorder");
-    System.out.println("New RoundedRectangleBorder id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RoundedRectangleBorder(int id) { this.id = id; }
   @Builder.Factory
   static RoundedRectangleBorder roundedRectangleBorderRoundedRectangleBorder(Optional<BorderSideI> side, Optional<BorderRadiusGeometryI> borderRadius) {
-    var st = factories.roundedRectangleBorderRoundedRectangleBorder(side.map(BorderSideI::build),
+    int id = factories.roundedRectangleBorderRoundedRectangleBorder(side.map(BorderSideI::build),
       borderRadius.map(BorderRadiusGeometryI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget RoundedRectangleBorder");
-    return new RoundedRectangleBorder(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget RoundedRectangleBorder");
+    return new RoundedRectangleBorder(id);
   }
   public static RoundedRectangleBorderRoundedRectangleBorderBuilder roundedRectangleBorder() {
     return RoundedRectangleBorderRoundedRectangleBorderBuilder.roundedRectangleBorderRoundedRectangleBorder();
   }
   public BorderRadiusGeometry borderRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("roundedRectangleBorderBorderRadius not supported on web");
-    return new BorderRadiusGeometry(RoundedRectangleBorderObjSt.borderRadius(st)) {};
+    return factories.RoundedRectangleBorder_readBack_borderRadius(nativeStruct);
   }
   @Override
   public RoundedRectangleBorder build() {

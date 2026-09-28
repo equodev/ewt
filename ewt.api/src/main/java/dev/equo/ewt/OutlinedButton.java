@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.OutlinedButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class OutlinedButton extends ButtonStyleButton implements OutlinedButtonI {
-  private MemorySegment st;
   protected OutlinedButton() {}
-  OutlinedButton(MemorySegment st) {
-    this.id = OutlinedButtonObjSt.id(st);
-    this.st = st;
+  OutlinedButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget OutlinedButton");
-    System.out.println("New OutlinedButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  OutlinedButton(int id) { this.id = id; }
   @Builder.Factory
   static OutlinedButton outlinedButtonOutlinedButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> child) {
-    var st = factories.outlinedButtonOutlinedButton(onPressed,
+    int id = factories.outlinedButtonOutlinedButton(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
       autofocus,
       clipBehavior,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget OutlinedButton");
-    return new OutlinedButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget OutlinedButton");
+    return new OutlinedButton(id);
   }
   public static OutlinedButtonOutlinedButtonBuilder outlinedButton() {
     return OutlinedButtonOutlinedButtonBuilder.outlinedButtonOutlinedButton();
   }
   @Builder.Factory
   static OutlinedButton outlinedButtonIcon(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHover, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<Clip> clipBehavior, Optional<WidgetI> icon, WidgetI label, Optional<IconAlignment> iconAlignment) {
-    var st = factories.outlinedButtonIcon(onPressed,
+    int id = factories.outlinedButtonIcon(onPressed,
       onLongPress,
       onHover,
       onFocusChange,
@@ -42,8 +36,8 @@ public class OutlinedButton extends ButtonStyleButton implements OutlinedButtonI
       icon.map(WidgetI::build),
       label.build(),
       iconAlignment);
-    if (st == null) throw new RuntimeException("Failed to created widget OutlinedButton");
-    return new OutlinedButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget OutlinedButton");
+    return new OutlinedButton(id);
   }
   public static OutlinedButtonIconBuilder icon() {
     return OutlinedButtonIconBuilder.outlinedButtonIcon();

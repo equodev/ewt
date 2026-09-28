@@ -434,9 +434,9 @@ class Params {
         final arrayType = t.typeArguments[0];
         if (!isPrimitive(arrayType)) {
           if (param.isOptional) {
-            v = '$value.map(i -> i.stream().map(${arrayType.element!.name}I::build).toList())';
+            v = '$value.map(i -> i.stream().map(${arrayType.element!.name}I::build).collect(java.util.stream.Collectors.toList()))';
           } else {
-            v = '$value.stream().map(${arrayType.element!.name}I::build).toList()';
+            v = '$value.stream().map(${arrayType.element!.name}I::build).collect(java.util.stream.Collectors.toList())';
           }
         }
       }

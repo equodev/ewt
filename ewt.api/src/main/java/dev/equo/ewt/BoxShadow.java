@@ -3,46 +3,40 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BoxShadowObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class BoxShadow extends Shadow implements BoxShadowI {
-  private MemorySegment st;
   protected BoxShadow() {}
-  BoxShadow(MemorySegment st) {
-    this.id = BoxShadowObjSt.id(st);
-    this.st = st;
+  BoxShadow(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxShadow");
-    System.out.println("New BoxShadow id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  BoxShadow(int id) { this.id = id; }
   @Builder.Factory
   static BoxShadow boxShadowBoxShadow(Optional<ColorI> color, Optional<OffsetI> offset, OptionalDouble blurRadius, OptionalDouble spreadRadius, Optional<BlurStyle> blurStyle) {
-    var st = factories.boxShadowBoxShadow(color.map(ColorI::build),
+    int id = factories.boxShadowBoxShadow(color.map(ColorI::build),
       offset.map(OffsetI::build),
       blurRadius,
       spreadRadius,
       blurStyle);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxShadow");
-    return new BoxShadow(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxShadow");
+    return new BoxShadow(id);
   }
   public static BoxShadowBoxShadowBuilder boxShadow() {
     return BoxShadowBoxShadowBuilder.boxShadowBoxShadow();
   }
   public static BoxShadow lerp(BoxShadowI a, BoxShadowI b, double t) {
-    var st = factories.boxShadowLerp(a.build(),
+    int id = factories.boxShadowLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxShadow");
-    return new BoxShadow(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxShadow");
+    return new BoxShadow(id);
   }
   public double spreadRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxShadowSpreadRadius not supported on web");
-    return BoxShadowObjSt.spreadRadius(st);
+    return factories.BoxShadow_readBack_spreadRadius(nativeStruct);
   }
   public BlurStyle blurStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxShadowBlurStyle not supported on web");
-    return BlurStyle.values()[BoxShadowObjSt.blurStyle(st)];
+    return factories.BoxShadow_readBack_blurStyle(nativeStruct);
   }
   @Override
   public BoxShadow build() {

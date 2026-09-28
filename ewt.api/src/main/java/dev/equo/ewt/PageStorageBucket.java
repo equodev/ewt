@@ -12,7 +12,7 @@ public class PageStorageBucket extends NativeObj.Base implements PageStorageBuck
   static { NativeObj.register("PageStorageBucket", PageStorageBucket::byId); }
   @Builder.Factory
   static PageStorageBucket pageStorageBucketPageStorageBucket() {
-    int id = factories.pageStorageBucketPageStorageBucket();
+    var id = factories.pageStorageBucketPageStorageBucket();
     if (id <= 0) throw new RuntimeException("Failed to created widget PageStorageBucket");
     System.out.println("New PageStorageBucket id:"+id);
     return new PageStorageBucket(id);

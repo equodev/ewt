@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ListWheelScrollViewObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ListWheelScrollView extends StatefulWidget implements ListWheelScrollViewI {
-  private MemorySegment st;
   protected ListWheelScrollView() {}
-  ListWheelScrollView(MemorySegment st) {
-    this.id = ListWheelScrollViewObjSt.id(st);
-    this.st = st;
+  ListWheelScrollView(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ListWheelScrollView");
-    System.out.println("New ListWheelScrollView id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ListWheelScrollView(int id) { this.id = id; }
   @Builder.Factory
   static ListWheelScrollView listWheelScrollViewListWheelScrollView(OptionalDouble diameterRatio, OptionalDouble perspective, OptionalDouble offAxisFraction, Optional<Boolean> useMagnifier, OptionalDouble magnification, OptionalDouble overAndUnderCenterOpacity, double itemExtent, OptionalDouble squeeze, Optional<Consumer<Integer>> onSelectedItemChanged, Optional<Boolean> renderChildrenOutsideViewport, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId, Optional<DragStartBehavior> dragStartBehavior, Optional<ChangeReportingBehavior> changeReportingBehavior, List<WidgetI> children) {
-    var st = factories.listWheelScrollViewListWheelScrollView(diameterRatio,
+    int id = factories.listWheelScrollViewListWheelScrollView(diameterRatio,
       perspective,
       offAxisFraction,
       useMagnifier,
@@ -33,68 +27,68 @@ public class ListWheelScrollView extends StatefulWidget implements ListWheelScro
       restorationId,
       dragStartBehavior,
       changeReportingBehavior,
-      children.stream().map(WidgetI::build).toList());
-    if (st == null) throw new RuntimeException("Failed to created widget ListWheelScrollView");
-    return new ListWheelScrollView(st);
+      children.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()));
+    if (id <= 0) throw new RuntimeException("Failed to created widget ListWheelScrollView");
+    return new ListWheelScrollView(id);
   }
   public static ListWheelScrollViewListWheelScrollViewBuilder listWheelScrollView() {
     return ListWheelScrollViewListWheelScrollViewBuilder.listWheelScrollViewListWheelScrollView();
   }
   public double diameterRatio() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewDiameterRatio not supported on web");
-    return ListWheelScrollViewObjSt.diameterRatio(st);
+    return factories.ListWheelScrollView_readBack_diameterRatio(nativeStruct);
   }
   public double perspective() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewPerspective not supported on web");
-    return ListWheelScrollViewObjSt.perspective(st);
+    return factories.ListWheelScrollView_readBack_perspective(nativeStruct);
   }
   public double offAxisFraction() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewOffAxisFraction not supported on web");
-    return ListWheelScrollViewObjSt.offAxisFraction(st);
+    return factories.ListWheelScrollView_readBack_offAxisFraction(nativeStruct);
   }
   public boolean useMagnifier() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewUseMagnifier not supported on web");
-    return intToBool(ListWheelScrollViewObjSt.useMagnifier(st));
+    return factories.ListWheelScrollView_readBack_useMagnifier(nativeStruct);
   }
   public double magnification() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewMagnification not supported on web");
-    return ListWheelScrollViewObjSt.magnification(st);
+    return factories.ListWheelScrollView_readBack_magnification(nativeStruct);
   }
   public double overAndUnderCenterOpacity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewOverAndUnderCenterOpacity not supported on web");
-    return ListWheelScrollViewObjSt.overAndUnderCenterOpacity(st);
+    return factories.ListWheelScrollView_readBack_overAndUnderCenterOpacity(nativeStruct);
   }
   public double itemExtent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewItemExtent not supported on web");
-    return ListWheelScrollViewObjSt.itemExtent(st);
+    return factories.ListWheelScrollView_readBack_itemExtent(nativeStruct);
   }
   public double squeeze() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewSqueeze not supported on web");
-    return ListWheelScrollViewObjSt.squeeze(st);
+    return factories.ListWheelScrollView_readBack_squeeze(nativeStruct);
   }
   public boolean renderChildrenOutsideViewport() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewRenderChildrenOutsideViewport not supported on web");
-    return intToBool(ListWheelScrollViewObjSt.renderChildrenOutsideViewport(st));
+    return factories.ListWheelScrollView_readBack_renderChildrenOutsideViewport(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewClipBehavior not supported on web");
-    return Clip.values()[ListWheelScrollViewObjSt.clipBehavior(st)];
+    return factories.ListWheelScrollView_readBack_clipBehavior(nativeStruct);
   }
   public HitTestBehavior hitTestBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewHitTestBehavior not supported on web");
-    return HitTestBehavior.values()[ListWheelScrollViewObjSt.hitTestBehavior(st)];
+    return factories.ListWheelScrollView_readBack_hitTestBehavior(nativeStruct);
   }
   public String restorationId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewRestorationId not supported on web");
-    return ListWheelScrollViewObjSt.restorationId(st).getString(0);
+    return factories.ListWheelScrollView_readBack_restorationId(nativeStruct);
   }
   public DragStartBehavior dragStartBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewDragStartBehavior not supported on web");
-    return DragStartBehavior.values()[ListWheelScrollViewObjSt.dragStartBehavior(st)];
+    return factories.ListWheelScrollView_readBack_dragStartBehavior(nativeStruct);
   }
   public ChangeReportingBehavior changeReportingBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("listWheelScrollViewChangeReportingBehavior not supported on web");
-    return ChangeReportingBehavior.values()[ListWheelScrollViewObjSt.changeReportingBehavior(st)];
+    return factories.ListWheelScrollView_readBack_changeReportingBehavior(nativeStruct);
   }
   @Override
   public ListWheelScrollView build() {

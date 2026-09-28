@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TextFieldTapRegionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextFieldTapRegion extends TapRegion implements TextFieldTapRegionI {
-  private MemorySegment st;
   protected TextFieldTapRegion() {}
-  TextFieldTapRegion(MemorySegment st) {
-    this.id = TextFieldTapRegionObjSt.id(st);
-    this.st = st;
+  TextFieldTapRegion(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TextFieldTapRegion");
-    System.out.println("New TextFieldTapRegion id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TextFieldTapRegion(int id) { this.id = id; }
   @Builder.Factory
   static TextFieldTapRegion textFieldTapRegionTextFieldTapRegion(Optional<WidgetI> child, Optional<Boolean> enabled, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel, Optional<NativeObj.I> groupId) {
-    var st = factories.textFieldTapRegionTextFieldTapRegion(child.map(WidgetI::build),
+    int id = factories.textFieldTapRegionTextFieldTapRegion(child.map(WidgetI::build),
       enabled,
       onTapOutside,
       onTapInside,
@@ -27,8 +21,8 @@ public class TextFieldTapRegion extends TapRegion implements TextFieldTapRegionI
       consumeOutsideTaps,
       debugLabel,
       groupId.map(NativeObj.I::build));
-    if (st == null) throw new RuntimeException("Failed to created widget TextFieldTapRegion");
-    return new TextFieldTapRegion(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextFieldTapRegion");
+    return new TextFieldTapRegion(id);
   }
   public static TextFieldTapRegionTextFieldTapRegionBuilder textFieldTapRegion() {
     return TextFieldTapRegionTextFieldTapRegionBuilder.textFieldTapRegionTextFieldTapRegion();

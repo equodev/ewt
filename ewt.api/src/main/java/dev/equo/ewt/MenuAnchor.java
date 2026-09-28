@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MenuAnchorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MenuAnchor extends StatefulWidget implements MenuAnchorI {
-  private MemorySegment st;
   protected MenuAnchor() {}
-  MenuAnchor(MemorySegment st) {
-    this.id = MenuAnchorObjSt.id(st);
-    this.st = st;
+  MenuAnchor(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget MenuAnchor");
-    System.out.println("New MenuAnchor id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  MenuAnchor(int id) { this.id = id; }
   @Builder.Factory
   static MenuAnchor menuAnchorMenuAnchor(Optional<OffsetI> alignmentOffset, Optional<EdgeInsetsGeometryI> reservedPadding, Optional<Clip> clipBehavior, Optional<Boolean> anchorTapClosesMenu, Optional<Boolean> consumeOutsideTap, Optional<Runnable> onOpen, Optional<Runnable> onClose, Optional<Boolean> crossAxisUnconstrained, Optional<Boolean> useRootOverlay, Optional<Boolean> animated, Optional<Consumer<AnimationStatus>> onAnimationStatusChanged, List<WidgetI> menuChildren, Optional<WidgetI> child) {
-    var st = factories.menuAnchorMenuAnchor(alignmentOffset.map(OffsetI::build),
+    int id = factories.menuAnchorMenuAnchor(alignmentOffset.map(OffsetI::build),
       reservedPadding.map(EdgeInsetsGeometryI::build),
       clipBehavior,
       anchorTapClosesMenu,
@@ -29,10 +23,10 @@ public class MenuAnchor extends StatefulWidget implements MenuAnchorI {
       useRootOverlay,
       animated,
       onAnimationStatusChanged,
-      menuChildren.stream().map(WidgetI::build).toList(),
+      menuChildren.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget MenuAnchor");
-    return new MenuAnchor(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget MenuAnchor");
+    return new MenuAnchor(id);
   }
   public static MenuAnchorMenuAnchorBuilder menuAnchor() {
     return MenuAnchorMenuAnchorBuilder.menuAnchorMenuAnchor();
@@ -43,39 +37,39 @@ public class MenuAnchor extends StatefulWidget implements MenuAnchorI {
       int __nid = __s.recordAccessor("menuAnchorAlignmentOffset", getId());
       return new Offset(__nid);
     }
-    return new Offset(MenuAnchorObjSt.alignmentOffset(st));
+    return factories.MenuAnchor_readBack_alignmentOffset(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorClipBehavior not supported on web");
-    return Clip.values()[MenuAnchorObjSt.clipBehavior(st)];
+    return factories.MenuAnchor_readBack_clipBehavior(nativeStruct);
   }
   public boolean anchorTapClosesMenu() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorAnchorTapClosesMenu not supported on web");
-    return intToBool(MenuAnchorObjSt.anchorTapClosesMenu(st));
+    return factories.MenuAnchor_readBack_anchorTapClosesMenu(nativeStruct);
   }
   public boolean consumeOutsideTap() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorConsumeOutsideTap not supported on web");
-    return intToBool(MenuAnchorObjSt.consumeOutsideTap(st));
+    return factories.MenuAnchor_readBack_consumeOutsideTap(nativeStruct);
   }
   public boolean crossAxisUnconstrained() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorCrossAxisUnconstrained not supported on web");
-    return intToBool(MenuAnchorObjSt.crossAxisUnconstrained(st));
+    return factories.MenuAnchor_readBack_crossAxisUnconstrained(nativeStruct);
   }
   public boolean useRootOverlay() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorUseRootOverlay not supported on web");
-    return intToBool(MenuAnchorObjSt.useRootOverlay(st));
+    return factories.MenuAnchor_readBack_useRootOverlay(nativeStruct);
   }
   public boolean animated() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorAnimated not supported on web");
-    return intToBool(MenuAnchorObjSt.animated(st));
+    return factories.MenuAnchor_readBack_animated(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorChild not supported on web");
-    return new Widget(MenuAnchorObjSt.child(st)) {};
+    return factories.MenuAnchor_readBack_child(nativeStruct);
   }
   public EdgeInsetsGeometry reservedPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("menuAnchorReservedPadding not supported on web");
-    return new EdgeInsetsGeometry(MenuAnchorObjSt.reservedPadding(st)) {};
+    return factories.MenuAnchor_readBack_reservedPadding(nativeStruct);
   }
   @Override
   public MenuAnchor build() {

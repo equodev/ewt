@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TabBarThemeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
-  private MemorySegment st;
   protected TabBarTheme() {}
-  TabBarTheme(MemorySegment st) {
-    this.id = TabBarThemeObjSt.id(st);
-    this.st = st;
+  TabBarTheme(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TabBarTheme");
-    System.out.println("New TabBarTheme id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TabBarTheme(int id) { this.id = id; }
   @Builder.Factory
   static TabBarTheme tabBarThemeTabBarTheme(Optional<DecorationI> indicator, Optional<ColorI> indicatorColor, Optional<TabBarIndicatorSize> indicatorSize, Optional<ColorI> dividerColor, OptionalDouble dividerHeight, Optional<ColorI> labelColor, Optional<EdgeInsetsGeometryI> labelPadding, Optional<TextStyleI> labelStyle, Optional<ColorI> unselectedLabelColor, Optional<TextStyleI> unselectedLabelStyle, Optional<ColorI> overlayColor, Optional<TabAlignment> tabAlignment, Optional<TabIndicatorAnimation> indicatorAnimation, Optional<TabBarThemeDataI> data, Optional<WidgetI> child) {
-    var st = factories.tabBarThemeTabBarTheme(indicator.map(DecorationI::build),
+    int id = factories.tabBarThemeTabBarTheme(indicator.map(DecorationI::build),
       indicatorColor.map(ColorI::build),
       indicatorSize,
       dividerColor.map(ColorI::build),
@@ -33,27 +27,27 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
       indicatorAnimation,
       data.map(TabBarThemeDataI::build),
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget TabBarTheme");
-    return new TabBarTheme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TabBarTheme");
+    return new TabBarTheme(id);
   }
   public static TabBarThemeTabBarThemeBuilder tabBarTheme() {
     return TabBarThemeTabBarThemeBuilder.tabBarThemeTabBarTheme();
   }
   public static TabBarThemeData of(BuildContextI context) {
-    var st = factories.tabBarThemeOf(context.build());
-    if (st == null) throw new RuntimeException("Failed to created widget TabBarThemeData");
-    return new TabBarThemeData(st);
+    int id = factories.tabBarThemeOf(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget TabBarThemeData");
+    return new TabBarThemeData(id);
   }
   public static TabBarTheme lerp(TabBarThemeI a, TabBarThemeI b, double t) {
-    var st = factories.tabBarThemeLerp(a.build(),
+    int id = factories.tabBarThemeLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget TabBarTheme");
-    return new TabBarTheme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TabBarTheme");
+    return new TabBarTheme(id);
   }
   public Decoration indicator() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeIndicator not supported on web");
-    return new Decoration(TabBarThemeObjSt.indicator(st)) {};
+    return factories.TabBarTheme_readBack_indicator(nativeStruct);
   }
   public Color indicatorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -61,11 +55,11 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
       int __nid = __s.recordAccessor("tabBarThemeIndicatorColor", getId());
       return new Color(__nid);
     }
-    return new Color(TabBarThemeObjSt.indicatorColor(st));
+    return factories.TabBarTheme_readBack_indicatorColor(nativeStruct);
   }
   public TabBarIndicatorSize indicatorSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeIndicatorSize not supported on web");
-    return TabBarIndicatorSize.values()[TabBarThemeObjSt.indicatorSize(st)];
+    return factories.TabBarTheme_readBack_indicatorSize(nativeStruct);
   }
   public Color dividerColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -73,11 +67,11 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
       int __nid = __s.recordAccessor("tabBarThemeDividerColor", getId());
       return new Color(__nid);
     }
-    return new Color(TabBarThemeObjSt.dividerColor(st));
+    return factories.TabBarTheme_readBack_dividerColor(nativeStruct);
   }
   public double dividerHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeDividerHeight not supported on web");
-    return TabBarThemeObjSt.dividerHeight(st);
+    return factories.TabBarTheme_readBack_dividerHeight(nativeStruct);
   }
   public Color labelColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -85,21 +79,19 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
       int __nid = __s.recordAccessor("tabBarThemeLabelColor", getId());
       return new Color(__nid);
     }
-    return new Color(TabBarThemeObjSt.labelColor(st));
+    return factories.TabBarTheme_readBack_labelColor(nativeStruct);
   }
   public EdgeInsetsGeometry labelPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeLabelPadding not supported on web");
-    return new EdgeInsetsGeometry(TabBarThemeObjSt.labelPadding(st)) {};
+    return factories.TabBarTheme_readBack_labelPadding(nativeStruct);
   }
   public TextStyle labelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("tabBarThemeLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TabBarThemeObjSt.labelStyle(st));
+    return factories.TabBarTheme_readBack_labelStyle(nativeStruct);
   }
   public Color unselectedLabelColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -107,35 +99,31 @@ public class TabBarTheme extends InheritedTheme implements TabBarThemeI {
       int __nid = __s.recordAccessor("tabBarThemeUnselectedLabelColor", getId());
       return new Color(__nid);
     }
-    return new Color(TabBarThemeObjSt.unselectedLabelColor(st));
+    return factories.TabBarTheme_readBack_unselectedLabelColor(nativeStruct);
   }
   public TextStyle unselectedLabelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("tabBarThemeUnselectedLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(TabBarThemeObjSt.unselectedLabelStyle(st));
+    return factories.TabBarTheme_readBack_unselectedLabelStyle(nativeStruct);
   }
   public TabAlignment tabAlignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeTabAlignment not supported on web");
-    return TabAlignment.values()[TabBarThemeObjSt.tabAlignment(st)];
+    return factories.TabBarTheme_readBack_tabAlignment(nativeStruct);
   }
   public TabIndicatorAnimation indicatorAnimation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tabBarThemeIndicatorAnimation not supported on web");
-    return TabIndicatorAnimation.values()[TabBarThemeObjSt.indicatorAnimation(st)];
+    return factories.TabBarTheme_readBack_indicatorAnimation(nativeStruct);
   }
   public TabBarThemeData data() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("tabBarThemeData", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TabBarThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TabBarThemeDataObjSt.id(__st, __nid);
-      return new TabBarThemeData(__st);
+      return new TabBarThemeData(__nid);
     }
-    return new TabBarThemeData(TabBarThemeObjSt.data(st));
+    return factories.TabBarTheme_readBack_data(nativeStruct);
   }
   @Override
   public TabBarTheme build() {

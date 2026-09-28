@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SnackBarObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SnackBar extends StatefulWidget implements SnackBarI {
-  private MemorySegment st;
   protected SnackBar() {}
-  SnackBar(MemorySegment st) {
-    this.id = SnackBarObjSt.id(st);
-    this.st = st;
+  SnackBar(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SnackBar");
-    System.out.println("New SnackBar id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SnackBar(int id) { this.id = id; }
   @Builder.Factory
   static SnackBar snackBarSnackBar(@Builder.Parameter WidgetI content, Optional<ColorI> backgroundColor, OptionalDouble elevation, Optional<EdgeInsetsGeometryI> margin, Optional<EdgeInsetsGeometryI> padding, OptionalDouble width, Optional<ShapeBorderI> shape, Optional<HitTestBehavior> hitTestBehavior, Optional<SnackBarBehavior> behavior, Optional<SnackBarActionI> action, OptionalDouble actionOverflowThreshold, Optional<Boolean> showCloseIcon, Optional<ColorI> closeIconColor, Optional<DurationI> duration, Optional<Boolean> persist, Optional<AnimationI> animation, Optional<Runnable> onVisible, Optional<DismissDirection> dismissDirection, Optional<Clip> clipBehavior) {
-    var st = factories.snackBarSnackBar(content.build(),
+    int id = factories.snackBarSnackBar(content.build(),
       backgroundColor.map(ColorI::build),
       elevation,
       margin.map(EdgeInsetsGeometryI::build),
@@ -37,14 +31,14 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
       onVisible,
       dismissDirection,
       clipBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget SnackBar");
-    return new SnackBar(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SnackBar");
+    return new SnackBar(id);
   }
   public static SnackBarSnackBarBuilder snackBar(WidgetI content) {
     return SnackBarSnackBarBuilder.snackBarSnackBar(content);
   }
   public static AnimationController createAnimationController(TickerProviderI vsync) {
-    int id = factories.snackBarCreateAnimationController(vsync.build(),
+    var id = factories.snackBarCreateAnimationController(vsync.build(),
       Optional.empty(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
@@ -53,7 +47,7 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
   }
   public Widget content() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarContent not supported on web");
-    return new Widget(SnackBarObjSt.content(st)) {};
+    return factories.SnackBar_readBack_content(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -61,53 +55,51 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
       int __nid = __s.recordAccessor("snackBarBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(SnackBarObjSt.backgroundColor(st));
+    return factories.SnackBar_readBack_backgroundColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarElevation not supported on web");
-    return SnackBarObjSt.elevation(st);
+    return factories.SnackBar_readBack_elevation(nativeStruct);
   }
   public EdgeInsetsGeometry margin() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarMargin not supported on web");
-    return new EdgeInsetsGeometry(SnackBarObjSt.margin(st)) {};
+    return factories.SnackBar_readBack_margin(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarPadding not supported on web");
-    return new EdgeInsetsGeometry(SnackBarObjSt.padding(st)) {};
+    return factories.SnackBar_readBack_padding(nativeStruct);
   }
   public double width() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarWidth not supported on web");
-    return SnackBarObjSt.width(st);
+    return factories.SnackBar_readBack_width(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarShape not supported on web");
-    return new ShapeBorder(SnackBarObjSt.shape(st)) {};
+    return factories.SnackBar_readBack_shape(nativeStruct);
   }
   public HitTestBehavior hitTestBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarHitTestBehavior not supported on web");
-    return HitTestBehavior.values()[SnackBarObjSt.hitTestBehavior(st)];
+    return factories.SnackBar_readBack_hitTestBehavior(nativeStruct);
   }
   public SnackBarBehavior behavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarBehavior not supported on web");
-    return SnackBarBehavior.values()[SnackBarObjSt.behavior(st)];
+    return factories.SnackBar_readBack_behavior(nativeStruct);
   }
   public SnackBarAction action() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("snackBarAction", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.SnackBarActionObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.SnackBarActionObjSt.id(__st, __nid);
-      return new SnackBarAction(__st);
+      return new SnackBarAction(__nid);
     }
-    return new SnackBarAction(SnackBarObjSt.action(st));
+    return factories.SnackBar_readBack_action(nativeStruct);
   }
   public double actionOverflowThreshold() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarActionOverflowThreshold not supported on web");
-    return SnackBarObjSt.actionOverflowThreshold(st);
+    return factories.SnackBar_readBack_actionOverflowThreshold(nativeStruct);
   }
   public boolean showCloseIcon() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarShowCloseIcon not supported on web");
-    return intToBool(SnackBarObjSt.showCloseIcon(st));
+    return factories.SnackBar_readBack_showCloseIcon(nativeStruct);
   }
   public Color closeIconColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -115,7 +107,7 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
       int __nid = __s.recordAccessor("snackBarCloseIconColor", getId());
       return new Color(__nid);
     }
-    return new Color(SnackBarObjSt.closeIconColor(st));
+    return factories.SnackBar_readBack_closeIconColor(nativeStruct);
   }
   public Duration duration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -123,23 +115,23 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
       int __nid = __s.recordAccessor("snackBarDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(SnackBarObjSt.duration(st));
+    return factories.SnackBar_readBack_duration(nativeStruct);
   }
   public boolean persist() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarPersist not supported on web");
-    return intToBool(SnackBarObjSt.persist(st));
+    return factories.SnackBar_readBack_persist(nativeStruct);
   }
   public Animation animation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarAnimation not supported on web");
-    return new Animation() { public int getId() { return SnackBarObjSt.animation(st); } };
+    return factories.SnackBar_readBack_animation(nativeStruct);
   }
   public DismissDirection dismissDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarDismissDirection not supported on web");
-    return DismissDirection.values()[SnackBarObjSt.dismissDirection(st)];
+    return factories.SnackBar_readBack_dismissDirection(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("snackBarClipBehavior not supported on web");
-    return Clip.values()[SnackBarObjSt.clipBehavior(st)];
+    return factories.SnackBar_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public SnackBar build() {

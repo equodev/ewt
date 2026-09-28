@@ -3,43 +3,37 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.AlignmentObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Alignment extends AlignmentGeometry implements AlignmentI {
-  private MemorySegment st;
   protected Alignment() {}
-  Alignment(MemorySegment st) {
-    this.id = AlignmentObjSt.id(st);
-    this.st = st;
+  Alignment(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Alignment");
-    System.out.println("New Alignment id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Alignment(int id) { this.id = id; }
   @Builder.Factory
   static Alignment alignmentAlignment(@Builder.Parameter double x, @Builder.Parameter double y) {
-    var st = factories.alignmentAlignment(x,
+    int id = factories.alignmentAlignment(x,
       y);
-    if (st == null) throw new RuntimeException("Failed to created widget Alignment");
-    return new Alignment(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Alignment");
+    return new Alignment(id);
   }
   public static AlignmentAlignmentBuilder alignment(double x, double y) {
     return AlignmentAlignmentBuilder.alignmentAlignment(x, y);
   }
   public static Alignment lerp(AlignmentI a, AlignmentI b, double t) {
-    var st = factories.alignmentLerp(a.build(),
+    int id = factories.alignmentLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget Alignment");
-    return new Alignment(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Alignment");
+    return new Alignment(id);
   }
   public double x() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignmentX not supported on web");
-    return AlignmentObjSt.x(st);
+    return factories.Alignment_readBack_x(nativeStruct);
   }
   public double y() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("alignmentY not supported on web");
-    return AlignmentObjSt.y(st);
+    return factories.Alignment_readBack_y(nativeStruct);
   }
   public static Alignment topLeft() {
     return Alignment.alignment(-1.0, -1.0).build();

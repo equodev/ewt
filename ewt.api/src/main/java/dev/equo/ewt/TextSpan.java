@@ -3,50 +3,44 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TextSpanObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextSpan extends InlineSpan implements TextSpanI {
-  private MemorySegment st;
   protected TextSpan() {}
-  TextSpan(MemorySegment st) {
-    this.id = TextSpanObjSt.id(st);
-    this.st = st;
+  TextSpan(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TextSpan");
-    System.out.println("New TextSpan id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TextSpan(int id) { this.id = id; }
   @Builder.Factory
   static TextSpan textSpanTextSpan(Optional<String> text, Optional<List<InlineSpanI>> children, Optional<TextStyleI> style, Optional<Consumer<PointerEnterEvent>> onEnter, Optional<Consumer<PointerExitEvent>> onExit, Optional<String> semanticsLabel, Optional<String> semanticsIdentifier, Optional<Boolean> spellOut) {
-    var st = factories.textSpanTextSpan(text,
-      children.map(i -> i.stream().map(InlineSpanI::build).toList()),
+    int id = factories.textSpanTextSpan(text,
+      children.map(i -> i.stream().map(InlineSpanI::build).collect(java.util.stream.Collectors.toList())),
       style.map(TextStyleI::build),
       onEnter,
       onExit,
       semanticsLabel,
       semanticsIdentifier,
       spellOut);
-    if (st == null) throw new RuntimeException("Failed to created widget TextSpan");
-    return new TextSpan(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextSpan");
+    return new TextSpan(id);
   }
   public static TextSpanTextSpanBuilder textSpan() {
     return TextSpanTextSpanBuilder.textSpanTextSpan();
   }
   public String text() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanText not supported on web");
-    return TextSpanObjSt.text(st).getString(0);
+    return factories.TextSpan_readBack_text(nativeStruct);
   }
   public String semanticsLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanSemanticsLabel not supported on web");
-    return TextSpanObjSt.semanticsLabel(st).getString(0);
+    return factories.TextSpan_readBack_semanticsLabel(nativeStruct);
   }
   public String semanticsIdentifier() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanSemanticsIdentifier not supported on web");
-    return TextSpanObjSt.semanticsIdentifier(st).getString(0);
+    return factories.TextSpan_readBack_semanticsIdentifier(nativeStruct);
   }
   public boolean spellOut() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSpanSpellOut not supported on web");
-    return intToBool(TextSpanObjSt.spellOut(st));
+    return factories.TextSpan_readBack_spellOut(nativeStruct);
   }
   @Override
   public TextSpan build() {

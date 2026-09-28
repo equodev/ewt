@@ -3,39 +3,33 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DividerThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DividerThemeData extends NativeObj.Base implements DividerThemeDataI {
-  private MemorySegment st;
   protected DividerThemeData() {}
-  DividerThemeData(MemorySegment st) {
-    this.id = DividerThemeDataObjSt.id(st);
-    this.st = st;
+  DividerThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DividerThemeData");
-    System.out.println("New DividerThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DividerThemeData(int id) { this.id = id; }
   @Builder.Factory
   static DividerThemeData dividerThemeDataDividerThemeData(Optional<ColorI> color, OptionalDouble space, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<BorderRadiusGeometryI> radius) {
-    var st = factories.dividerThemeDataDividerThemeData(color.map(ColorI::build),
+    int id = factories.dividerThemeDataDividerThemeData(color.map(ColorI::build),
       space,
       thickness,
       indent,
       endIndent,
       radius.map(BorderRadiusGeometryI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget DividerThemeData");
-    return new DividerThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DividerThemeData");
+    return new DividerThemeData(id);
   }
   public static DividerThemeDataDividerThemeDataBuilder dividerThemeData() {
     return DividerThemeDataDividerThemeDataBuilder.dividerThemeDataDividerThemeData();
   }
   public static DividerThemeData lerp(DividerThemeDataI a, DividerThemeDataI b, double t) {
-    var st = factories.dividerThemeDataLerp(a.build(),
+    int id = factories.dividerThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget DividerThemeData");
-    return new DividerThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DividerThemeData");
+    return new DividerThemeData(id);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -43,27 +37,27 @@ public class DividerThemeData extends NativeObj.Base implements DividerThemeData
       int __nid = __s.recordAccessor("dividerThemeDataColor", getId());
       return new Color(__nid);
     }
-    return new Color(DividerThemeDataObjSt.color(st));
+    return factories.DividerThemeData_readBack_color(nativeStruct);
   }
   public double space() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerThemeDataSpace not supported on web");
-    return DividerThemeDataObjSt.space(st);
+    return factories.DividerThemeData_readBack_space(nativeStruct);
   }
   public double thickness() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerThemeDataThickness not supported on web");
-    return DividerThemeDataObjSt.thickness(st);
+    return factories.DividerThemeData_readBack_thickness(nativeStruct);
   }
   public double indent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerThemeDataIndent not supported on web");
-    return DividerThemeDataObjSt.indent(st);
+    return factories.DividerThemeData_readBack_indent(nativeStruct);
   }
   public double endIndent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerThemeDataEndIndent not supported on web");
-    return DividerThemeDataObjSt.endIndent(st);
+    return factories.DividerThemeData_readBack_endIndent(nativeStruct);
   }
   public BorderRadiusGeometry radius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("dividerThemeDataRadius not supported on web");
-    return new BorderRadiusGeometry(DividerThemeDataObjSt.radius(st)) {};
+    return factories.DividerThemeData_readBack_radius(nativeStruct);
   }
   @Override
   public DividerThemeData build() {

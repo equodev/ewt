@@ -3,28 +3,22 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoTabScaffoldObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoTabScaffold extends StatefulWidget implements CupertinoTabScaffoldI {
-  private MemorySegment st;
   protected CupertinoTabScaffold() {}
-  CupertinoTabScaffold(MemorySegment st) {
-    this.id = CupertinoTabScaffoldObjSt.id(st);
-    this.st = st;
+  CupertinoTabScaffold(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoTabScaffold");
-    System.out.println("New CupertinoTabScaffold id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoTabScaffold(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoTabScaffold cupertinoTabScaffoldCupertinoTabScaffold(@Builder.Parameter CupertinoTabBarI tabBar, @Builder.Parameter BiFunction<BuildContext, Integer, Widget> tabBuilder, Optional<ColorI> backgroundColor, Optional<Boolean> resizeToAvoidBottomInset, Optional<String> restorationId) {
-    var st = factories.cupertinoTabScaffoldCupertinoTabScaffold(tabBar.build(),
+    int id = factories.cupertinoTabScaffoldCupertinoTabScaffold(tabBar.build(),
       tabBuilder,
       backgroundColor.map(ColorI::build),
       resizeToAvoidBottomInset,
       restorationId);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoTabScaffold");
-    return new CupertinoTabScaffold(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoTabScaffold");
+    return new CupertinoTabScaffold(id);
   }
   public static CupertinoTabScaffoldCupertinoTabScaffoldBuilder cupertinoTabScaffold(CupertinoTabBarI tabBar, BiFunction<BuildContext, Integer, Widget> tabBuilder) {
     return CupertinoTabScaffoldCupertinoTabScaffoldBuilder.cupertinoTabScaffoldCupertinoTabScaffold(tabBar, tabBuilder);
@@ -33,11 +27,9 @@ public class CupertinoTabScaffold extends StatefulWidget implements CupertinoTab
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("cupertinoTabScaffoldTabBar", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CupertinoTabBarObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.CupertinoTabBarObjSt.id(__st, __nid);
-      return new CupertinoTabBar(__st);
+      return new CupertinoTabBar(__nid);
     }
-    return new CupertinoTabBar(CupertinoTabScaffoldObjSt.tabBar(st));
+    return factories.CupertinoTabScaffold_readBack_tabBar(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -45,15 +37,15 @@ public class CupertinoTabScaffold extends StatefulWidget implements CupertinoTab
       int __nid = __s.recordAccessor("cupertinoTabScaffoldBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoTabScaffoldObjSt.backgroundColor(st));
+    return factories.CupertinoTabScaffold_readBack_backgroundColor(nativeStruct);
   }
   public boolean resizeToAvoidBottomInset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTabScaffoldResizeToAvoidBottomInset not supported on web");
-    return intToBool(CupertinoTabScaffoldObjSt.resizeToAvoidBottomInset(st));
+    return factories.CupertinoTabScaffold_readBack_resizeToAvoidBottomInset(nativeStruct);
   }
   public String restorationId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTabScaffoldRestorationId not supported on web");
-    return CupertinoTabScaffoldObjSt.restorationId(st).getString(0);
+    return factories.CupertinoTabScaffold_readBack_restorationId(nativeStruct);
   }
   @Override
   public CupertinoTabScaffold build() {

@@ -27,8 +27,9 @@ class SubAnimatedStateGen extends SubclassGen {
       ..writeln('  @SuppressWarnings("unchecked")')
       ..writeln('  public T widget() {')
       ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("subAnimatedStateWidget not supported on web");')
-      ..writeln('    MemorySegment funcPtr = $widgetSt.widget(st);')
-      ..writeln('    return (T) (NativeObj) new NativeObj.Base() {{ this.id = $widgetSt.widget.invoke(funcPtr); }};')
+      // java-11 split: on FFM (java22) delegate to the impl, which reads the widget from the state's
+      // struct via its id->struct map.
+      ..writeln('    return (T) (NativeObj) new NativeObj.Base() {{ this.id = factories.subAnimatedStateWidget(getId()); }};')
       ..writeln('  }');
   }
 

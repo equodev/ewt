@@ -14,7 +14,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HexFormat;
 import java.util.List;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
@@ -285,7 +284,12 @@ public class NativeLibLoader {
                 md.update(buf, 0, n);
             }
         }
-        return HexFormat.of().formatHex(md.digest());
+        byte[] digest = md.digest();
+        StringBuilder hex = new StringBuilder(digest.length * 2);
+        for (byte b : digest) {
+            hex.append(Character.forDigit((b >> 4) & 0xF, 16)).append(Character.forDigit(b & 0xF, 16));
+        }
+        return hex.toString();
     }
 
     public static void invalidateCacheIfStale(Path cacheDir, String currentKey) throws IOException {

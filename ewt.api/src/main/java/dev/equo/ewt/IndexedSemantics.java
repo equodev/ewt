@@ -3,32 +3,26 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.IndexedSemanticsObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class IndexedSemantics extends SingleChildRenderObjectWidget implements IndexedSemanticsI {
-  private MemorySegment st;
   protected IndexedSemantics() {}
-  IndexedSemantics(MemorySegment st) {
-    this.id = IndexedSemanticsObjSt.id(st);
-    this.st = st;
+  IndexedSemantics(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget IndexedSemantics");
-    System.out.println("New IndexedSemantics id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  IndexedSemantics(int id) { this.id = id; }
   @Builder.Factory
   static IndexedSemantics indexedSemanticsIndexedSemantics(@Builder.Parameter int index, Optional<WidgetI> child) {
-    var st = factories.indexedSemanticsIndexedSemantics(index,
+    int id = factories.indexedSemanticsIndexedSemantics(index,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget IndexedSemantics");
-    return new IndexedSemantics(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget IndexedSemantics");
+    return new IndexedSemantics(id);
   }
   public static IndexedSemanticsIndexedSemanticsBuilder indexedSemantics(int index) {
     return IndexedSemanticsIndexedSemanticsBuilder.indexedSemanticsIndexedSemantics(index);
   }
   public int index() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("indexedSemanticsIndex not supported on web");
-    return IndexedSemanticsObjSt.index(st);
+    return factories.IndexedSemantics_readBack_index(nativeStruct);
   }
   @Override
   public IndexedSemantics build() {

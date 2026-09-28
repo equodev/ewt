@@ -9,18 +9,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class SerializingWidgetConstructorsTest {
 
   private SerializingWidgetConstructors serializing;
+  private WidgetConstructors original;
 
   @BeforeEach
   void installSerializing() {
+    // java-11 split: WidgetConstructors is now an interface with an FFM and a comm (serializing) impl,
+    // selected at runtime. Swap the active impl to the comm one for these serialization assertions.
+    original = NativeObj.Base.factories;
     serializing = new SerializingWidgetConstructors();
-    WidgetConstructorsBase.instance = serializing;
     NativeObj.Base.factories = serializing;
   }
 
   @AfterEach
   void restore() {
-    WidgetConstructors original = new WidgetConstructors();
-    WidgetConstructorsBase.instance = original;
     NativeObj.Base.factories = original;
   }
 

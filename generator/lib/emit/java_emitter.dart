@@ -47,12 +47,14 @@ extension _JavaEmit on WidgetGen {
     } else {
       writeNonVoidMethodWebPrelude(factory, node.returnType, restCallNames);
       final retType = types.type4FFMRet(node.returnType);
-      ctx.javaFile.writeln('    $retType id = $factoriesRef.$factoryName($callArgs);');
+      ctx.javaFile.writeln('    var id = $factoriesRef.$factoryName($callArgs);'); // java-11 split: int handle (or String for niche String-returns)
       if (retType == 'int') {
         ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
       if (!tryWriteCustomInstanceMethodReturn(factory, node.returnType)) {
-        ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+        // java-11 split: String-returning factories already yield a Java String (id), so skip the
+        // C-string read (getString) the FFM path would otherwise apply.
+        ctx.javaFile.writeln('    return ${retType == 'MemorySegment' ? 'id' : types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
       }
     }
     ctx.javaFile.writeln('  }');
@@ -76,11 +78,11 @@ extension _JavaEmit on WidgetGen {
       ctx.javaFile.writeln('    factories.$factoryName(${jParamsCall.names});');
     } else {
       final retType = types.type4FFMRet(node.returnType);
-      ctx.javaFile.writeln('    $retType id = factories.$factoryName(${jParamsCall.names});');
+      ctx.javaFile.writeln('    var id = factories.$factoryName(${jParamsCall.names});'); // java-11 split: int handle (or String for niche String-returns)
       if (retType == 'int') {
         ctx.javaFile.writeln('    if (id <= 0) throw new RuntimeException("Failed to call $factory");');
       }
-      ctx.javaFile.writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
+      ctx.javaFile.writeln('    return ${retType == 'MemorySegment' ? 'id' : types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
     }
     ctx.javaFile.writeln('  }');
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
@@ -116,20 +118,21 @@ extension _JavaEmit on WidgetGen {
   void writeJavaSerializer(FunctionTypedElement node, String factoryName, String factory) {
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
     final retType = types.type4FFMRet(node.returnType);
-    final isObjSt = retType == 'MemorySegment';
-    // Build the return ObjSt class name: e.g. MemorySegment textText(...) uses TextObjSt.
-    String? objStClass;
-    if (isObjSt) {
-      var gen = types.getGen(node.returnType.element!);
-      objStClass = gen.objType(); // e.g. TextObjSt
-    }
-
-    // Skip factories that do not produce a serializable widget/value node: void returns, and
-    // opaque native objects (a MemorySegment whose backing type is not an *ObjSt struct we can
-    // allocate an id into). These stay inherited from WidgetConstructors (FFM); they are never
-    // called when rendering a static subtree on web.
     if (retType == 'void') return;
-    if (isObjSt && !(objStClass?.endsWith('ObjSt') ?? false)) return;
+    // java-11 split: ObjSt widgets/value-objects marshal as a foreign-free int id now (not a
+    // MemorySegment struct), so detect ObjSt-ness from the return gen rather than from
+    // retType == 'MemorySegment' (which today is true only for String/opaque char* returns). Without
+    // this the Sub* deferred registration below is skipped and placeholders never flatten.
+    final rt = node.returnType;
+    final objStClass = (!isPrimitive(rt) && !rt.isDartCoreString && rt.element != null)
+        ? types.getGen(rt.element!).objType() // e.g. TextObjSt, SubStatefulWidgetObjSt, or DartObj
+        : null;
+    final isObjSt = objStClass != null && objStClass.endsWith('ObjSt');
+
+    // Skip factories that do not produce a serializable node: String (char*) and opaque native
+    // returns marshal as a MemorySegment that is not an *ObjSt struct. These stay inherited from
+    // WidgetConstructors (FFM); they are never called when rendering a static subtree on web.
+    if (retType == 'MemorySegment' && !isObjSt) return;
 
     // Match the FFM method's own type parameters (e.g. <T extends StatefulWidget>) so the
     // @Override resolves for generic factories.
@@ -142,13 +145,13 @@ extension _JavaEmit on WidgetGen {
     // Widgets whose serializer body is not a plain node record (e.g.
     // ListView.builder eager-expands children) emit the whole @Override
     // themselves via this hook.
-    if (tryEmitCustomJavaSerializer(node, factoryName, factory, jParamsFFM, jtp, objStClass)) {
+    if (tryEmitCustomJavaSerializer(node, factoryName, factory, jParamsFFM, jtp, isObjSt ? objStClass : null)) {
       return;
     }
 
     ctx.javaSerializer
       ..writeln('  @Override')
-      ..writeln('  $jtp$retType $factoryName(${jParamsFFM.decl}) {')
+      ..writeln('  public $jtp$retType $factoryName(${jParamsFFM.decl}) {')
       ..writeln('    int id = nextId++;')
       ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();');
 
@@ -165,38 +168,78 @@ extension _JavaEmit on WidgetGen {
     ctx.javaSerializer
       ..writeln('    record(id, "$factoryName", p);');
 
-    if (isObjSt && objStClass != null) {
-      ctx.javaSerializer
-        ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
-        ..writeln('    $objStClass.id(st, id);');
-      emitExtraJavaSerializerFields(factoryName, objStClass);
-      ctx.javaSerializer.writeln('    return st;');
-    } else {
-      ctx.javaSerializer.writeln('    return id;');
+    // java-11 split: the comm serializer is foreign-free (returns the int id, no native struct). Sub*
+    // widgets still need their deferred builder registered — id-based, foreign-free — so resolveDeferred
+    // can flatten the placeholder node. This was previously emitted by emitExtraJavaSerializerFields in
+    // the struct path, which the int return skips. The ColorSwatch variant of that hook writes shade
+    // fields into a native struct, so it stays FFM-only and is intentionally not invoked here.
+    if (objStClass == 'SubStatefulWidgetObjSt' || objStClass == 'SubStatelessWidgetObjSt') {
+      emitExtraJavaSerializerFields(factoryName, objStClass!);
     }
+    ctx.javaSerializer.writeln('    return id;');
     ctx.javaSerializer.writeln('  }');
   }
 
   /// Emits the FFM-facing factory method into [EmitContext.javaFactories]:
   /// resolves the widget's struct + function pointer and invokes it.
   void writeJavaFactoryMethod(String factoryName, Params jParams, String factory, Params jParamsFFM, FunctionTypedElement node) {
-    var type4ffmRet = types.type4FFMRet(node.returnType);
+    var type4ffmRet = types.type4FFMRet(node.returnType); // java-11 split: 'int' handle for widgets/value-objects
     var useArena = node.returnType is! VoidType && types.getGen(node.returnType.element!).objType().endsWith('ObjSt');
-    ctx.javaFactories
-      ..writeln('  ${JLang().methodTypeParameters(node.type)}$type4ffmRet $factoryName(${jParams.decl}) {')
-      ..writeln('    var st = WidgetFactories.$widgetField(factories);')
-      ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
-      ..writeln('    ${node.returnType is VoidType ? '' : 'return '}WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')});')
+    // For ObjSt returns the native invoke yields a MemorySegment struct; read its id so the FFM
+    // impl returns the same foreign-free int handle the serializing impl does. MemorySegment stays
+    // internal to this method (WidgetConstructors, FFM layer), never on the core builder surface.
+    var objSt = useArena ? types.getGen(node.returnType.element!).objType() : null;
+    var invoke = 'WidgetFactories.${widgetClass}St.$factory.invoke(${['fn${useArena ? ', arena' : ''}', jParamsFFM.names.nullIfEmpty].nonNulls.join(', ')})';
+    var tp = JLang().methodTypeParameters(node.type);
+    // java-11 split: String returns marshal a C-string MemorySegment; keep them off the foreign-free
+    // interface by returning the Java type and treating them as a v1 gap (niche: navigatorRestorable*).
+    var isStringRet = type4ffmRet == 'MemorySegment';
+    var retIface = isStringRet ? types.type4J(node.returnType) : type4ffmRet;
+    // States (SubclassGen) keep an id->struct entry so setState/widget can read back the native
+    // struct on java 22 without the state holding a MemorySegment.
+    var isState = useArena && types.getGen(node.returnType.element!) is SubclassGen;
+    ctx.javaFactories..writeln('  public $tp$retIface $factoryName(${jParams.decl}) {');
+    if (isStringRet) {
+      ctx.javaFactories.writeln('    throw new UnsupportedOperationException("$factoryName (String return) is a java-11 split v1 gap");');
+    } else if (isState) {
+      ctx.javaFactories
+        ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+        ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
+        ..writeln('    var __nst = $invoke;')
+        ..writeln('    int __nid = $objSt.id(__nst);')
+        ..writeln('    handles.put(__nid, __nst);')
+        ..writeln('    return __nid;');
+    } else {
+      ctx.javaFactories
+        ..writeln('    var st = WidgetFactories.$widgetField(factories);')
+        ..writeln('    var fn = WidgetFactories.${widgetClass}St.$factory(st);')
+        // java-11 split: retain(...) stashes the built struct for the widget ctor to adopt (read-back)
+        // and returns its foreign-free int id.
+        ..writeln('    ${node.returnType is VoidType ? '$invoke' : 'return ${useArena ? 'retain($invoke, $objSt::id)' : invoke}'};');
+    }
+    ctx.javaFactories.writeln('  }');
+    // Foreign-free interface signature with a default that throws (overridden by the FFM impl always,
+    // and by the serializing impl for factories that render on comm).
+    ctx.javaInterface
+      ..writeln('  default $tp$retIface $factoryName(${jParams.decl}) {')
+      ..writeln('    throw new UnsupportedOperationException("$factoryName has no default (FFM/comm impl required)");')
       ..writeln('  }');
   }
 
   /// Emits the FFM-facing accessor for a private const value.
   void writeJavaConstMethod(String factoryName, String factory, ConstFieldElementImpl node) {
     var gen = types.getGen(node.type.element!);
+    var isObjSt = gen.objType().endsWith('ObjSt');
+    var read = 'WidgetFactories.${widgetClass}St.$factory(st)';
     ctx.javaFactories
-      ..writeln('  ${gen.objType().endsWith('ObjSt') ? 'MemorySegment' : 'int'} $factoryName() {')
+      ..writeln('  public int $factoryName() {')
       ..writeln('    var st = WidgetFactories.$widgetField(factories);')
-      ..writeln('    return WidgetFactories.${widgetClass}St.$factory(st);')
+      ..writeln('    return ${isObjSt ? '${gen.objType()}.id($read)' : read};')
+      ..writeln('  }');
+    // java-11 split: interface entry so the serializing @Override resolves and callers dispatch.
+    ctx.javaInterface
+      ..writeln('  default int $factoryName() {')
+      ..writeln('    throw new UnsupportedOperationException("$factoryName has no default (FFM/comm impl required)");')
       ..writeln('  }');
   }
 
@@ -210,25 +253,16 @@ extension _JavaEmit on WidgetGen {
   ///       which is exactly `WidgetClass.fieldName` (the field is a public
   ///       const of the Flutter class; only its initializer's constructor is private).
   void writeConstSerializerAndDecoder(ConstFieldElementImpl fld, String factoryName) {
-    var gen = types.getGen(fld.type.element!);
-    final isObjSt = gen.objType().endsWith('ObjSt');
-    final retType = isObjSt ? 'MemorySegment' : 'int';
+    // java-11 split: foreign-free int handle; the const node is recorded and its id returned
+    // (no ObjSt struct allocation), matching the FFM impl's int return.
     ctx.javaSerializer
       ..writeln('  @Override')
-      ..writeln('  $retType $factoryName() {')
+      ..writeln('  public int $factoryName() {')
       ..writeln('    int id = nextId++;')
       ..writeln('    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();')
-      ..writeln('    record(id, "$factoryName", p);');
-    if (isObjSt) {
-      final objStClass = gen.objType();
-      ctx.javaSerializer
-        ..writeln('    MemorySegment st = $objStClass.allocate(arena);')
-        ..writeln('    $objStClass.id(st, id);')
-        ..writeln('    return st;');
-    } else {
-      ctx.javaSerializer.writeln('    return id;');
-    }
-    ctx.javaSerializer.writeln('  }');
+      ..writeln('    record(id, "$factoryName", p);')
+      ..writeln('    return id;')
+      ..writeln('  }');
 
     ctx.dartWebDecoders.writeln("  '$factoryName': (p) => $widgetClass.${fld.name},");
   }

@@ -3,52 +3,46 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.PopupMenuDividerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class PopupMenuDivider extends PopupMenuEntry<Object> implements PopupMenuDividerI {
-  private MemorySegment st;
   protected PopupMenuDivider() {}
-  PopupMenuDivider(MemorySegment st) {
-    this.id = PopupMenuDividerObjSt.id(st);
-    this.st = st;
+  PopupMenuDivider(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget PopupMenuDivider");
-    System.out.println("New PopupMenuDivider id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  PopupMenuDivider(int id) { this.id = id; }
   @Builder.Factory
   static PopupMenuDivider popupMenuDividerPopupMenuDivider(OptionalDouble height, OptionalDouble thickness, OptionalDouble indent, OptionalDouble endIndent, Optional<BorderRadiusGeometryI> radius, Optional<ColorI> color) {
-    var st = factories.popupMenuDividerPopupMenuDivider(height,
+    int id = factories.popupMenuDividerPopupMenuDivider(height,
       thickness,
       indent,
       endIndent,
       radius.map(BorderRadiusGeometryI::build),
       color.map(ColorI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget PopupMenuDivider");
-    return new PopupMenuDivider(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PopupMenuDivider");
+    return new PopupMenuDivider(id);
   }
   public static PopupMenuDividerPopupMenuDividerBuilder popupMenuDivider() {
     return PopupMenuDividerPopupMenuDividerBuilder.popupMenuDividerPopupMenuDivider();
   }
   public double height() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuDividerHeight not supported on web");
-    return PopupMenuDividerObjSt.height(st);
+    return factories.PopupMenuDivider_readBack_height(nativeStruct);
   }
   public double thickness() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuDividerThickness not supported on web");
-    return PopupMenuDividerObjSt.thickness(st);
+    return factories.PopupMenuDivider_readBack_thickness(nativeStruct);
   }
   public double indent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuDividerIndent not supported on web");
-    return PopupMenuDividerObjSt.indent(st);
+    return factories.PopupMenuDivider_readBack_indent(nativeStruct);
   }
   public double endIndent() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuDividerEndIndent not supported on web");
-    return PopupMenuDividerObjSt.endIndent(st);
+    return factories.PopupMenuDivider_readBack_endIndent(nativeStruct);
   }
   public BorderRadiusGeometry radius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("popupMenuDividerRadius not supported on web");
-    return new BorderRadiusGeometry(PopupMenuDividerObjSt.radius(st)) {};
+    return factories.PopupMenuDivider_readBack_radius(nativeStruct);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -56,7 +50,7 @@ public class PopupMenuDivider extends PopupMenuEntry<Object> implements PopupMen
       int __nid = __s.recordAccessor("popupMenuDividerColor", getId());
       return new Color(__nid);
     }
-    return new Color(PopupMenuDividerObjSt.color(st));
+    return factories.PopupMenuDivider_readBack_color(nativeStruct);
   }
   @Override
   public PopupMenuDivider build() {

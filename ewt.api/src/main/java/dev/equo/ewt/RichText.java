@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RichTextObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RichText extends MultiChildRenderObjectWidget implements RichTextI {
-  private MemorySegment st;
   protected RichText() {}
-  RichText(MemorySegment st) {
-    this.id = RichTextObjSt.id(st);
-    this.st = st;
+  RichText(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RichText");
-    System.out.println("New RichText id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RichText(int id) { this.id = id; }
   @Builder.Factory
   static RichText richTextRichText(@Builder.Parameter InlineSpanI text, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, Optional<Boolean> softWrap, Optional<TextOverflow> overflow, OptionalDouble textScaleFactor, OptionalInt maxLines, Optional<TextWidthBasis> textWidthBasis, Optional<ColorI> selectionColor) {
-    var st = factories.richTextRichText(text.build(),
+    int id = factories.richTextRichText(text.build(),
       textAlign,
       textDirection,
       softWrap,
@@ -27,39 +21,39 @@ public class RichText extends MultiChildRenderObjectWidget implements RichTextI 
       maxLines,
       textWidthBasis,
       selectionColor.map(ColorI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget RichText");
-    return new RichText(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget RichText");
+    return new RichText(id);
   }
   public static RichTextRichTextBuilder richText(InlineSpanI text) {
     return RichTextRichTextBuilder.richTextRichText(text);
   }
   public InlineSpan text() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextText not supported on web");
-    return new InlineSpan(RichTextObjSt.text(st)) {};
+    return factories.RichText_readBack_text(nativeStruct);
   }
   public TextAlign textAlign() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextAlign not supported on web");
-    return TextAlign.values()[RichTextObjSt.textAlign(st)];
+    return factories.RichText_readBack_textAlign(nativeStruct);
   }
   public TextDirection textDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextDirection not supported on web");
-    return TextDirection.values()[RichTextObjSt.textDirection(st)];
+    return factories.RichText_readBack_textDirection(nativeStruct);
   }
   public boolean softWrap() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextSoftWrap not supported on web");
-    return intToBool(RichTextObjSt.softWrap(st));
+    return factories.RichText_readBack_softWrap(nativeStruct);
   }
   public TextOverflow overflow() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextOverflow not supported on web");
-    return TextOverflow.values()[RichTextObjSt.overflow(st)];
+    return factories.RichText_readBack_overflow(nativeStruct);
   }
   public int maxLines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextMaxLines not supported on web");
-    return RichTextObjSt.maxLines(st);
+    return factories.RichText_readBack_maxLines(nativeStruct);
   }
   public TextWidthBasis textWidthBasis() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextWidthBasis not supported on web");
-    return TextWidthBasis.values()[RichTextObjSt.textWidthBasis(st)];
+    return factories.RichText_readBack_textWidthBasis(nativeStruct);
   }
   public Color selectionColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -67,11 +61,11 @@ public class RichText extends MultiChildRenderObjectWidget implements RichTextI 
       int __nid = __s.recordAccessor("richTextSelectionColor", getId());
       return new Color(__nid);
     }
-    return new Color(RichTextObjSt.selectionColor(st));
+    return factories.RichText_readBack_selectionColor(nativeStruct);
   }
   public double textScaleFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("richTextTextScaleFactor not supported on web");
-    return RichTextObjSt.textScaleFactor(st);
+    return factories.RichText_readBack_textScaleFactor(nativeStruct);
   }
   @Override
   public RichText build() {

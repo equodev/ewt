@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class Offset extends OffsetBase implements OffsetI {
   protected Offset() {}
   Offset(int id) {
@@ -13,7 +13,7 @@ public class Offset extends OffsetBase implements OffsetI {
   static { NativeObj.register("Offset", Offset::byId); }
   @Builder.Factory
   static Offset offsetOffset(@Builder.Parameter double dx, @Builder.Parameter double dy) {
-    int id = factories.offsetOffset(dx,
+    var id = factories.offsetOffset(dx,
       dy);
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset");
     System.out.println("New Offset id:"+id);
@@ -24,7 +24,7 @@ public class Offset extends OffsetBase implements OffsetI {
   }
   @Builder.Factory
   static Offset offsetFromDirection(@Builder.Parameter double direction, OptionalDouble distance) {
-    int id = factories.offsetFromDirection(direction,
+    var id = factories.offsetFromDirection(direction,
       distance);
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset");
     System.out.println("New Offset id:"+id);
@@ -34,7 +34,7 @@ public class Offset extends OffsetBase implements OffsetI {
     return OffsetFromDirectionBuilder.offsetFromDirection(direction);
   }
   public static Offset lerp(OffsetI a, OffsetI b, double t) {
-    int id = factories.offsetLerp(a.build(),
+    var id = factories.offsetLerp(a.build(),
       b.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset?");
@@ -42,11 +42,11 @@ public class Offset extends OffsetBase implements OffsetI {
     return new Offset(id);
   }
   public double dx() {
-    double id = factories.offsetDx(this);
+    var id = factories.offsetDx(this);
     return id;
   }
   public double dy() {
-    double id = factories.offsetDy(this);
+    var id = factories.offsetDy(this);
     return id;
   }
   public static Offset zero() {

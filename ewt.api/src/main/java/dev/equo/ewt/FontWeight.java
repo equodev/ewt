@@ -12,7 +12,7 @@ public class FontWeight extends NativeObj.Base implements FontWeightI {
   static { NativeObj.register("FontWeight", FontWeight::byId); }
   @Builder.Factory
   static FontWeight fontWeightFontWeight(@Builder.Parameter int value) {
-    int id = factories.fontWeightFontWeight(value);
+    var id = factories.fontWeightFontWeight(value);
     if (id <= 0) throw new RuntimeException("Failed to created widget FontWeight");
     System.out.println("New FontWeight id:"+id);
     return new FontWeight(id);
@@ -21,7 +21,7 @@ public class FontWeight extends NativeObj.Base implements FontWeightI {
     return FontWeightFontWeightBuilder.fontWeightFontWeight(value);
   }
   public static FontWeight lerp(FontWeightI a, FontWeightI b, double t) {
-    int id = factories.fontWeightLerp(a.build(),
+    var id = factories.fontWeightLerp(a.build(),
       b.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget FontWeight?");

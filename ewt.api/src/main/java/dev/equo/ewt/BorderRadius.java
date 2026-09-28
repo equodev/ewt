@@ -3,75 +3,69 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BorderRadiusObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI {
-  private MemorySegment st;
   protected BorderRadius() {}
-  BorderRadius(MemorySegment st) {
-    this.id = BorderRadiusObjSt.id(st);
-    this.st = st;
+  BorderRadius(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
-    System.out.println("New BorderRadius id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  BorderRadius(int id) { this.id = id; }
   @Builder.Factory
   static BorderRadius borderRadiusAll(@Builder.Parameter RadiusI radius) {
-    var st = factories.borderRadiusAll(radius.build());
-    if (st == null) throw new RuntimeException("Failed to created widget BorderRadius");
-    return new BorderRadius(st);
+    int id = factories.borderRadiusAll(radius.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
+    return new BorderRadius(id);
   }
   public static BorderRadiusAllBuilder all(RadiusI radius) {
     return BorderRadiusAllBuilder.borderRadiusAll(radius);
   }
   @Builder.Factory
   static BorderRadius borderRadiusCircular(@Builder.Parameter double radius) {
-    var st = factories.borderRadiusCircular(radius);
-    if (st == null) throw new RuntimeException("Failed to created widget BorderRadius");
-    return new BorderRadius(st);
+    int id = factories.borderRadiusCircular(radius);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
+    return new BorderRadius(id);
   }
   public static BorderRadiusCircularBuilder circular(double radius) {
     return BorderRadiusCircularBuilder.borderRadiusCircular(radius);
   }
   @Builder.Factory
   static BorderRadius borderRadiusVertical(Optional<RadiusI> top, Optional<RadiusI> bottom) {
-    var st = factories.borderRadiusVertical(top.map(RadiusI::build),
+    int id = factories.borderRadiusVertical(top.map(RadiusI::build),
       bottom.map(RadiusI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget BorderRadius");
-    return new BorderRadius(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
+    return new BorderRadius(id);
   }
   public static BorderRadiusVerticalBuilder vertical() {
     return BorderRadiusVerticalBuilder.borderRadiusVertical();
   }
   @Builder.Factory
   static BorderRadius borderRadiusHorizontal(Optional<RadiusI> left, Optional<RadiusI> right) {
-    var st = factories.borderRadiusHorizontal(left.map(RadiusI::build),
+    int id = factories.borderRadiusHorizontal(left.map(RadiusI::build),
       right.map(RadiusI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget BorderRadius");
-    return new BorderRadius(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
+    return new BorderRadius(id);
   }
   public static BorderRadiusHorizontalBuilder horizontal() {
     return BorderRadiusHorizontalBuilder.borderRadiusHorizontal();
   }
   @Builder.Factory
   static BorderRadius borderRadiusOnly(Optional<RadiusI> topLeft, Optional<RadiusI> topRight, Optional<RadiusI> bottomLeft, Optional<RadiusI> bottomRight) {
-    var st = factories.borderRadiusOnly(topLeft.map(RadiusI::build),
+    int id = factories.borderRadiusOnly(topLeft.map(RadiusI::build),
       topRight.map(RadiusI::build),
       bottomLeft.map(RadiusI::build),
       bottomRight.map(RadiusI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget BorderRadius");
-    return new BorderRadius(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
+    return new BorderRadius(id);
   }
   public static BorderRadiusOnlyBuilder only() {
     return BorderRadiusOnlyBuilder.borderRadiusOnly();
   }
   public static BorderRadius lerp(BorderRadiusI a, BorderRadiusI b, double t) {
-    var st = factories.borderRadiusLerp(a.build(),
+    int id = factories.borderRadiusLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget BorderRadius");
-    return new BorderRadius(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BorderRadius");
+    return new BorderRadius(id);
   }
   public Radius topLeft() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -79,7 +73,7 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
       int __nid = __s.recordAccessor("borderRadiusTopLeft", getId());
       return new Radius(__nid);
     }
-    return new Radius(BorderRadiusObjSt.topLeft(st));
+    return factories.BorderRadius_readBack_topLeft(nativeStruct);
   }
   public Radius topRight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -87,7 +81,7 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
       int __nid = __s.recordAccessor("borderRadiusTopRight", getId());
       return new Radius(__nid);
     }
-    return new Radius(BorderRadiusObjSt.topRight(st));
+    return factories.BorderRadius_readBack_topRight(nativeStruct);
   }
   public Radius bottomLeft() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -95,7 +89,7 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
       int __nid = __s.recordAccessor("borderRadiusBottomLeft", getId());
       return new Radius(__nid);
     }
-    return new Radius(BorderRadiusObjSt.bottomLeft(st));
+    return factories.BorderRadius_readBack_bottomLeft(nativeStruct);
   }
   public Radius bottomRight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -103,7 +97,7 @@ public class BorderRadius extends BorderRadiusGeometry implements BorderRadiusI 
       int __nid = __s.recordAccessor("borderRadiusBottomRight", getId());
       return new Radius(__nid);
     }
-    return new Radius(BorderRadiusObjSt.bottomRight(st));
+    return factories.BorderRadius_readBack_bottomRight(nativeStruct);
   }
   public static BorderRadius zero() {
     return BorderRadius.all(Radius.zero()).build();

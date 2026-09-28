@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SelectableTextObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SelectableText extends StatefulWidget implements SelectableTextI {
-  private MemorySegment st;
   protected SelectableText() {}
-  SelectableText(MemorySegment st) {
-    this.id = SelectableTextObjSt.id(st);
-    this.st = st;
+  SelectableText(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SelectableText");
-    System.out.println("New SelectableText id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SelectableText(int id) { this.id = id; }
   @Builder.Factory
   static SelectableText selectableTextSelectableText(@Builder.Parameter String data, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, OptionalDouble textScaleFactor, Optional<Boolean> showCursor, Optional<Boolean> autofocus, OptionalInt minLines, OptionalInt maxLines, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<RadiusI> cursorRadius, Optional<ColorI> cursorColor, Optional<ColorI> selectionColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis) {
-    var st = factories.selectableTextSelectableText(data,
+    int id = factories.selectableTextSelectableText(data,
       style.map(TextStyleI::build),
       textAlign,
       textDirection,
@@ -39,15 +33,15 @@ public class SelectableText extends StatefulWidget implements SelectableTextI {
       onTap,
       semanticsLabel,
       textWidthBasis);
-    if (st == null) throw new RuntimeException("Failed to created widget SelectableText");
-    return new SelectableText(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SelectableText");
+    return new SelectableText(id);
   }
   public static SelectableTextSelectableTextBuilder selectableText(String data) {
     return SelectableTextSelectableTextBuilder.selectableTextSelectableText(data);
   }
   @Builder.Factory
   static SelectableText selectableTextRich(@Builder.Parameter TextSpanI textSpan, Optional<TextStyleI> style, Optional<TextAlign> textAlign, Optional<TextDirection> textDirection, OptionalDouble textScaleFactor, Optional<Boolean> showCursor, Optional<Boolean> autofocus, OptionalInt minLines, OptionalInt maxLines, OptionalDouble cursorWidth, OptionalDouble cursorHeight, Optional<RadiusI> cursorRadius, Optional<ColorI> cursorColor, Optional<ColorI> selectionColor, Optional<BoxHeightStyle> selectionHeightStyle, Optional<BoxWidthStyle> selectionWidthStyle, Optional<DragStartBehavior> dragStartBehavior, Optional<Boolean> enableInteractiveSelection, Optional<Runnable> onTap, Optional<String> semanticsLabel, Optional<TextWidthBasis> textWidthBasis) {
-    var st = factories.selectableTextRich(textSpan.build(),
+    int id = factories.selectableTextRich(textSpan.build(),
       style.map(TextStyleI::build),
       textAlign,
       textDirection,
@@ -68,71 +62,67 @@ public class SelectableText extends StatefulWidget implements SelectableTextI {
       onTap,
       semanticsLabel,
       textWidthBasis);
-    if (st == null) throw new RuntimeException("Failed to created widget SelectableText");
-    return new SelectableText(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SelectableText");
+    return new SelectableText(id);
   }
   public static SelectableTextRichBuilder rich(TextSpanI textSpan) {
     return SelectableTextRichBuilder.selectableTextRich(textSpan);
   }
   public String data() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextData not supported on web");
-    return SelectableTextObjSt.data(st).getString(0);
+    return factories.SelectableText_readBack_data(nativeStruct);
   }
   public TextSpan textSpan() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("selectableTextTextSpan", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextSpanObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextSpanObjSt.id(__st, __nid);
-      return new TextSpan(__st);
+      return new TextSpan(__nid);
     }
-    return new TextSpan(SelectableTextObjSt.textSpan(st));
+    return factories.SelectableText_readBack_textSpan(nativeStruct);
   }
   public TextStyle style() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("selectableTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(SelectableTextObjSt.style(st));
+    return factories.SelectableText_readBack_style(nativeStruct);
   }
   public TextAlign textAlign() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextTextAlign not supported on web");
-    return TextAlign.values()[SelectableTextObjSt.textAlign(st)];
+    return factories.SelectableText_readBack_textAlign(nativeStruct);
   }
   public TextDirection textDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextTextDirection not supported on web");
-    return TextDirection.values()[SelectableTextObjSt.textDirection(st)];
+    return factories.SelectableText_readBack_textDirection(nativeStruct);
   }
   public double textScaleFactor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextTextScaleFactor not supported on web");
-    return SelectableTextObjSt.textScaleFactor(st);
+    return factories.SelectableText_readBack_textScaleFactor(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextAutofocus not supported on web");
-    return intToBool(SelectableTextObjSt.autofocus(st));
+    return factories.SelectableText_readBack_autofocus(nativeStruct);
   }
   public int minLines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextMinLines not supported on web");
-    return SelectableTextObjSt.minLines(st);
+    return factories.SelectableText_readBack_minLines(nativeStruct);
   }
   public int maxLines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextMaxLines not supported on web");
-    return SelectableTextObjSt.maxLines(st);
+    return factories.SelectableText_readBack_maxLines(nativeStruct);
   }
   public boolean showCursor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextShowCursor not supported on web");
-    return intToBool(SelectableTextObjSt.showCursor(st));
+    return factories.SelectableText_readBack_showCursor(nativeStruct);
   }
   public double cursorWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextCursorWidth not supported on web");
-    return SelectableTextObjSt.cursorWidth(st);
+    return factories.SelectableText_readBack_cursorWidth(nativeStruct);
   }
   public double cursorHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextCursorHeight not supported on web");
-    return SelectableTextObjSt.cursorHeight(st);
+    return factories.SelectableText_readBack_cursorHeight(nativeStruct);
   }
   public Radius cursorRadius() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -140,7 +130,7 @@ public class SelectableText extends StatefulWidget implements SelectableTextI {
       int __nid = __s.recordAccessor("selectableTextCursorRadius", getId());
       return new Radius(__nid);
     }
-    return new Radius(SelectableTextObjSt.cursorRadius(st));
+    return factories.SelectableText_readBack_cursorRadius(nativeStruct);
   }
   public Color cursorColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -148,7 +138,7 @@ public class SelectableText extends StatefulWidget implements SelectableTextI {
       int __nid = __s.recordAccessor("selectableTextCursorColor", getId());
       return new Color(__nid);
     }
-    return new Color(SelectableTextObjSt.cursorColor(st));
+    return factories.SelectableText_readBack_cursorColor(nativeStruct);
   }
   public Color selectionColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -156,35 +146,35 @@ public class SelectableText extends StatefulWidget implements SelectableTextI {
       int __nid = __s.recordAccessor("selectableTextSelectionColor", getId());
       return new Color(__nid);
     }
-    return new Color(SelectableTextObjSt.selectionColor(st));
+    return factories.SelectableText_readBack_selectionColor(nativeStruct);
   }
   public BoxHeightStyle selectionHeightStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextSelectionHeightStyle not supported on web");
-    return BoxHeightStyle.values()[SelectableTextObjSt.selectionHeightStyle(st)];
+    return factories.SelectableText_readBack_selectionHeightStyle(nativeStruct);
   }
   public BoxWidthStyle selectionWidthStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextSelectionWidthStyle not supported on web");
-    return BoxWidthStyle.values()[SelectableTextObjSt.selectionWidthStyle(st)];
+    return factories.SelectableText_readBack_selectionWidthStyle(nativeStruct);
   }
   public boolean enableInteractiveSelection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextEnableInteractiveSelection not supported on web");
-    return intToBool(SelectableTextObjSt.enableInteractiveSelection(st));
+    return factories.SelectableText_readBack_enableInteractiveSelection(nativeStruct);
   }
   public DragStartBehavior dragStartBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextDragStartBehavior not supported on web");
-    return DragStartBehavior.values()[SelectableTextObjSt.dragStartBehavior(st)];
+    return factories.SelectableText_readBack_dragStartBehavior(nativeStruct);
   }
   public String semanticsLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextSemanticsLabel not supported on web");
-    return SelectableTextObjSt.semanticsLabel(st).getString(0);
+    return factories.SelectableText_readBack_semanticsLabel(nativeStruct);
   }
   public TextWidthBasis textWidthBasis() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextTextWidthBasis not supported on web");
-    return TextWidthBasis.values()[SelectableTextObjSt.textWidthBasis(st)];
+    return factories.SelectableText_readBack_textWidthBasis(nativeStruct);
   }
   public boolean selectionEnabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("selectableTextSelectionEnabled not supported on web");
-    return intToBool(SelectableTextObjSt.selectionEnabled(st));
+    return factories.SelectableText_readBack_selectionEnabled(nativeStruct);
   }
   @Override
   public SelectableText build() {

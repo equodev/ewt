@@ -49,14 +49,12 @@ class SubclassGen extends ObjStGen {
     final fnParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.paramValue4JCallback, escape: Params.escape4J);
     final jParams = Params(types, node.parameters, Params.paramDef4J, paramValue: Params.escape4J, escape: Params.escape4J);
     final jParamsFFM = Params(types, node.parameters, Params.paramDef4J, paramValue: types.paramValue4FFM, escape: Params.escape4J);
+    // java-11 split: the subclass holds only a foreign-free int id (factory returns int).
     ctx.javaFile
-      ..writeln('  private final MemorySegment st;')
       ..writeln('  protected $widgetClass() {')
-      ..writeln('    st = factories.$factoryName(${fnParams.names});')
-      ..writeln('    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
-      ..writeln('    id = $widgetSt.id(st);')
+      ..writeln('    id = factories.$factoryName(${fnParams.names});')
+      ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget $widgetClass");')
       ..writeln('    SubclassedInJava.addSubNatObj(this);')
-      ..writeln('    System.out.println("New $widgetClass id:"+id);')
       ..writeln('  }');
     writeJavaFactoryMethod(factoryName, jParams, factory, jParamsFFM, node);
   }

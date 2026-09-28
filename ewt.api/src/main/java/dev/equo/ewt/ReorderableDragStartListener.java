@@ -3,41 +3,35 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ReorderableDragStartListenerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ReorderableDragStartListener extends StatelessWidget implements ReorderableDragStartListenerI {
-  private MemorySegment st;
   protected ReorderableDragStartListener() {}
-  ReorderableDragStartListener(MemorySegment st) {
-    this.id = ReorderableDragStartListenerObjSt.id(st);
-    this.st = st;
+  ReorderableDragStartListener(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ReorderableDragStartListener");
-    System.out.println("New ReorderableDragStartListener id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ReorderableDragStartListener(int id) { this.id = id; }
   @Builder.Factory
   static ReorderableDragStartListener reorderableDragStartListenerReorderableDragStartListener(@Builder.Parameter WidgetI child, @Builder.Parameter int index, Optional<Boolean> enabled) {
-    var st = factories.reorderableDragStartListenerReorderableDragStartListener(child.build(),
+    int id = factories.reorderableDragStartListenerReorderableDragStartListener(child.build(),
       index,
       enabled);
-    if (st == null) throw new RuntimeException("Failed to created widget ReorderableDragStartListener");
-    return new ReorderableDragStartListener(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ReorderableDragStartListener");
+    return new ReorderableDragStartListener(id);
   }
   public static ReorderableDragStartListenerReorderableDragStartListenerBuilder reorderableDragStartListener(WidgetI child, int index) {
     return ReorderableDragStartListenerReorderableDragStartListenerBuilder.reorderableDragStartListenerReorderableDragStartListener(child, index);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("reorderableDragStartListenerChild not supported on web");
-    return new Widget(ReorderableDragStartListenerObjSt.child(st)) {};
+    return factories.ReorderableDragStartListener_readBack_child(nativeStruct);
   }
   public int index() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("reorderableDragStartListenerIndex not supported on web");
-    return ReorderableDragStartListenerObjSt.index(st);
+    return factories.ReorderableDragStartListener_readBack_index(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("reorderableDragStartListenerEnabled not supported on web");
-    return intToBool(ReorderableDragStartListenerObjSt.enabled(st));
+    return factories.ReorderableDragStartListener_readBack_enabled(nativeStruct);
   }
   @Override
   public ReorderableDragStartListener build() {

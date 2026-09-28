@@ -15,22 +15,19 @@ class ImmutableGen extends ObjStGen {
   @override
   void writeJavaConstructors() {
     if (!_isInterface) {
-      ctx.javaFile
-          .writeln('  private MemorySegment st;');
+      // java-11 split: the builder holds only a foreign-free `int id` (inherited from
+      // NativeObj.Base), so the class loads on any JVM >= 11. The FFM struct (MemorySegment)
+      // stays inside the FFM WidgetConstructors, never on the builder surface.
       ctx.javaFile
           .writeln('  protected $widgetClass() {}');
       ctx.javaFile
-        ..writeln('  $widgetClass(MemorySegment st) {')
-        ..writeln('    this.id = $widgetSt.id(st);')
-        ..writeln('    this.st = st;')
+        ..writeln('  $widgetClass(int id) {')
+        ..writeln('    this.id = id;')
         ..writeln('    if (id <= 0) throw new RuntimeException("Failed to created widget $widgetClass");')
-        ..writeln('    System.out.println("New $widgetClass id:"+id);')
+        // java-11 split: adopt the native struct the FFM factory just built (null on comm / bare-id
+        // construction), so read-back getters can hand it back to the FFM impl. GC'd with this widget.
+        ..writeln('    this.nativeStruct = factories.takeLastStruct();')
         ..writeln('  }');
-      // Shadow int-ctor for the callback path: when this widget appears as a
-      // callback parameter, the FFM side only has the id. The struct-backed
-      // getters will NPE, but constructing a reference to the widget works.
-      ctx.javaFile
-        ..writeln('  $widgetClass(int id) { this.id = id; }');
     }
   }
 
@@ -44,12 +41,13 @@ class ImmutableGen extends ObjStGen {
       ctx.javaFile
         .writeln('    factories.$factoryName(${jParams.names});');
     } else {
+      // Factory returns a foreign-free int id (see type4FFMRet); build via the int ctor.
       ctx.javaFile
-        ..writeln('    var st = factories.$factoryName(${jParams.names});')
+        ..writeln('    int id = factories.$factoryName(${jParams.names});')
         ..writeln(
-            '    if (st == null) throw new RuntimeException("Failed to created widget $widgetClass");')
+            '    if (id <= 0) throw new RuntimeException("Failed to created widget $widgetClass");')
         ..writeln(
-            '    return new ${types.type4J(node.returnType)}(st);');
+            '    return new ${types.type4J(node.returnType)}(id);');
     }
   }
 

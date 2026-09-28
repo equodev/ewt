@@ -3,38 +3,32 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.NavigatorPopHandlerObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class NavigatorPopHandler<T> extends StatefulWidget implements NavigatorPopHandlerI {
-  private MemorySegment st;
   protected NavigatorPopHandler() {}
-  NavigatorPopHandler(MemorySegment st) {
-    this.id = NavigatorPopHandlerObjSt.id(st);
-    this.st = st;
+  NavigatorPopHandler(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorPopHandler");
-    System.out.println("New NavigatorPopHandler id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  NavigatorPopHandler(int id) { this.id = id; }
   @Builder.Factory
   static <T extends NativeObj> NavigatorPopHandler<T> navigatorPopHandlerNavigatorPopHandler(Optional<Runnable> onPop, Optional<Consumer<NativeObj>> onPopWithResult, Optional<Boolean> enabled, WidgetI child) {
-    var st = factories.navigatorPopHandlerNavigatorPopHandler(onPop,
+    int id = factories.navigatorPopHandlerNavigatorPopHandler(onPop,
       onPopWithResult,
       enabled,
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget NavigatorPopHandler");
-    return new NavigatorPopHandler(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorPopHandler");
+    return new NavigatorPopHandler(id);
   }
   public static <T extends NativeObj> NavigatorPopHandlerNavigatorPopHandlerBuilder<T> navigatorPopHandler() {
     return NavigatorPopHandlerNavigatorPopHandlerBuilder.navigatorPopHandlerNavigatorPopHandler();
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorPopHandlerChild not supported on web");
-    return new Widget(NavigatorPopHandlerObjSt.child(st)) {};
+    return factories.NavigatorPopHandler_readBack_child(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("navigatorPopHandlerEnabled not supported on web");
-    return intToBool(NavigatorPopHandlerObjSt.enabled(st));
+    return factories.NavigatorPopHandler_readBack_enabled(nativeStruct);
   }
   @Override
   public NavigatorPopHandler build() {

@@ -3,26 +3,20 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RawMagnifierObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RawMagnifier extends StatelessWidget implements RawMagnifierI {
-  private MemorySegment st;
   protected RawMagnifier() {}
-  RawMagnifier(MemorySegment st) {
-    this.id = RawMagnifierObjSt.id(st);
-    this.st = st;
+  RawMagnifier(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RawMagnifier");
-    System.out.println("New RawMagnifier id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RawMagnifier(int id) { this.id = id; }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMagnifierChild not supported on web");
-    return new Widget(RawMagnifierObjSt.child(st)) {};
+    return factories.RawMagnifier_readBack_child(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMagnifierClipBehavior not supported on web");
-    return Clip.values()[RawMagnifierObjSt.clipBehavior(st)];
+    return factories.RawMagnifier_readBack_clipBehavior(nativeStruct);
   }
   public Offset focalPointOffset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -30,11 +24,11 @@ public class RawMagnifier extends StatelessWidget implements RawMagnifierI {
       int __nid = __s.recordAccessor("rawMagnifierFocalPointOffset", getId());
       return new Offset(__nid);
     }
-    return new Offset(RawMagnifierObjSt.focalPointOffset(st));
+    return factories.RawMagnifier_readBack_focalPointOffset(nativeStruct);
   }
   public double magnificationScale() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMagnifierMagnificationScale not supported on web");
-    return RawMagnifierObjSt.magnificationScale(st);
+    return factories.RawMagnifier_readBack_magnificationScale(nativeStruct);
   }
   @Override
   public RawMagnifier build() {

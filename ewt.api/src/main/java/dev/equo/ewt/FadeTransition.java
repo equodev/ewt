@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FadeTransitionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FadeTransition extends SingleChildRenderObjectWidget implements FadeTransitionI {
-  private MemorySegment st;
   protected FadeTransition() {}
-  FadeTransition(MemorySegment st) {
-    this.id = FadeTransitionObjSt.id(st);
-    this.st = st;
+  FadeTransition(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget FadeTransition");
-    System.out.println("New FadeTransition id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  FadeTransition(int id) { this.id = id; }
   @Builder.Factory
   static FadeTransition fadeTransitionFadeTransition(@Builder.Parameter AnimationI opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<WidgetI> child) {
-    var st = factories.fadeTransitionFadeTransition(opacity.build(),
+    int id = factories.fadeTransitionFadeTransition(opacity.build(),
       alwaysIncludeSemantics,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget FadeTransition");
-    return new FadeTransition(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FadeTransition");
+    return new FadeTransition(id);
   }
   public static FadeTransitionFadeTransitionBuilder fadeTransition(AnimationI opacity) {
     return FadeTransitionFadeTransitionBuilder.fadeTransitionFadeTransition(opacity);
   }
   public Animation opacity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeTransitionOpacity not supported on web");
-    return new Animation() { public int getId() { return FadeTransitionObjSt.opacity(st); } };
+    return factories.FadeTransition_readBack_opacity(nativeStruct);
   }
   public boolean alwaysIncludeSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeTransitionAlwaysIncludeSemantics not supported on web");
-    return intToBool(FadeTransitionObjSt.alwaysIncludeSemantics(st));
+    return factories.FadeTransition_readBack_alwaysIncludeSemantics(nativeStruct);
   }
   @Override
   public FadeTransition build() {

@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BaselineObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Baseline extends SingleChildRenderObjectWidget implements BaselineI {
-  private MemorySegment st;
   protected Baseline() {}
-  Baseline(MemorySegment st) {
-    this.id = BaselineObjSt.id(st);
-    this.st = st;
+  Baseline(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Baseline");
-    System.out.println("New Baseline id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Baseline(int id) { this.id = id; }
   @Builder.Factory
   static Baseline baselineBaseline(@Builder.Parameter double baseline, @Builder.Parameter TextBaseline baselineType, Optional<WidgetI> child) {
-    var st = factories.baselineBaseline(baseline,
+    int id = factories.baselineBaseline(baseline,
       baselineType,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Baseline");
-    return new Baseline(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Baseline");
+    return new Baseline(id);
   }
   public static BaselineBaselineBuilder baseline(double baseline, TextBaseline baselineType) {
     return BaselineBaselineBuilder.baselineBaseline(baseline, baselineType);
   }
   public double baseline() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("baselineBaseline not supported on web");
-    return BaselineObjSt.baseline(st);
+    return factories.Baseline_readBack_baseline(nativeStruct);
   }
   public TextBaseline baselineType() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("baselineBaselineType not supported on web");
-    return TextBaseline.values()[BaselineObjSt.baselineType(st)];
+    return factories.Baseline_readBack_baselineType(nativeStruct);
   }
   @Override
   public Baseline build() {

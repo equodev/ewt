@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.OpacityObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Opacity extends SingleChildRenderObjectWidget implements OpacityI {
-  private MemorySegment st;
   protected Opacity() {}
-  Opacity(MemorySegment st) {
-    this.id = OpacityObjSt.id(st);
-    this.st = st;
+  Opacity(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Opacity");
-    System.out.println("New Opacity id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Opacity(int id) { this.id = id; }
   @Builder.Factory
   static Opacity opacityOpacity(@Builder.Parameter double opacity, Optional<Boolean> alwaysIncludeSemantics, Optional<WidgetI> child) {
-    var st = factories.opacityOpacity(opacity,
+    int id = factories.opacityOpacity(opacity,
       alwaysIncludeSemantics,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget Opacity");
-    return new Opacity(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Opacity");
+    return new Opacity(id);
   }
   public static OpacityOpacityBuilder opacity(double opacity) {
     return OpacityOpacityBuilder.opacityOpacity(opacity);
   }
   public double opacity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("opacityOpacity not supported on web");
-    return OpacityObjSt.opacity(st);
+    return factories.Opacity_readBack_opacity(nativeStruct);
   }
   public boolean alwaysIncludeSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("opacityAlwaysIncludeSemantics not supported on web");
-    return intToBool(OpacityObjSt.alwaysIncludeSemantics(st));
+    return factories.Opacity_readBack_alwaysIncludeSemantics(nativeStruct);
   }
   @Override
   public Opacity build() {

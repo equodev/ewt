@@ -3,8 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class LongPressEndDetails extends NativeObj.Base implements LongPressEndDetailsI {
   protected LongPressEndDetails() {}
   LongPressEndDetails(int id) {
@@ -14,7 +13,7 @@ public class LongPressEndDetails extends NativeObj.Base implements LongPressEndD
   static { NativeObj.register("LongPressEndDetails", LongPressEndDetails::byId); }
   @Builder.Factory
   static LongPressEndDetails longPressEndDetailsLongPressEndDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition, Optional<VelocityI> velocity) {
-    int id = factories.longPressEndDetailsLongPressEndDetails(globalPosition.map(OffsetI::build),
+    var id = factories.longPressEndDetailsLongPressEndDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build),
       velocity.map(VelocityI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget LongPressEndDetails");
@@ -25,17 +24,18 @@ public class LongPressEndDetails extends NativeObj.Base implements LongPressEndD
     return LongPressEndDetailsLongPressEndDetailsBuilder.longPressEndDetailsLongPressEndDetails();
   }
   public Offset globalPosition() {
-    int id = factories.longPressEndDetailsGlobalPosition(this);
+    var id = factories.longPressEndDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.longPressEndDetailsLocalPosition(this);
+    var id = factories.longPressEndDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }
   public Velocity velocity() {
-    MemorySegment id = factories.longPressEndDetailsVelocity(this);
+    var id = factories.longPressEndDetailsVelocity(this);
+    if (id <= 0) throw new RuntimeException("Failed to call velocity");
     return new Velocity(id);
   }
   @Override

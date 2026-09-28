@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FadeInImageObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FadeInImage extends StatefulWidget implements FadeInImageI {
-  private MemorySegment st;
   protected FadeInImage() {}
-  FadeInImage(MemorySegment st) {
-    this.id = FadeInImageObjSt.id(st);
-    this.st = st;
+  FadeInImage(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget FadeInImage");
-    System.out.println("New FadeInImage id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  FadeInImage(int id) { this.id = id; }
   @Builder.Factory
   static FadeInImage fadeInImageAssetNetwork(@Builder.Parameter String placeholder, @Builder.Parameter String image, OptionalDouble placeholderScale, OptionalDouble imageScale, Optional<Boolean> excludeFromSemantics, Optional<String> imageSemanticLabel, Optional<DurationI> fadeOutDuration, Optional<CurveI> fadeOutCurve, Optional<DurationI> fadeInDuration, Optional<CurveI> fadeInCurve, OptionalDouble width, OptionalDouble height, Optional<BoxFit> fit, Optional<ColorI> color, Optional<BlendMode> colorBlendMode, Optional<ColorI> placeholderColor, Optional<BlendMode> placeholderColorBlendMode, Optional<BoxFit> placeholderFit, Optional<FilterQuality> filterQuality, Optional<FilterQuality> placeholderFilterQuality, Optional<AlignmentGeometryI> alignment, Optional<ImageRepeat> repeat, Optional<Boolean> matchTextDirection, OptionalInt placeholderCacheWidth, OptionalInt placeholderCacheHeight, OptionalInt imageCacheWidth, OptionalInt imageCacheHeight) {
-    var st = factories.fadeInImageAssetNetwork(placeholder,
+    int id = factories.fadeInImageAssetNetwork(placeholder,
       image,
       placeholderScale,
       imageScale,
@@ -45,8 +39,8 @@ public class FadeInImage extends StatefulWidget implements FadeInImageI {
       placeholderCacheHeight,
       imageCacheWidth,
       imageCacheHeight);
-    if (st == null) throw new RuntimeException("Failed to created widget FadeInImage");
-    return new FadeInImage(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FadeInImage");
+    return new FadeInImage(id);
   }
   public static FadeInImageAssetNetworkBuilder assetNetwork(String placeholder, String image) {
     return FadeInImageAssetNetworkBuilder.fadeInImageAssetNetwork(placeholder, image);
@@ -57,11 +51,11 @@ public class FadeInImage extends StatefulWidget implements FadeInImageI {
       int __nid = __s.recordAccessor("fadeInImageFadeOutDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(FadeInImageObjSt.fadeOutDuration(st));
+    return factories.FadeInImage_readBack_fadeOutDuration(nativeStruct);
   }
   public Curve fadeOutCurve() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageFadeOutCurve not supported on web");
-    return new Curve(FadeInImageObjSt.fadeOutCurve(st)) {};
+    return factories.FadeInImage_readBack_fadeOutCurve(nativeStruct);
   }
   public Duration fadeInDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -69,15 +63,15 @@ public class FadeInImage extends StatefulWidget implements FadeInImageI {
       int __nid = __s.recordAccessor("fadeInImageFadeInDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(FadeInImageObjSt.fadeInDuration(st));
+    return factories.FadeInImage_readBack_fadeInDuration(nativeStruct);
   }
   public Curve fadeInCurve() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageFadeInCurve not supported on web");
-    return new Curve(FadeInImageObjSt.fadeInCurve(st)) {};
+    return factories.FadeInImage_readBack_fadeInCurve(nativeStruct);
   }
   public double width() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageWidth not supported on web");
-    return FadeInImageObjSt.width(st);
+    return factories.FadeInImage_readBack_width(nativeStruct);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -85,11 +79,11 @@ public class FadeInImage extends StatefulWidget implements FadeInImageI {
       int __nid = __s.recordAccessor("fadeInImageColor", getId());
       return new Color(__nid);
     }
-    return new Color(FadeInImageObjSt.color(st));
+    return factories.FadeInImage_readBack_color(nativeStruct);
   }
   public BlendMode colorBlendMode() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageColorBlendMode not supported on web");
-    return BlendMode.values()[FadeInImageObjSt.colorBlendMode(st)];
+    return factories.FadeInImage_readBack_colorBlendMode(nativeStruct);
   }
   public Color placeholderColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -97,51 +91,51 @@ public class FadeInImage extends StatefulWidget implements FadeInImageI {
       int __nid = __s.recordAccessor("fadeInImagePlaceholderColor", getId());
       return new Color(__nid);
     }
-    return new Color(FadeInImageObjSt.placeholderColor(st));
+    return factories.FadeInImage_readBack_placeholderColor(nativeStruct);
   }
   public BlendMode placeholderColorBlendMode() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImagePlaceholderColorBlendMode not supported on web");
-    return BlendMode.values()[FadeInImageObjSt.placeholderColorBlendMode(st)];
+    return factories.FadeInImage_readBack_placeholderColorBlendMode(nativeStruct);
   }
   public double height() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageHeight not supported on web");
-    return FadeInImageObjSt.height(st);
+    return factories.FadeInImage_readBack_height(nativeStruct);
   }
   public BoxFit fit() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageFit not supported on web");
-    return BoxFit.values()[FadeInImageObjSt.fit(st)];
+    return factories.FadeInImage_readBack_fit(nativeStruct);
   }
   public BoxFit placeholderFit() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImagePlaceholderFit not supported on web");
-    return BoxFit.values()[FadeInImageObjSt.placeholderFit(st)];
+    return factories.FadeInImage_readBack_placeholderFit(nativeStruct);
   }
   public FilterQuality filterQuality() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageFilterQuality not supported on web");
-    return FilterQuality.values()[FadeInImageObjSt.filterQuality(st)];
+    return factories.FadeInImage_readBack_filterQuality(nativeStruct);
   }
   public FilterQuality placeholderFilterQuality() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImagePlaceholderFilterQuality not supported on web");
-    return FilterQuality.values()[FadeInImageObjSt.placeholderFilterQuality(st)];
+    return factories.FadeInImage_readBack_placeholderFilterQuality(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageAlignment not supported on web");
-    return new AlignmentGeometry(FadeInImageObjSt.alignment(st)) {};
+    return factories.FadeInImage_readBack_alignment(nativeStruct);
   }
   public ImageRepeat repeat() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageRepeat not supported on web");
-    return ImageRepeat.values()[FadeInImageObjSt.repeat(st)];
+    return factories.FadeInImage_readBack_repeat(nativeStruct);
   }
   public boolean matchTextDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageMatchTextDirection not supported on web");
-    return intToBool(FadeInImageObjSt.matchTextDirection(st));
+    return factories.FadeInImage_readBack_matchTextDirection(nativeStruct);
   }
   public boolean excludeFromSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageExcludeFromSemantics not supported on web");
-    return intToBool(FadeInImageObjSt.excludeFromSemantics(st));
+    return factories.FadeInImage_readBack_excludeFromSemantics(nativeStruct);
   }
   public String imageSemanticLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("fadeInImageImageSemanticLabel not supported on web");
-    return FadeInImageObjSt.imageSemanticLabel(st).getString(0);
+    return factories.FadeInImage_readBack_imageSemanticLabel(nativeStruct);
   }
   @Override
   public FadeInImage build() {

@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DecoratedBoxObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class DecoratedBox extends SingleChildRenderObjectWidget implements DecoratedBoxI {
-  private MemorySegment st;
   protected DecoratedBox() {}
-  DecoratedBox(MemorySegment st) {
-    this.id = DecoratedBoxObjSt.id(st);
-    this.st = st;
+  DecoratedBox(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget DecoratedBox");
-    System.out.println("New DecoratedBox id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  DecoratedBox(int id) { this.id = id; }
   @Builder.Factory
   static DecoratedBox decoratedBoxDecoratedBox(@Builder.Parameter DecorationI decoration, Optional<DecorationPosition> position, Optional<WidgetI> child) {
-    var st = factories.decoratedBoxDecoratedBox(decoration.build(),
+    int id = factories.decoratedBoxDecoratedBox(decoration.build(),
       position,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget DecoratedBox");
-    return new DecoratedBox(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget DecoratedBox");
+    return new DecoratedBox(id);
   }
   public static DecoratedBoxDecoratedBoxBuilder decoratedBox(DecorationI decoration) {
     return DecoratedBoxDecoratedBoxBuilder.decoratedBoxDecoratedBox(decoration);
   }
   public Decoration decoration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("decoratedBoxDecoration not supported on web");
-    return new Decoration(DecoratedBoxObjSt.decoration(st)) {};
+    return factories.DecoratedBox_readBack_decoration(nativeStruct);
   }
   public DecorationPosition position() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("decoratedBoxPosition not supported on web");
-    return DecorationPosition.values()[DecoratedBoxObjSt.position(st)];
+    return factories.DecoratedBox_readBack_position(nativeStruct);
   }
   @Override
   public DecoratedBox build() {

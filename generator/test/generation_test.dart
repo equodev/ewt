@@ -243,8 +243,9 @@ Future<void> main() async {
 
     test('children list is mapped through WidgetI::build when forwarded', () {
       // Forwarding must call .build() on each element so the native/serializing
-      // factory receives concrete Widget IDs, not builders.
-      expect(java, contains('i.stream().map(WidgetI::build).toList()'));
+      // factory receives concrete Widget IDs, not builders. java-11 split: the
+      // terminal is Collectors.toList() (Stream.toList() is Java 16+).
+      expect(java, contains('i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())'));
     });
 
     test('Dart factory wiring emits _setupColumn and column hook', () {

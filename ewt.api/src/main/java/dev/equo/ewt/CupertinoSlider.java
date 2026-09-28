@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoSliderObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI {
-  private MemorySegment st;
   protected CupertinoSlider() {}
-  CupertinoSlider(MemorySegment st) {
-    this.id = CupertinoSliderObjSt.id(st);
-    this.st = st;
+  CupertinoSlider(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoSlider");
-    System.out.println("New CupertinoSlider id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoSlider(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoSlider cupertinoSliderCupertinoSlider(@Builder.Parameter double value, Optional<Consumer<Double>> onChanged, Optional<Consumer<Double>> onChangeStart, Optional<Consumer<Double>> onChangeEnd, OptionalDouble min, OptionalDouble max, OptionalInt divisions, Optional<ColorI> activeColor, Optional<ColorI> thumbColor) {
-    var st = factories.cupertinoSliderCupertinoSlider(value,
+    int id = factories.cupertinoSliderCupertinoSlider(value,
       onChanged,
       onChangeStart,
       onChangeEnd,
@@ -27,27 +21,27 @@ public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI 
       divisions,
       activeColor.map(ColorI::build),
       thumbColor.map(ColorI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoSlider");
-    return new CupertinoSlider(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoSlider");
+    return new CupertinoSlider(id);
   }
   public static CupertinoSliderCupertinoSliderBuilder cupertinoSlider(double value) {
     return CupertinoSliderCupertinoSliderBuilder.cupertinoSliderCupertinoSlider(value);
   }
   public double value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderValue not supported on web");
-    return CupertinoSliderObjSt.value(st);
+    return factories.CupertinoSlider_readBack_value(nativeStruct);
   }
   public double min() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderMin not supported on web");
-    return CupertinoSliderObjSt.min(st);
+    return factories.CupertinoSlider_readBack_min(nativeStruct);
   }
   public double max() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderMax not supported on web");
-    return CupertinoSliderObjSt.max(st);
+    return factories.CupertinoSlider_readBack_max(nativeStruct);
   }
   public int divisions() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSliderDivisions not supported on web");
-    return CupertinoSliderObjSt.divisions(st);
+    return factories.CupertinoSlider_readBack_divisions(nativeStruct);
   }
   public Color activeColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -55,7 +49,7 @@ public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI 
       int __nid = __s.recordAccessor("cupertinoSliderActiveColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSliderObjSt.activeColor(st));
+    return factories.CupertinoSlider_readBack_activeColor(nativeStruct);
   }
   public Color thumbColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -63,7 +57,7 @@ public class CupertinoSlider extends StatefulWidget implements CupertinoSliderI 
       int __nid = __s.recordAccessor("cupertinoSliderThumbColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSliderObjSt.thumbColor(st));
+    return factories.CupertinoSlider_readBack_thumbColor(nativeStruct);
   }
   @Override
   public CupertinoSlider build() {

@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class DragDownDetails extends NativeObj.Base implements DragDownDetailsI {
   protected DragDownDetails() {}
   DragDownDetails(int id) {
@@ -13,7 +13,7 @@ public class DragDownDetails extends NativeObj.Base implements DragDownDetailsI 
   static { NativeObj.register("DragDownDetails", DragDownDetails::byId); }
   @Builder.Factory
   static DragDownDetails dragDownDetailsDragDownDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition) {
-    int id = factories.dragDownDetailsDragDownDetails(globalPosition.map(OffsetI::build),
+    var id = factories.dragDownDetailsDragDownDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget DragDownDetails");
     System.out.println("New DragDownDetails id:"+id);
@@ -23,12 +23,12 @@ public class DragDownDetails extends NativeObj.Base implements DragDownDetailsI 
     return DragDownDetailsDragDownDetailsBuilder.dragDownDetailsDragDownDetails();
   }
   public Offset globalPosition() {
-    int id = factories.dragDownDetailsGlobalPosition(this);
+    var id = factories.dragDownDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.dragDownDetailsLocalPosition(this);
+    var id = factories.dragDownDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }

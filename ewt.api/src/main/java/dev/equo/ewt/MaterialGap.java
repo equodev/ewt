@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.MaterialGapObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class MaterialGap extends MergeableMaterialItem implements MaterialGapI {
-  private MemorySegment st;
   protected MaterialGap() {}
-  MaterialGap(MemorySegment st) {
-    this.id = MaterialGapObjSt.id(st);
-    this.st = st;
+  MaterialGap(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget MaterialGap");
-    System.out.println("New MaterialGap id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  MaterialGap(int id) { this.id = id; }
   public double size() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("materialGapSize not supported on web");
-    return MaterialGapObjSt.size(st);
+    return factories.MaterialGap_readBack_size(nativeStruct);
   }
   @Override
   public MaterialGap build() {

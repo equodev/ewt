@@ -3,37 +3,31 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoTabViewObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoTabView extends StatefulWidget implements CupertinoTabViewI {
-  private MemorySegment st;
   protected CupertinoTabView() {}
-  CupertinoTabView(MemorySegment st) {
-    this.id = CupertinoTabViewObjSt.id(st);
-    this.st = st;
+  CupertinoTabView(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoTabView");
-    System.out.println("New CupertinoTabView id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoTabView(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoTabView cupertinoTabViewCupertinoTabView(Optional<Function<BuildContext, Widget>> builder, Optional<String> defaultTitle, Optional<String> restorationScopeId) {
-    var st = factories.cupertinoTabViewCupertinoTabView(builder,
+    int id = factories.cupertinoTabViewCupertinoTabView(builder,
       defaultTitle,
       restorationScopeId);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoTabView");
-    return new CupertinoTabView(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoTabView");
+    return new CupertinoTabView(id);
   }
   public static CupertinoTabViewCupertinoTabViewBuilder cupertinoTabView() {
     return CupertinoTabViewCupertinoTabViewBuilder.cupertinoTabViewCupertinoTabView();
   }
   public String defaultTitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTabViewDefaultTitle not supported on web");
-    return CupertinoTabViewObjSt.defaultTitle(st).getString(0);
+    return factories.CupertinoTabView_readBack_defaultTitle(nativeStruct);
   }
   public String restorationScopeId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoTabViewRestorationScopeId not supported on web");
-    return CupertinoTabViewObjSt.restorationScopeId(st).getString(0);
+    return factories.CupertinoTabView_readBack_restorationScopeId(nativeStruct);
   }
   @Override
   public CupertinoTabView build() {

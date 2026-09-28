@@ -3,51 +3,45 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoFormRowObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoFormRow extends StatelessWidget implements CupertinoFormRowI {
-  private MemorySegment st;
   protected CupertinoFormRow() {}
-  CupertinoFormRow(MemorySegment st) {
-    this.id = CupertinoFormRowObjSt.id(st);
-    this.st = st;
+  CupertinoFormRow(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoFormRow");
-    System.out.println("New CupertinoFormRow id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoFormRow(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoFormRow cupertinoFormRowCupertinoFormRow(@Builder.Parameter WidgetI child, Optional<WidgetI> prefix, Optional<EdgeInsetsGeometryI> padding, Optional<WidgetI> helper, Optional<WidgetI> error) {
-    var st = factories.cupertinoFormRowCupertinoFormRow(child.build(),
+    int id = factories.cupertinoFormRowCupertinoFormRow(child.build(),
       prefix.map(WidgetI::build),
       padding.map(EdgeInsetsGeometryI::build),
       helper.map(WidgetI::build),
       error.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoFormRow");
-    return new CupertinoFormRow(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoFormRow");
+    return new CupertinoFormRow(id);
   }
   public static CupertinoFormRowCupertinoFormRowBuilder cupertinoFormRow(WidgetI child) {
     return CupertinoFormRowCupertinoFormRowBuilder.cupertinoFormRowCupertinoFormRow(child);
   }
   public Widget prefix() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowPrefix not supported on web");
-    return new Widget(CupertinoFormRowObjSt.prefix(st)) {};
+    return factories.CupertinoFormRow_readBack_prefix(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowPadding not supported on web");
-    return new EdgeInsetsGeometry(CupertinoFormRowObjSt.padding(st)) {};
+    return factories.CupertinoFormRow_readBack_padding(nativeStruct);
   }
   public Widget helper() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowHelper not supported on web");
-    return new Widget(CupertinoFormRowObjSt.helper(st)) {};
+    return factories.CupertinoFormRow_readBack_helper(nativeStruct);
   }
   public Widget error() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowError not supported on web");
-    return new Widget(CupertinoFormRowObjSt.error(st)) {};
+    return factories.CupertinoFormRow_readBack_error(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoFormRowChild not supported on web");
-    return new Widget(CupertinoFormRowObjSt.child(st)) {};
+    return factories.CupertinoFormRow_readBack_child(nativeStruct);
   }
   @Override
   public CupertinoFormRow build() {

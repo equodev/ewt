@@ -69,7 +69,7 @@ public final class HotReloadRoot extends SubStatefulWidget {
             } catch (Throwable e) {
                 var fb = ERROR_FALLBACK;
                 if (fb != null) return fb.apply(e);
-                if (e instanceof RuntimeException re) throw re;
+                if (e instanceof RuntimeException) throw (RuntimeException) e;
                 throw new RuntimeException("EWT hot-reload root builder threw", e);
             }
         }

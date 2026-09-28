@@ -3,28 +3,22 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ThreePointCubicObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ThreePointCubic extends Curve implements ThreePointCubicI {
-  private MemorySegment st;
   protected ThreePointCubic() {}
-  ThreePointCubic(MemorySegment st) {
-    this.id = ThreePointCubicObjSt.id(st);
-    this.st = st;
+  ThreePointCubic(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ThreePointCubic");
-    System.out.println("New ThreePointCubic id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ThreePointCubic(int id) { this.id = id; }
   @Builder.Factory
   static ThreePointCubic threePointCubicThreePointCubic(@Builder.Parameter OffsetI a1, @Builder.Parameter OffsetI b1, @Builder.Parameter OffsetI midpoint, @Builder.Parameter OffsetI a2, @Builder.Parameter OffsetI b2) {
-    var st = factories.threePointCubicThreePointCubic(a1.build(),
+    int id = factories.threePointCubicThreePointCubic(a1.build(),
       b1.build(),
       midpoint.build(),
       a2.build(),
       b2.build());
-    if (st == null) throw new RuntimeException("Failed to created widget ThreePointCubic");
-    return new ThreePointCubic(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ThreePointCubic");
+    return new ThreePointCubic(id);
   }
   public static ThreePointCubicThreePointCubicBuilder threePointCubic(OffsetI a1, OffsetI b1, OffsetI midpoint, OffsetI a2, OffsetI b2) {
     return ThreePointCubicThreePointCubicBuilder.threePointCubicThreePointCubic(a1, b1, midpoint, a2, b2);
@@ -35,7 +29,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
       int __nid = __s.recordAccessor("threePointCubicA1", getId());
       return new Offset(__nid);
     }
-    return new Offset(ThreePointCubicObjSt.a1(st));
+    return factories.ThreePointCubic_readBack_a1(nativeStruct);
   }
   public Offset b1() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -43,7 +37,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
       int __nid = __s.recordAccessor("threePointCubicB1", getId());
       return new Offset(__nid);
     }
-    return new Offset(ThreePointCubicObjSt.b1(st));
+    return factories.ThreePointCubic_readBack_b1(nativeStruct);
   }
   public Offset midpoint() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -51,7 +45,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
       int __nid = __s.recordAccessor("threePointCubicMidpoint", getId());
       return new Offset(__nid);
     }
-    return new Offset(ThreePointCubicObjSt.midpoint(st));
+    return factories.ThreePointCubic_readBack_midpoint(nativeStruct);
   }
   public Offset a2() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -59,7 +53,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
       int __nid = __s.recordAccessor("threePointCubicA2", getId());
       return new Offset(__nid);
     }
-    return new Offset(ThreePointCubicObjSt.a2(st));
+    return factories.ThreePointCubic_readBack_a2(nativeStruct);
   }
   public Offset b2() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -67,7 +61,7 @@ public class ThreePointCubic extends Curve implements ThreePointCubicI {
       int __nid = __s.recordAccessor("threePointCubicB2", getId());
       return new Offset(__nid);
     }
-    return new Offset(ThreePointCubicObjSt.b2(st));
+    return factories.ThreePointCubic_readBack_b2(nativeStruct);
   }
   @Override
   public ThreePointCubic build() {

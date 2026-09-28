@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SearchBarThemeDataObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SearchBarThemeData extends NativeObj.Base implements SearchBarThemeDataI {
-  private MemorySegment st;
   protected SearchBarThemeData() {}
-  SearchBarThemeData(MemorySegment st) {
-    this.id = SearchBarThemeDataObjSt.id(st);
-    this.st = st;
+  SearchBarThemeData(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SearchBarThemeData");
-    System.out.println("New SearchBarThemeData id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SearchBarThemeData(int id) { this.id = id; }
   @Builder.Factory
   static SearchBarThemeData searchBarThemeDataSearchBarThemeData(OptionalDouble elevation, Optional<ColorI> backgroundColor, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<ColorI> overlayColor, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<EdgeInsetsGeometryI> padding, Optional<TextStyleI> textStyle, Optional<TextStyleI> hintStyle, Optional<BoxConstraintsI> constraints, Optional<TextCapitalization> textCapitalization) {
-    var st = factories.searchBarThemeDataSearchBarThemeData(elevation,
+    int id = factories.searchBarThemeDataSearchBarThemeData(elevation,
       backgroundColor.map(ColorI::build),
       shadowColor.map(ColorI::build),
       surfaceTintColor.map(ColorI::build),
@@ -30,32 +24,30 @@ public class SearchBarThemeData extends NativeObj.Base implements SearchBarTheme
       hintStyle.map(TextStyleI::build),
       constraints.map(BoxConstraintsI::build),
       textCapitalization);
-    if (st == null) throw new RuntimeException("Failed to created widget SearchBarThemeData");
-    return new SearchBarThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SearchBarThemeData");
+    return new SearchBarThemeData(id);
   }
   public static SearchBarThemeDataSearchBarThemeDataBuilder searchBarThemeData() {
     return SearchBarThemeDataSearchBarThemeDataBuilder.searchBarThemeDataSearchBarThemeData();
   }
   public static SearchBarThemeData lerp(SearchBarThemeDataI a, SearchBarThemeDataI b, double t) {
-    var st = factories.searchBarThemeDataLerp(a.build(),
+    int id = factories.searchBarThemeDataLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget SearchBarThemeData");
-    return new SearchBarThemeData(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SearchBarThemeData");
+    return new SearchBarThemeData(id);
   }
   public BoxConstraints constraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("searchBarThemeDataConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(SearchBarThemeDataObjSt.constraints(st));
+    return factories.SearchBarThemeData_readBack_constraints(nativeStruct);
   }
   public TextCapitalization textCapitalization() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("searchBarThemeDataTextCapitalization not supported on web");
-    return TextCapitalization.values()[SearchBarThemeDataObjSt.textCapitalization(st)];
+    return factories.SearchBarThemeData_readBack_textCapitalization(nativeStruct);
   }
   @Override
   public SearchBarThemeData build() {

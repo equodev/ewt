@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TapRegionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TapRegion extends SingleChildRenderObjectWidget implements TapRegionI {
-  private MemorySegment st;
   protected TapRegion() {}
-  TapRegion(MemorySegment st) {
-    this.id = TapRegionObjSt.id(st);
-    this.st = st;
+  TapRegion(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TapRegion");
-    System.out.println("New TapRegion id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TapRegion(int id) { this.id = id; }
   @Builder.Factory
   static TapRegion tapRegionTapRegion(Optional<WidgetI> child, Optional<Boolean> enabled, Optional<HitTestBehavior> behavior, Optional<Consumer<PointerDownEvent>> onTapOutside, Optional<Consumer<PointerDownEvent>> onTapInside, Optional<Consumer<PointerUpEvent>> onTapUpOutside, Optional<Consumer<PointerUpEvent>> onTapUpInside, Optional<NativeObj.I> groupId, Optional<Boolean> consumeOutsideTaps, Optional<String> debugLabel) {
-    var st = factories.tapRegionTapRegion(child.map(WidgetI::build),
+    int id = factories.tapRegionTapRegion(child.map(WidgetI::build),
       enabled,
       behavior,
       onTapOutside,
@@ -28,27 +22,27 @@ public class TapRegion extends SingleChildRenderObjectWidget implements TapRegio
       groupId.map(NativeObj.I::build),
       consumeOutsideTaps,
       debugLabel);
-    if (st == null) throw new RuntimeException("Failed to created widget TapRegion");
-    return new TapRegion(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TapRegion");
+    return new TapRegion(id);
   }
   public static TapRegionTapRegionBuilder tapRegion() {
     return TapRegionTapRegionBuilder.tapRegionTapRegion();
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tapRegionEnabled not supported on web");
-    return intToBool(TapRegionObjSt.enabled(st));
+    return factories.TapRegion_readBack_enabled(nativeStruct);
   }
   public HitTestBehavior behavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tapRegionBehavior not supported on web");
-    return HitTestBehavior.values()[TapRegionObjSt.behavior(st)];
+    return factories.TapRegion_readBack_behavior(nativeStruct);
   }
   public boolean consumeOutsideTaps() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tapRegionConsumeOutsideTaps not supported on web");
-    return intToBool(TapRegionObjSt.consumeOutsideTaps(st));
+    return factories.TapRegion_readBack_consumeOutsideTaps(nativeStruct);
   }
   public String debugLabel() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("tapRegionDebugLabel not supported on web");
-    return TapRegionObjSt.debugLabel(st).getString(0);
+    return factories.TapRegion_readBack_debugLabel(nativeStruct);
   }
   @Override
   public TapRegion build() {

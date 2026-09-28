@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoAppObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
-  private MemorySegment st;
   protected CupertinoApp() {}
-  CupertinoApp(MemorySegment st) {
-    this.id = CupertinoAppObjSt.id(st);
-    this.st = st;
+  CupertinoApp(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoApp");
-    System.out.println("New CupertinoApp id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoApp(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoApp cupertinoAppCupertinoApp(Optional<WidgetI> home, Optional<CupertinoThemeDataI> theme, Optional<String> initialRoute, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    var st = factories.cupertinoAppCupertinoApp(home.map(WidgetI::build),
+    int id = factories.cupertinoAppCupertinoApp(home.map(WidgetI::build),
       theme.map(CupertinoThemeDataI::build),
       initialRoute,
       builder,
@@ -32,15 +26,15 @@ public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
       debugShowCheckedModeBanner,
       restorationScopeId,
       useInheritedMediaQuery);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoApp");
-    return new CupertinoApp(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoApp");
+    return new CupertinoApp(id);
   }
   public static CupertinoAppCupertinoAppBuilder cupertinoApp() {
     return CupertinoAppCupertinoAppBuilder.cupertinoAppCupertinoApp();
   }
   @Builder.Factory
   static CupertinoApp cupertinoAppRouter(Optional<CupertinoThemeDataI> theme, Optional<BiFunction<BuildContext, Widget, Widget>> builder, Optional<String> title, Optional<Function<BuildContext, String>> onGenerateTitle, Optional<ColorI> color, Optional<Boolean> showPerformanceOverlay, Optional<Boolean> checkerboardRasterCacheImages, Optional<Boolean> checkerboardOffscreenLayers, Optional<Boolean> showSemanticsDebugger, Optional<Boolean> debugShowCheckedModeBanner, Optional<String> restorationScopeId, Optional<Boolean> useInheritedMediaQuery) {
-    var st = factories.cupertinoAppRouter(theme.map(CupertinoThemeDataI::build),
+    int id = factories.cupertinoAppRouter(theme.map(CupertinoThemeDataI::build),
       builder,
       title,
       onGenerateTitle,
@@ -52,33 +46,31 @@ public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
       debugShowCheckedModeBanner,
       restorationScopeId,
       useInheritedMediaQuery);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoApp");
-    return new CupertinoApp(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoApp");
+    return new CupertinoApp(id);
   }
   public static CupertinoAppRouterBuilder router() {
     return CupertinoAppRouterBuilder.cupertinoAppRouter();
   }
   public Widget home() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppHome not supported on web");
-    return new Widget(CupertinoAppObjSt.home(st)) {};
+    return factories.CupertinoApp_readBack_home(nativeStruct);
   }
   public CupertinoThemeData theme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("cupertinoAppTheme", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.CupertinoThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.CupertinoThemeDataObjSt.id(__st, __nid);
-      return new CupertinoThemeData(__st);
+      return new CupertinoThemeData(__nid);
     }
-    return new CupertinoThemeData(CupertinoAppObjSt.theme(st));
+    return factories.CupertinoApp_readBack_theme(nativeStruct);
   }
   public String initialRoute() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppInitialRoute not supported on web");
-    return CupertinoAppObjSt.initialRoute(st).getString(0);
+    return factories.CupertinoApp_readBack_initialRoute(nativeStruct);
   }
   public String title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppTitle not supported on web");
-    return CupertinoAppObjSt.title(st).getString(0);
+    return factories.CupertinoApp_readBack_title(nativeStruct);
   }
   public Color color() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -86,35 +78,35 @@ public class CupertinoApp extends StatefulWidget implements CupertinoAppI {
       int __nid = __s.recordAccessor("cupertinoAppColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoAppObjSt.color(st));
+    return factories.CupertinoApp_readBack_color(nativeStruct);
   }
   public boolean showPerformanceOverlay() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppShowPerformanceOverlay not supported on web");
-    return intToBool(CupertinoAppObjSt.showPerformanceOverlay(st));
+    return factories.CupertinoApp_readBack_showPerformanceOverlay(nativeStruct);
   }
   public boolean checkerboardRasterCacheImages() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppCheckerboardRasterCacheImages not supported on web");
-    return intToBool(CupertinoAppObjSt.checkerboardRasterCacheImages(st));
+    return factories.CupertinoApp_readBack_checkerboardRasterCacheImages(nativeStruct);
   }
   public boolean checkerboardOffscreenLayers() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppCheckerboardOffscreenLayers not supported on web");
-    return intToBool(CupertinoAppObjSt.checkerboardOffscreenLayers(st));
+    return factories.CupertinoApp_readBack_checkerboardOffscreenLayers(nativeStruct);
   }
   public boolean showSemanticsDebugger() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppShowSemanticsDebugger not supported on web");
-    return intToBool(CupertinoAppObjSt.showSemanticsDebugger(st));
+    return factories.CupertinoApp_readBack_showSemanticsDebugger(nativeStruct);
   }
   public boolean debugShowCheckedModeBanner() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppDebugShowCheckedModeBanner not supported on web");
-    return intToBool(CupertinoAppObjSt.debugShowCheckedModeBanner(st));
+    return factories.CupertinoApp_readBack_debugShowCheckedModeBanner(nativeStruct);
   }
   public String restorationScopeId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppRestorationScopeId not supported on web");
-    return CupertinoAppObjSt.restorationScopeId(st).getString(0);
+    return factories.CupertinoApp_readBack_restorationScopeId(nativeStruct);
   }
   public boolean useInheritedMediaQuery() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAppUseInheritedMediaQuery not supported on web");
-    return intToBool(CupertinoAppObjSt.useInheritedMediaQuery(st));
+    return factories.CupertinoApp_readBack_useInheritedMediaQuery(nativeStruct);
   }
   @Override
   public CupertinoApp build() {

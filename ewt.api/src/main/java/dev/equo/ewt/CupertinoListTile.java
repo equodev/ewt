@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoListTileObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoListTile extends StatefulWidget implements CupertinoListTileI {
-  private MemorySegment st;
   protected CupertinoListTile() {}
-  CupertinoListTile(MemorySegment st) {
-    this.id = CupertinoListTileObjSt.id(st);
-    this.st = st;
+  CupertinoListTile(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListTile");
-    System.out.println("New CupertinoListTile id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoListTile(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoListTile cupertinoListTileCupertinoListTile(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, Optional<WidgetI> additionalInfo, Optional<WidgetI> leading, Optional<WidgetI> trailing, Optional<Runnable> onTap, Optional<ColorI> backgroundColor, Optional<ColorI> backgroundColorActivated, Optional<EdgeInsetsGeometryI> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
-    var st = factories.cupertinoListTileCupertinoListTile(title.build(),
+    int id = factories.cupertinoListTileCupertinoListTile(title.build(),
       subtitle.map(WidgetI::build),
       additionalInfo.map(WidgetI::build),
       leading.map(WidgetI::build),
@@ -29,15 +23,15 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
       padding.map(EdgeInsetsGeometryI::build),
       leadingSize,
       leadingToTitle);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoListTile");
-    return new CupertinoListTile(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListTile");
+    return new CupertinoListTile(id);
   }
   public static CupertinoListTileCupertinoListTileBuilder cupertinoListTile(WidgetI title) {
     return CupertinoListTileCupertinoListTileBuilder.cupertinoListTileCupertinoListTile(title);
   }
   @Builder.Factory
   static CupertinoListTile cupertinoListTileNotched(@Builder.Parameter WidgetI title, Optional<WidgetI> subtitle, Optional<WidgetI> additionalInfo, Optional<WidgetI> leading, Optional<WidgetI> trailing, Optional<Runnable> onTap, Optional<ColorI> backgroundColor, Optional<ColorI> backgroundColorActivated, Optional<EdgeInsetsGeometryI> padding, OptionalDouble leadingSize, OptionalDouble leadingToTitle) {
-    var st = factories.cupertinoListTileNotched(title.build(),
+    int id = factories.cupertinoListTileNotched(title.build(),
       subtitle.map(WidgetI::build),
       additionalInfo.map(WidgetI::build),
       leading.map(WidgetI::build),
@@ -48,31 +42,31 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
       padding.map(EdgeInsetsGeometryI::build),
       leadingSize,
       leadingToTitle);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoListTile");
-    return new CupertinoListTile(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoListTile");
+    return new CupertinoListTile(id);
   }
   public static CupertinoListTileNotchedBuilder notched(WidgetI title) {
     return CupertinoListTileNotchedBuilder.cupertinoListTileNotched(title);
   }
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileTitle not supported on web");
-    return new Widget(CupertinoListTileObjSt.title(st)) {};
+    return factories.CupertinoListTile_readBack_title(nativeStruct);
   }
   public Widget subtitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileSubtitle not supported on web");
-    return new Widget(CupertinoListTileObjSt.subtitle(st)) {};
+    return factories.CupertinoListTile_readBack_subtitle(nativeStruct);
   }
   public Widget additionalInfo() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileAdditionalInfo not supported on web");
-    return new Widget(CupertinoListTileObjSt.additionalInfo(st)) {};
+    return factories.CupertinoListTile_readBack_additionalInfo(nativeStruct);
   }
   public Widget leading() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileLeading not supported on web");
-    return new Widget(CupertinoListTileObjSt.leading(st)) {};
+    return factories.CupertinoListTile_readBack_leading(nativeStruct);
   }
   public Widget trailing() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileTrailing not supported on web");
-    return new Widget(CupertinoListTileObjSt.trailing(st)) {};
+    return factories.CupertinoListTile_readBack_trailing(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -80,7 +74,7 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
       int __nid = __s.recordAccessor("cupertinoListTileBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoListTileObjSt.backgroundColor(st));
+    return factories.CupertinoListTile_readBack_backgroundColor(nativeStruct);
   }
   public Color backgroundColorActivated() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -88,19 +82,19 @@ public class CupertinoListTile extends StatefulWidget implements CupertinoListTi
       int __nid = __s.recordAccessor("cupertinoListTileBackgroundColorActivated", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoListTileObjSt.backgroundColorActivated(st));
+    return factories.CupertinoListTile_readBack_backgroundColorActivated(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTilePadding not supported on web");
-    return new EdgeInsetsGeometry(CupertinoListTileObjSt.padding(st)) {};
+    return factories.CupertinoListTile_readBack_padding(nativeStruct);
   }
   public double leadingSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileLeadingSize not supported on web");
-    return CupertinoListTileObjSt.leadingSize(st);
+    return factories.CupertinoListTile_readBack_leadingSize(nativeStruct);
   }
   public double leadingToTitle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoListTileLeadingToTitle not supported on web");
-    return CupertinoListTileObjSt.leadingToTitle(st);
+    return factories.CupertinoListTile_readBack_leadingToTitle(nativeStruct);
   }
   @Override
   public CupertinoListTile build() {

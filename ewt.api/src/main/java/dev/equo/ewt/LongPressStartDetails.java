@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class LongPressStartDetails extends NativeObj.Base implements LongPressStartDetailsI {
   protected LongPressStartDetails() {}
   LongPressStartDetails(int id) {
@@ -13,7 +13,7 @@ public class LongPressStartDetails extends NativeObj.Base implements LongPressSt
   static { NativeObj.register("LongPressStartDetails", LongPressStartDetails::byId); }
   @Builder.Factory
   static LongPressStartDetails longPressStartDetailsLongPressStartDetails(Optional<OffsetI> globalPosition, Optional<OffsetI> localPosition) {
-    int id = factories.longPressStartDetailsLongPressStartDetails(globalPosition.map(OffsetI::build),
+    var id = factories.longPressStartDetailsLongPressStartDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget LongPressStartDetails");
     System.out.println("New LongPressStartDetails id:"+id);
@@ -23,12 +23,12 @@ public class LongPressStartDetails extends NativeObj.Base implements LongPressSt
     return LongPressStartDetailsLongPressStartDetailsBuilder.longPressStartDetailsLongPressStartDetails();
   }
   public Offset globalPosition() {
-    int id = factories.longPressStartDetailsGlobalPosition(this);
+    var id = factories.longPressStartDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.longPressStartDetailsLocalPosition(this);
+    var id = factories.longPressStartDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }

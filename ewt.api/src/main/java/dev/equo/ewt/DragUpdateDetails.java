@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
+import static dev.equo.ewt.NativeObj.Base.intToBool;
 public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetailsI {
   protected DragUpdateDetails() {}
   DragUpdateDetails(int id) {
@@ -13,7 +13,7 @@ public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetai
   static { NativeObj.register("DragUpdateDetails", DragUpdateDetails::byId); }
   @Builder.Factory
   static DragUpdateDetails dragUpdateDetailsDragUpdateDetails(@Builder.Parameter OffsetI globalPosition, Optional<OffsetI> localPosition, Optional<DurationI> sourceTimeStamp, Optional<OffsetI> delta, OptionalDouble primaryDelta, Optional<PointerDeviceKind> kind) {
-    int id = factories.dragUpdateDetailsDragUpdateDetails(globalPosition.build(),
+    var id = factories.dragUpdateDetailsDragUpdateDetails(globalPosition.build(),
       localPosition.map(OffsetI::build),
       sourceTimeStamp.map(DurationI::build),
       delta.map(OffsetI::build),
@@ -27,17 +27,17 @@ public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetai
     return DragUpdateDetailsDragUpdateDetailsBuilder.dragUpdateDetailsDragUpdateDetails(globalPosition);
   }
   public Offset globalPosition() {
-    int id = factories.dragUpdateDetailsGlobalPosition(this);
+    var id = factories.dragUpdateDetailsGlobalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call globalPosition");
     return new Offset(id);
   }
   public Offset localPosition() {
-    int id = factories.dragUpdateDetailsLocalPosition(this);
+    var id = factories.dragUpdateDetailsLocalPosition(this);
     if (id <= 0) throw new RuntimeException("Failed to call localPosition");
     return new Offset(id);
   }
   public Offset delta() {
-    int id = factories.dragUpdateDetailsDelta(this);
+    var id = factories.dragUpdateDetailsDelta(this);
     if (id <= 0) throw new RuntimeException("Failed to call delta");
     return new Offset(id);
   }

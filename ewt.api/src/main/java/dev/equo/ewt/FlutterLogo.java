@@ -3,35 +3,29 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.FlutterLogoObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class FlutterLogo extends StatelessWidget implements FlutterLogoI {
-  private MemorySegment st;
   protected FlutterLogo() {}
-  FlutterLogo(MemorySegment st) {
-    this.id = FlutterLogoObjSt.id(st);
-    this.st = st;
+  FlutterLogo(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget FlutterLogo");
-    System.out.println("New FlutterLogo id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  FlutterLogo(int id) { this.id = id; }
   @Builder.Factory
   static FlutterLogo flutterLogoFlutterLogo(OptionalDouble size, Optional<ColorI> textColor, Optional<FlutterLogoStyle> style, Optional<DurationI> duration, Optional<CurveI> curve) {
-    var st = factories.flutterLogoFlutterLogo(size,
+    int id = factories.flutterLogoFlutterLogo(size,
       textColor.map(ColorI::build),
       style,
       duration.map(DurationI::build),
       curve.map(CurveI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget FlutterLogo");
-    return new FlutterLogo(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget FlutterLogo");
+    return new FlutterLogo(id);
   }
   public static FlutterLogoFlutterLogoBuilder flutterLogo() {
     return FlutterLogoFlutterLogoBuilder.flutterLogoFlutterLogo();
   }
   public double size() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flutterLogoSize not supported on web");
-    return FlutterLogoObjSt.size(st);
+    return factories.FlutterLogo_readBack_size(nativeStruct);
   }
   public Color textColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -39,11 +33,11 @@ public class FlutterLogo extends StatelessWidget implements FlutterLogoI {
       int __nid = __s.recordAccessor("flutterLogoTextColor", getId());
       return new Color(__nid);
     }
-    return new Color(FlutterLogoObjSt.textColor(st));
+    return factories.FlutterLogo_readBack_textColor(nativeStruct);
   }
   public FlutterLogoStyle style() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flutterLogoStyle not supported on web");
-    return FlutterLogoStyle.values()[FlutterLogoObjSt.style(st)];
+    return factories.FlutterLogo_readBack_style(nativeStruct);
   }
   public Duration duration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -51,11 +45,11 @@ public class FlutterLogo extends StatelessWidget implements FlutterLogoI {
       int __nid = __s.recordAccessor("flutterLogoDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(FlutterLogoObjSt.duration(st));
+    return factories.FlutterLogo_readBack_duration(nativeStruct);
   }
   public Curve curve() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("flutterLogoCurve not supported on web");
-    return new Curve(FlutterLogoObjSt.curve(st)) {};
+    return factories.FlutterLogo_readBack_curve(nativeStruct);
   }
   @Override
   public FlutterLogo build() {

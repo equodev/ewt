@@ -3,26 +3,20 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RelativePositionedTransitionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RelativePositionedTransition extends AnimatedWidget implements RelativePositionedTransitionI {
-  private MemorySegment st;
   protected RelativePositionedTransition() {}
-  RelativePositionedTransition(MemorySegment st) {
-    this.id = RelativePositionedTransitionObjSt.id(st);
-    this.st = st;
+  RelativePositionedTransition(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RelativePositionedTransition");
-    System.out.println("New RelativePositionedTransition id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RelativePositionedTransition(int id) { this.id = id; }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("relativePositionedTransitionChild not supported on web");
-    return new Widget(RelativePositionedTransitionObjSt.child(st)) {};
+    return factories.RelativePositionedTransition_readBack_child(nativeStruct);
   }
   public Animation rect() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("relativePositionedTransitionRect not supported on web");
-    return new Animation() { public int getId() { return RelativePositionedTransitionObjSt.rect(st); } };
+    return factories.RelativePositionedTransition_readBack_rect(nativeStruct);
   }
   @Override
   public RelativePositionedTransition build() {

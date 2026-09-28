@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoDynamicColorObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDynamicColorI {
-  private MemorySegment st;
   protected CupertinoDynamicColor() {}
-  CupertinoDynamicColor(MemorySegment st) {
-    this.id = CupertinoDynamicColorObjSt.id(st);
-    this.st = st;
+  CupertinoDynamicColor(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
-    System.out.println("New CupertinoDynamicColor id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoDynamicColor(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoDynamicColor cupertinoDynamicColorCupertinoDynamicColor(Optional<String> debugLabel, ColorI color, ColorI darkColor, ColorI highContrastColor, ColorI darkHighContrastColor, ColorI elevatedColor, ColorI darkElevatedColor, ColorI highContrastElevatedColor, ColorI darkHighContrastElevatedColor) {
-    var st = factories.cupertinoDynamicColorCupertinoDynamicColor(debugLabel,
+    int id = factories.cupertinoDynamicColorCupertinoDynamicColor(debugLabel,
       color.build(),
       darkColor.build(),
       highContrastColor.build(),
@@ -27,45 +21,45 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       darkElevatedColor.build(),
       highContrastElevatedColor.build(),
       darkHighContrastElevatedColor.build());
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
-    return new CupertinoDynamicColor(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
+    return new CupertinoDynamicColor(id);
   }
   public static CupertinoDynamicColorCupertinoDynamicColorBuilder cupertinoDynamicColor() {
     return CupertinoDynamicColorCupertinoDynamicColorBuilder.cupertinoDynamicColorCupertinoDynamicColor();
   }
   @Builder.Factory
   static CupertinoDynamicColor cupertinoDynamicColorWithBrightnessAndContrast(Optional<String> debugLabel, ColorI color, ColorI darkColor, ColorI highContrastColor, ColorI darkHighContrastColor) {
-    var st = factories.cupertinoDynamicColorWithBrightnessAndContrast(debugLabel,
+    int id = factories.cupertinoDynamicColorWithBrightnessAndContrast(debugLabel,
       color.build(),
       darkColor.build(),
       highContrastColor.build(),
       darkHighContrastColor.build());
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
-    return new CupertinoDynamicColor(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
+    return new CupertinoDynamicColor(id);
   }
   public static CupertinoDynamicColorWithBrightnessAndContrastBuilder withBrightnessAndContrast() {
     return CupertinoDynamicColorWithBrightnessAndContrastBuilder.cupertinoDynamicColorWithBrightnessAndContrast();
   }
   @Builder.Factory
   static CupertinoDynamicColor cupertinoDynamicColorWithBrightness(Optional<String> debugLabel, ColorI color, ColorI darkColor) {
-    var st = factories.cupertinoDynamicColorWithBrightness(debugLabel,
+    int id = factories.cupertinoDynamicColorWithBrightness(debugLabel,
       color.build(),
       darkColor.build());
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
-    return new CupertinoDynamicColor(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoDynamicColor");
+    return new CupertinoDynamicColor(id);
   }
   public static CupertinoDynamicColorWithBrightnessBuilder withBrightness() {
     return CupertinoDynamicColorWithBrightnessBuilder.cupertinoDynamicColorWithBrightness();
   }
   public static Color resolve(ColorI resolvable, BuildContextI context) {
-    int id = factories.cupertinoDynamicColorResolve(resolvable.build(),
+    var id = factories.cupertinoDynamicColorResolve(resolvable.build(),
       context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
     System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static Color maybeResolve(ColorI resolvable, BuildContextI context) {
-    int id = factories.cupertinoDynamicColorMaybeResolve(resolvable.build(),
+    var id = factories.cupertinoDynamicColorMaybeResolve(resolvable.build(),
       context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Color?");
     System.out.println("New Color? id:"+id);
@@ -77,7 +71,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.color(st));
+    return factories.CupertinoDynamicColor_readBack_color(nativeStruct);
   }
   public Color darkColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -85,7 +79,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorDarkColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.darkColor(st));
+    return factories.CupertinoDynamicColor_readBack_darkColor(nativeStruct);
   }
   public Color highContrastColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -93,7 +87,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorHighContrastColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.highContrastColor(st));
+    return factories.CupertinoDynamicColor_readBack_highContrastColor(nativeStruct);
   }
   public Color darkHighContrastColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -101,7 +95,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorDarkHighContrastColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.darkHighContrastColor(st));
+    return factories.CupertinoDynamicColor_readBack_darkHighContrastColor(nativeStruct);
   }
   public Color elevatedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -109,7 +103,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorElevatedColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.elevatedColor(st));
+    return factories.CupertinoDynamicColor_readBack_elevatedColor(nativeStruct);
   }
   public Color darkElevatedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -117,7 +111,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorDarkElevatedColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.darkElevatedColor(st));
+    return factories.CupertinoDynamicColor_readBack_darkElevatedColor(nativeStruct);
   }
   public Color highContrastElevatedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -125,7 +119,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorHighContrastElevatedColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.highContrastElevatedColor(st));
+    return factories.CupertinoDynamicColor_readBack_highContrastElevatedColor(nativeStruct);
   }
   public Color darkHighContrastElevatedColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -133,7 +127,7 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
       int __nid = __s.recordAccessor("cupertinoDynamicColorDarkHighContrastElevatedColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoDynamicColorObjSt.darkHighContrastElevatedColor(st));
+    return factories.CupertinoDynamicColor_readBack_darkHighContrastElevatedColor(nativeStruct);
   }
   @Override
   public CupertinoDynamicColor build() {

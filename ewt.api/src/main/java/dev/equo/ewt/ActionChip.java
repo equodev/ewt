@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ActionChipObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ActionChip extends StatelessWidget implements ActionChipI {
-  private MemorySegment st;
   protected ActionChip() {}
-  ActionChip(MemorySegment st) {
-    this.id = ActionChipObjSt.id(st);
-    this.st = st;
+  ActionChip(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ActionChip");
-    System.out.println("New ActionChip id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ActionChip(int id) { this.id = id; }
   @Builder.Factory
   static ActionChip actionChipActionChip(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> disabledColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<BoxConstraintsI> avatarBoxConstraints) {
-    var st = factories.actionChipActionChip(avatar.map(WidgetI::build),
+    int id = factories.actionChipActionChip(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
       labelPadding.map(EdgeInsetsGeometryI::build),
@@ -40,15 +34,15 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       surfaceTintColor.map(ColorI::build),
       iconTheme.map(IconThemeDataI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ActionChip");
-    return new ActionChip(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ActionChip");
+    return new ActionChip(id);
   }
   public static ActionChipActionChipBuilder actionChip() {
     return ActionChipActionChipBuilder.actionChipActionChip();
   }
   @Builder.Factory
   static ActionChip actionChipElevated(Optional<WidgetI> avatar, WidgetI label, Optional<TextStyleI> labelStyle, Optional<EdgeInsetsGeometryI> labelPadding, Optional<Runnable> onPressed, OptionalDouble pressElevation, Optional<String> tooltip, Optional<BorderSideI> side, Optional<OutlinedBorderI> shape, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<ColorI> color, Optional<ColorI> backgroundColor, Optional<ColorI> disabledColor, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<MaterialTapTargetSize> materialTapTargetSize, OptionalDouble elevation, Optional<ColorI> shadowColor, Optional<ColorI> surfaceTintColor, Optional<IconThemeDataI> iconTheme, Optional<BoxConstraintsI> avatarBoxConstraints) {
-    var st = factories.actionChipElevated(avatar.map(WidgetI::build),
+    int id = factories.actionChipElevated(avatar.map(WidgetI::build),
       label.build(),
       labelStyle.map(TextStyleI::build),
       labelPadding.map(EdgeInsetsGeometryI::build),
@@ -70,63 +64,59 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       surfaceTintColor.map(ColorI::build),
       iconTheme.map(IconThemeDataI::build),
       avatarBoxConstraints.map(BoxConstraintsI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ActionChip");
-    return new ActionChip(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ActionChip");
+    return new ActionChip(id);
   }
   public static ActionChipElevatedBuilder elevated() {
     return ActionChipElevatedBuilder.actionChipElevated();
   }
   public Widget avatar() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipAvatar not supported on web");
-    return new Widget(ActionChipObjSt.avatar(st)) {};
+    return factories.ActionChip_readBack_avatar(nativeStruct);
   }
   public Widget label() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipLabel not supported on web");
-    return new Widget(ActionChipObjSt.label(st)) {};
+    return factories.ActionChip_readBack_label(nativeStruct);
   }
   public TextStyle labelStyle() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("actionChipLabelStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(ActionChipObjSt.labelStyle(st));
+    return factories.ActionChip_readBack_labelStyle(nativeStruct);
   }
   public EdgeInsetsGeometry labelPadding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipLabelPadding not supported on web");
-    return new EdgeInsetsGeometry(ActionChipObjSt.labelPadding(st)) {};
+    return factories.ActionChip_readBack_labelPadding(nativeStruct);
   }
   public double pressElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipPressElevation not supported on web");
-    return ActionChipObjSt.pressElevation(st);
+    return factories.ActionChip_readBack_pressElevation(nativeStruct);
   }
   public String tooltip() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipTooltip not supported on web");
-    return ActionChipObjSt.tooltip(st).getString(0);
+    return factories.ActionChip_readBack_tooltip(nativeStruct);
   }
   public BorderSide side() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("actionChipSide", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BorderSideObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BorderSideObjSt.id(__st, __nid);
-      return new BorderSide(__st);
+      return new BorderSide(__nid);
     }
-    return new BorderSide(ActionChipObjSt.side(st));
+    return factories.ActionChip_readBack_side(nativeStruct);
   }
   public OutlinedBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipShape not supported on web");
-    return new OutlinedBorder(ActionChipObjSt.shape(st)) {};
+    return factories.ActionChip_readBack_shape(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipClipBehavior not supported on web");
-    return Clip.values()[ActionChipObjSt.clipBehavior(st)];
+    return factories.ActionChip_readBack_clipBehavior(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipAutofocus not supported on web");
-    return intToBool(ActionChipObjSt.autofocus(st));
+    return factories.ActionChip_readBack_autofocus(nativeStruct);
   }
   public Color backgroundColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -134,7 +124,7 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       int __nid = __s.recordAccessor("actionChipBackgroundColor", getId());
       return new Color(__nid);
     }
-    return new Color(ActionChipObjSt.backgroundColor(st));
+    return factories.ActionChip_readBack_backgroundColor(nativeStruct);
   }
   public Color disabledColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -142,29 +132,27 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       int __nid = __s.recordAccessor("actionChipDisabledColor", getId());
       return new Color(__nid);
     }
-    return new Color(ActionChipObjSt.disabledColor(st));
+    return factories.ActionChip_readBack_disabledColor(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipPadding not supported on web");
-    return new EdgeInsetsGeometry(ActionChipObjSt.padding(st)) {};
+    return factories.ActionChip_readBack_padding(nativeStruct);
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("actionChipVisualDensity", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
-      return new VisualDensity(__st);
+      return new VisualDensity(__nid);
     }
-    return new VisualDensity(ActionChipObjSt.visualDensity(st));
+    return factories.ActionChip_readBack_visualDensity(nativeStruct);
   }
   public MaterialTapTargetSize materialTapTargetSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipMaterialTapTargetSize not supported on web");
-    return MaterialTapTargetSize.values()[ActionChipObjSt.materialTapTargetSize(st)];
+    return factories.ActionChip_readBack_materialTapTargetSize(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("actionChipElevation not supported on web");
-    return ActionChipObjSt.elevation(st);
+    return factories.ActionChip_readBack_elevation(nativeStruct);
   }
   public Color shadowColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -172,7 +160,7 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       int __nid = __s.recordAccessor("actionChipShadowColor", getId());
       return new Color(__nid);
     }
-    return new Color(ActionChipObjSt.shadowColor(st));
+    return factories.ActionChip_readBack_shadowColor(nativeStruct);
   }
   public Color surfaceTintColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -180,27 +168,23 @@ public class ActionChip extends StatelessWidget implements ActionChipI {
       int __nid = __s.recordAccessor("actionChipSurfaceTintColor", getId());
       return new Color(__nid);
     }
-    return new Color(ActionChipObjSt.surfaceTintColor(st));
+    return factories.ActionChip_readBack_surfaceTintColor(nativeStruct);
   }
   public IconThemeData iconTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("actionChipIconTheme", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.IconThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.IconThemeDataObjSt.id(__st, __nid);
-      return new IconThemeData(__st);
+      return new IconThemeData(__nid);
     }
-    return new IconThemeData(ActionChipObjSt.iconTheme(st));
+    return factories.ActionChip_readBack_iconTheme(nativeStruct);
   }
   public BoxConstraints avatarBoxConstraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("actionChipAvatarBoxConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(ActionChipObjSt.avatarBoxConstraints(st));
+    return factories.ActionChip_readBack_avatarBoxConstraints(nativeStruct);
   }
   @Override
   public ActionChip build() {

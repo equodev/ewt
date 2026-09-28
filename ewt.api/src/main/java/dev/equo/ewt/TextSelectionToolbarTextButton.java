@@ -3,33 +3,27 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.TextSelectionToolbarTextButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class TextSelectionToolbarTextButton extends StatelessWidget implements TextSelectionToolbarTextButtonI {
-  private MemorySegment st;
   protected TextSelectionToolbarTextButton() {}
-  TextSelectionToolbarTextButton(MemorySegment st) {
-    this.id = TextSelectionToolbarTextButtonObjSt.id(st);
-    this.st = st;
+  TextSelectionToolbarTextButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget TextSelectionToolbarTextButton");
-    System.out.println("New TextSelectionToolbarTextButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  TextSelectionToolbarTextButton(int id) { this.id = id; }
   @Builder.Factory
   static TextSelectionToolbarTextButton textSelectionToolbarTextButtonTextSelectionToolbarTextButton(@Builder.Parameter WidgetI child, @Builder.Parameter EdgeInsetsGeometryI padding, Optional<Runnable> onPressed, Optional<AlignmentGeometryI> alignment) {
-    var st = factories.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child.build(),
+    int id = factories.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child.build(),
       padding.build(),
       onPressed,
       alignment.map(AlignmentGeometryI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget TextSelectionToolbarTextButton");
-    return new TextSelectionToolbarTextButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget TextSelectionToolbarTextButton");
+    return new TextSelectionToolbarTextButton(id);
   }
   public static TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder textSelectionToolbarTextButton(WidgetI child, EdgeInsetsGeometryI padding) {
     return TextSelectionToolbarTextButtonTextSelectionToolbarTextButtonBuilder.textSelectionToolbarTextButtonTextSelectionToolbarTextButton(child, padding);
   }
   public static EdgeInsetsGeometry getPadding(int index, int total) {
-    int id = factories.textSelectionToolbarTextButtonGetPadding(index,
+    var id = factories.textSelectionToolbarTextButtonGetPadding(index,
       total);
     if (id <= 0) throw new RuntimeException("Failed to created widget EdgeInsetsGeometry");
     System.out.println("New EdgeInsetsGeometry id:"+id);
@@ -37,15 +31,15 @@ public class TextSelectionToolbarTextButton extends StatelessWidget implements T
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSelectionToolbarTextButtonChild not supported on web");
-    return new Widget(TextSelectionToolbarTextButtonObjSt.child(st)) {};
+    return factories.TextSelectionToolbarTextButton_readBack_child(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSelectionToolbarTextButtonPadding not supported on web");
-    return new EdgeInsetsGeometry(TextSelectionToolbarTextButtonObjSt.padding(st)) {};
+    return factories.TextSelectionToolbarTextButton_readBack_padding(nativeStruct);
   }
   public AlignmentGeometry alignment() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("textSelectionToolbarTextButtonAlignment not supported on web");
-    return new AlignmentGeometry(TextSelectionToolbarTextButtonObjSt.alignment(st)) {};
+    return factories.TextSelectionToolbarTextButton_readBack_alignment(nativeStruct);
   }
   private static double _kMiddlePadding() {
     return 9.5;

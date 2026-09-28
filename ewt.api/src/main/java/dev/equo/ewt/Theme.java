@@ -3,42 +3,36 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ThemeObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Theme extends StatelessWidget implements ThemeI {
-  private MemorySegment st;
   protected Theme() {}
-  Theme(MemorySegment st) {
-    this.id = ThemeObjSt.id(st);
-    this.st = st;
+  Theme(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Theme");
-    System.out.println("New Theme id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Theme(int id) { this.id = id; }
   @Builder.Factory
   static Theme themeTheme(@Builder.Parameter ThemeDataI data, @Builder.Parameter WidgetI child) {
-    var st = factories.themeTheme(data.build(),
+    int id = factories.themeTheme(data.build(),
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget Theme");
-    return new Theme(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Theme");
+    return new Theme(id);
   }
   public static ThemeThemeBuilder theme(ThemeDataI data, WidgetI child) {
     return ThemeThemeBuilder.themeTheme(data, child);
   }
   public static ThemeData of(BuildContextI context) {
-    var st = factories.themeOf(context.build());
-    if (st == null) throw new RuntimeException("Failed to created widget ThemeData");
-    return new ThemeData(st);
+    int id = factories.themeOf(context.build());
+    if (id <= 0) throw new RuntimeException("Failed to created widget ThemeData");
+    return new ThemeData(id);
   }
   public static Brightness brightnessOf(BuildContextI context) {
-    int id = factories.themeBrightnessOf(context.build());
+    var id = factories.themeBrightnessOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Brightness");
     System.out.println("New Brightness id:"+id);
     return Brightness.values()[id];
   }
   public static Brightness maybeBrightnessOf(BuildContextI context) {
-    int id = factories.themeMaybeBrightnessOf(context.build());
+    var id = factories.themeMaybeBrightnessOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Brightness?");
     System.out.println("New Brightness? id:"+id);
     return Brightness.values()[id];
@@ -47,15 +41,13 @@ public class Theme extends StatelessWidget implements ThemeI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("themeData", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.ThemeDataObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.ThemeDataObjSt.id(__st, __nid);
-      return new ThemeData(__st);
+      return new ThemeData(__nid);
     }
-    return new ThemeData(ThemeObjSt.data(st));
+    return factories.Theme_readBack_data(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("themeChild not supported on web");
-    return new Widget(ThemeObjSt.child(st)) {};
+    return factories.Theme_readBack_child(nativeStruct);
   }
   @Override
   public Theme build() {

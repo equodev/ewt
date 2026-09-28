@@ -3,39 +3,33 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoAlertDialogObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoAlertDialog extends StatefulWidget implements CupertinoAlertDialogI {
-  private MemorySegment st;
   protected CupertinoAlertDialog() {}
-  CupertinoAlertDialog(MemorySegment st) {
-    this.id = CupertinoAlertDialogObjSt.id(st);
-    this.st = st;
+  CupertinoAlertDialog(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoAlertDialog");
-    System.out.println("New CupertinoAlertDialog id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoAlertDialog(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoAlertDialog cupertinoAlertDialogCupertinoAlertDialog(Optional<WidgetI> title, Optional<WidgetI> content, Optional<List<WidgetI>> actions, Optional<DurationI> insetAnimationDuration, Optional<CurveI> insetAnimationCurve) {
-    var st = factories.cupertinoAlertDialogCupertinoAlertDialog(title.map(WidgetI::build),
+    int id = factories.cupertinoAlertDialogCupertinoAlertDialog(title.map(WidgetI::build),
       content.map(WidgetI::build),
-      actions.map(i -> i.stream().map(WidgetI::build).toList()),
+      actions.map(i -> i.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList())),
       insetAnimationDuration.map(DurationI::build),
       insetAnimationCurve.map(CurveI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoAlertDialog");
-    return new CupertinoAlertDialog(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoAlertDialog");
+    return new CupertinoAlertDialog(id);
   }
   public static CupertinoAlertDialogCupertinoAlertDialogBuilder cupertinoAlertDialog() {
     return CupertinoAlertDialogCupertinoAlertDialogBuilder.cupertinoAlertDialogCupertinoAlertDialog();
   }
   public Widget title() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAlertDialogTitle not supported on web");
-    return new Widget(CupertinoAlertDialogObjSt.title(st)) {};
+    return factories.CupertinoAlertDialog_readBack_title(nativeStruct);
   }
   public Widget content() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAlertDialogContent not supported on web");
-    return new Widget(CupertinoAlertDialogObjSt.content(st)) {};
+    return factories.CupertinoAlertDialog_readBack_content(nativeStruct);
   }
   public Duration insetAnimationDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -43,11 +37,11 @@ public class CupertinoAlertDialog extends StatefulWidget implements CupertinoAle
       int __nid = __s.recordAccessor("cupertinoAlertDialogInsetAnimationDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(CupertinoAlertDialogObjSt.insetAnimationDuration(st));
+    return factories.CupertinoAlertDialog_readBack_insetAnimationDuration(nativeStruct);
   }
   public Curve insetAnimationCurve() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoAlertDialogInsetAnimationCurve not supported on web");
-    return new Curve(CupertinoAlertDialogObjSt.insetAnimationCurve(st)) {};
+    return factories.CupertinoAlertDialog_readBack_insetAnimationCurve(nativeStruct);
   }
   @Override
   public CupertinoAlertDialog build() {

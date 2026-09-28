@@ -3,32 +3,26 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.ExcludeSemanticsObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class ExcludeSemantics extends SingleChildRenderObjectWidget implements ExcludeSemanticsI {
-  private MemorySegment st;
   protected ExcludeSemantics() {}
-  ExcludeSemantics(MemorySegment st) {
-    this.id = ExcludeSemanticsObjSt.id(st);
-    this.st = st;
+  ExcludeSemantics(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget ExcludeSemantics");
-    System.out.println("New ExcludeSemantics id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  ExcludeSemantics(int id) { this.id = id; }
   @Builder.Factory
   static ExcludeSemantics excludeSemanticsExcludeSemantics(Optional<Boolean> excluding, Optional<WidgetI> child) {
-    var st = factories.excludeSemanticsExcludeSemantics(excluding,
+    int id = factories.excludeSemanticsExcludeSemantics(excluding,
       child.map(WidgetI::build));
-    if (st == null) throw new RuntimeException("Failed to created widget ExcludeSemantics");
-    return new ExcludeSemantics(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget ExcludeSemantics");
+    return new ExcludeSemantics(id);
   }
   public static ExcludeSemanticsExcludeSemanticsBuilder excludeSemantics() {
     return ExcludeSemanticsExcludeSemanticsBuilder.excludeSemanticsExcludeSemantics();
   }
   public boolean excluding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("excludeSemanticsExcluding not supported on web");
-    return intToBool(ExcludeSemanticsObjSt.excluding(st));
+    return factories.ExcludeSemantics_readBack_excluding(nativeStruct);
   }
   @Override
   public ExcludeSemantics build() {

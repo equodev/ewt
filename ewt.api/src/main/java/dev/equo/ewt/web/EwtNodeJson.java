@@ -40,12 +40,12 @@ public final class EwtNodeJson {
       Object val = e.getValue();
       if (val == null) continue; // skip null params (e.g. unresolved node refs)
       // Absent optionals are omitted entirely (same as if the param was not set).
-      if (val instanceof java.util.Optional<?> opt && opt.isEmpty()) continue;
+      if (val instanceof java.util.Optional<?> && ((java.util.Optional<?>) val).isEmpty()) continue;
       if (!first) sb.append(',');
       first = false;
       writeString(sb, e.getKey());
       sb.append(':');
-      writeValue(sb, val instanceof java.util.Optional<?> opt2 ? opt2.get() : val, visited, depth + 1);
+      writeValue(sb, val instanceof java.util.Optional<?> ? ((java.util.Optional<?>) val).get() : val, visited, depth + 1);
     }
     sb.append("},\"c\":[");
     List<EwtNode> children = n.children();
@@ -62,17 +62,19 @@ public final class EwtNodeJson {
   }
 
   static void writeValue(StringBuilder sb, Object v, java.util.Map<Integer,String> visited, int depth) {
-    if (v instanceof String s) writeString(sb, s);
+    if (v instanceof String) writeString(sb, (String) v);
     else if (v instanceof Boolean || v instanceof Integer || v instanceof Double || v instanceof Long) sb.append(v);
-    else if (v instanceof EwtNode n) write(sb, n, visited, depth);
-    else if (v instanceof java.util.List<?> list) {
+    else if (v instanceof EwtNode) write(sb, (EwtNode) v, visited, depth);
+    else if (v instanceof java.util.List<?>) {
+      java.util.List<?> list = (java.util.List<?>) v;
       sb.append('[');
       for (int i = 0; i < list.size(); i++) {
         if (i > 0) sb.append(',');
         writeValue(sb, list.get(i), visited, depth);
       }
       sb.append(']');
-    } else if (v instanceof java.util.Map<?, ?> map) {
+    } else if (v instanceof java.util.Map<?, ?>) {
+      java.util.Map<?, ?> map = (java.util.Map<?, ?>) v;
       sb.append('{');
       boolean first = true;
       for (java.util.Map.Entry<?, ?> e : map.entrySet()) {
@@ -83,7 +85,8 @@ public final class EwtNodeJson {
         writeValue(sb, e.getValue(), visited, depth);
       }
       sb.append('}');
-    } else if (v instanceof java.util.Optional<?> opt) {
+    } else if (v instanceof java.util.Optional<?>) {
+      java.util.Optional<?> opt = (java.util.Optional<?>) v;
       if (opt.isPresent()) writeValue(sb, opt.get(), visited, depth);
       else sb.append("null");
     } else {
@@ -95,20 +98,20 @@ public final class EwtNodeJson {
     sb.append('"');
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
+      // java-11 split: classic switch (not the arrow form) so it compiles at --release 11.
       switch (c) {
-        case '"' -> sb.append("\\\"");
-        case '\\' -> sb.append("\\\\");
-        case '\n' -> sb.append("\\n");
-        case '\r' -> sb.append("\\r");
-        case '\t' -> sb.append("\\t");
-        default -> {
+        case '"': sb.append("\\\""); break;
+        case '\\': sb.append("\\\\"); break;
+        case '\n': sb.append("\\n"); break;
+        case '\r': sb.append("\\r"); break;
+        case '\t': sb.append("\\t"); break;
+        default:
           if (c < 0x20) {
             // Escape all other control characters as a JSON Unicode escape sequence.
             sb.append(String.format("\\u%04X", (int) c));
           } else {
             sb.append(c);
           }
-        }
       }
     }
     sb.append('"');

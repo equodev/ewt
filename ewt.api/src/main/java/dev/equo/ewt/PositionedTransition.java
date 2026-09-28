@@ -3,36 +3,30 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.PositionedTransitionObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class PositionedTransition extends AnimatedWidget implements PositionedTransitionI {
-  private MemorySegment st;
   protected PositionedTransition() {}
-  PositionedTransition(MemorySegment st) {
-    this.id = PositionedTransitionObjSt.id(st);
-    this.st = st;
+  PositionedTransition(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget PositionedTransition");
-    System.out.println("New PositionedTransition id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  PositionedTransition(int id) { this.id = id; }
   @Builder.Factory
   static PositionedTransition positionedTransitionPositionedTransition(@Builder.Parameter AnimationI rect, @Builder.Parameter WidgetI child) {
-    var st = factories.positionedTransitionPositionedTransition(rect.build(),
+    int id = factories.positionedTransitionPositionedTransition(rect.build(),
       child.build());
-    if (st == null) throw new RuntimeException("Failed to created widget PositionedTransition");
-    return new PositionedTransition(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget PositionedTransition");
+    return new PositionedTransition(id);
   }
   public static PositionedTransitionPositionedTransitionBuilder positionedTransition(AnimationI rect, WidgetI child) {
     return PositionedTransitionPositionedTransitionBuilder.positionedTransitionPositionedTransition(rect, child);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedTransitionChild not supported on web");
-    return new Widget(PositionedTransitionObjSt.child(st)) {};
+    return factories.PositionedTransition_readBack_child(nativeStruct);
   }
   public Animation rect() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("positionedTransitionRect not supported on web");
-    return new Animation() { public int getId() { return PositionedTransitionObjSt.rect(st); } };
+    return factories.PositionedTransition_readBack_rect(nativeStruct);
   }
   @Override
   public PositionedTransition build() {

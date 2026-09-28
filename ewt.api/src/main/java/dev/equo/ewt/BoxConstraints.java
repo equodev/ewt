@@ -3,107 +3,101 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.BoxConstraintsObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class BoxConstraints extends Constraints implements BoxConstraintsI {
-  private MemorySegment st;
   protected BoxConstraints() {}
-  BoxConstraints(MemorySegment st) {
-    this.id = BoxConstraintsObjSt.id(st);
-    this.st = st;
+  BoxConstraints(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
-    System.out.println("New BoxConstraints id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  BoxConstraints(int id) { this.id = id; }
   @Builder.Factory
   static BoxConstraints boxConstraintsBoxConstraints(OptionalDouble minWidth, OptionalDouble maxWidth, OptionalDouble minHeight, OptionalDouble maxHeight) {
-    var st = factories.boxConstraintsBoxConstraints(minWidth,
+    int id = factories.boxConstraintsBoxConstraints(minWidth,
       maxWidth,
       minHeight,
       maxHeight);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxConstraints");
-    return new BoxConstraints(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
+    return new BoxConstraints(id);
   }
   public static BoxConstraintsBoxConstraintsBuilder boxConstraints() {
     return BoxConstraintsBoxConstraintsBuilder.boxConstraintsBoxConstraints();
   }
   @Builder.Factory
   static BoxConstraints boxConstraintsTightFor(OptionalDouble width, OptionalDouble height) {
-    var st = factories.boxConstraintsTightFor(width,
+    int id = factories.boxConstraintsTightFor(width,
       height);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxConstraints");
-    return new BoxConstraints(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
+    return new BoxConstraints(id);
   }
   public static BoxConstraintsTightForBuilder tightFor() {
     return BoxConstraintsTightForBuilder.boxConstraintsTightFor();
   }
   @Builder.Factory
   static BoxConstraints boxConstraintsTightForFinite(OptionalDouble width, OptionalDouble height) {
-    var st = factories.boxConstraintsTightForFinite(width,
+    int id = factories.boxConstraintsTightForFinite(width,
       height);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxConstraints");
-    return new BoxConstraints(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
+    return new BoxConstraints(id);
   }
   public static BoxConstraintsTightForFiniteBuilder tightForFinite() {
     return BoxConstraintsTightForFiniteBuilder.boxConstraintsTightForFinite();
   }
   @Builder.Factory
   static BoxConstraints boxConstraintsExpand(OptionalDouble width, OptionalDouble height) {
-    var st = factories.boxConstraintsExpand(width,
+    int id = factories.boxConstraintsExpand(width,
       height);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxConstraints");
-    return new BoxConstraints(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
+    return new BoxConstraints(id);
   }
   public static BoxConstraintsExpandBuilder expand() {
     return BoxConstraintsExpandBuilder.boxConstraintsExpand();
   }
   public static BoxConstraints lerp(BoxConstraintsI a, BoxConstraintsI b, double t) {
-    var st = factories.boxConstraintsLerp(a.build(),
+    int id = factories.boxConstraintsLerp(a.build(),
       b.build(),
       t);
-    if (st == null) throw new RuntimeException("Failed to created widget BoxConstraints");
-    return new BoxConstraints(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget BoxConstraints");
+    return new BoxConstraints(id);
   }
   public double minWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMinWidth not supported on web");
-    return BoxConstraintsObjSt.minWidth(st);
+    return factories.BoxConstraints_readBack_minWidth(nativeStruct);
   }
   public double maxWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMaxWidth not supported on web");
-    return BoxConstraintsObjSt.maxWidth(st);
+    return factories.BoxConstraints_readBack_maxWidth(nativeStruct);
   }
   public double minHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMinHeight not supported on web");
-    return BoxConstraintsObjSt.minHeight(st);
+    return factories.BoxConstraints_readBack_minHeight(nativeStruct);
   }
   public double maxHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsMaxHeight not supported on web");
-    return BoxConstraintsObjSt.maxHeight(st);
+    return factories.BoxConstraints_readBack_maxHeight(nativeStruct);
   }
   public boolean hasTightWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasTightWidth not supported on web");
-    return intToBool(BoxConstraintsObjSt.hasTightWidth(st));
+    return factories.BoxConstraints_readBack_hasTightWidth(nativeStruct);
   }
   public boolean hasTightHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasTightHeight not supported on web");
-    return intToBool(BoxConstraintsObjSt.hasTightHeight(st));
+    return factories.BoxConstraints_readBack_hasTightHeight(nativeStruct);
   }
   public boolean hasBoundedWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasBoundedWidth not supported on web");
-    return intToBool(BoxConstraintsObjSt.hasBoundedWidth(st));
+    return factories.BoxConstraints_readBack_hasBoundedWidth(nativeStruct);
   }
   public boolean hasBoundedHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasBoundedHeight not supported on web");
-    return intToBool(BoxConstraintsObjSt.hasBoundedHeight(st));
+    return factories.BoxConstraints_readBack_hasBoundedHeight(nativeStruct);
   }
   public boolean hasInfiniteWidth() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasInfiniteWidth not supported on web");
-    return intToBool(BoxConstraintsObjSt.hasInfiniteWidth(st));
+    return factories.BoxConstraints_readBack_hasInfiniteWidth(nativeStruct);
   }
   public boolean hasInfiniteHeight() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("boxConstraintsHasInfiniteHeight not supported on web");
-    return intToBool(BoxConstraintsObjSt.hasInfiniteHeight(st));
+    return factories.BoxConstraints_readBack_hasInfiniteHeight(nativeStruct);
   }
   @Override
   public BoxConstraints build() {

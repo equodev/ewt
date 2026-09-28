@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.CupertinoSwitchObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI {
-  private MemorySegment st;
   protected CupertinoSwitch() {}
-  CupertinoSwitch(MemorySegment st) {
-    this.id = CupertinoSwitchObjSt.id(st);
-    this.st = st;
+  CupertinoSwitch(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoSwitch");
-    System.out.println("New CupertinoSwitch id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  CupertinoSwitch(int id) { this.id = id; }
   @Builder.Factory
   static CupertinoSwitch cupertinoSwitchCupertinoSwitch(@Builder.Parameter boolean value, Optional<Consumer<Boolean>> onChanged, Optional<ColorI> activeColor, Optional<ColorI> trackColor, Optional<ColorI> activeTrackColor, Optional<ColorI> inactiveTrackColor, Optional<ColorI> thumbColor, Optional<ColorI> inactiveThumbColor, Optional<Boolean> applyTheme, Optional<ColorI> focusColor, Optional<ColorI> onLabelColor, Optional<ColorI> offLabelColor, Optional<ColorI> trackOutlineColor, OptionalDouble trackOutlineWidth, Optional<IconI> thumbIcon, Optional<Consumer<Boolean>> onFocusChange, Optional<Boolean> autofocus, Optional<DragStartBehavior> dragStartBehavior) {
-    var st = factories.cupertinoSwitchCupertinoSwitch(value,
+    int id = factories.cupertinoSwitchCupertinoSwitch(value,
       onChanged,
       activeColor.map(ColorI::build),
       trackColor.map(ColorI::build),
@@ -36,15 +30,15 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       onFocusChange,
       autofocus,
       dragStartBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget CupertinoSwitch");
-    return new CupertinoSwitch(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget CupertinoSwitch");
+    return new CupertinoSwitch(id);
   }
   public static CupertinoSwitchCupertinoSwitchBuilder cupertinoSwitch(boolean value) {
     return CupertinoSwitchCupertinoSwitchBuilder.cupertinoSwitchCupertinoSwitch(value);
   }
   public boolean value() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchValue not supported on web");
-    return intToBool(CupertinoSwitchObjSt.value(st));
+    return factories.CupertinoSwitch_readBack_value(nativeStruct);
   }
   public Color activeTrackColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -52,7 +46,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchActiveTrackColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.activeTrackColor(st));
+    return factories.CupertinoSwitch_readBack_activeTrackColor(nativeStruct);
   }
   public Color inactiveTrackColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -60,7 +54,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchInactiveTrackColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.inactiveTrackColor(st));
+    return factories.CupertinoSwitch_readBack_inactiveTrackColor(nativeStruct);
   }
   public Color thumbColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -68,7 +62,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchThumbColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.thumbColor(st));
+    return factories.CupertinoSwitch_readBack_thumbColor(nativeStruct);
   }
   public Color inactiveThumbColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -76,7 +70,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchInactiveThumbColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.inactiveThumbColor(st));
+    return factories.CupertinoSwitch_readBack_inactiveThumbColor(nativeStruct);
   }
   public Color focusColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -84,7 +78,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchFocusColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.focusColor(st));
+    return factories.CupertinoSwitch_readBack_focusColor(nativeStruct);
   }
   public Color onLabelColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -92,7 +86,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchOnLabelColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.onLabelColor(st));
+    return factories.CupertinoSwitch_readBack_onLabelColor(nativeStruct);
   }
   public Color offLabelColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -100,19 +94,19 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchOffLabelColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.offLabelColor(st));
+    return factories.CupertinoSwitch_readBack_offLabelColor(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchAutofocus not supported on web");
-    return intToBool(CupertinoSwitchObjSt.autofocus(st));
+    return factories.CupertinoSwitch_readBack_autofocus(nativeStruct);
   }
   public boolean applyTheme() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchApplyTheme not supported on web");
-    return intToBool(CupertinoSwitchObjSt.applyTheme(st));
+    return factories.CupertinoSwitch_readBack_applyTheme(nativeStruct);
   }
   public DragStartBehavior dragStartBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("cupertinoSwitchDragStartBehavior not supported on web");
-    return DragStartBehavior.values()[CupertinoSwitchObjSt.dragStartBehavior(st)];
+    return factories.CupertinoSwitch_readBack_dragStartBehavior(nativeStruct);
   }
   public Color activeColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -120,7 +114,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchActiveColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.activeColor(st));
+    return factories.CupertinoSwitch_readBack_activeColor(nativeStruct);
   }
   public Color trackColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -128,7 +122,7 @@ public class CupertinoSwitch extends StatefulWidget implements CupertinoSwitchI 
       int __nid = __s.recordAccessor("cupertinoSwitchTrackColor", getId());
       return new Color(__nid);
     }
-    return new Color(CupertinoSwitchObjSt.trackColor(st));
+    return factories.CupertinoSwitch_readBack_trackColor(nativeStruct);
   }
   @Override
   public CupertinoSwitch build() {

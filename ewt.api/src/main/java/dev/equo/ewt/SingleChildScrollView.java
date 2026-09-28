@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.SingleChildScrollViewObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class SingleChildScrollView extends StatelessWidget implements SingleChildScrollViewI {
-  private MemorySegment st;
   protected SingleChildScrollView() {}
-  SingleChildScrollView(MemorySegment st) {
-    this.id = SingleChildScrollViewObjSt.id(st);
-    this.st = st;
+  SingleChildScrollView(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget SingleChildScrollView");
-    System.out.println("New SingleChildScrollView id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  SingleChildScrollView(int id) { this.id = id; }
   @Builder.Factory
   static SingleChildScrollView singleChildScrollViewSingleChildScrollView(Optional<Axis> scrollDirection, Optional<Boolean> reverse, Optional<EdgeInsetsGeometryI> padding, Optional<Boolean> primary, Optional<WidgetI> child, Optional<DragStartBehavior> dragStartBehavior, Optional<Clip> clipBehavior, Optional<HitTestBehavior> hitTestBehavior, Optional<String> restorationId, Optional<ScrollViewKeyboardDismissBehavior> keyboardDismissBehavior) {
-    var st = factories.singleChildScrollViewSingleChildScrollView(scrollDirection,
+    int id = factories.singleChildScrollViewSingleChildScrollView(scrollDirection,
       reverse,
       padding.map(EdgeInsetsGeometryI::build),
       primary,
@@ -28,51 +22,51 @@ public class SingleChildScrollView extends StatelessWidget implements SingleChil
       hitTestBehavior,
       restorationId,
       keyboardDismissBehavior);
-    if (st == null) throw new RuntimeException("Failed to created widget SingleChildScrollView");
-    return new SingleChildScrollView(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget SingleChildScrollView");
+    return new SingleChildScrollView(id);
   }
   public static SingleChildScrollViewSingleChildScrollViewBuilder singleChildScrollView() {
     return SingleChildScrollViewSingleChildScrollViewBuilder.singleChildScrollViewSingleChildScrollView();
   }
   public Axis scrollDirection() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewScrollDirection not supported on web");
-    return Axis.values()[SingleChildScrollViewObjSt.scrollDirection(st)];
+    return factories.SingleChildScrollView_readBack_scrollDirection(nativeStruct);
   }
   public boolean reverse() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewReverse not supported on web");
-    return intToBool(SingleChildScrollViewObjSt.reverse(st));
+    return factories.SingleChildScrollView_readBack_reverse(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewPadding not supported on web");
-    return new EdgeInsetsGeometry(SingleChildScrollViewObjSt.padding(st)) {};
+    return factories.SingleChildScrollView_readBack_padding(nativeStruct);
   }
   public boolean primary() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewPrimary not supported on web");
-    return intToBool(SingleChildScrollViewObjSt.primary(st));
+    return factories.SingleChildScrollView_readBack_primary(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewChild not supported on web");
-    return new Widget(SingleChildScrollViewObjSt.child(st)) {};
+    return factories.SingleChildScrollView_readBack_child(nativeStruct);
   }
   public DragStartBehavior dragStartBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewDragStartBehavior not supported on web");
-    return DragStartBehavior.values()[SingleChildScrollViewObjSt.dragStartBehavior(st)];
+    return factories.SingleChildScrollView_readBack_dragStartBehavior(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewClipBehavior not supported on web");
-    return Clip.values()[SingleChildScrollViewObjSt.clipBehavior(st)];
+    return factories.SingleChildScrollView_readBack_clipBehavior(nativeStruct);
   }
   public HitTestBehavior hitTestBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewHitTestBehavior not supported on web");
-    return HitTestBehavior.values()[SingleChildScrollViewObjSt.hitTestBehavior(st)];
+    return factories.SingleChildScrollView_readBack_hitTestBehavior(nativeStruct);
   }
   public String restorationId() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewRestorationId not supported on web");
-    return SingleChildScrollViewObjSt.restorationId(st).getString(0);
+    return factories.SingleChildScrollView_readBack_restorationId(nativeStruct);
   }
   public ScrollViewKeyboardDismissBehavior keyboardDismissBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("singleChildScrollViewKeyboardDismissBehavior not supported on web");
-    return ScrollViewKeyboardDismissBehavior.values()[SingleChildScrollViewObjSt.keyboardDismissBehavior(st)];
+    return factories.SingleChildScrollView_readBack_keyboardDismissBehavior(nativeStruct);
   }
   @Override
   public SingleChildScrollView build() {

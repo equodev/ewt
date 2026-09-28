@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.RawMaterialButtonObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class RawMaterialButton extends StatefulWidget implements RawMaterialButtonI {
-  private MemorySegment st;
   protected RawMaterialButton() {}
-  RawMaterialButton(MemorySegment st) {
-    this.id = RawMaterialButtonObjSt.id(st);
-    this.st = st;
+  RawMaterialButton(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget RawMaterialButton");
-    System.out.println("New RawMaterialButton id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  RawMaterialButton(int id) { this.id = id; }
   @Builder.Factory
   static RawMaterialButton rawMaterialButtonRawMaterialButton(Optional<Runnable> onPressed, Optional<Runnable> onLongPress, Optional<Consumer<Boolean>> onHighlightChanged, Optional<TextStyleI> textStyle, Optional<ColorI> fillColor, Optional<ColorI> focusColor, Optional<ColorI> hoverColor, Optional<ColorI> highlightColor, Optional<ColorI> splashColor, OptionalDouble elevation, OptionalDouble focusElevation, OptionalDouble hoverElevation, OptionalDouble highlightElevation, OptionalDouble disabledElevation, Optional<EdgeInsetsGeometryI> padding, Optional<VisualDensityI> visualDensity, Optional<BoxConstraintsI> constraints, Optional<ShapeBorderI> shape, Optional<DurationI> animationDuration, Optional<Clip> clipBehavior, Optional<Boolean> autofocus, Optional<MaterialTapTargetSize> materialTapTargetSize, Optional<WidgetI> child, Optional<Boolean> enableFeedback) {
-    var st = factories.rawMaterialButtonRawMaterialButton(onPressed,
+    int id = factories.rawMaterialButtonRawMaterialButton(onPressed,
       onLongPress,
       onHighlightChanged,
       textStyle.map(TextStyleI::build),
@@ -42,8 +36,8 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       materialTapTargetSize,
       child.map(WidgetI::build),
       enableFeedback);
-    if (st == null) throw new RuntimeException("Failed to created widget RawMaterialButton");
-    return new RawMaterialButton(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget RawMaterialButton");
+    return new RawMaterialButton(id);
   }
   public static RawMaterialButtonRawMaterialButtonBuilder rawMaterialButton() {
     return RawMaterialButtonRawMaterialButtonBuilder.rawMaterialButtonRawMaterialButton();
@@ -52,11 +46,9 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawMaterialButtonTextStyle", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.TextStyleObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.TextStyleObjSt.id(__st, __nid);
-      return new TextStyle(__st);
+      return new TextStyle(__nid);
     }
-    return new TextStyle(RawMaterialButtonObjSt.textStyle(st));
+    return factories.RawMaterialButton_readBack_textStyle(nativeStruct);
   }
   public Color fillColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -64,7 +56,7 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       int __nid = __s.recordAccessor("rawMaterialButtonFillColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawMaterialButtonObjSt.fillColor(st));
+    return factories.RawMaterialButton_readBack_fillColor(nativeStruct);
   }
   public Color focusColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -72,7 +64,7 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       int __nid = __s.recordAccessor("rawMaterialButtonFocusColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawMaterialButtonObjSt.focusColor(st));
+    return factories.RawMaterialButton_readBack_focusColor(nativeStruct);
   }
   public Color hoverColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -80,7 +72,7 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       int __nid = __s.recordAccessor("rawMaterialButtonHoverColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawMaterialButtonObjSt.hoverColor(st));
+    return factories.RawMaterialButton_readBack_hoverColor(nativeStruct);
   }
   public Color highlightColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -88,7 +80,7 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       int __nid = __s.recordAccessor("rawMaterialButtonHighlightColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawMaterialButtonObjSt.highlightColor(st));
+    return factories.RawMaterialButton_readBack_highlightColor(nativeStruct);
   }
   public Color splashColor() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -96,55 +88,51 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       int __nid = __s.recordAccessor("rawMaterialButtonSplashColor", getId());
       return new Color(__nid);
     }
-    return new Color(RawMaterialButtonObjSt.splashColor(st));
+    return factories.RawMaterialButton_readBack_splashColor(nativeStruct);
   }
   public double elevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonElevation not supported on web");
-    return RawMaterialButtonObjSt.elevation(st);
+    return factories.RawMaterialButton_readBack_elevation(nativeStruct);
   }
   public double hoverElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonHoverElevation not supported on web");
-    return RawMaterialButtonObjSt.hoverElevation(st);
+    return factories.RawMaterialButton_readBack_hoverElevation(nativeStruct);
   }
   public double focusElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonFocusElevation not supported on web");
-    return RawMaterialButtonObjSt.focusElevation(st);
+    return factories.RawMaterialButton_readBack_focusElevation(nativeStruct);
   }
   public double highlightElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonHighlightElevation not supported on web");
-    return RawMaterialButtonObjSt.highlightElevation(st);
+    return factories.RawMaterialButton_readBack_highlightElevation(nativeStruct);
   }
   public double disabledElevation() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonDisabledElevation not supported on web");
-    return RawMaterialButtonObjSt.disabledElevation(st);
+    return factories.RawMaterialButton_readBack_disabledElevation(nativeStruct);
   }
   public EdgeInsetsGeometry padding() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonPadding not supported on web");
-    return new EdgeInsetsGeometry(RawMaterialButtonObjSt.padding(st)) {};
+    return factories.RawMaterialButton_readBack_padding(nativeStruct);
   }
   public VisualDensity visualDensity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawMaterialButtonVisualDensity", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.VisualDensityObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.VisualDensityObjSt.id(__st, __nid);
-      return new VisualDensity(__st);
+      return new VisualDensity(__nid);
     }
-    return new VisualDensity(RawMaterialButtonObjSt.visualDensity(st));
+    return factories.RawMaterialButton_readBack_visualDensity(nativeStruct);
   }
   public BoxConstraints constraints() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
       SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
       int __nid = __s.recordAccessor("rawMaterialButtonConstraints", getId());
-      java.lang.foreign.MemorySegment __st = dev.equo.ewt.ffm.BoxConstraintsObjSt.allocate(__s.arena);
-      dev.equo.ewt.ffm.BoxConstraintsObjSt.id(__st, __nid);
-      return new BoxConstraints(__st);
+      return new BoxConstraints(__nid);
     }
-    return new BoxConstraints(RawMaterialButtonObjSt.constraints(st));
+    return factories.RawMaterialButton_readBack_constraints(nativeStruct);
   }
   public ShapeBorder shape() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonShape not supported on web");
-    return new ShapeBorder(RawMaterialButtonObjSt.shape(st)) {};
+    return factories.RawMaterialButton_readBack_shape(nativeStruct);
   }
   public Duration animationDuration() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -152,31 +140,31 @@ public class RawMaterialButton extends StatefulWidget implements RawMaterialButt
       int __nid = __s.recordAccessor("rawMaterialButtonAnimationDuration", getId());
       return new Duration(__nid);
     }
-    return new Duration(RawMaterialButtonObjSt.animationDuration(st));
+    return factories.RawMaterialButton_readBack_animationDuration(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonChild not supported on web");
-    return new Widget(RawMaterialButtonObjSt.child(st)) {};
+    return factories.RawMaterialButton_readBack_child(nativeStruct);
   }
   public MaterialTapTargetSize materialTapTargetSize() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonMaterialTapTargetSize not supported on web");
-    return MaterialTapTargetSize.values()[RawMaterialButtonObjSt.materialTapTargetSize(st)];
+    return factories.RawMaterialButton_readBack_materialTapTargetSize(nativeStruct);
   }
   public boolean autofocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonAutofocus not supported on web");
-    return intToBool(RawMaterialButtonObjSt.autofocus(st));
+    return factories.RawMaterialButton_readBack_autofocus(nativeStruct);
   }
   public Clip clipBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonClipBehavior not supported on web");
-    return Clip.values()[RawMaterialButtonObjSt.clipBehavior(st)];
+    return factories.RawMaterialButton_readBack_clipBehavior(nativeStruct);
   }
   public boolean enableFeedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonEnableFeedback not supported on web");
-    return intToBool(RawMaterialButtonObjSt.enableFeedback(st));
+    return factories.RawMaterialButton_readBack_enableFeedback(nativeStruct);
   }
   public boolean enabled() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("rawMaterialButtonEnabled not supported on web");
-    return intToBool(RawMaterialButtonObjSt.enabled(st));
+    return factories.RawMaterialButton_readBack_enabled(nativeStruct);
   }
   @Override
   public RawMaterialButton build() {

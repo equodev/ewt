@@ -3,22 +3,16 @@ import java.util.*;
 import java.util.function.*;
 import dev.equo.ewt.util.*;
 import org.immutables.builder.Builder;
-import java.lang.foreign.MemorySegment;
-import dev.equo.ewt.ffm.DraggableObjSt;
-import static dev.equo.ewt.WidgetConstructorsBase.*;
 public class Draggable<T> extends StatefulWidget implements DraggableI {
-  private MemorySegment st;
   protected Draggable() {}
-  Draggable(MemorySegment st) {
-    this.id = DraggableObjSt.id(st);
-    this.st = st;
+  Draggable(int id) {
+    this.id = id;
     if (id <= 0) throw new RuntimeException("Failed to created widget Draggable");
-    System.out.println("New Draggable id:"+id);
+    this.nativeStruct = factories.takeLastStruct();
   }
-  Draggable(int id) { this.id = id; }
   @Builder.Factory
   static <T extends NativeObj> Draggable<T> draggableDraggable(@Builder.Parameter WidgetI child, @Builder.Parameter WidgetI feedback, Optional<NativeObj> data, Optional<Axis> axis, Optional<WidgetI> childWhenDragging, Optional<OffsetI> feedbackOffset, Optional<TriFunction<Draggable, BuildContext, Offset, Offset>> dragAnchorStrategy, Optional<Axis> affinity, OptionalInt maxSimultaneousDrags, Optional<Runnable> onDragStarted, Optional<Consumer<DragUpdateDetails>> onDragUpdate, Optional<BiConsumer<Velocity, Offset>> onDraggableCanceled, Optional<Consumer<DraggableDetails>> onDragEnd, Optional<Runnable> onDragCompleted, Optional<Boolean> ignoringFeedbackSemantics, Optional<Boolean> ignoringFeedbackPointer, Optional<Boolean> rootOverlay, Optional<HitTestBehavior> hitTestBehavior, Optional<Function<Integer, Boolean>> allowedButtonsFilter) {
-    var st = factories.draggableDraggable(child.build(),
+    int id = factories.draggableDraggable(child.build(),
       feedback.build(),
       data,
       axis,
@@ -37,27 +31,27 @@ public class Draggable<T> extends StatefulWidget implements DraggableI {
       rootOverlay,
       hitTestBehavior,
       allowedButtonsFilter);
-    if (st == null) throw new RuntimeException("Failed to created widget Draggable");
-    return new Draggable(st);
+    if (id <= 0) throw new RuntimeException("Failed to created widget Draggable");
+    return new Draggable(id);
   }
   public static <T extends NativeObj> DraggableDraggableBuilder<T> draggable(WidgetI child, WidgetI feedback) {
     return DraggableDraggableBuilder.draggableDraggable(child, feedback);
   }
   public Axis axis() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableAxis not supported on web");
-    return Axis.values()[DraggableObjSt.axis(st)];
+    return factories.Draggable_readBack_axis(nativeStruct);
   }
   public Widget child() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableChild not supported on web");
-    return new Widget(DraggableObjSt.child(st)) {};
+    return factories.Draggable_readBack_child(nativeStruct);
   }
   public Widget childWhenDragging() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableChildWhenDragging not supported on web");
-    return new Widget(DraggableObjSt.childWhenDragging(st)) {};
+    return factories.Draggable_readBack_childWhenDragging(nativeStruct);
   }
   public Widget feedback() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableFeedback not supported on web");
-    return new Widget(DraggableObjSt.feedback(st)) {};
+    return factories.Draggable_readBack_feedback(nativeStruct);
   }
   public Offset feedbackOffset() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
@@ -65,31 +59,31 @@ public class Draggable<T> extends StatefulWidget implements DraggableI {
       int __nid = __s.recordAccessor("draggableFeedbackOffset", getId());
       return new Offset(__nid);
     }
-    return new Offset(DraggableObjSt.feedbackOffset(st));
+    return factories.Draggable_readBack_feedbackOffset(nativeStruct);
   }
   public boolean ignoringFeedbackSemantics() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableIgnoringFeedbackSemantics not supported on web");
-    return intToBool(DraggableObjSt.ignoringFeedbackSemantics(st));
+    return factories.Draggable_readBack_ignoringFeedbackSemantics(nativeStruct);
   }
   public boolean ignoringFeedbackPointer() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableIgnoringFeedbackPointer not supported on web");
-    return intToBool(DraggableObjSt.ignoringFeedbackPointer(st));
+    return factories.Draggable_readBack_ignoringFeedbackPointer(nativeStruct);
   }
   public Axis affinity() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableAffinity not supported on web");
-    return Axis.values()[DraggableObjSt.affinity(st)];
+    return factories.Draggable_readBack_affinity(nativeStruct);
   }
   public int maxSimultaneousDrags() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableMaxSimultaneousDrags not supported on web");
-    return DraggableObjSt.maxSimultaneousDrags(st);
+    return factories.Draggable_readBack_maxSimultaneousDrags(nativeStruct);
   }
   public boolean rootOverlay() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableRootOverlay not supported on web");
-    return intToBool(DraggableObjSt.rootOverlay(st));
+    return factories.Draggable_readBack_rootOverlay(nativeStruct);
   }
   public HitTestBehavior hitTestBehavior() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("draggableHitTestBehavior not supported on web");
-    return HitTestBehavior.values()[DraggableObjSt.hitTestBehavior(st)];
+    return factories.Draggable_readBack_hitTestBehavior(nativeStruct);
   }
   @Override
   public Draggable build() {
