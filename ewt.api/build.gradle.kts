@@ -164,7 +164,9 @@ if (evolveAvailable) {
     }
     tasks.named<JavaCompile>("compileEvolveJava") {
         dependsOn("compileJava")
-        options.release.set(22)
+        // release 11: the evolve source set (EwtWidget + the SPI providers) is foreign-free and must
+        // load on a pre-22 JVM, since it lives in the multi-release fragment's base (see ewtEvolveJar).
+        options.release.set(11)
     }
 
     // Make EwtWidget (evolve source set) visible to unit tests so EwtWidgetCallbackTest can
@@ -248,21 +250,37 @@ if (evolveAvailable) {
         description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve, per-OS, both modes)."
         archiveBaseName.set("ewt-evolve")
         archiveClassifier.set(ewtEvolveOs)
-        dependsOn(":examples:buildCombinedBundle", ":examples:buildCombinedWebBundle", "compileEvolveJava")
-        // The EWT toolkit classes (EWT.*, App, NativeLibLoader, EvolveBundleExtractor, the
-        // generated builders and the ffm bindings). Taken straight from compileJava's output,
-        // NOT the main resources: those are just the standalone native libs under native/, which
-        // are dead weight in attach mode (EWT uses Evolve's engine and the combined libwidgets
-        // from the bundle). Keeping them out holds this jar to classes + the combined bundle.
-        from(tasks.named<JavaCompile>("compileJava").flatMap { it.destinationDirectory })
-        // Provider classes (both EvolveBundleProvider + EvolveWebBundleProvider) + META-INF/services + EwtWidget.
+        dependsOn(":examples:buildCombinedBundle", ":examples:buildCombinedWebBundle", compileCore11, "compileEvolveJava")
+        // Multi-release fragment so it loads on any JVM >= 11 (the target product's own Java): the
+        // foreign-free core + comm impl sit in the base at release 11, and the FFM layer sits under
+        // META-INF/versions/22 at release 22, selected at runtime by NativeObj's ServiceLoader guard.
+        // Mirrors the mrJar task, plus the evolve source set and the combined bundle.
+        // BASE (release 11): the EWT toolkit core (EWT.*, NativeLibLoader, EvolveBundleExtractor, the
+        // generated builders and the comm impl), foreign-free — compileCore11 excludes the FFM layer.
+        from(compileCore11.map { it.destinationDirectory })
+        // BASE (release 11): the SPI providers (EvolveBundleProvider + EvolveWebBundleProvider) +
+        // their META-INF/services + EwtWidget. The evolve source set is foreign-free and now @11.
         from(sourceSets["evolve"].output)
+        // BASE resources: the core's META-INF/services (dev.equo.ewt.NativeFactoryProvider, naming the
+        // FFM provider). The services file MUST be in the base, not versioned — versioned service
+        // resources are not resolved; NativeObj's java>=22 guard keeps a pre-22 JVM from loading it.
+        // The standalone native/ libs are dead weight in attach mode (EWT uses the combined bundle), so
+        // they are excluded — only the combined bundle below carries the native payload.
+        from(sourceSets.main.get().output.resourcesDir) { include("META-INF/**") }
+        // versions/22 (release 22): the FFM layer (App, EngineHandle, FfmWidgetConstructors,
+        // WidgetConstructorsBase, FfmNativeFactoryProvider, EmbedBridge, dev.equo.ewt.ffm.*), filtered
+        // out of the release-22 compileJava output. A pre-22 JVM never sees these.
+        from(tasks.named<JavaCompile>("compileJava").flatMap { it.destinationDirectory }) {
+            include(ffmLayerClassPatterns)
+            into("META-INF/versions/22")
+        }
         // The desktop combined bundle (native), mirroring the property contract path.
         from(combinedBundleDir) { into(ewtEvolveIntoPath) }
         // The web combined bundle under web-bundle/ (extracted by EvolveBundleExtractor.extractAndGetWebDir).
         from(ewtEvolveWebBundleDir) { into("web-bundle") }
         manifest {
             attributes(
+                "Multi-Release" to "true",
                 "Bundle-ManifestVersion" to 2,
                 "Bundle-Name" to "EWT to Evolve integration",
                 "Bundle-Vendor" to "Equo Tech, Inc.",

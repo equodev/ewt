@@ -43,7 +43,12 @@ public class EwtWidget extends Composite {
         // Drop this region's builder when the widget goes away, so a disposed region
         // leaves no stale entry in App's builder registry (keyed by this same id).
         addDisposeListener(e -> {
-            App.unregisterBuilder(hashCode());
+            // App (FFM) is only touched on the desktop FFM path. On the comm path (web, or desktop
+            // on a JVM < 22) no native builder was registered, and App lives under META-INF/versions/22,
+            // so loading it on a pre-22 JVM would fail. Mirror setWidget's transport guard.
+            if (!EwtWebTransport.isWebMode()) {
+                App.unregisterBuilder(hashCode());
+            }
             clearWebState();
             // Reset handler guard so a hypothetical future reuse of this instance doesn't skip registration.
             webHandlersRegistered = false;
@@ -273,9 +278,12 @@ public class EwtWidget extends Composite {
     }
 
     private static void tryCompleteAsyncCallback(Object payload) {
-        if (!(payload instanceof java.util.List<?> list) || list.isEmpty()) return;
-        if (!(list.get(0) instanceof Number n)) return;
-        int cbId = n.intValue();
+        if (!(payload instanceof java.util.List<?>)) return;
+        java.util.List<?> list = (java.util.List<?>) payload;
+        if (list.isEmpty()) return;
+        Object firstArg = list.get(0);
+        if (!(firstArg instanceof Number)) return;
+        int cbId = ((Number) firstArg).intValue();
         if (cbId < dev.equo.ewt.web.WebAsyncCallbackBroker.ASYNC_CALLBACK_ID_BASE) return;
         Object value = list.size() > 1 ? list.get(1) : null;
         dev.equo.ewt.EwtWebState.completeAsyncCallback(cbId, value);
