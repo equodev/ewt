@@ -156,6 +156,13 @@ val compileDemo = tasks.register<JavaCompile>("compileDemo") {
     destinationDirectory.set(layout.buildDirectory.dir("demo/classes"))
     // release 11: the demo is foreign-free and mounts EWT via comm, so it must load on the same
     // pre-22 JVM the multi-release fragment targets (the feature is useless if its view can't load).
+    // ewt-evolve-p2 applies only the `base` plugin (no `java`), so this hand-registered JavaCompile
+    // gets no source/target convention; Gradle 8.10 fails task validation unless they are set. Set
+    // them to 11 to match; `options.release` still drives the actual compile (release wins, so no
+    // `-source`/`-target` is emitted — same as ewt.api's compileJava, which pairs release with a
+    // convention-provided sourceCompatibility).
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
     options.release.set(11)
 }
 
