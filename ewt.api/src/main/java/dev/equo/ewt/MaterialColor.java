@@ -21,33 +21,83 @@ public class MaterialColor extends ColorSwatch<Integer> implements MaterialColor
     return MaterialColorMaterialColorBuilder.materialColorMaterialColor(primary, swatch);
   }
   public Color shade50() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade50", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade50(nativeStruct);
   }
   public Color shade100() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade100", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade100(nativeStruct);
   }
   public Color shade200() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade200", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade200(nativeStruct);
   }
   public Color shade300() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade300", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade300(nativeStruct);
   }
   public Color shade400() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade400", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade400(nativeStruct);
   }
   public Color shade500() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade500", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade500(nativeStruct);
   }
   public Color shade600() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade600", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade600(nativeStruct);
   }
   public Color shade700() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade700", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade700(nativeStruct);
   }
   public Color shade800() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade800", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade800(nativeStruct);
   }
   public Color shade900() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      SerializingWidgetConstructors __s = (SerializingWidgetConstructors) factories;
+      int __nid = __s.recordAccessor("materialColorShade900", getId());
+      return new Color(__nid);
+    }
     return factories.MaterialColor_readBack_shade900(nativeStruct);
   }
   @Override

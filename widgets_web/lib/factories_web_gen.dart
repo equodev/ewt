@@ -2278,7 +2278,22 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
   'colorSchemeBackground': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as ColorScheme).background,
   'colorSchemeOnBackground': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as ColorScheme).onBackground,
 
-  'materialColorMaterialColor': (p) => MaterialColor(p['primary'] as int, const <int, Color>{}),
+  'materialColorMaterialColor': (p) {
+    final __sw = <int, Color>{};
+    final __raw = p['swatch'];
+    if (__raw is Map) { __raw.forEach((k, v) { if (v is Map) { final __c = decodeEwtNode(v.cast<String, dynamic>()); if (__c is Color) __sw[int.parse(k.toString())] = __c; } }); }
+    return MaterialColor(p['primary'] as int, __sw);
+  },
+  'materialColorShade50': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade50,
+  'materialColorShade100': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade100,
+  'materialColorShade200': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade200,
+  'materialColorShade300': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade300,
+  'materialColorShade400': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade400,
+  'materialColorShade500': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade500,
+  'materialColorShade600': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade600,
+  'materialColorShade700': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade700,
+  'materialColorShade800': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade800,
+  'materialColorShade900': (p) => (decodeEwtNode(p['receiver'] as Map<String,dynamic>) as MaterialColor).shade900,
 
   'colorSwatchLerp': (p) => ColorSwatch.lerp(decodeEwtNode(p['a'] as Map<String,dynamic>) as ColorSwatch,
       decodeEwtNode(p['b'] as Map<String,dynamic>) as ColorSwatch,
