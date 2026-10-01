@@ -525,7 +525,12 @@ ewt_build:
 # only an anonymous `git ls-remote` against the public GitHub repo.
 resolve_evolve_ref:
   stage: check
-  image: alpine/git:latest
+  # Pin the image (the moving `:latest` tag was republished with an entrypoint that swallows the
+  # shell script -> `git: 'sh' is not a git command`) AND clear the entrypoint so the script runs
+  # under sh regardless of the image's default entrypoint.
+  image:
+    name: alpine/git:v2.49.1
+    entrypoint: [""]
   needs: []
   variables:
     GIT_STRATEGY: none
