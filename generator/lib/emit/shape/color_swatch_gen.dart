@@ -5,47 +5,38 @@ part of '../../gen.dart';
 /// `MaterialAccentColor` (shades 100, 200, 400, 700) whenever added to
 /// the index.
 ///
-/// Diverges from a stock @Immutable widget in three spots:
+/// Diverges from a stock @Immutable widget in one spot:
 ///
-///   * **Serializer**: the shade accessors (`shade50()`, `shade100()`, …)
-///     get pre-populated in the *ObjSt struct from the swatch map at
-///     record time, so they return concrete Color nodes off-native.
-///   * **Web decoder**: rebuild from `primary` with an empty swatch —
-///     the swatch Map can't cross the wire, but is never needed since
-///     the shade accessors are pre-resolved above.
-///   * **Field accessor**: skip the web branch entirely for shade
-///     accessors (they were already pre-resolved at serialize time,
-///     so the accessor-node path would produce a null-crash off-native).
+///   * **Web decoder**: rebuild the swatch from the recorded node-map so
+///     the shade accessors (`shade50()`, `shade100()`, …) resolve. The
+///     serializer records the full swatch as a `{shade -> Color node}`
+///     map on the MaterialColor node (see SerializingWidgetConstructors.
+///     materialColorMaterialColor), so the decoder rehydrates it into a
+///     `Map<int, Color>` instead of an empty map — otherwise `.shadeNNN`
+///     reads a null off an empty swatch and crashes off-native.
 ///
-/// Shade set is discovered structurally from `callableFields()` — for
-/// MaterialColor that's 50..900; for MaterialAccentColor it would be
-/// {100, 200, 400, 700}. No per-widget hardcoding.
+/// The shade accessors themselves go through the stock value-object
+/// comm/web branch (record an accessor node, return a node-backed Color),
+/// exactly like any other value-object getter — no FFM read-back, so they
+/// work on the comm transport (JVM < 22).
 class ColorSwatchGen extends ImmutableGen {
   ColorSwatchGen(super.types, super.dartClass);
 
   @override
-  bool get skipWebFieldAccessor => true;
-
-  @override
-  void emitExtraJavaSerializerFields(String factoryName, String objStClass) {
-    // Only fill the shade struct fields for the "primary" factory —
-    // named factories on ColorSwatch subclasses (if any) don't carry a
-    // swatch parameter.
-    if (factoryName != '$widgetField$widgetClass') return;
-    final shades = callableFields()
-        .where((f) => RegExp(r'^shade\d+$').hasMatch(f.name))
-        .toList()
-      ..sort((a, b) => int.parse(a.name.substring(5)).compareTo(int.parse(b.name.substring(5))));
-    for (final field in shades) {
-      final key = field.name.substring(5);
-      ctx.javaSerializer.writeln('    $objStClass.${field.name}(st, swatch.get($key) != null ? swatch.get($key).getId() : 0);');
-    }
-  }
-
-  @override
   bool tryEmitCustomWebDecoder(String factory, String factoryName, FunctionTypedElement node) {
     if (factoryName != '$widgetField$widgetClass') return false;
-    ctx.dartWebDecoders.writeln("  '$factoryName': (p) => $widgetClass(p['primary'] as int, const <int, Color>{}),");
+    // Rebuild the swatch from the recorded `{shade -> Color node}` map so the shade accessors
+    // resolve. Defensive about shape: older captures recorded `swatch` as a bare int id (not a
+    // node map), and nothing guarantees each value is a node — so anything that is not a decodable
+    // Color node is skipped, falling back to an empty swatch (the prior behaviour) instead of
+    // throwing. An empty swatch only loses `.shadeNNN` reads, which only the new serializer emits
+    // (and it always records node-map values), so the two never co-occur.
+    ctx.dartWebDecoders.writeln("  '$factoryName': (p) {");
+    ctx.dartWebDecoders.writeln("    final __sw = <int, Color>{};");
+    ctx.dartWebDecoders.writeln("    final __raw = p['swatch'];");
+    ctx.dartWebDecoders.writeln("    if (__raw is Map) { __raw.forEach((k, v) { if (v is Map) { final __c = decodeEwtNode(v.cast<String, dynamic>()); if (__c is Color) __sw[int.parse(k.toString())] = __c; } }); }");
+    ctx.dartWebDecoders.writeln("    return $widgetClass(p['primary'] as int, __sw);");
+    ctx.dartWebDecoders.writeln("  },");
     return true;
   }
 }
