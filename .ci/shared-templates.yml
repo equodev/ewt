@@ -27,17 +27,15 @@
     - export PATH="$HOME/flutter/bin:${PATH}"
     - flutter config --enable-macos-desktop
 
-# Downloads Flutter SDK and Visual Studio Build Tools, enables Windows desktop support.
+# Windows runner uses the prebuilt vs2022-fl47-j21 VM image (terraform-kubernetes!105): Flutter
+# 3.47.5 is already installed at C:\flutter and VS 2022 Build Tools (VC workload) are preloaded,
+# so the before_script no longer downloads them — cuts the job from ~20 min to ~5 min.
 # Runner shell is bash (Git Bash). Flutter commands run via powershell.exe -C "..." with PATH set.
 .flutter:windows:
   tags: [vm-runner]
   variables:
     RUNNER_OS: "win"
-    RUNNER_OS_VERSION: "server2019-8cores-32ram"
+    RUNNER_OS_VERSION: "vs2022-fl47-j21-8cores-32ram"
     ErrorActionPreference: stop
   before_script:
-    - ( choco.exe install -y 7zip && touch 7zDone ) &
-    - ( curl -L -o flutter.zip https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_${FLUTTER_SDK}-stable.zip && while [ ! -f 7zDone ]; do sleep 1; done && 7z.exe x flutter.zip -oc:\\ ) &
-    - ( choco.exe install -y visualstudio2022buildtools visualstudio2022-workload-vctools ) &
-    - wait
     - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter config --enable-windows-desktop"
