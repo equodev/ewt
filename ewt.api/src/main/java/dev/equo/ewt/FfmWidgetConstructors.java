@@ -3698,7 +3698,7 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
     return new Offset(AnimatedSlideObjSt.offset(st));
   }
 
-  public int animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Runnable> onEnd) {
+  public int animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     var st = WidgetFactories.animatedCrossFade(factories);
     var fn = WidgetFactories.AnimatedCrossFadeSt.animatedCrossFade(st);
     return retain(WidgetFactories.AnimatedCrossFadeSt.animatedCrossFade.invoke(fn, arena, firstChild.build().getId(),
@@ -3711,6 +3711,7 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
       duration.build().getId(),
       ptrObj(reverseDuration),
       ptrBool(excludeBottomFocus),
+      ptrEnum(clipBehavior),
       onEnd.isPresent() ? ptrHolder(ptrVoidCallbackFn(onEnd.get())) : MemorySegment.NULL), AnimatedCrossFadeObjSt::id);
   }
   public Widget AnimatedCrossFade_readBack_firstChild(Object __stObj) {
@@ -3752,6 +3753,10 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
   public boolean AnimatedCrossFade_readBack_excludeBottomFocus(Object __stObj) {
     java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
     return intToBool(AnimatedCrossFadeObjSt.excludeBottomFocus(st));
+  }
+  public Clip AnimatedCrossFade_readBack_clipBehavior(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return Clip.values()[AnimatedCrossFadeObjSt.clipBehavior(st)];
   }
 
   public int slideTransitionSlideTransition(Animation position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<Widget> child) {
@@ -19064,6 +19069,10 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
   public String ImageIcon_readBack_semanticLabel(Object __stObj) {
     java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
     return ImageIconObjSt.semanticLabel(st).getString(0);
+  }
+  public boolean ImageIcon_readBack_useOriginalColors(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return intToBool(ImageIconObjSt.useOriginalColors(st));
   }
 
   public int buttonBarButtonBar(Optional<MainAxisAlignment> alignment, Optional<MainAxisSize> mainAxisSize, Optional<ButtonTextTheme> buttonTextTheme, OptionalDouble buttonMinWidth, OptionalDouble buttonHeight, Optional<EdgeInsetsGeometry> buttonPadding, Optional<Boolean> buttonAlignedDropdown, Optional<ButtonBarLayoutBehavior> layoutBehavior, Optional<VerticalDirection> overflowDirection, OptionalDouble overflowButtonSpacing, Optional<List<Widget>> children) {

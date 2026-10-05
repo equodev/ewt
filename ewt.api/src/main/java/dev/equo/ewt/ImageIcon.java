@@ -26,6 +26,10 @@ public class ImageIcon extends StatelessWidget implements ImageIconI {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("imageIconSemanticLabel not supported on web");
     return factories.ImageIcon_readBack_semanticLabel(nativeStruct);
   }
+  public boolean useOriginalColors() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("imageIconUseOriginalColors not supported on web");
+    return factories.ImageIcon_readBack_useOriginalColors(nativeStruct);
+  }
   @Override
   public ImageIcon build() {
     return this;
