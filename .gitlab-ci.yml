@@ -301,7 +301,11 @@ flutter:linux:
       optional: true
   script:
     - rm -rf widgets/example/build/linux
-    - cd widgets/example && flutter pub get && flutter build linux --release
+    # --no-tree-shake-icons: factories_gen.dart constructs IconData(codePoint, fontFamily)
+    # from runtime widget payloads, so icon tree-shaking (enforced since Flutter 3.47 on
+    # Linux, already enforced on macOS) will reject the non-const invocations. Keep in sync
+    # with the macOS + Windows build commands.
+    - cd widgets/example && flutter pub get && flutter build linux --release --no-tree-shake-icons
   artifacts:
     paths:
       - widgets/example/build/linux/
@@ -332,7 +336,7 @@ flutter:windows:
   script:
     - rm -rf widgets/example/build/windows
     - cd widgets/example
-    - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter pub get; flutter build windows --release"
+    - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter pub get; flutter build windows --release --no-tree-shake-icons"
   artifacts:
     paths:
       - widgets/example/build/windows/
