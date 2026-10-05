@@ -22,7 +22,10 @@ class EnumGen implements AGen {
     javaFile
       ..writeln('package dev.equo.ewt;')
       ..writeln('public enum ${enumType.name} {');
-    javaFile.writeln(enumType.fields.map((en) => _escape4D(en.name)).where((en) => "values" != en).join(', '));
+    javaFile.writeln(enumType.fields
+        .where((f) => f.isEnumConstant)
+        .map((f) => _escape4D(f.name))
+        .join(', '));
     javaFile.writeln('}');
     return javaFile.toString();
   }

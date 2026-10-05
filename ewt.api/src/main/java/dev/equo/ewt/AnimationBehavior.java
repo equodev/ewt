@@ -1,4 +1,4 @@
 package dev.equo.ewt;
 public enum AnimationBehavior {
-normal, preserve, _enableAnimations
+normal, preserve
 }
