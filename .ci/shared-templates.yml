@@ -15,16 +15,18 @@
     # Rolling "latest" pointer with -latest- filenames so consumers can hardcode the URL.
     - for os in linux macos windows; do gsutil -h "Cache-Control:no-cache" cp "$FOLDER_TO_UPLOAD/ewt.api-$RELEASE_NEXT-$os.jar" "$GCS_BUCKET/$GCS_PREFIX/latest/ewt.api-latest-$os.jar"; done
 
-# Downloads Flutter SDK and enables macOS desktop support.
-# The widgets plugin uses SPM — no CocoaPods needed.
+# macOS runner uses the prebuilt mac-sequoia-xcode26-fl47-j21 VM image (swt-flutter!1272 built it
+# from scratch via .ci/vm-images/macos/build-image.sh; terraform-kubernetes!109 wired its runner
+# group). Flutter 3.47.5 with macOS artifacts precached at /opt/flutter and Temurin JDK 21 at
+# /opt/jdk21 (listed in /opt/equo-image.txt). The widgets plugin uses SPM — no CocoaPods needed.
 .flutter:macos:
   tags: [vm-runner]
   variables:
     RUNNER_OS: "mac"
-    RUNNER_OS_VERSION: "sq-x26-8cores-16ram"
+    RUNNER_OS_VERSION: "sq-x26-fl47-16cores-30ram"
   before_script:
-    - curl -L "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${FLUTTER_SDK}-stable.zip" -o flutter.zip && unzip -q flutter.zip -d $HOME
-    - export PATH="$HOME/flutter/bin:${PATH}"
+    - export JAVA_HOME=/opt/jdk21/Contents/Home
+    - export PATH="/opt/flutter/bin:$PATH"
     - flutter config --enable-macos-desktop
 
 # Windows runner uses the prebuilt vs2022-fl47-j21 VM image (terraform-kubernetes!105): Flutter

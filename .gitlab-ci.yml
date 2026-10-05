@@ -637,8 +637,9 @@ ewt_evolve_build:macos:
     - export JAVA_HOME="$PWD/jdk-22.0.2+9/Contents/Home"
     - export PATH="$JAVA_HOME/bin:$PATH"
     # macOS sources icudtl.dat from FlutterMacOS.framework (assemble output), so FLUTTER_ROOT is
-    # not strictly needed for it, but set it for parity with the other OSes.
-    - export FLUTTER_ROOT="$HOME/flutter"
+    # not strictly needed for it, but set it for parity with the other OSes. The prebuilt image
+    # (swt-flutter!1272) has Flutter precached under /opt/flutter.
+    - export FLUTTER_ROOT="/opt/flutter"
   script:
     - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first (or set it to pin)"; exit 1)
     - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
