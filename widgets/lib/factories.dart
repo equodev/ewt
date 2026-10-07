@@ -72,7 +72,6 @@ int _addWidget(Object? w) {
       && w is! SubStatefulWidget && w is! SubStatelessWidget) {
     _buildScopeStack.last.add(id);
   }
-  print('Added widget $w id: $id');
   return id;
 }
 T _runBuildScope<T>(T Function() fn) {
