@@ -93,11 +93,40 @@ public final class EwtDiff {
           } else if (!Objects.equals(ol, nl)) {
             changed.put(k, nv); // re-set the whole primitive (or mixed, same-shape) list
           }
+        } else if (nv instanceof Map<?, ?> && ov instanceof Map<?, ?>) {
+          if (!mapParam((Map<?, ?>) ov, (Map<?, ?>) nv, append(path, k))) changed.put(k, nv);
         } else if (!Objects.equals(ov, nv)) {
           changed.put(k, nv);
         }
       }
       if (!changed.isEmpty()) ops.add(new SetParamsOp(path, changed));
+    }
+
+    /**
+     * A map-valued param (a MaterialColor's swatch, say): its node values are diffed in place
+     * like child nodes, keyed by the map key, and its primitives as one setParams on the map.
+     * Returns false when the map must be re-set whole: a key set or a value kind changed. A
+     * node is never equal to another by {@code equals}, so without this every map holding
+     * nodes looked changed on every capture.
+     */
+    boolean mapParam(Map<?, ?> om, Map<?, ?> nm, List<Object> path) {
+      if (!om.keySet().equals(nm.keySet())) return false;
+      Map<String, Object> changed = new LinkedHashMap<>();
+      for (Map.Entry<?, ?> e : nm.entrySet()) {
+        if (!(e.getKey() instanceof String)) return false;
+        String key = (String) e.getKey();
+        Object ov = om.get(key), nv = e.getValue();
+        if (ov instanceof EwtNode && nv instanceof EwtNode) {
+          child((EwtNode) ov, (EwtNode) nv, append(path, key));
+        } else if (ov instanceof EwtNode || nv instanceof EwtNode || ov instanceof List<?> || nv instanceof List<?>
+            || ov instanceof Map<?, ?> || nv instanceof Map<?, ?>) {
+          return false;
+        } else if (!Objects.equals(ov, nv)) {
+          changed.put(key, nv);
+        }
+      }
+      if (!changed.isEmpty()) ops.add(new SetParamsOp(path, changed));
+      return true;
     }
 
     /** A nested node: patched in place when its shape held, replaced whole otherwise. */
@@ -197,6 +226,11 @@ public final class EwtDiff {
         for (Object e : (List<?>) v) { signatureValue(sb, e); sb.append(','); }
         sb.append(']');
       } else if (v instanceof String || v instanceof Boolean || v instanceof Double) sb.append(v);
+      else if (v instanceof Map<?, ?>) {
+        sb.append('{');
+        for (Map.Entry<?, ?> e : ((Map<?, ?>) v).entrySet()) { sb.append(e.getKey()).append(':'); signatureValue(sb, e.getValue()); sb.append(','); }
+        sb.append('}');
+      }
       else if (v == null) sb.append("null");
       else sb.append('#'); // an int, or anything else that does not identify the node
     }

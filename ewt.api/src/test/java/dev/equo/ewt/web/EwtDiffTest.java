@@ -173,6 +173,40 @@ class EwtDiffTest {
   }
 
   @Test
+  void aMapParamHoldingNodesIsNotChangedByANewCapture() {
+    // A MaterialColor swatch: a map of colour nodes. Nodes are never equal by equals(), so a map
+    // compared whole looked changed on every capture and re-sent the swatch of every icon.
+    EwtNode a = node(1, "iconIcon", p("color", node(2, "materialColorShade",
+        p("receiver", node(3, "materialColor", p("swatch", Map.of("100", node(4, "colorColor", p("value", 1)))))))));
+    EwtNode b = node(1, "iconIcon", p("color", node(5, "materialColorShade",
+        p("receiver", node(6, "materialColor", p("swatch", Map.of("100", node(7, "colorColor", p("value", 1)))))))));
+    assertTrue(EwtDiff.diff(a, b).isEmpty());
+  }
+
+  @Test
+  void aChangedNodeInsideAMapParamIsOneOpAtTheMapKey() {
+    EwtNode a = node(1, "materialColor", p("swatch", Map.of("100", node(2, "colorColor", p("value", 1)))));
+    EwtNode b = node(1, "materialColor", p("swatch", Map.of("100", node(3, "colorColor", p("value", 2)))));
+    Patch patch = EwtDiff.diff(a, b);
+    assertEquals(1, patch.ops().size());
+    assertEquals(List.of("swatch", "100"), patch.ops().get(0).path());
+    assertEquals(Map.of("value", 2), patch.ops().get(0).set());
+  }
+
+  @Test
+  void aMapParamWhoseKeysChangedIsReSetWhole() {
+    EwtNode a = node(1, "materialColor", p("swatch", Map.of("100", node(2, "colorColor", p("value", 1)))));
+    java.util.Map<String, Object> bigger = new LinkedHashMap<>();
+    bigger.put("100", node(3, "colorColor", p("value", 1)));
+    bigger.put("200", node(4, "colorColor", p("value", 2)));
+    EwtNode b = node(1, "materialColor", p("swatch", bigger));
+    Patch patch = EwtDiff.diff(a, b);
+    assertEquals(1, patch.ops().size());
+    assertEquals(List.of(), patch.ops().get(0).path());
+    assertSame(bigger, patch.ops().get(0).set().get("swatch"));
+  }
+
+  @Test
   void aPrimitiveListThatChangedLengthIsReSetWhole() {
     EwtNode a = node(1, "row", p("tags", List.of("x")));
     EwtNode b = node(1, "row", p("tags", List.of("x", "y")));

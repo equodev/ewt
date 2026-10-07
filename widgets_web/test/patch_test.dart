@@ -119,6 +119,29 @@ void main() {
         throwsA(anything));
   });
 
+  test('a set op can target a node inside a map-valued param', () {
+    final root = {
+      't': 'materialColor', 'id': 1,
+      'p': {'swatch': {'100': {'t': 'colorColor', 'id': 2, 'p': {'value': 1}, 'c': []}}}, 'c': []
+    };
+    final patched = applyPatch(root, [
+      {'path': ['swatch', '100'], 'set': {'value': 2}},
+    ]);
+    expect((((patched['p'] as Map)['swatch'] as Map)['100'] as Map)['p']['value'], 2);
+    expect((((root['p'] as Map)['swatch'] as Map)['100'] as Map)['p']['value'], 1);
+  });
+
+  test('a replace op can target a node inside a map-valued param', () {
+    final root = {
+      't': 'materialColor', 'id': 1,
+      'p': {'swatch': {'100': {'t': 'colorColor', 'id': 2, 'p': {'value': 1}, 'c': []}}}, 'c': []
+    };
+    final patched = applyPatch(root, [
+      {'path': ['swatch', '100'], 'node': {'t': 'colorFromARGB', 'id': 9, 'p': {}, 'c': []}},
+    ]);
+    expect((((patched['p'] as Map)['swatch'] as Map)['100'] as Map)['t'], 'colorFromARGB');
+  });
+
   test('unresolvable path throws', () {
     final root = _leaf(1, 'x');
     expect(() => applyPatch(root, [

@@ -39,7 +39,7 @@ Map<String, dynamic> applyPatch(Map<String, dynamic> root, List<dynamic> ops) {
       continue;
     }
     final node = _resolve(copy, path);
-    final params = (node['p'] as Map).cast<String, dynamic>();
+    final params = _isNode(node) ? (node['p'] as Map).cast<String, dynamic>() : node;
     (op['set'] as Map).cast<String, dynamic>().forEach((k, v) => params[k] = v);
   }
   return copy;
@@ -54,8 +54,16 @@ Map<String, dynamic> _resolve(Map<String, dynamic> root, List<dynamic> path) {
   return (cur as Map).cast<String, dynamic>();
 }
 
-dynamic _step(dynamic cur, dynamic step) =>
-    step is String ? (cur as Map)['p'][step] : (cur as List)[step as int];
+/// One path step: a String names a param of the current node, or a key of the current plain
+/// map (a map-valued param such as a colour swatch, which has no 't'/'p' of its own); an int
+/// indexes the current list.
+dynamic _step(dynamic cur, dynamic step) {
+  if (step is! String) return (cur as List)[step as int];
+  final m = cur as Map;
+  return _isNode(m) ? m['p'][step] : m[step];
+}
+
+bool _isNode(Map m) => m.containsKey('t') && m.containsKey('p');
 
 /// Takes [remove] elements at [at] out of the list param [key] of the node at [path] and puts
 /// [insert] there.
@@ -77,7 +85,7 @@ void _replace(Map<String, dynamic> root, List<dynamic> path, Map<String, dynamic
   if (last is String) {
     // [..., key]: the node is a param of its owner.
     final owner = _resolve(root, path.sublist(0, path.length - 1));
-    final params = (owner['p'] as Map).cast<String, dynamic>();
+    final params = _isNode(owner) ? (owner['p'] as Map).cast<String, dynamic>() : owner;
     if (!params.containsKey(last)) throw StateError('EWT patch: unresolved path $path');
     params[last] = node;
     return;
