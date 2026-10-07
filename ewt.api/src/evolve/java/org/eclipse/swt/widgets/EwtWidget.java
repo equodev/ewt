@@ -110,6 +110,10 @@ public class EwtWidget extends Composite {
      * by this region's id. Desktop keeps using FFM via App's dispatcher (the branch above). The
      * FFM/native path is deliberately not touched here, since no native engine runs on web.
      *
+     * A region that already published goes out as a diff against what the browser holds, the
+     * same as a rebuild: an app that re-sends its whole page through {@code setWidget} on every
+     * state change pays for what changed, not for the page.
+     *
      * The subtree is also resent on request: the browser region asks for it once its handler is
      * registered, so a first frame flushed (from the comm buffer) before the region subscribed is
      * not lost.
@@ -143,8 +147,10 @@ public class EwtWidget extends Composite {
                 EvolveComm.onPayload(getImpl(), EwtWebTransport.animEvent(hashCode()), this::handleAnimCommand);
                 webHandlersRegistered = true;
             }
+            EwtNode prev = lastTree;
             lastTree = capture.root;
-            publish(EwtPatchJson.encodeFull(capture.root));
+            String json = encodeUpdate(prev, capture.root);
+            if (json != null) publish(json);
             // Replay initial anim commands after publishing the subtree: the browser will
             // decode the tree (creating AnimationControllers) before these arrive.
             for (String cmd : bufferedAnims) sendAnimCommand(cmd);
