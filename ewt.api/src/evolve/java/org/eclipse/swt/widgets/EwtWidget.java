@@ -215,7 +215,7 @@ public class EwtWidget extends Composite {
         if (prev == null) return EwtPatchJson.encodeFull(next);
         Patch patch = EwtDiff.diff(prev, next);
         if (patch.structural()) return EwtPatchJson.encodeFull(next);
-        if (patch.ops().isEmpty()) return null;
+        if (patch.isEmpty()) return null;
         return EwtPatchJson.encodePatch(patch);
     }
 

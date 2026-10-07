@@ -69,22 +69,31 @@ class EwtDiffTest {
   }
 
   @Test
-  void listLengthChangeIsStructural() {
+  void aNodeListAtRootThatChangedLengthIsASpliceNotStructural() {
     EwtNode a = node(1, "columnColumn", p("children", List.of(node(2, "textText", p()))));
     EwtNode b = node(1, "columnColumn",
         p("children", List.of(node(2, "textText", p()), node(3, "textText", p()))));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(1, patch.splices().size());
+  }
+
+  @Test
+  void aMixedListThatChangedLengthAtRootIsStructural() {
+    EwtNode a = node(1, "row", p("items", List.of(node(2, "textText", p()), "x")));
+    EwtNode b = node(1, "row", p("items", List.of(node(2, "textText", p()), "x", "y")));
     assertTrue(EwtDiff.diff(a, b).structural());
   }
 
   @Test
-  void paramKeySetChangeIsStructural() {
+  void paramKeySetChangeAtRootIsStructural() {
     EwtNode a = node(1, "textText", p("data", "x"));
     EwtNode b = node(1, "textText", p("data", "x", "maxLines", 2));
     assertTrue(EwtDiff.diff(a, b).structural());
   }
 
   @Test
-  void nullToNonNullParamIsStructural() {
+  void nullToNonNullParamAtRootIsStructural() {
     java.util.Map<String, Object> pa = new java.util.LinkedHashMap<>();
     pa.put("child", null);
     java.util.Map<String, Object> pb = new java.util.LinkedHashMap<>();
@@ -92,6 +101,112 @@ class EwtDiffTest {
     org.junit.jupiter.api.Assertions.assertTrue(EwtDiff.diff(node(1, "centerCenter", pa), node(1, "centerCenter", pb)).structural());
     // and the reverse
     org.junit.jupiter.api.Assertions.assertTrue(EwtDiff.diff(node(1, "centerCenter", pb), node(1, "centerCenter", pa)).structural());
+  }
+
+  @Test
+  void nestedTypeChangeReplacesThatNodeOnly() {
+    EwtNode a = node(1, "centerCenter", p("child", node(2, "textText", p("data", "x"))));
+    EwtNode next = node(2, "iconIcon", p());
+    EwtNode b = node(1, "centerCenter", p("child", next));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertTrue(patch.ops().isEmpty());
+    assertEquals(1, patch.replaces().size());
+    assertEquals(List.of("child"), patch.replaces().get(0).path());
+    assertSame(next, patch.replaces().get(0).node());
+  }
+
+  @Test
+  void aRowAddedToAListTravelsAsOneInsert() {
+    EwtNode a = node(1, "columnColumn", p("children", List.of(node(2, "textText", p("data", "a")))));
+    EwtNode added = node(4, "textText", p("data", "b"));
+    EwtNode b = node(1, "columnColumn", p("children", List.of(node(3, "textText", p("data", "a")), added)));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertTrue(patch.ops().isEmpty());
+    assertTrue(patch.replaces().isEmpty());
+    assertEquals(1, patch.splices().size());
+    SpliceOp s = patch.splices().get(0);
+    assertEquals(List.of(), s.path());
+    assertEquals("children", s.key());
+    assertEquals(1, s.at());
+    assertEquals(0, s.remove());
+    assertEquals(List.of(added), s.insert());
+  }
+
+  @Test
+  void rowsFilteredOutOfAListTravelAsRemovalsAndTheShiftedCallbackIds() {
+    // Three rows with a tap callback each; the middle one goes away. The row after it keeps
+    // its content but its callback id shifts from 3 to 2 — that is a setParams on it, at its
+    // index in the list as the splice leaves it.
+    EwtNode a = node(1, "listViewListView", p("children", List.of(
+        node(2, "inkWellInkWell", p("onTap", 1, "child", node(3, "textText", p("data", "x")))),
+        node(4, "inkWellInkWell", p("onTap", 2, "child", node(5, "textText", p("data", "y")))),
+        node(6, "inkWellInkWell", p("onTap", 3, "child", node(7, "textText", p("data", "z")))))));
+    EwtNode b = node(1, "listViewListView", p("children", List.of(
+        node(2, "inkWellInkWell", p("onTap", 1, "child", node(3, "textText", p("data", "x")))),
+        node(4, "inkWellInkWell", p("onTap", 2, "child", node(5, "textText", p("data", "z")))))));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(1, patch.splices().size());
+    SpliceOp s = patch.splices().get(0);
+    assertEquals(1, s.at());
+    assertEquals(1, s.remove());
+    assertTrue(s.insert().isEmpty());
+    assertTrue(patch.replaces().isEmpty());
+    assertEquals(1, patch.ops().size());
+    assertEquals(List.of("children", 1), patch.ops().get(0).path());
+    assertEquals(Map.of("onTap", 2), patch.ops().get(0).set());
+  }
+
+  @Test
+  void aListReplacedWholeIsOneSpliceOfEverything() {
+    EwtNode a = node(1, "columnColumn", p("children", List.of(node(2, "textText", p("data", "a")), node(3, "textText", p("data", "b")))));
+    EwtNode b = node(1, "columnColumn", p("children", List.of(node(2, "iconIcon", p()))));
+    Patch patch = EwtDiff.diff(a, b);
+    assertEquals(1, patch.splices().size());
+    SpliceOp s = patch.splices().get(0);
+    assertEquals(0, s.at());
+    assertEquals(2, s.remove());
+    assertEquals(1, s.insert().size());
+    assertTrue(patch.ops().isEmpty());
+  }
+
+  @Test
+  void aPrimitiveListThatChangedLengthIsReSetWhole() {
+    EwtNode a = node(1, "row", p("tags", List.of("x")));
+    EwtNode b = node(1, "row", p("tags", List.of("x", "y")));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(List.of("x", "y"), patch.ops().get(0).set().get("tags"));
+  }
+
+  @Test
+  void nestedKeySetChangeReplacesThatNode() {
+    EwtNode a = node(1, "centerCenter", p("child", node(2, "textText", p("data", "x"))));
+    EwtNode b = node(1, "centerCenter", p("child", node(2, "textText", p("data", "x", "maxLines", 2))));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(List.of("child"), patch.replaces().get(0).path());
+  }
+
+  @Test
+  void replacedSubtreeDoesNotStopTheRestOfTheDiff() {
+    // The sibling after the replaced one still gets its changed param (and a shifted callback
+    // id, which is just another changed primitive) as a setParams op.
+    EwtNode a = node(1, "columnColumn", p("children", List.of(
+        node(2, "textText", p("data", "x")),
+        node(3, "elevatedButtonElevatedButton", p("onPressed", 1, "child", node(4, "textText", p("data", "go")))))));
+    EwtNode b = node(1, "columnColumn", p("children", List.of(
+        node(2, "iconIcon", p()),
+        node(5, "elevatedButtonElevatedButton", p("onPressed", 2, "child", node(6, "textText", p("data", "go")))))));
+    Patch patch = EwtDiff.diff(a, b);
+    assertFalse(patch.structural());
+    assertEquals(1, patch.replaces().size());
+    assertEquals(List.of("children", 0), patch.replaces().get(0).path());
+    assertEquals(1, patch.ops().size());
+    assertEquals(List.of("children", 1), patch.ops().get(0).path());
+    assertEquals(Map.of("onPressed", 2), patch.ops().get(0).set());
   }
 
   @Test
