@@ -39,6 +39,10 @@ class EwtWebRegion extends StatefulWidget {
 class _EwtWebRegionState extends State<EwtWebRegion>
     with TickerProviderStateMixin {
   Map<String, dynamic>? _root;
+  // Bumped with every node tree applied. The decoded subtree is retained between two of
+  // them, so an Evolve rebuild around this region (a Sash drag relaying out its parent)
+  // does not decode the whole retained map again.
+  int _generation = 0;
   late final String _subtreeChannel = 'EwtWidget/${widget.id}/subtree';
   late final String _animChannel = 'EwtWidget/${widget.id}/anim';
 
@@ -63,7 +67,10 @@ class _EwtWebRegionState extends State<EwtWebRegion>
         EquoCommService.send('$_subtreeChannel/request');
         return;
       }
-      setState(() => _root = outcome.root);
+      setState(() {
+        _root = outcome.root;
+        _generation++;
+      });
     } catch (e, st) {
       debugPrint('EWT web region ${widget.id} subtree failed: $e\n$st');
       EquoCommService.send('$_subtreeChannel/request');
@@ -183,6 +190,13 @@ class _EwtWebRegionState extends State<EwtWebRegion>
   Widget build(BuildContext context) {
     final root = _root;
     if (root == null) return const SizedBox.shrink();
+    return EwtRetainedSubtree(
+      generation: _generation,
+      builder: (context) => ClipRect(child: _decode(root, context)),
+    );
+  }
+
+  Widget _decode(Map<String, dynamic> root, BuildContext context) {
     // Bind region globals for the synchronous decode: callback sink, build context,
     // and the animated-state ticker/registry so controller factories can wire up.
     ewtActiveBuildContext = context;
@@ -190,15 +204,13 @@ class _EwtWebRegionState extends State<EwtWebRegion>
         EquoCommService.sendPayload('EwtWidget/${widget.id}/callback', [cid, ...args]);
     ewtActiveTickerProvider = this;
     ewtActiveControllerRegistry = _controllers;
-    final Widget decoded;
     try {
-      decoded = decodeEwtWidget(root);
+      return decodeEwtWidget(root);
     } finally {
       ewtActiveCallbackSink = null;
       ewtActiveBuildContext = null;
       ewtActiveTickerProvider = null;
       ewtActiveControllerRegistry = null;
     }
-    return ClipRect(child: decoded);
   }
 }

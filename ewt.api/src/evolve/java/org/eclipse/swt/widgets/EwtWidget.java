@@ -74,6 +74,10 @@ public class EwtWidget extends Composite {
             publishWebSubtree(builder);
         } else {
             App.registerBuilder(hashCode(), builder);
+            // The Dart region retains what it built and only rebuilds when told: a new builder is
+            // the one FFM-side change it cannot see on its own. Sent after the registration so
+            // the rebuild it triggers runs the new builder.
+            EvolveComm.send(getImpl(), EwtWebTransport.rebuildEvent(hashCode()), null);
         }
     }
 
