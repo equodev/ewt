@@ -16,6 +16,7 @@ import dev.equo.ewt.web.EwtDiff;
 import dev.equo.ewt.web.EwtNode;
 import dev.equo.ewt.web.EwtPatchJson;
 import dev.equo.ewt.web.EwtWebTransport;
+import dev.equo.ewt.web.EwtTrace;
 import dev.equo.ewt.web.Patch;
 
 /**
@@ -127,7 +128,9 @@ public class EwtWidget extends Composite {
             // create AnimationControllers before receiving forward/reverse/etc commands —
             // if commands arrive first, _controllers[id] is null and they are silently dropped.
             List<String> bufferedAnims = new ArrayList<>();
+            long captureStart = System.nanoTime();
             EwtCapture capture = EwtWebCapture.captureSubtree(builder, bufferedAnims::add);
+            long captureNanos = System.nanoTime() - captureStart;
             webCallbacks = capture.callbacks;
             clearWebState();
             webState = capture.state;
@@ -151,8 +154,11 @@ public class EwtWidget extends Composite {
             }
             EwtNode prev = lastTree;
             lastTree = capture.root;
+            long encodeStart = System.nanoTime();
             String json = encodeUpdate(prev, capture.root);
+            long encodeNanos = System.nanoTime() - encodeStart;
             if (json != null) publish(json);
+            if (EwtTrace.ENABLED) EwtTrace.log(EwtTrace.publishLine(hashCode(), "setWidget", prev, capture.root, json, captureNanos, encodeNanos));
             // Replay initial anim commands after publishing the subtree: the browser will
             // decode the tree (creating AnimationControllers) before these arrive.
             for (String cmd : bufferedAnims) sendAnimCommand(cmd);
@@ -224,11 +230,13 @@ public class EwtWidget extends Composite {
         if (s == null) return;
         try {
             EwtCapture capture;
+            long captureStart = System.nanoTime();
             if (s instanceof SubState<?>) {
                 capture = EwtWebCapture.rebuild((SubState<?>) s);
             } else if (s instanceof SubAnimatedState<?>) {
                 capture = EwtWebCapture.rebuildAnimated((SubAnimatedState<?>) s);
             } else return;
+            long captureNanos = System.nanoTime() - captureStart;
             webCallbacks = capture.callbacks;
             for (Object ns : webNestedStates) {
                 if (ns instanceof SubState<?>) EwtWebState.unregister((SubState<?>) ns);
@@ -241,8 +249,11 @@ public class EwtWidget extends Composite {
             }
             EwtNode prev = lastTree;
             lastTree = capture.root;
+            long encodeStart = System.nanoTime();
             String json = encodeUpdate(prev, capture.root);
+            long encodeNanos = System.nanoTime() - encodeStart;
             if (json != null) publish(json);
+            if (EwtTrace.ENABLED) EwtTrace.log(EwtTrace.publishLine(hashCode(), "setState", prev, capture.root, json, captureNanos, encodeNanos));
         } catch (Exception e) {
             System.out.println("EWT web rebuild failed: " + e);
             e.printStackTrace();
