@@ -35,7 +35,6 @@ public class BottomSheet extends StatefulWidget implements BottomSheetI {
   public static AnimationController createAnimationController(TickerProviderI vsync) {
     var id = factories.bottomSheetCreateAnimationController(vsync.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
-    System.out.println("New AnimationController id:"+id);
     return new AnimationController(id);
   }
   public AnimationController animationController() {

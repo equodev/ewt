@@ -11,7 +11,6 @@ public abstract class EdgeInsetsGeometry extends NativeObj.Base implements EdgeI
   public static EdgeInsetsGeometry infinity() {
     int id = factories.edgeInsetsGeometryInfinity();
     if (id <= 0) throw new RuntimeException("Failed to create const infinity");
-    System.out.println("Const infinity id:"+id);
     return new EdgeInsetsGeometry(id) {};
   }
   @Override

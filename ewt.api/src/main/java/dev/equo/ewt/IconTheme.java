@@ -24,7 +24,6 @@ public class IconTheme extends InheritedTheme implements IconThemeI {
     var id = factories.iconThemeMerge(data.build(),
       child.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
-    System.out.println("New Widget id:"+id);
     return new Widget(id) {};
   }
   public static IconThemeData of(BuildContextI context) {

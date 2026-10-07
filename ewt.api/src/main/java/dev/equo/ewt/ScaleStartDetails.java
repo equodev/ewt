@@ -19,7 +19,6 @@ public class ScaleStartDetails extends NativeObj.Base implements ScaleStartDetai
       sourceTimeStamp.map(DurationI::build),
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget ScaleStartDetails");
-    System.out.println("New ScaleStartDetails id:"+id);
     return new ScaleStartDetails(id);
   }
   public static ScaleStartDetailsScaleStartDetailsBuilder scaleStartDetails() {

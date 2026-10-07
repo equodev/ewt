@@ -16,7 +16,6 @@ public class EWT {
       Optional.empty(),
       Optional.empty());
     if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
-    System.out.println("New Future<T?> id:"+_ret);
     return new Future() { public int getId() { return _ret; } };
   }
   public static Future<DateTime> showDatePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
@@ -46,7 +45,6 @@ public class EWT {
       Optional.empty(),
       Optional.empty());
     if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<DateTime?>");
-    System.out.println("New Future<DateTime?> id:"+_ret);
     return new Future() { public int getId() { return _ret; } };
   }
   public static Future<TimeOfDay> showTimePicker(BuildContextI context, TimeOfDayI initialTime) {
@@ -71,7 +69,6 @@ public class EWT {
       Optional.empty(),
       Optional.empty());
     if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<TimeOfDay?>");
-    System.out.println("New Future<TimeOfDay?> id:"+_ret);
     return new Future() { public int getId() { return _ret; } };
   }
   public static Future showDateRangePicker(BuildContextI context, DateTimeI firstDate, DateTimeI lastDate) {
@@ -102,7 +99,6 @@ public class EWT {
       Optional.empty(),
       Optional.empty());
     if (_ret <= 0) throw new RuntimeException("Failed to created widget Future<DateTimeRange<DateTime>?>");
-    System.out.println("New Future<DateTimeRange<DateTime>?> id:"+_ret);
     return new Future() { public int getId() { return _ret; } };
   }
   public static String widgetTypeOf(int id) {

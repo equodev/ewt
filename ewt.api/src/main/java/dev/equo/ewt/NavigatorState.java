@@ -14,7 +14,6 @@ public class NavigatorState extends State<Navigator> implements NavigatorStateI 
   static NavigatorState navigatorStateNavigatorState() {
     var id = factories.navigatorStateNavigatorState();
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState");
-    System.out.println("New NavigatorState id:"+id);
     return new NavigatorState(id);
   }
   public static NavigatorStateNavigatorStateBuilder navigatorState() {

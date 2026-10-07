@@ -32,7 +32,6 @@ public class BorderSide extends NativeObj.Base implements BorderSideI {
     var id = factories.borderSideCanMerge(a.build(),
       b.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public static BorderSide lerp(BorderSideI a, BorderSideI b, double t) {

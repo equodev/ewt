@@ -14,7 +14,6 @@ public class Color extends NativeObj.Base implements ColorI {
   static Color colorColor(@Builder.Parameter int value) {
     var id = factories.colorColor(value);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static ColorColorBuilder color(int value) {
@@ -28,7 +27,6 @@ public class Color extends NativeObj.Base implements ColorI {
       blue,
       colorSpace);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static ColorFromBuilder from(double alpha, double red, double green, double blue) {
@@ -41,7 +39,6 @@ public class Color extends NativeObj.Base implements ColorI {
       g,
       b);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static ColorFromARGBBuilder fromARGB(int a, int r, int g, int b) {
@@ -54,7 +51,6 @@ public class Color extends NativeObj.Base implements ColorI {
       b,
       opacity);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static ColorFromRGBOBuilder fromRGBO(int r, int g, int b, double opacity) {
@@ -65,20 +61,17 @@ public class Color extends NativeObj.Base implements ColorI {
       y.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget Color?");
-    System.out.println("New Color? id:"+id);
     return new Color(id);
   }
   public static Color alphaBlend(ColorI foreground, ColorI background) {
     var id = factories.colorAlphaBlend(foreground.build(),
       background.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static int getAlphaFromOpacity(double opacity) {
     var id = factories.colorGetAlphaFromOpacity(opacity);
     if (id <= 0) throw new RuntimeException("Failed to created widget int");
-    System.out.println("New int id:"+id);
     return id;
   }
   @Override

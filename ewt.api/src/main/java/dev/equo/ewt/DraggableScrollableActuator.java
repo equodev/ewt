@@ -22,7 +22,6 @@ public class DraggableScrollableActuator extends StatefulWidget implements Dragg
   public static boolean reset(BuildContextI context) {
     var id = factories.draggableScrollableActuatorReset(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public Widget child() {

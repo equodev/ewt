@@ -15,7 +15,6 @@ public class DragTargetDetails<T> extends NativeObj.Base implements DragTargetDe
     var id = factories.dragTargetDetailsDragTargetDetails(data,
       offset.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget DragTargetDetails<T>");
-    System.out.println("New DragTargetDetails<T> id:"+id);
     return new DragTargetDetails(id);
   }
   public static <T extends NativeObj> DragTargetDetailsDragTargetDetailsBuilder<T> dragTargetDetails(NativeObj data, OffsetI offset) {

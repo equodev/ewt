@@ -30,7 +30,6 @@ public class Focus extends StatefulWidget implements FocusI {
   public static boolean isAt(BuildContextI context) {
     var id = factories.focusIsAt(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public Widget child() {

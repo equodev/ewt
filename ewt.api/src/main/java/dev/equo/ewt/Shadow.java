@@ -16,7 +16,6 @@ public class Shadow extends NativeObj.Base implements ShadowI {
       offset.map(OffsetI::build),
       blurRadius);
     if (id <= 0) throw new RuntimeException("Failed to created widget Shadow");
-    System.out.println("New Shadow id:"+id);
     return new Shadow(id);
   }
   public static ShadowShadowBuilder shadow() {
@@ -24,7 +23,6 @@ public class Shadow extends NativeObj.Base implements ShadowI {
   }
   public static double convertRadiusToSigma(double radius) {
     var id = factories.shadowConvertRadiusToSigma(radius);
-    System.out.println("New double id:"+id);
     return id;
   }
   public static Shadow lerp(ShadowI a, ShadowI b, double t) {
@@ -32,7 +30,6 @@ public class Shadow extends NativeObj.Base implements ShadowI {
       b.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget Shadow?");
-    System.out.println("New Shadow? id:"+id);
     return new Shadow(id);
   }
   private static int _kColorDefault() {

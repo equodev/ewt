@@ -30,14 +30,12 @@ public class Navigator extends StatefulWidget implements NavigatorI {
       routeName,
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
-    System.out.println("New Future<T?> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
   public static String restorablePushNamed(BuildContextI context, String routeName) {
     var id = factories.navigatorRestorablePushNamed(context.build(),
       routeName,
       Optional.empty());
-    System.out.println("New String id:"+id);
     return id;
   }
   public static Future pushReplacementNamed(BuildContextI context, String routeName) {
@@ -46,7 +44,6 @@ public class Navigator extends StatefulWidget implements NavigatorI {
       Optional.empty(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
-    System.out.println("New Future<T?> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
   public static String restorablePushReplacementNamed(BuildContextI context, String routeName) {
@@ -54,7 +51,6 @@ public class Navigator extends StatefulWidget implements NavigatorI {
       routeName,
       Optional.empty(),
       Optional.empty());
-    System.out.println("New String id:"+id);
     return id;
   }
   public static Future popAndPushNamed(BuildContextI context, String routeName) {
@@ -63,7 +59,6 @@ public class Navigator extends StatefulWidget implements NavigatorI {
       Optional.empty(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<T?>");
-    System.out.println("New Future<T?> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
   public static String restorablePopAndPushNamed(BuildContextI context, String routeName) {
@@ -71,20 +66,17 @@ public class Navigator extends StatefulWidget implements NavigatorI {
       routeName,
       Optional.empty(),
       Optional.empty());
-    System.out.println("New String id:"+id);
     return id;
   }
   public static boolean canPop(BuildContextI context) {
     var id = factories.navigatorCanPop(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public static Future<Boolean> maybePop(BuildContextI context) {
     var id = factories.navigatorMaybePop(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget Future<bool>");
-    System.out.println("New Future<bool> id:"+id);
     return new Future() { public int getId() { return id; } };
   }
   public static void pop(BuildContextI context) {
@@ -95,14 +87,12 @@ public class Navigator extends StatefulWidget implements NavigatorI {
     var id = factories.navigatorOf(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState");
-    System.out.println("New NavigatorState id:"+id);
     return new NavigatorState(id);
   }
   public static NavigatorState maybeOf(BuildContextI context) {
     var id = factories.navigatorMaybeOf(context.build(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigatorState?");
-    System.out.println("New NavigatorState? id:"+id);
     return new NavigatorState(id);
   }
   public String initialRoute() {

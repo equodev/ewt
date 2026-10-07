@@ -14,7 +14,6 @@ public class FlexParentData extends ContainerBoxParentData<RenderBox> implements
   static FlexParentData flexParentDataFlexParentData() {
     var id = factories.flexParentDataFlexParentData();
     if (id <= 0) throw new RuntimeException("Failed to created widget FlexParentData");
-    System.out.println("New FlexParentData id:"+id);
     return new FlexParentData(id);
   }
   public static FlexParentDataFlexParentDataBuilder flexParentData() {

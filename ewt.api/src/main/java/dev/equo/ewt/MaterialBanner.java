@@ -38,7 +38,6 @@ public class MaterialBanner extends StatefulWidget implements MaterialBannerI {
   public static AnimationController createAnimationController(TickerProviderI vsync) {
     var id = factories.materialBannerCreateAnimationController(vsync.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
-    System.out.println("New AnimationController id:"+id);
     return new AnimationController(id);
   }
   public Widget content() {

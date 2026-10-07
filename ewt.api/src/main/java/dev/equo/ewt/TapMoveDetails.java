@@ -18,7 +18,6 @@ public class TapMoveDetails extends NativeObj.Base implements TapMoveDetailsI {
       delta.map(OffsetI::build),
       localPosition.map(OffsetI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget TapMoveDetails");
-    System.out.println("New TapMoveDetails id:"+id);
     return new TapMoveDetails(id);
   }
   public static TapMoveDetailsTapMoveDetailsBuilder tapMoveDetails(PointerDeviceKind kind) {

@@ -19,7 +19,6 @@ public class BottomNavigationBarItem extends NativeObj.Base implements BottomNav
       tooltip,
       semanticsLabel);
     if (id <= 0) throw new RuntimeException("Failed to created widget BottomNavigationBarItem");
-    System.out.println("New BottomNavigationBarItem id:"+id);
     return new BottomNavigationBarItem(id);
   }
   public static BottomNavigationBarItemBottomNavigationBarItemBuilder bottomNavigationBarItem(WidgetI icon) {

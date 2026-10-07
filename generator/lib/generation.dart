@@ -847,7 +847,6 @@ final Set<String> unsupportedFactories = {};
       // which returns a foreign-free int id. Keeps EWT statics free of any direct FFM reference.
       ..writeln('    int _ret = NativeObj.Base.factories.$factoryName(${jParams.names});')
       ..writeln('    if (_ret <= 0) throw new RuntimeException("Failed to created widget ${node.returnType}");')
-      ..writeln('    System.out.println("New ${node.returnType} id:"+_ret);')
       ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('_ret', node.returnType))};');
   }
 

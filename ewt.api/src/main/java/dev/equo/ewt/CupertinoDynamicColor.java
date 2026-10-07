@@ -55,14 +55,12 @@ public class CupertinoDynamicColor extends NativeObj.Base implements CupertinoDy
     var id = factories.cupertinoDynamicColorResolve(resolvable.build(),
       context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Color");
-    System.out.println("New Color id:"+id);
     return new Color(id);
   }
   public static Color maybeResolve(ColorI resolvable, BuildContextI context) {
     var id = factories.cupertinoDynamicColorMaybeResolve(resolvable.build(),
       context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Color?");
-    System.out.println("New Color? id:"+id);
     return new Color(id);
   }
   public Color color() {

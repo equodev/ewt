@@ -17,7 +17,6 @@ public class ForcePressDetails extends NativeObj.Base implements ForcePressDetai
       localPosition.map(OffsetI::build),
       pressure);
     if (id <= 0) throw new RuntimeException("Failed to created widget ForcePressDetails");
-    System.out.println("New ForcePressDetails id:"+id);
     return new ForcePressDetails(id);
   }
   public static ForcePressDetailsForcePressDetailsBuilder forcePressDetails(OffsetI globalPosition) {

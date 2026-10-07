@@ -23,7 +23,6 @@ public class PrimaryScrollController extends InheritedWidget implements PrimaryS
     var id = factories.primaryScrollControllerShouldInherit(context.build(),
       scrollDirection);
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public Axis scrollDirection() {

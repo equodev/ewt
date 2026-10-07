@@ -18,7 +18,6 @@ public class LongPressMoveUpdateDetails extends NativeObj.Base implements LongPr
       offsetFromOrigin.map(OffsetI::build),
       localOffsetFromOrigin.map(OffsetI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget LongPressMoveUpdateDetails");
-    System.out.println("New LongPressMoveUpdateDetails id:"+id);
     return new LongPressMoveUpdateDetails(id);
   }
   public static LongPressMoveUpdateDetailsLongPressMoveUpdateDetailsBuilder longPressMoveUpdateDetails() {

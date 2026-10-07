@@ -29,14 +29,12 @@ public class AnimatedSwitcher extends StatefulWidget implements AnimatedSwitcher
     var id = factories.animatedSwitcherDefaultTransitionBuilder(child.build(),
       animation.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
-    System.out.println("New Widget id:"+id);
     return new Widget(id) {};
   }
   public static Widget defaultLayoutBuilder(WidgetI currentChild, List<WidgetI> previousChildren) {
     var id = factories.animatedSwitcherDefaultLayoutBuilder(currentChild.build(),
       previousChildren.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()));
     if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
-    System.out.println("New Widget id:"+id);
     return new Widget(id) {};
   }
   public Widget child() {

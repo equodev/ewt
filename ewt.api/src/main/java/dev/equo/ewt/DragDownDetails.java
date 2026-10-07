@@ -16,7 +16,6 @@ public class DragDownDetails extends NativeObj.Base implements DragDownDetailsI 
     var id = factories.dragDownDetailsDragDownDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget DragDownDetails");
-    System.out.println("New DragDownDetails id:"+id);
     return new DragDownDetails(id);
   }
   public static DragDownDetailsDragDownDetailsBuilder dragDownDetails() {

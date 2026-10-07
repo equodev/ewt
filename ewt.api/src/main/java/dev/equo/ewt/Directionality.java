@@ -23,13 +23,11 @@ public class Directionality extends InheritedWidget implements DirectionalityI {
   public static TextDirection of(BuildContextI context) {
     var id = factories.directionalityOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget TextDirection");
-    System.out.println("New TextDirection id:"+id);
     return TextDirection.values()[id];
   }
   public static TextDirection maybeOf(BuildContextI context) {
     var id = factories.directionalityMaybeOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget TextDirection?");
-    System.out.println("New TextDirection? id:"+id);
     return TextDirection.values()[id];
   }
   public TextDirection textDirection() {

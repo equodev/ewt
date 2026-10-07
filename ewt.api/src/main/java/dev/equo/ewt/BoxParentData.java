@@ -14,7 +14,6 @@ public class BoxParentData extends ParentData implements BoxParentDataI {
   static BoxParentData boxParentDataBoxParentData() {
     var id = factories.boxParentDataBoxParentData();
     if (id <= 0) throw new RuntimeException("Failed to created widget BoxParentData");
-    System.out.println("New BoxParentData id:"+id);
     return new BoxParentData(id);
   }
   public static BoxParentDataBoxParentDataBuilder boxParentData() {

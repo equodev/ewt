@@ -23,7 +23,6 @@ public class ScaleUpdateDetails extends NativeObj.Base implements ScaleUpdateDet
       focalPointDelta.map(OffsetI::build),
       sourceTimeStamp.map(DurationI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget ScaleUpdateDetails");
-    System.out.println("New ScaleUpdateDetails id:"+id);
     return new ScaleUpdateDetails(id);
   }
   public static ScaleUpdateDetailsScaleUpdateDetailsBuilder scaleUpdateDetails() {

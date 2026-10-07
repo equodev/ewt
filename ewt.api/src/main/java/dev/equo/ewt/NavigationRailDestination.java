@@ -20,7 +20,6 @@ public class NavigationRailDestination extends NativeObj.Base implements Navigat
       padding.map(EdgeInsetsGeometryI::build),
       disabled);
     if (id <= 0) throw new RuntimeException("Failed to created widget NavigationRailDestination");
-    System.out.println("New NavigationRailDestination id:"+id);
     return new NavigationRailDestination(id);
   }
   public static NavigationRailDestinationNavigationRailDestinationBuilder navigationRailDestination(WidgetI icon) {

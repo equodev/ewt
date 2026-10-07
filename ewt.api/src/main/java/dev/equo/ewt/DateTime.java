@@ -22,7 +22,6 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
       millisecond,
       microsecond);
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTimeDateTimeBuilder dateTime(int year) {
@@ -39,7 +38,6 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
       millisecond,
       microsecond);
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTimeUtcBuilder utc(int year) {
@@ -49,7 +47,6 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
   static DateTime dateTimeNow() {
     var id = factories.dateTimeNow();
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTimeNowBuilder now() {
@@ -59,7 +56,6 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
   static DateTime dateTimeTimestamp() {
     var id = factories.dateTimeTimestamp();
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTimeTimestampBuilder timestamp() {
@@ -70,7 +66,6 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
     var id = factories.dateTimeFromMillisecondsSinceEpoch(millisecondsSinceEpoch,
       isUtc);
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTimeFromMillisecondsSinceEpochBuilder fromMillisecondsSinceEpoch(int millisecondsSinceEpoch) {
@@ -81,7 +76,6 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
     var id = factories.dateTimeFromMicrosecondsSinceEpoch(microsecondsSinceEpoch,
       isUtc);
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTimeFromMicrosecondsSinceEpochBuilder fromMicrosecondsSinceEpoch(int microsecondsSinceEpoch) {
@@ -90,13 +84,11 @@ public class DateTime extends NativeObj.Base implements DateTimeI {
   public static DateTime parse(String formattedString) {
     var id = factories.dateTimeParse(formattedString);
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime");
-    System.out.println("New DateTime id:"+id);
     return new DateTime(id);
   }
   public static DateTime tryParse(String formattedString) {
     var id = factories.dateTimeTryParse(formattedString);
     if (id <= 0) throw new RuntimeException("Failed to created widget DateTime?");
-    System.out.println("New DateTime? id:"+id);
     return new DateTime(id);
   }
   public int year() {

@@ -81,7 +81,6 @@ public class CupertinoButton extends StatefulWidget implements CupertinoButtonI 
   }
   public static double tapMoveSlop() {
     var id = factories.cupertinoButtonTapMoveSlop();
-    System.out.println("New double id:"+id);
     return id;
   }
   public Widget child() {

@@ -20,7 +20,6 @@ public class DragUpdateDetails extends NativeObj.Base implements DragUpdateDetai
       primaryDelta,
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget DragUpdateDetails");
-    System.out.println("New DragUpdateDetails id:"+id);
     return new DragUpdateDetails(id);
   }
   public static DragUpdateDetailsDragUpdateDetailsBuilder dragUpdateDetails(OffsetI globalPosition) {

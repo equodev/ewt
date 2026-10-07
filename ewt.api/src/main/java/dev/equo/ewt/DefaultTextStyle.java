@@ -43,7 +43,6 @@ public class DefaultTextStyle extends InheritedTheme implements DefaultTextStyle
       Optional.empty(),
       child.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
-    System.out.println("New Widget id:"+id);
     return new Widget(id) {};
   }
   public static DefaultTextStyle of(BuildContextI context) {

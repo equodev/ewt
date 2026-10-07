@@ -15,7 +15,6 @@ public class ColorFilter extends NativeObj.Base implements ColorFilterI {
     var id = factories.colorFilterMode(color.build(),
       blendMode);
     if (id <= 0) throw new RuntimeException("Failed to created widget ColorFilter");
-    System.out.println("New ColorFilter id:"+id);
     return new ColorFilter(id);
   }
   public static ColorFilterModeBuilder mode(ColorI color, BlendMode blendMode) {
@@ -25,7 +24,6 @@ public class ColorFilter extends NativeObj.Base implements ColorFilterI {
   static ColorFilter colorFilterLinearToSrgbGamma() {
     var id = factories.colorFilterLinearToSrgbGamma();
     if (id <= 0) throw new RuntimeException("Failed to created widget ColorFilter");
-    System.out.println("New ColorFilter id:"+id);
     return new ColorFilter(id);
   }
   public static ColorFilterLinearToSrgbGammaBuilder linearToSrgbGamma() {
@@ -35,7 +33,6 @@ public class ColorFilter extends NativeObj.Base implements ColorFilterI {
   static ColorFilter colorFilterSrgbToLinearGamma() {
     var id = factories.colorFilterSrgbToLinearGamma();
     if (id <= 0) throw new RuntimeException("Failed to created widget ColorFilter");
-    System.out.println("New ColorFilter id:"+id);
     return new ColorFilter(id);
   }
   public static ColorFilterSrgbToLinearGammaBuilder srgbToLinearGamma() {
@@ -45,7 +42,6 @@ public class ColorFilter extends NativeObj.Base implements ColorFilterI {
   static ColorFilter colorFilterSaturation(@Builder.Parameter double saturation) {
     var id = factories.colorFilterSaturation(saturation);
     if (id <= 0) throw new RuntimeException("Failed to created widget ColorFilter");
-    System.out.println("New ColorFilter id:"+id);
     return new ColorFilter(id);
   }
   public static ColorFilterSaturationBuilder saturation(double saturation) {
