@@ -11,7 +11,7 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
     this.nativeStruct = factories.takeLastStruct();
   }
   @Builder.Factory
-  static AnimatedCrossFade animatedCrossFadeAnimatedCrossFade(@Builder.Parameter WidgetI firstChild, @Builder.Parameter WidgetI secondChild, Optional<CurveI> firstCurve, Optional<CurveI> secondCurve, Optional<CurveI> sizeCurve, Optional<AlignmentGeometryI> alignment, CrossFadeState crossFadeState, DurationI duration, Optional<DurationI> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Runnable> onEnd) {
+  static AnimatedCrossFade animatedCrossFadeAnimatedCrossFade(@Builder.Parameter WidgetI firstChild, @Builder.Parameter WidgetI secondChild, Optional<CurveI> firstCurve, Optional<CurveI> secondCurve, Optional<CurveI> sizeCurve, Optional<AlignmentGeometryI> alignment, CrossFadeState crossFadeState, DurationI duration, Optional<DurationI> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     int id = factories.animatedCrossFadeAnimatedCrossFade(firstChild.build(),
       secondChild.build(),
       firstCurve.map(CurveI::build),
@@ -22,6 +22,7 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
       duration.build(),
       reverseDuration.map(DurationI::build),
       excludeBottomFocus,
+      clipBehavior,
       onEnd);
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimatedCrossFade");
     return new AnimatedCrossFade(id);
@@ -76,6 +77,10 @@ public class AnimatedCrossFade extends StatefulWidget implements AnimatedCrossFa
   public boolean excludeBottomFocus() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeExcludeBottomFocus not supported on web");
     return factories.AnimatedCrossFade_readBack_excludeBottomFocus(nativeStruct);
+  }
+  public Clip clipBehavior() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("animatedCrossFadeClipBehavior not supported on web");
+    return factories.AnimatedCrossFade_readBack_clipBehavior(nativeStruct);
   }
   @Override
   public AnimatedCrossFade build() {

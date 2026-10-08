@@ -1979,7 +1979,7 @@ public interface WidgetConstructors {
     throw new UnsupportedOperationException("AnimatedSlide_readBack_offset read-back requires FFM/java22");
   }
 
-  default int animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Runnable> onEnd) {
+  default int animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     throw new UnsupportedOperationException("animatedCrossFadeAnimatedCrossFade has no default (FFM/comm impl required)");
   }
   default Widget AnimatedCrossFade_readBack_firstChild(Object st) {
@@ -2011,6 +2011,9 @@ public interface WidgetConstructors {
   }
   default boolean AnimatedCrossFade_readBack_excludeBottomFocus(Object st) {
     throw new UnsupportedOperationException("AnimatedCrossFade_readBack_excludeBottomFocus read-back requires FFM/java22");
+  }
+  default Clip AnimatedCrossFade_readBack_clipBehavior(Object st) {
+    throw new UnsupportedOperationException("AnimatedCrossFade_readBack_clipBehavior read-back requires FFM/java22");
   }
 
   default int slideTransitionSlideTransition(Animation position, Optional<Boolean> transformHitTests, Optional<TextDirection> textDirection, Optional<Widget> child) {
@@ -10388,6 +10391,9 @@ public interface WidgetConstructors {
   }
   default String ImageIcon_readBack_semanticLabel(Object st) {
     throw new UnsupportedOperationException("ImageIcon_readBack_semanticLabel read-back requires FFM/java22");
+  }
+  default boolean ImageIcon_readBack_useOriginalColors(Object st) {
+    throw new UnsupportedOperationException("ImageIcon_readBack_useOriginalColors read-back requires FFM/java22");
   }
 
   default int buttonBarButtonBar(Optional<MainAxisAlignment> alignment, Optional<MainAxisSize> mainAxisSize, Optional<ButtonTextTheme> buttonTextTheme, OptionalDouble buttonMinWidth, OptionalDouble buttonHeight, Optional<EdgeInsetsGeometry> buttonPadding, Optional<Boolean> buttonAlignedDropdown, Optional<ButtonBarLayoutBehavior> layoutBehavior, Optional<VerticalDirection> overflowDirection, OptionalDouble overflowButtonSpacing, Optional<List<Widget>> children) {

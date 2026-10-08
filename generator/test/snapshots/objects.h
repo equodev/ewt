@@ -611,6 +611,7 @@ typedef struct {
   DartObj sizeCurve;
   DartObj alignment;
   int excludeBottomFocus;
+  int clipBehavior;
 } AnimatedCrossFadeObjSt;
 typedef struct {
   int id;
@@ -3666,6 +3667,7 @@ typedef struct {
   double size;
   DartObj color;
   char* semanticLabel;
+  int useOriginalColors;
 } ImageIconObjSt;
 typedef struct {
   int id;

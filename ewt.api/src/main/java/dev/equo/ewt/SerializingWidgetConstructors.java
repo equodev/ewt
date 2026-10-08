@@ -3083,7 +3083,7 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
   }
 
   @Override
-  public int animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Runnable> onEnd) {
+  public int animatedCrossFadeAnimatedCrossFade(Widget firstChild, Widget secondChild, Optional<Curve> firstCurve, Optional<Curve> secondCurve, Optional<Curve> sizeCurve, Optional<AlignmentGeometry> alignment, CrossFadeState crossFadeState, Duration duration, Optional<Duration> reverseDuration, Optional<Boolean> excludeBottomFocus, Optional<Clip> clipBehavior, Optional<Runnable> onEnd) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("firstChild", byId.get(firstChild.getId()));
@@ -3096,6 +3096,7 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
     p.put("duration", byId.get(duration.getId()));
     reverseDuration.ifPresent(v -> p.put("reverseDuration", byId.get(v.getId())));
     excludeBottomFocus.ifPresent(v -> p.put("excludeBottomFocus", v));
+    clipBehavior.ifPresent(v -> p.put("clipBehavior", v.ordinal()));
     if (onEnd.isPresent()) { int __cb_onEnd = nextCallbackId++; p.put("onEnd", __cb_onEnd); callbacks.put(__cb_onEnd, onEnd.get()); }
     record(id, "animatedCrossFadeAnimatedCrossFade", p);
     return id;
