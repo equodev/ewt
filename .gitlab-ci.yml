@@ -556,6 +556,12 @@ resolve_evolve_ref:
 ewt_evolve_build:
   stage: build
   image: $FLUTTER_IMAGE_TAG
+  # The Gradle JVM (3 GiB), dart2js for the combined web bundle and the swt-evolve build run in
+  # one container that peaked at 5.8 GiB; without a request the scheduler packs it onto a full node
+  # and the kubelet evicts it ("The node was low on resource: memory", release 0.1.9).
+  variables:
+    KUBERNETES_CPU_REQUEST: "2"
+    KUBERNETES_MEMORY_REQUEST: 7Gi
   # gate: generator_tests + ewt_api_tests:linux must pass before we build for deploy.
   needs:
     - resolve_evolve_ref   # provides EVOLVE_REF (latest release) via dotenv
