@@ -15,6 +15,7 @@ import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
 import 'package:swtflutter/src/comm/comm.dart';
 
+import 'ewt_web/ewt_channel_owner.dart';
 import 'ewt_web/ewt_web_region.dart';
 import 'ewt_region_ffi.dart' as ffi;
 
@@ -36,7 +37,7 @@ class _EwtNativeRegionState extends State<_EwtNativeRegion> {
   @override
   void initState() {
     super.initState();
-    EquoCommService.onBytes(_channel, _onTransport);
+    ewtChannels.subscribe(_channel, this, _onTransport);
     // Ask Java to (re)send the transport, in case its first announcement flushed before we subscribed.
     EquoCommService.send('$_channel/request');
   }
@@ -48,7 +49,7 @@ class _EwtNativeRegionState extends State<_EwtNativeRegion> {
 
   @override
   void dispose() {
-    EquoCommService.remove(_channel);
+    ewtChannels.unsubscribe(_channel, this);
     super.dispose();
   }
 
