@@ -19,7 +19,6 @@ public class DropdownMenuEntry<T> extends NativeObj.Base implements DropdownMenu
       trailingIcon.map(WidgetI::build),
       enabled);
     if (id <= 0) throw new RuntimeException("Failed to created widget DropdownMenuEntry<T>");
-    System.out.println("New DropdownMenuEntry<T> id:"+id);
     return new DropdownMenuEntry(id);
   }
   public static <T extends NativeObj> DropdownMenuEntryDropdownMenuEntryBuilder<T> dropdownMenuEntry(NativeObj value, String label) {

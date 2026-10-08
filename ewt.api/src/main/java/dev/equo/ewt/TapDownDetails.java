@@ -17,7 +17,6 @@ public class TapDownDetails extends NativeObj.Base implements TapDownDetailsI {
       localPosition.map(OffsetI::build),
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget TapDownDetails");
-    System.out.println("New TapDownDetails id:"+id);
     return new TapDownDetails(id);
   }
   public static TapDownDetailsTapDownDetailsBuilder tapDownDetails() {

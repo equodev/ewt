@@ -23,13 +23,11 @@ public class PageStorage extends StatelessWidget implements PageStorageI {
   public static PageStorageBucket maybeOf(BuildContextI context) {
     var id = factories.pageStorageMaybeOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget PageStorageBucket?");
-    System.out.println("New PageStorageBucket? id:"+id);
     return new PageStorageBucket(id);
   }
   public static PageStorageBucket of(BuildContextI context) {
     var id = factories.pageStorageOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget PageStorageBucket");
-    System.out.println("New PageStorageBucket id:"+id);
     return new PageStorageBucket(id);
   }
   public Widget child() {

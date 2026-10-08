@@ -28,13 +28,11 @@ public class Theme extends StatelessWidget implements ThemeI {
   public static Brightness brightnessOf(BuildContextI context) {
     var id = factories.themeBrightnessOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Brightness");
-    System.out.println("New Brightness id:"+id);
     return Brightness.values()[id];
   }
   public static Brightness maybeBrightnessOf(BuildContextI context) {
     var id = factories.themeMaybeBrightnessOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Brightness?");
-    System.out.println("New Brightness? id:"+id);
     return Brightness.values()[id];
   }
   public ThemeData data() {

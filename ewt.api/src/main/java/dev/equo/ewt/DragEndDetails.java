@@ -18,7 +18,6 @@ public class DragEndDetails extends NativeObj.Base implements DragEndDetailsI {
       velocity.map(VelocityI::build),
       primaryVelocity);
     if (id <= 0) throw new RuntimeException("Failed to created widget DragEndDetails");
-    System.out.println("New DragEndDetails id:"+id);
     return new DragEndDetails(id);
   }
   public static DragEndDetailsDragEndDetailsBuilder dragEndDetails() {

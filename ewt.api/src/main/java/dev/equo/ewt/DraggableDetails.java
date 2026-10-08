@@ -17,7 +17,6 @@ public class DraggableDetails extends NativeObj.Base implements DraggableDetails
       velocity.build(),
       offset.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget DraggableDetails");
-    System.out.println("New DraggableDetails id:"+id);
     return new DraggableDetails(id);
   }
   public static DraggableDetailsDraggableDetailsBuilder draggableDetails() {

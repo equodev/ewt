@@ -24,19 +24,16 @@ public class TickerMode extends StatefulWidget implements TickerModeI {
   public static boolean of(BuildContextI context) {
     var id = factories.tickerModeOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public static ValueListenable getNotifier(BuildContextI context) {
     var id = factories.tickerModeGetNotifier(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget ValueListenable<bool>");
-    System.out.println("New ValueListenable<bool> id:"+id);
     return new ValueListenable() { public int getId() { return id; } };
   }
   public static ValueListenable getValuesNotifier(BuildContextI context) {
     var id = factories.tickerModeGetValuesNotifier(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget ValueListenable<TickerModeData>");
-    System.out.println("New ValueListenable<TickerModeData> id:"+id);
     return new ValueListenable() { public int getId() { return id; } };
   }
   public static Widget merge(WidgetI child) {
@@ -44,7 +41,6 @@ public class TickerMode extends StatefulWidget implements TickerModeI {
       Optional.empty(),
       child.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
-    System.out.println("New Widget id:"+id);
     return new Widget(id) {};
   }
   public boolean enabled() {

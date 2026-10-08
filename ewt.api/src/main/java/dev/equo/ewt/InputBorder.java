@@ -8,7 +8,6 @@ public abstract class InputBorder extends ShapeBorder implements InputBorderI {
   public static InputBorder none() {
     int id = factories.inputBorderNone();
     if (id <= 0) throw new RuntimeException("Failed to create const none");
-    System.out.println("Const none id:"+id);
     return new InputBorder(id) {};
   }
   @Override

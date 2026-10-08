@@ -42,7 +42,6 @@ public class Tooltip extends StatefulWidget implements TooltipI {
   public static boolean dismissAllToolTips() {
     var id = factories.tooltipDismissAllToolTips();
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public String message() {

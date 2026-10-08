@@ -26,7 +26,6 @@ public class TextSelectionToolbarTextButton extends StatelessWidget implements T
     var id = factories.textSelectionToolbarTextButtonGetPadding(index,
       total);
     if (id <= 0) throw new RuntimeException("Failed to created widget EdgeInsetsGeometry");
-    System.out.println("New EdgeInsetsGeometry id:"+id);
     return new EdgeInsetsGeometry(id) {};
   }
   public Widget child() {

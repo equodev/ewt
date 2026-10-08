@@ -20,7 +20,6 @@ public class ExpansionPanel extends NativeObj.Base implements ExpansionPanelI {
       splashColor.map(ColorI::build),
       highlightColor.map(ColorI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget ExpansionPanel");
-    System.out.println("New ExpansionPanel id:"+id);
     return new ExpansionPanel(id);
   }
   public static ExpansionPanelExpansionPanelBuilder expansionPanel(BiFunction<BuildContext, Boolean, Widget> headerBuilder, WidgetI body) {

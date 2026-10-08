@@ -35,7 +35,6 @@ public class DefaultSelectionStyle extends InheritedTheme implements DefaultSele
       Optional.empty(),
       child.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Widget");
-    System.out.println("New Widget id:"+id);
     return new Widget(id) {};
   }
   public static DefaultSelectionStyle of(BuildContextI context) {

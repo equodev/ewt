@@ -42,7 +42,6 @@ public class SnackBar extends StatefulWidget implements SnackBarI {
       Optional.empty(),
       Optional.empty());
     if (id <= 0) throw new RuntimeException("Failed to created widget AnimationController");
-    System.out.println("New AnimationController id:"+id);
     return new AnimationController(id);
   }
   public Widget content() {

@@ -14,7 +14,6 @@ public abstract class ImageFilter extends NativeObj.Base implements ImageFilterI
       sigmaY,
       tileMode);
     if (id <= 0) throw new RuntimeException("Failed to created widget ImageFilter");
-    System.out.println("New ImageFilter id:"+id);
     return new ImageFilter(id) {};
   }
   public static ImageFilterBlurBuilder blur() {
@@ -25,7 +24,6 @@ public abstract class ImageFilter extends NativeObj.Base implements ImageFilterI
     var id = factories.imageFilterDilate(radiusX,
       radiusY);
     if (id <= 0) throw new RuntimeException("Failed to created widget ImageFilter");
-    System.out.println("New ImageFilter id:"+id);
     return new ImageFilter(id) {};
   }
   public static ImageFilterDilateBuilder dilate() {
@@ -36,7 +34,6 @@ public abstract class ImageFilter extends NativeObj.Base implements ImageFilterI
     var id = factories.imageFilterErode(radiusX,
       radiusY);
     if (id <= 0) throw new RuntimeException("Failed to created widget ImageFilter");
-    System.out.println("New ImageFilter id:"+id);
     return new ImageFilter(id) {};
   }
   public static ImageFilterErodeBuilder erode() {
@@ -47,7 +44,6 @@ public abstract class ImageFilter extends NativeObj.Base implements ImageFilterI
     var id = factories.imageFilterCompose(outer.build(),
       inner.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget ImageFilter");
-    System.out.println("New ImageFilter id:"+id);
     return new ImageFilter(id) {};
   }
   public static ImageFilterComposeBuilder compose(ImageFilterI outer, ImageFilterI inner) {

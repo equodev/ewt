@@ -18,7 +18,6 @@ public class DragStartDetails extends NativeObj.Base implements DragStartDetails
       sourceTimeStamp.map(DurationI::build),
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget DragStartDetails");
-    System.out.println("New DragStartDetails id:"+id);
     return new DragStartDetails(id);
   }
   public static DragStartDetailsDragStartDetailsBuilder dragStartDetails() {

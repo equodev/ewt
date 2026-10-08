@@ -17,7 +17,6 @@ public class LongPressDownDetails extends NativeObj.Base implements LongPressDow
       localPosition.map(OffsetI::build),
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget LongPressDownDetails");
-    System.out.println("New LongPressDownDetails id:"+id);
     return new LongPressDownDetails(id);
   }
   public static LongPressDownDetailsLongPressDownDetailsBuilder longPressDownDetails() {

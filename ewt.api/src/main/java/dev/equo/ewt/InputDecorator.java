@@ -29,7 +29,6 @@ public class InputDecorator extends StatefulWidget implements InputDecoratorI {
   public static RenderBox containerOf(BuildContextI context) {
     var id = factories.inputDecoratorContainerOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget RenderBox?");
-    System.out.println("New RenderBox? id:"+id);
     return new RenderBox(id) {};
   }
   public InputDecoration decoration() {

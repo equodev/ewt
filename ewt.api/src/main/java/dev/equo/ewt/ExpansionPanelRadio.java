@@ -20,7 +20,6 @@ public class ExpansionPanelRadio extends ExpansionPanel implements ExpansionPane
       splashColor.map(ColorI::build),
       highlightColor.map(ColorI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget ExpansionPanelRadio");
-    System.out.println("New ExpansionPanelRadio id:"+id);
     return new ExpansionPanelRadio(id);
   }
   public static ExpansionPanelRadioExpansionPanelRadioBuilder expansionPanelRadio(NativeObj.I value, BiFunction<BuildContext, Boolean, Widget> headerBuilder, WidgetI body) {

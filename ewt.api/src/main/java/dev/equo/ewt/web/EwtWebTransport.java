@@ -52,6 +52,14 @@ public final class EwtWebTransport {
     return transportEvent(regionId) + "/request";
   }
 
+  /** The per-region channel telling the Dart region its content changed on the Java side, so the
+   *  subtree it retains must be built again (Java -> Dart). On FFM that is a new builder registered
+   *  by {@code setWidget}; the comm path needs no such signal, since the subtree itself arrives on
+   *  {@link #subtreeEvent}. The region otherwise keeps its built subtree across every Evolve rebuild. */
+  public static String rebuildEvent(int regionId) {
+    return "EwtWidget/" + regionId + "/rebuild";
+  }
+
   /** The per-region channel on which the browser reports a callback invocation (browser -> Java). */
   public static String callbackEvent(int regionId) {
     return "EwtWidget/" + regionId + "/callback";

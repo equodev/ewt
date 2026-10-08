@@ -17,7 +17,6 @@ public class LongPressEndDetails extends NativeObj.Base implements LongPressEndD
       localPosition.map(OffsetI::build),
       velocity.map(VelocityI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget LongPressEndDetails");
-    System.out.println("New LongPressEndDetails id:"+id);
     return new LongPressEndDetails(id);
   }
   public static LongPressEndDetailsLongPressEndDetailsBuilder longPressEndDetails() {

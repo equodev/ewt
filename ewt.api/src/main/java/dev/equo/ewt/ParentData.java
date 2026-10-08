@@ -14,7 +14,6 @@ public class ParentData extends NativeObj.Base implements ParentDataI {
   static ParentData parentDataParentData() {
     var id = factories.parentDataParentData();
     if (id <= 0) throw new RuntimeException("Failed to created widget ParentData");
-    System.out.println("New ParentData id:"+id);
     return new ParentData(id);
   }
   public static ParentDataParentDataBuilder parentData() {

@@ -16,7 +16,6 @@ public class LongPressStartDetails extends NativeObj.Base implements LongPressSt
     var id = factories.longPressStartDetailsLongPressStartDetails(globalPosition.map(OffsetI::build),
       localPosition.map(OffsetI::build));
     if (id <= 0) throw new RuntimeException("Failed to created widget LongPressStartDetails");
-    System.out.println("New LongPressStartDetails id:"+id);
     return new LongPressStartDetails(id);
   }
   public static LongPressStartDetailsLongPressStartDetailsBuilder longPressStartDetails() {

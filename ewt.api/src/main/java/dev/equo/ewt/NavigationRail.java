@@ -44,7 +44,6 @@ public class NavigationRail extends StatefulWidget implements NavigationRailI {
   public static Animation extendedAnimation(BuildContextI context) {
     var id = factories.navigationRailExtendedAnimation(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Animation<double>");
-    System.out.println("New Animation<double> id:"+id);
     return new Animation() { public int getId() { return id; } };
   }
   public Color backgroundColor() {

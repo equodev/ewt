@@ -50,6 +50,14 @@ The pregeneration cache must be deleted because `generator/lib/subwidgets.dart` 
 is imported by `generation_index.dart`. Without this step, jextract skips the SubState-related
 structs and the Java build fails with missing `*ObjSt` symbols.
 
+### Diagnostics
+
+`-Ddev.equo.ewt.trace=true` prints one line per publish of a region over comm to `System.err`
+(`region <id> setWidget: 1173 nodes captured in 2.5 ms, encoded in 0.3 ms, patch 118 B (2 sets, 0 replaces, 0 splices)`).
+Off by default and folded away by the JIT; it is the flag to turn on when a view feels slow. Never add a
+per-node `System.out.println` to generated or hand-written code: a product that routes stdout to a file
+turns it into a synchronous write on the UI thread.
+
 ### Adding a widget
 
 Declare it in `generator/lib/generation_index.dart` (one line, e.g. `m.Drawer? drawer;`), then run:

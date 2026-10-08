@@ -692,7 +692,6 @@ class WidgetGen implements AGen {
     if (node.returnType is! VoidType) {
       // java-11 split: String-returning factories already yield a Java String (id); skip getString.
       ctx.javaFile
-        ..writeln('    System.out.println("New ${node.returnType} id:"+id);')
         ..writeln('    return ${retType == 'MemorySegment' ? 'id' : types.paramValueFFMtoJ(types, paramElement('id', node.returnType))};');
     }
   }
@@ -775,7 +774,6 @@ class WidgetGen implements AGen {
       ctx.javaFile
         ..writeln('    int id = factories.$factoryName();')
         ..writeln('    if (id <= 0) throw new RuntimeException("Failed to create const $factory");')
-        ..writeln('    System.out.println("Const $factory id:"+id);')
         ..writeln('    return ${types.paramValueFFMtoJ(types, paramElement('id', fld.type))};');
       writeJavaConstMethod(factoryName, factory, fld);
       writeConstSerializerAndDecoder(fld, factoryName);

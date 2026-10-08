@@ -16,6 +16,7 @@ import dev.equo.ewt.web.EwtDiff;
 import dev.equo.ewt.web.EwtNode;
 import dev.equo.ewt.web.EwtPatchJson;
 import dev.equo.ewt.web.EwtWebTransport;
+import dev.equo.ewt.web.EwtTrace;
 import dev.equo.ewt.web.Patch;
 
 /**
@@ -74,6 +75,10 @@ public class EwtWidget extends Composite {
             publishWebSubtree(builder);
         } else {
             App.registerBuilder(hashCode(), builder);
+            // The Dart region retains what it built and only rebuilds when told: a new builder is
+            // the one FFM-side change it cannot see on its own. Sent after the registration so
+            // the rebuild it triggers runs the new builder.
+            EvolveComm.send(getImpl(), EwtWebTransport.rebuildEvent(hashCode()), null);
         }
     }
 
@@ -106,18 +111,26 @@ public class EwtWidget extends Composite {
      * by this region's id. Desktop keeps using FFM via App's dispatcher (the branch above). The
      * FFM/native path is deliberately not touched here, since no native engine runs on web.
      *
+     * A region that already published goes out as a diff against what the browser holds, the
+     * same as a rebuild: an app that re-sends its whole page through {@code setWidget} on every
+     * state change pays for what changed, not for the page.
+     *
      * The subtree is also resent on request: the browser region asks for it once its handler is
      * registered, so a first frame flushed (from the comm buffer) before the region subscribed is
      * not lost.
      */
     private void publishWebSubtree(Callable<Widget> builder) {
+        // Whatever rebuild was queued is for the state this replaces.
+        rebuildQueued.set(false);
         try {
             // Buffer initial anim commands (e.g. ctrl.forward() in initState) so they are
             // replayed AFTER the subtree is published. The browser must decode the tree and
             // create AnimationControllers before receiving forward/reverse/etc commands —
             // if commands arrive first, _controllers[id] is null and they are silently dropped.
             List<String> bufferedAnims = new ArrayList<>();
+            long captureStart = System.nanoTime();
             EwtCapture capture = EwtWebCapture.captureSubtree(builder, bufferedAnims::add);
+            long captureNanos = System.nanoTime() - captureStart;
             webCallbacks = capture.callbacks;
             clearWebState();
             webState = capture.state;
@@ -139,11 +152,17 @@ public class EwtWidget extends Composite {
                 EvolveComm.onPayload(getImpl(), EwtWebTransport.animEvent(hashCode()), this::handleAnimCommand);
                 webHandlersRegistered = true;
             }
+            EwtNode prev = lastTree;
             lastTree = capture.root;
-            publish(EwtPatchJson.encodeFull(capture.root));
+            long encodeStart = System.nanoTime();
+            String json = encodeUpdate(prev, capture.root);
+            long encodeNanos = System.nanoTime() - encodeStart;
+            if (json != null) publish(json);
+            if (EwtTrace.ENABLED) EwtTrace.log(EwtTrace.publishLine(hashCode(), "setWidget", prev, capture.root, json, captureNanos, encodeNanos));
             // Replay initial anim commands after publishing the subtree: the browser will
             // decode the tree (creating AnimationControllers) before these arrive.
             for (String cmd : bufferedAnims) sendAnimCommand(cmd);
+            replayAnimsHeldForRebuild();
         } catch (Exception e) {
             System.out.println("EWT web subtree publish failed: " + e);
             e.printStackTrace();
@@ -171,18 +190,53 @@ public class EwtWidget extends Composite {
         webNestedStates = java.util.List.of();
     }
 
-    /** Web-mode rebuild: re-flatten the retained state, refresh callbacks, publish a diff (or a full
-     *  snapshot on a structural change / first frame). */
+    /** Set while a rebuild is queued on the display thread and not yet run. */
+    private final java.util.concurrent.atomic.AtomicBoolean rebuildQueued =
+        new java.util.concurrent.atomic.AtomicBoolean();
+    /** Anim commands issued while a rebuild is queued; sent once the tree they may refer to is. */
+    private final List<String> animsHeldForRebuild = new ArrayList<>();
+
+    /**
+     * Web-mode rebuild hook, run by {@code setState}. The capture is deferred to the next turn of
+     * the display thread and every {@code setState} until then folds into it, so a handler that
+     * touches several states — or one state several times — re-flattens and publishes once, the
+     * way Flutter coalesces its own setState calls into one frame.
+     */
     private void rebuild() {
+        if (webState == null || isDisposed()) return;
+        if (!rebuildQueued.compareAndSet(false, true)) return;
+        getDisplay().asyncExec(() -> {
+            // A setWidget in between published fresh and cleared the flag: nothing left to do.
+            if (!rebuildQueued.getAndSet(false) || isDisposed()) return;
+            rebuildNow();
+            replayAnimsHeldForRebuild();
+        });
+    }
+
+    private void replayAnimsHeldForRebuild() {
+        List<String> held;
+        synchronized (animsHeldForRebuild) {
+            if (animsHeldForRebuild.isEmpty()) return;
+            held = new ArrayList<>(animsHeldForRebuild);
+            animsHeldForRebuild.clear();
+        }
+        for (String cmd : held) sendAnimCommand(cmd);
+    }
+
+    /** Re-flatten the retained state, refresh callbacks, publish a diff (or a full snapshot on a
+     *  structural change / first frame). */
+    private void rebuildNow() {
         Object s = webState;
         if (s == null) return;
         try {
             EwtCapture capture;
+            long captureStart = System.nanoTime();
             if (s instanceof SubState<?>) {
                 capture = EwtWebCapture.rebuild((SubState<?>) s);
             } else if (s instanceof SubAnimatedState<?>) {
                 capture = EwtWebCapture.rebuildAnimated((SubAnimatedState<?>) s);
             } else return;
+            long captureNanos = System.nanoTime() - captureStart;
             webCallbacks = capture.callbacks;
             for (Object ns : webNestedStates) {
                 if (ns instanceof SubState<?>) EwtWebState.unregister((SubState<?>) ns);
@@ -195,8 +249,11 @@ public class EwtWidget extends Composite {
             }
             EwtNode prev = lastTree;
             lastTree = capture.root;
+            long encodeStart = System.nanoTime();
             String json = encodeUpdate(prev, capture.root);
+            long encodeNanos = System.nanoTime() - encodeStart;
             if (json != null) publish(json);
+            if (EwtTrace.ENABLED) EwtTrace.log(EwtTrace.publishLine(hashCode(), "setState", prev, capture.root, json, captureNanos, encodeNanos));
         } catch (Exception e) {
             System.out.println("EWT web rebuild failed: " + e);
             e.printStackTrace();
@@ -211,7 +268,7 @@ public class EwtWidget extends Composite {
         if (prev == null) return EwtPatchJson.encodeFull(next);
         Patch patch = EwtDiff.diff(prev, next);
         if (patch.structural()) return EwtPatchJson.encodeFull(next);
-        if (patch.ops().isEmpty()) return null;
+        if (patch.isEmpty()) return null;
         return EwtPatchJson.encodePatch(patch);
     }
 
@@ -227,8 +284,18 @@ public class EwtWidget extends Composite {
             (event, payload) -> EvolveComm.send(getImpl(), event, payload));
     }
 
-    /** Forwards an animation command JSON string to the browser via the anim channel. */
+    /** Forwards an animation command JSON string to the browser via the anim channel. While a
+     *  rebuild is queued it is held instead: the controller it names may only exist in the tree
+     *  that rebuild publishes, and a command reaching the browser first is dropped there. */
     private void sendAnimCommand(String json) {
+        if (rebuildQueued.get()) {
+            synchronized (animsHeldForRebuild) {
+                if (rebuildQueued.get()) {
+                    animsHeldForRebuild.add(json);
+                    return;
+                }
+            }
+        }
         EwtWebTransport.publishAnim(hashCode(), json,
             (event, payload) -> EvolveComm.send(getImpl(), event, payload));
     }

@@ -14,6 +14,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:swtflutter/src/comm/comm.dart';
+import 'package:widgets_web/retained_subtree.dart';
 
 import 'ewt_web/ewt_channel_owner.dart';
 import 'ewt_web/ewt_web_region.dart';
@@ -33,11 +34,17 @@ class _EwtNativeRegionState extends State<_EwtNativeRegion> {
   // null = unknown -> render comm (safe on any JVM); "ffm" = java>=22 -> use the FFI region.
   String? _transport;
   late final String _channel = 'EwtWidget/${widget.id}/transport';
+  late final String _rebuildChannel = 'EwtWidget/${widget.id}/rebuild';
+  // Bumped when Java registers a new builder for this region. The FFM subtree is retained
+  // across every Evolve rebuild otherwise: re-running the Java builder on each of them was
+  // what made a Sash drag over many regions crawl.
+  int _generation = 0;
 
   @override
   void initState() {
     super.initState();
     ewtChannels.subscribe(_channel, this, _onTransport);
+    ewtChannels.subscribe(_rebuildChannel, this, _onRebuild);
     // Ask Java to (re)send the transport, in case its first announcement flushed before we subscribed.
     EquoCommService.send('$_channel/request');
   }
@@ -47,15 +54,27 @@ class _EwtNativeRegionState extends State<_EwtNativeRegion> {
     if (t != _transport && mounted) setState(() => _transport = t);
   }
 
+  void _onRebuild(Uint8List _) {
+    if (mounted) setState(() => _generation++);
+  }
+
   @override
   void dispose() {
     ewtChannels.unsubscribe(_channel, this);
+    ewtChannels.unsubscribe(_rebuildChannel, this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_transport == 'ffm') return ffi.buildEwtRegion(widget.id);
+    if (_transport == 'ffm') {
+      return EwtRetainedSubtree(
+        key: const ValueKey('ffm'),
+        generation: _generation,
+        builder: (_) => ffi.buildEwtRegion(widget.id),
+      );
+    }
+    // The comm region retains its own subtree, keyed on the node tree it receives.
     return EwtWebRegion(id: widget.id);
   }
 }

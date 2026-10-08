@@ -40,7 +40,6 @@ public class Visibility extends StatelessWidget implements VisibilityI {
   public static boolean of(BuildContextI context) {
     var id = factories.visibilityOf(context.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget bool");
-    System.out.println("New bool id:"+id);
     return intToBool(id);
   }
   public Widget child() {

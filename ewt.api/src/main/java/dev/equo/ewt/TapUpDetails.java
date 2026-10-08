@@ -17,7 +17,6 @@ public class TapUpDetails extends NativeObj.Base implements TapUpDetailsI {
       localPosition.map(OffsetI::build),
       kind);
     if (id <= 0) throw new RuntimeException("Failed to created widget TapUpDetails");
-    System.out.println("New TapUpDetails id:"+id);
     return new TapUpDetails(id);
   }
   public static TapUpDetailsTapUpDetailsBuilder tapUpDetails() {

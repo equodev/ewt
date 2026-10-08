@@ -146,7 +146,6 @@ public class ThemeData extends NativeObj.Base implements ThemeDataI {
   public static Brightness estimateBrightnessForColor(ColorI color) {
     var id = factories.themeDataEstimateBrightnessForColor(color.build());
     if (id <= 0) throw new RuntimeException("Failed to created widget Brightness");
-    System.out.println("New Brightness id:"+id);
     return Brightness.values()[id];
   }
   public static ThemeData lerp(ThemeDataI a, ThemeDataI b, double t) {

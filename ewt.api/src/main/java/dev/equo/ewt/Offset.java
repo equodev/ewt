@@ -16,7 +16,6 @@ public class Offset extends OffsetBase implements OffsetI {
     var id = factories.offsetOffset(dx,
       dy);
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset");
-    System.out.println("New Offset id:"+id);
     return new Offset(id);
   }
   public static OffsetOffsetBuilder offset(double dx, double dy) {
@@ -27,7 +26,6 @@ public class Offset extends OffsetBase implements OffsetI {
     var id = factories.offsetFromDirection(direction,
       distance);
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset");
-    System.out.println("New Offset id:"+id);
     return new Offset(id);
   }
   public static OffsetFromDirectionBuilder fromDirection(double direction) {
@@ -38,7 +36,6 @@ public class Offset extends OffsetBase implements OffsetI {
       b.build(),
       t);
     if (id <= 0) throw new RuntimeException("Failed to created widget Offset?");
-    System.out.println("New Offset? id:"+id);
     return new Offset(id);
   }
   public double dx() {

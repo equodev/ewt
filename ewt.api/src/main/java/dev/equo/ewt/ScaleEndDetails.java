@@ -17,7 +17,6 @@ public class ScaleEndDetails extends NativeObj.Base implements ScaleEndDetailsI 
       scaleVelocity,
       pointerCount);
     if (id <= 0) throw new RuntimeException("Failed to created widget ScaleEndDetails");
-    System.out.println("New ScaleEndDetails id:"+id);
     return new ScaleEndDetails(id);
   }
   public static ScaleEndDetailsScaleEndDetailsBuilder scaleEndDetails() {
