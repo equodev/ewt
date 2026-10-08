@@ -12,8 +12,8 @@ public final class AnimatedCrossFadeVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("animatedCrossFade_allSet", List.of(PropExpectation.notNull("firstCurve"), PropExpectation.notNull("secondCurve"), PropExpectation.notNull("sizeCurve"), PropExpectation.notNull("alignment"), PropExpectation.notNull("reverseDuration"), PropExpectation.equalTo("excludeBottomFocus", true))),
-          Map.entry("animatedCrossFade_boundary", List.of(PropExpectation.notNull("firstCurve"), PropExpectation.notNull("secondCurve"), PropExpectation.notNull("sizeCurve"), PropExpectation.notNull("alignment"), PropExpectation.notNull("reverseDuration"), PropExpectation.equalTo("excludeBottomFocus", false)))
+          Map.entry("animatedCrossFade_allSet", List.of(PropExpectation.notNull("firstCurve"), PropExpectation.notNull("secondCurve"), PropExpectation.notNull("sizeCurve"), PropExpectation.notNull("alignment"), PropExpectation.notNull("reverseDuration"), PropExpectation.equalTo("excludeBottomFocus", true), PropExpectation.equalTo("clipBehavior", Clip.none))),
+          Map.entry("animatedCrossFade_boundary", List.of(PropExpectation.notNull("firstCurve"), PropExpectation.notNull("secondCurve"), PropExpectation.notNull("sizeCurve"), PropExpectation.notNull("alignment"), PropExpectation.notNull("reverseDuration"), PropExpectation.equalTo("excludeBottomFocus", false), PropExpectation.equalTo("clipBehavior", Clip.none)))
       );
 
   public static Widget animatedCrossFade_required() {
@@ -21,11 +21,11 @@ public final class AnimatedCrossFadeVariants {
   }
 
   public static Widget animatedCrossFade_allSet() {
-    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().milliseconds(200).build()).excludeBottomFocus(true).onEnd(() -> {}).build();
+    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().milliseconds(200).build()).excludeBottomFocus(true).clipBehavior(Clip.none).onEnd(() -> {}).build();
   }
 
   public static Widget animatedCrossFade_boundary() {
-    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().build()).excludeBottomFocus(false).onEnd(() -> {}).build();
+    return AnimatedCrossFade.animatedCrossFade(SizedBox().width(1.0).height(1.0).build(), SizedBox().width(1.0).height(1.0).build()).crossFadeState(CrossFadeState.showFirst).duration(Duration.duration().milliseconds(200).build()).firstCurve(Curves.linear()).secondCurve(Curves.linear()).sizeCurve(Curves.linear()).alignment(Alignment.center()).reverseDuration(Duration.duration().build()).excludeBottomFocus(false).clipBehavior(Clip.none).onEnd(() -> {}).build();
   }
 
   public static Widget animatedCrossFade_callbackWired() {
