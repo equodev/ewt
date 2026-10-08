@@ -35,7 +35,7 @@ variables:
   # wrapper distribution (~gradle-8.10.2-bin.zip, ~6-7 min cold download on
   # services.gradle.org) and the dependency cache across jobs and pipelines.
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
-  FLUTTER_SDK: "3.44.4"
+  FLUTTER_SDK: "3.47.5"
   FLUTTER_IMAGE_TAG: $CI_REGISTRY_IMAGE/jdk22.flutter:linux
   JEXTRACT_URL: "https://download.java.net/java/early_access/jextract/25/2/openjdk-25-jextract+2-4_linux-x64_bin.tar.gz"
   # --- EWT ↔ Evolve integration (ewt-evolve jar) ---
@@ -301,7 +301,11 @@ flutter:linux:
       optional: true
   script:
     - rm -rf widgets/example/build/linux
-    - cd widgets/example && flutter pub get && flutter build linux --release
+    # --no-tree-shake-icons: factories_gen.dart constructs IconData(codePoint, fontFamily)
+    # from runtime widget payloads, so icon tree-shaking (enforced since Flutter 3.47 on
+    # Linux, already enforced on macOS) will reject the non-const invocations. Keep in sync
+    # with the macOS + Windows build commands.
+    - cd widgets/example && flutter pub get && flutter build linux --release --no-tree-shake-icons
   artifacts:
     paths:
       - widgets/example/build/linux/
@@ -332,7 +336,7 @@ flutter:windows:
   script:
     - rm -rf widgets/example/build/windows
     - cd widgets/example
-    - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter pub get; flutter build windows --release"
+    - powershell.exe -C "\$env:PATH='c:\\flutter\\bin;' + \$env:PATH; flutter pub get; flutter build windows --release --no-tree-shake-icons"
   artifacts:
     paths:
       - widgets/example/build/windows/
@@ -633,8 +637,9 @@ ewt_evolve_build:macos:
     - export JAVA_HOME="$PWD/jdk-22.0.2+9/Contents/Home"
     - export PATH="$JAVA_HOME/bin:$PATH"
     # macOS sources icudtl.dat from FlutterMacOS.framework (assemble output), so FLUTTER_ROOT is
-    # not strictly needed for it, but set it for parity with the other OSes.
-    - export FLUTTER_ROOT="$HOME/flutter"
+    # not strictly needed for it, but set it for parity with the other OSes. The prebuilt image
+    # (swt-flutter!1272) has Flutter precached under /opt/flutter.
+    - export FLUTTER_ROOT="/opt/flutter"
   script:
     - test -n "$EVOLVE_REF" || (echo "EVOLVE_REF empty — resolve_evolve_ref must run first (or set it to pin)"; exit 1)
     - EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"

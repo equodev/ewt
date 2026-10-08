@@ -662,7 +662,7 @@ typedef struct {
   } animatedSlide;
 
   struct AnimatedCrossFadeSt {
-    AnimatedCrossFadeObjSt (*animatedCrossFade)(DartObj firstChild, DartObj secondChild, DartObj* firstCurve, DartObj* secondCurve, DartObj* sizeCurve, DartObj* alignment, int crossFadeState, DartObj duration, DartObj* reverseDuration, int* excludeBottomFocus, VoidCallbackFFI* onEnd);
+    AnimatedCrossFadeObjSt (*animatedCrossFade)(DartObj firstChild, DartObj secondChild, DartObj* firstCurve, DartObj* secondCurve, DartObj* sizeCurve, DartObj* alignment, int crossFadeState, DartObj duration, DartObj* reverseDuration, int* excludeBottomFocus, int* clipBehavior, VoidCallbackFFI* onEnd);
   } animatedCrossFade;
 
   struct SlideTransitionSt {

@@ -1099,6 +1099,7 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       duration: decodeEwtNode(p['duration'] as Map<String,dynamic>) as Duration,
       reverseDuration: p['reverseDuration'] == null ? null : decodeEwtNode(p['reverseDuration'] as Map<String,dynamic>) as Duration,
       excludeBottomFocus: (p['excludeBottomFocus'] as bool?) ?? true,
+      clipBehavior: p['clipBehavior'] == null ? Clip.hardEdge : Clip.values[p['clipBehavior'] as int],
       onEnd: ewtWireCallback(p['onEnd'])),
 
   'indexedStackIndexedStack': (p) => IndexedStack(alignment: p['alignment'] == null ? AlignmentDirectional.topStart : decodeEwtNode(p['alignment'] as Map<String,dynamic>) as AlignmentGeometry,

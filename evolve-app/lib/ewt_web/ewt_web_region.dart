@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:swtflutter/src/comm/comm.dart';
 import 'package:widgets_web/widgets_web.dart';
 
+import 'ewt_channel_owner.dart';
+
 /// Outcome of applying one transport envelope: the new retained root, and whether the region
 /// must ask Java for a full resend (patch arrived with no base, or a path failed to resolve).
 class EnvelopeOutcome {
@@ -52,8 +54,8 @@ class _EwtWebRegionState extends State<EwtWebRegion>
   @override
   void initState() {
     super.initState();
-    EquoCommService.onBytes(_subtreeChannel, _onSubtree);
-    EquoCommService.onBytes(_animChannel, _onAnimCommand);
+    ewtChannels.subscribe(_subtreeChannel, this, _onSubtree);
+    ewtChannels.subscribe(_animChannel, this, _onAnimCommand);
     // Ask the Java side to (re)send this region's subtree now that our handler is registered,
     // so a first frame flushed from the comm buffer before we subscribed is not lost.
     EquoCommService.send('$_subtreeChannel/request');
@@ -177,8 +179,8 @@ class _EwtWebRegionState extends State<EwtWebRegion>
 
   @override
   void dispose() {
-    EquoCommService.remove(_subtreeChannel);
-    EquoCommService.remove(_animChannel);
+    ewtChannels.unsubscribe(_subtreeChannel, this);
+    ewtChannels.unsubscribe(_animChannel, this);
     for (final c in _controllers.values) {
       c.dispose();
     }

@@ -3449,7 +3449,7 @@ AnimatedSlideObjSt _createAnimatedSlideObjSt(AnimatedSlide? w) {
 void _setupAnimatedCrossFade(WidgetFactories f) {
   f.animatedCrossFade.animatedCrossFade = ffi.Pointer.fromFunction(animatedCrossFadeAnimatedCrossFade);
 }
-AnimatedCrossFadeObjSt animatedCrossFadeAnimatedCrossFade(DartDartObj firstChild, DartDartObj secondChild, ffi.Pointer<DartObj> firstCurve, ffi.Pointer<DartObj> secondCurve, ffi.Pointer<DartObj> sizeCurve, ffi.Pointer<DartObj> alignment, int crossFadeState, DartDartObj duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Int> excludeBottomFocus, ffi.Pointer<VoidCallbackFFI> onEnd) {
+AnimatedCrossFadeObjSt animatedCrossFadeAnimatedCrossFade(DartDartObj firstChild, DartDartObj secondChild, ffi.Pointer<DartObj> firstCurve, ffi.Pointer<DartObj> secondCurve, ffi.Pointer<DartObj> sizeCurve, ffi.Pointer<DartObj> alignment, int crossFadeState, DartDartObj duration, ffi.Pointer<DartObj> reverseDuration, ffi.Pointer<ffi.Int> excludeBottomFocus, ffi.Pointer<ffi.Int> clipBehavior, ffi.Pointer<VoidCallbackFFI> onEnd) {
   final w = AnimatedCrossFade(firstChild: _widgetsMap[firstChild]! as Widget,
       secondChild: _widgetsMap[secondChild]! as Widget,
       firstCurve: firstCurve.objOr(Curves.linear),
@@ -3460,6 +3460,7 @@ AnimatedCrossFadeObjSt animatedCrossFadeAnimatedCrossFade(DartDartObj firstChild
       duration: _widgetsMap[duration]! as Duration,
       reverseDuration: reverseDuration.objOrNul(),
       excludeBottomFocus: excludeBottomFocus.boolOr(true),
+      clipBehavior: clipBehavior.enumOr(Clip.values, Clip.hardEdge),
       onEnd: onEnd.toVoidCallbackFn());
   return _createAnimatedCrossFadeObjSt(w);
 }
@@ -3477,6 +3478,7 @@ AnimatedCrossFadeObjSt _createAnimatedCrossFadeObjSt(AnimatedCrossFade? w) {
   stObj.sizeCurve = _addWidget(w.sizeCurve);
   stObj.alignment = _addWidget(w.alignment);
   stObj.excludeBottomFocus = w.excludeBottomFocus.toInt();
+  stObj.clipBehavior = w.clipBehavior.index;
   return stObj;
 }
 
