@@ -673,7 +673,6 @@ ewt_evolve_build:macos:
     - |
       for A in aarch64 x86_64; do
         ./gradlew :ewt.api:ewtEvolveJar -Pclassifier=macos -Parch=$A -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
-        f=$(ls ewt.api/build/libs/ewt-evolve-*-macos.jar); mv "$f" "${f%-macos.jar}-macos-$A.jar"
       done
     - cp "../swt-evolve/swt_native/build/libs/swt_evolve-macos-${MAC_ARCH}.jar" ewt.api/build/libs/
   artifacts:
@@ -840,7 +839,8 @@ publish_ewt_evolve:
         done;
       else echo "Skipping JAR signing (JAR_SIGN_URL not set or SKIP_SIGN=true)"; fi
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -PevolveHome=../swt-evolve --no-daemon
-    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=macos -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=macos -Parch=aarch64 -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=macos -Parch=x86_64 -PevolveHome=../swt-evolve --no-daemon
     - ./gradlew :ewt.api:publishEwtEvolvePublicationToGitlabRepository -Pclassifier=windows -PevolveHome=../swt-evolve --no-daemon
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

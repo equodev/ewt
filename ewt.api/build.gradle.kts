@@ -233,6 +233,10 @@ if (evolveAvailable) {
         else -> throw GradleException("Unsupported OS: $ewtEvolveOs")
     }
     val ewtEvolvePlatformId = "$ewtEvolveWs.$ewtEvolveSwtOs.$ewtEvolveArch"   // e.g. gtk.linux.x86_64
+    // The jar's classifier. macOS is built once per arch (a fragment installs on one arch only), so
+    // its two jars must not share a name: the arch is part of the classifier there, and the Maven
+    // publication carries the same classifier, so the CI publishes each one as it was built.
+    val ewtEvolveClassifier = if (ewtEvolveOs == "macos") "macos-$ewtEvolveArch" else ewtEvolveOs
 
     // The combined WEB bundle (evolve-app `flutter build web`, from :examples:buildCombinedWebBundle).
     // Platform-independent (JS/wasm), but shipped INSIDE every per-OS ewt-evolve jar so ONE artifact
@@ -249,7 +253,7 @@ if (evolveAvailable) {
         group = "native"
         description = "Package the self-contained EWT↔Evolve integration jar (dev.equo:ewt-evolve, per-OS, both modes)."
         archiveBaseName.set("ewt-evolve")
-        archiveClassifier.set(ewtEvolveOs)
+        archiveClassifier.set(ewtEvolveClassifier)
         dependsOn(":examples:buildCombinedBundle", ":examples:buildCombinedWebBundle", compileCore11, "compileEvolveJava")
         // Multi-release fragment so it loads on any JVM >= 11 (the target product's own Java): the
         // foreign-free core + comm impl sit in the base at release 11, and the FFM layer sits under
@@ -344,8 +348,8 @@ if (evolveAvailable) {
                 // Reference the built file (as the ewtApi publication does) rather than the
                 // task, so publishing uploads an already-built jar without re-running the
                 // combined-bundle merge — the CI publish job restores the jar as an artifact.
-                artifact(file("build/libs/ewt-evolve-${project.version}-${ewtEvolveOs}.jar")) {
-                    classifier = ewtEvolveOs
+                artifact(file("build/libs/ewt-evolve-${project.version}-${ewtEvolveClassifier}.jar")) {
+                    classifier = ewtEvolveClassifier
                 }
                 pom {
                     name.set("EWT ↔ Evolve integration")
