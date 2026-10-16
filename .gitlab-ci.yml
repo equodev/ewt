@@ -14,11 +14,13 @@ stages:
 # Merge requests → release_gate is absent; flutter + build jobs run normally.
 workflow:
   rules:
-    # Evolve-release rebuild (ewt#62): swt-flutter's release triggers us with EWT_EVOLVE_REBUILD so
-    # the p2 repo is republished against the just-released Evolve. Must precede the default-branch
-    # rule below: the trigger runs on `main`, but we do NOT want MARK_PIPELINE (this is a rebuild,
-    # not a pending-release marker). The p2 chain runs via release_gate + publish_ewt_evolve_p2.
-    - if: '$EWT_EVOLVE_REBUILD == "true"'
+    # Evolve-release rebuild (ewt#62): swt-flutter's release triggers us as a multi-project pipeline
+    # (source "pipeline") to republish the p2 against the just-released Evolve. Keyed on the source,
+    # not a forwarded variable: the trigger sets forward:false so none of swt-flutter's globals leak
+    # in, and EWT has no other multi-project parent. Must precede the default-branch rule below: the
+    # trigger runs on `main`, but we do NOT want MARK_PIPELINE (this is a rebuild, not a pending-release
+    # marker). The p2 chain runs via release_gate + publish_ewt_evolve_p2.
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
@@ -78,6 +80,12 @@ build_docker_image:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   rules:
+    # Never on an Evolve-release rebuild (ewt#62 — source "pipeline"): a rebuild republishes the p2,
+    # it does not touch the CI image, and a triggered pipeline has no credentials to push it. Without
+    # this, a rebuild landing on a commit that changed .gitlab-ci.yml/Dockerfile would match the
+    # default-branch rule below and fail trying to push the image.
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
+      when: never
     - if: '$CI_IMAGE'
     # Rebuild the image inside MRs that change the Dockerfile OR the Flutter
     # version (FLUTTER_SDK lives in this file and is baked into the image at build
@@ -128,10 +136,11 @@ release_gate:
   script:
     - echo "Release gate opened — running the release chain in this pipeline."
   rules:
-    # On an Evolve-release rebuild (ewt#62) the gate opens automatically: no human clicks it, and
-    # the build chain (generate → tests → ewt_evolve_build[:*] → ewt_evolve_p2) must run so the p2
-    # is reassembled against the new Evolve. The release-only jobs stay gated by their own rules.
-    - if: '$EWT_EVOLVE_REBUILD == "true"'
+    # On an Evolve-release rebuild (ewt#62 — source "pipeline", triggered by swt-flutter) the gate
+    # opens automatically: no human clicks it, and the build chain (generate → tests →
+    # ewt_evolve_build[:*] → ewt_evolve_p2) must run so the p2 is reassembled against the new Evolve.
+    # The release-only jobs stay gated by their own rules.
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
     - if: '$MARK_PIPELINE == "true"'
       when: manual
       allow_failure: true
@@ -939,10 +948,10 @@ publish_ewt_evolve_p2:
     - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/p2"
     - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/p2"
   rules:
-    # Evolve-release rebuild (ewt#62): publish the freshly assembled p2 automatically (both the
-    # immutable <EVOLVE_VERSION>/p2 the CLI resolves and latest/p2). Must precede the default-branch
-    # rule, which would otherwise make this a manual button on the main-ref trigger pipeline.
-    - if: '$EWT_EVOLVE_REBUILD == "true"'
+    # Evolve-release rebuild (ewt#62 — source "pipeline"): publish the freshly assembled p2
+    # automatically (both the immutable <EVOLVE_VERSION>/p2 the CLI resolves and latest/p2). Must
+    # precede the default-branch rule, which would otherwise make this a manual button on the trigger.
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: manual
       allow_failure: true
