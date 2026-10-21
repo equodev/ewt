@@ -37,7 +37,7 @@ public final class EwtWebCapture {
           state.setWebWidget(sw);
           state.initStateFn();
           Widget built = state.buildFn(stubContext());
-          serializing.resolveDeferred(stubContext(), nestedStates);
+          serializing.resolveDeferred(stubContext(), nestedStates, animSink);
           return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), state, nestedStates);
         }
         if (stateObj instanceof SubAnimatedState<?>) {
@@ -46,7 +46,7 @@ public final class EwtWebCapture {
           if (animSink != null) animState.setWebAnimCommandSink(animSink);
           animState.initStateFn();
           Widget built = animState.buildFn(stubContext());
-          serializing.resolveDeferred(stubContext(), nestedStates);
+          serializing.resolveDeferred(stubContext(), nestedStates, animSink);
           return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), animState, nestedStates);
         }
       }
@@ -55,10 +55,10 @@ public final class EwtWebCapture {
         // Same: the root stateless sub-widget is handled here directly.
         serializing.deferredStateless.remove(slw.getId());
         Widget built = slw.buildFn(stubContext());
-        serializing.resolveDeferred(stubContext(), nestedStates);
+        serializing.resolveDeferred(stubContext(), nestedStates, animSink);
         return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), null, nestedStates);
       }
-      serializing.resolveDeferred(stubContext(), nestedStates);
+      serializing.resolveDeferred(stubContext(), nestedStates, animSink);
       return new EwtCapture(serializing.rootNode(rootWidget.getId()), serializing.callbacks(), null, nestedStates);
     } finally {
       NativeObj.Base.factories = previous;
@@ -75,6 +75,8 @@ public final class EwtWebCapture {
     try {
       java.util.List<Object> nestedStates = new java.util.ArrayList<>();
       Widget built = state.buildFn(stubContext());
+      // No buffering sink on rebuild: the region re-registers the real sink on the fresh nested
+      // states afterward (EwtWidget.rebuildNow), so their later imperative commands still route.
       serializing.resolveDeferred(stubContext(), nestedStates);
       return new EwtCapture(serializing.rootNode(built.getId()), serializing.callbacks(), state, nestedStates);
     } finally {
