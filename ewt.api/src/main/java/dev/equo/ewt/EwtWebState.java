@@ -22,6 +22,18 @@ public final class EwtWebState {
       java.util.Collections.synchronizedMap(new java.util.HashMap<>());
 
   /**
+   * Maps a status-listener id → the sink that receives AnimationStatus ordinals from the browser.
+   * Ids are NEGATIVE (allocated by {@link #registerStatusListener}), which keeps them disjoint
+   * from UI callback ids (small positives) and async callback ids (≥ {@code ASYNC_CALLBACK_ID_BASE}),
+   * so a single callback payload can be routed by the sign/range of its first element.
+   */
+  private static final Map<Integer, java.util.function.IntConsumer> STATUS_LISTENERS =
+      java.util.Collections.synchronizedMap(new java.util.HashMap<>());
+
+  private static final java.util.concurrent.atomic.AtomicInteger NEXT_STATUS_LISTENER_ID =
+      new java.util.concurrent.atomic.AtomicInteger(-1);
+
+  /**
    * Process-wide broker for async web commands. Any AnimationController operation whose Dart
    * counterpart returns a {@code TickerFuture} (or generally a {@code Future<T>}) registers a
    * {@link CompletableFuture} here and encodes the assigned callback id in the outbound command.
@@ -60,6 +72,31 @@ public final class EwtWebState {
       ANIM_SINKS.remove(id);
       ASYNC_BROKER.cancelAllForController(id);
     });
+  }
+
+  /** Registers a status-listener sink and returns its (negative) id to encode in the outbound
+   *  {@code addStatusListener} command. The browser echoes the id with each AnimationStatus change. */
+  public static int registerStatusListener(java.util.function.IntConsumer onStatus) {
+    int id = NEXT_STATUS_LISTENER_ID.getAndDecrement();
+    STATUS_LISTENERS.put(id, onStatus);
+    return id;
+  }
+
+  /** True when {@code id} is in the status-listener range (negative). Lets the receive side route a
+   *  callback payload to {@link #fireStatusListener} instead of the one-shot async broker. */
+  public static boolean isStatusListenerId(int id) {
+    return id < 0;
+  }
+
+  /** Delivers an AnimationStatus ordinal from the browser to the registered status-listener sink. */
+  public static void fireStatusListener(int id, int statusOrdinal) {
+    java.util.function.IntConsumer sink = STATUS_LISTENERS.get(id);
+    if (sink != null) sink.accept(statusOrdinal);
+  }
+
+  /** Drops a status-listener sink (region torn down / controller disposed). */
+  public static void unregisterStatusListener(int id) {
+    STATUS_LISTENERS.remove(id);
   }
 
   /** Sends an animation command for the given controller id to its registered Dart sink. */

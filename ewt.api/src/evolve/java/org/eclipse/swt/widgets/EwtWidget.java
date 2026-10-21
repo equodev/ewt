@@ -339,11 +339,32 @@ public class EwtWidget extends Composite {
         return null;
     }
 
+    /** Resolves a status-listener payload ([negative id, statusOrdinal]) to the work that fires the
+     *  registered AnimationStatus sink, or null if the payload isn't a status event. Static + SWT-free
+     *  for unit testing. Status events are repeatable (every status change), unlike the one-shot
+     *  async broker, and their ids are negative so they can't mask a UI or async callback id. */
+    static Runnable resolveStatusListener(Object payload) {
+        if (!(payload instanceof java.util.List<?>)) return null;
+        java.util.List<?> list = (java.util.List<?>) payload;
+        if (list.size() < 2 || !(list.get(0) instanceof Number) || !(list.get(1) instanceof Number)) return null;
+        int id = ((Number) list.get(0)).intValue();
+        if (!dev.equo.ewt.EwtWebState.isStatusListenerId(id)) return null;
+        int ordinal = ((Number) list.get(1)).intValue();
+        return () -> dev.equo.ewt.EwtWebState.fireStatusListener(id, ordinal);
+    }
+
     private void fireCallback(Object payload) {
         if (isDisposed()) return;
         Runnable r = resolveCallback(webCallbacks, payload);
         if (r != null) {
             getDisplay().asyncExec(r);
+            return;
+        }
+        // Status-listener events (negative id) fire a registered AnimationStatus sink repeatedly;
+        // run on the Display thread like a UI callback.
+        Runnable s = resolveStatusListener(payload);
+        if (s != null) {
+            getDisplay().asyncExec(s);
             return;
         }
         // Fall through to the async-callback broker (Future-returning method

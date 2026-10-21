@@ -33,4 +33,26 @@ class EwtWidgetCallbackTest {
     assertNull(EwtWidget.resolveCallback(cbs, "nope"));
     assertNull(EwtWidget.resolveCallback(null, List.of(5)));
   }
+
+  @Test
+  void resolveStatusListenerRoutesNegativeIdsOnly() {
+    int[] got = {-1};
+    int id = dev.equo.ewt.EwtWebState.registerStatusListener(v -> got[0] = v);
+    try {
+      // [negative id, ordinal] -> fires the registered sink with the ordinal.
+      Runnable r = EwtWidget.resolveStatusListener(List.of(id, 3));
+      assertNotNull(r);
+      r.run();
+      assertEquals(3, got[0]);
+
+      // UI callback ids (small positive) and async ids (>= 1_000_000) are not status events.
+      assertNull(EwtWidget.resolveStatusListener(List.of(5, 1)));
+      assertNull(EwtWidget.resolveStatusListener(List.of(1_000_000, 1)));
+      // wrong shape / non-list -> null
+      assertNull(EwtWidget.resolveStatusListener(List.of(id)));
+      assertNull(EwtWidget.resolveStatusListener("nope"));
+    } finally {
+      dev.equo.ewt.EwtWebState.unregisterStatusListener(id);
+    }
+  }
 }
