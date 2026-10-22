@@ -171,6 +171,17 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
         "repeat(reverse=true) is not yet supported on the native path; call repeat() instead");
     factories.animationControllerRepeat(this);
   }
+  public void addStatusListener(java.util.function.Consumer<AnimationStatus> listener) {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {
+      int listenerId = dev.equo.ewt.EwtWebState.registerStatusListener(idx -> {
+        if (idx >= 0 && idx < AnimationStatus.values().length) listener.accept(AnimationStatus.values()[idx]);
+      });
+      if (webOwner != null) webOwner.trackWebStatusListener(listenerId);
+      webCommand("addStatusListener:" + listenerId);
+      return;
+    }
+    throw new UnsupportedOperationException("addStatusListener is only supported on the web path; native support is pending");
+  }
   @Override
   public AnimationController build() {
     return this;

@@ -50,6 +50,17 @@ class SubAnimatedStateGen extends SubclassGen {
       ..writeln('    if (webAnimCommandSink != null) webAnimCommandSink.accept("{\\"ctrlId\\":" + ctrlId + ",\\"action\\":\\"" + action + "\\"}");')
       ..writeln('    else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);')
       ..writeln('  }')
+      // Status-listener ids a controller registers must be reclaimed on teardown, else each full
+      // setWidget re-publish (which rebuilds the state + re-runs initState) leaks a sink.
+      ..writeln('  /** Status-listener ids registered by this state (web mode), reclaimed by the region on')
+      ..writeln('   *  teardown so a full setWidget re-publish does not leak a sink. */')
+      ..writeln('  private final java.util.List<Integer> webStatusListenerIds = new java.util.ArrayList<>();')
+      ..writeln('  void trackWebStatusListener(int listenerId) { webStatusListenerIds.add(listenerId); }')
+      ..writeln('  /** Drops every status-listener sink this state registered. Called from the region on teardown. */')
+      ..writeln('  void clearWebStatusListeners() {')
+      ..writeln('    for (Integer id : webStatusListenerIds) EwtWebState.unregisterStatusListener(id);')
+      ..writeln('    webStatusListenerIds.clear();')
+      ..writeln('  }')
       // Tracked controllers so rebuildAnimated can pre-seed their ids into a
       // fresh serializer, preventing SubStateless placeholder ids from
       // colliding with live AnimationController ids (see commit 132df17).

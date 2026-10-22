@@ -116,6 +116,12 @@ class _EwtWebRegionState extends State<EwtWebRegion>
         ctrl.reverseDuration = Duration(milliseconds: int.parse(action.substring('setReverseDuration:'.length)));
       } else if (action.startsWith('setValue:')) {
         ctrl.value = double.parse(action.substring('setValue:'.length));
+      } else if (action.startsWith('addStatusListener:')) {
+        // The Java side holds the listener; echo each AnimationStatus change back by its
+        // (negative) listener id so the receive side routes it to the registered sink.
+        final listenerId = int.parse(action.substring('addStatusListener:'.length));
+        ctrl.addStatusListener((status) => EquoCommService.sendPayload(
+            'EwtWidget/${widget.id}/callback', <Object?>[listenerId, status.index]));
       } else switch (action) {
         case 'stop':   ctrl.stop();
         case 'reset':  ctrl.reset();
