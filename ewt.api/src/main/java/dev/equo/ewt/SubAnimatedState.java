@@ -99,7 +99,7 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
   private final java.util.List<Integer> webStatusListenerIds = new java.util.ArrayList<>();
   void trackWebStatusListener(int listenerId) { webStatusListenerIds.add(listenerId); }
   /** Drops every status-listener sink this state registered. Called from the region on teardown. */
-  void clearWebStatusListeners() {
+  public void clearWebStatusListeners() {
     for (Integer id : webStatusListenerIds) EwtWebState.unregisterStatusListener(id);
     webStatusListenerIds.clear();
   }

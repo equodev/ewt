@@ -57,7 +57,7 @@ class SubAnimatedStateGen extends SubclassGen {
       ..writeln('  private final java.util.List<Integer> webStatusListenerIds = new java.util.ArrayList<>();')
       ..writeln('  void trackWebStatusListener(int listenerId) { webStatusListenerIds.add(listenerId); }')
       ..writeln('  /** Drops every status-listener sink this state registered. Called from the region on teardown. */')
-      ..writeln('  void clearWebStatusListeners() {')
+      ..writeln('  public void clearWebStatusListeners() {')
       ..writeln('    for (Integer id : webStatusListenerIds) EwtWebState.unregisterStatusListener(id);')
       ..writeln('    webStatusListenerIds.clear();')
       ..writeln('  }')
