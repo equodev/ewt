@@ -188,11 +188,16 @@ public class EwtWidget extends Composite {
             SubAnimatedState<?> as = (SubAnimatedState<?>) prev;
             EwtWebState.unregister(as);
             as.setWebAnimCommandSink(null);
+            as.clearWebStatusListeners();
         }
         webState = null;
         for (Object ns : webNestedStates) {
             if (ns instanceof SubState<?>) EwtWebState.unregister((SubState<?>) ns);
-            else if (ns instanceof SubAnimatedState<?>) EwtWebState.unregister((SubAnimatedState<?>) ns);
+            else if (ns instanceof SubAnimatedState<?>) {
+                SubAnimatedState<?> nas = (SubAnimatedState<?>) ns;
+                EwtWebState.unregister(nas);
+                nas.clearWebStatusListeners();
+            }
         }
         webNestedStates = java.util.List.of();
     }

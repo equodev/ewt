@@ -176,6 +176,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
       int listenerId = dev.equo.ewt.EwtWebState.registerStatusListener(idx -> {
         if (idx >= 0 && idx < AnimationStatus.values().length) listener.accept(AnimationStatus.values()[idx]);
       });
+      if (webOwner != null) webOwner.trackWebStatusListener(listenerId);
       webCommand("addStatusListener:" + listenerId);
       return;
     }

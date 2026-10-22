@@ -94,6 +94,35 @@ class EwtWebStateStatusListenerTest {
     }
   }
 
+  @Test
+  void statusListenerIsReclaimedWhenStateClears() throws Exception {
+    String prev = forceWeb();
+    List<String> sent = new ArrayList<>();
+    Thing.S state = null;
+    int[] fired = {0};
+    try {
+      EwtCapture cap = EwtWebCapture.captureSubtree(Thing::new, sent::add);
+      state = (Thing.S) cap.state;
+      state.ctrl.addStatusListener(s -> fired[0]++);
+      int listenerId = parseListenerId(
+          sent.stream().filter(s -> s.contains("addStatusListener:")).findFirst().orElseThrow());
+
+      EwtWebState.fireStatusListener(listenerId, 3);
+      assertEquals(1, fired[0], "listener fires before teardown");
+
+      // What EwtWidget.clearWebState does on a full re-publish / dispose: reclaim the state's sinks.
+      state.clearWebStatusListeners();
+      EwtWebState.fireStatusListener(listenerId, 3);
+      assertEquals(1, fired[0], "no delivery after the owning state reclaims its listeners");
+    } finally {
+      restore(prev);
+      if (state != null) {
+        state.clearWebStatusListeners();
+        if (state.ctrl != null) EwtWebState.unregisterAnimSinks(Set.of(state.ctrl.getId()));
+      }
+    }
+  }
+
   // Parses the int after "addStatusListener:" in {"ctrlId":N,"action":"addStatusListener:-1"}.
   private static int parseListenerId(String cmd) {
     int i = cmd.indexOf("addStatusListener:") + "addStatusListener:".length();

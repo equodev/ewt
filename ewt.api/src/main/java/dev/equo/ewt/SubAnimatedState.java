@@ -94,6 +94,15 @@ public abstract class SubAnimatedState<T extends StatefulWidget> extends State<T
     if (webAnimCommandSink != null) webAnimCommandSink.accept("{\"ctrlId\":" + ctrlId + ",\"action\":\"" + action + "\"}");
     else System.out.println("EWT web: no anim sink on state for ctrl=" + ctrlId + " action=" + action);
   }
+  /** Status-listener ids registered by this state (web mode), reclaimed by the region on
+   *  teardown so a full setWidget re-publish does not leak a sink. */
+  private final java.util.List<Integer> webStatusListenerIds = new java.util.ArrayList<>();
+  void trackWebStatusListener(int listenerId) { webStatusListenerIds.add(listenerId); }
+  /** Drops every status-listener sink this state registered. Called from the region on teardown. */
+  void clearWebStatusListeners() {
+    for (Integer id : webStatusListenerIds) EwtWebState.unregisterStatusListener(id);
+    webStatusListenerIds.clear();
+  }
   private final java.util.List<AnimationController> controllers = new java.util.ArrayList<>();
   /** Pre-registers stub AnimationController nodes in a fresh serializer to prevent id collisions
    *  during rebuildAnimated: each controller keeps its original id so the Dart side can match/reuse. */
