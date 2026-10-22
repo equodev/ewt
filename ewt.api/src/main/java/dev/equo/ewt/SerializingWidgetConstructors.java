@@ -12951,6 +12951,14 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
   }
   @SuppressWarnings("unchecked")
   public void resolveDeferred(BuildContext ctx, java.util.List<Object> nestedStatesOut) {
+    resolveDeferred(ctx, nestedStatesOut, null);
+  }
+  /** Web-mode overload: {@code animSink} is set on each nested SubAnimatedState BEFORE its
+   *  initState runs, so controller commands issued there (e.g. forward()) route out the same
+   *  way the root's do — buffered-then-replayed by the region. Without it a nested controller
+   *  has no sink registered and every command is dropped. */
+  @SuppressWarnings("unchecked")
+  public void resolveDeferred(BuildContext ctx, java.util.List<Object> nestedStatesOut, java.util.function.Consumer<String> animSink) {
     while (!deferredStateless.isEmpty() || !deferredStateful.isEmpty()) {
       var ssSnap = new java.util.LinkedHashMap<>(deferredStateless);
       var sfSnap  = new java.util.LinkedHashMap<>(deferredStateful);
@@ -12979,6 +12987,7 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
         } else if (stateObj instanceof SubAnimatedState<?>) {
           SubAnimatedState<?> as = (SubAnimatedState<?>) stateObj;
           as.setWebWidget(ownerWidget);
+          if (animSink != null) as.setWebAnimCommandSink(animSink);
           as.initStateFn();
           Widget built = as.buildFn(ctx);
           resolved = byId.get(built.getId());

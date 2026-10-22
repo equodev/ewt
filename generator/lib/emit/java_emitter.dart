@@ -42,7 +42,7 @@ extension _JavaEmit on WidgetGen {
     final selfExpr = _isInterface ? '(($widgetClass) this)' : 'this';
     final callArgs = restCallNames.isEmpty ? selfExpr : '$selfExpr,\n      $restCallNames';
     if (node.returnType is VoidType) {
-      writeVoidMethodWebPrelude(factory);
+      writeVoidMethodWebPrelude(factory, restCallNames);
       ctx.javaFile.writeln('    $factoriesRef.$factoryName($callArgs);');
     } else {
       writeNonVoidMethodWebPrelude(factory, node.returnType, restCallNames);

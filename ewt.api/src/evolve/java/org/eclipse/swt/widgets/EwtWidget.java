@@ -144,7 +144,14 @@ public class EwtWidget extends Composite {
             }
             for (Object ns : capture.nestedStates) {
                 if (ns instanceof SubState<?>) EwtWebState.register((SubState<?>) ns, this::rebuild);
-                else if (ns instanceof SubAnimatedState<?>) EwtWebState.register((SubAnimatedState<?>) ns, this::rebuild);
+                else if (ns instanceof SubAnimatedState<?>) {
+                    SubAnimatedState<?> nas = (SubAnimatedState<?>) ns;
+                    EwtWebState.register(nas, this::rebuild);
+                    // Replace the buffering sink used during capture with the real one, so commands
+                    // issued after this first publish reach the browser. initState commands were
+                    // buffered into bufferedAnims and are replayed below through this same sink.
+                    nas.setWebAnimCommandSink(this::sendAnimCommand);
+                }
             }
             if (!webHandlersRegistered) {
                 EvolveComm.onEvent(getImpl(), EwtWebTransport.requestEvent(hashCode()), this::sendFull);
@@ -245,7 +252,11 @@ public class EwtWidget extends Composite {
             webNestedStates = capture.nestedStates;
             for (Object ns : webNestedStates) {
                 if (ns instanceof SubState<?>) EwtWebState.register((SubState<?>) ns, this::rebuild);
-                else if (ns instanceof SubAnimatedState<?>) EwtWebState.register((SubAnimatedState<?>) ns, this::rebuild);
+                else if (ns instanceof SubAnimatedState<?>) {
+                    SubAnimatedState<?> nas = (SubAnimatedState<?>) ns;
+                    EwtWebState.register(nas, this::rebuild);
+                    nas.setWebAnimCommandSink(this::sendAnimCommand);
+                }
             }
             EwtNode prev = lastTree;
             lastTree = capture.root;

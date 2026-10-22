@@ -92,8 +92,10 @@ class WidgetGen implements AGen {
 
   /// Emitted at the start of the void-return branch in the Java instance
   /// method wrapper, before the FFM call. Lets a widget short-circuit or
-  /// preroute the call in web mode. Default: no-op.
-  void writeVoidMethodWebPrelude(String factory) {}
+  /// preroute the call in web mode. [restParamNames] is the comma-joined
+  /// argument list (receiver excluded), for preludes that must ship an arg.
+  /// Default: no-op.
+  void writeVoidMethodWebPrelude(String factory, String restParamNames) {}
 
   /// Hook for the non-void return branch of the Java instance method wrapper.
   /// Return true to indicate the return statement was emitted by the

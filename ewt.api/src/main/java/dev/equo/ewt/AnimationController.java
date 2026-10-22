@@ -111,7 +111,7 @@ public class AnimationController extends NativeObj.Base implements Animation<Dou
     factories.animationControllerReset(this);
   }
   public void setValue(double v) {
-    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("setValue"); return; }
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("setValue:" + v); return; }
     factories.animationControllerSetValue(this,
       v);
   }

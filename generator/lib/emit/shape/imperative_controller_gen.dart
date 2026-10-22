@@ -28,11 +28,18 @@ class ImperativeControllerGen extends WidgetGen {
   /// All other void methods route as plain `webCommand("$factory")`.
   final Set<String> durationMarshalMethods;
 
+  /// Void-method factory names whose single primitive argument must travel
+  /// with the command on the web path. The prelude appends it as
+  /// `webCommand("$factory:" + <arg>)` (the web side parses `<factory>:<v>`);
+  /// without this the arg is dropped and the command is a no-op on web.
+  final Set<String> valueArgMethods;
+
   ImperativeControllerGen(
     super.types,
     super.dartClass, {
     required this.extraJavaBody,
     this.durationMarshalMethods = const {},
+    this.valueArgMethods = const {},
     this.futureAsyncMethods = const {},
     this.durationArgMethods = const {},
   });
@@ -49,6 +56,8 @@ class ImperativeControllerGen extends WidgetGen {
       types,
       dartClass,
       durationMarshalMethods: const {'setDuration', 'setReverseDuration'},
+      // setValue(double) must carry its value to the web side as "setValue:<v>".
+      valueArgMethods: const {'setValue'},
       // Methods whose Dart return is TickerFuture and whose surface is exposed
       // to Java as `Future<Object?>`. Names match the companion static method
       // names — see generator/lib/animation_controller_methods.dart.
@@ -131,7 +140,7 @@ class ImperativeControllerGen extends WidgetGen {
       !futureAsyncMethods.contains(factory);
 
   @override
-  void writeVoidMethodWebPrelude(String factory) {
+  void writeVoidMethodWebPrelude(String factory, String restParamNames) {
     if (durationMarshalMethods.contains(factory)) {
       ctx.javaFile
         ..writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) {')
@@ -139,6 +148,8 @@ class ImperativeControllerGen extends WidgetGen {
         ..writeln('      if (ms >= 0) webCommand("$factory:" + ms);')
         ..writeln('      return;')
         ..writeln('    }');
+    } else if (valueArgMethods.contains(factory)) {
+      ctx.javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("$factory:" + $restParamNames); return; }');
     } else {
       ctx.javaFile.writeln('    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) { webCommand("$factory"); return; }');
     }
