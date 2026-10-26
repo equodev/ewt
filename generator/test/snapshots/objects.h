@@ -119,6 +119,13 @@ typedef struct {
 } RowObjSt;
 typedef struct {
   int id;
+  char* edges;
+  char* positions;
+  double nodeWidth;
+  double nodeHeight;
+} EwtGraphViewObjSt;
+typedef struct {
+  int id;
   DartObj origin;
   DartObj alignment;
   int transformHitTests;

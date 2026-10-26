@@ -976,6 +976,33 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
       ptrList(children)), RowObjSt::id);
   }
 
+  public int ewtGraphViewEwtGraphView(List<Widget> nodes, Optional<String> edges, Optional<String> positions, Optional<Consumer<String>> onNodeMoved, OptionalDouble nodeWidth, OptionalDouble nodeHeight) {
+    var st = WidgetFactories.ewtGraphView(factories);
+    var fn = WidgetFactories.EwtGraphViewSt.ewtGraphView(st);
+    return retain(WidgetFactories.EwtGraphViewSt.ewtGraphView.invoke(fn, arena, ptrList(nodes),
+      ptrStr(edges),
+      ptrStr(positions),
+      onNodeMoved.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onNodeMoved.get())) : MemorySegment.NULL,
+      ptr(nodeWidth),
+      ptr(nodeHeight)), EwtGraphViewObjSt::id);
+  }
+  public String EwtGraphView_readBack_edges(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.edges(st).getString(0);
+  }
+  public String EwtGraphView_readBack_positions(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.positions(st).getString(0);
+  }
+  public double EwtGraphView_readBack_nodeWidth(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.nodeWidth(st);
+  }
+  public double EwtGraphView_readBack_nodeHeight(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.nodeHeight(st);
+  }
+
   public int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     var st = WidgetFactories.transform(factories);
     var fn = WidgetFactories.TransformSt.rotate(st);
@@ -22668,6 +22695,11 @@ MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
 MemorySegment ptrPointerExitEventListenerFn(Consumer<PointerExitEvent> jFn) {
   return PointerExitEventListenerFFI.allocate((event) -> {
     jFn.accept(new PointerExitEvent(event));
+  }, arena);
+}
+MemorySegment ptrVoidCallbackcharPtrFn(Consumer<String> jFn) {
+  return VoidCallbackcharPtrFFI.allocate((s) -> {
+    jFn.accept(s.getString(0));
   }, arena);
 }
 MemorySegment ptrPointerHoverEventListenerFn(Consumer<PointerHoverEvent> jFn) {

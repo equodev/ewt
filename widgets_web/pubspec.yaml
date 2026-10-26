@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  widgets_ext:
+    path: ../widgets_ext
 dev_dependencies:
   flutter_test:
     sdk: flutter

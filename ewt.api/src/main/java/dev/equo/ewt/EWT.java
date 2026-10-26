@@ -230,6 +230,10 @@ public class EWT {
     return RowRowBuilder.rowRow();
   }
 
+  public static EwtGraphViewEwtGraphViewBuilder EwtGraphView(List<WidgetI> nodes) {
+    return EwtGraphViewEwtGraphViewBuilder.ewtGraphViewEwtGraphView(nodes);
+  }
+
   public static TransformRotateBuilder Transform_rotate(double angle) {
     return TransformRotateBuilder.transformRotate(angle);
   }

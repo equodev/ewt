@@ -7,6 +7,7 @@ typedef int (*SelectableDayForRangePredicateFFI)(DartObj day, DartObj selectedSt
 typedef void (*FutureThenCallbackForObjectOptFFI)(DartObj* value);
 typedef void (*PointerEnterEventListenerFFI)(DartObj event);
 typedef void (*PointerExitEventListenerFFI)(DartObj event);
+typedef void (*VoidCallbackcharPtrFFI)(char* );
 typedef void (*PointerHoverEventListenerFFI)(DartObj event);
 typedef void (*VoidCallbackFFI)(void);
 typedef DartObj (*NullableIndexedWidgetBuilderFFI)(DartObj context, int index);

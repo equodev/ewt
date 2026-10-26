@@ -761,6 +761,20 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
   }
 
   @Override
+  public int ewtGraphViewEwtGraphView(List<Widget> nodes, Optional<String> edges, Optional<String> positions, Optional<Consumer<String>> onNodeMoved, OptionalDouble nodeWidth, OptionalDouble nodeHeight) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("nodes", nodes.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    edges.ifPresent(v -> p.put("edges", v));
+    positions.ifPresent(v -> p.put("positions", v));
+    if (onNodeMoved.isPresent()) { int __cb_onNodeMoved = nextCallbackId++; p.put("onNodeMoved", __cb_onNodeMoved); java.util.function.Consumer<String> __h_onNodeMoved = onNodeMoved.get(); callbacks.put(__cb_onNodeMoved, (java.util.function.Consumer<Object>)(v -> __h_onNodeMoved.accept((String) v))); }
+    if (nodeWidth.isPresent()) { p.put("nodeWidth", nodeWidth.getAsDouble()); }
+    if (nodeHeight.isPresent()) { p.put("nodeHeight", nodeHeight.getAsDouble()); }
+    record(id, "ewtGraphViewEwtGraphView", p);
+    return id;
+  }
+
+  @Override
   public int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();

@@ -845,6 +845,29 @@ RowObjSt _createRowObjSt(Row? w) {
   return stObj;
 }
 
+void _setupEwtGraphView(WidgetFactories f) {
+  f.ewtGraphView.ewtGraphView = ffi.Pointer.fromFunction(ewtGraphViewEwtGraphView);
+}
+EwtGraphViewObjSt ewtGraphViewEwtGraphView(ArrayC nodes, ffi.Pointer<ffi.Char> edges, ffi.Pointer<ffi.Char> positions, ffi.Pointer<VoidCallbackcharPtrFFI> onNodeMoved, ffi.Pointer<ffi.Double> nodeWidth, ffi.Pointer<ffi.Double> nodeHeight) {
+  final w = EwtGraphView(nodes.listOrEmpty(),
+      edges: edges.strOr(''),
+      positions: positions.strOr(''),
+      onNodeMoved: onNodeMoved.toVoidCallbackcharPtrFn(),
+      nodeWidth: nodeWidth.doubleOr(64.0),
+      nodeHeight: nodeHeight.doubleOr(38.0));
+  return _createEwtGraphViewObjSt(w);
+}
+EwtGraphViewObjSt _createEwtGraphViewObjSt(EwtGraphView? w) {
+  final EwtGraphViewObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.edges = w.edges.toNativeUtf8().cast<ffi.Char>();
+  stObj.positions = w.positions.toNativeUtf8().cast<ffi.Char>();
+  stObj.nodeWidth = w.nodeWidth;
+  stObj.nodeHeight = w.nodeHeight;
+  return stObj;
+}
+
 void _setupTransform(WidgetFactories f) {
   f.transform.rotate = ffi.Pointer.fromFunction(transformRotate);
   f.transform.translate = ffi.Pointer.fromFunction(transformTranslate);
@@ -17110,6 +17133,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupRow(f);
   _setupIconData(f);
   _setupIcon(f);
+  _setupEwtGraphView(f);
   _setupColor(f);
   _setupTransform(f);
   _setupOpacity(f);
@@ -17724,6 +17748,18 @@ extension on PointerExitEventListenerFFI {
 }
 extension on ffi.Pointer<PointerExitEventListenerFFI> {
   PointerExitEventListener? toPointerExitEventListenerFn() => (this != ffi.nullptr) ? this.value.toPointerExitEventListenerFn() : null;
+}
+
+extension on VoidCallbackcharPtrFFI {
+  void Function(String)? toVoidCallbackcharPtrFn() {
+    return (String s) {
+      DartVoidCallbackcharPtrFFIFunction dFn = asFunction();
+      dFn(s.toNativeUtf8().cast<ffi.Char>());
+    };
+  }
+}
+extension on ffi.Pointer<VoidCallbackcharPtrFFI> {
+  void Function(String)? toVoidCallbackcharPtrFn() => (this != ffi.nullptr) ? this.value.toVoidCallbackcharPtrFn() : null;
 }
 
 extension on PointerHoverEventListenerFFI {

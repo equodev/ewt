@@ -478,6 +478,22 @@ public interface WidgetConstructors {
     throw new UnsupportedOperationException("rowRow has no default (FFM/comm impl required)");
   }
 
+  default int ewtGraphViewEwtGraphView(List<Widget> nodes, Optional<String> edges, Optional<String> positions, Optional<Consumer<String>> onNodeMoved, OptionalDouble nodeWidth, OptionalDouble nodeHeight) {
+    throw new UnsupportedOperationException("ewtGraphViewEwtGraphView has no default (FFM/comm impl required)");
+  }
+  default String EwtGraphView_readBack_edges(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_edges read-back requires FFM/java22");
+  }
+  default String EwtGraphView_readBack_positions(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_positions read-back requires FFM/java22");
+  }
+  default double EwtGraphView_readBack_nodeWidth(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_nodeWidth read-back requires FFM/java22");
+  }
+  default double EwtGraphView_readBack_nodeHeight(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_nodeHeight read-back requires FFM/java22");
+  }
+
   default int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     throw new UnsupportedOperationException("transformRotate has no default (FFM/comm impl required)");
   }
