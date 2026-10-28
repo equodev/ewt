@@ -309,6 +309,17 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       nodeWidth: ((p['nodeWidth'] as num?)?.toDouble()) ?? 64.0,
       nodeHeight: ((p['nodeHeight'] as num?)?.toDouble()) ?? 38.0),
 
+  'ewtMapViewEwtMapView': (p) => EwtMapView(((p['markers'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      markerCoords: (p['markerCoords'] as String?) ?? '',
+      tileUrl: (p['tileUrl'] as String?) ?? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      camera: (p['camera'] as String?) ?? '0,0,2',
+      onCameraMoved: ewtWireValueCallback(p['onCameraMoved']),
+      onMarkerTap: ewtWireValueCallback(p['onMarkerTap']),
+      polygons: (p['polygons'] as String?) ?? '',
+      polylines: (p['polylines'] as String?) ?? '',
+      minZoom: ((p['minZoom'] as num?)?.toDouble()) ?? 2.0,
+      maxZoom: ((p['maxZoom'] as num?)?.toDouble()) ?? 19.0),
+
   'transformRotate': (p) => Transform.rotate(angle: (p['angle'] as num).toDouble(),
       origin: p['origin'] == null ? null : decodeEwtNode(p['origin'] as Map<String,dynamic>) as Offset,
       alignment: p['alignment'] == null ? null : decodeEwtNode(p['alignment'] as Map<String,dynamic>) as AlignmentGeometry,

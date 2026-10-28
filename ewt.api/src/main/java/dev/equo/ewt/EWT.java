@@ -234,6 +234,10 @@ public class EWT {
     return EwtGraphViewEwtGraphViewBuilder.ewtGraphViewEwtGraphView(nodes);
   }
 
+  public static EwtMapViewEwtMapViewBuilder EwtMapView(List<WidgetI> markers) {
+    return EwtMapViewEwtMapViewBuilder.ewtMapViewEwtMapView(markers);
+  }
+
   public static TransformRotateBuilder Transform_rotate(double angle) {
     return TransformRotateBuilder.transformRotate(angle);
   }

@@ -49,6 +49,11 @@ w.Icon? icon;
 // String callback `onNodeMoved` ("id,x,y") — the shape that round-trips over
 // comm. Generates across Java / FFM / comm-web.
 ext.EwtGraphView? ewtGraphView;
+// POC (approach a): flutter_map viewer (package:widgets_ext → flutter_map). The
+// camera is owned by Java (String `camera` "lat,lng,zoom"), pan/zoom reports back
+// via the single-arg String callback `onCameraMoved` — the shape that round-trips
+// over comm. Markers are a List<Widget>; everything else is marshalable Strings.
+ext.EwtMapView? ewtMapView;
 w.BuildContext? buildContext;
 w.Color? color;
 w.Transform? transform;

@@ -1003,6 +1003,49 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
     return EwtGraphViewObjSt.nodeHeight(st);
   }
 
+  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, OptionalDouble minZoom, OptionalDouble maxZoom) {
+    var st = WidgetFactories.ewtMapView(factories);
+    var fn = WidgetFactories.EwtMapViewSt.ewtMapView(st);
+    return retain(WidgetFactories.EwtMapViewSt.ewtMapView.invoke(fn, arena, ptrList(markers),
+      ptrStr(markerCoords),
+      ptrStr(tileUrl),
+      ptrStr(camera),
+      onCameraMoved.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onCameraMoved.get())) : MemorySegment.NULL,
+      onMarkerTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMarkerTap.get())) : MemorySegment.NULL,
+      ptrStr(polygons),
+      ptrStr(polylines),
+      ptr(minZoom),
+      ptr(maxZoom)), EwtMapViewObjSt::id);
+  }
+  public String EwtMapView_readBack_markerCoords(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.markerCoords(st).getString(0);
+  }
+  public String EwtMapView_readBack_tileUrl(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.tileUrl(st).getString(0);
+  }
+  public String EwtMapView_readBack_camera(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.camera(st).getString(0);
+  }
+  public String EwtMapView_readBack_polygons(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.polygons(st).getString(0);
+  }
+  public String EwtMapView_readBack_polylines(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.polylines(st).getString(0);
+  }
+  public double EwtMapView_readBack_minZoom(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.minZoom(st);
+  }
+  public double EwtMapView_readBack_maxZoom(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.maxZoom(st);
+  }
+
   public int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     var st = WidgetFactories.transform(factories);
     var fn = WidgetFactories.TransformSt.rotate(st);
