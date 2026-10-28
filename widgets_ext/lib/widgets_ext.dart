@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+export 'ewt_map_view.dart';
+
 /// A draggable node-graph wrapper demonstrating the EWT "approach (a)" pattern
 /// for interactions that must round-trip to the Java model (and therefore work
 /// over the comm path the SWT-Evolve integration uses):

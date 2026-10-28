@@ -10,6 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Third-party, 100% pure-Dart map client (renders on Flutter's canvas — no native
+  # platform views), so it generates across Java / FFM / comm-web like the rest of EWT.
+  flutter_map: ^8.1.0
+  latlong2: ^0.9.1
 
 flutter:
   uses-material-design: true
