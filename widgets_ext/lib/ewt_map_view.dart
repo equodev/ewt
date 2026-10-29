@@ -19,6 +19,9 @@ import 'package:latlong2/latlong.dart';
 /// Every param is comm-marshalable: a `List<Widget>`, Strings, primitives, and
 /// SINGLE-arg String callbacks — multi-arg callbacks do NOT round-trip over comm,
 /// so the (lat, lng, zoom) triple is packed into one String.
+///
+/// Tier-1 viewer chrome is internal (no extra params): a scale bar, an overview
+/// mini-map, and an entrance animation on the markers.
 class EwtMapView extends StatefulWidget {
   final List<Widget> markers;
 
@@ -67,15 +70,37 @@ class EwtMapView extends StatefulWidget {
   State<EwtMapView> createState() => _EwtMapViewState();
 }
 
-class _EwtMapViewState extends State<EwtMapView> {
+class _EwtMapViewState extends State<EwtMapView>
+    with SingleTickerProviderStateMixin {
   final MapController _controller = MapController();
   late LatLng _center;
   late double _zoom;
+
+  // Overview mini-map: a fixed wider frame captured at first build; a live dot
+  // tracks the main camera's centre over it.
+  late final LatLng _ovCenter;
+  late final double _ovZoom;
+
+  // Entrance animation for the markers (plays once on open).
+  late final AnimationController _entrance;
+  late final Animation<double> _pop;
 
   @override
   void initState() {
     super.initState();
     _applyCamera(widget.camera);
+    _ovCenter = _center;
+    _ovZoom = (_zoom - 4).clamp(1.0, 18.0);
+    _entrance = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 900))
+      ..forward();
+    _pop = CurvedAnimation(parent: _entrance, curve: Curves.easeOutBack);
+  }
+
+  @override
+  void dispose() {
+    _entrance.dispose();
+    super.dispose();
   }
 
   @override
@@ -125,6 +150,15 @@ class _EwtMapViewState extends State<EwtMapView> {
     return out;
   }
 
+  TileLayer _tiles() => TileLayer(
+        urlTemplate: widget.tileUrl,
+        // Plain network provider (no disk cache) so flutter_map's path_provider
+        // dependency is never called — the embedded EWT engine does not register
+        // platform plugins, so a disk-caching provider would throw.
+        tileProvider: NetworkTileProvider(),
+        userAgentPackageName: 'dev.equo.ewt',
+      );
+
   @override
   Widget build(BuildContext context) {
     final pts = _markerPoints();
@@ -140,69 +174,122 @@ class _EwtMapViewState extends State<EwtMapView> {
         .toList();
 
     return ClipRect(
-      child: FlutterMap(
-        mapController: _controller,
-        options: MapOptions(
-          initialCenter: _center,
-          initialZoom: _zoom,
-          minZoom: widget.minZoom,
-          maxZoom: widget.maxZoom,
-          onPositionChanged: (camera, hasGesture) {
-            if (!hasGesture) return;
-            final c = camera.center;
-            widget.onCameraMoved?.call(
-                '${c.latitude.toStringAsFixed(6)},${c.longitude.toStringAsFixed(6)},${camera.zoom.toStringAsFixed(2)}');
-          },
-        ),
+      child: Stack(
         children: [
-          TileLayer(
-            urlTemplate: widget.tileUrl,
-            // Plain network provider (no disk cache) so flutter_map's path_provider
-            // dependency is never called — the embedded EWT engine does not register
-            // platform plugins, so a disk-caching provider would throw.
-            tileProvider: NetworkTileProvider(),
-            userAgentPackageName: 'dev.equo.ewt',
+          FlutterMap(
+            mapController: _controller,
+            options: MapOptions(
+              initialCenter: _center,
+              initialZoom: _zoom,
+              minZoom: widget.minZoom,
+              maxZoom: widget.maxZoom,
+              onPositionChanged: (camera, hasGesture) {
+                if (!hasGesture) return;
+                final c = camera.center;
+                widget.onCameraMoved?.call(
+                    '${c.latitude.toStringAsFixed(6)},${c.longitude.toStringAsFixed(6)},${camera.zoom.toStringAsFixed(2)}');
+              },
+            ),
+            children: [
+              _tiles(),
+              if (polys.isNotEmpty)
+                PolygonLayer(
+                  polygons: [
+                    for (final ring in polys)
+                      Polygon(
+                        points: ring,
+                        color: const Color(0x3300BCD4),
+                        borderColor: const Color(0xFF00838F),
+                        borderStrokeWidth: 2,
+                      ),
+                  ],
+                ),
+              if (lines.isNotEmpty)
+                PolylineLayer(
+                  polylines: [
+                    for (final l in lines)
+                      Polyline(
+                        points: l,
+                        color: const Color(0xFFFFC107),
+                        strokeWidth: 3,
+                      ),
+                  ],
+                ),
+              if (widget.markers.isNotEmpty)
+                MarkerLayer(
+                  markers: [
+                    for (var i = 0;
+                        i < widget.markers.length && i < pts.length;
+                        i++)
+                      Marker(
+                        point: pts[i],
+                        width: 44,
+                        height: 44,
+                        alignment: Alignment.topCenter,
+                        child: ScaleTransition(
+                          scale: _pop,
+                          child: FadeTransition(
+                            opacity: _entrance,
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () => widget.onMarkerTap?.call('$i'),
+                              child: widget.markers[i],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              const Scalebar(
+                alignment: Alignment.bottomLeft,
+                padding: EdgeInsets.all(8),
+              ),
+            ],
           ),
-          if (polys.isNotEmpty)
-            PolygonLayer(
-              polygons: [
-                for (final ring in polys)
-                  Polygon(
-                    points: ring,
-                    color: const Color(0x3300BCD4),
-                    borderColor: const Color(0xFF00838F),
-                    borderStrokeWidth: 2,
+          // Overview mini-map (bottom-right): a fixed wider frame with a live dot
+          // marking the main camera's centre.
+          Positioned(
+            right: 8,
+            bottom: 8,
+            width: 150,
+            height: 110,
+            child: IgnorePointer(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 2),
+                  boxShadow: const [
+                    BoxShadow(color: Color(0x55000000), blurRadius: 4)
+                  ],
+                ),
+                child: FlutterMap(
+                  options: MapOptions(
+                    initialCenter: _ovCenter,
+                    initialZoom: _ovZoom,
+                    interactionOptions:
+                        const InteractionOptions(flags: InteractiveFlag.none),
                   ),
-              ],
+                  children: [
+                    _tiles(),
+                    MarkerLayer(markers: [
+                      Marker(
+                        point: _center,
+                        width: 14,
+                        height: 14,
+                        child: const DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFF5252),
+                            shape: BoxShape.circle,
+                            border: Border.fromBorderSide(
+                                BorderSide(color: Colors.white, width: 2)),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
             ),
-          if (lines.isNotEmpty)
-            PolylineLayer(
-              polylines: [
-                for (final l in lines)
-                  Polyline(
-                    points: l,
-                    color: const Color(0xFFFFC107),
-                    strokeWidth: 3,
-                  ),
-              ],
-            ),
-          if (widget.markers.isNotEmpty)
-            MarkerLayer(
-              markers: [
-                for (var i = 0; i < widget.markers.length && i < pts.length; i++)
-                  Marker(
-                    point: pts[i],
-                    width: 44,
-                    height: 44,
-                    alignment: Alignment.topCenter,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => widget.onMarkerTap?.call('$i'),
-                      child: widget.markers[i],
-                    ),
-                  ),
-              ],
-            ),
+          ),
         ],
       ),
     );
