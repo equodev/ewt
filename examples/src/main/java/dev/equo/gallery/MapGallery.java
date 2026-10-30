@@ -26,6 +26,23 @@ public class MapGallery {
     App.runApp(MyApp::new);
   }
 
+  // Loads a bundled classpath resource (e.g. a customer's exported GeoJSON) as a
+  // UTF-8 string; returns "" when absent so the demo stays green without the file.
+  static String res(String path) {
+    try (java.io.InputStream in = MapGallery.class.getResourceAsStream(path)) {
+      if (in == null) return "";
+      return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+    } catch (Exception e) {
+      return "";
+    }
+  }
+
+  // DecisionSpace's own exported layers (wells + lease + pipelines) merged into a
+  // single FeatureCollection, for an apples-to-apples visual comparison. Populated
+  // from src/main/resources/gis/dsg.geojson once bundled; empty otherwise.
+  static final String DSG_GEOJSON = res("/gis/dsg.geojson");
+  static final boolean HAS_DSG = !DSG_GEOJSON.isEmpty();
+
   static final String AGS =
       "https://services.arcgisonline.com/ArcGIS/rest/services/";
   static final String[][] BASEMAPS = {
@@ -137,6 +154,7 @@ public class MapGallery {
     boolean _showField = true;
     boolean _showPipe = true;
     boolean _showGeo = true;              // imported GeoJSON layer
+    boolean _realData = HAS_DSG;          // render DecisionSpace's own exported layers
     boolean _measure = false;             // measure tool
     String _mA = "", _mB = "", _dist = "";
 
@@ -155,7 +173,7 @@ public class MapGallery {
     // Pipelines (if shown) + the live measure segment.
     String polylinesStr() {
       StringBuilder sb = new StringBuilder();
-      if (_showPipe) sb.append(PIPELINES);
+      if (_showPipe && !_realData) sb.append(PIPELINES);
       if (!_mA.isEmpty() && !_mB.isEmpty()) {
         if (sb.length() > 0) sb.append(";");
         sb.append(_mA).append(" ").append(_mB);
@@ -280,6 +298,23 @@ public class MapGallery {
           }))));
     }
 
+    java.util.List<WidgetI> layerChips() {
+      java.util.List<WidgetI> cs = new java.util.ArrayList<>();
+      if (HAS_DSG) {
+        cs.add(chip("DSG data (real)", _realData, () -> setState(() -> _realData = !_realData)));
+      }
+      cs.add(chip("Wells", _showWells, () -> setState(() -> _showWells = !_showWells)));
+      cs.add(chip("Lease block", _showField, () -> setState(() -> _showField = !_showField)));
+      cs.add(chip("Pipelines", _showPipe, () -> setState(() -> _showPipe = !_showPipe)));
+      cs.add(chip("Imported (GeoJSON)", _showGeo, () -> setState(() -> _showGeo = !_showGeo)));
+      cs.add(chip("⤢ Full Extent", false, () -> setState(() -> _camera = FULL_EXTENT)));
+      cs.add(chip("📏 Measure", _measure, () -> setState(() -> {
+        _measure = !_measure;
+        if (!_measure) { _mA = ""; _mB = ""; _dist = ""; }
+      })));
+      return cs;
+    }
+
     @Override
     public Widget build(BuildContext context) {
       java.util.List<WidgetI> basemaps = new java.util.ArrayList<>();
@@ -305,16 +340,7 @@ public class MapGallery {
 
           Text("Layers").style(TextStyle().fontWeight(FontWeight.w700()).fontSize(12.0)),
           SizedBox().height(6.0),
-          Wrap().spacing(8.0).children(List.<WidgetI>of(
-              chip("Wells", _showWells, () -> setState(() -> _showWells = !_showWells)),
-              chip("Lease block", _showField, () -> setState(() -> _showField = !_showField)),
-              chip("Pipelines", _showPipe, () -> setState(() -> _showPipe = !_showPipe)),
-              chip("Imported (GeoJSON)", _showGeo, () -> setState(() -> _showGeo = !_showGeo)),
-              chip("⤢ Full Extent", false, () -> setState(() -> _camera = FULL_EXTENT)),
-              chip("📏 Measure", _measure, () -> setState(() -> {
-                _measure = !_measure;
-                if (!_measure) { _mA = ""; _mB = ""; _dist = ""; }
-              })))),
+          Wrap().spacing(8.0).children(layerChips()),
           SizedBox().height(6.0),
           Text(_measure
                   ? (_dist.isEmpty() ? "Measure: tap two points on the map." : "Distance: " + _dist)
@@ -336,10 +362,10 @@ public class MapGallery {
                   EwtMapView(pins)
                       .tileUrl(_basemap)
                       .camera(_camera)
-                      .markerCoords(_showWells ? WELLS : "")
-                      .polygons(_showField ? FIELD : "")
+                      .markerCoords(!_realData && _showWells ? WELLS : "")
+                      .polygons(!_realData && _showField ? FIELD : "")
                       .polylines(polylinesStr())
-                      .geojson(_showGeo ? GEOJSON : "")
+                      .geojson(_realData ? DSG_GEOJSON : (_showGeo ? GEOJSON : ""))
                       .selected(_sel)
                       .minZoom(3.0).maxZoom(17.0)
                       .onCameraMoved(c -> setState(() -> _camera = c))
