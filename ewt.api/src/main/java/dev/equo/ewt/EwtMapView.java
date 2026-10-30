@@ -11,7 +11,7 @@ public class EwtMapView extends StatefulWidget implements EwtMapViewI {
     this.nativeStruct = factories.takeLastStruct();
   }
   @Builder.Factory
-  static EwtMapView ewtMapViewEwtMapView(@Builder.Parameter List<WidgetI> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  static EwtMapView ewtMapViewEwtMapView(@Builder.Parameter List<WidgetI> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, OptionalDouble minZoom, OptionalDouble maxZoom) {
     int id = factories.ewtMapViewEwtMapView(markers.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       markerCoords,
       tileUrl,
@@ -20,6 +20,8 @@ public class EwtMapView extends StatefulWidget implements EwtMapViewI {
       onMarkerTap,
       polygons,
       polylines,
+      onMapTap,
+      selected,
       minZoom,
       maxZoom);
     if (id <= 0) throw new RuntimeException("Failed to created widget EwtMapView");
@@ -47,6 +49,10 @@ public class EwtMapView extends StatefulWidget implements EwtMapViewI {
   public String polylines() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("ewtMapViewPolylines not supported on web");
     return factories.EwtMapView_readBack_polylines(nativeStruct);
+  }
+  public int selected() {
+    if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("ewtMapViewSelected not supported on web");
+    return factories.EwtMapView_readBack_selected(nativeStruct);
   }
   public double minZoom() {
     if (dev.equo.ewt.web.EwtWebTransport.isWebMode()) throw new UnsupportedOperationException("ewtMapViewMinZoom not supported on web");

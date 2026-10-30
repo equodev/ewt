@@ -48,6 +48,13 @@ class EwtMapView extends StatefulWidget {
   /// Polylines, same encoding as [polygons] (each `';'` group is one line).
   final String polylines;
 
+  /// Fires `"lat,lng"` when the map (not a marker) is tapped — enables measure /
+  /// add-point tools driven from Java.
+  final void Function(String)? onMapTap;
+
+  /// Index of the marker to highlight (e.g. the identified well), or -1 for none.
+  final int selected;
+
   final double minZoom;
   final double maxZoom;
 
@@ -62,6 +69,8 @@ class EwtMapView extends StatefulWidget {
     this.onMarkerTap,
     this.polygons = '',
     this.polylines = '',
+    this.onMapTap,
+    this.selected = -1,
     this.minZoom = 2.0,
     this.maxZoom = 19.0,
   });
@@ -189,6 +198,8 @@ class _EwtMapViewState extends State<EwtMapView>
                 widget.onCameraMoved?.call(
                     '${c.latitude.toStringAsFixed(6)},${c.longitude.toStringAsFixed(6)},${camera.zoom.toStringAsFixed(2)}');
               },
+              onTap: (tapPos, latlng) => widget.onMapTap?.call(
+                  '${latlng.latitude.toStringAsFixed(6)},${latlng.longitude.toStringAsFixed(6)}'),
             ),
             children: [
               _tiles(),
@@ -233,7 +244,24 @@ class _EwtMapViewState extends State<EwtMapView>
                             child: GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () => widget.onMarkerTap?.call('$i'),
-                              child: widget.markers[i],
+                              child: i == widget.selected
+                                  // Highlight the identified well with a cyan halo.
+                                  ? Stack(
+                                      alignment: Alignment.bottomCenter,
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Container(
+                                          width: 34,
+                                          height: 34,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0x5500E5FF),
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                        widget.markers[i],
+                                      ],
+                                    )
+                                  : widget.markers[i],
                             ),
                           ),
                         ),

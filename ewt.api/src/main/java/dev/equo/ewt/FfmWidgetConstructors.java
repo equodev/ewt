@@ -1003,7 +1003,7 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
     return EwtGraphViewObjSt.nodeHeight(st);
   }
 
-  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, OptionalDouble minZoom, OptionalDouble maxZoom) {
     var st = WidgetFactories.ewtMapView(factories);
     var fn = WidgetFactories.EwtMapViewSt.ewtMapView(st);
     return retain(WidgetFactories.EwtMapViewSt.ewtMapView.invoke(fn, arena, ptrList(markers),
@@ -1014,6 +1014,8 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
       onMarkerTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMarkerTap.get())) : MemorySegment.NULL,
       ptrStr(polygons),
       ptrStr(polylines),
+      onMapTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMapTap.get())) : MemorySegment.NULL,
+      ptr(selected),
       ptr(minZoom),
       ptr(maxZoom)), EwtMapViewObjSt::id);
   }
@@ -1036,6 +1038,10 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
   public String EwtMapView_readBack_polylines(Object __stObj) {
     java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
     return EwtMapViewObjSt.polylines(st).getString(0);
+  }
+  public int EwtMapView_readBack_selected(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.selected(st);
   }
   public double EwtMapView_readBack_minZoom(Object __stObj) {
     java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;

@@ -494,7 +494,7 @@ public interface WidgetConstructors {
     throw new UnsupportedOperationException("EwtGraphView_readBack_nodeHeight read-back requires FFM/java22");
   }
 
-  default int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  default int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, OptionalDouble minZoom, OptionalDouble maxZoom) {
     throw new UnsupportedOperationException("ewtMapViewEwtMapView has no default (FFM/comm impl required)");
   }
   default String EwtMapView_readBack_markerCoords(Object st) {
@@ -511,6 +511,9 @@ public interface WidgetConstructors {
   }
   default String EwtMapView_readBack_polylines(Object st) {
     throw new UnsupportedOperationException("EwtMapView_readBack_polylines read-back requires FFM/java22");
+  }
+  default int EwtMapView_readBack_selected(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_selected read-back requires FFM/java22");
   }
   default double EwtMapView_readBack_minZoom(Object st) {
     throw new UnsupportedOperationException("EwtMapView_readBack_minZoom read-back requires FFM/java22");
