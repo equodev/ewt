@@ -108,12 +108,23 @@ public class MapGallery {
     // Full field extent (centre + zoom) for the "Full Extent" tool.
     static final String FULL_EXTENT = "31.945,-102.14,10.2";
 
+    // A sample GeoJSON "imported" layer (a seismic survey outline, a flowline and
+    // two observation points) — demonstrates handing a customer's GeoJSON to the map.
+    static final String GEOJSON =
+        "{\"type\":\"FeatureCollection\",\"features\":["
+        + "{\"type\":\"Feature\",\"properties\":{\"name\":\"Seismic Survey 3D\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-102.28,31.93],[-102.22,32.00],[-102.12,31.97],[-102.15,31.89],[-102.25,31.88],[-102.28,31.93]]]}},"
+        + "{\"type\":\"Feature\",\"properties\":{\"name\":\"Flowline\"},\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[-102.30,31.86],[-102.20,31.90],[-102.10,31.96]]}},"
+        + "{\"type\":\"Feature\",\"properties\":{\"name\":\"Obs 1\"},\"geometry\":{\"type\":\"Point\",\"coordinates\":[-102.18,31.94]}},"
+        + "{\"type\":\"Feature\",\"properties\":{\"name\":\"Obs 2\"},\"geometry\":{\"type\":\"Point\",\"coordinates\":[-102.08,31.99]}}"
+        + "]}";
+
     String _basemap = BASEMAPS[0][1];   // World_Imagery (DSG default)
     String _camera = FULL_EXTENT;         // Java-owned camera
     int _sel = -1;                        // selected well (identify)
     boolean _showWells = true;            // TOC layer toggles
     boolean _showField = true;
     boolean _showPipe = true;
+    boolean _showGeo = true;              // imported GeoJSON layer
     boolean _measure = false;             // measure tool
     String _mA = "", _mB = "", _dist = "";
 
@@ -254,6 +265,7 @@ public class MapGallery {
               chip("Wells", _showWells, () -> setState(() -> _showWells = !_showWells)),
               chip("Lease block", _showField, () -> setState(() -> _showField = !_showField)),
               chip("Pipelines", _showPipe, () -> setState(() -> _showPipe = !_showPipe)),
+              chip("Imported (GeoJSON)", _showGeo, () -> setState(() -> _showGeo = !_showGeo)),
               chip("⤢ Full Extent", false, () -> setState(() -> _camera = FULL_EXTENT)),
               chip("📏 Measure", _measure, () -> setState(() -> {
                 _measure = !_measure;
@@ -279,6 +291,7 @@ public class MapGallery {
                       .markerCoords(_showWells ? WELLS : "")
                       .polygons(_showField ? FIELD : "")
                       .polylines(polylinesStr())
+                      .geojson(_showGeo ? GEOJSON : "")
                       .selected(_sel)
                       .minZoom(3.0).maxZoom(17.0)
                       .onCameraMoved(c -> setState(() -> _camera = c))

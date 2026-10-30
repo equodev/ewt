@@ -12,8 +12,8 @@ public final class EwtMapViewVariants {
 
   public static final Map<String, List<PropExpectation>> EXPECTATIONS =
       Map.ofEntries(
-          Map.entry("ewtMapView_allSet", List.of(PropExpectation.equalTo("markerCoords", "hello"), PropExpectation.equalTo("tileUrl", "hello"), PropExpectation.equalTo("camera", "hello"), PropExpectation.equalTo("polygons", "hello"), PropExpectation.equalTo("polylines", "hello"), PropExpectation.equalTo("selected", 1), PropExpectation.equalTo("minZoom", 1.0), PropExpectation.equalTo("maxZoom", 1.0))),
-          Map.entry("ewtMapView_boundary", List.of(PropExpectation.equalTo("markerCoords", ""), PropExpectation.equalTo("tileUrl", ""), PropExpectation.equalTo("camera", ""), PropExpectation.equalTo("polygons", ""), PropExpectation.equalTo("polylines", ""), PropExpectation.equalTo("selected", 0), PropExpectation.equalTo("minZoom", 0.0), PropExpectation.equalTo("maxZoom", 0.0)))
+          Map.entry("ewtMapView_allSet", List.of(PropExpectation.equalTo("markerCoords", "hello"), PropExpectation.equalTo("tileUrl", "hello"), PropExpectation.equalTo("camera", "hello"), PropExpectation.equalTo("polygons", "hello"), PropExpectation.equalTo("polylines", "hello"), PropExpectation.equalTo("selected", 1), PropExpectation.equalTo("geojson", "hello"), PropExpectation.equalTo("minZoom", 1.0), PropExpectation.equalTo("maxZoom", 1.0))),
+          Map.entry("ewtMapView_boundary", List.of(PropExpectation.equalTo("markerCoords", ""), PropExpectation.equalTo("tileUrl", ""), PropExpectation.equalTo("camera", ""), PropExpectation.equalTo("polygons", ""), PropExpectation.equalTo("polylines", ""), PropExpectation.equalTo("selected", 0), PropExpectation.equalTo("geojson", ""), PropExpectation.equalTo("minZoom", 0.0), PropExpectation.equalTo("maxZoom", 0.0)))
       );
 
   public static Widget ewtMapView_required() {
@@ -21,11 +21,11 @@ public final class EwtMapViewVariants {
   }
 
   public static Widget ewtMapView_allSet() {
-    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("hello").tileUrl("hello").camera("hello").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).polygons("hello").polylines("hello").onMapTap((_a0) -> {}).selected(1).minZoom(1.0).maxZoom(1.0).build();
+    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("hello").tileUrl("hello").camera("hello").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).polygons("hello").polylines("hello").onMapTap((_a0) -> {}).selected(1).geojson("hello").minZoom(1.0).maxZoom(1.0).build();
   }
 
   public static Widget ewtMapView_boundary() {
-    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("").tileUrl("").camera("").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).polygons("").polylines("").onMapTap((_a0) -> {}).selected(0).minZoom(0.0).maxZoom(0.0).build();
+    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("").tileUrl("").camera("").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).polygons("").polylines("").onMapTap((_a0) -> {}).selected(0).geojson("").minZoom(0.0).maxZoom(0.0).build();
   }
 
   public static Widget ewtMapView_callbackWired() {

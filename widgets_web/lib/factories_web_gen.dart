@@ -319,6 +319,7 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       polylines: (p['polylines'] as String?) ?? '',
       onMapTap: ewtWireValueCallback(p['onMapTap']),
       selected: (p['selected'] as int?) ?? -1,
+      geojson: (p['geojson'] as String?) ?? '',
       minZoom: ((p['minZoom'] as num?)?.toDouble()) ?? 2.0,
       maxZoom: ((p['maxZoom'] as num?)?.toDouble()) ?? 19.0),
 

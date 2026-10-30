@@ -775,7 +775,7 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
   }
 
   @Override
-  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
     p.put("markers", markers.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
@@ -788,6 +788,7 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
     polylines.ifPresent(v -> p.put("polylines", v));
     if (onMapTap.isPresent()) { int __cb_onMapTap = nextCallbackId++; p.put("onMapTap", __cb_onMapTap); java.util.function.Consumer<String> __h_onMapTap = onMapTap.get(); callbacks.put(__cb_onMapTap, (java.util.function.Consumer<Object>)(v -> __h_onMapTap.accept((String) v))); }
     if (selected.isPresent()) { p.put("selected", selected.getAsInt()); }
+    geojson.ifPresent(v -> p.put("geojson", v));
     if (minZoom.isPresent()) { p.put("minZoom", minZoom.getAsDouble()); }
     if (maxZoom.isPresent()) { p.put("maxZoom", maxZoom.getAsDouble()); }
     record(id, "ewtMapViewEwtMapView", p);

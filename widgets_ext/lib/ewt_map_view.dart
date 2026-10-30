@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -55,6 +57,11 @@ class EwtMapView extends StatefulWidget {
   /// Index of the marker to highlight (e.g. the identified well), or -1 for none.
   final int selected;
 
+  /// A GeoJSON FeatureCollection/Feature string to render as an imported data
+  /// layer — Point/LineString/Polygon (and Multi* variants). Lets Java hand a
+  /// customer's GeoJSON straight to the map.
+  final String geojson;
+
   final double minZoom;
   final double maxZoom;
 
@@ -71,6 +78,7 @@ class EwtMapView extends StatefulWidget {
     this.polylines = '',
     this.onMapTap,
     this.selected = -1,
+    this.geojson = '',
     this.minZoom = 2.0,
     this.maxZoom = 19.0,
   });
@@ -159,6 +167,114 @@ class _EwtMapViewState extends State<EwtMapView>
     return out;
   }
 
+  // --- GeoJSON ingest (an imported customer-data layer) ----------------------
+
+  LatLng? _ll(dynamic c) {
+    if (c is List && c.length >= 2) {
+      final lng = (c[0] as num?)?.toDouble();
+      final lat = (c[1] as num?)?.toDouble();
+      if (lat != null && lng != null) return LatLng(lat, lng);
+    }
+    return null;
+  }
+
+  List<LatLng> _lls(dynamic c) {
+    final out = <LatLng>[];
+    if (c is List) {
+      for (final p in c) {
+        final ll = _ll(p);
+        if (ll != null) out.add(ll);
+      }
+    }
+    return out;
+  }
+
+  /// Parses [EwtMapView.geojson] into flutter_map layers. GeoJSON is [lng,lat].
+  List<Widget> _geojsonLayers() {
+    if (widget.geojson.trim().isEmpty) return const [];
+    dynamic gj;
+    try {
+      gj = jsonDecode(widget.geojson);
+    } catch (_) {
+      return const [];
+    }
+    final feats = <Map<String, dynamic>>[];
+    if (gj is Map && gj['type'] == 'FeatureCollection') {
+      for (final f in (gj['features'] as List? ?? const [])) {
+        if (f is Map) feats.add(f.cast<String, dynamic>());
+      }
+    } else if (gj is Map && gj['type'] == 'Feature') {
+      feats.add(gj.cast<String, dynamic>());
+    }
+
+    final points = <Marker>[];
+    final lines = <Polyline>[];
+    final polys = <Polygon>[];
+    for (final f in feats) {
+      final geom = f['geometry'];
+      if (geom is! Map) continue;
+      final coords = geom['coordinates'];
+      switch (geom['type']) {
+        case 'Point':
+          final ll = _ll(coords);
+          if (ll != null) points.add(_gjPoint(ll));
+          break;
+        case 'MultiPoint':
+          if (coords is List) {
+            for (final c in coords) {
+              final ll = _ll(c);
+              if (ll != null) points.add(_gjPoint(ll));
+            }
+          }
+          break;
+        case 'LineString':
+          lines.add(_gjLine(_lls(coords)));
+          break;
+        case 'MultiLineString':
+          if (coords is List) for (final l in coords) lines.add(_gjLine(_lls(l)));
+          break;
+        case 'Polygon':
+          if (coords is List && coords.isNotEmpty) polys.add(_gjPoly(_lls(coords[0])));
+          break;
+        case 'MultiPolygon':
+          if (coords is List) {
+            for (final pg in coords) {
+              if (pg is List && pg.isNotEmpty) polys.add(_gjPoly(_lls(pg[0])));
+            }
+          }
+          break;
+      }
+    }
+    return [
+      if (polys.isNotEmpty) PolygonLayer(polygons: polys),
+      if (lines.isNotEmpty) PolylineLayer(polylines: lines),
+      if (points.isNotEmpty) MarkerLayer(markers: points),
+    ];
+  }
+
+  Marker _gjPoint(LatLng p) => Marker(
+        point: p,
+        width: 16,
+        height: 16,
+        child: const DecoratedBox(
+          decoration: BoxDecoration(
+            color: Color(0xFF7E57C2),
+            shape: BoxShape.circle,
+            border: Border.fromBorderSide(BorderSide(color: Colors.white, width: 2)),
+          ),
+        ),
+      );
+
+  Polyline _gjLine(List<LatLng> pts) =>
+      Polyline(points: pts, color: const Color(0xFF8E24AA), strokeWidth: 3);
+
+  Polygon _gjPoly(List<LatLng> pts) => Polygon(
+        points: pts,
+        color: const Color(0x337E57C2),
+        borderColor: const Color(0xFF5E35B1),
+        borderStrokeWidth: 2,
+      );
+
   TileLayer _tiles() => TileLayer(
         urlTemplate: widget.tileUrl,
         // Plain network provider (no disk cache) so flutter_map's path_provider
@@ -203,6 +319,7 @@ class _EwtMapViewState extends State<EwtMapView>
             ),
             children: [
               _tiles(),
+              ..._geojsonLayers(),
               if (polys.isNotEmpty)
                 PolygonLayer(
                   polygons: [
