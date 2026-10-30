@@ -83,21 +83,32 @@ public class MapGallery {
   }
 
   static class GalleryState extends SubState<GalleryPage> {
-    static final String[] NAMES = {
-        "Spraberry 1H", "Wolfcamp 2H", "Midland A-4", "Loving 7", "Reeves 12",
-        "Spraberry 3H", "Wolfcamp 5H", "Howard 9", "Martin B-2", "Glasscock 4"};
-    static final String[] TYPES = {
-        "Horizontal", "Horizontal", "Vertical", "Horizontal", "Injection",
-        "Horizontal", "Horizontal", "Vertical", "Injection", "Horizontal"};
-    static final String[] DEPTHS = {
-        "9,850", "11,200", "7,400", "10,600", "8,100",
-        "10,050", "11,480", "6,900", "7,750", "10,900"};
-    static final String[] STATUS = {
-        "Producing", "Producing", "Shut-in", "Producing", "Active",
-        "Producing", "Drilling", "Shut-in", "Active", "Producing"};
-    static final String WELLS =
-        "31.98,-102.05;31.90,-102.20;32.02,-101.95;31.88,-102.02;31.95,-102.30;"
-        + "31.92,-102.10;32.00,-102.25;31.87,-102.15;31.97,-101.98;31.91,-102.33";
+    // A large, deterministic well dataset over the Permian Basin — so the view can
+    // be compared against DecisionSpace's real GIS map at scale.
+    static final int N = 400;
+    static final String[] NAMES = new String[N];
+    static final String[] STATUS = new String[N];
+    static final int[] DEPTH = new int[N];
+    static final String WELLS;
+    static {
+      String[] st = {"Producing", "Producing", "Producing", "Shut-in", "Drilling", "Active"};
+      StringBuilder sb = new StringBuilder();
+      long s = 88172645463325252L;
+      for (int i = 0; i < N; i++) {
+        s ^= s << 13; s ^= s >>> 7; s ^= s << 17;
+        double r1 = ((s >>> 12) & 0xFFFFF) / 1048576.0;
+        s ^= s << 13; s ^= s >>> 7; s ^= s << 17;
+        double r2 = ((s >>> 12) & 0xFFFFF) / 1048576.0;
+        double lat = 31.55 + r1 * 0.85;
+        double lng = -102.65 + r2 * 0.95;
+        if (i > 0) sb.append(";");
+        sb.append(String.format(java.util.Locale.US, "%.4f,%.4f", lat, lng));
+        NAMES[i] = String.format("PB %04d", i + 1);
+        STATUS[i] = st[(int) (((s >>> 20) % st.length + st.length) % st.length)];
+        DEPTH[i] = 6000 + (int) (((s >>> 8) % 7000 + 7000) % 7000);
+      }
+      WELLS = sb.toString();
+    }
     static final String FIELD =
         "31.85,-102.35 32.05,-102.35 32.05,-101.90 31.85,-101.90";
     // A gathering pipeline connecting several wells to a central tie-in.
@@ -106,7 +117,7 @@ public class MapGallery {
         + "31.92,-102.10 32.00,-102.25 32.02,-101.95";
 
     // Full field extent (centre + zoom) for the "Full Extent" tool.
-    static final String FULL_EXTENT = "31.945,-102.14,10.2";
+    static final String FULL_EXTENT = "31.97,-102.17,9.2";
 
     // A sample GeoJSON "imported" layer (a seismic survey outline, a flowline and
     // two observation points) — demonstrates handing a customer's GeoJSON to the map.
@@ -186,8 +197,8 @@ public class MapGallery {
               .children(List.<WidgetI>of(
                   Text(NAMES[_sel]).style(TextStyle().fontWeight(FontWeight.w700()).fontSize(14.0)),
                   SizedBox().height(4.0),
-                  Text("Type: " + TYPES[_sel]),
-                  Text("TD: " + DEPTHS[_sel] + " ft     Status: " + STATUS[_sel]))));
+                  Text("Status: " + STATUS[_sel]),
+                  Text("TD: " + String.format(java.util.Locale.US, "%,d", DEPTH[_sel]) + " ft"))));
     }
 
     // CRS + live coordinate footer, like DecisionSpace's status bar.
@@ -276,14 +287,14 @@ public class MapGallery {
         basemaps.add(chip(b[0], url.equals(_basemap), () -> setState(() -> _basemap = url)));
       }
       java.util.List<WidgetI> pins = new java.util.ArrayList<>();
-      for (int i = 0; i < NAMES.length; i++) pins.add(wellPin(NAMES[i], statusColor(STATUS[i])));
+      for (int i = 0; i < NAMES.length; i++) pins.add(dot(statusColor(STATUS[i])));
 
       return page(context, "GIS map — Esri basemaps + wells", Colors.teal(), List.of(
 
-          Text("An Esri-tiled basemap with labelled wells and a lease block, rendered by "
-              + "flutter_map inside EWT — the 8 basemaps DecisionSpace ships, a scale bar, "
-              + "overview, a layer TOC and identify. Pan/zoom is owned by Java and persists "
-              + "(desktop and web/Evolve)."),
+          Text("An Esri-tiled basemap with 400 wells (coloured by status), a lease block, "
+              + "pipelines and an imported GeoJSON layer, rendered by flutter_map inside EWT — "
+              + "the 8 basemaps DecisionSpace ships, scale bar, overview, layer TOC, identify "
+              + "and measure. Pan/zoom is owned by Java and persists (desktop and web/Evolve)."),
           SizedBox().height(12.0),
 
           Text("Basemap").style(TextStyle().fontWeight(FontWeight.w700()).fontSize(12.0)),
