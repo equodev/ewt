@@ -43,6 +43,26 @@ public class MapGallery {
   static final String DSG_GEOJSON = res("/gis/dsg.geojson");
   static final boolean HAS_DSG = !DSG_GEOJSON.isEmpty();
 
+  // Loads a bundled binary resource (e.g. a .shp/.dbf) as a byte[].
+  static byte[] resBytes(String path) {
+    try (java.io.InputStream in = MapGallery.class.getResourceAsStream(path)) {
+      if (in == null) return new byte[0];
+      return in.readAllBytes();
+    } catch (Exception e) {
+      return new byte[0];
+    }
+  }
+
+  // The same three layers read straight from the Esri SHAPEFILES (.shp geometry +
+  // .dbf attributes) via our own Java reader — proving direct ingest of DSG's
+  // native format, not a pre-converted GeoJSON. Lease/pipelines first so wells
+  // draw on top. Empty until the .shp resources are bundled.
+  static final String SHP_GEOJSON = Shapefile.merge(
+      Shapefile.featureArray(resBytes("/gis/lease.shp"), resBytes("/gis/lease.dbf")),
+      Shapefile.featureArray(resBytes("/gis/pipelines.shp"), resBytes("/gis/pipelines.dbf")),
+      Shapefile.featureArray(resBytes("/gis/wells.shp"), resBytes("/gis/wells.dbf")));
+  static final boolean HAS_SHP = resBytes("/gis/wells.shp").length > 0;
+
   // The DSG wells' attributes, parsed from a companion TSV generated alongside
   // dsg.geojson (name \t status \t depth_ft \t lat \t lng), in the SAME order as
   // the GeoJSON Point features — so a feature index from the map lines up with a
@@ -178,6 +198,7 @@ public class MapGallery {
     boolean _showPipe = true;
     boolean _showGeo = true;              // imported GeoJSON layer
     boolean _realData = HAS_DSG;          // render DecisionSpace's own exported layers
+    boolean _shpSource = false;           // ingest the real data from .shp instead of GeoJSON
     boolean _measure = false;             // measure tool
     String _mA = "", _mB = "", _dist = "";
     String _tableStatus = "";             // attribute-table status filter ("" = all)
@@ -439,6 +460,10 @@ public class MapGallery {
       if (HAS_DSG) {
         cs.add(chip("DSG data (real)", _realData, () -> setState(() -> _realData = !_realData)));
       }
+      if (HAS_SHP && _realData) {
+        cs.add(chip(_shpSource ? "Source: Shapefile (.shp)" : "Source: GeoJSON",
+            _shpSource, () -> setState(() -> _shpSource = !_shpSource)));
+      }
       cs.add(chip("Wells", _showWells, () -> setState(() -> _showWells = !_showWells)));
       cs.add(chip("Lease block", _showField, () -> setState(() -> _showField = !_showField)));
       cs.add(chip("Pipelines", _showPipe, () -> setState(() -> _showPipe = !_showPipe)));
@@ -501,7 +526,9 @@ public class MapGallery {
                       .markerCoords(!_realData && _showWells ? WELLS : "")
                       .polygons(!_realData && _showField ? FIELD : "")
                       .polylines(polylinesStr())
-                      .geojson(_realData ? DSG_GEOJSON : (_showGeo ? GEOJSON : ""))
+                      .geojson(_realData
+                          ? (_shpSource ? SHP_GEOJSON : DSG_GEOJSON)
+                          : (_showGeo ? GEOJSON : ""))
                       .selected(_sel)
                       .minZoom(3.0).maxZoom(17.0)
                       .onCameraMoved(c -> setState(() -> _camera = c))
