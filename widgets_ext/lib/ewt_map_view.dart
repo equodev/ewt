@@ -326,9 +326,11 @@ class _EwtMapViewState extends State<EwtMapView>
                     for (final ring in polys)
                       Polygon(
                         points: ring,
-                        color: const Color(0x3300BCD4),
-                        borderColor: const Color(0xFF00838F),
-                        borderStrokeWidth: 2,
+                        // Outline only (no fill) so it never hides the wells, like
+                        // DecisionSpace's lease layer.
+                        color: const Color(0x00000000),
+                        borderColor: const Color(0xFFFFC107),
+                        borderStrokeWidth: 2.5,
                       ),
                   ],
                 ),
@@ -338,7 +340,7 @@ class _EwtMapViewState extends State<EwtMapView>
                     for (final l in lines)
                       Polyline(
                         points: l,
-                        color: const Color(0xFFFFC107),
+                        color: const Color(0xFFFFFFFF),
                         strokeWidth: 3,
                       ),
                   ],

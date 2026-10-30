@@ -39,13 +39,14 @@ public class MapGallery {
       {"OSM",        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"},
   };
 
-  // Unique-value symbology by well status (like DecisionSpace's Symbology tab).
+  // Unique-value symbology by well status (like DecisionSpace's Symbology tab) —
+  // exact hex matched to the DecisionSpace side-by-side.
   static ColorI statusColor(String status) {
     switch (status) {
-      case "Producing": return Colors.green();
-      case "Shut-in":   return Colors.grey();
-      case "Drilling":  return Colors.orange();
-      default:          return Colors.lightBlue(); // Active / injection
+      case "Producing": return Color(0xFF22C55E); // green
+      case "Shut-in":   return Color(0xFF9CA3AF); // grey
+      case "Drilling":  return Color(0xFFF97316); // orange
+      default:          return Color(0xFF38BDF8); // Active / injection — light blue
     }
   }
 
@@ -237,14 +238,14 @@ public class MapGallery {
               .borderRadius(BorderRadius_circular(8.0))
               .border(Border_all().color(Colors.grey()).width(1.0)))
           .child(Wrap().spacing(16.0).runSpacing(6.0).children(List.<WidgetI>of(
-              legendItem(dot(Colors.green()), "Producing"),
-              legendItem(dot(Colors.grey()), "Shut-in"),
-              legendItem(dot(Colors.orange()), "Drilling"),
-              legendItem(dot(Colors.lightBlue()), "Active / Inj."),
+              legendItem(dot(statusColor("Producing")), "Producing"),
+              legendItem(dot(statusColor("Shut-in")), "Shut-in"),
+              legendItem(dot(statusColor("Drilling")), "Drilling"),
+              legendItem(dot(statusColor("Active")), "Active / Inj."),
               legendItem(Container().width(14.0).height(14.0).decoration(BoxDecoration()
-                  .color(Colors.cyan())), "Lease block"),
+                  .border(Border_all().color(Color(0xFFFFC107)).width(2.0))), "Lease block"),
               legendItem(Container().width(20.0).height(3.0).decoration(BoxDecoration()
-                  .color(Colors.amber())), "Pipeline"))));
+                  .color(Colors.white())), "Pipeline"))));
     }
 
     void zoomBy(double d) {
