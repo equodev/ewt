@@ -223,9 +223,9 @@ class _EwtMapViewState extends State<EwtMapView>
                         i++)
                       Marker(
                         point: pts[i],
-                        width: 44,
-                        height: 44,
-                        alignment: Alignment.topCenter,
+                        width: 120,
+                        height: 50,
+                        alignment: Alignment.bottomCenter,
                         child: ScaleTransition(
                           scale: _pop,
                           child: FadeTransition(
