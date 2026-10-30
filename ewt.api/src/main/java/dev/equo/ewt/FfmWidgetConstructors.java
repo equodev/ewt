@@ -1003,7 +1003,7 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
     return EwtGraphViewObjSt.nodeHeight(st);
   }
 
-  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<Consumer<String>> onFeatureTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
     var st = WidgetFactories.ewtMapView(factories);
     var fn = WidgetFactories.EwtMapViewSt.ewtMapView(st);
     return retain(WidgetFactories.EwtMapViewSt.ewtMapView.invoke(fn, arena, ptrList(markers),
@@ -1012,6 +1012,7 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
       ptrStr(camera),
       onCameraMoved.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onCameraMoved.get())) : MemorySegment.NULL,
       onMarkerTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMarkerTap.get())) : MemorySegment.NULL,
+      onFeatureTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onFeatureTap.get())) : MemorySegment.NULL,
       ptrStr(polygons),
       ptrStr(polylines),
       onMapTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMapTap.get())) : MemorySegment.NULL,

@@ -43,6 +43,29 @@ public class MapGallery {
   static final String DSG_GEOJSON = res("/gis/dsg.geojson");
   static final boolean HAS_DSG = !DSG_GEOJSON.isEmpty();
 
+  // The DSG wells' attributes, parsed from a companion TSV generated alongside
+  // dsg.geojson (name \t status \t depth_ft \t lat \t lng), in the SAME order as
+  // the GeoJSON Point features — so a feature index from the map lines up with a
+  // row here, powering the attribute table / identify / zoom-to.
+  static final String[] DNAME, DSTATUS;
+  static final int[] DDEPTH;
+  static final double[] DLAT, DLNG;
+  static {
+    String tsv = res("/gis/wells.tsv");
+    String[] rows = tsv.isEmpty() ? new String[0] : tsv.split("\n");
+    int n = rows.length;
+    DNAME = new String[n]; DSTATUS = new String[n];
+    DDEPTH = new int[n]; DLAT = new double[n]; DLNG = new double[n];
+    for (int i = 0; i < n; i++) {
+      String[] c = rows[i].split("\t");
+      DNAME[i] = c[0];
+      DSTATUS[i] = c[1];
+      DDEPTH[i] = Integer.parseInt(c[2].trim());
+      DLAT[i] = Double.parseDouble(c[3].trim());
+      DLNG[i] = Double.parseDouble(c[4].trim());
+    }
+  }
+
   static final String AGS =
       "https://services.arcgisonline.com/ArcGIS/rest/services/";
   static final String[][] BASEMAPS = {
@@ -157,6 +180,9 @@ public class MapGallery {
     boolean _realData = HAS_DSG;          // render DecisionSpace's own exported layers
     boolean _measure = false;             // measure tool
     String _mA = "", _mB = "", _dist = "";
+    String _tableStatus = "";             // attribute-table status filter ("" = all)
+    String _sortKey = "name";             // name | status | depth
+    boolean _sortAsc = true;
 
     // Great-circle distance between two "lat,lng" points, as km + mi.
     static String haversine(String a, String b) {
@@ -203,9 +229,14 @@ public class MapGallery {
     }
 
     Widget identifyCard() {
+      boolean real = _realData && _sel >= 0 && _sel < DNAME.length;
       if (_sel < 0) {
-        return Text("Tap a well to identify it.").style(TextStyle().color(Colors.grey()));
+        return Text("Tap a well (on the map or in the table) to identify it.")
+            .style(TextStyle().color(Colors.grey()));
       }
+      String nm = real ? DNAME[_sel] : NAMES[_sel];
+      String st = real ? DSTATUS[_sel] : STATUS[_sel];
+      int td = real ? DDEPTH[_sel] : DEPTH[_sel];
       return Container().padding(EdgeInsets_all(12.0))
           .decoration(BoxDecoration()
               .color(Colors.white())
@@ -214,10 +245,15 @@ public class MapGallery {
           .child(Column().mainAxisSize(MainAxisSize.min)
               .crossAxisAlignment(CrossAxisAlignment.start)
               .children(List.<WidgetI>of(
-                  Text(NAMES[_sel]).style(TextStyle().fontWeight(FontWeight.w700()).fontSize(14.0)),
+                  Row().mainAxisSize(MainAxisSize.min).children(List.<WidgetI>of(
+                      dot(statusColor(st)), SizedBox().width(6.0),
+                      Text(nm).style(TextStyle().fontWeight(FontWeight.w700()).fontSize(14.0)))),
                   SizedBox().height(4.0),
-                  Text("Status: " + STATUS[_sel]),
-                  Text("TD: " + String.format(java.util.Locale.US, "%,d", DEPTH[_sel]) + " ft"))));
+                  Text("Status: " + st),
+                  Text("TD: " + String.format(java.util.Locale.US, "%,d", td) + " ft"),
+                  real ? Text(String.format(java.util.Locale.US, "Lat %.5f   Lng %.5f", DLAT[_sel], DLNG[_sel]))
+                      .style(TextStyle().fontSize(11.0).color(Colors.grey()))
+                      : SizedBox())));
     }
 
     // CRS + live coordinate footer, like DecisionSpace's status bar.
@@ -249,6 +285,11 @@ public class MapGallery {
           Text(label).style(TextStyle().fontSize(11.0))));
     }
 
+    // In real-data mode, append the live well count per status to the legend.
+    String legendLabel(String status, String label) {
+      return _realData ? label + " (" + statusCount(status) + ")" : label;
+    }
+
     Widget legend() {
       return Container().padding(EdgeInsets_all(8.0))
           .decoration(BoxDecoration()
@@ -256,10 +297,10 @@ public class MapGallery {
               .borderRadius(BorderRadius_circular(8.0))
               .border(Border_all().color(Colors.grey()).width(1.0)))
           .child(Wrap().spacing(16.0).runSpacing(6.0).children(List.<WidgetI>of(
-              legendItem(dot(statusColor("Producing")), "Producing"),
-              legendItem(dot(statusColor("Shut-in")), "Shut-in"),
-              legendItem(dot(statusColor("Drilling")), "Drilling"),
-              legendItem(dot(statusColor("Active")), "Active / Inj."),
+              legendItem(dot(statusColor("Producing")), legendLabel("Producing", "Producing")),
+              legendItem(dot(statusColor("Shut-in")), legendLabel("Shut-in", "Shut-in")),
+              legendItem(dot(statusColor("Drilling")), legendLabel("Drilling", "Drilling")),
+              legendItem(dot(statusColor("Active")), legendLabel("Active", "Active / Inj.")),
               legendItem(Container().width(14.0).height(14.0).decoration(BoxDecoration()
                   .border(Border_all().color(Color(0xFFFFC107)).width(2.0))), "Lease block"),
               legendItem(Container().width(20.0).height(3.0).decoration(BoxDecoration()
@@ -296,6 +337,101 @@ public class MapGallery {
             _measure = !_measure;
             if (!_measure) { _mA = ""; _mB = ""; _dist = ""; }
           }))));
+    }
+
+    // --- DSG attribute table (name / status / depth), sortable + filterable ----
+
+    static final double W_NAME = 80.0, W_STAT = 104.0, W_DEPTH = 80.0;
+
+    int statusCount(String s) {
+      int n = 0;
+      for (String x : DSTATUS) if (x.equals(s)) n++;
+      return n;
+    }
+
+    int[] filteredSortedIdx() {
+      java.util.List<Integer> idx = new java.util.ArrayList<>();
+      for (int i = 0; i < DNAME.length; i++) {
+        if (_tableStatus.isEmpty() || DSTATUS[i].equals(_tableStatus)) idx.add(i);
+      }
+      java.util.Comparator<Integer> cmp;
+      if (_sortKey.equals("depth")) cmp = java.util.Comparator.comparingInt((Integer i) -> DDEPTH[i]);
+      else if (_sortKey.equals("status")) cmp = java.util.Comparator.comparing((Integer i) -> DSTATUS[i]);
+      else cmp = java.util.Comparator.comparing((Integer i) -> DNAME[i]);
+      if (!_sortAsc) cmp = cmp.reversed();
+      idx.sort(cmp);
+      int[] out = new int[idx.size()];
+      for (int k = 0; k < out.length; k++) out[k] = idx.get(k);
+      return out;
+    }
+
+    // Select a well by feature index: highlight it and zoom the Java-owned camera
+    // to it (like DecisionSpace's "Zoom To" on an identified feature).
+    void selectFeature(int i) {
+      setState(() -> {
+        _sel = i;
+        if (i >= 0 && i < DLAT.length) {
+          _camera = String.format(java.util.Locale.US, "%.6f,%.6f,13.0", DLAT[i], DLNG[i]);
+        }
+      });
+    }
+
+    Widget sortHeader(String label, String key, double w) {
+      boolean on = _sortKey.equals(key);
+      String arrow = on ? (_sortAsc ? " ▲" : " ▼") : "";
+      return GestureDetector()
+          .onTap(() -> setState(() -> {
+            if (_sortKey.equals(key)) _sortAsc = !_sortAsc;
+            else { _sortKey = key; _sortAsc = true; }
+          }))
+          .child(SizedBox().width(w).child(Text(label + arrow)
+              .style(TextStyle().fontSize(11.0).fontWeight(FontWeight.w700()).color(Colors.teal()))));
+    }
+
+    Widget tableRow(int i, boolean alt) {
+      return GestureDetector().onTap(() -> selectFeature(i)).child(
+          Container().padding(EdgeInsets_all(6.0))
+              .decoration(BoxDecoration().color(i == _sel
+                  ? Color(0x3300BCD4)
+                  : (alt ? Color(0xFFF7F7F7) : Colors.white())))
+              .child(Row().children(List.<WidgetI>of(
+                  SizedBox().width(W_NAME).child(Text(DNAME[i]).style(TextStyle().fontSize(11.0))),
+                  SizedBox().width(W_STAT).child(Row().mainAxisSize(MainAxisSize.min).children(List.<WidgetI>of(
+                      dot(statusColor(DSTATUS[i])),
+                      SizedBox().width(5.0),
+                      Text(DSTATUS[i]).style(TextStyle().fontSize(11.0))))),
+                  SizedBox().width(W_DEPTH).child(Text(String.format(java.util.Locale.US, "%,d", DDEPTH[i]))
+                      .style(TextStyle().fontSize(11.0)))))));
+    }
+
+    Widget attrTable() {
+      int[] idx = filteredSortedIdx();
+      java.util.List<WidgetI> rows = new java.util.ArrayList<>();
+      for (int k = 0; k < idx.length; k++) rows.add(tableRow(idx[k], k % 2 == 0));
+      java.util.List<WidgetI> filters = new java.util.ArrayList<>();
+      filters.add(chip("All", _tableStatus.isEmpty(), () -> setState(() -> _tableStatus = "")));
+      for (String s : new String[] {"Producing", "Shut-in", "Drilling", "Active"}) {
+        filters.add(chip(s, _tableStatus.equals(s), () -> setState(() -> _tableStatus = s)));
+      }
+      return Container().width(720.0)
+          .decoration(BoxDecoration().color(Colors.white())
+              .borderRadius(BorderRadius_circular(8.0))
+              .border(Border_all().color(Colors.grey()).width(1.0)))
+          .child(Column().mainAxisSize(MainAxisSize.min).crossAxisAlignment(CrossAxisAlignment.start)
+              .children(List.<WidgetI>of(
+                  Container().padding(EdgeInsets_all(8.0)).child(Row().children(List.<WidgetI>of(
+                      Text("Attributes  ").style(TextStyle().fontWeight(FontWeight.w700()).fontSize(12.0)),
+                      Text(idx.length + " of " + DNAME.length + " wells")
+                          .style(TextStyle().fontSize(11.0).color(Colors.grey()))))),
+                  Container().padding(EdgeInsets_all(6.0)).child(Wrap().spacing(6.0).runSpacing(6.0).children(filters)),
+                  Container().padding(EdgeInsets_all(6.0))
+                      .decoration(BoxDecoration().color(Color(0xFFEFEFEF)))
+                      .child(Row().children(List.<WidgetI>of(
+                          sortHeader("Well", "name", W_NAME),
+                          sortHeader("Status", "status", W_STAT),
+                          sortHeader("TD (ft)", "depth", W_DEPTH)))),
+                  SizedBox().height(210.0).child(SingleChildScrollView()
+                      .child(Column().children(rows))))));
     }
 
     java.util.List<WidgetI> layerChips() {
@@ -370,10 +506,13 @@ public class MapGallery {
                       .minZoom(3.0).maxZoom(17.0)
                       .onCameraMoved(c -> setState(() -> _camera = c))
                       .onMarkerTap(i -> setState(() -> _sel = Integer.parseInt(i)))
+                      .onFeatureTap(i -> selectFeature(Integer.parseInt(i)))
                       .onMapTap(this::onMapTap)))))),
           crsFooter(),
           SizedBox().height(12.0),
-          identifyCard()
+          identifyCard(),
+          _realData ? SizedBox().height(12.0) : SizedBox(),
+          _realData ? attrTable() : SizedBox()
       ));
     }
   }

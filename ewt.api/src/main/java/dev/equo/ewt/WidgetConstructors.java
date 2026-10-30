@@ -494,7 +494,7 @@ public interface WidgetConstructors {
     throw new UnsupportedOperationException("EwtGraphView_readBack_nodeHeight read-back requires FFM/java22");
   }
 
-  default int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  default int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<Consumer<String>> onFeatureTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
     throw new UnsupportedOperationException("ewtMapViewEwtMapView has no default (FFM/comm impl required)");
   }
   default String EwtMapView_readBack_markerCoords(Object st) {

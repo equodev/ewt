@@ -43,6 +43,11 @@ class EwtMapView extends StatefulWidget {
   /// Fires the marker index `"i"` when marker i is tapped.
   final void Function(String)? onMarkerTap;
 
+  /// Fires the index `"i"` of the tapped GeoJSON Point feature (counted in file
+  /// order over Point/MultiPoint features) — lets Java identify an imported
+  /// feature and drive the same highlight via [selected].
+  final void Function(String)? onFeatureTap;
+
   /// Filled polygons; each `';'`-separated group is a ring of `"lat,lng"` points
   /// joined by spaces: `"lat,lng lat,lng ...;lat,lng ..."`.
   final String polygons;
@@ -74,6 +79,7 @@ class EwtMapView extends StatefulWidget {
     this.camera = '0,0,2',
     this.onCameraMoved,
     this.onMarkerTap,
+    this.onFeatureTap,
     this.polygons = '',
     this.polylines = '',
     this.onMapTap,
@@ -210,6 +216,7 @@ class _EwtMapViewState extends State<EwtMapView>
     final points = <Marker>[];
     final lines = <Polyline>[];
     final polys = <Polygon>[];
+    var pIdx = 0; // index over Point features, aligned with Java's feature list
     for (final f in feats) {
       final geom = f['geometry'];
       if (geom is! Map) continue;
@@ -217,13 +224,13 @@ class _EwtMapViewState extends State<EwtMapView>
       switch (geom['type']) {
         case 'Point':
           final ll = _ll(coords);
-          if (ll != null) points.add(_gjPoint(ll, f['properties']));
+          if (ll != null) points.add(_gjPoint(ll, f['properties'], pIdx++));
           break;
         case 'MultiPoint':
           if (coords is List) {
             for (final c in coords) {
               final ll = _ll(c);
-              if (ll != null) points.add(_gjPoint(ll, f['properties']));
+              if (ll != null) points.add(_gjPoint(ll, f['properties'], pIdx++));
             }
           }
           break;
@@ -265,15 +272,44 @@ class _EwtMapViewState extends State<EwtMapView>
     }
   }
 
-  Marker _gjPoint(LatLng p, dynamic props) => Marker(
+  Widget _dotCore(dynamic props) => DecoratedBox(
+        decoration: BoxDecoration(
+          color: _statusColor(props),
+          shape: BoxShape.circle,
+          border: const Border.fromBorderSide(BorderSide(color: Colors.white, width: 2)),
+        ),
+        child: const SizedBox(width: 14, height: 14),
+      );
+
+  Marker _gjPoint(LatLng p, dynamic props, int idx) => Marker(
         point: p,
-        width: 14,
-        height: 14,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: _statusColor(props),
-            shape: BoxShape.circle,
-            border: const Border.fromBorderSide(BorderSide(color: Colors.white, width: 2)),
+        width: 34,
+        height: 34,
+        child: ScaleTransition(
+          scale: _pop,
+          child: FadeTransition(
+            opacity: _entrance,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => widget.onFeatureTap?.call('$idx'),
+              child: idx == widget.selected
+                  ? Stack(
+                      alignment: Alignment.center,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: const BoxDecoration(
+                            color: Color(0x5500E5FF),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        _dotCore(props),
+                      ],
+                    )
+                  : _dotCore(props),
+            ),
           ),
         ),
       );

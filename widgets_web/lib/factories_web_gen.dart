@@ -315,6 +315,7 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       camera: (p['camera'] as String?) ?? '0,0,2',
       onCameraMoved: ewtWireValueCallback(p['onCameraMoved']),
       onMarkerTap: ewtWireValueCallback(p['onMarkerTap']),
+      onFeatureTap: ewtWireValueCallback(p['onFeatureTap']),
       polygons: (p['polygons'] as String?) ?? '',
       polylines: (p['polylines'] as String?) ?? '',
       onMapTap: ewtWireValueCallback(p['onMapTap']),

@@ -21,15 +21,15 @@ public final class EwtMapViewVariants {
   }
 
   public static Widget ewtMapView_allSet() {
-    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("hello").tileUrl("hello").camera("hello").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).polygons("hello").polylines("hello").onMapTap((_a0) -> {}).selected(1).geojson("hello").minZoom(1.0).maxZoom(1.0).build();
+    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("hello").tileUrl("hello").camera("hello").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).onFeatureTap((_a0) -> {}).polygons("hello").polylines("hello").onMapTap((_a0) -> {}).selected(1).geojson("hello").minZoom(1.0).maxZoom(1.0).build();
   }
 
   public static Widget ewtMapView_boundary() {
-    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("").tileUrl("").camera("").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).polygons("").polylines("").onMapTap((_a0) -> {}).selected(0).geojson("").minZoom(0.0).maxZoom(0.0).build();
+    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).markerCoords("").tileUrl("").camera("").onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).onFeatureTap((_a0) -> {}).polygons("").polylines("").onMapTap((_a0) -> {}).selected(0).geojson("").minZoom(0.0).maxZoom(0.0).build();
   }
 
   public static Widget ewtMapView_callbackWired() {
-    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).onMapTap((_a0) -> {}).build();
+    return EwtMapView.ewtMapView(List.<WidgetI>of(SizedBox().width(1.0).height(1.0).build())).onCameraMoved((_a0) -> {}).onMarkerTap((_a0) -> {}).onFeatureTap((_a0) -> {}).onMapTap((_a0) -> {}).build();
   }
 
 }

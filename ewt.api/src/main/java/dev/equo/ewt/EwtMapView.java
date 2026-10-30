@@ -11,13 +11,14 @@ public class EwtMapView extends StatefulWidget implements EwtMapViewI {
     this.nativeStruct = factories.takeLastStruct();
   }
   @Builder.Factory
-  static EwtMapView ewtMapViewEwtMapView(@Builder.Parameter List<WidgetI> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
+  static EwtMapView ewtMapViewEwtMapView(@Builder.Parameter List<WidgetI> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<Consumer<String>> onFeatureTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
     int id = factories.ewtMapViewEwtMapView(markers.stream().map(WidgetI::build).collect(java.util.stream.Collectors.toList()),
       markerCoords,
       tileUrl,
       camera,
       onCameraMoved,
       onMarkerTap,
+      onFeatureTap,
       polygons,
       polylines,
       onMapTap,
