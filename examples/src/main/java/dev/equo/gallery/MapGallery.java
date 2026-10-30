@@ -236,6 +236,38 @@ public class MapGallery {
                   .color(Colors.amber())), "Pipeline"))));
     }
 
+    void zoomBy(double d) {
+      String[] c = _camera.split(",");
+      double z = Math.max(3.0, Math.min(17.0, Double.parseDouble(c[2].trim()) + d));
+      final String nc = c[0] + "," + c[1] + "," + String.format("%.1f", z);
+      setState(() -> _camera = nc);
+    }
+
+    Widget toolBtn(String sym, boolean active, Runnable onTap) {
+      return GestureDetector().onTap(onTap).child(Container().width(36.0).height(36.0)
+          .decoration(BoxDecoration()
+              .color(active ? Colors.teal() : Colors.white())
+              .borderRadius(BorderRadius_circular(6.0))
+              .border(Border_all().color(Colors.teal()).width(1.0)))
+          .child(Center().child(Text(sym).style(TextStyle()
+              .color(active ? Colors.white() : Colors.teal()).fontSize(16.0)))));
+    }
+
+    // A vertical tool strip, like DecisionSpace's GIS Map toolbar.
+    Widget toolbar() {
+      return Column().mainAxisSize(MainAxisSize.min).children(List.<WidgetI>of(
+          toolBtn("+", false, () -> zoomBy(1.0)),
+          SizedBox().height(4.0),
+          toolBtn("−", false, () -> zoomBy(-1.0)),
+          SizedBox().height(4.0),
+          toolBtn("⤢", false, () -> setState(() -> _camera = FULL_EXTENT)),
+          SizedBox().height(4.0),
+          toolBtn("📏", _measure, () -> setState(() -> {
+            _measure = !_measure;
+            if (!_measure) { _mA = ""; _mB = ""; _dist = ""; }
+          }))));
+    }
+
     @Override
     public Widget build(BuildContext context) {
       java.util.List<WidgetI> basemaps = new java.util.ArrayList<>();
@@ -280,7 +312,11 @@ public class MapGallery {
           legend(),
           SizedBox().height(12.0),
 
-          Center().child(Container().width(760.0).height(460.0)
+          Center().child(Row().mainAxisSize(MainAxisSize.min)
+              .crossAxisAlignment(CrossAxisAlignment.start).children(List.<WidgetI>of(
+              toolbar(),
+              SizedBox().width(8.0),
+              Container().width(720.0).height(460.0)
               .decoration(BoxDecoration()
                   .borderRadius(BorderRadius_circular(12.0))
                   .border(Border_all().color(Colors.grey()).width(1.0)))
@@ -296,7 +332,7 @@ public class MapGallery {
                       .minZoom(3.0).maxZoom(17.0)
                       .onCameraMoved(c -> setState(() -> _camera = c))
                       .onMarkerTap(i -> setState(() -> _sel = Integer.parseInt(i)))
-                      .onMapTap(this::onMapTap)))),
+                      .onMapTap(this::onMapTap)))))),
           crsFooter(),
           SizedBox().height(12.0),
           identifyCard()
