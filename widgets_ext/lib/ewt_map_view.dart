@@ -217,13 +217,13 @@ class _EwtMapViewState extends State<EwtMapView>
       switch (geom['type']) {
         case 'Point':
           final ll = _ll(coords);
-          if (ll != null) points.add(_gjPoint(ll));
+          if (ll != null) points.add(_gjPoint(ll, f['properties']));
           break;
         case 'MultiPoint':
           if (coords is List) {
             for (final c in coords) {
               final ll = _ll(c);
-              if (ll != null) points.add(_gjPoint(ll));
+              if (ll != null) points.add(_gjPoint(ll, f['properties']));
             }
           }
           break;
@@ -252,26 +252,40 @@ class _EwtMapViewState extends State<EwtMapView>
     ];
   }
 
-  Marker _gjPoint(LatLng p) => Marker(
+  // Colour a GeoJSON point by a 'status' property (well status), falling back to
+  // a neutral colour — matches the native well symbology + DecisionSpace.
+  Color _statusColor(dynamic props) {
+    final s = (props is Map) ? props['status'] : null;
+    switch (s) {
+      case 'Producing': return const Color(0xFF22C55E);
+      case 'Shut-in':   return const Color(0xFF9CA3AF);
+      case 'Drilling':  return const Color(0xFFF97316);
+      case 'Active':    return const Color(0xFF38BDF8);
+      default:          return const Color(0xFF7E57C2);
+    }
+  }
+
+  Marker _gjPoint(LatLng p, dynamic props) => Marker(
         point: p,
-        width: 16,
-        height: 16,
-        child: const DecoratedBox(
+        width: 14,
+        height: 14,
+        child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Color(0xFF7E57C2),
+            color: _statusColor(props),
             shape: BoxShape.circle,
-            border: Border.fromBorderSide(BorderSide(color: Colors.white, width: 2)),
+            border: const Border.fromBorderSide(BorderSide(color: Colors.white, width: 2)),
           ),
         ),
       );
 
+  // Match DecisionSpace: pipelines white, lease outline-only in yellow.
   Polyline _gjLine(List<LatLng> pts) =>
-      Polyline(points: pts, color: const Color(0xFF8E24AA), strokeWidth: 3);
+      Polyline(points: pts, color: const Color(0xFFFFFFFF), strokeWidth: 3);
 
   Polygon _gjPoly(List<LatLng> pts) => Polygon(
         points: pts,
-        color: const Color(0x337E57C2),
-        borderColor: const Color(0xFF5E35B1),
+        color: const Color(0x00000000),
+        borderColor: const Color(0xFFFFC107),
         borderStrokeWidth: 2,
       );
 
