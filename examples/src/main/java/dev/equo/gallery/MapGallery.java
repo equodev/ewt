@@ -39,8 +39,18 @@ public class MapGallery {
       {"OSM",        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"},
   };
 
-  // A labelled well marker: a name pill above an amber dot with a white ring.
-  static Widget wellPin(String name) {
+  // Unique-value symbology by well status (like DecisionSpace's Symbology tab).
+  static ColorI statusColor(String status) {
+    switch (status) {
+      case "Producing": return Colors.green();
+      case "Shut-in":   return Colors.grey();
+      case "Drilling":  return Colors.orange();
+      default:          return Colors.lightBlue(); // Active / injection
+    }
+  }
+
+  // A labelled well marker: a name pill above a status-coloured dot.
+  static Widget wellPin(String name, ColorI color) {
     return Column().mainAxisSize(MainAxisSize.min).children(List.<WidgetI>of(
         Container().padding(EdgeInsets_all(3.0))
             .decoration(BoxDecoration()
@@ -50,7 +60,7 @@ public class MapGallery {
         SizedBox().height(2.0),
         Container().width(14.0).height(14.0)
             .decoration(BoxDecoration()
-                .color(Colors.amber())
+                .color(color)
                 .borderRadius(BorderRadius_circular(7.0))
                 .border(Border_all().color(Colors.white()).width(2.0)))));
   }
@@ -186,6 +196,12 @@ public class MapGallery {
               Text("Zoom " + zoom).style(TextStyle().fontSize(11.0)))));
     }
 
+    Widget dot(ColorI c) {
+      return Container().width(12.0).height(12.0).decoration(BoxDecoration()
+          .color(c).borderRadius(BorderRadius_circular(6.0))
+          .border(Border_all().color(Colors.white()).width(2.0)));
+    }
+
     Widget legendItem(WidgetI swatch, String label) {
       return Row().mainAxisSize(MainAxisSize.min).children(List.<WidgetI>of(
           swatch, SizedBox().width(6.0),
@@ -198,10 +214,11 @@ public class MapGallery {
               .color(Colors.white())
               .borderRadius(BorderRadius_circular(8.0))
               .border(Border_all().color(Colors.grey()).width(1.0)))
-          .child(Wrap().spacing(18.0).runSpacing(6.0).children(List.<WidgetI>of(
-              legendItem(Container().width(12.0).height(12.0).decoration(BoxDecoration()
-                  .color(Colors.amber()).borderRadius(BorderRadius_circular(6.0))
-                  .border(Border_all().color(Colors.white()).width(2.0))), "Well"),
+          .child(Wrap().spacing(16.0).runSpacing(6.0).children(List.<WidgetI>of(
+              legendItem(dot(Colors.green()), "Producing"),
+              legendItem(dot(Colors.grey()), "Shut-in"),
+              legendItem(dot(Colors.orange()), "Drilling"),
+              legendItem(dot(Colors.lightBlue()), "Active / Inj."),
               legendItem(Container().width(14.0).height(14.0).decoration(BoxDecoration()
                   .color(Colors.cyan())), "Lease block"),
               legendItem(Container().width(20.0).height(3.0).decoration(BoxDecoration()
@@ -215,6 +232,8 @@ public class MapGallery {
         final String url = b[1];
         basemaps.add(chip(b[0], url.equals(_basemap), () -> setState(() -> _basemap = url)));
       }
+      java.util.List<WidgetI> pins = new java.util.ArrayList<>();
+      for (int i = 0; i < NAMES.length; i++) pins.add(wellPin(NAMES[i], statusColor(STATUS[i])));
 
       return page(context, "GIS map — Esri basemaps + wells", Colors.teal(), List.of(
 
@@ -254,9 +273,7 @@ public class MapGallery {
                   .borderRadius(BorderRadius_circular(12.0))
                   .border(Border_all().color(Colors.grey()).width(1.0)))
               .child(ClipRRect().borderRadius(BorderRadius_circular(12.0)).child(
-                  EwtMapView(List.<WidgetI>of(
-                          wellPin(NAMES[0]), wellPin(NAMES[1]), wellPin(NAMES[2]),
-                          wellPin(NAMES[3]), wellPin(NAMES[4])))
+                  EwtMapView(pins)
                       .tileUrl(_basemap)
                       .camera(_camera)
                       .markerCoords(_showWells ? WELLS : "")
