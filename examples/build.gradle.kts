@@ -440,3 +440,22 @@ tasks.register<JavaExec>("runChainedAnimationsWeb") {
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
+
+// WEB: GIS map viewer (flutter_map over the Evolve web transport).
+// Same 4-step recipe as runShowcaseWeb; see MapGalleryWebLauncher for the entry point.
+tasks.register<JavaExec>("runMapGalleryWeb") {
+    group = "examples"
+    description = "Run the GIS map viewer in the browser (web transport)."
+    classpath = sourceSets["main"].runtimeClasspath + evolveClasses
+    mainClass.set("dev.equo.gallery.MapGalleryWebLauncher")
+    val webDir = combinedBuild.resolve("web")
+    doFirst {
+        if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
+        if (!webDir.resolve("index.html").exists()) throw GradleException(
+            "Combined web build not found at $webDir. " +
+            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+    }
+    systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
+    systemProperty("dev.equo.swt.crashReport.disabled", "true")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
