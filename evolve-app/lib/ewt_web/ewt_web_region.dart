@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:swtflutter/src/comm/comm.dart';
 import 'package:widgets_web/widgets_web.dart';
 
 import 'ewt_channel_owner.dart';
@@ -58,7 +57,7 @@ class _EwtWebRegionState extends State<EwtWebRegion>
     ewtChannels.subscribe(_animChannel, this, _onAnimCommand);
     // Ask the Java side to (re)send this region's subtree now that our handler is registered,
     // so a first frame flushed from the comm buffer before we subscribed is not lost.
-    EquoCommService.send('$_subtreeChannel/request');
+    ewtSend('$_subtreeChannel/request');
   }
 
   void _onSubtree(Uint8List bytes) {
@@ -66,7 +65,7 @@ class _EwtWebRegionState extends State<EwtWebRegion>
       final env = json.decode(utf8.decode(bytes)) as Map<String, dynamic>;
       final outcome = applyEnvelope(_root, env);
       if (outcome.requestFull) {
-        EquoCommService.send('$_subtreeChannel/request');
+        ewtSend('$_subtreeChannel/request');
         return;
       }
       setState(() {
@@ -75,7 +74,7 @@ class _EwtWebRegionState extends State<EwtWebRegion>
       });
     } catch (e, st) {
       debugPrint('EWT web region ${widget.id} subtree failed: $e\n$st');
-      EquoCommService.send('$_subtreeChannel/request');
+      ewtSend('$_subtreeChannel/request');
     }
   }
 
@@ -120,7 +119,7 @@ class _EwtWebRegionState extends State<EwtWebRegion>
         // The Java side holds the listener; echo each AnimationStatus change back by its
         // (negative) listener id so the receive side routes it to the registered sink.
         final listenerId = int.parse(action.substring('addStatusListener:'.length));
-        ctrl.addStatusListener((status) => EquoCommService.sendPayload(
+        ctrl.addStatusListener((status) => ewtSend(
             'EwtWidget/${widget.id}/callback', <Object?>[listenerId, status.index]));
       } else switch (action) {
         case 'stop':   ctrl.stop();
@@ -179,7 +178,7 @@ class _EwtWebRegionState extends State<EwtWebRegion>
     // channel). `ok=false` still resolves the future to unblock the caller,
     // but a stderr trace tells operators what went wrong. Extending the
     // channel with an error variant is a follow-up.
-    EquoCommService.sendPayload(
+    ewtSend(
         'EwtWidget/${widget.id}/callback', <Object?>[cbId, null]);
   }
 
@@ -209,7 +208,7 @@ class _EwtWebRegionState extends State<EwtWebRegion>
     // and the animated-state ticker/registry so controller factories can wire up.
     ewtActiveBuildContext = context;
     ewtActiveCallbackSink = (cid, args) =>
-        EquoCommService.sendPayload('EwtWidget/${widget.id}/callback', [cid, ...args]);
+        ewtSend('EwtWidget/${widget.id}/callback', [cid, ...args]);
     ewtActiveTickerProvider = this;
     ewtActiveControllerRegistry = _controllers;
     try {

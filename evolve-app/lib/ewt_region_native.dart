@@ -13,7 +13,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
-import 'package:swtflutter/src/comm/comm.dart';
 import 'package:widgets_web/retained_subtree.dart';
 
 import 'ewt_web/ewt_channel_owner.dart';
@@ -46,7 +45,7 @@ class _EwtNativeRegionState extends State<_EwtNativeRegion> {
     ewtChannels.subscribe(_channel, this, _onTransport);
     ewtChannels.subscribe(_rebuildChannel, this, _onRebuild);
     // Ask Java to (re)send the transport, in case its first announcement flushed before we subscribed.
-    EquoCommService.send('$_channel/request');
+    ewtSend('$_channel/request');
   }
 
   void _onTransport(Uint8List bytes) {
