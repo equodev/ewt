@@ -144,6 +144,10 @@ typedef struct {
     EwtGraphViewObjSt (*ewtGraphView)(ArrayC nodes, char* edges, char* positions, VoidCallbackcharPtrFFI* onNodeMoved, double* nodeWidth, double* nodeHeight);
   } ewtGraphView;
 
+  struct EwtMapViewSt {
+    EwtMapViewObjSt (*ewtMapView)(ArrayC markers, char* markerCoords, char* tileUrl, char* camera, VoidCallbackcharPtrFFI* onCameraMoved, VoidCallbackcharPtrFFI* onMarkerTap, VoidCallbackcharPtrFFI* onFeatureTap, char* polygons, char* polylines, VoidCallbackcharPtrFFI* onMapTap, int* selected, char* geojson, double* minZoom, double* maxZoom);
+  } ewtMapView;
+
   struct TransformSt {
     TransformObjSt (*rotate)(double angle, DartObj* origin, DartObj* alignment, int* transformHitTests, int* filterQuality, DartObj* child);
     TransformObjSt (*translate)(DartObj offset, int* transformHitTests, int* filterQuality, DartObj* child);

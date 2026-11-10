@@ -868,6 +868,42 @@ EwtGraphViewObjSt _createEwtGraphViewObjSt(EwtGraphView? w) {
   return stObj;
 }
 
+void _setupEwtMapView(WidgetFactories f) {
+  f.ewtMapView.ewtMapView = ffi.Pointer.fromFunction(ewtMapViewEwtMapView);
+}
+EwtMapViewObjSt ewtMapViewEwtMapView(ArrayC markers, ffi.Pointer<ffi.Char> markerCoords, ffi.Pointer<ffi.Char> tileUrl, ffi.Pointer<ffi.Char> camera, ffi.Pointer<VoidCallbackcharPtrFFI> onCameraMoved, ffi.Pointer<VoidCallbackcharPtrFFI> onMarkerTap, ffi.Pointer<VoidCallbackcharPtrFFI> onFeatureTap, ffi.Pointer<ffi.Char> polygons, ffi.Pointer<ffi.Char> polylines, ffi.Pointer<VoidCallbackcharPtrFFI> onMapTap, ffi.Pointer<ffi.Int> selected, ffi.Pointer<ffi.Char> geojson, ffi.Pointer<ffi.Double> minZoom, ffi.Pointer<ffi.Double> maxZoom) {
+  final w = EwtMapView(markers.listOrEmpty(),
+      markerCoords: markerCoords.strOr(''),
+      tileUrl: tileUrl.strOr('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
+      camera: camera.strOr('0,0,2'),
+      onCameraMoved: onCameraMoved.toVoidCallbackcharPtrFn(),
+      onMarkerTap: onMarkerTap.toVoidCallbackcharPtrFn(),
+      onFeatureTap: onFeatureTap.toVoidCallbackcharPtrFn(),
+      polygons: polygons.strOr(''),
+      polylines: polylines.strOr(''),
+      onMapTap: onMapTap.toVoidCallbackcharPtrFn(),
+      selected: selected.intOr(-1),
+      geojson: geojson.strOr(''),
+      minZoom: minZoom.doubleOr(2.0),
+      maxZoom: maxZoom.doubleOr(19.0));
+  return _createEwtMapViewObjSt(w);
+}
+EwtMapViewObjSt _createEwtMapViewObjSt(EwtMapView? w) {
+  final EwtMapViewObjSt stObj = ffi.Struct.create();
+  stObj.id = _addWidget(w);
+  if (w == null) return stObj;
+  stObj.markerCoords = w.markerCoords.toNativeUtf8().cast<ffi.Char>();
+  stObj.tileUrl = w.tileUrl.toNativeUtf8().cast<ffi.Char>();
+  stObj.camera = w.camera.toNativeUtf8().cast<ffi.Char>();
+  stObj.polygons = w.polygons.toNativeUtf8().cast<ffi.Char>();
+  stObj.polylines = w.polylines.toNativeUtf8().cast<ffi.Char>();
+  stObj.selected = w.selected;
+  stObj.geojson = w.geojson.toNativeUtf8().cast<ffi.Char>();
+  stObj.minZoom = w.minZoom;
+  stObj.maxZoom = w.maxZoom;
+  return stObj;
+}
+
 void _setupTransform(WidgetFactories f) {
   f.transform.rotate = ffi.Pointer.fromFunction(transformRotate);
   f.transform.translate = ffi.Pointer.fromFunction(transformTranslate);
@@ -17134,6 +17170,7 @@ ffi.Pointer<WidgetFactories> _setupFactories() {
   _setupIconData(f);
   _setupIcon(f);
   _setupEwtGraphView(f);
+  _setupEwtMapView(f);
   _setupColor(f);
   _setupTransform(f);
   _setupOpacity(f);
