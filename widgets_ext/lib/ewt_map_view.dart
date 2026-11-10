@@ -16,7 +16,7 @@ import 'package:latlong2/latlong.dart';
 ///  - Markers are a `List<Widget>` anchored by the index-aligned [markerCoords]
 ///    (`"lat,lng;lat,lng;..."`); tapping marker i fires [onMarkerTap] (`"i"`).
 ///  - [polygons] / [polylines] are encoded Strings; [tileUrl] is the XYZ/WMTS
-///    tile template (defaults to Esri World Imagery — the DecisionSpace basemap).
+///    tile template (defaults to Esri World Imagery — a common satellite basemap).
 ///
 /// Every param is comm-marshalable: a `List<Widget>`, Strings, primitives, and
 /// SINGLE-arg String callbacks — multi-arg callbacks do NOT round-trip over comm,
@@ -31,7 +31,7 @@ class EwtMapView extends StatefulWidget {
   final String markerCoords;
 
   /// XYZ/WMTS tile template. Default: Esri World Imagery (same basemap as the
-  /// DecisionSpace GIS map).
+  /// embedded Esri/ArcGIS GIS component this stands in for).
   final String tileUrl;
 
   /// Java-owned camera as `"lat,lng,zoom"`.
@@ -260,7 +260,7 @@ class _EwtMapViewState extends State<EwtMapView>
   }
 
   // Colour a GeoJSON point by a 'status' property (well status), falling back to
-  // a neutral colour — matches the native well symbology + DecisionSpace.
+  // a neutral colour — matches a typical GIS well symbology (unique-value by status).
   Color _statusColor(dynamic props) {
     final s = (props is Map) ? props['status'] : null;
     switch (s) {
@@ -314,7 +314,7 @@ class _EwtMapViewState extends State<EwtMapView>
         ),
       );
 
-  // Match DecisionSpace: pipelines white, lease outline-only in yellow.
+  // Typical GIS styling: pipelines white, lease outline-only in yellow.
   Polyline _gjLine(List<LatLng> pts) =>
       Polyline(points: pts, color: const Color(0xFFFFFFFF), strokeWidth: 3);
 
@@ -377,7 +377,7 @@ class _EwtMapViewState extends State<EwtMapView>
                       Polygon(
                         points: ring,
                         // Outline only (no fill) so it never hides the wells, like
-                        // DecisionSpace's lease layer.
+                        // a lease/boundary layer.
                         color: const Color(0x00000000),
                         borderColor: const Color(0xFFFFC107),
                         borderStrokeWidth: 2.5,
