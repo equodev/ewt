@@ -300,7 +300,7 @@ class Generation {
                   '  }\n'
                   '}\n'
                   'extension on ffi.Pointer<$ourName> {\n'
-                  '  $retType? to${aliasName}Fn$tp() => (this != ffi.nullptr) ? this.value.to${aliasName}Fn() : null;\n'
+                  '  ${'$retType'.endsWith('?') ? '$retType' : '$retType?'} to${aliasName}Fn$tp() => (this != ffi.nullptr) ? this.value.to${aliasName}Fn() : null;\n'
                   '}\n'
           );
         // }
@@ -596,6 +596,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:widgets_ext/widgets_ext.dart';
 // `SemanticsInputType` / `SemanticsValidationResult` / `SemanticsHitTestBehavior`
 // are exposed from `dart:ui`, not from any Flutter facade — SliverSemantics
 // decoders reference them by bare name so add them to the ui import.

@@ -13,6 +13,8 @@ dependencies:
   args: ^2.5.0
   analyzer: ^7.3.0
   path: ^1.9.1
+  widgets_ext:
+    path: ../widgets_ext
 
 dev_dependencies:
   lints: ^5.0.0

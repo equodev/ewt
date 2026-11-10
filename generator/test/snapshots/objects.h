@@ -119,6 +119,25 @@ typedef struct {
 } RowObjSt;
 typedef struct {
   int id;
+  char* edges;
+  char* positions;
+  double nodeWidth;
+  double nodeHeight;
+} EwtGraphViewObjSt;
+typedef struct {
+  int id;
+  char* markerCoords;
+  char* tileUrl;
+  char* camera;
+  char* polygons;
+  char* polylines;
+  int selected;
+  char* geojson;
+  double minZoom;
+  double maxZoom;
+} EwtMapViewObjSt;
+typedef struct {
+  int id;
   DartObj origin;
   DartObj alignment;
   int transformHitTests;

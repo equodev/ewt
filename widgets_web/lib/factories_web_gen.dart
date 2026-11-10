@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:widgets_ext/widgets_ext.dart';
 // `SemanticsInputType` / `SemanticsValidationResult` / `SemanticsHitTestBehavior`
 // are exposed from `dart:ui`, not from any Flutter facade — SliverSemantics
 // decoders reference them by bare name so add them to the ui import.
@@ -300,6 +301,28 @@ final Map<String, Object? Function(Map<String, dynamic> p)> webFactories = {
       textBaseline: p['textBaseline'] == null ? null : TextBaseline.values[p['textBaseline'] as int],
       spacing: ((p['spacing'] as num?)?.toDouble()) ?? 0.0,
       children: ((p['children'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList()),
+
+  'ewtGraphViewEwtGraphView': (p) => EwtGraphView(((p['nodes'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      edges: (p['edges'] as String?) ?? '',
+      positions: (p['positions'] as String?) ?? '',
+      onNodeMoved: ewtWireValueCallback(p['onNodeMoved']),
+      nodeWidth: ((p['nodeWidth'] as num?)?.toDouble()) ?? 64.0,
+      nodeHeight: ((p['nodeHeight'] as num?)?.toDouble()) ?? 38.0),
+
+  'ewtMapViewEwtMapView': (p) => EwtMapView(((p['markers'] as List?) ?? const []).map((e) => decodeEwtWidget(e as Map<String,dynamic>)).toList(),
+      markerCoords: (p['markerCoords'] as String?) ?? '',
+      tileUrl: (p['tileUrl'] as String?) ?? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      camera: (p['camera'] as String?) ?? '0,0,2',
+      onCameraMoved: ewtWireValueCallback(p['onCameraMoved']),
+      onMarkerTap: ewtWireValueCallback(p['onMarkerTap']),
+      onFeatureTap: ewtWireValueCallback(p['onFeatureTap']),
+      polygons: (p['polygons'] as String?) ?? '',
+      polylines: (p['polylines'] as String?) ?? '',
+      onMapTap: ewtWireValueCallback(p['onMapTap']),
+      selected: (p['selected'] as int?) ?? -1,
+      geojson: (p['geojson'] as String?) ?? '',
+      minZoom: ((p['minZoom'] as num?)?.toDouble()) ?? 2.0,
+      maxZoom: ((p['maxZoom'] as num?)?.toDouble()) ?? 19.0),
 
   'transformRotate': (p) => Transform.rotate(angle: (p['angle'] as num).toDouble(),
       origin: p['origin'] == null ? null : decodeEwtNode(p['origin'] as Map<String,dynamic>) as Offset,

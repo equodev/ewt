@@ -478,6 +478,53 @@ public interface WidgetConstructors {
     throw new UnsupportedOperationException("rowRow has no default (FFM/comm impl required)");
   }
 
+  default int ewtGraphViewEwtGraphView(List<Widget> nodes, Optional<String> edges, Optional<String> positions, Optional<Consumer<String>> onNodeMoved, OptionalDouble nodeWidth, OptionalDouble nodeHeight) {
+    throw new UnsupportedOperationException("ewtGraphViewEwtGraphView has no default (FFM/comm impl required)");
+  }
+  default String EwtGraphView_readBack_edges(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_edges read-back requires FFM/java22");
+  }
+  default String EwtGraphView_readBack_positions(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_positions read-back requires FFM/java22");
+  }
+  default double EwtGraphView_readBack_nodeWidth(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_nodeWidth read-back requires FFM/java22");
+  }
+  default double EwtGraphView_readBack_nodeHeight(Object st) {
+    throw new UnsupportedOperationException("EwtGraphView_readBack_nodeHeight read-back requires FFM/java22");
+  }
+
+  default int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<Consumer<String>> onFeatureTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
+    throw new UnsupportedOperationException("ewtMapViewEwtMapView has no default (FFM/comm impl required)");
+  }
+  default String EwtMapView_readBack_markerCoords(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_markerCoords read-back requires FFM/java22");
+  }
+  default String EwtMapView_readBack_tileUrl(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_tileUrl read-back requires FFM/java22");
+  }
+  default String EwtMapView_readBack_camera(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_camera read-back requires FFM/java22");
+  }
+  default String EwtMapView_readBack_polygons(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_polygons read-back requires FFM/java22");
+  }
+  default String EwtMapView_readBack_polylines(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_polylines read-back requires FFM/java22");
+  }
+  default int EwtMapView_readBack_selected(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_selected read-back requires FFM/java22");
+  }
+  default String EwtMapView_readBack_geojson(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_geojson read-back requires FFM/java22");
+  }
+  default double EwtMapView_readBack_minZoom(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_minZoom read-back requires FFM/java22");
+  }
+  default double EwtMapView_readBack_maxZoom(Object st) {
+    throw new UnsupportedOperationException("EwtMapView_readBack_maxZoom read-back requires FFM/java22");
+  }
+
   default int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     throw new UnsupportedOperationException("transformRotate has no default (FFM/comm impl required)");
   }

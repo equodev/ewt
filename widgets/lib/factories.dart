@@ -13,6 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart' hide RefreshCallback;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
+// EWT wrappers around third-party widget packages (see package:widgets_ext).
+// The generator hardcodes SDK imports and emits none for these, so add by hand.
+import 'package:widgets_ext/widgets_ext.dart';
 import 'package:widgets/subwidgets.dart';
 import 'package:widgets/widgets_bindings_generated.dart';
 import 'package:ffi/ffi.dart';

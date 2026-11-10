@@ -891,8 +891,8 @@ class FunctionHandler with TypeHandler {
       return getInstantiatedAliasName(alias, withSuffix: withSuffix);
     }
     final ret = _effectiveReturn(fn.returnType);
-    final cbRet = (ret is VoidType) ? 'Void' : types.type4C(ret);
-    final aliasName = '${cbRet}Callback${fn.parameters.map((p) => types.type4C(p.type)).join('')}';
+    final cbRet = (ret is VoidType) ? 'Void' : _identSafe(types.type4C(ret));
+    final aliasName = '${cbRet}Callback${fn.parameters.map((p) => _identSafe(types.type4C(p.type))).join('')}';
     return '$aliasName${withSuffix ? 'FFI' : ''}';
   }
   String getInstantiatedAliasName(InstantiatedTypeAliasElement alias, {bool withSuffix = false}) {
@@ -902,6 +902,15 @@ class FunctionHandler with TypeHandler {
     // ValueChangedForBool and emit the same helper twice.
     return '${alias.element.name}${alias.typeArguments.isEmpty ? '' : 'For${alias.typeArguments.map((t) => '${t.element!.name!.firstUpper()}${t.nullabilitySuffix == NullabilitySuffix.question ? 'Opt' : ''}').join()}'}${withSuffix ? 'FFI' : ''}';
   }
+  // Sanitize a C type expression into a valid identifier fragment for typedef
+  // names (e.g. `char*` -> `charPtr`), so a String-arg inline callback does not
+  // emit an invalid C typedef name like `VoidCallbackchar*FFI`.
+  String _identSafe(String cType) => cType
+      .replaceAll('*', 'Ptr')
+      .replaceAll(' ', '')
+      .replaceAll('<', '')
+      .replaceAll('>', '')
+      .replaceAll(',', '');
   @override
   String type4D(DartType t) {
     var fn = t as FunctionType;

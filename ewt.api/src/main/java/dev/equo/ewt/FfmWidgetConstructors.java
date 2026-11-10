@@ -976,6 +976,88 @@ class FfmWidgetConstructors extends WidgetConstructorsBase implements WidgetCons
       ptrList(children)), RowObjSt::id);
   }
 
+  public int ewtGraphViewEwtGraphView(List<Widget> nodes, Optional<String> edges, Optional<String> positions, Optional<Consumer<String>> onNodeMoved, OptionalDouble nodeWidth, OptionalDouble nodeHeight) {
+    var st = WidgetFactories.ewtGraphView(factories);
+    var fn = WidgetFactories.EwtGraphViewSt.ewtGraphView(st);
+    return retain(WidgetFactories.EwtGraphViewSt.ewtGraphView.invoke(fn, arena, ptrList(nodes),
+      ptrStr(edges),
+      ptrStr(positions),
+      onNodeMoved.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onNodeMoved.get())) : MemorySegment.NULL,
+      ptr(nodeWidth),
+      ptr(nodeHeight)), EwtGraphViewObjSt::id);
+  }
+  public String EwtGraphView_readBack_edges(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.edges(st).getString(0);
+  }
+  public String EwtGraphView_readBack_positions(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.positions(st).getString(0);
+  }
+  public double EwtGraphView_readBack_nodeWidth(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.nodeWidth(st);
+  }
+  public double EwtGraphView_readBack_nodeHeight(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtGraphViewObjSt.nodeHeight(st);
+  }
+
+  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<Consumer<String>> onFeatureTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
+    var st = WidgetFactories.ewtMapView(factories);
+    var fn = WidgetFactories.EwtMapViewSt.ewtMapView(st);
+    return retain(WidgetFactories.EwtMapViewSt.ewtMapView.invoke(fn, arena, ptrList(markers),
+      ptrStr(markerCoords),
+      ptrStr(tileUrl),
+      ptrStr(camera),
+      onCameraMoved.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onCameraMoved.get())) : MemorySegment.NULL,
+      onMarkerTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMarkerTap.get())) : MemorySegment.NULL,
+      onFeatureTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onFeatureTap.get())) : MemorySegment.NULL,
+      ptrStr(polygons),
+      ptrStr(polylines),
+      onMapTap.isPresent() ? ptrHolder(ptrVoidCallbackcharPtrFn(onMapTap.get())) : MemorySegment.NULL,
+      ptr(selected),
+      ptrStr(geojson),
+      ptr(minZoom),
+      ptr(maxZoom)), EwtMapViewObjSt::id);
+  }
+  public String EwtMapView_readBack_markerCoords(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.markerCoords(st).getString(0);
+  }
+  public String EwtMapView_readBack_tileUrl(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.tileUrl(st).getString(0);
+  }
+  public String EwtMapView_readBack_camera(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.camera(st).getString(0);
+  }
+  public String EwtMapView_readBack_polygons(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.polygons(st).getString(0);
+  }
+  public String EwtMapView_readBack_polylines(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.polylines(st).getString(0);
+  }
+  public int EwtMapView_readBack_selected(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.selected(st);
+  }
+  public String EwtMapView_readBack_geojson(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.geojson(st).getString(0);
+  }
+  public double EwtMapView_readBack_minZoom(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.minZoom(st);
+  }
+  public double EwtMapView_readBack_maxZoom(Object __stObj) {
+    java.lang.foreign.MemorySegment st = (java.lang.foreign.MemorySegment) __stObj;
+    return EwtMapViewObjSt.maxZoom(st);
+  }
+
   public int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     var st = WidgetFactories.transform(factories);
     var fn = WidgetFactories.TransformSt.rotate(st);
@@ -22668,6 +22750,11 @@ MemorySegment ptrPointerEnterEventListenerFn(Consumer<PointerEnterEvent> jFn) {
 MemorySegment ptrPointerExitEventListenerFn(Consumer<PointerExitEvent> jFn) {
   return PointerExitEventListenerFFI.allocate((event) -> {
     jFn.accept(new PointerExitEvent(event));
+  }, arena);
+}
+MemorySegment ptrVoidCallbackcharPtrFn(Consumer<String> jFn) {
+  return VoidCallbackcharPtrFFI.allocate((s) -> {
+    jFn.accept(s.getString(0));
   }, arena);
 }
 MemorySegment ptrPointerHoverEventListenerFn(Consumer<PointerHoverEvent> jFn) {

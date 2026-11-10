@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart' as g;
 import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/cupertino.dart' as c;
+import 'package:widgets_ext/widgets_ext.dart' as ext;
 import 'subwidgets.dart' as s;
 import 'sub_animated_state.dart' as sas;
 import 'animation_controller_methods.dart' as acm;
@@ -43,6 +44,16 @@ w.Column? column;
 w.Row? row;
 w.IconData? iconData;
 w.Icon? icon;
+// POC (approach a): draggable node graph (package:widgets_ext). Node positions
+// are owned by Java (String `positions`), and drags report back via a single-arg
+// String callback `onNodeMoved` ("id,x,y") — the shape that round-trips over
+// comm. Generates across Java / FFM / comm-web.
+ext.EwtGraphView? ewtGraphView;
+// POC (approach a): flutter_map viewer (package:widgets_ext → flutter_map). The
+// camera is owned by Java (String `camera` "lat,lng,zoom"), pan/zoom reports back
+// via the single-arg String callback `onCameraMoved` — the shape that round-trips
+// over comm. Markers are a List<Widget>; everything else is marshalable Strings.
+ext.EwtMapView? ewtMapView;
 w.BuildContext? buildContext;
 w.Color? color;
 w.Transform? transform;

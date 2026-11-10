@@ -761,6 +761,42 @@ public class SerializingWidgetConstructors implements WidgetConstructors {
   }
 
   @Override
+  public int ewtGraphViewEwtGraphView(List<Widget> nodes, Optional<String> edges, Optional<String> positions, Optional<Consumer<String>> onNodeMoved, OptionalDouble nodeWidth, OptionalDouble nodeHeight) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("nodes", nodes.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    edges.ifPresent(v -> p.put("edges", v));
+    positions.ifPresent(v -> p.put("positions", v));
+    if (onNodeMoved.isPresent()) { int __cb_onNodeMoved = nextCallbackId++; p.put("onNodeMoved", __cb_onNodeMoved); java.util.function.Consumer<String> __h_onNodeMoved = onNodeMoved.get(); callbacks.put(__cb_onNodeMoved, (java.util.function.Consumer<Object>)(v -> __h_onNodeMoved.accept((String) v))); }
+    if (nodeWidth.isPresent()) { p.put("nodeWidth", nodeWidth.getAsDouble()); }
+    if (nodeHeight.isPresent()) { p.put("nodeHeight", nodeHeight.getAsDouble()); }
+    record(id, "ewtGraphViewEwtGraphView", p);
+    return id;
+  }
+
+  @Override
+  public int ewtMapViewEwtMapView(List<Widget> markers, Optional<String> markerCoords, Optional<String> tileUrl, Optional<String> camera, Optional<Consumer<String>> onCameraMoved, Optional<Consumer<String>> onMarkerTap, Optional<Consumer<String>> onFeatureTap, Optional<String> polygons, Optional<String> polylines, Optional<Consumer<String>> onMapTap, OptionalInt selected, Optional<String> geojson, OptionalDouble minZoom, OptionalDouble maxZoom) {
+    int id = nextId++;
+    java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
+    p.put("markers", markers.stream().map(e -> byId.get(e.getId())).collect(java.util.stream.Collectors.toList()));
+    markerCoords.ifPresent(v -> p.put("markerCoords", v));
+    tileUrl.ifPresent(v -> p.put("tileUrl", v));
+    camera.ifPresent(v -> p.put("camera", v));
+    if (onCameraMoved.isPresent()) { int __cb_onCameraMoved = nextCallbackId++; p.put("onCameraMoved", __cb_onCameraMoved); java.util.function.Consumer<String> __h_onCameraMoved = onCameraMoved.get(); callbacks.put(__cb_onCameraMoved, (java.util.function.Consumer<Object>)(v -> __h_onCameraMoved.accept((String) v))); }
+    if (onMarkerTap.isPresent()) { int __cb_onMarkerTap = nextCallbackId++; p.put("onMarkerTap", __cb_onMarkerTap); java.util.function.Consumer<String> __h_onMarkerTap = onMarkerTap.get(); callbacks.put(__cb_onMarkerTap, (java.util.function.Consumer<Object>)(v -> __h_onMarkerTap.accept((String) v))); }
+    if (onFeatureTap.isPresent()) { int __cb_onFeatureTap = nextCallbackId++; p.put("onFeatureTap", __cb_onFeatureTap); java.util.function.Consumer<String> __h_onFeatureTap = onFeatureTap.get(); callbacks.put(__cb_onFeatureTap, (java.util.function.Consumer<Object>)(v -> __h_onFeatureTap.accept((String) v))); }
+    polygons.ifPresent(v -> p.put("polygons", v));
+    polylines.ifPresent(v -> p.put("polylines", v));
+    if (onMapTap.isPresent()) { int __cb_onMapTap = nextCallbackId++; p.put("onMapTap", __cb_onMapTap); java.util.function.Consumer<String> __h_onMapTap = onMapTap.get(); callbacks.put(__cb_onMapTap, (java.util.function.Consumer<Object>)(v -> __h_onMapTap.accept((String) v))); }
+    if (selected.isPresent()) { p.put("selected", selected.getAsInt()); }
+    geojson.ifPresent(v -> p.put("geojson", v));
+    if (minZoom.isPresent()) { p.put("minZoom", minZoom.getAsDouble()); }
+    if (maxZoom.isPresent()) { p.put("maxZoom", maxZoom.getAsDouble()); }
+    record(id, "ewtMapViewEwtMapView", p);
+    return id;
+  }
+
+  @Override
   public int transformRotate(double angle, Optional<Offset> origin, Optional<AlignmentGeometry> alignment, Optional<Boolean> transformHitTests, Optional<FilterQuality> filterQuality, Optional<Widget> child) {
     int id = nextId++;
     java.util.Map<String,Object> p = new java.util.LinkedHashMap<>();
