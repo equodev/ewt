@@ -262,6 +262,9 @@ class _EwtMapViewState extends State<EwtMapView>
   // Colour a GeoJSON point by a 'status' property (well status), falling back to
   // a neutral colour — matches a typical GIS well symbology (unique-value by status).
   Color _statusColor(dynamic props) {
+    // A feature tagged source:'theirs' belongs to a secondary dataset overlaid on the primary one
+    // — give it one distinct colour so the two datasets read apart at a glance.
+    if (props is Map && props['source'] == 'theirs') return const Color(0xFF1F6FEB);
     final s = (props is Map) ? props['status'] : null;
     switch (s) {
       case 'Producing': return const Color(0xFF22C55E);
@@ -276,15 +279,15 @@ class _EwtMapViewState extends State<EwtMapView>
         decoration: BoxDecoration(
           color: _statusColor(props),
           shape: BoxShape.circle,
-          border: const Border.fromBorderSide(BorderSide(color: Colors.white, width: 2)),
+          border: const Border.fromBorderSide(BorderSide(color: Colors.white, width: 1)),
         ),
-        child: const SizedBox(width: 14, height: 14),
+        child: const SizedBox(width: 9, height: 9),
       );
 
   Marker _gjPoint(LatLng p, dynamic props, int idx) => Marker(
         point: p,
-        width: 34,
-        height: 34,
+        width: 24,
+        height: 24,
         child: ScaleTransition(
           scale: _pop,
           child: FadeTransition(
@@ -298,8 +301,8 @@ class _EwtMapViewState extends State<EwtMapView>
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          width: 30,
-                          height: 30,
+                          width: 20,
+                          height: 20,
                           decoration: const BoxDecoration(
                             color: Color(0x5500E5FF),
                             shape: BoxShape.circle,
