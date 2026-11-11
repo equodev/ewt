@@ -1001,6 +1001,18 @@ publish_ewt_evolve_p2:
     # Prefer the pin resolved by ewt_evolve_p2 (dotenv) so the immutable copy path matches the actual
     # feat.hybrid pin; fall back to the ref-derived version for a plain released tag.
     - EVOLVE_VERSION="${EVOLVE_VERSION:-${EVOLVE_REF#v}}"
+    # Isolated channel (opt-in): when PUBLISH_CHANNEL is set (e.g. "halliburton"), publish the
+    # assembled p2 to a SINGLE dedicated path $P2_BUCKET/$PUBLISH_CHANNEL/p2 and touch nothing
+    # else — not the immutable <version>/p2, and crucially NOT latest/p2. Lets a win/linux-only
+    # build (e.g. the flutter_map map add-on, whose macOS fragment can't link without CocoaPods)
+    # reach exactly one POC without the latest/ rsync -d stripping the macOS fragment every other
+    # POC consumes. Unset = default behaviour, UNCHANGED (immutable <version>/p2 + latest/p2).
+    - |
+      if [ -n "$PUBLISH_CHANNEL" ]; then
+        echo "== ISOLATED publish → $P2_BUCKET/$PUBLISH_CHANNEL/p2 (skipping versioned + latest) =="
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$PUBLISH_CHANNEL/p2"
+        exit 0
+      fi
     - echo "== publishing → $P2_BUCKET/latest/p2 (+ immutable $EVOLVE_VERSION) =="
     - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/p2"
     - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/p2"
