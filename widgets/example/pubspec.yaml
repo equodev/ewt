@@ -43,6 +43,20 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+# flutter_map (via EwtMapView in widgets_ext) hard-depends on path_provider, which
+# on macOS/iOS federates to path_provider_foundation — a NATIVE Swift plugin that
+# needs CocoaPods/SPM to link. swt-evolve dropped CocoaPods, so the macOS build fails
+# with an undefined `PathProviderPlugin.register` symbol. Override foundation with a
+# pure-Dart stub (dartPluginClass only, no native pluginClass) so it is excluded from
+# the macOS native plugin registrant — no native pod to link → macOS builds without
+# CocoaPods. win32/linux/web never use foundation (they federate to _windows/_linux/
+# web), so this override is inert there; EwtMapView uses NetworkTileProvider and never
+# calls path_provider at runtime. (Lives here, not in pubspec_overrides.yaml, which is
+# gitignored repo-wide.)
+dependency_overrides:
+  path_provider_foundation:
+    path: ../../widgets_ext/tool/path_provider_foundation_stub
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
