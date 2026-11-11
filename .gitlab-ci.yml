@@ -671,6 +671,12 @@ ewt_evolve_build:macos:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: manual
       allow_failure: true
+    # Isolated-channel publish (PUBLISH_CHANNEL set) is win/linux-only by design: a map add-on
+    # pulling path_provider can't link its macOS native plugin without CocoaPods (dropped for
+    # weight). Tolerate the macOS build failure so ewt_evolve_p2 still assembles the win/linux p2
+    # (it already `needs` macOS as optional). Normal releases keep macOS required.
+    - if: '$PUBLISH_CHANNEL'
+      allow_failure: true
     - when: on_success
   before_script:
     - !reference [.flutter:macos, before_script]
