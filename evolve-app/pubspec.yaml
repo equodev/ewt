@@ -30,6 +30,22 @@ dependencies:
   widgets_web:
     path: ../widgets_web
 
+# flutter_map (via EwtMapView in widgets_ext) hard-depends on path_provider, which
+# on macOS/iOS federates to path_provider_foundation — a NATIVE Swift plugin that
+# needs CocoaPods/SPM to link. swt-evolve dropped CocoaPods, so the macOS build of
+# the combined bundle fails with an undefined `PathProviderPlugin.register` symbol.
+# Override foundation with a pure-Dart stub (dartPluginClass only, no native
+# pluginClass) so it is excluded from the macOS native plugin registrant — no native
+# pod to link → macOS builds without CocoaPods. win32/linux/web never use foundation
+# (they federate to _windows/_linux/web), so this override is inert there; EwtMapView
+# uses NetworkTileProvider and never calls path_provider at runtime.
+# NOTE: the macOS/windows CI jobs generate a pubspec_overrides.yaml here for the
+# `swtflutter` path; Flutter merges that file ON TOP of these keys (different key),
+# so both coexist.
+dependency_overrides:
+  path_provider_foundation:
+    path: ../widgets_ext/tool/path_provider_foundation_stub
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,0 +1,47 @@
+name: path_provider_foundation
+description: >-
+  Pure-Dart stand-in for path_provider_foundation, used ONLY as a
+  dependency_override so the macOS/iOS build of the EWT tree does not pull in a
+  native (Swift) plugin that would require CocoaPods to link.
+
+  swt-evolve deliberately dropped CocoaPods (binary weight). flutter_map (via
+  EwtMapView) hard-depends on path_provider; on macOS path_provider federates to
+  path_provider_foundation, whose real pubspec declares a native
+  `macos: pluginClass: PathProviderPlugin`. Flutter's macOS GeneratedPluginRegistrant
+  then emits `PathProviderPlugin.register(...)`, an undefined symbol without the pod
+  → link failure in `ewt_evolve_build:macos` / `flutter:macos`.
+
+  This stub declares ONLY `dartPluginClass` for macos/ios (no `pluginClass`), exactly
+  like the upstream path_provider_linux / path_provider_windows federated impls. A
+  plugin with no pluginClass is filtered out of the native method-channel registrant
+  (flutter_tools: `hasMethodChannel() => pluginClass != null`), so nothing native is
+  imported or linked and no CocoaPods/SPM pod is needed. The EwtMapView widget uses
+  NetworkTileProvider and never calls path_provider at runtime, so the inherited
+  UnimplementedError defaults are never reached.
+
+  win32 / linux / web are UNAFFECTED: there path_provider federates to
+  path_provider_windows / path_provider_linux / the web impl respectively — this
+  override is resolved but contributes no plugin to their registrants (it declares
+  only macos/ios), and no code path references it.
+version: 2.5.1
+publish_to: 'none'
+
+environment:
+  sdk: ^3.6.0
+  flutter: '>=3.3.0'
+
+flutter:
+  plugin:
+    implements: path_provider
+    platforms:
+      # Dart-only (no `pluginClass`) → excluded from the native macOS/iOS plugin
+      # registrant, so no Swift PathProviderPlugin to link, so no CocoaPods/SPM.
+      macos:
+        dartPluginClass: PathProviderFoundation
+      ios:
+        dartPluginClass: PathProviderFoundation
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path_provider_platform_interface: ^2.1.0
