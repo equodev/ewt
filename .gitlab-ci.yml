@@ -15,11 +15,12 @@ stages:
 workflow:
   rules:
     # Evolve-release rebuild (ewt#62): swt-flutter's release triggers us as a multi-project pipeline
-    # (source "pipeline") to republish the p2 against the just-released Evolve. Keyed on the source,
-    # not a forwarded variable: the trigger sets forward:false so none of swt-flutter's globals leak
-    # in, and EWT has no other multi-project parent. Must precede the default-branch rule below: the
-    # trigger runs on `main`, but we do NOT want MARK_PIPELINE (this is a rebuild, not a pending-release
-    # marker). The p2 chain runs via release_gate + publish_ewt_evolve_p2.
+    # (source "pipeline") to republish the p2 against the just-released Evolve. Keyed on the source:
+    # EWT has no other multi-project parent. The trigger sends only EVOLVE_RELEASE_* (see
+    # resolve_evolve_ref and ewt_evolve_p2), none of swt-flutter's globals. Must precede the
+    # default-branch rule below: the trigger runs on `main`, but we do NOT want MARK_PIPELINE (this
+    # is a rebuild, not a pending-release marker). The p2 chain runs via release_gate +
+    # publish_ewt_evolve_p2.
     - if: '$CI_PIPELINE_SOURCE == "pipeline"'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
@@ -54,7 +55,9 @@ variables:
   # version even if a new release lands mid-pipeline. The release tags live on GitHub
   # (equodev/swt-evolve), NOT the GitLab dev repo (which carries different versioning), so CI clones
   # GitHub below.
-  # (No hardcoded EVOLVE_REF here — resolve_evolve_ref sets it. To pin/override, run the pipeline with
+  # An Evolve-release rebuild instead builds the commit and pins the version that release names
+  # (EVOLVE_RELEASE_SHA / EVOLVE_RELEASE_VERSION), since a release of non-default SWT versions moves
+  # no tag. (No hardcoded EVOLVE_REF here — resolve_evolve_ref sets it. To pin/override, run the pipeline with
   # EVOLVE_REF set as a variable to a release tag (v0.330.0), a branch (main) or a commit SHA:
   # resolve_evolve_ref honors it and skips the latest-tag lookup. This unblocks an EWT build against
   # an unreleased swt-evolve fix — no need to wait for a release to cut a new v* tag. For a non-tag ref
@@ -565,8 +568,10 @@ ewt_build:
 # uses linear v0.N.0 release tags on GitHub). OVERRIDE: set EVOLVE_REF as a pipeline variable (a tag,
 # a branch like main, or a commit SHA) and this job honors it verbatim — skipping the latest-tag
 # lookup — so an EWT build can track an unreleased swt-evolve fix without waiting for a release to cut
-# a tag. GIT_STRATEGY:none — we don't need the EWT checkout, only an anonymous `git ls-remote` against
-# the public GitHub repo.
+# a tag. An Evolve-release rebuild (ewt#75) builds EVOLVE_RELEASE_SHA, the swt-evolve commit that
+# release was built from: the tag only moves when the default SWT version is released, and this commit
+# is on GitHub's main either way. GIT_STRATEGY:none — we don't need the EWT checkout, only an anonymous
+# `git ls-remote` against the public GitHub repo.
 resolve_evolve_ref:
   stage: check
   # Pin the image (the moving `:latest` tag was republished with an entrypoint that swallows the
@@ -582,6 +587,9 @@ resolve_evolve_ref:
     - |
       if [ -n "${EVOLVE_REF:-}" ]; then
         echo "EVOLVE_REF pre-set to '$EVOLVE_REF' — pinning swt-evolve source to it (skipping latest-tag lookup)"
+      elif [ -n "${EVOLVE_RELEASE_SHA:-}" ]; then
+        EVOLVE_REF="$EVOLVE_RELEASE_SHA"
+        echo "Evolve release ${EVOLVE_RELEASE_VERSION:-?} was built from swt-evolve $EVOLVE_REF — building it"
       else
         EVOLVE_URL="https://github.com/${EVOLVE_PROJECT_PATH}.git"
         EVOLVE_REF=$(git ls-remote --tags --refs "$EVOLVE_URL" 'v*' | sed 's#.*refs/tags/##' | sort -V | tail -1)
@@ -931,6 +939,8 @@ ewt_evolve_p2:
     ECLIPSE_HOME: ""
     ECLIPSE_PLATFORM_URL: "https://download.eclipse.org/eclipse/downloads/drops4/R-4.33-202409030240/eclipse-platform-4.33-linux-gtk-x86_64.tar.gz"
     # The eclipse POC's Evolve line — used to verify the pin exists before publishing (per Matias).
+    # An Evolve-release rebuild verifies against EVOLVE_RELEASE_P2_URLS instead, the lines that release
+    # published. latest/p2 follows this line: a release that leaves it out publishes only <version>/p2.
     VERIFY_P2_URL: "https://dl.equo.dev/evolve/2026-06/desktop-hybrid/p2"
     # feat.hybrid pin version. Normally derived from EVOLVE_REF (a vX.Y.Z tag). But when EVOLVE_REF is a
     # branch/SHA (e.g. main) — building EWT against an unreleased swt-evolve whose source already matches
@@ -945,19 +955,25 @@ ewt_evolve_p2:
         curl -fsSL "$ECLIPSE_PLATFORM_URL" -o eclipse.tar.gz && tar xzf eclipse.tar.gz && export ECLIPSE_HOME="$PWD/eclipse";
       fi
     - test -n "$EVOLVE_REF" || { echo "EVOLVE_REF not set (needs resolve_evolve_ref)"; exit 1; }
-    # Pull the POC line's p2 metadata first — needed both to verify the pin and to auto-resolve it.
+    # The p2 repositories the pin must be on: the lines an Evolve release published, else the POC line.
+    - VERIFY_URLS=$(echo "${EVOLVE_RELEASE_P2_URLS:-$VERIFY_P2_URL}" | tr ',' ' ')
+    # Pull the POC line's p2 metadata first — needed to auto-resolve the pin.
     - curl -fsSL "$VERIFY_P2_URL/content.jar" -o evolve-content.jar
     - unzip -o -q evolve-content.jar -d evolve-p2meta
     # Resolve the feat.hybrid pin version (decoupled from the build ref):
     #   1. EVOLVE_PIN_VERSION explicit override wins;
-    #   2. a vX.Y.Z release tag EVOLVE_REF -> that version (the normal released path);
-    #   3. a branch/SHA EVOLVE_REF (e.g. main) -> the HIGHEST feat.hybrid published at VERIFY_P2_URL,
+    #   2. an Evolve-release rebuild -> EVOLVE_RELEASE_VERSION, the version that release published;
+    #   3. a vX.Y.Z release tag EVOLVE_REF -> that version;
+    #   4. a branch/SHA EVOLVE_REF (e.g. main) -> the HIGHEST feat.hybrid published at VERIFY_P2_URL,
     #      since a branch name is not an OSGi version. This lets an EWT build off unreleased swt-evolve
     #      pin the published host the POC actually runs.
     - |
       if [ -n "${EVOLVE_PIN_VERSION:-}" ]; then
         EVOLVE_VERSION="$EVOLVE_PIN_VERSION"
         echo "feat.hybrid pin from EVOLVE_PIN_VERSION: $EVOLVE_VERSION"
+      elif [ -n "${EVOLVE_RELEASE_VERSION:-}" ]; then
+        EVOLVE_VERSION="$EVOLVE_RELEASE_VERSION"
+        echo "feat.hybrid pin from the Evolve release on ${EVOLVE_RELEASE_LINES:-?}: $EVOLVE_VERSION"
       elif echo "$EVOLVE_REF" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+'; then
         EVOLVE_VERSION="${EVOLVE_REF#v}"
         echo "feat.hybrid pin from release tag $EVOLVE_REF: $EVOLVE_VERSION"
@@ -966,13 +982,29 @@ ewt_evolve_p2:
         echo "EVOLVE_REF='$EVOLVE_REF' is not a release tag — pinning latest feat.hybrid at $VERIFY_P2_URL: $EVOLVE_VERSION"
       fi
       test -n "$EVOLVE_VERSION" || { echo "Could not determine a feat.hybrid pin version"; exit 1; }
-    # FAIL if that feat.hybrid version isn't published on the POC's line — a pin nothing can satisfy
-    # helps nobody (Matias). Still runs for every path above, including an explicit/auto-resolved pin.
-    - grep -q "dev.equo.swt.evolve.feat.hybrid.feature.group' version='$EVOLVE_VERSION'" evolve-p2meta/content.xml
-        || { echo "feat.hybrid $EVOLVE_VERSION not published at $VERIFY_P2_URL yet — aborting"; exit 1; }
+    # FAIL if that feat.hybrid version isn't published on every line checked — a pin nothing can
+    # satisfy helps nobody (Matias). Runs for every path above.
+    - |
+      for url in $VERIFY_URLS; do
+        rm -rf verify-p2meta && mkdir verify-p2meta
+        curl -fsSL "$url/content.jar" -o verify-content.jar && unzip -o -q verify-content.jar -d verify-p2meta \
+          || { echo "Could not read the p2 metadata at $url — aborting"; exit 1; }
+        grep -q "dev.equo.swt.evolve.feat.hybrid.feature.group' version='$EVOLVE_VERSION'" verify-p2meta/content.xml \
+          || { echo "feat.hybrid $EVOLVE_VERSION not published at $url yet — aborting"; exit 1; }
+        echo "feat.hybrid $EVOLVE_VERSION is published at $url"
+      done
+    # latest/p2 follows VERIFY_P2_URL's line, so a release of other lines does not repin the POCs on it.
+    - |
+      POC_LINE=$(echo "$VERIFY_P2_URL" | grep -oE '[0-9]{4}-[0-9]{2}' | head -1)
+      if [ -z "${EVOLVE_RELEASE_LINES:-}" ] || echo ",$EVOLVE_RELEASE_LINES," | grep -q ",$POC_LINE,"; then
+        MOVE_LATEST=true
+      else
+        MOVE_LATEST=false
+        echo "This release did not publish $POC_LINE: latest/p2 stays where it is"
+      fi
     - echo "Pinning dev.equo.swt.evolve.feat.hybrid.feature.group [$EVOLVE_VERSION]"
     # Hand the resolved pin to publish_ewt_evolve_p2 so the immutable GCS copy path matches it.
-    - echo "EVOLVE_VERSION=$EVOLVE_VERSION" > evolve-pin.env
+    - printf 'EVOLVE_VERSION=%s\nMOVE_LATEST=%s\n' "$EVOLVE_VERSION" "$MOVE_LATEST" > evolve-pin.env
     # ONE repo carrying every per-OS combined fragment (both bundles); p2 installs the platform match.
     - ./gradlew -p ewt-evolve-p2 assembleP2
         -PewtEvolveJarsDir="$PWD/ewt.api/build/libs"
@@ -1021,7 +1053,13 @@ publish_ewt_evolve_p2:
       fi
     - echo "== publishing → $P2_BUCKET/latest/p2 (+ immutable $EVOLVE_VERSION) =="
     - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/$EVOLVE_VERSION/p2"
-    - gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/p2"
+    # ewt_evolve_p2 decides (MOVE_LATEST): an Evolve release that left the POC line out keeps latest/p2.
+    - |
+      if [ "${MOVE_LATEST:-true}" = "true" ]; then
+        gsutil -m -h "Cache-Control:no-cache" rsync -r -d "$REPO" "$P2_BUCKET/latest/p2"
+      else
+        echo "latest/p2 left as it is: this Evolve release did not publish the POC line"
+      fi
   rules:
     # Evolve-release rebuild (ewt#62 — source "pipeline"): publish the freshly assembled p2
     # automatically (both the immutable <EVOLVE_VERSION>/p2 the CLI resolves and latest/p2). Must
