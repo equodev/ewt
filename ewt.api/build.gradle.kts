@@ -158,9 +158,13 @@ val evolveJar = evolveHome.resolve("swt_native/build/libs/swt_evolve-$evolvePlat
 val evolveAvailable = evolveJar.exists()
 
 if (evolveAvailable) {
+    // ExternalWebBundleProvider ships only in the enterprise Evolve jar; the public swt-evolve jar
+    // lacks it. Compiled here, kept off every jar (see the interface's javadoc).
+    val evolveWebApi by sourceSets.creating
+    tasks.named<JavaCompile>("compileEvolveWebApiJava") { options.release.set(11) }
     val evolve by sourceSets.creating {
-        compileClasspath += sourceSets.main.get().output + files(evolveJar)
-        runtimeClasspath += sourceSets.main.get().output + files(evolveJar)
+        compileClasspath += sourceSets.main.get().output + files(evolveJar) + evolveWebApi.output
+        runtimeClasspath += sourceSets.main.get().output + files(evolveJar) + evolveWebApi.output
     }
     tasks.named<JavaCompile>("compileEvolveJava") {
         dependsOn("compileJava")
@@ -173,7 +177,7 @@ if (evolveAvailable) {
     // call EwtWidget.resolveCallback without instantiating a live Display. The evolve jar
     // itself is added compileOnly so tests that do not touch Evolve types are unaffected.
     sourceSets.test.get().compileClasspath += sourceSets["evolve"].output + files(evolveJar)
-    sourceSets.test.get().runtimeClasspath += sourceSets["evolve"].output + files(evolveJar)
+    sourceSets.test.get().runtimeClasspath += sourceSets["evolve"].output + files(evolveJar) + evolveWebApi.output
     tasks.named("compileTestJava") { dependsOn("compileEvolveJava") }
 
     // OS this ewt-evolve jar is built for. -Pclassifier=<os> overrides (CI); otherwise the
