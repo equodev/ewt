@@ -1070,6 +1070,28 @@ publish_ewt_evolve_p2:
       allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $NEED_RELEASE == "true"'
 
+# An Evolve release refreshes the POCs right away, before this rebuild publishes, so the POCs with
+# EWT come back blocked (no EWT build for the new Evolve yet). Once the p2 is out, refresh again: the
+# binaries already current are skipped, so only those blocked ones are patched. evolve-pocs runs
+# one refresh at a time (resource_group poc-refresh), so this waits for the first one to finish.
+trigger_poc_refresh:
+  stage: release
+  needs:
+    - publish_ewt_evolve_p2
+  inherit:
+    variables: false
+  variables:
+    POC_REFRESH: "true"
+    POC_RUN_TESTS: "false"
+  trigger:
+    project: maketechnology/equo/evolve-pocs
+    branch: main
+    forward:
+      pipeline_variables: false
+  allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "pipeline" && $EVOLVE_RELEASE_VERSION && $PUBLISH_CHANNEL == null'
+
 # =============================================================================
 # RELEASE STAGE (cont.)
 # =============================================================================
