@@ -941,7 +941,9 @@ ewt_evolve_p2:
     # The eclipse POC's Evolve line — used to verify the pin exists before publishing (per Matias).
     # An Evolve-release rebuild verifies against EVOLVE_RELEASE_P2_URLS instead, the lines that release
     # published. latest/p2 follows this line: a release that leaves it out publishes only <version>/p2.
-    VERIFY_P2_URL: "https://dl.equo.dev/evolve/2026-06/desktop-hybrid/p2"
+    # The default is SWT Evolve's open-source repository; a project CI/CD variable of the same name,
+    # which takes precedence over this one, points it at the repository the POCs install from.
+    VERIFY_P2_URL: "https://dl.equo.dev/evolve/2026-09/desktop-hybrid/p2"
     # feat.hybrid pin version. Normally derived from EVOLVE_REF (a vX.Y.Z tag). But when EVOLVE_REF is a
     # branch/SHA (e.g. main) — building EWT against an unreleased swt-evolve whose source already matches
     # a host published under a DIFFERENT version string — set EVOLVE_PIN_VERSION to the published
