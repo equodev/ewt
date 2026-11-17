@@ -98,12 +98,17 @@ class _EwtGraphViewState extends State<EwtGraphView> {
   @override
   Widget build(BuildContext context) {
     final nodeSize = Size(widget.nodeWidth, widget.nodeHeight);
+    // Edge connectors are chrome, not data: resolve their colour from the
+    // ambient theme so the graph follows Evolve's runtime light/dark switch
+    // instead of rendering a fixed slate grey that vanishes on a dark surface.
+    final edgeColor = Theme.of(context).colorScheme.outline;
     return ClipRect(
       child: Stack(
         children: [
           Positioned.fill(
             child: CustomPaint(
-              painter: _EdgePainter(_parseEdges(widget.edges), _pos, nodeSize),
+              painter:
+                  _EdgePainter(_parseEdges(widget.edges), _pos, nodeSize, edgeColor),
             ),
           ),
           for (var i = 0; i < widget.nodes.length; i++)
@@ -136,13 +141,14 @@ class _EdgePainter extends CustomPainter {
   final List<List<int>> edges;
   final Map<int, Offset> pos;
   final Size nodeSize;
+  final Color color;
 
-  _EdgePainter(this.edges, this.pos, this.nodeSize);
+  _EdgePainter(this.edges, this.pos, this.nodeSize, this.color);
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFF607D8B)
+      ..color = color
       ..strokeWidth = 2.0
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
@@ -183,5 +189,5 @@ class _EdgePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _EdgePainter old) =>
-      old.pos != pos || old.edges != edges;
+      old.pos != pos || old.edges != edges || old.color != color;
 }
