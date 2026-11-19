@@ -66,6 +66,12 @@ variables:
   # Public GitHub repo that publishes swt-evolve releases — cloned anonymously over HTTPS (no
   # token, no allowlist). Also a full source mirror (flutter-lib + swt_native), so it builds.
   EVOLVE_PROJECT_PATH: "equodev/swt-evolve"
+  # --- Enterprise host (optional) ---
+  # Left unset, the combined bundle runs Evolve's open-source app, which draws the neutral `standard`
+  # theme only. A project CI/CD variable EVOLVE_EE_SOURCE_URL (masked: a git URL carrying its
+  # credentials) names a source whose ee-flutter/tool/plug_into_host.sh plugs Evolve's enterprise
+  # features into evolve-app; the bundle is then built from the entry point that script writes. Its
+  # ref, EVOLVE_EE_REF, is resolved by resolve_evolve_ref (and can be pinned like EVOLVE_REF).
 
 # Shared Gradle cache for every job that runs `./gradlew`. Keyed on the
 # wrapper properties file so a Gradle version bump auto-invalidates. Jobs
@@ -597,9 +603,48 @@ resolve_evolve_ref:
         echo "Latest swt-evolve release resolved to $EVOLVE_REF"
       fi
       echo "EVOLVE_REF=$EVOLVE_REF" > evolve.env
+    # The enterprise source has to be the commit the consumer's Evolve was built from: the channels
+    # its features add to the wire are numbered after Evolve's own, so another commit can renumber
+    # them. A release rebuild names that commit, and wins over a pin; a release tag names it by the
+    # same tag. The host plug-in script also refuses a pair whose wire tables do not line up.
+    - |
+      if [ -n "${EVOLVE_EE_SOURCE_URL:-}" ]; then
+        if [ -n "${EVOLVE_RELEASE_EE_SHA:-}" ]; then
+          EVOLVE_EE_REF="$EVOLVE_RELEASE_EE_SHA"
+        elif [ -n "${EVOLVE_EE_REF:-}" ]; then
+          echo "EVOLVE_EE_REF pre-set to '$EVOLVE_EE_REF'"
+        elif echo "$EVOLVE_REF" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+          EVOLVE_EE_REF="$EVOLVE_REF"
+        else
+          EVOLVE_EE_REF=main
+          echo "EVOLVE_REF '$EVOLVE_REF' is not a release: the enterprise host builds from main."
+          echo "Pin EVOLVE_EE_REF for this pipeline to the commit the consumer's Evolve was built from."
+        fi
+        echo "Enterprise host from $EVOLVE_EE_REF"
+        echo "EVOLVE_EE_REF=$EVOLVE_EE_REF" >> evolve.env
+      fi
   artifacts:
     reports:
       dotenv: evolve.env
+
+.plug_ee_host:
+  script:
+    # Sets EVOLVE_APP_TARGET, the entry point the combined bundle is built from (-PevolveAppTarget).
+    - EVOLVE_APP_TARGET=lib/main.dart
+    - |
+      if [ -n "${EVOLVE_EE_SOURCE_URL:-}" ]; then
+        test -n "${EVOLVE_EE_REF:-}" || { echo "EVOLVE_EE_REF empty — resolve_evolve_ref must run first"; exit 1; }
+        git clone --filter=blob:none --no-checkout "$EVOLVE_EE_SOURCE_URL" ../evolve-ee
+        git -C ../evolve-ee sparse-checkout set ee-flutter
+        git -C ../evolve-ee checkout "$EVOLVE_EE_REF"
+        PLUG=../evolve-ee/ee-flutter/tool/plug_into_host.sh
+        test -f "$PLUG" || { echo "The enterprise source at $EVOLVE_EE_REF has no host plug-in script"; exit 1; }
+        EE_ABS="$(cd ../evolve-ee/ee-flutter && pwd)"
+        # The Windows runner's shell is WSL; its flutter resolves only the Windows form of the path.
+        if command -v wslpath >/dev/null; then EE_ABS="$(wslpath -m "$EE_ABS")"; fi
+        EVOLVE_APP_TARGET="$(bash "$PLUG" evolve-app ../swt-evolve/flutter-lib "$EE_ABS")"
+      fi
+    - echo "Combined bundle entry point - $EVOLVE_APP_TARGET"
 
 # Builds the self-contained ewt-evolve jar (EWT toolkit + EwtWidget + SPI provider + the
 # combined Evolve/EWT Dart bundle). Needs the sibling swt-evolve at the resolved EVOLVE_REF:
@@ -648,11 +693,12 @@ ewt_evolve_build:
     - >-
       printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
       "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    - !reference [.plug_ee_host, script]
     # Build the FULL swt-evolve jar (with its native bridge/engine — NOT -DskipFlutterLib).
     - (cd ../swt-evolve && ./gradlew :swt_native:linux-x86_64Jar --no-daemon)
     # Build the standalone ewt.api jar (so the examples compile via -PuseLocal), the
     # self-contained ewt-evolve jar, and the example classes used by the smoke job.
-    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar :examples:compileJava -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
+    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar :examples:compileJava -PuseLocal=true -PevolveHome=../swt-evolve -PevolveAppTarget="$EVOLVE_APP_TARGET" --no-daemon
     # Stage the swt-evolve jar next to the ewt-evolve jar so both travel as artifacts.
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-linux-x86_64.jar ewt.api/build/libs/
   artifacts:
@@ -714,6 +760,7 @@ ewt_evolve_build:macos:
     - >-
       printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
       "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    - !reference [.plug_ee_host, script]
     - MAC_ARCH=$([ "$(uname -m)" = "arm64" ] && echo aarch64 || echo x86_64)
     - (cd ../swt-evolve && ./gradlew ":swt_native:macos-${MAC_ARCH}Jar" --no-daemon)
     - ./gradlew :ewt.api:jar -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
@@ -722,7 +769,7 @@ ewt_evolve_build:macos:
     # ewtEvolveJar checks them with lipo. The eclipse POC ships a macOS x64 build, so both are needed.
     - |
       for A in aarch64 x86_64; do
-        ./gradlew :ewt.api:ewtEvolveJar -Pclassifier=macos -Parch=$A -PuseLocal=true -PevolveHome=../swt-evolve --no-daemon
+        ./gradlew :ewt.api:ewtEvolveJar -Pclassifier=macos -Parch=$A -PuseLocal=true -PevolveHome=../swt-evolve -PevolveAppTarget="$EVOLVE_APP_TARGET" --no-daemon
       done
     - cp "../swt-evolve/swt_native/build/libs/swt_evolve-macos-${MAC_ARCH}.jar" ewt.api/build/libs/
   artifacts:
@@ -778,6 +825,7 @@ ewt_evolve_build:windows:
     - >-
       printf 'dependency_overrides:\n  swtflutter:\n    path: %s/flutter-lib\n'
       "$EVOLVE_ABS" > evolve-app/pubspec_overrides.yaml
+    - !reference [.plug_ee_host, script]
     # JAVA_HOME + FLUTTER_ROOT + PATH set inline per powershell call (each -C is a fresh shell).
     # Pipe gradle through Out-Host so its stdout is a pipe, not a console: run under powershell
     # launched from Git Bash, gradle's native console-handle probe fails ("could not determine if
@@ -801,6 +849,7 @@ ewt_evolve_build:windows:
       \$vsPath=if(Test-Path \$vswhere){(& \$vswhere -latest -products * -property installationPath 2>\$null)}else{\$null};
       \$cmakeBin=\$vsPath+'\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin';
       if(\$vsPath -and (Test-Path (\$cmakeBin+'\\cmake.exe'))){\$env:PATH=\$cmakeBin+';'+\$env:PATH; Write-Host ('DIAG cmake: '+\$cmakeBin)}else{Write-Host 'DIAG cmake not found via vsWhere'};
+      \$env:ORG_GRADLE_PROJECT_evolveAppTarget='$EVOLVE_APP_TARGET';
       \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
