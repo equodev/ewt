@@ -58,6 +58,10 @@ val evolvePlatform = System.getProperty("os.name").lowercase().let {
 }
 val evolveJar = evolveHome.resolve("swt_native/build/libs/swt_evolve-$evolvePlatform.jar")
 val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
+// The Dart entry point of the combined bundle, relative to evolve-app. -PevolveAppTarget picks another
+// one: an entry point that wraps lib/main.dart to plug more into Evolve's hooks before it runs.
+val evolveAppTarget = (project.findProperty("evolveAppTarget") as String?)?.takeIf { it.isNotEmpty() }
+    ?: "lib/main.dart"
 
 // The integration is optional: the sibling swt-evolve build may not be checked out. When
 // its jar is absent, the plain (non-Evolve) examples must still build — so the integration
@@ -166,7 +170,7 @@ tasks.register<Exec>("buildCombinedBundle") {
             "bash", "-lc",
             "flutter pub get && flutter assemble --no-version-check --output=build " +
             "-dTargetPlatform=darwin -dDarwinArchs=$darwinArch -dBuildMode=release " +
-            "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
+            "-dTargetFile=$evolveAppTarget -dTreeShakeIcons=false " +
             "release_macos_bundle_flutter_assets"
         )
         doLast {
@@ -207,7 +211,7 @@ tasks.register<Exec>("buildCombinedBundle") {
             "cmd", "/c",
             "flutter pub get && flutter assemble --no-version-check --output=build " +
             "-dTargetPlatform=windows-x64 -dBuildMode=release " +
-            "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
+            "-dTargetFile=$evolveAppTarget -dTreeShakeIcons=false " +
             "release_bundle_windows-x64_assets"
         )
         doLast {
@@ -244,7 +248,7 @@ tasks.register<Exec>("buildCombinedBundle") {
             "bash", "-lc",
             "flutter pub get && flutter assemble --no-version-check --output=build " +
             "-dTargetPlatform=linux-x64 -dBuildMode=release " +
-            "-dTargetFile=lib/main.dart -dTreeShakeIcons=false " +
+            "-dTargetFile=$evolveAppTarget -dTreeShakeIcons=false " +
             "release_bundle_linux-x64_assets"
         )
         doLast {
@@ -371,7 +375,7 @@ tasks.register<Exec>("buildCombinedWebBundle") {
     group = "examples"
     description = "Assemble the EWT+Evolve combined web bundle (flutter build web, no runner)."
     workingDir = rootProject.projectDir.resolve("evolve-app")
-    val flutterBuildWeb = "flutter pub get && flutter build web --no-tree-shake-icons --pwa-strategy=none"
+    val flutterBuildWeb = "flutter pub get && flutter build web -t $evolveAppTarget --no-tree-shake-icons --pwa-strategy=none"
     // Windows goes through cmd, as buildCombinedBundle does: there `bash` can be WSL's launcher (the
     // CI runner's), whose Linux shell then runs the Windows SDK's CRLF flutter script and fails.
     if (currentOs == "windows") commandLine("cmd", "/c", flutterBuildWeb)
