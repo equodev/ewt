@@ -40,6 +40,40 @@
     window.evolve.browserProxy = {{EQUO_BROWSER_PROXY}};
   </script>
   <script>
+    // Evolve's frame counter (its own web/index.html carries the same): counts the frames the engine
+    // has put on screen. The engine hands each rasterised frame to its display canvases through
+    // transferFromImageBitmap, all of one frame's in one task. On the wasm renderer (Skwasm) a pixel
+    // read-back shares the surface frames are rasterised on, so Evolve's ImageUtils.toBytes starts one
+    // only once every frame already rendered has been shown (FramePresentation); without this counter
+    // it does not wait.
+    (function () {
+      var proto = window.ImageBitmapRenderingContext && ImageBitmapRenderingContext.prototype;
+      if (!proto || !proto.transferFromImageBitmap) return;
+      var transfer = proto.transferFromImageBitmap;
+      var pending = false;
+      var waiters = [];
+      window.evolve.presentedFrames = 0;
+      window.evolve.nextPresentedFrame = function () {
+        return new Promise(function (resolve) { waiters.push(resolve); });
+      };
+      proto.transferFromImageBitmap = function (bitmap) {
+        var result = transfer.call(this, bitmap);
+        // Only a frame reaching a display canvas; the engine also encodes images on offscreen ones.
+        if (bitmap && !pending && this.canvas instanceof HTMLCanvasElement) {
+          pending = true;
+          queueMicrotask(function () {
+            pending = false;
+            window.evolve.presentedFrames++;
+            var woken = waiters;
+            waiters = [];
+            for (var i = 0; i < woken.length; i++) woken[i]();
+          });
+        }
+        return result;
+      };
+    })();
+  </script>
+  <script>
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, true);
   </script>
 </head>
