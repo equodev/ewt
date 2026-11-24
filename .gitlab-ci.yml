@@ -629,8 +629,11 @@ resolve_evolve_ref:
 
 .plug_ee_host:
   script:
-    # Sets EVOLVE_APP_TARGET, the entry point the combined bundle is built from (-PevolveAppTarget).
+    # Sets EVOLVE_APP_TARGET, the entry point the combined bundle is built from (-PevolveAppTarget),
+    # and EVOLVE_LOCK, the lock of the host Evolve's runner is built from (-PevolveLock): empty means
+    # flutter-lib's.
     - EVOLVE_APP_TARGET=lib/main.dart
+    - EVOLVE_LOCK=
     - |
       if [ -n "${EVOLVE_EE_SOURCE_URL:-}" ]; then
         test -n "${EVOLVE_EE_REF:-}" || { echo "EVOLVE_EE_REF empty — resolve_evolve_ref must run first"; exit 1; }
@@ -643,6 +646,7 @@ resolve_evolve_ref:
         # The Windows runner's shell is WSL; its flutter resolves only the Windows form of the path.
         if command -v wslpath >/dev/null; then EE_ABS="$(wslpath -m "$EE_ABS")"; fi
         EVOLVE_APP_TARGET="$(bash "$PLUG" evolve-app ../swt-evolve/flutter-lib "$EE_ABS")"
+        EVOLVE_LOCK=../evolve-ee/ee-flutter/pubspec.lock
       fi
     - echo "Combined bundle entry point - $EVOLVE_APP_TARGET"
 
@@ -698,7 +702,7 @@ ewt_evolve_build:
     - (cd ../swt-evolve && ./gradlew :swt_native:linux-x86_64Jar --no-daemon)
     # Build the standalone ewt.api jar (so the examples compile via -PuseLocal), the
     # self-contained ewt-evolve jar, and the example classes used by the smoke job.
-    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar :examples:compileJava -PuseLocal=true -PevolveHome=../swt-evolve -PevolveAppTarget="$EVOLVE_APP_TARGET" --no-daemon
+    - ./gradlew :ewt.api:jar :ewt.api:ewtEvolveJar :examples:compileJava -PuseLocal=true -PevolveHome=../swt-evolve -PevolveAppTarget="$EVOLVE_APP_TARGET" -PevolveLock="$EVOLVE_LOCK" --no-daemon
     # Stage the swt-evolve jar next to the ewt-evolve jar so both travel as artifacts.
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-linux-x86_64.jar ewt.api/build/libs/
   artifacts:
@@ -769,7 +773,7 @@ ewt_evolve_build:macos:
     # ewtEvolveJar checks them with lipo. The eclipse POC ships a macOS x64 build, so both are needed.
     - |
       for A in aarch64 x86_64; do
-        ./gradlew :ewt.api:ewtEvolveJar -Pclassifier=macos -Parch=$A -PuseLocal=true -PevolveHome=../swt-evolve -PevolveAppTarget="$EVOLVE_APP_TARGET" --no-daemon
+        ./gradlew :ewt.api:ewtEvolveJar -Pclassifier=macos -Parch=$A -PuseLocal=true -PevolveHome=../swt-evolve -PevolveAppTarget="$EVOLVE_APP_TARGET" -PevolveLock="$EVOLVE_LOCK" --no-daemon
       done
     - cp "../swt-evolve/swt_native/build/libs/swt_evolve-macos-${MAC_ARCH}.jar" ewt.api/build/libs/
   artifacts:
@@ -850,6 +854,7 @@ ewt_evolve_build:windows:
       \$cmakeBin=\$vsPath+'\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin';
       if(\$vsPath -and (Test-Path (\$cmakeBin+'\\cmake.exe'))){\$env:PATH=\$cmakeBin+';'+\$env:PATH; Write-Host ('DIAG cmake: '+\$cmakeBin)}else{Write-Host 'DIAG cmake not found via vsWhere'};
       \$env:ORG_GRADLE_PROJECT_evolveAppTarget='$EVOLVE_APP_TARGET';
+      \$env:ORG_GRADLE_PROJECT_evolveLock='$EVOLVE_LOCK';
       \$null | .\\gradlew.bat :ewt.api:jar :ewt.api:ewtEvolveJar -Pclassifier=windows -PuseLocal=true --no-daemon 2>&1 | Out-Host; exit \$LASTEXITCODE"
     - cp ../swt-evolve/swt_native/build/libs/swt_evolve-windows-x86_64.jar ewt.api/build/libs/
   artifacts:
