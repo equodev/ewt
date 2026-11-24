@@ -64,6 +64,8 @@ ewt.api/src/test/java/dev/equo/ewt/support/variants/WidgetVariantsRegistry.java
 # Per-environment dependency redirect (e.g. CI points swtflutter at its swt-evolve clone).
 # The committed pubspec.yaml keeps the local default; overrides must never be committed.
 pubspec_overrides.yaml
+# evolve-app resolves from the lock of the Evolve it links against (examples:resolveCombinedHost).
+evolve-app/pubspec.lock
 # evolve-app is assembled with `flutter assemble` (no per-platform runner) and the native
 # window is created by Evolve, so its generated platform runner scaffolding is not needed.
 evolve-app/linux/

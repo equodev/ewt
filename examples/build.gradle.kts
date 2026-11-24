@@ -1,3 +1,5 @@
+import java.net.URI
+
 plugins {
     id("java")
     application
@@ -62,6 +64,14 @@ val combinedBuild = rootProject.projectDir.resolve("evolve-app/build")
 // one: an entry point that wraps lib/main.dart to plug more into Evolve's hooks before it runs.
 val evolveAppTarget = (project.findProperty("evolveAppTarget") as String?)?.takeIf { it.isNotEmpty() }
     ?: "lib/main.dart"
+// The pubspec.lock of the Flutter app the target Evolve ships: its runner and the plugins' native
+// libraries are built from it. -PevolveLock names another one (an enterprise host's); flutter-lib's
+// otherwise. A plugin whose Dart side resolves to another version than its native side calls
+// methods the native side lacks (a Browser stays blank), so evolve-app resolves from this lock.
+val evolveLock = (project.findProperty("evolveLock") as String?)?.takeIf { it.isNotEmpty() }
+    ?.let { rootProject.projectDir.resolve(it) }
+    ?: evolveHome.resolve("flutter-lib/pubspec.lock")
+val evolveAppDir = rootProject.projectDir.resolve("evolve-app")
 
 // The integration is optional: the sibling swt-evolve build may not be checked out. When
 // its jar is absent, the plain (non-Evolve) examples must still build — so the integration
@@ -146,10 +156,63 @@ tasks.named<JavaExec>("run") {
 // widgets/src; the two are arranged into the loader-expected layout, which mirrors each Flutter
 // desktop embedder's convention — bundle/{lib,data} on Linux, <Release>/data on Windows,
 // .app/Contents/Frameworks on macOS. Evolve supplies the native bridge/engine at runtime.
+// pubspec.lock as `name -> version`, for the packages it lists.
+fun lockedVersions(lock: File): Map<String, String> {
+    val versions = LinkedHashMap<String, String>()
+    var name: String? = null
+    for (line in lock.readLines()) {
+        val pkg = Regex("^  ([A-Za-z0-9_]+):$").find(line)
+        if (pkg != null) { name = pkg.groupValues[1]; continue }
+        val version = Regex("^    version: \"?([^\"]+)\"?$").find(line)
+        if (version != null && name != null) versions[name!!] = version.groupValues[1]
+    }
+    return versions
+}
+
+// Resolves evolve-app starting from Evolve's lock: pub keeps every locked version the app's own
+// constraints allow, so the packages both share resolve as Evolve built them. The app's lock is
+// not committed for that reason: it is Evolve's plus what EWT adds.
+val resolveCombinedHost = tasks.register<Exec>("resolveCombinedHost") {
+    group = "examples"
+    description = "Resolve evolve-app's packages from the lock of the Evolve it links against."
+    workingDir = evolveAppDir
+    if (currentOs == "windows") commandLine("cmd", "/c", "flutter pub get")
+    else commandLine("bash", "-lc", "flutter pub get")
+    doFirst {
+        if (!evolveLock.isFile)
+            throw GradleException("No Evolve pubspec.lock at $evolveLock (set -PevolveHome or -PevolveLock)")
+        evolveLock.copyTo(evolveAppDir.resolve("pubspec.lock"), overwrite = true)
+    }
+    doLast {
+        val evolve = lockedVersions(evolveLock)
+        val host = lockedVersions(evolveAppDir.resolve("pubspec.lock"))
+        @Suppress("UNCHECKED_CAST")
+        val packages = (groovy.json.JsonSlurper().parse(evolveAppDir.resolve(".dart_tool/package_config.json"))
+            as Map<String, Any>)["packages"] as List<Map<String, String>>
+        val roots = packages.associate { p ->
+            val uri = p.getValue("rootUri")
+            p.getValue("name") to (if (uri.startsWith("file:")) file(URI(uri))
+                else evolveAppDir.resolve(".dart_tool").resolve(uri).normalize())
+        }
+        // A plugin with a native side: its Dart side has to match the library Evolve's runner loads.
+        fun native(name: String): Boolean {
+            val pubspec = roots[name]?.resolve("pubspec.yaml")?.takeIf { it.isFile } ?: return false
+            return pubspec.readText().let { it.contains("pluginClass:") || Regex("ffiPlugin:\\s*true").containsMatchIn(it) }
+        }
+        val moved = evolve.filter { (name, version) -> host[name] != null && host[name] != version }
+        val broken = moved.keys.filter { native(it) }
+        moved.forEach { (name, version) -> logger.lifecycle("evolve-app resolves $name ${host[name]}, Evolve $version") }
+        if (broken.isNotEmpty())
+            throw GradleException("evolve-app resolves native plugins to other versions than Evolve's runner " +
+                "($evolveLock): ${broken.joinToString { "$it ${host[it]} (Evolve ${evolve[it]})" }}")
+    }
+}
+
 tasks.register<Exec>("buildCombinedBundle") {
     group = "examples"
     description = "Assemble the EWT+Evolve combined Dart bundle (no runner)."
-    val appDir = rootProject.projectDir.resolve("evolve-app")
+    dependsOn(resolveCombinedHost)
+    val appDir = evolveAppDir
     workingDir = appDir
     val widgetsSrc = rootProject.projectDir.resolve("widgets/src")
     val widgetsBuild = rootProject.projectDir.resolve("widgets/build/native")
@@ -378,7 +441,8 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
 tasks.register<Exec>("buildCombinedWebBundle") {
     group = "examples"
     description = "Assemble the EWT+Evolve combined web bundle (flutter build web, no runner)."
-    workingDir = rootProject.projectDir.resolve("evolve-app")
+    dependsOn(resolveCombinedHost)
+    workingDir = evolveAppDir
     val flutterBuildWeb = "flutter pub get && flutter build web --wasm -t $evolveAppTarget --no-tree-shake-icons --pwa-strategy=none"
     // Windows goes through cmd, as buildCombinedBundle does: there `bash` can be WSL's launcher (the
     // CI runner's), whose Linux shell then runs the Windows SDK's CRLF flutter script and fails.
