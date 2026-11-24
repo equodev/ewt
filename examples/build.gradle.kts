@@ -371,11 +371,15 @@ tasks.register<JavaExec>("runEvolveEwtPackaged") {
 // bundle renders both. Output: evolve-app/build/web/ (served by Evolve's WebFlutterServer via the
 // dev.equo.swt.web.dir override, or the web p2 feature's ExternalWebBundleProvider). --no-tree-shake-icons
 // is required for EWT (non-const IconData); --pwa-strategy=none keeps the service worker out.
+// --wasm puts both of Evolve's builds in the one bundle, as Evolve's own web build does: the loader
+// runs the wasm one (Skwasm, which rasterises off the main thread when the page is cross-origin
+// isolated, as WebFlutterServer serves it) where the browser has WasmGC, and the JavaScript one
+// (CanvasKit) everywhere else. Without it every browser gets CanvasKit, rasterising on the main thread.
 tasks.register<Exec>("buildCombinedWebBundle") {
     group = "examples"
     description = "Assemble the EWT+Evolve combined web bundle (flutter build web, no runner)."
     workingDir = rootProject.projectDir.resolve("evolve-app")
-    val flutterBuildWeb = "flutter pub get && flutter build web -t $evolveAppTarget --no-tree-shake-icons --pwa-strategy=none"
+    val flutterBuildWeb = "flutter pub get && flutter build web --wasm -t $evolveAppTarget --no-tree-shake-icons --pwa-strategy=none"
     // Windows goes through cmd, as buildCombinedBundle does: there `bash` can be WSL's launcher (the
     // CI runner's), whose Linux shell then runs the Windows SDK's CRLF flutter script and fails.
     if (currentOs == "windows") commandLine("cmd", "/c", flutterBuildWeb)
@@ -400,7 +404,7 @@ tasks.register<JavaExec>("runShowcaseWeb") {
         if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
         if (!webDir.resolve("index.html").exists()) throw GradleException(
             "Combined web build not found at $webDir. " +
-            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+            "Build first:  (cd evolve-app && flutter build web --wasm --no-tree-shake-icons)")
     }
     systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
@@ -419,7 +423,7 @@ tasks.register<JavaExec>("runEngagementsWeb") {
         if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
         if (!webDir.resolve("index.html").exists()) throw GradleException(
             "Combined web build not found at $webDir. " +
-            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+            "Build first:  (cd evolve-app && flutter build web --wasm --no-tree-shake-icons)")
     }
     systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
@@ -438,7 +442,7 @@ tasks.register<JavaExec>("runChainedAnimationsWeb") {
         if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
         if (!webDir.resolve("index.html").exists()) throw GradleException(
             "Combined web build not found at $webDir. " +
-            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+            "Build first:  (cd evolve-app && flutter build web --wasm --no-tree-shake-icons)")
     }
     systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
@@ -457,7 +461,7 @@ tasks.register<JavaExec>("runMapGalleryWeb") {
         if (!evolveAvailable) throw GradleException("swt-evolve build not found at ${evolveJar.absolutePath}.")
         if (!webDir.resolve("index.html").exists()) throw GradleException(
             "Combined web build not found at $webDir. " +
-            "Build first:  (cd evolve-app && flutter build web --no-tree-shake-icons)")
+            "Build first:  (cd evolve-app && flutter build web --wasm --no-tree-shake-icons)")
     }
     systemProperty("dev.equo.swt.web.dir", webDir.absolutePath)
     systemProperty("dev.equo.swt.crashReport.disabled", "true")
